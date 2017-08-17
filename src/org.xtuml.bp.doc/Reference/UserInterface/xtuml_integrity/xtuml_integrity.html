@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="xtuml_integrity"><code>xtuml_integrity</code></h1>
+<p>This command line (and GUI) tool performs referential integrity checks on xtUML model data.</p>
+<h2 id="syntax">Syntax</h2>
+<h3 id="check-referential-integrity">Check Referential Integrity</h3>
+<pre><code>xtumlmc_build xtuml_integrity -i &lt;model folder or file1&gt; [-i &lt;another&gt;] [-g] [-m &lt;accumulated model data&gt;] [ -o &lt;report file&gt; ]</code></pre>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-i &lt;model folder or file&gt;</td>
+<td>Specify an absolute or relative path to a folder or file of model (<code>.xtuml</code>) data.</td>
+</tr>
+<tr class="even">
+<td>-i &lt;another&gt;</td>
+<td>Optionally specify another folder or file of model data.</td>
+</tr>
+<tr class="odd">
+<td>-g</td>
+<td>Optionally skip the inclusion of global native types in the integrity check.</td>
+</tr>
+<tr class="even">
+<td>-m &lt;accumulated model data&gt;</td>
+<td>Optionally specify a file into which to store the accumulated model data.</td>
+</tr>
+<tr class="odd">
+<td>-o &lt;report file&gt;</td>
+<td>Optionally specify a file for the referential integrity report.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The tool is located in the subdirectory <code>&lt;BridgePoint Home&gt;/tools/mc/bin/</code><br />
+</li>
+<li>Output defaults to the standard out (STDOUT).<br />
+</li>
+<li>Progress and error messages are reported to standard error (STDERR) (GUI Console).<br />
+</li>
+<li>Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage.<br />
+</li>
+<li>Skipping global native types is useful when running with Prebuilder output which already includes these types.<br />
+</li>
+<li>The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu.<br />
+</li>
+<li>From the GUI, projects using inter-project references (IPRs) must be multi-selected to get all dependent model data.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>./xtumlmc_build xtuml_integrity -i ~/workspace/MicrowaveOven/models -m integrity.sql -o integrity.txt  
+./xtumlmc_build xtuml_integrity -i /home/user/ws/IPRproj1/models -i /home/user/ws/IPRproj2 -m integrity.sql -o integrity.txt  
+</code></pre>
+<h2 id="background">Background</h2>
+<p>Check Referential Integrity runs a model data consistency query. Model<br />
+data is loaded directly from the file system and interrogated against a<br />
+set of rules and assertions. Since model data is well-formed and must<br />
+be compliant with a data base schema, many checks can be made to detect<br />
+problems and corruption in the data.</p>
+<p>Problems can be introduced into model data files in a number of ways.<br />
+The most common way to corrupt model data is through incorrect<br />
+configuration management merges. Consistency errors can also be caused<br />
+by hand-editing model files without a full knowledge of the data format.</p>
+<p>The <code>xtuml_integrity</code> tool is provided to detect these problems and<br />
+identify the erroneous model elements. The following assertions are<br />
+made against the model data.</p>
+<ul>
+<li>The identifiers for all instances of a particular class must be<br />
+unique within the entire collection.<br />
+</li>
+<li>Traversal across all unconditional associations must result in a<br />
+related instance.<br />
+</li>
+<li>The values of referential attributes for instances participating in<br />
+associations must match the values of the referred-to identifier attributes.<br />
+</li>
+<li>Referential attributes formalizing associations should be null for<br />
+instances not participating in that association.<br />
+</li>
+<li>For every instance of a supertype exactly one subtype instance<br />
+should be found across the sub/super association.<br />
+</li>
+<li>For every instance of a subtype exactly one supertype instance should<br />
+be found across the sub/super association.</li>
+</ul>
+<p>Note that these checks require exhaustive interrogation of the instance<br />
+population. Large instance populations can take some time to check due<br />
+to the complexity being greater than order N-squared (O(N^2)) for each<br />
+instance population.</p>
+<p>It is recommended that the command line tool be set up to run against<br />
+model repositories as part of a continuous integration development process.</p>
+</body>
+</html>
