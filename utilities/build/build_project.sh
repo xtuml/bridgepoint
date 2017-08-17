@@ -97,9 +97,9 @@ ret_val=0
   return 0
 }
 
-# test was given as an argument, skip file change checks as well still
+# test was given as an argument or we are running a full build, skip file change checks as we still
 # must run maven
-if [ "$skipTests" != "" ]; then
+if [ "$skipTests" != "" ] && [[ $project != *"releng"* ]]; then
   buildMaven=$(checkTimestamp)
 else
   buildMaven="true"
@@ -113,14 +113,18 @@ fi
 export SWT_GTK3=0
 export GDK_NATIVE_WINDOWS=true
 orginal_dir=`pwd`
+ret_val=0
 # only run pkg-feature if building a test plugin
 if [[ $project == *"test"* ]]; then
   cd ${XTUML_DEVELOPMENT_REPOSITORY}/src/org.xtuml.bp.pkg-feature && mvn $offline -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true install && cd ${projectDir} && mvn $offline -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true $cmd
+  ret_val=$?
 else
   cd ${projectDir} && mvn $offline -Dtycho.disableP2Mirrors=true $skipTests -Dmaven.test.failure.ignore=true $cmd
+  ret_val=$?
 fi
 cd "$original_dir"
 # Do not touch for cleans or for the parent releng project
 if [ "$cmd" != "clean" ] && [ "$project" != "org.xtuml.bp.releng.parent" ]; then
   touch $timestampFile
 fi
+exit $ret_val
