@@ -212,7 +212,7 @@ public class DimensionsValidator implements ICellEditorValidator {
                     }
                 });
             }
-            if (sycs.length == 0) {
+            if (sycs.length != 1) {
                 result = const_name + " is not a valid constant name";
                 if ( null != csp_name ) {
                     result = csp_name + "::" + result;
