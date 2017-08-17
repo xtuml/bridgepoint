@@ -87,7 +87,7 @@ public class Generator extends Task {
                     // only set these up on the first project found
                     path = new Path(projPath + File.separator + DOC_DIR + File.separator);
                     if (!path.toFile().exists()) {
-                        path.toFile().mkdir();
+                        path.toFile().mkdirs();
                     }
                     destPath = path.toOSString();
                     firstProject = project;
