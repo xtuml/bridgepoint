@@ -20,8 +20,6 @@ See [[2.1]](#2.1).
 
 See [[2.1]](#2.1).  
 
-![My Image](myimage.jpg)  
-
 ### 4. Requirements
 
 See [[2.1]](#2.1).  
