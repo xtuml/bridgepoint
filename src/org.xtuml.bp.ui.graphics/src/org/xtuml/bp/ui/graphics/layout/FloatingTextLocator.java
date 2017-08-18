@@ -163,6 +163,7 @@ public class FloatingTextLocator implements Locator {
 			List<?> fragments = tf.getFragments();
 			int width = getLongestFragment(fragments)
 					+ figure.getBorder().getInsets(figure).getWidth();
+                        // CDS - here
 			return width;
 		} else {
 			return figure.getBounds().width;
@@ -174,6 +175,7 @@ public class FloatingTextLocator implements Locator {
 		for (Object fragment : fragments) {
 			if (fragment instanceof FlowBox) {
 				FlowBox box = (FlowBox) fragment;
+                                // CDS - here
 				int width = box.getWidth();
 				largestWidth = Math.max(width, largestWidth);
 			}

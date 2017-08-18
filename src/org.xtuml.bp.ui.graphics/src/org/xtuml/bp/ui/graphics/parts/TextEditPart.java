@@ -141,9 +141,11 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 						stringExtents.height, stringExtents.width);
 			modelBounds.width = -1;
 			modelBounds.height = -1;
+            // CDS - here
 			figure.setBounds(modelBounds);
 			tf.setText(getText());
 		} else {
+            // CDS - here
 			figure.setBounds(getModelBounds());
 			tf.setText(getText());
 		}
