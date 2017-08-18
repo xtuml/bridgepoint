@@ -23,8 +23,9 @@ prev_dir=`pwd`
 project="org.xtuml.bp.releng.parent"
 
 prev_dir=$(pwd)
-cd $XTUML_DEVELOPMENT_REPOSITORY/releng/$project
-$XTUML_DEVELOPMENT_REPOSITORY/utilities/build/build_project.sh $project -online
+dir=$XTUML_DEVELOPMENT_REPOSITORY/releng/$project
+cd $dir
+$XTUML_DEVELOPMENT_REPOSITORY/utilities/build/build_project.sh $project test -online
 maven_return=$?
 if [ $maven_return == 0 ]; then
   # touch a timestamp file for every project with a pom as they
