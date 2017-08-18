@@ -149,7 +149,7 @@ Describe the end user documentation that was added for this change.
 9.R The maven build is run  
 9.R The maven build is successful  
 9.R The core.tests are run  
-9.21 Run build_project.sh org.xtuml.bp.core.test test  
+9.21 Run build_project.sh org.xtuml.bp.core.test test -debug  
 9.R The maven build is run  
 9.R The maven build is successful
 9.R The core.tests are started but waiting for a remote debug connection  
@@ -159,5 +159,8 @@ Describe the end user documentation that was added for this change.
 9.25 Run build_and_test_bp.sh  
 9.R All projects are built successfully  
 9.R All tests run and pass 100%  
+9.26 Run a build server build with tests  
+9.R All projects build successfully  
+9.R All tests run and pass 100%
 
 ### End
