@@ -33,7 +33,7 @@ See [[2.1]](#2.1).
 6.1 Modify build_project.sh  
 6.1.1 Modify build_project.sh to work with both core plug-ins and test plug-ins  
 6.1.2 After building with maven touch a timestamp file at this location: $WORKSPACE/.metadata/.plugins/$project  
-6.1.3 Check .xtuml, .sql, .arc, and .inc in project building built against timestamp  
+6.1.3 Check .xtuml, .sql, .arc, and .inc in project being built against timestamp  
 6.1.3.1 Scan and compare timestamp for all required file types  
 6.1.3.2 Use maven to build if any of the required file types are modified later than the timestamp  
 6.1.3.3 Exit immediately if timestamp is greater than any of the required file types  
