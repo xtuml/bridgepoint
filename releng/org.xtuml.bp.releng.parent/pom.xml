@@ -63,6 +63,7 @@
 		<module>../../src/org.xtuml.bp.ui.graphics</module>
 		<module>../../src/org.xtuml.bp.ui.search</module>
 		<module>../../src/org.xtuml.bp.ui.sem</module>
+		<module>../../src/org.xtuml.bp.core.editors</module>
 		<module>../../src/org.xtuml.bp.ui.marking</module> <!-- move to bp.releng.parent.generation/pom.xml if we wanted to generate this project -->
 		<module>../../src/org.xtuml.bp.utilities</module>
 		<module>../../src/org.xtuml.bp.welcome</module>
