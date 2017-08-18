@@ -4,106 +4,74 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Address offline mode issues with maven  
 ### xtUML Project Design Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
-
 ### 1. Abstract
 
-In this section, give a summary of the design that this note aims to
-describe.
+See [[2.1]](#2.1).
 
 ### 2. Document References
-
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/9726) Provide analysis and implementation for 9647    
+<a id="2.2"></a>2.2 [BridgePoint Analysis 9726](https://github.com/travislondon/bridgepoint/blob/9726_1/doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/9726_provide_analysis_and_implementation_for_9647.ant.md) 9726 Analysis    
 
 ### 3. Background
 
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
+See [[2.1]](#2.1).  
 
 ![My Image](myimage.jpg)  
 
 ### 4. Requirements
 
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+See [[2.1]](#2.1).  
 
 ### 5. Analysis
 
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
-
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+See [[2.1]](#2.1). 
 
 ### 6. Design
 
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc. Here is an example reference to the Document References section [[2.1]](#2.1)
+6.1 Modify build_project.sh  
+6.1.1 Modify build_project.sh to work with both core plug-ins and test plug-ins  
+6.1.2 After building with maven touch a timestamp file at this location: $WORKSPACE/.metadata/.plugins/$project  
+6.1.3 Check .xtuml, .sql, .arc, and .inc in project building built against timestamp  
+6.1.3.1 Scan and compare timestamp for all required file types  
+6.1.3.2 Use maven to build if any of the required file types are modified later than the timestamp  
+6.1.3.3 Exit immediately if timestamp is greater than any of the required file types  
+6.1.4 Have script delete timestamp file for project being cleaned  
+6.1.5 Support following parameters:  
 
-6.1 Item 1  
-```java
-    // java code example
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
+* projectName  
+* test  
+* -online  
+* -debug  
+* clean  
 
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-6.1.1 Example sub-item
-* Example List Element
+6.1.6 Determine project location given just a project name  
+6.1.7 Do not touch timestamp if calling to clean or building a releng project (Full build)  
+6.1.8 Use -o for all builds unless the -online option is given  
+6.1.9 INCLUDE_TESTS is not important for testing, always use -DskipTests=true unless test argument is passed  
+6.2 Modify build_and_test_bp.sh  
+6.2.1 Call build_project.sh from the build_and_test_bp.sh script passing the org.xtuml.bp.releng.parent as project  
+6.2.2 Pass the test and -online arguments to build_project.sh, tests will not run if INCLUDE_TESTS=false as maven will never call them  
+6.2.3 Scan all projects under bridgepoint touching eaches timestamp as its a full build  
+6.2.4 Scan all projects under bptest touch eaches timestamp if INCLUDE_TESTS=true  
+6.3 Build.launch, Clean.launch, and Test.launch  
+6.3.1 For each launch type in every project change to call build_project.sh  
+6.3.2 For each pass the eclipse variable value for build_project  
+6.3.3 For Clean.launch pass the clean option  
+6.3.4 For Test.launch pass the test option  
+6.4 Change default workspace value of auto building to true  
 
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
 
 ### 7. Design Comments
 
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+Implementation of the desired approach in [[2.1]](#2.1) was not possible.  The approach to go offline rather than use the -o option was not possible as for p2 downloads would require a complete mirror of the plug-ins used.  This would take much longer and much more space.  Use of the -o approach was brought back for this reason.  With the checking of timestamps a build loop no longer occurs.  
 
 ### 8. User Documentation
 
-Describe the end user documentation that was added for this change. 
+The Developer Getting Started Guide was updated to add information about building with the modified build_project.sh script.    
 
 ### 9. Unit Test
 

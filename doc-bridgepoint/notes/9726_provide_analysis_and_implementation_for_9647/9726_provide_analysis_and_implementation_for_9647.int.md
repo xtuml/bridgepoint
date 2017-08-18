@@ -21,102 +21,254 @@ describe.
 
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #9726](https://support.onefact.net/issues/9726) Provide analysis and implementation for 9647    
+<a id="2.2"></a>2.2 [BridgePoint Design Note 9726](https://github.com/travislondon/bridgepoint/blob/9726_1/doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/9726_provide_analysis_and_implementation_for_9647.dnt.md) 9726 Design     
 
 ### 3. Background
 
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-![My Image](myimage.jpg)
+See [[2.1]](#2.2).  
 
 ### 4. Requirements
 
-This section is only required if there is no preceding design note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may refer to it.  Each requirement should be as short 
-and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-* Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+See [[2.1]](#2.2).  
 
 ### 5. Work Required
 
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
-
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+See [[2.1]](#2.2).  
 
 ### 6. Implementation Comments
 
-If the design cannot be implemented as written or if it needs some modification,
-enumerate the changes to the design in this section.  If there was no preceding
-design note, then this section documents any deviations from the implementation
-as presented at the pre-implementation engineering review. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-```java
-// java code example
-public void clearDatabase(IProgressMonitor pm) 
-{
-// clear the corresponding graphics-root's database
-OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-}
-```
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+None.  
 
 ### 7. Unit Test
 
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+See [[2.1]](#2.2).  
 
 ### 8. User Documentation
 
-Describe the end user documentation that was added for this change. 
+See [[2.1]](#2.2).   
 
 ### 9. Code Changes
 
-Fork/Repository: < enter your fork and repo name name >
-Branch: < enter your branch name here >
+Fork/Repository: https://github.com/travislondon/bridgepoint
+Branch: 9726_1
 
 <pre>
 
-Put the file list here 
+doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/
+9726_provide_analysis_and_implementation_for_9647.ant.md
+doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/
+9726_provide_analysis_and_implementation_for_9647.dnt.md
+doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/
+9726_provide_analysis_and_implementation_for_9647.int.md
+doc-bridgepoint/review-minutes/9726_build_updates_rvm.md
+doc-bridgepoint/process/Developer Getting Started Guide.md
+
+org.xtuml.bp.als/.externalToolBuilders/Build.launch
+org.xtuml.bp.als/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.als.oal/.externalToolBuilders/Build.launch
+org.xtuml.bp.als.oal/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.cdt/.externalToolBuilders/Build.launch
+org.xtuml.bp.cdt/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.cli/.externalToolBuilders/Build.launch
+org.xtuml.bp.cli/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.compare/.externalToolBuilders/Build.launch
+org.xtuml.bp.compare/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.core/.externalToolBuilders/Build.launch
+org.xtuml.bp.core/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.debug.ui/.externalToolBuilders/Build.launch
+org.xtuml.bp.debug.ui/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.doc/.externalToolBuilders/Build.launch
+org.xtuml.bp.doc/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.docgen/.externalToolBuilders/Build.launch
+org.xtuml.bp.docgen/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.internal.tools/.externalToolBuilders/Build.launch
+org.xtuml.bp.internal.tools/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.io.core/.externalToolBuilders/Build.launch
+org.xtuml.bp.io.core/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.io.image/.externalToolBuilders/Build.launch
+org.xtuml.bp.io.image/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.io.mdl/.externalToolBuilders/Build.launch
+org.xtuml.bp.io.mdl/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc.c.source/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc.c.source/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc.cpp.source/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc.cpp.source/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc.java.source/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc.java.source/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc.none/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc.none/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc.systemc.source/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc.systemc.source/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mc.template/.externalToolBuilders/Build.launch
+org.xtuml.bp.mc.template/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mctools/.externalToolBuilders/Build.launch
+org.xtuml.bp.mctools/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.mctools.parent/.externalToolBuilders/Build.launch
+org.xtuml.bp.mctools.parent/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.model.compare/.externalToolBuilders/Build.launch
+org.xtuml.bp.model.compare/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.pkg/.externalToolBuilders/Build.launch
+org.xtuml.bp.pkg/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.pkg-feature/.externalToolBuilders/Build.launch
+org.xtuml.bp.pkg-feature/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.releng.p2/.externalToolBuilders/Build.launch
+org.xtuml.bp.releng.p2/.externalToolBuilders/Clean.launch
+org.xtuml.bp.releng.p2/.project
+
+org.xtuml.bp.releng.parent/.externalToolBuilders/Build.launch
+org.xtuml.bp.releng.parent/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.releng.parent.generation/.externalToolBuilders/Build.launch
+org.xtuml.bp.releng.parent.generation/.externalToolBuilders/Clean.launch
+org.xtuml.bp.releng.parent.generation/.project
+
+org.xtuml.bp.releng.parent.product/.externalToolBuilders/Build.launch
+org.xtuml.bp.releng.parent.product/.externalToolBuilders/Clean.launch
+org.xtuml.bp.releng.parent.product/.project
+
+org.xtuml.bp.releng.parent.tests/.externalToolBuilders/Build.launch
+org.xtuml.bp.releng.parent.tests/.externalToolBuilders/Clean.launch
+org.xtuml.bp.releng.parent.tests/.externalToolBuilders/Test.launch
+org.xtuml.bp.releng.parent.tests/.project
+
+org.xtuml.bp.search/.externalToolBuilders/Build.launch
+org.xtuml.bp.search/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.canvas/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.canvas/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.explorer/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.explorer/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.graphics/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.graphics/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.marking/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.marking/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.properties/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.properties/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.search/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.search/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.sem/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.sem/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.session/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.session/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.text/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.text/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.utilities/.externalToolBuilders/Build.launch
+org.xtuml.bp.utilities/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.welcome/.externalToolBuilders/Build.launch
+org.xtuml.bp.welcome/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.x2m/.externalToolBuilders/Build.launch
+org.xtuml.bp.x2m/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.xtext.masl.parent/.externalToolBuilders/Build.launch
+org.xtuml.bp.xtext.masl.parent/.externalToolBuilders/Clean.launch
+org.xtuml.bp.xtext.masl.parent/.externalToolBuilders/Test.launch
+
+org.xtuml.help.bp.mc/.externalToolBuilders/Build.launch
+org.xtuml.help.bp.mc/.externalToolBuilders/Clean.launch
+
+utilities/build/build_and_test_bp.sh
+utilities/build/build_project.sh
+utilities/build/prepare_build.sh
+utilities/build/preferences/org.eclipse.core.resources.prefs
+
 
 </pre>
+
+Fork/Repository: https://github.com/travislondon/bptest
+Branch: 9726_1
+
+<pre>  
+
+org.xtuml.bp.als.oal.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.als.oal.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.als.oal.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.core.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.core.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.core.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.debug.ui.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.debug.ui.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.debug.ui.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.io.mdl.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.io.mdl.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.io.mdl.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.model.compare.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.model.compare.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.model.compare.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.search.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.search.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.search.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.test/.externalToolBuilders/Clean.launch
+
+org.xtuml.bp.ui.canvas.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.canvas.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.ui.canvas.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.ui.explorer.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.explorer.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.ui.explorer.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.ui.properties.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.properties.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.ui.properties.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.ui.text.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.ui.text.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.ui.text.test/.externalToolBuilders/Test.launch
+
+org.xtuml.bp.welcome.test/.externalToolBuilders/Build.launch
+org.xtuml.bp.welcome.test/.externalToolBuilders/Clean.launch
+org.xtuml.bp.welcome.test/.externalToolBuilders/Test.launch
+
+org.xtuml.internal.test/.externalToolBuilders/Build.launch
+org.xtuml.internal.test/.externalToolBuilders/Clean.launch
+
+</pre>  
 
 ### End
 
