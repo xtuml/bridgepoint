@@ -87,10 +87,13 @@ Build Instructions
 Debugging   
 ---------
   - **Debugging the command-line build** (this is done when there is a problem specific to the command-line build)  
-    - Open the BridgePoint UI
-    - Set any breakpoints that are relevant to the issues
-    - Restart the test(s) for the project with issues including the debug option:  ```~/git/bridgepoint/utilities/build/build_project.sh [test plugin (example: org.xtuml.bp.core.test)] test -debug```
-    - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
+    - Open the BridgePoint UI  
+    - Set any breakpoints that are relevant to the issues  
+    - Restart the test(s) for the project with issues including the debug option:  
+      ```  
+       ~/git/bridgepoint/utilities/build/build_project.sh [test plugin (example: org.xtuml.bp.core.test)] test -debug
+      ```  
+    - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
     - Select **Debug > Debug Configurations...**  
     - Right click on Remote Java Application and select New
     - Choose the test projet and click Debug
