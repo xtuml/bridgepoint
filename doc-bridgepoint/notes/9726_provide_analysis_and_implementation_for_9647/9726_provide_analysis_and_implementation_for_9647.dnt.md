@@ -95,8 +95,8 @@ The Developer Getting Started Guide was updated to add information about buildin
 9.12 ui.text.test is run  
 9.13 Restore the builders  
 9.14 Make a java change to cause an error in ui.text.test and build  
-9.R No maven build was run, java error is visible in problems view
-9.15 Make a java change in bp.core and build  
+9.R No maven build was run, java error is visible in problems view   
+9.15 Make a java change in bp.core and build  
 9.R No maven build was run  
 9.16 For the file types, .xtuml, .sql, .arc and .inc  
 9.16.1 Touch the file type  
@@ -106,7 +106,7 @@ The Developer Getting Started Guide was updated to add information about buildin
 9.16.R The ant targets are run  
 9.17 Run clean on ui.canvas  
 9.R The maven clean is run  
-9.R The maven clean is successful
+9.R The maven clean is successful  
 9.18 Run build on ui.canvas  
 9.R The maven build is run  
 9.R The maven build is successful  
@@ -119,7 +119,7 @@ The Developer Getting Started Guide was updated to add information about buildin
 9.R The core.tests are run  
 9.21 Run build_project.sh org.xtuml.bp.core.test test -debug  
 9.R The maven build is run  
-9.R The maven build is successful
+9.R The maven build is successful  
 9.R The core.tests are started but waiting for a remote debug connection  
 9.22 Kill build_project.sh  
 9.23 Restore network connection  
@@ -129,6 +129,6 @@ The Developer Getting Started Guide was updated to add information about buildin
 9.R All tests run and pass 100%  
 9.26 Run a build server build with tests  
 9.R All projects build successfully  
-9.R All tests run and pass 100%
+9.R All tests run and pass 100%  
 
 ### End
