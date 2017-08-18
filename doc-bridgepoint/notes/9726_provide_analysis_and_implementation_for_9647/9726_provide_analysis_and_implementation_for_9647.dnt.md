@@ -96,7 +96,7 @@ The Developer Getting Started Guide was updated to add information about buildin
 9.13 Restore the builders  
 9.14 Make a java change to cause an error in ui.text.test and build  
 9.R No maven build was run, java error is visible in problems view   
-9.15 Make a java change in bp.core and build  
+9.15 Make a java change in bp.core and build  
 9.R No maven build was run  
 9.16 For the file types, .xtuml, .sql, .arc and .inc  
 9.16.1 Touch the file type  
