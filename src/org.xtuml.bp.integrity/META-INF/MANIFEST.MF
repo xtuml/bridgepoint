@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Integrity Check Plug-in
+Bundle-SymbolicName: org.xtuml.bp.integrity; singleton:=true
+Bundle-Version: 6.4.3.qualifier
+Bundle-ClassPath: integrity.jar
+Bundle-Activator: org.xtuml.bp.integrity.IntegrityPlugin
+Bundle-Vendor: xtUML.org
+Export-Package: org.xtuml.bp.integrity,
+ org.xtuml.bp.integrity.actions,
+ org.xtuml.bp.integrity.generator
+Require-Bundle: org.xtuml.bp.ui.explorer,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.core.variables,
+ org.apache.ant,
+ org.eclipse.ant.core,
+ org.eclipse.ui.console,
+ org.eclipse.core.filesystem
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir

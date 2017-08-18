@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.integrity.contribution"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.xtuml.bp.integrity.actions.checkReferentialIntegrityAction"
+               enablesFor="1"
+               id="org.xtuml.bp.integrity.checkReferentialIntegrityAction"
+               label="Check Referential Integrity"
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+         </action>
+      </objectContribution>
+   </extension>
+</plugin>
