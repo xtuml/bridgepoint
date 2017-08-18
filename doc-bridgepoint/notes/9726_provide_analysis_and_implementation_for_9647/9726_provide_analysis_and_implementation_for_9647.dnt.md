@@ -13,7 +13,7 @@ This work is licensed under the Creative Commons CC0 License
 See [[2.1]](#2.1).
 
 ### 2. Document References
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/9726) Provide analysis and implementation for 9647    
+<a id="2.1"></a>2.1 [BridgePoint DEI #9726](https://support.onefact.net/issues/9726) Provide analysis and implementation for 9647    
 <a id="2.2"></a>2.2 [BridgePoint Analysis 9726](https://github.com/travislondon/bridgepoint/blob/9726_1/doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/9726_provide_analysis_and_implementation_for_9647.ant.md) 9726 Analysis    
 
 ### 3. Background
