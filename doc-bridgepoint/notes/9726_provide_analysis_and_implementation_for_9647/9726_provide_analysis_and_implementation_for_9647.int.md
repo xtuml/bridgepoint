@@ -41,7 +41,7 @@ See [[2.1]](#2.2).
 
 ### 9. Code Changes
 
-Fork/Repository: https://github.com/travislondon/bridgepoint
+Fork/Repository: https://github.com/travislondon/bridgepoint  
 Branch: 9726_1
 
 <pre>
@@ -204,7 +204,7 @@ utilities/build/preferences/org.eclipse.core.resources.prefs
 
 </pre>
 
-Fork/Repository: https://github.com/travislondon/bptest
+Fork/Repository: https://github.com/travislondon/bptest  
 Branch: 9726_1
 
 <pre>  
