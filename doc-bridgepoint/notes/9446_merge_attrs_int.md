@@ -16,6 +16,7 @@ that govern user ability to combine attributes.
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9446](https://support.onefact.net/issues/9446) Headline issue    
+<a id="2.2"></a>2.2 [BridgePoint DEI #9747](https://support.onefact.net/issues/9747) Show Relationship of Referential ID in Combine With Dialog   
 
 ### 3. Background
 
@@ -41,10 +42,6 @@ should not be a MASL-specific setting.
 4.2.1  Currently supported cases shall not change.  
 4.2.2  The combo box shall show referential attributes that have the same 
   type as the current attribute that started the combination process.  
-4.2.3  Referential attributes are currently shown in the combo box with only
-  their name.  The combo box shall be enhanced to also show the participating 
-  relationship information next to the name in ```{Rn}``` form as it appears 
-  in the canvas.  (Maybe make a follow-on issue?)    
 
 ### 5. Work Required
 
@@ -81,24 +78,22 @@ if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
     ...
 ``` 
 
-5.3  TODO - where do we put the enhancement to show the relationship in the combo?  
-  The reason for this relationship is that if the class contains more than two 
-  attributes with the same name it is impossible in the combine with dialog to determine
-  which one you are formalizing with.  We may want to handle this as a follow-on issue
-  and solve the original issue first...     
-
 ### 6. Implementation Comments
 
-None.    
+6.1  During the analysis of this issue we noticed that an enhancement is needed to
+  the "Combine With..." dialog.  Multiple referential attributes with the same name
+  are currently indistinguishable.  This is captured in [2.2].  
 
 ### 7. Unit Test
 
 7.1 TODO - Find existing Combine With tests - update for new functionality  
+  * The Combine With tests are part of Core 2 Test Suite
+  * CombineSplitReferentialsTestGenerics.java
 
 ### 8. User Documentation
 
-TODO - look into the existing docs and see if Combine With is
-described anywhere and if it should be modified
+TODO - Combine With is not described in the existing documentation.  I think we 
+should add some text in the ClassDiagram doc that describes combine and split
 
 ### 9. Code Changes
 
