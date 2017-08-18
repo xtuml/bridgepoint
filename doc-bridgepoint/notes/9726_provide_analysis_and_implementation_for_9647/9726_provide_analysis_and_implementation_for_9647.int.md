@@ -4,23 +4,14 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Address offline mode issues with maven  
 ### xtUML Project Implementation Note
-
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
 
 ### 1. Abstract
 
-In this section, give a summary of the design that this note aims to
-describe.
+This note describes the files that were changed to implement the design.  
 
 ### 2. Document References
-
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.  
 <a id="2.1"></a>2.1 [BridgePoint DEI #9726](https://support.onefact.net/issues/9726) Provide analysis and implementation for 9647    
 <a id="2.2"></a>2.2 [BridgePoint Design Note 9726](https://github.com/travislondon/bridgepoint/blob/9726_1/doc-bridgepoint/notes/9726_provide_analysis_and_implementation_for_9647/9726_provide_analysis_and_implementation_for_9647.dnt.md) 9726 Design     
 
