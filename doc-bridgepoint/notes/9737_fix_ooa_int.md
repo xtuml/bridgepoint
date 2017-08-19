@@ -19,6 +19,10 @@ during work on the Referential Integrity Checker.  These are to be fixed.
 
 ### 3. Background
 
+During the work on [[2.2]](#2.2) 3 flaws in the OOA of OOA were noted.
+These were committed to be fixed in the work of 9554 but set up as a
+follow-on issue, this one.
+
 ### 4. Requirements
 
 4.1 Repair the OOA of OOA  
@@ -51,17 +55,38 @@ This link is only present during parsing and needs to be biconditional.
 
 ### 6. Implementation Comments
 
+One line in the schema was unrelated.  We now have the MC-Java schema
+derived from the `xtumlmc_schema`.  The field `setadd` had been added
+to `TE_SET` in `xtumlmc_schema`.  I went ahead and pulled that in to
+the MC-Java schema for consistency even though though MC-Java does not
+use the Translation Extension classes.
+
+It was hoped that the change to the OOA of OOA would be a simple,
+surgical change with no fall-out.  That has turned out to be true.
+The change set is minute, and all unit tests passed on the first
+try.
+
 ### 7. Unit Test
 
 7.1 All existing unit tests shall pass.
 
 ### 8. User Documentation
 
+The next time the metamodel example project is prepared, these
+changes will get picked up.  However, it is not worth making a
+special pass on that model just for these conditionalities.
+
 ### 9. Code Changes
 
 <pre>
 Fork/Repository: cortlandstarrett  
 Branch: 9737_fix_ooa
+doc-bridgepoint/notes/9737_fix_ooa_int.md                                         | 69 +++++++++++++
+src/MC-Java/ooa_schema.sql                                                        |  7 +++--
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Body/Body.xtuml           |  4 +--
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Subsystem.xtuml |  2 +-
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Value/Value.xtuml         |  4 +--
+5 files changed, 78 insertions(+), 8 deletions(-)
 
 </pre>
 
