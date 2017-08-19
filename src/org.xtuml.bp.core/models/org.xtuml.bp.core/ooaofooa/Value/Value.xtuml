@@ -30,7 +30,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.2.0',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Value');
 INSERT INTO GD_GE
 	VALUES ("3bcea2ea-45a0-4ec3-ab65-63469e4140eb",
@@ -13021,7 +13021,7 @@ INSERT INTO R_FORM
 	"54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
 	"4e8c5905-a004-4b7a-82d8-062223c07a81",
 	1,
-	0,
+	1,
 	'');
 INSERT INTO R_RGO
 	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
