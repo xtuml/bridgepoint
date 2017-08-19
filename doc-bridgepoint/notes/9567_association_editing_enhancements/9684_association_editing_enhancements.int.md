@@ -29,7 +29,9 @@ See [[2.1]](2.1).
 
 ### 6. Implementation Comments
 
-A new preference was added, Enable table based association editing.  This preference is disabled by default.  The context menu entries for Configure Association were adjusted to be dynamic and check this preference before showing.  Additionally, preference based tab support was added to prevent the Associations Editor tab.
+A new preference was added, Enable table based association editing.  This preference is disabled by default.  The context menu entries for Configure Association were adjusted to be dynamic and check this preference before showing.  Additionally, preference based tab support was added to prevent the Associations Editor tab.  
+
+This issue was promoted but reverted due to testing failures.  They are now fixed.  The changes for this were in both the AssociationTableEditorTests.java and AssociationCardinalityMenuTests.java classes.  The changes in AssociaionTableEditorTests were to enable/disable the preference to allow table editing during setup and tear down.  The changes to AssociationCardinalityMenuTests were to use the already existing AssociationEditingCardinalityMenu test model.  Once these two tests did not share the same model they passed.  This was caused by the two tests using the same model-root and finding the wrong package instance.  
 
 ### 7. Unit Test
 
