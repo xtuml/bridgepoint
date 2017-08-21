@@ -227,35 +227,53 @@ elif (param.name == "can" )
     select one next_attr related by self->O_ATTR[R103.''precedes''];
     return not_empty next_attr;
   elif ( param.value == "combine" )
-     select one rattr related by self->O_RATTR[R106];
-       if ( not_empty rattr )
-         select one base_attr related by rattr->O_BATTR[R113];
-         if ( not_empty base_attr )
-          select many candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]
-            where selected.BAttr_ID == base_attr.Attr_ID and 
-                  selected.BObj_ID == base_attr.Obj_ID;
-            for each candidate in candidate_set
-             if ( not rattr.alreadyCombinedWith( id: candidate.Attr_ID ) )
-               return true;
-             end if;
-           end for;
-         // combining is allowed for combining a referential with its own base
-         select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_BATTR[R106]
-           where selected.Attr_ID == base_attr.Attr_ID;
-         if ( not_empty battr_candidate_set )
-           return true;
-         end if;
-         end if;
-       else
-         // combining is allowed for combining a referential with its own base
-         select one battr related by self->O_BATTR[R106];
-         select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]->O_BATTR[R113]
-           where selected.Attr_ID == battr.Attr_ID;
-         if ( not_empty battr_candidate_set )
-           return true;
-         end if;
-       end if;
-       return false;
+    select one rattr related by self->O_RATTR[R106];
+    if ( not_empty rattr )
+      select one base_attr related by rattr->O_BATTR[R113];
+      if ( not_empty base_attr )
+        select many candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]
+          where selected.BAttr_ID == base_attr.Attr_ID and 
+                selected.BObj_ID == base_attr.Obj_ID;
+        for each candidate in candidate_set
+          if ( not rattr.alreadyCombinedWith( id: candidate.Attr_ID ) )
+            return true;
+          end if;
+        end for;
+        // combining is allowed for combining a referential with its own base
+        select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_BATTR[R106]
+          where selected.Attr_ID == base_attr.Attr_ID;
+        if ( not_empty battr_candidate_set )
+          return true;
+        end if;
+        // combining is allowed with other referential attributes of the same type
+        //   - Get the set of referential attributes
+        //   - If there''s more than one (because we don''t want to count ourself),
+        //       iterate over the set and see if any are of the same type.
+        //       Traverse to the datatype through the base attribute so that we
+        //       see the real datatype and don''t get same_as<Base_attribute>
+        select many rattr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106];
+        if ( cardinality rattr_candidate_set > 1 )
+          for each rattr_candidate in rattr_candidate_set
+            if ( rattr_candidate.Attr_ID != self.Attr_ID )
+              select one rattr_candidate_dt related by rattr_candidate->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+              select one self_dt related by base_attr->O_ATTR[R106]->S_DT[R114];
+              if ( rattr_candidate_dt.DT_ID == self_dt.DT_ID )
+                return true;
+              end if;
+            end if;
+          end for;
+        end if;
+      end if;
+    else
+      // combining is allowed for combining a referential with its own base
+      select one battr related by self->O_BATTR[R106];
+      select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106]->O_BATTR[R113]
+        where selected.Attr_ID == battr.Attr_ID;
+      if ( not_empty battr_candidate_set )
+        return true;
+      end if;
+    end if;
+    return false;
   elif ( param.value == "split ref" )
    	 select one rattr related by self->O_RATTR[R106];
    	  if ( not_empty rattr )
@@ -990,6 +1008,13 @@ if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
 	  if ( not_empty other_rattr )
 		// two rattrs pointing to the same base
 		can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
+        if ( not can_combine )
+            // allow combination with other referentials with the same type
+            select one other_rattr_dt related by other_rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+            select one self_dt related by rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+            type_match = self_dt.DT_ID == other_rattr_dt.DT_ID;
+            can_combine = type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
+        end if; 
 	  else
 		select one other_battr related by o_attr->O_BATTR[R106];
 		if ( not_empty other_battr )
