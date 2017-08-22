@@ -195,8 +195,9 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 		TextFlow tf = ((TextFlow) getFigure().getChildren().get(0));
 		if(!tf.getText().equals(getText())) {
 			// update the text
-			tf.setText(getText()+"ruby");
+			tf.setText(getText());
 		}
+		tf.revalidate();
 		
 		// validate here, so that the minimum width
 		// calculate below is always correct
