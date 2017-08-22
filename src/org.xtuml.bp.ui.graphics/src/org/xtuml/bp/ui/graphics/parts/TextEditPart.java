@@ -120,7 +120,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 				}
 				if(CanvasPlugin.disableCropping) {
 					// just draw the text
-					g.drawText(getText()+"rox", getLocation());
+					g.drawText(getText(), getLocation());
 					return;
 				}
 				super.paintFigure(g);
@@ -132,7 +132,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 		figure.setOpaque(false);
 		if (getModelBounds().isEmpty()) {
 			// initialize a default position
-			Dimension stringExtents = FigureUtilities.getTextExtents(getText()+"hannah",
+			Dimension stringExtents = FigureUtilities.getTextExtents(getText(),
 					((GraphicalEditPart) getParent()).getFigure().getFont());
 			Rectangle modelBounds = getModelBounds();
 			if ((modelBounds.x == 0 && modelBounds.y == 0)
@@ -142,10 +142,10 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 			modelBounds.width = -1;
 			modelBounds.height = -1;
 			figure.setBounds(modelBounds);
-			tf.setText(getText()+"rox");
+			tf.setText(getText());
 		} else {
 			figure.setBounds(getModelBounds());
-			tf.setText(getText()+"xor");
+			tf.setText(getText());
 		}
 		return figure;
 	}
@@ -236,7 +236,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 			return new Rectangle();
 		Graphelement_c elem = Graphelement_c.getOneDIM_GEOnR301(node);
 		return new Rectangle((int) elem.getPositionx(), (int) elem
-				.getPositiony(), (int) node.getWidth()+10, (int) node.getHeight());
+				.getPositiony(), (int) node.getWidth(), (int) node.getHeight());
 	}
 
 	@Override
