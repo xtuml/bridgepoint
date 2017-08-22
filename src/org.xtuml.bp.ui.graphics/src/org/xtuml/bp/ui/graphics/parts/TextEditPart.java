@@ -120,7 +120,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 				}
 				if(CanvasPlugin.disableCropping) {
 					// just draw the text
-					g.drawText(getText(), getLocation());
+					g.drawText(getText()+"rox", getLocation());
 					return;
 				}
 				super.paintFigure(g);
@@ -132,7 +132,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 		figure.setOpaque(false);
 		if (getModelBounds().isEmpty()) {
 			// initialize a default position
-			Dimension stringExtents = FigureUtilities.getTextExtents(getText(),
+			Dimension stringExtents = FigureUtilities.getTextExtents(getText()+"hannah",
 					((GraphicalEditPart) getParent()).getFigure().getFont());
 			Rectangle modelBounds = getModelBounds();
 			if ((modelBounds.x == 0 && modelBounds.y == 0)
@@ -141,13 +141,11 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 						stringExtents.height, stringExtents.width);
 			modelBounds.width = -1;
 			modelBounds.height = -1;
-            // CDS - here
 			figure.setBounds(modelBounds);
-			tf.setText(getText());
+			tf.setText(getText()+"rox");
 		} else {
-            // CDS - here
 			figure.setBounds(getModelBounds());
-			tf.setText(getText());
+			tf.setText(getText()+"xor");
 		}
 		return figure;
 	}
@@ -197,7 +195,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 		TextFlow tf = ((TextFlow) getFigure().getChildren().get(0));
 		if(!tf.getText().equals(getText())) {
 			// update the text
-			tf.setText(getText());
+			tf.setText(getText()+"ruby");
 		}
 		
 		// validate here, so that the minimum width
@@ -237,7 +235,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 			return new Rectangle();
 		Graphelement_c elem = Graphelement_c.getOneDIM_GEOnR301(node);
 		return new Rectangle((int) elem.getPositionx(), (int) elem
-				.getPositiony(), (int) node.getWidth(), (int) node.getHeight());
+				.getPositiony(), (int) node.getWidth()+10, (int) node.getHeight());
 	}
 
 	@Override
