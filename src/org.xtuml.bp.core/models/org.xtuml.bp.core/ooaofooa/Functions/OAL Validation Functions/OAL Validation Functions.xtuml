@@ -26303,10 +26303,11 @@ else
                                                           selected.Name == name;
             if (empty attr)
               ::clear_value_data();
+              act_id = ::get_current_context();
+              ::build_help_list_for_instance( Action_ID:act_id, Obj_ID:modelClass.Obj_ID, partial_text:name );
               ERR::reportParseError( msg: "->%s<- is not an attribute of " +
                                          "class ->" + modelClass.Name + "<-.",
                                                    token: param.a1_rule_token );
-              ::build_help_list_for_instance( Obj_ID:modelClass.Obj_ID );
             else
               // Successfully recognized an attribute reference
               create object instance attrVal of V_AVL;

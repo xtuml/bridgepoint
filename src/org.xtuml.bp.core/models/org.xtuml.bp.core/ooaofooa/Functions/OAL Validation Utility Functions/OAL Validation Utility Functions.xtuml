@@ -7636,48 +7636,77 @@ INSERT INTO S_SYNC
 	'build_help_list_for_instance',
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE',
-	'select any o_obj from instances of O_OBJ where ( selected.Obj_ID == param.Obj_ID );
+	'select any act from instances of ACT_ACT where ( selected.Action_ID == param.Action_ID );
+select any o_obj from instances of O_OBJ where ( selected.Obj_ID == param.Obj_ID );
 
-create object instance list of CA_L;
-select one current_item related by list->CA_I[R1601];
+if ( not_empty act and not_empty o_obj )
+  create object instance list of CA_L;
+  relate list to act across R1603;
 
-select many o_attrs related by o_obj->O_ATTR[R102];
-for each o_attr in o_attrs
-  create object instance new_item of CA_I;
-  new_item.Type = ContextAssistanceItemTypes::Attribute;
-  new_item.Value = o_attr.Name;
-  if ( empty current_item )
-    relate new_item to list across R1601;
-  else
-    relate new_item to current_item across R1602.''follows'';
-  end if;
-  current_item = new_item;
-end for;
+  select one current_item related by list->CA_I[R1601];
 
-select many o_tfrs related by o_obj->O_TFR[R115];
-for each o_tfr in o_tfrs
-  create object instance new_item of CA_I;
-  new_item.Type = ContextAssistanceItemTypes::Operation;
-  new_item.Value = o_tfr.Name;
-  if ( empty current_item )
-    relate new_item to list across R1601;
-  else
-    relate new_item to current_item across R1602.''follows'';
-  end if;
-  current_item = new_item;
-end for;',
+  select many o_attrs related by o_obj->O_ATTR[R102];
+  for each o_attr in o_attrs
+    create object instance new_item of CA_I;
+    new_item.type = ContentAssistanceItemTypes::Attribute;
+    new_item.replacement_text = o_attr.Name;
+    new_item.current_text = param.partial_text;
+    new_item.cursor_position = 0;
+    new_item.selection_length = 0;
+    if ( empty current_item )
+      relate new_item to list across R1601;
+    else
+      relate new_item to current_item across R1602.''follows'';
+    end if;
+    current_item = new_item;
+  end for;
+
+  select many o_tfrs related by o_obj->O_TFR[R115];
+  for each o_tfr in o_tfrs
+    create object instance new_item of CA_I;
+    new_item.type = ContentAssistanceItemTypes::Operation;
+    new_item.replacement_text = o_tfr.getSignature( flavor:0 );
+    new_item.current_text = param.partial_text;
+    new_item.cursor_position = 0;
+    new_item.selection_length = 0;
+    if ( empty current_item )
+      relate new_item to list across R1601;
+    else
+      relate new_item to current_item across R1602.''follows'';
+    end if;
+    current_item = new_item;
+  end for;
+end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
 	0);
 INSERT INTO S_SPARM
-	VALUES ("bbc588c4-894e-4827-9d2c-b71d38ae5c5a",
+	VALUES ("d3af00c9-9413-47ab-aa6b-dbd5b414d3ce",
+	"ffb9e218-a1c5-4aeb-8768-30fdec562294",
+	'Action_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f02cab36-9b98-4765-bf2a-7aaf730258f9",
 	"ffb9e218-a1c5-4aeb-8768-30fdec562294",
 	'Obj_ID',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000",
+	"d3af00c9-9413-47ab-aa6b-dbd5b414d3ce",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("029db0cd-2213-48d5-ae9e-2663b96d1365",
+	"ffb9e218-a1c5-4aeb-8768-30fdec562294",
+	'partial_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"f02cab36-9b98-4765-bf2a-7aaf730258f9",
 	'');
 INSERT INTO PE_PE
 	VALUES ("ffb9e218-a1c5-4aeb-8768-30fdec562294",

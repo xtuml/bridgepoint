@@ -2,7 +2,7 @@
 
 INSERT INTO O_OBJ
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
-	'Context Assistance List',
+	'Content Assistance List',
 	1601,
 	'CA_L',
 	'',
@@ -19,6 +19,8 @@ if ( not_empty first_item )
   unrelate self from first_item across R1601;
   first_item.dispose();
 end if;
+select one act related by self->ACT_ACT[R1603];
+unrelate self from act across R1603;
 delete object instance self;',
 	1,
 	'',
@@ -126,7 +128,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
