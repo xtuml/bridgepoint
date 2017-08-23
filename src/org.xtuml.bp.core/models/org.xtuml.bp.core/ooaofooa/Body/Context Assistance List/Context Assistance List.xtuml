@@ -1,0 +1,166 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
+	'Context Assistance List',
+	1601,
+	'CA_L',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("02be89aa-a0dd-4046-b18f-274cd603cb00",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one first_item related by self->CA_I[R1601];
+if ( not_empty first_item )
+  unrelate self from first_item across R1601;
+  first_item.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("a84463fe-6e97-4d16-a369-8d6086751d4c",
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_BATTR
+	VALUES ("a84463fe-6e97-4d16-a369-8d6086751d4c",
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_ATTR
+	VALUES ("a84463fe-6e97-4d16-a369-8d6086751d4c",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	"00000000-0000-0000-0000-000000000000",
+	'List_ID',
+	'',
+	'',
+	'List_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fe9625c9-c549-4128-adb0-59c7ba068451",
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_BATTR
+	VALUES ("fe9625c9-c549-4128-adb0-59c7ba068451",
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_ATTR
+	VALUES ("fe9625c9-c549-4128-adb0-59c7ba068451",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	"b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	'line',
+	'',
+	'',
+	'line',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5778589e-7b29-4a55-869a-77272e4e7a76",
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_BATTR
+	VALUES ("5778589e-7b29-4a55-869a-77272e4e7a76",
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_ATTR
+	VALUES ("5778589e-7b29-4a55-869a-77272e4e7a76",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	"fe9625c9-c549-4128-adb0-59c7ba068451",
+	'col',
+	'',
+	'',
+	'col',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	0,
+	"6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"4a96fba5-651b-42d5-ac63-a1af4051c271",
+	"dfd025cb-b2b4-44ef-8d87-3d92cdc6fa47",
+	"70cd9c7c-dd39-474f-8c41-a43bc7176e9a",
+	"b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	"f841da7a-1189-476b-8ef4-41a8e829fa8b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Body',
+	'Action_ID',
+	'R1603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
+	"4a96fba5-651b-42d5-ac63-a1af4051c271",
+	"dfd025cb-b2b4-44ef-8d87-3d92cdc6fa47",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	0,
+	"4a96fba5-651b-42d5-ac63-a1af4051c271",
+	"70cd9c7c-dd39-474f-8c41-a43bc7176e9a",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	"6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	1,
+	'Action_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	'../Body/Body.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	"a84463fe-6e97-4d16-a369-8d6086751d4c",
+	'Action_ID',
+	'',
+	'',
+	'Action_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_OIDA
+	VALUES ("a84463fe-6e97-4d16-a369-8d6086751d4c",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	0,
+	'List_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO O_ID
+	VALUES (2,
+	"6564c28e-1961-46bc-a756-e8764f3a7520");
+INSERT INTO PE_PE
+	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	600,
+	'../Body.xtuml');

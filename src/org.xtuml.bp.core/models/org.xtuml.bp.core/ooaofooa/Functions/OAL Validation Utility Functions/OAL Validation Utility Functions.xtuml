@@ -7630,6 +7630,61 @@ INSERT INTO PE_PE
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("ffb9e218-a1c5-4aeb-8768-30fdec562294",
+	"00000000-0000-0000-0000-000000000000",
+	'build_help_list_for_instance',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'select any o_obj from instances of O_OBJ where ( selected.Obj_ID == param.Obj_ID );
+
+create object instance list of CA_L;
+select one current_item related by list->CA_I[R1601];
+
+select many o_attrs related by o_obj->O_ATTR[R102];
+for each o_attr in o_attrs
+  create object instance new_item of CA_I;
+  new_item.Type = ContextAssistanceItemTypes::Attribute;
+  new_item.Value = o_attr.Name;
+  if ( empty current_item )
+    relate new_item to list across R1601;
+  else
+    relate new_item to current_item across R1602.''follows'';
+  end if;
+  current_item = new_item;
+end for;
+
+select many o_tfrs related by o_obj->O_TFR[R115];
+for each o_tfr in o_tfrs
+  create object instance new_item of CA_I;
+  new_item.Type = ContextAssistanceItemTypes::Operation;
+  new_item.Value = o_tfr.Name;
+  if ( empty current_item )
+    relate new_item to list across R1601;
+  else
+    relate new_item to current_item across R1602.''follows'';
+  end if;
+  current_item = new_item;
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("bbc588c4-894e-4827-9d2c-b71d38ae5c5a",
+	"ffb9e218-a1c5-4aeb-8768-30fdec562294",
+	'Obj_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("ffb9e218-a1c5-4aeb-8768-30fdec562294",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("9092f98e-34df-42d0-be42-dc91951c8a73",
 	1,

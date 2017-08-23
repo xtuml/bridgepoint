@@ -26306,6 +26306,7 @@ else
               ERR::reportParseError( msg: "->%s<- is not an attribute of " +
                                          "class ->" + modelClass.Name + "<-.",
                                                    token: param.a1_rule_token );
+              ::build_help_list_for_instance( Obj_ID:modelClass.Obj_ID );
             else
               // Successfully recognized an attribute reference
               create object instance attrVal of V_AVL;

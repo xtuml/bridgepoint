@@ -50,8 +50,8 @@ INSERT INTO GD_MD
 	0,
 	1707,
 	1075,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa');
