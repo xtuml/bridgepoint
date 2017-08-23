@@ -14,7 +14,7 @@ import org.eclipse.ui.IEditorInput;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.Proposal_c;
 import org.xtuml.bp.core.ProposalList_c;
-import org.xtuml.bp.core.Contextassistanceitemtypes_c;
+import org.xtuml.bp.core.Contentassistanceitemtypes_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.OALPersistenceUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
@@ -30,10 +30,12 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
     private Image getImage( int type ) {
         switch( type ) {
-            case Contextassistanceitemtypes_c.Attribute:
+            case Contentassistanceitemtypes_c.Attribute:
                 return CorePlugin.getImageFor( "Attribute_c" );
-            case Contextassistanceitemtypes_c.Operation:
+            case Contentassistanceitemtypes_c.Operation:
                 return CorePlugin.getImageFor( "Operation_c" );
+            case Contentassistanceitemtypes_c.Association:
+                return CorePlugin.getImageFor( "Association_c" );
             default:
                 return null;
         }

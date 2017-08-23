@@ -1926,6 +1926,12 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"b394d63f-6e25-4029-9ecd-652b8aa7593a");
+INSERT INTO S_ENUM
+	VALUES ("ac2883fd-b99d-4cdd-a9d6-0be3cda9de85",
+	'Association',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

@@ -7714,6 +7714,90 @@ INSERT INTO PE_PE
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("68b86232-7b67-4994-a8f3-6ee28743eb0a",
+	"00000000-0000-0000-0000-000000000000",
+	'build_help_list_for_instance_chain',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'select any act from instances of ACT_ACT where ( selected.Action_ID == param.Action_ID );
+select any obj from instances of O_OBJ where ( selected.Obj_ID == param.Obj_ID );
+mult = param.mult;
+
+if ( not_empty act and not_empty obj )
+  create object instance list of CA_L;
+  relate list to act across R1603;
+
+  select one current_item related by list->CA_I[R1601];
+  
+  select many r_oirs related by obj->R_OIR[R201];
+  for each r_oir in r_oirs
+    select many foreign_oirs related by r_oir->R_REL[R201]->R_OIR[R201] where ( selected.OIR_ID != r_oir.OIR_ID );
+    for each foreign_oir in foreign_oirs
+      select one o_obj related by foreign_oir->O_OBJ[R201];
+      select one r_rel related by foreign_oir->R_REL[R201];
+
+      create object instance new_item of CA_I;
+      new_item.type = ContentAssistanceItemTypes::Association;
+      new_item.replacement_text = o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb ) + "]";
+      new_item.current_text = param.partial_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      if ( empty current_item )
+        relate new_item to list across R1601;
+      else
+        relate new_item to current_item across R1602.''follows'';
+      end if;
+      current_item = new_item; 
+    end for;
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("c433cab3-7f29-4b21-a863-a3541a7d4014",
+	"68b86232-7b67-4994-a8f3-6ee28743eb0a",
+	'Action_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5de3f346-eb94-4a1a-b7e0-070023bd57d2",
+	"68b86232-7b67-4994-a8f3-6ee28743eb0a",
+	'Obj_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c433cab3-7f29-4b21-a863-a3541a7d4014",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9e0801c9-e841-46fc-b9d0-f1370f05af65",
+	"68b86232-7b67-4994-a8f3-6ee28743eb0a",
+	'mult',
+	"c785b82e-b0aa-4f8c-8df4-f1b9cf451edd",
+	0,
+	'',
+	"5de3f346-eb94-4a1a-b7e0-070023bd57d2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1c8babe8-df7f-4880-8f0d-d5b689d98993",
+	"68b86232-7b67-4994-a8f3-6ee28743eb0a",
+	'partial_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"9e0801c9-e841-46fc-b9d0-f1370f05af65",
+	'');
+INSERT INTO PE_PE
+	VALUES ("68b86232-7b67-4994-a8f3-6ee28743eb0a",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("9092f98e-34df-42d0-be42-dc91951c8a73",
 	1,

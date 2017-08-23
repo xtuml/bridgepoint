@@ -14664,6 +14664,8 @@ if ( param.a3_ruleid_name == GD::NULL_UNIQUE_ID() )
     select one left_obj related by val->V_ISR[R801]->V_VAR[R809]->V_INS[R814]->O_OBJ[R819];
     mult = Multiplicity::Many;
   end if;
+  act_id = ::get_current_context();
+  ::build_help_list_for_instance_chain( Action_ID:act_id, Obj_ID:left_obj.Obj_ID, mult:mult, partial_text:"" );
   rel_mult =  ::is_valid_relationship( a1_left: left_obj.Obj_ID, a2_right:right_obj.Obj_ID,
          a3_rel: param.b2_relationship2_id, 
          a4_phrase: param.b3_phrase3_id, a5_rule_token: param.a1_rule_token,
@@ -14672,6 +14674,8 @@ else
   select any prior_link from instances of ACT_LNK 
         where ( selected.Link_ID == param.a3_ruleid_name );
   select one left_obj related by prior_link->O_OBJ[R678];
+  act_id = ::get_current_context();
+  ::build_help_list_for_instance_chain( Action_ID:act_id, Obj_ID:left_obj.Obj_ID, mult:prior_link.Mult, partial_text:"" );
   rel_mult =  ::is_valid_relationship( a1_left: left_obj.Obj_ID, a2_right:right_obj.Obj_ID,
          a3_rel: param.b2_relationship2_id, 
          a4_phrase: param.b3_phrase3_id, a5_rule_token: param.a1_rule_token,
