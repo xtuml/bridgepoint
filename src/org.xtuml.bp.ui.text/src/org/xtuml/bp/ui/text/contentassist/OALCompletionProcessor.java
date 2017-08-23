@@ -12,8 +12,8 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
 import org.xtuml.bp.core.Body_c;
-import org.xtuml.bp.core.ContentAssistanceItem_c;
-import org.xtuml.bp.core.ContentAssistanceList_c;
+import org.xtuml.bp.core.Proposal_c;
+import org.xtuml.bp.core.ProposalList_c;
 import org.xtuml.bp.core.Contextassistanceitemtypes_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.OALPersistenceUtil;
@@ -45,13 +45,13 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         IEditorInput editorInput = editor.getEditorInput();
         if ( editorInput instanceof AbstractModelElementPropertyEditorInput ) {
             Body_c body = OALPersistenceUtil.getOALModelElement(((AbstractModelElementPropertyEditorInput)editorInput).getModelElementContainingProperty());
-            ContentAssistanceList_c list = ContentAssistanceList_c.getOneCA_LOnR1603( body );
-            ContentAssistanceItem_c item = ContentAssistanceItem_c.getOneCA_IOnR1601( list );
+            ProposalList_c list = ProposalList_c.getOneCA_LOnR1603( body );
+            Proposal_c item = Proposal_c.getOneCA_IOnR1601( list );
             while ( null != item ) {
                 ICompletionProposal proposal = new CompletionProposal( item.getReplacement_text(), position, 0, position+item.getReplacement_text().length(),
                                                                        getImage( item.getType() ), item.getReplacement_text(), null, null );
                 proposals.add( proposal );
-                item = ContentAssistanceItem_c.getOneCA_IOnR1602Precedes( item );
+                item = Proposal_c.getOneCA_IOnR1602Precedes( item );
             }
         }
         return proposals.toArray( new ICompletionProposal[0] );

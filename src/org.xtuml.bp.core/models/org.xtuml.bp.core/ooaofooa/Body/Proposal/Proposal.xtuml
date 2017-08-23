@@ -2,7 +2,7 @@
 
 INSERT INTO O_OBJ
 	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	'Content Assistance Item',
+	'Proposal',
 	1600,
 	'CA_I',
 	'',
@@ -50,7 +50,7 @@ INSERT INTO O_REF
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	'',
-	'Content Assistance List',
+	'Proposal List',
 	'List_ID',
 	'R1601');
 INSERT INTO R_RGO_PROXY
@@ -78,7 +78,7 @@ INSERT INTO O_REF
 	"26e55dd6-9f29-4223-b8d8-6f777ea5f809",
 	0,
 	'',
-	'Content Assistance Item',
+	'Proposal',
 	'List_ID',
 	'R1602.''precedes''');
 INSERT INTO R_RGO_PROXY
@@ -103,7 +103,7 @@ INSERT INTO O_RATTR
 INSERT INTO O_BATTR_PROXY
 	VALUES ("a84463fe-6e97-4d16-a369-8d6086751d4c",
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
-	'../Content Assistance List/Content Assistance List.xtuml');
+	'../Proposal List/Proposal List.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("0eab8bd5-13e0-42db-bb91-b1bed8edd948",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
@@ -147,7 +147,7 @@ INSERT INTO O_REF
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	'',
-	'Content Assistance Item',
+	'Proposal',
 	'Item_ID',
 	'R1602.''precedes''');
 INSERT INTO O_RTIDA_PROXY
@@ -215,7 +215,7 @@ INSERT INTO O_ATTR
 INSERT INTO S_DT_PROXY
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"00000000-0000-0000-0000-000000000000",
-	'ContextAssistanceItemTypes',
+	'ContentAssistanceItemTypes',
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');

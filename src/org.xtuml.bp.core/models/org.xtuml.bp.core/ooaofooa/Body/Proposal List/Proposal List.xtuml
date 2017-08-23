@@ -2,7 +2,7 @@
 
 INSERT INTO O_OBJ
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
-	'Content Assistance List',
+	'Proposal List',
 	1601,
 	'CA_L',
 	'',
