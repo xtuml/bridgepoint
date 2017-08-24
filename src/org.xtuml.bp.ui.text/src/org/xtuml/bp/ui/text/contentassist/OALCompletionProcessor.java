@@ -15,7 +15,6 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.IEditorInput;
 import org.xtuml.bp.als.oal.ParseRunnable;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
@@ -45,26 +44,29 @@ import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.OALPersistenceUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 
 public class OALCompletionProcessor implements IContentAssistProcessor {
     
-    private static final ICompletionProposal[] NO_PROPOSALS= {};
+    private static final ICompletionProposal[] NO_PROPOSALS = {};
     private static final String[] TRIGGER_SEQUENCES = { "->", ".", "::" };
 
     private static boolean autoTriggerAllowed = true;
 
+    private OALEditor editor;
     private boolean isAutoTriggered;
     private boolean inSession;
-    
-    OALEditor editor;
+    private char[] triggerCharacters;
+    private boolean isDefaultTrigger;
+    private boolean needsParse;
     
     public OALCompletionProcessor( OALEditor editor, ContentAssistant assistant ) {
         this.editor = editor;
         this.isAutoTriggered = false;
         this.setInSession(false);
+        this.triggerCharacters = setDefaultTriggerChars();
+        setNeedsParse(true);
         assistant.addCompletionListener( new ICompletionListener() {
             @Override
             public void assistSessionStarted( ContentAssistEvent event ) {
@@ -75,6 +77,13 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             
             @Override
             public void assistSessionEnded( ContentAssistEvent event ) { 
+                Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
+                ProposalList_c[] lists = ProposalList_c.getManyCA_LsOnR1603( body );
+                for ( ProposalList_c list : lists ) {
+                    list.Dispose();
+                }
+                setDefaultTriggerChars();
+                setNeedsParse( true );
                 setInSession( false );
             }
 
@@ -90,7 +99,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         if ( !(editor.getEditorInput() instanceof AbstractModelElementPropertyEditorInput) ) return NO_PROPOSALS;
         
         // parse the body
-        Body_c body = parseActivity( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
+        parseActivity( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
+        Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
 
         // get the list
         ProposalList_c[] lists = ProposalList_c.getManyCA_LsOnR1603( body, new ClassQueryInterface_c() {
@@ -106,20 +116,20 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
         // add proposals
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
+        int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
+        String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
         Proposal_c item = Proposal_c.getOneCA_IOnR1601( list );
         while ( null != item ) {
-            int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
-            String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
             if ( item.getReplacement_text().toLowerCase().startsWith( existingText.toLowerCase() ) ) {
                 ICompletionProposal proposal = new CompletionProposal( item.getReplacement_text(), listPosition, existingText.length(), item.getCursor_position(),
                                                                        getImage( item.getType() ), item.getReplacement_text(), null, null );
                 proposals.add( proposal );
             }
-            else {
-                System.out.printf( "%s does not match %s\n", existingText, item.getReplacement_text() );
-            }
             item = Proposal_c.getOneCA_IOnR1602Precedes( item );
         }
+        
+        // set the auto trigger characters
+        if ( proposals.size() > 0 ) setProposalTriggerChars( proposals.toArray( new ICompletionProposal[0] ), existingText.length() );
         
         // return the proposal array
         return proposals.toArray( new ICompletionProposal[0] );
@@ -132,12 +142,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
     @Override
     public char[] getCompletionProposalAutoActivationCharacters() {
-        String triggerChars = "";
-        for ( String seq : TRIGGER_SEQUENCES ) {
-            char lastChar = seq.charAt( seq.length() - 1 );
-            if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
-        }
-        return triggerChars.toCharArray();
+        return triggerCharacters;
     }
 
     @Override
@@ -157,9 +162,12 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private boolean isValidAutoTrigger( int position ) {
         if ( autoTriggerAllowed ) {
-            for ( String seq : TRIGGER_SEQUENCES ) {
-                if ( editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( 0, position ).endsWith( seq ) ) return true;
+            if ( isDefaultTrigger ) {
+                for ( String seq : TRIGGER_SEQUENCES ) {
+                    if ( editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( 0, position ).endsWith( seq ) ) return true;
+                }
             }
+            else return true;
         }
         return false;
     }
@@ -175,34 +183,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             default:
                 return null;
         }
-    }
-
-    private int positionToLine( int position ) {
-        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        int numLines = document.getNumberOfLines();
-        for ( int i = 0, c = 0; i < numLines; i++ ) {
-            try {
-                c += document.getLineLength( i );
-                if ( c >= position ) return i + 1;
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
-
-    private int positionToColumn( int position ) {
-        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        int numLines = document.getNumberOfLines();
-        for ( int i = 0, c = 0; i < numLines; i++ ) {
-            try {
-                c += document.getLineLength( i );
-                if ( c >= position ) return document.getLineLength( i ) - ( c - position ) + 1;
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
     }
 
     private int lineAndColumnToPosition( int line, int column ) {
@@ -224,6 +204,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         notifyAll();
     }
     
+    public synchronized boolean getNeedsParse() {
+        return needsParse;
+    }
+
+    public synchronized void setNeedsParse( boolean needsParse ) {
+        this.needsParse = needsParse;
+    }
+
     private synchronized void waitForSessionToStart() {
         while ( !inSession ) {
             try {
@@ -233,42 +221,67 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         }
     }
     
-    private Body_c parseActivity( NonRootModelElement element ) {
-        if ( null != element ) {
+    private Body_c getBody( NonRootModelElement element ) {
+        Body_c body = null;
+        if ( element instanceof RequiredSignal_c ) {
+            body = Body_c.getOneACT_ACTOnR698(RequiredSignalBody_c.getOneACT_RSBOnR684((RequiredSignal_c)element));
+        }
+        else if ( element instanceof RequiredOperation_c ) {
+            body = Body_c.getOneACT_ACTOnR698(RequiredOperationBody_c.getOneACT_ROBOnR685((RequiredOperation_c)element));
+        }
+        else if ( element instanceof ProvidedSignal_c ) {
+            body = Body_c.getOneACT_ACTOnR698(ProvidedSignalBody_c.getOneACT_PSBOnR686((ProvidedSignal_c)element));
+        }
+        else if ( element instanceof ProvidedOperation_c ) {
+            body = Body_c.getOneACT_ACTOnR698(ProvidedOperationBody_c.getOneACT_POBOnR687((ProvidedOperation_c)element));
+        }
+        else if ( element instanceof Action_c ) {
+            body = Body_c.getOneACT_ACTOnR698(StateActionBody_c.getOneACT_SABOnR691((Action_c)element));
+            if ( null == body ) body = Body_c.getOneACT_ACTOnR698(TransitionActionBody_c.getOneACT_TABOnR688((Action_c)element));
+        }
+        else if ( element instanceof DerivedBaseAttribute_c ) {
+            body = Body_c.getOneACT_ACTOnR698(DerivedAttributeBody_c.getManyACT_DABsOnR693((DerivedBaseAttribute_c)element));
+        }
+        else if ( element instanceof Function_c ) {
+            body = Body_c.getOneACT_ACTOnR698(FunctionBody_c.getManyACT_FNBsOnR695((Function_c)element));
+        }
+        else if ( element instanceof Operation_c ) {
+            body = Body_c.getOneACT_ACTOnR698(OperationBody_c.getManyACT_OPBsOnR696((Operation_c)element));
+        }
+        else if ( element instanceof Bridge_c ) {
+            body = Body_c.getOneACT_ACTOnR698(BridgeBody_c.getManyACT_BRBsOnR697((Bridge_c)element));
+        }
+        return body;
+    }
+    
+    private void parseActivity( NonRootModelElement element ) {
+        if ( null != element && getNeedsParse() ) {
             ParseRunnable parseRunner = new ParseRunnable( element, editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get() );
             parseRunner.run();
-            Body_c body = null;
-            if ( element instanceof RequiredSignal_c ) {
-                body = Body_c.getOneACT_ACTOnR698(RequiredSignalBody_c.getOneACT_RSBOnR684((RequiredSignal_c)element));
-            }
-            else if ( element instanceof RequiredOperation_c ) {
-                body = Body_c.getOneACT_ACTOnR698(RequiredOperationBody_c.getOneACT_ROBOnR685((RequiredOperation_c)element));
-            }
-            else if ( element instanceof ProvidedSignal_c ) {
-                body = Body_c.getOneACT_ACTOnR698(ProvidedSignalBody_c.getOneACT_PSBOnR686((ProvidedSignal_c)element));
-            }
-            else if ( element instanceof ProvidedOperation_c ) {
-                body = Body_c.getOneACT_ACTOnR698(ProvidedOperationBody_c.getOneACT_POBOnR687((ProvidedOperation_c)element));
-            }
-            else if ( element instanceof Action_c ) {
-                body = Body_c.getOneACT_ACTOnR698(StateActionBody_c.getOneACT_SABOnR691((Action_c)element));
-                if ( null == body ) body = Body_c.getOneACT_ACTOnR698(TransitionActionBody_c.getOneACT_TABOnR688((Action_c)element));
-            }
-            else if ( element instanceof DerivedBaseAttribute_c ) {
-                body = Body_c.getOneACT_ACTOnR698(DerivedAttributeBody_c.getManyACT_DABsOnR693((DerivedBaseAttribute_c)element));
-            }
-            else if ( element instanceof Function_c ) {
-                body = Body_c.getOneACT_ACTOnR698(FunctionBody_c.getManyACT_FNBsOnR695((Function_c)element));
-            }
-            else if ( element instanceof Operation_c ) {
-                body = Body_c.getOneACT_ACTOnR698(OperationBody_c.getManyACT_OPBsOnR696((Operation_c)element));
-            }
-            else if ( element instanceof Bridge_c ) {
-                body = Body_c.getOneACT_ACTOnR698(BridgeBody_c.getManyACT_BRBsOnR697((Bridge_c)element));
-            }
-            return body;
+            setNeedsParse(false);
         }
-        else return null;
+    }
+
+    private synchronized char[] setDefaultTriggerChars() {
+        isDefaultTrigger = true;
+        String triggerChars = "";
+        for ( String seq : TRIGGER_SEQUENCES ) {
+            char lastChar = seq.charAt( seq.length() - 1 );
+            if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
+        }
+        return triggerChars.toCharArray();
+    }
+
+    private synchronized char[] setProposalTriggerChars( ICompletionProposal[] currentProposals, int existingTextLenth ) {
+        isDefaultTrigger = false;
+        String triggerChars = "";
+        for ( ICompletionProposal proposal : currentProposals ) {
+            try {
+                char lastChar = proposal.getDisplayString().charAt( existingTextLenth );
+                if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
+            } catch ( IndexOutOfBoundsException e ) {}
+        }
+        return triggerChars.toCharArray();
     }
 
 }
