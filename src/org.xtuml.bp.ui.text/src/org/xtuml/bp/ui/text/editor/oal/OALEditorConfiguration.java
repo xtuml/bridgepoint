@@ -97,8 +97,10 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 	public IContentAssistant getContentAssistant(ISourceViewer sv) {
 	    if ( null != editor ) {
             ContentAssistant ca = new ContentAssistant();
-            IContentAssistProcessor pr = new OALCompletionProcessor( editor );
+            IContentAssistProcessor pr = new OALCompletionProcessor( editor, ca );
             ca.setContentAssistProcessor(pr, IDocument.DEFAULT_CONTENT_TYPE);
+            ca.enableAutoActivation( true );
+            ca.setAutoActivationDelay( 0 );
             ca.setInformationControlCreator(getInformationControlCreator(sv));
             return ca;
 	    }
