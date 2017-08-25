@@ -14664,8 +14664,6 @@ if ( param.a3_ruleid_name == GD::NULL_UNIQUE_ID() )
     select one left_obj related by val->V_ISR[R801]->V_VAR[R809]->V_INS[R814]->O_OBJ[R819];
     mult = Multiplicity::Many;
   end if;
-  act_id = ::get_current_context();
-  ::build_help_list_for_instance_chain( Action_ID:act_id, Obj_ID:left_obj.Obj_ID, mult:mult, partial_text:"" );
   rel_mult =  ::is_valid_relationship( a1_left: left_obj.Obj_ID, a2_right:right_obj.Obj_ID,
          a3_rel: param.b2_relationship2_id, 
          a4_phrase: param.b3_phrase3_id, a5_rule_token: param.a1_rule_token,
@@ -14674,8 +14672,6 @@ else
   select any prior_link from instances of ACT_LNK 
         where ( selected.Link_ID == param.a3_ruleid_name );
   select one left_obj related by prior_link->O_OBJ[R678];
-  act_id = ::get_current_context();
-  ::build_help_list_for_instance_chain( Action_ID:act_id, Obj_ID:left_obj.Obj_ID, mult:prior_link.Mult, partial_text:"" );
   rel_mult =  ::is_valid_relationship( a1_left: left_obj.Obj_ID, a2_right:right_obj.Obj_ID,
          a3_rel: param.b2_relationship2_id, 
          a4_phrase: param.b3_phrase3_id, a5_rule_token: param.a1_rule_token,
@@ -26307,8 +26303,6 @@ else
                                                           selected.Name == name;
             if (empty attr)
               ::clear_value_data();
-              act_id = ::get_current_context();
-              ::build_help_list_for_instance( Action_ID:act_id, Obj_ID:modelClass.Obj_ID, partial_text:name );
               ERR::reportParseError( msg: "->%s<- is not an attribute of " +
                                          "class ->" + modelClass.Name + "<-.",
                                                    token: param.a1_rule_token );
@@ -28888,6 +28882,109 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("250cf548-74b7-4d0e-8bb6-fa7b068f4a64",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("182e8d7d-204b-4645-81f1-6bd82fec12ae",
+	"00000000-0000-0000-0000-000000000000",
+	'Instance_chain_loop5_content_assist',
+	'ParserValidateFunction: TRUE',
+	'select any left_obj from instances of O_OBJ where false;
+if ( param.a3_current_rule_id == GD::NULL_UNIQUE_ID() )
+  // we are the first one
+  select any val from instances of V_VAL 
+       where ( selected.Value_ID == param.a1_upper_ruleid_name );
+  select one left_obj  related by val->V_IRF[R801]->V_VAR[R808]->V_INT[R814]->O_OBJ[R818];
+  if ( empty left_obj )
+    select one left_obj related by val->V_ISR[R801]->V_VAR[R809]->V_INS[R814]->O_OBJ[R819];
+  end if;
+else
+  select any prior_link from instances of ACT_LNK 
+        where ( selected.Link_ID == param.a3_current_rule_id );
+  select one left_obj related by prior_link->O_OBJ[R678];
+end if;
+
+act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act and not_empty left_obj )
+  create object instance list of CA_L;
+  list.line = ::getLineNumber( rule_token:param.current_token );
+  list.col = ::getColumn( rule_token:param.current_token ) + GD::strlen( s: ::getText( rule_token:param.current_token ) );
+  relate list to act across R1603;
+
+  select one current_item related by list->CA_I[R1601];
+  
+  select many r_oirs related by left_obj->R_OIR[R201];
+  for each r_oir in r_oirs
+    select many foreign_oirs related by r_oir->R_REL[R201]->R_OIR[R201] where ( selected.OIR_ID != r_oir.OIR_ID );
+    for each foreign_oir in foreign_oirs
+      select one r_sub related by r_oir->R_RGO[R203]->R_SUB[R205];
+      select one foreign_sub related by foreign_oir->R_RGO[R203]->R_SUB[R205];
+      if ( empty r_sub or empty foreign_sub )
+        select one o_obj related by foreign_oir->O_OBJ[R201];
+        select one r_rel related by foreign_oir->R_REL[R201];
+
+        create object instance new_item of CA_I;
+        new_item.type = ContentAssistanceItemTypes::Association;
+        new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb ) + "]";
+        new_item.display_text = new_item.replacement_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        if ( empty current_item )
+          relate new_item to list across R1601;
+        else
+          relate new_item to current_item across R1602.''follows'';
+        end if;
+        current_item = new_item; 
+      end if;
+    end for;
+  end for;
+end if;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("3634cc96-c73a-4575-9587-4bf65bfee7be",
+	"182e8d7d-204b-4645-81f1-6bd82fec12ae",
+	'current_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4cfc1e0d-897a-4b12-a6af-509d3504c092",
+	"182e8d7d-204b-4645-81f1-6bd82fec12ae",
+	'a1_upper_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3634cc96-c73a-4575-9587-4bf65bfee7be",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8357643b-2bb0-4788-9990-7de2ae97cd64",
+	"182e8d7d-204b-4645-81f1-6bd82fec12ae",
+	'a2_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4cfc1e0d-897a-4b12-a6af-509d3504c092",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c3dfc41e-f6a2-4e5b-af4a-1f6c9bf9953e",
+	"182e8d7d-204b-4645-81f1-6bd82fec12ae",
+	'a3_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"8357643b-2bb0-4788-9990-7de2ae97cd64",
+	'');
+INSERT INTO PE_PE
+	VALUES ("182e8d7d-204b-4645-81f1-6bd82fec12ae",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
