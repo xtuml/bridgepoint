@@ -31,7 +31,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Body');
 INSERT INTO GD_GE
 	VALUES ("8f1cf646-b845-425b-a34c-f9fad51307b9",
@@ -13325,7 +13325,7 @@ INSERT INTO R_PART
 	"30d59440-62c4-4d60-ba13-5a4ad3627894",
 	"2fb0ec89-ae6b-43b2-9cfa-529ff752a5d7",
 	0,
-	0,
+	1,
 	'is parsed from');
 INSERT INTO O_RTIDA
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
