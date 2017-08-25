@@ -207,6 +207,24 @@ after processing the node.',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("675cbbb1-1da7-4e05-9502-66a5adbf24dd",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7");
+INSERT INTO O_BATTR
+	VALUES ("675cbbb1-1da7-4e05-9502-66a5adbf24dd",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7");
+INSERT INTO O_ATTR
+	VALUES ("675cbbb1-1da7-4e05-9502-66a5adbf24dd",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	"442f2ea0-0987-4fe2-af29-dd58e0744c1e",
+	'fncname_content_assist',
+	'',
+	'',
+	'fncname_content_assist',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"20b4194f-f64d-47b7-896d-542dccf5f8c7");

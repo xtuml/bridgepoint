@@ -235,6 +235,7 @@ ${s}\
     .else
       .assign p.fncname_start = "$c{rule.rule_name}_start"
       .assign p.fncname_end = "$c{rule.rule_name}_end"
+      .assign p.fncname_content_assist = "$c{rule.rule_name}_content_assist"
     .end if
   .end for
 .end function
@@ -268,6 +269,7 @@ ${s}\
         .assign node.validation_required = true
         .assign p.fncname_start = "$c{rule.rule_name}_loop${ebnf_index}_start"
         .assign p.fncname_end = "$c{rule.rule_name}_loop${ebnf_index}_end"
+        .assign p.fncname_content_assist = "$c{rule.rule_name}_loop${ebnf_index}_content_assist"
       .end if
     .end if
   .end for
@@ -647,6 +649,61 @@ ${s}}
   .end if
 .end function
 .//======================
+.function emit_rule_content_assist_action
+  .param inst_ref node
+  .param string s
+  .//
+  .select one rule related by node->R[R6]
+  .select one p related by rule->NLN[R2]
+  .select one rule_node related by p->N[R1]
+  .if (rule_node.validation_required)
+    .assign fncname = p.fncname_content_assist
+    .assign ruleid_name = p.loop_id_name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule content assist action
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( true ) { // TODO look for flag that specifies whether to invoke content assist
+${s}    try {
+${s}      Method contentAssistMethod = ${fncclass}.getClass().getMethod( "${fncname}", Ooaofooa.class,
+${s}            ${tokenclass}.class
+    .invoke result = do_type( unique_id_dt )
+${s}            ,${result.body}.class
+    .if ( rule.param_name != "" )
+      .invoke result = find_data_type_by_name(rule.param_type)
+      .assign param_dt = result.dt
+      .invoke result = do_type(param_dt)
+${s}            ,${result.body}.class
+    .end if
+${s}            );
+${s}      contentAssistMethod.invoke( ${fncclass}, getModelRoot(),
+    .invoke result = create_new_function(fncname, rule, void_dt)
+    .assign fnc = result.fnc
+${s}          LT(0)	// most recent token
+    .invoke result = create_new_parameter("current_token", fnc, tokenclass_dt)
+${s}          ,${ruleid_name}	// current rule id
+    .invoke result = create_new_parameter("a1_ruleid_name", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .if ( rule.param_name != "" )
+      .invoke result = find_data_type_by_name(rule.param_type)
+      .assign param_dt = result.dt
+${s}          ,${rule.param_name}
+    .invoke result = create_new_parameter("a2_${rule.param_name}", fnc, param_dt)
+    .end if
+${s}      );
+${s}    } catch ( Exception e ) {}
+${s}  }
+${s}}
+  .end if
+.end function
+.//======================
 .function emit_loop_begin_action
   .param inst_ref node
   .param string s
@@ -728,6 +785,54 @@ ${s}    ,${rref.var_name}
 ${s}    );
 ${s}${ruleid_name} = ${loop_id_name};
 ${s}}
+  .end if
+.end function
+.//===============================================
+.function emit_loop_content_assist_action
+  .param inst_ref node
+  .param string s
+  .//
+  .if (node.validation_required)
+    .select one rule related by node->R[R6]
+    .// we must be on an ebnf node, therefore:
+    .select one p related by node->NLN[R1]
+    .assign fncname = p.fncname_content_assist
+    .assign loop_id_name = p.loop_id_name
+    .select one outer_p related by node->NLN[R5]
+    .assign outer_loop_id_name = outer_p.loop_id_name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign tokenclass = result.tokenclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// loop ${p.loop_index} content assist action
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( true ) { // TODO look for flag that specifies whether to invoke content assist
+${s}    try {
+${s}        Method contentAssistMethod = ${fncclass}.getClass().getMethod( "${fncname}", Ooaofooa.class,
+${s}            ${tokenclass}.class
+    .invoke result = do_type( unique_id_dt )
+${s}            ,${result.body}.class, ${result.body}.class, ${result.body}.class );
+${s}        contentAssistMethod.invoke( ${fncclass}, getModelRoot(),
+    .invoke result = create_new_function(fncname, rule, void_dt)
+    .assign fnc = result.fnc
+${s}           LT(0)	// most recent token
+    .invoke result = create_new_parameter("current_token", fnc, tokenclass_dt)
+${s}           ,${upper_ruleid_name}	// upper rule id
+    .invoke result = create_new_parameter("a1_upper_ruleid_name", fnc, unique_id_dt)
+${s}          ,rule_begin_id	// start rule id
+      .invoke result = create_new_parameter("a2_rule_begin_id", fnc, unique_id_dt)
+${s}          ,${outer_loop_id_name}	// current rule id
+    .invoke result = create_new_parameter("a3_current_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+${s}      );
+${s}    } catch ( Exception e ) {}
+${s}}}
   .end if
 .end function
 .//===============================================
@@ -948,6 +1053,8 @@ ${s}}
       .invoke pre_attach_prepend(child_node, "${result.body}")
       .invoke result = emit_rule_begin_action(outer_node, s_long)
       .invoke post_attach_append(child_node, "${result.body}")
+      .invoke result = emit_rule_content_assist_action(outer_node, s_long)
+      .invoke post_attach_append(child_node, "${result.body}")
     .elif (term.token_name == "OR")
       .invoke pre_attach_append(child_node, "${s_med}")
       .invoke post_attach_append(child_node, "\n")
@@ -1063,7 +1170,8 @@ ${s}}
         .// ebnf construct with zero-or-more or one-or-more
         .//   emit some loop-begin java code
         .invoke loop_begin = emit_loop_begin_action(outer_node, "${s_long}${so}")
-        .assign loop_begin_code = "${loop_begin.body}"
+        .invoke loop_content_assist = emit_loop_content_assist_action(outer_node, "${s_long}${so}")
+        .assign loop_begin_code = "${loop_begin.body}${loop_content_assist.body}"
         .invoke pre_attach_append(outer_node, "${s_med}(\n")
         .invoke post_attach_prepend(outer_node, "${s_med})${e.decoration}\n")
       .else
@@ -1174,6 +1282,7 @@ ${t.value}
           .else
 ${t.value}
 import java.util.UUID;
+import java.lang.reflect.Method;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.IdAssigner;
           .end if
