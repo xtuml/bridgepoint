@@ -118,11 +118,13 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
         int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
         String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
+        String leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
         Proposal_c item = Proposal_c.getOneCA_IOnR1601( list );
         while ( null != item ) {
-            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.toLowerCase() ) ) {
-                ICompletionProposal proposal = new CompletionProposal( item.getReplacement_text(), listPosition, existingText.length(), item.getCursor_position(),
-                                                                       getImage( item.getType() ), item.getReplacement_text(), null, null );
+            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.trim().toLowerCase() ) ) {
+                ICompletionProposal proposal = new CompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
+                                                                       leadingWhitespace.length() + item.getCursor_position(), getImage( item.getType() ),
+                                                                       item.getReplacement_text(), null, null );
                 proposals.add( proposal );
             }
             item = Proposal_c.getOneCA_IOnR1602Precedes( item );
