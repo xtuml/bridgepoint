@@ -315,16 +315,7 @@ public class DiagramEditPart extends AbstractGraphicalEditPart implements
 				}
 				// refresh all connectors, such that the bendpoints are
 				// recreated
-				Connector_c[] connectors = Connector_c
-						.getManyGD_CONsOnR2(GraphicalElement_c
-								.getManyGD_GEsOnR1((Model_c) getModel()));
-				for(int i = 0; i < connectors.length; i++) {
-					ConnectorEditPart part = (ConnectorEditPart) getViewer().getEditPartRegistry().get(
-							connectors[i]);
-					if(part != null) {
-						part.refresh();
-					}
-				}
+				refreshConnectors();
 				getConnectionLayer().setConnectionRouter(router);
 				// for all user defined connection layers, set the same default
 				// router
@@ -335,11 +326,27 @@ public class DiagramEditPart extends AbstractGraphicalEditPart implements
 				}
 				getConnectionLayer().revalidate();
 			}
+	    } else if(event.getProperty().equals(BridgePointPreferencesStore.SHOW_FORMALIZATIONS)) {
+	    	refreshConnectors();
+	    	getConnectionLayer().revalidate();
 	    } else {
 			refresh();
 		}
 	}
 
+	private void refreshConnectors() {
+		Connector_c[] connectors = Connector_c
+				.getManyGD_CONsOnR2(GraphicalElement_c
+						.getManyGD_GEsOnR1((Model_c) getModel()));
+		for(int i = 0; i < connectors.length; i++) {
+			ConnectorEditPart part = (ConnectorEditPart) getViewer().getEditPartRegistry().get(
+					connectors[i]);
+			if(part != null) {
+				part.refresh();
+			}
+		}
+	}
+	
 	@Override
 	protected List<?> getModelSourceConnections() {
 		List<Connector_c> list = new ArrayList<Connector_c>();
