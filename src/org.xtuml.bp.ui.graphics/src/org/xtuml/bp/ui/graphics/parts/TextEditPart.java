@@ -197,6 +197,7 @@ public class TextEditPart extends AbstractGraphicalEditPart {
 			// update the text
 			tf.setText(getText());
 		}
+		tf.revalidate();
 		
 		// validate here, so that the minimum width
 		// calculate below is always correct
