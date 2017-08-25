@@ -113,6 +113,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         for ( int i = 0, max = 0; i < lists.length; i++ ) {
             if ( lineAndColumnToPosition( lists[i].getLine(), lists[i].getCol() ) > max ) list = lists[i];
         }
+        if ( null == list ) return NO_PROPOSALS;
 
         // add proposals
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
