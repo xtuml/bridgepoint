@@ -49,13 +49,30 @@ should not be a MASL-specific setting.
 5.1.1  The "combine" stanza must be extended to return true if there are other
   referential attributes in the class that have the same type as the current 
   attribute.  
+```
+       // combining is allowed with other referential attributes of the same type
+       //   - Get the set of referential attributes
+       //   - If there's more than one (because we don't want to count ourself),
+       //       iterate over the set and see if any are of the same type.
+       select many rattr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106];
+       if ( cardinality rattr_candidate_set > 1 )
+           for each rattr_candidate in rattr_candidate_set
+               if ( rattr_candidate.Attr_ID != self.Attr_ID )
+                   select one oattr_candidate related by rattr_candidate->O_ATTR[R106];
+                   if ( oattr_candidate.DT_ID == self.DT_ID )
+                     return true;
+                   end if;
+               end if;
+           end for;
+       end if;
+```
 
 5.2 ```Attribute.canCombineWith()```   
 5.2.1  The CME PEI data (```bp.core/sql/context_menu.pei.sql```) causes a dialog 
   Java class (```CombineWithOnO_ATTRWizardPage1```) to be created during code 
   generation.  This dialog calls Attribute.canCombineWith() to present the user
   with a combo box of attributes to combine with.  
-5.2.2  Current code with addtions marked by "+"
+5.2.2  Current code with additions marked by "+"
 
 ```
 select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
