@@ -1076,18 +1076,6 @@ INSERT INTO O_OIDA_PROXY
 	0,
 	'Const_ID',
 	'./Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	'DT_ID',
-	'./Symbolic Constant/Symbolic Constant.xtuml');
 INSERT INTO R_RTO
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
@@ -1153,18 +1141,6 @@ INSERT INTO O_OIDA_PROXY
 	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
 	0,
 	'Const_ID',
-	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	'DT_ID',
 	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
 INSERT INTO R_RTO
 	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
@@ -1297,12 +1273,6 @@ INSERT INTO R_PART
 	'succeeds');
 INSERT INTO O_RTIDA
 	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084");
-INSERT INTO O_RTIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	0,
 	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
