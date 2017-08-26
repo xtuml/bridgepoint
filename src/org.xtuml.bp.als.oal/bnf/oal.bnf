@@ -367,11 +367,11 @@ invocation_expr
   :
     invocation[true]
   ;
-enumerator_access
+scoped_access
    :
-    enum_data_type
+    scoped_data_type
     TOK_DOUBLECOLON!
-    enumerator
+    scoped_member
   ;
 debug_operand
   :
@@ -559,11 +559,11 @@ data_item_name!
   :
     general_name
   ;
-enum_data_type!
+scoped_data_type!
   :
     general_name
   ;
-enumerator!
+scoped_member!
   :
     general_name
   ;
@@ -921,8 +921,8 @@ rval
     ( invocation_expr )=>
     invocation_expr
   |
-    ( enumerator_access )=>
-    enumerator_access
+    ( scoped_access )=>
+    scoped_access
   |
     member_access[false]
   |

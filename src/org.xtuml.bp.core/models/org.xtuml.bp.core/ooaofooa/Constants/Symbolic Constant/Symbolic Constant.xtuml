@@ -353,8 +353,7 @@ sys_id = GD::NULL_UNIQUE_ID();
 if(not_empty system)
   sys_id = system.Sys_ID;
 end if;
-select many constants related by package->PE_PE[R8000]->CNST_CSP[R8001]
-                                                              ->CNST_SYC[R1504];
+select many constants related by spec->CNST_SYC[R1504];
 for each constant in constants
   if(constant != self and constant.Name == self.Name)
     MI_IM::createIssue(sys_id:sys_id, description:
@@ -561,48 +560,6 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_REF
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"b2df6829-6115-4bbb-8630-286da95d1591",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
-	"28a1d051-75d3-4fcb-84e8-21552abc9bc8",
-	"0624d735-6310-4c31-9302-4daca89b83c5",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Symbolic Constant',
-	'DT_ID',
-	'R1505.''succeeds''');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
-	'../Constants.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("28a1d051-75d3-4fcb-84e8-21552abc9bc8",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	"5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	1,
-	'Element_ID');
-INSERT INTO O_ATTR
-	VALUES ("28a1d051-75d3-4fcb-84e8-21552abc9bc8",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	"986eff84-6f90-45ab-97e1-d44583b34560",
-	'Previous_DT_DT_ID',
-	'',
-	'Previous_DT_',
-	'DT_ID',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
 	0,
 	"c4b177b9-e327-4190-b6cd-46be85d54c74",
@@ -648,6 +605,24 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("18ddd80d-6fd7-4e94-9f5d-16e5d78c5845",
+	"d4956257-25ce-4df9-a48f-3600e0983412");
+INSERT INTO O_BATTR
+	VALUES ("18ddd80d-6fd7-4e94-9f5d-16e5d78c5845",
+	"d4956257-25ce-4df9-a48f-3600e0983412");
+INSERT INTO O_ATTR
+	VALUES ("18ddd80d-6fd7-4e94-9f5d-16e5d78c5845",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	"986eff84-6f90-45ab-97e1-d44583b34560",
+	'Previous_DT_DT_ID_Deprecated',
+	'',
+	'',
+	'Previous_DT_DT_ID_Deprecated',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"d4956257-25ce-4df9-a48f-3600e0983412");
@@ -656,11 +631,6 @@ INSERT INTO O_OIDA
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	0,
 	'Const_ID');
-INSERT INTO O_OIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	'DT_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"d4956257-25ce-4df9-a48f-3600e0983412");
