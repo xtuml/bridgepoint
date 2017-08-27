@@ -21,21 +21,38 @@ fi
 prev_dir=`pwd`
 
 project="org.xtuml.bp.releng.parent"
-dir="${XTUML_DEVELOPMENT_REPOSITORY}/releng/${project}"
-if [ "${1}" != "" ]; then
-  project="${1}"
-  dir="${XTUML_DEVELOPMENT_REPOSITORY}/../bptest/src/org.xtuml.bp.${project}.test" 
-  echo ${dir}
-fi
 
-debug=""
-if [ "$2" == "-debug" ];then
-  debug="-DdebugPort=8000"
-fi
-
-cd $dir 
-mvn $debug -Dtycho.disableP2Mirrors=true -Dmaven.test.failure.ignore=true -U install
+prev_dir=$(pwd)
+dir=$XTUML_DEVELOPMENT_REPOSITORY/releng/$project
+cd $dir
+$XTUML_DEVELOPMENT_REPOSITORY/utilities/build/build_project.sh $project test -online
 maven_return=$?
+if [ $maven_return == 0 ]; then
+  # touch a timestamp file for every project with a pom as they
+  # were all build seccessfully but only the single releng.parent project
+  # ran through build_project.sh
+  # handle bridgepoint projects
+  for project in $(ls -1 $XTUML_DEVELOPMENT_REPOSITORY/src/); do
+    if [ -d $XTUML_DEVELOPMENT_REPOSITORY/src/$project ] && [ -f $XTUML_DEVELOPMENT_REPOSITORY/src/$project/pom.xml ]; then
+      if [ ! -d $WORKSPACE/.metadata/.plugins/$project ]; then
+        mkdir -p $WORKSPACE/.metadata/.plugins/$project
+      fi
+      echo "Updating timestamp for $project"
+      touch $WORKSPACE/.metadata/.plugins/$project/maven_build.timestamp
+    fi
+  done
+  # handle test projects if INCLUDE_TESTS=true
+  if [ $INCLUDE_TESTS == "true" ]; then
+    for project in $(ls -l $bp_test_path/src/); do
+      if [ -d $bp_test_path/src/$project ] && [ -f $bp_test_path/src/$project/pom.xml ]; then
+        if [ ! -d $WORKSPACE/.metadata/.plugins/$project ]; then
+          mkdir -p $WORKSPACE/.metadata/.plugins/$project
+        fi
+        touch $WORKSPACE/.metadata/.plugins/$project/maven_build.timestamp
+      fi
+    done
+  fi
+fi
 if [ $maven_return == 0 ] && [ "${INCLUDE_TESTS}" == "true" ]; then
   mvn -Dtycho.disableP2Mirrors=true -Daggregate=true surefire-report:report-only
   if [ "$(uname)" == "Darwin" ];then
