@@ -30,7 +30,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.2.0',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Value');
 INSERT INTO GD_GE
 	VALUES ("3bcea2ea-45a0-4ec3-ab65-63469e4140eb",
@@ -13021,7 +13021,7 @@ INSERT INTO R_FORM
 	"54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
 	"4e8c5905-a004-4b7a-82d8-062223c07a81",
 	1,
-	0,
+	1,
 	'');
 INSERT INTO R_RGO
 	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
@@ -14141,18 +14141,6 @@ INSERT INTO O_OIDA_PROXY
 	"d4956257-25ce-4df9-a48f-3600e0983412",
 	0,
 	'Const_ID',
-	'../Constants/Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"b127a54c-92d0-41c8-ac1a-540808f2e311",
-	"140053d8-d4c4-4a58-b53f-55f30b1cd0c6");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	'DT_ID',
 	'../Constants/Symbolic Constant/Symbolic Constant.xtuml');
 INSERT INTO R_RTO
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
