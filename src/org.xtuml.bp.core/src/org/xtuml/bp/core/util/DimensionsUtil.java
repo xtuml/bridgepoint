@@ -25,7 +25,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
@@ -38,7 +38,6 @@ import org.xtuml.bp.core.common.NonRootModelElement;
  *
  */
 public class DimensionsUtil {
-    private static String matchedString;
 
 	/**
      * 
@@ -54,57 +53,64 @@ public class DimensionsUtil {
 	 *        later in Class Query Interface. 
      * @return
      */
-    public static Vector getDimensionsData(String dimensions, NonRootModelElement element){
-    	Vector dims = new Vector(); 
-    	dimensions = dimensions.replace(" ", "");
-    	Pattern constant = Pattern.compile("^\\[\\w*([a-z]|[A-Z])\\w*\\]");
-    	Pattern digits = Pattern.compile("^\\[\\d+\\]");
-    	Pattern dynamic = Pattern.compile("^\\[\\]");
+    public static Vector<Integer> getDimensionsData(String dimensions, NonRootModelElement element){
+        Vector<Integer> dims = new Vector<Integer>(); 
+        dimensions = dimensions.replace(" ", "");
+        Pattern constant = Pattern.compile("\\[((\\w*([a-z]|[A-Z])\\w*)::)?(\\w*([a-z]|[A-Z])\\w*)\\]");
+        Pattern digits = Pattern.compile("^\\[\\d+\\]");
+        Pattern dynamic = Pattern.compile("^\\[\\]");
         Matcher const_match = null;
         Matcher digits_match = null;
         Matcher dynamic_match = null;
-		while (dimensions.length() > 0) {
-			const_match = constant.matcher(dimensions);
-			if (const_match.find() && element != null) {
-				matchedString = const_match.group();
-				dimensions = dimensions.substring(matchedString.length(),dimensions.length());
-				matchedString = matchedString.substring(1, matchedString
-						.length() - 1);
-				class SymbolicConstant_test25535_c implements
-						ClassQueryInterface_c {
-					public boolean evaluate(Object candidate) {
-						SymbolicConstant_c selected = (SymbolicConstant_c) candidate;
-						return (selected.getName().equals(matchedString));
-					}
-				}
-				SymbolicConstant_c[] v_sycs = SymbolicConstant_c
-						.SymbolicConstantInstances(element.getModelRoot(),
-								new SymbolicConstant_test25535_c());
-
-				String contant_value = LiteralSymbolicConstant_c
-						.getOneCNST_LSCOnR1503(
-								LeafSymbolicConstant_c
-										.getOneCNST_LFSCOnR1502(v_sycs[0]))
-						.getValue();
-				dims.add(Integer.valueOf(contant_value));
-			}
-			digits_match = digits.matcher(dimensions);
-			if (digits_match.find()) {
-				matchedString = digits_match.group();
-				dimensions = dimensions.substring(matchedString.length(),dimensions.length());
-				String digitValue = matchedString.substring(1, matchedString
-						.length() - 1);
-				dims.add(Integer.valueOf(digitValue));
-			}
-			dynamic_match = dynamic.matcher(dimensions);
-			if (dynamic_match.find()) {
-				matchedString = dynamic_match.group();
-				dimensions = dimensions.substring(matchedString.length(),dimensions.length());
-				// If a value for the number of elements in this dimension
-				// isn't specified we use 0 to represent dynamic sizing
-				dims.add(new Integer(0));
-			}
-		}
-    	return dims;
+        while ( dimensions.length() > 0 ) {
+            const_match = constant.matcher( dimensions );
+            if ( const_match.find() && element != null ) {
+                String matchedString = const_match.group();
+                final String csp_name = const_match.group(2);
+                final String const_name = const_match.group(4);
+                dimensions = dimensions.substring( matchedString.length(), dimensions.length() );
+                SymbolicConstant_c[] sycs = null;
+                if ( null == csp_name ) { // non scoped constant access
+                    sycs = SymbolicConstant_c.SymbolicConstantInstances( element.getModelRoot(), new ClassQueryInterface_c() {
+                        @Override
+                        public boolean evaluate(Object candidate) {
+                            return ((SymbolicConstant_c)candidate).getName().equals(const_name);
+                        }
+                    });
+                }
+                else {
+                    ConstantSpecification_c[] csps = ConstantSpecification_c.ConstantSpecificationInstances( element.getModelRoot(), new ClassQueryInterface_c() {
+                        @Override
+                        public boolean evaluate(Object candidate) {
+                            return ((ConstantSpecification_c)candidate).getInformalgroupname().equals(csp_name);
+                        }
+                    });
+                    sycs = SymbolicConstant_c.getManyCNST_SYCsOnR1504( csps, new ClassQueryInterface_c() {
+                        @Override
+                        public boolean evaluate(Object candidate) {
+                            return ((SymbolicConstant_c)candidate).getName().equals(const_name);
+                        }
+                    });
+                }
+                String contant_value = LiteralSymbolicConstant_c.getOneCNST_LSCOnR1503(LeafSymbolicConstant_c.getOneCNST_LFSCOnR1502(sycs[0])).getValue();
+                dims.add( Integer.valueOf(contant_value) );
+            }
+            digits_match = digits.matcher( dimensions );
+            if ( digits_match.find() ) {
+                String matchedString = digits_match.group();
+                dimensions = dimensions.substring(matchedString.length(),dimensions.length());
+                String digitValue = matchedString.substring(1, matchedString.length() - 1);
+                dims.add(Integer.valueOf(digitValue));
+            }
+            dynamic_match = dynamic.matcher(dimensions);
+            if (dynamic_match.find()) {
+                String matchedString = dynamic_match.group();
+                dimensions = dimensions.substring(matchedString.length(),dimensions.length());
+                // If a value for the number of elements in this dimension
+                // isn't specified we use 0 to represent dynamic sizing
+                dims.add(new Integer(0));
+            }
+        }
+        return dims;
     }
 }

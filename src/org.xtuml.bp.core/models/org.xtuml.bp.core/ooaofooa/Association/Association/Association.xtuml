@@ -456,6 +456,15 @@ elif (param.name == "formalized" )
   if (param.value =="true" )
     return self.isFormalized();
   end if; 
+elif(param.name == "can")
+  if(param.value == "configure")
+    select one subsup related by self->R_SUBSUP[R206];
+    if(not_empty subsup)
+      // no configure support for supertype subtype
+      return false;
+    end if;
+    return true;
+  end if;
 end if;
 return false;
 ',

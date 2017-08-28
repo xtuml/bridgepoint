@@ -82,6 +82,12 @@ the License.
          version="0.0.0"/>
 
    <plugin
+         id="org.xtuml.bp.integrity"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
          id="org.xtuml.bp.internal.tools"
          download-size="0"
          install-size="0"
@@ -238,6 +244,13 @@ the License.
 
    <plugin
          id="org.xtuml.bp.search"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.xtuml.bp.core.editors"
          download-size="0"
          install-size="0"
          version="0.0.0"

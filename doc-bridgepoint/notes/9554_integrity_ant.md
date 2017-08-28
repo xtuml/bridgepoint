@@ -75,7 +75,7 @@ one another.
 6.1.2.1 For each instance, verify that unconditional associations carry
 links to instances.  
 6.1.2.2 For each instance, verify that non-null referentials attributes
-are refering to attribute values in a existing instances.  
+are refering to attribute values in existing instances.  
 
 6.1.3 subtype integrity  
 For each instance participating as a supertype, verify that exactly one
@@ -96,6 +96,6 @@ format data) under an Eclipse project.
 
 Expected results will be defined for each case.
 
-TODO:  finishing defining the tests  
+Tests defined in the design note.
 
 ### End
