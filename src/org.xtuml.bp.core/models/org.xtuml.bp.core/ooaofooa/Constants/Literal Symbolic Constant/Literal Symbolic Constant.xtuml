@@ -335,7 +335,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("6e5a5eff-cd31-48e6-897d-853878d5065f",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	"2434dafe-4591-498a-9bec-8d9e5f8cda62",
+	"4b3d4a55-7069-42a2-adc7-7d724849430c",
 	'Value',
 	'Full Name: Value
 Description: The value of this constant',
@@ -396,50 +396,22 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	"350c6294-a44f-496f-aef0-46aca789fde9",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"516c1601-cbcb-4eb7-a7c8-56950a95a12a",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb",
-	"2434dafe-4591-498a-9bec-8d9e5f8cda62",
-	"215b0bda-4613-44d5-9841-4befcaf44c58",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Leaf Symbolic Constant',
-	'DT_ID',
-	'R1503');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb",
-	'../Constants.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("2434dafe-4591-498a-9bec-8d9e5f8cda62",
-	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	"5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	1,
-	'Element_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4b3d4a55-7069-42a2-adc7-7d724849430c",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a");
+INSERT INTO O_BATTR
+	VALUES ("4b3d4a55-7069-42a2-adc7-7d724849430c",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a");
 INSERT INTO O_ATTR
-	VALUES ("2434dafe-4591-498a-9bec-8d9e5f8cda62",
+	VALUES ("4b3d4a55-7069-42a2-adc7-7d724849430c",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
 	"0f9d0289-b484-46aa-8866-5149ed20088c",
-	'DT_ID',
+	'DT_ID_Deprecated',
 	'',
 	'',
-	'ID',
-	2,
-	"ba5eda7a-def5-0000-0000-000000000007",
+	'DT_ID_Deprecated',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_ID
@@ -450,11 +422,6 @@ INSERT INTO O_OIDA
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
 	0,
 	'Const_ID');
-INSERT INTO O_OIDA
-	VALUES ("2434dafe-4591-498a-9bec-8d9e5f8cda62",
-	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	0,
-	'DT_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a");

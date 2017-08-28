@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ICellEditorValidator;
-
+import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
@@ -33,7 +33,7 @@ public class DimensionsValidator implements ICellEditorValidator {
 	 * It allows spaces to exist between the dimensions and inside 
 	 * the dimensions (it just ignores the spaces).
 	 */
-	public final static String DimensionRegExpAllowFLAsAllowDSAs = "(\\s*\\[\\s*(\\w)*\\s*\\])*\\s*";
+	public final static String DimensionRegExpAllowFLAsAllowDSAs = "(\\s*\\[\\s*((\\w+::)?\\w)*\\s*\\])*\\s*";
 	public final static String DimensionHelpAllowFLAsAllowDSAs = "Dimensions must be entered as follows: [x][y][][z]...";//$NON-NLS-1$
 	
 	/**
@@ -42,7 +42,7 @@ public class DimensionsValidator implements ICellEditorValidator {
 	 * It allows spaces to exist between the dimensions and inside 
 	 * the dimensions (it just ignores the spaces).
 	 */
-	public final static String DimensionRegExpAllowFLAsDisAllowDSAs = "(\\s*\\[\\s*(\\w)+\\s*\\])*\\s*";
+	public final static String DimensionRegExpAllowFLAsDisAllowDSAs = "(\\s*\\[\\s*((\\w+::)?\\w)+\\s*\\])*\\s*";
 	public final static String DimensionHelpAllowFLAsDisAllowDSAs = "Dimensions must be entered as follows: [x][y][z]...";//$NON-NLS-1$
 	
 	/**
@@ -68,7 +68,6 @@ public class DimensionsValidator implements ICellEditorValidator {
 	
 	public final static String DimensionsNotAllowed = "Dimensions are not allowed."; //$NON-NLS-1$
 	private NonRootModelElement m_inst;
-	private String group;
 	
     /**
      * Constructor.
@@ -177,38 +176,57 @@ public class DimensionsValidator implements ICellEditorValidator {
 			return result;
 		}
 		
-		Pattern pattern = Pattern.compile("\\[\\w*([a-z]|[A-Z])\\w*\\]");
-		Matcher match = pattern.matcher(dimensions);
-		while ( match.find()){
-			group = match.group();
-			group = group.substring(1, group.length()-1);
-			class SymbolicConstant_test25535_c implements ClassQueryInterface_c {
-				public boolean evaluate(Object candidate) {
-					SymbolicConstant_c selected = (SymbolicConstant_c) candidate;
-					return (selected.getName().equals(group));
-				}
-			}
-			SymbolicConstant_c[] v_sycs = SymbolicConstant_c
-			.SymbolicConstantInstances(m_inst.getModelRoot(),
-					new SymbolicConstant_test25535_c());
-
-			if (v_sycs.length == 0) {
-				result = group + " is not a valid constant name";
-				return result;
-			}
-			String constantValue = LiteralSymbolicConstant_c
-					.getOneCNST_LSCOnR1503(
-							LeafSymbolicConstant_c
-									.getOneCNST_LFSCOnR1502(v_sycs[0]))
-					.getValue();
-			if (!DataType_c.getOneS_DTOnR1500(v_sycs[0]).getName()
-					.equalsIgnoreCase("integer")
-					|| constantValue.charAt(0) == '-'
-					|| constantValue.equalsIgnoreCase("0")) {
-				result = "Only non-zero positive integer values are allowed in array dimensions";
-				return result;
-			}
-		}
+        Pattern pattern = Pattern.compile("\\[((\\w*([a-z]|[A-Z])\\w*)::)?(\\w*([a-z]|[A-Z])\\w*)\\]");
+        Matcher match = pattern.matcher(dimensions);
+        while ( match.find()){
+            final String csp_name = match.group(2);
+            final String const_name = match.group(4);
+            SymbolicConstant_c[] sycs = null;
+            if ( null == csp_name ) { // non scoped constant access
+                sycs = SymbolicConstant_c.SymbolicConstantInstances( m_inst.getModelRoot(), new ClassQueryInterface_c() {
+                    @Override
+                    public boolean evaluate(Object candidate) {
+                        return ((SymbolicConstant_c)candidate).getName().equals(const_name);
+                    }
+                });
+            }
+            else {
+                ConstantSpecification_c[] csps = ConstantSpecification_c.ConstantSpecificationInstances( m_inst.getModelRoot(), new ClassQueryInterface_c() {
+                    @Override
+                    public boolean evaluate(Object candidate) {
+                        return ((ConstantSpecification_c)candidate).getInformalgroupname().equals(csp_name);
+                    }
+                });
+                if ( csps.length == 0 ) {
+                   result = "No constant specification found with name " + csp_name;
+                   return result;
+                }
+                else if ( csps.length > 1 ) {
+                   result = "Multiple constant specifications found with name " + csp_name;
+                   return result;
+                }
+                sycs = SymbolicConstant_c.getManyCNST_SYCsOnR1504( csps, new ClassQueryInterface_c() {
+                    @Override
+                    public boolean evaluate(Object candidate) {
+                        return ((SymbolicConstant_c)candidate).getName().equals(const_name);
+                    }
+                });
+            }
+            if (sycs.length != 1) {
+                result = const_name + " is not a valid constant name";
+                if ( null != csp_name ) {
+                    result = csp_name + "::" + result;
+                }
+                return result;
+            }
+            String constantValue = LiteralSymbolicConstant_c.getOneCNST_LSCOnR1503(LeafSymbolicConstant_c.getOneCNST_LFSCOnR1502(sycs[0])).getValue();
+            if ( !DataType_c.getOneS_DTOnR1500(sycs[0]).getName().equalsIgnoreCase("integer")
+                 || constantValue.charAt(0) == '-'
+                 || constantValue.equalsIgnoreCase("0")) {
+                result = "Only non-zero positive integer values are allowed in array dimensions";
+                return result;
+            }
+        }
 		return result;
 	}
 }

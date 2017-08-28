@@ -299,7 +299,7 @@ public class Selection implements ISelectionProvider
     	return new StructuredSelection(adapted);
 	}
     
-    private Object adaptElement(Object element) {
+    public Object adaptElement(Object element) {
     	if(element == null)
     		return null;
     	Object adapter = Platform.getAdapterManager().getAdapter(element, NonRootModelElement.class);
