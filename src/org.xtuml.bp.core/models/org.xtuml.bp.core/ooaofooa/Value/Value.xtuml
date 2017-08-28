@@ -14142,18 +14142,6 @@ INSERT INTO O_OIDA_PROXY
 	0,
 	'Const_ID',
 	'../Constants/Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"b127a54c-92d0-41c8-ac1a-540808f2e311",
-	"140053d8-d4c4-4a58-b53f-55f30b1cd0c6");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	'DT_ID',
-	'../Constants/Symbolic Constant/Symbolic Constant.xtuml');
 INSERT INTO R_RTO
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"b127a54c-92d0-41c8-ac1a-540808f2e311",

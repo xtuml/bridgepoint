@@ -11349,7 +11349,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("216f77f6-fba9-4d73-9540-8e730176f6f4",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_access_start',
+	'Scoped_access_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a1_ruleid_name;
 ',
@@ -11375,7 +11375,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("e7c85bd3-098d-4081-a60f-2931cfbfba3c",
 	"00000000-0000-0000-0000-000000000000",
-	'Enum_data_type_validate',
+	'Scoped_data_type_validate',
 	'ParserValidateFunction: TRUE',
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
@@ -11425,17 +11425,39 @@ if isInGenericPackage
   end for;
   EDTCount = cardinality edts;
   EDTCount = EDTCount + UDTCount;
-  if EDTCount == 0
+
+  // Check for a Constant Specification match for token
+  if not_empty component
+    component.collectVisibleElementsForName(name:param.a3_text,
+         type:ElementTypeConstants::CONSTANT,
+                          originatingContainerID:component.Id,
+                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                          collectGlobally:true);
+  else
+    package.collectVisibleElementsForName(name:param.a3_text,
+         type:ElementTypeConstants::CONSTANT, descending:false,
+                           originatingContainerID:package.Package_ID,
+                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                          collectGlobally:true);
+  end if;
+  select any resultSet related by component->PE_CRS[R8007] where
+                                  selected.Name == param.a3_text and 
+                                selected.Type == ElementTypeConstants::CONSTANT; 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty package
+    select any pkgResultSet related by package->PE_SRS[R8005] where
+                                  selected.Name == param.a3_text and 
+                                selected.Type == ElementTypeConstants::CONSTANT; 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
+  CSPCount = cardinality csps;
+  TOTALCount = CSPCount + EDTCount;
+  if TOTALCount == 0
     ERR::reportParseError( 
-        msg: "Cannot find specified enumeration ->%s<-.", 
+        msg: "Cannot find specified enumeration or constant specification ->%s<-.", 
                                                    token: param.a1_rule_token );
-  elif EDTCount == 1
-    // store the textual position of the data type name 
-    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
-    select any dt related by results->S_DT[R8001];
-    return dt.DT_ID;
-  elif EDTCount > 1
+  elif EDTCount > 1 and CSPCount != 1
     resultList = "";
     sep = "";
     for each edt in edts
@@ -11450,7 +11472,41 @@ if isInGenericPackage
     end for;
     ERR::reportParseError(msg: "Multiple enumerations found for ->%s<-: " +
                                            resultList, token: param.a1_rule_token);
+  elif CSPCount > 1 and EDTCount != 1
+    resultList = "";
+    sep = "";
+    for each csp in csps
+      select one result related by csp->PE_PE[R8001];
+      resultList = resultList + sep + result.getQualifiedName();
+      sep = ", ";
+    end for;
+    ERR::reportParseError(msg: "Multiple constant specifications found for ->%s<-: " +
+                                           resultList, token: param.a1_rule_token);
+  // an enumeration type is given preference over a constant specification
+  // here, however when the enum is validated, a constant specification of
+  // the same name is checked for
+  elif EDTCount == 1
+    // store the textual position of the data type name 
+    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
+    select any dt related by edts->S_DT[R17];
+    if ( empty dt )
+      for each udt in udts
+        select any pe from instances of PE_PE where ( selected.Element_ID == udt.getCoreType() );
+        select one dt related by pe->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
+      end for;
+    end if;
+    return dt.DT_ID;
+  elif CSPCount == 1
+    // store the textual position of the data type name 
+    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
+    for each csp in csps
+      // cardinality of csps is 1
+      return csp.Constant_Spec_ID;
+    end for;
   end if;
+
   return GD::NULL_UNIQUE_ID();
 else
     // see if any enumerations are located at the system level
@@ -11533,7 +11589,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("db30edfc-3cf5-4a51-ab22-8f89331bf09a",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_validate',
+	'Scoped_member_validate',
 	'ParserValidateFunction: TRUE',
 	'select any pe from instances of PE_PE where selected.Element_ID ==
                                                        param.a6_current_rule_id;
@@ -11550,23 +11606,81 @@ if(empty edt)
   end if;
 end if;
 
-  select any enum related by edt->S_ENUM[R27] 
-                                       where ( selected.Name == param.a3_text );
-  if ( empty enum )
-    if(empty edt)
-      // here we just log an error, as there is
-      // something wrong in the system.  Not
-      // necessarily having to do with the OAL
-      USER::logError(msg:"Unable to locate enumeration data type.",path:"");
-    else
-      select one dt related by edt->S_DT[R17];
-      ERR::reportParseError( msg: 
-      "Cannot find enumerator ->%s<- for enumeration data type ->"+dt.Name+"<-",
-            token: param.a1_rule_token );  
-    end if;
-  else
-    return enum.Enum_ID;
+select one csp related by pe->CNST_CSP[R8001];
+if ( empty csp )
+  csp_name = "";
+  select one s_dt related by edt->S_DT[R17];
+  if ( not_empty s_dt )
+    csp_name = s_dt.Name;
   end if;
+  // must check for csp by name since there may be a constant
+  // specification and enumerated type with the same name
+  current_scope = ::get_current_scope();
+  select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
+  select one body related by block->ACT_ACT[R612];
+  select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
+  select one component related by containingElem->C_C[R8001];
+  select one package related by containingElem->EP_PKG[R8001];
+  if not_empty component
+    component.collectVisibleElementsForName(name:csp_name,
+         type:ElementTypeConstants::CONSTANT,
+                          originatingContainerID:component.Id,
+                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                          collectGlobally:true);
+  else
+    package.collectVisibleElementsForName(name:csp_name,
+         type:ElementTypeConstants::CONSTANT, descending:false,
+                           originatingContainerID:package.Package_ID,
+                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                          collectGlobally:true);
+  end if;
+  select any resultSet related by component->PE_CRS[R8007] where
+                                  selected.Name == csp_name and 
+                                selected.Type == ElementTypeConstants::CONSTANT; 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty package
+    select any pkgResultSet related by package->PE_SRS[R8005] where
+                                  selected.Name == csp_name and 
+                                selected.Type == ElementTypeConstants::CONSTANT; 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == csp_name );
+  if ( ( cardinality csps ) == 1 )
+    select any csp related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == csp_name );
+  end if;
+end if;
+
+select any enum related by edt->S_ENUM[R27] where ( selected.Name == param.a3_text );
+select any const related by csp->CNST_SYC[R1504] where ( selected.Name == param.a3_text );
+if ( not_empty enum and not_empty const )
+  select one dt related by edt->S_DT[R17];
+  ERR::reportParseError( msg: 
+  "Found enumerator and constant with the same name->%s<- for ->"+dt.Name+"<-",
+        token: param.a1_rule_token );  
+elif ( not_empty enum and empty const )
+  return enum.Enum_ID;
+elif ( empty enum and not_empty const )
+  return const.Const_ID;
+elif ( not_empty csp and not_empty edt and empty const and empty enum )
+    select one dt related by edt->S_DT[R17];
+    ERR::reportParseError( msg: 
+    "Cannot find enumerator or constant ->%s<- for ->"+dt.Name+"<-",
+          token: param.a1_rule_token );  
+elif ( not_empty csp and empty const and empty edt )
+    ERR::reportParseError( msg: 
+    "Cannot find constant ->%s<- for constant specification ->"+csp.InformalGroupName+"<-",
+          token: param.a1_rule_token );  
+elif ( not_empty edt and empty enum and empty csp )
+    select one dt related by edt->S_DT[R17];
+    ERR::reportParseError( msg: 
+    "Cannot find enumerator ->%s<- for enumeration data type ->"+dt.Name+"<-",
+          token: param.a1_rule_token );  
+else
+  // here we just log an error, as there is
+  // something wrong in the system.  Not
+  // necessarily having to do with the OAL
+  USER::logError(msg:"Unable to locate enumeration data type or constant specification.",path:"");
+end if;
 
 return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -11627,10 +11741,10 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("c72f1739-7267-480c-917d-bcca081eb867",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_access_end',
+	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
 	'select any enum from instances of S_ENUM 
-    where (selected.Enum_ID == param.b2_enumerator2_id );
+    where (selected.Enum_ID == param.b2_scoped_member2_id );
 if(empty enum)
   // if the enumerator was not found
   // check the system level
@@ -11638,32 +11752,69 @@ if(empty enum)
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
-    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_enumerator2_id);
-
+    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_scoped_member2_id);
 end if;
 
-create object instance len of V_LEN;
-relate len to enum across R824;
+if ( not_empty enum )
+  create object instance len of V_LEN;
+  relate len to enum across R824;
 
-create object instance val of V_VAL;
-relate val to len  across R801;
-current_scope = ::get_current_scope();
-select any block from instances of ACT_BLK where
-                                           (selected.Block_ID == current_scope);
-relate val to block across R826;
+  create object instance val of V_VAL;
+  relate val to len  across R801;
+  current_scope = ::get_current_scope();
+  select any block from instances of ACT_BLK where
+                                             (selected.Block_ID == current_scope);
+  relate val to block across R826;
 
-select one dt related by enum->S_EDT[R27]->S_DT[R17];
-relate val to dt across R820;
+  select one dt related by enum->S_EDT[R27]->S_DT[R17];
+  relate val to dt across R820;
 
-val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
-val.setEndPosition();
+  val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+  val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
+  val.setEndPosition();
 
-// store the textual position of the data type name
-len.dataTypeNameLineNumber = block.currentDataTypeNameLineNumber;
-len.dataTypeNameColumn = block.currentDataTypeNameColumn;
+  // store the textual position of the data type name
+  len.dataTypeNameLineNumber = block.currentDataTypeNameLineNumber;
+  len.dataTypeNameColumn = block.currentDataTypeNameColumn;
 
-return val.Value_ID;',
+  return val.Value_ID;
+end if;
+
+select any const from instances of CNST_SYC
+    where (selected.Const_ID == param.b2_scoped_member2_id );
+if(empty const)
+  // if the constant was not found
+  // check the system level
+  sysName = ::getSystemName();
+  select any system from instances of S_SYS where (selected.Name == sysName);
+
+    select any const related by system->G_EIS[R9100]->PE_PE[R9100]->CNST_CSP[R8001]->
+    CNST_SYC[R1504] where (selected.Const_ID == param.b2_scoped_member2_id);
+end if;
+
+if ( not_empty const )
+  create object instance scv of V_SCV;
+  relate scv to const across R850;
+
+  create object instance val of V_VAL;
+  relate val to scv across R801;
+  current_scope = ::get_current_scope();
+  select any block from instances of ACT_BLK where
+                                             (selected.Block_ID == current_scope);
+  relate val to block across R826;
+
+  select one dt related by const->S_DT[R1500];
+  relate val to dt across R820;
+
+  val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+  val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
+  val.setEndPosition();
+
+  return val.Value_ID;
+end if;
+
+return GD::NULL_UNIQUE_ID();
+',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -11707,7 +11858,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b1_enum_data_type1_id',
+	'b1_scoped_data_type1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -11716,7 +11867,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("68ea48f3-1c25-4545-addc-5ee623349c02",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b2_enumerator2_id',
+	'b2_scoped_member2_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -24039,7 +24190,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("be1502d8-9620-4e7a-86e9-2fee92e17a9c",
 	"00000000-0000-0000-0000-000000000000",
-	'Enumerator_access_validate',
+	'Scoped_access_validate',
 	'ParserValidateFunction: TRUE',
 	'return param.a6_current_rule_id;
 
@@ -24956,7 +25107,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("072e9eb1-26f2-4e4b-8218-a7f7df45ac90",
 	"3e18effc-41a7-4216-8418-d941e75c1f35",
-	'b4_enumerator_access4_id',
+	'b4_scoped_access4_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
