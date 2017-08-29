@@ -1,7 +1,7 @@
 # This script sets up environment variables that
 # are required to prepare a development workspace
 # as well as build such a workspace
-export BP_GIT_DIR=~/git/bridgepoint
+export BP_GIT_DIR=~/git
 # for mac us this install dir
 export bp_install_dir=~/xtuml/BridgePoint.app/Contents/Eclipse/
 # for linux uncomment this line and comment the mac version
