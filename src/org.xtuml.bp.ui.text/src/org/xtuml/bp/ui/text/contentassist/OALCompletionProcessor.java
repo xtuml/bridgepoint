@@ -42,6 +42,7 @@ import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
@@ -52,7 +53,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private static final ICompletionProposal[] NO_PROPOSALS = {};
     private static final String[] TRIGGER_SEQUENCES = { "->", ".", "::" };
 
-    private static boolean autoTriggerAllowed = true;
+    //private static boolean autoTriggerAllowed = true;
 
     private OALEditor editor;
     private boolean isAutoTriggered;
@@ -164,7 +165,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
     
     private boolean isValidAutoTrigger( int position ) {
-        if ( autoTriggerAllowed ) {
+        //if ( autoTriggerAllowed ) {
+        if ( Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_COMPLETION_ASSISTANCE_TRIGGERING ) ) {
             if ( isDefaultTrigger ) {
                 for ( String seq : TRIGGER_SEQUENCES ) {
                     if ( editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( 0, position ).endsWith( seq ) ) return true;
