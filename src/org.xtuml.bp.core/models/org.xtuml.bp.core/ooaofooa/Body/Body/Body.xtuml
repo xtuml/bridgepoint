@@ -98,6 +98,12 @@ if not_empty pe
   unrelate self from pe across R640 using bie;
   delete object instance bie;
 end if;
+
+select one ca_l related by self->CA_L[R1603];
+if not_empty ca_l
+  ca_l.dispose();
+end if;
+
 delete object instance self;
 ',
 	1,
@@ -204,12 +210,6 @@ select many block_set related by self->ACT_BLK[R612];
 for each block in block_set
   unrelate self from block across R612;
   block.dispose();
-end for;
-
-// dispose any content assistance data
-select many ca_ls related by self->CA_L[R1603];
-for each ca_l in ca_ls
-  ca_l.dispose();
 end for;',
 	1,
 	'',

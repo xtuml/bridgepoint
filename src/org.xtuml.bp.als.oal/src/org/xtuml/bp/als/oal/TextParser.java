@@ -55,6 +55,10 @@ public class TextParser extends OalParser {
 		super(modelRoot, lexer);
 	}
 
+	public TextParser(Ooaofooa modelRoot, TokenStream lexer, int contentAssistLine, int contentAssistCol) {
+		super(modelRoot, lexer, contentAssistLine, contentAssistCol);
+	}
+
 	public final UUID action(Object model, boolean clearContext)
 			throws RecognitionException, TokenStreamException,
 			InterruptedException {
@@ -185,7 +189,7 @@ public class TextParser extends OalParser {
 			}
 		}
 
-		if (reportError) {
+		if (reportError && ( m_contentAssistLine == 0 || m_contentAssistCol == 0 ) ) {
 			System.out.println("Parse error: " + parserMessage + "line: " + parserLineNumber);
 		}
 	}

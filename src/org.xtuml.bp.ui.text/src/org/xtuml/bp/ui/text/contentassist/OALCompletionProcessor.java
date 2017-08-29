@@ -80,8 +80,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             @Override
             public void assistSessionEnded( ContentAssistEvent event ) { 
                 Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
-                ProposalList_c[] lists = ProposalList_c.getManyCA_LsOnR1603( body );
-                for ( ProposalList_c list : lists ) {
+                ProposalList_c list = ProposalList_c.getOneCA_LOnR1603( body );
+                if ( null != list ) {
                     list.Dispose();
                 }
                 setDefaultTriggerChars();
@@ -101,20 +101,16 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         if ( !(editor.getEditorInput() instanceof AbstractModelElementPropertyEditorInput) ) return NO_PROPOSALS;
         
         // parse the body
-        parseActivity( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
+        parseActivity( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty(), position );
         Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
 
         // get the list
-        ProposalList_c[] lists = ProposalList_c.getManyCA_LsOnR1603( body, new ClassQueryInterface_c() {
+        ProposalList_c list = ProposalList_c.getOneCA_LOnR1603( body, new ClassQueryInterface_c() {
             @Override
             public boolean evaluate( Object selected ) {
                 return lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol() ) <= position;
             }
         });
-        ProposalList_c list = null;
-        for ( int i = 0, max = 0; i < lists.length; i++ ) {
-            if ( lineAndColumnToPosition( lists[i].getLine(), lists[i].getCol() ) > max ) list = lists[i];
-        }
         if ( null == list ) return NO_PROPOSALS;
 
         // add proposals
@@ -205,6 +201,32 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return position;
     }
 
+    private int positionToLine( int position ) {
+        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
+        for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
+            try {
+                count += document.getLineLength(i);
+                if ( count >= position ) return i + 1;
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+    
+    private int positionToCol( int position ) {
+        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
+        for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
+            try {
+                if ( position - count <= document.getLineLength(i) ) return position - count + 1;
+                count += document.getLineLength(i);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
     private synchronized void setInSession(boolean inSession) {
         this.inSession = inSession;
         notifyAll();
@@ -260,9 +282,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return body;
     }
     
-    private void parseActivity( NonRootModelElement element ) {
+    private void parseActivity( NonRootModelElement element, int position ) {
         if ( null != element && getNeedsParse() ) {
-            ParseRunnable parseRunner = new ParseRunnable( element, editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get() );
+            ParseRunnable parseRunner = new ParseRunnable( element, editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get(),
+                    positionToLine( position ), positionToCol( position ) );
             parseRunner.run();
             setNeedsParse(false);
         }

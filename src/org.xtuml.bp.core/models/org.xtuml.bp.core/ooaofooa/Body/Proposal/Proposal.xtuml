@@ -20,17 +20,13 @@ if ( not_empty list )
 end if;
 select one next_item related by self->CA_I[R1602.''precedes''];
 select one prev_item related by self->CA_I[R1602.''follows''];
-if ( empty next_item and empty prev_item )              // only item in list
-  // do nothing
-elif ( not_empty next_item and empty prev_item )        // first item in list
+if ( not_empty next_item )
   unrelate self from next_item across R1602.''precedes'';
-  relate next_item to list across R1601;
-elif ( empty next_item and not_empty prev_item )        // last item in list
+  next_item.dispose();
+end if;
+if ( not_empty prev_item )
   unrelate self from prev_item across R1602.''follows'';
-elif ( not_empty next_item and not_empty prev_item )    // middle of list
-  unrelate self from next_item across R1602.''precedes'';
-  unrelate self from prev_item across R1602.''follows'';
-  relate prev_item to next_item across R1602.''precedes'';
+  prev_item.dispose();
 end if;
 delete object instance self;',
 	1,

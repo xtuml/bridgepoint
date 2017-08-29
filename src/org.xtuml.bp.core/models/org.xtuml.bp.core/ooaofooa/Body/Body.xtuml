@@ -10801,7 +10801,7 @@ INSERT INTO GD_GE
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Body::Context Assistance Item');
+	'org.xtuml.bp.core::ooaofooa::Body::Proposal');
 INSERT INTO GD_SHP
 	VALUES ("3642f36e-d1c9-4c80-9f2c-7fa5ae7b7037");
 INSERT INTO GD_NCS
@@ -10840,7 +10840,7 @@ INSERT INTO GD_GE
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Body::Context Assistance List');
+	'org.xtuml.bp.core::ooaofooa::Body::Proposal List');
 INSERT INTO GD_SHP
 	VALUES ("b49849c1-6e64-479f-b550-0b1d2db8f133");
 INSERT INTO GD_NCS
@@ -14354,7 +14354,7 @@ INSERT INTO O_OIDA_PROXY
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
 	0,
 	'List_ID',
-	'./Context Assistance List/Context Assistance List.xtuml');
+	'./Proposal List/Proposal List.xtuml');
 INSERT INTO R_RTO
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
 	"f77fee3a-2560-495e-8a97-809a360d0baf",
@@ -14363,7 +14363,7 @@ INSERT INTO R_RTO
 INSERT INTO O_ID_PROXY
 	VALUES (0,
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
-	'./Context Assistance List/Context Assistance List.xtuml');
+	'./Proposal List/Proposal List.xtuml');
 INSERT INTO R_OIR
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
 	"f77fee3a-2560-495e-8a97-809a360d0baf",
@@ -14371,12 +14371,12 @@ INSERT INTO R_OIR
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_OBJ_PROXY
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
-	'Context Assistance List',
+	'Proposal List',
 	1601,
 	'CA_L',
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'./Context Assistance List/Context Assistance List.xtuml');
+	'./Proposal List/Proposal List.xtuml');
 INSERT INTO R_FORM
 	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	"f77fee3a-2560-495e-8a97-809a360d0baf",
@@ -14395,12 +14395,12 @@ INSERT INTO R_OIR
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_OBJ_PROXY
 	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	'Context Assistance Item',
+	'Proposal',
 	1600,
 	'CA_I',
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'./Context Assistance Item/Context Assistance Item.xtuml');
+	'./Proposal/Proposal.xtuml');
 INSERT INTO PE_PE
 	VALUES ("f77fee3a-2560-495e-8a97-809a360d0baf",
 	1,
@@ -14432,7 +14432,7 @@ INSERT INTO O_OIDA_PROXY
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	0,
 	'List_ID',
-	'./Context Assistance Item/Context Assistance Item.xtuml');
+	'./Proposal/Proposal.xtuml');
 INSERT INTO O_RTIDA
 	VALUES ("028f37db-3da2-4fe3-9d62-ec2c9610aac6",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
@@ -14444,7 +14444,7 @@ INSERT INTO O_OIDA_PROXY
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	0,
 	'Item_ID',
-	'./Context Assistance Item/Context Assistance Item.xtuml');
+	'./Proposal/Proposal.xtuml');
 INSERT INTO R_RTO
 	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
@@ -14453,7 +14453,7 @@ INSERT INTO R_RTO
 INSERT INTO O_ID_PROXY
 	VALUES (0,
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	'./Context Assistance Item/Context Assistance Item.xtuml');
+	'./Proposal/Proposal.xtuml');
 INSERT INTO R_OIR
 	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
@@ -14515,7 +14515,7 @@ INSERT INTO R_FORM
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
 	"4a96fba5-651b-42d5-ac63-a1af4051c271",
 	"dfd025cb-b2b4-44ef-8d87-3d92cdc6fa47",
-	1,
+	0,
 	1,
 	'');
 INSERT INTO R_RGO

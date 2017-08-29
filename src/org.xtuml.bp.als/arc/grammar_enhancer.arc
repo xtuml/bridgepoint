@@ -670,7 +670,8 @@ ${s}}
     .assign tokenclass_dt = result.dt
 ${s}// rule content assist action
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
-${s}  if ( true ) { // TODO look for flag that specifies whether to invoke content assist
+${s}  if ( m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(0) &&
+${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() < m_contentAssistCol ) ) ) {
 ${s}    try {
 ${s}      Method contentAssistMethod = ${fncclass}.getClass().getMethod( "${fncname}", Ooaofooa.class,
 ${s}            ${tokenclass}.class
@@ -812,7 +813,8 @@ ${s}}
     .assign tokenclass_dt = result.dt
 ${s}// loop ${p.loop_index} content assist action
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
-${s}  if ( true ) { // TODO look for flag that specifies whether to invoke content assist
+${s}  if ( m_contentAssistLine > 0 && m_contentAssistCol > 0 &&
+${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() < m_contentAssistCol ) ) ) {
 ${s}    try {
 ${s}        Method contentAssistMethod = ${fncclass}.getClass().getMethod( "${fncname}", Ooaofooa.class,
 ${s}            ${tokenclass}.class
@@ -1263,9 +1265,17 @@ ${t.value}
           .if ( prev_term_name != "header" )
 { 
     Ooaofooa p_modelRoot;
+    int m_contentAssistLine;  // these fields represent the line and column where content assist is requested; if either are 0,
+    int m_contentAssistCol;   // content assist routines should be skipped
     public OalParser(Ooaofooa aModelRoot, TokenStream lexer){
+        this(aModelRoot, lexer, 0, 0);
+    }
+
+    public OalParser(Ooaofooa aModelRoot, TokenStream lexer, int contentAssistLine, int contentAssistCol){
         this(lexer);
         p_modelRoot = aModelRoot;
+        m_contentAssistLine = contentAssistLine;
+        m_contentAssistCol = contentAssistCol;
     }
     
     public Ooaofooa getModelRoot(){
