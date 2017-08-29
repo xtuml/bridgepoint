@@ -42,6 +42,7 @@ import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
