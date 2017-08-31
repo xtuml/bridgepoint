@@ -21,8 +21,8 @@ function importProjects {
   dir=`pwd`
   cd $BP_GIT_DIR
   # Explicitly import doc-bridgepoint and utilities
-      java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import doc-bridgepoint 
-    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import utilities 
+  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import bridgepoint/doc-bridgepoint
+  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import bridgepoint/utilities
   cd bridgepoint/src
   for file in `ls -1`; do
     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file 
