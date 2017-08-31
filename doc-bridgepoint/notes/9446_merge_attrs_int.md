@@ -17,6 +17,8 @@ that govern user ability to combine attributes.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9446](https://support.onefact.net/issues/9446) Headline issue    
 <a id="2.2"></a>2.2 [BridgePoint DEI #9747](https://support.onefact.net/issues/9747) Show Relationship of Referential ID in Combine With Dialog   
+<a id="2.3"></a>2.3 [BridgePoint DEI #9765](https://support.onefact.net/issues/9765) Manual test for this work     
+<a id="2.4"></a>2.4 [BridgePoint DEI #9766](https://support.onefact.net/issues/9766) Document Combine With and Split  
 
 ### 3. Background
 
@@ -50,21 +52,22 @@ should not be a MASL-specific setting.
   referential attributes in the class that have the same type as the current 
   attribute.  
 ```
-       // combining is allowed with other referential attributes of the same type
-       //   - Get the set of referential attributes
-       //   - If there's more than one (because we don't want to count ourself),
-       //       iterate over the set and see if any are of the same type.
-       select many rattr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106];
-       if ( cardinality rattr_candidate_set > 1 )
-           for each rattr_candidate in rattr_candidate_set
-               if ( rattr_candidate.Attr_ID != self.Attr_ID )
-                   select one oattr_candidate related by rattr_candidate->O_ATTR[R106];
-                   if ( oattr_candidate.DT_ID == self.DT_ID )
-                     return true;
-                   end if;
-               end if;
-           end for;
-       end if;
+      // combining is allowed with other referential attributes of the same type
+      //   - Get the set of referential attributes
+      //   - If there's more than one (because we don't want to count ourself),
+      //       iterate over the set and see if any are of the same type.
+      select many rattr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106] where ( selected.Attr_ID != self.Attr_ID );
+      for each rattr_candidate in rattr_candidate_set          
+        select one other_attr related by rattr_candidate->O_ATTR[R106];
+        dtid_other = other_attr.DT_ID;
+        select one rattr_candidate_dt related by rattr_candidate->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+        if ( not_empty rattr_candidate_dt )
+          dtid_other = rattr_candidate_dt.DT_ID;
+        end if;
+        if ( dtid_other == dtid_self )
+          return true;
+        end if;
+      end for;
 ```
 
 5.2 ```Attribute.canCombineWith()```   
@@ -87,10 +90,23 @@ if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
             // two rattrs pointing to the same base
             can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
 +           if ( not can_combine )
-+               // allow combination with other referentials with the same type
-+               type_match = self.DT_ID == o_attr.DT_ID
-+               can_combine = type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
-+           end if
++             // We have to be careful of baseless referentials. For those, the datatype
++             // is found on the referential attribute itself and not through the base.
++             // If there is an associated base attribute, we get the datatype through it.
++             dtid_self = self.DT_ID;
++             dtid_other = o_attr.DT_ID;
++             // allow combination with other referentials with the same type
++             select one self_dt related by rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
++             if ( not_empty self_dt )
++               dtid_self = self_dt.DT_ID;
++             end if;
++             select one other_rattr_dt related by other_rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
++             if ( not_empty other_rattr_dt )
++               dtid_other = other_rattr_dt.DT_ID;
++             end if;
++             type_match = dtid_self == dtid_other;
++             can_combine = type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
++           end if;             
         else
     ...
 ``` 
@@ -103,14 +119,12 @@ if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
 
 ### 7. Unit Test
 
-7.1 TODO - Find existing Combine With tests - update for new functionality  
-  * The Combine With tests are part of Core 2 Test Suite
-  * CombineSplitReferentialsTestGenerics.java
+7.1  Existing Junits must pass  
+7.2  Run manual test captured in [2.3]  
 
 ### 8. User Documentation
 
-TODO - Combine With is not described in the existing documentation.  I think we 
-should add some text in the ClassDiagram doc that describes combine and split
+Created a follow-on issue to document Combine With and Split [2.4].  
 
 ### 9. Code Changes
 
@@ -118,7 +132,8 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 9446_merge_attrs  
 
 <pre>
-
+ doc-bridgepoint/notes/9446_merge_attrs_int.md                                                                      | 139 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Attribute/Attribute.xtuml                        |  98 +++++++++++++++++++++++++++++------------
 </pre>
 
 ### End
