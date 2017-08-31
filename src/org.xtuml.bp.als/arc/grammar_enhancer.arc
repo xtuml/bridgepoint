@@ -650,68 +650,52 @@ ${s}}
 .function emit_leaf_node_content_assist_action
   .param inst_ref node
   .param string s
-  .select one r related by node->R[R6]
-  .select one containing_node related by r->NLN[R2]->N[R1]
-  .select one rr related by node->LN[R1]->RR[R3]
-  .select one t related by node->LN[R1]->T[R3]
-  .assign subname = ""
-  .if ( not_empty rr )
-    .assign subname =  rr.rule_name
-  .elif ( not_empty t )
-    .if ( t.token_name == "STRING_LITERAL" )
-      .assign subname = "strlit_${t.value}"
-    .else
-      .assign subname = t.value
-    .end if
-  .end if
-  .assign fncname = "$c{r.rule_name}_${subname}_content_assist"
-  .invoke result = get_validate_constants()
-  .assign fncclass = result.fncclass
-  .assign upper_ruleid_name = result.upper_ruleid_name
-  .assign ruleid_name = result.ruleid_name
-  .assign tokenclass = result.tokenclass
-  .invoke result = find_data_type_by_name("void")
-  .assign void_dt = result.dt
-  .invoke result = find_data_type_by_name("unique_id")
-  .assign unique_id_dt = result.dt
-  .invoke result = find_data_type_by_name(tokenclass)
-  .assign tokenclass_dt = result.dt
-${s}// rule content assist action for '${subname}'
+  .select one caf related by node->LN[R1]->CAF[R28]
+  .if ( not_empty caf )
+    .select one r related by node->R[R6]
+    .select one containing_node related by r->NLN[R2]->N[R1]
+    .select one rr related by node->LN[R1]->RR[R3]
+    .select one t related by node->LN[R1]->T[R3]
+    .assign fncname = caf.name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule content assist action for '${fncname}'
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
 ${s}  if ( m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(0) &&
 ${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() < m_contentAssistCol ) ) ) {
-${s}    try {
-${s}      Method contentAssistMethod = ${fncclass}.getClass().getMethod( "${fncname}", Ooaofooa.class, ${tokenclass}.class,
-  .invoke result = do_type( unique_id_dt )
-${s}          ${result.body}.class, ${result.body}.class, ${result.body}.class\
-  .invoke grr = get_referenced_rules(r)
-  .assign rref_valid_set = grr.rref_set
-  .for each rref in rref_valid_set
-, ${result.body}.class\
-  .end for
- );
-${s}      contentAssistMethod.invoke( ${fncclass}, getModelRoot(), LT(0),
-  .invoke result = create_new_function(fncname, r, void_dt)
-  .assign fnc = result.fnc
-  .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
-${s}          ${upper_ruleid_name},  // upper rule id
-  .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
-${s}          rule_begin_id,  // start rule id
-  .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
-${s}          ${ruleid_name}\
-  .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
-  .assign fnc.return_value = ""
-  .assign parm_num = 1
-  .for each rref in rref_valid_set
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(0),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+${s}        rule_begin_id,  // start rule id
+    .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
 ,
-${s}          ${rref.var_name}\
-    .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
-    .assign parm_num = parm_num + 1
-  .end for
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
  );
-${s}    } catch ( Exception e ) {}
 ${s}  }
 ${s}}
+  .end if
 .end function
 .//======================
 .function emit_loop_begin_action
@@ -1261,7 +1245,6 @@ ${t.value}
           .else
 ${t.value}
 import java.util.UUID;
-import java.lang.reflect.Method;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.IdAssigner;
           .end if

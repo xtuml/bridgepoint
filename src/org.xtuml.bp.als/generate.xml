@@ -148,7 +148,7 @@
     <uptodate property="grammar_enhancer.buildNotNeeded" targetfile="${ge.output}">
        <srcfiles dir = "arc"        includes = "${ge.arc.dep}"/>
        <srcfiles dir = "../org.xtuml.bp.core/color"  includes = "${ge.clr.dep}"/>
-       <srcfiles dir = "sql"        includes = "${schema.output},udt.sql,oal_grammar.sql"/>
+       <srcfiles dir = "sql"        includes = "${schema.output},udt.sql,oal_grammar.sql,content_assist.sql"/>
        <srcfiles dir = "${mcj_path}" includes = "${ge.mcj.dep}"/>
     </uptodate>
   </target>
@@ -166,6 +166,7 @@
       -import sql/grammar_schema.sql
       -import ${antlr.output}
       -import sql/udt.sql
+      -import ${content_assist.output}
       -arch arc/grammar_enhancer.arc"/>
   </exec>
 
