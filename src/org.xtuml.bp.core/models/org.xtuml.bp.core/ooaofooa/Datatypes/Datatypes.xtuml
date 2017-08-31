@@ -608,7 +608,7 @@ INSERT INTO GD_GE
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	52,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Datatypes::ContentAssistanceItemTypes');
+	'org.xtuml.bp.core::ooaofooa::Datatypes::ProposalTypes');
 INSERT INTO GD_SHP
 	VALUES ("790d7b16-797b-4ce1-858c-70fefc62277d");
 INSERT INTO GD_NCS
@@ -1909,7 +1909,7 @@ INSERT INTO PE_PE
 INSERT INTO S_DT
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"00000000-0000-0000-0000-000000000000",
-	'ContentAssistanceItemTypes',
+	'ProposalTypes',
 	'',
 	'');
 INSERT INTO S_EDT

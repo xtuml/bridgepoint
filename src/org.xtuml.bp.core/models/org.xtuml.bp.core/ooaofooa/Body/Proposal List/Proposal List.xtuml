@@ -4,7 +4,7 @@ INSERT INTO O_OBJ
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
 	'Proposal List',
 	1601,
-	'CA_L',
+	'ACT_PL',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one first_item related by self->CA_I[R1601];
+	'select one first_item related by self->ACT_P[R1601];
 if ( not_empty first_item )
   unrelate self from first_item across R1601;
   first_item.dispose();

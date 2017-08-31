@@ -4,7 +4,7 @@ INSERT INTO O_OBJ
 	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	'Proposal',
 	1600,
-	'CA_I',
+	'ACT_P',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
@@ -14,12 +14,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one list related by self->CA_L[R1601];
+	'select one list related by self->ACT_PL[R1601];
 if ( not_empty list )
   unrelate self from list across R1601;
 end if;
-select one next_item related by self->CA_I[R1602.''precedes''];
-select one prev_item related by self->CA_I[R1602.''follows''];
+select one next_item related by self->ACT_P[R1602.''precedes''];
+select one prev_item related by self->ACT_P[R1602.''follows''];
 if ( not_empty next_item )
   unrelate self from next_item across R1602.''precedes'';
   next_item.dispose();
@@ -122,10 +122,10 @@ INSERT INTO O_ATTR
 	VALUES ("028f37db-3da2-4fe3-9d62-ec2c9610aac6",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	"00000000-0000-0000-0000-000000000000",
-	'Item_ID',
+	'Proposal_ID',
 	'',
 	'',
-	'Item_ID',
+	'Proposal_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
@@ -144,7 +144,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Proposal',
-	'Item_ID',
+	'Proposal_ID',
 	'R1602.''precedes''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("028f37db-3da2-4fe3-9d62-ec2c9610aac6",
@@ -159,12 +159,12 @@ INSERT INTO O_RATTR
 	"028f37db-3da2-4fe3-9d62-ec2c9610aac6",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	1,
-	'Item_ID');
+	'Proposal_ID');
 INSERT INTO O_ATTR
 	VALUES ("5d95873f-c2c5-4f09-827d-858caf9c1d98",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	"0eab8bd5-13e0-42db-bb91-b1bed8edd948",
-	'next_Item_ID',
+	'next_Proposal_ID',
 	'',
 	'next_',
 	'Item_ID',
@@ -281,7 +281,7 @@ INSERT INTO O_OIDA
 	VALUES ("028f37db-3da2-4fe3-9d62-ec2c9610aac6",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
 	0,
-	'Item_ID');
+	'Proposal_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8");

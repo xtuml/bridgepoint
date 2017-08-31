@@ -29060,16 +29060,16 @@ end if;
 act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
 if ( not_empty act and not_empty left_obj )
-  select one current_list related by act->CA_L[R1603];
+  select one current_list related by act->ACT_PL[R1603];
   if ( not_empty current_list )
     current_list.dispose();
   end if;
-  create object instance list of CA_L;
+  create object instance list of ACT_PL;
   list.line = ::getLineNumber( rule_token:param.current_token );
   list.col = ::getColumn( rule_token:param.current_token ) + GD::strlen( s: ::getText( rule_token:param.current_token ) );
   relate list to act across R1603;
 
-  select one current_item related by list->CA_I[R1601];
+  select one current_item related by list->ACT_P[R1601];
   
   select many r_oirs related by left_obj->R_OIR[R201];
   for each r_oir in r_oirs
@@ -29081,8 +29081,8 @@ if ( not_empty act and not_empty left_obj )
         select one o_obj related by foreign_oir->O_OBJ[R201];
         select one r_rel related by foreign_oir->R_REL[R201];
 
-        create object instance new_item of CA_I;
-        new_item.type = ContentAssistanceItemTypes::Association;
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::Association;
         new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb ) + "]";
         new_item.display_text = new_item.replacement_text;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
@@ -29275,21 +29275,21 @@ if ( not_empty rootVal )
     act_id = ::get_current_context();
     select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
     if ( not_empty act and not_empty obj )
-      select one current_list related by act->CA_L[R1603];
+      select one current_list related by act->ACT_PL[R1603];
       if ( not_empty current_list )
         current_list.dispose();
       end if;
-      create object instance list of CA_L;
+      create object instance list of ACT_PL;
       list.line = ::getLineNumber( rule_token:param.current_token );
       list.col = ::getColumn( rule_token:param.current_token ) + GD::strlen( s: ::getText( rule_token:param.current_token ) );
       relate list to act across R1603;
 
-      select one current_item related by list->CA_I[R1601];
+      select one current_item related by list->ACT_P[R1601];
       
       select many o_attrs related by obj->O_ATTR[R102];
       for each o_attr in o_attrs
-        create object instance new_item of CA_I;
-        new_item.type = ContentAssistanceItemTypes::Attribute;
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::Attribute;
         new_item.replacement_text = "." + o_attr.Name;
         new_item.display_text = o_attr.Name;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
@@ -29304,8 +29304,8 @@ if ( not_empty rootVal )
 
       select many o_tfrs related by obj->O_TFR[R115];
       for each o_tfr in o_tfrs
-        create object instance new_item of CA_I;
-        new_item.type = ContentAssistanceItemTypes::Operation;
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::Operation;
         new_item.replacement_text = "." + o_tfr.Name;
         new_item.display_text = o_tfr.Name;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );

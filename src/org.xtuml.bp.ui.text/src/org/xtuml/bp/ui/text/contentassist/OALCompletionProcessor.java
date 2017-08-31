@@ -34,7 +34,7 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.ProposalList_c;
-import org.xtuml.bp.core.Contentassistanceitemtypes_c;
+import org.xtuml.bp.core.Proposaltypes_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -80,7 +80,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             @Override
             public void assistSessionEnded( ContentAssistEvent event ) { 
                 Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
-                ProposalList_c list = ProposalList_c.getOneCA_LOnR1603( body );
+                ProposalList_c list = ProposalList_c.getOneACT_PLOnR1603( body );
                 if ( null != list ) {
                     list.Dispose();
                 }
@@ -105,7 +105,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
 
         // get the list
-        ProposalList_c list = ProposalList_c.getOneCA_LOnR1603( body, new ClassQueryInterface_c() {
+        ProposalList_c list = ProposalList_c.getOneACT_PLOnR1603( body, new ClassQueryInterface_c() {
             @Override
             public boolean evaluate( Object selected ) {
                 return lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol() ) <= position;
@@ -118,7 +118,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
         String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
         String leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
-        Proposal_c item = Proposal_c.getOneCA_IOnR1601( list );
+        Proposal_c item = Proposal_c.getOneACT_POnR1601( list );
         while ( null != item ) {
             if ( item.getReplacement_text().toLowerCase().startsWith( existingText.trim().toLowerCase() ) ) {
                 ICompletionProposal proposal = new CompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
@@ -126,7 +126,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                                                                        item.getDisplay_text(), null, null );
                 proposals.add( proposal );
             }
-            item = Proposal_c.getOneCA_IOnR1602Precedes( item );
+            item = Proposal_c.getOneACT_POnR1602Precedes( item );
         }
         
         // set the auto trigger characters
@@ -176,11 +176,11 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
     private Image getImage( int type ) {
         switch( type ) {
-            case Contentassistanceitemtypes_c.Attribute:
+            case Proposaltypes_c.Attribute:
                 return CorePlugin.getImageFor( Attribute_c.class );
-            case Contentassistanceitemtypes_c.Operation:
+            case Proposaltypes_c.Operation:
                 return CorePlugin.getImageFor( Operation_c.class );
-            case Contentassistanceitemtypes_c.Association:
+            case Proposaltypes_c.Association:
                 return CorePlugin.getImageFor( Association_c.class );
             default:
                 return null;
