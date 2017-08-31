@@ -6,3 +6,5 @@ grammar_schema.sql
 oal_utilities.sql
 ooaofooa.sql
 ooa_schema.sql
+ooa_functions.sql
+content_assist.sql

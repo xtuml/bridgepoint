@@ -5,12 +5,12 @@
 
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,grammar,grammar_enhancer,validate,compile_grammar,format_java">
+          depends="sql,schema,grammar,validate,ooa_functions,content_assist,grammar_enhancer,compile_grammar,format_java">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,grammar,grammar_enhancer,validate,compile_grammar">
+          depends="sql,schema,grammar,validate,ooa_functions,content_assist,grammar_enhancer,compile_grammar">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
@@ -84,6 +84,59 @@
       <arg value="-sql=${antlr.output}" />
       <arg value="../org.xtuml.bp.als.oal/bnf/oal.bnf" />
     </java>
+  </target>
+
+  <property name="ooaofooa_input" value="sql/ooaofooa.sql" />
+  <property name="ooa_functions_output" value="sql/ooa_functions.sql" />
+  <target name="ooa_functions.depends" >
+    <uptodate property="ooa_functions.buildNotNeeded" targetfile="${ooa_functions_output}">
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql"/>
+       <srcfiles dir = "sql" includes = "${ooaofooa_input}"/>
+       <srcfiles dir = "arc" includes = "ooa_functions.arc"/>
+    </uptodate>
+  </target>
+
+  <target name="ooa_functions"
+          depends="ooa_functions.depends"
+          description="Collect OOA functions"
+          unless="ooa_functions.buildNotNeeded" >
+    <echo >Collecting available OOA parser functions...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}">
+    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <env key="ALS_NAME" value="oal" />
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ${ooaofooa_input}
+      -arch arc/ooa_functions.arc"/>
+    </exec>
+  </target>
+
+  <property name="content_assist.output" value="sql/content_assist.sql" />
+  <target name="content_assist.depends" >
+    <uptodate property="content_assist.buildNotNeeded" targetfile="${content_assist.output}">
+       <srcfiles dir = "sql" includes = "grammar_schema.sql"/>
+       <srcfiles dir = "sql" includes = "oal_grammar.sql"/>
+       <srcfiles dir = "sql" includes = "ooa_functions.sql"/>
+       <srcfiles dir = "arc" includes = "content_assist.arc"/>
+    </uptodate>
+  </target>
+
+  <target name="content_assist"
+          depends="content_assist.depends"
+          description="Add content assist hooks"
+          unless="content_assist.buildNotNeeded" >
+    <echo >Adding content assist hooks...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}">
+    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <env key="ALS_NAME" value="oal" />
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
+      -import sql/grammar_schema.sql
+      -import ${antlr.output}
+      -import ${ooa_functions_output}
+      -arch arc/content_assist.arc"/>
+    </exec>
   </target>
 
   <property name="ge.clr.dep" value="ooaofooa_package_spec.clr" />
@@ -226,7 +279,7 @@
 
   <target name="clean_all"
         description="Clean entire project"
-        depends="clean_sql,clean_schema,clean_grammar,clean_grammar_enhancer,
+        depends="clean_sql,clean_schema,clean_grammar,clean_ooa_functions,clean_content_assist,clean_grammar_enhancer,
         clean_validate" >
 
     <echo>Done cleaning for ${ant.project.name}</echo>
@@ -256,6 +309,22 @@
 
    <echo>Removing generated sql file: ${antlr.output} ...</echo>
    <delete file="${antlr.output}" />
+
+  </target>
+
+  <target name="clean_ooa_functions"
+        description="Remove the OOA functions file" >
+
+   <echo>Removing generated sql file: ${ooa_functions_output} ...</echo>
+   <delete file="${ooa_functions_output}" />
+
+  </target>
+
+  <target name="clean_content_assist"
+        description="Remove the content assist functions file" >
+
+   <echo>Removing generated sql file: ${content_assist.output} ...</echo>
+   <delete file="${content_assist.output}" />
 
   </target>
 
