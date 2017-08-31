@@ -29069,8 +29069,6 @@ if ( not_empty act and not_empty left_obj )
   list.col = ::getColumn( rule_token:param.current_token ) + GD::strlen( s: ::getText( rule_token:param.current_token ) );
   relate list to act across R1603;
 
-  select one current_item related by list->ACT_P[R1601];
-  
   select many r_oirs related by left_obj->R_OIR[R201];
   for each r_oir in r_oirs
     select many foreign_oirs related by r_oir->R_REL[R201]->R_OIR[R201] where ( selected.OIR_ID != r_oir.OIR_ID );
@@ -29087,12 +29085,7 @@ if ( not_empty act and not_empty left_obj )
         new_item.display_text = new_item.replacement_text;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.selection_length = 0;
-        if ( empty current_item )
-          relate new_item to list across R1601;
-        else
-          relate new_item to current_item across R1602.''follows'';
-        end if;
-        current_item = new_item; 
+        relate new_item to list across R1601;
       end if;
     end for;
   end for;
@@ -29284,8 +29277,6 @@ if ( not_empty rootVal )
       list.col = ::getColumn( rule_token:param.current_token ) + GD::strlen( s: ::getText( rule_token:param.current_token ) );
       relate list to act across R1603;
 
-      select one current_item related by list->ACT_P[R1601];
-      
       select many o_attrs related by obj->O_ATTR[R102];
       for each o_attr in o_attrs
         create object instance new_item of ACT_P;
@@ -29294,12 +29285,7 @@ if ( not_empty rootVal )
         new_item.display_text = o_attr.Name;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.selection_length = 0;
-        if ( empty current_item )
-          relate new_item to list across R1601;
-        else
-          relate new_item to current_item across R1602.''follows'';
-        end if;
-        current_item = new_item; 
+        relate new_item to list across R1601;
       end for;
 
       select many o_tfrs related by obj->O_TFR[R115];
@@ -29310,12 +29296,7 @@ if ( not_empty rootVal )
         new_item.display_text = o_tfr.Name;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.selection_length = 0;
-        if ( empty current_item )
-          relate new_item to list across R1601;
-        else
-          relate new_item to current_item across R1602.''follows'';
-        end if;
-        current_item = new_item; 
+        relate new_item to list across R1601;
       end for;
 
     end if;

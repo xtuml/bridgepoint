@@ -14,11 +14,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select one first_item related by self->ACT_P[R1601];
-if ( not_empty first_item )
-  unrelate self from first_item across R1601;
-  first_item.dispose();
-end if;
+	'select many items related by self->ACT_P[R1601];
+for each item in items
+  item.dispose();
+end for;
 select one act related by self->ACT_ACT[R1603];
 unrelate self from act across R1603;
 delete object instance self;',

@@ -15,19 +15,7 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one list related by self->ACT_PL[R1601];
-if ( not_empty list )
-  unrelate self from list across R1601;
-end if;
-select one next_item related by self->ACT_P[R1602.''precedes''];
-select one prev_item related by self->ACT_P[R1602.''follows''];
-if ( not_empty next_item )
-  unrelate self from next_item across R1602.''precedes'';
-  next_item.dispose();
-end if;
-if ( not_empty prev_item )
-  unrelate self from prev_item across R1602.''follows'';
-  prev_item.dispose();
-end if;
+unrelate self from list across R1601;
 delete object instance self;',
 	1,
 	'',
@@ -60,34 +48,6 @@ INSERT INTO O_RTIDA_PROXY
 	0,
 	"f77fee3a-2560-495e-8a97-809a360d0baf",
 	"eaab01b6-d2b4-47d4-abf2-dc70be4e35b9",
-	'../Body.xtuml');
-INSERT INTO O_REF
-	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	0,
-	"0eab8bd5-13e0-42db-bb91-b1bed8edd948",
-	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
-	"77eea8c5-40ef-485b-b074-b5eca6dbc7c9",
-	"cc4a2bc7-875d-46e6-bbf8-aca50a089c38",
-	"0eab8bd5-13e0-42db-bb91-b1bed8edd948",
-	"4ac3ea8c-c4d3-402e-912c-cf0f10552b0a",
-	"26e55dd6-9f29-4223-b8d8-6f777ea5f809",
-	0,
-	'',
-	'Proposal',
-	'List_ID',
-	'R1602.''precedes''');
-INSERT INTO R_RGO_PROXY
-	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
-	"77eea8c5-40ef-485b-b074-b5eca6dbc7c9",
-	'../Body.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("0eab8bd5-13e0-42db-bb91-b1bed8edd948",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	0,
-	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
-	"cc4a2bc7-875d-46e6-bbf8-aca50a089c38",
 	'../Body.xtuml');
 INSERT INTO O_RATTR
 	VALUES ("0eab8bd5-13e0-42db-bb91-b1bed8edd948",
@@ -130,48 +90,6 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO O_REF
-	VALUES ("cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	0,
-	"028f37db-3da2-4fe3-9d62-ec2c9610aac6",
-	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
-	"77eea8c5-40ef-485b-b074-b5eca6dbc7c9",
-	"cc4a2bc7-875d-46e6-bbf8-aca50a089c38",
-	"5d95873f-c2c5-4f09-827d-858caf9c1d98",
-	"17829ddc-54c3-4225-8423-af3914ea5dbe",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Proposal',
-	'Proposal_ID',
-	'R1602.''precedes''');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("028f37db-3da2-4fe3-9d62-ec2c9610aac6",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	0,
-	"5ed9cba3-99f6-4b9a-bec1-b41d29637ccc",
-	"cc4a2bc7-875d-46e6-bbf8-aca50a089c38",
-	'../Body.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("5d95873f-c2c5-4f09-827d-858caf9c1d98",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	"028f37db-3da2-4fe3-9d62-ec2c9610aac6",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	1,
-	'Proposal_ID');
-INSERT INTO O_ATTR
-	VALUES ("5d95873f-c2c5-4f09-827d-858caf9c1d98",
-	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	"0eab8bd5-13e0-42db-bb91-b1bed8edd948",
-	'next_Proposal_ID',
-	'',
-	'next_',
-	'Item_ID',
-	1,
-	"ba5eda7a-def5-0000-0000-000000000007",
-	'',
-	'');
 INSERT INTO O_NBATTR
 	VALUES ("600a2fd2-e084-4ea6-b220-ac092931ac77",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8");
@@ -199,7 +117,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("411c8489-94a3-4f6f-b409-83316707879a",
 	"cfdf70ff-5de7-4843-b4d5-319763dbedd8",
-	"5d95873f-c2c5-4f09-827d-858caf9c1d98",
+	"0eab8bd5-13e0-42db-bb91-b1bed8edd948",
 	'type',
 	'',
 	'',
@@ -211,7 +129,7 @@ INSERT INTO O_ATTR
 INSERT INTO S_DT_PROXY
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"00000000-0000-0000-0000-000000000000",
-	'ContentAssistanceItemTypes',
+	'ProposalTypes',
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');

@@ -118,15 +118,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
         String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
         String leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
-        Proposal_c item = Proposal_c.getOneACT_POnR1601( list );
-        while ( null != item ) {
+        Proposal_c[] items = Proposal_c.getManyACT_PsOnR1601( list );
+        for ( Proposal_c item : items ) {
             if ( item.getReplacement_text().toLowerCase().startsWith( existingText.trim().toLowerCase() ) ) {
                 ICompletionProposal proposal = new CompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
                                                                        leadingWhitespace.length() + item.getCursor_position(), getImage( item.getType() ),
                                                                        item.getDisplay_text(), null, null );
                 proposals.add( proposal );
             }
-            item = Proposal_c.getOneACT_POnR1602Precedes( item );
         }
         
         // set the auto trigger characters
