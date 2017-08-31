@@ -256,22 +256,18 @@ elif (param.name == "can" )
       //   - Get the set of referential attributes
       //   - If there''s more than one (because we don''t want to count ourself),
       //       iterate over the set and see if any are of the same type.
-      select many rattr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106];
-      if ( cardinality rattr_candidate_set > 1 )
-        for each rattr_candidate in rattr_candidate_set
-          if ( rattr_candidate.Attr_ID != self.Attr_ID )
-            select one other_attr related by rattr_candidate->O_ATTR[R106];
-            dtid_other = other_attr.DT_ID;
-            select one rattr_candidate_dt related by rattr_candidate->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
-            if ( not_empty rattr_candidate_dt )
-              dtid_other = rattr_candidate_dt.DT_ID;
-            end if;
-            if ( dtid_other == dtid_self )
-              return true;
-            end if;
-          end if;
-        end for;
-      end if;
+      select many rattr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_RATTR[R106] where ( selected.Attr_ID != self.Attr_ID );
+      for each rattr_candidate in rattr_candidate_set          
+        select one other_attr related by rattr_candidate->O_ATTR[R106];
+        dtid_other = other_attr.DT_ID;
+        select one rattr_candidate_dt related by rattr_candidate->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
+        if ( not_empty rattr_candidate_dt )
+          dtid_other = rattr_candidate_dt.DT_ID;
+        end if;
+        if ( dtid_other == dtid_self )
+          return true;
+        end if;
+      end for;
     else
       // combining is allowed for combining a referential with its own base
       select one battr related by self->O_BATTR[R106];
