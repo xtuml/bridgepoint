@@ -671,7 +671,7 @@ ${s}}
 ${s}// rule content assist action for '${fncname}'
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
 ${s}  if ( m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(0) &&
-${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() < m_contentAssistCol ) ) ) {
+${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() <= m_contentAssistCol ) ) ) {
 ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(0),
     .invoke result = create_new_function(fncname, r, void_dt)
     .assign fnc = result.fnc
