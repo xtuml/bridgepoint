@@ -104,6 +104,11 @@ if not_empty ca_l
   ca_l.dispose();
 end if;
 
+select many act_pccs related by self->ACT_PCC[R1602];
+for each act_pcc in act_pccs
+  act_pcc.dispose();
+end for;
+
 delete object instance self;
 ',
 	1,

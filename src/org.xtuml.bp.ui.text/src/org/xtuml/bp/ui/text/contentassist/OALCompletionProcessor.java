@@ -22,19 +22,6 @@ import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
-import org.xtuml.bp.core.Proposal_c;
-import org.xtuml.bp.core.ProvidedOperationBody_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.ProvidedSignalBody_c;
-import org.xtuml.bp.core.ProvidedSignal_c;
-import org.xtuml.bp.core.RequiredOperationBody_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.RequiredSignalBody_c;
-import org.xtuml.bp.core.RequiredSignal_c;
-import org.xtuml.bp.core.StateActionBody_c;
-import org.xtuml.bp.core.TransitionActionBody_c;
-import org.xtuml.bp.core.ProposalList_c;
-import org.xtuml.bp.core.Proposaltypes_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -45,6 +32,20 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.ProposalList_c;
+import org.xtuml.bp.core.Proposal_c;
+import org.xtuml.bp.core.Proposaltypes_c;
+import org.xtuml.bp.core.ProposalCalculationCue_c;
+import org.xtuml.bp.core.ProvidedOperationBody_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.ProvidedSignalBody_c;
+import org.xtuml.bp.core.ProvidedSignal_c;
+import org.xtuml.bp.core.RequiredOperationBody_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.RequiredSignalBody_c;
+import org.xtuml.bp.core.RequiredSignal_c;
+import org.xtuml.bp.core.StateActionBody_c;
+import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -85,6 +86,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 ProposalList_c list = ProposalList_c.getOneACT_PLOnR1603( body );
                 if ( null != list ) {
                     list.Dispose();
+                }
+                ProposalCalculationCue_c[] cues = ProposalCalculationCue_c.getManyACT_PCCsOnR1602( body );
+                for ( ProposalCalculationCue_c cue : cues ) {
+                    cue.Dispose();
                 }
                 setDefaultTriggerChars();
                 setNeedsParse( true );

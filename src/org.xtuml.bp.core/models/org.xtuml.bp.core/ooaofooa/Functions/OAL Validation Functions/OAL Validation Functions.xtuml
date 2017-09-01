@@ -29627,41 +29627,37 @@ if ( not_empty act )
 
   // create keyword proposals
   i = 0;
-  while i < 18
+  while i < 16
     kw = "";
     if ( 0 == i )
-      kw = "break";
-    elif ( 1 == i )
-      kw = "continue";
-    elif ( 2 == i )
       kw = "control stop";
-    elif ( 3 == i )
+    elif ( 1 == i )
       kw = "create event instance";
-    elif ( 4 == i )
+    elif ( 2 == i )
       kw = "create object instance";
-    elif ( 5 == i )
+    elif ( 3 == i )
       kw = "delete object instance";
-    elif ( 6 == i )
+    elif ( 4 == i )
       kw = "for each";
-    elif ( 7 == i )
+    elif ( 5 == i )
       kw = "generate";
-    elif ( 8 == i )
+    elif ( 6 == i )
       kw = "if";
-    elif ( 9 == i )
+    elif ( 7 == i )
       kw = "param";
-    elif ( 10 == i )
+    elif ( 8 == i )
       kw = "relate";
-    elif ( 11 == i )
+    elif ( 9 == i )
       kw = "return";
-    elif ( 12 == i )
+    elif ( 10 == i )
       kw = "select any";
-    elif ( 13 == i )
+    elif ( 11 == i )
       kw = "select many";
-    elif ( 14 == i )
+    elif ( 12 == i )
       kw = "select one";
-    elif ( 15 == i )
+    elif ( 13 == i )
       kw = "send";
-    elif ( 16 == i )
+    elif ( 14 == i )
       kw = "unrelate";
     else
       kw = "while";
@@ -29689,45 +29685,106 @@ if ( not_empty act )
     select one whilesmt related by block->ACT_WHL[R608];
     select one forsmt related by block->ACT_FOR[R605];
     if ( not_empty ifsmt )
+      select any else_cue related by act->ACT_PCC[R1602] where ( selected.name == "in_else" );
+      if ( empty else_cue )
+        i = 0;
+        while i < 3
+          kw = "";
+          if ( 0 == i )
+            kw = "elif";
+          elif ( 1 == i )
+            kw = "else";
+          else
+            kw = "end if";
+          end if;
+          create object instance new_item of ACT_P;
+          new_item.type = ProposalTypes::Keyword;
+          new_item.display_text = kw;
+          new_item.replacement_text = new_item.display_text;
+          if ( "end if" == kw )
+            new_item.replacement_text = new_item.display_text + ";";
+          end if;
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+          new_item.selection_length = 0;
+          relate new_item to list across R1601;
+          i = i + 1;
+        end while;
+      else
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::Keyword;
+        new_item.display_text = "end if";
+        new_item.replacement_text = new_item.display_text + ";";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+        else_cue.dispose();
+      end if;
+    elif ( not_empty whilesmt )
       i = 0;
       while i < 3
         kw = "";
         if ( 0 == i )
-          kw = "elif";
+          kw = "break";
         elif ( 1 == i )
-          kw = "else";
+          kw = "continue";
         else
-          kw = "end if";
+          kw = "end while";
         end if;
         create object instance new_item of ACT_P;
         new_item.type = ProposalTypes::Keyword;
         new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text;
-        if ( "end if" == kw )
-          new_item.replacement_text = new_item.display_text + ";";
-        end if;
+        new_item.replacement_text = new_item.display_text + ";";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.selection_length = 0;
         relate new_item to list across R1601;
         i = i + 1;
       end while;
-    elif ( not_empty whilesmt )
-      create object instance new_item of ACT_P;
-      new_item.type = ProposalTypes::Keyword;
-      new_item.display_text = "end while";
-      new_item.replacement_text = new_item.display_text + ";";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
-      relate new_item to list across R1601;
     elif ( not_empty forsmt )
-      create object instance new_item of ACT_P;
-      new_item.type = ProposalTypes::Keyword;
-      new_item.display_text = "end for";
-      new_item.replacement_text = new_item.display_text + ";";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
-      relate new_item to list across R1601;
+      i = 0;
+      while i < 3
+        kw = "";
+        if ( 0 == i )
+          kw = "break";
+        elif ( 1 == i )
+          kw = "continue";
+        else
+          kw = "end for";
+        end if;
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::Keyword;
+        new_item.display_text = kw;
+        new_item.replacement_text = new_item.display_text + ";";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+        i = i + 1;
+      end while;
     end if;
+  end if;
+  
+  // create ''self'' proposal if in an instance body
+  include_self = true;
+  select one op related by act->ACT_OPB[R698] ->O_TFR[R696];
+  if ( empty op )
+    select one sm_act related by act->ACT_SAB[R698]->SM_ACT[R691];
+    if ( empty sm_act )
+      select one sm_act related by act->ACT_TAB[R698]->SM_ACT[R688];
+      if ( empty sm_act )
+        select one dbattr related by act->ACT_DAB[R698]->O_DBATTR[R693];
+        if ( empty dbattr )
+          include_self = false;
+        end if;
+      end if;
+    end if;
+  end if;
+  if ( include_self )
+    create object instance new_item of ACT_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "self";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.selection_length = 0;
+    relate new_item to list across R1601;
   end if;
   
   // create local variable proposals
@@ -29856,6 +29913,360 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	"00000000-0000-0000-0000-000000000000",
+	'If_statement_strlit_else_content_assist',
+	'ParserValidateFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  create object instance cue of ACT_PCC;
+  cue.name = "in_else";
+  relate cue to act across R1602;
+end if;
+::Action_eof_content_assist( a1_rule_token:param.a1_rule_token, a2_upper_rule_id:param.a2_upper_rule_id,
+  a3_rule_begin_id:GD::NULL_UNIQUE_ID(), a4_rule_id:param.a4_rule_id, b1_block1_id:GD::NULL_UNIQUE_ID() );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("360611f4-8430-4999-82d4-cb183d9202a1",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f027e3ec-f0d3-4b20-9f51-13118b610161",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"360611f4-8430-4999-82d4-cb183d9202a1",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d1376b0d-9186-4cfb-958e-520f9f5d06c4",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f027e3ec-f0d3-4b20-9f51-13118b610161",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f1323112-272f-4629-9447-82bd93e0f8e0",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"d1376b0d-9186-4cfb-958e-520f9f5d06c4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6f43229a-a4e5-41ef-bc71-87b9393b18e4",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'b1_expr1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f1323112-272f-4629-9447-82bd93e0f8e0",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f812cff3-7b09-45b7-b312-ba6543d7ad06",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'b2_block2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6f43229a-a4e5-41ef-bc71-87b9393b18e4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4c76dd54-9143-4ccd-bb23-fc271fa1a342",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'b3_expr3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f812cff3-7b09-45b7-b312-ba6543d7ad06",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("55f8451c-8ebd-4bf3-8d0f-2f1d4e357b17",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'b4_block4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4c76dd54-9143-4ccd-bb23-fc271fa1a342",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b6ae07a7-71c7-40b7-a60d-fb624b0b19be",
+	"aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	'b5_block5_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"55f8451c-8ebd-4bf3-8d0f-2f1d4e357b17",
+	'');
+INSERT INTO PE_PE
+	VALUES ("aad4b9a6-cdc8-4c7d-95b4-8c930c5624da",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("17c90d31-8950-4866-97b3-9cce995e8445",
+	"00000000-0000-0000-0000-000000000000",
+	'For_statement_inst_ref_set_var_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::Action_eof_content_assist( a1_rule_token:param.a1_rule_token, a2_upper_rule_id:param.a2_upper_rule_id,
+  a3_rule_begin_id:GD::NULL_UNIQUE_ID(), a4_rule_id:param.a4_rule_id, b1_block1_id:GD::NULL_UNIQUE_ID() );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("300d3d61-6038-41ed-9ea7-7cae28833901",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("952f4de8-ca05-4fc8-90d0-b318366e25e9",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"300d3d61-6038-41ed-9ea7-7cae28833901",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7eb8140e-b721-4e0c-9f61-ed66c69c1d7e",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"952f4de8-ca05-4fc8-90d0-b318366e25e9",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f9c7d1b7-1854-438b-b487-93e141fd895b",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7eb8140e-b721-4e0c-9f61-ed66c69c1d7e",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6f48890e-2d75-46fe-aa86-b4a593b83bc3",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'b1_local_variable1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f9c7d1b7-1854-438b-b487-93e141fd895b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a36a198e-bec0-4caa-a403-55513d9213c6",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'b2_inst_ref_set_var2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6f48890e-2d75-46fe-aa86-b4a593b83bc3",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1a05b220-f1fc-4eb8-b066-dbb03d56f9ce",
+	"17c90d31-8950-4866-97b3-9cce995e8445",
+	'b3_block3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a36a198e-bec0-4caa-a403-55513d9213c6",
+	'');
+INSERT INTO PE_PE
+	VALUES ("17c90d31-8950-4866-97b3-9cce995e8445",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("64d57ddd-4880-43eb-9000-3a0a4416d830",
+	"00000000-0000-0000-0000-000000000000",
+	'While_statement_expr_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::Action_eof_content_assist( a1_rule_token:param.a1_rule_token, a2_upper_rule_id:param.a2_upper_rule_id,
+  a3_rule_begin_id:GD::NULL_UNIQUE_ID(), a4_rule_id:param.a4_rule_id, b1_block1_id:GD::NULL_UNIQUE_ID() );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("caae188c-1d0a-4b9d-ba52-3e27b99b0307",
+	"64d57ddd-4880-43eb-9000-3a0a4416d830",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1db01317-aade-418e-8fa5-65cff032f0b3",
+	"64d57ddd-4880-43eb-9000-3a0a4416d830",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"caae188c-1d0a-4b9d-ba52-3e27b99b0307",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3dd762f0-6af1-400d-8026-e4fc2e2dd160",
+	"64d57ddd-4880-43eb-9000-3a0a4416d830",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1db01317-aade-418e-8fa5-65cff032f0b3",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c16976c9-a613-4188-b7ef-582bae7d7a6e",
+	"64d57ddd-4880-43eb-9000-3a0a4416d830",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3dd762f0-6af1-400d-8026-e4fc2e2dd160",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("618e8e2d-2820-43ce-8450-a344172749a4",
+	"64d57ddd-4880-43eb-9000-3a0a4416d830",
+	'b1_expr1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c16976c9-a613-4188-b7ef-582bae7d7a6e",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a927e2c3-e15f-4b6a-a217-f3ab585bd611",
+	"64d57ddd-4880-43eb-9000-3a0a4416d830",
+	'b2_block2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"618e8e2d-2820-43ce-8450-a344172749a4",
+	'');
+INSERT INTO PE_PE
+	VALUES ("64d57ddd-4880-43eb-9000-3a0a4416d830",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	"00000000-0000-0000-0000-000000000000",
+	'If_statement_expr_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::Action_eof_content_assist( a1_rule_token:param.a1_rule_token, a2_upper_rule_id:param.a2_upper_rule_id,
+  a3_rule_begin_id:GD::NULL_UNIQUE_ID(), a4_rule_id:param.a4_rule_id, b1_block1_id:GD::NULL_UNIQUE_ID() );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("da66eaf5-db71-4366-bc6a-0f5f36e9da3d",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ed0c0baf-bf5a-45f4-993b-4a40ff670a16",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"da66eaf5-db71-4366-bc6a-0f5f36e9da3d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("df838cf3-10c6-4173-94f3-3e6018d54c5f",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ed0c0baf-bf5a-45f4-993b-4a40ff670a16",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("84dad413-91cf-4919-93df-6df8735a9f49",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"df838cf3-10c6-4173-94f3-3e6018d54c5f",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("570ccf1e-bcb0-43a1-bca9-f80501a99c23",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'b1_expr1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"84dad413-91cf-4919-93df-6df8735a9f49",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2cda36c0-e165-495d-aa74-f7613ab06236",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'b2_block2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"570ccf1e-bcb0-43a1-bca9-f80501a99c23",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fa3757c6-279f-49d5-86f4-5da8e7b356ad",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'b3_expr3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"2cda36c0-e165-495d-aa74-f7613ab06236",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4d8b2776-87c9-49d8-94fd-bde3ff304ffe",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'b4_block4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fa3757c6-279f-49d5-86f4-5da8e7b356ad",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7be61837-f944-47ab-8aa4-1abd8f4c30f8",
+	"e5cb2183-36a1-497e-aa9e-80b7989cfb00",
+	'b5_block5_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4d8b2776-87c9-49d8-94fd-bde3ff304ffe",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e5cb2183-36a1-497e-aa9e-80b7989cfb00",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
