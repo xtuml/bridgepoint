@@ -29412,6 +29412,8 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text + " ";
     if ( "control stop" == kw or "break" == kw or "continue" == kw )
       new_item.replacement_text = new_item.display_text + ";";
+    elif ( "param" == kw )
+      new_item.replacement_text = new_item.display_text;
     end if;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.selection_length = 0;
@@ -29437,7 +29439,7 @@ if ( not_empty act )
         elif ( 1 == i )
           kw = "else";
         else
-          kw = "end if;";
+          kw = "end if";
         end if;
         create object instance new_item of ACT_P;
         new_item.type = ProposalTypes::Keyword;
@@ -29497,6 +29499,7 @@ if ( not_empty act )
   end while;
 
   // create class key letter proposals
+  in_generic_package = act.associateWithContainer();
   select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
@@ -29513,13 +29516,16 @@ if ( not_empty act )
   end if;
   select many o_objs related by results->O_OBJ[R8001];
   for each o_obj in o_objs
-    create object instance new_item of ACT_P;
-    new_item.type = ProposalTypes::Class;
-    new_item.display_text = o_obj.Key_Lett;
-    new_item.replacement_text = new_item.display_text + "::";
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
-    relate new_item to list across R1601;
+    select any o_tfr related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation to be shown as an option
+    if ( not_empty o_tfr )
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::Class;
+      new_item.display_text = o_obj.Key_Lett;
+      new_item.replacement_text = new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
   end for;
 
   // create EE key letter proposals
@@ -29536,13 +29542,16 @@ if ( not_empty act )
   end if;
   select many s_ees related by results->S_EE[R8001];
   for each s_ee in s_ees
-    create object instance new_item of ACT_P;
-    new_item.type = ProposalTypes::EE;
-    new_item.display_text = s_ee.Key_Lett;
-    new_item.replacement_text = new_item.display_text + "::";
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
-    relate new_item to list across R1601;
+    select any s_brg related by s_ee->S_BRG[R19];
+    if ( not_empty s_brg )  // must have at least one bridge to be shown as an option
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::EE;
+      new_item.display_text = s_ee.Key_Lett;
+      new_item.replacement_text = new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
   end for;
 
 end if;',
@@ -29795,6 +29804,91 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e4872a92-9d19-4c5b-bc67-507e31f8c8bc",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	"00000000-0000-0000-0000-000000000000",
+	'Action_eof_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::Statement_semicolon_content_assist( a1_rule_token:param.a1_rule_token, a2_upper_rule_id:param.a2_upper_rule_id, a4_rule_id:param.a4_rule_id,
+  b1_ib_transform_id:GD::NULL_UNIQUE_ID(),
+  b2_function_id:GD::NULL_UNIQUE_ID(),
+  b3_implicit_assignment_id:GD::NULL_UNIQUE_ID(),
+  b4_implicit_invocation_id:GD::NULL_UNIQUE_ID(),
+  b5_assignment_id:GD::NULL_UNIQUE_ID(),
+  b6_control_id:GD::NULL_UNIQUE_ID(),
+  b7_break_id:GD::NULL_UNIQUE_ID(),
+  b8_bridge_id:GD::NULL_UNIQUE_ID(),
+  b9_send_id:GD::NULL_UNIQUE_ID(),
+  b10_continue_id:GD::NULL_UNIQUE_ID(),
+  b11_create_object_id:GD::NULL_UNIQUE_ID(),
+  b12_create_event_id:GD::NULL_UNIQUE_ID(),
+  b13_delete_id:GD::NULL_UNIQUE_ID(),
+  b14_for_id:GD::NULL_UNIQUE_ID(),
+  b15_generate_id:GD::NULL_UNIQUE_ID(),
+  b16_if_id:GD::NULL_UNIQUE_ID(),
+  b17_relate_id:GD::NULL_UNIQUE_ID(),
+  b18_return_id:GD::NULL_UNIQUE_ID(),
+  b19_select_id:GD::NULL_UNIQUE_ID(),
+  b20_transform_id:GD::NULL_UNIQUE_ID(),
+  b21_while_id:GD::NULL_UNIQUE_ID(),
+  b22_unrelate_id:GD::NULL_UNIQUE_ID(),
+  b23_debug_id:GD::NULL_UNIQUE_ID(),
+  b24_empty_id:GD::NULL_UNIQUE_ID() );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("a27761b0-8b8d-4f2b-b281-9de7d84a369d",
+	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9d6d578d-ff98-47bc-8f08-fa802be10fdb",
+	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a27761b0-8b8d-4f2b-b281-9de7d84a369d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("670ced36-4766-4d8b-8392-168798f649f5",
+	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9d6d578d-ff98-47bc-8f08-fa802be10fdb",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c64cae0b-f32f-4f93-be0e-6ef003e999b4",
+	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"670ced36-4766-4d8b-8392-168798f649f5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7edfb975-4c57-46b1-8330-825d34123e0a",
+	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
+	'b1_block1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c64cae0b-f32f-4f93-be0e-6ef003e999b4",
+	'');
+INSERT INTO PE_PE
+	VALUES ("ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
