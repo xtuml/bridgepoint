@@ -38,8 +38,10 @@ import org.xtuml.bp.core.Proposaltypes_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
+import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Pref_c;
@@ -181,6 +183,13 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( Operation_c.class );
             case Proposaltypes_c.Association:
                 return CorePlugin.getImageFor( Association_c.class );
+            case Proposaltypes_c.Variable:
+                //return CorePlugin.getImageFor( Association_c.class );
+                return null;
+            case Proposaltypes_c.Class:
+                return CorePlugin.getImageFor( ModelClass_c.class );
+            case Proposaltypes_c.EE:
+                return CorePlugin.getImageFor( ExternalEntity_c.class );
             default:
                 return null;
         }

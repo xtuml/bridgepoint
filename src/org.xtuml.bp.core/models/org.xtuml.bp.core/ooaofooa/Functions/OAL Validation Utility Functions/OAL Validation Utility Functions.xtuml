@@ -7630,6 +7630,65 @@ INSERT INTO PE_PE
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("4863a733-6d76-46ca-9155-6c74d3e8c3b7",
+	"00000000-0000-0000-0000-000000000000",
+	'get_vars_in_scope',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Import:java.util.Set;java.util.TreeSet
+
+Translate: native',
+	'Ooaofooa.log.println(ILogger.FUNCTION, "get_vars_in_scope", " Function entered: Get_vars_in_scope") ; 
+Set<java.util.UUID> var_id_set = new TreeSet<java.util.UUID>();
+Set<String> var_name_set = new TreeSet<String>();
+java.util.UUID block_id = Get_current_scope( modelRoot );
+Block_c enc_block = (Block_c) modelRoot.getInstanceList(Block_c.class).getGlobal( null, block_id );
+while ( null != enc_block ) {
+    Variable_c[] in_scope_vars = Variable_c.getManyV_VARsOnR823( enc_block );
+    for ( Variable_c new_var : in_scope_vars ) {
+        if ( var_name_set.add( new_var.getName()) ) {
+            var_id_set.add( new_var.getVar_id() );
+        }
+    }
+    block_id = Get_enclosing_block( modelRoot, block_id, p_Rule_token );
+    enc_block = (Block_c) modelRoot.getInstanceList(Block_c.class).getGlobal( null, block_id );
+}
+if ( p_Index < 0 || p_Index >= var_id_set.size() ) {
+    return Gd_c.Null_unique_id();
+}
+else {
+    return var_id_set.toArray( new java.util.UUID[0] )[p_Index];
+}',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("4602c18f-04b7-483d-a78b-07eacd0092f1",
+	"4863a733-6d76-46ca-9155-6c74d3e8c3b7",
+	'rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"2d28a2a9-dc93-4f6e-a693-1814edae2b43",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2d28a2a9-dc93-4f6e-a693-1814edae2b43",
+	"4863a733-6d76-46ca-9155-6c74d3e8c3b7",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("4863a733-6d76-46ca-9155-6c74d3e8c3b7",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("9092f98e-34df-42d0-be42-dc91951c8a73",
 	1,

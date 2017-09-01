@@ -1932,6 +1932,30 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
+INSERT INTO S_ENUM
+	VALUES ("5bd6d81f-bf2d-445e-aa85-dc1666c28b5b",
+	'Keyword',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"ac2883fd-b99d-4cdd-a9d6-0be3cda9de85");
+INSERT INTO S_ENUM
+	VALUES ("200294d0-99b1-423c-a680-145f6f8a2e84",
+	'Variable',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"5bd6d81f-bf2d-445e-aa85-dc1666c28b5b");
+INSERT INTO S_ENUM
+	VALUES ("8e979667-6c9c-428c-b1a9-714ea43a7871",
+	'Class',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"200294d0-99b1-423c-a680-145f6f8a2e84");
+INSERT INTO S_ENUM
+	VALUES ("b90f452e-092b-469d-8c12-7a8a792bcd08",
+	'EE',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"8e979667-6c9c-428c-b1a9-714ea43a7871");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,
