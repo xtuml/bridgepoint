@@ -29351,7 +29351,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("e4872a92-9d19-4c5b-bc67-507e31f8c8bc",
 	"00000000-0000-0000-0000-000000000000",
-	'Statement_Semicolon_content_assist',
+	'Statement_semicolon_content_assist',
 	'ParserValidateFunction: TRUE',
 	'act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
@@ -29480,7 +29480,7 @@ if ( not_empty act )
   
   // create local variable proposals
   i = 0;
-  local_var_id = ::get_vars_in_scope( index:i, rule_token:param.a1_rule_token );
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
   while ( GD::NULL_UNIQUE_ID() != local_var_id )
     select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
 
@@ -29493,7 +29493,7 @@ if ( not_empty act )
     relate new_item to list across R1601;
 
     i = i + 1;
-    local_var_id = ::get_vars_in_scope( index:i, rule_token:param.a1_rule_token );
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
   end while;
 
   // create class key letter proposals
@@ -29569,22 +29569,13 @@ INSERT INTO S_SPARM
 	"41f1b9aa-1e38-4832-ab49-9ed239216094",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("0cadeef1-c2e4-452c-9541-b32cfec2ad4b",
-	"e4872a92-9d19-4c5b-bc67-507e31f8c8bc",
-	'a3_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"d2b1acc5-4d70-44b2-a470-da04f5187eba",
-	'');
-INSERT INTO S_SPARM
 	VALUES ("50b8227d-bbe5-497e-b5b5-e93d312e6856",
 	"e4872a92-9d19-4c5b-bc67-507e31f8c8bc",
 	'a4_rule_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"0cadeef1-c2e4-452c-9541-b32cfec2ad4b",
+	"d2b1acc5-4d70-44b2-a470-da04f5187eba",
 	'');
 INSERT INTO S_SPARM
 	VALUES ("506d28bf-7c3b-4ab2-bfe9-6f27766ced7b",

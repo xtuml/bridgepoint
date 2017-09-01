@@ -15,7 +15,7 @@
         .assign subname = t.value
       .end if
     .end if
-    .assign fncname = "$c{r.rule_name}_${subname}_content_assist"
+    .assign fncname = "$c{r.rule_name}_$l{subname}_content_assist"
     .select any s_sync from instances of S_SYNC where ( selected.Name == fncname )
     .if ( not_empty s_sync )
 INSERT INTO CAF VALUES ( '${ln.nodeId}', '${fncname}' );

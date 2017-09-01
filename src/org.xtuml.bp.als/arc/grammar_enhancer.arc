@@ -678,8 +678,10 @@ ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(0),
     .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
 ${s}        ${upper_ruleid_name},  // upper rule id
     .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( containing_node.validation_required )
 ${s}        rule_begin_id,  // start rule id
-    .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
 ${s}        ${ruleid_name}\
     .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
     .assign fnc.return_value = ""
