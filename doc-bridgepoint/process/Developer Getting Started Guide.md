@@ -87,10 +87,11 @@ Build Instructions
 Debugging   
 ---------
   - **Debugging the command-line build** (this is done when there is a problem specific to the command-line build)  
-    - Open the BridgePoint UI
-    - Set any breakpoints that are relevant to the issues
-    - Restart the test(s) for the project with issues including the debug option:  ```~/git/bridgepoint/utilities/build/build_and_test_bp.sh [test plugin (example: core)] debug```
-    - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
+    - Open the BridgePoint UI  
+    - Set any breakpoints that are relevant to the issues  
+    - Restart the test(s) for the project with issues including the debug option:  
+      ```~/git/bridgepoint/utilities/build/build_project.sh [test plugin (example: org.xtuml.bp.core.test)] test -debug```
+    - The tests will wait for a remote debugging session, create a new launch configuration in the UI using
     - Select **Debug > Debug Configurations...**  
     - Right click on Remote Java Application and select New
     - Choose the test projet and click Debug
@@ -116,8 +117,24 @@ Debugging
         - Once the test run is complete with no failures or errors, navigate to the owning test plug-in on the command line. 
         - Run maven again for that test plugin.  
           ```
-          ~/git/bridgepoint/utilities/build/build_and_test_bp.sh [test plugin (example: core)]
+          ~/git/bridgepoint/utilities/build/build_project.sh [test plugin (example: org.xtuml.bp.core.test)] test  
            ```
+
+Building single projects on the command line  
+----------------  
+Any project can be built on the command line using the build_project.sh script:  
+
+```~/git/bridgepoint/utilities/build/build_project.sh [plugin (example: org.xtuml.bp.core)]```  
+
+The following options are available for building:  
+
+* projectName  
+* test  
+* clean  
+* -online  
+* -debug  
+
+By default the projects are built offline from maven.  This allows for a quicker build.  Using the -online mode will allow maven to build online once again.  This is helpful when an update is available that is desired.  
 
 Adding new unit tests  
 ----------------  
