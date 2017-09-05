@@ -647,16 +647,104 @@ ${s}}
   .end if
 .end function
 .//===============================================
+.function last_in_loop_or_rule
+  .param inst_ref node
+  .assign attr_is_last = false
+  .invoke r1 = last_in_loop( node )
+  .invoke r2 = last_in_rule( node )
+  .if ( ( r1.is_last ) or ( r2.is_last ) )
+    .assign attr_is_last = true
+  .end if
+.end function
+.//===============================================
+.function last_in_loop
+  .param inst_ref node
+  .assign attr_is_last = false
+  .select one next_node related by node->N[R7.'precedes']
+  .select one next_term related by next_node->LN[R1]->T[R3]
+  .assign is_bang = false
+  .if ( not_empty next_term )
+    .select one next_next related by next_node->N[R7.'precedes']
+    .if ( ( "BANG" == next_term.token_name ) and ( empty next_next ) )
+      .assign is_bang = true
+    .end if
+  .end if
+  .select one loop related by node->NLN[R5]->EBNF[R2]
+  .if ( ( ( empty next_node ) or ( is_bang ) ) and ( not_empty loop ) )
+    .if ( (loop.decoration == "*") OR ( loop.decoration == "+" ) )
+      .assign attr_is_last = true
+    .end if
+  .end if
+.end function
+.//===============================================
+.function last_in_rule
+  .param inst_ref node
+  .assign attr_is_last = false
+  .select one next_node related by node->N[R7.'precedes']
+  .select one next_term related by next_node->LN[R1]->T[R3]
+  .assign is_bang = false
+  .if ( not_empty next_term )
+    .select one next_next related by next_node->N[R7.'precedes']
+    .if ( ( "BANG" == next_term.token_name ) and ( empty next_next ) )
+      .assign is_bang = true
+    .end if
+  .end if
+  .select one rule related by node->NLN[R5]->R[R2]
+  .if ( ( ( empty next_node ) or ( is_bang ) ) and ( not_empty rule ) )
+    .assign attr_is_last = true
+  .end if
+.end function
+.//===============================================
+.function in_loop
+  .param inst_ref node
+  .assign attr_in_loop = false
+  .assign attr_loop_id_name = ""
+  .select one parent_node related by node->NLN[R5]
+  .while ( ( not_empty parent_node ) and ( not attr_in_loop ) )
+    .select one e related by parent_node->EBNF[R2]
+    .if ( not_empty e )
+      .if ( (e.decoration == "*") OR (e.decoration == "+") )
+        .assign attr_in_loop = true
+        .assign attr_loop_id_name = parent_node.loop_id_name
+      .end if
+    .end if
+    .select one parent_node related by parent_node->N[R1]->NLN[R5]
+  .end while
+.end function
+.//===============================================
 .function emit_leaf_node_content_assist_action
   .param inst_ref node
   .param string s
+  .assign emit_node = false
+  .select one t related by node->LN[R1]->T[R3]
+  .select one rr related by node->LN[R1]->RR[R3]
+  .select one next_term related by node->N[R7.'precedes']->LN[R1]->T[R3]
+  .if ( not_empty t )
+    .if ( ( "STRING_LITERAL" == t.token_name ) or ( "TOKEN_REF" == t.token_name ) )
+      .assign emit_node = true
+    .elif ( "BANG" == t.token_name )
+      .select one prior_term related by node->N[R7.'follows']->LN[R1]->T[R3]
+      .if ( not_empty prior_term )
+        .if ( ( "STRING_LITERAL" == prior_term.token_name ) or ( "TOKEN_REF" == prior_term.token_name ) )
+          .assign emit_node = true
+          .select one prior_node related by prior_term->LN[R3]->N[R1]
+          .assign node = prior_node
+        .end if
+      .end if
+    .end if
+  .elif ( not_empty rr )
+    .assign emit_node = true
+  .end if
   .select one caf related by node->LN[R1]->CAF[R28]
-  .if ( not_empty caf )
+  .if ( ( not_empty caf ) and ( emit_node ) )
     .select one r related by node->R[R6]
     .select one containing_node related by r->NLN[R2]->N[R1]
     .select one rr related by node->LN[R1]->RR[R3]
     .select one t related by node->LN[R1]->T[R3]
     .assign fncname = caf.name
+    .invoke result = in_loop( node )
+    .assign in_loop = result.in_loop
+    .assign loop_id_name = result.loop_id_name
     .invoke result = get_validate_constants()
     .assign fncclass = result.fncclass
     .assign upper_ruleid_name = result.upper_ruleid_name
@@ -684,6 +772,11 @@ ${s}        rule_begin_id,  // start rule id
     .end if
 ${s}        ${ruleid_name}\
     .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .if ( in_loop )
+,
+${s}        ${loop_id_name}\
+      .invoke result = create_new_parameter("a5_loop_id_name", fnc, unique_id_dt)
+    .end if
     .assign fnc.return_value = ""
     .assign parm_num = 1
     .invoke grr = get_referenced_rules(r)
@@ -1013,12 +1106,18 @@ ${s}}
         .if ( not_empty prior_term )
           .if (prior_term.token_name == "STRING_LITERAL")
             .assign child_node.value = "!"
-            .invoke result = emit_leaf_node_content_assist_action(prior_node, sx)
-            .invoke post_attach_append(child_node, result.body)
+            .invoke result = last_in_loop_or_rule( child_node )
+            .if ( not result.is_last )
+              .invoke result = emit_leaf_node_content_assist_action( prior_node, sx )
+              .invoke post_attach_append( child_node, result.body )
+            .end if
           .elif (prior_term.value == "TOK_DOT")
             .assign child_node.value = "!"
-            .invoke result = emit_leaf_node_content_assist_action(prior_node, sx)
-            .invoke post_attach_append(child_node, result.body)
+            .invoke result = last_in_loop_or_rule( child_node )
+            .if ( not result.is_last )
+              .invoke result = emit_leaf_node_content_assist_action( prior_node, sx )
+              .invoke post_attach_append( child_node, result.body )
+            .end if
           .end if
         .end if
       .end if
@@ -1051,11 +1150,10 @@ ${s}}
         .invoke result = emit_term_action(child_node, sx)
         .invoke post_attach_append(child_node, result.body)
       .end if
-      .if (term.token_name == "TOKEN_REF")
-        .if ( term.value != "TOK_DOT" )
-          .invoke result = emit_leaf_node_content_assist_action(child_node, sx)
-          .invoke post_attach_append(child_node, result.body)
-        .end if
+      .invoke result = last_in_loop_or_rule( child_node )
+      .if ( not result.is_last )
+        .invoke result = emit_leaf_node_content_assist_action( child_node, sx )
+        .invoke post_attach_append( child_node, result.body )
       .end if
     .end if
   .else
@@ -1086,8 +1184,11 @@ ${s}}
     .invoke post_attach_prepend(child_node, "[${loop_id_name}${arg_string}]\n")
     .invoke result = emit_rule_ref_action(child_node, sx)
     .invoke post_attach_append(child_node, result.body)
-    .invoke result = emit_leaf_node_content_assist_action(child_node, sx)
-    .invoke post_attach_append(child_node, result.body)
+    .invoke result = last_in_loop_or_rule( child_node )
+    .if ( not result.is_last )
+      .invoke result = emit_leaf_node_content_assist_action( child_node, sx )
+      .invoke post_attach_append( child_node, result.body )
+    .end if
   .end if
 .end function
 .//===============================================
@@ -1179,6 +1280,15 @@ ${child_node.pre_attach}${child_node.value}${child_node.post_attach}\
     .if (nln.node_type == "Ebnf")
       .select one e related by nln->EBNF[R2]
       .if ((e.decoration == "*") OR (e.decoration == "+"))
+        .// emit the leaf node content assist action here after the end action
+        .select any child_node related by nln->N[R5]
+        .select one next_node related by child_node->N[R7.'precedes']
+        .while ( not_empty next_node )
+          .assign child_node = next_node
+          .select one next_node related by child_node->N[R7.'precedes']
+        .end while
+        .invoke result = emit_leaf_node_content_assist_action( child_node, "${s}${so}" )
+        .invoke post_attach_prepend(outer_node, result.body)
         .invoke inner_result = emit_loop_end_action(outer_node, "${s}${so}")
         .invoke post_attach_prepend(outer_node, inner_result.body)
       .end if
@@ -1314,6 +1424,19 @@ ${outer_node.post_attach}\
 ${contents.body}\
   .invoke result = emit_rule_end_action(outer_node, "    ")
 
+${result.body}
+  .// emit the leaf node content assist action here after the end action
+  .select any child_node related by p->N[R5]
+  .select one next_node related by child_node->N[R7.'precedes']
+  .while ( not_empty next_node )
+    .assign child_node = next_node
+    .select one next_node related by child_node->N[R7.'precedes']
+  .end while
+  .select one t related by child_node->LN[R1]->T[R3]
+  .if ( not_empty t )
+    .print "t.token_name: ${t.token_name}, t.value: ${t.value}"
+  .end if
+  .invoke result = emit_leaf_node_content_assist_action( child_node, "    " )
 ${result.body}\
   ;
 .end function

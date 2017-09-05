@@ -128,9 +128,9 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         Proposal_c[] items = Proposal_c.getManyACT_PsOnR1601( list );
         for ( Proposal_c item : items ) {
             if ( item.getReplacement_text().toLowerCase().startsWith( existingText.trim().toLowerCase() ) ) {
-                ICompletionProposal proposal = new CompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
+                ICompletionProposal proposal = new OALCompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
                                                                        leadingWhitespace.length() + item.getCursor_position(), getImage( item.getType() ),
-                                                                       item.getDisplay_text(), null, null );
+                                                                       item.getDisplay_text(), null, null, item.getType() );
                 proposals.add( proposal );
             }
         }

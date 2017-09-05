@@ -594,7 +594,8 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
-	'return p_S.length();',
+	'if ( null == p_S ) return 0;
+return p_S.length();',
 	0,
 	'',
 	0);

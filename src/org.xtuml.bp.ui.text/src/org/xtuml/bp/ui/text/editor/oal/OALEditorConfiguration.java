@@ -34,6 +34,7 @@ import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.xtuml.bp.ui.text.contentassist.OALCompletionProcessor;
+import org.xtuml.bp.ui.text.contentassist.OALProposalSorter;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditorConfiguration extends SourceViewerConfiguration {
@@ -102,6 +103,7 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
             ca.enableAutoActivation( true );
             ca.setAutoActivationDelay( 0 );
             ca.setInformationControlCreator(getInformationControlCreator(sv));
+            ca.setSorter( new OALProposalSorter() );
             return ca;
 	    }
 	    else return null;
