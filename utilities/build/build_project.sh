@@ -125,9 +125,14 @@ else
 fi
 cd "$original_dir"
 # Do not touch for cleans or for the parent releng project
-if [ "$cmd" != "clean" ] && [ "$project" != "org.xtuml.bp.releng.parent" ]; then
-  touch $timestampFile
-elif [ "$project" == "org.xtuml.bp.releng.parent" ]; then
-  create_timestamps  
+# only touch on successful build
+if [ $ret_val == 0 ]; then
+  if [ "$cmd" != "clean" ] && [ "$project" != "org.xtuml.bp.releng.parent" ]; then
+    touch $timestampFile
+  elif [ "$project" == "org.xtuml.bp.releng.parent" ]; then
+    create_timestamps  
+  fi
+else
+  echo "Maven build failed for $project, not creating timestamp"
 fi
 exit $ret_val
