@@ -215,11 +215,26 @@ public GraphicsCreationToolEntry(String label, String shortDesc,
 None.  
 
 ### 8. Documentation  
-TODO  
+8.1  BridgePoint menu contributions shall be enumerated and explained in the 
+  documentation.    
 
 ### 9. Acceptance Test
 
-9.1 Item 1  
-9.2 Item 2  
+9.1  Manual Test 
+# Download a build of BridgePoint (Modeler version) that supports the element disabling  
+# Modify the `bridgepoint.ini` file to add `-Ddisable.bp.Actor=true`  
+# Start BridgePoint
+# Verify that the Actor tool is not available in the Interaction drawer of the Palette
+# Verify that the context menu on the canvas does not contain `New > Interaction > Actor`
+# Verify that the context menu on a package in Model Explorer does not contain `New > Interaction > Actor`
+# Verify that the context menu on a package does not contain `BridgePoint Utilities > Generate Functions From List`
+# Verify that the context menu on a xtUML Project does not contain `Cleanse for Model Compiler`
+
+9.2  Existing JUnits must pass  
+
+9.3  Add a new JUnit test suite  
+9.3.1  The new test suite shall contain tests that set a Java System property
+  to disable an element, then activate a context menu and verify that the 
+  element is not shown in the `New >` submenu
 
 ### End
