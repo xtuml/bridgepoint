@@ -7699,14 +7699,23 @@ ParserUtilityFunction: TRUE',
 act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
 if ( not_empty act and not_empty left_obj )
-  select one current_list related by act->ACT_PL[R1603];
-  if ( not_empty current_list )
-    current_list.dispose();
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
   end if;
-  create object instance list of ACT_PL;
-  list.line = ::getLineNumber( rule_token:param.a1_rule_token );
-  list.col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-  relate list to act across R1603;
 
   select many r_oirs related by left_obj->R_OIR[R201];
   for each r_oir in r_oirs
@@ -7777,14 +7786,23 @@ ParserUtilityFunction: TRUE',
 	'act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
 if ( not_empty act )
-  select one current_list related by act->ACT_PL[R1603];
-  if ( not_empty current_list )
-    current_list.dispose();
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
   end if;
-  create object instance list of ACT_PL;
-  list.line = ::getLineNumber( rule_token:param.a1_rule_token );
-  list.col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-  relate list to act across R1603;
 
   // create keyword proposals
   i = 0;
@@ -8087,14 +8105,23 @@ ParserUtilityFunction: TRUE',
 act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
 if ( not_empty act and not_empty obj )
-  select one current_list related by act->ACT_PL[R1603];
-  if ( not_empty current_list )
-    current_list.dispose();
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
   end if;
-  create object instance list of ACT_PL;
-  list.line = ::getLineNumber( rule_token:param.a1_rule_token );
-  list.col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-  relate list to act across R1603;
 
   select many o_attrs related by obj->O_ATTR[R102];
   for each o_attr in o_attrs
