@@ -42,7 +42,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
 4.3  The mechanism provided to resolve 4.2 shall be reusable and shareable 
   between unique BridgePoint installations.   
 
-x 4.4  The “Require MASL-style identifiers for model elements” shall be renamed 
+4.4  The “Require MASL-style identifiers for model elements” shall be renamed 
   to remove “MASL” from the title.   
 
 4.5  The menu options shall be analyzed to determine where they can be 
@@ -86,7 +86,7 @@ x 4.4  The “Require MASL-style identifiers for model elements” shall be rena
   This tool packaging distinction can be leveraged even further during this
   work.  
    
-  BridgePoint has tooling in ```bp.utilities``` and ```bp.internal.tools``` 
+  BridgePoint has tooling in `bp.utilities` and `bp.internal.tools` 
   that can be reorganized to address requirements to not present normal users
   with developer tools.   
     
@@ -96,7 +96,7 @@ x 4.4  The “Require MASL-style identifiers for model elements” shall be rena
 5.2  The requirements will be addressed with several distinct changes:  
   * Programmatic and declarative updates  
   * Reorganization of underlying BridgePoint code
-  * Adding a user-controlled configuration file  
+  * Utilizing an user-controlled configuration file  
   
 5.3  The Papyrus for Information Modeling (PIM) version of Papyrus was 
   specifically created to simplify the Papyrus UI and make it 
@@ -105,17 +105,17 @@ x 4.4  The “Require MASL-style identifiers for model elements” shall be rena
   will inform this work.  
 
 5.4  Graphical symbols  
-5.4.1  In ```bp.ui.graphics/plugin.xml``` the "symbol" stanzas (e.g. at 
+5.4.1  In `bp.ui.graphics/plugin.xml` the "symbol" stanzas (e.g. at 
   line 874) are what define elements for the Graphics (Canvas and Palette). If 
   one comments out the symbols they go away from the palette.  However, 
   commenting out the symbol also removes it from being able to be used on
   the canvas and makes it impossible to see the removed elements on existing 
   diagrams that include the elements.  
 
-5.4.2  Disabling these symbols does not affect the “New>…” context menu.  
+5.4.2  Disabling these symbols does not affect the `New >` context menu.  
 
-5.4.3  ```bp.ui.graphics``` is shipped as a JAR file, so this makes it harder 
-  (not very use friendly) for us to simply swap out one ```plugin.xml``` for 
+5.4.3  `bp.ui.graphics` is shipped as a JAR file, so this makes it harder 
+  (not very use friendly) for us to simply swap out one `plugin.xml` for 
   another that has restricted UI.  We would have to change the plugin to ship
   as a directory if we wanted the user to modify the plugin contents at all.  
 
@@ -126,37 +126,38 @@ x 4.4  The “Require MASL-style identifiers for model elements” shall be rena
   renamed to "Enable restricted identifier naming for model elements".  
 6.1.2  The hover tip mentions this is the “MASL standard”.  This mention
   of MASL shall be removed.  
-6.1.3  The changes need to be made in ```org.xtuml.bp.core/.../BridgePointPreferences.java```   
+6.1.3  The changes need to be made in `org.xtuml.bp.core/.../BridgePointPreferences.java`   
   
 6.2  Additional Separation of Developer Tooling   
 6.2.1   Create new developer tools "parent" and feature plugins. Use
-  the ```org.xtuml.bp.mctools[.parent]``` as a guide.
-6.2.1.1  Make the ```bp.internal.tools``` plug-in a child of the new feature. 
+  the `org.xtuml.bp.mctools[.parent]` as a guide.
+6.2.1.1  Make the `bp.internal.tools` plug-in a child of the new feature. 
 6.2.1.2  Adjust the Developer product to include the new parent plug-in, but 
   do not include it in the Modeler product.   
-6.2.1.3  Add the new parent to the ```org.xtuml.bp.releng.parent/pom.xml```.   
-6.2.1.4  Remove the internal.tools plugin from ```org.xtuml.bp.pkg-feature/feature.xml```  
+6.2.1.3  Add the new parent to the `org.xtuml.bp.releng.parent/pom.xml`.   
+6.2.1.4  Remove the internal.tools plugin from `org.xtuml.bp.pkg-feature/feature.xml`  
 
-6.2.2  Move the following from ```bp.utilities``` to ```bp.internal.tools```: 
+6.2.2  Move the following from `bp.utilities` to `bp.internal.tools`.  Move both the 
+  Java code and the associated UI declaration in `plugin.xml`: 
   * Load and Persist   
   * Generate Functions From List  
 
-6.2.3  The ```CreateTestProjectAndImportTestModel``` and ```FixMissingMatrixEntryAction``` 
+6.2.3  The `CreateTestProjectAndImportTestModel` and `FixMissingMatrixEntryAction` 
   are no longer used and shall be removed.   
 
-6.3  Update the BridgePoint documentation  
-
-6.4  User Configuration of the Palette and CMEs  
-6.4.1  Create a configuration file that is stored in the workspace 
-  ```.metadata/``` folder.  This file will list, one per line, the name of 
-  elements to exclude from the palette and CMEs.  
+6.3  User Configuration of the Palette and CMEs  
+6.3.1  BridgePoint will now use system properties to control what elements shall be
+  excluded on the user interface.  These system properties will be of the form
+  `-Ddisable.bp.<label>` and if set to true will cause the element to be hidden
+  from the UI.  The use can set these properties in the `bridgepoint.ini` 
+  file. Developers can set the value in the debug application launch.  
   
-6.4.2  Modifying the Palette
+6.3.2  Modifying the Palette
   The solution proposed here does not rely on the user modifying the 
-  ```plugin.xml``` file.  Instead, ```bp.ui.graphics/.../GraphicsCreationToolEntry.java```
+  `plugin.xml` file.  Instead, `bp.ui.graphics/.../GraphicsCreationToolEntry.java`
   is modified in the constructor.  The symbols (see 5.4) are still loaded
-  from ```plugin.xml``` but the constructor is modified to use the information
-  read from the configuration file (see 6.4.1).  If the tool being processed in the 
+  from `plugin.xml` but the constructor is modified to use the information
+  read from the configuration file (see 6.3.1).  If the tool being processed in the 
   constructor matches one of the excluded tools from the configuration file
   then the newly created tool's visibility is set to false.  
   
@@ -167,19 +168,48 @@ public GraphicsCreationToolEntry(String label, String shortDesc,
   super(label, shortDesc, iconSmall, iconLarge, GraphicsCreationTool.class);
   setToolProperty(CreationTool.PROPERTY_CREATION_FACTORY, factory);
   type = ooaType;
-+ // read the config file elements to exclude
-+ // if the label variable matches one of the exclusion lines
++ // Look for a system property "disable.bp.<label>=true"
++ // if one is found, then the label is meant to be excluded so 
 + //   call setVisible(false);
 }
 ```
 
-6.4.3  Modifying the CMEs
+6.3.3  Modifying the CMEs
   There are entries to be restricted (i.e. hidden by the user) in the context 
-  menu both in the ```New >``` submenu and at the top level.  For example,
-  ```New > Actor``` and ```Export MASL Domain```.                  
+  menu both in the `New >` submenu and at the top level.  For example,
+  `New > Actor` and `Export MASL Domain`.                  
 
-6.4.3.1  TODO - Use the config file from 6.4.1 and the "visibleWhen" modifier on 
-  menu contributions
+6.3.3.1  Use the config file system properties (see 6.4.1) and the 
+  "visibility" modifier on menu contributions in `org.xtuml.bp.core/plugin.xml`.  These
+  checks will hide the CMEs if a match is found in the configuration.  
+
+6.3.3.2  Update the archetype `create_core_pluin.inc` to add the visiblity stanza to the 
+  objectContributions.  
+
+```xml
+    <objectContribution
+      adaptable="true"
+      objectClass="org.xtuml.bp.core.Package_c"
+      id="org.xtuml.bp.core.ui.InteractionActorOnEP_PKGAction">
+        <action
+          label="Actor"
+          class="org.xtuml.bp.core.ui.InteractionActorOnEP_PKGAction"
+          menubarPath="org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.interactionroot/org.xtuml.bp.ui.newinteractionmenu"
+          enablesFor="1"
+          id="org.xtuml.bp.core.ui.InteractionActorOnEP_PKGAction">
+        </action>
++       <visibility>
++         <not>
++           <systemProperty name="disable.bp.Actor" value="true"/>
++         </not>
++       </visibility>
+    </objectContribution>
+```  
+
+6.3.3.3  Modify `org.xtuml.bp.x2m/plugin.xml` and `org.xtuml.bp.ui.marking/plugin.xml`
+  to use the same system property visiblity checks on the `objectContributions` that
+  add the "Export MASL ..." and "Manage Project Markings" context menu entries.  
+
 
 ### 7. Design Comments
 None.  
