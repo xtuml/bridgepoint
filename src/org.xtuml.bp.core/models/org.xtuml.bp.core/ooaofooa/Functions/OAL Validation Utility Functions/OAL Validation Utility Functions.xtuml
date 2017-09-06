@@ -7788,7 +7788,7 @@ if ( not_empty act )
 
   // create keyword proposals
   i = 0;
-  while i < 16
+  while i < 15
     kw = "";
     if ( 0 == i )
       kw = "control stop";
@@ -7805,20 +7805,18 @@ if ( not_empty act )
     elif ( 6 == i )
       kw = "if";
     elif ( 7 == i )
-      kw = "param";
-    elif ( 8 == i )
       kw = "relate";
-    elif ( 9 == i )
+    elif ( 8 == i )
       kw = "return";
-    elif ( 10 == i )
+    elif ( 9 == i )
       kw = "select any";
-    elif ( 11 == i )
+    elif ( 10 == i )
       kw = "select many";
-    elif ( 12 == i )
+    elif ( 11 == i )
       kw = "select one";
-    elif ( 13 == i )
+    elif ( 12 == i )
       kw = "send";
-    elif ( 14 == i )
+    elif ( 13 == i )
       kw = "unrelate";
     else
       kw = "while";
@@ -7838,6 +7836,42 @@ if ( not_empty act )
     i = i + 1;
   end while;
   
+  // if there are parameters, include the ''param'' keyword
+  has_parameters = true;
+  select any s_sync_param related by act->ACT_FNB[R698]->S_SYNC[R695]->S_SPARM[R24];
+  if ( empty s_sync_param )
+  select any o_tfr_param related by act->ACT_OPB[R698]->O_TFR[R696]->O_TPARM[R117];
+  if ( empty o_tfr_param )
+  select any s_brg_param related by act->ACT_BRB[R698]->S_BRG[R697]->S_BPARM[R21];
+  if ( empty s_brg_param )
+  select any sm_state_param related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_state_param )
+  select any sm_state_param related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_state_param )
+  select any sm_txn_param related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_txn_param )
+  select any sm_txn_param related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_txn_param )
+  select any spr_po_param related by act->ACT_POB[R698]->SPR_PO[R687]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
+  if ( empty spr_po_param )
+  select any spr_ps_param related by act->ACT_PSB[R698]->SPR_PS[R686]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
+  if ( empty spr_ps_param )
+  select any spr_ro_param related by act->ACT_ROB[R698]->SPR_RO[R685]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
+  if ( empty spr_ro_param )
+  select any spr_rs_param related by act->ACT_RSB[R698]->SPR_RS[R684]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
+  if ( empty spr_rs_param )
+    has_parameters = false;
+  end if; end if; end if; end if; end if; end if; end if; end if; end if; end if; end if;
+  if ( has_parameters )
+    create object instance new_item of ACT_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "param";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.selection_length = 0;
+    relate new_item to list across R1601;
+  end if;
+
   // create keyword proposals for special blocks
   block_id = ::get_current_scope();
   select any block from instances of ACT_BLK where ( selected.Block_ID == block_id );
@@ -7984,7 +8018,8 @@ if ( not_empty act )
   end if;
   select many o_objs related by results->O_OBJ[R8001];
   for each o_obj in o_objs
-    select any o_tfr related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation to be shown as an option
+    select many o_tfrs related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation that returns void to be shown as an option
+    select any o_tfr related by o_tfrs->S_DT[R116] where ( selected.Name == "void" );
     if ( not_empty o_tfr )
       create object instance new_item of ACT_P;
       new_item.type = ProposalTypes::Class;
@@ -8010,8 +8045,8 @@ if ( not_empty act )
   end if;
   select many s_ees related by results->S_EE[R8001];
   for each s_ee in s_ees
-    select any s_brg related by s_ee->S_BRG[R19];
-    if ( not_empty s_brg )  // must have at least one bridge to be shown as an option
+    select any s_brg related by s_ee->S_BRG[R19]->S_DT[R20] where ( selected.Name == "void" );
+    if ( not_empty s_brg )  // must have at least one bridge of type void to be shown as an option
       create object instance new_item of ACT_P;
       new_item.type = ProposalTypes::EE;
       new_item.display_text = s_ee.Key_Lett;

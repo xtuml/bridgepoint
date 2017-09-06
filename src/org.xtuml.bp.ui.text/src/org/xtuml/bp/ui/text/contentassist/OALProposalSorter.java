@@ -41,18 +41,17 @@ public class OALProposalSorter implements ICompletionProposalSorter {
                     return p1.getDisplayString().compareTo( p2.getDisplayString() );
                 // sorted by rel num
                 case Proposaltypes_c.Association:
-                    // TODO simplify this (put extra data field in the model)
-                    String num1 = "", num2 = "";
-                    Pattern pattern = Pattern.compile( "\\[(R[1-9][0-9]*)" );
+                    int num1 = 0, num2 = 0; 
+                    Pattern pattern = Pattern.compile( "\\[R([1-9][0-9]*)" );
                     Matcher match = pattern.matcher( p1.getDisplayString() );
                     if ( match.find() ) {
-                        num1 = match.group(1);
+                        num1 = Integer.parseInt( match.group(1) );
                     }
                     match = pattern.matcher( p2.getDisplayString() );
                     if ( match.find() ) {
-                        num2 = match.group(1);
+                        num2 = Integer.parseInt( match.group(1) );
                     }
-                    return num1.compareTo( num2 );
+                    return Integer.compare( num1, num2 );
                 default:
                     return 0;
             }
