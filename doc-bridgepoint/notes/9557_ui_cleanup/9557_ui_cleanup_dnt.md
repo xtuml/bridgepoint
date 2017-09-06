@@ -130,8 +130,8 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   
 6.2  Additional Separation of Developer Tooling   
 6.2.1   Create new developer tools "parent" and feature plugins. Use
-  the `org.xtuml.bp.mctools[.parent]` as a guide.
-6.2.1.1  Make the `bp.internal.tools` plug-in a child of the new feature. 
+  the `org.xtuml.bp.mctools[.parent]` as a guide.  
+6.2.1.1  Make the `bp.internal.tools` plug-in a child of the new feature.  
 6.2.1.2  Adjust the Developer product to include the new parent plug-in, but 
   do not include it in the Modeler product.   
 6.2.1.3  Add the new parent to the `org.xtuml.bp.releng.parent/pom.xml`.   
@@ -150,7 +150,11 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   excluded on the user interface.  These system properties will be of the form
   `-Ddisable.bp.<label>` and if set to true will cause the element to be hidden
   from the UI.  The use can set these properties in the `bridgepoint.ini` 
-  file. Developers can set the value in the debug application launch.  
+  file. Developers can set the value in the debug application launch. For example:
+  
+```
+-Ddisable.bp.Actor=true
+``` 
   
 6.3.2  Modifying the Palette
   The solution proposed here does not rely on the user modifying the 
@@ -161,7 +165,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   constructor matches one of the excluded tools from the configuration file
   then the newly created tool's visibility is set to false.  
   
-```
+```java
 public GraphicsCreationToolEntry(String label, String shortDesc,
          CreationFactory factory, ImageDescriptor iconSmall,
          ImageDescriptor iconLarge, int ooaType) {
@@ -221,14 +225,14 @@ None.
 ### 9. Acceptance Test
 
 9.1  Manual Test 
-# Download a build of BridgePoint (Modeler version) that supports the element disabling  
-# Modify the `bridgepoint.ini` file to add `-Ddisable.bp.Actor=true`  
-# Start BridgePoint
-# Verify that the Actor tool is not available in the Interaction drawer of the Palette
-# Verify that the context menu on the canvas does not contain `New > Interaction > Actor`
-# Verify that the context menu on a package in Model Explorer does not contain `New > Interaction > Actor`
-# Verify that the context menu on a package does not contain `BridgePoint Utilities > Generate Functions From List`
-# Verify that the context menu on a xtUML Project does not contain `Cleanse for Model Compiler`
+  1. Download a build of BridgePoint (Modeler version) that supports the element disabling  
+  2. Modify the `bridgepoint.ini` file to add `-Ddisable.bp.Actor=true`  
+  3. Start BridgePoint
+  4. Verify that the Actor tool is not available in the Interaction drawer of the Palette
+  5. Verify that the context menu on the canvas does not contain `New > Interaction > Actor`
+  6. Verify that the context menu on a package in Model Explorer does not contain `New > Interaction > Actor`
+  7. Verify that the context menu on a package does not contain `BridgePoint Utilities > Generate Functions From List`
+  8. Verify that the context menu on a xtUML Project does not contain `Cleanse for Model Compiler`
 
 9.2  Existing JUnits must pass  
 
