@@ -1,6 +1,5 @@
 package org.xtuml.bp.ui.text.contentassist;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -2553,6 +2553,111 @@ INSERT INTO S_BPARM
 	'',
 	"fc364758-ede4-4248-8d4e-4acb2737d4d9",
 	'');
+INSERT INTO S_BRG
+	VALUES ("0f9bf261-95ec-495a-8943-be90b04840f7",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'indexOf',
+	'return the index of the first occurence of ''needle'' in ''haystack'' or -1 if it is not found
+
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'if ( null == p_Haystack ) return -1;
+else return p_Haystack.indexOf( p_Needle );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("61384249-2875-4d0d-838a-ccd69729e410",
+	"0f9bf261-95ec-495a-8943-be90b04840f7",
+	'haystack',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a153615e-6744-4512-b0c4-d2cef9d5b62a",
+	"0f9bf261-95ec-495a-8943-be90b04840f7",
+	'needle',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"61384249-2875-4d0d-838a-ccd69729e410",
+	'');
+INSERT INTO S_BRG
+	VALUES ("7eab7b59-c5c5-4524-acc9-7471c3dc5345",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'substr',
+	'returns a substring of the given string s starting at the index i1 and ending at the index i2 - 1.
+if i1 < 0, returns a substring starting at the beginning of s
+if i1 > the length of s - 1, returns an empty string
+if i2 < 0 or > the length of s, returns a substring starting at i1 to the end of s
+if i2 <= i1, returns empty string
+  
+usage examples:
+foo = substr( s:"Hello, World!", i1:4, i2:8 );  // foo == "o, Wo"
+bar = substr( s:"Hello, World!", i1:2, i2:-1 ); // bar == "llo, World!"
+
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'// get length of s       
+int len = p_S.length();
+String result = "";
+
+// check that the indexes are in a valid range
+int i1 = p_I1;
+int i2 = p_I2;
+if ( i1 > len - 1 ) { 
+  return result;
+}
+if ( i1 < 0 ) {
+  i1 = 0;
+}
+if ( i2 < 0 || i2 > len ) {
+  i2 = len;
+}
+if ( i2 <= i1 ) {
+  return result;
+}
+
+// if we have a string and the i2 is greater than i1
+if ( !(len == 0 || i2 <= i1) ) {                                                                                                                                               
+    result = p_S.substring( i1, i2 );
+}
+
+return result;',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("96980553-79d9-4a1f-a7be-6001046e93ac",
+	"7eab7b59-c5c5-4524-acc9-7471c3dc5345",
+	's',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("50343eaf-4139-4aea-89ce-6162253869d2",
+	"7eab7b59-c5c5-4524-acc9-7471c3dc5345",
+	'i1',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"96980553-79d9-4a1f-a7be-6001046e93ac",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d3fa7c07-7930-4933-8b83-a014b98339d0",
+	"7eab7b59-c5c5-4524-acc9-7471c3dc5345",
+	'i2',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"50343eaf-4139-4aea-89ce-6162253869d2",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
