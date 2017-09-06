@@ -352,9 +352,213 @@ could be overwhelmingly large, other times the diversity of proposals makes
 content assist impractical. The following list of use cases comes from analysis
 of the grammar.
 
-6.5.1
+6.5.1 At the beginning of a new statement:  
+6.5.1.1 `control stop`  
+6.5.1.2 `create event instance`  
+6.5.1.3 `create object instance`  
+6.5.1.4 `delete object instance`  
+6.5.1.5 `for each`  
+6.5.1.6 `generate`  
+6.5.1.7 `if`  
+6.5.1.8 `param` (if there are params?)  
+6.5.1.9 `relate`  
+6.5.1.10 `return`  
+6.5.1.11 `select any`  
+6.5.1.12 `select many`  
+6.5.1.13 `select one`  
+6.5.1.14 `send`  
+6.5.1.15 `unrelate`  
+6.5.1.16 `while`  
+6.5.1.17 `break` (if in a "while" or "for" block)  
+6.5.1.18 `continue` (if in a "while" or "for" block)  
+6.5.1.19 `end while` (if in a "while" block)  
+6.5.1.20 `end for` (if in a "for" block)  
+6.5.1.21 `elif` (if in an "if" or "elif" block)  
+6.5.1.22 `else` (if in an "if" or "elif" block)  
+6.5.1.23 `end if` (if in an "if", "elif", or "else" block)  
+6.5.1.24 `self` (if in a transtion body, state body, derived attribute body, or
+operation body)  
+6.5.1.25 All local variables in scope  
+6.5.1.26 All EE key letters of visible EEs with at least one bridge of return type
+`void`  
+6.5.1.27 All class key letters of visible classes with at least one class based
+operation of return type `void`  
+
+6.5.2 After `send`:  
+6.5.2.1 Port names of containing component  
+
+6.5.x After `create event instance`:  
+6.5.x.y All local variables of type `inst<Event>`  
+
+6.5.x After `create event instance <var> of`:  
+6.5.x.y All visible event specifications  
+
+6.5.x After `create object instance`:  
+6.5.x.y All local variables of an instance reference type  
+
+6.5.x After `create object instance <var> of`:  
+6.5.x.y All visible class key letters  
+
+6.5.x After `delete object instance`:  
+6.5.x.y All local variables of an instance reference type  
+
+6.5.x After `for each <var> in`:  
+6.5.x.y All local variables of an instance reference set type  
+
+6.5.x After `generate`:  
+6.5.x.y All visible event specifications  
+6.5.x.y All local variables of type `inst<Event>`  
+
+6.5.x After `relate`:  
+6.5.x.y All local variables of an instance reference type  
+
+6.5.x After `relate <var> to`:  
+6.5.x.y All local variables of an instance reference type (which have a possible
+relationship to the first var?)  
+
+6.5.x After `relate <var1> to <var2> across`:  
+6.5.x.y All valid relationships between `var1` and `var2` (phrases included for
+reflexives, but excluded otherwise. See section 6.6.x)  
+
+6.5.x After `relate <var1> to <var2> across <rel>.`:  
+6.5.x.y The relationship phrase for the relationship (or both phrases in the
+case of a reflexive associations)  
+
+6.5.x After `relate <var1> to <var2> across <rel> using`:  
+6.5.x.y All local variables of an instance reference type (which have a possible
+associative relationship with `var1` and `var2`?)
+
+6.5.x After `return`:  
+6.5.x.y All local variables of the same type as the body return type (when
+applicable)  
+
+6.5.x After `select [one|any|many]`:  
+6.5.x.y All local variables of an instance reference type  
+
+6.5.x After `::`:  
+6.5.x.y All visible domain functions  
+6.5.x.y.1 If invoked as a statement, only present functions with `void` return
+type  
+6.5.x.y.2 If invoked as the right hand side of an expression, only present
+functions with a return type matching the left hand side  
+
+6.5.x After `unrelate`:  
+6.5.x.y All local variables of an instance reference type  
+
+6.5.x After `unrelate <var> from`:  
+6.5.x.y All local variables of an instance reference type which are currently
+related to `var`  
+
+6.5.x After `unrelate <var1> from <var2> across`:  
+6.5.x.y All valid relationships in which `var1` and `var2` are both in
+participation (phrases included for reflexives, but excluded otherwise. See
+section 6.6.x)  
+
+6.5.x After `urelate <var1> to <var2> across <rel>.`:  
+6.5.x.y The relationship phrase for the relationship  
+
+6.5.x After `unrelate <var1> to <var2> across <rel> using`:  
+6.5.x.y All local variables of an instance reference type which are currently
+the associative object for `var1` and `var2` across `rel`  
+
+6.5.x After `param.`:  
+6.5.x.y All available parameters  
+6.5.x.y.1 If invoked as the right hand side of an expression, only present
+parameters with a type matching the left hand side  
+
+6.5.x After `send <port_name>::`:  
+6.5.x.y All interface messages (include the full signature with parameter
+prototypes. Preference?)  
+6.5.x.y.1 If invoked as a statement, only present interface signals and
+operations with the `void` type  
+6.5.x.y.2 If invoked as the right hand side of an expression, only present
+interface operations with a type matching the left hand side  
+
+6.5.x After a left parenthesis before a parameter list:  
+6.5.x.y All available parameters  
+
+6.5.x After `<port_name>::<message_name>(<parameter_list>) to`:  
+6.5.x.y All local variables of type `component_ref`  
+
+6.5.x After `<identifier>::`:  
+6.5.x.y All interface messages for ports matching `identifier`, all class based
+operations with key letters matching `identifier`, and all bridges with key
+letters matching `identifier` (include the full signature with parameter
+prototypes. Preference?)  
+6.5.x.y.1 If invoked as a statement, only present activities with the `void`
+type  
+6.5.x.y.2 If invoked as the right hand side of an expression, only present
+activities with a type matching the left hand side  
+6.5.x.y All enumerators for EDTs matching `identifier` if the left hand side is
+of the EDT type  
+6.5.x.y All constants for constant specs matching `idetifier` if the constant
+type matches the left hand side  
+
+6.5.x After `<event_spec> to`:  
+6.5.x.y `<key letters> assigner` for assigner events  
+6.5.x.y `<key letters> creator` for creation events  
+6.5.x.y All local variables of the type that the event is defined in, and
+subtypes if it is a polymorphic event  
+
+6.5.x At the beginning of a generic expression:  
+6.5.x.y All local variables of the declared type or an instance reference or
+structured type (if they have a member of the declared type)  
+6.5.x.y All visible constants of the declared type (scoped if not globally
+unique)  
+6.5.x.y All visible class key letters with at least one class based operation which
+returns the declared type  
+6.5.x.y All visible EE key letters with at least one bridge which returns the
+declared type  
+6.5.x.y All visible domain functions which return the declared type  
+6.5.x.y All visible port operations which return the declared type  
+6.5.x.y If the declared type is `boolean`:  
+6.5.x.y.1 `not`  
+6.5.x.y.2 `not_empty`  
+6.5.x.y.3 `empty`  
+6.5.x.y.4 `true`  
+6.5.x.y.5 `false`  
+6.5.x.y If the declared type is `integer`:  
+6.5.x.y.1 `cardinality`  
+6.5.x.y If the declared type is an EDT:  
+6.5.x.y.1 All the enumerators for the EDT  
+
+6.5.x After `not_empty` or `empty`:  
+6.5.x.y All local variables of an instance reference or instance reference set
+type  
+
+6.5.x After `cardinality`:  
+6.5.x.y All local variables of an instance reference set type  
+
+6.5.x After `select [one|any|many] <var1>`:  
+6.5.x.1 `related by`  
+6.5.x.1 `from instances of`  
+
+6.5.x After `select [one|any|many] <var1> related by <var2>->` or `... -><key letters>[<rel>]->`:  
+6.5.x.y All valid relationship specifications  
+6.5.x.y.1 If part of a `select one` statement, only present relationships with
+multiplicity "one"  
+6.5.x.y.2 Include phrases only for reflexive associations (preference?)  
+
+6.5.x After `select [one|any|many] <var> from instances of`:  
+6.5.x.y All visible key letters  
+6.5.x.y.1 If var is already typed, only propose the key letters of the type of
+`var`  
+
+6.5.x After a selection:  
+6.5.x.1 `where`
+
+6.5.x After `<inst_ref_var>.`:  
+6.5.x.y All attributes (if this is a right hand side expression, only propose
+attributes of the same type)  
+6.5.x.y All instance based operations of the class  
+6.5.x.y.1 If a right hand side expression, only propose operations that return
+the declared type  
+6.5.x.y.2 If this is a statement only propose operations that return `void`  
+
 
 6.6 User preferences
+
+- include phrases always?
 
 ### 7. Design Comments
 
