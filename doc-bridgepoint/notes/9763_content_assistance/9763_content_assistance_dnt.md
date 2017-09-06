@@ -95,17 +95,23 @@ the user.
 
 6.2 Model of proposals
 
-Two classes shall be added to the meta model in the "Body" subsystem.
-"Proposal List" (`ACT_PL`) and "Proposal" (`ACT_P`).
+Three classes shall be added to the meta model in the "Body" subsystem.
+"Proposal List" (`ACT_PL`), "Proposal" (`ACT_P`), and "Proposal Calculation Cue"
+(`ACT_PCC`).
 
 ![model.png](model.png)
 
 Although it is not pictured, R1603 connects to "Body" on the left of the image
-with an unconditional one relationship.
+with an unconditional one relationship, and R1602 connects to "Body" on the left
+of the image with an unconditional one relationship.
+
+6.2.1 Proposal List
 
 A proposal list has an integer line and column value. These are to mare the
 point in the action body where the list originates. This information will be
 used later by the completion processor.
+
+6.2.2 Proposal
 
 A proposal itself has a replacement string, display string, integer cursor
 position and integer selection length. The replacement string is the actual
@@ -120,6 +126,28 @@ after replacement starting from the cursor position. The proposal also has a
 type attribute of type `ProposalTypes`. This enumeration shall be created to
 inform the completion processor how to style the text and what icon to use for
 the proposal.
+
+6.2.3 Proposal Calculation Cue
+
+In some cases, not all the necessary information for content assist is available
+at the location where it is invoked. For example, with selection statements, the
+multiplicity of a selection (one or many) is only validated at the end of a
+selection statement. If a user types `select one foo related by bar->` and then
+brings up content assist, it naturally follows that the tool should only present
+selections across relationships of multiplicity "one" because it would be
+invalid to select across a "many" relationship when selecting "one". This
+information is not available however until after the whole selection statement
+is parsed.
+
+Proposal Calculation Cue is a class that can be used to leave hints during the
+parsing process for content assist to process later. Cues have a string name
+identifier, and multiple value attributes of different types. In this example,
+when "one" is parsed, an instance of Proposal Calculation Cue is created with
+name "selection_cardinality" and value "one". When "any" or "many" is parsed, a
+cue is created with name "selection_cardinality" and value "many". Then when
+content assist is called up on the selection, this cue can be selected and the
+value can be interrogated to filter the possible links. These cues are flexible
+and can be used in many situations like this.
 
 6.3 `OALCompletionProcessor.java`
 
@@ -168,7 +196,8 @@ etc) would be desired for auto triggering.
 
 A user preference has been introduced to control if auto triggering should be
 enabled. This allows users to turn it off if they find it annoying. It can
-always be called up manually.
+always be called up manually. See section 6.6 for more detail on user
+preferences.
 
 6.3.2.2 Triggering on sequences
 
@@ -226,14 +255,104 @@ The following table summarizes the ordering:
 
 | Proposal type (in sorted order) | Specific sort criteria |
 |---------------------------------|------------------------|
-| Keyword                         | Alphanumerically       |
 | Attribute                       | Alphanumerically       |
 | Operation                       | Alphanumerically       |
 | Association                     | Numerically by rel num |
+| Variable                        | Alphanumerically       |
+| EE                              | Alphanumerically       |
+| Class                           | Alphanumerically       |
+| Keyword                         | Alphanumerically       |
+
+6.3.5 `OALCompletionProposal`
+
+The Eclipse class `CompletionProposal` which implements `ICompletionProposal` is
+usually sufficient for providing proposals to the content assistant. However
+because we want to order proposals by type, we need to have a completion
+proposal that has a field to store the proposal type. `OALCompletionProposal`
+shall be created backed internally by the `CompletionProposal` class and
+implementing the `ICompletionProposal`.
 
 6.4 Parser changes
 
+Changes will be made to the parser generation described in section 5.1.1.
+Special functions to build content assist proposal lists must be inserted into
+the grammar.
+
+6.4.1 Line and column
+
+As mentioned in section 6.3.3, a positive line and column value will be passed to the
+parser when invoked from the content assist processor. The default values are 0
+and 0 for parses invoked from other paths. Content assist is disabled if the
+values for line and column are non-positive, so this protects existing
+functionality from being broken. Additionally, if line and column are positive,
+error output is suppressed so error messages do not show up during content
+assist.
+
+6.4.2 Grammar enhancer
+
+During the "grammar enhancer" step, instances of the BNF model are used to
+generate `oal.g`. Invocations to the appropriate validation functions are
+automatically inserted. The archetype shall be modified to insert content assist
+functions after every leaf node (terminal or rule reference) for which a content
+assist function is provided. All of the rule reference IDs shall be passed to
+this function (similar to one of the `_end`) functions, so all the available
+information is present to content assist. Additionally, if the leaf node is the
+last node in a closure (conditional or unconditional), or the last node in the
+rule itself, it will follow the `_end` invocation. Again, this assures that the
+content assist functions are provided with the most possible information.
+
+These invocations are not only gated by whether or not the parser was called via
+content assist, but also they are only inserted if an instance of `CAF` is
+related to the leaf node (see below).
+
+6.4.3 Available content assist functions
+
+As noted in 6.4.2, only available content assist functions will be inserted in
+the grammar. This avoids the overhead of having a function invocation on every
+single leaf node in the grammar (which would translate to > 1 function
+invocation per token parsed). Instead, a new archetype `content_assist.arc` is
+introduced to select only the functions that an implementation is provided for.
+
+The BNF model models several classes from the OOA of OOA. `S_SYNC`, `S_SPARM`,
+`S_DT` and more are reflected in the model. Originally, these were intended so
+that the generation of the grammar could be used to generate and import function
+prototypes for the validation functions so they do not have to be generated by
+hand. Over time, these classes have diverged from the OOA of OOA as it has
+evolved. A new archetype `ooa_functions.arc` shall be introduced to simply load
+the OOA of OOA and generate `S_SYNC` instances for each validation function
+which match the format of `S_SYNC` in the BNF model schema and can be loaded
+alongside the grammar instances.
+
+Next, these functions and the rest of the BNF instances are loaded and
+`content_assist.arc` traverses every leaf node in the grammar and checks to see
+if there exists an instance of `S_SYNC` with the appropriate name for the leaf
+node, an instance of `CAF` is created and associated with the leaf node.
+
+The "Content Assist Function" (`CAF`) class was added to the BNF model to
+operate as a flag to indicate whether or not a valid content assist function
+exists. The association is formalized by `CAF`, so this does not affect any PEI
+data that is generated by `pt_antlr`.
+
+![bnf](bnf.png)
+
+The general "shape" of a content assist function name is as follows:
+```
+<rule_name>_<token_name>_content_assist                       // for token references
+<rule_name>_<rule_reference>_content_assist                   // for rule references
+<rule_name>_strlit_<string_literal_value>_content_assist      // for literal strings
+```
+The function name must have the first letter capitalized and all others lower
+case.
+
 6.5 Use cases
+
+Content assist is an extremely complex operation and there are many situations
+where content assist is not desired or useful. Sometimes the number of proposals
+could be overwhelmingly large, other times the diversity of proposals makes
+content assist impractical. The following list of use cases comes from analysis
+of the grammar.
+
+6.5.1
 
 6.6 User preferences
 
