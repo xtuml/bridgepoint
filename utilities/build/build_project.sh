@@ -10,7 +10,6 @@
 # do not run maven if an xtuml, arc, inc or sql file did not change
 SCRIPTPATH=`dirname $0`
 source $SCRIPTPATH/build_configuration.sh
-source $SCRIPTPATH/build_functions.sh
 cmd="install"
 offline="-o"
 skipTests="-DskipTests"
@@ -125,14 +124,7 @@ else
 fi
 cd "$original_dir"
 # Do not touch for cleans or for the parent releng project
-# only touch on successful build
-if [ $ret_val == 0 ]; then
-  if [ "$cmd" != "clean" ] && [ "$project" != "org.xtuml.bp.releng.parent" ]; then
-    touch $timestampFile
-  elif [ "$project" == "org.xtuml.bp.releng.parent" ]; then
-    create_timestamps  
-  fi
-else
-  echo "Maven build failed for $project, not creating timestamp"
+if [ "$cmd" != "clean" ] && [ "$project" != "org.xtuml.bp.releng.parent" ]; then
+  touch $timestampFile
 fi
 exit $ret_val
