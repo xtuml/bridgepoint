@@ -1151,9 +1151,11 @@ ${s}}
         .invoke post_attach_append(child_node, result.body)
       .end if
       .invoke result = last_in_loop_or_rule( child_node )
-      .if ( not result.is_last )
-        .invoke result = emit_leaf_node_content_assist_action( child_node, sx )
-        .invoke post_attach_append( child_node, result.body )
+      .if ( ( "TOKEN_REF" == term.token_name ) and ( "TOK_DOT" != term.value ) )
+        .if ( not result.is_last )
+          .invoke result = emit_leaf_node_content_assist_action( child_node, sx )
+          .invoke post_attach_append( child_node, result.body )
+        .end if
       .end if
     .end if
   .else
