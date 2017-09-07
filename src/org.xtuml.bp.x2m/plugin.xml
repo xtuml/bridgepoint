@@ -16,9 +16,14 @@
                class="org.xtuml.bp.x2m.actions.ExportProjectAction"
                enablesFor="1"
                id="org.xtuml.bp.x2m.ExportProjectAction"
-               label="Export MASL project"
+               label="Export MASL Project"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="disable.bp.ExportMASLProject" value="true"/>
+           </not>
+         </visibility>
       </objectContribution>
       <objectContribution
             id="org.xtuml.bp.x2m.contribution2"
@@ -27,9 +32,14 @@
                class="org.xtuml.bp.x2m.actions.ExportDomainAction"
                enablesFor="1"
                id="org.xtuml.bp.x2m.ExportDomainAction"
-               label="Export MASL domains"
+               label="Export MASL Domains"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="disable.bp.ExportMASLDomains" value="true"/>
+           </not>
+         </visibility>
       </objectContribution>
       <objectContribution
             id="org.xtuml.bp.x2m.contribution3"
@@ -38,9 +48,14 @@
                class="org.xtuml.bp.x2m.actions.ExportDomainAction"
                enablesFor="1"
                id="org.xtuml.bp.x2m.ExportDomainAction"
-               label="Export MASL domain"
+               label="Export MASL Domain"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="disable.bp.ExportMASLDomain" value="true"/>
+           </not>
+         </visibility>
       </objectContribution>
    </extension>
 </plugin>
