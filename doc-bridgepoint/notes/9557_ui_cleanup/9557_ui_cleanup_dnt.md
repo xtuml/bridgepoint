@@ -115,7 +115,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
 5.4.2  Disabling these symbols does not affect the `New >` context menu.  
 
 5.4.3  `bp.ui.graphics` is shipped as a JAR file, so this makes it harder 
-  (not very use friendly) for us to simply swap out one `plugin.xml` for 
+  (not very user friendly) for us to simply swap out one `plugin.xml` for 
   another that has restricted UI.  We would have to change the plugin to ship
   as a directory if we wanted the user to modify the plugin contents at all.  
 
@@ -178,14 +178,14 @@ public GraphicsCreationToolEntry(String label, String shortDesc,
 }
 ```
 
-6.3.3  Modifying the CMEs
+6.3.3  Modifying the CMEs   
   There are entries to be restricted (i.e. hidden by the user) in the context 
   menu both in the `New >` submenu and at the top level.  For example,
   `New > Actor` and `Export MASL Domain`.                  
 
-6.3.3.1  Use the config file system properties (see 6.4.1) and the 
-  "visibility" modifier on menu contributions in `org.xtuml.bp.core/plugin.xml`.  These
-  checks will hide the CMEs if a match is found in the configuration.  
+6.3.3.1  Use the visibility modifier on menu contributions and system 
+  properties (see 6.3.1)  in `org.xtuml.bp.core/plugin.xml`.  These
+  checks will hide the CMEs if a match is found in the configuration file.  
 
 6.3.3.2  Update the archetype `create_core_pluin.inc` to add the visiblity stanza to the 
   objectContributions.  
