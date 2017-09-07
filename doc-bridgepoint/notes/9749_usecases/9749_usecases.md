@@ -145,135 +145,135 @@ Variables are either instance handles, or sets of instance handles, or transient
 
 5.1.4.1  Statement Beginning:
 
-	At the beginning of a statement statement types and variable types shall be allowed.  `self` handling is later defined.  Possibilities:
+At the beginning of a statement statement types and variable types shall be allowed.  `self` handling is later defined.  Possibilities:
 
-	::, ., <Class_KeyLetters>, <EE_KeyLetters>, <Port Name>, Beginning Keywords.
+::, ., <Class_KeyLetters>, <EE_KeyLetters>, <Port Name>, Beginning Keywords.
 
 5.1.4.2 Operation invocations: 
 
-	Class Based: Class based invocations require the class key letters to be successfully parsed.  If the :: characters follow, the list shall contain all class based operations for the class.
+Class Based: Class based invocations require the class key letters to be successfully parsed.  If the :: characters follow, the list shall contain all class based operations for the class.
 
-	Instance based operations work against either self or an Instance reference variable.  Once parsed and the '.' character is typed all instance based operations shall be listed.  The list shall contain the full signature and parameters entered after selection.
-	
+Instance based operations work against either self or an Instance reference variable.  Once parsed and the '.' character is typed all instance based operations shall be listed.  The list shall contain the full signature and parameters entered after selection.
+
 5.1.4.3 bridges:
 
-	After a successful parse of External Entity Key Letters all bridges after the EE key letters and :: characters shall show all bridges under such an EE.
+After a successful parse of External Entity Key Letters all bridges after the EE key letters and :: characters shall show all bridges under such an EE.
 
 5.1.4.4 function invocations:
 
-	After the :: characters have been typed all functions shall exist in the auto completion list.  Note that functions shall only show if beginning a statement or used as an expression to a part of an existing statment.  For instance functions shall not show if part of the start of an External Entity statement.
+After the :: characters have been typed all functions shall exist in the auto completion list.  Note that functions shall only show if beginning a statement or used as an expression to a part of an existing statment.  For instance functions shall not show if part of the start of an External Entity statement.
 
 5.1.4.5 component ports:
 
-	After the send keyword has been parsed, unless emitted, all valid ports on the first parent component shall be added to the list.
+After the send keyword has been parsed, unless emitted, all valid ports on the first parent component shall be added to the list.
 
 5.1.4.6 interface invocations:
 
-	After the port has been parsed and the :: characters are typed the completion list shall contain all available operations and signals for the port.  Direction must be considered here, only those operations/signals with valid direction shall show in the list.
+After the port has been parsed and the :: characters are typed the completion list shall contain all available operations and signals for the port.  Direction must be considered here, only those operations/signals with valid direction shall show in the list.
 
 5.1.4.7 association traversal:
 
-	If the -> characters are typed after a successful parse of an instance handle associated classes shall show in the list.  This list shall contain entries like O_ATTR[R102], O_ID[R104].  The list shall be filtered based on the expected cardinality. If it is a select one only those classes at the end with cardinality one shall show. The same is true of the select any and select many.
-	
+If the -> characters are typed after a successful parse of an instance handle associated classes shall show in the list.  This list shall contain entries like O_ATTR[R102], O_ID[R104].  The list shall be filtered based on the expected cardinality. If it is a select one only those classes at the end with cardinality one shall show. The same is true of the select any and select many.
+
 5.1.4.8 relationship phrases:
 
-	If the . character is typed and follows an association (R<Numb>) within square brackets, the associated relationship phrases shall be shown in the list.
+If the . character is typed and follows an association (R<Numb>) within square brackets, the associated relationship phrases shall be shown in the list.
 
 5.1.4.9 event generation:
 
-	All events shall be listed if the generate statement precedes the current cursor location.  The list shall contain any locally created event variables, all events labeled by <Key_Lett>:<Mning.'event_meaning'> (parameters), and all classes which have attributes of the inst<Event> type.  After the 'to' string all instances which have such an event may be listed.  'creator' may only show if the event the statement is assigned to a creation event. 
+All events shall be listed if the generate statement precedes the current cursor location.  The list shall contain any locally created event variables, all events labeled by <Key_Lett>:<Mning.'event_meaning'> (parameters), and all classes which have attributes of the inst<Event> type.  After the 'to' string all instances which have such an event may be listed.  'creator' may only show if the event the statement is assigned to a creation event. 
 
 5.1.4.10 Assignment:
 
-	For re-assignments the right value shall be filtered based on the initial type from the original assignment.  This includes assignments to attributes.  Attribute assignment is not allowed for attributes of type unique id.
+For re-assignments the right value shall be filtered based on the initial type from the original assignment.  This includes assignments to attributes.  Attribute assignment is not allowed for attributes of type unique id.
 
 5.1.4.11 Constructs  
 
-	Blocks are created by each construct and follow all rules preceding this section. 
+Blocks are created by each construct and follow all rules preceding this section. 
 
 5.1.4.11.1 If 
 
-	The 'if' construct shall always be available as a beginning statement.  The 'elif' statement shall only be available if in an 'if' block.  The 'else' statement shall be available as long is the containing block does not already have one.
+The 'if' construct shall always be available as a beginning statement.  The 'elif' statement shall only be available if in an 'if' block.  The 'else' statement shall be available as long is the containing block does not already have one.
 
 5.1.4.11.2 For
 
-	The 'for' construct shall always be available as a beginning statement.  
+The 'for' construct shall always be available as a beginning statement.  
 
 5.1.4.11.3 While
 
-	The 'while' construct shall always be available as a beginning statement.
+The 'while' construct shall always be available as a beginning statement.
 
 5.1.4.11.4 Break and Continue
 
-	The 'break' and 'continue' keywords may only be present if within a 'for' or 'if' statement.
+The 'break' and 'continue' keywords may only be present if within a 'for' or 'if' statement.
 
 5.1.4.11.5 Return
 
-	The 'return' keyword shall only show in the following action homes:
+The 'return' keyword shall only show in the following action homes:
 
-	* Function Body
-	* Operation Body
-	* Bridge Body
-	* Provided Operation Body
-	* Required Operation Body
+* Function Body
+* Operation Body
+* Bridge Body
+* Provided Operation Body
+* Required Operation Body
 
-	If an action is void and 'return' is parsed, nothing shall show in the list after the 'return'.
+If an action is void and 'return' is parsed, nothing shall show in the list after the 'return'.
 
 
 5.1.4.11.6 Scoping
 
-	Variable access shall be filtered from lists based on scoping.
+Variable access shall be filtered from lists based on scoping.
 
 5.1.4.12 Using
 
-	After the 'using' keyword only those previously created instances that are the link class of the association may show.
+After the 'using' keyword only those previously created instances that are the link class of the association may show.
 
 5.1.4.13 Relates and unrelates
 
-	Filtering for the source and target shall filter on all previous existing instances.  After the 'across' statement only associations between the source and target shall show.  Note that we can not filter the target as we do not yet know the association.  If successfully parsed a relate and unrelate with the 1.13 rule shall apply.
+Filtering for the source and target shall filter on all previous existing instances.  After the 'across' statement only associations between the source and target shall show.  Note that we can not filter the target as we do not yet know the association.  If successfully parsed a relate and unrelate with the 1.13 rule shall apply.
 
 5.1.4.14 Alpha-numeric
 
-	All results shall be added to a pre-filtered list.  The displayed list shall be filtered based on alpha-numeric characters.  Example:
+All results shall be added to a pre-filtered list.  The displayed list shall be filtered based on alpha-numeric characters.  Example:
 
-	sel shows select and any class that starts with sel
-	f shows for and any class that starts with f
+sel shows select and any class that starts with sel
+f shows for and any class that starts with f
 
 5.1.4.15 Self
 
-	Self is allowed in the following action homes:
+Self is allowed in the following action homes:
 
-	* Derived Attribute Body
-	* Operation Body, unless the operation is class based.
-	* Instance state machine actions
+* Derived Attribute Body
+* Operation Body, unless the operation is class based.
+* Instance state machine actions
 
-	Self cannot be assigned to.  Only the '.' may follow self.
+Self cannot be assigned to.  Only the '.' may follow self.
 
 5.1.4.16 The where  clause 
 
-		The where clause may only be present if within a select statement, and only as the last portion.  The 'selected' keyword may only exist in the list if within a where clause.  The list shall be filtered when using other statements, like attributes, such that they would produce a boolean result.
+The where clause may only be present if within a select statement, and only as the last portion.  The 'selected' keyword may only exist in the list if within a where clause.  The list shall be filtered when using other statements, like attributes, such that they would produce a boolean result.
 
 5.1.4.17 rcvd_evt, param
 
-	The 'param' keyword after the '.' character shall show all parameters pass to the action home.  The 'rcvd_evt' keyword has the same behavior but is filtered out of all but state machine actions.
+The 'param' keyword after the '.' character shall show all parameters pass to the action home.  The 'rcvd_evt' keyword has the same behavior but is filtered out of all but state machine actions.
 
 5.1.4.18 Empty, not empty, cardinality
 
-	The list shall only contain instances or instance sets after the following keywords:
+The list shall only contain instances or instance sets after the following keywords:
 
-	* empty
-	* not empty 
-	* cardinality 
+* empty
+* not empty 
+* cardinality 
 
 5.1.5 Self rules  
 
-	Self is allowed in the following action homes:
+Self is allowed in the following action homes:
 
-	Derived Attribute Body
-	Operation Body, unless the operation is class based.
-	State Action Body, unless the state machine is class based.
-	Transition Action Body, unless the state machine is class based.   
-	
+Derived Attribute Body
+Operation Body, unless the operation is class based.
+State Action Body, unless the state machine is class based.
+Transition Action Body, unless the state machine is class based.   
+
 ### 6. Use Cases
 
 6.1 Use cases
