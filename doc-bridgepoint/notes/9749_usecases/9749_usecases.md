@@ -101,45 +101,45 @@ Variables are either instance handles, or sets of instance handles, or transient
 * User Data Type
 * Instance Handle
 * Instance Set
-* Transient Var:Multiplicity
-* Transient Var:Justification
-* Transient Var:Style
-* Transient Var:End
-* Transient Var:ParseStatus
-* Transient Var:Scope
-* Transient Var:ModelEventNotification
-* Transient Var:Visibility
-* Transient Var:instance
-* Transient Var:Token
-* Transient Var:OalConstants
-* Transient Var:RunStateType
-* Transient Var:Breakpoint_Type
-* Transient Var:StateChangeType
-* Transient Var:EventProcessType
-* Transient Var:IFDirectionType
-* Transient Var:StateEnum
-* Transient Var:ReentrantLock
-* Transient Var:ElementTypeConstants
-* Transient Var:long
-* Transient Var:SearchScope
-* Transient Var:SynchronizationType
-* Transient Var:Severity
-* Transient Var:ActionDialect
-* Transient Var:void
-* Transient Var:boolean
-* Transient Var:integer
-* Transient Var:real
-* Transient Var:string
-* Transient Var:unique_id
-* Transient Var:state<State_Model>
-* Transient Var:same_as<Base_Attribute>
-* Transient Var:inst_ref<Object>
-* Transient Var:inst_ref_set<Object>
-* Transient Var:inst<Event>
-* Transient Var:component_ref
-* Transient Var:date
-* Transient Var:inst_ref<Timer>
-* Transient Var:timestamp
+* Transient Var = Multiplicity
+* Transient Var = Justification
+* Transient Var = Style
+* Transient Var = End
+* Transient Var = ParseStatus
+* Transient Var = Scope
+* Transient Var = ModelEventNotification
+* Transient Var = Visibility
+* Transient Var = instance
+* Transient Var = Token
+* Transient Var = OalConstants
+* Transient Var = RunStateType
+* Transient Var = Breakpoint_Type
+* Transient Var = StateChangeType
+* Transient Var = EventProcessType
+* Transient Var = IFDirectionType
+* Transient Var = StateEnum
+* Transient Var = ReentrantLock
+* Transient Var = ElementTypeConstants
+* Transient Var = long
+* Transient Var = SearchScope
+* Transient Var = SynchronizationType
+* Transient Var = Severity
+* Transient Var = ActionDialect
+* Transient Var = void
+* Transient Var = boolean
+* Transient Var = integer
+* Transient Var = real
+* Transient Var = string
+* Transient Var = unique_id
+* Transient Var = state<State_Model>
+* Transient Var = same_as<Base_Attribute>
+* Transient Var = inst_ref<Object>
+* Transient Var = inst_ref_set<Object>
+* Transient Var = inst<Event>
+* Transient Var = component_ref
+* Transient Var = date
+* Transient Var = inst_ref<Timer>
+* Transient Var = timestamp
  
 5.1.4 Further rules for filtering  
 
