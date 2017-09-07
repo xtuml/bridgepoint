@@ -1962,6 +1962,12 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"b90f452e-092b-469d-8c12-7a8a792bcd08");
+INSERT INTO S_ENUM
+	VALUES ("1a0716a0-ad0d-48e4-bbb0-c6faf06dc53e",
+	'Event',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"e419854c-b497-458d-83fa-db0f4de52a16");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

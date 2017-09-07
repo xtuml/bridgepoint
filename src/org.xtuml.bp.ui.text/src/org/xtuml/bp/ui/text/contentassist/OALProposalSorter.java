@@ -12,9 +12,11 @@ public class OALProposalSorter implements ICompletionProposalSorter {
     private static final int[] ORDERING = {
         Proposaltypes_c.Attribute,
         Proposaltypes_c.Operation,
+        Proposaltypes_c.Event,
         Proposaltypes_c.Association,
         Proposaltypes_c.Variable,
         Proposaltypes_c.EE,
+        Proposaltypes_c.Port,
         Proposaltypes_c.Class,
         Proposaltypes_c.Keyword
     };

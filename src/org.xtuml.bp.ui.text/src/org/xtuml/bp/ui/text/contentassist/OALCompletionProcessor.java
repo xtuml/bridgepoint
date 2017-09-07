@@ -25,6 +25,8 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.ExternalEntity_c;
+import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -123,10 +125,12 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
         int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
         String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
-        String leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
+        String leadingWhitespace = "";
+        if ( "".equals( existingText.trim() ) ) leadingWhitespace = existingText;
+        else leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
         Proposal_c[] items = Proposal_c.getManyACT_PsOnR1601( list );
         for ( Proposal_c item : items ) {
-            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.trim().toLowerCase() ) ) {
+            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) ) {
                 ICompletionProposal proposal = new OALCompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
                                                                        leadingWhitespace.length() + item.getCursor_position(), getImage( item.getType() ),
                                                                        item.getDisplay_text(), null, null, item.getType() );
@@ -194,6 +198,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( ModelClass_c.class );
             case Proposaltypes_c.EE:
                 return CorePlugin.getImageFor( ExternalEntity_c.class );
+            case Proposaltypes_c.Port:
+                return CorePlugin.getImageFor( Port_c.class );
+            case Proposaltypes_c.Event:
+                return CorePlugin.getImageFor( StateMachineEvent_c.class );
             default:
                 return null;
         }
