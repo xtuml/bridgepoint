@@ -452,4 +452,8 @@ of the grammar as well as from generation of the ooaofooa Body subsystem.
 6.1.33 After `self`:  
 6.1.33.1 `.`  
 
+6.1.34 After `assign <var> =`:
+6.1.34.1 All listed in section 6.1.26
+6.1.34.2 If the variable name chosen is already defined, only elements from section 6.1.26 of the same type  
+
 ### End
