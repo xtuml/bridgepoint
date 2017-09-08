@@ -19,6 +19,7 @@ OAL activities.
 <a id="2.2"></a>2.2 [#9571 Enhanced OAL Editor (phase 1)](https://support.onefact.net/issues/9571) -- this issue is the parent of the headline issue  
 <a id="2.3"></a>2.3 [#9571 analysis note](../9571_oal_xtext_editor/9571_oal_xtext_editor_ant.md)  
 <a id="2.4"></a>2.4 [#9415 OAL editor SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit#) -- One Fact internal document  
+<a id="2.5"></a>2.5 [#9718 Testing for Enhanced OAL Editor phase 1](https://support.onefact.net/issues/9718)  
 
 ### 3. Background
 
@@ -196,7 +197,7 @@ etc) would be desired for auto triggering.
 
 A user preference has been introduced to control if auto triggering should be
 enabled. This allows users to turn it off if they find it annoying. It can
-always be called up manually. See section 6.6 for more detail on user
+always be called up manually. See section 6.5.4 for more detail on user
 preferences.
 
 6.3.2.2 Triggering on sequences
@@ -257,9 +258,16 @@ The following table summarizes the ordering:
 |---------------------------------|------------------------|
 | Attribute                       | Alphanumerically       |
 | Operation                       | Alphanumerically       |
+| Function Parameter              | Alphanumerically       |
+| Operation Parameter             | Alphanumerically       |
+| Bridge Parameter                | Alphanumerically       |
+| Event Data Item                 | Alphanumerically       |
+| Property Parameter              | Alphanumerically       |
+| Event                           | Alphanumerically       |
 | Association                     | Numerically by rel num |
 | Variable                        | Alphanumerically       |
 | EE                              | Alphanumerically       |
+| Port                            | Alphanumerically       |
 | Class                           | Alphanumerically       |
 | Keyword                         | Alphanumerically       |
 
@@ -344,226 +352,141 @@ The general "shape" of a content assist function name is as follows:
 The function name must have the first letter capitalized and all others lower
 case.
 
-6.5 Use cases
+6.4.4 Flow of content assist calculation
 
-Content assist is an extremely complex operation and there are many situations
-where content assist is not desired or useful. Sometimes the number of proposals
-could be overwhelmingly large, other times the diversity of proposals makes
-content assist impractical. The following list of use cases comes from analysis
-of the grammar.
+Performance is a key consideration in this work. A preference exists to disable
+parsing while editing actions because the parser can take a long time on large
+bodies and interrupt user experience.
 
-6.5.1 At the beginning of a new statement:  
-6.5.1.1 `control stop`  
-6.5.1.2 `create event instance`  
-6.5.1.3 `create object instance`  
-6.5.1.4 `delete object instance`  
-6.5.1.5 `for each`  
-6.5.1.6 `generate`  
-6.5.1.7 `if`  
-6.5.1.8 `param` (if there are params?)  
-6.5.1.9 `relate`  
-6.5.1.10 `return`  
-6.5.1.11 `select any`  
-6.5.1.12 `select many`  
-6.5.1.13 `select one`  
-6.5.1.14 `send`  
-6.5.1.15 `unrelate`  
-6.5.1.16 `while`  
-6.5.1.17 `break` (if in a "while" or "for" block)  
-6.5.1.18 `continue` (if in a "while" or "for" block)  
-6.5.1.19 `end while` (if in a "while" block)  
-6.5.1.20 `end for` (if in a "for" block)  
-6.5.1.21 `elif` (if in an "if" or "elif" block)  
-6.5.1.22 `else` (if in an "if" or "elif" block)  
-6.5.1.23 `end if` (if in an "if", "elif", or "else" block)  
-6.5.1.24 `self` (if in a transtion body, state body, derived attribute body, or
-operation body)  
-6.5.1.25 All local variables in scope  
-6.5.1.26 All EE key letters of visible EEs with at least one bridge of return type
-`void`  
-6.5.1.27 All class key letters of visible classes with at least one class based
-operation of return type `void`  
+Unfortunately, the way the OAL parser is designed is destructive and not
+incremental. If the text changes and a reparse is needed, all the instances
+that represent the OAL are disposed and the whole body is reparsed. Because of
+this, content assist will need to parse the body being edited in full every
+time it is triggered.
 
-6.5.2 After `send`:  
-6.5.2.1 Port names of containing component  
+A few optimizations have been put in place to prevent horrible slowdowns.
+Content assist proposal lists are only calculated if the parser cursor is on or
+before the line and column where content assist is invoked. The rest of the
+body is parsed as normal. Also, only one list can be related to the body at
+once, so as the parse is performed, old lists are disposed and replaced with
+newer lists closer to the cursor. This keeps instance count as low as possible.
 
-6.5.x After `create event instance`:  
-6.5.x.y All local variables of type `inst<Event>`  
+6.5 User preferences
 
-6.5.x After `create event instance <var> of`:  
-6.5.x.y All visible event specifications  
+A new user preference page shall be introduced under `xtUML > Activity Editor >
+Content Assist`. This preference page will contain the following options.
 
-6.5.x After `create object instance`:  
-6.5.x.y All local variables of an instance reference type  
+6.5.1 Role phrases
 
-6.5.x After `create object instance <var> of`:  
-6.5.x.y All visible class key letters  
+A toggle button shall be included to control whether or not role phrases are
+included by default. For reflexive associations, role phrases are required, but
+in other cases the user can choose whether role phrases are included in
+proposals for link traversals and relate/unrelate statements.
 
-6.5.x After `delete object instance`:  
-6.5.x.y All local variables of an instance reference type  
+The default is no role phrases.
 
-6.5.x After `for each <var> in`:  
-6.5.x.y All local variables of an instance reference set type  
+6.5.2 Invocation format
 
-6.5.x After `generate`:  
-6.5.x.y All visible event specifications  
-6.5.x.y All local variables of type `inst<Event>`  
+A radio button shall be included to control the format of parameterized
+invocation proposals. The options are to either simply insert the proposal with
+open and close parentheses and place the cursor between them, or to fill out
+the prototype of the signature with parameters and highlight the first
+parameter.
 
-6.5.x After `relate`:  
-6.5.x.y All local variables of an instance reference type  
+The default is empty parentheses.
 
-6.5.x After `relate <var> to`:  
-6.5.x.y All local variables of an instance reference type (which have a possible
-relationship to the first var?)  
+6.5.3 Single proposals
 
-6.5.x After `relate <var1> to <var2> across`:  
-6.5.x.y All valid relationships between `var1` and `var2` (phrases included for
-reflexives, but excluded otherwise. See section 6.6.x)  
+A toggle button shall be included to control whether or not to automatically
+apply proposals that are the only proposal in a list.
 
-6.5.x After `relate <var1> to <var2> across <rel>.`:  
-6.5.x.y The relationship phrase for the relationship (or both phrases in the
-case of a reflexive associations)  
+The default is yes.
 
-6.5.x After `relate <var1> to <var2> across <rel> using`:  
-6.5.x.y All local variables of an instance reference type (which have a possible
-associative relationship with `var1` and `var2`?)
+6.5.4 Auto trigger
 
-6.5.x After `return`:  
-6.5.x.y All local variables of the same type as the body return type (when
-applicable)  
+6.5.4.1 Auto trigger enable/disable
 
-6.5.x After `select [one|any|many]`:  
-6.5.x.y All local variables of an instance reference type  
+A toggle button shall be included to control whether auto triggering is enabled
+or disabled.
 
-6.5.x After `::`:  
-6.5.x.y All visible domain functions  
-6.5.x.y.1 If invoked as a statement, only present functions with `void` return
-type  
-6.5.x.y.2 If invoked as the right hand side of an expression, only present
-functions with a return type matching the left hand side  
+The default is enabled.
 
-6.5.x After `unrelate`:  
-6.5.x.y All local variables of an instance reference type  
+6.5.4.2 Auto trigger sequences
 
-6.5.x After `unrelate <var> from`:  
-6.5.x.y All local variables of an instance reference type which are currently
-related to `var`  
+A text box shall be included where a user can modify the character sequences
+which automatically trigger completion assistance. Trigger sequences shall be
+separated on different lines, and whitespace shall always be ignored.
 
-6.5.x After `unrelate <var1> from <var2> across`:  
-6.5.x.y All valid relationships in which `var1` and `var2` are both in
-participation (phrases included for reflexives, but excluded otherwise. See
-section 6.6.x)  
-
-6.5.x After `urelate <var1> to <var2> across <rel>.`:  
-6.5.x.y The relationship phrase for the relationship  
-
-6.5.x After `unrelate <var1> to <var2> across <rel> using`:  
-6.5.x.y All local variables of an instance reference type which are currently
-the associative object for `var1` and `var2` across `rel`  
-
-6.5.x After `param.`:  
-6.5.x.y All available parameters  
-6.5.x.y.1 If invoked as the right hand side of an expression, only present
-parameters with a type matching the left hand side  
-
-6.5.x After `send <port_name>::`:  
-6.5.x.y All interface messages (include the full signature with parameter
-prototypes. Preference?)  
-6.5.x.y.1 If invoked as a statement, only present interface signals and
-operations with the `void` type  
-6.5.x.y.2 If invoked as the right hand side of an expression, only present
-interface operations with a type matching the left hand side  
-
-6.5.x After a left parenthesis before a parameter list:  
-6.5.x.y All available parameters  
-
-6.5.x After `<port_name>::<message_name>(<parameter_list>) to`:  
-6.5.x.y All local variables of type `component_ref`  
-
-6.5.x After `<identifier>::`:  
-6.5.x.y All interface messages for ports matching `identifier`, all class based
-operations with key letters matching `identifier`, and all bridges with key
-letters matching `identifier` (include the full signature with parameter
-prototypes. Preference?)  
-6.5.x.y.1 If invoked as a statement, only present activities with the `void`
-type  
-6.5.x.y.2 If invoked as the right hand side of an expression, only present
-activities with a type matching the left hand side  
-6.5.x.y All enumerators for EDTs matching `identifier` if the left hand side is
-of the EDT type  
-6.5.x.y All constants for constant specs matching `idetifier` if the constant
-type matches the left hand side  
-
-6.5.x After `<event_spec> to`:  
-6.5.x.y `<key letters> assigner` for assigner events  
-6.5.x.y `<key letters> creator` for creation events  
-6.5.x.y All local variables of the type that the event is defined in, and
-subtypes if it is a polymorphic event  
-
-6.5.x At the beginning of a generic expression:  
-6.5.x.y All local variables of the declared type or an instance reference or
-structured type (if they have a member of the declared type)  
-6.5.x.y All visible constants of the declared type (scoped if not globally
-unique)  
-6.5.x.y All visible class key letters with at least one class based operation which
-returns the declared type  
-6.5.x.y All visible EE key letters with at least one bridge which returns the
-declared type  
-6.5.x.y All visible domain functions which return the declared type  
-6.5.x.y All visible port operations which return the declared type  
-6.5.x.y If the declared type is `boolean`:  
-6.5.x.y.1 `not`  
-6.5.x.y.2 `not_empty`  
-6.5.x.y.3 `empty`  
-6.5.x.y.4 `true`  
-6.5.x.y.5 `false`  
-6.5.x.y If the declared type is `integer`:  
-6.5.x.y.1 `cardinality`  
-6.5.x.y If the declared type is an EDT:  
-6.5.x.y.1 All the enumerators for the EDT  
-
-6.5.x After `not_empty` or `empty`:  
-6.5.x.y All local variables of an instance reference or instance reference set
-type  
-
-6.5.x After `cardinality`:  
-6.5.x.y All local variables of an instance reference set type  
-
-6.5.x After `select [one|any|many] <var1>`:  
-6.5.x.1 `related by`  
-6.5.x.1 `from instances of`  
-
-6.5.x After `select [one|any|many] <var1> related by <var2>->` or `... -><key letters>[<rel>]->`:  
-6.5.x.y All valid relationship specifications  
-6.5.x.y.1 If part of a `select one` statement, only present relationships with
-multiplicity "one"  
-6.5.x.y.2 Include phrases only for reflexive associations (preference?)  
-
-6.5.x After `select [one|any|many] <var> from instances of`:  
-6.5.x.y All visible key letters  
-6.5.x.y.1 If var is already typed, only propose the key letters of the type of
-`var`  
-
-6.5.x After a selection:  
-6.5.x.1 `where`
-
-6.5.x After `<inst_ref_var>.`:  
-6.5.x.y All attributes (if this is a right hand side expression, only propose
-attributes of the same type)  
-6.5.x.y All instance based operations of the class  
-6.5.x.y.1 If a right hand side expression, only propose operations that return
-the declared type  
-6.5.x.y.2 If this is a statement only propose operations that return `void`  
-
-
-6.6 User preferences
-
-- include phrases always?
+The default sequences are:
+```
+.
+::
+->
+,
+across
+of
+```
 
 ### 7. Design Comments
 
+7.1 Continuing design
+
+7.1.1 Ordering
+
+The table in section 6.3.4.1 may be modified and extended as the implementation
+develops. An updated version shall be copied in the implementation note and the
+version in this note shall be modified to match.
+
+7.1.2 Presentation
+
+There are a lot of little details in terms of presentation and user experience
+that are not part of the hard requirements. Such things as icon images for
+proposals, text style and color of proposals, extra information (such as types,
+object names, role phrases) that is not part of the proposal itself but is
+useful to the user. These presentation elements shall be chosen during
+implementation and shall be documented as appropriate in the implementation
+note.
+
+7.2 On-going difficulties and challenges
+
+7.2.1 Lookahead
+
+There are several places in the grammar that use a form of lookahead called
+syntactic predicates.  Syntactic predicates are a way for the parser to pause
+and check that the next series of tokens matches before accepting a production
+rule.
+
+This is a problem for content assistance because the content assistance
+routines are invoked only after a rule or token is consumed. The OAL grammar
+allows several of the keywords to be used as identifiers so at many key places
+such as `relate ...` at the beginning of a statement, the `relate` token is not
+consumed until after the following tokens are matched to the syntactic
+predicate. Therefore the content assist routine is not invoked until after it
+is needed. A solution to this problem is needed and will be documented in the
+implementation note.
+
+7.2.2 Performance
+
+Performance is still a worry and will be tested thoroughly. Any changes in
+design will be documented in the implementation note.
+
+7.2.3 Parse errors
+
+Currently, parse errors are suppressed during content assist parsing. However,
+sometimes if there are parse errors in the body before the location where
+content assist is invoked, content assist cannot complete and no proposals are
+shown where they should be. There needs to be some mechanism to inform the user
+that parse errors occurred earlier in the file.  The solution for this shall be
+documented in the implementation note.
+
 ### 8. User Documentation
 
+8.1 A new help page shall be introduced in the BridgePoint help under
+`Reference > User Interface > Preferences` to document the usage and options of
+the content assist feature  
+
 ### 9. Unit Test
+
+Testing for this work is outlined in a separate issue. See [[2.5]](#2.5).
 
 ### End
