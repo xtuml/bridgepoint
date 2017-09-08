@@ -20,6 +20,7 @@ import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
+import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
@@ -28,11 +29,14 @@ import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.FunctionBody_c;
+import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationBody_c;
+import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProposalList_c;
 import org.xtuml.bp.core.Proposal_c;
 import org.xtuml.bp.core.Proposaltypes_c;
@@ -46,6 +50,7 @@ import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignalBody_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateActionBody_c;
+import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
@@ -202,6 +207,16 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( Port_c.class );
             case Proposaltypes_c.Event:
                 return CorePlugin.getImageFor( StateMachineEvent_c.class );
+            case Proposaltypes_c.FunctionParameter:
+                return CorePlugin.getImageFor( FunctionParameter_c.class );
+            case Proposaltypes_c.OperationParameter:
+                return CorePlugin.getImageFor( OperationParameter_c.class );
+            case Proposaltypes_c.BridgeParameter:
+                return CorePlugin.getImageFor( BridgeParameter_c.class );
+            case Proposaltypes_c.EventDataItem:
+                return CorePlugin.getImageFor( StateMachineEventDataItem_c.class );
+            case Proposaltypes_c.PropertyParameter:
+                return CorePlugin.getImageFor( PropertyParameter_c.class );
             default:
                 return null;
         }

@@ -29942,6 +29942,43 @@ if ( not_empty act )
     relate cue to act across R1602;
   end if;
   cue.string_value = "one";
+
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_handle related by local_var->V_INT[R814];
+    if ( not_empty inst_handle )
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -30058,6 +30095,43 @@ if ( not_empty act )
     relate cue to act across R1602;
   end if;
   cue.string_value = "many";
+
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_handle related by local_var->V_INT[R814];
+    if ( not_empty inst_handle )
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -30174,6 +30248,43 @@ if ( not_empty act )
     relate cue to act across R1602;
   end if;
   cue.string_value = "many";
+
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference set types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_set related by local_var->V_INS[R814];
+    if ( not_empty inst_set )
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -30812,70 +30923,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Create_event_statement_strlit_of_content_assist',
 	'ParserValidateFunction: TRUE',
-	'act_id = ::get_current_context();
-select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-if ( not_empty act )
-
-  // get visible classes
-  in_generic_package = act.associateWithContainer();
-  select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
-  select one c_c related by containing_pe->C_C[R8001];
-  select one ep_pkg related by containing_pe->EP_PKG[R8001];
-  if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  end if;
-  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty ep_pkg
-    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::CLASS ); 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many o_objs related by results->O_OBJ[R8001];
-  select many assigner_events related by o_objs->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
-  select many inst_events related by o_objs->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502];
-  if ( not_empty assigner_events or not_empty inst_events )
-    line = ::getLineNumber( rule_token:param.a1_rule_token );
-    col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-    select one list related by act->ACT_PL[R1603];
-    if ( not_empty list )
-      if ( ( list.line != line ) or ( list.col != col ) )
-        list.dispose();
-        create object instance list of ACT_PL;
-        list.line = line;
-        list.col = col;
-        relate list to act across R1603;
-      end if;
-    else
-      create object instance list of ACT_PL;
-      list.line = line;
-      list.col = col;
-      relate list to act across R1603;
-    end if;
-
-    // create proposals for each event
-    for each evt in assigner_events
-      create object instance new_item of ACT_P;
-      new_item.type = ProposalTypes::Event;
-      new_item.display_text = evt.getSignature( flavor:2 );
-      new_item.replacement_text = new_item.display_text;
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
-      relate new_item to list across R1601;
-    end for;
-    for each evt in inst_events
-      create object instance new_item of ACT_P;
-      new_item.type = ProposalTypes::Event;
-      new_item.display_text = evt.getSignature( flavor:2 );
-      new_item.replacement_text = new_item.display_text;
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
-      relate new_item to list across R1601;
-    end for;
-
-  end if;
-end if;',
+	'::event_spec_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -31357,6 +31405,464 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("5140f1b5-4b39-437b-b26c-5280fe3027e3",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	"00000000-0000-0000-0000-000000000000",
+	'Delete_statement_strlit_instance_content_assist',
+	'ParserValidateFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_handle related by local_var->V_INT[R814];
+    if ( not_empty inst_handle )
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("4892556c-a434-4a9f-b246-8f1684abe993",
+	"5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e696f837-c6bc-47aa-aa27-3eff25f75f69",
+	"5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4892556c-a434-4a9f-b246-8f1684abe993",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("aa8c06ca-736c-45c7-96d6-88b07accf3b2",
+	"5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"e696f837-c6bc-47aa-aa27-3eff25f75f69",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c834be39-450b-408f-bad9-02e8bcd573a6",
+	"5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"aa8c06ca-736c-45c7-96d6-88b07accf3b2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("30001610-12b0-4c0c-8191-85e32b67f58b",
+	"5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	'b1_inst_ref_var1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c834be39-450b-408f-bad9-02e8bcd573a6",
+	'');
+INSERT INTO PE_PE
+	VALUES ("5a7f8a99-a832-4da8-9908-fb96c7d6aafe",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7584caed-d379-4f8b-a8eb-86828f4be67a",
+	"00000000-0000-0000-0000-000000000000",
+	'For_statement_strlit_in_content_assist',
+	'ParserValidateFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference set types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_set related by local_var->V_INS[R814];
+    if ( not_empty inst_set )
+      create object instance new_item of ACT_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.selection_length = 0;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("c6b52fe0-2369-489b-99eb-2b13569ba219",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("94df0c51-8901-4e2b-b91a-7a99422f4940",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c6b52fe0-2369-489b-99eb-2b13569ba219",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5f387434-f464-40c2-868f-c2b52739c566",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"94df0c51-8901-4e2b-b91a-7a99422f4940",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2ac7175a-1220-47d7-9523-db41ed298cc1",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5f387434-f464-40c2-868f-c2b52739c566",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("02f2603a-01c8-4bbb-b0d0-74dee87a791f",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'b1_local_variable1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"2ac7175a-1220-47d7-9523-db41ed298cc1",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f6649ce7-6ae0-47fe-82ba-ea0675b0242e",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'b2_inst_ref_set_var2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"02f2603a-01c8-4bbb-b0d0-74dee87a791f",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5d65558e-8d54-4f94-b744-f6f8bd99d522",
+	"7584caed-d379-4f8b-a8eb-86828f4be67a",
+	'b3_block3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f6649ce7-6ae0-47fe-82ba-ea0675b0242e",
+	'');
+INSERT INTO PE_PE
+	VALUES ("7584caed-d379-4f8b-a8eb-86828f4be67a",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	"00000000-0000-0000-0000-000000000000",
+	'Param_data_access_tok_dot_content_assist',
+	'ParserValidateFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+select any val from instances of V_VAL where ( selected.Value_ID == param.a3_rule_begin_id );
+if ( not_empty act and not_empty val )
+
+  // create list
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->ACT_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of ACT_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of ACT_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  
+  // get declared type
+  select any declared_dt from instances of S_DT where false;
+  select any cue related by act->ACT_PCC[R1602] where ( selected.name == "declared_type" );
+  if ( not_empty cue )
+    select any declared_dt from instances of S_DT where ( selected.DT_ID == cue.unique_id_value );
+  end if;
+
+  // function parameters
+  select many s_sync_params related by act->ACT_FNB[R698]->S_SYNC[R695]->S_SPARM[R24];
+  if ( not_empty s_sync_params )
+    for each s_sparm in s_sync_params
+      select one param_dt related by s_sparm->S_DT[R26];
+      include = true;
+      if ( not_empty param_dt and not_empty declared_dt )
+        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+          include = false;
+        end if;
+      end if;
+      if ( val.isLValue and 1 != s_sparm.By_Ref )
+        include = false;
+      end if;
+      if ( include )
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::FunctionParameter;
+        new_item.display_text = s_sparm.Name;
+        new_item.replacement_text = new_item.display_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+      end if;
+    end for;
+  else
+  
+  // operation parameters
+  select many o_tfr_params related by act->ACT_OPB[R698]->O_TFR[R696]->O_TPARM[R117];
+  if ( not_empty o_tfr_params )
+    for each o_tparm in o_tfr_params
+      select one param_dt related by o_tparm->S_DT[R118];
+      include = true;
+      if ( not_empty param_dt and not_empty declared_dt )
+        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+          include = false;
+        end if;
+      end if;
+      if ( val.isLValue and 1 != o_tparm.By_Ref )
+        include = false;
+      end if;
+      if ( include )
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::OperationParameter;
+        new_item.display_text = o_tparm.Name;
+        new_item.replacement_text = new_item.display_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+      end if;
+    end for;
+  else
+  
+  // bridge parameters
+  select many s_brg_params related by act->ACT_BRB[R698]->S_BRG[R697]->S_BPARM[R21];
+  if ( not_empty s_brg_params )
+    for each s_bparm in s_brg_params
+      select one param_dt related by s_bparm->S_DT[R22];
+      include = true;
+      if ( not_empty param_dt and not_empty declared_dt )
+        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+          include = false;
+        end if;
+      end if;
+      if ( val.isLValue and 1 != s_bparm.By_Ref )
+        include = false;
+      end if;
+      if ( include )
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::BridgeParameter;
+        new_item.display_text = s_bparm.Name;
+        new_item.replacement_text = new_item.display_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+      end if;
+    end for;
+  else
+  
+  // event data items
+  select many sm_act_params related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_act_params )
+    select many sm_act_params related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+    if ( empty sm_act_params )
+      select many sm_act_params related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+      if ( empty sm_act_params )
+        select many sm_act_params related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+      end if;
+    end if;
+  end if;
+  if ( not_empty sm_act_params )
+    for each sm_evtdi in sm_act_params
+      select one param_dt related by sm_evtdi->S_DT[R524];
+      include = true;
+      if ( not_empty param_dt and not_empty declared_dt )
+        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+          include = false;
+        end if;
+      end if;
+      if ( val.isLValue )
+        include = false;
+      end if;
+      if ( include )
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::EventDataItem;
+        new_item.display_text = sm_evtdi.Name;
+        new_item.replacement_text = new_item.display_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+      end if;
+    end for;
+  else
+  
+  // executable property parameters
+  select many c_ep_params related by act->ACT_POB[R698]->SPR_PO[R687]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
+  if ( empty c_ep_params )
+    select many c_ep_params related by act->ACT_PSB[R698]->SPR_PS[R686]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
+    if ( empty c_ep_params )
+      select many c_ep_params related by act->ACT_ROB[R698]->SPR_RO[R685]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
+      if ( empty c_ep_params )
+        select many c_ep_params related by act->ACT_RSB[R698]->SPR_RS[R684]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
+      end if;
+    end if;
+  end if;
+  if ( not_empty c_ep_params )
+    for each c_pp in c_ep_params
+      select one param_dt related by c_pp->S_DT[R4007];
+      include = true;
+      if ( not_empty param_dt and not_empty declared_dt )
+        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+          include = false;
+        end if;
+      end if;
+      if ( val.isLValue and 1 != c_pp.By_Ref )
+        include = false;
+      end if;
+      if ( include )
+        create object instance new_item of ACT_P;
+        new_item.type = ProposalTypes::PropertyParameter;
+        new_item.display_text = c_pp.Name;
+        new_item.replacement_text = new_item.display_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+      end if;
+    end for;
+  end if; end if; end if; end if; end if;
+  
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("071f1f9d-12c6-4bcb-9e60-a99df2c0a552",
+	"0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3d7b1c63-304d-47d1-a0c2-e7c0414dbfa3",
+	"0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"071f1f9d-12c6-4bcb-9e60-a99df2c0a552",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4e7bd213-cf30-4236-8f71-d2c185c3c1b6",
+	"0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3d7b1c63-304d-47d1-a0c2-e7c0414dbfa3",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("adc3dd85-331e-4887-a704-6c7c52d5745f",
+	"0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4e7bd213-cf30-4236-8f71-d2c185c3c1b6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a7f31e09-4587-435a-8877-2a56a76255e2",
+	"0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	'b2_member_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"adc3dd85-331e-4887-a704-6c7c52d5745f",
+	'');
+INSERT INTO PE_PE
+	VALUES ("0f3e2706-c84c-4989-b616-9baa0877ccf9",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
