@@ -447,6 +447,13 @@ useful to the user. These presentation elements shall be chosen during
 implementation and shall be documented as appropriate in the implementation
 note.
 
+7.1.3 Proposal Calculation Cue
+
+The calculation cue class is meant to be a type of "union" with a single name
+and multiple value attributes of different types. More attributes of different
+types may be added to this class as they are needed. They will be documented in
+the implementation note.
+
 7.2 On-going difficulties and challenges
 
 7.2.1 Lookahead
