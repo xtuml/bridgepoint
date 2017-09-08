@@ -44,6 +44,7 @@
     * [How are ModelElements organized in memory?](#inmemory_arch)
     * [How can I examine the BridgePoint in-memory Instance Population? (Instance Population Monitor)](#instanceviewer)
     * [What is the ComponentTransactionListener and how does it work?](#transactionlistener)  
+    * [How is the OAL parser generated?](#parser)  
   * [Miscellaneous](#misc)
     * [How do I append updates to BridgePoint issues via e-mail?](#emailissueupdates)   
     * [Is the xtUML.org ID connected to Redmine in any way?](#connectedids)  
@@ -406,6 +407,11 @@ BridgePoint Architecture <a id="bparchitecture"></a>
   [8261_masl_refactor_dnt.md](../notes/8261_masl_refactor/8261_masl_refactor_dnt.md).
   The whole note contains good and relevant information, but section 7 focuses
   on the transaction listener.
+
+* **How is the OAL parser generated?** <a id="parser"></a>  
+  An explanation of how the OAL parser is generated can be cound at
+  [9763_content_assistance_dnt.md](../notes/9763_content_assistance/9763_content_assistance_dnt.md)
+  section 5.1.1.
   
 Verifer <a id="verifier"></a>
 ------------

@@ -20,6 +20,8 @@ OAL activities.
 <a id="2.3"></a>2.3 [#9571 analysis note](../9571_oal_xtext_editor/9571_oal_xtext_editor_ant.md)  
 <a id="2.4"></a>2.4 [#9415 OAL editor SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit#) -- One Fact internal document  
 <a id="2.5"></a>2.5 [#9718 Testing for Enhanced OAL Editor phase 1](https://support.onefact.net/issues/9718)  
+<a id="2.6"></a>2.6 [#9749 use case document](../9749_usecases/9749_usecases.md)  
+<a id="2.5"></a>2.5 [#9749 Determine use cases for OAL autocompletion](https://support.onefact.net/issues/9749)  
 
 ### 3. Background
 
@@ -30,6 +32,11 @@ editor. It specifically covers requirement AE3 of the OAL editor SRS
 The reader should first go back and read the full analysis for the enhanced
 editor [[2.3]](#2.3).
 
+Because this feature provides help and is not strictly necessary for the user
+to edit OAL, completion proposals shall be chosen to guide the modeler in the
+right direction. Confusing, invalid, and deprecated alternatives shall be
+strategically omitted when possible.
+
 ### 4. Requirements
 
 4.1 Context-sensitive completion assistance for user-defined identifiers is
@@ -39,8 +46,8 @@ provided while editing OAL activities (AE3 in the SRS [[2.4]](#2.4))
 
 5.1 Antlr
 
-During the analysis for this work, our current use of Antlr was analyzed as long
-as the cost and benefit of upgrading to a newer version of Antlr.
+During the analysis for this work, our current use of Antlr was analyzed.
+Specifically the cost and benefit of upgrading to a newer version of Antlr.
 
 5.1.1 OAL parser generation
 
@@ -53,8 +60,8 @@ as input to `pt_antlr`. `pt_antlr` parses the BNF normally, but instead of
 generating a Java parser, it generates SQL instances that represent the grammar.
 These instances match the model of BNF in the `org.xtuml.bp.als` project.
 
-5.1.1.2 These generated SQL instances are loaded into the generator with
-`grammar_enhancer.arc` to produce an Antlr grammar file `oal.g`.
+5.1.1.2 These generated SQL instances are loaded into the model and
+`grammar_enhancer.arc` is applied to produce an Antlr grammar file `oal.g`.
 `grammar_enhancer.arc` inserts calls to special functions at the start and end
 of each rule, along with a validation call for each rule.
 
@@ -108,7 +115,7 @@ of the image with an unconditional one relationship.
 
 6.2.1 Proposal List
 
-A proposal list has an integer line and column value. These are to mare the
+A proposal list has an integer line and column value. These are to mark the
 point in the action body where the list originates. This information will be
 used later by the completion processor.
 
@@ -175,17 +182,17 @@ where completion assistance was requested and the origin of the list. Capture
 any leading whitespace from the existing text. For each proposal in the list do
 the following:  
 
-6.3.1.6 If the existing text (without whitespace) is a prefix of the
+6.3.1.5.1 If the existing text (without whitespace) is a prefix of the
 replacement text of the proposal, create a new completion proposal.  
-6.3.1.7 Use the attributes of the proposal (see section 6.2) to build the
+6.3.1.5.2 Use the attributes of the proposal (see section 6.2) to build the
 appropriate proposal including text positioning and corresponding icon. Assure
 that the leading whitespace captured is prepended to the replacement text. This
 is important for situations when a completion is requested across lines to
 maintain user style and formatting.  
 
-6.3.1.8 Set the auto trigger characters to match the newly built list (see
+6.3.1.6 Set the auto trigger characters to match the newly built list (see
 section 6.3.2).  
-6.3.1.9 Return the list of proposals.  
+6.3.1.7 Return the list of proposals.  
 
 6.3.2 Auto triggering
 
@@ -244,9 +251,9 @@ section 6.4
 
 6.3.4 Proposal ordering
 
-The model does not enforce any ordering of proposals in a list for simplicity.
-Ordering shall be enforced by the `OALProposalSorter` class which implements the
-`ICompletionProposalSorter` Eclipse interface.
+The model does not enforce ordering of proposals in a list for simplicity.
+Ordering shall be enforced by the `OALProposalSorter` class which implements
+the `ICompletionProposalSorter` Eclipse interface.
 
 Sorting is done at two levels. At the highest level, proposals are sorted by
 type. Within each type of proposal, the proposals are sorted by various means.
@@ -298,12 +305,12 @@ assist.
 
 6.4.2 Grammar enhancer
 
-During the "grammar enhancer" step, instances of the BNF model are used to
+During the "grammar enhancer" step, instances of the `BNF` model are used to
 generate `oal.g`. Invocations to the appropriate validation functions are
 automatically inserted. The archetype shall be modified to insert content assist
 functions after every leaf node (terminal or rule reference) for which a content
 assist function is provided. All of the rule reference IDs shall be passed to
-this function (similar to one of the `_end`) functions, so all the available
+this function (similar to one of the `_end` functions), so all the available
 information is present to content assist. Additionally, if the leaf node is the
 last node in a closure (conditional or unconditional), or the last node in the
 rule itself, it will follow the `_end` invocation. Again, this assures that the
@@ -321,22 +328,22 @@ single leaf node in the grammar (which would translate to > 1 function
 invocation per token parsed). Instead, a new archetype `content_assist.arc` is
 introduced to select only the functions that an implementation is provided for.
 
-The BNF model models several classes from the OOA of OOA. `S_SYNC`, `S_SPARM`,
-`S_DT` and more are reflected in the model. Originally, these were intended so
-that the generation of the grammar could be used to generate and import function
-prototypes for the validation functions so they do not have to be generated by
-hand. Over time, these classes have diverged from the OOA of OOA as it has
-evolved. A new archetype `ooa_functions.arc` shall be introduced to simply load
-the OOA of OOA and generate `S_SYNC` instances for each validation function
-which match the format of `S_SYNC` in the BNF model schema and can be loaded
-alongside the grammar instances.
+The `BNF` model models several classes from the OOA of OOA. `S_SYNC`,
+`S_SPARM`, `S_DT` and more are reflected in the model. Originally, these were
+intended so that the generation of the grammar could be used to generate and
+import function prototypes for the validation functions so they do not have to
+be produced by hand. Over time, these classes have diverged from the OOA of OOA
+as it has evolved. A new archetype `ooa_functions.arc` shall be introduced to
+simply load the OOA of OOA and generate `S_SYNC` instances for each validation
+function which match the format of `S_SYNC` in the `BNF` model schema and can
+be loaded alongside the grammar instances.
 
-Next, these functions and the rest of the BNF instances are loaded and
+Next, these functions and the rest of the `BNF` instances are loaded and
 `content_assist.arc` traverses every leaf node in the grammar and checks to see
 if there exists an instance of `S_SYNC` with the appropriate name for the leaf
 node, an instance of `CAF` is created and associated with the leaf node.
 
-The "Content Assist Function" (`CAF`) class was added to the BNF model to
+The "Content Assist Function" (`CAF`) class was added to the `BNF` model to
 operate as a flag to indicate whether or not a valid content assist function
 exists. The association is formalized by `CAF`, so this does not affect any PEI
 data that is generated by `pt_antlr`.
@@ -393,7 +400,7 @@ open and close parentheses and place the cursor between them, or to fill out
 the prototype of the signature with parameters and highlight the first
 parameter.
 
-The default is empty parentheses.
+The default is to fill out the parameters.
 
 6.5.3 Single proposals
 
@@ -495,5 +502,7 @@ the content assist feature
 ### 9. Unit Test
 
 Testing for this work is outlined in a separate issue. See [[2.5]](#2.5).
+
+Use cases are called out as part of a separate issue. See [[2.7]](#2.7).
 
 ### End
