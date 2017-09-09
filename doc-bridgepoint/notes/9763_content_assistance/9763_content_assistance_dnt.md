@@ -87,6 +87,16 @@ be modified as has been done with `pt_antlr`
 
 5.2 Content assistance infrastructure in Eclipse
 
+Eclipse provides a good platform for implementing content assist functionality.
+For text editors, the Eclipse class `ContentAssistant` can be instantiated and
+applied to the editor.  There are many hooks to configure and customize the
+behavior of the content assistant, but the main one is by implementing a class
+of type `IContentAssistProcessor`. This class has several methods that can be
+overridden to modify behavior but the most important one is the
+`computeCompletionProposals` method which is invoked when content assistance is
+activated and returns a list of proposals to be presented to the user. All the
+details of the text box are handled by the Eclipse framework.
+
 ### 6. Design
 
 6.1 General design philosophy
@@ -103,15 +113,11 @@ the user.
 
 6.2 Model of proposals
 
-Three classes shall be added to the meta model in the "Body" subsystem.
-"Proposal List" (`ACT_PL`), "Proposal" (`ACT_P`), and "Proposal Calculation Cue"
-(`ACT_PCC`).
+Three classes shall be added to the meta model in a new subsystem, "Proposal".
+"Proposal List" (`P_PL`), "Proposal" (`P_P`), and "Proposal Calculation Cue"
+(`P_PCC`).
 
 ![model.png](model.png)
-
-Although it is not pictured, R1603 connects to "Body" on the left of the image
-with an unconditional one relationship, and R1602 connects to "Body" on the left
-of the image with an unconditional one relationship.
 
 6.2.1 Proposal List
 
@@ -183,7 +189,9 @@ any leading whitespace from the existing text. For each proposal in the list do
 the following:  
 
 6.3.1.5.1 If the existing text (without whitespace) is a prefix of the
-replacement text of the proposal, create a new completion proposal.  
+replacement text of the proposal, create a new completion proposal. In
+filtering the proposals and in auto trigger characters, everything is case
+insensitive.  
 6.3.1.5.2 Use the attributes of the proposal (see section 6.2) to build the
 appropriate proposal including text positioning and corresponding icon. Assure
 that the leading whitespace captured is prepended to the replacement text. This
@@ -265,11 +273,11 @@ The following table summarizes the ordering:
 |---------------------------------|------------------------|
 | Attribute                       | Alphanumerically       |
 | Operation                       | Alphanumerically       |
-| Function Parameter              | Alphanumerically       |
-| Operation Parameter             | Alphanumerically       |
-| Bridge Parameter                | Alphanumerically       |
-| Event Data Item                 | Alphanumerically       |
-| Property Parameter              | Alphanumerically       |
+| Function Parameter              | Model ordering         |
+| Operation Parameter             | Model ordering         |
+| Bridge Parameter                | Model ordering         |
+| Event Data Item                 | Model ordering         |
+| Property Parameter              | Model ordering         |
 | Event                           | Alphanumerically       |
 | Association                     | Numerically by rel num |
 | Variable                        | Alphanumerically       |
@@ -277,6 +285,12 @@ The following table summarizes the ordering:
 | Port                            | Alphanumerically       |
 | Class                           | Alphanumerically       |
 | Keyword                         | Alphanumerically       |
+
+6.3.4.2 Ordering in the meta-model
+
+Some of the model elements in the OOA of OOA are explicitly ordered using a
+modeled relationship to maintain order. In some cases (such as invocation
+parameters), it makes sense to use this order to sort the proposals.
 
 6.3.5 `OALCompletionProposal`
 
@@ -378,6 +392,13 @@ body is parsed as normal. Also, only one list can be related to the body at
 once, so as the parse is performed, old lists are disposed and replaced with
 newer lists closer to the cursor. This keeps instance count as low as possible.
 
+Another consideration is to prevent content assist lists from being cacluatated
+until they are at a known fixed distance from the line and column where
+assistance was invoked (e.g. don't calculate lists until the line before). This
+opens up a vulnerability to not providing proposals where they are needed, but
+if done right could dramatically increase performance. The path taken shall be
+documented in the implementation note.
+
 6.5 User preferences
 
 A new user preference page shall be introduced under `xtUML > Activity Editor >
@@ -390,6 +411,9 @@ included by default. For reflexive associations, role phrases are required, but
 in other cases the user can choose whether role phrases are included in
 proposals for link traversals and relate/unrelate statements.
 
+Help text:  
+> Include role phrases in association proposals by default
+
 The default is no role phrases.
 
 6.5.2 Invocation format
@@ -397,8 +421,11 @@ The default is no role phrases.
 A radio button shall be included to control the format of parameterized
 invocation proposals. The options are to either simply insert the proposal with
 open and close parentheses and place the cursor between them, or to fill out
-the prototype of the signature with parameters and highlight the first
-parameter.
+the prototype of the signature with parameters and place the cursor at the
+first parameter.
+
+Help text:  
+> Include parameter tags in parameterized invocation proposals
 
 The default is to fill out the parameters.
 
@@ -406,6 +433,9 @@ The default is to fill out the parameters.
 
 A toggle button shall be included to control whether or not to automatically
 apply proposals that are the only proposal in a list.
+
+Help text:  
+> Insert single proposals automatically
 
 The default is yes.
 
@@ -416,6 +446,9 @@ The default is yes.
 A toggle button shall be included to control whether auto triggering is enabled
 or disabled.
 
+Help text:  
+> Enable auto activation
+
 The default is enabled.
 
 6.5.4.2 Auto trigger sequences
@@ -424,14 +457,15 @@ A text box shall be included where a user can modify the character sequences
 which automatically trigger completion assistance. Trigger sequences shall be
 separated on different lines, and whitespace shall always be ignored.
 
+Help text:  
+> Auto activation sequences for OAL (separate each sequence on a separate line)
+
 The default sequences are:
 ```
 .
 ::
 ->
 ,
-across
-of
 ```
 
 ### 7. Design Comments
