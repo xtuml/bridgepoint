@@ -20,6 +20,7 @@ requirements, which are detailed below.
 <a id="2.2"></a>2.2 [BridgePoint DEI #9558](https://support.onefact.net/issues/9558) User Experience: Remove or filter menu items    
 <a id="2.3"></a>2.3 [BridgePoint DEI #9563](https://support.onefact.net/issues/9563) Saab- 8: Unrelated and/or undocumented options in context menu   
 <a id="2.4"></a>2.4 [Papyrus for Information Modeling Customization Guide](https://wiki.eclipse.org/Papyrus_for_Information_Modeling/Customization_Guide)   
+<a id="2.5"></a>2.5 [BridgePoint DEI #8930](https://support.onefact.net/issues/8930) Build "user" and "developer" versions of BridgePoint   
 
 ### 3. Background
 
@@ -77,7 +78,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
 ### 5. Analysis
 
 5.1  BridgePoint is now delivered in two different forms: "Developer" and
-  "Modeler" versions.  The goal is to separate functionality used to
+  "Modeler" versions [[2.5]](#2.5).  The goal is to separate functionality used to
   develop and build BridgePoint itself from core modeling and translation
   functionality that all modelers use.  The Modeler version is what is
   delivered to users.  BridgePoint developers must download the Developer
@@ -132,7 +133,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
 6.2.1   Create new developer tools "parent" and feature plugins. Use
   the `org.xtuml.bp.mctools[.parent]` as a guide.  
 6.2.1.1  Make the `bp.internal.tools` plug-in a child of the new feature.  
-6.2.1.2  Adjust the Developer product to include the new parent plug-in, but 
+6.2.1.2  Adjust the Developer product to include the new feature plug-in, but 
   do not include it in the Modeler product.   
 6.2.1.3  Add the new parent to the `org.xtuml.bp.releng.parent/pom.xml`.   
 6.2.1.4  Remove the internal.tools plugin from `org.xtuml.bp.pkg-feature/feature.xml`  
@@ -143,20 +144,23 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   * Generate Functions From List  
 
 6.2.3  The `CreateTestProjectAndImportTestModel` and `FixMissingMatrixEntryAction` 
-  are no longer used and shall be removed.   
+  are no longer used and shall be removed (code and definition in plugin.xml).   
 
 6.3  User Configuration of the Palette and CMEs  
 6.3.1  BridgePoint will now use system properties to control what elements shall be
   excluded on the user interface.  These system properties will be of the form
   `-Ddisable.bp.<label>` and if set to true will cause the element to be hidden
-  from the UI.  The use can set these properties in the `bridgepoint.ini` 
+  from the UI.  The user will set these properties in the `bridgepoint.ini` 
   file. Developers can set the value in the debug application launch. For example:
   
-```
--Ddisable.bp.Actor=true
+```xml
+    -Ddisable.bp.Actor=true 
+    -Ddisable.bp.ExportMASLProject=true 
+    -Ddisable.bp.ExportMASLDomain=true 
+    -Ddisable.bp.ExportMASLDomains=true 
 ``` 
   
-6.3.2  Modifying the Palette
+6.3.2  Modifying the Palette   
   The solution proposed here does not rely on the user modifying the 
   `plugin.xml` file.  Instead, `bp.ui.graphics/.../GraphicsCreationToolEntry.java`
   is modified in the constructor.  The symbols (see 5.4) are still loaded
@@ -166,16 +170,23 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   then the newly created tool's visibility is set to false.  
   
 ```java
-public GraphicsCreationToolEntry(String label, String shortDesc,
-         CreationFactory factory, ImageDescriptor iconSmall,
-         ImageDescriptor iconLarge, int ooaType) {
-  super(label, shortDesc, iconSmall, iconLarge, GraphicsCreationTool.class);
-  setToolProperty(CreationTool.PROPERTY_CREATION_FACTORY, factory);
-  type = ooaType;
-+ // Look for a system property "disable.bp.<label>=true"
-+ // if one is found, then the label is meant to be excluded so 
-+ //   call setVisible(false);
-}
++   private static String PROPERTY_PREFIX = "disable.bp.";
+
+    public GraphicsCreationToolEntry(String label, String shortDesc,
+            CreationFactory factory, ImageDescriptor iconSmall,
+            ImageDescriptor iconLarge, int ooaType) {
+        super(label, shortDesc, iconSmall, iconLarge,
+                GraphicsCreationTool.class);
+        setToolProperty(CreationTool.PROPERTY_CREATION_FACTORY, factory);
+        type = ooaType;
+
++       String propertyKey = PROPERTY_PREFIX + label.replaceAll("\\s+","");
++       String actualPropertyValue = System.getProperty(propertyKey, "unset");
++       if ( actualPropertyValue.equals("true") ) {
++           setVisible(false);
++       }
+        
+    }
 ```
 
 6.3.3  Modifying the CMEs   
@@ -187,7 +198,7 @@ public GraphicsCreationToolEntry(String label, String shortDesc,
   properties (see 6.3.1)  in `org.xtuml.bp.core/plugin.xml`.  These
   checks will hide the CMEs if a match is found in the configuration file.  
 
-6.3.3.2  Update the archetype `create_core_pluin.inc` to add the visiblity stanza to the 
+6.3.3.1.1  Update the archetype `create_core_pluin.inc` to add the visibility stanza to the 
   objectContributions.  
 
 ```xml
@@ -210,23 +221,46 @@ public GraphicsCreationToolEntry(String label, String shortDesc,
     </objectContribution>
 ```  
 
-6.3.3.3  Modify `org.xtuml.bp.x2m/plugin.xml` and `org.xtuml.bp.ui.marking/plugin.xml`
-  to use the same system property visiblity checks on the `objectContributions` that
+6.3.3.2  Modify `org.xtuml.bp.x2m/plugin.xml` and `org.xtuml.bp.ui.marking/plugin.xml`
+  to use the same system property visibility checks on the `objectContributions` that
   add the "Export MASL ..." and "Manage Project Markings" context menu entries.  
 
 
 ### 7. Design Comments
-None.  
+7.1  There is an inconsistency in naming between the Palette and the Context Menu
+  where the Palette says "Use Case" and the CME says "Usecase".  The CME will be 
+  updated to match the Palette as part of this work.    
+
+7.2  During the analysis and prototyping the author notes that there are some tools
+  that have identical names but are functionally different.  These items will be
+  special-cased to have unique system property keys.  Duplicate items are:  
+  * `Component > Component` and `Interaction > Component`  
+  * `Classes > Association` and `Use Case > Association`
+  * `Classes > Class` and `Interaction > Class`
+  * `External > External Entity` and `Interaction > External Entity`
 
 ### 8. Documentation  
 8.1  BridgePoint menu contributions shall be enumerated and explained in the 
   documentation.    
 
+8.2  A new document shall be added to the help that details the use of the
+  new system properties for hiding elements in the UI and lists all of the 
+  properties that are supported.  
+
 ### 9. Acceptance Test
 
 9.1  Manual Test 
   1. Download a build of BridgePoint (Modeler version) that supports the element disabling  
-  2. Modify the `bridgepoint.ini` file to add `-Ddisable.bp.Actor=true`  
+  2. At the bottom of `bridgepoint.ini` add:
+```xml
+    -Ddisable.bp.Actor=true 
+    -Ddisable.bp.ExportMASLProject=true 
+    -Ddisable.bp.ExportMASLDomain=true 
+    -Ddisable.bp.ExportMASLDomains=true 
+    -Ddisable.bp.Exception=true 
+    -Ddisable.bp.UseCase=true 
+    -Ddisable.bp.ManageProjectMarkings=true 
+```  
   3. Start BridgePoint
   4. Verify that the Actor tool is not available in the Interaction drawer of the Palette
   5. Verify that the context menu on the canvas does not contain `New > Interaction > Actor`
