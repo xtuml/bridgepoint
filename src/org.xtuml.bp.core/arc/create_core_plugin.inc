@@ -123,16 +123,19 @@ This file is the plugin manifest for the BridgePoint core plugin.
                .else
                  .if(not menu_entry.UsesSelectionDialog)
                label="${menu_entry.Label}${has_wizard}"
-                   .assign propertyKey = "$r{menu_entry.Label}$r{has_wizard}"
-               .end if
+                   .assign propertyKey = "$r{menu_entry.Label}"
+                   .if ( ((("${propertyKey}" == "Formalize") or ("${propertyKey}" == "Unformalize")) or ("${propertyKey}" == "Unassign")) or ("${propertyKey}" == "Disconnect") )
+                     .assign propertyKey = "nokey"
+                   .end if
+                 .end if
                .end if
                .if(menu_entry.UsesSelectionDialog)
                     .if (menu_entry.Specialism == "Generic Package")
                        label="${menu_entry.Label}..."
-                       .assign propertyKey = "$r{menu_entry.Label}..."
+                       .// We don't allow hiding generated wizard invocations.  So we don't set propertyKey here.
                     .else
                        label="${menu_entry.Specialism} ${menu_entry.Label}..."
-                       .assign propertyKey = "$r{menu_entry.Specialism}$r{menu_entry.Label}..."
+                       .// We don't allow hiding generated wizard invocations.  So we don't set propertyKey here.
                     .end if
                .end if
                class="${action_class_name}"
@@ -154,11 +157,13 @@ This file is the plugin manifest for the BridgePoint core plugin.
          <filter name="${filter.name}" value="${filter.value}" />
       .end for
 	  .// Hook to allow hiding this contribution with a Java System Property
+	  .if ( ("${propertyKey}" != "nokey") and ("${propertyKey}" != "Formalize(NoTargetSelected)") )
          <visibility>
            <not>
              <systemProperty name="disable.bp.${propertyKey}" value="true"/>
            </not>
          </visibility>
+       .end if
       </objectContribution>
     .end if
   .end for
