@@ -158,6 +158,15 @@ This file is the plugin manifest for the BridgePoint core plugin.
       .end for
 	  .// Hook to allow hiding this contribution with a Java System Property
 	  .if ( ("${propertyKey}" != "nokey") and ("${propertyKey}" != "Formalize(NoTargetSelected)") )
+		.// Special cases for tools that have name collisions
+        .if ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionComponentOnEP_PKGAction" )
+        	.assign propertyKey = "InteractionComponent"
+        .elif ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionExternalEntityOnEP_PKGAction" )
+        	.assign propertyKey = "InteractionExternalEntity"
+        .elif ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionClassOnEP_PKGAction" )
+        	.assign propertyKey = "InteractionClass"
+        .end if
+		.// end special cases
          <visibility>
            <not>
              <systemProperty name="disable.bp.${propertyKey}" value="true"/>

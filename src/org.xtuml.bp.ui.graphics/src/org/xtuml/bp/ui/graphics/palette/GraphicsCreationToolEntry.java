@@ -35,7 +35,20 @@ public class GraphicsCreationToolEntry extends ToolEntry {
 		setToolProperty(CreationTool.PROPERTY_CREATION_FACTORY, factory);
 		type = ooaType;
 
-		String propertyKey = PROPERTY_PREFIX + label.replaceAll("\\s+","");
+		String propertyLabel = label.replaceAll("\\/+", "");
+		propertyLabel = propertyLabel.replaceAll("\\s+","");
+		
+		// Special case names of tools that have naming duplication
+		if ( type == 107 ) {
+			propertyLabel = "InteractionComponent";
+		} else if ( type == 62 ) {
+			propertyLabel = "InteractionExternalEntity";
+		} else if ( type == 63 ) {
+			propertyLabel = "InteractionClass";
+		}
+		// End special case
+		
+		String propertyKey = PROPERTY_PREFIX + propertyLabel;
         String actualPropertyValue = System.getProperty(propertyKey, "unset");
         if ( actualPropertyValue.equals("true") ) {
         	setVisible(false);
