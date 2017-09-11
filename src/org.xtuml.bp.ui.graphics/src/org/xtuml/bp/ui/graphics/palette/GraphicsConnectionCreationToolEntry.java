@@ -34,12 +34,19 @@ public class GraphicsConnectionCreationToolEntry extends
 		ConnectionCreationToolEntry {
 
 	private int type;
+	private static String PROPERTY_PREFIX = "disable.bp.";
 
 	public GraphicsConnectionCreationToolEntry(String label, String shortDesc,
 			CreationFactory factory, ImageDescriptor iconSmall,
 			ImageDescriptor iconLarge, int ooaType) {
 		super(label, shortDesc, factory, iconSmall, iconLarge);
 		type = ooaType;
+	
+		String propertyKey = PROPERTY_PREFIX + label.replaceAll("\\s+","");
+        String actualPropertyValue = System.getProperty(propertyKey, "unset");
+        if ( actualPropertyValue.equals("true") ) {
+        	setVisible(false);
+        }	
 	}
 
 	@Override
