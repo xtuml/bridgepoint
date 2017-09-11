@@ -330,6 +330,16 @@ last node in a closure (conditional or unconditional), or the last node in the
 rule itself, it will follow the `_end` invocation. Again, this assures that the
 content assist functions are provided with the most possible information.
 
+In addition to content assist functions after each leaf node, a single content
+assist function shall be invoked at the end of each rule specifically for
+looking ahead to the next token to determine content assist. This is sometimes
+necessary due to ambiguities in the OAL grammar. A good example is the `send`
+keyword. At the beginning of a statement, the `send` keyword alone is not
+enough to imply that the `send_statement` production rule should be chosen
+because OAL allows keywords as identifiers. The lookahead function at the end
+of the `statement` rule will look to see if the next token is the `send`
+keyword and generate a content assist list if it is.
+
 These invocations are not only gated by whether or not the parser was called via
 content assist, but also they are only inserted if an instance of `CAF` is
 related to the leaf node (see below).
@@ -369,6 +379,7 @@ The general "shape" of a content assist function name is as follows:
 <rule_name>_<token_name>_content_assist                       // for token references
 <rule_name>_<rule_reference>_content_assist                   // for rule references
 <rule_name>_strlit_<string_literal_value>_content_assist      // for literal strings
+<rule_name>_lookahead_content_assist                          // for each rule
 ```
 The function name must have the first letter capitalized and all others lower
 case.
@@ -497,23 +508,7 @@ the implementation note.
 
 7.2 On-going difficulties and challenges
 
-7.2.1 Lookahead
-
-There are several places in the grammar that use a form of lookahead called
-syntactic predicates.  Syntactic predicates are a way for the parser to pause
-and check that the next series of tokens matches before accepting a production
-rule.
-
-This is a problem for content assistance because the content assistance
-routines are invoked only after a rule or token is consumed. The OAL grammar
-allows several of the keywords to be used as identifiers so at many key places
-such as `relate ...` at the beginning of a statement, the `relate` token is not
-consumed until after the following tokens are matched to the syntactic
-predicate. Therefore the content assist routine is not invoked until after it
-is needed. A solution to this problem is needed and will be documented in the
-implementation note.
-
-7.2.2 Performance
+7.2.1 Performance
 
 Performance is still a worry and will be tested thoroughly. Any changes in
 design will be documented in the implementation note.
