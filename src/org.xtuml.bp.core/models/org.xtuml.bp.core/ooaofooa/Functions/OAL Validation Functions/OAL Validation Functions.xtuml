@@ -31264,11 +31264,11 @@ if ( not_empty act and not_empty evt )
   end if;
 
   select one asm related by evt->SM_SM[R502]->SM_ASM[R517];
-  if ( not_empty asm ) // assigner event
+  if ( not_empty asm ) // class event
     select one o_obj related by asm->O_OBJ[R519];
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Class;
-    new_item.display_text = o_obj.Key_Lett + " assigner";
+    new_item.display_text = o_obj.Key_Lett + " class";
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.selection_length = 0;

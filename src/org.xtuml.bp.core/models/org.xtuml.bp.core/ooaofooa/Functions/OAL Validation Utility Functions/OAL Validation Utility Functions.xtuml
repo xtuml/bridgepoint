@@ -8213,9 +8213,9 @@ if ( not_empty act )
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
   select many o_objs related by results->O_OBJ[R8001];
-  select many assigner_events related by o_objs->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
+  select many class_events related by o_objs->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502];
   select many inst_events related by o_objs->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502];
-  if ( not_empty assigner_events or not_empty inst_events )
+  if ( not_empty class_events or not_empty inst_events )
     line = ::getLineNumber( rule_token:param.a1_rule_token );
     col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
     select one list related by act->P_PL[R1603];
@@ -8235,7 +8235,7 @@ if ( not_empty act )
     end if;
 
     // create proposals for each event
-    for each evt in assigner_events
+    for each evt in class_events
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Event;
       new_item.display_text = evt.getSignature( flavor:2 );
