@@ -1,5 +1,5 @@
 .//---------------------------------------
-.function generate_content_assist_function
+.function generate_leaf_node_content_assist_function
   .param inst_ref ln
   .param inst_ref r
   .param integer count
@@ -43,6 +43,20 @@ INSERT INTO CAF VALUES ( '${ln.nodeId}', '${fncname}' );
   .end if
 .end function
 .//---------------------------------------
+.function generate_rule_lookahead_content_assist_function
+  .param inst_ref r
+  .assign attr_generated = false
+  .assign fncname = "$c{r.rule_name}_lookahead_content_assist"
+  .select any s_sync from instances of S_SYNC where ( selected.Name == fncname )
+  .if ( not_empty s_sync )
+INSERT INTO CAF VALUES ( '${r.nodeId}', '${fncname}' );
+    .assign attr_generated = true
+  .else
+.//-- Missing content assist function '${fncname}'
+.//    .assign attr_generated = true
+  .end if
+.end function
+.//---------------------------------------
 .function descend_node
   .param inst_ref node
   .param inst_ref r
@@ -52,7 +66,7 @@ INSERT INTO CAF VALUES ( '${ln.nodeId}', '${fncname}' );
   .while ( not_empty node )
     .select one ln related by node->LN[R1]
     .if ( not_empty ln )
-      .invoke result = generate_content_assist_function( ln, r, attr_count )
+      .invoke result = generate_leaf_node_content_assist_function( ln, r, attr_count )
       .if ( result.generated )
 ${result.body}
         .assign attr_generated = result.generated
@@ -84,6 +98,10 @@ ${result.body}
 -- CONTENT ASSIST FUNCTIONS
 .select many rules from instances of R
 .for each r in rules
+  .invoke result = generate_rule_lookahead_content_assist_function( r )
+  .if ( result.generated )
+${result.body}
+  .end if
   .select one first_node related by r->NLN[R2]->N[R8]
   .invoke result = descend_node( first_node, r, 1 )
   .if ( result.generated )

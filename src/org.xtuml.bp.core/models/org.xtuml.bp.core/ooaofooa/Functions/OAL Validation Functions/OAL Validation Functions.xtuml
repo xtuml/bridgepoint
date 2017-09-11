@@ -30675,127 +30675,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("0c620c86-544b-491f-b6a7-6ca70d067278",
-	"00000000-0000-0000-0000-000000000000",
-	'Send_statement_strlit_send_content_assist',
-	'ParserValidateFunction: TRUE',
-	'act_id = ::get_current_context();
-select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-if ( not_empty act )
-  select many c_pos related by act->ACT_BIC[R694]->C_C[R694]->C_PO[R4010];
-  if ( not_empty c_pos )
-    line = ::getLineNumber( rule_token:param.a1_rule_token );
-    col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-    select one list related by act->P_PL[R1603];
-    if ( not_empty list )
-      if ( ( list.line != line ) or ( list.col != col ) )
-        list.dispose();
-        create object instance list of P_PL;
-        list.line = line;
-        list.col = col;
-        relate list to act across R1603;
-      end if;
-    else
-      create object instance list of P_PL;
-      list.line = line;
-      list.col = col;
-      relate list to act across R1603;
-    end if;
-
-    for each c_po in c_pos
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Port;
-      new_item.display_text = c_po.Name;
-      new_item.replacement_text = new_item.display_text + "::";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
-      relate new_item to list across R1601;
-    end for;
-  end if;
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("71cca050-0267-4ab3-983b-91afec1faa48",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("25587682-420b-4273-b370-72d6e8c6b2cf",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a2_upper_rule',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"71cca050-0267-4ab3-983b-91afec1faa48",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("e17fc4f6-738c-4eab-a756-984fa4fa3501",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a3_start_rule',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"25587682-420b-4273-b370-72d6e8c6b2cf",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("e2806d4f-c06a-4afe-8a87-65239fa46ea4",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a4_current_rule',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"e17fc4f6-738c-4eab-a756-984fa4fa3501",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("10c3e085-ed34-4725-93f6-ac338f81156e",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a5_member_access_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"e2806d4f-c06a-4afe-8a87-65239fa46ea4",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("da61a16e-f370-4042-b0dc-11e193dc9188",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a6_parameter_access_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"10c3e085-ed34-4725-93f6-ac338f81156e",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("7a371dc0-218b-44eb-9de8-d684c2958a06",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a7_message_result_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"da61a16e-f370-4042-b0dc-11e193dc9188",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("c445093f-b6e9-4939-934c-986227a16f25",
-	"0c620c86-544b-491f-b6a7-6ca70d067278",
-	'a8_message_invocation_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"7a371dc0-218b-44eb-9de8-d684c2958a06",
-	'');
-INSERT INTO PE_PE
-	VALUES ("0c620c86-544b-491f-b6a7-6ca70d067278",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("051fb2c8-468f-4b18-ae45-fc4a668d871f",
 	"00000000-0000-0000-0000-000000000000",
 	'Create_event_statement_strlit_instance_content_assist',
@@ -31863,6 +31742,301 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("0f3e2706-c84c-4989-b616-9baa0877ccf9",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("c4f9a212-5606-4178-90f8-78a497fcb187",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_lookahead_content_assist',
+	'ParserValidateFunction: TRUE',
+	'if ( "send" == ::getText( rule_token:param.a1_rule_token ) )
+  act_id = ::get_current_context();
+  select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+  if ( not_empty act )
+    act.associateWithOwningComponent();
+    select many c_pos related by act->ACT_BIC[R694]->C_C[R694]->C_PO[R4010];
+    if ( not_empty c_pos )
+      line = ::getLineNumber( rule_token:param.a1_rule_token );
+      col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+      select one list related by act->P_PL[R1603];
+      if ( not_empty list )
+        if ( ( list.line != line ) or ( list.col != col ) )
+          list.dispose();
+          create object instance list of P_PL;
+          list.line = line;
+          list.col = col;
+          relate list to act across R1603;
+        end if;
+      else
+        create object instance list of P_PL;
+        list.line = line;
+        list.col = col;
+        relate list to act across R1603;
+      end if;
+
+      for each c_po in c_pos
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::Port;
+        new_item.display_text = c_po.Name;
+        new_item.replacement_text = new_item.display_text + "::";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.selection_length = 0;
+        relate new_item to list across R1601;
+      end for;
+    end if;
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("d2e483b3-47bb-424a-8197-5777342f1a58",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8b3f8fac-4c3d-4075-a2ac-63d692de2dd9",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"d2e483b3-47bb-424a-8197-5777342f1a58",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ee1c3af7-b58b-43bd-b142-032597af8178",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"8b3f8fac-4c3d-4075-a2ac-63d692de2dd9",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("15879d59-1c85-488a-b759-a608f3a1c64b",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b1_ib_transform_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ee1c3af7-b58b-43bd-b142-032597af8178",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1e70d937-5dc4-4163-b83b-ea10ee46f00b",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b2_function_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"15879d59-1c85-488a-b759-a608f3a1c64b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a3373d4c-20f0-4496-8abd-fe2eee80579d",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b3_implicit_assignment_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1e70d937-5dc4-4163-b83b-ea10ee46f00b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("254b329d-0704-4559-b586-5930c2af1c1c",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b4_implicit_invocation_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a3373d4c-20f0-4496-8abd-fe2eee80579d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("401c8468-67ab-4ec3-9f21-13c63f6f4040",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b5_assignment_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"254b329d-0704-4559-b586-5930c2af1c1c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("46fd9b13-0f7d-4477-8252-0c6bdc23b72d",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b6_control_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"401c8468-67ab-4ec3-9f21-13c63f6f4040",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a7a7827f-3b9f-41e8-98dd-d5493dffb258",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b7_break_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"46fd9b13-0f7d-4477-8252-0c6bdc23b72d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("eb16f823-36bd-4bed-add0-e92f90e78bab",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b8_bridge_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a7a7827f-3b9f-41e8-98dd-d5493dffb258",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("83a7022c-0d86-42a3-8c65-1009603ed491",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b9_send_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"eb16f823-36bd-4bed-add0-e92f90e78bab",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("40fd5eaf-5e34-47ee-9afd-a82a5fc73e73",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b10_continue_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"83a7022c-0d86-42a3-8c65-1009603ed491",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1cb294f0-acb1-412d-be86-25165ae87652",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b11_create_object_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"40fd5eaf-5e34-47ee-9afd-a82a5fc73e73",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c2673164-e1a5-4a33-9310-1f51d4107c31",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b12_create_event_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1cb294f0-acb1-412d-be86-25165ae87652",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3a5685f8-d8a7-48d2-b458-5ca55e2dde3a",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b13_delete_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c2673164-e1a5-4a33-9310-1f51d4107c31",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9770418d-74bf-440f-841b-68d5a4c42009",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b14_for_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3a5685f8-d8a7-48d2-b458-5ca55e2dde3a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f5ed9b36-3be0-463c-96ab-64f6041c20d6",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b15_generate_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9770418d-74bf-440f-841b-68d5a4c42009",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1536e7c4-f36c-4bc7-97ba-b31cfc531839",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b16_if_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f5ed9b36-3be0-463c-96ab-64f6041c20d6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fd508d6d-cf4b-4b48-bbb1-0b6a619d5339",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b17_relate_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1536e7c4-f36c-4bc7-97ba-b31cfc531839",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("896524b2-e90b-408d-b694-e01189d8515f",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b18_return_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fd508d6d-cf4b-4b48-bbb1-0b6a619d5339",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("07ff6737-65c6-43b4-98ea-fd2b37d2af63",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b19_select_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"896524b2-e90b-408d-b694-e01189d8515f",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("35652f95-9682-4447-9337-fce710252f98",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b20_transform_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"07ff6737-65c6-43b4-98ea-fd2b37d2af63",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("cd00304f-3473-408b-bc1b-bd18769eac45",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b21_while_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"35652f95-9682-4447-9337-fce710252f98",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("785aee1f-e902-4742-9be1-2f0762b82de8",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b22_unrelate_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"cd00304f-3473-408b-bc1b-bd18769eac45",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3b6c3bdf-ced3-4f8c-bd3b-afda7a800791",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b23_debug_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"785aee1f-e902-4742-9be1-2f0762b82de8",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4a595636-411e-4cd5-be30-99c807b652be",
+	"c4f9a212-5606-4178-90f8-78a497fcb187",
+	'b24_empty_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3b6c3bdf-ced3-4f8c-bd3b-afda7a800791",
+	'');
+INSERT INTO PE_PE
+	VALUES ("c4f9a212-5606-4178-90f8-78a497fcb187",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
