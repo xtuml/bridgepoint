@@ -3,11 +3,14 @@ package org.xtuml.bp.ui.text.contentassist;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.contentassist.ICompletionProposalExtension4;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 
-public class OALCompletionProposal implements ICompletionProposal {
+public class OALCompletionProposal implements ICompletionProposal, ICompletionProposalExtension4 {
     
     private ICompletionProposal backingProposal;
     private int type;
@@ -51,6 +54,11 @@ public class OALCompletionProposal implements ICompletionProposal {
     @Override
     public Point getSelection(IDocument arg0) {
         return backingProposal.getSelection( arg0 );
+    }
+
+    @Override
+    public boolean isAutoInsertable() {
+        return Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_INSERT_SINGLE_PROPOSALS );
     }
 
 }

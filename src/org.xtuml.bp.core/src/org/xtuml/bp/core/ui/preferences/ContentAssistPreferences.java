@@ -3,6 +3,8 @@ package org.xtuml.bp.core.ui.preferences;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -66,6 +68,7 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         // Create role phrase checkbox
         rolePhraseCheck = new Button( insertionGroup, SWT.CHECK | SWT.LEFT );
         rolePhraseCheck.setText( "Include role phrases in association proposals by default" );
+        rolePhraseCheck.setEnabled( false );  // TODO enable when this is implemented
 
         // Create single proposal checkbox
         singleProposalCheck = new Button( insertionGroup, SWT.CHECK | SWT.LEFT );
@@ -83,6 +86,8 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         invocationEmptyRadio.setText( "Insert invocations with empty parentheses" );
         invocationLabelRadio = new Button( invocationGroup, SWT.RADIO | SWT.LEFT );
         invocationLabelRadio.setText( "Insert invocations with parameter labels" );
+        invocationEmptyRadio.setEnabled( false );  // TODO enable when this is implemented
+        invocationLabelRadio.setEnabled( false );  // TODO enable when this is implemented
 
         // Create the auto trigger group
         autoTriggerGroup = new Group( composite, SWT.SHADOW_ETCHED_IN );
@@ -94,6 +99,19 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         // Create auto trigger checkbox
         autoTriggerCheck = new Button( autoTriggerGroup, SWT.CHECK | SWT.LEFT );
         autoTriggerCheck.setText( "Enable auto activation" );
+        autoTriggerCheck.addSelectionListener( new SelectionListener() {
+            @Override
+            public void widgetDefaultSelected( SelectionEvent e ) {}
+            @Override
+            public void widgetSelected( SelectionEvent e ) {
+                if ( autoTriggerCheck.getSelection() ) {
+                    autoTriggerTextbox.setEnabled( true );
+                }
+                else {
+                    autoTriggerTextbox.setEnabled( false );
+                }
+            }
+        });
         
         // Create auto trigger textbox
         Label autoTriggerTextboxLabel = new Label( autoTriggerGroup, SWT.None );
@@ -185,6 +203,12 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         
         // set trigger sequences
         autoTriggerTextbox.setText( bpPrefs.contentAssistAutoTriggerSequences );
+        if ( autoTriggerCheck.getSelection() ) {
+            autoTriggerTextbox.setEnabled( true );
+        }
+        else {
+            autoTriggerTextbox.setEnabled( false );
+        }
     }
     
     // Assure that there is no leading or trailing whitespace and

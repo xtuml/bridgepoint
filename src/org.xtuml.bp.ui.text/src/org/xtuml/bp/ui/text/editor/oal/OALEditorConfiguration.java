@@ -104,6 +104,7 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
             ca.setAutoActivationDelay( 0 );
             ca.setInformationControlCreator(getInformationControlCreator(sv));
             ca.setSorter( new OALProposalSorter() );
+            ca.enableAutoInsert( true );
             return ca;
 	    }
 	    else return null;

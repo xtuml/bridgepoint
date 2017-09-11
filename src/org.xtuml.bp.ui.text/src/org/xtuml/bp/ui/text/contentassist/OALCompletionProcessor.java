@@ -61,7 +61,6 @@ import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private static final ICompletionProposal[] NO_PROPOSALS = {};
-    private static final String[] TRIGGER_SEQUENCES = { "->", ".", "::" };
 
     //private static boolean autoTriggerAllowed = true;
 
@@ -186,9 +185,9 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private boolean isValidAutoTrigger( int position ) {
         //if ( autoTriggerAllowed ) {
-        if ( Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_COMPLETION_ASSISTANCE_TRIGGERING ) ) {
+        if ( Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING ) ) {
             if ( isDefaultTrigger ) {
-                for ( String seq : TRIGGER_SEQUENCES ) {
+                for ( String seq : getTriggerSequences() ) {
                     if ( editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( 0, position ).endsWith( seq ) ) return true;
                 }
             }
@@ -338,7 +337,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private synchronized char[] setDefaultTriggerChars() {
         isDefaultTrigger = true;
         String triggerChars = "";
-        for ( String seq : TRIGGER_SEQUENCES ) {
+        for ( String seq : getTriggerSequences() ) {
             char lastChar = seq.charAt( seq.length() - 1 );
             if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
         }
@@ -355,6 +354,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             } catch ( IndexOutOfBoundsException e ) {}
         }
         return triggerChars.toCharArray();
+    }
+    
+    private static String[] getTriggerSequences() {
+        return Pref_c.Getstring( BridgePointPreferencesStore.CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES ).split( "\n" );
     }
 
 }
