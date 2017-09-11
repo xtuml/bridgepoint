@@ -7733,7 +7733,7 @@ if ( not_empty act and not_empty left_obj )
           new_item.type = ProposalTypes::Association;
           new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
           phrase = foreign_oir.get_text_phrase();
-          if ( r_rel.is_reflexive() )
+          if ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) )
             new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
           end if;
           new_item.replacement_text = new_item.replacement_text + "]";

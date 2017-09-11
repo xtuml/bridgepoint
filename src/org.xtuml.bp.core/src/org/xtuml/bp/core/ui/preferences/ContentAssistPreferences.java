@@ -68,7 +68,6 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         // Create role phrase checkbox
         rolePhraseCheck = new Button( insertionGroup, SWT.CHECK | SWT.LEFT );
         rolePhraseCheck.setText( "Include role phrases in association proposals by default" );
-        rolePhraseCheck.setEnabled( false );  // TODO enable when this is implemented
 
         // Create single proposal checkbox
         singleProposalCheck = new Button( insertionGroup, SWT.CHECK | SWT.LEFT );
