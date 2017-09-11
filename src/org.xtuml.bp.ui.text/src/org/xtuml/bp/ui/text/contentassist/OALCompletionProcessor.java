@@ -135,9 +135,18 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         else leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
         Proposal_c[] items = Proposal_c.getManyP_PsOnR1601( list );
         for ( Proposal_c item : items ) {
-            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) ) {
-                ICompletionProposal proposal = new OALCompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),
-                                                                       leadingWhitespace.length() + item.getCursor_position(), getImage( item.getType() ),
+            boolean insertSpace = false;
+            if ( "".equals( leadingWhitespace ) && item.getNeeds_space() ) insertSpace = true;
+            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) &&
+               ( !item.getReplacement_text().toLowerCase().equals( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) ) ) {
+                String replacementText = leadingWhitespace + item.getReplacement_text();
+                int cursorPosition = leadingWhitespace.length() + item.getCursor_position();
+                if ( insertSpace ) {
+                    replacementText = " " + replacementText;
+                    cursorPosition += 1;
+                }
+                ICompletionProposal proposal = new OALCompletionProposal( replacementText, listPosition, existingText.length(),
+                                                                       cursorPosition, getImage( item.getType() ),
                                                                        item.getDisplay_text(), null, null, item.getType() );
                 proposals.add( proposal );
             }

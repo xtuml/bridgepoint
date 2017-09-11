@@ -7742,7 +7742,7 @@ if ( not_empty act and not_empty left_obj )
             new_item.display_text = new_item.display_text + " " + Util::getTic() + phrase + Util::getTic();
           end if;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-          new_item.selection_length = 0;
+          new_item.needs_space = false;
           relate new_item to list across R1601;
         end if;
       end if;
@@ -7849,7 +7849,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text;
     end if;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
+    new_item.needs_space = false;
     relate new_item to list across R1601;
     i = i + 1;
   end while;
@@ -7886,7 +7886,7 @@ if ( not_empty act )
     new_item.display_text = "param";
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
+    new_item.needs_space = false;
     relate new_item to list across R1601;
   end if;
 
@@ -7918,7 +7918,7 @@ if ( not_empty act )
             new_item.replacement_text = new_item.display_text + ";";
           end if;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-          new_item.selection_length = 0;
+          new_item.needs_space = false;
           relate new_item to list across R1601;
           i = i + 1;
         end while;
@@ -7928,7 +7928,7 @@ if ( not_empty act )
         new_item.display_text = "end if";
         new_item.replacement_text = new_item.display_text + ";";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.selection_length = 0;
+        new_item.needs_space = false;
         relate new_item to list across R1601;
         else_cue.dispose();
       end if;
@@ -7948,7 +7948,7 @@ if ( not_empty act )
         new_item.display_text = kw;
         new_item.replacement_text = new_item.display_text + ";";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.selection_length = 0;
+        new_item.needs_space = false;
         relate new_item to list across R1601;
         i = i + 1;
       end while;
@@ -7968,7 +7968,7 @@ if ( not_empty act )
         new_item.display_text = kw;
         new_item.replacement_text = new_item.display_text + ";";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.selection_length = 0;
+        new_item.needs_space = false;
         relate new_item to list across R1601;
         i = i + 1;
       end while;
@@ -7996,7 +7996,7 @@ if ( not_empty act )
     new_item.display_text = "self";
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
+    new_item.needs_space = false;
     relate new_item to list across R1601;
   end if;
   
@@ -8011,7 +8011,7 @@ if ( not_empty act )
     new_item.display_text = local_var.Name;
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
+    new_item.needs_space = false;
     relate new_item to list across R1601;
 
     i = i + 1;
@@ -8044,7 +8044,7 @@ if ( not_empty act )
       new_item.display_text = o_obj.Key_Lett;
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
+      new_item.needs_space = false;
       relate new_item to list across R1601;
     end if;
   end for;
@@ -8070,7 +8070,7 @@ if ( not_empty act )
       new_item.display_text = s_ee.Key_Lett;
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
+      new_item.needs_space = false;
       relate new_item to list across R1601;
     end if;
   end for;
@@ -8130,7 +8130,7 @@ if ( not_empty act and not_empty obj )
     new_item.replacement_text = "." + o_attr.Name;
     new_item.display_text = o_attr.Name;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
+    new_item.needs_space = false;
     relate new_item to list across R1601;
   end for;
 
@@ -8141,18 +8141,10 @@ if ( not_empty act and not_empty obj )
     new_item.display_text = o_tfr.getSignature( flavor:2 );
     new_item.replacement_text = "." + new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.selection_length = 0;
-    // highlight first parameter
-    highlight_start_index = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
-    if ( -1 != highlight_start_index )
-      highlight_end_index = Util::indexOf( haystack:Util::substr( s:new_item.replacement_text, i1:highlight_start_index, i2:-1 ), needle:"," );
-      if ( -1 == highlight_end_index )
-        highlight_end_index = Util::indexOf( haystack:Util::substr( s:new_item.replacement_text, i1:highlight_start_index, i2:-1 ), needle:" " );
-      end if;
-      if ( -1 != highlight_end_index )
-        new_item.cursor_position = highlight_start_index;
-        new_item.selection_length = highlight_end_index - highlight_start_index;
-      end if;
+    new_item.needs_space = false;
+    colon_index = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+    if ( -1 != colon_index )
+      new_item.cursor_position = colon_index;
     end if;
     relate new_item to list across R1601;
   end for;
@@ -8241,7 +8233,7 @@ if ( not_empty act )
       new_item.display_text = evt.getSignature( flavor:2 );
       new_item.replacement_text = new_item.display_text;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
+      new_item.needs_space = true;
       relate new_item to list across R1601;
     end for;
     for each evt in inst_events
@@ -8250,7 +8242,7 @@ if ( not_empty act )
       new_item.display_text = evt.getSignature( flavor:2 );
       new_item.replacement_text = new_item.display_text;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.selection_length = 0;
+      new_item.needs_space = true;
       relate new_item to list across R1601;
     end for;
 
@@ -8271,6 +8263,66 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("4f78879a-7f44-44d8-a9be-ca3d7b73d300",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("b13b4673-f502-4740-8b05-ba311571bd09",
+	"00000000-0000-0000-0000-000000000000",
+	'send_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  act.associateWithOwningComponent();
+  select many c_pos related by act->ACT_BIC[R694]->C_C[R694]->C_PO[R4010];
+  if ( not_empty c_pos )
+    line = ::getLineNumber( rule_token:param.a1_rule_token );
+    col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+    select one list related by act->P_PL[R1603];
+    if ( not_empty list )
+      if ( ( list.line != line ) or ( list.col != col ) )
+        list.dispose();
+        create object instance list of P_PL;
+        list.line = line;
+        list.col = col;
+        relate list to act across R1603;
+      end if;
+    else
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+
+    for each c_po in c_pos
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Port;
+      new_item.display_text = c_po.Name;
+      new_item.replacement_text = new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      relate new_item to list across R1601;
+    end for;
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("9bd28292-cc8e-4e9a-b506-921385578b1a",
+	"b13b4673-f502-4740-8b05-ba311571bd09",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("b13b4673-f502-4740-8b05-ba311571bd09",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
