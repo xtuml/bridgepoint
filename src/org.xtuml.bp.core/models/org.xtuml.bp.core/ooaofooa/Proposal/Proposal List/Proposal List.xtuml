@@ -5,7 +5,7 @@ INSERT INTO O_OBJ
 	'Proposal List',
 	1601,
 	'P_PL',
-	'',
+	'Persistent:false',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("02be89aa-a0dd-4046-b18f-274cd603cb00",
@@ -127,7 +127,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID

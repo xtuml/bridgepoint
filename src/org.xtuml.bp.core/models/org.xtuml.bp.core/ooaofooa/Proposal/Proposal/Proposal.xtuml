@@ -5,7 +5,7 @@ INSERT INTO O_OBJ
 	'Proposal',
 	1600,
 	'P_P',
-	'',
+	'Persistent:false',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("3db0e889-efdf-4643-ad7a-c6f8a4c1fe36",
