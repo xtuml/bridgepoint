@@ -273,7 +273,7 @@ public class ModelContentOutlinePage extends ContentOutlinePage {
 	final MenuManager interactionMenu = new MenuManager("Interaction", "org.xtuml.bp.ui.interactionroot"); //$NON-NLS-2$
 	final MenuManager activityMenu = new MenuManager("Activity", "org.xtuml.bp.ui.activityroot"); //$NON-NLS-2$
 	final MenuManager typesMenu = new MenuManager("Types", "org.xtuml.bp.ui.typeroot"); //$NON-NLS-2$
-	final MenuManager useCaseMenu = new MenuManager("Usecase", "org.xtuml.bp.ui.usecaseroot"); //$NON-NLS-2$
+	final MenuManager useCaseMenu = new MenuManager("Use Case", "org.xtuml.bp.ui.usecaseroot"); //$NON-NLS-2$
     
     menuMgr.add(createMenuManager);
     createMenuManager.removeAll();
