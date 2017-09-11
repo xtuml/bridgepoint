@@ -62,8 +62,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private static final ICompletionProposal[] NO_PROPOSALS = {};
 
-    //private static boolean autoTriggerAllowed = true;
-
     private OALEditor editor;
     private boolean isAutoTriggered;
     private boolean inSession;
@@ -75,7 +73,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         this.editor = editor;
         this.isAutoTriggered = false;
         this.setInSession(false);
-        this.triggerCharacters = setDefaultTriggerChars();
+        setDefaultTriggerChars();
         setNeedsParse(true);
         assistant.addCompletionListener( new ICompletionListener() {
             @Override
@@ -165,7 +163,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
     @Override
     public char[] getCompletionProposalAutoActivationCharacters() {
-        return triggerCharacters;
+        if ( isDefaultTrigger ) return getDefaultTriggerChars();
+        else return triggerCharacters;
     }
 
     @Override
@@ -184,7 +183,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
     
     private boolean isValidAutoTrigger( int position ) {
-        //if ( autoTriggerAllowed ) {
         if ( Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING ) ) {
             if ( isDefaultTrigger ) {
                 for ( String seq : getTriggerSequences() ) {
@@ -333,9 +331,12 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             setNeedsParse(false);
         }
     }
-
-    private synchronized char[] setDefaultTriggerChars() {
+    
+    private synchronized void setDefaultTriggerChars() {
         isDefaultTrigger = true;
+    }
+
+    private char[] getDefaultTriggerChars() {
         String triggerChars = "";
         for ( String seq : getTriggerSequences() ) {
             char lastChar = seq.charAt( seq.length() - 1 );
