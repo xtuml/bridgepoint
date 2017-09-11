@@ -89,11 +89,11 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             @Override
             public void assistSessionEnded( ContentAssistEvent event ) { 
                 Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
-                ProposalList_c list = ProposalList_c.getOneACT_PLOnR1603( body );
+                ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
                 if ( null != list ) {
                     list.Dispose();
                 }
-                ProposalCalculationCue_c[] cues = ProposalCalculationCue_c.getManyACT_PCCsOnR1602( body );
+                ProposalCalculationCue_c[] cues = ProposalCalculationCue_c.getManyP_PCCsOnR1602( body );
                 for ( ProposalCalculationCue_c cue : cues ) {
                     cue.Dispose();
                 }
@@ -118,7 +118,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
 
         // get the list
-        ProposalList_c list = ProposalList_c.getOneACT_PLOnR1603( body, new ClassQueryInterface_c() {
+        ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, new ClassQueryInterface_c() {
             @Override
             public boolean evaluate( Object selected ) {
                 return lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol() ) <= position;
@@ -133,7 +133,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         String leadingWhitespace = "";
         if ( "".equals( existingText.trim() ) ) leadingWhitespace = existingText;
         else leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
-        Proposal_c[] items = Proposal_c.getManyACT_PsOnR1601( list );
+        Proposal_c[] items = Proposal_c.getManyP_PsOnR1601( list );
         for ( Proposal_c item : items ) {
             if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) ) {
                 ICompletionProposal proposal = new OALCompletionProposal( leadingWhitespace + item.getReplacement_text(), listPosition, existingText.length(),

@@ -99,14 +99,14 @@ if not_empty pe
   delete object instance bie;
 end if;
 
-select one ca_l related by self->ACT_PL[R1603];
-if not_empty ca_l
-  ca_l.dispose();
+select one p_pl related by self->P_PL[R1603];
+if not_empty p_pl 
+  p_pl.dispose();
 end if;
 
-select many act_pccs related by self->ACT_PCC[R1602];
-for each act_pcc in act_pccs
-  act_pcc.dispose();
+select many p_pccs related by self->P_PCC[R1602];
+for each p_pcc in p_pccs
+  p_pcc.dispose();
 end for;
 
 delete object instance self;

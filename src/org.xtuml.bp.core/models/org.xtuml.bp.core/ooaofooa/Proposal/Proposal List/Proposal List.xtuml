@@ -4,7 +4,7 @@ INSERT INTO O_OBJ
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
 	'Proposal List',
 	1601,
-	'ACT_PL',
+	'P_PL',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many items related by self->ACT_P[R1601];
+	'select many items related by self->P_P[R1601];
 for each item in items
   item.dispose();
 end for;
@@ -52,7 +52,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("fe9625c9-c549-4128-adb0-59c7ba068451",
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
-	"b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	"aff17ee6-4458-478d-a700-6c607e9ab64e",
 	'line',
 	'',
 	'',
@@ -84,11 +84,11 @@ INSERT INTO O_REF
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
 	0,
 	"6f8d7450-c09b-42de-8362-9a36aa766cb7",
-	"4a96fba5-651b-42d5-ac63-a1af4051c271",
-	"dfd025cb-b2b4-44ef-8d87-3d92cdc6fa47",
-	"70cd9c7c-dd39-474f-8c41-a43bc7176e9a",
-	"b27ac320-8d90-4340-9ab0-2e1a81a09c55",
-	"f841da7a-1189-476b-8ef4-41a8e829fa8b",
+	"be26ecd6-781b-4583-bea1-66b3da2b65d5",
+	"f069055c-031a-46a5-9c14-b9b53ee8a547",
+	"c6a7f4d2-492f-44e1-aba7-55d987396a85",
+	"aff17ee6-4458-478d-a700-6c607e9ab64e",
+	"bb909db1-2268-4cfa-ad32-82c8effdd241",
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	'',
@@ -97,18 +97,18 @@ INSERT INTO O_REF
 	'R1603');
 INSERT INTO R_RGO_PROXY
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
-	"4a96fba5-651b-42d5-ac63-a1af4051c271",
-	"dfd025cb-b2b4-44ef-8d87-3d92cdc6fa47",
-	'../Body.xtuml');
+	"be26ecd6-781b-4583-bea1-66b3da2b65d5",
+	"f069055c-031a-46a5-9c14-b9b53ee8a547",
+	'../Proposal.xtuml');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
 	0,
-	"4a96fba5-651b-42d5-ac63-a1af4051c271",
-	"70cd9c7c-dd39-474f-8c41-a43bc7176e9a",
-	'../Body.xtuml');
+	"be26ecd6-781b-4583-bea1-66b3da2b65d5",
+	"c6a7f4d2-492f-44e1-aba7-55d987396a85",
+	'../Proposal.xtuml');
 INSERT INTO O_RATTR
-	VALUES ("b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	VALUES ("aff17ee6-4458-478d-a700-6c607e9ab64e",
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
 	"6f8d7450-c09b-42de-8362-9a36aa766cb7",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
@@ -117,9 +117,9 @@ INSERT INTO O_RATTR
 INSERT INTO O_BATTR_PROXY
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
-	'../Body/Body.xtuml');
+	'../../Body/Body/Body.xtuml');
 INSERT INTO O_ATTR
-	VALUES ("b27ac320-8d90-4340-9ab0-2e1a81a09c55",
+	VALUES ("aff17ee6-4458-478d-a700-6c607e9ab64e",
 	"6564c28e-1961-46bc-a756-e8764f3a7520",
 	"a84463fe-6e97-4d16-a369-8d6086751d4c",
 	'Action_ID',
@@ -127,7 +127,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000007",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -147,21 +147,15 @@ INSERT INTO O_ID
 INSERT INTO PE_PE
 	VALUES ("6564c28e-1961-46bc-a756-e8764f3a7520",
 	1,
-	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"85fd2ebd-3a2e-4164-acd9-13b6a5c68813",
 	"00000000-0000-0000-0000-000000000000",
 	4);
 INSERT INTO EP_PKG_PROXY
-	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	VALUES ("85fd2ebd-3a2e-4164-acd9-13b6a5c68813",
 	"00000000-0000-0000-0000-000000000000",
 	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'Body',
-	'This subsystem abstracts the action itself, the blocks and statements
-it contains together with the flow of control statements such as ''while'',
-''for each'' and ''if''.
-Notify_Changes:false
-Persistent:false
-// This is used by schema_gen to ignore this subsystem (for publication)
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-',
-	600,
-	'../Body.xtuml');
+	'Proposal',
+	'Notify_Changes:false
+Persistent:false',
+	0,
+	'../Proposal.xtuml');
