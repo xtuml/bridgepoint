@@ -161,6 +161,7 @@ public class TextParser extends OalParser {
 		reportError(ex, true);
 	}
 	public void reportError(RecognitionException ex, boolean reportError) {
+	    m_output += ex.toString() + "\n";
 		parserTokenText = " ";
 		parserLineNumber = ex.getLine();
 		parserMessage = ex.getMessage();
