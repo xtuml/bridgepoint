@@ -357,7 +357,7 @@ related across R3 in Source package is moved to Destination package.
   * 1. Expand movetest/p1/impl/refs
   * 2. Cut Component reference
   * 3. Expand movetest/p2/impl2
-  * 4. Paste TestInterface to impl2
+  * 4. Paste Component reference to impl2
   * 5. Downgrade dialog indicates downgrade on TestInterface operations and signals use of UDT (the dest) since they lost visibility to type mysubtype under p1/impl
   * 6. Proceed with the move
   * 7. p2/impl2 canvas is empty.
