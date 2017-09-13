@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Functions::OAL Validation Utility Functions');
 INSERT INTO DIM_DIA
 	VALUES ("cf93df41-148d-4a42-9a57-9bc9c77613ad",
@@ -7733,7 +7733,7 @@ if ( not_empty act and not_empty left_obj )
           new_item.type = ProposalTypes::Association;
           new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
           phrase = foreign_oir.get_text_phrase();
-          if ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) )
+          if ( "" != phrase and ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) ) )
             new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
           end if;
           new_item.replacement_text = new_item.replacement_text + "]";
@@ -8323,6 +8323,747 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("b13b4673-f502-4740-8b05-ba311571bd09",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ca23de99-c4ae-4373-a590-3fbbafc1425f",
+	"00000000-0000-0000-0000-000000000000",
+	'all_inst_ref_vars_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_handle related by local_var->V_INT[R814];
+    if ( not_empty inst_handle and  ( ( param.a2_include_self ) or ( not ( "self" == local_var.Name or "Self" == local_var.Name or "SELF" == local_var.Name ) ) ) )
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      if ( param.a3_add_space )
+        new_item.replacement_text = new_item.replacement_text + " ";
+      end if;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("e732db5b-841c-4c10-b1b9-64db310cf0b5",
+	"ca23de99-c4ae-4373-a590-3fbbafc1425f",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("46266ae5-c25f-4438-b196-558cc4646a79",
+	"ca23de99-c4ae-4373-a590-3fbbafc1425f",
+	'a2_include_self',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"e732db5b-841c-4c10-b1b9-64db310cf0b5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("91e6ab93-8226-4c30-b048-b04518519ffb",
+	"ca23de99-c4ae-4373-a590-3fbbafc1425f",
+	'a3_add_space',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"46266ae5-c25f-4438-b196-558cc4646a79",
+	'');
+INSERT INTO PE_PE
+	VALUES ("ca23de99-c4ae-4373-a590-3fbbafc1425f",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("69bb5230-a22f-407c-b8e7-9fc1bba1698e",
+	"00000000-0000-0000-0000-000000000000",
+	'all_inst_ref_set_vars_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+
+  // create local variable proposals for variables of instance reference set types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one inst_set related by local_var->V_INS[R814];
+    if ( not_empty inst_set )
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      if ( param.a2_add_space )
+        new_item.replacement_text = new_item.replacement_text + " ";
+      end if;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      relate new_item to list across R1601;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("5f024b6c-5154-49da-8596-00205754b0e7",
+	"69bb5230-a22f-407c-b8e7-9fc1bba1698e",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7d435462-8703-44d0-8be9-8c0c1da70444",
+	"69bb5230-a22f-407c-b8e7-9fc1bba1698e",
+	'a2_add_space',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"5f024b6c-5154-49da-8596-00205754b0e7",
+	'');
+INSERT INTO PE_PE
+	VALUES ("69bb5230-a22f-407c-b8e7-9fc1bba1698e",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7ce9bd22-d7d8-4823-a035-cf0b6a046162",
+	"00000000-0000-0000-0000-000000000000",
+	'select_local_variable_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"from instances of", a3_append_chars:" " );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"related by", a3_append_chars:" " );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("09f0f499-c903-41e0-a141-ebab3a61347a",
+	"7ce9bd22-d7d8-4823-a035-cf0b6a046162",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("7ce9bd22-d7d8-4823-a035-cf0b6a046162",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("49b2a1cd-a538-4c9b-8b21-8f2188287287",
+	"00000000-0000-0000-0000-000000000000",
+	'single_keyword_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  create object instance new_item of P_P;
+  new_item.type = ProposalTypes::Keyword;
+  new_item.display_text = param.a2_keyword;
+  new_item.replacement_text = new_item.display_text + param.a3_append_chars;
+  new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+  new_item.needs_space = false;
+  relate new_item to list across R1601;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("596a5085-60ba-490c-b5eb-87a2178b64a7",
+	"49b2a1cd-a538-4c9b-8b21-8f2188287287",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7690ae2a-320d-4cfd-9e11-9ea9c1d9a437",
+	"49b2a1cd-a538-4c9b-8b21-8f2188287287",
+	'a3_append_chars',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"d65f620e-c4ee-4bc7-98be-a7c8d1253928",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d65f620e-c4ee-4bc7-98be-a7c8d1253928",
+	"49b2a1cd-a538-4c9b-8b21-8f2188287287",
+	'a2_keyword',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"596a5085-60ba-490c-b5eb-87a2178b64a7",
+	'');
+INSERT INTO PE_PE
+	VALUES ("49b2a1cd-a538-4c9b-8b21-8f2188287287",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e3a856e7-469c-4e2c-b0f8-b41a69635422",
+	"00000000-0000-0000-0000-000000000000",
+	'generate_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'::event_spec_content_assist( a1_rule_token:param.a1_rule_token );
+act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  cur_sys_name = ::getSystemName();
+  select any sys from instances of S_SYS where selected.Name == cur_sys_name;
+  dt_id = GD::NULL_UNIQUE_ID();
+  if not_empty sys
+    dt_id = sys.getCoreTypeId(name:"inst<Event>");
+  end if;
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one dt related by pe->S_DT[R8001]; 
+  if ( not_empty dt )
+
+    line = ::getLineNumber( rule_token:param.a1_rule_token );
+    col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+    select one list related by act->P_PL[R1603];
+    if ( not_empty list )
+      if ( ( list.line != line ) or ( list.col != col ) )
+        list.dispose();
+        create object instance list of P_PL;
+        list.line = line;
+        list.col = col;
+        relate list to act across R1603;
+      end if;
+    else
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+
+    // create local variable proposals for variables of type event
+    i = 0;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+    while ( GD::NULL_UNIQUE_ID() != local_var_id )
+      select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+      select one var_dt related by local_var->S_DT[R848];
+      if ( not_empty var_dt )
+        if ( var_dt.DT_ID == dt.DT_ID )
+          create object instance new_item of P_P;
+          new_item.type = ProposalTypes::Variable;
+          new_item.display_text = local_var.Name;
+          new_item.replacement_text = new_item.display_text;
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+          new_item.needs_space = true;
+          relate new_item to list across R1601;
+        end if;
+      end if;
+      i = i + 1;
+      local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+    end while;
+
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("62176fa5-50bf-40fb-b5d8-dac6223cd2b8",
+	"e3a856e7-469c-4e2c-b0f8-b41a69635422",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e3a856e7-469c-4e2c-b0f8-b41a69635422",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("69f4018f-55e2-4337-b6da-e463fc759929",
+	"00000000-0000-0000-0000-000000000000",
+	'is_in_participation',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+',
+	'select any left_obj from instances of O_OBJ where ( selected.Obj_ID == param.a1_left );
+select any right_obj from instances of O_OBJ where ( selected.Obj_ID == param.a2_right );
+select many r_rels related by left_obj->R_REL[R201];
+for each r_rel in r_rels
+  select any left_oir related by r_rel->R_OIR[R201] where ( selected.Obj_ID == left_obj.Obj_ID );
+  select any right_oir related by r_rel->R_OIR[R201] where ( selected.Obj_ID == right_obj.Obj_ID and selected.OIR_ID != left_oir.OIR_ID );
+  if ( not_empty right_oir )  // two oirs found means the classes are in participation on this association
+    select one left_sub related by left_oir->R_RGO[R203]->R_SUB[R205];
+    select one right_sub related by right_oir->R_RGO[R203]->R_SUB[R205];
+    if ( empty left_sub or empty right_sub )  // cannot relate two subtypes to one another
+      return true;
+    end if;
+  end if;
+end for;
+return false;',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("a1656ca3-fb47-4653-a948-1d70c3f92953",
+	"69f4018f-55e2-4337-b6da-e463fc759929",
+	'a1_left',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b6796306-8053-4ac6-9277-9f276434ee50",
+	"69f4018f-55e2-4337-b6da-e463fc759929",
+	'a2_right',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a1656ca3-fb47-4653-a948-1d70c3f92953",
+	'');
+INSERT INTO PE_PE
+	VALUES ("69f4018f-55e2-4337-b6da-e463fc759929",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ef3b7268-aa9e-4e7b-919a-977cd9e5ab0c",
+	"00000000-0000-0000-0000-000000000000",
+	'phrase_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'select any obj from instances of O_OBJ where ( selected.Obj_ID == param.a2_obj );
+select any rel from instances of R_REL where ( selected.Rel_ID == param.a3_rel );
+act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+select many oirs related by rel->R_OIR[R201] where ( selected.Obj_ID == obj.Obj_ID );
+if ( not_empty act and not_empty oirs )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  for each oir in oirs
+    phrase = oir.get_text_phrase();
+    if ( "" != phrase )
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Association;
+      new_item.replacement_text = Util::getTic() + phrase + Util::getTic();
+      new_item.display_text = new_item.replacement_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end if;
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("1e686c21-9ae2-4e60-b3a9-01789eaa7cad",
+	"ef3b7268-aa9e-4e7b-919a-977cd9e5ab0c",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6602d29f-b659-41ef-abd2-4a5a36aec596",
+	"ef3b7268-aa9e-4e7b-919a-977cd9e5ab0c",
+	'a2_obj',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1e686c21-9ae2-4e60-b3a9-01789eaa7cad",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9d20f555-ce64-409b-9b21-e1a29e5de0e4",
+	"ef3b7268-aa9e-4e7b-919a-977cd9e5ab0c",
+	'a3_rel',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6602d29f-b659-41ef-abd2-4a5a36aec596",
+	'');
+INSERT INTO PE_PE
+	VALUES ("ef3b7268-aa9e-4e7b-919a-977cd9e5ab0c",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("2080ab19-2348-4b43-8ae9-55ec29de84d3",
+	"00000000-0000-0000-0000-000000000000",
+	'relate_var2_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+select any v_var from instances of V_VAR where ( selected.Var_ID == param.a2_var );
+select one first_obj related by v_var->V_INT[R814]->O_OBJ[R818];
+if ( not_empty act and not_empty first_obj )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  
+  // create local variable proposals for variables of instance reference types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one second_obj related by local_var->V_INT[R814]->O_OBJ[R818];
+    if ( not_empty second_obj )
+      if ( ::is_in_participation( a1_left:first_obj.Obj_ID, a2_right:second_obj.Obj_ID ) )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::Variable;
+        new_item.display_text = local_var.Name;
+        new_item.replacement_text = new_item.display_text + " ";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        relate new_item to list across R1601;
+      end if;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("9b9b49c5-cbaf-47a0-a14b-d68275c87493",
+	"2080ab19-2348-4b43-8ae9-55ec29de84d3",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("850198ef-3b69-4931-9eed-a0b7774085ae",
+	"2080ab19-2348-4b43-8ae9-55ec29de84d3",
+	'a2_var',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9b9b49c5-cbaf-47a0-a14b-d68275c87493",
+	'');
+INSERT INTO PE_PE
+	VALUES ("2080ab19-2348-4b43-8ae9-55ec29de84d3",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("bf9be826-5f8b-427e-9864-589dcd82f7b2",
+	"00000000-0000-0000-0000-000000000000",
+	'relate_across_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+
+  // get the left instance reference
+  select any left_var from instances of V_VAR where ( selected.Var_ID == param.a2_var1 );
+  select one left_obj related by left_var->V_INT[R814]->O_OBJ[R818];
+
+  // get the right instance reference
+  select any right_var from instances of V_VAR where ( selected.Var_ID == param.a3_var2 );
+  select one right_obj related by right_var->V_INT[R814]->O_OBJ[R818];
+  
+  select many right_oirs related by left_obj->R_REL[R201]->R_OIR[R201] where ( selected.Obj_ID == right_obj.Obj_ID );
+  if ( not_empty right_oirs )
+    line = ::getLineNumber( rule_token:param.a1_rule_token );
+    col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+    select one list related by act->P_PL[R1603];
+    if ( not_empty list )
+      if ( ( list.line != line ) or ( list.col != col ) )
+        list.dispose();
+        create object instance list of P_PL;
+        list.line = line;
+        list.col = col;
+        relate list to act across R1603;
+      end if;
+    else
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+    for each oir in right_oirs
+      select one r_rel related by oir->R_REL[R201];
+      select one o_obj related by oir->O_OBJ[R201];
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Association;
+      new_item.replacement_text = "R" + GD::int_to_string( value:r_rel.Numb );
+      phrase = oir.get_text_phrase();
+      if ( "" != phrase and ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) ) )
+        new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
+      end if;
+      new_item.display_text = new_item.replacement_text + " - " + o_obj.Name;
+      if ( "" != phrase )
+        new_item.display_text = new_item.display_text + " " + Util::getTic() + phrase + Util::getTic();
+      end if;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      relate new_item to list across R1601;
+    end for;
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("712834a9-a816-4937-bfce-f8ff99b4df4a",
+	"bf9be826-5f8b-427e-9864-589dcd82f7b2",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1d5ed317-76c8-4fce-8b23-4e3868331829",
+	"bf9be826-5f8b-427e-9864-589dcd82f7b2",
+	'a2_var1',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"712834a9-a816-4937-bfce-f8ff99b4df4a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("41f55306-68f2-4ae2-8c63-4660b66f9104",
+	"bf9be826-5f8b-427e-9864-589dcd82f7b2",
+	'a3_var2',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1d5ed317-76c8-4fce-8b23-4e3868331829",
+	'');
+INSERT INTO PE_PE
+	VALUES ("bf9be826-5f8b-427e-9864-589dcd82f7b2",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a64bd77e-6176-417e-8d48-32bb88d155dc",
+	"00000000-0000-0000-0000-000000000000",
+	'relate_using_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'select any left_var from instances of V_VAR where ( selected.Var_ID == param.a2_var1 );
+select one left_obj related by left_var->V_INT[R814]->O_OBJ[R818];
+select any right_var from instances of V_VAR where ( selected.Var_ID == param.a3_var2 );
+select one right_obj related by right_var->V_INT[R814]->O_OBJ[R818];
+select any rel from instances of R_REL where ( selected.Rel_ID == param.a4_rel );
+select any assoc_obj related by rel->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201] where ( selected.Obj_ID != left_obj.Obj_ID and selected.Obj_ID != right_obj.Obj_ID );
+act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act and not_empty assoc_obj )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  // create local variable proposals for variables of instance reference types
+  i = 0;
+  local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  while ( GD::NULL_UNIQUE_ID() != local_var_id )
+    select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
+    select one obj related by local_var->V_INT[R814]->O_OBJ[R818];
+    if ( not_empty obj )
+      if ( obj.Obj_ID == assoc_obj.Obj_ID )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::Variable;
+        new_item.display_text = local_var.Name;
+        new_item.replacement_text = new_item.display_text;
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        relate new_item to list across R1601;
+      end if;
+    end if;
+    i = i + 1;
+    local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("55ba3391-77d6-4d16-9f9f-1ec9c8b7f5a4",
+	"a64bd77e-6176-417e-8d48-32bb88d155dc",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7c8215c8-6cb1-4204-9550-88a895310f9f",
+	"a64bd77e-6176-417e-8d48-32bb88d155dc",
+	'a2_var1',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"55ba3391-77d6-4d16-9f9f-1ec9c8b7f5a4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4f1bc567-132c-4a24-ad7d-ca41f078a527",
+	"a64bd77e-6176-417e-8d48-32bb88d155dc",
+	'a3_var2',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7c8215c8-6cb1-4204-9550-88a895310f9f",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c85b1baa-ddf5-433f-bdb6-21c761c79bca",
+	"a64bd77e-6176-417e-8d48-32bb88d155dc",
+	'a4_rel',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4f1bc567-132c-4a24-ad7d-ca41f078a527",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a64bd77e-6176-417e-8d48-32bb88d155dc",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
