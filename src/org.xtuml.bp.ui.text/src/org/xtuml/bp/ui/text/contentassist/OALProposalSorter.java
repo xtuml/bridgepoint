@@ -23,6 +23,7 @@ public class OALProposalSorter implements ICompletionProposalSorter {
         Proposaltypes_c.EE,
         Proposaltypes_c.Port,
         Proposaltypes_c.Class,
+        Proposaltypes_c.Function,
         Proposaltypes_c.Keyword
     };
 
@@ -38,14 +39,6 @@ public class OALProposalSorter implements ICompletionProposalSorter {
         // if the types are the same
         if ( p1.getType() == p2.getType() ) {
             switch ( p1.getType() ) {
-                // the following are sorted alphanumerically by display string
-                case Proposaltypes_c.Attribute:
-                case Proposaltypes_c.Operation:
-                case Proposaltypes_c.Variable:
-                case Proposaltypes_c.EE:
-                case Proposaltypes_c.Class:
-                case Proposaltypes_c.Keyword:
-                    return p1.getDisplayString().compareTo( p2.getDisplayString() );
                 // sorted by rel num
                 case Proposaltypes_c.Association:
                     int num1 = 0, num2 = 0; 
@@ -59,8 +52,9 @@ public class OALProposalSorter implements ICompletionProposalSorter {
                         num2 = Integer.parseInt( match.group(1) );
                     }
                     return Integer.compare( num1, num2 );
+                // the following are sorted alphanumerically by display string
                 default:
-                    return 0;
+                    return p1.getDisplayString().compareTo( p2.getDisplayString() );
             }
         }
         else {

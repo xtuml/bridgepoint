@@ -85,8 +85,6 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         invocationEmptyRadio.setText( "Insert invocations with empty parentheses" );
         invocationLabelRadio = new Button( invocationGroup, SWT.RADIO | SWT.LEFT );
         invocationLabelRadio.setText( "Insert invocations with parameter labels" );
-        invocationEmptyRadio.setEnabled( false );  // TODO enable when this is implemented
-        invocationLabelRadio.setEnabled( false );  // TODO enable when this is implemented
 
         // Create the auto trigger group
         autoTriggerGroup = new Group( composite, SWT.SHADOW_ETCHED_IN );

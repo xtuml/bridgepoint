@@ -8728,8 +8728,8 @@ ParserUtilityFunction: TRUE',
 select any rel from instances of R_REL where ( selected.Rel_ID == param.a3_rel );
 act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-select many oirs related by rel->R_OIR[R201] where ( selected.Obj_ID == obj.Obj_ID );
-if ( not_empty act and not_empty oirs )
+if ( not_empty act and not_empty obj and not_empty rel )
+  select many oirs related by rel->R_OIR[R201] where ( selected.Obj_ID == obj.Obj_ID );
   line = ::getLineNumber( rule_token:param.a1_rule_token );
   col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
   select one list related by act->P_PL[R1603];

@@ -223,6 +223,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( StateMachineEventDataItem_c.class );
             case Proposaltypes_c.PropertyParameter:
                 return CorePlugin.getImageFor( PropertyParameter_c.class );
+            case Proposaltypes_c.Function:
+                return CorePlugin.getImageFor( Function_c.class );
             default:
                 return null;
         }
