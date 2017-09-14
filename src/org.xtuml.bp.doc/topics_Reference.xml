@@ -90,6 +90,7 @@ the License.
       </topic>
       <topic label="Downgrade Dialog" href="Reference/UserInterface/DowngradeDialog/DowngradeDialog.html"/>
       <topic label="Marking Editor" href="Reference/UserInterface/MarkingEditor/MarkingEditor.html"/>
+      <topic label="Palette And Context Menu Customization" href="Reference/UserInterface/PaletteAndContextMenuCustomization/PaletteAndContextMenuCustomization.html" />
     </topic>
     <topic label="Model Verifier Java Interface" href="Reference/UserInterface/ModelVerifierJavaInterface/ModelVerifierJavaInterface.htm" />
     <topic label="Command Line Interface" href="Reference/UserInterface/CommandLineInterface/CommandLineInterface.html" />
