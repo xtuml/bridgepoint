@@ -735,7 +735,7 @@ ${s}}
   .elif ( not_empty rr )
     .assign emit_node = true
   .end if
-  .select one caf related by node->CAF[R28]
+  .select any caf related by node->CAF[R28]
   .if ( ( not_empty caf ) and ( emit_node ) )
     .select one r related by node->R[R6]
     .select one containing_node related by r->NLN[R2]->N[R1]
@@ -794,7 +794,7 @@ ${s}}
 .function emit_rule_lookahead_content_assist_action
   .param inst_ref node
   .param string s
-  .select one caf related by node->CAF[R28]
+  .select any caf related by node->CAF[R28] where ( "lookahead" == selected.type )
   .select one r related by node->NLN[R1]->R[R2]
   .if ( ( not_empty caf ) and ( not_empty r ) )
     .assign fncname = caf.name
@@ -841,7 +841,56 @@ ${s}}
   .end if
 .end function
 .//======================
-
+.function emit_rule_begin_content_assist_action
+  .param inst_ref node
+  .param string s
+  .select any caf related by node->CAF[R28] where ( "begin" == selected.type )
+  .select one r related by node->NLN[R1]->R[R2]
+  .if ( ( not_empty caf ) and ( not_empty r ) )
+    .assign fncname = caf.name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule begin content assist action for '${fncname}'
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(1) &&
+${s}       ( LT(1).getLine() < m_contentAssistLine || ( LT(1).getLine() == m_contentAssistLine && LT(1).getColumn() <= m_contentAssistCol ) ) ) {
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( node.validation_required )
+${s}        rule_begin_id,  // start rule id
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
+,
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
+ );
+${s}  }
+${s}}
+  .end if
+.end function
+.//======================
 .function emit_loop_begin_action
   .param inst_ref node
   .param string s
@@ -1142,6 +1191,8 @@ ${s}}
       .invoke result = emit_rule_init_action(outer_node, s_long)
       .invoke pre_attach_prepend(child_node, "${result.body}")
       .invoke result = emit_rule_begin_action(outer_node, s_long)
+      .invoke post_attach_append(child_node, "${result.body}")
+      .invoke result = emit_rule_begin_content_assist_action( outer_node, s_long )
       .invoke post_attach_append(child_node, "${result.body}")
     .elif (term.token_name == "OR")
       .invoke pre_attach_append(child_node, "${s_med}")
