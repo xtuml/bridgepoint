@@ -44,6 +44,11 @@ the License.
               id="org.xtuml.bp.internal.tools.process.ChangeSetCreator"
               label="Create Change Set">
         </action>
+        <visibility>
+          <not>
+            <systemProperty name="configure.bp.CreateChangeSet" value="disabled"/>
+          </not>
+        </visibility>
     </objectContribution>
  </extension>
    <extension
@@ -59,6 +64,11 @@ the License.
                label="Locate Orphaned Elements"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="configure.bp.LocateOrphanedElements" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
       <objectContribution
             adaptable="false"
