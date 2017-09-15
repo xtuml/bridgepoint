@@ -17,7 +17,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.Createdocumentation" value="disabled"/>
+             <systemProperty name="bridgepoint.Createdocumentation" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>

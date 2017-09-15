@@ -26,7 +26,7 @@ public class GraphicsConnectionCreationToolEntry extends
 		ConnectionCreationToolEntry {
 
 	private int type;
-	private static String PROPERTY_PREFIX = "configure.bp.";
+	private static String PROPERTY_PREFIX = "bridgepoint.";
 
 	public GraphicsConnectionCreationToolEntry(String label, String shortDesc,
 			CreationFactory factory, ImageDescriptor iconSmall,

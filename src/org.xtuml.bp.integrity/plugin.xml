@@ -15,7 +15,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.CheckReferentialIntegrity" value="disabled"/>
+             <systemProperty name="bridgepoint.CheckReferentialIntegrity" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>

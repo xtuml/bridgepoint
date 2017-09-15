@@ -14,7 +14,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.ManageProjectMarkings" value="disabled"/>
+             <systemProperty name="bridgepoint.ManageProjectMarkings" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>

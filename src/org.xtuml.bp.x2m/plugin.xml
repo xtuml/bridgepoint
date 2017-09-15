@@ -21,7 +21,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.ExportMASLProject" value="disabled"/>
+             <systemProperty name="bridgepoint.ExportMASLProject" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>
@@ -37,7 +37,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.ExportMASLDomains" value="disabled"/>
+             <systemProperty name="bridgepoint.ExportMASLDomains" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>
@@ -53,7 +53,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.ExportMASLDomain" value="disabled"/>
+             <systemProperty name="bridgepoint.ExportMASLDomain" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>

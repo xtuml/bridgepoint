@@ -46,7 +46,7 @@ the License.
         </action>
         <visibility>
           <not>
-            <systemProperty name="configure.bp.CreateChangeSet" value="disabled"/>
+            <systemProperty name="bridgepoint.CreateChangeSet" value="disabled"/>
           </not>
         </visibility>
     </objectContribution>
@@ -66,7 +66,7 @@ the License.
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.LocateOrphanedElements" value="disabled"/>
+             <systemProperty name="bridgepoint.LocateOrphanedElements" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>

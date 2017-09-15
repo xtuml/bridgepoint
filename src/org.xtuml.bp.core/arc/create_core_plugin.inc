@@ -180,7 +180,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
         .end for
         .if ( "${propertyKey}" != "nokey" )
              <not>
-               <systemProperty name="configure.bp.${propertyKey}" value="disabled"/>
+               <systemProperty name="bridgepoint.${propertyKey}" value="disabled"/>
              </not>
         .end if
         .if (use_and)
@@ -252,7 +252,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
          </action>
          <visibility>
            <not>
-             <systemProperty name="configure.bp.AddBuiltinExternalEntities" value="disabled"/>
+             <systemProperty name="bridgepoint.AddBuiltinExternalEntities" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>

@@ -25,7 +25,7 @@ import org.xtuml.bp.ui.graphics.tools.GraphicsCreationTool;
 public class GraphicsCreationToolEntry extends ToolEntry {
 
 	private int type;
-	private static String PROPERTY_PREFIX = "configure.bp.";
+	private static String PROPERTY_PREFIX = "bridgepoint.";
 
 	public GraphicsCreationToolEntry(String label, String shortDesc,
 			CreationFactory factory, ImageDescriptor iconSmall,
