@@ -8496,8 +8496,8 @@ INSERT INTO S_SYNC
 	'select_local_variable_content_assist',
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE',
-	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"from instances of", a3_append_chars:" " );
-::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"related by", a3_append_chars:" " );',
+	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"from instances of", a3_append_chars:" ", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"related by", a3_append_chars:" ", a4_needs_space:true );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -8548,7 +8548,7 @@ if ( not_empty act )
   new_item.display_text = param.a2_keyword;
   new_item.replacement_text = new_item.display_text + param.a3_append_chars;
   new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-  new_item.needs_space = false;
+  new_item.needs_space = param.a4_needs_space;
   relate new_item to list across R1601;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -8581,6 +8581,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"596a5085-60ba-490c-b5eb-87a2178b64a7",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("308ecde0-9c4d-4bdd-a904-96e606412fa6",
+	"49b2a1cd-a538-4c9b-8b21-8f2188287287",
+	'a4_needs_space',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"7690ae2a-320d-4cfd-9e11-9ea9c1d9a437",
 	'');
 INSERT INTO PE_PE
 	VALUES ("49b2a1cd-a538-4c9b-8b21-8f2188287287",
