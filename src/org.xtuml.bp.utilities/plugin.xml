@@ -13,6 +13,11 @@
                label="Generate Functions From List..."
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="configure.bp.GenerateFunctionsFromList" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
 
       <objectContribution
@@ -26,6 +31,11 @@
                label="Load and Persist"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="configure.bp.LoadandPersist" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
      
       <objectContribution
@@ -39,6 +49,11 @@
                label="Reconcile Graphics"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="configure.bp.ReconcileGraphics" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
       
       <objectContribution
@@ -52,6 +67,11 @@
                label="Check Model Integrity"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="configure.bp.CheckModelIntegrity" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
       
    </extension>
