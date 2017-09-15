@@ -54,10 +54,9 @@ bridgepoint.CantHappenEvent
 bridgepoint.CantHappeninState
 bridgepoint.CheckModelIntegrity
 bridgepoint.CheckReferentialIntegrity
-bridgepoint.CleanseforModelCompiler
 bridgepoint.CombineWith
 bridgepoint.CreateChangeSet
-bridgepoint.Createdocumentation
+bridgepoint.CreateDocumentation
 bridgepoint.Disconnect
 bridgepoint.ExportMASLDomain
 bridgepoint.ExportMASLDomains
