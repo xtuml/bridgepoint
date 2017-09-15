@@ -816,6 +816,7 @@ addition
   ;
 multiplication
   :
+  (
     ( boolean_negation )=>
     boolean_negation
   |
@@ -824,6 +825,7 @@ multiplication
       mult_op
       sign_expr
     )*
+  )
   ;
 sign_expr
   :
