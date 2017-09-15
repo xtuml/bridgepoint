@@ -119,14 +119,14 @@ This file is the plugin manifest for the BridgePoint core plugin.
                  .if(not menu_entry.UsesSelectionDialog)
                label="${menu_entry.Label}${menu_entry.extraEntryText}"
                    .assign propertyKey = "$r{menu_entry.Label}$r{menu_entry.extraEntryText}"
+                   .if ( "${propertyKey}" == "Formalize(NoTargetSelected)" )
+                     .assign propertyKey = "nokey"
+                   .end if
                  .end if
                .else
                  .if(not menu_entry.UsesSelectionDialog)
                label="${menu_entry.Label}${has_wizard}"
                    .assign propertyKey = "$r{menu_entry.Label}"
-                   .if ( ((("${propertyKey}" == "Formalize") or ("${propertyKey}" == "Unformalize")) or ("${propertyKey}" == "Unassign")) or ("${propertyKey}" == "Disconnect") )
-                     .assign propertyKey = "nokey"
-                   .end if
                  .end if
                .end if
                .if(menu_entry.UsesSelectionDialog)
@@ -151,28 +151,43 @@ This file is the plugin manifest for the BridgePoint core plugin.
                .end if
                id="${action_class_name}">
          </action>
+      .// Special cases for tools that have name collisions
+      .if ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionComponentOnEP_PKGAction" )
+       	.assign propertyKey = "InteractionComponent"
+      .elif ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionExternalEntityOnEP_PKGAction" )
+       	.assign propertyKey = "InteractionExternalEntity"
+      .elif ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionClassOnEP_PKGAction" )
+       	.assign propertyKey = "InteractionClass"
+      .end if
+      .// end special cases
       .//.select many filter_set related by menu_entry->MEF[R2013]
       .select many filter_set from instances of MEF where (((selected.Specialism == menu_entry.Specialism) and (selected.Label == menu_entry.Label)) and (selected.Key_Lett == menu_entry.Key_Lett))
-      .for each filter in filter_set
-         <filter name="${filter.name}" value="${filter.value}" />
-      .end for
-	  .// Hook to allow hiding this contribution with a Java System Property
-	  .if ( ("${propertyKey}" != "nokey") and ("${propertyKey}" != "Formalize(NoTargetSelected)") )
-		.// Special cases for tools that have name collisions
-        .if ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionComponentOnEP_PKGAction" )
-        	.assign propertyKey = "InteractionComponent"
-        .elif ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionExternalEntityOnEP_PKGAction" )
-        	.assign propertyKey = "InteractionExternalEntity"
-        .elif ( "${action_class_name}" == "org.xtuml.bp.core.ui.InteractionClassOnEP_PKGAction" )
-        	.assign propertyKey = "InteractionClass"
+      .assign filter_set_count = cardinality filter_set
+	  .assign use_and = false
+	  .if (filter_set_count > 1)
+	    .assign use_and = true
+	  .end if
+	  .if ( ("${propertyKey}" != "nokey") and (filter_set_count > 0) )
+	    .assign use_and = true
+	  .end if
+	  .if ( ("${propertyKey}" != "nokey") or (filter_set_count > 0) )
+		 <visibility>
+        .if (use_and)
+           <and>
         .end if
-		.// end special cases
-         <visibility>
-           <not>
-             <systemProperty name="disable.bp.${propertyKey}" value="true"/>
-           </not>
+        .for each filter in filter_set
+             <objectState name="${filter.name}" value="${filter.value}" />
+        .end for
+        .if ( "${propertyKey}" != "nokey" )
+             <not>
+               <systemProperty name="configure.bp.${propertyKey}" value="disabled"/>
+             </not>
+        .end if
+        .if (use_and)
+           </and>
+        .end if
          </visibility>
-       .end if
+      .end if
       </objectContribution>
     .end if
   .end for
@@ -235,6 +250,11 @@ This file is the plugin manifest for the BridgePoint core plugin.
                label="Add Built-in External Entities"
                menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="configure.bp.AddBuiltinExternalEntities" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
    </extension>
    <extension

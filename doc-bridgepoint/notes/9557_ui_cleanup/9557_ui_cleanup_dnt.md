@@ -149,17 +149,18 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
 6.3  User Configuration of the Palette and CMEs  
 6.3.1  BridgePoint will now use system properties to control what elements shall be
   excluded on the user interface.  These system properties will be of the form
-  `-Ddisable.bp.<label>` and if set to true will cause the element to be hidden
+  `-Dconfigure.bp.<label>=disabled` which will cause the element to be hidden
   from the UI.  The user will set these properties in the `bridgepoint.ini` 
   file. Developers can set the value in the debug application launch. For example:
   
 ```xml
-    -Ddisable.bp.Actor=true 
-    -Ddisable.bp.ExportMASLProject=true 
-    -Ddisable.bp.ExportMASLDomain=true 
-    -Ddisable.bp.ExportMASLDomains=true 
+    -Dconfigure.bp.Actor=disabled 
+    -Dconfigure.bp.ExportMASLProject=disabled 
+    -Dconfigure.bp.ExportMASLDomain=disabled 
+    -Dconfigure.bp.ExportMASLDomains=disabled 
 ``` 
-  
+6.3.1.1  Consideration was made to make the system property of the form
+  `-Denable.bp.<label>` and   
 6.3.2  Modifying the Palette   
   The solution proposed here does not rely on the user modifying the 
   `plugin.xml` file.  Instead, `bp.ui.graphics/.../GraphicsCreationToolEntry.java`
@@ -170,7 +171,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   then the newly created tool's visibility is set to false.  
   
 ```java
-+   private static String PROPERTY_PREFIX = "disable.bp.";
++   private static String PROPERTY_PREFIX = "configure.bp.";
 
     public GraphicsCreationToolEntry(String label, String shortDesc,
             CreationFactory factory, ImageDescriptor iconSmall,
@@ -181,8 +182,8 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
         type = ooaType;
 
 +       String propertyKey = PROPERTY_PREFIX + label.replaceAll("\\s+","");
-+       String actualPropertyValue = System.getProperty(propertyKey, "unset");
-+       if ( actualPropertyValue.equals("true") ) {
++       String actualPropertyValue = System.getProperty(propertyKey, "enabled");
++       if ( actualPropertyValue.equals("disabled") ) {
 +           setVisible(false);
 +       }
         
@@ -215,7 +216,7 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
         </action>
 +       <visibility>
 +         <not>
-+           <systemProperty name="disable.bp.Actor" value="true"/>
++           <systemProperty name="configure.bp.Actor" value="disabled"/>
 +         </not>
 +       </visibility>
     </objectContribution>
@@ -253,13 +254,13 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   1. Download a build of BridgePoint (Modeler version) that supports the element disabling  
   2. At the bottom of `bridgepoint.ini` add:
 ```xml
-    -Ddisable.bp.Actor=true 
-    -Ddisable.bp.ExportMASLProject=true 
-    -Ddisable.bp.ExportMASLDomain=true 
-    -Ddisable.bp.ExportMASLDomains=true 
-    -Ddisable.bp.Exception=true 
-    -Ddisable.bp.UseCase=true 
-    -Ddisable.bp.ManageProjectMarkings=true 
+    -Dconfigure.bp.Actor=disabled 
+    -Dconfigure.bp.ExportMASLProject=disabled 
+    -Dconfigure.bp.ExportMASLDomain=disabled 
+    -Dconfigure.bp.ExportMASLDomains=disabled 
+    -Dconfigure.bp.Exception=disabled 
+    -Dconfigure.bp.UseCase=disabled 
+    -Dconfigure.bp.ManageProjectMarkings=disabled 
 ```  
   3. Start BridgePoint
   4. Verify that the Actor tool is not available in the Interaction drawer of the Palette

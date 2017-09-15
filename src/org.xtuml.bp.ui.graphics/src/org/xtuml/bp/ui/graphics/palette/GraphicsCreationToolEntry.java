@@ -25,7 +25,7 @@ import org.xtuml.bp.ui.graphics.tools.GraphicsCreationTool;
 public class GraphicsCreationToolEntry extends ToolEntry {
 
 	private int type;
-	private static String PROPERTY_PREFIX = "disable.bp.";
+	private static String PROPERTY_PREFIX = "configure.bp.";
 
 	public GraphicsCreationToolEntry(String label, String shortDesc,
 			CreationFactory factory, ImageDescriptor iconSmall,
@@ -49,8 +49,8 @@ public class GraphicsCreationToolEntry extends ToolEntry {
 		// End special case
 		
 		String propertyKey = PROPERTY_PREFIX + propertyLabel;
-        String actualPropertyValue = System.getProperty(propertyKey, "unset");
-        if ( actualPropertyValue.equals("true") ) {
+        String actualPropertyValue = System.getProperty(propertyKey, "enabled");
+        if ( actualPropertyValue.equals("disabled") ) {
         	setVisible(false);
         }
 		

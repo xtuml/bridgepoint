@@ -14,7 +14,7 @@
          </action>
          <visibility>
            <not>
-             <systemProperty name="disable.bp.ManageProjectMarkings" value="true"/>
+             <systemProperty name="configure.bp.ManageProjectMarkings" value="disabled"/>
            </not>
          </visibility>
       </objectContribution>
