@@ -151,7 +151,8 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   excluded on the user interface.  These system properties will be of the form
   `-Dconfigure.bp.<label>=disabled` which will cause the element to be hidden
   from the UI.  The user will set these properties in the `bridgepoint.ini` 
-  file. Developers can set the value in the debug application launch. For example:
+  file. For any given `<label>`, it is assumed to be enabled unless the user has
+  explicitly set it to *disabled*.  For example:
   
 ```xml
     -Dconfigure.bp.Actor=disabled 
@@ -160,7 +161,11 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
     -Dconfigure.bp.ExportMASLDomains=disabled 
 ``` 
 6.3.1.1  Consideration was made to make the system property of the form
-  `-Denable.bp.<label>` and   
+  `-Denable.bp.<label>`.  The downside of this approach is that the `bridgepoint.ini`
+  would have to contain lots of settings to enable core BridgePoint functionality.  This
+  approach is not taken.  Instead, tools are assumed to be enabled unless they
+  are explicitly disabled.    
+    
 6.3.2  Modifying the Palette   
   The solution proposed here does not rely on the user modifying the 
   `plugin.xml` file.  Instead, `bp.ui.graphics/.../GraphicsCreationToolEntry.java`

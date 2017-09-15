@@ -17,44 +17,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -pluginCustomization ${workspace_loc}/org.xtuml.bp.pkg/plugin_customization.ini"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-XstartOnFirstThread -Dosgi.requiredJavaVersion=1.5 -Xms512m -Xmx1024m -Dfile.encoding=UTF-8  -Declipse.product=org.xtuml.bp.pkg.BridgePoint
--Dconfigure.bp.ExportMASLProject=disabled 
--Dconfigure.bp.ExportMASLDomain=disabled 
--Dconfigure.bp.ExportMASLDomains=disabled 
--Dconfigure.bp.ManageProjectMarkings=disabled 
--Dconfigure.bp.Exception=disabled 
--Dconfigure.bp.AcceptEventAction=disabled
--Dconfigure.bp.AcceptTimeEventAction=disabled
--Dconfigure.bp.Action=disabled
--Dconfigure.bp.SendSignalAction=disabled
--Dconfigure.bp.ObjectNode=disabled
--Dconfigure.bp.DecisionMergeNode=disabled
--Dconfigure.bp.InitialNode=disabled
--Dconfigure.bp.ActivityFinalNode=disabled
--Dconfigure.bp.FlowFinalNode=disabled
--Dconfigure.bp.ActivityPartition=disabled
--Dconfigure.bp.ActivityEdge=disabled
--Dconfigure.bp.ForkJoinNode=disabled
--Dconfigure.bp.Link=disabled 
--Dconfigure.bp.Actor=disabled
--Dconfigure.bp.InteractionComponent=disabled
--Dconfigure.bp.Instance=disabled
--Dconfigure.bp.InteractionExternalEntity=disabled
--Dconfigure.bp.PackageParticipant=disabled
--Dconfigure.bp.InteractionClass=disabled
--Dconfigure.bp.SynchronousMessage=disabled
--Dconfigure.bp.AsynchronousMessage=disabled
--Dconfigure.bp.ReturnMessage=disabled
--Dconfigure.bp.CommunicationLine=disabled
--Dconfigure.bp.TimingMark=disabled
--Dconfigure.bp.TimeSpan=disabled
--Dconfigure.bp.UseCase=disabled
--Dconfigure.bp.UseCaseAssociation=disabled
--Dconfigure.bp.Generalization=disabled
--Dconfigure.bp.Include=disabled
--Dconfigure.bp.Extend=disabled
--Dconfigure.bp.AddBuiltinExternalEntities=disabled
-"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-XstartOnFirstThread -Dosgi.requiredJavaVersion=1.5 -Xms512m -Xmx1024m -Dfile.encoding=UTF-8  -Declipse.product=org.xtuml.bp.pkg.BridgePoint "/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.xtuml.bp.pkg.BridgePoint"/>
 <booleanAttribute key="show_selected_only" value="false"/>
