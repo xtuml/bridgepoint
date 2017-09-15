@@ -79,7 +79,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any">
+            locationURI="popup:org.eclipse.ui.popup.any?after=org.xtuml.bp.ui.context-internal">
          <menu
                id="org.xtuml.bp.utilities"
                label="BridgePoint Utilities">
