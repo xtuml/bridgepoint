@@ -31328,7 +31328,7 @@ if ( not_empty act and not_empty val )
       select one param_dt related by s_sparm->S_DT[R26];
       include = true;
       if ( not_empty param_dt and not_empty declared_dt )
-        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+        if ( not ::data_types_compatible_for_content_assist( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
           include = false;
         end if;
       end if;
@@ -31354,7 +31354,7 @@ if ( not_empty act and not_empty val )
       select one param_dt related by o_tparm->S_DT[R118];
       include = true;
       if ( not_empty param_dt and not_empty declared_dt )
-        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+        if ( not ::data_types_compatible_for_content_assist( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
           include = false;
         end if;
       end if;
@@ -31380,7 +31380,7 @@ if ( not_empty act and not_empty val )
       select one param_dt related by s_bparm->S_DT[R22];
       include = true;
       if ( not_empty param_dt and not_empty declared_dt )
-        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+        if ( not ::data_types_compatible_for_content_assist( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
           include = false;
         end if;
       end if;
@@ -31415,7 +31415,7 @@ if ( not_empty act and not_empty val )
       select one param_dt related by sm_evtdi->S_DT[R524];
       include = true;
       if ( not_empty param_dt and not_empty declared_dt )
-        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+        if ( not ::data_types_compatible_for_content_assist( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
           include = false;
         end if;
       end if;
@@ -31450,7 +31450,7 @@ if ( not_empty act and not_empty val )
       select one param_dt related by c_pp->S_DT[R4007];
       include = true;
       if ( not_empty param_dt and not_empty declared_dt )
-        if ( GD::NULL_UNIQUE_ID() == ::data_types_compatible( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
+        if ( not ::data_types_compatible_for_content_assist( dt1:declared_dt.DT_ID, dt2:param_dt.DT_ID, op:"=" ) )
           include = false;
         end if;
       end if;
@@ -33740,6 +33740,196 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e1f09e0f-9b7f-4469-ad25-5e9b81a0dbe3",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	"00000000-0000-0000-0000-000000000000",
+	'Assignment_expr_tok_equal2_content_assist',
+	'ParserValidateFunction: TRUE',
+	'select any lval from instances of V_VAL where selected.Value_ID == param.b1_member_id;
+lval_end_ID = ::get_value_chain_end(start_value_ID:lval.Value_ID);
+select any lval from instances of V_VAL where selected.Value_ID == lval_end_ID;
+declared_dt_id = GD::NULL_UNIQUE_ID();
+select one declared_dt related by lval->S_DT[R820];
+if ( not_empty declared_dt )
+  declared_dt_id = declared_dt.DT_ID;
+end if;
+::rval_content_assist( a1_rule_token:param.a1_rule_token, a2_dt_id:declared_dt_id, a3_dt_exact_match:false, a4_op:"assign" );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("d977e827-0627-4e51-bddd-95b94b9bff5e",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3310f96a-5069-46db-9b8b-cf1b507caaab",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"d977e827-0627-4e51-bddd-95b94b9bff5e",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d649422b-6b6a-4e5f-b47c-d4ad4eb8e86c",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3310f96a-5069-46db-9b8b-cf1b507caaab",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e583fd35-f187-4ece-a002-dd91f6b8e9bd",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"d649422b-6b6a-4e5f-b47c-d4ad4eb8e86c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3851fa8a-5a3f-4ad7-9384-4348f3e1ccaf",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'b1_member_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"e583fd35-f187-4ece-a002-dd91f6b8e9bd",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("16f02079-1386-4150-8871-f70a1a9ed263",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'b2_expr2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3851fa8a-5a3f-4ad7-9384-4348f3e1ccaf",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9dd3a4cb-7f2f-4707-a055-7379dc213342",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'b3_param_data_access3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"16f02079-1386-4150-8871-f70a1a9ed263",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("431cca03-5787-4c19-9cb8-185b737d7876",
+	"dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	'b4_expr4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9dd3a4cb-7f2f-4707-a055-7379dc213342",
+	'');
+INSERT INTO PE_PE
+	VALUES ("dd8e693e-dcc8-48c3-86fb-3a3330010c65",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	"00000000-0000-0000-0000-000000000000",
+	'Assignment_expr_tok_equal7_content_assist',
+	'ParserValidateFunction: TRUE',
+	'select any lval from instances of V_VAL where selected.Value_ID == param.b3_param_data_access3_id;
+declared_dt_id = GD::NULL_UNIQUE_ID();
+select one declared_dt related by lval->S_DT[R820];
+if ( not_empty declared_dt )
+  declared_dt_id = declared_dt.DT_ID;
+end if;
+::rval_content_assist( a1_rule_token:param.a1_rule_token, a2_dt_id:declared_dt_id, a3_dt_exact_match:false, a4_op:"assign" );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("616f7228-7419-452f-93a6-db84e83242d5",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7760082b-9beb-4c33-8cf0-a727c86011b2",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"616f7228-7419-452f-93a6-db84e83242d5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f563cd7c-03a2-4da1-8f0c-e1839e0ef8ff",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7760082b-9beb-4c33-8cf0-a727c86011b2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fe4a38fa-5882-4d28-a1fd-4fe793d84250",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f563cd7c-03a2-4da1-8f0c-e1839e0ef8ff",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e3e6b95c-4853-47c1-a9af-e91950e8a8c4",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'b1_member_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fe4a38fa-5882-4d28-a1fd-4fe793d84250",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("43573cb5-2256-40a9-804c-43f14a2ae740",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'b2_expr2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"e3e6b95c-4853-47c1-a9af-e91950e8a8c4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("964ec905-ec54-43a9-964c-d3b4cb13fc9d",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'b3_param_data_access3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"43573cb5-2256-40a9-804c-43f14a2ae740",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0d3f3cfb-bc1e-4fa0-88af-9e2a10bed3fb",
+	"71f16ca9-98f8-400a-9883-e0e78109b3e1",
+	'b4_expr4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"964ec905-ec54-43a9-964c-d3b4cb13fc9d",
+	'');
+INSERT INTO PE_PE
+	VALUES ("71f16ca9-98f8-400a-9883-e0e78109b3e1",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",

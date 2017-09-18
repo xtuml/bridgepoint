@@ -2004,6 +2004,30 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"c2c5cff2-7c0e-4b1f-8b78-e9c5d6fb8316");
+INSERT INTO S_ENUM
+	VALUES ("2d66e217-9567-4e7e-bda7-76e3ba594d22",
+	'EDT',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"50c40753-dcac-4733-808c-bc5869c08cb7");
+INSERT INTO S_ENUM
+	VALUES ("3e48fcb1-5d43-45ca-b0cc-20da219e428a",
+	'Enumerator',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"2d66e217-9567-4e7e-bda7-76e3ba594d22");
+INSERT INTO S_ENUM
+	VALUES ("709bdaae-dd45-4986-9f5a-c8ff6f767e94",
+	'Literal',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"3e48fcb1-5d43-45ca-b0cc-20da219e428a");
+INSERT INTO S_ENUM
+	VALUES ("93b1a4c0-415b-4372-b471-221da03ed7d9",
+	'Constant',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"709bdaae-dd45-4986-9f5a-c8ff6f767e94");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

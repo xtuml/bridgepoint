@@ -25,9 +25,12 @@ import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
+import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
@@ -225,6 +228,15 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( PropertyParameter_c.class );
             case Proposaltypes_c.Function:
                 return CorePlugin.getImageFor( Function_c.class );
+            case Proposaltypes_c.EDT:
+                return CorePlugin.getImageFor( EnumerationDataType_c.class );
+            case Proposaltypes_c.Enumerator:
+                return CorePlugin.getImageFor( Enumerator_c.class );
+            case Proposaltypes_c.Constant:
+                return CorePlugin.getImageFor( SymbolicConstant_c.class );
+            case Proposaltypes_c.Literal:
+                //return CorePlugin.getImageFor( Function_c.class );
+                return null;
             default:
                 return null;
         }
