@@ -9085,7 +9085,23 @@ INSERT INTO S_SYNC
 ParserUtilityFunction: TRUE',
 	'act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-select any declared_dt from instances of S_DT where ( selected.DT_ID == param.a2_dt_id );
+
+// get cues
+select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
+temp_declared_dt_id = GD::NULL_UNIQUE_ID();
+if ( not_empty type_cue )
+  temp_declared_dt_id = type_cue.unique_id_value;
+end if;
+declared_dt_id = temp_declared_dt_id; // Because of MC-Java architecture, variables must be effectively
+                                      // final to be used as parameters in an invocation in a where clause.
+select any declared_dt from instances of S_DT where ( selected.DT_ID == declared_dt_id );
+temp_type_op = "assign";
+select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
+if ( not_empty op_cue )
+  temp_type_op = op_cue.string_value;
+end if;
+type_op = temp_type_op; // Because of MC-Java architecture, variables must be effectively
+                        // final to be used as parameters in an invocation in a where clause.
 if ( not_empty act )
   line = ::getLineNumber( rule_token:param.a1_rule_token );
   col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
@@ -9117,16 +9133,16 @@ if ( not_empty act )
       end if;
       include = false;
       // if no type is declared, include all locals
-      include = include or ( GD::NULL_UNIQUE_ID() == param.a2_dt_id );
+      include = include or ( GD::NULL_UNIQUE_ID() == declared_dt_id );
       // include locals of a compatible type
-      include = include or ( ( GD::NULL_UNIQUE_ID() != param.a2_dt_id ) and ( ( param.a3_dt_exact_match and dt.DT_ID == param.a2_dt_id )
-          or ( not param.a3_dt_exact_match and ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:dt.DT_ID, op:param.a4_op ) ) ) );
+      include = include or ( ( GD::NULL_UNIQUE_ID() != declared_dt_id ) and
+          ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:dt.DT_ID, op:type_op ) ) );
       // include inst ref and structured locals with a member/attribute of the same type
       select one irdt related by dt->S_IRDT[R17] where ( selected.isSet );
       select any o_attr related by irdt->O_OBJ[R123]->O_ATTR[R102]
-        where ( ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:selected.DT_ID, op:param.a4_op ) );
+        where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
       select any s_mbr related by dt->S_SDT[R17]->S_MBR[R44]
-        where ( ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:selected.DT_ID, op:param.a4_op ) );
+        where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
       include = include or ( not_empty o_attr or not_empty s_mbr );
       if ( include )
         create object instance new_item of P_P;
@@ -9162,8 +9178,8 @@ if ( not_empty act )
   for each o_obj in o_objs
     select many o_tfrs related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation that returns void to be shown as an option
     select any tfr_dt related by o_tfrs->S_DT[R116]
-      where ( ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:selected.DT_ID, op:param.a4_op ) );
-    if ( GD::NULL_UNIQUE_ID() == param.a2_dt_id or not_empty tfr_dt )
+      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
+    if ( GD::NULL_UNIQUE_ID() == declared_dt_id or not_empty tfr_dt )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Class;
       new_item.display_text = o_obj.Key_Lett;
@@ -9189,8 +9205,8 @@ if ( not_empty act )
   select many s_ees related by results->S_EE[R8001];
   for each s_ee in s_ees
     select any brg_dt related by s_ee->S_BRG[R19]->S_DT[R20]
-      where ( ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:selected.DT_ID, op:param.a4_op ) );
-    if ( GD::NULL_UNIQUE_ID() == param.a2_dt_id or not_empty brg_dt )
+      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
+    if ( GD::NULL_UNIQUE_ID() == declared_dt_id or not_empty brg_dt )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::EE;
       new_item.display_text = s_ee.Key_Lett;
@@ -9216,7 +9232,7 @@ if ( not_empty act )
   select many s_syncs related by results->S_SYNC[R8001];
   for each s_sync in s_syncs
     select one dt related by s_sync->S_DT[R25];
-    if ( "void" != dt.Name and ( GD::NULL_UNIQUE_ID() == param.a2_dt_id or ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:s_sync.DT_ID, op:param.a4_op ) ) )
+    if ( "void" != dt.Name and ( GD::NULL_UNIQUE_ID() == declared_dt_id or ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:s_sync.DT_ID, op:type_op ) ) )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Function;
       if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
@@ -9244,8 +9260,8 @@ if ( not_empty act )
   select many c_pos related by containing_c_c->C_PO[R4010];
   for each c_po in c_pos
     select any c_io related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_IO[R4004]
-      where ( ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:selected.DT_ID, op:param.a4_op ) );
-    if ( GD::NULL_UNIQUE_ID() == param.a2_dt_id or not_empty c_io )
+      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
+    if ( GD::NULL_UNIQUE_ID() == declared_dt_id or not_empty c_io )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Port;
       new_item.display_text = c_po.Name;
@@ -9257,7 +9273,7 @@ if ( not_empty act )
   end for;
   
   // get EDT proposals
-  if ( GD::NULL_UNIQUE_ID() == param.a2_dt_id )
+  if ( GD::NULL_UNIQUE_ID() == declared_dt_id )
     if not_empty c_c
       c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
     else
@@ -9288,7 +9304,7 @@ if ( not_empty act )
     create object instance  new_item of P_P;
     new_item.type = ProposalTypes::Enumerator;
     new_item.display_text = s_edt.Name + "::" + s_enum.Name;
-    new_item.replacement_text = new_item.display_text + " ";
+    new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
     relate new_item to list across R1601;
@@ -9307,70 +9323,85 @@ if ( not_empty act )
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
   select many cnst_csps related by results->CNST_CSP[R8001];
-  select many cnst_sycs related by cnst_csps->CNST_SYC[R1504]
-    where ( ::data_types_compatible_for_content_assist( dt1:param.a2_dt_id, dt2:selected.DT_ID, op:param.a4_op ) );
+  select many cnst_sycs related by cnst_csps->CNST_SYC[R1504];
+  if ( GD::NULL_UNIQUE_ID() != declared_dt_id )
+    select many cnst_sycs related by cnst_csps->CNST_SYC[R1504]
+      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
+  end if;
   for each cnst_syc in cnst_sycs
     select one cnst_csp related by cnst_syc->CNST_CSP[R1504];
     select any dup_cnst_syc related by cnst_csps->CNST_SYC[R1504] where ( selected.Name == cnst_syc.Name and selected.Const_ID != cnst_syc.Const_ID );
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Constant;
-    new_item.display_text = cnst_syc.Name;
+    new_item.display_text = cnst_syc.Name + " - " + cnst_csp.InformalGroupName;
+    new_item.replacement_text = cnst_syc.Name;
+    if ( not_empty dup_cnst_syc )
+      new_item.replacement_text = cnst_csp.InformalGroupName + "::" + new_item.replacement_text;
+    end if;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    relate new_item to list across R1601;
   end for;
   
-  if ( GD::NULL_UNIQUE_ID() != param.a2_dt_id )
+  include_boolean = ( GD::NULL_UNIQUE_ID() == declared_dt_id );
+  include_integer = ( GD::NULL_UNIQUE_ID() == declared_dt_id );
+  if ( GD::NULL_UNIQUE_ID() != declared_dt_id )
+    include_boolean = ( "boolean" == declared_dt.Name );
+    include_integer = ( "integer" == declared_dt.Name );
+  end if;
 
-    // special proposals for boolean
-    if ( "boolean" == declared_dt.Name )
-      // get keyword proposals
-      i = 0;
-      while i < 3
-        kw = "";
-        if ( 0 == i )
-          kw = "not";
-        elif ( 1 == i )
-          kw = "not_empty";
-        else
-          kw = "empty";
-        end if;
-        create object instance new_item of P_P;
-        new_item.type = ProposalTypes::Keyword;
-        new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text + " ";
-        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.needs_space = true;
-        relate new_item to list across R1601;
-        i = i + 1;
-      end while;
-
-      // get literal proposals
-      i = 0;
-      while i < 2
-        kw = "";
-        if ( 0 == i )
-          kw = "true";
-        else
-          kw = "false";
-        end if;
-        create object instance new_item of P_P;
-        new_item.type = ProposalTypes::Literal;
-        new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text + " ";
-        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.needs_space = true;
-        relate new_item to list across R1601;
-        i = i + 1;
-      end while;
-      
-    // special proposals for integer
-    elif ( "integer" == declared_dt.Name )
+  // special proposals for boolean
+  if ( include_boolean )
+    // get keyword proposals
+    i = 0;
+    while i < 3
+      kw = "";
+      if ( 0 == i )
+        kw = "not";
+      elif ( 1 == i )
+        kw = "not_empty";
+      else
+        kw = "empty";
+      end if;
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Keyword;
-      new_item.display_text = "cardinality";
+      new_item.display_text = kw;
       new_item.replacement_text = new_item.display_text + " ";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
       relate new_item to list across R1601;
-    end if;
+      i = i + 1;
+    end while;
+
+    // get literal proposals
+    i = 0;
+    while i < 2
+      kw = "";
+      if ( 0 == i )
+        kw = "true";
+      else
+        kw = "false";
+      end if;
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Literal;
+      new_item.display_text = kw;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      relate new_item to list across R1601;
+      i = i + 1;
+    end while;
+  end if;
+    
+  // special proposals for integer
+  if ( include_integer )
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "cardinality";
+    new_item.replacement_text = new_item.display_text + " ";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    relate new_item to list across R1601;
   end if;
 
 end if;',
@@ -9386,33 +9417,6 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("06ad8438-06d4-476d-8253-22d059ac3059",
-	"d7990a16-d0a0-4a05-87ca-3c088d832c76",
-	'a2_dt_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"9175a30f-ea36-41a8-a5c5-6bfe8b1bf287",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("ebe89919-e439-490e-8426-d12717a79cc4",
-	"d7990a16-d0a0-4a05-87ca-3c088d832c76",
-	'a3_dt_exact_match',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"06ad8438-06d4-476d-8253-22d059ac3059",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("260c5b48-7ac3-4e3d-9ff9-a41a38d47bd5",
-	"d7990a16-d0a0-4a05-87ca-3c088d832c76",
-	'a4_op',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"ebe89919-e439-490e-8426-d12717a79cc4",
 	'');
 INSERT INTO PE_PE
 	VALUES ("d7990a16-d0a0-4a05-87ca-3c088d832c76",
@@ -9469,6 +9473,71 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("147780d7-04e3-4676-b08a-56d527fb0645",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("cc5358fb-fb89-45be-a086-16162e28f879",
+	"00000000-0000-0000-0000-000000000000",
+	'set_declared_type_for_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
+  if ( GD::NULL_UNIQUE_ID() == param.a1_dt_id )
+    if ( not_empty type_cue )
+      type_cue.dispose();  // remove the cue if the DT_ID is null
+    end if;
+  else
+    if ( empty type_cue )
+      create object instance type_cue of P_PCC;
+      type_cue.name = "declared_type";
+      relate type_cue to act across R1602;
+    end if;
+    type_cue.unique_id_value = param.a1_dt_id;
+  end if;
+  select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
+  if ( "" == param.a2_op )
+    if ( not_empty op_cue )
+      op_cue.dispose();  // remove the cue if the op is empty string
+    end if;
+  else
+    if ( empty op_cue )
+      create object instance op_cue of P_PCC;
+      op_cue.name = "type_op";
+      relate op_cue to act across R1602;
+    end if;
+    op_cue.string_value = param.a2_op;
+  end if;
+end if;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("5fe3d18e-0bc2-429c-9091-df76a943888f",
+	"cc5358fb-fb89-45be-a086-16162e28f879",
+	'a1_dt_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("91675351-ddb6-4946-b585-143b0775c52c",
+	"cc5358fb-fb89-45be-a086-16162e28f879",
+	'a2_op',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"5fe3d18e-0bc2-429c-9091-df76a943888f",
+	'');
+INSERT INTO PE_PE
+	VALUES ("cc5358fb-fb89-45be-a086-16162e28f879",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
