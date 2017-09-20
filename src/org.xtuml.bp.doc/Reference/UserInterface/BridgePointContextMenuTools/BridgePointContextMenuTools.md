@@ -28,6 +28,7 @@ These menu entries appear on the context menu of Model Explorer and the canvas.
 | Cant Happen Event...  | Open dialog to specify an event to treat as can't happen in the selected state. |
 | Disconnect            | Breaks the satisfaction of connected interfaces or interface references. |
 | Ignore Event...       | Open dialog to specify an event to treat as ignored in the selected state. |
+| Formalize... (Interface Reference) | Open dialog to formalize the selected interface reference to an interface definition. |
 | Make Public           | Changes the visibility of the selection to public. |
 | Make Private          | Changes the visibility of the selection to private. |
 | Make Protected        | Changes the visibility of the selection to protected. |
