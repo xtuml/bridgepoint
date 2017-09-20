@@ -87,10 +87,6 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   This tool packaging distinction can be leveraged even further during this
   work.  
    
-  BridgePoint has tooling in `bp.utilities` and `bp.internal.tools` 
-  that can be reorganized to address requirements to not present normal users
-  with developer tools.   
-    
 5.1.1  The items called out in Figures 1-4 of 4.5 are already addressed in
   the original work to create the Modeler version.    
     
@@ -129,54 +125,37 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   of MASL shall be removed.  
 6.1.3  The changes need to be made in `org.xtuml.bp.core/.../BridgePointPreferences.java`   
   
-6.2  Additional Separation of Developer Tooling   
-6.2.1   Create new developer tools "parent" and feature plugins. Use
-  the `org.xtuml.bp.mctools[.parent]` as a guide.  
-6.2.1.1  Make the `bp.internal.tools` plug-in a child of the new feature.  
-6.2.1.2  Adjust the Developer product to include the new feature plug-in, but 
-  do not include it in the Modeler product.   
-6.2.1.3  Add the new parent to the `org.xtuml.bp.releng.parent/pom.xml`.   
-6.2.1.4  Remove the internal.tools plugin from `org.xtuml.bp.pkg-feature/feature.xml`  
-
-6.2.2  Move the following from `bp.utilities` to `bp.internal.tools`.  Move both the 
-  Java code and the associated UI declaration in `plugin.xml`: 
-  * Load and Persist   
-  * Generate Functions From List  
-
-6.2.3  The `CreateTestProjectAndImportTestModel` and `FixMissingMatrixEntryAction` 
-  are no longer used and shall be removed (code and definition in plugin.xml).   
-
-6.3  User Configuration of the Palette and CMEs  
-6.3.1  BridgePoint will now use system properties to control what elements shall be
+6.2  User Configuration of the Palette and CMEs  
+6.2.1  BridgePoint will now use system properties to control what elements shall be
   excluded on the user interface.  These system properties will be of the form
-  `-Dconfigure.bp.<label>=disabled` which will cause the element to be hidden
+  `-Dbridgepoint.<label>=disabled` which will cause the element to be hidden
   from the UI.  The user will set these properties in the `bridgepoint.ini` 
   file. For any given `<label>`, it is assumed to be enabled unless the user has
   explicitly set it to *disabled*.  For example:
   
 ```xml
-    -Dconfigure.bp.Actor=disabled 
-    -Dconfigure.bp.ExportMASLProject=disabled 
-    -Dconfigure.bp.ExportMASLDomain=disabled 
-    -Dconfigure.bp.ExportMASLDomains=disabled 
+    -Dbridgepoint.Actor=disabled 
+    -Dbridgepoint.ExportMASLProject=disabled 
+    -Dbridgepoint.ExportMASLDomain=disabled 
+    -Dbridgepoint.ExportMASLDomains=disabled 
 ``` 
-6.3.1.1  Consideration was made to make the system property of the form
+6.2.1.1  Consideration was made to make the system property of the form
   `-Denable.bp.<label>`.  The downside of this approach is that the `bridgepoint.ini`
   would have to contain lots of settings to enable core BridgePoint functionality.  This
   approach is not taken.  Instead, tools are assumed to be enabled unless they
   are explicitly disabled.    
     
-6.3.2  Modifying the Palette   
+6.2.2  Modifying the Palette   
   The solution proposed here does not rely on the user modifying the 
   `plugin.xml` file.  Instead, `bp.ui.graphics/.../GraphicsCreationToolEntry.java`
   is modified in the constructor.  The symbols (see 5.4) are still loaded
   from `plugin.xml` but the constructor is modified to use the information
-  read from the configuration file (see 6.3.1).  If the tool being processed in the 
+  read from the configuration file (see 6.2.1).  If the tool being processed in the 
   constructor matches one of the excluded tools from the configuration file
   then the newly created tool's visibility is set to false.  
   
 ```java
-+   private static String PROPERTY_PREFIX = "configure.bp.";
++   private static String PROPERTY_PREFIX = "bridgepoint.";
 
     public GraphicsCreationToolEntry(String label, String shortDesc,
             CreationFactory factory, ImageDescriptor iconSmall,
@@ -195,16 +174,16 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
     }
 ```
 
-6.3.3  Modifying the CMEs   
+6.2.3  Modifying the CMEs   
   There are entries to be restricted (i.e. hidden by the user) in the context 
   menu both in the `New >` submenu and at the top level.  For example,
   `New > Actor` and `Export MASL Domain`.                  
 
-6.3.3.1  Use the visibility modifier on menu contributions and system 
-  properties (see 6.3.1)  in `org.xtuml.bp.core/plugin.xml`.  These
+6.2.3.1  Use the visibility modifier on menu contributions and system 
+  properties (see 6.2.1)  in `org.xtuml.bp.core/plugin.xml`.  These
   checks will hide the CMEs if a match is found in the configuration file.  
 
-6.3.3.1.1  Update the archetype `create_core_pluin.inc` to add the visibility stanza to the 
+6.2.3.1.1  Update the archetype `create_core_pluin.inc` to add the visibility stanza to the 
   objectContributions.  
 
 ```xml
@@ -221,16 +200,29 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
         </action>
 +       <visibility>
 +         <not>
-+           <systemProperty name="configure.bp.Actor" value="disabled"/>
++           <systemProperty name="bridgepoint.Actor" value="disabled"/>
 +         </not>
 +       </visibility>
     </objectContribution>
 ```  
 
-6.3.3.2  Modify `org.xtuml.bp.x2m/plugin.xml` and `org.xtuml.bp.ui.marking/plugin.xml`
+6.2.3.2  Modify `org.xtuml.bp.x2m/plugin.xml` and `org.xtuml.bp.ui.marking/plugin.xml`
   to use the same system property visibility checks on the `objectContributions` that
   add the "Export MASL ..." and "Manage Project Markings" context menu entries.  
 
+6.3  Handling of Developer Tooling   
+6.3.1  Modify the default `bridgepoint.ini` for the Modeler version to disable developer menus. 
+  bridgepoint/releng/org.xtuml.bp.releng.parent.product/bridgepoint.product (Launching tab VM arguments)
+6.3.1.1  `Generate Functions From List` is now hidden by default in the Modeler version.  
+6.3.1.2  We considered hiding `Load and Persist` by default, but decided to leave it in
+  the Modeler version based on user feedback.     
+
+6.3.2  The following features are no longer used and shall be removed (code and definition 
+  in plugin.xml):  
+* `Cleanse for Model Compiler`  
+* `CreateTestProjectAndImportTestModel`  
+* `FixMissingMatrixEntryAction` 
+* `LoadByExpansionAction`
 
 ### 7. Design Comments
 7.1  There is an inconsistency in naming between the Palette and the Context Menu
@@ -259,13 +251,13 @@ associated issues [[2.1]](#2.1) [[2.2]](#2.2) [[2.3]](#2.3).
   1. Download a build of BridgePoint (Modeler version) that supports the element disabling  
   2. At the bottom of `bridgepoint.ini` add:
 ```xml
-    -Dconfigure.bp.Actor=disabled 
-    -Dconfigure.bp.ExportMASLProject=disabled 
-    -Dconfigure.bp.ExportMASLDomain=disabled 
-    -Dconfigure.bp.ExportMASLDomains=disabled 
-    -Dconfigure.bp.Exception=disabled 
-    -Dconfigure.bp.UseCase=disabled 
-    -Dconfigure.bp.ManageProjectMarkings=disabled 
+    -Dbridgepoint.Actor=disabled 
+    -Dbridgepoint.ExportMASLProject=disabled 
+    -Dbridgepoint.ExportMASLDomain=disabled 
+    -Dbridgepoint.ExportMASLDomains=disabled 
+    -Dbridgepoint.Exception=disabled 
+    -Dbridgepoint.UseCase=disabled 
+    -Dbridgepoint.ManageProjectMarkings=disabled 
 ```  
   3. Start BridgePoint
   4. Verify that the Actor tool is not available in the Interaction drawer of the Palette
