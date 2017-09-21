@@ -174,8 +174,6 @@ of the UML analysis diagram tools.
 -Dbridgepoint.AssociativeLink=disabled
 -Dbridgepoint.AsynchronousMessage=disabled
 -Dbridgepoint.CommunicationLine=disabled
--Dbridgepoint.Constant=disabled
--Dbridgepoint.ConstantSpecification=disabled
 -Dbridgepoint.DecisionMergeNode=disabled
 -Dbridgepoint.Extend=disabled
 -Dbridgepoint.FlowFinalNode=disabled
