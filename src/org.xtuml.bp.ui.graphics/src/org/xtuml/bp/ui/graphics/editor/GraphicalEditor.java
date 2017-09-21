@@ -438,6 +438,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 			}
 
 		}
+		hideEmptyDrawers();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1529,6 +1530,25 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 					.getActiveEditor();
 			if (this.equals(editor.getActivePart())) {
 				updateActions(getSelectionActions());
+			}
+		}
+	}
+
+	// Hides palette drawers if they do not contain visible children
+	public void hideEmptyDrawers() {
+		for (Object entry : fPaletteRoot.getChildren()) {
+			if (entry instanceof PaletteDrawer) {
+				PaletteDrawer drawer = (PaletteDrawer) entry;
+				int visibleChildren = 0;
+				for (Object tool : drawer.getChildren() ) {
+					ToolEntry toolEntry = (ToolEntry) tool;
+					if ( (toolEntry != null) && (toolEntry.isVisible()) ) {
+						visibleChildren++;
+					}
+				}
+				if ( visibleChildren == 0 ) {
+					drawer.setVisible(false);	
+				}
 			}
 		}
 	}
