@@ -33669,6 +33669,8 @@ if ( ( "empty" == ::getText( rule_token:param.a1_rule_token ) ) or ( "not_empty"
   ::all_inst_ref_vars_content_assist( a1_rule_token:param.a1_rule_token, a2_include_self:false, a3_add_space:false );
 elif ( "cardinality" == ::getText( rule_token:param.a1_rule_token ) )
   ::all_inst_ref_set_vars_content_assist( a1_rule_token:param.a1_rule_token, a2_add_space:false );
+elif ( "(" == ::getText( rule_token:param.a1_rule_token ) )
+  ::rval_content_assist( a1_rule_token:param.a1_rule_token );
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -34830,112 +34832,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("5a5b18e2-fce7-425a-8e66-cadb29482a12",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	"00000000-0000-0000-0000-000000000000",
-	'Term_tok_lparen_content_assist',
-	'ParserValidateFunction: TRUE',
-	'::rval_content_assist( a1_rule_token:param.a1_rule_token );',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("823a8a4c-2b63-43f4-92d2-52d2147cd1ef",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("eb4079f3-3b7f-4b6e-89b2-db7295fa89c7",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'a2_upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"823a8a4c-2b63-43f4-92d2-52d2147cd1ef",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("33868d91-c357-445c-8e1e-5b3a8dcd487f",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'a3_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"eb4079f3-3b7f-4b6e-89b2-db7295fa89c7",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("dab23022-d9c0-4b16-8492-330778fbf8cc",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'a4_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"33868d91-c357-445c-8e1e-5b3a8dcd487f",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("f648d4b9-96e8-480e-9ed0-ec61499fe28b",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'b1_cardinality_op1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"dab23022-d9c0-4b16-8492-330778fbf8cc",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("3d563ffa-a09b-4a7d-92cd-573427d90f44",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'b2_empty_op2_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"f648d4b9-96e8-480e-9ed0-ec61499fe28b",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("c507e141-9d22-4cbe-ac30-52e87e8b7b5e",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'b3_not_empty_op3_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"3d563ffa-a09b-4a7d-92cd-573427d90f44",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("acde4b4c-b05b-40f1-9170-263a92d1ea2c",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'b4_rval4_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"c507e141-9d22-4cbe-ac30-52e87e8b7b5e",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("340b24fd-e8e4-46cd-9ce7-8c421a18913e",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'b5_assignment_expr5_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"acde4b4c-b05b-40f1-9170-263a92d1ea2c",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("67b2ec7a-aa1b-4e34-9b9f-7586c719628e",
-	"af84f7dd-e23c-4955-8722-8235ebf09c3b",
-	'b6_expr6_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"340b24fd-e8e4-46cd-9ce7-8c421a18913e",
-	'');
-INSERT INTO PE_PE
-	VALUES ("af84f7dd-e23c-4955-8722-8235ebf09c3b",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
