@@ -17,6 +17,7 @@ improvements to the BridgePoint User Interface.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9557](https://support.onefact.net/issues/9557) Headline issue.  
 <a id="2.2"></a>2.2 [Design Note for 9557](9557_ui_cleanup_dnt.md)  
+<a id="2.3"></a>2.3 [BridgePoint DEI #9446](https://support.onefact.net/issues/9446) Unable to merge a identifier from two super types in a subtype class    
 
 ### 3. Background
 
@@ -92,6 +93,18 @@ is equal to
   of any JUnit suite so I added it to the Core System Level Tests.  Also fixed the the tests inside
   to use valid models and check results properly. 
 
+6.7  Update some test cases in `CombineSplitReferentialsTestGenerics.java`  
+6.7.1  Work was done in [2.3] that allows BridgePoint to combine multiple referential attributes 
+  that do not share the same base attribute but do have identical types. The JUnit was not updated 
+  at the time of promotion to reflect the new functionality.   
+6.7.2  Updated the assert in `testReferentialAttributesWithDiffBaseTypes()` to expect combination of 
+  two integer referentials to be allowed.    
+6.7.3  Updated the checks in `testTwoReferentialAttributesSameBaseTypesOneDifferent()` for the new 
+  referential combination logic.  
+
+6.8  While working in the Core2 Suite I noticed that one of the test classes was commented out: 
+  `PolymorphicEventAssignmentTestGenerics`. I uncommented the test class and ran the test suite locally
+  and the tests passed.  Therefore, I'm leaving the change in place to now run the tests.   
 
 ### 7. Unit Test
 
