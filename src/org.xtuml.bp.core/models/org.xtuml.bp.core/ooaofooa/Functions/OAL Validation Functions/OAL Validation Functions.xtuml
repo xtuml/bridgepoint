@@ -33671,6 +33671,36 @@ elif ( "cardinality" == ::getText( rule_token:param.a1_rule_token ) )
   ::all_inst_ref_set_vars_content_assist( a1_rule_token:param.a1_rule_token, a2_add_space:false );
 elif ( "(" == ::getText( rule_token:param.a1_rule_token ) )
   ::rval_content_assist( a1_rule_token:param.a1_rule_token );
+elif ( "not" == ::getText( rule_token:param.a1_rule_token ) )
+  act_id = ::get_current_context();
+  select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+  select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
+  declared_dt_id = GD::NULL_UNIQUE_ID();
+  if ( not_empty type_cue )
+    declared_dt_id = type_cue.unique_id_value;
+  end if;
+  select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
+  op = "assign";
+  if ( not_empty op_cue )
+    op = op_cue.string_value;
+  end if;
+  ::set_declared_type_for_content_assist( a1_dt_id:declared_dt_id, a2_op:op );
+  ::rval_content_assist( a1_rule_token:param.a1_rule_token );
+elif ( ( "-" == ::getText( rule_token:param.a1_rule_token ) ) or ( "+" == ::getText( rule_token:param.a1_rule_token ) ) )
+  act_id = ::get_current_context();
+  select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+  select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
+  declared_dt_id = GD::NULL_UNIQUE_ID();
+  if ( not_empty type_cue )
+    declared_dt_id = type_cue.unique_id_value;
+  end if;
+  select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
+  op = "assign";
+  if ( not_empty op_cue )
+    op = op_cue.string_value;
+  end if;
+  ::set_declared_type_for_content_assist( a1_dt_id:declared_dt_id, a2_op:op );
+  ::rval_content_assist( a1_rule_token:param.a1_rule_token );
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -35397,31 +35427,18 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("8199d6c4-1c0d-47bd-b03b-180d946b91e1",
+	VALUES ("9321e2c1-e42d-48ce-b2a9-540ac553a163",
 	"00000000-0000-0000-0000-000000000000",
-	'Boolean_negation_strlit_not_content_assist',
+	'Function_invocation_tok_lparen_content_assist',
 	'ParserValidateFunction: TRUE',
-	'act_id = ::get_current_context();
-select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
-declared_dt_id = GD::NULL_UNIQUE_ID();
-if ( not_empty type_cue )
-  declared_dt_id = type_cue.unique_id_value;
-end if;
-select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
-op = "assign";
-if ( not_empty op_cue )
-  op = op_cue.string_value;
-end if;
-::set_declared_type_for_content_assist( a1_dt_id:declared_dt_id, a2_op:op );
-::rval_content_assist( a1_rule_token:param.a1_rule_token );',
+	'::invocation_parameters_content_assist( a1_rule_token:param.a1_rule_token, a2_invocation_id:param.b1_function_function1_id, a3_first_param_id:GD::NULL_UNIQUE_ID() );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
 	0);
 INSERT INTO S_SPARM
-	VALUES ("6cfcd71a-7cfd-4e3b-8d99-23c7ce914a2b",
-	"8199d6c4-1c0d-47bd-b03b-180d946b91e1",
+	VALUES ("16097e6a-d104-47ca-b0af-e032b51d5ee6",
+	"9321e2c1-e42d-48ce-b2a9-540ac553a163",
 	'a1_rule_token',
 	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
 	0,
@@ -35429,43 +35446,149 @@ INSERT INTO S_SPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("1e09632f-6571-49fe-b623-991a055561d9",
-	"8199d6c4-1c0d-47bd-b03b-180d946b91e1",
+	VALUES ("f645a504-7325-4e48-aecc-d2e4124169c3",
+	"9321e2c1-e42d-48ce-b2a9-540ac553a163",
 	'a2_upper_rule_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"6cfcd71a-7cfd-4e3b-8d99-23c7ce914a2b",
+	"16097e6a-d104-47ca-b0af-e032b51d5ee6",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("f78c9d0c-4d8b-42a8-b36c-f6c6062a4284",
-	"8199d6c4-1c0d-47bd-b03b-180d946b91e1",
+	VALUES ("98c9dba5-54f1-497a-abeb-a1e0d1eddde3",
+	"9321e2c1-e42d-48ce-b2a9-540ac553a163",
 	'a3_rule_begin_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"1e09632f-6571-49fe-b623-991a055561d9",
+	"f645a504-7325-4e48-aecc-d2e4124169c3",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("d4a55bee-69ef-46f2-9964-e339fc8975be",
-	"8199d6c4-1c0d-47bd-b03b-180d946b91e1",
+	VALUES ("571e3eb3-fdff-4b38-866f-cf6c97698621",
+	"9321e2c1-e42d-48ce-b2a9-540ac553a163",
 	'a4_rule_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"f78c9d0c-4d8b-42a8-b36c-f6c6062a4284",
+	"98c9dba5-54f1-497a-abeb-a1e0d1eddde3",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("6cc28a98-5278-4baf-9876-719e1784ef83",
-	"8199d6c4-1c0d-47bd-b03b-180d946b91e1",
-	'b1_term_id',
+	VALUES ("63e4a43f-1486-4a40-b96e-30a45c215098",
+	"9321e2c1-e42d-48ce-b2a9-540ac553a163",
+	'b1_function_function1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"d4a55bee-69ef-46f2-9964-e339fc8975be",
+	"571e3eb3-fdff-4b38-866f-cf6c97698621",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e4a6637d-f1a0-4b93-bd80-3d07e2a499b4",
+	"9321e2c1-e42d-48ce-b2a9-540ac553a163",
+	'b2_invocation_parameters2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"63e4a43f-1486-4a40-b96e-30a45c215098",
 	'');
 INSERT INTO PE_PE
-	VALUES ("8199d6c4-1c0d-47bd-b03b-180d946b91e1",
+	VALUES ("9321e2c1-e42d-48ce-b2a9-540ac553a163",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("94356d8c-522e-4eb9-8e20-b08acda20d12",
+	"00000000-0000-0000-0000-000000000000",
+	'Invocation_parameters_tok_comma_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::invocation_parameters_content_assist( a1_rule_token:param.a1_rule_token, a2_invocation_id:param.a2_upper_rule_id, a3_first_param_id:param.b1_data_item1_id );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("9127c539-cb9d-4b23-ba0f-2ac97c9563f9",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("309423fd-4917-4956-8e08-6205b1b5e5c3",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9127c539-cb9d-4b23-ba0f-2ac97c9563f9",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("278f1332-906c-43d5-857c-2423872647d4",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"309423fd-4917-4956-8e08-6205b1b5e5c3",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("aa4bcab4-1ce2-469f-b5e1-acf8ba509510",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"278f1332-906c-43d5-857c-2423872647d4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("eabe7256-a5fc-4fb2-b91f-c79c6e050148",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'b1_data_item1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7f17100c-9921-4142-9271-3521186d7e92",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1e032290-44d4-4b66-83cf-d391cf62b35e",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'b2_expr2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"eabe7256-a5fc-4fb2-b91f-c79c6e050148",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("42aee8aa-e54e-41e9-bee5-45fd686312fa",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'b3_data_item3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1e032290-44d4-4b66-83cf-d391cf62b35e",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a9a71eff-75f3-4eb1-b1e4-2c3997e053c1",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'b4_expr4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"42aee8aa-e54e-41e9-bee5-45fd686312fa",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7f17100c-9921-4142-9271-3521186d7e92",
+	"94356d8c-522e-4eb9-8e20-b08acda20d12",
+	'a5_loop_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"aa4bcab4-1ce2-469f-b5e1-acf8ba509510",
+	'');
+INSERT INTO PE_PE
+	VALUES ("94356d8c-522e-4eb9-8e20-b08acda20d12",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",

@@ -147,7 +147,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 }
                 ICompletionProposal proposal = new OALCompletionProposal( replacementText, listPosition, existingText.length(),
                                                                        cursorPosition, getImage( item.getType() ),
-                                                                       item.getDisplay_text(), null, null, item.getType() );
+                                                                       item.getDisplay_text(), null, null, item.getType(), item.getOrder() );
                 proposals.add( proposal );
             }
         }

@@ -42,23 +42,29 @@ public class OALProposalSorter implements ICompletionProposalSorter {
     public int compare( OALCompletionProposal p1, OALCompletionProposal p2 ) {
         // if the types are the same
         if ( p1.getType() == p2.getType() ) {
-            switch ( p1.getType() ) {
-                // sorted by rel num
-                case Proposaltypes_c.Association:
-                    int num1 = 0, num2 = 0; 
-                    Pattern pattern = Pattern.compile( "\\[R([1-9][0-9]*)" );
-                    Matcher match = pattern.matcher( p1.getDisplayString() );
-                    if ( match.find() ) {
-                        num1 = Integer.parseInt( match.group(1) );
-                    }
-                    match = pattern.matcher( p2.getDisplayString() );
-                    if ( match.find() ) {
-                        num2 = Integer.parseInt( match.group(1) );
-                    }
-                    return Integer.compare( num1, num2 );
-                // the following are sorted alphanumerically by display string
-                default:
-                    return p1.getDisplayString().compareTo( p2.getDisplayString() );
+            // if the orders are the same
+            if ( p1.getOrder() == p2.getOrder() ) {
+                switch ( p1.getType() ) {
+                    // sorted by rel num
+                    case Proposaltypes_c.Association:
+                        int num1 = 0, num2 = 0; 
+                        Pattern pattern = Pattern.compile( "\\[R([1-9][0-9]*)" );
+                        Matcher match = pattern.matcher( p1.getDisplayString() );
+                        if ( match.find() ) {
+                            num1 = Integer.parseInt( match.group(1) );
+                        }
+                        match = pattern.matcher( p2.getDisplayString() );
+                        if ( match.find() ) {
+                            num2 = Integer.parseInt( match.group(1) );
+                        }
+                        return Integer.compare( num1, num2 );
+                    // the following are sorted alphanumerically by display string
+                    default:
+                        return p1.getDisplayString().compareTo( p2.getDisplayString() );
+                }
+            }
+            else {
+                return Integer.compare( p1.getOrder(), p2.getOrder() );
             }
         }
         else {

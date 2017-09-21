@@ -9544,6 +9544,110 @@ INSERT INTO PE_PE
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("6fbd53a0-f0f7-4569-8e13-2b5039491df4",
+	"00000000-0000-0000-0000-000000000000",
+	'invocation_parameters_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  select any v_fnv from instances of V_FNV where ( selected.Value_ID == param.a2_invocation_id );
+  if ( not_empty v_fnv )
+    // get first parameter
+    select any s_sparm related by v_fnv->S_SYNC[R827]->S_SPARM[R24];
+    select one prev_s_sparm related by s_sparm->S_SPARM[R54.''succeeds''];
+    while ( not_empty prev_s_sparm )
+      s_sparm = prev_s_sparm;
+      select one prev_s_sparm related by s_sparm->S_SPARM[R54.''succeeds''];
+    end while;
+    // get existing parameters (first v_par is not created yet)
+    select any first_par from instances of S_SPARM where ( selected.SParm_ID == param.a3_first_param_id );
+    select many v_pars related by v_fnv->V_PAR[R817];
+    // for each parameter in order
+    order = 1;
+    while ( not_empty s_sparm )
+      include = true;
+      if ( not_empty first_par )
+        include = not ( first_par.Name == s_sparm.Name );
+      end if;
+      if ( include )
+        for each v_par in v_pars
+          if ( v_par.Name == s_sparm.Name )  // already been used
+            include = false;
+            break;
+          end if;
+        end for;
+      end if;
+      if ( include )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::FunctionParameter;
+        new_item.display_text = s_sparm.Name;
+        new_item.replacement_text = new_item.display_text + ":";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        relate new_item to list across R1601;
+        order = order + 1;
+      end if;
+      select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
+    end while;
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("9768202f-02cd-43f4-bf16-32256a366105",
+	"6fbd53a0-f0f7-4569-8e13-2b5039491df4",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("10185fb5-5816-474d-b7d4-a0ac22736ac9",
+	"6fbd53a0-f0f7-4569-8e13-2b5039491df4",
+	'a2_invocation_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9768202f-02cd-43f4-bf16-32256a366105",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("364df122-f6db-4ded-9cab-a908d3d19933",
+	"6fbd53a0-f0f7-4569-8e13-2b5039491df4",
+	'a3_first_param_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"10185fb5-5816-474d-b7d4-a0ac22736ac9",
+	'');
+INSERT INTO PE_PE
+	VALUES ("6fbd53a0-f0f7-4569-8e13-2b5039491df4",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("9092f98e-34df-42d0-be42-dc91951c8a73",
 	1,
