@@ -9141,6 +9141,8 @@ if ( not_empty act )
       select one irdt related by dt->S_IRDT[R17] where ( selected.isSet );
       select any o_attr related by irdt->O_OBJ[R123]->O_ATTR[R102]
         where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
+      select any o_tfr related by irdt->O_OBJ[R123]->O_TFR[R115]
+        where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
       select any s_mbr related by dt->S_SDT[R17]->S_MBR[R44]
         where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
       include = include or ( not_empty o_attr or not_empty s_mbr );
