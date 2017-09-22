@@ -99,9 +99,13 @@ ordering issue. A new issue has been raised to track this [[2.3]](#2.3)
 
 ### 7. Unit Test
 
+7.1 Manual acceptance test
+
 This issue is isolated and is not likely to recur after this fix. For the test,
 the steps to reproduce from the issue [[2.1]](#2.1) shall be followed. It shall
 be verified that after the fix the failure mode shall not be reproducible.
+
+7.2 Existing unit tests shall pass
 
 ### 9. Code Changes
 
