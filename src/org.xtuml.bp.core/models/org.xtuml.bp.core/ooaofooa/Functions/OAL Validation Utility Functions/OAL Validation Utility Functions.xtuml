@@ -9609,7 +9609,130 @@ if ( not_empty act )
       end if;
       select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
     end while;
-  end if;
+  else
+  select any v_trv from instances of V_TRV where ( selected.Value_ID == param.a2_invocation_id );
+  if ( not_empty v_trv )
+    // get first parameter
+    select any o_tparm related by v_trv->O_TFR[R829]->O_TPARM[R117];
+    select one prev_o_tparm related by o_tparm->O_TPARM[R124.''succeeds''];
+    while ( not_empty prev_o_tparm )
+      o_tparm = prev_o_tparm;
+      select one prev_o_tparm related by o_tparm->O_TPARM[R124.''succeeds''];
+    end while;
+    // get existing parameters (first v_par is not created yet)
+    select any first_par from instances of O_TPARM where ( selected.TParm_ID == param.a3_first_param_id );
+    select many v_pars related by v_fnv->V_PAR[R817];
+    // for each parameter in order
+    order = 1;
+    while ( not_empty o_tparm )
+      include = true;
+      if ( not_empty first_par )
+        include = not ( first_par.Name == o_tparm.Name );
+      end if;
+      if ( include )
+        for each v_par in v_pars
+          if ( v_par.Name == o_tparm.Name )  // already been used
+            include = false;
+            break;
+          end if;
+        end for;
+      end if;
+      if ( include )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::OperationParameter;
+        new_item.display_text = o_tparm.Name;
+        new_item.replacement_text = new_item.display_text + ":";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        relate new_item to list across R1601;
+        order = order + 1;
+      end if;
+      select one o_tparm related by o_tparm->O_TPARM[R124.''precedes''];
+    end while;
+  else
+  select any v_brv from instances of V_BRV where ( selected.Value_ID == param.a2_invocation_id );
+  if ( not_empty v_brv )
+    // get first parameter
+    select any s_bparm related by v_brv->S_BRG[R828]->S_BPARM[R21];
+    select one prev_s_bparm related by s_bparm->S_BPARM[R55.''succeeds''];
+    while ( not_empty prev_s_bparm )
+      s_bparm = prev_s_bparm;
+      select one prev_s_bparm related by s_bparm->S_BPARM[R55.''succeeds''];
+    end while;
+    // get existing parameters (first v_par is not created yet)
+    select any first_par from instances of S_BPARM where ( selected.BParm_ID == param.a3_first_param_id );
+    select many v_pars related by v_fnv->V_PAR[R817];
+    // for each parameter in order
+    order = 1;
+    while ( not_empty s_bparm )
+      include = true;
+      if ( not_empty first_par )
+        include = not ( first_par.Name == s_bparm.Name );
+      end if;
+      if ( include )
+        for each v_par in v_pars
+          if ( v_par.Name == s_bparm.Name )  // already been used
+            include = false;
+            break;
+          end if;
+        end for;
+      end if;
+      if ( include )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::BridgeParameter;
+        new_item.display_text = s_bparm.Name;
+        new_item.replacement_text = new_item.display_text + ":";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        relate new_item to list across R1601;
+        order = order + 1;
+      end if;
+      select one s_bparm related by s_bparm->S_BPARM[R55.''precedes''];
+    end while;
+  else
+  select any v_msv from instances of V_MSV where ( selected.Value_ID == param.a2_invocation_id );
+  if ( not_empty v_msv )
+    // get first parameter
+    select any c_pp related by v_msv->SPR_PEP[R841]->C_EP[R4501]->C_PP[R4006];
+    if ( empty c_pp )
+      select any c_pp related by v_msv->SPR_REP[R845]->C_EP[R4500]->C_PP[R4006];
+    end if;
+    select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
+    while ( not_empty prev_c_pp )
+      c_pp = prev_c_pp;
+      select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
+    end while;
+    // get existing parameters (first v_par is not created yet)
+    select any first_par from instances of C_PP where ( selected.PP_Id == param.a3_first_param_id );
+    select many v_pars related by v_fnv->V_PAR[R817];
+    // for each parameter in order
+    order = 1;
+    while ( not_empty c_pp )
+      include = true;
+      if ( not_empty first_par )
+        include = not ( first_par.Name == c_pp.Name );
+      end if;
+      if ( include )
+        for each v_par in v_pars
+          if ( v_par.Name == c_pp.Name )  // already been used
+            include = false;
+            break;
+          end if;
+        end for;
+      end if;
+      if ( include )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::PropertyParameter;
+        new_item.display_text = c_pp.Name;
+        new_item.replacement_text = new_item.display_text + ":";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        relate new_item to list across R1601;
+        order = order + 1;
+      end if;
+      select one c_pp related by c_pp->C_PP[R4021.''precedes''];
+    end while;
+  end if; end if; end if; end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

@@ -920,10 +920,10 @@ rval
     ( transform_ib_invocation[true] )=>
     transform_ib_invocation[true]
   |
-    ( invocation_expr )=>
+    ( identifier TOK_DOUBLECOLON invocation_function TOK_LPAREN )=>
     invocation_expr
   |
-    ( scoped_access )=>
+    ( scoped_data_type TOK_DOUBLECOLON )=>
     scoped_access
   |
     member_access[false]
