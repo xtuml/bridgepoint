@@ -18,9 +18,9 @@
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
-          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, format_java">
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties, format_java">
   </target>
-  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
+  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
@@ -386,6 +386,40 @@
     <delete file="rel_num.txt" />
     <delete file="remainder.txt" />
   </target>
+	
+  <target name="properties.depends" >
+    <uptodate property="properties.buildNotNeeded" targetfile="src/org/xtuml/bp/core/CorePluginMessages.properties">
+        <srcfiles dir = "../org.xtuml.bp.core/sql/" includes = "ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+        <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
+        <srcfiles dir = "../org.xtuml.bp.ui.canvas/sql/" includes = "ooaofgraphics_hierarchy_schema.sql,ooaofgraphics_hierarchy.pei.sql" />
+        <srcfiles dir = "../org.xtuml.bp.ui.canvas/sql" includes = "ooaofgraphics.sql" />
+        <srcfiles dir = "arc"        includes = "BuildHierarchyProperties.arc" />
+    	<srcfiles dir = "arc"        includes = "create_properties_file.inc" />
+        <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_names.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="properties"
+          depends="properties.depends"
+          description="Generate the hierarchy Properties file"
+          unless="properties.buildNotNeeded" >
+    <echo >Generating hierarchy Properties File ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy_schema.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa.sql
+      -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy.pei.sql
+      -import ../org.xtuml.bp.ui.canvas/sql/ooaofgraphics.sql
+      -import ../org.xtuml.bp.ui.canvas/sql/ooaofgraphics_hierarchy.pei.sql
+      -arch arc/BuildHierarchyProperties.arc"/>
+	  </exec>
+
+    <touch file="src/org/xtuml/bp/core/CorePluginMessages.properties" />
+  </target>
+
 
    <property name="cell_modifier.output" value="src/org/xtuml/bp/core/ui/cells/CellModifierProvider.java" />
    
@@ -568,7 +602,7 @@
   <target name="clean_all"
         description="Clean entire project"
         depends="clean_classes,clean_java,clean_cme_menus,clean_cme,
-        clean_cme_schema,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector" >
+        clean_cme_schema,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector,clean_core_properties" >
 
     <echo>Done cleaning for ${ant.project.name}</echo>
 
@@ -679,6 +713,10 @@
            includes="ooaofooa_hierarchy.sql,ooaofooa_hierarchy_schema.sql" />
     </delete>
 
+  </target>
+	
+  <target name="clean_core_properties" description="Remove the hierarchy properties file" >
+  	<delete verbose="true" file="src/org/xtuml/bp/core/CorePluginMessages.properties" />
   </target>
 
 </project>

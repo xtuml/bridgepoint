@@ -318,6 +318,12 @@
 	                return editor;
 	            }
               .end if
+            .elif(attr.Name == "Txt_Phrs")
+			    if(data.getName().equals("${attr.Name}")) {
+			  	  CellEditor editor = new TextCellEditor(parent);
+			  	  editor.setValidator(new ModelElementNameValidator(element));
+			  	  return editor;
+			    }                   
             .else
                 if(data.getName().equals("${attr.Name}")) {
 	                CellEditor editor = new TextCellEditor(parent);

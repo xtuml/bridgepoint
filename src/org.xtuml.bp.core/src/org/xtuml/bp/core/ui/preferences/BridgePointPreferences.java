@@ -133,14 +133,15 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
 
     requireMaslStyleIdentifiers = new Button(composite, SWT.CHECK | SWT.LEFT);
-    requireMaslStyleIdentifiers.setText("Require MASL-style identifiers for model elements");
+    requireMaslStyleIdentifiers.setText("Enable restricted identifier naming for model elements");
     requireMaslStyleIdentifiers.setLayoutData(new GridData());
-    requireMaslStyleIdentifiers.setToolTipText("This preference restricts element names to conform to the MASL standard following the BNF rule:\n  ( Letter | '_' )( Letter | Digit | '_' )*;\n\nIdentifiers may only contain letters, numbers, and underscores.  Spaces, hyphens, and other characters are not allowed.");
+    requireMaslStyleIdentifiers.setToolTipText("This preference restricts element names to follow the BNF rule:\n  ( Letter | '_' )( Letter | Digit | '_' )*;\n\nIdentifiers may only contain letters, numbers, and underscores.  Spaces, hyphens, and other characters are not allowed.");
 
     enableModelIntegrityCheck = new Button(composite, SWT.CHECK | SWT.LEFT);
     enableModelIntegrityCheck.setText("Enable model integrity checks");
     enableModelIntegrityCheck.setLayoutData(new GridData());
     enableModelIntegrityCheck.setToolTipText(BridgePointPreferencesStore.EnableModelIntegrityToolTip);
+   
         
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
@@ -229,7 +230,7 @@ public class BridgePointPreferences
         showReferenceSynchronizationReport.setSelection(bpPrefs.showReferenceSyncReport);
         useDefaultNamesForNewModelElements.setSelection(bpPrefs.useDefaultNamesForNewModelElements);          
         requireMaslStyleIdentifiers.setSelection(bpPrefs.requireMaslStyleIdentifiers);
-        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);          
+        enableModelIntegrityCheck.setSelection(bpPrefs.enableModelIntegrityCheck);  
     }
 
     public IPreferenceStore getPreferenceStore() {

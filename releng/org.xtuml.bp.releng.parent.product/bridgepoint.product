@@ -10,7 +10,8 @@
       <programArgsLin>--launcher.GTK_version
 2
       </programArgsLin>
-      <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true
+      <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
+      -Dbridgepoint.GenerateFunctionsFromList=disabled
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>

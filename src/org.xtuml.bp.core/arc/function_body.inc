@@ -206,7 +206,7 @@
     .if (usesTransactions)
 	TransactionUtil.TransactionGroup transactionGroup = 
 		TransactionUtil.startTransactionsOnSelectedModelRoots("${transaction_name.name}");
-        .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
+        .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Use Case"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
      boolean abortTransaction = false;
     .end if 
     try {
@@ -238,7 +238,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 }
 		.end if
 
- .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
+ .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Use Case"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
 	      .assign temp = "v_"+"${context_item.Name}" 
 		  .invoke rel_nav = backward_rel_chain_nav(cn.body,temp, cme.Resultant_Class_RelChain, "many", false);
       		NonRootModelElement[] children = ${rel_nav.body};
@@ -273,7 +273,7 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
 		TransactionUtil.cancelTransactions(transactionGroup, e);
     	CorePlugin.logError("Transaction: ${transaction_name.name} failed", e);//$$NON-NLS-1$$
 	}
-     .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Usecase"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
+     .if ((((((cme.Specialism == "Classes") or(cme.Specialism == "Components"))or ((cme.Specialism == "External")or(cme.Specialism == "Interaction")))or(((cme.Specialism == "New")or(cme.Specialism == "Activity"))or((cme.Specialism == "Types")or(cme.Specialism == "Use Case"))))or(cme.Specialism == "Exceptions"))and (cme.Resultant_Class_RelChain!=""))
     	if((! CorePlugin.getDefault().getPreferenceStore().getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION)) &&abortTransaction)
 		{
 			TransactionUtil.cancelTransactions(transactionGroup);

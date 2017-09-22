@@ -23,7 +23,7 @@ package org.xtuml.bp.core.common;
 
 
 public interface ITransactionListener{
-	public void transactionStarted(Transaction transaction);
-	public void transactionCancelled(Transaction transaction);
+	default public void transactionStarted(Transaction transaction){};
+	default public void transactionCancelled(Transaction transaction){};
 	public void transactionEnded(Transaction transaction);
 }
