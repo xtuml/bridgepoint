@@ -344,7 +344,7 @@ super.toString\
           .elif ( (attr.Name == "Dimensions") or (attr.Name == "Return_Dimensions") )
                 m_propertyDescriptors[${attr_num_attr}] = new DimensionsPropertyDescriptor("${name}", "${fullname}", ${readOnlyFlag});
                 m_propertyDescriptors[${attr_num_attr}].setValidator(new DimensionsValidator((NonRootModelElement)m_inst));
-                m_propertyDescriptors[${attr_num_attr}].setDescription(DimensionsValidator.getDimensionsHelpText( ${readOnlyFlag} )); 
+                m_propertyDescriptors[${attr_num_attr}].setDescription(DimensionsValidator.getDimensionsHelpText( ${readOnlyFlag} ));
           .else
             .// special case for not renaming model elements that are
             .// not meant to be renamed (the "Datatypes" package for example)
