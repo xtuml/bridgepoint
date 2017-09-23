@@ -93,7 +93,6 @@ configure_mcc_src()
     cp -fp $user_supplied_files/gen_erate.exe     ./bin
     cp -fp $user_supplied_files/gen_erate.pyz     ./bin
     cp -fp $user_supplied_files/mcmc              ./bin
-    cp -fp $user_supplied_files/mcmc64            ./bin
     cp -fp $user_supplied_files/mcmc.exe          ./bin
     cp -fp $user_supplied_files/docgen            ./bin
     cp -fp $user_supplied_files/docgen.exe        ./bin
@@ -143,7 +142,6 @@ configure_mcsystemc_src()
     
     # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
-    rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
     rm -f ./bin/docgen
     rm -f ./bin/docgen.exe
@@ -170,7 +168,6 @@ configure_mccpp_src()
 
     # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
-    rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
     rm -f ./bin/docgen
     rm -f ./bin/docgen.exe
@@ -194,7 +191,6 @@ configure_java_src()
     
     # We don't want the model-based MC or docgen for this version, so remove it
     rm -f ./bin/mcmc
-    rm -f ./bin/mcmc64
     rm -f ./bin/mcmc.exe
     rm -f ./bin/docgen
     rm -f ./bin/docgen.exe
