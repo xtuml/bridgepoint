@@ -13,47 +13,13 @@
                label="Generate Functions From List..."
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.GenerateFunctionsFromList" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
 
-<!--  
-      This was introduced to fix a bug in some customer models.   It is
-      believed that all customers who needed it have now used it, therefore it 
-      is no longer needed.  However, we are leaving the code here so it can
-      be easily put back if needed.
-      
-      <objectContribution
-            adaptable="true"
-            id="org.xtuml.bp.utilities.FixMissingMatrixEntries"
-            objectClass="org.xtuml.bp.core.common.NonRootModelElement">
-         <action
-               class="org.xtuml.bp.utilities.data.FixMissingMatrixEntryAction"
-               enablesFor="1"
-               id="org.xtuml.bp.utilities.FixMissingMatrixEntryAction"
-               label="Fix Missing State Matrix Entries..."
-               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
-         </action>
-      </objectContribution>
--->
-
-<!-- 
-      This was introduced as a test when GEF graphics were added to help
-      assure tree expansion was being done faster then prior versions.  
-      It is being commented-out but left here for possible future use.
-      
-    <objectContribution
-            adaptable="false"
-            id="org.xtuml.bp.utilities.loadByExpansion"
-            objectClass="org.xtuml.bp.core.common.NonRootModelElement">
-         <action
-               class="org.xtuml.bp.utilities.load.LoadByExpansionAction"
-               enablesFor="1"
-               id="org.xtuml.bp.utilities.loadByExpansion"
-               label="Load System By Tree Expansion"
-               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
-         </action>
-      </objectContribution>
--->
-      
       <objectContribution
             adaptable="false"
             id="org.xtuml.bp.utilities.loadAndPersist"
@@ -65,6 +31,11 @@
                label="Load and Persist"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.LoadandPersist" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
      
       <objectContribution
@@ -78,6 +49,11 @@
                label="Reconcile Graphics"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.ReconcileGraphics" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
       
       <objectContribution
@@ -91,6 +67,11 @@
                label="Check Model Integrity"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.CheckModelIntegrity" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
       
    </extension>
@@ -98,7 +79,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any">
+            locationURI="popup:org.eclipse.ui.popup.any?after=org.xtuml.bp.ui.context-internal">
          <menu
                id="org.xtuml.bp.utilities"
                label="BridgePoint Utilities">
@@ -109,6 +90,8 @@
          </menu>
       </menuContribution>
    </extension>
+   <!-- This feature is not used right now, but is being left in place because it will 
+        likely be used again in the future.
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
@@ -132,6 +115,6 @@
             </class>
          </action>
       </actionSet>
-   </extension>
+   </extension>-->
 
 </plugin>

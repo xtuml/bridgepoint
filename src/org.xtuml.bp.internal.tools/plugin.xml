@@ -44,31 +44,15 @@ the License.
               id="org.xtuml.bp.internal.tools.process.ChangeSetCreator"
               label="Create Change Set">
         </action>
+        <visibility>
+          <not>
+            <systemProperty name="bridgepoint.CreateChangeSet" value="disabled"/>
+          </not>
+        </visibility>
     </objectContribution>
-     <viewerContribution
-           id="org.xtuml.bp.internal.tools.viewerContribution1"
-           targetID="org.xtuml.bp.ui.explorer.ExplorerView">
-        <action
-              class="org.xtuml.bp.internal.tools.actions.CreateTestProjectAndImportTestModel"
-              id="org.xtuml.bp.internal.tools.action1"
-              label="Create And Import Test Project..."
-              menubarPath="additions">
-        </action>
-     </viewerContribution>
  </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="org.xtuml.bp.internal.tools.cleaner"
-            objectClass="org.xtuml.bp.core.SystemModel_c">
-         <action
-               class="org.xtuml.bp.internal.tools.cleaner.CleanseForMCWorker"
-               enablesFor="1"
-               id="org.xtuml.bp.internal.tools.CleanseForMCWorker"
-               label="Cleanse for Model Compiler"
-               menubarPath="org.xtuml.bp.ui.context-internal">
-         </action>
-      </objectContribution>
       <objectContribution
             adaptable="false"
             id="org.xtuml.bp.internal.tools.locateOrphanedInTree"
@@ -80,6 +64,11 @@ the License.
                label="Locate Orphaned Elements"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.LocateOrphanedElements" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
       <objectContribution
             adaptable="false"

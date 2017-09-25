@@ -7380,7 +7380,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("b5d81f19-ddf3-45c8-bef0-c776f0c27ddd",
 	"00000000-0000-0000-0000-000000000000",
-	'EP_PKG_UsecaseUsecase',
+	'EP_PKG_UseCaseUseCase',
 	'ContextMenuFunction: TRUE',
 	'select any pkg from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
 pkg.newUseCase();',

@@ -10,8 +10,13 @@
                class="org.xtuml.bp.ui.marking.LaunchMarkingEditorAction"
                id="org.xtuml.bp.ui.marking.LaunchMarkingEdAction"
                label="Manage Project Markings"
-               menubarPath="org.xtuml.bp.utilities.separator">
+               menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.ManageProjectMarkings" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
    </extension>
 </plugin>

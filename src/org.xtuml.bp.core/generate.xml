@@ -18,9 +18,9 @@
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
-          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, propeprties, format_java">
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties, format_java">
   </target>
-  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, propeprties">
+  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
@@ -399,7 +399,7 @@
     </uptodate>
   </target>
 
-  <target name="propeprties"
+  <target name="properties"
           depends="properties.depends"
           description="Generate the hierarchy Properties file"
           unless="properties.buildNotNeeded" >
