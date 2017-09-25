@@ -4,21 +4,19 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Review #2 of Use Case Document (9749_usecases.md) and review #1 of the test matrix (oal_autocomplete_matrix.txt)
 ### xtUML Project Review Minutes
 
 Reviewed:  
-Present:  
+   1. Use Case Document (hash: f0dd)   https://github.com/travislondon/bridgepoint/blob/9749_usecases/doc-bridgepoint/notes/9749_usecases/9749_usecases.md
+
+   2. Use Case Test Matrix    https://raw.githubusercontent.com/travislondon/bptest/9750_matrix_creation/src/org.xtuml.bp.als.oal.test/matrices/non-generated/oal_autocomplete_matrix.txt
+         
+Present:  Cort, Levi,Bob, Travis
+
+Link to the google doc that was used during this review (this google doc is obsolete with creation of this document in git): https://docs.google.com/document/d/1nnOwB6wyl5ygOgCQjvq9ccqM8HLmGm8rPZmRbA2hjqY/edit
 
 <pre>
-
-Date: Sept 25, 2017
-Who Cort, Levi,Bob,Travis
-
-
-Review:
-* Use Case Document (hash: f0dd)
-*  Use Case Test Matrix
 
 
 Agenda (with observations)
