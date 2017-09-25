@@ -98,6 +98,17 @@ if not_empty pe
   unrelate self from pe across R640 using bie;
   delete object instance bie;
 end if;
+
+select one p_pl related by self->P_PL[R1603];
+if not_empty p_pl 
+  p_pl.dispose();
+end if;
+
+select many p_pccs related by self->P_PCC[R1602];
+for each p_pcc in p_pccs
+  p_pcc.dispose();
+end for;
+
 delete object instance self;
 ',
 	1,

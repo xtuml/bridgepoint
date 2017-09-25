@@ -16,13 +16,21 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 public class ParseRunnable implements Runnable {
 	private String m_document;
 	private NonRootModelElement m_modelElement;
+	private int m_contentAssistLine;
+	private int m_contentAssistCol;
 
 	/**
 	 * Constructor.
 	 */
 	public ParseRunnable(NonRootModelElement modelElement, String document) {
+	    this( modelElement, document, 0, 0 );
+	}
+
+	public ParseRunnable(NonRootModelElement modelElement, String document, int contentAssistLine, int contentAssistCol ) {
 		m_modelElement = modelElement;
 		m_document = document;
+	    m_contentAssistLine = contentAssistLine;
+	    m_contentAssistCol = contentAssistCol;
 	}
 
 	public void run() {
@@ -34,7 +42,7 @@ public class ParseRunnable implements Runnable {
 
 		Ooaofooa modelRoot = (Ooaofooa) m_modelElement.getModelRoot();
 		OalLexer lexer = new OalLexer(new StringReader(m_document));
-		TextParser parser = new TextParser(modelRoot, lexer);
+		TextParser parser = new TextParser(modelRoot, lexer, m_contentAssistLine, m_contentAssistCol);
 		boolean parseCompleted = false;
 		boolean problemsFound = false;
 		try {

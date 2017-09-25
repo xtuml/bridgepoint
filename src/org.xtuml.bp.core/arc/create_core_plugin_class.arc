@@ -493,6 +493,21 @@ public class CorePlugin extends AbstractUIPlugin {
         return getImageFor(type, false,object, returnDefaultOnFail);
     }
 
+    public static Image getImageFor(Class<?> object) {
+    	return getImageFor(object, true);
+    }
+    
+    public static Image getImageFor(Class<?> object, boolean returnDefaultOnFail) {
+        String type = object.getName();
+        //Removing the packge name from the type string
+        //We need to remove the full package path
+
+        if (type.lastIndexOf('.') != -1)
+            type = type.substring(type.lastIndexOf('.') + 1);
+
+        return getImageFor(type, false, null, returnDefaultOnFail);
+    }
+
     public static ImageDescriptor getImageDescriptorFor(String objectName, boolean stripName){
     	return getImageDescriptorFor(objectName, stripName, true);
     }
