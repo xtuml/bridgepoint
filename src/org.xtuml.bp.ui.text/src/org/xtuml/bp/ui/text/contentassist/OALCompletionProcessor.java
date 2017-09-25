@@ -237,6 +237,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             case Proposaltypes_c.Literal:
                 //return CorePlugin.getImageFor( Function_c.class );
                 return null;
+            case Proposaltypes_c.SignalToProvider:
+                return CorePlugin.getImageFor( "InterfaceSignal_cClientServer", false, null, true );
+            case Proposaltypes_c.SignalFromProvider:
+                return CorePlugin.getImageFor( "InterfaceSignal_cServerClient", false, null, true );
+            case Proposaltypes_c.OperationToProvider:
+                return CorePlugin.getImageFor( "InterfaceOperation_cClientServer", false, null, true );
+            case Proposaltypes_c.OperationFromProvider:
+                return CorePlugin.getImageFor( "InterfaceOperation_cServerClient", false, null, true );
             default:
                 return null;
         }

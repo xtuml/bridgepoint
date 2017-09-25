@@ -9604,6 +9604,7 @@ if ( not_empty act )
         new_item.replacement_text = new_item.display_text + ":";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
+        new_item.order = order;
         relate new_item to list across R1601;
         order = order + 1;
       end if;
@@ -9621,7 +9622,7 @@ if ( not_empty act )
     end while;
     // get existing parameters (first v_par is not created yet)
     select any first_par from instances of O_TPARM where ( selected.TParm_ID == param.a3_first_param_id );
-    select many v_pars related by v_fnv->V_PAR[R817];
+    select many v_pars related by v_trv->V_PAR[R811];
     // for each parameter in order
     order = 1;
     while ( not_empty o_tparm )
@@ -9644,6 +9645,7 @@ if ( not_empty act )
         new_item.replacement_text = new_item.display_text + ":";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
+        new_item.order = order;
         relate new_item to list across R1601;
         order = order + 1;
       end if;
@@ -9661,7 +9663,7 @@ if ( not_empty act )
     end while;
     // get existing parameters (first v_par is not created yet)
     select any first_par from instances of S_BPARM where ( selected.BParm_ID == param.a3_first_param_id );
-    select many v_pars related by v_fnv->V_PAR[R817];
+    select many v_pars related by v_brv->V_PAR[R810];
     // for each parameter in order
     order = 1;
     while ( not_empty s_bparm )
@@ -9684,6 +9686,7 @@ if ( not_empty act )
         new_item.replacement_text = new_item.display_text + ":";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
+        new_item.order = order;
         relate new_item to list across R1601;
         order = order + 1;
       end if;
@@ -9704,7 +9707,7 @@ if ( not_empty act )
     end while;
     // get existing parameters (first v_par is not created yet)
     select any first_par from instances of C_PP where ( selected.PP_Id == param.a3_first_param_id );
-    select many v_pars related by v_fnv->V_PAR[R817];
+    select many v_pars related by v_msv->V_PAR[R842];
     // for each parameter in order
     order = 1;
     while ( not_empty c_pp )
@@ -9727,12 +9730,59 @@ if ( not_empty act )
         new_item.replacement_text = new_item.display_text + ":";
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
+        new_item.order = order;
         relate new_item to list across R1601;
         order = order + 1;
       end if;
       select one c_pp related by c_pp->C_PP[R4021.''precedes''];
     end while;
-  end if; end if; end if; end if;
+  else
+  select any e_ess from instances of E_ESS where ( selected.Statement_ID == param.a2_invocation_id );
+  if ( not_empty e_ess )
+    // get event
+    select one sm_evt related by e_ess->E_GES[R701]->E_GSME[R703]->SM_EVT[R707];
+    if ( empty sm_evt )
+      select one sm_evt related by e_ess->E_CES[R701]->E_CSME[R702]->SM_EVT[R706];
+    end if;
+    // get first parameter
+    select any sm_evtdi related by sm_evt->SM_EVTDI[R532];
+    select one prev_sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''succeeds''];
+    while ( not_empty prev_sm_evtdi )
+      sm_evtdi = prev_sm_evtdi;
+      select one prev_sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''succeeds''];
+    end while;
+    // get existing parameters (first v_par is not created yet)
+    select any first_par related by sm_evt->SM_EVTDI[R532] where ( selected.SMedi_ID == param.a3_first_param_id );
+    select many v_pars related by e_ess->V_PAR[R700];
+    // for each parameter in order
+    order = 1;
+    while ( not_empty sm_evtdi )
+      include = true;
+      if ( not_empty first_par )
+        include = not ( first_par.Name == sm_evtdi.Name );
+      end if;
+      if ( include )
+        for each v_par in v_pars
+          if ( v_par.Name == sm_evtdi.Name )  // already been used
+            include = false;
+            break;
+          end if;
+        end for;
+      end if;
+      if ( include )
+        create object instance new_item of P_P;
+        new_item.type = ProposalTypes::EventDataItem;
+        new_item.display_text = sm_evtdi.Name;
+        new_item.replacement_text = new_item.display_text + ":";
+        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        new_item.needs_space = true;
+        new_item.order = order;
+        relate new_item to list across R1601;
+        order = order + 1;
+      end if;
+      select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''precedes''];
+    end while;
+  end if; end if; end if; end if; end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

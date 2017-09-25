@@ -35997,6 +35997,424 @@ INSERT INTO PE_PE
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	"00000000-0000-0000-0000-000000000000",
+	'Event_spec_tok_lparen_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::invocation_parameters_content_assist( a1_rule_token:param.a1_rule_token, a2_invocation_id:param.b1_event_label1_id, a3_first_param_id:GD::NULL_UNIQUE_ID() );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("317b072f-7271-491e-9792-b22e4f6000d0",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("723d9673-2111-487c-9a28-945019979ef9",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"317b072f-7271-491e-9792-b22e4f6000d0",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("059cbd74-9a9e-49f6-9e98-d2cd871bb635",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"723d9673-2111-487c-9a28-945019979ef9",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3a496541-ca57-48c6-bd5a-ca34da455cd3",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"059cbd74-9a9e-49f6-9e98-d2cd871bb635",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ed41e5c4-1d22-4bc8-bc3a-26fbc29c6866",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'b1_event_label1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3a496541-ca57-48c6-bd5a-ca34da455cd3",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0b1ff63d-809f-4b04-80be-93736c32d0d4",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'b2_event_meaning2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ed41e5c4-1d22-4bc8-bc3a-26fbc29c6866",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("94ab5165-1edb-4c48-a258-2bbffe069e12",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'b3_supp_data3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"0b1ff63d-809f-4b04-80be-93736c32d0d4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("50b3fe4b-4fa9-419d-b172-6d006abd287a",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'b4_object_keyletters4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"94ab5165-1edb-4c48-a258-2bbffe069e12",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("de90c53c-7cf4-47da-ba14-6173d6be729c",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'b5_object_keyletters5_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"50b3fe4b-4fa9-419d-b172-6d006abd287a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d6ea602c-9b41-438c-b4a3-4b9d497e338c",
+	"4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	'b6_inst_ref_var_or_ee_keyletters6_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"de90c53c-7cf4-47da-ba14-6173d6be729c",
+	'');
+INSERT INTO PE_PE
+	VALUES ("4b299a42-dd7b-499d-b4ae-91b19f7444ce",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	"00000000-0000-0000-0000-000000000000",
+	'Supp_data_tok_comma_content_assist',
+	'ParserValidateFunction: TRUE',
+	'select any smt from instances of ACT_SMT where ( selected.Statement_ID == param.a2_upper_rule_id );
+select one blk related by smt->ACT_BLK[R602];
+select one sm_evt related by smt->E_ESS[R603]->E_GES[R701]->E_GSME[R703]->SM_EVT[R707];
+if ( empty sm_evt )
+  select one sm_evt related by smt->E_ESS[R603]->E_CES[R701]->E_CSME[R702]->SM_EVT[R706];
+end if;
+if ( not_empty blk )
+  select any sm_evtdi related by sm_evt->SM_EVTDI[R532] where ( selected.Name == blk.SupData1 );
+  if ( not_empty sm_evtdi )
+    ::invocation_parameters_content_assist( a1_rule_token:param.a1_rule_token, a2_invocation_id:param.a2_upper_rule_id, a3_first_param_id:sm_evtdi.SMedi_ID );
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("f5a33eae-858c-4488-a3ec-43e75af9d2d6",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2463cb6c-9224-4e91-a7cf-a360ff64217d",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f5a33eae-858c-4488-a3ec-43e75af9d2d6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0346c3a5-7911-48fa-a9b3-6fb4760eefbf",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"2463cb6c-9224-4e91-a7cf-a360ff64217d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("230d2c27-7741-42ae-a944-fcbac46dc08f",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"0346c3a5-7911-48fa-a9b3-6fb4760eefbf",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("499f0e72-cd85-4c5d-be37-f157230dcb7f",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'b1_supp_data_item1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6bf5a458-2f81-4901-a724-4d98672f859b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("cc5eabb3-9a9c-4379-bef1-19ffb8d2954f",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'b2_expr2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"499f0e72-cd85-4c5d-be37-f157230dcb7f",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ea5c4a52-ed60-4abd-a3eb-d7298ad56fae",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'b3_supp_data_item3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"cc5eabb3-9a9c-4379-bef1-19ffb8d2954f",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6d9afa48-42f1-4fb0-8453-1f52fa786f65",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'b4_expr4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ea5c4a52-ed60-4abd-a3eb-d7298ad56fae",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6bf5a458-2f81-4901-a724-4d98672f859b",
+	"faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	'a5_loop_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"230d2c27-7741-42ae-a944-fcbac46dc08f",
+	'');
+INSERT INTO PE_PE
+	VALUES ("faae14a6-66aa-45f7-b4d1-c5b6a4e2ff14",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("68e46f45-e13b-4e28-8cb9-996702680e3b",
+	"00000000-0000-0000-0000-000000000000",
+	'Message_invocation_tok_doublecolon_content_assist',
+	'ParserValidateFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+current_scope = ::get_current_scope();
+select any block from instances of ACT_BLK where ( selected.Block_ID == current_scope );
+if ( not_empty act and not_empty block )
+
+  // get the port
+  select any containing_c_c from instances of C_C where ( selected.Id == act.getContainingComponentId() );
+  select any c_po related by containing_c_c->C_PO[R4010] where ( selected.Name == block.TempBuffer );
+  if ( not_empty c_po )
+
+    // create list
+    line = ::getLineNumber( rule_token:param.a1_rule_token );
+    col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+    select one list related by act->P_PL[R1603];
+    if ( not_empty list )
+      if ( ( list.line != line ) or ( list.col != col ) )
+        list.dispose();
+        create object instance list of P_PL;
+        list.line = line;
+        list.col = col;
+        relate list to act across R1603;
+      end if;
+    else
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+    
+    // get declared type
+    select any declared_dt from instances of S_DT where false;
+    select any cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
+    if ( not_empty cue )
+      select any declared_dt from instances of S_DT where ( selected.DT_ID == cue.unique_id_value );
+    end if;
+    
+    // get the type op
+    type_op = "assign";
+    select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
+    if ( not_empty op_cue )
+      type_op = op_cue.string_value;
+    end if;
+    
+    outbound_direction = IFDirectionType::ClientServer; // to provider is "outbound"
+    select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
+    if ( not_empty c_p )
+      outbound_direction = IFDirectionType::ServerClient; // from provider is "outbound"
+    end if;
+    
+    // get all the outbound signals
+    if ( empty declared_dt ) // do not show signals if there is a declared type
+      select many c_ass related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_AS[R4004] where ( selected.Direction == outbound_direction );
+      for each c_as in c_ass
+        create object instance new_item of P_P;
+        if ( IFDirectionType::ClientServer == outbound_direction )
+          new_item.type = ProposalTypes::SignalToProvider;
+        else
+          new_item.type = ProposalTypes::SignalFromProvider;
+        end if;
+        if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+          new_item.replacement_text = c_as.getSignature( flavor:2 );
+          new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+          if ( 0 == new_item.cursor_position )
+            new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+          end if;
+        else
+          new_item.replacement_text = c_as.getSignature( flavor:3 );
+          new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+          if ( 0 == new_item.cursor_position )
+            new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+          end if;
+        end if;
+        new_item.display_text = c_as.getSignature( flavor:2 );
+        new_item.needs_space = false;
+        relate new_item to list across R1601;
+      end for;
+    end if;
+    
+    // get all outbound ops
+    select many c_ios related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_IO[R4004] where ( selected.Direction == outbound_direction );
+    for each c_io in c_ios
+      select one return_dt related by c_io->S_DT[R4008];
+      include = false;
+      if ( empty declared_dt )
+        include = ( "void" == return_dt.Name );
+      else
+        include = ::data_types_compatible_for_content_assist( dt1:declared_dt.DT_ID, dt2:return_dt.DT_ID, op:type_op );
+      end if;
+      if ( include )
+        create object instance new_item of P_P;
+        if ( IFDirectionType::ClientServer == outbound_direction )
+          new_item.type = ProposalTypes::OperationToProvider;
+        else
+          new_item.type = ProposalTypes::OperationFromProvider;
+        end if;
+        if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+          new_item.replacement_text = c_io.getSignature( flavor:2 );
+          new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+          if ( 0 == new_item.cursor_position )
+            new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+          end if;
+        else
+          new_item.replacement_text = c_io.getSignature( flavor:3 );
+          new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+          if ( 0 == new_item.cursor_position )
+            new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+          end if;
+        end if;
+        new_item.display_text = c_io.getSignature( flavor:2 ) + " - " + return_dt.Name;
+        new_item.needs_space = false;
+        relate new_item to list across R1601;
+      end if;
+    end for;
+  
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("0792e9e6-0a40-44ce-a80e-c11afa6fe0ad",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2a31a1b8-65af-4859-acb3-7b6ad6e1ce09",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a2_upper_rule',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"0792e9e6-0a40-44ce-a80e-c11afa6fe0ad",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fcd2cc0a-21fc-4c9e-90e8-6618598a83d2",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a3_start_rule',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"2a31a1b8-65af-4859-acb3-7b6ad6e1ce09",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("36d5a7e1-df23-449f-8d52-1c305846bfea",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a4_current_rule',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fcd2cc0a-21fc-4c9e-90e8-6618598a83d2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ce5deadb-42cf-4f97-89d2-9746e8210ffc",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a5_interface',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"36d5a7e1-df23-449f-8d52-1c305846bfea",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f851ebc1-c01b-408f-b29b-345ccd595467",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a6_message',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ce5deadb-42cf-4f97-89d2-9746e8210ffc",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fe0b170c-a274-43c9-ab3b-18118cf0c305",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a7_parameters',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f851ebc1-c01b-408f-b29b-345ccd595467",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3530750d-308e-44ac-a5ab-56c377435350",
+	"68e46f45-e13b-4e28-8cb9-996702680e3b",
+	'a8_variable',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fe0b170c-a274-43c9-ab3b-18118cf0c305",
+	'');
+INSERT INTO PE_PE
+	VALUES ("68e46f45-e13b-4e28-8cb9-996702680e3b",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	1,
