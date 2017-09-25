@@ -13,6 +13,11 @@
                label="Check Referential Integrity"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.CheckReferentialIntegrity" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
    </extension>
 </plugin>

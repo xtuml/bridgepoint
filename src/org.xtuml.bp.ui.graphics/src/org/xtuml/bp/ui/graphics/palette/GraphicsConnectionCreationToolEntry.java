@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: GraphicsConnectionCreationToolEntry.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:05:49 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -34,12 +26,28 @@ public class GraphicsConnectionCreationToolEntry extends
 		ConnectionCreationToolEntry {
 
 	private int type;
+	private static String PROPERTY_PREFIX = "bridgepoint.";
 
 	public GraphicsConnectionCreationToolEntry(String label, String shortDesc,
 			CreationFactory factory, ImageDescriptor iconSmall,
 			ImageDescriptor iconLarge, int ooaType) {
 		super(label, shortDesc, factory, iconSmall, iconLarge);
 		type = ooaType;
+	
+		String propertyLabel = label.replaceAll("\\/+", "");
+		propertyLabel = propertyLabel.replaceAll("\\s+","");
+		
+		// Special case names of tools that have naming duplication
+		if ( type == 87 ) {
+			propertyLabel = "UseCaseAssociation";
+		}
+		// End special case
+
+		String propertyKey = PROPERTY_PREFIX + propertyLabel;
+        String actualPropertyValue = System.getProperty(propertyKey, "enabled");
+        if ( actualPropertyValue.equals("disabled") ) {
+        	setVisible(false);
+        }	
 	}
 
 	@Override

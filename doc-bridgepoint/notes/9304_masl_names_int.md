@@ -21,7 +21,7 @@ This note describes changes and fixes to make MASL model creation less error-pro
 3. Background
 -------------
 When creating a MASL-idiom model users really should be using MASL-style naming
-by using the editor preference "Require MASL-style identifiers for model elements".  
+by using the editor preference "Enable restricted identifier naming for model elements".  
 
 4. Requirements
 ---------------

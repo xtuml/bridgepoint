@@ -12,6 +12,11 @@
                label="Set Model Compiler"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.SetModelCompiler" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
    </extension>
 </plugin>
