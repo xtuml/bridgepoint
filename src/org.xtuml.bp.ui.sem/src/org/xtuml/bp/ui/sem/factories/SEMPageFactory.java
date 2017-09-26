@@ -30,13 +30,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.ui.graphics.editor.IEditorTabFactory;
+import org.xtuml.bp.core.editors.IEditorTabFactory;
+import org.xtuml.bp.core.editors.ModelEditor;
+import org.xtuml.bp.core.editors.input.IModelEditorInput;
 import org.xtuml.bp.ui.sem.pages.SEMEditorPage;
 
 public class SEMPageFactory implements IEditorTabFactory {
 
+	private Object configuredInput;
+
 	@Override
-	public Composite createEditorTab(Composite parent, Object editorInput, String text) {
+	public Composite createEditorTab(ModelEditor modelEditor, Composite parent, IModelEditorInput editorInput) {
 		if(editorInput instanceof InstanceStateMachine_c) {
 			SEMEditorPage page = new SEMEditorPage(parent, StateMachine_c.getOneSM_SMOnR517((InstanceStateMachine_c) editorInput));
 			return page;
@@ -47,5 +51,35 @@ public class SEMPageFactory implements IEditorTabFactory {
 		}
 		return null;
 	}
-	
+
+	@Override
+	public boolean getFocusBased() {
+		return false;
+	}
+
+	@Override
+	public void setFocusBased(boolean isFocusBased) {
+		// do nothing unless we change it later
+	}
+
+	@Override
+	public String getEditorTitle() {
+		return "State Event Matrix Editor";
+	}
+
+	@Override
+	public void setEditorTitle(String title) {
+		// do nothing for now
+	}
+
+	@Override
+	public Object getInput() {
+		return configuredInput;
+	}
+
+	@Override
+	public void setInput(Object input) {
+		configuredInput = input;
+	}
+
 }

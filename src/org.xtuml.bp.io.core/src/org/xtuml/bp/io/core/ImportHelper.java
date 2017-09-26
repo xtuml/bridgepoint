@@ -2215,11 +2215,10 @@ public class ImportHelper
     }
 
     public void upgradeEventData(Ooaofooa modelRoot,
-                                                NonRootModelElement modelElem) {
-        StateMachine_c [] sms = StateMachine_c.
-                                  StateMachineInstances(modelRoot, null, false);
-        for (int i = 0; i < sms.length; i++) {
-          StateMachine_c sm = sms[i];
+                                                List<NonRootModelElement> modelElems) {
+        for ( NonRootModelElement modelElem : modelElems ) {
+          if ( modelElem instanceof StateMachine_c ) {
+          StateMachine_c sm = (StateMachine_c)modelElem;
           StateMachineEventDataItem_c [] smEvtDIs =
                          StateMachineEventDataItem_c.getManySM_EVTDIsOnR516(sm);
           StateMachineEvent_c unassignedDataEvent = null;
@@ -2302,6 +2301,7 @@ public class ImportHelper
             // of by the SM_SUPDT disposals.
             evSupData[j].Dispose();
           }
+        } // end if instanceof
         } // end for each state machine
     }
     

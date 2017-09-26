@@ -23,11 +23,23 @@ package org.xtuml.bp.core.editors.providers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.xtuml.bp.core.AttributeReferenceInClass_c;
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.XtUMLNature;
+import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.editors.input.IModelEditorInput;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
@@ -58,6 +70,35 @@ public class MetaModelContentProvider implements ITreeContentProvider {
 		if(element instanceof Selection) {
 			return Selection.getInstance().getSelectedNonRootModelElements();
 		}
+		if(element instanceof IModelEditorInput) {
+			element = ((IModelEditorInput) element).getRepresents();
+		}
+		if(element instanceof IWorkspaceRoot) {
+			// get and load all system models
+			IWorkspaceRoot root = (IWorkspaceRoot) element;
+			IProject[] projects = root.getProjects();
+			boolean foundOneProject = false;
+			for(int i = 0; i < projects.length; i++) {
+				try {
+					if(projects[i].hasNature(XtUMLNature.getNatureId())) {
+						foundOneProject = true;
+						break;
+					}
+				} catch (CoreException e) {
+					CorePlugin.logError("Problem checking for xtuml nature.", e);
+				}
+			}
+			if(foundOneProject) {
+			      try {
+			    	  PersistenceManager.getDefaultInstance();   // causes initialization
+			      } catch (Exception e) {
+			    	  CorePlugin.logError("Unable to initialize persistable components.", e);
+			      }
+			}
+			return SystemModel_c.SystemModelInstances(Ooaofooa.getDefaultInstance());
+		}
+		// if the element is the selection instance the
+		// elements in the selection are the children
 		if(element instanceof NonRootModelElement) {
 			IModelClassInspector modelInspector = inspector;
 			// combine attributes and real children
@@ -122,13 +163,13 @@ public class MetaModelContentProvider implements ITreeContentProvider {
 						referentials[i].getName(),
 						referentials[i].getType(),						
 						(Object)"ORPH1", object, false);//$NON-NLS-1$ 
-			}else if( referentials[i].getValue().toString().indexOf("ORPH1")+1 > 0 )	//$NON-NLS-1$
+			} else if( referentials[i].getValue().toString().indexOf("ORPH1")+1 > 0 )	//$NON-NLS-1$
 			{
 				referentials[i] = new ObjectElement(
 						referentials[i].getName(),
 						referentials[i].getType(),						
 						(Object)referentials[i].getValue().toString().replaceAll("ORPH1", ""), object, false);//$NON-NLS-1$
-			}else if( referentials[i].getValue().toString().indexOf("ORPH2")+1 > 0 )	//$NON-NLS-1$
+			} else if( referentials[i].getValue().toString().indexOf("ORPH2")+1 > 0 )	//$NON-NLS-1$
 			{
 				referentials[i] = new ObjectElement(
 						referentials[i].getName(),

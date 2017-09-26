@@ -3,6 +3,15 @@
 <plugin>
    <extension
          point="org.xtuml.bp.ui.graphics.editorTab">
+   <extension-point id="org.xtuml.bp.core.editors.editorTab" name="Model Editor Tab" schema="schema/editorTab.exsd"/>
+   <extension
+         point="org.xtuml.bp.core.editors.editorTab">
+      <EditorTab
+            EditorTabFactory="org.xtuml.bp.core.editors.tree.factories.MetamodelTabFactory"
+            EditorTitle="Model Tree Editor"
+            Input="org.xtuml.bp.core.common.NonRootModelElement"
+            focusBased="true">
+      </EditorTab>
       <EditorTab
             EditorTabFactory="org.xtuml.bp.core.editors.association.factories.AssociationEditorTabFactory"
             EditorTitle="Associations Editor"
@@ -22,5 +31,29 @@
                id="org.xtuml.bp.core.editors.ConfigureAssociation">
          </dynamic>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.xtuml.bp.core.editors.ModelEditor"
+            default="false"
+            icon="icons/search.png"
+            id="org.xtuml.bp.core.editors.ModelEditor"
+            name="Model Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.core.editors.openModelEditor"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.xtuml.bp.core.editors.actions.OpenModelEditorAction"
+               id="org.xtuml.bp.core.editors.OpenModelEditorAction"
+               label="Open Model Editor"
+               menubarPath="popup:org.eclipse.popup.ui.any?before=additions">
+         </action>
+      </objectContribution>
    </extension>
 </plugin>
