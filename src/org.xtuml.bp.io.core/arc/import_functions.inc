@@ -832,7 +832,7 @@ ${setSize.body}
           helper.upgradeDSAs(getModelRoot());
         helper.createShapeSubtypes(getGraphicsModelRoot());
         loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
-        helper.upgradeEventData(getModelRoot(), getRootModelElement());
+        helper.upgradeEventData(getModelRoot(), loadedInstances);
         helper.upgradeElementOrder(getModelRoot());
         helper.upgradeEEsForIsRealized();
 		.if(multilevel or setComponent)
