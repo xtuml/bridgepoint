@@ -59,7 +59,6 @@
                   <includes>
                     <include>gen_erate.pyz</include>
                     <include>mcmc</include>
-                    <include>mcmc64</include>
                     <include>m2x</include>
                     <include>masl</include>
                     <include>masl2xtuml</include>

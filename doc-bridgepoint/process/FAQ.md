@@ -158,7 +158,7 @@ $ sudo ./eclipse -initialize
 
 * **Installing xsltproc**  <a id="xsltproc"></a>  
   BridgePoint includes a feature to build documentation from a model.  Right-click on a xtUML project and select 
-  "Create documentation".  This tool creates a HTML document that contains images from the model along with description 
+  "BridgePoint Utilities > Create Documentation".  This tool creates a HTML document that contains images from the model along with description 
   data from the model elements.  This feature requires a common tool called ```xsltproc```.
   * MS Windows: ```xsltproc.exe``` is included in the BridgePoint distribution, no additional steps are required.
   * MacOS: ```xsltproc``` is included in the operating system software, no additional steps are required.
