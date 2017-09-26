@@ -247,7 +247,7 @@ public class DescriptionEditor extends AbstractModelElementTextEditor
       }
   }
 
-/* (non-Javadoc)
+  /* (non-Javadoc)
    * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
    */
   public void doSave(IProgressMonitor progressMonitor)
