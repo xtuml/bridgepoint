@@ -895,11 +895,6 @@ ${where_clause_arg}\
   .param inst_ref where_clause
   .param string salt
   .//
-  .assign is_validation_function = false
-  .select one s_sync related by where_clause->V_FNV[R801]->S_SYNC[R827]
-  .if ( not_empty s_sync )
-    .assign is_validation_function = ( "$U_{s_sync.Descrip:ParserValidateFunction}" == "TRUE" )
-  .end if
   .invoke cn = get_class_name( tgt_obj )
   .invoke tcn = get_test_class_name()
   .assign new_test_class_name = "$cr{tgt_obj.Name}_test${salt}_c"
@@ -915,18 +910,7 @@ ${twc.member_decl}
 	public boolean evaluate (Object candidate)
 	{
 		${cn.body} selected = (${cn.body})candidate;
-  .// insert a try catch to allow invoking validation functions in where clauses
-  .// note that this only works for where clauses which contain a single function
-  .// value, so a function call with the equality operator would not work
-  .if ( is_validation_function )
-    try {
-		    return ${where_clause.buffer} ;
-    } catch ( RecognitionException e ) {
-        return false;
-    }
-  .else
 		return ${where_clause.buffer} ;
-  .end if
 	}
   }
   .assign attr_query_new = ", new ${new_test_class_name}(${twc.args})"

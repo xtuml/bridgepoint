@@ -8134,20 +8134,7 @@ if ( not_empty act and not_empty obj )
     relate new_item to list across R1601;
   end for;
 
-  select many o_tfrs related by obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Instance );
-  for each o_tfr in o_tfrs
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Operation;
-    new_item.display_text = o_tfr.getSignature( flavor:2 );
-    new_item.replacement_text = "." + new_item.display_text;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    colon_index = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
-    if ( -1 != colon_index )
-      new_item.cursor_position = colon_index;
-    end if;
-    relate new_item to list across R1601;
-  end for;
+  ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:obj.Obj_ID, a3_instance_ops:true, a4_include_doublecolon:false );
 
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -8230,19 +8217,41 @@ if ( not_empty act )
     for each evt in class_events
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Event;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = evt.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = evt.getSignature( flavor:3 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
       new_item.display_text = evt.getSignature( flavor:2 );
-      new_item.replacement_text = new_item.display_text;
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = true;
+      new_item.needs_space = false;
       relate new_item to list across R1601;
     end for;
     for each evt in inst_events
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Event;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = evt.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = evt.getSignature( flavor:3 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
       new_item.display_text = evt.getSignature( flavor:2 );
-      new_item.replacement_text = new_item.display_text;
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = true;
+      new_item.needs_space = false;
       relate new_item to list across R1601;
     end for;
 
@@ -9085,23 +9094,6 @@ INSERT INTO S_SYNC
 ParserUtilityFunction: TRUE',
 	'act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-
-// get cues
-select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
-temp_declared_dt_id = GD::NULL_UNIQUE_ID();
-if ( not_empty type_cue )
-  temp_declared_dt_id = type_cue.unique_id_value;
-end if;
-declared_dt_id = temp_declared_dt_id; // Because of MC-Java architecture, variables must be effectively
-                                      // final to be used as parameters in an invocation in a where clause.
-select any declared_dt from instances of S_DT where ( selected.DT_ID == declared_dt_id );
-temp_type_op = "assign";
-select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
-if ( not_empty op_cue )
-  temp_type_op = op_cue.string_value;
-end if;
-type_op = temp_type_op; // Because of MC-Java architecture, variables must be effectively
-                        // final to be used as parameters in an invocation in a where clause.
 if ( not_empty act )
   line = ::getLineNumber( rule_token:param.a1_rule_token );
   col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
@@ -9127,34 +9119,13 @@ if ( not_empty act )
   while ( GD::NULL_UNIQUE_ID() != local_var_id )
     select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
     if ( local_var.Declared )
-      select one dt related by local_var->V_TRN[R814]->S_DT[R821];
-      if ( empty dt )
-        select one dt related by local_var->S_DT[R848];
-      end if;
-      include = false;
-      // if no type is declared, include all locals
-      include = include or ( GD::NULL_UNIQUE_ID() == declared_dt_id );
-      // include locals of a compatible type
-      include = include or ( ( GD::NULL_UNIQUE_ID() != declared_dt_id ) and
-          ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:dt.DT_ID, op:type_op ) ) );
-      // include inst ref and structured locals with a member/attribute of the same type
-      select one irdt related by dt->S_IRDT[R17] where ( selected.isSet );
-      select any o_attr related by irdt->O_OBJ[R123]->O_ATTR[R102]
-        where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-      select any o_tfr related by irdt->O_OBJ[R123]->O_TFR[R115]
-        where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-      select any s_mbr related by dt->S_SDT[R17]->S_MBR[R44]
-        where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-      include = include or ( not_empty o_attr or not_empty s_mbr );
-      if ( include )
-        create object instance new_item of P_P;
-        new_item.type = ProposalTypes::Variable;
-        new_item.display_text = local_var.Name;
-        new_item.replacement_text = new_item.display_text;
-        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.needs_space = true;
-        relate new_item to list across R1601;
-      end if;
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Variable;
+      new_item.display_text = local_var.Name;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      relate new_item to list across R1601;
     end if;
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
@@ -9178,10 +9149,8 @@ if ( not_empty act )
   end if;
   select many o_objs related by results->O_OBJ[R8001];
   for each o_obj in o_objs
-    select many o_tfrs related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation that returns void to be shown as an option
-    select any tfr_dt related by o_tfrs->S_DT[R116]
-      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-    if ( GD::NULL_UNIQUE_ID() == declared_dt_id or not_empty tfr_dt )
+    select any o_tfr related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation
+    if ( not_empty o_tfr )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Class;
       new_item.display_text = o_obj.Key_Lett;
@@ -9206,9 +9175,8 @@ if ( not_empty act )
   end if;
   select many s_ees related by results->S_EE[R8001];
   for each s_ee in s_ees
-    select any brg_dt related by s_ee->S_BRG[R19]->S_DT[R20]
-      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-    if ( GD::NULL_UNIQUE_ID() == declared_dt_id or not_empty brg_dt )
+    select any s_brg related by s_ee->S_BRG[R19];  // must have at least one bridge
+    if ( not_empty s_brg )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::EE;
       new_item.display_text = s_ee.Key_Lett;
@@ -9220,50 +9188,20 @@ if ( not_empty act )
   end for;
   
   // get function proposals
-  if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  end if;
-  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::FUNCTION ); 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty ep_pkg
-    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::FUNCTION ); 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many s_syncs related by results->S_SYNC[R8001];
-  for each s_sync in s_syncs
-    select one dt related by s_sync->S_DT[R25];
-    if ( "void" != dt.Name and ( GD::NULL_UNIQUE_ID() == declared_dt_id or ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:s_sync.DT_ID, op:type_op ) ) )
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Function;
-      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
-        new_item.replacement_text = s_sync.getSignature( flavor:2 );
-        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
-        if ( 0 == new_item.cursor_position )
-          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        end if;
-      else
-        new_item.replacement_text = s_sync.getSignature( flavor:3 );
-        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
-        if ( 0 == new_item.cursor_position )
-          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        end if;
-      end if;
-      new_item.replacement_text = "::" + new_item.replacement_text;
-      new_item.display_text = s_sync.getSignature( flavor:2 ) + " - " + dt.Name;
-      new_item.needs_space = true;
-      relate new_item to list across R1601;
-    end if;
-  end for;
+  ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:GD::NULL_UNIQUE_ID(), a3_instance_ops:false, a4_include_doublecolon:true );
   
-  // get message proposals
+  // get port proposals
   select any containing_c_c from instances of C_C where ( selected.Id == act.getContainingComponentId() );
   select many c_pos related by containing_c_c->C_PO[R4010];
   for each c_po in c_pos
-    select any c_io related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_IO[R4004]
-      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-    if ( GD::NULL_UNIQUE_ID() == declared_dt_id or not_empty c_io )
+    outbound_direction = IFDirectionType::ClientServer; // to provider is "outbound"
+    select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
+    if ( not_empty c_p )
+      outbound_direction = IFDirectionType::ServerClient; // from provider is "outbound"
+    end if;
+    select any c_io related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_IO[R4004] where ( selected.Direction == outbound_direction );
+    select any c_as related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_AS[R4004] where ( selected.Direction == outbound_direction );
+    if ( not_empty c_io or not_empty c_as )  // must have at least one outbound operation or signal
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Port;
       new_item.display_text = c_po.Name;
@@ -9275,38 +9213,23 @@ if ( not_empty act )
   end for;
   
   // get EDT proposals
-  if ( GD::NULL_UNIQUE_ID() == declared_dt_id )
-    if not_empty c_c
-      c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-    else
-      ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-    end if;
-    select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::DATATYPE ); 
-    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-    if not_empty ep_pkg
-      select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE ); 
-      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-    end if;
-    select many s_edts related by results->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
-    for each s_edt in s_edts
-      create object instance  new_item of P_P;
-      new_item.type = ProposalTypes::EDT;
-      new_item.display_text = s_edt.Name;
-      new_item.replacement_text = new_item.display_text + "::";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = true;
-      relate new_item to list across R1601;
-    end for;
+  if not_empty c_c
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  else
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
   end if;
-  
-  // get enumerator proposals
-  select many s_enums related by declared_dt->S_EDT[R17]->S_ENUM[R27];
-  for each s_enum in s_enums
-    select one s_edt related by s_enum->S_EDT[R27]->S_DT[R17];
+  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::DATATYPE ); 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty ep_pkg
+    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE ); 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many s_edts related by results->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
+  for each s_edt in s_edts
     create object instance  new_item of P_P;
-    new_item.type = ProposalTypes::Enumerator;
-    new_item.display_text = s_edt.Name + "::" + s_enum.Name;
-    new_item.replacement_text = new_item.display_text;
+    new_item.type = ProposalTypes::EDT;
+    new_item.display_text = s_edt.Name;
+    new_item.replacement_text = new_item.display_text + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
     relate new_item to list across R1601;
@@ -9326,10 +9249,6 @@ if ( not_empty act )
   end if;
   select many cnst_csps related by results->CNST_CSP[R8001];
   select many cnst_sycs related by cnst_csps->CNST_SYC[R1504];
-  if ( GD::NULL_UNIQUE_ID() != declared_dt_id )
-    select many cnst_sycs related by cnst_csps->CNST_SYC[R1504]
-      where ( ::data_types_compatible_for_content_assist( dt1:declared_dt_id, dt2:selected.DT_ID, op:type_op ) );
-  end if;
   for each cnst_syc in cnst_sycs
     select one cnst_csp related by cnst_syc->CNST_CSP[R1504];
     select any dup_cnst_syc related by cnst_csps->CNST_SYC[R1504] where ( selected.Name == cnst_syc.Name and selected.Const_ID != cnst_syc.Const_ID );
@@ -9345,66 +9264,48 @@ if ( not_empty act )
     relate new_item to list across R1601;
   end for;
   
-  include_boolean = ( GD::NULL_UNIQUE_ID() == declared_dt_id );
-  include_integer = ( GD::NULL_UNIQUE_ID() == declared_dt_id );
-  if ( GD::NULL_UNIQUE_ID() != declared_dt_id )
-    include_boolean = ( "boolean" == declared_dt.Name );
-    include_integer = ( "integer" == declared_dt.Name );
-  end if;
-
-  // special proposals for boolean
-  if ( include_boolean )
-    // get keyword proposals
-    i = 0;
-    while i < 3
-      kw = "";
-      if ( 0 == i )
-        kw = "not";
-      elif ( 1 == i )
-        kw = "not_empty";
-      else
-        kw = "empty";
-      end if;
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Keyword;
-      new_item.display_text = kw;
-      new_item.replacement_text = new_item.display_text + " ";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = true;
-      relate new_item to list across R1601;
-      i = i + 1;
-    end while;
-
-    // get literal proposals
-    i = 0;
-    while i < 2
-      kw = "";
-      if ( 0 == i )
-        kw = "true";
-      else
-        kw = "false";
-      end if;
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Literal;
-      new_item.display_text = kw;
-      new_item.replacement_text = new_item.display_text;
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = true;
-      relate new_item to list across R1601;
-      i = i + 1;
-    end while;
-  end if;
-    
-  // special proposals for integer
-  if ( include_integer )
+  // special proposals for boolean and integer
+  // get keyword proposals
+  i = 0;
+  while i < 4
+    kw = "";
+    if ( 0 == i )
+      kw = "not";
+    elif ( 1 == i )
+      kw = "not_empty";
+    elif ( 2 == i )
+      kw = "empty";
+    else
+      kw = "cardinality";
+    end if;
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Keyword;
-    new_item.display_text = "cardinality";
+    new_item.display_text = kw;
     new_item.replacement_text = new_item.display_text + " ";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
     relate new_item to list across R1601;
-  end if;
+    i = i + 1;
+  end while;
+
+  // get literal proposals
+  i = 0;
+  while i < 2
+    kw = "";
+    if ( 0 == i )
+      kw = "true";
+    else
+      kw = "false";
+    end if;
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Literal;
+    new_item.display_text = kw;
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    relate new_item to list across R1601;
+    i = i + 1;
+  end while;
 
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -9422,124 +9323,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("d7990a16-d0a0-4a05-87ca-3c088d832c76",
-	1,
-	"9092f98e-34df-42d0-be42-dc91951c8a73",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("147780d7-04e3-4676-b08a-56d527fb0645",
-	"00000000-0000-0000-0000-000000000000",
-	'data_types_compatible_for_content_assist',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-
-This function calls ''data_types_compatible'' and ignores any thrown errors
-Translate:native
-',
-	'if ( Gd_c.Null_unique_id() != p_Dt1 && Gd_c.Null_unique_id() != p_Dt2 ) {
-    try {
-        return ( Gd_c.Null_unique_id() != Self.Data_types_compatible( modelRoot, p_Dt1, p_Dt2, p_Op ) );
-    } catch ( RecognitionException e ) { /* do nothing */ }
-}
-return false;',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("9f7a3e04-98cf-422e-9e23-9df82188ce78",
-	"147780d7-04e3-4676-b08a-56d527fb0645",
-	'dt1',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("98f79634-352f-4042-af0e-f05e39262632",
-	"147780d7-04e3-4676-b08a-56d527fb0645",
-	'dt2',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"9f7a3e04-98cf-422e-9e23-9df82188ce78",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("a3916771-55b1-4887-8524-e42053de2977",
-	"147780d7-04e3-4676-b08a-56d527fb0645",
-	'op',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"98f79634-352f-4042-af0e-f05e39262632",
-	'');
-INSERT INTO PE_PE
-	VALUES ("147780d7-04e3-4676-b08a-56d527fb0645",
-	1,
-	"9092f98e-34df-42d0-be42-dc91951c8a73",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("cc5358fb-fb89-45be-a086-16162e28f879",
-	"00000000-0000-0000-0000-000000000000",
-	'set_declared_type_for_content_assist',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE',
-	'act_id = ::get_current_context();
-select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-if ( not_empty act )
-  select any type_cue related by act->P_PCC[R1602] where ( selected.name == "declared_type" );
-  if ( GD::NULL_UNIQUE_ID() == param.a1_dt_id )
-    if ( not_empty type_cue )
-      type_cue.dispose();  // remove the cue if the DT_ID is null
-    end if;
-  else
-    if ( empty type_cue )
-      create object instance type_cue of P_PCC;
-      type_cue.name = "declared_type";
-      relate type_cue to act across R1602;
-    end if;
-    type_cue.unique_id_value = param.a1_dt_id;
-  end if;
-  select any op_cue related by act->P_PCC[R1602] where ( selected.name == "type_op" );
-  if ( "" == param.a2_op )
-    if ( not_empty op_cue )
-      op_cue.dispose();  // remove the cue if the op is empty string
-    end if;
-  else
-    if ( empty op_cue )
-      create object instance op_cue of P_PCC;
-      op_cue.name = "type_op";
-      relate op_cue to act across R1602;
-    end if;
-    op_cue.string_value = param.a2_op;
-  end if;
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("5fe3d18e-0bc2-429c-9091-df76a943888f",
-	"cc5358fb-fb89-45be-a086-16162e28f879",
-	'a1_dt_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("91675351-ddb6-4946-b585-143b0775c52c",
-	"cc5358fb-fb89-45be-a086-16162e28f879",
-	'a2_op',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"5fe3d18e-0bc2-429c-9091-df76a943888f",
-	'');
-INSERT INTO PE_PE
-	VALUES ("cc5358fb-fb89-45be-a086-16162e28f879",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
@@ -9817,6 +9600,244 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("6fbd53a0-f0f7-4569-8e13-2b5039491df4",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("491a487d-15fb-433f-9d96-02337ace7c0a",
+	"00000000-0000-0000-0000-000000000000",
+	'invocation_content_assist',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+current_scope = ::get_current_scope();
+select any block from instances of ACT_BLK where ( selected.Block_ID == current_scope );
+if ( not_empty act and not_empty block )
+  
+  // create list
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+ 
+  select any c_po from instances of C_PO where ( selected.Id == param.a2_container_id );
+  if ( not_empty c_po )
+    
+    outbound_direction = IFDirectionType::ClientServer; // to provider is "outbound"
+    select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
+    if ( not_empty c_p )
+      outbound_direction = IFDirectionType::ServerClient; // from provider is "outbound"
+    end if;
+    
+    // get all the outbound signals
+    select many c_ass related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_AS[R4004] where ( selected.Direction == outbound_direction );
+    for each c_as in c_ass
+      create object instance new_item of P_P;
+      if ( IFDirectionType::ClientServer == outbound_direction )
+        new_item.type = ProposalTypes::SignalToProvider;
+      else
+        new_item.type = ProposalTypes::SignalFromProvider;
+      end if;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = c_as.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = c_as.getSignature( flavor:3 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
+      new_item.display_text = c_as.getSignature( flavor:2 );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end for;
+    
+    // get all outbound ops
+    select many c_ios related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_IO[R4004] where ( selected.Direction == outbound_direction );
+    for each c_io in c_ios
+      select one return_dt related by c_io->S_DT[R4008];
+      create object instance new_item of P_P;
+      if ( IFDirectionType::ClientServer == outbound_direction )
+        new_item.type = ProposalTypes::OperationToProvider;
+      else
+        new_item.type = ProposalTypes::OperationFromProvider;
+      end if;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = c_io.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = c_io.getSignature( flavor:3 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
+      new_item.display_text = c_io.getSignature( flavor:2 ) + " - " + return_dt.Name;
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end for;
+    
+  else
+  select any s_ee from instances of S_EE where ( selected.EE_ID == param.a2_container_id );
+  if ( not_empty s_ee )
+    select many s_brgs related by s_ee->S_BRG[R19];
+    for each s_brg in s_brgs
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Bridge;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = s_brg.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = s_brg.getSignature( flavor:3 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
+      new_item.display_text = s_brg.getSignature( flavor:2 );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end for;
+  
+  else
+  select any o_obj from instances of O_OBJ where ( selected.Obj_ID == param.a2_container_id );
+  if ( not_empty o_obj )
+    select many o_tfrs related by o_obj->O_TFR[R115] where ( ( not param.a3_instance_ops and selected.Instance_Based == Scope::Class ) or 
+                                                             ( param.a3_instance_ops and selected.Instance_Based == Scope::Instance ) );
+    for each o_tfr in o_tfrs
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Operation;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = o_tfr.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = o_tfr.getSignature( flavor:3 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
+      new_item.display_text = o_tfr.getSignature( flavor:2 );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end for;
+
+  else
+  if ( GD::NULL_UNIQUE_ID() == param.a2_container_id ) // function invocations
+    // create function proposals
+    in_generic_package = act.associateWithContainer();
+    select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
+    select one c_c related by containing_pe->C_C[R8001];
+    select one ep_pkg related by containing_pe->EP_PKG[R8001];
+    if not_empty c_c
+      c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    else
+      ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    end if;
+    select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::FUNCTION ); 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty ep_pkg
+      select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::FUNCTION ); 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many s_syncs related by results->S_SYNC[R8001];
+    for each s_sync in s_syncs
+      select one dt related by s_sync->S_DT[R25];
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Function;
+      if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
+        new_item.replacement_text = s_sync.getSignature( flavor:2 );
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      else
+        new_item.replacement_text = s_sync.getSignature( flavor:3 );
+        if ( param.a4_include_doublecolon )
+          new_item.replacement_text = "::" + new_item.replacement_text;
+        end if;
+        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
+        if ( 0 == new_item.cursor_position )
+          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+        end if;
+      end if;
+      new_item.display_text = s_sync.getSignature( flavor:2 ) + " - " + dt.Name;
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end for;
+
+  end if; end if; end if; end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("a1d0b735-6785-44ec-b067-f3f5deefeb97",
+	"491a487d-15fb-433f-9d96-02337ace7c0a",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0721c4b9-a527-445f-9742-9b52d7891fae",
+	"491a487d-15fb-433f-9d96-02337ace7c0a",
+	'a2_container_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a1d0b735-6785-44ec-b067-f3f5deefeb97",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("54b23c40-f202-419b-a8cb-9aea8ef27a6a",
+	"491a487d-15fb-433f-9d96-02337ace7c0a",
+	'a3_instance_ops',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"0721c4b9-a527-445f-9742-9b52d7891fae",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a2574d95-1103-467e-a001-440fd9a3f972",
+	"491a487d-15fb-433f-9d96-02337ace7c0a",
+	'a4_include_doublecolon',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"54b23c40-f202-419b-a8cb-9aea8ef27a6a",
+	'');
+INSERT INTO PE_PE
+	VALUES ("491a487d-15fb-433f-9d96-02337ace7c0a",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",

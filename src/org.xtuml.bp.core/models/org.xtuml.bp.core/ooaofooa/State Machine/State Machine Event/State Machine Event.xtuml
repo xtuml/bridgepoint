@@ -1178,6 +1178,8 @@ INSERT INTO O_TFR
  *  with the specified flavor
  *  0 = named parameters
  *  1 = positional parameters
+ *  2 = signature with labels for content assist
+ *  3 = signature without parameters for content assist
  *  named signature = event(param1:type, param2:type, param3:type)
  *  parameters for the named flavor are sorted alphanumerically
  *  positional signature = event(param1_type, param2_type, param3_type)
@@ -1188,7 +1190,7 @@ signature = "";
 // Get name
 signature = signature + self.Mning;
 
-if ( 2 == param.flavor )
+if ( 2 == param.flavor or 3 == param.flavor )
   signature = self.Drv_Lbl + ":" + signature;
 end if;
 
@@ -1270,16 +1272,21 @@ elif ( 2 == param.flavor )
   separator = " ";
   parameter = first_param;
   while ( not_empty parameter )
-	signature = signature + separator + parameter.Name + ":" + parameter.Name;
+    signature = signature + separator + parameter.Name + ":";
 	separator = ", ";
 	select one parameter related by parameter->SM_EVTDI[R533.''precedes''];
   end while;
   if( not_empty first_param )
-	signature = signature + " ";
+    signature = signature + " ";
   end if;
   signature = signature + ")";
 
+elif ( 3 == param.flavor )
+
+  signature = signature + "()";
+  
 end if;
+
 
 return signature;',
 	1,
