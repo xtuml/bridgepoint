@@ -69,6 +69,15 @@ INSERT INTO CAF VALUES ( '${r.nodeId}', '${fncname}', 'begin' );
 .//-- Missing content assist function '${fncname}'
 .//    .assign attr_generated = true
   .end if
+  .assign fncname = "$c{r.rule_name}_begin2_content_assist"
+  .select any s_sync from instances of S_SYNC where ( selected.Name == fncname )
+  .if ( not_empty s_sync )
+INSERT INTO CAF VALUES ( '${r.nodeId}', '${fncname}', 'begin2' );
+    .assign attr_generated = true
+  .else
+.//-- Missing content assist function '${fncname}'
+.//    .assign attr_generated = true
+  .end if
 .end function
 .//---------------------------------------
 .function descend_node

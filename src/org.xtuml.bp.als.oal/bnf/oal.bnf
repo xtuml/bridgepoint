@@ -913,6 +913,7 @@ array_refs
   ;
 rval
   :
+  (
     ( TOK_DOUBLECOLON )=>
     TOK_DOUBLECOLON!
     function_invocation[true]
@@ -939,6 +940,7 @@ rval
     param_data_access[false]
   |
     TOK_QMARK
+  )
   ;
 constant_value
   :

@@ -8125,13 +8125,15 @@ if ( not_empty act and not_empty obj )
 
   select many o_attrs related by obj->O_ATTR[R102];
   for each o_attr in o_attrs
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Attribute;
-    new_item.replacement_text = "." + o_attr.Name;
-    new_item.display_text = o_attr.Name;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    relate new_item to list across R1601;
+    if ( "current_state" != o_attr.Name )
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Attribute;
+      new_item.replacement_text = o_attr.Name;
+      new_item.display_text = o_attr.Name;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+    end if;
   end for;
 
   ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:obj.Obj_ID, a3_instance_ops:true, a4_include_doublecolon:false );
@@ -8219,7 +8221,8 @@ if ( not_empty act )
       new_item.type = ProposalTypes::Event;
       if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
         new_item.replacement_text = evt.getSignature( flavor:2 );
-        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        substr = Util::substr( s:new_item.replacement_text, i1:Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1, i2:-1 );
+        new_item.cursor_position = Util::indexOf( haystack:substr, needle:":" ) + Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 2;
         if ( 0 == new_item.cursor_position )
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         end if;
@@ -8239,7 +8242,8 @@ if ( not_empty act )
       new_item.type = ProposalTypes::Event;
       if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
         new_item.replacement_text = evt.getSignature( flavor:2 );
-        new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;
+        substr = Util::substr( s:new_item.replacement_text, i1:Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1, i2:-1 );
+        new_item.cursor_position = Util::indexOf( haystack:substr, needle:":" ) + Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 2;
         if ( 0 == new_item.cursor_position )
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         end if;
@@ -9781,13 +9785,14 @@ if ( not_empty act and not_empty block )
         end if;
       else
         new_item.replacement_text = s_sync.getSignature( flavor:3 );
-        if ( param.a4_include_doublecolon )
-          new_item.replacement_text = "::" + new_item.replacement_text;
-        end if;
         new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:"(" ) + 1;
         if ( 0 == new_item.cursor_position )
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         end if;
+      end if;
+      if ( param.a4_include_doublecolon )
+        new_item.replacement_text = "::" + new_item.replacement_text;
+        new_item.cursor_position = new_item.cursor_position + 2;
       end if;
       new_item.display_text = s_sync.getSignature( flavor:2 ) + " - " + dt.Name;
       new_item.needs_space = false;

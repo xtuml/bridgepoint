@@ -30391,115 +30391,119 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("d13f7d27-0611-4dda-b18a-e5319a0ed00e",
 	"00000000-0000-0000-0000-000000000000",
-	'Member_access_instance_start_segment_content_assist',
+	'Member_access_tok_dot_content_assist',
 	'ParserValidateFunction: TRUE',
 	'select any obj from instances of O_OBJ where false;
-select any rootVal from instances of V_VAL where selected.Value_ID == param.a4_rule_id;
-if ( not_empty rootVal )
-  name = rootVal.Text;
-  if ( not rootVal.hasSubtype() )
-    if ( name == "Self" or name == "self" or name == "SELF" )
-      current_scope = ::get_current_scope();
-      select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
-      select one act related by blk->ACT_ACT[R612];
-      if ( act.self_is_valid() )
-        select one op related by act->ACT_OPB[R698] ->O_TFR[R696];
-        if ( not_empty op )
-          select one obj related by op->O_OBJ[R115];
+select any v_val from instances of V_VAL where selected.Value_ID == param.b2_final_inst_access_id;
+if ( empty v_val )
+  select any v_val from instances of V_VAL where selected.Value_ID == param.b1_root_inst_access_id;
+end if;
+if ( not_empty v_val )
+  name = v_val.Text;
+  if ( name == "Self" or name == "self" or name == "SELF" )
+    current_scope = ::get_current_scope();
+    select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
+    select one act related by blk->ACT_ACT[R612];
+    if ( act.self_is_valid() )
+      select one op related by act->ACT_OPB[R698] ->O_TFR[R696];
+      if ( not_empty op )
+        select one obj related by op->O_OBJ[R115];
+      else
+        select one sm_act related by act->ACT_SAB[R698]->SM_ACT[R691];
+        if ( not_empty sm_act )
+          // State action case
+          select one obj related by sm_act->SM_SM[R515]->SM_ISM[R517]->O_OBJ[R518];
         else
-          select one sm_act related by act->ACT_SAB[R698]->SM_ACT[R691];
+          select one sm_act related by act->ACT_TAB[R698]->SM_ACT[R688];
           if ( not_empty sm_act )
-            // State action case
+            // Transition action case
             select one obj related by sm_act->SM_SM[R515]->SM_ISM[R517]->O_OBJ[R518];
           else
-            select one sm_act related by act->ACT_TAB[R698]->SM_ACT[R688];
-            if ( not_empty sm_act )
-              // Transition action case
-              select one obj related by sm_act->SM_SM[R515]->SM_ISM[R517]->O_OBJ[R518];
-            else
-              select one dab related by act->ACT_DAB[R698]->O_DBATTR[R693];
-              select one obj related by dab->O_BATTR[R107]->O_ATTR[R106]->O_OBJ[R102];
-            end if;
+            select one dab related by act->ACT_DAB[R698]->O_DBATTR[R693];
+            select one obj related by dab->O_BATTR[R107]->O_ATTR[R106]->O_OBJ[R102];
           end if;
         end if;
       end if;
     end if;
-    if ( name == "Selected" or name == "selected" or name == "SELECTED" )
-      current_scope = ::get_current_scope();
-      select any blk from instances of ACT_BLK where (selected.Block_ID == current_scope);
-      if ( blk.InWhereSpec )
-        current_scope = ::get_current_scope();
-        if ( current_scope != GD::NULL_UNIQUE_ID() )
-          // TODO somehow get the O_OBJ for selected
-        end if;
-      end if;
-    end if;
-    var_id = ::get_var_in_scope( name: name, rule_token: param.a1_rule_token );
-    select any varInst from instances of V_VAR where selected.Var_ID == var_id;
-    if empty varInst
-      select any parmVal from instances of V_PVL where selected.Value_ID == param.a2_upper_rule_id;
-      select any evtVal from instances of V_EDV where selected.Value_ID == param.a2_upper_rule_id;
-      if not_empty parmVal
-        current_scope = ::get_current_scope();
-        select any blk from instances of ACT_BLK where selected.Block_ID == current_scope;
-        select one act related by blk->ACT_ACT[R612];
-        select one sync related by act->ACT_FNB[R698]->S_SYNC[R695];
-        if not_empty sync
-          select any parm related by sync->S_SPARM[R24] where selected.Name == name;
-          select one irdt related by parm->S_DT[R26]->S_IRDT[R17];
+  end if;
+  var_id = ::get_var_in_scope( name: name, rule_token: param.a1_rule_token );
+  select any varInst from instances of V_VAR where selected.Var_ID == var_id;
+  if ( empty varInst )
+    select any parmVal from instances of V_PVL where selected.Value_ID == param.a2_upper_rule_id;
+    select any evtVal from instances of V_EDV where selected.Value_ID == param.a2_upper_rule_id;
+    act_id = ::get_current_context();
+    select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+    if ( not_empty parmVal )
+      select one sync related by act->ACT_FNB[R698]->S_SYNC[R695];
+      if not_empty sync
+        select any parm related by sync->S_SPARM[R24] where selected.Name == name;
+        select one irdt related by parm->S_DT[R26]->S_IRDT[R17];
+        select one obj related by irdt->O_OBJ[R123];
+      else
+        select one tfr related by act->ACT_OPB[R698]->O_TFR[R696];
+        if not_empty tfr
+          select any parm related by tfr->O_TPARM[R117] where selected.Name == name;
+          select one irdt related by parm->S_DT[R118]->S_IRDT[R17];
           select one obj related by irdt->O_OBJ[R123];
         else
-          select one tfr related by act->ACT_OPB[R698]->O_TFR[R696];
-          if not_empty tfr
-            select any parm related by tfr->O_TPARM[R117] where selected.Name == name;
-            select one irdt related by parm->S_DT[R118]->S_IRDT[R17];
+          select one brg related by act->ACT_BRB[R698]->S_BRG[R697];
+          if not_empty brg
+            select any parm related by brg->S_BPARM[R21] where selected.Name == name;
+            select one irdt related by parm->S_DT[R22]->S_IRDT[R17];
             select one obj related by irdt->O_OBJ[R123];
           else
-            select one brg related by act->ACT_BRB[R698]->S_BRG[R697];
-            if not_empty brg
-              select any parm related by brg->S_BPARM[R21] where selected.Name == name;
-              select one irdt related by parm->S_DT[R22]->S_IRDT[R17];
+            select one requiredSignal related by act->ACT_RSB[R698]->SPR_RS[R684];
+            select one requiredOperation related by act->ACT_ROB[R698]->SPR_RO[R685];
+            select one providedSignal related by act->ACT_PSB[R698]->SPR_PS[R686];
+            select one providedOperation related by act->ACT_POB[R698]->SPR_PO[R687];
+            if(not_empty requiredSignal)
+              select any parm related by requiredSignal->SPR_REP[R4502]->C_EP[R4500]
+                                   ->C_PP[R4006] where selected.Name == name;
+              select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
               select one obj related by irdt->O_OBJ[R123];
-            else
-              select one requiredSignal related by act->ACT_RSB[R698]->SPR_RS[R684];
-              select one requiredOperation related by act->ACT_ROB[R698]->SPR_RO[R685];
-              select one providedSignal related by act->ACT_PSB[R698]->SPR_PS[R686];
-              select one providedOperation related by act->ACT_POB[R698]->SPR_PO[R687];
-              if(not_empty requiredSignal)
-                select any parm related by requiredSignal->SPR_REP[R4502]->C_EP[R4500]
-                                     ->C_PP[R4006] where selected.Name == name;
-                select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
-                select one obj related by irdt->O_OBJ[R123];
-              elif(not_empty requiredOperation)
-                select any parm related by requiredOperation->SPR_REP[R4502]
-                        ->C_EP[R4500]->C_PP[R4006] where selected.Name == name;
-                select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
-                select one obj related by irdt->O_OBJ[R123];
-              elif(not_empty providedSignal)
-                select any parm related by providedSignal->SPR_PEP[R4503]
-                        ->C_EP[R4501]->C_PP[R4006] where selected.Name == name;
-                select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
-                select one obj related by irdt->O_OBJ[R123];
-              elif(not_empty providedOperation)
-                select any parm related by providedOperation->SPR_PEP[R4503]
-                        ->C_EP[R4501]->C_PP[R4006] where selected.Name == name;
-                select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
-                select one obj related by irdt->O_OBJ[R123];
-              end if;
+            elif(not_empty requiredOperation)
+              select any parm related by requiredOperation->SPR_REP[R4502]
+                      ->C_EP[R4500]->C_PP[R4006] where selected.Name == name;
+              select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
+              select one obj related by irdt->O_OBJ[R123];
+            elif(not_empty providedSignal)
+              select any parm related by providedSignal->SPR_PEP[R4503]
+                      ->C_EP[R4501]->C_PP[R4006] where selected.Name == name;
+              select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
+              select one obj related by irdt->O_OBJ[R123];
+            elif(not_empty providedOperation)
+              select any parm related by providedOperation->SPR_PEP[R4503]
+                      ->C_EP[R4501]->C_PP[R4006] where selected.Name == name;
+              select one irdt related by parm->S_DT[R4007]->S_IRDT[R17];
+              select one obj related by irdt->O_OBJ[R123];
             end if;
           end if;
         end if;
-      elif not_empty evtVal
-        // TODO
       end if;
+    elif ( not_empty evtVal )
+      select one sm_act related by act->ACT_SAB[R698]->SM_ACT[R691];
+      if ( empty sm_act )
+        select one sm_act related by act->ACT_TAB[R698]->SM_ACT[R688];
+      end if;
+      select any parm related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_SEME[R503]
+        ->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532] where ( selected.Name == name );
+      if ( empty parm )
+        select any parm related by sm_act->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]
+          ->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532] where ( selected.Name == name );
+        if ( empty parm )
+          select any parm related by sm_act->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_CRTXN[R507]->SM_LEVT[R509]
+            ->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532] where ( selected.Name == name );
+        end if;
+      end if;
+      select one irdt related by parm->S_DT[R524]->S_IRDT[R17];
+      select one obj related by irdt->O_OBJ[R123];
     end if;
-    if ( not_empty varInst )
-      select one inst related by varInst->V_INT[R814];
-      if ( not_empty inst )
-        select one obj related by inst->O_OBJ[R818];
-      else
-        select one obj related by varInst->S_DT[R848]->S_IRDT[R17]->O_OBJ[R123];
-      end if;
+  else
+    select one inst related by varInst->V_INT[R814];
+    if ( not_empty inst )
+      select one obj related by inst->O_OBJ[R818];
+    else
+      select one obj related by varInst->S_DT[R848]->S_IRDT[R17]->O_OBJ[R123];
     end if;
   end if;
 end if;
@@ -30553,7 +30557,7 @@ INSERT INTO S_SPARM
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"f37bc1c4-8f3a-4df4-bb9a-740137981856",
+	"d06193de-6ac3-4094-a090-ebc25eebe5a6",
 	'');
 INSERT INTO S_SPARM
 	VALUES ("92dc13f7-80b2-47e8-b6ed-cb9651836fca",
@@ -30563,6 +30567,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"93258a9e-444c-453d-899d-433734e1f892",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d06193de-6ac3-4094-a090-ebc25eebe5a6",
+	"d13f7d27-0611-4dda-b18a-e5319a0ed00e",
+	'a5_loop_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f37bc1c4-8f3a-4df4-bb9a-740137981856",
 	'');
 INSERT INTO PE_PE
 	VALUES ("d13f7d27-0611-4dda-b18a-e5319a0ed00e",
@@ -36153,7 +36166,7 @@ if ( not_empty act and not_empty block )
     select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::EE ); 
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
-  select any s_ee related by results->S_EE[R8001] where ( selected.Name == block.TempBuffer );
+  select any s_ee related by results->S_EE[R8001] where ( selected.Key_Lett == block.TempBuffer );
   if ( not_empty s_ee )
     ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:s_ee.EE_ID, a3_instance_ops:false, a4_include_doublecolon:false );
   else
@@ -36475,21 +36488,6 @@ if ( not_empty act )
     relate new_item to list across R1601;
   end for;
   
-  // Invocation proposals must go here too because this is the path that will
-  // be taken by the parser until the rest of the invocation is played out
-  blk_id = ::get_current_scope();
-  select any block from instances of ACT_BLK where ( selected.Block_ID == blk_id );
-  if ( not_empty block )
-    block.TempBuffer = dt_text;
-    ::Invocation_tok_doublecolon_content_assist( a1_rule_token:param.a1_rule_token,
-                                                 a2_upper_rule_id:GD::NULL_UNIQUE_ID(),
-                                                 a3_rule_begin_id:GD::NULL_UNIQUE_ID(), 
-                                                 a4_rule_id:GD::NULL_UNIQUE_ID(),
-                                                 b1_obj_or_ee_keyletters1_id:GD::NULL_UNIQUE_ID(),
-                                                 b2_bridge_or_transform_function2_id:GD::NULL_UNIQUE_ID(),
-                                                 b3_invocation_parameters3_id:GD::NULL_UNIQUE_ID() );
-  end if;
-
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -36551,6 +36549,161 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("d7f06498-1cce-4897-9d4b-eeb018165b8e",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	"00000000-0000-0000-0000-000000000000",
+	'Rval_begin2_content_assist',
+	'ParserValidateFunction: TRUE',
+	'if ( "::" == ::getText( rule_token:param.a1_rule_token ) )
+  blk_id = ::get_current_scope();
+  select any block from instances of ACT_BLK where ( selected.Block_ID == blk_id );
+  if ( not_empty block )
+    block.TempBuffer = ::getText( rule_token:param.a0_rule_token );
+    ::Invocation_tok_doublecolon_content_assist( a1_rule_token:param.a1_rule_token,
+                                                 a2_upper_rule_id:GD::NULL_UNIQUE_ID(),
+                                                 a3_rule_begin_id:GD::NULL_UNIQUE_ID(), 
+                                                 a4_rule_id:GD::NULL_UNIQUE_ID(),
+                                                 b1_obj_or_ee_keyletters1_id:GD::NULL_UNIQUE_ID(),
+                                                 b2_bridge_or_transform_function2_id:GD::NULL_UNIQUE_ID(),
+                                                 b3_invocation_parameters3_id:GD::NULL_UNIQUE_ID() );
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("6c3f1570-449f-4f38-be63-6fa106851f69",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"8c082503-c7c3-4bc1-89fa-8df795e97edd",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("063a4eb8-dad4-4f45-8d61-e6fa4616d362",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6c3f1570-449f-4f38-be63-6fa106851f69",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e194cb5b-f317-46e7-b547-9407628eb07b",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"063a4eb8-dad4-4f45-8d61-e6fa4616d362",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f8f5ee7f-b2d7-4f3c-907c-45403c68d545",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"e194cb5b-f317-46e7-b547-9407628eb07b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("313e681f-41dd-4ac3-b25a-ccadde7fd52b",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b1_function_invocation1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f8f5ee7f-b2d7-4f3c-907c-45403c68d545",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5c8e76f7-c9a3-4b19-834a-9d574d63f114",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b2_transform_ib_invocation2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"313e681f-41dd-4ac3-b25a-ccadde7fd52b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1b36f254-119e-4ccc-9924-9d1c81522175",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b3_bridge_or_transform_expr3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5c8e76f7-c9a3-4b19-834a-9d574d63f114",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0c872a81-1f02-4d43-9b55-97800a45329c",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b4_scoped_access4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1b36f254-119e-4ccc-9924-9d1c81522175",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f7d76dc2-8583-4cc2-9e72-b4dde3730f69",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b6_constant_value6_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"90f5ebb3-9388-4ca4-8822-ee5647833b42",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("44f6f3b3-2189-49aa-a732-6c1350b631f4",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b7_event_data_access7_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f7d76dc2-8583-4cc2-9e72-b4dde3730f69",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c60384d5-3ba1-4546-afba-e6e4a2961506",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b8_bridge_expr8_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"44f6f3b3-2189-49aa-a732-6c1350b631f4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("215be1e8-c1ec-44ba-a459-7f088cbbd63b",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b9_param_data_access9_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c60384d5-3ba1-4546-afba-e6e4a2961506",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("90f5ebb3-9388-4ca4-8822-ee5647833b42",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'b5_member_access5_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"0c872a81-1f02-4d43-9b55-97800a45329c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8c082503-c7c3-4bc1-89fa-8df795e97edd",
+	"683f2729-f1f8-4acd-b28d-3e10d0f14b36",
+	'a0_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("683f2729-f1f8-4acd-b28d-3e10d0f14b36",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
