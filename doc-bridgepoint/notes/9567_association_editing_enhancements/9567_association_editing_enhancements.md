@@ -195,6 +195,15 @@ Work required for cardinality context menu entry  [[5.1.3.1]](#5.1.3.1)
 
 ### 7. Acceptance Test
 
+Acceptance test for editing tab [[5.1.2.1]](#5.1.2.1) and [[5.1.2.3]](#5.1.2.3)  
+----   
+
+7.1 For both simple and linked associations (note supertypes are still managed through the diagram)     
+7.1.1 Associations shall be modifiable without the properties view    
+7.1.2 Association modification shall trigger persistence    
+7.1.3 Association modification shall support undo/redo   
+7.1.4 Association modification shall trigger refreshes within the UI   
+
 Acceptance test for cardinality context menu entry  [[5.1.3.1]](#5.1.3.1)  
 ----   
 

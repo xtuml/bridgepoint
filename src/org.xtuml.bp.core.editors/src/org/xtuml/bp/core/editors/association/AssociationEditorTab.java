@@ -75,7 +75,6 @@ import org.xtuml.bp.core.ui.Selection;
 public class AssociationEditorTab extends Composite implements ITransactionListener {
 
 	private TableViewer fTableViewer;
-  
 	public TableViewer getTableViewer() {
 		return fTableViewer;
 	}
@@ -162,7 +161,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				}
 			}
 
-      @Override
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -190,6 +189,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 					}
 				}
 			}
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
@@ -284,6 +284,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				tip.setVisible(false);
 			}
 		}
+
 	}
 
 	private void createTableViewer(Composite parent, final Object input) {
@@ -491,6 +492,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 	}
 
 	CellLabelProvider cellLabelProvider = new CellLabelProvider() {
+
 		@Override
 		public void update(ViewerCell cell) {
 			MetaModelLabelProvider mmProvider = new MetaModelLabelProvider();
@@ -505,7 +507,7 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 					}
 				}
 			}
-			Object cellObject = cell.getElement(<<<<<<< master
+			Object cellObject = cell.getElement();
 			Object[] children = ((IStructuredContentProvider) fTableViewer.getContentProvider())
 					.getElements(cellObject);
 			if (index - 1 < children.length) {
@@ -514,7 +516,6 @@ public class AssociationEditorTab extends Composite implements ITransactionListe
 				if (child instanceof ObjectElement) {
 					ObjectElement objEle = (ObjectElement) child;
 					if (objEle.getName().equals("Mult")) { //$NON-NLS-1$
-
 						cell.setText(getRuleText(objEle));
 						return;
 					}

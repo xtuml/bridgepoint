@@ -22,16 +22,12 @@
 
 package org.xtuml.bp.ui.text.editor.oal;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.texteditor.ContentAssistAction;
-import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
-import org.xtuml.bp.core.CorePlugin;
+
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
-import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditor extends AbstractModelElementTextEditor {
@@ -79,12 +75,6 @@ public class OALEditor extends AbstractModelElementTextEditor {
 		};
 
 		preferences.addModelChangeListener(prefChangeListener);
-	}
-
-	@Override
-	protected void createActions() {
-		super.createActions();
-
 	}
 
 	public StyledText getTextWidget() {

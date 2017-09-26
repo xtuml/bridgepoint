@@ -57,7 +57,7 @@ public class ErrorToolTip {
 	public boolean getVisible() {
 		return tip.getVisible();
 	}
-  
+	
 	public void setLocation(int x, int y) {
 		tip.setLocation(x, y);
 	}

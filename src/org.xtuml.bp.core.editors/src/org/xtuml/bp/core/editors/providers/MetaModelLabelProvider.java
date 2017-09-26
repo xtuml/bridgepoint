@@ -24,8 +24,6 @@ package org.xtuml.bp.core.editors.providers;
 import java.util.ResourceBundle;
 
 import org.eclipse.jface.viewers.BaseLabelProvider;
-import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
@@ -43,7 +41,7 @@ import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.inspector.GraphicalModelInspector;
 
-public class MetaModelLabelProvider implements IBaseLabelProvider, ITableLabelProvider, IStyledLabelProvider {
+public class MetaModelLabelProvider extends BaseLabelProvider implements ITableLabelProvider, IStyledLabelProvider {
 	
 	@Override
 	public Image getColumnImage(Object element, int index) {
@@ -209,27 +207,6 @@ public class MetaModelLabelProvider implements IBaseLabelProvider, ITableLabelPr
 	@Override
 	public Image getImage(Object element) {
 		return getColumnImage(element, 0);
-	}
-
-	@Override
-	public void addListener(ILabelProviderListener listener) {
-		// nothing to do
-	}
-
-	@Override
-	public void dispose() {
-		// nothing to do
-	}
-
-	@Override
-	public boolean isLabelProperty(Object element, String property) {
-		// nothing to do
-		return false;
-	}
-
-	@Override
-	public void removeListener(ILabelProviderListener listener) {
-		// nothing to do
 	}
 	
 }
