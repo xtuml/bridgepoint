@@ -514,7 +514,7 @@ public void waitForParseThread()
         
         ((DocumentProvider)getDocumentProvider()).setAsNotDirty(getEditorInput());
     }
-
+    
     /**
      * See HANGON_DURATION field.  Tests might want to lower the value of this 
      * field to be able to complete faster.

@@ -249,7 +249,7 @@ public class RenameParticipantUtil {
 	}
 
 	public static void synchronizeMaslEditors() {
-		Display.getDefault().asyncExec( new Runnable() {
+		Display.getDefault().syncExec( new Runnable() {
 			@Override
 			public void run() {
 				IEditorReference[] editorReferences = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
