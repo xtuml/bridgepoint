@@ -50,6 +50,38 @@ public class AssociationEditorTabFactory implements IEditorTabFactory {
 	@Override
 	public boolean isPreferenceControlled() {
 		return true;
+  }
+  
+	public boolean getFocusBased() {
+		return focusBased;
+	}
+
+	@Override
+	public void setFocusBased(boolean isFocusBased) {
+		focusBased = true;
+	}
+
+	@Override
+	public String getEditorTitle() {
+		return editorTitle;
+	}
+
+	@Override
+	public void setEditorTitle(String title) {
+		editorTitle = title;
+	}
+
+	@Override
+	public Object getInput() {
+		return configuredInput;
+	}
+
+	@Override
+	public void setInput(Object input) {
+		configuredInput = input;
+		if(tab != null) {
+			tab.setInput(input);
+		}
 	}
 
 }

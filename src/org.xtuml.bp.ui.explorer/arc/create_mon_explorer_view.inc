@@ -55,6 +55,7 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
@@ -102,11 +103,6 @@ import org.eclipse.ui.actions.NewWizardMenu;
 import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.ui.views.framelist.BackAction;
-import org.eclipse.ui.views.framelist.ForwardAction;
-import org.eclipse.ui.views.framelist.FrameList;
-import org.eclipse.ui.views.framelist.TreeViewerFrameSource;
-import org.eclipse.ui.views.framelist.UpAction;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osgi.framework.Bundle;
@@ -130,12 +126,10 @@ import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 public class ${viewer_name} extends ViewPart {
   private static final String COLLAPSE = "Collapse All";
   private static final String OPEN = "open";
-  private FrameList frames;
   protected ExplorerTreeViewer treeViewer;
   protected MonitorLabelProvider labelProvider;
   protected MenuManager menuManager;
   protected Action collapseAll, linkWithEditor;
-  protected Action back, fwd, up;
   protected Action cut, copy, paste;
   protected Action open, delete, rename; 
   protected Action fileImport, fileExport;
@@ -175,7 +169,7 @@ public class ${viewer_name} extends ViewPart {
     // Create the view's layout
     FillLayout layout = new FillLayout();
     parent.setLayout(layout);
-    treeViewer = new ExplorerTreeViewer(parent);
+    treeViewer = new ExplorerTreeViewer(parent, ResourcesPlugin.getWorkspace().getRoot());
     treeViewer.setContentProvider(new MonitorContentProvider());
     labelProvider = new MonitorLabelProvider();
     treeViewer.setLabelProvider(labelProvider);
@@ -332,24 +326,6 @@ public class ${viewer_name} extends ViewPart {
    * Create the Actions provided by the Monitor View
    */
   protected void createActions() {
-    frames = new FrameList(new TreeViewerFrameSource(getTreeViewer()));
-    back = new BackAction(frames) {
-      public void run() {
-      }
-    };
-    fwd = new ForwardAction(frames) {
-      public void run() {
-      }
-    };
-    up = new UpAction(frames) {
-      public void run() {
-      }
-    };
-    collapseAll = new Action(COLLAPSE) {
-      public void run() {
-        getTreeViewer().collapseAll();
-      }
-    };
     collapseAll.setToolTipText(COLLAPSE);
     collapseAll.setImageDescriptor(CorePlugin.getImageDescriptor("collapseall.gif")); //$$NON-NLS-1$$
     WorkbenchHelp.setHelp(collapseAll, IModelExplorerHelpContextIds.COLLAPSE_ALL_ACTION);
@@ -551,15 +527,7 @@ public class ${viewer_name} extends ViewPart {
    */  
   protected void createToolbar() {
     IActionBars actionBars = getViewSite().getActionBars();
-    actionBars.setGlobalActionHandler(ActionFactory.BACK.getId(), back);
-    actionBars.setGlobalActionHandler(
-       ActionFactory.FORWARD.getId(),
-       fwd);
-    actionBars.setGlobalActionHandler(ActionFactory.UP.getId(), up);
     IToolBarManager toolBarManager = actionBars.getToolBarManager();
-    toolBarManager.add(back);
-    toolBarManager.add(fwd);
-    toolBarManager.add(up);
     toolBarManager.add(new Separator());
     toolBarManager.add(collapseAll);
     toolBarManager.add(linkWithEditor);
