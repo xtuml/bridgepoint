@@ -1,50 +1,110 @@
-What's New in BridgePoint 6.4.3
+What's New in BridgePoint 6.6.0
 ========================
 
 Release Highlights
 -------
-* This is an engineering build 
+* Movable Associations
+* Integrity Checker
+* Feedback on Formalized Associations
+* Edit Cardinality from Context Menu
+* Customizable User Interface
+* Automatic Interface Management
+* Enhancements for Constants
+* Referential Attribute Combinations
 
 -------------------------------------------------------------------------------
 
-Feature 1
+Movable Associations
 ------
-TODO
+Users may now drag and drop associations on a diagram to move relationships from
+one class to another.  During the move, formalized associations are automatically
+unformalized.  They are not automatically formalized when dropped on the new target
+class.  BridgePoint prevents modelers from creating invalid relationships during
+the move.  
 
+Integrity Checker
+------
+BridgePoint includes a new tool that performs deep analysis of model instance data.  The
+tool may be run from the command line or from the UI context menu at 
+`BridgePoint Utilities > Check Referential Integrity`.  
 
+Check Referential Integrity runs a model data consistency query. Model data is loaded 
+directly from the file system and interrogated against a set of rules and assertions. Since 
+model data is well-formed and must be compliant with a data base schema, many checks 
+can be made to detect problems and corruption in the data.  
 
-    9556    BridgePoint Closed  Saab- 11 : Import of an existing xtUML project fails to show the model until ME is closed and reopened  kbrown  BridgePoint - v6.6  
+Additional info may be found in the Help at "BridgePoint UML Suite Help > Reference > Check Referential Integrity".  
+    
+Feedback on Formalized Associations
+------
+Formalized associations are now shown in bold on class diagrams.  This allows the modeler to 
+quickly see which associations are formalized and which are not.  This feature may be disabled
+in the xtUML preferences to use prior behavior where there is no visible difference in 
+association types.   
 
-    9557    BridgePoint Closed  Saab- 9 : Mix of MASL and OAL terms in the same perspective rmulvey BridgePoint - v6.6  09/23/2017
-    9563    BridgePoint Closed  Saab- 8 : Unrelated and/or undocumented options in context menu rmulvey BridgePoint - v6.6  09/23/2017
-    9558    BridgePoint Closed  User Experience: Remove or filter menu items    rmulvey BridgePoint - v6.6  09/23/2017
+Figure 1 shows the new feature in action.  R6 is unformalized. R5 is formalized, the referential attribute
+`TurntableID` is stored in `Oven`.  
 
-    9561    BridgePoint Closed  Saab- 7 : Move relations    cstarrett   BridgePoint - v6.6  
+![Formalized vs Unformalized Associations](formalized_associations.png)
+__Figure 1__  
 
-    9564    BridgePoint Closed  Saab- 4 : Feedback on formalized relations  tlondon BridgePoint - v6.6  
+Edit Cardinality from Context Menu
+------
+Modelers may now edit the cardinality of association ends directly from the context menu.  This usability
+enhancement provides a much faster editing experience over going to the Properties view to make the same changes.
 
-    9721    BridgePoint Closed  In the properties tab for class view, move prefix name and prefix type together     BridgePoint - v6.6  
+![Cardinality menu](cardinality_menu.png)
+__Figure 2__  
 
-    9566    BridgePoint Closed  Saab- 19 : Constant group item visibility   cstarrett   BridgePoint - v6.6  
+Customizable User Interface
+------
+Users may now modify the BridgePoint contributions to the context menu and the canvas palette.  This allows
+the modeler to hide menu entries and tools that are of no interest.  
 
-    9567    BridgePoint Closed  Saab- 6 : Cardinality on right click menu   leviathan747    BridgePoint - v6.6  
+For example, a modeler who focuses on OAL-based modeling may disable the `Export MASL Domain` and `Manage Project Markings`
+menu entries.  Or perhaps the modeler is only interested in executable xtUML functionality and therefore disables
+tools for drawing Use Case, Interaction, and Sequence diagrams (Figure 3).  
 
-    9568    BridgePoint Closed  Saab- 31 : Create folder gen/code_generation if it doesn't exist    rmulvey BridgePoint - v6.6  
+This new feature is described in detail in the help system at "BridgePoint UML Suite Help > Reference > User Interface > Palette and Context Menu Customization".
 
-    9554    BridgePoint Closed  Saab- 13 : complete integrity check kbrown  BridgePoint - v6.6  
+The BridgePoint menu contributions have also been simplified and reorganized to improve usability.  
 
-    633 Service Pro - SAAB  Closed  Editor: The "Check model integrity" utility does not capture orphaned referential attributes    kbrown  BridgePoint - v6.6  
-    653 BridgePoint Closed  Check model integrity tool doesn't find problem kbrown  BridgePoint - v6.6  
+![A simplified UI](no_analysis_tools.png)
+__Figure 3__  
 
-    9419    BridgePoint Closed  Official MacOS support      BridgePoint - v6.6  
+Automatic Interface Management
+------
+For MASL modelers, BridgePoint now automatically synchronizes interface references when the tool determines that 
+references need to be updated.  Manual synchronization is no longer required.  
 
-    9445    Service Pro - Tower Resolved    Unable to merge a identifier from two super types in a subtype class    cstarrett   BridgePoint - v6.6  
-    9446    BridgePoint Closed  Unable to merge a identifier from two super types in a subtype class    leviathan747    BridgePoint - v6.6  09/05/2017
+For OAL modelers, the tool still decorates the referring model with warning symbols and requires manual 
+synchronization.  Thus, there is no change to existing synchronization behavior for OAL users.
 
-    9708    Service Pro - Tower Closed  Interface Management Errors kbrown  BridgePoint - v6.6  08/22/2017
-    9717    BridgePoint Closed  Interface Management Errors kbrown  BridgePoint - v6.6  08/16/2017
+Enhancements for Constants
+------
+xtUML constants may now be scoped by the name of the constant specification in OAL activities. The scoping 
+rules follow the same syntax as scoping enumerations in enumerated types.  
 
-    9684    BridgePoint Closed  Association editing enhancements    tlondon BridgePoint - v6.6  
+Modelers are not required to use the new functionality.  OAL continues to support unscoped constants (if 
+they are globally unique).
 
-    9789    BridgePoint Closed  MC3020 fails with symbolic constant values  cstarrett   BridgePoint - v6.6  
+Model compiler authors should note that this feature necessitated a small change to the model compiler 
+schema file `xtumlmc_schema.sql`.
 
+Referential Attribute Combinations
+------
+BridgePoint has long supported the ability to combine referential attributes, with the restriction that that
+the attributes being combined must refer back to the same base attribute.  
+
+In response to user requests, this restriction has been loosened.  Referential attributes may now be combined
+if they are of the same type, regardless of what base attribute they refer to.  For example, modelers may now
+merge identifiers from two super types in a subtype class.   
+
+Other Notable Fixes
+------
+This release includes a number of other enhancements and bug fixes to improve usability
+of the tool:  
+
+* Existing xtUML projects are now always shown in Model Explorer after import   
+* In the Properties view for classes, move `Attribute Prefix Name` and `Attribute Prefix Type` together  
+* Always create folder `gen/code_generation` during project build if it does not exist  
