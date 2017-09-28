@@ -94,7 +94,11 @@ Statements control data and logic in OAL, the following are the supported statem
 * Generate to Creator
 * Generate Preexisting Event
 * Interface Operation Invocation
-* Signal Invocation
+* Signal Invocation  
+
+5.1.2.1 end statements  
+
+The auto-completion will add `end` to the while, for and if statements.  When a block is closed each `end` and block type shall be offerred.  
 
 5.1.3 Variables  
 
@@ -187,31 +191,27 @@ If the . character is typed and follows an association (Key_Lett[R<Numb>]) withi
 
 All events shall be listed if the generate statement precedes the current cursor location.  The list shall contain any locally created event variables, all events labeled by <Key_Lett>:<Mning.'event_meaning'> (parameters), and all classes which have attributes of the `inst<Event>` type.  The list shall also contain any polymorphic events, which are defined in a supertype.  After the 'to' string all instances which have such an event may be listed.  `class` may only show if the event is defined in a class state machine.  `creator` may only show if the event the statement is assigned to a creation event. 
 
-5.2.10 Assignment:
-
-For re-assignments the right value shall be filtered based on the initial type from the original assignment.  This includes assignments to attributes.  Attributes listed shall be filtered to exclude types of unique_id if they participate as an identifier.  The ooa specification reserves such attributes to be handled by the architecture.
-
-5.2.11 Scoping  
+5.2.10 Scoping  
 
 Blocks are created by each statement below and follow all rules preceding this section.  Note that all beginning statements may be nested under the following statements.  A block creates a scope which creates rules that govern what may be accessed.   
 
-5.2.11.1 If 
+5.2.10.1 If 
 
 The 'if' statement shall always be available as a beginning statement.  The 'elif' statement shall only be available if in an 'if' block.  The 'else' statement shall be available as long is the containing block does not already have one.
 
-5.2.11.2 For
+5.2.10.2 For
 
 The 'for' statement shall always be available as a beginning statement.  
 
-5.2.11.3 While
+5.2.10.3 While
 
 The 'while' statement shall always be available as a beginning statement.
 
-5.2.11.4 Break and Continue
+5.2.10.4 Break and Continue
 
 The 'break' and 'continue' keywords may only be present if within a 'for' or 'while' statement.
 
-5.2.11.5 Return
+5.2.10.5 Return
 
 The 'return' keyword shall only show in the following action bodies:
 
@@ -224,26 +224,19 @@ The 'return' keyword shall only show in the following action bodies:
 If an action is void and 'return' is parsed, nothing shall show in the list after the 'return'.
 
 
-5.2.11.6 Variable Scoping
+5.2.10.6 Variable Scoping
 
 Variable access shall be filtered from lists based on scoping.
 
-5.2.12 Using
+5.2.11 Using
 
 After the 'using' keyword only those previously created instances that are the link class of the association may show.
 
-5.2.13 Relates and unrelates
+5.2.12 Relates and unrelates
 
 Filtering for the source and target shall filter on all previous existing instances.  After the 'across' statement only associations between the source and target shall show.  Note that we can not filter the target as we do not yet know the association.
 
-5.2.14 Alpha-numeric
-
-All results shall be added to a pre-filtered list based on the above rules.  The displayed list shall be alpha-numerically filtered further during typing based on currently typed characters.  Example:
-
-sel shows select and any class that starts with sel  
-f shows for and any class that starts with f
-
-5.2.15 Self
+5.2.13 Self
 
 Self is allowed in the following action bodies:
 
@@ -253,41 +246,58 @@ Self is allowed in the following action bodies:
 
 Self cannot be assigned to.  
 
-5.2.16 The where  clause 
+5.2.14 The where  clause 
 
-The where clause may only be present if within a select statement, and only as the last portion.  The 'selected' keyword may only exist in the list if within a where clause.  The list shall be filtered when using other statements, like attributes, such that they would produce a boolean result.
+The where clause may only be present if within a select statement, and only as the last portion.  The 'selected' keyword may only exist in the list if within a where clause.  
 
-5.2.17 param
+5.2.15 param
 
 The 'param' keyword after the '.' character shall show all parameters passed to the action body.  
 
-5.2.18 Empty, not empty, cardinality
+5.2.16 Empty, not_empty, cardinality
 
 The list shall only contain instances or instance sets after the following keywords:
 
 * empty
-* not empty 
-* cardinality 
+* not_empty 
+* cardinality  
 
-5.2.19 Parameters  
+caridinality shall only except an instance set as an operand.  empty and not_empty make take either an instance reference or instance reference set.  
 
-5.2.19.1 Full signature versus parameter completion  
+5.2.17 Parameters  
+
+5.2.17.1 Full signature versus parameter completion  
 
 A preference is expected to control whether or not a proposal list with full signature is offered, rather than allowing completion of each individual parameter.  For full signature, the list shall contain the full signature and parameters shall be modified after selection.  For individual parameters, the list shall remain the same only a new list for the parameters shall be shown.  This list shall only contain parameters available on the operation.
 
-5.2.20 Object creation  
+5.2.18 Object creation  
 
 After a complete create statement including the `of` keyword include all visible classes key letters.  
 
-5.2.21 Deletions  
+5.2.19 Deletions  
 
 After a delete statement up until the local variable, all local instance variables shall be shown.  Self shall also be included in this list as long as the self rules from section 5.2.15 are followed.  
 
 5.2.20 Expressions  
 
-Expressions shall share the same behavior as specified above for beginning statements, section 5.2.1.  
+Expressions shall start with the following:  
 
-5.2.20 event creation:
+5.2.20.1 All local variables   
+5.2.20.2 All visible constants  
+5.2.20.3 All visible class key letters    
+5.2.20.4 All visible EE key letters  
+5.2.20.5 All visible functions   
+5.2.20.6 All visible ports   
+5.2.20.7 If the declared type is `boolean`:  
+5.2.20.7.1 `not`  
+5.2.20.7.2 `empty`  
+5.2.20.7.3 `true`  
+5.2.20.7.4 `false`  
+5.2.20.7.5 `cardinality`  
+5.2.20.7.6 `param`  
+
+
+5.2.21 event creation:
 
 All visible events shall be listed if the create event statement, including the `of` portion, precedes the current cursor location.  After the `to` keyword is given the list shall contain all local instance references, all visible Classes key letters with the appended `class` keyword, all visible Classes key letters which have a creation transition and the selected event is assigned to the transition with the appended `creator` keyword.  
 
@@ -318,8 +328,8 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.1.19 `end while`  
 6.1.20 `end for`  
 6.1.21 `elif`  
-6.1.20 `else`  
-6.1.20 `end if`  
+6.1.22 `else`  
+6.1.23 `end if`  
 6.1.24 `self`  
 6.1.25 All local variables in scope  
 6.1.26 All EE key letters of visible EEs where at least one bridge exists    
@@ -337,8 +347,6 @@ We have taken a mixed and balanced approach of generating test sequences from th
 
 6.2.4 After `::`:  
 6.2.4.1 All visible domain functions  
-6.2.4.1.1 If invoked as a statement, only present functions with `void` return type  
-6.2.4.1.2 If invoked as the right hand side of an expression, only present functions with a return type matching the left hand side  
 
 6.2.5 After `send`:  
 6.2.5.1 Port names of containing component which have at least one outbound message    
@@ -371,7 +379,7 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.9.3.2 `<key letters> creator` for creation events  
 6.2.9.3.3 All local variables of the type that the event is defined in, and subtypes if it is a polymorphic event  
 
-6.2.10 After `assign <var> =`:
+6.2.10 After `<var> =`:  
 6.2.10.1 All listed in section 6.2.20  
 
 6.2.11.2 After `for each <var> in`:  
@@ -394,6 +402,7 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.13.2 After `relate <var> to`:  
 6.2.13.2.1 All local variables of an instance reference type    
 6.2.13.3 After `relate <var1> to <var2> across`:  
+6.2.13.3.1 All association numbers valid between the two instance reference variables  
 6.2.13.4 After `relate <var1> to <var2> across <rel>.`:  
 6.2.13.4.1 The relationship phrase for the relationship (or both phrases in the case of a reflexive associations)  
 6.2.13.5 After `relate <var1> to <var2> across <rel> using`:  
@@ -403,6 +412,7 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.13.7 After `unrelate <var> from`:  
 6.2.13.7.1 All local variables of an instance reference type  
 6.2.13.8 After `unrelate <var1> from <var2> across`:  
+6.2.13.8.1 All association numbers valid between the two instance reference variables  
 6.2.13.9 After `urelate <var1> to <var2> across <rel>.`:  
 6.2.13.9.1 The relationship phrase for the relationship  
 6.2.13.10 After `unrelate <var1> from <var2> across <rel> using`:   
@@ -415,10 +425,11 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.15 param keyword  
 6.2.15.1 See section 6.2.19  
 
-6.2.16 After `cardinality`, `empty`, `not`, `not_empty`  
+6.2.16 After `cardinality`, `empty`, `not_empty`  
 6.2.16.1 All instance reference sets  
+6.2.12.2 `empty` and `not_empty` can operate on instance references, whereas `cardinality` may only operate on intance reference sets.  
 
-6.2.17 Parameters
+6.2.17 Parameters  
 6.2.17.1 After `param.`:  
 6.2.17.1.1 All available parameters  
 
@@ -431,26 +442,23 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.20 At the beginning of a generic expression:  
 6.2.20.1 All local variables   
 6.2.20.2 All visible constants  
-6.2.20.3 All visible class key letters    
-6.2.20.4 All visible EE key letters  
+6.2.20.3 All visible class key letters with at least one class based operation     
+6.2.20.4 All visible EE key letters with at least one bridge    
 6.2.20.5 All visible functions   
-6.2.20.6 All visible port operations   
-6.2.20.7 If the declared type is `boolean`:  
-6.2.20.7.1 `not`  
-6.2.20.7.2 `empty`  
-6.2.20.7.3 `true`  
-6.2.20.7.4 `false`  
-6.2.20.8 If the declared type is `integer`:  
-6.2.20.8.1 `cardinality`  
-6.2.20.9 If the declared type is an EDT offer the data type name name rather then each enumerator   
-6.2.20.10 `cardinality` and `empty` work against instenace references or instance reference sets  
+6.2.20.6 All visible ports with at least one outbound message     
+6.2.20.7 `not`  
+6.2.20.8 `empty`  
+6.2.20.9 `true`  
+6.2.20.10 `false`  
+6.2.20.11 `cardinality`  
+6.2.20.12 All visiblie enumeration types     
 
 6.2.21 After `create event instance <var> of`:  
 6.2.21.1 All visible event specifications  
 6.2.21.2 After `create event instance <var> of <event> to`  
-6.2.21.2.1 The class from which the event is defined  
-6.2.21.2.1.1 If the event is class based but no assigned to a creation transition, append the `class` keyword  
-6.2.21.2.1.2 If the event is class based and assigned to a creation transition, append the `creator` keyword  
+6.2.21.3 `<key letters> class` for assigner events    
+6.2.21.4 `<key letters> creator` for creation events    
+6.2.21.5 All local variables of the type that the event is defined in, and subtypes if it is a polymorphic event   
 
 6.2.22 After `<identifier>::`:  
 6.2.22.1 All interface messages for ports matching `identifier`, all class based operations with key letters matching `identifier`, and all bridges with key letters matching `identifier` (include the full signature with parameter prototypes)  
