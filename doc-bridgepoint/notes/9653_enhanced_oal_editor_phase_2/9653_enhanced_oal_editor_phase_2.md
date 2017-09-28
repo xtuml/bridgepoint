@@ -22,7 +22,7 @@ Give the full path to reference a file.
 
 ### 3. Background
 
-During the phase one work for an enhanced OAL editor it was decided that some suppport would be pulled.  Comparing [[2]](2.2) and [[2]](2.3) will show the differences between what use cases were supported with phase one.  Phase two shall support all use cases listed in [[2]](2.3).
+During the phase one work for an enhanced OAL editor it was decided that some suppport would be pulled.  Comparing [[2]](#2.2) and [[2]](#2.3) will show the differences between what use cases were supported with phase one.  Phase two shall support all use cases listed in [[2]](#2.3).
 
 ### 4. Requirements
 
