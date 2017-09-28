@@ -21,7 +21,9 @@ This note describes the required use cases for OAL auto-completion.
 
 ### 3. Background
 
-Use cases are required to initiate further testing development for [[2.1]](#2.3)
+Use cases are required to initiate further testing development for [[2.1]](#2.3).  
+
+For phase one of the OAL auto-complete we decided that completion did not require as much filtering as initialiy intended.  This included holding back expression comparison, return types, assignment, related elements and more.  For phase one everything shall be considered the beginning of a statement.  Section 6.1 describes what is available for a new statement.  
 
 ### 4. Requirements
 
