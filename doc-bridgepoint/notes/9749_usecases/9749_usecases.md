@@ -283,7 +283,7 @@ After a delete statement up until the local variable, all local instance variabl
 
 5.2.20 Expressions  
 
-Expressions shall share the same behavior as specified above for beginning statements, section 5.2.1.  In an expression the list shall be further filtered to include only those that share the same return type as the left hand side.  
+Expressions shall share the same behavior as specified above for beginning statements, section 5.2.1.  
 
 5.2.20 event creation:
 
