@@ -427,12 +427,12 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.19.1 All local variables of an instance reference type  
 
 6.2.20 At the beginning of a generic expression:  
-6.2.20.1 All local variables of the declared type or an instance reference or structured type (if they have a member of the declared type)  
-6.2.20.2 All visible constants of the declared type (scoped if not globally unique)  
-6.2.20.3 All visible class key letters with at least one class based operation which returns the declared type  
-6.2.20.4 All visible EE key letters with at least one bridge which returns the declared type  
-6.2.20.5 All visible functions which return the declared type  
-6.2.20.6 All visible port operations which return the declared type  
+6.2.20.1 All local variables   
+6.2.20.2 All visible constants  
+6.2.20.3 All visible class key letters    
+6.2.20.4 All visible EE key letters  
+6.2.20.5 All visible functions   
+6.2.20.6 All visible port operations   
 6.2.20.7 If the declared type is `boolean`:  
 6.2.20.7.1 `not`  
 6.2.20.7.2 `empty`  
