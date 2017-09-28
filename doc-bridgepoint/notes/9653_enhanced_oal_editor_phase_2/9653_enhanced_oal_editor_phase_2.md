@@ -16,17 +16,13 @@ describe.
 
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.  
-<a id="2.1"></a>2.1 [BridgePoint DEI #xxx1](https://support.onefact.net/issues/xxx1) TODO: Add description here.  
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #9653](https://support.onefact.net/issues/9653) Enhanced OAL phase 2    
+<a id="2.2"></a>2.2 [Use Case note phase 1](https://github.com/travislondon/bridgepoint/blob/9749_usecases/doc-bridgepoint/notes/9749_usecases/9749_usecases_phase_1.md) Phase one use case note.  
+<a id="2.3"></a>2.3 [Use Case note phase 2](https://github.com/travislondon/bridgepoint/blob/9749_usecases/doc-bridgepoint/notes/9749_usecases/9749_usecases_phase_2.md) Phase two use case note.  
 
 ### 3. Background
 
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-![My Image](myimage.jpg)  
+During the phase one work for an enhanced OAL editor it was decided that some suppport would be pulled.  Comparing [[2]](2.2) and [[2]](2.3) will show the differences between what use cases were supported with phase one.  Phase two shall support all use cases listed in [[2]](2.3).
 
 ### 4. Requirements
 
