@@ -147,7 +147,7 @@ Variables are either instance handles, or sets of instance handles, or transient
 
 At the beginning of a statement, statement types and variable types shall be allowed.  `self` handling is later defined.  Possibilities:
 
-`::, ., <Class_KeyLetters>, <EE_KeyLetters>, <Port Name>, Beginning Keywords`
+`::, <Class_KeyLetters>, <EE_KeyLetters>, <Port Name>, Beginning Keywords`
 
 5.2.2 Operation invocations: 
 
@@ -169,6 +169,8 @@ After the send keyword has been parsed, unless omitted, all valid ports on the f
 
 5.2.6 interface invocations:
 
+Note: Port names are only supported as in best practice the Port name should be used.  Therefore, only port names are used in auto-completion.
+
 After the port has been parsed and the :: characters are typed the completion list shall contain all available operations and signals for the port.  Direction must be considered here, only those operations/signals with valid direction shall show in the list.
 
 5.2.7 association traversal:
@@ -181,7 +183,7 @@ If the . character is typed and follows an association (Key_Lett[R<Numb>]) withi
   
 5.2.9 event generation:
 
-All events shall be listed if the generate statement precedes the current cursor location.  The list shall contain any locally created event variables, all events labeled by <Key_Lett>:<Mning.'event_meaning'> (parameters), and all classes which have attributes of the `inst<Event>` type.  After the 'to' string all instances which have such an event may be listed.  `class` may only show if the event is defined in a class state machine.  `creator` may only show if the event the statement is assigned to a creation event. 
+All events shall be listed if the generate statement precedes the current cursor location.  The list shall contain any locally created event variables, all events labeled by <Key_Lett>:<Mning.'event_meaning'> (parameters), and all classes which have attributes of the `inst<Event>` type.  The list shall also contain any polymorphic events, which are defined in a supertype.  After the 'to' string all instances which have such an event may be listed.  `class` may only show if the event is defined in a class state machine.  `creator` may only show if the event the statement is assigned to a creation event. 
 
 5.2.10 Assignment:
 
@@ -189,7 +191,7 @@ For re-assignments the right value shall be filtered based on the initial type f
 
 5.2.11 Scoping  
 
-Blocks are created by each statement below and follow all rules preceding this section. 
+Blocks are created by each statement below and follow all rules preceding this section.  Note that all beginning statements may be nested under the following statements.  A block creates a scope which creates rules that govern what may be accessed.   
 
 5.2.11.1 If 
 
@@ -279,15 +281,18 @@ After a complete create statement including the `of` keyword include all visible
 
 After a delete statement up until the local variable, all local instance variables shall be shown.  Self shall also be included in this list as long as the self rules from section 5.2.15 are followed.  
 
-5.2.22 Expressions  
+5.2.20 Expressions  
 
-Expressions shall share the same behavior as specified above for beginning statements, section 5.2.1.  In an expression the list shall be further filtered to include only those that share they same return type as the left hand side.  
+Expressions shall share the same behavior as specified above for beginning statements, section 5.2.1.  In an expression the list shall be further filtered to include only those that share the same return type as the left hand side.  
 
-5.2.23 event creation:
+5.2.20 event creation:
 
 All visible events shall be listed if the create event statement, including the `of` portion, precedes the current cursor location.  After the `to` keyword is given the list shall contain all local instance references, all visible Classes key letters with the appended `class` keyword, all visible Classes key letters which have a creation transition and the selected event is assigned to the transition with the appended `creator` keyword.  
 
 ### 6. Use Cases
+
+We have taken a mixed and balanced approach of generating test sequences from the OOA of OOA and from grammar analysis.  This will produce reasonable albeit not exhaustive coverage.  Brute force exhaustive coverage would produce an unmanageable number of tests.  
+
 
 6.1 At the beginning of a new statement:  
 6.1.1 `control stop`  
@@ -311,21 +316,19 @@ All visible events shall be listed if the create event statement, including the 
 6.1.19 `end while`  
 6.1.20 `end for`  
 6.1.21 `elif`  
-6.1.22 `else`  
-6.1.23 `end if`  
+6.1.20 `else`  
+6.1.20 `end if`  
 6.1.24 `self`  
 6.1.25 All local variables in scope  
-6.1.26 All EE key letters of visible EEs with at least one bridge of return type `void`  
-6.1.27 All class key letters of visible classes with at least one class based operation of return type `void`  
-6.1.28 All port names of containing component  
+6.1.26 All EE key letters of visible EEs where at least one bridge exists    
+6.1.27 All class key letters of visible classes where at least one class based operation exists   
+6.1.28 All port names of the containing component  
 
 6.2.1 Statement beginnings, see section 6.1  
 
 6.2.2 After `<inst_ref_var>.`:  
-6.2.2.1 All attributes (if this is a right hand side expression, only propose attributes of the same type)  
+6.2.2.1 All attributes   
 6.2.2.2 All instance based operations of the class  
-6.2.2.2.1 If a right hand side expression, only propose operations that return the declared type  
-6.2.2.2.2 If this is a statement only propose operations that return `void`  
 
 6.2.3 Interface operation invocations  
 6.2.3.1 See generic section 6.2.24  
@@ -336,13 +339,12 @@ All visible events shall be listed if the create event statement, including the 
 6.2.4.1.2 If invoked as the right hand side of an expression, only present functions with a return type matching the left hand side  
 
 6.2.5 After `send`:  
-6.2.5.1 Port names of containing component  
+6.2.5.1 Port names of containing component which have at least one outbound message    
 6.2.5.2 After `send <port_name>::`:  
 6.2.5.2.1 All interface messages (include the full signature with parameter prototypes)  
-6.2.5.2.1.1 If invoked as a statement, only present interface signals and operations with the `void` type  
-6.2.5.2.1.2 If invoked as the right hand side of an expression, only present interface operations with a type matching the left hand side  
 6.2.5.3 After `<port_name>::<message_name>(<parameter_list>) to`:  
 6.2.5.3.1 All local variables of type `component_ref`  
+6.2.5.3.2 `sender`  
 
 6.2.6 Interface operation invocations  
 6.2.6.1 See generic section 6.2.24  
@@ -350,33 +352,30 @@ All visible events shall be listed if the create event statement, including the 
 6.2.7 Select  
 6.2.7.1 After `select [one|any|many] <var1>`:    
 6.2.7.1.1 `related by`  
-6.2.7.1.1 `from instances of`  
+6.2.7.1.2 `from instances of`  
 6.2.7.2 After `select [one|any|many] <var1> related by <var2>->` or `... -><key letters>[<rel>]->`:  
-6.2.7.2 All valid relationship specifications  
-6.2.7.2.1 If part of a `select one` statement, only present relationships with multiplicity "one"  
+6.2.7.2.1 All valid relationship specifications  
+6.2.7.2.2 If part of a `select one` statement, only present relationships with multiplicity "one"  
 6.2.7.3 After `select [one|any|many] <var> from instances of`:  
 6.2.7.3.1 All visible key letters  
-6.2.7.3.1.1 If var is already typed, only propose the key letters of the type of `var`  
 
-6.2.8 Include phrases only for reflexive associations   
+6.2.8 Include phrases when a user preference is enabled  
 
 6.2.9 After `generate`:  
 6.2.9.1 All visible event specifications  
 6.2.9.2 All local variables of type `inst<Event>`  
-6.2.9.3 All attributes from local instance reference variables which have a type of `inst<Event>`   
-6.2.9.4 After `<event_spec> to`:  
-6.2.9.4.1 `<key letters> assigner` for assigner events  
-6.2.9.4.2 `<key letters> creator` for creation events  
-6.2,9,4.3 All local variables of the type that the event is defined in, and subtypes if it is a polymorphic event  
+6.2.9.3 After `<event_spec> to`:  
+6.2.9.3.1 `<key letters> class` for assigner events  
+6.2.9.3.2 `<key letters> creator` for creation events  
+6.2.9.3.3 All local variables of the type that the event is defined in, and subtypes if it is a polymorphic event  
 
 6.2.10 After `assign <var> =`:
-6.2.10.1 All listed in section 6.1.26
-6.2.10.2 If the variable name chosen is already defined, only elements from section 6.1.26 of the same type  
+6.2.10.1 All listed in section 6.2.20  
 
 6.2.11.2 After `for each <var> in`:  
 6.2.11.2.1 All local variables of an instance reference set type  
 6.2.11.5 After `return`:  
-6.2.11.5.1 All local variables of the same type as the body return type, or nothing when void  
+6.2.11.5.1 If void return nothing, otherwise propose items from 6.2.20  
 6.2.11.5.2 Only for these body types:  
 
 * Function Body
@@ -391,82 +390,67 @@ All visible events shall be listed if the create event statement, including the 
 6.2.13 After `relate`:  
 6.2.13.1 All local variables of an instance reference type  
 6.2.13.2 After `relate <var> to`:  
-6.2.13.2.1 All local variables of an instance reference type which have a possible relationship to the first variable  
+6.2.13.2.1 All local variables of an instance reference type    
 6.2.13.3 After `relate <var1> to <var2> across`:  
-6.2.13.3.1 All valid relationships between `var1` and `var2` (phrases included for reflexives, but excluded otherwise. See section [[2.1]](#2.5))  
 6.2.13.4 After `relate <var1> to <var2> across <rel>.`:  
 6.2.13.4.1 The relationship phrase for the relationship (or both phrases in the case of a reflexive associations)  
-6.2.13.5 After `relate <var1> to <var2> across <rel> `:  
-6.2.13.5.1 All local variables of an instance reference type (which have a possible associative relationship with `var1` and `var2`)
+6.2.13.5 After `relate <var1> to <var2> across <rel> using`:  
+6.2.13.5.1 All local variables of an instance reference type  
 6.2.13.6 After `unrelate`:  
 6.2.13.6.1 All local variables of an instance reference type  
 6.2.13.7 After `unrelate <var> from`:  
-6.2.13.7.1 All local variables of an instance reference type which are currently related to `var`  
+6.2.13.7.1 All local variables of an instance reference type  
 6.2.13.8 After `unrelate <var1> from <var2> across`:  
-6.2.13.8.1 All valid relationships in which `var1` and `var2` are both in participation (phrases included for reflexives, but excluded otherwise. See section [[2.1]](#2.5))  
 6.2.13.9 After `urelate <var1> to <var2> across <rel>.`:  
 6.2.13.9.1 The relationship phrase for the relationship  
-6.2.13.10 After `unrelate <var1> to <var2> across <rel> `:  
-6.2.13.10.1 `using` plus All local variables of an instance reference type which are currently the associative object for `var1` and `var2` across `rel`  
+6.2.13.10 After `unrelate <var1> from <var2> across <rel> using`:   
+6.2.13.10.1 All local variables of an instance reference type  
 
-6.2.14 Alpha-numeric filtering, once all other filters have been applied and typing has begun further filter alpha-numerically  
+6.2.14 After `self.`:  
+6.2.14.1 All available attributes for the containing class  
+6.2.14.2 All available instance based operations for the containing class    
 
-6.2.15 After `self.`:  
-6.2.15.1 All available attributes for the containing class  
-6.2.15.2 All available instance based operations for the containing class    
+6.2.15 param keyword  
+6.2.15.1 See section 6.2.19  
 
-6.2.16 After a selection:  
-6.2.16.1 `where`  
+6.2.16 After `cardinality`, `empty`, `not`, `not_empty`  
+6.2.16.1 All instance reference sets  
 
-6.2.17 param keyword  
-6.2.17.1 See section 6.2.19  
+6.2.17 Parameters
+6.2.17.1 After `param.`:  
+6.2.17.1.1 All available parameters  
 
-6.2.18 After `cardinality`, `empty`, `not empty`, `not_empty`  
-6.2.18.1 All instance reference sets  
+6.2.18 After `create object instance <var> of`:  
+6.2.18.1 All visible class key letters
 
-6.2.19 Parameters
-6.2.19.1 After `param.`:  
-6.2.19.1.1 All available parameters  
-6.2.19.1.2 If invoked as the right hand side of an expression, only present parameters with a type matching the left hand side  
-6.2.19.2 After a left parenthesis before a parameter list:  
-6.2.19.2.1 All available parameters  
+6.2.19 After `delete object instance`:  
+6.2.19.1 All local variables of an instance reference type  
 
-6.2.20 After `create object instance <var> of`:  
-6.2.20.1 All visible class key letters
+6.2.20 At the beginning of a generic expression:  
+6.2.20.1 All local variables of the declared type or an instance reference or structured type (if they have a member of the declared type)  
+6.2.20.2 All visible constants of the declared type (scoped if not globally unique)  
+6.2.20.3 All visible class key letters with at least one class based operation which returns the declared type  
+6.2.20.4 All visible EE key letters with at least one bridge which returns the declared type  
+6.2.20.5 All visible functions which return the declared type  
+6.2.20.6 All visible port operations which return the declared type  
+6.2.20.7 If the declared type is `boolean`:  
+6.2.20.7.1 `not`  
+6.2.20.7.2 `empty`  
+6.2.20.7.3 `true`  
+6.2.20.7.4 `false`  
+6.2.20.8 If the declared type is `integer`:  
+6.2.20.8.1 `cardinality`  
+6.2.20.9 If the declared type is an EDT offer the data type name name rather then each enumerator   
+6.2.20.10 `cardinality` and `empty` work against instenace references or instance reference sets  
 
-6.2.21 After `delete object instance`:  
-6.2.21.1 All local variables of an instance reference type  
+6.2.21 After `create event instance <var> of`:  
+6.2.21.1 All visible event specifications  
+6.2.21.2 After `create event instance <var> of <event> to`  
+6.2.21.2.1 The class from which the event is defined  
+6.2.21.2.1.1 If the event is class based but no assigned to a creation transition, append the `class` keyword  
+6.2.21.2.1.2 If the event is class based and assigned to a creation transition, append the `creator` keyword  
 
-6.2.22 At the beginning of a generic expression:  
-6.2.22.1 All local variables of the declared type or an instance reference or structured type (if they have a member of the declared type)  
-6.2.22.2 All visible constants of the declared type (scoped if not globally unique)  
-6.2.22.3 All visible class key letters with at least one class based operation which returns the declared type  
-6.2.22.4 All visible EE key letters with at least one bridge which returns the declared type  
-6.2.22.5 All visible functions which return the declared type  
-6.2.22.6 All visible port operations which return the declared type  
-6.2.22.7 If the declared type is `boolean`:  
-6.2.22.7.1 `not`  
-6.2.22.7.2 `not_empty`  
-6.2.22.7.3 `empty`  
-6.2.22.7.4 `true`  
-6.2.22.7.5 `false`  
-6.2.22.8 If the declared type is `integer`:  
-6.2.22.8.1 `cardinality`  
-6.2.22.9 If the declared type is an EDT:  
-6.2.22.9.1 All the enumerators for the EDT  
-
-6.2.23 After `create event instance <var> of`:  
-6.2.23.1 All visible event specifications  
-6.2.23.2 After `create event instance <var> of <event> to`  
-6.2.23.2.1 The class from which the event is defined  
-6.2.23.2.1.1 If the event is class based but no assigned to a creation transition, append the `class` keyword  
-6.2.23.2.1.2 If the event is class based and assigned to a creation transition, append the `creator` keyword  
-
-6.2.24 After `<identifier>::`:  
-6.2.24.1 All interface messages for ports matching `identifier`, all class based operations with key letters matching `identifier`, and all bridges with key letters matching `identifier` (include the full signature with parameter prototypes)  
-6.2.24.1.1 If invoked as a statement, only present activities with the `void` type  
-6.2.24.1.2 If invoked as the right hand side of an expression, only present activities with a type matching the left hand side  
-6.2.24.2 As an expression all enumerators for EDTs matching `identifier` if the left hand side is of the EDT type  
-6.2.24.3 As an expression all constants for constant specs matching `idetifier` if the constant type matches the left hand side  
+6.2.22 After `<identifier>::`:  
+6.2.22.1 All interface messages for ports matching `identifier`, all class based operations with key letters matching `identifier`, and all bridges with key letters matching `identifier` (include the full signature with parameter prototypes)  
 
 ### End
