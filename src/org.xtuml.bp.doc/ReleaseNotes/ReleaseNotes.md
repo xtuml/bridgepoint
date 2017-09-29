@@ -78,6 +78,7 @@ Closed Issues
 [9721](https://support.onefact.net/issues/9721) |  In the properties tab for class view, move prefix name and prefix type together
 [9735](https://support.onefact.net/issues/9735) |  Using component external datatype as event data result in "Unassigned Parameter Placeholder"
 [9737](https://support.onefact.net/issues/9737) |  Update relations in OOA of OOA
+[9742](https://support.onefact.net/issues/9742) |  Display string UUIDs in referential integrity report
 [9746](https://support.onefact.net/issues/9746) |  expand boxes around rel phrases and other boldened items
 [9789](https://support.onefact.net/issues/9789) |  MC3020 fails with symbolic constant values
 
