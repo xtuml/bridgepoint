@@ -16,7 +16,7 @@ xtumlmc_build xtuml_integrity -i <model folder or file1> [-i <another>] [-g] [-m
 | -i &lt;another&gt;                | Optionally specify another folder or file of model data.                           |
 | -g                                | Optionally skip the inclusion of global native types in the integrity check.       |
 | -m &lt;accumulated model data&gt; | Optionally specify a file into which to store the accumulated model data.          |
-| -o &lt;report file&gt;            | Optionally specify a file for the referential integrity report.                    |
+| -o &lt;report file&gt;            | Optionally name an output referential integrity report file (instead of STDOUT).   |
 
 
 Notes
@@ -27,7 +27,8 @@ Notes
 * Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage.  
 * Skipping global native types is useful when running with Prebuilder output which already includes these types.  
 * The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu.  
-* From the GUI, projects using inter-project references (IPRs) must be multi-selected to get all dependent model data.  
+* The GUI invocation runs on all the projects inside the workspace no matter which project is selected at the time the tool is invoked.  The integrity report is stored in the doc/ folder of the first project in the workspace and is automatically opened in an editor for convenience.  
+* An easy way to navigate to the erroneous model elements is to highlight the UUID and click the Search->File menu (or toolbar).  Narrow the search by searching `.xtuml` files.  A search view will appear which allows navigation from one find to the next.  
 
 
 Examples

@@ -12,13 +12,85 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-6.4.3">What's New in BridgePoint 6.4.3</h1>
+<h1 id="whats-new-in-bridgepoint-6.6.0">What's New in BridgePoint 6.6.0</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
-<li>This is an engineering build</li>
+<li>Movable Associations</li>
+<li>Integrity Checker</li>
+<li>Feedback on Formalized Associations</li>
+<li>Edit Cardinality from Context Menu</li>
+<li>Customizable User Interface</li>
+<li>Automatic Interface Management</li>
+<li>Enhancements for Constants</li>
+<li>Referential Attribute Combinations</li>
 </ul>
 <hr />
-<h2 id="feature-1">Feature 1</h2>
-<p>TODO</p>
+<h2 id="movable-associations">Movable Associations</h2>
+<p>Users may now drag and drop associations on a diagram to move relationships from<br />
+one class to another. During the move, formalized associations are automatically<br />
+unformalized. They are not automatically formalized when dropped on the new target<br />
+class. BridgePoint prevents modelers from creating invalid relationships during<br />
+the move.</p>
+<h2 id="integrity-checker">Integrity Checker</h2>
+<p>BridgePoint includes a new tool that performs deep analysis of model instance data. The<br />
+tool may be run from the command line or from the UI context menu at<br />
+<code>BridgePoint Utilities &gt; Check Referential Integrity</code>.</p>
+<p>Check Referential Integrity runs a model data consistency query. Model data is loaded<br />
+directly from the file system and interrogated against a set of rules and assertions. Since<br />
+model data is well-formed and must be compliant with a data base schema, many checks<br />
+can be made to detect problems and corruption in the data.</p>
+<p>Additional info may be found in the Help at &quot;BridgePoint UML Suite Help &gt; Reference &gt; Check Referential Integrity&quot;.</p>
+<h2 id="feedback-on-formalized-associations">Feedback on Formalized Associations</h2>
+<p>Formalized associations are now shown in bold on class diagrams. This allows the modeler to<br />
+quickly see which associations are formalized and which are not. This feature may be disabled<br />
+in the xtUML preferences to use prior behavior where there is no visible difference in<br />
+association types.</p>
+<p>Figure 1 shows the new feature in action. R6 is unformalized. R5 is formalized, the referential attribute<br />
+<code>TurntableID</code> is stored in <code>Oven</code>.</p>
+<p><img src="formalized_associations.png" alt="Formalized vs Unformalized Associations" /><br />
+<strong>Figure 1</strong></p>
+<h2 id="edit-cardinality-from-context-menu">Edit Cardinality from Context Menu</h2>
+<p>Modelers may now edit the cardinality of association ends directly from the context menu. This usability<br />
+enhancement provides a much faster editing experience over going to the Properties view to make the same changes.</p>
+<p><img src="cardinality_menu.png" alt="Cardinality menu" /><br />
+<strong>Figure 2</strong></p>
+<h2 id="customizable-user-interface">Customizable User Interface</h2>
+<p>Users may now modify the BridgePoint contributions to the context menu and the canvas palette. This allows<br />
+the modeler to hide menu entries and tools that are of no interest.</p>
+<p>For example, a modeler who focuses on OAL-based modeling may disable the <code>Export MASL Domain</code> and <code>Manage Project Markings</code><br />
+menu entries. Or perhaps the modeler is only interested in executable xtUML functionality and therefore disables<br />
+tools for drawing Use Case, Interaction, and Sequence diagrams (Figure 3).</p>
+<p>This new feature is described in detail in the help system at &quot;BridgePoint UML Suite Help &gt; Reference &gt; User Interface &gt; Palette and Context Menu Customization&quot;.</p>
+<p>The BridgePoint menu contributions have also been simplified and reorganized to improve usability.</p>
+<p><img src="no_analysis_tools.png" alt="A simplified UI" /><br />
+<strong>Figure 3</strong></p>
+<h2 id="automatic-interface-management">Automatic Interface Management</h2>
+<p>For MASL modelers, BridgePoint now automatically synchronizes interface references when the tool determines that<br />
+references need to be updated. Manual synchronization is no longer required.</p>
+<p>For OAL modelers, the tool still decorates the referring model with warning symbols and requires manual<br />
+synchronization. Thus, there is no change to existing synchronization behavior for OAL users.</p>
+<h2 id="enhancements-for-constants">Enhancements for Constants</h2>
+<p>xtUML constants may now be scoped by the name of the constant specification in OAL activities. The scoping<br />
+rules follow the same syntax as scoping enumerations in enumerated types.</p>
+<p>Modelers are not required to use the new functionality. OAL continues to support unscoped constants (if<br />
+they are globally unique).</p>
+<p>Model compiler authors should note that this feature necessitated a small change to the model compiler<br />
+schema file <code>xtumlmc_schema.sql</code>.</p>
+<h2 id="referential-attribute-combinations">Referential Attribute Combinations</h2>
+<p>BridgePoint has long supported the ability to combine referential attributes, with the restriction that that<br />
+the attributes being combined must refer back to the same base attribute.</p>
+<p>In response to user requests, this restriction has been loosened. Referential attributes may now be combined<br />
+if they are of the same type, regardless of what base attribute they refer to. For example, modelers may now<br />
+merge identifiers from two super types in a subtype class.</p>
+<h2 id="other-notable-fixes">Other Notable Fixes</h2>
+<p>This release includes a number of other enhancements and bug fixes to improve usability<br />
+of the tool:</p>
+<ul>
+<li>Existing xtUML projects are now always shown in Model Explorer after import<br />
+</li>
+<li>In the Properties view for classes, move <code>Attribute Prefix Name</code> and <code>Attribute Prefix Type</code> together<br />
+</li>
+<li>Always create folder <code>gen/code_generation</code> during project build if it does not exist</li>
+</ul>
 </body>
 </html>
