@@ -47,7 +47,7 @@
 </tr>
 <tr class="odd">
 <td>-o &lt;report file&gt;</td>
-<td>Optionally specify a file for the referential integrity report.</td>
+<td>Optionally name an output referential integrity report file (instead of STDOUT).</td>
 </tr>
 </tbody>
 </table>
@@ -65,7 +65,9 @@
 </li>
 <li>The functionality of this tool is available within the graphical user interface (GUI) under the BridgePoint Utilities context menu.<br />
 </li>
-<li>From the GUI, projects using inter-project references (IPRs) must be multi-selected to get all dependent model data.</li>
+<li>The GUI invocation runs on all the projects inside the workspace no matter which project is selected at the time the tool is invoked. The integrity report is stored in the doc/ folder of the first project in the workspace and is automatically opened in an editor for convenience.<br />
+</li>
+<li>An easy way to navigate to the erroneous model elements is to highlight the UUID and click the Search-&gt;File menu (or toolbar). Narrow the search by searching <code>.xtuml</code> files. A search view will appear which allows navigation from one find to the next.</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <pre><code>./xtumlmc_build xtuml_integrity -i ~/workspace/MicrowaveOven/models -m integrity.sql -o integrity.txt  
