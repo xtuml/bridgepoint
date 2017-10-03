@@ -8,7 +8,7 @@
 		<relativePath>../../releng/org.xtuml.bp.releng.parent.generation/</relativePath>
 	</parent>
 	<groupId>org.xtuml.bp.xtext.masl</groupId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>6.6.1-SNAPSHOT</version>
 	<artifactId>org.xtuml.bp.xtext.masl.parent</artifactId>
 	<packaging>pom</packaging>
 
