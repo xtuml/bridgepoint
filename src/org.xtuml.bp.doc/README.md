@@ -27,7 +27,7 @@ the file URL.
 
 To update the release notes closed issues list:
 - Run the query on support.onefact.net, modify the query to only show the Issue number and Subject columns
-- Use the mouse to hightlight the issues and copy
+- Use the mouse to highlight the issues and copy
 - paste into ReleaseNotes.md which will leave lines like:
 
 ```
