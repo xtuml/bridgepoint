@@ -42,13 +42,14 @@ TODO - bridgepoint
 TODO - packaging  
 TODO - buildmt  
 
+
 ### 6. Implementation Comments
 
-TODO
+TODO - clean up 32-bit linux in some releng plugins
 
 ### 7. Unit Test
 
-7.1 Item 1  
+7.1  Run the build on the server, see that the Windows 32-bit packages are not created.  
 
 
 ### 8. User Documentation
@@ -61,18 +62,28 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 9745_dump_win32   
 
 <pre>
+doc-bridgepoint/notes/9745_dump_win32_int.md
+org.xtuml.bp.mctools.parent/pom.xml
+org.xtuml.bp.releng.parent/pom.xml
 </pre>
 
 Fork/Repository: keithbrown/packaging   
 Branch: 9745_dump_win32   
 
 <pre>
+org.xtuml.bp.docgen/build.properties
+org.xtuml.bp.docgen.parent/pom.xml
+org.xtuml.bp.jre/build.properties
+org.xtuml.bp.jre.parent/pom.xml
+org.xtuml.bp.MinGW/build.properties
+org.xtuml.bp.MinGW.parent/pom.xml
 </pre>
 
 Fork/Repository: keithbrown/buildmt  
 Branch: 9745_dump_win32    
 
 <pre>
+buildmt/jenkins-home/jobs/publish/config.xml
 </pre>
 
 ### End
