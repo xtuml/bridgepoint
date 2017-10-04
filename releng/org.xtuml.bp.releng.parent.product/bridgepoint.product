@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.6.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.6.1.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <license>
+     <url></url>
+     <text>
+          Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not 
+          use this file except in compliance with the License.  You may obtain a copy 
+          of the License at
+ 
+          http://www.apache.org/licenses/LICENSE-2.0
+
+          Unless required by applicable law or agreed to in writing, software 
+          distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT 
+          WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+          License for the specific language governing permissions and limitations under
+          the License.
+     </text>
+   </license>
 
    <configIni use="default">
    </configIni>
@@ -31,8 +48,10 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
    </plugins>
@@ -58,6 +77,10 @@
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
    </configurations>
+
+   <repositories>
+      <repository location="http://download.eclipse.org/releases/mars/" enabled="false" />
+   </repositories>
 
    <preferencesInfo>
       <targetfile overwrite="false"/>
