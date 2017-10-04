@@ -4,7 +4,7 @@
 <product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.6.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <license>
-     <url></url>
+     <url>https://www.apache.org/licenses/LICENSE-2.0</url>
      <text>
           Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not 
           use this file except in compliance with the License.  You may obtain a copy 
