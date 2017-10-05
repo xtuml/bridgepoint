@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.xtuml.bp.mctools"
-      label="X86"
+      label="BridgePoint Model Compiler Tools"
       version="1.0.0.qualifier">
 
    <description>
