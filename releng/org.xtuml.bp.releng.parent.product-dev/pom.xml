@@ -16,34 +16,35 @@
   <build>
    <plugins>
    
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>target-platform-configuration</artifactId>
-                <version>${tycho-version}</version>
-                <configuration>
-                    <resolver>p2</resolver>
-                    <allowConflictingDependencies>true</allowConflictingDependencies>
-                    <includePackedArtifacts>true</includePackedArtifacts>
-                    <environments>
-                        <environment>
-                            <os>linux</os>
-                            <ws>gtk</ws>
-                            <arch>x86_64</arch>
-                        </environment>
-                        <environment>
-                            <os>macosx</os>
-                            <ws>cocoa</ws>
-                            <arch>x86_64</arch>
-                        </environment>
-                    </environments>
-                </configuration>
-            </plugin>
+      <!-- Here we override/respecify the platform configurations so we can 
+           control exactly which ones are created for this product. -->
+      <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>target-platform-configuration</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+              <resolver>p2</resolver>
+              <allowConflictingDependencies>true</allowConflictingDependencies>
+              <includePackedArtifacts>true</includePackedArtifacts>
+              <environments>
+                  <environment>
+                      <os>linux</os>
+                      <ws>gtk</ws>
+                      <arch>x86_64</arch>
+                  </environment>
+                  <environment>
+                      <os>macosx</os>
+                      <ws>cocoa</ws>
+                      <arch>x86_64</arch>
+                  </environment>
+              </environments>
+          </configuration>
+      </plugin>
    
       <plugin>
          <groupId>org.eclipse.tycho</groupId>
          <artifactId>tycho-p2-director-plugin</artifactId>
          <version>${tycho-version}</version>
-         <inherited>false</inherited>
          
          <executions>
             <execution>
@@ -53,10 +54,6 @@
                   <goal>archive-products</goal>
                </goals>
                <configuration>
-                  <resolver>p2</resolver>
-                  <allowConflictingDependencies>true</allowConflictingDependencies>
-                  <includePackedArtifacts>true</includePackedArtifacts>
-               
                    <products>
                        <product>
                            <id>org.xtuml.bp-dev.product</id>
