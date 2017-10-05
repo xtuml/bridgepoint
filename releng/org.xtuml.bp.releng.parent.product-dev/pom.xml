@@ -9,12 +9,13 @@
     <relativePath>../org.xtuml.bp.releng.parent/</relativePath>
   </parent>
   <groupId>org.xtuml.bp</groupId>
-  <artifactId>org.xtuml.bp.releng.parent.product</artifactId>
+  <artifactId>org.xtuml.bp.releng.parent.product-dev</artifactId>
   <version>6.6.1-SNAPSHOT</version>
   <packaging>eclipse-repository</packaging>
   
   <build>
    <plugins>
+   
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>target-platform-configuration</artifactId>
@@ -34,23 +35,19 @@
                             <ws>cocoa</ws>
                             <arch>x86_64</arch>
                         </environment>
-                        <environment>
-                            <os>win32</os>
-                            <ws>win32</ws>
-                            <arch>x86_64</arch>
-                        </environment>
                     </environments>
                 </configuration>
             </plugin>
-            
+   
       <plugin>
          <groupId>org.eclipse.tycho</groupId>
          <artifactId>tycho-p2-director-plugin</artifactId>
          <version>${tycho-version}</version>
+         <inherited>false</inherited>
          
          <executions>
             <execution>
-               <id>create-product-distribution-modeler</id>
+               <id>create-product-distribution-developer</id>
                <goals>
                   <goal>materialize-products</goal>
                   <goal>archive-products</goal>
@@ -62,11 +59,12 @@
                
                    <products>
                        <product>
-                           <id>org.xtuml.bp.product</id>
+                           <id>org.xtuml.bp-dev.product</id>
+                           <attachId>dev</attachId>
                            <rootFolder>BridgePoint</rootFolder>
                        </product>
                    </products>
-                </configuration>
+               </configuration>
             </execution>
          </executions>
       </plugin>
