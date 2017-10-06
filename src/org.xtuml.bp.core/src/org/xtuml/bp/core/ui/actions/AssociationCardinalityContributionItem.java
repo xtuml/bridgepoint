@@ -163,66 +163,81 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 						break;
 					}
 					final int rule = i;
-					if(rto != null) {
-						if(rtoCond != ruleCond || rtoMult != ruleMult) {
-							MenuItem actionItem = new MenuItem(rtoMenu, SWT.PUSH, rtoMenu.getItemCount());
-							actionItem.setText(rules[i]);
-							actionItem.addSelectionListener(new SelectionAdapter() {
-		
-								@Override
-								public void widgetDefaultSelected(SelectionEvent e) {
-									AssociationCardinalityAction action = new AssociationCardinalityAction(finalRto, rule);
-									action.run(null);
-								}
-		
-								@Override
-								public void widgetSelected(SelectionEvent e) {
-									widgetDefaultSelected(e);
-								}
-		
-							});
+					if (rto != null) {
+						MenuItem actionItem;
+						if (rtoCond == ruleCond && rtoMult == ruleMult) {
+							actionItem = new MenuItem(rtoMenu, SWT.CHECK, rtoMenu.getItemCount());
+							actionItem.setSelection(true);
+							actionItem.setEnabled(false);
+						} else {
+							actionItem = new MenuItem(rtoMenu, SWT.PUSH, rtoMenu.getItemCount());
 						}
+						actionItem.setText(rules[i]);
+						actionItem.addSelectionListener(new SelectionAdapter() {
+
+							@Override
+							public void widgetDefaultSelected(SelectionEvent e) {
+								AssociationCardinalityAction action = new AssociationCardinalityAction(finalRto, rule);
+								action.run(null);
+							}
+
+							@Override
+							public void widgetSelected(SelectionEvent e) {
+								widgetDefaultSelected(e);
+							}
+
+						});
 					}
 					if (rgo != null) {
-						if(rgoCond != ruleCond || rgoMult != ruleMult) {
-							MenuItem actionItem = new MenuItem(rgoMenu, SWT.PUSH, rgoMenu.getItemCount());
-							actionItem.setText(rules[i]);
-							actionItem.addSelectionListener(new SelectionAdapter() {
-	
-								@Override
-								public void widgetDefaultSelected(SelectionEvent e) {
-									AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, rule);
-									action.run(null);
-								}
-	
-								@Override
-								public void widgetSelected(SelectionEvent e) {
-									widgetDefaultSelected(e);
-								}
-	
-							});
+						MenuItem actionItem;
+						if (rgoCond == ruleCond && rgoMult == ruleMult) {
+							actionItem = new MenuItem(rgoMenu, SWT.CHECK, rgoMenu.getItemCount());
+							actionItem.setSelection(true);
+							actionItem.setEnabled(false);
+						} else {
+							actionItem = new MenuItem(rgoMenu, SWT.PUSH, rgoMenu.getItemCount());
 						}
+						actionItem.setText(rules[i]);
+						actionItem.addSelectionListener(new SelectionAdapter() {
+
+							@Override
+							public void widgetDefaultSelected(SelectionEvent e) {
+								AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, rule);
+								action.run(null);
+							}
+
+							@Override
+							public void widgetSelected(SelectionEvent e) {
+								widgetDefaultSelected(e);
+							}
+
+						});
 					}
 					if (otherRto != null) {
-						if(otherCond != ruleCond || otherMult != ruleMult) {
-							MenuItem actionItem = new MenuItem(otherRtoMenu, SWT.PUSH, otherRtoMenu.getItemCount());
-							actionItem.setText(rules[i]);
-							actionItem.addSelectionListener(new SelectionAdapter() {
-	
-								@Override
-								public void widgetDefaultSelected(SelectionEvent e) {
-									AssociationCardinalityAction action = new AssociationCardinalityAction(finalOtherRto,
-											rule);
-									action.run(null);
-								}
-	
-								@Override
-								public void widgetSelected(SelectionEvent e) {
-									widgetDefaultSelected(e);
-								}
-	
-							});
+						MenuItem actionItem;
+						if (otherCond == ruleCond && otherMult == ruleMult) {
+							actionItem = new MenuItem(otherRtoMenu, SWT.CHECK, otherRtoMenu.getItemCount());
+							actionItem.setSelection(true);
+							actionItem.setEnabled(false);
+						} else {
+							actionItem = new MenuItem(otherRtoMenu, SWT.PUSH, otherRtoMenu.getItemCount());
 						}
+						actionItem.setText(rules[i]);
+						actionItem.addSelectionListener(new SelectionAdapter() {
+
+							@Override
+							public void widgetDefaultSelected(SelectionEvent e) {
+								AssociationCardinalityAction action = new AssociationCardinalityAction(finalOtherRto,
+										rule);
+								action.run(null);
+							}
+
+							@Override
+							public void widgetSelected(SelectionEvent e) {
+								widgetDefaultSelected(e);
+							}
+
+						});
 					}
 				}
 
