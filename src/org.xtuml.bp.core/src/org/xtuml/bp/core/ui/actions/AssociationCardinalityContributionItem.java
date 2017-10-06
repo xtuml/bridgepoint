@@ -244,22 +244,32 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 			} else {
 				ClassAsLink_c link = (ClassAsLink_c) element;
 				// linked association
-				MenuItem actionItem = new MenuItem(rgoMenu, SWT.PUSH, 0);
-				actionItem.setText(link.getMult() == 0 ? "{*}" : " ");
-				actionItem.addSelectionListener(new SelectionAdapter() {
-
-					@Override
-					public void widgetDefaultSelected(SelectionEvent e) {
-						AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, -1);
-						action.run(null);
+				String[] rules = new String[] { " ", "{*}" };
+				for (int i = 0; i < rules.length; i++) {
+					MenuItem actionItem;
+					if (link.getMult() == i) {
+						actionItem = new MenuItem(rgoMenu, SWT.CHECK, rgoMenu.getItemCount());
+						actionItem.setSelection(true);
+						actionItem.setEnabled(false);
+					} else {
+						actionItem = new MenuItem(rgoMenu, SWT.PUSH, rgoMenu.getItemCount());
 					}
+					actionItem.setText(rules[i]);
+					actionItem.addSelectionListener(new SelectionAdapter() {
 
-					@Override
-					public void widgetSelected(SelectionEvent e) {
-						widgetDefaultSelected(e);
-					}
+						@Override
+						public void widgetDefaultSelected(SelectionEvent e) {
+							AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, -1);
+							action.run(null);
+						}
 
-				});
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							widgetDefaultSelected(e);
+						}
+
+					});
+				}
 			}
 		}
 	}
