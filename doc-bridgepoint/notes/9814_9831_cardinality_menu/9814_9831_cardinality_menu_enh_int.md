@@ -47,8 +47,8 @@ to:
 
 5.2 Modify `AssociationCardinalityContributionItem.java`.  Change the logic so that instead of skipping the creation of a 
 `MenuItem` for the current value we create a `MenuItem` but set the item to disabled and selected/checked.  Handle both
-standard associations (Figure 1) and linked associations (Figure 2). By setting the current association value to  
-disabled then the entry is not selectable by the user.
+standard associations (Figure 1) and linked associations (Figure 2). By setting the current association value to 
+"disabled" then the entry is not selectable by the user.
 
 ![](current_sel_checked_disabled.png)  
 __Figure 1__  
@@ -79,7 +79,25 @@ Branch: 9814_move_cardinality
 
 <pre>
 
-TODO
+> doc-bridgepoint/notes/9814_9831_cardinality_menu/
+    9814_9831_cardinality_menu_enh_int.md
+> doc-bridgepoint/notes/9814_9831_cardinality_menu/
+    current_sel_checked_disabled.png
+> doc-bridgepoint/notes/9814_9831_cardinality_menu/link.png
+
+org.xtuml.bp.core/arc/create_core_plugin.inc
+org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/
+    AssociationCardinalityContributionItem.java
+
+org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/
+    ClassDiagram.htm
+org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/
+    ClassDiagram.fld/image001.png
+org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/
+    ClassDiagram.fld/image002.png
+org.xtuml.bp.doc/topics_Reference.xml
+
+
 </pre>
 
 ### End
