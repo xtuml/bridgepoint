@@ -26,56 +26,18 @@ During the phase one work for an enhanced OAL editor it was decided that some su
 
 ### 4. Requirements
 
-This section describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-* Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
+Requirements will be completed with phase two of the enhanced OAL editor work.  
 
 ### 5. Analysis
 
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
-
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+The analysis will be completed during phase two of the enhanced OAL editor work.  
 
 ### 6. Work Required
 
-In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-6.1 Item 1  
-6.1.1 Example sub-item
-* Example List Element
-
-6.2 Item 2  
-6.2.1 Example sub-item
-* Example List Element
+The work required will be determined with phase two of the enhanced OAL editor work.  
 
 ### 7. Acceptance Test
 
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+Tests will be determined with phase two of the enhanced OAL editor work.  
 
 ### End
