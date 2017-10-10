@@ -115,12 +115,21 @@ Branch: 9832_move_relations_bug
 
 <pre>
 
+ doc-bridgepoint/notes/9832_move_relations_bug_int.md                                              | 128 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/Association.xtuml |  10 +++++-----
+ 2 files changed, 133 insertions(+), 5 deletions(-)
+
 </pre>
 
 Fork/Repository: leviathan747/bptest  
 Branch: 9832_move_relations_bug  
 
 <pre>
+
+ src/org.xtuml.bp.ui.canvas.test/matrices/non_generated/association_move.txt                  | 21 +++++++++++----------
+ src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/assoc/AssociationMove.java   | 16 ++++++++++++++++
+ src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/assoc/AssociationMove_0.java | 28 ++++++++++++++++++++++++++++
+ 3 files changed, 55 insertions(+), 10 deletions(-)
 
 </pre>
 
