@@ -80,7 +80,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	public static final String CONTENT_ASSIST_INSERT_SINGLE_PROPOSALS = PREFIX + "content_assist_insert_single_proposals"; //$NON-NLS-1$
 	public static final String CONTENT_ASSIST_INVOCATION_FORMAT = PREFIX + "content_assist_invocation_format"; //$NON-NLS-1$
 	public static final String CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING = PREFIX + "content_assist_enable_auto_triggering"; //$NON-NLS-1$
-	public static final String CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES = PREFIX + "content_assist_enable_auto_trigger_sequences"; //$NON-NLS-1$
+	public static final String CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES = PREFIX + "content_assist_auto_trigger_sequences"; //$NON-NLS-1$
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 

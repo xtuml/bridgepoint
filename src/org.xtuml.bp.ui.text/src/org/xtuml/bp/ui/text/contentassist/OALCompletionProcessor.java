@@ -361,8 +361,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private char[] getDefaultTriggerChars() {
         String triggerChars = "";
         for ( String seq : getTriggerSequences() ) {
-            char lastChar = seq.charAt( seq.length() - 1 );
-            if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
+        	if ( !"".equals(seq) ) {
+                char lastChar = seq.charAt( seq.length() - 1 );
+                if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
+        	}
         }
         return triggerChars.toCharArray();
     }
