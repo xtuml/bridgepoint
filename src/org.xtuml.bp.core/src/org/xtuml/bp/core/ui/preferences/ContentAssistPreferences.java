@@ -120,13 +120,7 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         model = new BridgePointPreferencesModel();
         model.getStore().loadModel( getPreferenceStore(), null, model );
         
-        // check if preferences have been initialized yet
-        if ( "".equals(((BridgePointPreferencesModel)model).contentAssistInvocationFormat) ) {
-            performDefaults();
-        }
-        else {
-            syncUIWithPreferences();
-        }
+        syncUIWithPreferences();
         return composite;
     }
 
@@ -188,10 +182,10 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         // set invocation format
         invocationEmptyRadio.setSelection( false );
         invocationLabelRadio.setSelection( false );
-        if ( "empty" == bpPrefs.contentAssistInvocationFormat ) {
+        if ( "empty".equals( bpPrefs.contentAssistInvocationFormat ) ) {
             invocationEmptyRadio.setSelection( true );
         }
-        else if ( "labels" == bpPrefs.contentAssistInvocationFormat ) {
+        else if ( "labels".equals( bpPrefs.contentAssistInvocationFormat ) ) {
             invocationLabelRadio.setSelection( true );
         }
         
