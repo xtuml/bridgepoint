@@ -24,6 +24,9 @@ import org.xtuml.bp.core.ui.Selection;
 
 public class AssociationCardinalityContributionItem extends ContributionItem {
 
+	private static String PROPERTY_PREFIX = "bridgepoint.";
+	private static String LINK_PROPERTY = "CardinalityOnAssociativeLink";
+	
 	@Override
 	public void fill(Menu menu, int index) {
 		// selection must only contain Association, Model Class, Package or
@@ -46,6 +49,14 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 					validSelection = false;
 					break;
 				}
+			}
+			if (selected instanceof ClassAsLink_c) {
+				String propertyKey = PROPERTY_PREFIX + LINK_PROPERTY;
+		        String actualPropertyValue = System.getProperty(propertyKey, "enabled");
+		        if ( actualPropertyValue.equals("disabled") ) {
+		        	validSelection = false;
+		        	break;
+		        }
 			}
 		}
 		if (validSelection) {
@@ -166,19 +177,24 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 					if (rto != null) {
 						MenuItem actionItem;
 						if (rtoCond == ruleCond && rtoMult == ruleMult) {
-							actionItem = new MenuItem(rtoMenu, SWT.CHECK, rtoMenu.getItemCount());
+							actionItem = new MenuItem(rtoMenu, SWT.RADIO, rtoMenu.getItemCount());
 							actionItem.setSelection(true);
 							actionItem.setEnabled(false);
 						} else {
-							actionItem = new MenuItem(rtoMenu, SWT.PUSH, rtoMenu.getItemCount());
+							actionItem = new MenuItem(rtoMenu, SWT.RADIO, rtoMenu.getItemCount());
+							actionItem.setSelection(false);
+							actionItem.setEnabled(true);
 						}
 						actionItem.setText(rules[i]);
 						actionItem.addSelectionListener(new SelectionAdapter() {
 
 							@Override
 							public void widgetDefaultSelected(SelectionEvent e) {
-								AssociationCardinalityAction action = new AssociationCardinalityAction(finalRto, rule);
-								action.run(null);
+								MenuItem item = (MenuItem) e.widget;
+								if (item.getSelection()) {
+									AssociationCardinalityAction action = new AssociationCardinalityAction(finalRto, rule);
+									action.run(null);
+								}
 							}
 
 							@Override
@@ -191,19 +207,24 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 					if (rgo != null) {
 						MenuItem actionItem;
 						if (rgoCond == ruleCond && rgoMult == ruleMult) {
-							actionItem = new MenuItem(rgoMenu, SWT.CHECK, rgoMenu.getItemCount());
+							actionItem = new MenuItem(rgoMenu, SWT.RADIO, rgoMenu.getItemCount());
 							actionItem.setSelection(true);
 							actionItem.setEnabled(false);
 						} else {
-							actionItem = new MenuItem(rgoMenu, SWT.PUSH, rgoMenu.getItemCount());
+							actionItem = new MenuItem(rgoMenu, SWT.RADIO, rgoMenu.getItemCount());
+							actionItem.setSelection(false);
+							actionItem.setEnabled(true);
 						}
 						actionItem.setText(rules[i]);
 						actionItem.addSelectionListener(new SelectionAdapter() {
 
 							@Override
 							public void widgetDefaultSelected(SelectionEvent e) {
-								AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, rule);
-								action.run(null);
+								MenuItem item = (MenuItem) e.widget;
+								if (item.getSelection()) {
+									AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, rule);
+									action.run(null);
+								}
 							}
 
 							@Override
@@ -216,20 +237,25 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 					if (otherRto != null) {
 						MenuItem actionItem;
 						if (otherCond == ruleCond && otherMult == ruleMult) {
-							actionItem = new MenuItem(otherRtoMenu, SWT.CHECK, otherRtoMenu.getItemCount());
+							actionItem = new MenuItem(otherRtoMenu, SWT.RADIO, otherRtoMenu.getItemCount());
 							actionItem.setSelection(true);
 							actionItem.setEnabled(false);
 						} else {
-							actionItem = new MenuItem(otherRtoMenu, SWT.PUSH, otherRtoMenu.getItemCount());
+							actionItem = new MenuItem(otherRtoMenu, SWT.RADIO, otherRtoMenu.getItemCount());
+							actionItem.setSelection(false);
+							actionItem.setEnabled(true);
 						}
 						actionItem.setText(rules[i]);
 						actionItem.addSelectionListener(new SelectionAdapter() {
 
 							@Override
 							public void widgetDefaultSelected(SelectionEvent e) {
-								AssociationCardinalityAction action = new AssociationCardinalityAction(finalOtherRto,
+								MenuItem item = (MenuItem) e.widget;
+								if (item.getSelection()) {
+									AssociationCardinalityAction action = new AssociationCardinalityAction(finalOtherRto,
 										rule);
-								action.run(null);
+									action.run(null);
+								}
 							}
 
 							@Override
@@ -248,19 +274,24 @@ public class AssociationCardinalityContributionItem extends ContributionItem {
 				for (int i = 0; i < rules.length; i++) {
 					MenuItem actionItem;
 					if (link.getMult() == i) {
-						actionItem = new MenuItem(rgoMenu, SWT.CHECK, rgoMenu.getItemCount());
+						actionItem = new MenuItem(rgoMenu, SWT.RADIO, rgoMenu.getItemCount());
 						actionItem.setSelection(true);
 						actionItem.setEnabled(false);
 					} else {
-						actionItem = new MenuItem(rgoMenu, SWT.PUSH, rgoMenu.getItemCount());
+						actionItem = new MenuItem(rgoMenu, SWT.RADIO, rgoMenu.getItemCount());
+						actionItem.setSelection(false);
+						actionItem.setEnabled(true);
 					}
 					actionItem.setText(rules[i]);
 					actionItem.addSelectionListener(new SelectionAdapter() {
 
 						@Override
 						public void widgetDefaultSelected(SelectionEvent e) {
-							AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, -1);
-							action.run(null);
+							MenuItem item = (MenuItem) e.widget;
+							if (item.getSelection()) {
+								AssociationCardinalityAction action = new AssociationCardinalityAction(finalRgo, -1);
+								action.run(null);
+							}
 						}
 
 						@Override

@@ -54,15 +54,23 @@ standard associations (Figure 1) and linked associations (Figure 2). By setting 
 __Figure 1__  
 
 ![](link.png)
-__Figure 2__  
+__Figure 2__   
 
+5.2.1  Based on user feedback we found that the ability to change the cardinality of an associative link 
+  relationship to many `{*}` may be undesireable.  Users requested a way to disable this functionality.  We
+  can add a new setting to our filter options called "bridgepoint.CardinalityOnAssociativeLink=disabled" that will
+  provide this support.  
+  
 5.3 The new functionality necessitates changes to the existing JUnit test cases of the Cardinality menu.  The test
 is updated to expect all values in the context menu now.  The test is also updated to check that the current value
 of the association is disabled and checked, and all other options are enabled and unchecked.  
 
 ### 6. Implementation Comments
 
-None.  
+6.1  Development of this feature was done on MacOS.  A user reported that the appearance of the highlighted selection
+  is different on Linux if one uses `SWT.RADIO` buttons instead of `SWT.CHECK and SWT.PUSH`.  Changing to radio buttons
+  has no visual difference on Mac.  The code is changed to use radio buttons to be more consistent with default
+  linux behavior when only one item may be selected.  
 
 ### 7. Unit Test
 
@@ -70,7 +78,9 @@ None.
 
 ### 8. User Documentation
 
-8.1  Update text and graphics in `BridgePoint UML Suite Help > Reference > User Interface > xtUML Modeling Perspective > Model Elements > Class Diagram`
+8.1  Update text and graphics in `BridgePoint UML Suite Help > Reference > User Interface > xtUML Modeling Perspective > Model Elements > Class Diagram`   
+8.2  Update the Palette and Context Menu Customization documentation to note the new setting
+  that allows users to turn off the `Cardinality` menu on associative link relationships.  
 
 ### 9. Code Changes
 
@@ -89,6 +99,10 @@ org.xtuml.bp.core/arc/create_core_plugin.inc
 org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/
     AssociationCardinalityContributionItem.java
 
+org.xtuml.bp.doc/Reference/UserInterface/PaletteAndContextMenuCustomization/
+    PaletteAndContextMenuCustomization.md
+org.xtuml.bp.doc/Reference/UserInterface/PaletteAndContextMenuCustomization/
+    PaletteAndContextMenuCustomization.html
 org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/
     ClassDiagram.htm
 org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/
