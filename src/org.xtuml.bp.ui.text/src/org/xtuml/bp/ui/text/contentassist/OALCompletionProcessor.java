@@ -15,6 +15,7 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
 import org.xtuml.bp.als.oal.ParseRunnable;
+import org.xtuml.bp.als.oal.PartialParseRunnable;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -113,8 +114,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         if ( isAutoTriggered && !isValidAutoTrigger( position ) ) return NO_PROPOSALS;
         if ( !(editor.getEditorInput() instanceof AbstractModelElementPropertyEditorInput) ) return NO_PROPOSALS;
         
-        // parse the body
-        parseActivity( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty(), position );
+        // parse from the closest parsed statement
+        parseActivityPartial( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty(), position );
         Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
 
         // get the list
@@ -345,9 +346,9 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return body;
     }
     
-    private void parseActivity( NonRootModelElement element, int position ) {
+    private void parseActivityPartial( NonRootModelElement element, int position ) {
         if ( null != element && getNeedsParse() ) {
-            ParseRunnable parseRunner = new ParseRunnable( element, editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get(),
+            ParseRunnable parseRunner = new PartialParseRunnable( element, editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get(),
                     positionToLine( position ), positionToCol( position ) );
             parseRunner.run();
             setNeedsParse(false);

@@ -14,10 +14,10 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
 public class ParseRunnable implements Runnable {
-	private String m_document;
-	private NonRootModelElement m_modelElement;
-	private int m_contentAssistLine;
-	private int m_contentAssistCol;
+	protected String m_document;
+	protected NonRootModelElement m_modelElement;
+	protected int m_contentAssistLine;
+	protected int m_contentAssistCol;
 
 	/**
 	 * Constructor.

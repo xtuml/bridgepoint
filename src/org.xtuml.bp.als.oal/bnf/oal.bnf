@@ -982,4 +982,13 @@ mult_op!
   |
     TOK_MOD
   ;
+partial_block[boolean isRoot]
+  :
+    ( options {
+        greedy=false;
+        warnWhenFollowAmbig = false; /* turn off the greedy warning */
+      }:
+      statement
+    )*
+  ;
 
