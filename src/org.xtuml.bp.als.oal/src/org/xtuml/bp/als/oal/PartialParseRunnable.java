@@ -99,7 +99,7 @@ public class PartialParseRunnable extends ParseRunnable {
                 // get the upper ID (action ID for root block, statement ID for inner block)
                 Block_c blk = Block_c.getOneACT_BLKOnR602(mostRecentSmt);
                 Body_c act = Body_c.getOneACT_ACTOnR612(blk);
-                parser.m_oal_context = new Oal_validate( parser.getContainer( m_modelElement ) );
+                parser.m_oal_context = new Oal_validate( parser.getContainer( m_modelElement ), ( m_contentAssistLine != 0 && m_contentAssistCol != 0 ) );
                 parser.m_oal_context.m_act_id = act.getAction_id();
                 UUID upperID = parser.m_oal_context.m_act_id;
                 boolean isRoot = true;

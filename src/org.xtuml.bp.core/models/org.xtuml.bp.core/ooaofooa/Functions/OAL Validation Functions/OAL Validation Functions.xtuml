@@ -62,6 +62,9 @@ INSERT INTO S_SYNC
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::OPERATION_TYPE )
@@ -92,6 +95,9 @@ elif ( param.a2_type == OalConstants::OPERATION_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::BRIDGE_TYPE )
@@ -118,6 +124,9 @@ elif ( param.a2_type == OalConstants::BRIDGE_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::STATE_TYPE )
@@ -149,6 +158,9 @@ elif ( param.a2_type == OalConstants::STATE_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::TRANSITION_TYPE )
@@ -180,6 +192,9 @@ elif ( param.a2_type == OalConstants::TRANSITION_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::MDA_TYPE )
@@ -209,6 +224,9 @@ elif ( param.a2_type == OalConstants::MDA_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::PROV_OPERATION_TYPE )
@@ -228,6 +246,9 @@ elif ( param.a2_type == OalConstants::PROV_OPERATION_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::PROV_SIGNAL_TYPE )
@@ -255,6 +276,9 @@ elif ( param.a2_type == OalConstants::PROV_SIGNAL_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::REQ_OPERATION_TYPE )
@@ -282,6 +306,9 @@ elif ( param.a2_type == OalConstants::REQ_OPERATION_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 elif ( param.a2_type == OalConstants::REQ_SIGNAL_TYPE )
@@ -309,6 +336,9 @@ elif ( param.a2_type == OalConstants::REQ_SIGNAL_TYPE )
     end if;
     act.ReturnFound = false;
     ::set_current_context(context: act.Action_ID );
+    if ( ::contentAssistEnabled() )
+      ::body_start_content_assist();
+    end if;
     return act.Action_ID;
   end if;
 end if;
@@ -29296,71 +29326,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e4872a92-9d19-4c5b-bc67-507e31f8c8bc",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
-	"00000000-0000-0000-0000-000000000000",
-	'Action_eof_content_assist',
-	'ParserValidateFunction: TRUE',
-	'select any blk from instances of ACT_BLK where ( selected.Block_ID == param.b1_block1_id );
-select many smts related by blk->ACT_SMT[R602];
-if ( cardinality smts == 0 )
-  ::statement_content_assist( a1_rule_token:param.a1_rule_token );
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("a27761b0-8b8d-4f2b-b281-9de7d84a369d",
-	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("9d6d578d-ff98-47bc-8f08-fa802be10fdb",
-	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
-	'a2_upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"a27761b0-8b8d-4f2b-b281-9de7d84a369d",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("670ced36-4766-4d8b-8392-168798f649f5",
-	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
-	'a3_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"9d6d578d-ff98-47bc-8f08-fa802be10fdb",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("c64cae0b-f32f-4f93-be0e-6ef003e999b4",
-	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
-	'a4_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"670ced36-4766-4d8b-8392-168798f649f5",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("7edfb975-4c57-46b1-8330-825d34123e0a",
-	"ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
-	'b1_block1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"c64cae0b-f32f-4f93-be0e-6ef003e999b4",
-	'');
-INSERT INTO PE_PE
-	VALUES ("ac1d9aab-9c20-4e17-9ce4-f5296ece4cc6",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
