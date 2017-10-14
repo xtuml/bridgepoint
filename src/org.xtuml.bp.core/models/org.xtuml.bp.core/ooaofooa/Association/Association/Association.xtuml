@@ -682,11 +682,6 @@ if ( empty current_o_obj or empty new_o_obj )
   return false;
 end if;
 
-// check if the association is formalized
-if ( self.isFormalized() )
-  self.unformalize();
-end if;
-
 // check relationship constraints
 // linked association
 select one r_assoc related by self->R_ASSOC[R206];
@@ -745,6 +740,11 @@ if ( not_empty r_subsup )
   end if;
   end if;
 end if;
+end if;
+
+// check if the association is formalized
+if ( self.isFormalized() )
+  self.unformalize();
 end if;
 
 // get the current oir (for reflexive associations, must determin which is the start/end)
