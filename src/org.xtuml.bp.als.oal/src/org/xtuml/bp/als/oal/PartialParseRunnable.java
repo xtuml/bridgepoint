@@ -41,7 +41,10 @@ public class PartialParseRunnable extends ParseRunnable {
         // been disposed, then no parse should be performed
         if (m_modelElement == null || m_modelElement.isOrphaned())
             return;
-        
+
+        Statement_c mostRecentSmt = null;
+        String parseText = m_document;
+
         // select the most recent parsed statement
         Statement_c[] smts = Statement_c.StatementInstances( m_modelElement.getModelRoot(), new ClassQueryInterface_c() {
             @Override
@@ -60,8 +63,7 @@ public class PartialParseRunnable extends ParseRunnable {
                 else return ( o1.getLinenumber() - o2.getLinenumber() );
             }
         });
-        Statement_c mostRecentSmt = smts.length > 0 ? smts[smts.length-1] : null;
-        String parseText = m_document;
+        mostRecentSmt = smts.length > 0 ? smts[smts.length-1] : null;
         if ( null != mostRecentSmt ) {
             parseText = m_document.substring( lineAndColumnToPosition( mostRecentSmt.getLinenumber(), mostRecentSmt.getStartposition() ),
                                               lineAndColumnToPosition( m_contentAssistLine, m_contentAssistCol) );
