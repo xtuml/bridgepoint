@@ -72,7 +72,7 @@ the License.
           <topic label="Data Types" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm"/>
           <topic label="Function Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/FunctionPackage.htm"/>
           <topic label="External Entity Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ExternalEntityPackage.htm"/>
-          <topic label="Class Diagram (Subsystem Package)" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ClassDiagram.htm"/>
+          <topic label="Class Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ClassDiagram.htm"/>
           <topic label="State Machine Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/StateMachinePackage.htm"/>
           <topic label="Activity Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Activity.htm"/>
           <topic label="Communication Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Communication.htm"/>
