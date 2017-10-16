@@ -189,18 +189,31 @@ span.heading4char00
 	color:#2F5496;
 	font-style:italic;}
 span.heading1char000
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;}
+span.heading2char000
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;}
+span.heading3char000
+	{font-family:"Calibri Light",sans-serif;
+	color:#1F3763;}
+span.heading4char000
+	{font-family:"Calibri Light",sans-serif;
+	color:#2F5496;
+	font-style:italic;}
+span.heading1char0000
 	{font-family:"Cambria",serif;
 	color:#365F91;
 	font-weight:bold;}
-span.heading2char000
+span.heading2char0000
 	{font-family:"Cambria",serif;
 	color:#4F81BD;
 	font-weight:bold;}
-span.heading3char000
+span.heading3char0000
 	{font-family:"Cambria",serif;
 	color:#4F81BD;
 	font-weight:bold;}
-span.heading4char000
+span.heading4char0000
 	{font-family:"Cambria",serif;
 	color:#4F81BD;
 	font-weight:bold;
@@ -241,14 +254,14 @@ supertype, and subtype.&nbsp; It may also contain nested packages.</span></p>
 <h3 style='line-height:150%'><i>Class</i></h3>
 
 <p class=MsoNormal style='line-height:150%'>&nbsp;&nbsp; <span
-style='font-size:10.0pt;line-height:150%;font-family:"Arial",sans-serif'>A
-class abstracts the common characteristics of a set of instances that share the
-same attributes, operations, associations and behavior. </span></p>
+style='font-size:10.0pt;line-height:150%;font-family:"Arial",sans-serif'>A class
+abstracts the common characteristics of a set of instances that share the same
+attributes, operations, associations and behavior. </span></p>
 
 <h4><i><span style='font-size:10.0pt'>Graphical Notation</span></i></h4>
 
-<p style='line-height:15.6pt'><i><span style='font-family:"Arial",sans-serif'>A
-class is represented by a rectangle with three compartments.&nbsp; </span></i></p>
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>A
+class is represented by a rectangle with three compartments.&nbsp; </span></p>
 
 <h4><i><span style='font-size:10.0pt'>Name Compartment</span></i></h4>
 
@@ -341,10 +354,9 @@ style='font-family:"Arial",sans-serif'>is its type.</span></p>
 
 <h3><i>Imported Class</i></h3>
 
-<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>An imported
-class represents a class defined in another Package (on another Class
-Diagram).&nbsp; This is useful in representing associations that span 
-packages.</span></p>
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>An
+imported class represents a class defined in another Package (on another Class
+Diagram).&nbsp; This is useful in representing associations that span packages.</span></p>
 
 <h4><i><span style='font-size:10.0pt'>Graphical Notation</span></i></h4>
 
@@ -370,8 +382,8 @@ the relationship numbers that compose the association shown in curly braces,
 separated by commas, e.g.,&nbsp; /R3 {R1,R2}.</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
-following are shown at each association end, in the given order, starting at
-the class at the association end:</span></p>
+following are shown at each association end, in the given order, starting at the
+class at the association end:</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
 class=MsoHyperlink><span style='font-family:Symbol;color:windowtext'>·</span></span><span
@@ -419,10 +431,10 @@ free-form text.</span></p>
 relationship number and the verb phrases are moveable as desired by the
 user.&nbsp; Multiplicity is fixed close to the association end and above the
 line.&nbsp; Association cardinality may be modified using the Cardinality
-context menu. These include both sides of an association. The sub-menus are
-labeled with the associated class on either end. Under each of these sub-menus
-is the cardinality options.&nbsp; The current cardinality of the association is
-filtered from the list of possible options.</span></p>
+context menu. This menu includes both sides of an association. The sub-menus
+are labeled with the associated class on either end. Under each of these
+sub-menus is the cardinality options.&nbsp; The current cardinality of the
+association is shown in the list of possible options as checked and disabled.</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>Choosing
 any of the available cardinality options on an association modifies that
@@ -430,13 +442,15 @@ association such that its multiplicity and conditionality match the desired
 option.&nbsp; The Cardinality menu is only available when selecting a single
 association or link.</span></p>
 
-<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'><img
-width=757 height=414 id="_x0000_i1027" src="ClassDiagram.fld/image001.png"></span></p>
+<p style='line-height:15.6pt'><img width=680 height=391 id="Picture 5"
+src="ClassDiagram.fld/image001.png"></p>
+
+<p style='line-height:15.6pt'>&nbsp;</p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>With
 xtUML, associations can be formalized by using a class identifier.&nbsp; A
-formalized association places a reference in the formalizer class.&nbsp; BridgePoint
-highlights formalized associations if the option found in </span><span
+formalized association places a reference in the formalizer class.&nbsp;
+BridgePoint highlights formalized associations if the option found in </span><span
 style='font-family:"Courier New",serif'>Preferences &gt; xtUML &gt; Diagram
 Editors &gt; Highlight Formalized Associations</span><span style='font-family:
 "Arial",sans-serif'> is set.&nbsp; This setting causes the graphical editor to
@@ -479,10 +493,13 @@ shown.</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
 Cardinality context menu is available to modify the cardinality of the
-associative link, again filtering out the current setting of “{*}” or “”.</span></p>
+associative link, again showing the current setting of “{*}” or “” as checked
+and disabled.</span></p>
 
-<p style='line-height:15.6pt'><img border=0 width=731 height=418
-id="_x0000_i1026" src="ClassDiagram.fld/image002.png"></p>
+<p style='line-height:15.6pt'><img width=624 height=223 id="Picture 6"
+src="ClassDiagram.fld/image002.png"></p>
+
+<p style='line-height:15.6pt'>&nbsp;</p>
 
 <h3><i>Supertype/Subtype</i></h3>
 
@@ -497,9 +514,8 @@ of the association. </span></p>
 association is drawn by selecting the supertype button and drawing from the
 source to a position (waypoint) on the diagram.&nbsp; </span></p>
 
-<p style='line-height:15.6pt'><i><span style='font-family:
-"Arial",sans-serif;color:windowtext'><img border=0 width=219 height=262
-id="_x0000_i1025" src="ClassDiagram_files/image001.jpg"></span></i></p>
+<p style='line-height:15.6pt'><i><span style='font-family:"Arial",sans-serif'><img
+width=219 height=262 id="_x0000_i1025" src="ClassDiagram_files/image001.jpg"></span></i></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
 user then selects the subtype button and finishes the association from the
@@ -507,26 +523,26 @@ destination class to the waypoint.</span></p>
 
 <p style='line-height:15.6pt'><img width=297 height=328
 src="ClassDiagram_files/image002.jpg" align=left hspace=12><i><span
-style='font-family:"Arial",sans-serif;color:windowtext'><br clear=all>
+style='font-family:"Arial",sans-serif'><br clear=all>
 </span></i></p>
 
-<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The
-following adornments are shown:</span></p>
+<p style='line-height:15.6pt'><span style='font-family:"Arial",sans-serif'>The following
+adornments are shown:</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
 class=MsoHyperlink><span style='font-family:Symbol;color:windowtext;font-style:
 normal'>·</span></span><span class=MsoHyperlink><span style='font-size:7.0pt;
 font-family:"Times New Roman",serif;color:windowtext;font-style:normal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial",sans-serif'>The relationship number,
-e.g., R12, is placed near the hollow triangle.</span></p>
+</span></span><span style='font-family:"Arial",sans-serif'>The relationship
+number, e.g., R12, is placed near the hollow triangle.</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
 class=MsoHyperlink><span style='font-family:Symbol;color:windowtext;font-style:
 normal'>·</span></span><span class=MsoHyperlink><span style='font-size:7.0pt;
 font-family:"Times New Roman",serif;color:windowtext;font-style:normal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span style='font-family:"Arial",sans-serif'>The property string
-{disjoint, complete} is shown near the hollow triangle to indicate that supertype/subtype
-associations are mutually exclusive.</span></p>
+{disjoint, complete} is shown near the hollow triangle to indicate that
+supertype/subtype associations are mutually exclusive.</span></p>
 
 </div>
 
