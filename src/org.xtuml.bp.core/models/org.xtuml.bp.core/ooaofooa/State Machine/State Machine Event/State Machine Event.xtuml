@@ -1188,6 +1188,10 @@ signature = "";
 // Get name
 signature = signature + self.Mning;
 
+if ( 2 == param.flavor )
+  signature = self.Drv_Lbl + ":" + signature;
+end if;
+
 // Get parameters
 
 if ( 1 == param.flavor )
@@ -1252,6 +1256,29 @@ elif ( 0 == param.flavor )
 	signature = signature + ")";
   end if;
   
+elif ( 2 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->SM_EVTDI[R532];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->SM_EVTDI[R533.''succeeds''];
+  end while;
+
+  signature = signature + "(";
+  separator = " ";
+  parameter = first_param;
+  while ( not_empty parameter )
+	signature = signature + separator + parameter.Name + ":" + parameter.Name;
+	separator = ", ";
+	select one parameter related by parameter->SM_EVTDI[R533.''precedes''];
+  end while;
+  if( not_empty first_param )
+	signature = signature + " ";
+  end if;
+  signature = signature + ")";
+
 end if;
 
 return signature;',

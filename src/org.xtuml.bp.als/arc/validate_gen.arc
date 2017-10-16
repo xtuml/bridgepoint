@@ -83,6 +83,10 @@ import antlr.Token;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
+.select many fncs from instances of S_SYNC where ( ( "${selected.Descrip:ParserValidateFunction}" == "TRUE" ) and ( "${selected.Descrip:Import}" != "" ) )
+.for each fnc in fncs
+import ${fnc.Descrip:Import};
+.end for
 
 public class ${java_class} {
   
@@ -101,18 +105,24 @@ public class ${java_class} {
     .select one ret_dt related by fnc->S_DT[R25]
     .invoke type = do_type(ret_dt)
     .select many prms related by fnc->S_SPARM[R24]
+    .invoke SortSetAlphabeticallyByNameAttr( prms )
     .assign prm_count = cardinality prms
-
+    .assign prm_number = 0
     .if (prm_count == 0)
   public ${type.body} $cr{fnc.Name}(Ooaofooa modelRoot)
     .else
   public ${type.body} $cr{fnc.Name}(Ooaofooa modelRoot
       .assign first = true
-      .for each prm in prms
-        .select one prm_dt related by prm->S_DT[R26]
-        .invoke type = do_type(prm_dt)
+      .while ( prm_number < prm_count )
+        .for each prm in prms
+          .if ( prm.Order == prm_number )
+            .select one prm_dt related by prm->S_DT[R26]
+            .invoke type = do_type(prm_dt)
      , final ${type.body} p_$cr{prm.name} 
-      .end for
+          .end if
+        .end for
+        .assign prm_number = prm_number + 1
+      .end while
       )
     .end if
     .// emit body of function

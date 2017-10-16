@@ -76,6 +76,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model opertions and validate the integrity of the model for the opertion performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
 	public static final String ENABLE_TABLE_BASED_ASSOCIATION_EDITING = PREFIX + "enable_table_based_association_editing"; //$NON-NLS-1$
 
+	public static final String CONTENT_ASSIST_INCLUDE_ROLE_PHRASES = PREFIX + "content_assist_include_role_phrases"; //$NON-NLS-1$
+	public static final String CONTENT_ASSIST_INSERT_SINGLE_PROPOSALS = PREFIX + "content_assist_insert_single_proposals"; //$NON-NLS-1$
+	public static final String CONTENT_ASSIST_INVOCATION_FORMAT = PREFIX + "content_assist_invocation_format"; //$NON-NLS-1$
+	public static final String CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING = PREFIX + "content_assist_enable_auto_triggering"; //$NON-NLS-1$
+	public static final String CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES = PREFIX + "content_assist_enable_auto_trigger_sequences"; //$NON-NLS-1$
+
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
 	public static final String OBLIQUE_ROUTING = "OBLIQUE_ROUTING"; //$NON-NLS-1$
@@ -121,7 +127,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ENABLE_INSTANCE_REFERENCES, prefs.enableInstanceReferences);
         store.setValue(ENABLE_MODEL_INTEGRITY_CHECK, prefs.enableModelIntegrityCheck);
         store.setValue(ENABLE_TABLE_BASED_ASSOCIATION_EDITING, prefs.enableTableBasedAssociationEditing);
-        
+
+        store.setValue(CONTENT_ASSIST_INCLUDE_ROLE_PHRASES, prefs.contentAssistIncludeRolePhrases);
+        store.setValue(CONTENT_ASSIST_INSERT_SINGLE_PROPOSALS, prefs.contentAssistInsertSingleProposals);
+        store.setValue(CONTENT_ASSIST_INVOCATION_FORMAT, prefs.contentAssistInvocationFormat);
+        store.setValue(CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING, prefs.contentAssistEnableAutoTriggering);
+        store.setValue(CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES, prefs.contentAssistAutoTriggerSequences);
                 
 
         store.setValue(ENABLE_VERIFIER_AUDIT, prefs.enableVerifierAudit);
@@ -214,6 +225,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableTableBasedAssociationEditing =
         		store.getBoolean(ENABLE_TABLE_BASED_ASSOCIATION_EDITING);
         
+        prefs.contentAssistIncludeRolePhrases = store.getBoolean( CONTENT_ASSIST_INCLUDE_ROLE_PHRASES );
+        prefs.contentAssistInsertSingleProposals = store.getBoolean( CONTENT_ASSIST_INSERT_SINGLE_PROPOSALS );
+        prefs.contentAssistInvocationFormat = store.getString( CONTENT_ASSIST_INVOCATION_FORMAT );
+        prefs.contentAssistEnableAutoTriggering = store.getBoolean( CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING );
+        prefs.contentAssistAutoTriggerSequences = store.getString( CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES );
+        
         prefs.enableVerifierAudit =
           store.getBoolean(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT);
         prefs.enableSelectAudit =
@@ -282,6 +299,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.activityPersistenceAsFiles = PERSIST_ACTIVITY_FILES;
         prefs.defaultActionLanguageDialect = Actiondialect_c.oal;
         prefs.enableTableBasedAssociationEditing = false;
+        
+        prefs.contentAssistIncludeRolePhrases = false;
+        prefs.contentAssistInsertSingleProposals = true;
+        prefs.contentAssistInvocationFormat = "labels";
+        prefs.contentAssistEnableAutoTriggering = true;
+        prefs.contentAssistAutoTriggerSequences = ".\n::\n->\n,";
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;
