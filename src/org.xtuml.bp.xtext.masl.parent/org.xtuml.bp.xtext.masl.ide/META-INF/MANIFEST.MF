@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MASL Xtext generic IDE support
-Bundle-Vendor: OneFact
-Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: xtUML.org
+Bundle-Version: 6.6.1.qualifier
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.xtext.masl,
