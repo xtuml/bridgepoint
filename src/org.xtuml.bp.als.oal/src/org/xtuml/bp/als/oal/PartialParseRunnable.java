@@ -28,6 +28,9 @@ import org.xtuml.bp.core.WhileStmt_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
+import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+
 public class PartialParseRunnable extends ParseRunnable {
 
     public PartialParseRunnable(NonRootModelElement modelElement, String document, int contentAssistLine,
@@ -45,6 +48,8 @@ public class PartialParseRunnable extends ParseRunnable {
         Statement_c mostRecentSmt = null;
         String parseText = m_document;
 
+        if ( Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_ENABLE_PARTIAL_PARSING ) ) {
+        
         // select the most recent parsed statement
         Statement_c[] smts = Statement_c.StatementInstances( m_modelElement.getModelRoot(), new ClassQueryInterface_c() {
             @Override
@@ -87,6 +92,8 @@ public class PartialParseRunnable extends ParseRunnable {
             // the parser to skip the body up to the interesting part
             String prefixText = m_document.substring( 0, m_document.indexOf( parseText ) ).replaceAll("[^\\s]", " ");
             parseText = prefixText + parseText;
+        }
+
         }
 
         Ooaofooa modelRoot = (Ooaofooa) m_modelElement.getModelRoot();
