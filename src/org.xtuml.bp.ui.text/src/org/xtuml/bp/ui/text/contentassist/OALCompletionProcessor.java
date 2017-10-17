@@ -59,6 +59,7 @@ import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 
@@ -253,42 +254,17 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
     private int lineAndColumnToPosition( int line, int column ) {
         IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        int position = 0;
-        for ( int i = 0; i < line-1; i++ ) {
-            try {
-                position += document.getLineLength( i );
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        position += column - 1;
-        return position;
+        return DocumentUtil.lineAndColumnToPosition( line, column, document );
     }
 
     private int positionToLine( int position ) {
         IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
-            try {
-                count += document.getLineLength(i);
-                if ( count >= position ) return i + 1;
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
+        return DocumentUtil.positionToLine( position, document );
     }
     
     private int positionToCol( int position ) {
         IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
-            try {
-                if ( position - count <= document.getLineLength(i) ) return position - count + 1;
-                count += document.getLineLength(i);
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
+        return DocumentUtil.positionToCol( position, document );
     }
 
     private synchronized void setInSession(boolean inSession) {

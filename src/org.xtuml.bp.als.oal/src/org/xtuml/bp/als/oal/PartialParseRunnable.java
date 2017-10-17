@@ -27,6 +27,7 @@ import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.WhileStmt_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.util.DocumentUtil;
 
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -47,6 +48,8 @@ public class PartialParseRunnable extends ParseRunnable {
 
         Statement_c mostRecentSmt = null;
         String parseText = m_document;
+        int startLine = 0;
+        int startCol = 0;
 
         if ( Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_ENABLE_PARTIAL_PARSING ) ) {
         
@@ -54,8 +57,8 @@ public class PartialParseRunnable extends ParseRunnable {
         Statement_c[] smts = Statement_c.StatementInstances( m_modelElement.getModelRoot(), new ClassQueryInterface_c() {
             @Override
             public boolean evaluate(Object candidate) {
-                return ((Statement_c)candidate).getLinenumber() < m_contentAssistLine &&
-                       ((Statement_c)candidate).getStartposition() < m_contentAssistCol;
+                return ((Statement_c)candidate).getLinenumber() < m_contentAssistLine ||
+                       ( ((Statement_c)candidate).getLinenumber() == m_contentAssistLine && ((Statement_c)candidate).getStartposition() < m_contentAssistCol );
             }
         });
         // sort by line and column
@@ -70,12 +73,14 @@ public class PartialParseRunnable extends ParseRunnable {
         });
         mostRecentSmt = smts.length > 0 ? smts[smts.length-1] : null;
         if ( null != mostRecentSmt ) {
-            parseText = m_document.substring( lineAndColumnToPosition( mostRecentSmt.getLinenumber(), mostRecentSmt.getStartposition() ),
+        	// get all text between the end of the last statement and the line of content assist request
+            parseText = m_document.substring( m_document.indexOf( ';', lineAndColumnToPosition( mostRecentSmt.getLinenumber(), mostRecentSmt.getStartposition() ) ) + 1,
                                               lineAndColumnToPosition( m_contentAssistLine, m_contentAssistCol) );
-            // if the parse test spans a block we need to get the statement that represents the
+            // if the parse test spans a block we need to get the outer statement
             // sub block
-            Matcher endBlock = Pattern.compile( "end\\s+(if|for|while)" ).matcher( parseText );
-            if ( endBlock.find() ) {
+            Pattern endBlockPattern = Pattern.compile( "\\A\\s*end\\s+(if|for|while);" ); // match any "end ...;" at the beginning of the input
+            Matcher endBlockMatcher = endBlockPattern.matcher( parseText );
+            while ( endBlockMatcher.find() ) {
                 Statement_c upperSmt = Statement_c.getOneACT_SMTOnR603(IfStmt_c.getManyACT_IFsOnR607(Block_c.getOneACT_BLKOnR602(mostRecentSmt)));
                 if ( null == upperSmt ) upperSmt = Statement_c.getOneACT_SMTOnR603(IfStmt_c.getManyACT_IFsOnR682(ElseifStmt_c.getOneACT_ELOnR658(Block_c.getOneACT_BLKOnR602(mostRecentSmt))));
                 if ( null == upperSmt ) upperSmt = Statement_c.getOneACT_SMTOnR603(IfStmt_c.getManyACT_IFsOnR683(ElseStmt_c.getOneACT_EOnR606((Block_c.getOneACT_BLKOnR602(mostRecentSmt)))));
@@ -83,14 +88,17 @@ public class PartialParseRunnable extends ParseRunnable {
                 if ( null == upperSmt ) upperSmt = Statement_c.getOneACT_SMTOnR603(ForStmt_c.getManyACT_FORsOnR605(Block_c.getOneACT_BLKOnR602(mostRecentSmt)));
                 if ( null != upperSmt ) {
                     mostRecentSmt = upperSmt;
-                    parseText = m_document.substring( lineAndColumnToPosition( mostRecentSmt.getLinenumber(), mostRecentSmt.getStartposition() ),
-                                                      lineAndColumnToPosition( m_contentAssistLine, m_contentAssistCol) );
+                    parseText = parseText.substring( parseText.indexOf( ';' ) + 1 );
                 }
+                endBlockMatcher = endBlockPattern.matcher( parseText );
             }
+            // set the start line and column
+            startLine = positionToLine( m_document.indexOf(parseText) );
+            startCol = positionToCol( m_document.indexOf(parseText) );
             // replace every non whitespace character before the start of the parse text
             // with a space. This preserves the line/col information during parse but allows
             // the parser to skip the body up to the interesting part
-            String prefixText = m_document.substring( 0, m_document.indexOf( parseText ) ).replaceAll("[^\\s]", " ");
+            String prefixText = m_document.substring( 0, m_document.indexOf( parseText ) ).replaceAll("\\S", " ");
             parseText = prefixText + parseText;
         }
 
@@ -108,6 +116,7 @@ public class PartialParseRunnable extends ParseRunnable {
                 // get the upper ID (action ID for root block, statement ID for inner block)
                 Block_c blk = Block_c.getOneACT_BLKOnR602(mostRecentSmt);
                 Body_c act = Body_c.getOneACT_ACTOnR612(blk);
+                if ( null == act ) act = Body_c.getOneACT_ACTOnR601(blk);
                 parser.m_oal_context = new Oal_validate( parser.getContainer( m_modelElement ), ( m_contentAssistLine != 0 && m_contentAssistCol != 0 ) );
                 parser.m_oal_context.m_act_id = act.getAction_id();
                 UUID upperID = parser.m_oal_context.m_act_id;
@@ -138,7 +147,7 @@ public class PartialParseRunnable extends ParseRunnable {
                     isRoot = false;
                 }
                 // clear the parse data from the starting statement
-                blk.Deletestatementsfrom( mostRecentSmt.getStatement_id() );
+                blk.Deletestatementsafter( startCol, startLine );
                 // parse a block starting with the most recent statement
                 parser.partial_block( upperID, isRoot );
             }
@@ -173,16 +182,17 @@ public class PartialParseRunnable extends ParseRunnable {
 
     private int lineAndColumnToPosition( int line, int column ) {
         IDocument document = new Document( m_document );
-        int position = 0;
-        for ( int i = 0; i < line-1; i++ ) {
-            try {
-                position += document.getLineLength( i );
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        position += column - 1;
-        return position;
+        return DocumentUtil.lineAndColumnToPosition( line, column, document );
+    }
+
+    private int positionToLine( int position ) {
+        IDocument document = new Document( m_document );
+        return DocumentUtil.positionToLine( position, document );
+    }
+    
+    private int positionToCol( int position ) {
+        IDocument document = new Document( m_document );
+        return DocumentUtil.positionToCol( position, document );
     }
 
 }

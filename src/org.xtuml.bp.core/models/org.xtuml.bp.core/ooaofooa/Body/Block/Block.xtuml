@@ -500,55 +500,56 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
-	'deleteStatementsFrom',
+	'deleteStatementsAfter',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select any starting_statement related by self->ACT_SMT[R602] where ( selected.Statement_ID == param.statement_id );
-if ( not_empty starting_statement )
-  // get the line and column
-  line = starting_statement.LineNumber;
-  col = starting_statement.StartPosition;
+	'// dispose all statements after the line and column
+select many following_statements related by self->ACT_SMT[R602] where ( selected.LineNumber > param.line or
+                                                                        ( selected.LineNumber == param.line and selected.StartPosition > param.col ) );
+for each following_statement in following_statements
+  following_statement.dispose();
+end for;
 
-  // dispose all statements after and including the starting statement
-  select many following_statements related by self->ACT_SMT[R602] where ( selected.LineNumber > line or
-                                                                          ( selected.LineNumber == line and selected.StartPosition > col ) );
-  for each following_statement in following_statements
-    following_statement.dispose();
-  end for;
-  starting_statement.dispose();
-  
-  // dispose any variables that are not declared before the start statement
-  select many vars related by self->V_VAR[R823];
-  for each var in vars
-    select any loc related by var->V_LOC[R835] where ( selected.LineNumber < line or
-                                                       ( selected.LineNumber == line and selected.StartPosition < col ) );
-    if ( empty loc )
-      var.dispose();
-    end if;
-  end for;
-  
-  // delete variable locations after the start statement
-  select many following_locs related by self->V_VAR[R823]->V_LOC[R835] where ( selected.LineNumber > line or
-                                                                               ( selected.LineNumber == line and selected.StartPosition > col ) );
-  for each following_loc in following_locs
-    select one var related by following_loc->V_VAR[R835];
-    unrelate following_loc from var across R835;
-    delete object instance following_loc;
-  end for;
-end if;',
+// dispose any variables that are not declared before the line and column
+select many vars related by self->V_VAR[R823];
+for each var in vars
+  select any loc related by var->V_LOC[R835] where ( selected.LineNumber < param.line or
+                                                     ( selected.LineNumber == param.line and selected.StartPosition < param.col ) );
+  if ( empty loc )
+    var.dispose();
+  end if;
+end for;
+
+// delete variable locations after the line and column
+select many following_locs related by self->V_VAR[R823]->V_LOC[R835] where ( selected.LineNumber > param.line or
+                                                                             ( selected.LineNumber == param.line and selected.StartPosition > param.col ) );
+for each following_loc in following_locs
+  select one var related by following_loc->V_VAR[R835];
+  unrelate following_loc from var across R835;
+  delete object instance following_loc;
+end for;',
 	1,
 	'',
 	"941315c9-3b82-4a3e-bc3d-ef8d4747fc9d",
 	0);
 INSERT INTO O_TPARM
-	VALUES ("10273111-2613-438c-951e-fd9893d9d1d8",
+	VALUES ("7a833467-e2ab-4622-b754-2e12935c4ec9",
 	"e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
-	'statement_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	'line',
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f1b31d11-218d-47f1-a50d-2b3510778b40",
+	"e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
+	'col',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"7a833467-e2ab-4622-b754-2e12935c4ec9",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
