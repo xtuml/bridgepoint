@@ -12,9 +12,14 @@
                class="org.xtuml.bp.docgen.actions.makeDocumentationAction"
                enablesFor="1"
                id="org.xtuml.bp.docgen.makeDocumentationAction"
-               label="Create documentation"
-               menubarPath="org.xtuml.bp.ui.context-internal">
+               label="Create Documentation"
+               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
          </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.Createdocumentation" value="disabled"/>
+           </not>
+         </visibility>
       </objectContribution>
    </extension>
   <extension point="org.eclipse.ant.core.antTasks">

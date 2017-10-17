@@ -2,13 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Tools Plug-in
 Bundle-SymbolicName: org.xtuml.bp.internal.tools; singleton:=true
-Bundle-Version: 6.4.3.qualifier
+Bundle-Version: 6.6.1.qualifier
 Bundle-ClassPath: tools.jar
 Bundle-Activator: org.xtuml.bp.internal.tools.mcjava.Activator
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.internal.tools,
  org.xtuml.bp.internal.tools.actions,
- org.xtuml.bp.internal.tools.cleaner,
  org.xtuml.bp.internal.tools.mcjava,
  org.xtuml.bp.internal.tools.process,
  org.xtuml.bp.internal.tools.views
@@ -17,22 +16,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.team.ui,
  org.apache.ant,
  org.eclipse.jdt.core,
- org.eclipse.core.resources,
  org.xtuml.bp.core,
  org.eclipse.text,
- org.eclipse.ui.ide,
- org.eclipse.core.filesystem,
- org.eclipse.ui.console,
- org.xtuml.bp.io.image,
  org.xtuml.bp.ui.explorer,
- org.eclipse.debug.core,
  org.eclipse.debug.ui,
- org.junit,
- org.eclipse.jdt.junit,
- org.eclipse.jdt.junit.runtime,
  org.xtuml.bp.debug.ui,
- org.xtuml.bp.io.core,
- org.xtuml.bp.io.mdl,
  org.xtuml.bp.utilities,
  org.xtuml.bp.mc,
  org.xtuml.bp.ui.canvas

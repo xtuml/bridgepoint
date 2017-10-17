@@ -1,12 +1,4 @@
 .//========================================================================
-.//
-.//File:      $RCSfile: BuildPropertySource.arc,v $
-.//Version:   $Revision: 1.66 $
-.//Modified:  $Date: 2013/01/17 03:30:35 $
-.//
-.//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-.//
-.//========================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 .// use this file except in compliance with the License.  You may obtain a copy 
 .// of the License at
@@ -303,7 +295,14 @@ super.toString\
       .// for Property Parameters they are read-only if under
       .// an Imported Port
       .if(obj.Key_Lett == "C_PP")
-        .assign readonly = "true"
+        if (${readOnlyFlag}) {
+          .if ( ("${attr.Descrip:enum0}" == "") and (empty edt) )
+                m_propertyDescriptors[${attr_num_attr}] = new PropertyDescriptor("${name}", "${fullname}");
+          .else
+            .invoke ged = get_enum_descriptor(attr)
+                m_propertyDescriptors[${attr_num_attr}] = new EnumPropertyDescriptor("${name}", "${fullname}", ${ged.enum_decl_var}, true);
+          .end if
+        } else {
       .end if
       .if ( ((not_empty dbattr) or (readonly == "true")) and (attr.Name != "Action_Semantics") )
           .if ( ("${attr.Descrip:enum0}" == "") and (empty edt) )
@@ -371,6 +370,9 @@ super.toString\
           .end if
         .end if
       .end if  .// if not_empty dbattr
+        .if(obj.Key_Lett == "C_PP")
+         }
+        .end if
                 m_propertyDescriptors[${attr_num_attr}].setCategory(BridgepointPropertySheetPage.basicCategoryName);
       .assign attr_num_attr = attr_num_attr + 1
     .end if  .// asa.result

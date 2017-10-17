@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="bridgepoint-context-menu-tools">BridgePoint Context Menu Tools</h1>
+<p>BridgePoint allows the user to create model elements, run tools, and format canvases<br />
+via context menu entries. This document describes these tools. Some of the tools have<br />
+additional detailed help content in other sections of the Help system.</p>
+<p>The Model Explorer view context menu is shown in Figure 1. This figure shows access<br />
+into the submenus for creating a new model Class.</p>
+<p><img src="me_menu.png" alt="Image of BridgePoint ME CME" /><br />
+<strong>Figure 1</strong></p>
+<p>The diagram context menu is shown in Figure 2. This figure shows access into the submenus<br />
+for adding an attribute to the selected class.</p>
+<p><img src="canvas_menu.png" alt="Image of BridgePoint canvas CME" /><br />
+<strong>Figure 2</strong></p>
+<h2 id="shared-context-menu-entries">Shared Context Menu Entries</h2>
+<p>These menu entries appear on the context menu of Model Explorer and the canvas.</p>
+<table style="width:88%;">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Assign Component...</td>
+<td>Open dialog to select a component to assign the selected component reference to.</td>
+</tr>
+<tr class="even">
+<td>BridgePoint Utilities ► ...</td>
+<td>Described in detail in a stand-alone section below.</td>
+</tr>
+<tr class="odd">
+<td>Cant Happen Event...</td>
+<td>Open dialog to specify an event to treat as can't happen in the selected state.</td>
+</tr>
+<tr class="even">
+<td>Disconnect</td>
+<td>Breaks the satisfaction of connected interfaces or interface references.</td>
+</tr>
+<tr class="odd">
+<td>Ignore Event...</td>
+<td>Open dialog to specify an event to treat as ignored in the selected state.</td>
+</tr>
+<tr class="even">
+<td>Formalize... (Interface Reference)</td>
+<td>Open dialog to formalize the selected interface reference to an interface definition.</td>
+</tr>
+<tr class="odd">
+<td>Make Public</td>
+<td>Changes the visibility of the selection to public.</td>
+</tr>
+<tr class="even">
+<td>Make Private</td>
+<td>Changes the visibility of the selection to private.</td>
+</tr>
+<tr class="odd">
+<td>Make Protected</td>
+<td>Changes the visibility of the selection to protected.</td>
+</tr>
+<tr class="even">
+<td>New ► &lt;Element&gt;</td>
+<td>Adds the selected model element as a child of the current selection.</td>
+</tr>
+<tr class="odd">
+<td>Publish References</td>
+<td>Creates instance reference types for the selected class in the model called: <code>inst_ref&lt;ClassName&gt;</code> and <code>inst_ref_set&lt;ClassName&gt;</code>.</td>
+</tr>
+<tr class="even">
+<td>Put in Spotlight</td>
+<td>Adds the selection to the xtUML Debugging runtime spotlight for highlighting.</td>
+</tr>
+<tr class="odd">
+<td>Remove from Spotlight</td>
+<td>Removes the selection from the xtUML Debugging runtime spotlight.</td>
+</tr>
+<tr class="even">
+<td>Set Breakpoint</td>
+<td>Adds an OAL breakpoint on access of the selection.</td>
+</tr>
+<tr class="odd">
+<td>Unassign</td>
+<td>Unassigns a component reference.</td>
+</tr>
+<tr class="even">
+<td>Unformalize</td>
+<td>Changes a formalized interface reference, association, etc... back to unformalized.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 1</strong></p>
+<h2 id="model-explorer-specific-context-menu-entries">Model Explorer-specific Context Menu Entries</h2>
+<p>These menu entries appear on only the context menu of Model Explorer.</p>
+<table style="width:90%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Add Built-in External Entities</td>
+<td>Adds the Logging, Time, and Architecture external entities to the selected package.</td>
+</tr>
+<tr class="even">
+<td>Add to Identifier...</td>
+<td>Opens dialog to add the selected attribute to a class identifier.</td>
+</tr>
+<tr class="odd">
+<td>Cant Happen in State...</td>
+<td>Opens dialog to specify a state the event should be treated as can't happen in.</td>
+</tr>
+<tr class="even">
+<td>Combine With...</td>
+<td>Opens dialog that allows the user to combine one referential attribute with another valid attribute.</td>
+</tr>
+<tr class="odd">
+<td>Export MASL Domain(s)</td>
+<td>Create textual MASL Domains for the component(s) in the selection.</td>
+</tr>
+<tr class="even">
+<td>Export MASL Project</td>
+<td>Create a textual MASL Project for the component and component references in the selection.</td>
+</tr>
+<tr class="odd">
+<td>Ignore in State...</td>
+<td>Opens dialog to specify a state the event should be ignored in.</td>
+</tr>
+<tr class="even">
+<td>Launch Verifier</td>
+<td>Run the xtUML Model Debugging tool on the selection.</td>
+</tr>
+<tr class="odd">
+<td>Manage Project Markings</td>
+<td>Opens a dialog to manage markings stored in <code>features.mark</code> and <code>application.mark</code>.</td>
+</tr>
+<tr class="even">
+<td>Move Down</td>
+<td>Move the selected attribute or parameter down in the parent's containment list.</td>
+</tr>
+<tr class="odd">
+<td>Move Up</td>
+<td>Move the selected attribute or parameter up in the parent's containment list.</td>
+</tr>
+<tr class="even">
+<td>Parse All Activities</td>
+<td>Parse the OAL action bodies in the selection and look for syntax issues.</td>
+</tr>
+<tr class="odd">
+<td>Project Preferences</td>
+<td>Opens a dialog to manipulate project-specific BridgePoint settings.</td>
+</tr>
+<tr class="even">
+<td>Remove from Identifier...</td>
+<td>Opens dialog to remove the selected attribute from being part of a class identifier.</td>
+</tr>
+<tr class="odd">
+<td>Set as Base Attribute</td>
+<td>Change the attribute from a mathematically-derived attribute to a base attribute.</td>
+</tr>
+<tr class="even">
+<td>Set as Derived Attribute</td>
+<td>Change the attribute from a base attribute to a mathematically-derived attribute.</td>
+</tr>
+<tr class="odd">
+<td>Set From Provider</td>
+<td>Sets the direction of an interface message to &quot;From Provider&quot;.</td>
+</tr>
+<tr class="even">
+<td>Set Return Type...</td>
+<td>Opens dialog to set the return data type of the selection.</td>
+</tr>
+<tr class="odd">
+<td>Set To Provider</td>
+<td>Sets the direction of an interface message to &quot;To Provider&quot;.</td>
+</tr>
+<tr class="even">
+<td>Set Type...</td>
+<td>Opens dialog to set the data type of the selection.</td>
+</tr>
+<tr class="odd">
+<td>Split</td>
+<td>Breaks a combined attribute back into the parts that where combined when it was created.</td>
+</tr>
+<tr class="even">
+<td>Synchronize references</td>
+<td>Update local interface references by pulling in changes to the referred-to interfaces.</td>
+</tr>
+<tr class="odd">
+<td>Synchronize with library</td>
+<td>Update remote interface references by pushing changes to local interfaces.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2</strong></p>
+<h2 id="canvas-specific-context-menu-entries">Canvas-specific Context Menu Entries</h2>
+<p>These menu entries appear on only the context menu of a diagram canvas.</p>
+<table style="width:90%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Assign Class...</td>
+<td>Open dialog to select a class to assign the selected imported class to.</td>
+</tr>
+<tr class="even">
+<td>Assign Event...</td>
+<td>Open dialog to select an event to assign the selected transition to.</td>
+</tr>
+<tr class="odd">
+<td>Assign Signal...</td>
+<td>Open dialog to select an interface signal to assign the selected transition to.</td>
+</tr>
+<tr class="even">
+<td>Formalize... (Association)</td>
+<td>Open dialog to formalize the selected association by copying referential attributes.</td>
+</tr>
+<tr class="odd">
+<td>Format ► ...</td>
+<td>Adjust the fill color and line color of the graphical element. This is only for decoration and has no effect on model semantics.</td>
+</tr>
+<tr class="even">
+<td>Layers ► ...</td>
+<td>Add the selected element to a layer. Hide all the elements on a layer. Rename a layer. Delete a layer (but not the contained model elements).</td>
+</tr>
+<tr class="odd">
+<td>Mark Instance Destroyed</td>
+<td>Add &quot;X&quot; to end of sequence communication line to mark point where the instance is destroyed.</td>
+</tr>
+<tr class="even">
+<td>Mark Instance Not Destroyed</td>
+<td>Remove &quot;X&quot; from end of sequence communication line.</td>
+</tr>
+<tr class="odd">
+<td>Remove Event</td>
+<td>Change the selected transition to have no event assigned.</td>
+</tr>
+<tr class="even">
+<td>Remove Signal</td>
+<td>Change the selected transition to have no signal assigned.</td>
+</tr>
+<tr class="odd">
+<td>Unformalize (Association)</td>
+<td>Unformalize the selected association by removing referential attributes from participating classes.</td>
+</tr>
+<tr class="even">
+<td>Routing ► ...</td>
+<td>Change the way connectors are drawn on the canvas: Oblique (angles allowed), Rectilinear (squared corners)</td>
+</tr>
+<tr class="odd">
+<td>Toggle End Visibility</td>
+<td>Turn Communication Link end arrowhead on/off.</td>
+</tr>
+<tr class="even">
+<td>Toggle Start Visibility</td>
+<td>Turn Communication Link start arrowhead on/off.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 3</strong></p>
+<h2 id="bridgepoint-utilities-menu">BridgePoint Utilities Menu</h2>
+<p>BridgePoint contains a number of tools that provide additional functionality outside<br />
+of the core application modeling features. These tools are accessed through the context<br />
+menu in the Model Explorer view and on diagram canvases.</p>
+<p>The items inside this context menu are dependent upon the model element that is selected. Tools<br />
+that are not pertinent or valid for the current selection are not displayed.</p>
+<h3 id="user-interface">User Interface</h3>
+<p>To access the BridgePoint Utilities context-menu, right-click on an xtUML element in Model<br />
+Explorer (Figure 3).</p>
+<p><img src="utilities_menu.png" alt="Image of BridgePoint Utilities CME" /><br />
+<strong>Figure 3</strong></p>
+<table style="width:88%;">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Check Model Integrity</td>
+<td>Analyzes the in-memory model data to find problems.</td>
+</tr>
+<tr class="even">
+<td>Check Referential Integrity</td>
+<td>Runs a command line tool that performs deep analysis of referential integrity.</td>
+</tr>
+<tr class="odd">
+<td>Create Documentation</td>
+<td>Builds HTML documentation of the model using the model element descriptions and diagrams.</td>
+</tr>
+<tr class="even">
+<td>Generate Functions From List...</td>
+<td>For model compiler developers. Imports a specially-formatted file and creates xtUML functions in the selected package.</td>
+</tr>
+<tr class="odd">
+<td>Load and Persist</td>
+<td>Traverses through all the underlying model data stored on disk, loads it, the writes it back out again. Validates cross-file references.</td>
+</tr>
+<tr class="even">
+<td>Locate Orphaned Elements</td>
+<td>Another model analysis tool. Opens a dialog that lists all &quot;orphaned&quot; model elements.</td>
+</tr>
+<tr class="odd">
+<td>Reconcile Graphics</td>
+<td>Automatically creates graphical data for imported models that have none.</td>
+</tr>
+<tr class="even">
+<td>Set Model Compiler</td>
+<td>Allows the user to change the model compiler associated with a xtUML project.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 4</strong></p>
+</body>
+</html>

@@ -887,7 +887,7 @@ public class ${class_name} extends CoreImport
 				helper.configureMessages(loadedGraphicsInstances);
             }
             loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
-            helper.upgradeEventData(getModelRoot(), getRootModelElement());
+            helper.upgradeEventData(getModelRoot(), loadedInstances);
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
