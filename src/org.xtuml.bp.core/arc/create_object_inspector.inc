@@ -116,7 +116,7 @@ ${rel_nav.body} \
   .// We need to return a set of instances for each item that is specified
   .// as a child of the element represented by this adapter.
   .//
-  .select many child_specs related by tree_node->T_TPS[R1000] where (selected.Prev_TPS_ID == 0)
+  .select many child_specs related by tree_node->T_TPS[R1000] where (not selected.Prev_TPS_ID)
   .select any first_spec related by tree_node->T_TPS[R1000] where (selected.Prev_TPS_ID == -1)
   .while(not_empty first_spec)
     .assign child_specs = child_specs | first_spec

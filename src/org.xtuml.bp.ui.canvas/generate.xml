@@ -120,7 +120,7 @@
       <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
          <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${tree_schema.output_path}/${tree_schema.output}
       -import ../org.xtuml.bp.core/sql/ooaofooa.sql
@@ -208,7 +208,7 @@
          <env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas" />
          <env key="INSPECTOR_NAME" value="GraphicalModelInspector" />
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
          -import ${mcj_path}/ooa_schema.sql
          -import sql/ooaofooa_hierarchy_schema.sql
          -import sql/ooaofgraphics.sql
@@ -245,7 +245,7 @@
          <env key="SOURCE_PACKAGE" value="org.xtuml.bp.ui.canvas.cells" />
          <env key="MODEL_ROOT" value="Ooaofgraphics" />
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
          -import ${mcj_path}/ooa_schema.sql
         -import sql/ooaofooa_hierarchy_schema.sql
          -import sql/ooaofgraphics.sql

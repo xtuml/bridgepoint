@@ -37,7 +37,7 @@
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="CORE_COLOR_DIR" value="${core_color_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
       -import ${core_sql_dir}/ooaofooa.sql

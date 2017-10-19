@@ -201,7 +201,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .assign field.buffer = "  //$cr{field.Instance_Handle}Text.setText(((${wizard_class_name})getWizard()).v_${field.Instance_Handle});"
     .end if
     .if ((field.Type == "Combo") OR (field.Type == "List"))
-      .select any statement from instances of ACT_SMT where ("${selected.Statement_Id}" == "${field.Statement_Id}")
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
       .select one sel_rel related by statement->ACT_SEL[R603]
       .select one var related by sel_rel->V_VAR[R638]
       .assign load_ui = ""

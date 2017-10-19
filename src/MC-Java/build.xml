@@ -46,7 +46,7 @@
          <env key="PTC_MCC_ROOT" value="${param1}" />
          <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/../org.xtuml.bp.io.core/sql/file_io_schema.sql
             -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
             -import ${param3}/ooa_schema.sql
@@ -101,7 +101,7 @@
         <env key="PTC_MCC_ROOT" value="${param1}" />
         <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-        <arg line="xtumlmc_gen_erate -nopersist
+        <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/../org.xtuml.bp.io.core/sql/file_io_schema.sql
             -import ${param3}/ooa_schema.sql
             -import sql/${param1}.sql
@@ -137,7 +137,7 @@
           <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
           <env key="PTC_MCC_ROOT" value="${param4}" />
 	      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	      <arg line="xtumlmc_gen_erate -nopersist
+	      <arg line="xtumlmc_gen_erate -qim -nopersist
 	         -import ${param2}/ooa_schema.sql
 	         -import ${param1}
 	         -arch ${param2}/schema_gen.arc" />
@@ -151,7 +151,7 @@
           <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
           <env key="PTC_MCC_ROOT" value="${param4}" />
 	      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	      <arg line="xtumlmc_gen_erate -nopersist
+	      <arg line="xtumlmc_gen_erate -qim -nopersist
 	         -import ../${param2}/ooa_schema.sql
 	         -import ${param1}
 	         -arch ../${param2}/schema_gen.arc" />

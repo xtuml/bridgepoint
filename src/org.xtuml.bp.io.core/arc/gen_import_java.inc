@@ -40,7 +40,7 @@
   .//
   .select one table related by p_col->T[R5]
   .select many tcol_set related by table->C[R5]
-  .select any last_tcol related by table->C[R5] where ( selected.nextName == "" )
+  .select any last_tcol related by table->C[R5] where ( not selected.nextName )
   .assign x = (cardinality tcol_set) - 1
   .while ( x >= 0 )
     .if ( last_tcol.Name == p_col.Name )

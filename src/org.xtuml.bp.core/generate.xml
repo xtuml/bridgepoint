@@ -135,13 +135,26 @@
           depends="cme_schema.depends"
           description="Generate the Context Menu Entry schema file"
           unless="cme_schema.buildNotNeeded" >
+    <echo >${cme_schema.output} is now hand-crafted. Skipping schema_gen...</echo>
+  	<!-- The python-based generator updated in May 2017 started performing batch
+  	     relate which caused some issues with the PEI CME data which we create 
+  	     and directly set referential attributes in.  In the Context Menu model
+  	     there are a number of relationships that are formalized but never 
+  	     traversed.  To get around the problem of the batch relate overwritting
+  	     our pre-populated referentials we no longer want to specify these 
+  	     relationships in the schema, but schema gen does not know how to ignore
+  	     formalized relationships, so we are choosing to not recreate 
+  	     the schema on every build. Instead, we are committing the schema to 
+  	     revision control, which means any changes to the context menu model
+  	     will necessitate hand-edits to this schema. See issues 8442 and 9481.
+
     <echo >Generating ${cme_schema.output} ...</echo>
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="${cme.output}" />
     <property name="param2" value="${mcj_path}" />
     <property name="param3" value="FALSE" />
     <property name="param4" value="context_menu" />
-  </ant>
+  </ant> -->
   </target>
 
   <property name="java.sql.dep" value="${sql.output}" />
@@ -278,7 +291,7 @@
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
     <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -d 0 -import sql/ooaofooa-4.sql
       -arch ${mcj_path}/verify_selects.arc
@@ -368,7 +381,7 @@
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa.sql
@@ -440,7 +453,7 @@
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
            <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-       <arg line="xtumlmc_gen_erate -nopersist
+       <arg line="xtumlmc_gen_erate -qim -nopersist
          -import ${mcj_path}/ooa_schema.sql
          -import sql/ooaofooa_hierarchy_schema.sql
          -import sql/ooaofooa.sql
@@ -472,7 +485,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_supertype_subtype_util.arc" />
@@ -496,7 +509,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_rto_util.arc" />
@@ -520,7 +533,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/action_language_description_util.arc" />
@@ -653,8 +666,10 @@
 
   <target name="clean_cme_schema" description="Remove the Context Menu Entry schema file">
 
+  	<echo>${cme_schema.output} is now hand-crafted.  Not removing.</echo>
+  	<!-- See note in cme_schema target in this file
     <echo>Removing the generated schema file: ${cme_schema.output} ...</echo>
-    <delete file="sql/${cme_schema.output}" />
+    <delete file="sql/${cme_schema.output}" />-->
 
   </target>
 
