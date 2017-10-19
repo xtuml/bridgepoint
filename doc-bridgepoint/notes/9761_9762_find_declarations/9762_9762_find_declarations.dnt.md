@@ -105,6 +105,6 @@ None.
 
 ### 9. Unit Test
 
-See [2](2.6).
+See [2.6].
 
 ### End
