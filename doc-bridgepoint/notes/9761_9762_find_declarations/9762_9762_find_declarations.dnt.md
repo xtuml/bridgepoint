@@ -17,6 +17,7 @@ This note describes the changes required to support opening declarations for the
 <a id="2.3"></a>2.3 [BridgePoint DEI #9571](https://support.onefact.net/issues/9571) Enhanced OAL Editor (phase 1).  
 <a id="2.4"></a>2.4 [Requirements Specification (SRS) for the Enhanced OAL Editor]   (https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit)  
 <a id="2.5"></a>2.5 [Analysis note for Enhanced OAL Editor (phase 1)](TODO)  
+<a id="2.6"></a>2.6 [Test matrix](https://github.com/travislondon/bridgepoint/tree/9761/doc-bridgepoint/notes/9761_9762_find_declarations/find_declarations_matrix.txt) Test Matrix    
 
 ### 3. Background  
 
@@ -104,6 +105,6 @@ None.
 
 ### 9. Unit Test
 
-TODO: Consider testing  (agreed, this document is not done until this is complete)
+See [2](2.6).
 
 ### End
