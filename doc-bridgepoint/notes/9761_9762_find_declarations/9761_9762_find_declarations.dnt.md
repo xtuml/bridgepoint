@@ -26,7 +26,7 @@ The OAL editor is being enhanced [[2.3](#2.3)].  One of the things that shall co
 3.1 Terminology in this document  
 3.1.1 Model Element Reference and Declaration  
 These terms are used in this document interchangeably to refer to the following:  
-In general, a Model Element declartion is an OAL artifact that refers to a structure Model Element that is not represented in OAL. Specifically, these declarations include any references to the following:    
+In general, a Model Element declartion is an OAL artifact that refers to a structural model element that is not represented in OAL. Specifically, these declarations include any references to the following:    
 
 3.1.1.1 Class Key letters  
 3.1.1.2 Functions    
