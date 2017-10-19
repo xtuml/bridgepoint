@@ -6,7 +6,7 @@
 Degrees of Freedom:
 
 Declaration(D)
-1. Model Element  
+1. Model Element Reference  
 2. Transient Variable  
 
 Type(T)
