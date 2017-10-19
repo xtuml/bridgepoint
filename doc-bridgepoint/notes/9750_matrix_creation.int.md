@@ -15,6 +15,7 @@ This note describes the creation of a test matrix for OAL automatic completion.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9750](https://support.onefact.net/issues/9750) Develop test matrix for oal autocompletion.  
 <a id="2.2"></a>2.2 [BridgePoint DEI #9749](https://support.onefact.net/issues/9749) Determine use cases for OAL autocompletion.  
+<a id="2.3"></a>2.3 [BridgePoint DEI #9749](https://support.onefact.net/issues/9751) Using test matrix implement tests for oal context sensitive help.  
 
 ### 3. Background
 
@@ -29,19 +30,19 @@ An enhanced OAL editor is requested by customers, of which one enhancement is OA
 5.1 Degrees of freedom    
 5.1.1 Locations  
 
-Locations are the positional value in the location of a statement.  These are all set out in the use case document in reference 2.2.  The use case document lists the location with all possible proposals of each.  This is defined in section 6 of the use case document (2.2).  This matrix degree of freedom has each implemented under Locations (L).  
+Locations are the positional value in the location of a statement.  These are all set out in the use case document [2.2].  The use case document lists the location with all possible proposals of each.  This is defined in section 6 of the use case document [2.2].  This matrix degree of freedom has each implemented under Locations (L).  
 
 5.1.2 Possibilities  
 
-Possibilities are the possible proposals shown to the user when using automatic completion.  As stated in section 5.1.1, these are listed after each location in section 6 of reference 2.2.  The possibilities are handled under the Possibilities degree of freedom (P).  
+Possibilities are the possible proposals shown to the user when using automatic completion.  As stated in section 5.1.1, these are listed after each location in section 6 of the analysis note [2.2].  The possibilities are handled under the Possibilities degree of freedom (P).  
 
 5.1.3 Activity homes  
 
-There are ten different places where OAL may be written, all of which have different rules and therefore must be tested.  These activity homes are described in reference 2.2.  A new degree of freedom is added, Activy_Homes(AH), to handle these homes.  
+There are ten different places where OAL may be written, all of which have different rules and therefore must be tested.  These activity homes are described in the analysis note [2.2].  A new degree of freedom is added, Activy_Homes(AH), to handle these homes.  
 
 5.1.4 Scope  
 
-Scoping is described in the analysis section of reference 2.2.  For testing the proposal shall be tested to assure inaccessible values are not shown in the proposal list.  To handle these cases a new degree of freedom is add for Scope(S).  This degree of freedom has three options:  
+Scoping is described in the analysis section [2.2].  For testing the proposal shall be tested to assure inaccessible values are not shown in the proposal list.  To handle these cases a new degree of freedom is add for Scope(S).  This degree of freedom has three options:  
 
 * Before  
 * After  
@@ -68,7 +69,7 @@ None.
 
 ### 7. Unit Test
 
-Determined in the issue referenced in 2.3.  
+Determined in reference [2.3].  
 
 ### 8. User Documentation
 
