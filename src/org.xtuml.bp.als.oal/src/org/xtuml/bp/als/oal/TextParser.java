@@ -96,7 +96,7 @@ public class TextParser extends OalParser {
 						.getOneSM_CRTXNOnR507(Transition_c.getManySM_TXNsOnR530(TransitionActionHome_c
 								.getManySM_TAHsOnR513(ActionHome_c.getManySM_AHsOnR514((Action_c) model))));
 			}
-			m_action_id = selected.Get_ooa_id();
+			m_action_id = ((Action_c)model).getAct_id();
 			container = ContainerUtil.getContainer(((Action_c) model));
 			if (selected instanceof StateMachineState_c) {
 				m_type = Oalconstants_c.STATE_TYPE;
