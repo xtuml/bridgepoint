@@ -43,7 +43,7 @@ Requirements AE-8 and AE-9 from the SRS [2.4](2.4) describe the ability for a us
 
 5.1.1 Model Element Declaration   
 
-In general, a Model Element declartion is an OAL artifact that refers to a structure Model Element that is not represetned in OAL. Specifically, these declarations include any references to the following:    
+In general, a Model Element declartion is an OAL artifact that refers to a structure Model Element that is not represented in OAL. Specifically, these declarations include any references to the following:    
 
 5.1.1.1 Class Key letters  
 5.1.1.2 Functions    
