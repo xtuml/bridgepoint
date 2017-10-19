@@ -23,46 +23,52 @@ This note describes the changes required to support opening declarations for the
 
 The OAL editor is being enhanced [[2.3](#2.3)].  One of the things that shall come with this enhancement is a mechanism that allows the user to navigate to declarations from a selection in the OAL editor. This note describes how this mechanism will work.  
 
+3.1 Terminology in this document  
+3.1.1 Model Element Reference and Declaration  
+These terms are used in this document interchangeably to refer to the following:  
+In general, a Model Element declartion is an OAL artifact that refers to a structure Model Element that is not represented in OAL. Specifically, these declarations include any references to the following:    
+
+3.1.1.1 Class Key letters  
+3.1.1.2 Functions    
+3.1.1.3 External Entities Key letters  
+3.1.1.4 Ports  
+3.1.1.5 Event specifications  
+3.1.1.6 Operations  
+3.1.2.7 Bridges  
+3.1.2.8 Interface operations  
+3.1.3.9 Interface signals  
+3.1.3.10 Parameters  
+
 ### 4. Requirements
 
 Requirements 4.1 and 4.2 below are sourced directly from the SRS [[2.4](#2.4)]. The other requirements below have been added to more clearly define the scope of this project.  
 
-4.1 (SRS AE8) When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance   
-4.1.1 In an expression, only the left-most element in the expression shall have the open declaration behavior
+Note that requirement AE9 called out in the [SRS](#2.4) has been found to be confusing to the readers of this design. It does not seem to clearly describe what is suppose to happen. While the writer of this document does not want to change the requirement, it is being modified here in 4.2 below to keep the spirit of the requirement, but clarify it:  
+orginal:  
+When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.  
+
+updated:  
+When the user selects a model element reference the tool shal provide a means to navigate to that model element reference.  
+
+4.1 (AE8) When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance   
+4.1.1 In an expression, only the left-most element in the expression shall have the open declaration behavior.  
 4.1.2 When a transient variable is selected, the open behavior shall be to go to the first use of that variable in the OAL body.  
 
-4.2 (SRS AE9) When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.  
-4.2.1 Navigation to the declaration shall involve showing the user the spot of the declation in the model explorer tree.  
-4.2.2 If the model explorer tree is not opened when the user selects "open declation", the user will be asked if they wish to open model explorer.  
-4.2.2.1 This dialog will give the user the option to never ask this question again.  
+4.2 (AE9) When the user selects a model element reference the tool shal provide a means to navigate to that model element reference.   
 
 ### 5. Analysis
 
-5.1 Declarations  
 Requirements AE-8 and AE-9 from the SRS [[2.4](#2.4)] describe the ability for a user to find and open a declartion. This section will describe what this analysis considers a declaration for this project.   
 
-5.1.1 Model Element Declaration   
+5.1 Model Element Declaration handling  
+5.1.1 Navigation to the declaration shall involve showing the user the spot of the declation in the model explorer tree.  
+5.1.2 If the model explorer tree is not opened when the user selects "open declation", the user will be asked if they wish to open model explorer.  
+5.1.2.1 This dialog will give the user the option to never ask this question again.  
 
-In general, a Model Element declartion is an OAL artifact that refers to a structure Model Element that is not represented in OAL. Specifically, these declarations include any references to the following:    
-
-5.1.1.1 Class Key letters  
-5.1.1.2 Functions    
-5.1.1.3 External Entities Key letters  
-5.1.1.4 Ports  
-5.1.1.5 Event specifications  
-5.1.1.6 Operations  
-5.1.2.7 Bridges  
-5.1.2.8 Interface operations  
-5.1.3.9 Interface signals  
-5.1.3.10 Parameters  
-
-5.1.1.1 Model Element Declaration handling  
-Handling is clearly specified by the requirements under [4.2] above.  
-
-5.1.2 Transient Declaration  
+5.2 Transient Declaration  
 Transient declarations include local variables.  These are the variables in the OAL that have been defined within the same action body.  To the user, this means it is "local" to the action body being edited. In the ooaofooa meta-model these are identified by V_TRN. Opening the declaration for such a transient variable will take the user to the first definition of the variable in the same editor that is open during the selection.  
 
-5.1.2.1 Transient Declaration handling  
+5.2.1 Transient Declaration handling  
 A transient variable of any type will take the user to the location, in the currently opened action body, where it was first used.  
  
 
@@ -70,7 +76,7 @@ A transient variable of any type will take the user to the location, in the curr
 
 6.1 Declaration determination  
 
-The cursor location shall be used to determine what declaration is in consideration.  The selected text shall be used to locate a V_LOC.  The selected text shall match that of the V_LOC.  Once found there are three subtypes:
+The selection shall be used to determine what type of declaration has been selected.  The selected text shall be used to locate a V_LOC.  The selected text shall match that of the V_LOC.  Once found there are three subtypes:
 
 6.1.1 Instance Handle (V_INT)  
 6.1.2 Instance Set (V_INS)  
@@ -80,7 +86,7 @@ For instance handle and instance set, open declaration shall open the Model Clas
 
 For Transient Variables we shall navigate the metamodel to locate the type.  Open Declaration shall simply take the user to the initial usage within the same home.  
 
-6.2 Adding Open Declaration  
+6.2 Open Declaration Context Menu Entry  
 
 6.2.1 Open Declaration  
 
