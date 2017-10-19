@@ -75,35 +75,34 @@ A transient variable of any type will take the user to the location, in the curr
 ### 6. Design
 
 6.1 Declaration determination  
-
+6.1.1 Model Element declaration  
 The selection shall be used to determine what type of declaration has been selected.  The selected text shall be used to locate a V_LOC.  The selected text shall match that of the V_LOC.  Once found there are three subtypes:
 
-6.1.1 Instance Handle (V_INT)  
-6.1.2 Instance Set (V_INS)  
-6.1.3 Transient Var (V_TRN)  
+6.1.1.1 Instance Handle (V_INT)  
+6.1.1.2 Instance Set (V_INS)  
+6.1.1.3 Transient Var (V_TRN)  
 
 For instance handle and instance set, open declaration shall open the Model Class element associated across R818 and R819 respectively.  
 
+6.1.2 Transient Declaration  
 For Transient Variables we shall navigate the metamodel to locate the type.  Open Declaration shall simply take the user to the initial usage within the same home.  
 
-6.2 Open Declaration Context Menu Entry  
+6.2 Location  
 
-6.2.1 Open Declaration  
+Location shall be determined by using the selection made by the user.  From the beginning of the user selection, the location shall match the V_LOC line number and start position attributes.  
+
+6.2.1 Resolution  
+
+Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to determine what type of V_VAR is being handled.  
+
+6.3 Open Declaration context menu entry  
 
 The ui.text plugin shall have a new action added, OpenDeclarationAction.java.  The necessary plugin xml changes shall be made to add this as an editor based action.  
 
 This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to determine the word.  
 
-6.2.1.1 This action shall be tied to the CTRL + Left Mouse  
-6.2.1.2 This action shall be tied to the F3 shortcut  
-
-6.2.2 Location  
-
-Location shall be determined by using the current cursor location (provided it is not whitespace) and backtrace until whitespace.  The location at that point shall match the V_LOC line number and start position attributes.  
-
-6.2.2.1 Resolution  
-
-Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to determine what type of V_VAR is being handled.  
+6.3.1 This action shall be tied to the CTRL + Left Mouse  
+6.3.2 This action shall be tied to the F3 shortcut  
 
 ### 7. Design Comments
 
