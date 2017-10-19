@@ -66,7 +66,7 @@ Requirements AE-8 and AE-9 from the SRS [[2.4](#2.4)] describe the ability for a
 5.1.2.1 This dialog will give the user the option to never ask this question again.  
 
 5.2 Transient Declaration  
-Transient declarations include local variables.  These are the variables in the OAL that have been defined within the same action body.  To the user, this means it is "local" to the action body being edited. In the ooaofooa meta-model these are identified by V_TRN. Opening the declaration for such a transient variable will take the user to the first definition of the variable in the same editor that is open during the selection.  
+Transient declarations include local variables.  These are the variables in the OAL that have been defined within the same action body.  To the user, this means it is "local" to the action body being edited. In the ooaofooa meta-model these are identified by V_VAR. Opening the declaration for such a transient variable will take the user to the first definition of the variable in the same editor that is open during the selection.  
 
 5.2.1 Transient Declaration handling  
 A transient variable of any type will take the user to the location, in the currently opened action body, where it was first used.  
