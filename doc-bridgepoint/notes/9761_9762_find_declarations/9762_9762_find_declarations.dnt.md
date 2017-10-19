@@ -21,11 +21,11 @@ This note describes the changes required to support opening declarations for the
 
 ### 3. Background  
 
-The OAL editor is being enhanced [[2.3](2.3)].  One of the things that shall come with this enhancement is a mechanism that allows the user to navigate to declarations from a selection in the OAL editor. This note describes how this mechanism will work.  
+The OAL editor is being enhanced [[2.3](#2.3)].  One of the things that shall come with this enhancement is a mechanism that allows the user to navigate to declarations from a selection in the OAL editor. This note describes how this mechanism will work.  
 
 ### 4. Requirements
 
-Requirements 4.1 and 4.2 below are sourced directly from the SRS [[2.4](2.4)]. The other requirements below have been added to more clearly define the scope of this project.  
+Requirements 4.1 and 4.2 below are sourced directly from the SRS [[2.4](#2.4)]. The other requirements below have been added to more clearly define the scope of this project.  
 
 4.1 (SRS AE8) When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance   
 4.1.1 In an expression, only the left-most element in the expression shall have the open declaration behavior
@@ -39,7 +39,7 @@ Requirements 4.1 and 4.2 below are sourced directly from the SRS [[2.4](2.4)]. T
 ### 5. Analysis
 
 5.1 Declarations  
-Requirements AE-8 and AE-9 from the SRS [[2.4](2.4)] describe the ability for a user to find and open a declartion. This section will describe what this analysis considers a declaration for this project.   
+Requirements AE-8 and AE-9 from the SRS [[2.4](#2.4)] describe the ability for a user to find and open a declartion. This section will describe what this analysis considers a declaration for this project.   
 
 5.1.1 Model Element Declaration   
 
@@ -57,7 +57,7 @@ In general, a Model Element declartion is an OAL artifact that refers to a struc
 5.1.3.10 Parameters  
 
 5.1.1.1 Model Element Declaration handling  
-Handling is clearly specified by the requirements under [4.2](4.2) above.  
+Handling is clearly specified by the requirements under [[4.2](#4.2)] above.  
 
 5.1.2 Transient Declaration  
 Transient declarations include local variables.  These are the variables in the OAL that have been defined within the same action body.  To the user, this means it is "local" to the action body being edited. In the ooaofooa meta-model these are identified by V_TRN. Opening the declaration for such a transient variable will take the user to the first definition of the variable in the same editor that is open during the selection.  
@@ -109,6 +109,6 @@ BridgePoint documentation shall be modifed to include this new feature.
 
 ### 9. Unit Test
 
-To assure proper test coverage of this feature, a test test matrix is being used to describe the required tests. This matrix is found in [[2.6](2.6)].  
+To assure proper test coverage of this feature, a test test matrix is being used to describe the required tests. This matrix is found in [[2.6](#2.6)].  
 
 ### End
