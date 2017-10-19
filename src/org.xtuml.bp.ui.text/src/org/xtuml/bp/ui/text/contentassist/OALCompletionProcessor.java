@@ -2,8 +2,9 @@ package org.xtuml.bp.ui.text.contentassist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ContentAssistEvent;
@@ -132,17 +133,17 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
         int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
         String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
-        String leadingWhitespace = "";
-        if ( "".equals( existingText.trim() ) ) leadingWhitespace = existingText;
-        else leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
+        String leadingText = "";
+        if ( "".equals( trimWhitespaceAndComments( existingText ) ) ) leadingText = existingText;
+        else leadingText = existingText.substring( 0, existingText.indexOf( trimWhitespaceAndComments( existingText ) ) );
         Proposal_c[] items = Proposal_c.getManyP_PsOnR1601( list );
         for ( Proposal_c item : items ) {
             boolean insertSpace = false;
-            if ( "".equals( leadingWhitespace ) && item.getNeeds_space() ) insertSpace = true;
-            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) &&
-               ( !item.getReplacement_text().toLowerCase().equals( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) ) ) {
-                String replacementText = leadingWhitespace + item.getReplacement_text();
-                int cursorPosition = leadingWhitespace.length() + item.getCursor_position();
+            if ( "".equals( leadingText ) && item.getNeeds_space() ) insertSpace = true;
+            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingText.length() ).toLowerCase() ) &&
+               ( !item.getReplacement_text().toLowerCase().equals( existingText.substring( leadingText.length() ).toLowerCase() ) ) ) {
+                String replacementText = leadingText + item.getReplacement_text();
+                int cursorPosition = leadingText.length() + item.getCursor_position();
                 if ( insertSpace ) {
                     replacementText = " " + replacementText;
                     cursorPosition += 1;
@@ -360,6 +361,13 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private static String[] getTriggerSequences() {
         return Pref_c.Getstring( BridgePointPreferencesStore.CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES ).split( "\n" );
+    }
+    
+    private String trimWhitespaceAndComments( String input ) {
+    	String blockCommentPattern = "\\/\\*[\\s\\S]*\\/\\*";
+    	String lineCommentPattern = "\\/\\/[ \\t\\n\\x0B\\f\\r\\S]*\\n";
+    	String whitespaceAndCommentPattern = "(" + blockCommentPattern + "|" + lineCommentPattern + "|\\s)*";
+    	return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z" ).matcher( input ).replaceAll( "" );
     }
 
 }
