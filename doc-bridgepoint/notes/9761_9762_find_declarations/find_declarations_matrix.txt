@@ -10,17 +10,17 @@ Declaration(D)
 2. Transient Variable  
 
 Type(T)
-1.  5.1.1.1 Class Key letters  
-2.  5.1.1.2 Functions    
-3.  5.1.1.3 External Entities Key letters  
-4.  5.1.1.4 Ports  
-5.  5.1.1.5 Event specifications  
-6.  5.1.1.6 Operations  
-7.  5.1.2.7 Bridges  
-8.  5.1.2.8 Interface operations  
-9.  5.1.3.9 Interface signals  
-10. 5.1.3.10 Parameters  
-11. 5.1.2 Transient variable
+1.  3.1.1.1 Class Key letters  
+2.  3.1.1.2 Functions    
+3.  3.1.1.3 External Entities Key letters  
+4.  3.1.1.4 Ports  
+5.  3.1.1.5 Event specifications  
+6.  3.1.1.6 Operations  
+7.  3.1.2.7 Bridges  
+8.  3.1.2.8 Interface operations  
+9.  3.1.3.9 Interface signals  
+10. 3.1.3.10 Parameters  
+11. 3.1.2 Transient variable
 
 Scope(S)
 1. Before
