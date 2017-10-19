@@ -31439,7 +31439,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("c4f9a212-5606-4178-90f8-78a497fcb187",
 	"00000000-0000-0000-0000-000000000000",
-	'Statement_lookahead_content_assist',
+	'Statement_begin_content_assist',
 	'ParserValidateFunction: TRUE',
 	'if ( "send" == ::getText( rule_token:param.a1_rule_token ) )
   ::send_content_assist( a1_rule_token:param.a1_rule_token );
