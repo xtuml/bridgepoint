@@ -60,7 +60,7 @@ When the user selects a model element reference the tool shal provide a means to
 
 Requirements AE-8 and AE-9 from the SRS [[2.4](#2.4)] describe the ability for a user to find and open a declartion. This section will describe what this analysis considers a declaration for this project.   
 
-5.1 Model Element Declaration handling  
+5.1 Model Element Reference handling  
 5.1.1 Navigation to the declaration shall involve showing the user the spot of the declation in the model explorer tree.  
 5.1.2 If the model explorer tree is not opened when the user selects "open declation", the user will be asked if they wish to open model explorer.  
 5.1.2.1 This dialog will give the user the option to never ask this question again.  
