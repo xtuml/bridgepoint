@@ -57,7 +57,7 @@ In general, a Model Element declartion is an OAL artifact that refers to a struc
 5.1.3.10 Parameters  
 
 5.1.1.1 Model Element Declaration handling  
-Handling is clearly specified by the requirements under [[4.2](#4.2)] above.  
+Handling is clearly specified by the requirements under [4.2] above.  
 
 5.1.2 Transient Declaration  
 Transient declarations include local variables.  These are the variables in the OAL that have been defined within the same action body.  To the user, this means it is "local" to the action body being edited. In the ooaofooa meta-model these are identified by V_TRN. Opening the declaration for such a transient variable will take the user to the first definition of the variable in the same editor that is open during the selection.  
