@@ -425,7 +425,7 @@ proposals for link traversals and relate/unrelate statements.
 Help text:  
 > Include role phrases in association proposals by default
 
-The default is no role phrases.
+The default is to include role phrases.
 
 6.5.2 Invocation format
 

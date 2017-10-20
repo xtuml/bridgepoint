@@ -303,7 +303,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.defaultActionLanguageDialect = Actiondialect_c.oal;
         prefs.enableTableBasedAssociationEditing = false;
         
-        prefs.contentAssistIncludeRolePhrases = false;
+        prefs.contentAssistIncludeRolePhrases = true;
         prefs.contentAssistInsertSingleProposals = true;
         prefs.contentAssistInvocationFormat = "labels";
         prefs.contentAssistEnableAutoTriggering = true;
