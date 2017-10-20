@@ -76,13 +76,16 @@ A transient variable of any type will take the user to the location, in the curr
 
 6.1 Declaration determination  
 6.1.1 Model Element declaration  
-The selection shall be used to determine what type of declaration has been selected.  The selected text shall be used to locate a V_LOC.  The selected text shall match that of the V_LOC.  Once found there are three subtypes:
+The selection shall be used to determine what type of declaration has been selected.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  Once found there are there are many subtypes:
 
-6.1.1.1 Instance Handle (V_INT)  
-6.1.1.2 Instance Set (V_INS)  
-6.1.1.3 Transient Var (V_TRN)  
+6.1.1.1 Bridge Invocation (ACT_BRG)  
+6.1.1.2 Function Invocation (ACT_FNC)  
+6.1.1.3 Operation invocation (ACT_TFM)  
+6.1.1.4 Interface Operaction Invocation (ACT_IOP)   
+6.1.1.5 Interface Signal Invocation (ACT_SGN)  
+6.1.1.6 Evenet Specification Statement (ACT_ESS)  
 
-For instance handle and instance set, open declaration shall open the Model Class element associated across R818 and R819 respectively.  
+To search for the declaration of a non-transient variable, one of the above must be satisfied.  This requires a complete parse of the child.  Once this parse is compleete the tool shall navigate the Body SS, to locate the element under the cursor.
 
 6.1.2 Transient Declaration  
 For Transient Variables we shall navigate the metamodel to locate the type.  Open Declaration shall simply take the user to the initial usage within the same home.  
