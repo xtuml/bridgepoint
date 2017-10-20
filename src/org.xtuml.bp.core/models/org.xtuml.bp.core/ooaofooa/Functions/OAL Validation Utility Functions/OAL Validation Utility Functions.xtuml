@@ -8223,7 +8223,7 @@ if ( not_empty act )
         new_item.replacement_text = evt.getSignature( flavor:2 );
         substr = Util::substr( s:new_item.replacement_text, i1:Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1, i2:-1 );
         new_item.cursor_position = Util::indexOf( haystack:substr, needle:":" ) + Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 2;
-        if ( 0 == new_item.cursor_position )
+        if ( -1 == Util::indexOf( haystack:substr, needle:":" ) )
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         end if;
       else
@@ -8244,7 +8244,7 @@ if ( not_empty act )
         new_item.replacement_text = evt.getSignature( flavor:2 );
         substr = Util::substr( s:new_item.replacement_text, i1:Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1, i2:-1 );
         new_item.cursor_position = Util::indexOf( haystack:substr, needle:":" ) + Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 2;
-        if ( 0 == new_item.cursor_position )
+        if ( -1 == Util::indexOf( haystack:substr, needle:":" ) )
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         end if;
       else
