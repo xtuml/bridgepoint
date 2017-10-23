@@ -7842,12 +7842,7 @@ if ( not_empty act )
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Keyword;
     new_item.display_text = kw;
-    new_item.replacement_text = new_item.display_text + " ";
-    if ( "control stop" == kw or "break" == kw or "continue" == kw )
-      new_item.replacement_text = new_item.display_text + ";";
-    elif ( "param" == kw )
-      new_item.replacement_text = new_item.display_text;
-    end if;
+    new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
     relate new_item to list across R1601;
@@ -7914,9 +7909,6 @@ if ( not_empty act )
           new_item.type = ProposalTypes::Keyword;
           new_item.display_text = kw;
           new_item.replacement_text = new_item.display_text;
-          if ( "end if" == kw )
-            new_item.replacement_text = new_item.display_text + ";";
-          end if;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
           new_item.needs_space = false;
           relate new_item to list across R1601;
@@ -7926,7 +7918,7 @@ if ( not_empty act )
         create object instance new_item of P_P;
         new_item.type = ProposalTypes::Keyword;
         new_item.display_text = "end if";
-        new_item.replacement_text = new_item.display_text + ";";
+        new_item.replacement_text = new_item.display_text;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = false;
         relate new_item to list across R1601;
@@ -7946,7 +7938,7 @@ if ( not_empty act )
         create object instance new_item of P_P;
         new_item.type = ProposalTypes::Keyword;
         new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text + ";";
+        new_item.replacement_text = new_item.display_text;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = false;
         relate new_item to list across R1601;
@@ -7966,7 +7958,7 @@ if ( not_empty act )
         create object instance new_item of P_P;
         new_item.type = ProposalTypes::Keyword;
         new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text + ";";
+        new_item.replacement_text = new_item.display_text;
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = false;
         relate new_item to list across R1601;
@@ -9932,12 +9924,7 @@ if ( not_empty act )
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Keyword;
     new_item.display_text = kw;
-    new_item.replacement_text = new_item.display_text + " ";
-    if ( "control stop" == kw or "break" == kw or "continue" == kw )
-      new_item.replacement_text = new_item.display_text + ";";
-    elif ( "param" == kw )
-      new_item.replacement_text = new_item.display_text;
-    end if;
+    new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
     relate new_item to list across R1601;
