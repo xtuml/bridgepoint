@@ -8,7 +8,7 @@
 Degrees of Freedom:
 
 #
-# The type of the declation being selected
+# The type of the declation being selected. 
 # 
 Type(T)
 1.  3.1.1.1 Class Key letters  
@@ -39,11 +39,21 @@ Location (L)
 10. Bridge Body
 
 #
-# The position of the selection with regard to the model element reference selected
+# OAL statement where the selection is made
+#
+Expression (E)
+1. Left hand side of expression
+2. right hand side of expression
+3. select statement outside where clause
+4. select statement inside where clause
+5. create statement
+
+#
+# Position of the cursor relative to the selection made
 #
 Position (P)
 1. Before
-2. Within
+2. Middle
 3. After
 
 #
@@ -68,5 +78,5 @@ Results:
 4. rootDefinitionFound "Root definition was not found for element"
 
 Matrix:
-    	        P1	P2	P3
-L1P1M1C1        x   x   x
+    	          P1    P2  P3
+L1E1P1M1C1        x     x   x
