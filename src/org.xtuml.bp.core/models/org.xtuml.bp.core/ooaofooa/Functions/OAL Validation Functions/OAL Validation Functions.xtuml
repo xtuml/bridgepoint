@@ -31342,6 +31342,12 @@ if ( not_empty act and not_empty val )
       select many sm_act_params related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
       if ( empty sm_act_params )
         select many sm_act_params related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+        if ( empty sm_act_params )
+          select many sm_act_params related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_EVTDI[R532];
+          if ( empty sm_act_params )
+            select many sm_act_params related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_EVTDI[R532];
+          end if;
+        end if;
       end if;
     end if;
   end if;
