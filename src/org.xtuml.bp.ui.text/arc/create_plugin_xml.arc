@@ -422,6 +422,20 @@ This file is the plugin manifest for the BridgePoint core plugin.
             enabled="true"
             pattern="*.oal"/>
    </extension>
+   <extension
+        point="org.eclipse.ui.popupMenus">
+        <viewerContribution
+            id="org.xtuml.bp.ui.text.activity.opendeclaration"
+            targetID="#TextEditorContext">
+         <action
+               id="org.xtuml.bp.ui.text.activity.OpenDeclarationAction"
+               label="Open Declaration"
+               tooltip="Open the associated Model Element declaration for this reference."
+               menubarPath="org.xtuml.bp.ui.context-internal"
+               class="org.xtuml.bp.ui.text.activity.OpenDeclarationAction">
+         </action>
+      </viewerContribution>
+   </extension>
 </plugin>
 .//
 .emit to file "plugin.xml"
