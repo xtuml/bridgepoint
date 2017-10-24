@@ -9139,6 +9139,31 @@ if ( not_empty act )
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
   end while;
+
+  // create ''self'' proposal if in an instance body
+  include_self = true;
+  select one op related by act->ACT_OPB[R698] ->O_TFR[R696];
+  if ( empty op )
+    select one sm_act related by act->ACT_SAB[R698]->SM_ACT[R691];
+    if ( empty sm_act )
+      select one sm_act related by act->ACT_TAB[R698]->SM_ACT[R688];
+      if ( empty sm_act )
+        select one dbattr related by act->ACT_DAB[R698]->O_DBATTR[R693];
+        if ( empty dbattr )
+          include_self = false;
+        end if;
+      end if;
+    end if;
+  end if;
+  if ( include_self )
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "self";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    relate new_item to list across R1601;
+  end if;
   
   // get class key letter proposals
   in_generic_package = act.associateWithContainer();
@@ -9273,7 +9298,6 @@ if ( not_empty act )
     relate new_item to list across R1601;
   end for;
   
-  // special proposals for boolean and integer
   // get keyword proposals
   i = 0;
   while i < 4
@@ -9296,6 +9320,42 @@ if ( not_empty act )
     relate new_item to list across R1601;
     i = i + 1;
   end while;
+
+  // if there are parameters, include the ''param'' keyword
+  has_parameters = true;
+  select any s_sync_param related by act->ACT_FNB[R698]->S_SYNC[R695]->S_SPARM[R24];
+  if ( empty s_sync_param )
+  select any o_tfr_param related by act->ACT_OPB[R698]->O_TFR[R696]->O_TPARM[R117];
+  if ( empty o_tfr_param )
+  select any s_brg_param related by act->ACT_BRB[R698]->S_BRG[R697]->S_BPARM[R21];
+  if ( empty s_brg_param )
+  select any sm_state_param related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_state_param )
+  select any sm_state_param related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_state_param )
+  select any sm_txn_param related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_txn_param )
+  select any sm_txn_param related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
+  if ( empty sm_txn_param )
+  select any spr_po_param related by act->ACT_POB[R698]->SPR_PO[R687]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
+  if ( empty spr_po_param )
+  select any spr_ps_param related by act->ACT_PSB[R698]->SPR_PS[R686]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
+  if ( empty spr_ps_param )
+  select any spr_ro_param related by act->ACT_ROB[R698]->SPR_RO[R685]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
+  if ( empty spr_ro_param )
+  select any spr_rs_param related by act->ACT_RSB[R698]->SPR_RS[R684]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
+  if ( empty spr_rs_param )
+    has_parameters = false;
+  end if; end if; end if; end if; end if; end if; end if; end if; end if; end if; end if;
+  if ( has_parameters )
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "param";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    relate new_item to list across R1601;
+  end if;
 
   // get literal proposals
   i = 0;
