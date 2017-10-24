@@ -36120,7 +36120,7 @@ if ( not_empty act and not_empty block )
     select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::CLASS ); 
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
-  select any o_obj related by results->O_OBJ[R8001] where ( selected.Name == block.TempBuffer );
+  select any o_obj related by results->O_OBJ[R8001] where ( selected.Key_Lett == block.TempBuffer );
   if ( not_empty o_obj )
     ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:o_obj.Obj_ID, a3_instance_ops:false, a4_include_doublecolon:false );
   else
