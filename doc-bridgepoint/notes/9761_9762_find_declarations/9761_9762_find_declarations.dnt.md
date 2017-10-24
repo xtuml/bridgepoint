@@ -73,29 +73,33 @@ A transient variable of any type will take the user to the location, in the curr
 
 ### 6. Design
 
-6.1 Declaration determination  
-6.1.1 Model Element declaration  
-The selection shall be used to determine what type of declaration has been matched.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  Once found there are there are many subtypes:
+6.1 Determination of item to consider using location  
 
-6.1.1.1 Bridge Invocation (ACT_BRG)  
-6.1.1.2 Function Invocation (ACT_FNC)  
-6.1.1.3 Operation invocation (ACT_TFM)  
-6.1.1.4 Interface Operaction Invocation (ACT_IOP)   
-6.1.1.5 Interface Signal Invocation (ACT_SGN)  
-6.1.1.6 Event Specification Statement (ACT_ESS)  
+Location shall be determined using current cursor position.  From the beginning of the current string, the location shall match the V_LOC line number and start position attributes. A declaration may be specified on the left hand side of an expression, the right-hand side, in a select statement, in and where clause, all such selections shall be supported.  
+
+6.1.1 Model Element declaration  
+The selection shall be used to determine what type of declaration has been matched.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  The following model element types shall be supported by this feature:  
+
+6.1.1.1 Class Key letters  
+6.1.1.2 Functions (ACT_FNC)    
+6.1.1.3 External Entities Key letters  
+6.1.1.4 Ports  
+6.1.1.5 Event specifications  
+6.1.1.6 Operations (ACT_TFM)  
+6.1.1.7 Bridges (ACT_BRG)  
+6.1.1.8 Interface operations(ACT_IOP)  
+6.1.1.9 Interface signals (ACT_SGN)  
+6.1.1.10 Parameters  
+
 
 To search for the declaration of a non-transient variable, one of the above must be satisfied.  This requires a complete parse of the child.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.
 
 6.1.2 Transient Declaration  
 Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
-6.2 Lookup procedure
 
-6.2.1 Determination of item to consider using location  
 
-Location shall be determined by the cursor position.  From the beginning of the current string, the location shall match the V_LOC line number and start position attributes.  
-
-6.2.2 Resolution  
+6.2 Resolution  
 
 Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to find the first instance of the V_VAR  
 
