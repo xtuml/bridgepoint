@@ -24,9 +24,8 @@ This note describes the changes required to support opening declarations for the
 The OAL editor is being enhanced [[2.3](#2.3)].  One of the things that shall come with this enhancement is a mechanism that allows the user to navigate to declarations from a selection in the OAL editor. This note describes how this mechanism will work.  
 
 3.1 Terminology in this document  
-3.1.1 Model Element Reference and Declaration  
-These terms are used in this document interchangeably to refer to the following:  
-In general, a Model Element declartion is an OAL artifact that refers to a structural model element that is not represented in OAL. Specifically, these declarations include any references to the following:    
+3.1.1 Model Element References and Model Element Declarations  
+In general, a Model Element Refererence is an OAL artifact that refers to a structural model element that is not represented in OAL. The item that is referred to is the declaration. For the purpose of this work, Model Element references include the following:    
 
 3.1.1.1 Class Key letters  
 3.1.1.2 Functions    
@@ -48,22 +47,22 @@ orginal:
 When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.  
 
 updated:  
-When the user selects a model element reference the tool shal provide a means to navigate to that model element reference.  
+When the user selects a model element reference the tool shall provide a means to navigate to that model element declaration.  
 
 4.1 (AE8) When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance   
-4.1.1 In an expression, only the left-most element in the expression shall have the open declaration behavior.  
+4.1.1 In an expression, only the left-most element in the expression shall have the find declaration behavior.  
 4.1.2 When a transient variable is selected, the open behavior shall be to go to the first use of that variable in the OAL body.  
 
-4.2 (AE9) When the user selects a model element reference the tool shal provide a means to navigate to that model element reference.   
+4.2 (AE9) When the user selects a model element reference the tool shall provide a means to navigate to that model element declaration.   
 
 ### 5. Analysis
 
-Requirements AE-8 and AE-9 from the SRS [[2.4](#2.4)] describe the ability for a user to find and open a declartion. This section will describe what this analysis considers a declaration for this project.   
+Requirements AE-8 and AE-9 from the SRS [[2.4](#2.4)] describe the ability for a user to find and open a declaration. This section will describe what this process.   
 
 5.1 Model Element Reference handling  
-5.1.1 Navigation to the declaration shall involve showing the user the spot of the declation in the model explorer tree.  
-5.1.2 If the model explorer tree is not opened when the user selects "open declation", the user will be asked if they wish to open model explorer.  
-5.1.2.1 This dialog will give the user the option to never ask this question again.  
+5.1.1 Navigation to the declaration shall involve showing the user the spot of the declaration in the model explorer tree and on the canvas.  
+5.1.1.1 If the model explorer tree is not opened when the user selects "find declaration", it shall be opened.  
+5.1.1.2 If the canvas is not opened when the user selects "find declaration", it shall be opened. 
 
 5.2 Transient Declaration  
 Transient declarations include local variables.  These are the variables in the OAL that have been defined within the same action body.  To the user, this means it is "local" to the action body being edited. In the ooaofooa meta-model these are identified by V_VAR. Opening the declaration for such a transient variable will take the user to the first definition of the variable in the same editor that is open during the selection.  
@@ -76,27 +75,29 @@ A transient variable of any type will take the user to the location, in the curr
 
 6.1 Declaration determination  
 6.1.1 Model Element declaration  
-The selection shall be used to determine what type of declaration has been selected.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  Once found there are there are many subtypes:
+The selection shall be used to determine what type of declaration has been matched.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  Once found there are there are many subtypes:
 
 6.1.1.1 Bridge Invocation (ACT_BRG)  
 6.1.1.2 Function Invocation (ACT_FNC)  
 6.1.1.3 Operation invocation (ACT_TFM)  
 6.1.1.4 Interface Operaction Invocation (ACT_IOP)   
 6.1.1.5 Interface Signal Invocation (ACT_SGN)  
-6.1.1.6 Evenet Specification Statement (ACT_ESS)  
+6.1.1.6 Event Specification Statement (ACT_ESS)  
 
-To search for the declaration of a non-transient variable, one of the above must be satisfied.  This requires a complete parse of the child.  Once this parse is compleete the tool shall navigate the Body SS, to locate the element under the cursor.
+To search for the declaration of a non-transient variable, one of the above must be satisfied.  This requires a complete parse of the child.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.
 
 6.1.2 Transient Declaration  
-For Transient Variables we shall navigate the metamodel to locate the type.  Open Declaration shall simply take the user to the initial usage within the same home.  
+Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
-6.2 Location  
+6.2 Lookup procedure
 
-Location shall be determined by using the selection made by the user.  From the beginning of the user selection, the location shall match the V_LOC line number and start position attributes.  
+6.2.1 Determination of item to consider using location  
 
-6.2.1 Resolution  
+Location shall be determined by the cursor position.  From the beginning of the current string, the location shall match the V_LOC line number and start position attributes.  
 
-Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to determine what type of V_VAR is being handled.  
+6.2.2 Resolution  
+
+Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to find the first instance of the V_VAR  
 
 6.3 Open Declaration context menu entry  
 
@@ -104,8 +105,10 @@ The ui.text plugin shall have a new action added, OpenDeclarationAction.java.  T
 
 This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to determine the word.  
 
-6.3.1 This action shall be tied to the CTRL + Left Mouse  
-6.3.2 This action shall be tied to the F3 shortcut  
+6.3.1 This new CME shall be in the Eclipse menu in the section with the other BridgePoint CMEs
+6.3.2 This action shall be tied to the CTRL + Left Mouse (on MAC this is Cmd+Left Mouse)  
+6.3.3 This action shall be tied to the F3 shortcut  
+6.3.4 The Find Declaration CMS shall be shown, but greyed out on invalid activations  
 
 ### 7. Design Comments
 
