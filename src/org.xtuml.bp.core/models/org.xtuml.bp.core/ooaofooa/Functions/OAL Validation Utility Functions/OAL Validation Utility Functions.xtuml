@@ -8564,7 +8564,7 @@ if ( not_empty act )
   create object instance new_item of P_P;
   new_item.type = ProposalTypes::Keyword;
   new_item.display_text = param.a2_keyword;
-  new_item.replacement_text = new_item.display_text + param.a3_append_chars;
+  new_item.replacement_text = new_item.display_text;
   new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
   new_item.needs_space = param.a4_needs_space;
   relate new_item to list across R1601;
