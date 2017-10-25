@@ -36103,7 +36103,7 @@ if ( not_empty act and not_empty block )
   select any o_obj related by results->O_OBJ[R8001] where ( selected.Key_Lett == block.TempBuffer );
   if ( not_empty o_obj )
     ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:o_obj.Obj_ID, a3_instance_ops:false, a4_include_doublecolon:false );
-  else
+  end if;
 
   // search for EE key letters
   if not_empty c_c
@@ -36120,14 +36120,14 @@ if ( not_empty act and not_empty block )
   select any s_ee related by results->S_EE[R8001] where ( selected.Key_Lett == block.TempBuffer );
   if ( not_empty s_ee )
     ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:s_ee.EE_ID, a3_instance_ops:false, a4_include_doublecolon:false );
-  else
+  end if;
 
   // search for ports
   select any containing_c_c from instances of C_C where ( selected.Id == act.getContainingComponentId() );
   select any c_po related by containing_c_c->C_PO[R4010] where ( selected.Name == block.TempBuffer );
   if ( not_empty c_po )
     ::invocation_content_assist( a1_rule_token:param.a1_rule_token, a2_container_id:c_po.Id, a3_instance_ops:false, a4_include_doublecolon:false );
-  end if; end if; end if;
+  end if;
 
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
