@@ -8384,7 +8384,7 @@ if ( not_empty act )
       new_item.display_text = local_var.Name;
       new_item.replacement_text = new_item.display_text;
       if ( param.a3_add_space )
-        new_item.replacement_text = new_item.replacement_text + " ";
+        new_item.replacement_text = new_item.replacement_text;
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
@@ -8470,7 +8470,7 @@ if ( not_empty act )
       new_item.display_text = local_var.Name;
       new_item.replacement_text = new_item.display_text;
       if ( param.a2_add_space )
-        new_item.replacement_text = new_item.replacement_text + " ";
+        new_item.replacement_text = new_item.replacement_text;
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
