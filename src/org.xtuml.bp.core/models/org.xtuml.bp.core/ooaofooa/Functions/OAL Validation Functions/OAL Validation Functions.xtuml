@@ -30999,27 +30999,8 @@ if ( not_empty act and not_empty evt )
       new_item.needs_space = true;
       relate new_item to list across R1601;
     else  // instance event
-      select one pevt related by evt->SM_PEVT[R525];
-      // create local variable proposals for variables of a valid intsance referecne type
-      i = 0;
-      local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
-      while ( GD::NULL_UNIQUE_ID() != local_var_id )
-        select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
-        select one var_obj related by local_var->V_INT[R814]->O_OBJ[R818];
-        if ( not_empty var_obj )
-          if ( var_obj.Obj_ID == o_obj.Obj_ID or ( not_empty pevt and o_obj.isSupertypeOf( classId:var_obj.Obj_ID ) ) )
-            create object instance new_item of P_P;
-            new_item.type = ProposalTypes::Variable;
-            new_item.display_text = local_var.Name;
-            new_item.replacement_text = new_item.display_text;
-            new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-            new_item.needs_space = true;
-            relate new_item to list across R1601;
-          end if;
-        end if;
-        i = i + 1;
-        local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
-      end while;
+      // create local variable proposals for variables of intsance referecne type
+      ::all_inst_ref_vars_content_assist( a1_rule_token:param.a1_rule_token, a2_include_self:true, a3_add_space:true );
     end if;
   end if;
 end if;',
