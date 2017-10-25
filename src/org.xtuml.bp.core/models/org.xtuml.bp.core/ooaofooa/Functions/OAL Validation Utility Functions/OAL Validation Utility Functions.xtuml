@@ -9051,22 +9051,13 @@ if ( not_empty act )
   select any containing_c_c from instances of C_C where ( selected.Id == act.getContainingComponentId() );
   select many c_pos related by containing_c_c->C_PO[R4010];
   for each c_po in c_pos
-    outbound_direction = IFDirectionType::ClientServer; // to provider is "outbound"
-    select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
-    if ( not_empty c_p )
-      outbound_direction = IFDirectionType::ServerClient; // from provider is "outbound"
-    end if;
-    select any c_io related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_IO[R4004] where ( selected.Direction == outbound_direction );
-    select any c_as related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003]->C_AS[R4004] where ( selected.Direction == outbound_direction );
-    if ( not_empty c_io or not_empty c_as )  // must have at least one outbound operation or signal
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Port;
-      new_item.display_text = c_po.Name;
-      new_item.replacement_text = new_item.display_text + "::";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = true;
-      relate new_item to list across R1601;
-    end if;
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Port;
+    new_item.display_text = c_po.Name;
+    new_item.replacement_text = new_item.display_text + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    relate new_item to list across R1601;
   end for;
   
   // get EDT proposals
