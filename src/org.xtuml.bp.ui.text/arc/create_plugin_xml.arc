@@ -436,6 +436,34 @@ This file is the plugin manifest for the BridgePoint core plugin.
          </action>
       </viewerContribution>
    </extension>
+   <extension point="org.eclipse.ui.commands">
+        <category
+          id="org.xtuml.bp.ui.text.editor.oal.keybindings.category"
+          description="OAL Editor"
+          name="OAL">
+        </category>          
+        <command 
+            id="org.xtuml.bp.ui.text.activity.opendeclarationaction.command"
+            categoryId="org.xtuml.bp.ui.text.editor.oal.keybindings.category"
+            description="Opens the declaration for the currently selected reference"
+            name="Open Declaration">
+        </command>
+   </extension>
+   <extension
+        point="org.eclipse.ui.handlers">
+     <handler
+        class="org.xtuml.bp.ui.text.activity.OpenDeclarationHandler"
+        commandId="org.xtuml.bp.ui.text.activity.opendeclarationaction.command">
+     </handler>
+   </extension>    
+   <extension point="org.eclipse.ui.bindings">
+        <key 
+            sequence="F3"
+            commandId="org.xtuml.bp.ui.text.activity.opendeclarationaction.command"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.textEditorScope">
+        </key>        
+    </extension>
 </plugin>
 .//
 .emit to file "plugin.xml"
