@@ -110,9 +110,7 @@ The ui.text plugin shall have a new action added, OpenDeclarationAction.java.  T
 This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to determine the word.  
 
 6.3.1 This new CME shall be in the Eclipse menu in the section with the other BridgePoint CMEs
-6.3.2 This action shall be tied to the CTRL + Left Mouse (on MAC this is Cmd+Left Mouse)  
-6.3.3 This action shall be tied to the F3 shortcut  
-6.3.4 The Find Declaration CMS shall be shown, but greyed out on invalid activations  
+6.3.2 This action shall be tied to the F3 shortcut  
 
 ### 7. Design Comments
 
