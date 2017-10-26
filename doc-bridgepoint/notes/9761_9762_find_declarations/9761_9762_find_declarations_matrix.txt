@@ -2,13 +2,13 @@
 #
 # This work is licensed under the Creative Commons CC0 License
 # 
-# This is the test matrix used to generate unit tests for the Open Declation behavior.
+# This is the test matrix used to generate unit tests for the Open Declaration behavior.
 # @see 9761_9762_find_declarations.dnt.md
 #  
 Degrees of Freedom:
 
 #
-# The type of the declation being selected. 
+# The type of the declaration being selected. 
 # 
 Type(T)
 01. Transient variable
