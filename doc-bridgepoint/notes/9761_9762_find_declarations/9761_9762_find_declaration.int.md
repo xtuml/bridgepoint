@@ -19,6 +19,11 @@ This note describes the changes required to support opening declarations for the
 <a id="2.4"></a>2.4 [Contributing Actions to the Eclipse Workbench](https://www.eclipse.org/articles/Article-action-contribution/index.html) Eclipse Documentation.  
 <a id="2.5"></a>2.5 [Article that describes #TextEditorContext default](https://stackoverflow.com/questions/22374204/add-context-menu-entry-to-texteditor) This article helped answer a question that the Eclipse documentation [[2.4](#2.4)] did not about editor menu contributions.  
 <a id="2.6"></a>2.6 [Example Open Declartion Implemenation](https://www.javatips.net/api/texlipse-master/source/net/sourceforge/texlipse/actions/OpenDeclarationAction.java)  
+<a id="2.7"></a>2.7 The following resources were useful in implementing the Open Declaration keybinding to F3  
+* [FAQ How do I provide a keyboard shortcut for my action?](https://wiki.eclipse.org/FAQ_How_do_I_provide_a_keyboard_shortcut_for_my_action%3F)
+* [Eclipse Help - Contexts and Keybinings](https://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FwrkAdv_keyBindings_contexts.htm)
+* [Eclipse Help - Commands](https://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fworkbench_cmd_commands.htm) 
+* [Eclipse - Platform Command Framework](https://wiki.eclipse.org/Platform_Command_Framework) 
   
 
 ### 3. Background
@@ -68,11 +73,35 @@ popupMenu contribution which is desired in this implemenation. The following res
 
 
 
-6.3.1 TODO: This new CME shall be in the Eclipse menu in the section with the other BridgePoint CMEs
-6.3.2 TODO: This action shall be tied to the CTRL + Left Mouse (on MAC this is Cmd+Left Mouse)  
-6.3.3 TODO: This action shall be tied to the F3 shortcut  
-6.3.4 TODO: The Find Declaration CMS shall be shown, but greyed out on invalid activations  
+6.3.1 This new CME shall be in the Eclipse menu in the section with the other BridgePoint CMEs  
+This is complete, but note that there are no other BP menu items in the OAL Editor popup menu.  
 
+6.3.2 Work to tie the F3 shortcut to the Open Declaration action  
+The following references were helpful in this task: [[2.7](2.7)].  
+The implementation is found in bp.ui.text/arc/create_plugin_xml.arc:
+```
+   <extension point="org.eclipse.ui.commands">
+        <category
+          description="OAL Editor"
+          id="org.xtuml.bp.ui.text.editor.oal.keybindings.category"
+          name="OAL">
+        </category>
+        <command 
+            categoryId="org.xtuml.bp.ui.text.editor.oal.keybindings.category"
+            description="Opens the declaration for the currently selected reference"
+            id="org.xtuml.bp.ui.text.activity.OpenDeclarationAction"
+            name="Open Declaration">
+         </command>
+   </extension>
+   <extension point="org.eclipse.ui.bindings">
+        <key> 
+            sequence="M1+1"
+            commandId="org.xtuml.bp.ui.text.activity.OpenDeclarationAction"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.DefaultTextEditor">
+        </key>
+    </extension>
+```
 
 ### 6. Implementation Comments
 
