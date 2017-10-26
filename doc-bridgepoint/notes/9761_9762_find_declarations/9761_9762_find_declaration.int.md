@@ -24,6 +24,7 @@ This note describes the changes required to support opening declarations for the
 * [Eclipse Help - Contexts and Keybinings](https://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FwrkAdv_keyBindings_contexts.htm)
 * [Eclipse Help - Commands](https://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fworkbench_cmd_commands.htm) 
 * [Eclipse - Platform Command Framework](https://wiki.eclipse.org/Platform_Command_Framework) 
+* [Simple example](http://wiki.bioclipse.net/index.php?title=How_to_add_menus_and_actions)
   
 
 ### 3. Background
