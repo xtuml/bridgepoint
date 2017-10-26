@@ -80,7 +80,7 @@ Location shall be determined using current cursor position.  From the beginning 
 6.1.1 Model Element declaration  
 The selection shall be used to determine what type of declaration has been matched.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  The following model element types shall be supported by this feature:  
 
-6.1.1.1 Class Key letters  
+6.1.1.1 Class Key letters (ACT_SEL, ACT_FIO, ACT_FIW)  
 6.1.1.2 Functions (ACT_FNC)    
 6.1.1.3 External Entities Key letters  
 6.1.1.4 Ports  
@@ -90,14 +90,15 @@ The selection shall be used to determine what type of declaration has been match
 6.1.1.8 Interface operations(ACT_IOP)  
 6.1.1.9 Interface signals (ACT_SGN)  
 6.1.1.10 Parameters  
+6.1.1.11 Association numbers (ACT_SEL, ACT_FIO, ACT_FIW)
 
 
-To search for the declaration of a non-transient variable, one of the above must be satisfied.  This requires a complete parse of the child.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.
+To search for the declaration of a non-transient variable, one of the above shall be satisfied.  The full statement subtype shall be commpletely parsed.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.  No declaration shall be opened if the location of the cursor does not match one of the specified elements above.  
 
 6.1.2 Transient Declaration  
 Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
-
+6.1.3 Most of the logic to support open declaration shall modeled in the OAL Validation routines.  Java classes shall be used where necessary to fit into the Eclipse UI.  
 
 6.2 Resolution  
 
