@@ -12,12 +12,12 @@ This work is licensed under the Creative Commons CC0 License
 This note describes the changes required to support opening declarations for the selection or cursor location in an OAL editor.    
 
 ### 2. Document References
-<a id="2.1"></a>2.1 [BridgePoint DEI #9761](https://support.onefact.net/issues/9761)  AE8-When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance.   
-<a id="2.2"></a>2.2 [BridgePoint DEI #9762](https://support.onefact.net/issues/9762) AE9-When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.    
-<a id="2.3"></a>2.3 [BridgePoint DEI #9571](https://support.onefact.net/issues/9571) Enhanced OAL Editor (phase 1).  
-<a id="2.4"></a>2.4 [9571 SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit) Requirements specification for the Enhanced OAL Editor project  
-<a id="2.5"></a>2.5 [9571 Analysis ](../9571_oal_xtext_editor/9571_oal_xtext_editor_option2_ant.md) Analysis note for Enhanced OAL Editor (phase 1)  
-<a id="2.6"></a>2.6 [Test matrix for this issue](find_declarations_matrix.txt) The testing for this issue is being done with generated tests from a test matrix. This is the matrix for this work.  
+<a id="2.1"</a2.1 [BridgePoint DEI #9761](https://support.onefact.net/issues/9761)  AE8-When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance.   
+<a id="2.2"</a2.2 [BridgePoint DEI #9762](https://support.onefact.net/issues/9762) AE9-When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.    
+<a id="2.3"</a2.3 [BridgePoint DEI #9571](https://support.onefact.net/issues/9571) Enhanced OAL Editor (phase 1).  
+<a id="2.4"</a2.4 [9571 SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit) Requirements specification for the Enhanced OAL Editor project  
+<a id="2.5"</a2.5 [9571 Analysis ](../9571_oal_xtext_editor/9571_oal_xtext_editor_option2_ant.md) Analysis note for Enhanced OAL Editor (phase 1)  
+<a id="2.6"</a2.6 [Test matrix for this issue](find_declarations_matrix.txt) The testing for this issue is being done with generated tests from a test matrix. This is the matrix for this work.  
 
 ### 3. Background  
 
@@ -98,7 +98,35 @@ To search for the declaration of a non-transient variable, one of the above shal
 6.1.2 Transient Declaration  
 Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
-6.1.3 Most of the logic to support open declaration shall written as new functions in the OAL Validation routines.  These functions shall be named to match the type of statement being handled.  They shall be called after completing each of the existing, <statement_type>_end functions.  Once the statement_end has been called the full statement has been parsed. The statement class to beigin with is already available in these functions and shall be used as a starting point to call into the new functions.  Java classes shall be used where necessary to fit into the Eclipse UI.  
+6.1.3 Most of the logic to support open declaration shall written as new functions in the OAL Validation routines.  These functions shall be named to match the type of statement being handled.  They shall be called after completing each of the existing, <statement_type_end functions.  Once the statement_end has been called the full statement has been parsed. The statement class to beigin with is already available in these functions and shall be used as a starting point to call into the new functions.  Java classes shall be used where necessary to fit into the Eclipse UI.  
+
+6.1.3.1 Logic flow  
+
+1. User positions cursor in action body
+2. User selects Open Declaration (or F3)
+3. Eclipse UI entry point is called
+4. Determinaition of selection is made
+ if (is transient)
+   lookup in actionbody
+   position cursor at first use
+ elif (is model element reference)  
+   // here we can look for existing parse data,  
+   // determine if we want to parse on demand  
+   lookup statement at editor cursorLocation  
+   if(not_empty statement)
+     select statement_subtype
+     if(statement_subtype instanceof ACT_SFI)
+       // using extentLineNumber and extentColumn
+       parse the line for location
+     if(lineLocation iskeyletter)
+       open class in ME or on canvas
+     elif
+      // repeat proposals in [6.1.1.1] - [6.1.1.1.11]  
+     end if
+   end if
+ else
+   // No action, invalid selection
+ end if
 
 6.2 Resolution  
 
