@@ -93,12 +93,12 @@ The selection shall be used to determine what type of declaration has been match
 6.1.1.11 Association numbers (ACT_SEL, ACT_FIO, ACT_FIW)
 
 
-To search for the declaration of a non-transient variable, one of the above shall be satisfied.  The full statement subtype shall be commpletely parsed.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.  No declaration shall be opened if the location of the cursor does not match one of the specified elements above.  
+To search for the declaration of a non-transient variable, one of the above shall be satisfied.  The full statement subtype shall be commpletely parsed.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.  No declaration shall be opened if the location of the cursor does not match one of the specified elements above.  No declaration shall be opened if the body element has never been parsed.  
 
 6.1.2 Transient Declaration  
 Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
-6.1.3 Most of the logic to support open declaration shall written as new functions in the OAL Validation routines.  These functions shall be named to match the type of statement being handled.  They shall be called after completing each of the existing, <statement_type_end functions.  Once the statement_end has been called the full statement has been parsed. The statement class to beigin with is already available in these functions and shall be used as a starting point to call into the new functions.  Java classes shall be used where necessary to fit into the Eclipse UI.  
+6.1.3 Most of the logic to support open declaration shall be written as new operations to each of the Statement subtypes.  One operation in the supertype Statement class shall have a switch, calling each subtype's new opertion.  The subtype operations shall traverse to the parsed instances created by the last parse which store positional values.  An example here is ACT_FIO.extentLineNumber and ACT_FIO.extentColumn.  All subtypes have attributes which capture this information.  Java classes shall be used where necessary to fit into the Eclipse UI.  
 
 6.1.3.1 Logic flow  
 
@@ -110,16 +110,15 @@ Find Declaration shall take the user to the initial usage within the same home. 
    lookup in actionbody
    position cursor at first use
  elif (is model element reference)  
-   // here we can look for existing parse data,  
-   // determine if we want to parse on demand  
-   lookup statement at editor cursorLocation  
-   if(not_empty statement)
-     select statement_subtype
-     if(statement_subtype instanceof ACT_SFI)
+   // here we use existing parse data, if none there is no action performed  
+   select many statements related by actionBody->ACT_BLK[R601]->ACT_STMT[R602]  
+   for each statement in statements  
+     select one sfi_subtypw related by statement->ACT_SFI[R603]
+     if(not_empty sfi_subtype)
        // using extentLineNumber and extentColumn
-       parse the line for location
-     if(lineLocation iskeyletter)
-       open class in ME or on canvas
+       if(extentLineNumber == openDeclarationLineNumber && extentColumn == openDeclarationColumn)
+         select one modelClass related by sfi_subtype->O_OBJ[R677]
+         return modelClass
      elif
       // repeat proposals in [6.1.1.1] - [6.1.1.1.11]  
      end if
@@ -128,15 +127,15 @@ Find Declaration shall take the user to the initial usage within the same home. 
    // No action, invalid selection
  end if
 
-6.2 Resolution  
+6.2 Transient resolution  
 
-Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to find the first instance of the V_VAR  
+Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to find the first instance of the associated V_VAR.  
 
 6.3 Open Declaration context menu entry  
 
 The ui.text plugin shall have a new action added, OpenDeclarationAction.java.  The necessary plugin xml changes shall be made to add this as an editor based action.  
 
-This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to determine the word.  
+This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to match against stored location values in the V_LOC class.  
 
 6.3.1 This new CME shall be in the Eclipse menu in the section with the other BridgePoint CMEs
 6.3.2 This action shall be tied to the F3 shortcut  
