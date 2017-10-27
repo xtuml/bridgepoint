@@ -27,14 +27,14 @@ x- 11  min   LS   5        Is there duplication of content here with section 3
 x- 12  min   KB   5        We had a discussion about functionality.  We came to the conclusion that selection should be made in ME and the canvas should be opened to show where the element is (at least in some cases)
 x- 13  min   LS   5.1.2    General discussion that we don't like this.  We think the ME should be opened automatically.
 x- 14  min   LS   6.1.1    reword to not say "shall match"
-_- 15  min   LS   6.1.1    Need to have an exhaustive list of all supported statement types here (consider that create and select are missing)
-_- 16  min   KB   6.1.1    reword paragraph under 6.1.1.6
+x- 15  min   LS   6.1.1    Need to have an exhaustive list of all supported statement types here (consider that create and select are missing)
+x- 16  min   KB   6.1.1    reword paragraph under 6.1.1.6
 x- 17  min   LS   6.1.1    misspelled "complete"
-_- 18  min   LS   6.1.2    Need some clarity here.  The text about "type" is confusing. Describe how it will be found
+x- 18  min   LS   6.1.2    Need some clarity here.  The text about "type" is confusing. Describe how it will be found
 x- 19  min   LS   6.2      Note that this section is specifically about transient variables and not structural elements
 x- 20  min   TL   6.2      Get rid of selection.
 x- 21  min   LS   6.2.1    Reword.  Say the V_LOC is used to find the first instance of the V_VAR.
-_- 22  min   LS   6        Add some comments to the design about where the logic for this feature will live.  Specifically, this will use a lot of traversals.  It would be good to add this to the OAL in the model and not write this all in Java.
+x- 22  min   LS   6        Add some comments to the design about where the logic for this feature will live.  Specifically, this will use a lot of traversals.  It would be good to add this to the OAL in the model and not write this all in Java.
 x- 23  min   TL   6.3.2    Note that on Mac this is Cmd+Left Mouse
 x- 24  min   KB   6        We had a discussion and came to conclusion that we would rather have "Open Declaration" be shown but grayed out on invalid activations than not shown at all.
 

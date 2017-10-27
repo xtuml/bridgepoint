@@ -12,12 +12,12 @@ This work is licensed under the Creative Commons CC0 License
 This note describes the changes required to support opening declarations for the selection or cursor location in an OAL editor.    
 
 ### 2. Document References
-<a id="2.1"></a>2.1 [BridgePoint DEI #9761](https://support.onefact.net/issues/9761)  AE8-When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance.   
-<a id="2.2"></a>2.2 [BridgePoint DEI #9762](https://support.onefact.net/issues/9762) AE9-When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.    
-<a id="2.3"></a>2.3 [BridgePoint DEI #9571](https://support.onefact.net/issues/9571) Enhanced OAL Editor (phase 1).  
-<a id="2.4"></a>2.4 [9571 SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit) Requirements specification for the Enhanced OAL Editor project  
-<a id="2.5"></a>2.5 [9571 Analysis ](../9571_oal_xtext_editor/9571_oal_xtext_editor_option2_ant.md) Analysis note for Enhanced OAL Editor (phase 1)  
-<a id="2.6"></a>2.6 [Test matrix for this issue](find_declarations_matrix.txt) The testing for this issue is being done with generated tests from a test matrix. This is the matrix for this work.  
+<a id="2.1"</a2.1 [BridgePoint DEI #9761](https://support.onefact.net/issues/9761)  AE8-When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance.   
+<a id="2.2"</a2.2 [BridgePoint DEI #9762](https://support.onefact.net/issues/9762) AE9-When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.    
+<a id="2.3"</a2.3 [BridgePoint DEI #9571](https://support.onefact.net/issues/9571) Enhanced OAL Editor (phase 1).  
+<a id="2.4"</a2.4 [9571 SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit) Requirements specification for the Enhanced OAL Editor project  
+<a id="2.5"</a2.5 [9571 Analysis ](../9571_oal_xtext_editor/9571_oal_xtext_editor_option2_ant.md) Analysis note for Enhanced OAL Editor (phase 1)  
+<a id="2.6"</a2.6 [Test matrix for this issue](find_declarations_matrix.txt) The testing for this issue is being done with generated tests from a test matrix. This is the matrix for this work.  
 
 ### 3. Background  
 
@@ -80,7 +80,7 @@ Location shall be determined using current cursor position.  From the beginning 
 6.1.1 Model Element declaration  
 The selection shall be used to determine what type of declaration has been matched.  The selected text shall be used to locate an ACT_SMT.  The selected line number and position shall match that of the ACT_SMT.  The following model element types shall be supported by this feature:  
 
-6.1.1.1 Class Key letters  
+6.1.1.1 Class Key letters (ACT_SEL, ACT_FIO, ACT_FIW)  
 6.1.1.2 Functions (ACT_FNC)    
 6.1.1.3 External Entities Key letters  
 6.1.1.4 Ports  
@@ -90,24 +90,52 @@ The selection shall be used to determine what type of declaration has been match
 6.1.1.8 Interface operations(ACT_IOP)  
 6.1.1.9 Interface signals (ACT_SGN)  
 6.1.1.10 Parameters  
+6.1.1.11 Association numbers (ACT_SEL, ACT_FIO, ACT_FIW)
 
 
-To search for the declaration of a non-transient variable, one of the above must be satisfied.  This requires a complete parse of the child.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.
+To search for the declaration of a non-transient variable, one of the above shall be satisfied.  The full statement subtype shall be commpletely parsed.  Once this parse is complete the tool shall navigate the Body SS, to locate the element under the cursor.  No declaration shall be opened if the location of the cursor does not match one of the specified elements above.  No declaration shall be opened if the body element has never been parsed.  
 
 6.1.2 Transient Declaration  
 Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
+6.1.3 Most of the logic to support open declaration shall be written as new operations to each of the Statement subtypes.  One operation in the supertype Statement class shall have a switch, calling each subtype's new opertion.  The subtype operations shall traverse to the parsed instances created by the last parse which store positional values.  An example here is ACT_FIO.extentLineNumber and ACT_FIO.extentColumn.  All subtypes have attributes which capture this information.  Java classes shall be used where necessary to fit into the Eclipse UI.  
 
+6.1.3.1 Logic flow  
 
-6.2 Resolution  
+1. User positions cursor in action body
+2. User selects Open Declaration (or F3)
+3. Eclipse UI entry point is called
+4. Determinaition of selection is made
+ if (is transient)
+   lookup in actionbody
+   position cursor at first use
+ elif (is model element reference)  
+   // here we use existing parse data, if none there is no action performed  
+   select many statements related by actionBody->ACT_BLK[R601]->ACT_STMT[R602]  
+   for each statement in statements  
+     select one sfi_subtypw related by statement->ACT_SFI[R603]
+     if(not_empty sfi_subtype)
+       // using extentLineNumber and extentColumn
+       if(extentLineNumber == openDeclarationLineNumber && extentColumn == openDeclarationColumn)
+         select one modelClass related by sfi_subtype->O_OBJ[R677]
+         return modelClass
+     elif
+      // repeat proposals in [6.1.1.1] - [6.1.1.1.11]  
+     end if
+   end if
+ else
+   // No action, invalid selection
+ end if
 
-Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to find the first instance of the V_VAR  
+6.2 Transient resolution  
+
+Once the location is determined an instance of V_LOC shall be found against the activity home associated with the given editor using the location.  This V_LOC instance shall be used to find the first instance of the associated V_VAR.  
 
 6.3 Open Declaration context menu entry  
 
 The ui.text plugin shall have a new action added, OpenDeclarationAction.java.  The necessary plugin xml changes shall be made to add this as an editor based action.  
 
-This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to determine the word.  
+This action class shall be given the editor instance that it is associated with.  The associated editor shall be used to determine the cursor location.  This location shall be used to match against stored location values in the V_LOC class.  
 
 6.3.1 This new CME shall be in the Eclipse menu in the section with the other BridgePoint CMEs
 6.3.2 This action shall be tied to the F3 shortcut  
