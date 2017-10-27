@@ -29342,6 +29342,7 @@ if ( not_empty act )
   cue.name = "in_else";
   relate cue to act across R1602;
 end if;
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"end if", a3_append_chars:"", a4_needs_space:true );
 ::statement_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -29439,7 +29440,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'For_statement_inst_ref_set_var_content_assist',
 	'ParserValidateFunction: TRUE',
-	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"break", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"continue", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"end for", a3_append_chars:"", a4_needs_space:true );
+::statement_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -29518,7 +29522,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'While_statement_expr_content_assist',
 	'ParserValidateFunction: TRUE',
-	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"break", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"continue", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"end while", a3_append_chars:"", a4_needs_space:true );
+::statement_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -29588,7 +29595,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'If_statement_expr2_content_assist',
 	'ParserValidateFunction: TRUE',
-	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"elif", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"else", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"end if", a3_append_chars:"", a4_needs_space:true );
+::statement_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -30252,7 +30262,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'If_statement_expr5_content_assist',
 	'ParserValidateFunction: TRUE',
-	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	'::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"elif", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"else", a3_append_chars:"", a4_needs_space:true );
+::single_keyword_content_assist( a1_rule_token:param.a1_rule_token, a2_keyword:"end if", a3_append_chars:"", a4_needs_space:true );
+::statement_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
