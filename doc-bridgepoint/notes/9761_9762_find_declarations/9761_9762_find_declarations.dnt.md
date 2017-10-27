@@ -98,7 +98,7 @@ To search for the declaration of a non-transient variable, one of the above shal
 6.1.2 Transient Declaration  
 Find Declaration shall take the user to the initial usage within the same home. To do this, we shall navigate the metamodel to locate the type.  
 
-6.1.3 Most of the logic to support open declaration shall modeled in the OAL Validation routines.  Java classes shall be used where necessary to fit into the Eclipse UI.  
+6.1.3 Most of the logic to support open declaration shall written as new functions in the OAL Validation routines.  These functions shall be named to match the type of statement being handled.  They shall be called after completing each of the existing, <statement_type>_end functions.  Once the statement_end has been called the full statement has been parsed. The statement class to beigin with is already available in these functions and shall be used as a starting point to call into the new functions.  Java classes shall be used where necessary to fit into the Eclipse UI.  
 
 6.2 Resolution  
 
