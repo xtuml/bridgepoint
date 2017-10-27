@@ -3,8 +3,6 @@ package org.xtuml.bp.ui.text.contentassist;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ContentAssistEvent;
@@ -135,7 +133,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
         String leadingText = "";
         if ( "".equals( trimWhitespaceAndComments( existingText ) ) ) leadingText = existingText;
-        else leadingText = existingText.substring( 0, existingText.indexOf( trimWhitespaceAndComments( existingText ) ) );
+        else leadingText = existingText.substring( 0, existingText.lastIndexOf( trimWhitespaceAndComments( existingText ) ) );
         Proposal_c[] items = Proposal_c.getManyP_PsOnR1601( list );
         for ( Proposal_c item : items ) {
             boolean insertSpace = false;
