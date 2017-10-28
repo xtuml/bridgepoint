@@ -31,6 +31,7 @@ import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.Operation_c;
@@ -43,6 +44,7 @@ import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignalBody_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateActionBody_c;
+import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
@@ -97,6 +99,10 @@ public class OALPersistenceUtil {
 						ActionHome_c.getOneSM_AHOnR513(
 								TransitionActionHome_c.getOneSM_TAHOnR530(
 										                  (Transition_c)me)))));
+	    } else if (me instanceof StateMachineState_c) {
+			bdy = Body_c.getOneACT_ACTOnR698(
+					StateActionBody_c.getManyACT_SABsOnR691(Action_c.getManySM_ACTsOnR514(ActionHome_c
+							.getManySM_AHsOnR513(MooreActionHome_c.getManySM_MOAHsOnR511((StateMachineState_c) me)))));
 	    }
 		return bdy;
 	}

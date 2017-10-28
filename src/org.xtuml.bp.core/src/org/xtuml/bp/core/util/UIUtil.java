@@ -94,35 +94,9 @@ public class UIUtil
 
 			@Override
 			public void run() {
-				StructuredViewer viewer = null;
-				Class<?> explorerViewClass = null;
+				StructuredViewer viewer = getViewer();
 				Object elementToRefresh = element;
 
-				try {
-					Bundle ui_explorer = Platform
-							.getBundle("org.xtuml.bp.ui.explorer");//$NON-NLS-1$
-					explorerViewClass = ui_explorer
-							.loadClass("org.xtuml.bp.ui.explorer.ExplorerView"); //$NON-NLS-1$
-				} catch (Exception cnf) {
-					CorePlugin.logError(
-							"Problem accessing GraphicsUtil class ", cnf); //$NON-NLS-1$
-					return;
-				}
-
-				Class<?>[] type;
-				try {
-					type = new Class<?>[] {};
-
-					Method getExplorerTreeViewer = explorerViewClass.getMethod(
-							"getExplorerTreeViewer", type); //$NON-NLS-1$
-					Object[] args = new Object[] {};
-					viewer = (StructuredViewer) getExplorerTreeViewer.invoke(
-							explorerViewClass, args);
-				} catch (Exception e) {
-					CorePlugin
-							.logError(
-									"Error invoking getCanvasEditorTitle(NRME) in GraphicsUtil  ", e); //$NON-NLS-1$
-				}
 				if (element instanceof IProject) {
 					elementToRefresh = SystemModel_c.SystemModelInstance(
 							Ooaofooa.getDefaultInstance(),
@@ -171,6 +145,40 @@ public class UIUtil
 			}
 		});
 	}
+	
+	public static StructuredViewer getViewer() {
+		StructuredViewer viewer = null;
+		Class<?> explorerViewClass = null;
+
+		try {
+			Bundle ui_explorer = Platform
+					.getBundle("org.xtuml.bp.ui.explorer");//$NON-NLS-1$
+			explorerViewClass = ui_explorer
+					.loadClass("org.xtuml.bp.ui.explorer.ExplorerView"); //$NON-NLS-1$
+		} catch (Exception cnf) {
+			CorePlugin.logError(
+					"Problem accessing GraphicsUtil class ", cnf); //$NON-NLS-1$
+			return null;
+		}
+
+		Class<?>[] type;
+		try {
+			type = new Class<?>[] {};
+
+			Method getExplorerTreeViewer = explorerViewClass.getMethod(
+					"getExplorerTreeViewer", type); //$NON-NLS-1$
+			Object[] args = new Object[] {};
+			viewer = (StructuredViewer) getExplorerTreeViewer.invoke(
+					explorerViewClass, args);
+			return viewer;
+		} catch (Exception e) {
+			CorePlugin
+					.logError(
+							"Error invoking getCanvasEditorTitle(NRME) in GraphicsUtil  ", e); //$NON-NLS-1$
+		}
+		return null;
+	}
+	
     public static void refreshViewer(final StructuredViewer viewer) 
     {
         refreshViewer(viewer, null);
