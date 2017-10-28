@@ -7803,193 +7803,84 @@ if ( not_empty act )
     list.col = col;
     relate list to act across R1603;
   end if;
-
-  // create keyword proposals
-  i = 0;
-  while i < 15
-    kw = "";
-    if ( 0 == i )
-      kw = "control stop";
-    elif ( 1 == i )
-      kw = "create event instance";
-    elif ( 2 == i )
-      kw = "create object instance";
-    elif ( 3 == i )
-      kw = "delete object instance";
-    elif ( 4 == i )
-      kw = "for each";
-    elif ( 5 == i )
-      kw = "generate";
-    elif ( 6 == i )
-      kw = "if";
-    elif ( 7 == i )
-      kw = "relate";
-    elif ( 8 == i )
-      kw = "return";
-    elif ( 9 == i )
-      kw = "select any";
-    elif ( 10 == i )
-      kw = "select many";
-    elif ( 11 == i )
-      kw = "select one";
-    elif ( 12 == i )
-      kw = "send";
-    elif ( 13 == i )
-      kw = "unrelate";
-    else
-      kw = "while";
-    end if;
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Keyword;
-    new_item.display_text = kw;
-    new_item.replacement_text = new_item.display_text;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    relate new_item to list across R1601;
-    i = i + 1;
-  end while;
   
-  // if there are parameters, include the ''param'' keyword
-  has_parameters = true;
-  select any s_sync_param related by act->ACT_FNB[R698]->S_SYNC[R695]->S_SPARM[R24];
-  if ( empty s_sync_param )
-  select any o_tfr_param related by act->ACT_OPB[R698]->O_TFR[R696]->O_TPARM[R117];
-  if ( empty o_tfr_param )
-  select any s_brg_param related by act->ACT_BRB[R698]->S_BRG[R697]->S_BPARM[R21];
-  if ( empty s_brg_param )
-  select any sm_state_param related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
-  if ( empty sm_state_param )
-  select any sm_state_param related by act->ACT_SAB[R698]->SM_ACT[R691]->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511]->SM_TXN[R506]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
-  if ( empty sm_state_param )
-  select any sm_txn_param related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_CRTXN[R507]->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]->SM_EVTDI[R532];
-  if ( empty sm_txn_param )
-  select any sm_txn_param related by act->ACT_TAB[R698]->SM_ACT[R688]->SM_AH[R514]->SM_TAH[R513]->SM_TXN[R530]->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532];
-  if ( empty sm_txn_param )
-  select any spr_po_param related by act->ACT_POB[R698]->SPR_PO[R687]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
-  if ( empty spr_po_param )
-  select any spr_ps_param related by act->ACT_PSB[R698]->SPR_PS[R686]->SPR_PEP[R4503]->C_EP[R4501]->C_PP[R4006];
-  if ( empty spr_ps_param )
-  select any spr_ro_param related by act->ACT_ROB[R698]->SPR_RO[R685]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
-  if ( empty spr_ro_param )
-  select any spr_rs_param related by act->ACT_RSB[R698]->SPR_RS[R684]->SPR_REP[R4502]->C_EP[R4500]->C_PP[R4006];
-  if ( empty spr_rs_param )
-    has_parameters = false;
-  end if; end if; end if; end if; end if; end if; end if; end if; end if; end if; end if;
-  if ( has_parameters )
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Keyword;
-    new_item.display_text = "param";
-    new_item.replacement_text = new_item.display_text;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    relate new_item to list across R1601;
-  end if;
+  // get proposals that would show up at the first statement in the body
+  ::body_start_content_assist( line:line, col:col );
 
   // create keyword proposals for special blocks
-  block_id = ::get_current_scope();
-  select any block from instances of ACT_BLK where ( selected.Block_ID == block_id );
-  if ( not_empty block )
-    select one ifsmt related by block->ACT_IF[R607];
-    select one whilesmt related by block->ACT_WHL[R608];
-    select one forsmt related by block->ACT_FOR[R605];
-    if ( not_empty ifsmt )
-      select any else_cue related by act->P_PCC[R1602] where ( selected.name == "in_else" );
-      if ( empty else_cue )
-        i = 0;
-        while i < 3
-          kw = "";
-          if ( 0 == i )
-            kw = "elif";
-          elif ( 1 == i )
-            kw = "else";
-          else
-            kw = "end if";
-          end if;
-          create object instance new_item of P_P;
-          new_item.type = ProposalTypes::Keyword;
-          new_item.display_text = kw;
-          new_item.replacement_text = new_item.display_text;
-          new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-          new_item.needs_space = false;
-          relate new_item to list across R1601;
-          i = i + 1;
-        end while;
+  select any if_block_cue related by act->P_PCC[R1602] where ( selected.name == "if_block" and selected.int_value == 1 );
+  select any elif_block_cue related by act->P_PCC[R1602] where ( selected.name == "elif_block" and selected.int_value == 1 );
+  select any else_block_cue related by act->P_PCC[R1602] where ( selected.name == "else_block" and selected.int_value == 1 );
+  select any for_block_cue related by act->P_PCC[R1602] where ( selected.name == "for_block" and selected.int_value == 1 );
+  select any while_block_cue related by act->P_PCC[R1602] where ( selected.name == "while_block" and selected.int_value == 1 );
+  if ( not_empty if_block_cue or not_empty elif_block_cue )
+    i = 0;
+    while i < 3
+      kw = "";
+      if ( 0 == i )
+        kw = "elif";
+      elif ( 1 == i )
+        kw = "else";
       else
-        create object instance new_item of P_P;
-        new_item.type = ProposalTypes::Keyword;
-        new_item.display_text = "end if";
-        new_item.replacement_text = new_item.display_text;
-        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.needs_space = false;
-        relate new_item to list across R1601;
-        else_cue.dispose();
+        kw = "end if";
       end if;
-    elif ( not_empty whilesmt )
-      i = 0;
-      while i < 3
-        kw = "";
-        if ( 0 == i )
-          kw = "break";
-        elif ( 1 == i )
-          kw = "continue";
-        else
-          kw = "end while";
-        end if;
-        create object instance new_item of P_P;
-        new_item.type = ProposalTypes::Keyword;
-        new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text;
-        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.needs_space = false;
-        relate new_item to list across R1601;
-        i = i + 1;
-      end while;
-    elif ( not_empty forsmt )
-      i = 0;
-      while i < 3
-        kw = "";
-        if ( 0 == i )
-          kw = "break";
-        elif ( 1 == i )
-          kw = "continue";
-        else
-          kw = "end for";
-        end if;
-        create object instance new_item of P_P;
-        new_item.type = ProposalTypes::Keyword;
-        new_item.display_text = kw;
-        new_item.replacement_text = new_item.display_text;
-        new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-        new_item.needs_space = false;
-        relate new_item to list across R1601;
-        i = i + 1;
-      end while;
-    end if;
-  end if;
-  
-  // create ''self'' proposal if in an instance body
-  include_self = true;
-  select one op related by act->ACT_OPB[R698] ->O_TFR[R696];
-  if ( empty op )
-    select one sm_act related by act->ACT_SAB[R698]->SM_ACT[R691];
-    if ( empty sm_act )
-      select one sm_act related by act->ACT_TAB[R698]->SM_ACT[R688];
-      if ( empty sm_act )
-        select one dbattr related by act->ACT_DAB[R698]->O_DBATTR[R693];
-        if ( empty dbattr )
-          include_self = false;
-        end if;
-      end if;
-    end if;
-  end if;
-  if ( include_self )
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Keyword;
+      new_item.display_text = kw;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+      i = i + 1;
+    end while;
+  elif ( not_empty else_block_cue )
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Keyword;
-    new_item.display_text = "self";
+    new_item.display_text = "end if";
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
     relate new_item to list across R1601;
+  elif ( not_empty for_block_cue )
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "end for";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    relate new_item to list across R1601;
+  elif ( not_empty while_block_cue )
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Keyword;
+    new_item.display_text = "end while";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    relate new_item to list across R1601;
+  end if;
+  
+  // ''break'' and ''continue'' apply if in a for or while bock anywhere
+  // in the block stack
+  select any for_block_cue related by act->P_PCC[R1602] where ( selected.name == "for_block" );
+  select any while_block_cue related by act->P_PCC[R1602] where ( selected.name == "while_block" );
+  if ( not_empty for_block_cue or not_empty while_block_cue )
+    i = 0;
+    while i < 2
+      kw = "";
+      if ( 0 == i )
+        kw = "break";
+      else
+        kw = "continue";
+      end if;
+      create object instance new_item of P_P;
+      new_item.type = ProposalTypes::Keyword;
+      new_item.display_text = kw;
+      new_item.replacement_text = new_item.display_text;
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = false;
+      relate new_item to list across R1601;
+      i = i + 1;
+    end while;
   end if;
   
   // create local variable proposals
@@ -8009,76 +7900,6 @@ if ( not_empty act )
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
   end while;
-
-  // create class key letter proposals
-  in_generic_package = act.associateWithContainer();
-  select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
-  select one c_c related by containing_pe->C_C[R8001];
-  select one ep_pkg related by containing_pe->EP_PKG[R8001];
-  if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  end if;
-  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty ep_pkg
-    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::CLASS ); 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many o_objs related by results->O_OBJ[R8001];
-  for each o_obj in o_objs
-    select many o_tfrs related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation that returns void to be shown as an option
-    select any o_tfr related by o_tfrs->S_DT[R116] where ( selected.Name == "void" );
-    if ( not_empty o_tfr )
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Class;
-      new_item.display_text = o_obj.Key_Lett;
-      new_item.replacement_text = new_item.display_text + "::";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = false;
-      relate new_item to list across R1601;
-    end if;
-  end for;
-
-  // create EE key letter proposals
-  if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-  end if;
-  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::EE ); 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty ep_pkg
-    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::EE ); 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many s_ees related by results->S_EE[R8001];
-  for each s_ee in s_ees
-    select any s_brg related by s_ee->S_BRG[R19]->S_DT[R20] where ( selected.Name == "void" );
-    if ( not_empty s_brg )  // must have at least one bridge of type void to be shown as an option
-      create object instance new_item of P_P;
-      new_item.type = ProposalTypes::EE;
-      new_item.display_text = s_ee.Key_Lett;
-      new_item.replacement_text = new_item.display_text + "::";
-      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-      new_item.needs_space = false;
-      relate new_item to list across R1601;
-    end if;
-  end for;
-  
-  // create port proposals
-  act.associateWithOwningComponent();
-  select many c_pos related by act->ACT_BIC[R694]->C_C[R694]->C_PO[R4010];
-  for each c_po in c_pos
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Port;
-    new_item.display_text = c_po.Name;
-    new_item.replacement_text = new_item.display_text + "::";
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = true;
-    relate new_item to list across R1601;
-  end for;
 
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -9755,8 +9576,8 @@ ParserUtilityFunction: TRUE',
 	'act_id = ::get_current_context();
 select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
 if ( not_empty act )
-  line = 1;
-  col = 1; 
+  line = param.line;
+  col = param.col; 
   select one list related by act->P_PL[R1603];
   if ( not_empty list )
     if ( ( list.line != line ) or ( list.col != col ) )
@@ -9954,8 +9775,125 @@ end if;',
 	1,
 	'',
 	0);
+INSERT INTO S_SPARM
+	VALUES ("2e321e73-4214-41ed-8fa0-87daf0eda413",
+	"50c4dbb3-a2c9-43d1-ba00-3d0adadd6439",
+	'line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3b7a5bdb-7d9d-4011-89a6-05eb1229c2af",
+	"50c4dbb3-a2c9-43d1-ba00-3d0adadd6439",
+	'col',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"2e321e73-4214-41ed-8fa0-87daf0eda413",
+	'');
 INSERT INTO PE_PE
 	VALUES ("50c4dbb3-a2c9-43d1-ba00-3d0adadd6439",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("4adff374-4ba1-41e9-a3e6-32abd0a9db4e",
+	"00000000-0000-0000-0000-000000000000",
+	'block_stack_push',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  // push down previous blocks
+  select many if_block_cues related by act->P_PCC[R1602] where ( selected.name == "if_block" );
+  for each if_block_cue in if_block_cues
+    if_block_cue.int_value = if_block_cue.int_value + 1;
+  end for;
+  select many elif_block_cues related by act->P_PCC[R1602] where ( selected.name == "elif_block" );
+  for each elif_block_cue in elif_block_cues
+    elif_block_cue.int_value = elif_block_cue.int_value + 1;
+  end for;
+  select many else_block_cues related by act->P_PCC[R1602] where ( selected.name == "else_block" );
+  for each else_block_cue in else_block_cues
+    else_block_cue.int_value = else_block_cue.int_value + 1;
+  end for;
+  select many for_block_cues related by act->P_PCC[R1602] where ( selected.name == "for_block" );
+  for each for_block_cue in for_block_cues
+    for_block_cue.int_value = for_block_cue.int_value + 1;
+  end for;
+  select many while_block_cues related by act->P_PCC[R1602] where ( selected.name == "while_block" );
+  for each while_block_cue in while_block_cues
+    while_block_cue.int_value = while_block_cue.int_value + 1;
+  end for;
+  // create new top block
+  create object instance new_block of P_PCC;
+  new_block.name = param.a1_block_type + "_block";
+  new_block.int_value = 1;
+  relate new_block to act across R1602;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("beb2927d-7781-49b6-b35c-b8d95e98c291",
+	"4adff374-4ba1-41e9-a3e6-32abd0a9db4e",
+	'a1_block_type',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("4adff374-4ba1-41e9-a3e6-32abd0a9db4e",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7fe780e0-d3bb-48d4-a568-7e039aa14e63",
+	"00000000-0000-0000-0000-000000000000",
+	'block_stack_pop',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  // pop off top block
+  select any top_block related by act->P_PCC[R1602] where ( selected.int_value == 1 and Util::stringContains( haystack:selected.name, needle:"_block" ) );
+  top_block.dispose();
+  // raise up previous blocks
+  select many if_block_cues related by act->P_PCC[R1602] where ( selected.name == "if_block" );
+  for each if_block_cue in if_block_cues
+    if_block_cue.int_value = if_block_cue.int_value - 1;
+  end for;
+  select many elif_block_cues related by act->P_PCC[R1602] where ( selected.name == "elif_block" );
+  for each elif_block_cue in elif_block_cues
+    elif_block_cue.int_value = elif_block_cue.int_value - 1;
+  end for;
+  select many else_block_cues related by act->P_PCC[R1602] where ( selected.name == "else_block" );
+  for each else_block_cue in else_block_cues
+    else_block_cue.int_value = else_block_cue.int_value - 1;
+  end for;
+  select many for_block_cues related by act->P_PCC[R1602] where ( selected.name == "for_block" );
+  for each for_block_cue in for_block_cues
+    for_block_cue.int_value = for_block_cue.int_value - 1;
+  end for;
+  select many while_block_cues related by act->P_PCC[R1602] where ( selected.name == "while_block" );
+  for each while_block_cue in while_block_cues
+    while_block_cue.int_value = while_block_cue.int_value - 1;
+  end for;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("7fe780e0-d3bb-48d4-a568-7e039aa14e63",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
