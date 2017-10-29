@@ -15,15 +15,24 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
+import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
+import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Enumerator_c;
+import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
+import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -75,6 +84,9 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 					if (showInME) {
 						StructuredViewer viewer = UIUtil.getViewer();
 						viewer.setSelection(new StructuredSelection(declarationElement), true);
+						IViewPart explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.findView("org.xtuml.bp.ui.explorer.ExplorerView");
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(explorerView);
 					} else {
 						Package_c pkg = declarationElement.getFirstParentPackage();
 						IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
@@ -175,7 +187,28 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		if (declarationElement instanceof InterfaceSignal_c) {
 			return true;
 		}
-		if(declarationElement instanceof InterfaceOperation_c) {
+		if (declarationElement instanceof InterfaceOperation_c) {
+			return true;
+		}
+		if (declarationElement instanceof PropertyParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof BridgeParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof FunctionParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof OperationParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof Attribute_c) {
+			return true;
+		}
+		if (declarationElement instanceof StateMachineEventDataItem_c) {
+			return true;
+		}
+		if (declarationElement instanceof Enumerator_c) {
 			return true;
 		}
 		return false;
