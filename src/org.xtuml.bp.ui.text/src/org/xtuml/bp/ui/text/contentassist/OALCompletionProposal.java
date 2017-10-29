@@ -15,12 +15,14 @@ public class OALCompletionProposal implements ICompletionProposal, ICompletionPr
     private ICompletionProposal backingProposal;
     private int type;
     private int order;
+    private String replacementString;
     
     OALCompletionProposal( String replacementString, int replacementOffset, int replacementLength, int cursorPosition,
             Image image, String displayString, IContextInformation contextInformation, String additionalProposalInfo,
             int proposalType, int proposalOrder ) {
         type = proposalType;
         order = proposalOrder;
+        this.replacementString = replacementString;
         backingProposal = new CompletionProposal( replacementString, replacementOffset, replacementLength, cursorPosition, image,
                 displayString, contextInformation, additionalProposalInfo );
     }
@@ -31,6 +33,10 @@ public class OALCompletionProposal implements ICompletionProposal, ICompletionPr
 
     public int getOrder() {
         return order;
+    }
+    
+    public String getReplacementString() {
+    	return replacementString;
     }
 
     @Override
