@@ -35,24 +35,24 @@ public class OALCompletionProposal implements ICompletionProposal, ICompletionPr
     OALCompletionProposal( String replacementString, int replacementOffset, int replacementLength, int cursorPosition,
             Image image, String displayString, IContextInformation contextInformation, String additionalProposalInfo,
             int proposalType, int proposalOrder ) {
-    	
-    	// set fields
+        
+        // set fields
         type = proposalType;
         order = proposalOrder;
         this.replacementString = replacementString;
 
         // style keyword proposals
         if ( Proposaltypes_c.Keyword == type || ( Proposaltypes_c.Variable == type && ( "sender".equals(displayString) ||
-        		                                                                        "self".equals(displayString) ||
-        		                                                                        "selected".equals(displayString) ) ) ) {
-        	this.displayString = new StyledString( displayString, new Styler() {
-				@Override
-				public void applyStyles( TextStyle textStyle ) {
-					TextStyle keywordStyle = getKeywordStyle();
+                                                                                        "self".equals(displayString) ||
+                                                                                        "selected".equals(displayString) ) ) ) {
+            this.displayString = new StyledString( displayString, new Styler() {
+                @Override
+                public void applyStyles( TextStyle textStyle ) {
+                    TextStyle keywordStyle = getKeywordStyle();
                     textStyle.foreground = keywordStyle.foreground;
                     textStyle.font = keywordStyle.font;
-				}
-        	});
+                }
+            });
         }
         else this.displayString = new StyledString( displayString );
         
@@ -70,7 +70,7 @@ public class OALCompletionProposal implements ICompletionProposal, ICompletionPr
     }
     
     public String getReplacementString() {
-    	return replacementString;
+        return replacementString;
     }
 
     @Override
@@ -108,28 +108,28 @@ public class OALCompletionProposal implements ICompletionProposal, ICompletionPr
         return Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_INSERT_SINGLE_PROPOSALS );
     }
 
-	@Override
-	public StyledString getStyledDisplayString() {
-		return displayString;
-	}
-	
-	private TextStyle getKeywordStyle() {
-    	// get keyword style
-    	TextStyle keywordStyle = new TextStyle();
-    	SyntaxHighlightingPreferences prefs = OALEditorPlugin.getDefaultOALPlugin().getSyntaxHighlightingPreferences();
-    	for ( int i = 0; i < 10; i++ ) {
-    		try {
-    			TokenTypeInfo tokenTypeInfo = prefs.getTokenTypeInfo( i );
-    			if ( OALEditorConstants.DEFAULT_LABEL_KEYWORD.equals( tokenTypeInfo.getTypeDescription() ) ) {
+    @Override
+    public StyledString getStyledDisplayString() {
+        return displayString;
+    }
+    
+    private TextStyle getKeywordStyle() {
+        // get keyword style
+        TextStyle keywordStyle = new TextStyle();
+        SyntaxHighlightingPreferences prefs = OALEditorPlugin.getDefaultOALPlugin().getSyntaxHighlightingPreferences();
+        for ( int i = 0; i < 10; i++ ) {
+            try {
+                TokenTypeInfo tokenTypeInfo = prefs.getTokenTypeInfo( i );
+                if ( OALEditorConstants.DEFAULT_LABEL_KEYWORD.equals( tokenTypeInfo.getTypeDescription() ) ) {
                       keywordStyle.foreground = tokenTypeInfo.getTextAttribute().getForeground();
                       FontData[] fontData = JFaceResources.getFont( JFaceResources.TEXT_FONT ).getFontData();
                       if ( tokenTypeInfo.isBold() ) for ( int j = 1; j < fontData.length; j++ ) fontData[j].setStyle( SWT.BOLD );
                       keywordStyle.font = new Font( Display.getDefault(), fontData );
                       break;
-    			}
-    		} catch ( IllegalArgumentException e ) { /* do nothing */ }
-    	}
-    	return keywordStyle;
-	}
+                }
+            } catch ( IllegalArgumentException e ) { /* do nothing */ }
+        }
+        return keywordStyle;
+    }
 
 }

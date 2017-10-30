@@ -74,11 +74,11 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private boolean needsParse;
     
     public OALCompletionProcessor() {
-    	setUp();
+        setUp();
     }
     
     public OALCompletionProcessor( OALEditor editor, ContentAssistant assistant ) {
-    	this();
+        this();
         this.editor = editor;
         assistant.addCompletionListener( new ICompletionListener() {
             @Override
@@ -315,10 +315,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private char[] getDefaultTriggerChars() {
         String triggerChars = "";
         for ( String seq : getTriggerSequences() ) {
-        	if ( !"".equals(seq) ) {
+            if ( !"".equals(seq) ) {
                 char lastChar = seq.charAt( seq.length() - 1 );
                 if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
-        	}
+            }
         }
         return triggerChars.toCharArray();
     }
@@ -340,14 +340,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
     
     private String trimWhitespaceAndComments( String input ) {
-    	String blockCommentPattern = "\\/\\*[\\s\\S]*\\/\\*";
-    	String lineCommentPattern = "\\/\\/[ \\t\\n\\x0B\\f\\r\\S]*\\n";
-    	String whitespaceAndCommentPattern = "(" + blockCommentPattern + "|" + lineCommentPattern + "|\\s)*";
-    	return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z" ).matcher( input ).replaceAll( "" );
+        String blockCommentPattern = "\\/\\*[\\s\\S]*\\/\\*";
+        String lineCommentPattern = "\\/\\/[ \\t\\n\\x0B\\f\\r\\S]*\\n";
+        String whitespaceAndCommentPattern = "(" + blockCommentPattern + "|" + lineCommentPattern + "|\\s)*";
+        return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z" ).matcher( input ).replaceAll( "" );
     }
     
     public void setUp() {
-    	this.editor = null;
+        this.editor = null;
         this.isAutoTriggered = false;
         this.setInSession(false);
         setDefaultTriggerChars();
