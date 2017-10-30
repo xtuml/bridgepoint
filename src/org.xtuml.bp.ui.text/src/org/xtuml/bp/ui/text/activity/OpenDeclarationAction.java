@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -63,6 +64,8 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		try {
 			int startLine = selection.getStartLine() + 1;
 			int startOffset = selection.getOffset();
+			IRegion findWord = editor.findWord(doc, startOffset);
+			startOffset = findWord.getOffset();
 			int lineOffset = doc.getLineOffset(startLine - 1);
 			int offsetWithinLine = startOffset - lineOffset + 1;
 			ActivityEditorInput input = (ActivityEditorInput) editor.getEditorInput();

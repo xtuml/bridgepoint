@@ -9,11 +9,11 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
-import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
-import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.FocusEvent;
@@ -27,11 +27,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.DefaultRangeIndicator;
 import org.eclipse.ui.texteditor.IDocumentProvider;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -39,9 +34,6 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.IModelDelta;
-import org.xtuml.bp.core.common.ModelChangeAdapter;
-import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.NullEditorInput;
 import org.xtuml.bp.core.ui.Selection;
@@ -55,7 +47,12 @@ import org.xtuml.bp.ui.text.IUITextHelpContextIds;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.annotation.ActivityAnnotationAccess;
 import org.xtuml.bp.ui.text.annotation.ActivityProblem;
+import org.xtuml.bp.ui.text.editor.BPTextDefaultTextDoubleClickStategy;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
+
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
 
 public class ActivityEditor extends OALEditor
 {
@@ -531,4 +528,11 @@ public void waitForParseThread()
     {
         HANGON_DURATION = HANGON_DURATION_original_value;
     }
+
+	public IRegion findWord(IDocument doc, int offset) {
+		ITextDoubleClickStrategy doubleClickStrategy = getSourceViewerConfiguration()
+				.getDoubleClickStrategy(getSourceViewer(), taggedContent);
+		BPTextDefaultTextDoubleClickStategy dblClckStrategy = (BPTextDefaultTextDoubleClickStategy) doubleClickStrategy;
+		return dblClckStrategy.findWord(doc, offset);
+	}
 }
