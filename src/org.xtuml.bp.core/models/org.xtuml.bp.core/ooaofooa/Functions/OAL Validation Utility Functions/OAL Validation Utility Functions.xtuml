@@ -8199,7 +8199,9 @@ if ( not_empty act )
   while ( GD::NULL_UNIQUE_ID() != local_var_id )
     select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
     select one inst_handle related by local_var->V_INT[R814];
-    if ( not_empty inst_handle and  ( ( param.a2_include_self ) or ( not ( "self" == local_var.Name or "Self" == local_var.Name or "SELF" == local_var.Name ) ) ) )
+    if ( not_empty inst_handle and
+         ( ( param.a2_include_self ) or ( not ( "self" == local_var.Name or "Self" == local_var.Name or "SELF" == local_var.Name ) ) ) and
+         not ( "SELECTED" == local_var.Name or "Selected" == local_var.Name ) )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Variable;
       new_item.display_text = local_var.Name;
@@ -8771,7 +8773,7 @@ if ( not_empty act )
   local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
   while ( GD::NULL_UNIQUE_ID() != local_var_id )
     select any local_var from instances of V_VAR where ( selected.Var_ID == local_var_id );
-    if ( local_var.Declared )
+    if ( ( local_var.Declared ) and not ( "SELECTED" == local_var.Name or "Selected" == local_var.Name ) )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Variable;
       new_item.display_text = local_var.Name;
@@ -8801,7 +8803,7 @@ if ( not_empty act )
   end if;
   if ( include_self )
     create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Keyword;
+    new_item.type = ProposalTypes::Variable;
     new_item.display_text = "self";
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
@@ -9692,7 +9694,7 @@ if ( not_empty act )
   end if;
   if ( include_self )
     create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Keyword;
+    new_item.type = ProposalTypes::Variable;
     new_item.display_text = "self";
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
