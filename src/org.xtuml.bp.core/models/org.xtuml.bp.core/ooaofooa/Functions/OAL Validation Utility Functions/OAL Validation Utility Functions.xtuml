@@ -9726,8 +9726,7 @@ if ( not_empty act )
   end if;
   select many o_objs related by results->O_OBJ[R8001];
   for each o_obj in o_objs
-    select many o_tfrs related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation that returns void to be shown as an option
-    select any o_tfr related by o_tfrs->S_DT[R116] where ( selected.Name == "void" );
+    select any o_tfr related by o_obj->O_TFR[R115] where ( selected.Instance_Based == Scope::Class );  // must have a class based operation to be shown as an option
     if ( not_empty o_tfr )
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Class;
@@ -9753,8 +9752,8 @@ if ( not_empty act )
   end if;
   select many s_ees related by results->S_EE[R8001];
   for each s_ee in s_ees
-    select any s_brg related by s_ee->S_BRG[R19]->S_DT[R20] where ( selected.Name == "void" );
-    if ( not_empty s_brg )  // must have at least one bridge of type void to be shown as an option
+    select any s_brg related by s_ee->S_BRG[R19]->S_DT[R20];
+    if ( not_empty s_brg )  // must have at least one bridge to be shown as an option
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::EE;
       new_item.display_text = s_ee.Key_Lett;
