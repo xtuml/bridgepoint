@@ -7732,15 +7732,21 @@ if ( not_empty act and not_empty left_obj )
           create object instance new_item of P_P;
           new_item.type = ProposalTypes::Association;
           new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
+          new_item.display_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
           phrase = foreign_oir.get_text_phrase();
-          if ( "" != phrase and ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) ) )
-            new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
+          if ( "" != phrase )
+            if ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) )
+              new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
+            end if;
+            new_item.display_text = new_item.display_text + "." + Util::getTic() + phrase + Util::getTic();
           end if;
           new_item.replacement_text = new_item.replacement_text + "]";
-          new_item.display_text = new_item.replacement_text + " - " + o_obj.Name;
-          if ( "" != phrase )
-            new_item.display_text = new_item.display_text + " " + Util::getTic() + phrase + Util::getTic();
+          new_item.display_text = new_item.display_text + "] - ";
+          cardinality_text = r_rel.getLinkCardinalityText( fromOir_ID:r_oir.OIR_ID, toOir_ID:foreign_oir.OIR_ID );
+          if ( "" != cardinality_text )
+            new_item.display_text = new_item.display_text + cardinality_text + " ";
           end if;
+          new_item.display_text = new_item.display_text + o_obj.Name;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
           new_item.needs_space = false;
           relate new_item to list across R1601;
