@@ -86,17 +86,9 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 				} else {
 					boolean showInME = shouldShowInME(declarationElement);
 					if (showInME) {
-						String explorerViewId = "org.xtuml.bp.ui.explorer.ExplorerView";
-						IViewPart explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-								.findView(explorerViewId);
-						if(explorerView == null) {
-							// not opened, open now
-							explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(explorerViewId);
-						}
-						StructuredViewer viewer = UIUtil.getViewer();
-						viewer.setSelection(new StructuredSelection(declarationElement), true);
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(explorerView);
+						showInModelExplorer(declarationElement);
 					} else {
+						showInModelExplorer(declarationElement);
 						Package_c pkg = declarationElement.getFirstParentPackage();
 						IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
 						editorPart.getSite().getSelectionProvider()
@@ -108,6 +100,20 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		} catch (BadLocationException | PartInitException e) {
 			TextPlugin.logError("Unable to locate line information for the text editor selection.", e);
 		}
+
+	}
+
+	private void showInModelExplorer(NonRootModelElement declarationElement) throws PartInitException {
+		String explorerViewId = "org.xtuml.bp.ui.explorer.ExplorerView";
+		IViewPart explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+				.findView(explorerViewId);
+		if(explorerView == null) {
+			// not opened, open now
+			explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(explorerViewId);
+		}
+		StructuredViewer viewer = UIUtil.getViewer();
+		viewer.setSelection(new StructuredSelection(declarationElement), true);
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(explorerView);
 
 	}
 
