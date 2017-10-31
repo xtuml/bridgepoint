@@ -28,6 +28,7 @@ public class OALProposalSorter implements ICompletionProposalSorter {
         Proposaltypes_c.Port,
         Proposaltypes_c.Class,
         Proposaltypes_c.Function,
+        Proposaltypes_c.Bridge,
         Proposaltypes_c.EDT,
         Proposaltypes_c.Enumerator,
         Proposaltypes_c.Constant,

@@ -289,6 +289,7 @@ External Entity                   | Alphanumerically       |
 Port                              | Alphanumerically       |
 Class                             | Alphanumerically       |
 Function                          | Alphanumerically       |
+Bridge                            | Alphanumerically       |
 Enumeration Data Type             | Alphanumerically       |
 Enumerator                        | Alphanumerically       |
 Constant                          | Alphanumerically       |

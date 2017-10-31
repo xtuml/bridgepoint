@@ -200,7 +200,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             case Proposaltypes_c.Association:
                 return CorePlugin.getImageFor( Association_c.class );
             case Proposaltypes_c.Variable:
-                //return CorePlugin.getImageFor( Association_c.class );
                 return null;
             case Proposaltypes_c.Class:
                 return CorePlugin.getImageFor( ModelClass_c.class );
@@ -222,6 +221,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( PropertyParameter_c.class );
             case Proposaltypes_c.Function:
                 return CorePlugin.getImageFor( Function_c.class );
+            case Proposaltypes_c.Bridge:
+                return CorePlugin.getImageFor( Bridge_c.class );
             case Proposaltypes_c.EDT:
                 return CorePlugin.getImageFor( EnumerationDataType_c.class );
             case Proposaltypes_c.Enumerator:
@@ -229,7 +230,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             case Proposaltypes_c.Constant:
                 return CorePlugin.getImageFor( SymbolicConstant_c.class );
             case Proposaltypes_c.Literal:
-                //return CorePlugin.getImageFor( Function_c.class );
                 return null;
             case Proposaltypes_c.SignalToProvider:
                 return CorePlugin.getImageFor( "InterfaceSignal_cClientServer", false, null, true );
@@ -239,6 +239,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( "InterfaceOperation_cClientServer", false, null, true );
             case Proposaltypes_c.OperationFromProvider:
                 return CorePlugin.getImageFor( "InterfaceOperation_cServerClient", false, null, true );
+            case Proposaltypes_c.Keyword:
+                return null;
             default:
                 return null;
         }
