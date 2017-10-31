@@ -7749,7 +7749,7 @@ if ( not_empty act and not_empty left_obj )
           new_item.display_text = new_item.display_text + o_obj.Name;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
           new_item.needs_space = false;
-          relate new_item to list across R1601;
+          list.addProposal( Proposal_ID:new_item.Proposal_ID );
         end if;
       end if;
     end for;
@@ -7836,7 +7836,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
       i = i + 1;
     end while;
   elif ( not_empty else_block_cue )
@@ -7846,7 +7846,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   elif ( not_empty for_block_cue )
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Keyword;
@@ -7854,7 +7854,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   elif ( not_empty while_block_cue )
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Keyword;
@@ -7862,7 +7862,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end if;
   
   // ''break'' and ''continue'' apply if in a for or while bock anywhere
@@ -7884,7 +7884,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
       i = i + 1;
     end while;
   end if;
@@ -7901,7 +7901,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
 
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
@@ -7964,7 +7964,7 @@ if ( not_empty act and not_empty obj )
       new_item.display_text = o_attr.Name;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
   end for;
 
@@ -8067,7 +8067,7 @@ if ( not_empty act )
       end if;
       new_item.display_text = evt.getSignature( flavor:2 );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
     for each evt in inst_events
       create object instance new_item of P_P;
@@ -8088,7 +8088,7 @@ if ( not_empty act )
       end if;
       new_item.display_text = evt.getSignature( flavor:2 );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
 
   end if;
@@ -8149,7 +8149,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
   end if;
 end if;',
@@ -8217,7 +8217,7 @@ if ( not_empty act )
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
@@ -8303,7 +8303,7 @@ if ( not_empty act )
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
@@ -8396,7 +8396,7 @@ if ( not_empty act )
   new_item.replacement_text = new_item.display_text;
   new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
   new_item.needs_space = param.a4_needs_space;
-  relate new_item to list across R1601;
+  list.addProposal( Proposal_ID:new_item.Proposal_ID );
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -8496,7 +8496,7 @@ if ( not_empty act )
           new_item.replacement_text = new_item.display_text;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
           new_item.needs_space = true;
-          relate new_item to list across R1601;
+          list.addProposal( Proposal_ID:new_item.Proposal_ID );
         end if;
       end if;
       i = i + 1;
@@ -8612,7 +8612,7 @@ if ( not_empty act and not_empty obj and not_empty rel )
       new_item.display_text = new_item.replacement_text;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
   end for;
 end if;',
@@ -8706,7 +8706,7 @@ if ( not_empty act )
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
   end if;
 end if;',
@@ -8786,7 +8786,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
     i = i + 1;
     local_var_id = ::get_vars_in_scope( rule_token:param.a1_rule_token, index:i );
@@ -8814,7 +8814,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end if;
 
   // if in a message body, add the ''sender'' keyword
@@ -8829,7 +8829,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end if;
   
   // get class key letter proposals
@@ -8858,7 +8858,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
   end for;
 
@@ -8884,7 +8884,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
   end for;
   
@@ -8901,7 +8901,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
   
   // get EDT proposals
@@ -8924,7 +8924,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
   
   // get constant proposals
@@ -8953,7 +8953,7 @@ if ( not_empty act )
     end if;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
   
   // get keyword proposals
@@ -8975,7 +8975,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
     i = i + 1;
   end while;
 
@@ -9012,7 +9012,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end if;
 
   // get literal proposals
@@ -9030,7 +9030,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
     i = i + 1;
   end while;
 
@@ -9115,7 +9115,7 @@ if ( not_empty act )
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
         new_item.order = order;
-        relate new_item to list across R1601;
+        list.addProposal( Proposal_ID:new_item.Proposal_ID );
         order = order + 1;
       end if;
       select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
@@ -9156,7 +9156,7 @@ if ( not_empty act )
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
         new_item.order = order;
-        relate new_item to list across R1601;
+        list.addProposal( Proposal_ID:new_item.Proposal_ID );
         order = order + 1;
       end if;
       select one o_tparm related by o_tparm->O_TPARM[R124.''precedes''];
@@ -9197,7 +9197,7 @@ if ( not_empty act )
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
         new_item.order = order;
-        relate new_item to list across R1601;
+        list.addProposal( Proposal_ID:new_item.Proposal_ID );
         order = order + 1;
       end if;
       select one s_bparm related by s_bparm->S_BPARM[R55.''precedes''];
@@ -9241,7 +9241,7 @@ if ( not_empty act )
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
         new_item.order = order;
-        relate new_item to list across R1601;
+        list.addProposal( Proposal_ID:new_item.Proposal_ID );
         order = order + 1;
       end if;
       select one c_pp related by c_pp->C_PP[R4021.''precedes''];
@@ -9287,7 +9287,7 @@ if ( not_empty act )
         new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
         new_item.needs_space = true;
         new_item.order = order;
-        relate new_item to list across R1601;
+        list.addProposal( Proposal_ID:new_item.Proposal_ID );
         order = order + 1;
       end if;
       select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''precedes''];
@@ -9395,7 +9395,7 @@ if ( not_empty act and not_empty block )
       end if;
       new_item.display_text = c_as.getSignature( flavor:2 );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
     
     // get all outbound ops
@@ -9423,7 +9423,7 @@ if ( not_empty act and not_empty block )
       end if;
       new_item.display_text = c_io.getSignature( flavor:2 ) + " - " + return_dt.Name;
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
     
   else
@@ -9448,7 +9448,7 @@ if ( not_empty act and not_empty block )
       end if;
       new_item.display_text = s_brg.getSignature( flavor:2 );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
   
   else
@@ -9474,7 +9474,7 @@ if ( not_empty act and not_empty block )
       end if;
       new_item.display_text = o_tfr.getSignature( flavor:2 );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
 
   else
@@ -9519,7 +9519,7 @@ if ( not_empty act and not_empty block )
       end if;
       new_item.display_text = s_sync.getSignature( flavor:2 ) + " - " + dt.Name;
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
 
   end if; end if; end if; end if;
@@ -9658,7 +9658,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
     i = i + 1;
   end while;
   
@@ -9695,7 +9695,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end if;
 
   // create ''self'' proposal if in an instance body
@@ -9720,7 +9720,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end if;
   
   // create class key letter proposals
@@ -9749,7 +9749,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
   end for;
 
@@ -9775,7 +9775,7 @@ if ( not_empty act )
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = false;
-      relate new_item to list across R1601;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end if;
   end for;
   
@@ -9789,7 +9789,7 @@ if ( not_empty act )
     new_item.replacement_text = new_item.display_text + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
-    relate new_item to list across R1601;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
 
 end if;',
