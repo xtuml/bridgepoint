@@ -83,6 +83,7 @@ the License.
           <topic label="Activity Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/ActivityEditor.htm"/>
           <topic label="Diagram Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/DiagramEditor.htm"/>
           <topic label="Diagram Text" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/DiagramText.htm"/>
+          <topic label="Content Assist" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/ContentAssist.html"/>
         </topic>
         <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedoMain.htm">
           <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedo.htm"/>
