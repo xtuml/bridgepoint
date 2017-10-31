@@ -8816,6 +8816,21 @@ if ( not_empty act )
     new_item.needs_space = false;
     relate new_item to list across R1601;
   end if;
+
+  // if in a message body, add the ''sender'' keyword
+  select one act_pob related by act->ACT_POB[R698];
+  select one act_psb related by act->ACT_PSB[R698];
+  select one act_rob related by act->ACT_ROB[R698];
+  select one act_rsb related by act->ACT_RSB[R698];
+  if ( not_empty act_pob or not_empty act_psb or not_empty act_rob or not_empty act_rsb )
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Variable;
+    new_item.display_text = "sender";
+    new_item.replacement_text = new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    relate new_item to list across R1601;
+  end if;
   
   // get class key letter proposals
   in_generic_package = act.associateWithContainer();
