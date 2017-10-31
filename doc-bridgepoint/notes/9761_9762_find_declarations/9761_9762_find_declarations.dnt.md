@@ -17,7 +17,6 @@ This note describes the changes required to support opening declarations for the
 <a id="2.3"</a2.3 [BridgePoint DEI #9571](https://support.onefact.net/issues/9571) Enhanced OAL Editor (phase 1).  
 <a id="2.4"</a2.4 [9571 SRS](https://docs.google.com/document/d/1gbqKooXBE5xBIv5bSS86pKOMKLS_W4t0GTjUfpvQvIY/edit) Requirements specification for the Enhanced OAL Editor project  
 <a id="2.5"</a2.5 [9571 Analysis ](../9571_oal_xtext_editor/9571_oal_xtext_editor_option2_ant.md) Analysis note for Enhanced OAL Editor (phase 1)  
-<a id="2.6"</a2.6 [Test matrix for this issue](find_declarations_matrix.txt) The testing for this issue is being done with generated tests from a test matrix. This is the matrix for this work.  
 
 ### 3. Background  
 
@@ -150,6 +149,6 @@ BridgePoint documentation shall be modifed to include this new feature.
 
 ### 9. Unit Test
 
-To assure proper test coverage of this feature, a test test matrix is being used to describe the required tests. This matrix is found in [[2.6](#2.6)].  
+To assure proper test coverage of this feature, a test test matrix is being used to describe the required tests. This matrix is found in the org.xtuml.bp.ui.text.test plug-in under matrices/non_generated as 9761_9762_find_declarations_matrix.txt.  
 
 ### End

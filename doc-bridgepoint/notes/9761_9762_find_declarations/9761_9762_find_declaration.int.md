@@ -100,8 +100,6 @@ Branch: 9761_9762_find_declaration
 <pre>
 
 doc-bridgepoint/notes/9761_9762_find_declarations/
-    9761_9762_find_declarations_matrix.txt
-doc-bridgepoint/notes/9761_9762_find_declarations/
     9761_9762_find_declarations.dnt.md
 doc-bridgepoint/notes/9761_9762_find_declarations/
     9761_9762_find_declarations.int.md
