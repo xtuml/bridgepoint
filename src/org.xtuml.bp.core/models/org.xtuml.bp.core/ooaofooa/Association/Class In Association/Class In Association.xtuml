@@ -87,6 +87,16 @@ if ( not_empty assr )
   if (  assr.Mult == 0 ) return Multiplicity::One; else return Multiplicity::Many; end if;
 end if;
 
+select one super related by self->R_RTO[R203]->R_SUPER[R204];
+if ( not_empty super )
+  return Multiplicity::One;
+end if;
+
+select one sub related by self->R_RGO[R203]->R_SUB[R205];
+if ( not_empty sub )
+  return Multiplicity::One;
+end if;
+
 select one cone related by self->R_CONE[R203];
 if ( not_empty cone )
   if (  cone.Mult == 0 ) return Multiplicity::One; else return Multiplicity::Many; end if;
@@ -154,6 +164,63 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TFR
+	VALUES ("7a7fb5d0-9569-4cae-80ab-b63e2f54eb84",
+	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
+	'get_conditionality',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select one part related by self->R_RTO[R203]->R_PART[R204];
+if ( not_empty part )
+  return part.Cond;
+end if;
+
+select one form related by self->R_RGO[R203]->R_FORM[R205];
+if ( not_empty form )
+  return form.Cond;
+end if;
+
+select one aone related by self->R_RTO[R203]->R_AONE[R204];
+if ( not_empty aone )
+  return aone.Cond;
+end if;
+
+select one aoth related by self->R_RTO[R203]->R_AOTH[R204];
+if ( not_empty aoth )
+  return aoth.Cond;
+end if;
+
+select one assr related by self->R_RGO[R203]->R_ASSR[R205];
+if ( not_empty assr )
+  return -1;
+end if;
+
+select one super related by self->R_RTO[R203]->R_SUPER[R204];
+if ( not_empty super )
+  return 0;
+end if;
+
+select one sub related by self->R_RGO[R203]->R_SUB[R205];
+if ( not_empty sub )
+  return 0;
+end if;
+
+select one cone related by self->R_CONE[R203];
+if ( not_empty cone )
+  return cone.Cond;
+end if;
+
+select one coth related by self->R_COTH[R203];
+if ( not_empty coth )
+  return coth.Cond;
+end if;
+
+return -1;',
+	1,
+	'',
+	"2cf8a98d-ae96-45ca-8439-37be63185bc8",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("cec47d4c-9e06-4c8c-b68e-89c4a69f3c1f",

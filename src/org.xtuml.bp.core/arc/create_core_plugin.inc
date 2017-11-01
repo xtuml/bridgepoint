@@ -294,6 +294,11 @@ This file is the plugin manifest for the BridgePoint core plugin.
            name="Action Language"
            category="org.xtuml.bp.core.root">
      </page>
+     <page class="org.xtuml.bp.core.ui.preferences.ContentAssistPreferences"
+           id="org.xtuml.bp.core.ui.preferences.ContentAssistPreferences"
+           name="Content Assist"
+           category="org.xtuml.bp.core.ui.preferences.ActionLanguagePreferences">
+     </page>
      <page class="org.xtuml.bp.core.ui.preferences.ExportPreferences"
            id="org.xtuml.bp.core.ui.preferences.ExportPreferences"
            name="Model Export"
