@@ -22,12 +22,15 @@
 
 package org.xtuml.bp.ui.text.editor.oal;
 
+import org.eclipse.jface.action.Action;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
-
+import org.eclipse.ui.texteditor.ContentAssistAction;
+import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
+import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditor extends AbstractModelElementTextEditor {
@@ -44,7 +47,7 @@ public class OALEditor extends AbstractModelElementTextEditor {
 
 		preferences = aPreferences;
 
-		setSourceViewerConfiguration(new OALEditorConfiguration(preferences));
+		setSourceViewerConfiguration(new OALEditorConfiguration(preferences, this));
 		setDocumentProvider(new OALDocumentProvider());
 		setEventListeners();
 	}
@@ -89,5 +92,15 @@ public class OALEditor extends AbstractModelElementTextEditor {
         // we don't currently want quick-diff info to be displayed in the
         // line column bar
         return false;
+    }
+    
+    @Override
+    protected void createActions() {
+        super.createActions();
+        Action action = new ContentAssistAction(OALEditorPlugin.getDefaultOALPlugin().getResourceBundle(), "ContentAssistProposal.", this); 
+        String id = ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS;
+        action.setActionDefinitionId(id);
+        setAction("ContentAssistProposal", action); 
+        markAsStateDependentAction("ContentAssistProposal", true);
     }
 }

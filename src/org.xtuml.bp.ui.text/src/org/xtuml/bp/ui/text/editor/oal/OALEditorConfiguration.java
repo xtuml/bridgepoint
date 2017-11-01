@@ -23,6 +23,9 @@
 package org.xtuml.bp.ui.text.editor.oal;
 
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
@@ -30,17 +33,24 @@ import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
-
+import org.xtuml.bp.ui.text.contentassist.OALCompletionProcessor;
+import org.xtuml.bp.ui.text.contentassist.OALProposalSorter;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditorConfiguration extends SourceViewerConfiguration {
 	private ITokenScanner oalScanner;
 	private ITokenScanner commentScanner;
+	private OALEditor editor;
 
 	private SyntaxHighlightingPreferences tokenTypeManager;
 
-	public OALEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager) {
+	public OALEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager, OALEditor editor) {
 		this.tokenTypeManager = tokenTypeManager;
+		this.editor = editor;
+	}
+
+	public OALEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager) {
+	    this(tokenTypeManager, null);
 	}
 
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
@@ -82,6 +92,23 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 
 		}
 		return reconciler;
+	}
+	
+	@Override
+	public IContentAssistant getContentAssistant(ISourceViewer sv) {
+	    if ( null != editor ) {
+            ContentAssistant ca = new ContentAssistant();
+            IContentAssistProcessor pr = new OALCompletionProcessor( editor, ca );
+            ca.setContentAssistProcessor(pr, IDocument.DEFAULT_CONTENT_TYPE);
+            ca.enableAutoActivation( true );
+            ca.setAutoActivationDelay( 0 );
+            ca.setInformationControlCreator(getInformationControlCreator(sv));
+            ca.setSorter( new OALProposalSorter() );
+            ca.enableAutoInsert( true );
+            ca.enableColoredLabels( true );
+            return ca;
+	    }
+	    else return null;
 	}
 
 }
