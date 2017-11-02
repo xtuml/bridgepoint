@@ -20,6 +20,8 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
+import org.xtuml.bp.als.oal.ParseRunnable;
+import org.xtuml.bp.als.oal.PartialParseRunnable;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -39,6 +41,7 @@ import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.OALPersistenceUtil;
+import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.text.TextPlugin;
@@ -70,13 +73,27 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 			int lineOffset = doc.getLineOffset(startLine - 1);
 			int offsetWithinLine = startOffset - lineOffset + 1;
 			ActivityEditorInput input = (ActivityEditorInput) editor.getEditorInput();
-			Body_c bdy = OALPersistenceUtil.getOALModelElement(input.getModelElement());
+			NonRootModelElement modelElement = input.getModelElement();
+			Body_c bdy = OALPersistenceUtil.getOALModelElement(modelElement);
+		    boolean parsed = false;
+		    
 			if (bdy == null) {
-				// not parsed just return
-				return;
+				partialParse(modelElement, offsetWithinLine, doc);
+				bdy = OALPersistenceUtil.getOALModelElement(modelElement);
+				if (bdy == null) {
+					// element not found, just return
+					return;
+				}
+				parsed = true;
 			}
 			NonRootModelElement declarationElement = (NonRootModelElement) bdy.Finddeclaration(offsetWithinLine,
 					startLine);
+			if (declarationElement == null && !parsed) {
+				// If the user edited the OAL, it may need to be parsed  
+				partialParse(modelElement, offsetWithinLine, doc);
+				declarationElement = (NonRootModelElement) bdy.Finddeclaration(offsetWithinLine,
+						startLine);
+			}
 			if (declarationElement != null) {
 				if (declarationElement instanceof VariableLocation_c) {
 					VariableLocation_c location = (VariableLocation_c) declarationElement;
@@ -101,6 +118,14 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 			TextPlugin.logError("Unable to locate line information for the text editor selection.", e);
 		}
 
+	}
+	
+	private void partialParse(NonRootModelElement modelElement, int offsetWithinLine, IDocument doc) {
+		// run a parse of this body
+		ParseRunnable parseRunner = new PartialParseRunnable(modelElement, doc.get(),
+				DocumentUtil.positionToLine(offsetWithinLine, doc),
+				DocumentUtil.positionToCol(offsetWithinLine, doc));
+		parseRunner.run();						
 	}
 
 	private void showInModelExplorer(NonRootModelElement declarationElement) throws PartInitException {
