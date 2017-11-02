@@ -9,6 +9,7 @@ Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.ui.text,
  org.xtuml.bp.ui.text.activity,
  org.xtuml.bp.ui.text.annotation,
+ org.xtuml.bp.ui.text.contentassist,
  org.xtuml.bp.ui.text.description,
  org.xtuml.bp.ui.text.editor,
  org.xtuml.bp.ui.text.editor.oal,

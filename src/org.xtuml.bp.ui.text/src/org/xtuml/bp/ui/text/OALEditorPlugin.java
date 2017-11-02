@@ -51,7 +51,7 @@ public class OALEditorPlugin extends BasePlugin {
         super();
         plugin = this;
         try {
-            resourceBundle = ResourceBundle.getBundle("ActionEditor.ActionEditorPluginResources");
+            resourceBundle = ResourceBundle.getBundle("ActionEditorPluginResources");
         } catch (MissingResourceException x) {
             resourceBundle = null;
         }

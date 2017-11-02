@@ -646,6 +646,295 @@ ${s}   );
 ${s}}
   .end if
 .end function
+.//===============================================
+.function last_in_loop_or_rule
+  .param inst_ref node
+  .assign attr_is_last = false
+  .invoke r1 = last_in_loop( node )
+  .invoke r2 = last_in_rule( node )
+  .if ( ( r1.is_last ) or ( r2.is_last ) )
+    .assign attr_is_last = true
+  .end if
+.end function
+.//===============================================
+.function last_in_loop
+  .param inst_ref node
+  .assign attr_is_last = false
+  .select one next_node related by node->N[R7.'precedes']
+  .select one next_term related by next_node->LN[R1]->T[R3]
+  .assign is_bang = false
+  .if ( not_empty next_term )
+    .select one next_next related by next_node->N[R7.'precedes']
+    .if ( ( "BANG" == next_term.token_name ) and ( empty next_next ) )
+      .assign is_bang = true
+    .end if
+  .end if
+  .select one loop related by node->NLN[R5]->EBNF[R2]
+  .if ( ( ( empty next_node ) or ( is_bang ) ) and ( not_empty loop ) )
+    .if ( (loop.decoration == "*") OR ( loop.decoration == "+" ) )
+      .assign attr_is_last = true
+    .end if
+  .end if
+.end function
+.//===============================================
+.function last_in_rule
+  .param inst_ref node
+  .assign attr_is_last = false
+  .select one next_node related by node->N[R7.'precedes']
+  .select one next_term related by next_node->LN[R1]->T[R3]
+  .assign is_bang = false
+  .if ( not_empty next_term )
+    .select one next_next related by next_node->N[R7.'precedes']
+    .if ( ( "BANG" == next_term.token_name ) and ( empty next_next ) )
+      .assign is_bang = true
+    .end if
+  .end if
+  .select one rule related by node->NLN[R5]->R[R2]
+  .if ( ( ( empty next_node ) or ( is_bang ) ) and ( not_empty rule ) )
+    .assign attr_is_last = true
+  .end if
+.end function
+.//===============================================
+.function in_loop
+  .param inst_ref node
+  .assign attr_in_loop = false
+  .assign attr_loop_id_name = ""
+  .select one parent_node related by node->NLN[R5]
+  .while ( ( not_empty parent_node ) and ( not attr_in_loop ) )
+    .select one e related by parent_node->EBNF[R2]
+    .if ( not_empty e )
+      .if ( (e.decoration == "*") OR (e.decoration == "+") )
+        .assign attr_in_loop = true
+        .assign attr_loop_id_name = parent_node.loop_id_name
+      .end if
+    .end if
+    .select one parent_node related by parent_node->N[R1]->NLN[R5]
+  .end while
+.end function
+.//===============================================
+.function emit_leaf_node_content_assist_action
+  .param inst_ref node
+  .param string s
+  .assign emit_node = false
+  .select one t related by node->LN[R1]->T[R3]
+  .select one rr related by node->LN[R1]->RR[R3]
+  .select one next_term related by node->N[R7.'precedes']->LN[R1]->T[R3]
+  .if ( not_empty t )
+    .if ( ( "STRING_LITERAL" == t.token_name ) or ( "TOKEN_REF" == t.token_name ) )
+      .assign emit_node = true
+    .elif ( "BANG" == t.token_name )
+      .select one prior_term related by node->N[R7.'follows']->LN[R1]->T[R3]
+      .if ( not_empty prior_term )
+        .if ( ( "STRING_LITERAL" == prior_term.token_name ) or ( "TOKEN_REF" == prior_term.token_name ) )
+          .assign emit_node = true
+          .select one prior_node related by prior_term->LN[R3]->N[R1]
+          .assign node = prior_node
+        .end if
+      .end if
+    .end if
+  .elif ( not_empty rr )
+    .assign emit_node = true
+  .end if
+  .select any caf related by node->CAF[R28]
+  .if ( ( not_empty caf ) and ( emit_node ) )
+    .select one r related by node->R[R6]
+    .select one containing_node related by r->NLN[R2]->N[R1]
+    .assign fncname = caf.name
+    .invoke result = in_loop( node )
+    .assign in_loop = result.in_loop
+    .assign loop_id_name = result.loop_id_name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule content assist action for '${fncname}'
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(0) &&
+${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() <= m_contentAssistCol ) ) ) {
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(0),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( containing_node.validation_required )
+${s}        rule_begin_id,  // start rule id
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .if ( in_loop )
+,
+${s}        ${loop_id_name}\
+      .invoke result = create_new_parameter("a5_loop_id_name", fnc, unique_id_dt)
+    .end if
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
+,
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
+ );
+${s}  }
+${s}}
+  .end if
+.end function
+.//======================
+.function emit_rule_lookahead_content_assist_action
+  .param inst_ref node
+  .param string s
+  .select any caf related by node->CAF[R28] where ( "lookahead" == selected.type )
+  .select one r related by node->NLN[R1]->R[R2]
+  .if ( ( not_empty caf ) and ( not_empty r ) )
+    .assign fncname = caf.name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule lookahead content assist action for '${fncname}'
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(1) &&
+${s}       ( LT(1).getLine() < m_contentAssistLine || ( LT(1).getLine() == m_contentAssistLine && LT(1).getColumn() <= m_contentAssistCol ) ) ) {
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( node.validation_required )
+${s}        rule_begin_id,  // start rule id
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
+,
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
+ );
+${s}  }
+${s}}
+  .end if
+.end function
+.//======================
+.function emit_rule_begin_content_assist_action
+  .param inst_ref node
+  .param string s
+  .select one r related by node->NLN[R1]->R[R2]
+  .select any caf related by node->CAF[R28] where ( "begin" == selected.type )
+  .if ( ( not_empty caf ) and ( not_empty r ) )
+    .assign fncname = caf.name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule begin content assist action for '${fncname}'
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(1) &&
+${s}       ( LT(1).getLine() < m_contentAssistLine || ( LT(1).getLine() == m_contentAssistLine && LT(1).getColumn() <= m_contentAssistCol ) ) ) {
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( node.validation_required )
+${s}        rule_begin_id,  // start rule id
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
+,
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
+ );
+${s}  }
+${s}}
+  .end if
+  .select any caf related by node->CAF[R28] where ( "begin2" == selected.type )
+  .if ( ( not_empty caf ) and ( not_empty r ) )
+    .assign fncname = caf.name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule begin2 content assist action for '${fncname}'
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(2) &&
+${s}       ( LT(2).getLine() < m_contentAssistLine || ( LT(2).getLine() == m_contentAssistLine && LT(2).getColumn() <= m_contentAssistCol ) ) ) {
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1), LT(2),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a0_rule_token", fnc, tokenclass_dt)
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( node.validation_required )
+${s}        rule_begin_id,  // start rule id
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
+,
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
+ );
+${s}  }
+${s}}
+  .end if
+.end function
 .//======================
 .function emit_loop_begin_action
   .param inst_ref node
@@ -948,6 +1237,8 @@ ${s}}
       .invoke pre_attach_prepend(child_node, "${result.body}")
       .invoke result = emit_rule_begin_action(outer_node, s_long)
       .invoke post_attach_append(child_node, "${result.body}")
+      .invoke result = emit_rule_begin_content_assist_action( outer_node, s_long )
+      .invoke post_attach_append(child_node, "${result.body}")
     .elif (term.token_name == "OR")
       .invoke pre_attach_append(child_node, "${s_med}")
       .invoke post_attach_append(child_node, "\n")
@@ -960,8 +1251,18 @@ ${s}}
         .if ( not_empty prior_term )
           .if (prior_term.token_name == "STRING_LITERAL")
             .assign child_node.value = "!"
+            .invoke result = last_in_loop_or_rule( child_node )
+            .if ( not result.is_last )
+              .invoke result = emit_leaf_node_content_assist_action( prior_node, sx )
+              .invoke post_attach_append( child_node, result.body )
+            .end if
           .elif (prior_term.value == "TOK_DOT")
             .assign child_node.value = "!"
+            .invoke result = last_in_loop_or_rule( child_node )
+            .if ( not result.is_last )
+              .invoke result = emit_leaf_node_content_assist_action( prior_node, sx )
+              .invoke post_attach_append( child_node, result.body )
+            .end if
           .end if
         .end if
       .end if
@@ -994,6 +1295,13 @@ ${s}}
         .invoke result = emit_term_action(child_node, sx)
         .invoke post_attach_append(child_node, result.body)
       .end if
+      .invoke result = last_in_loop_or_rule( child_node )
+      .if ( ( "TOKEN_REF" == term.token_name ) and ( "TOK_DOT" != term.value ) )
+        .if ( not result.is_last )
+          .invoke result = emit_leaf_node_content_assist_action( child_node, sx )
+          .invoke post_attach_append( child_node, result.body )
+        .end if
+      .end if
     .end if
   .else
     .// Not a T. Must be RR
@@ -1023,6 +1331,11 @@ ${s}}
     .invoke post_attach_prepend(child_node, "[${loop_id_name}${arg_string}]\n")
     .invoke result = emit_rule_ref_action(child_node, sx)
     .invoke post_attach_append(child_node, result.body)
+    .invoke result = last_in_loop_or_rule( child_node )
+    .if ( not result.is_last )
+      .invoke result = emit_leaf_node_content_assist_action( child_node, sx )
+      .invoke post_attach_append( child_node, result.body )
+    .end if
   .end if
 .end function
 .//===============================================
@@ -1114,6 +1427,15 @@ ${child_node.pre_attach}${child_node.value}${child_node.post_attach}\
     .if (nln.node_type == "Ebnf")
       .select one e related by nln->EBNF[R2]
       .if ((e.decoration == "*") OR (e.decoration == "+"))
+        .// emit the leaf node content assist action here after the end action
+        .select any child_node related by nln->N[R5]
+        .select one next_node related by child_node->N[R7.'precedes']
+        .while ( not_empty next_node )
+          .assign child_node = next_node
+          .select one next_node related by child_node->N[R7.'precedes']
+        .end while
+        .invoke result = emit_leaf_node_content_assist_action( child_node, "${s}${so}" )
+        .invoke post_attach_prepend(outer_node, result.body)
         .invoke inner_result = emit_loop_end_action(outer_node, "${s}${so}")
         .invoke post_attach_prepend(outer_node, inner_result.body)
       .end if
@@ -1155,9 +1477,17 @@ ${t.value}
           .if ( prev_term_name != "header" )
 { 
     Ooaofooa p_modelRoot;
+    int m_contentAssistLine;  // these fields represent the line and column where content assist is requested; if either are 0,
+    int m_contentAssistCol;   // content assist routines should be skipped
     public OalParser(Ooaofooa aModelRoot, TokenStream lexer){
+        this(aModelRoot, lexer, 0, 0);
+    }
+
+    public OalParser(Ooaofooa aModelRoot, TokenStream lexer, int contentAssistLine, int contentAssistCol){
         this(lexer);
         p_modelRoot = aModelRoot;
+        m_contentAssistLine = contentAssistLine;
+        m_contentAssistCol = contentAssistCol;
     }
     
     public Ooaofooa getModelRoot(){
@@ -1241,6 +1571,19 @@ ${outer_node.post_attach}\
 ${contents.body}\
   .invoke result = emit_rule_end_action(outer_node, "    ")
 
+${result.body}
+  .// emit the leaf node content assist action here after the end action
+  .select any child_node related by p->N[R5]
+  .select one next_node related by child_node->N[R7.'precedes']
+  .while ( not_empty next_node )
+    .assign child_node = next_node
+    .select one next_node related by child_node->N[R7.'precedes']
+  .end while
+  .select one t related by child_node->LN[R1]->T[R3]
+  .invoke result = emit_leaf_node_content_assist_action( child_node, "    " )
+${result.body}
+  .// emit lookahead content assist action if it exists
+  .invoke result = emit_rule_lookahead_content_assist_action( outer_node, "    " )
 ${result.body}\
   ;
 .end function

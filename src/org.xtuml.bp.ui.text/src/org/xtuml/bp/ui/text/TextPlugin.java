@@ -48,9 +48,6 @@ public class TextPlugin extends OALEditorPlugin
     // The shared instance.
     private static TextPlugin plugin;
 
-    // Resource bundle.
-    private ResourceBundle resourceBundle;
-
     private AccumulatorInterface m_teamAccumulator = new AccumulatorTimer();
 
     public TextPlugin() {
@@ -86,14 +83,6 @@ public class TextPlugin extends OALEditorPlugin
         } catch (MissingResourceException e) {
             return key;
         }
-    }
-
-    /**
-     * Returns the plugin's resource bundle,
-     */
-    public ResourceBundle getResourceBundle()
-    {
-        return resourceBundle;
     }
 
     public static void logError(String msg, Throwable e)

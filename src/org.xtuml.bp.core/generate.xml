@@ -553,7 +553,7 @@
    ui/CutCopyPasteAction.java, ui/SetBPProjectPreferencesAction.java,
     ui/perspective/BridgePointPerspective.java,ui/preferences/BridgePointPreferences.java, ui/preferences/BuildTranslationPreferences.java,
     ui/preferences/ExportPreferences.java,ui/preferences/MessageDirectionPreferences.java,ui/preferences/VerifierPreferences.java,
-    ui/preferences/ActionLanguagePreferences.java, ui/preferences/BridgePointProjectPreferences.java,
+    ui/preferences/ActionLanguagePreferences.java, ui/preferences/ContentAssistPreferences.java, ui/preferences/BridgePointProjectPreferences.java,
    ui/preferences/BridgePointProjectReferencesPreferenceNode.java, ui/preferences/BridgePointProjectReferencesPreferences.java,
    ui/preferences/BridgePointProjectActionLanguagePreferenceNode.java,  ui/preferences/BridgePointProjectActionLanguagePreferences.java,
    ui/preferences/EmptySynchronousMessageParsePreferenceButtons.java,
