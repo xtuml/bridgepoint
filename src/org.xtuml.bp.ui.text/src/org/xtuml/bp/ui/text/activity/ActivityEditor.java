@@ -385,7 +385,7 @@ public class ActivityEditor extends OALEditor
    */
   public void createPartControl(Composite parent)
   {
-    setSourceViewerConfiguration(new EditorConfiguration(this, TextPlugin.getDefault().getSyntaxHighlightingPreferences()));
+    setSourceViewerConfiguration(new EditorConfiguration(this, TextPlugin.getDefault().getSyntaxHighlightingPreferences(), this));
     super.createPartControl(parent);
     StyledText textWidget = null;
     if (getSourceViewer() != null && getSourceViewer().getTextWidget() != null)

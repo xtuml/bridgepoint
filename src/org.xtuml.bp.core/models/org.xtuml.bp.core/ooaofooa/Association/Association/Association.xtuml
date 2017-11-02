@@ -825,6 +825,83 @@ INSERT INTO O_TPARM
 	'',
 	"201576fb-05de-4a71-a031-581901d88999",
 	'');
+INSERT INTO O_TFR
+	VALUES ("e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'getLinkCardinalityText',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select any fromOir from instances of R_OIR where ( selected.OIR_ID == param.fromOir_ID );
+select any toOir from instances of R_OIR where ( selected.OIR_ID == param.toOir_ID );
+cardinality_text = "";
+if ( not_empty fromOir and not_empty toOir )
+  if ( fromOir.OIR_ID != toOir.OIR_ID and fromOir.Rel_ID == toOir.Rel_ID ) // not the same OIR, in the same REL
+    oir_cond = -1;
+    oir_mult = Multiplicity::Unknown;
+    select one fromAssr related by fromOir->R_RGO[R203]->R_ASSR[R205];
+    select one toAssr related by toOir->R_RGO[R203]->R_ASSR[R205];
+    if ( not_empty fromAssr )
+      // an assr is always related to exactly one aone and aoth
+      oir_cond = 0;
+      oir_mult = Multiplicity::One;
+    elif ( not_empty toAssr )
+      select one aone related by toAssr->R_ASSOC[R211]->R_AONE[R209];
+      select one aoth related by toAssr->R_ASSOC[R211]->R_AOTH[R210];
+      if ( aone.OIR_ID != fromOir.OIR_ID )
+        oir_cond = aone.Cond;
+        if ( 1 == aone.Mult or 1 == toAssr.Mult )
+          oir_mult = Multiplicity::Many;
+        else
+          oir_mult = Multiplicity::One;
+        end if;
+      else
+        oir_cond = aoth.Cond;
+        if ( 1 == aoth.Mult or 1 == toAssr.Mult )
+          oir_mult = Multiplicity::Many;
+        else
+          oir_mult = Multiplicity::One;
+        end if;
+      end if;
+    else  // simply use the mult and cond of the target OIR
+      oir_cond = toOir.get_conditionality();
+      oir_mult = toOir.get_multiplicity();
+    end if;
+    // set the cardinality text
+    if ( 0 == oir_cond and Multiplicity::One == oir_mult )
+      cardinality_text = "1";
+    elif ( 1 == oir_cond and Multiplicity::One == oir_mult )
+      cardinality_text = "0..1";
+    elif ( 0 == oir_cond and Multiplicity::Many == oir_mult )
+      cardinality_text = "1..*";
+    elif ( 1 == oir_cond and Multiplicity::Many == oir_mult )
+      cardinality_text = "*";
+    end if;
+  end if;
+end if;
+return cardinality_text;',
+	1,
+	'',
+	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("2cfadbe5-9b95-43e2-8f80-9e2fd0c74de9",
+	"e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",
+	'fromOir_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("21b2e7f4-70c5-4ccd-895b-898cc53549c5",
+	"e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",
+	'toOir_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"2cfadbe5-9b95-43e2-8f80-9e2fd0c74de9",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
 	"fccf477f-dde6-4d1a-9020-5effbe338738");

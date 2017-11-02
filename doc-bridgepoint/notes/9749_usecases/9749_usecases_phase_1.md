@@ -368,6 +368,8 @@ We have taken a mixed and balanced approach of generating test sequences from th
 6.2.7.2.2 If part of a `select one` statement, only present relationships with multiplicity "one"  
 6.2.7.3 After `select [one|any|many] <var> from instances of`:  
 6.2.7.3.1 All visible key letters  
+6.2.7.4 After any selection:  
+6.2.7.4.1 `where`  
 
 6.2.8 Include phrases when a user preference is enabled  
 
@@ -427,7 +429,7 @@ We have taken a mixed and balanced approach of generating test sequences from th
 
 6.2.16 After `cardinality`, `empty`, `not_empty`  
 6.2.16.1 All instance reference sets  
-6.2.12.2 `empty` and `not_empty` can operate on instance references, whereas `cardinality` may only operate on intance reference sets.  
+6.2.16.2 `empty` and `not_empty` can operate on instance references, whereas `cardinality` may only operate on intance reference sets.  
 
 6.2.17 Parameters  
 6.2.17.1 After `param.`:  
@@ -462,5 +464,6 @@ We have taken a mixed and balanced approach of generating test sequences from th
 
 6.2.22 After `<identifier>::`:  
 6.2.22.1 All interface messages for ports matching `identifier`, all class based operations with key letters matching `identifier`, and all bridges with key letters matching `identifier` (include the full signature with parameter prototypes)  
+6.2.22.2 All enumerators for enumeration data types matching `identifier`  
 
 ### End

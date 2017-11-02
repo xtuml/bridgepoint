@@ -749,6 +749,8 @@ INSERT INTO O_TFR
  *  with the specified flavor
  *  0 = named parameters
  *  1 = positional parameters
+ *  2 = signature with labels for content assist
+ *  3 = signature without parameters for content assist
  *  named signature = return_type operation(param1:type, param2:type, param3:type)
  *  parameters for the named flavor are sorted alphanumerically
  *  positional signature = return_type operation(param1_type, param2_type, param3_type)
@@ -756,9 +758,11 @@ INSERT INTO O_TFR
  
 signature = "";
 
-// Get return type
-select one returntype related by self->S_DT[R116];
-signature = signature + returntype.Name + " ";
+if ( 2 != param.flavor and 3 != param.flavor )
+  // Get return type
+  select one returntype related by self->S_DT[R116];
+  signature = signature + returntype.Name + " ";
+end if;
  
 // Get name
 signature = signature + self.Name;
@@ -826,8 +830,37 @@ elif ( 0 == param.flavor )
   if ( num_params > 0 )
 	signature = signature + ")";
   end if;
+
+elif ( 2 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->O_TPARM[R117];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->O_TPARM[R124.''succeeds''];
+  end while;
+
+  signature = signature + "(";
+  separator = " ";
+  parameter = first_param;
+  while ( not_empty parameter )
+    signature = signature + separator + parameter.Name + ":";
+	separator = ", ";
+	select one parameter related by parameter->O_TPARM[R124.''precedes''];
+  end while;
+  if( not_empty first_param )
+    signature = signature + " ";
+  end if;
+  signature = signature + ")";
+
+elif ( 3 == param.flavor )
+
+  signature = signature + "()";
   
 end if;
+
+
 
 return signature;',
 	1,
