@@ -978,7 +978,6 @@ INSERT INTO O_TFR
  * the give line number and column
  */
  // first look for any V_LOC instances matching the location
- foundMatchingVariable = false;
  result = ::emptyInstance();
  select one outerBlock related by self->ACT_BLK[R650];
  if(not_empty outerBlock)
