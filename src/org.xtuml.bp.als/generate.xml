@@ -105,7 +105,7 @@
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${ooaofooa_input}
       -arch arc/ooa_functions.arc"/>
@@ -131,7 +131,7 @@
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import sql/grammar_schema.sql
       -import ${antlr.output}
       -import ${ooa_functions_output}

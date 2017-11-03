@@ -179,7 +179,7 @@
     <echo >Generating gen_oal.gen ...</echo>
   <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -f gen_oal.gen
+    <arg line="xtumlmc_gen_erate -qim -f gen_oal.gen
       -import ${iocore_path}/sql/${schema}
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_path}/sql/${sql.output}
