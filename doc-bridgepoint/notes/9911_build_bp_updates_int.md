@@ -4,19 +4,19 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Build BridgePoint with new generator
+# Build BridgePoint with generator 1.0
 ### xtUML Project Implementation Note
 
 
 ### 1. Abstract
 
 This note describes the work performed to be able to build BridgePoint with a 
-newer version of python-based generator.  
+modified 1.0 version of python-based generator.  
 
 ### 2. Document References
 
-<a id="2.1"></a>2.1 [BridgePoint DEI #9481](https://support.onefact.net/issues/9481) Headline issue    
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/xxx2) TODO: Add description here.  
+<a id="2.1"></a>2.1 [BridgePoint DEI #9911](https://support.onefact.net/issues/9911) Build BridgePoint with generator 1.0    
+<a id="2.2"></a>2.2 [BridgePoint DEI #9481](https://support.onefact.net/issues/9481) Build BridgePoint with new generator    
 <a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
 
 ### 3. Background
@@ -85,9 +85,47 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 9481_build_bp_updates
 
 <pre>
+doc-bridgepoint/notes/9911_build_bp_updates_int.md
+src/MC-Java/build.xml
+src/org.xtuml.bp.als/generate.xml
+src/org.xtuml.bp.compare/generate.xml
+src/org.xtuml.bp.core/arc/create_object_inspector.inc
+src/org.xtuml.bp.core/arc/page.inc
+src/org.xtuml.bp.core/generate.xml
+src/org.xtuml.bp.io.core/arc/export_functions.inc
+src/org.xtuml.bp.io.core/arc/gen_import_java.inc
+src/org.xtuml.bp.io.mdl/generate.xml
+src/org.xtuml.bp.model.compare/generate.xml
+src/org.xtuml.bp.ui.canvas/generate.xml
+src/org.xtuml.bp.ui.explorer/generate.xml
+src/org.xtuml.bp.ui.properties/generate.xml
+src/org.xtuml.bp.ui.session/generate.xml
+src/org.xtuml.bp.ui.text/arc/create_editorinput_factories_java.arc
+src/org.xtuml.bp.ui.text/arc/create_modeladapter_java.arc
+src/org.xtuml.bp.ui.text/arc/create_plugin_xml.arc
+src/org.xtuml.bp.ui.text/generate.xml
+src/org.xtuml.bp.ui.tree/templates/generate.xml
+</pre>
 
- Put the file list here 
+Fork/Repository: keithbrown/bptest   
+Branch: 9481_build_bp_updates
 
+<pre>
+src/org.xtuml.bp.core.test/arc/create_action_test.arc
+src/org.xtuml.bp.core.test/generate.xml
+src/org.xtuml.bp.model.compare.test/generate.xml
+src/org.xtuml.bp.ui.canvas.test/generate.xml
+src/org.xtuml.bp.ui.properties.test/generate.xml
+</pre>
+
+Fork/Repository: keithbrown/pyrsl 
+Branch: kb_1.0_qim  
+
+<pre>
+rsl/gen_erate.py
+rsl/version.py
+setup.py
+tests/test_cli.py
 </pre>
 
 ### End
