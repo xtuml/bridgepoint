@@ -21,7 +21,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.xtuml.bp.als.oal.ParseRunnable;
-import org.xtuml.bp.als.oal.PartialParseRunnable;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -78,7 +77,7 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		    boolean parsed = false;
 		    
 			if (bdy == null) {
-				partialParse(modelElement, offsetWithinLine, doc);
+				parseBody(modelElement, offsetWithinLine, doc);
 				bdy = OALPersistenceUtil.getOALModelElement(modelElement);
 				if (bdy == null) {
 					// element not found, just return
@@ -90,7 +89,7 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 					startLine);
 			if (declarationElement == null && !parsed) {
 				// If the user edited the OAL, it may need to be parsed  
-				partialParse(modelElement, offsetWithinLine, doc);
+				parseBody(modelElement, offsetWithinLine, doc);
 				declarationElement = (NonRootModelElement) bdy.Finddeclaration(offsetWithinLine,
 						startLine);
 			}
@@ -120,11 +119,9 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 
 	}
 	
-	private void partialParse(NonRootModelElement modelElement, int offsetWithinLine, IDocument doc) {
+	private void parseBody(NonRootModelElement modelElement, int offsetWithinLine, IDocument doc) {
 		// run a parse of this body
-		ParseRunnable parseRunner = new PartialParseRunnable(modelElement, doc.get(),
-				DocumentUtil.positionToLine(offsetWithinLine, doc),
-				DocumentUtil.positionToCol(offsetWithinLine, doc));
+		ParseRunnable parseRunner = new ParseRunnable(modelElement, doc.get());
 		parseRunner.run();						
 	}
 

@@ -612,7 +612,7 @@ INSERT INTO O_TFR
  * For all subtypes of the statement locate one that matches
  * the given line number and column
  */
- foundInstance = ::emptyInstance();
+ foundInstance = GD::NULL_INSTANCE();
  select one bridgeInvocation related by self->ACT_BRG[R603];
  if(not_empty bridgeInvocation)
    // check for either the key letters or the bridge

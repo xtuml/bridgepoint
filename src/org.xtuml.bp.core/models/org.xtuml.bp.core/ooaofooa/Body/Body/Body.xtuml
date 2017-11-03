@@ -978,13 +978,13 @@ INSERT INTO O_TFR
  * the give line number and column
  */
  // first look for any V_LOC instances matching the location
- result = ::emptyInstance();
+ result = GD::NULL_INSTANCE();
  select one outerBlock related by self->ACT_BLK[R650];
  if(not_empty outerBlock)
    result = self.findDeclarationOfVariableOrValueInBlock(blockId: outerBlock.Block_ID,
                               declarationLineNumber:param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(result != ::emptyInstance())
+   if(result != GD::NULL_INSTANCE())
      return result;
    end if;
  end if;
@@ -993,7 +993,7 @@ INSERT INTO O_TFR
    result = self.findDeclarationOfVariableOrValueInBlock(blockId: block.Block_ID,
                               declarationLineNumber:param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(result != ::emptyInstance())
+   if(result != GD::NULL_INSTANCE())
      return result;
    end if;
  end for;
@@ -1002,7 +1002,7 @@ INSERT INTO O_TFR
    result = self.findDeclarationOfVariableOrValueInBlock(blockId: committedOuter.Block_ID,
                               declarationLineNumber:param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(result != ::emptyInstance())
+   if(result != GD::NULL_INSTANCE())
      return result;
    end if;                        
  end if;
@@ -1011,24 +1011,24 @@ INSERT INTO O_TFR
    result = self.findDeclarationOfVariableOrValueInBlock(blockId: block.Block_ID,
                               declarationLineNumber:param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(result != ::emptyInstance())
+   if(result != GD::NULL_INSTANCE())
      return result;
    end if;                            
  end for;
- foundInstance = ::emptyInstance();
+ foundInstance = GD::NULL_INSTANCE();
  // check outer statements
  select many outerStatements related by self->ACT_BLK[R650]->ACT_SMT[R602];
  for each outerStatement in outerStatements
    foundInstance = outerStatement.findDeclaration(
                              declarationLineNumber: param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(foundInstance != ::emptyInstance())
+   if(foundInstance != GD::NULL_INSTANCE())
      // there will only be one case where an instance
      // was found
      break;
    end if;   
  end for;
- if(foundInstance != ::emptyInstance())
+ if(foundInstance != GD::NULL_INSTANCE())
    return foundInstance;
  end if;
  // check committed outer statements
@@ -1037,13 +1037,13 @@ INSERT INTO O_TFR
    foundInstance = outerStatement.findDeclaration(
                              declarationLineNumber: param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(foundInstance != ::emptyInstance())
+   if(foundInstance != GD::NULL_INSTANCE())
      // there will only be one case where an instance
      // was found
      break;
    end if;   
  end for; 
- if(foundInstance != ::emptyInstance())
+ if(foundInstance != GD::NULL_INSTANCE())
    return foundInstance;
  end if;
  // check committed statements
@@ -1052,13 +1052,13 @@ INSERT INTO O_TFR
    foundInstance = statement.findDeclaration(
                              declarationLineNumber: param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(foundInstance != ::emptyInstance())
+   if(foundInstance != GD::NULL_INSTANCE())
      // there will only be one case where an instance
      // was found
      break;
    end if;   
  end for; 
- if(foundInstance != ::emptyInstance())
+ if(foundInstance != GD::NULL_INSTANCE())
    return foundInstance;
  end if;
  // check nested statements
@@ -1067,7 +1067,7 @@ INSERT INTO O_TFR
    foundInstance = statement.findDeclaration(
                              declarationLineNumber: param.declarationLineNumber,
                             declarationLineColumn: param.declarationLineColumn);
-   if(foundInstance != ::emptyInstance())
+   if(foundInstance != GD::NULL_INSTANCE())
      // there will only be one case where an instance
      // was found
      break;
@@ -1109,23 +1109,23 @@ INSERT INTO O_TFR
 select any block from instances of ACT_BLK where (selected.Block_ID == param.blockId);
 select many variables related by block->V_VAR[R823];
 for each variable in variables
-  result = self.findVariableLocationForVariable(declarationLineNumber:
+  result = variable.findVariableLocationForVariable(declarationLineNumber:
                              param.declarationLineNumber, declarationLineColumn:
                           param.declarationLineColumn, var_id: variable.Var_ID, checkLocation: true);
-  if(result != ::emptyInstance())
+  if(result != GD::NULL_INSTANCE())
     return result;
   end if;
 end for;
 select many values related by block->V_VAL[R826];
 for each value in values
-  result = self.findDeclarationOfValue(declarationLineNumber:
+  result = value.findDeclarationOfValue(declarationLineNumber:
                            param.declarationLineNumber, declarationLineColumn:
                            param.declarationLineColumn, val_id: value.Value_ID);
-  if(result != ::emptyInstance())
+  if(result != GD::NULL_INSTANCE())
     return result;
   end if;
 end for;
-return ::emptyInstance();',
+return GD::NULL_INSTANCE();',
 	1,
 	'',
 	"47be481e-6e61-46a4-b087-ee4ac0755e44",
@@ -1156,284 +1156,6 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"907fc361-22bf-479c-aca2-7cf65f0b1d86",
-	'');
-INSERT INTO O_TFR
-	VALUES ("73a94ff8-3736-4fc5-b3ef-4d1b9823e200",
-	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
-	'findVariableLocationForVariable',
-	'',
-	"bc3722c8-5188-4529-8519-cf9eb9816b17",
-	1,
-	'select any variable from instances of V_VAR where (selected.Var_ID == param.var_id);
-select any firstLocation from instances of V_LOC
-                                    where (selected.Id == GD::NULL_UNIQUE_ID());
-foundMatchingVariable = false;
-select many locations related by variable->V_LOC[R835];
-for each location in locations
-  if(empty firstLocation)
-    firstLocation = location;
-  else
-    if(location.LineNumber < firstLocation.LineNumber)
-      firstLocation = location;
-    elif(location.LineNumber == firstLocation.LineNumber
-                       and location.StartPosition < firstLocation.StartPosition)
-      firstLocation = location;
-    end if;
-  end if;
-  if(location.LineNumber == param.declarationLineNumber
-                      and location.StartPosition == param.declarationLineColumn)
-    foundMatchingVariable = true;
-  end if;
-end for;
-if(not_empty firstLocation and not param.checkLocation)
-  return firstLocation.convertToInstance();
-end if;
-if(not_empty firstLocation and foundMatchingVariable)
-  return firstLocation.convertToInstance();
-end if;
-return ::emptyInstance();',
-	1,
-	'',
-	"93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("e98867dd-7cc8-41d6-8196-beb8abd57dde",
-	"73a94ff8-3736-4fc5-b3ef-4d1b9823e200",
-	'declarationLineNumber',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("89815f41-55ac-4195-9852-20c958dbe0b9",
-	"73a94ff8-3736-4fc5-b3ef-4d1b9823e200",
-	'declarationLineColumn',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"e98867dd-7cc8-41d6-8196-beb8abd57dde",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("d7f33178-5c0b-46b5-8969-f82b80b99e87",
-	"73a94ff8-3736-4fc5-b3ef-4d1b9823e200",
-	'var_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"89815f41-55ac-4195-9852-20c958dbe0b9",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("098487bf-d779-4876-99f7-538d95d25a8a",
-	"73a94ff8-3736-4fc5-b3ef-4d1b9823e200",
-	'checkLocation',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	0,
-	'',
-	"d7f33178-5c0b-46b5-8969-f82b80b99e87",
-	'');
-INSERT INTO O_TFR
-	VALUES ("500dbbcf-f89e-4603-ab12-008440ae62d7",
-	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
-	'findDeclarationOfValue',
-	'',
-	"bc3722c8-5188-4529-8519-cf9eb9816b17",
-	1,
-	'/*
- * Find elements, or variables for all values that match
- * the given position
- */
-select any value from instances of V_VAL where (selected.Value_ID == param.val_id);
-if(not_empty value)
-  select one paramVal related by value->V_PVL[R801];
-  if(not_empty paramVal)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one pp related by paramVal->C_PP[R843];
-      if(not_empty pp)
-        return pp.convertToInstance();
-      end if;
-      select one bp related by paramVal->S_BPARM[R831];
-      if(not_empty bp)
-        return bp.convertToInstance();
-      end if;
-      select one fp related by paramVal->S_SPARM[R832];
-      if(not_empty fp)
-        return fp.convertToInstance();
-      end if;
-      select one op related by paramVal->O_TPARM[R833];
-      if(not_empty op)
-        return op.convertToInstance();
-      end if;
-    end if;
-  end if;
-  select one avr related by value->V_AVL[R801];
-  if(not_empty avr)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one attribute related by avr->O_ATTR[R806];
-      return attribute.convertToInstance();
-    end if;
-  end if;
-  select one datumVal related by value->V_EDV[R801];
-  if(not_empty datumVal)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select any epr related by datumVal->V_EPR[R834];
-      if(not_empty epr)
-        select one evtDI related by epr->SM_EVTDI[R846];
-        if(not_empty evtDI)
-          return evtDI.convertToInstance();
-        end if;
-        select one pp related by epr->C_PP[R847];
-        if(not_empty pp)
-          return pp.convertToInstance();
-        end if;
-      end if;
-    end if;
-  end if;
-  select one lenum related by value->V_LEN[R801];
-  if(not_empty lenum)
-    select one enum related by lenum->S_ENUM[R824];
-    if(lenum.dataTypeNameLineNumber == param.declarationLineNumber and
-                        lenum.dataTypeNameColumn == param.declarationLineColumn)
-      select one dt related by enum->S_EDT[R27];
-      return dt.convertToInstance();
-    end if;
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      return enum.convertToInstance();
-    end if;
-  end if;
-  select one opVal related by value->V_TRV[R801];
-  if(not_empty opVal)
-    select one op related by opVal->O_TFR[R829];
-    if(opVal.modelClassKeyLettersLineNumber == param.declarationLineNumber and
-                opVal.modelClassKeyLettersColumn == param.declarationLineColumn)
-      select one modelClass related by op->O_OBJ[R115];
-      return modelClass.convertToInstance();
-    end if;
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      return op.convertToInstance();
-    end if;
-  end if;
-  select one fncVal related by value->V_FNV[R801];
-  if(not_empty fncVal)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one func related by fncVal->S_SYNC[R827];
-      return func.convertToInstance();
-    end if;    
-  end if;
-  select one brgVal related by value->V_BRV[R801];
-  if(not_empty brgVal)
-    select one brg related by brgVal->S_BRG[R828];
-    if(brgVal.externalEntityKeyLettersLineNumber == param.declarationLineNumber
-             and brgVal.externalEntityKeyLettersColumn == param.declarationLineColumn)
-      select one ee related by brg->S_EE[R19];
-      return ee.convertToInstance();
-    end if;
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      return brg.convertToInstance();
-    end if;
-  end if;
-  select one msgVal related by value->V_MSV[R801];
-  if(not_empty msgVal)
-    select one ep related by msgVal->SPR_PEP[R841]->C_EP[R4501];
-    if(empty ep)
-      select one ep related by msgVal->SPR_REP[R845]->C_EP[R4500];
-    end if;
-    if(not_empty ep)
-      if(msgVal.ownerNameLineNumber == param.declarationLineNumber and
-                          msgVal.ownerNameColumn == param.declarationLineColumn)
-        select one iface related by ep->C_I[R4003];
-        return iface.convertToInstance();
-      end if;
-      if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-        select one as related by ep->C_AS[R4004];
-        if(not_empty as)
-          return as.convertToInstance();
-        end if;
-        select one io related by ep->C_IO[R4004];
-        if(not_empty io)
-          return io.convertToInstance();
-        end if;
-      end if;
-    end if;
-  end if;
-  select one slr related by value->V_SLR[R801];
-  if(not_empty slr)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one attribute related by slr->O_ATTR[R812];
-      return attribute.convertToInstance();
-    end if;
-  end if;
-  select one tvr related by value->V_TVL[R801];
-  if(not_empty tvr)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one variable related by tvr->V_VAR[R805];
-      return self.findVariableLocationForVariable(declarationLineColumn:
-                     param.declarationLineColumn, declarationLineNumber:
-                     param.declarationLineNumber, var_id: variable.Var_ID, checkLocation: false);
-    end if;
-  end if;
-  select one isr related by value->V_ISR[R801];
-  if(not_empty isr)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one variable related by isr->V_VAR[R809];
-      return self.findVariableLocationForVariable(declarationLineColumn:
-                     param.declarationLineColumn, declarationLineNumber:
-                     param.declarationLineNumber, var_id: variable.Var_ID, checkLocation: false);    
-    end if;  
-  end if;
-  select one ir related by value->V_IRF[R801];
-  if(not_empty ir)
-    if(value.LineNumber == param.declarationLineNumber and
-                             value.StartPosition == param.declarationLineColumn)
-      select one variable related by ir->V_VAR[R808];
-      return self.findVariableLocationForVariable(declarationLineColumn:
-                     param.declarationLineColumn, declarationLineNumber:
-                     param.declarationLineNumber, var_id: variable.Var_ID, checkLocation: false);      
-    end if;
-  end if;
-end if;
-return ::emptyInstance();',
-	1,
-	'',
-	"73a94ff8-3736-4fc5-b3ef-4d1b9823e200",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("1400e2af-5168-405c-bbdf-7477c9c1233d",
-	"500dbbcf-f89e-4603-ab12-008440ae62d7",
-	'declarationLineNumber',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("59483ed0-6d40-47e4-a875-0afbab4e755a",
-	"500dbbcf-f89e-4603-ab12-008440ae62d7",
-	'declarationLineColumn',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"1400e2af-5168-405c-bbdf-7477c9c1233d",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("a8254c47-b4ae-4c4f-b858-acca29d53a22",
-	"500dbbcf-f89e-4603-ab12-008440ae62d7",
-	'val_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"59483ed0-6d40-47e4-a875-0afbab4e755a",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",

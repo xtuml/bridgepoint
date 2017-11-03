@@ -1700,6 +1700,207 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("e9803bfa-5313-4363-aeb8-3ea2bc33f041",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'findDeclarationOfValue',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'/*
+ * Find elements, or variables for all selfs that match
+ * the given position
+ */
+  select one paramVal related by self->V_PVL[R801];
+  if(not_empty paramVal)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one pp related by paramVal->C_PP[R843];
+      if(not_empty pp)
+        return pp.convertToInstance();
+      end if;
+      select one bp related by paramVal->S_BPARM[R831];
+      if(not_empty bp)
+        return bp.convertToInstance();
+      end if;
+      select one fp related by paramVal->S_SPARM[R832];
+      if(not_empty fp)
+        return fp.convertToInstance();
+      end if;
+      select one op related by paramVal->O_TPARM[R833];
+      if(not_empty op)
+        return op.convertToInstance();
+      end if;
+    end if;
+  end if;
+  select one avr related by self->V_AVL[R801];
+  if(not_empty avr)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one attribute related by avr->O_ATTR[R806];
+      return attribute.convertToInstance();
+    end if;
+  end if;
+  select one datumVal related by self->V_EDV[R801];
+  if(not_empty datumVal)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select any epr related by datumVal->V_EPR[R834];
+      if(not_empty epr)
+        select one evtDI related by epr->SM_EVTDI[R846];
+        if(not_empty evtDI)
+          return evtDI.convertToInstance();
+        end if;
+        select one pp related by epr->C_PP[R847];
+        if(not_empty pp)
+          return pp.convertToInstance();
+        end if;
+      end if;
+    end if;
+  end if;
+  select one lenum related by self->V_LEN[R801];
+  if(not_empty lenum)
+    select one enum related by lenum->S_ENUM[R824];
+    if(lenum.dataTypeNameLineNumber == param.declarationLineNumber and
+                        lenum.dataTypeNameColumn == param.declarationLineColumn)
+      select one dt related by enum->S_EDT[R27];
+      return dt.convertToInstance();
+    end if;
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      return enum.convertToInstance();
+    end if;
+  end if;
+  select one opVal related by self->V_TRV[R801];
+  if(not_empty opVal)
+    select one op related by opVal->O_TFR[R829];
+    if(opVal.modelClassKeyLettersLineNumber == param.declarationLineNumber and
+                opVal.modelClassKeyLettersColumn == param.declarationLineColumn)
+      select one modelClass related by op->O_OBJ[R115];
+      return modelClass.convertToInstance();
+    end if;
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      return op.convertToInstance();
+    end if;
+  end if;
+  select one fncVal related by self->V_FNV[R801];
+  if(not_empty fncVal)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one func related by fncVal->S_SYNC[R827];
+      return func.convertToInstance();
+    end if;    
+  end if;
+  select one brgVal related by self->V_BRV[R801];
+  if(not_empty brgVal)
+    select one brg related by brgVal->S_BRG[R828];
+    if(brgVal.externalEntityKeyLettersLineNumber == param.declarationLineNumber
+             and brgVal.externalEntityKeyLettersColumn == param.declarationLineColumn)
+      select one ee related by brg->S_EE[R19];
+      return ee.convertToInstance();
+    end if;
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      return brg.convertToInstance();
+    end if;
+  end if;
+  select one msgVal related by self->V_MSV[R801];
+  if(not_empty msgVal)
+    select one ep related by msgVal->SPR_PEP[R841]->C_EP[R4501];
+    if(empty ep)
+      select one ep related by msgVal->SPR_REP[R845]->C_EP[R4500];
+    end if;
+    if(not_empty ep)
+      if(msgVal.ownerNameLineNumber == param.declarationLineNumber and
+                          msgVal.ownerNameColumn == param.declarationLineColumn)
+        select one iface related by ep->C_I[R4003];
+        return iface.convertToInstance();
+      end if;
+      if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+        select one as related by ep->C_AS[R4004];
+        if(not_empty as)
+          return as.convertToInstance();
+        end if;
+        select one io related by ep->C_IO[R4004];
+        if(not_empty io)
+          return io.convertToInstance();
+        end if;
+      end if;
+    end if;
+  end if;
+  select one slr related by self->V_SLR[R801];
+  if(not_empty slr)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one attribute related by slr->O_ATTR[R812];
+      return attribute.convertToInstance();
+    end if;
+  end if;
+  select one tvr related by self->V_TVL[R801];
+  if(not_empty tvr)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one variable related by tvr->V_VAR[R805];
+      return variable.findVariableLocationForVariable(declarationLineColumn:
+                     param.declarationLineColumn, declarationLineNumber:
+                     param.declarationLineNumber, var_id: variable.Var_ID, checkLocation: false);
+    end if;
+  end if;
+  select one isr related by self->V_ISR[R801];
+  if(not_empty isr)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one variable related by isr->V_VAR[R809];
+      return variable.findVariableLocationForVariable(declarationLineColumn:
+                     param.declarationLineColumn, declarationLineNumber:
+                     param.declarationLineNumber, var_id: variable.Var_ID, checkLocation: false);    
+    end if;  
+  end if;
+  select one ir related by self->V_IRF[R801];
+  if(not_empty ir)
+    if(self.LineNumber == param.declarationLineNumber and
+                             self.StartPosition == param.declarationLineColumn)
+      select one variable related by ir->V_VAR[R808];
+      return variable.findVariableLocationForVariable(declarationLineColumn:
+                     param.declarationLineColumn, declarationLineNumber:
+                     param.declarationLineNumber, var_id: variable.Var_ID, checkLocation: false);      
+    end if;
+  end if;
+
+return GD::NULL_INSTANCE();',
+	1,
+	'',
+	"0eba4f9a-91fa-40e5-977c-fb6ae6f838b5",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("10904d1b-09a4-4dd0-bfe7-3dd26dbb9628",
+	"e9803bfa-5313-4363-aeb8-3ea2bc33f041",
+	'declarationLineNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a01c86ff-f83a-4b23-8cd5-c79b6a2978a3",
+	"e9803bfa-5313-4363-aeb8-3ea2bc33f041",
+	'declarationLineColumn',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"10904d1b-09a4-4dd0-bfe7-3dd26dbb9628",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("06260a0a-07b1-4d96-92c7-dddea84442bf",
+	"e9803bfa-5313-4363-aeb8-3ea2bc33f041",
+	'val_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a01c86ff-f83a-4b23-8cd5-c79b6a2978a3",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
