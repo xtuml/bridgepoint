@@ -17,7 +17,7 @@ modified 1.0 version of python-based generator.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9911](https://support.onefact.net/issues/9911) Build BridgePoint with generator 1.0    
 <a id="2.2"></a>2.2 [BridgePoint DEI #9481](https://support.onefact.net/issues/9481) Build BridgePoint with new generator    
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.3"></a>2.3 [pyrsl pull request #10](https://github.com/xtuml/pyrsl/pull/10)    
 
 ### 3. Background
 
@@ -30,24 +30,53 @@ an incremental step that allows the tool to move forward and not get stale.
 
 ### 4. Requirements
 
-4.1  Build BridgePoint with a version of generator later than 0.6.0    
+4.1  Build BridgePoint with modified generator version 1.0    
+4.2  Build sample projects with modified generator version 1.0  
 
 ### 5. Work Required
 
 5.1  The 0.x versions of generator print out warnings about schema mismatches when
-building BridgePoint.  An overload of warnings.  we   
+building BridgePoint.  A __lot__ of warnings.  Recently [2.3] a new flag `-qim` was added
+to the pyrsl master branch to "quiet insert mismatches".  
+5.1.1  Apply the same enhancement to the `maintenance/1.0` branch.  
+5.1.2  Bump the version number to 1.0.1.   
 
-5.2 Item 2  
+5.2 Build process and code generation updates   
+5.2.1  bridgepoint  
+5.2.1.1  Search all `generate.xml` files in the repo.  Update calls to `xtumlmc_gen_erate` to 
+pass `-qim` as the first argument.   
+5.2.1.2  The new generator does not populate uninitialized variables during load with 0.  The values
+are stored in memory as python's None value.  In several places during a "select ... where" test 
+we previously tested a value against 0.  These checks are failed using the new generator with an 
+error saying something similar to "NoneType cannot be found".  The checks are changed to use python's 
+"not" operation to test to see if the value is populated or not. Like this:   
+```
+-  .select many child_specs related by tree_node->T_TPS[R1000] where (selected.Prev_TPS_ID == 0)
++  .select many child_specs related by tree_node->T_TPS[R1000] where (not selected.Prev_TPS_ID)
+```
+5.2.1.3  `org.xtuml.bp.io.mdl` and `org.xtuml.bp.ui.text` generation  
+Prior work was performed in the io.mdl generation to stop using persisted gen db file and 
+multiple build targets and instead just generate all the code in one target without a persisted 
+gen db.  That work was never fully implemented.  This change completes that work and puts it 
+into active use. 
 
-TODO - do we want the CME generation stuff removed when going to generator 1.0?
-* Maybe we don't need this since we are moving to the newest generator.  Maybe those
-changes should be pulled out and just recorded for what was done as a jumpstart for the
-next task of moving to an even newer generator.
+5.2.2  bptest  
+5.2.2.1  Search all `generate.xml` files in the repo.  Update calls to `xtumlmc_gen_erate` to 
+pass `-qim` as the first argument.   
+5.2.2.2  Modify a "select .. where" to explicitly compare desired attributes rather than simply 
+relying on referentials.  This is a common change for newer generators that work around incomplete
+PEI data that may not have set values for all referentials.  
+
+5.3  Put the new generator into packaging
+5.3.1  Create new releases of generator 1.0.1 and publish them on github   
+5.3.2  Update the `gen_erate.pyz` and `gen_erate.exe` in the `xtuml/mc` repository
+  at `mc/bin` and `mc/bin/win` respectively.   
 
 ### 6. Implementation Comments
 
-6.1 
-
+6.1  Build experimentation has shown that this version of generator does not provide and
+build speed enhancements over the prior versions.  Changes that really affect build
+times are part of post-1.0 commits.  
 
 ### 7. Unit Test
 
@@ -62,7 +91,6 @@ For each of Mac, Linux, and Windows:
 * See the version printed in 1.0.1
 * Open BridgePoint
 * Create Microwave Oven and GPS Watch example projects  
-
 7.2.1  For each of Microwave Oven and GPS Watch perform the following test  
 * Build the project
 * __R__ See build success
@@ -80,7 +108,6 @@ For each of Mac, Linux, and Windows:
 None.  
 
 ### 9. Code Changes
-
 Fork/Repository: keithbrown/bridgepoint   
 Branch: 9481_build_bp_updates
 
@@ -122,6 +149,7 @@ Fork/Repository: keithbrown/pyrsl
 Branch: kb_1.0_qim  
 
 <pre>
+.gitignore
 rsl/gen_erate.py
 rsl/version.py
 setup.py
