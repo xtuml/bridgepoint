@@ -10,7 +10,7 @@
                class="org.xtuml.bp.mc.tools.SwitchProjectModelCompilerAction"
                id="org.xtuml.bp.mc.tools.SwitchProjectMCAction"
                label="Set Model Compiler"
-               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+               menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
          <visibility>
            <not>
