@@ -11,7 +11,7 @@
                enablesFor="1"
                id="org.xtuml.bp.integrity.checkReferentialIntegrityAction"
                label="Check Referential Integrity"
-               menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
+               menubarPath="org.xtuml.bp.ui.context-internal">
          </action>
          <visibility>
            <not>
