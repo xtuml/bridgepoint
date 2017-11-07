@@ -602,6 +602,30 @@ INSERT INTO DIM_ELE
 	VALUES ("903bc65a-32d2-45d6-aa5d-0cc07075dda6",
 	0,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("790d7b16-797b-4ce1-858c-70fefc62277d",
+	"bc89f565-c994-401b-bd95-55369c58143f",
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	52,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Datatypes::ProposalTypes');
+INSERT INTO GD_SHP
+	VALUES ("790d7b16-797b-4ce1-858c-70fefc62277d");
+INSERT INTO GD_NCS
+	VALUES ("790d7b16-797b-4ce1-858c-70fefc62277d");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"790d7b16-797b-4ce1-858c-70fefc62277d");
+INSERT INTO DIM_GE
+	VALUES (3965.000000,
+	2242.000000,
+	"790d7b16-797b-4ce1-858c-70fefc62277d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("790d7b16-797b-4ce1-858c-70fefc62277d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("bc89f565-c994-401b-bd95-55369c58143f",
 	'',
@@ -1878,6 +1902,164 @@ Full Name: None',
 	"a7ddbfcf-db5b-4878-9c8f-9458b1b8d77e");
 INSERT INTO PE_PE
 	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	1,
+	"f769227a-8cff-4d99-ad78-9777a890baff",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"00000000-0000-0000-0000-000000000000",
+	'ProposalTypes',
+	'',
+	'');
+INSERT INTO S_EDT
+	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b");
+INSERT INTO S_ENUM
+	VALUES ("b394d63f-6e25-4029-9ecd-652b8aa7593a",
+	'Attribute',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_ENUM
+	VALUES ("f8a47e22-a22c-4e81-bb25-085b5287dffc",
+	'Operation',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"b394d63f-6e25-4029-9ecd-652b8aa7593a");
+INSERT INTO S_ENUM
+	VALUES ("ac2883fd-b99d-4cdd-a9d6-0be3cda9de85",
+	'Association',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
+INSERT INTO S_ENUM
+	VALUES ("5bd6d81f-bf2d-445e-aa85-dc1666c28b5b",
+	'Keyword',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"ac2883fd-b99d-4cdd-a9d6-0be3cda9de85");
+INSERT INTO S_ENUM
+	VALUES ("200294d0-99b1-423c-a680-145f6f8a2e84",
+	'Variable',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"5bd6d81f-bf2d-445e-aa85-dc1666c28b5b");
+INSERT INTO S_ENUM
+	VALUES ("8e979667-6c9c-428c-b1a9-714ea43a7871",
+	'Class',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"200294d0-99b1-423c-a680-145f6f8a2e84");
+INSERT INTO S_ENUM
+	VALUES ("b90f452e-092b-469d-8c12-7a8a792bcd08",
+	'EE',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"8e979667-6c9c-428c-b1a9-714ea43a7871");
+INSERT INTO S_ENUM
+	VALUES ("e419854c-b497-458d-83fa-db0f4de52a16",
+	'Port',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"b90f452e-092b-469d-8c12-7a8a792bcd08");
+INSERT INTO S_ENUM
+	VALUES ("1a0716a0-ad0d-48e4-bbb0-c6faf06dc53e",
+	'Event',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"e419854c-b497-458d-83fa-db0f4de52a16");
+INSERT INTO S_ENUM
+	VALUES ("282799ef-b2ec-4c8b-b45b-47d4aac8e88b",
+	'FunctionParameter',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"1a0716a0-ad0d-48e4-bbb0-c6faf06dc53e");
+INSERT INTO S_ENUM
+	VALUES ("39498450-69a3-4eb7-b479-1e0c691d9df1",
+	'OperationParameter',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"282799ef-b2ec-4c8b-b45b-47d4aac8e88b");
+INSERT INTO S_ENUM
+	VALUES ("eb28d87f-266f-4208-b39c-77817eff8084",
+	'BridgeParameter',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"39498450-69a3-4eb7-b479-1e0c691d9df1");
+INSERT INTO S_ENUM
+	VALUES ("88ae2113-56b7-412d-ad9e-5a2723162513",
+	'EventDataItem',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"eb28d87f-266f-4208-b39c-77817eff8084");
+INSERT INTO S_ENUM
+	VALUES ("c2c5cff2-7c0e-4b1f-8b78-e9c5d6fb8316",
+	'PropertyParameter',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"88ae2113-56b7-412d-ad9e-5a2723162513");
+INSERT INTO S_ENUM
+	VALUES ("50c40753-dcac-4733-808c-bc5869c08cb7",
+	'Function',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"c2c5cff2-7c0e-4b1f-8b78-e9c5d6fb8316");
+INSERT INTO S_ENUM
+	VALUES ("2d66e217-9567-4e7e-bda7-76e3ba594d22",
+	'EDT',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"50c40753-dcac-4733-808c-bc5869c08cb7");
+INSERT INTO S_ENUM
+	VALUES ("3e48fcb1-5d43-45ca-b0cc-20da219e428a",
+	'Enumerator',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"2d66e217-9567-4e7e-bda7-76e3ba594d22");
+INSERT INTO S_ENUM
+	VALUES ("709bdaae-dd45-4986-9f5a-c8ff6f767e94",
+	'Literal',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"3e48fcb1-5d43-45ca-b0cc-20da219e428a");
+INSERT INTO S_ENUM
+	VALUES ("93b1a4c0-415b-4372-b471-221da03ed7d9",
+	'Constant',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"709bdaae-dd45-4986-9f5a-c8ff6f767e94");
+INSERT INTO S_ENUM
+	VALUES ("f3246232-4963-40c5-8de6-93a05308d245",
+	'SignalToProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"93b1a4c0-415b-4372-b471-221da03ed7d9");
+INSERT INTO S_ENUM
+	VALUES ("6150e563-5cbd-4de3-8947-7c17e09021b0",
+	'SignalFromProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f3246232-4963-40c5-8de6-93a05308d245");
+INSERT INTO S_ENUM
+	VALUES ("fcd4dea5-95bc-43c2-82c4-7bffc607a754",
+	'OperationToProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"6150e563-5cbd-4de3-8947-7c17e09021b0");
+INSERT INTO S_ENUM
+	VALUES ("005bac48-12e0-492e-ac8e-68300297071c",
+	'OperationFromProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"fcd4dea5-95bc-43c2-82c4-7bffc607a754");
+INSERT INTO S_ENUM
+	VALUES ("02e7e5b5-81da-469d-abe9-67a300978aa6",
+	'Bridge',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"005bac48-12e0-492e-ac8e-68300297071c");
+INSERT INTO PE_PE
+	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,
 	"f769227a-8cff-4d99-ad78-9777a890baff",
 	"00000000-0000-0000-0000-000000000000",

@@ -74,6 +74,13 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public boolean opaqueComponents;
 	public boolean showFormalizations;
     public boolean enableTableBasedAssociationEditing;
+
+    public boolean contentAssistIncludeRolePhrases;
+    public boolean contentAssistInsertSingleProposals;
+    public String contentAssistInvocationFormat;
+    public boolean contentAssistEnableAutoTriggering;
+    public String contentAssistAutoTriggerSequences;
+    public boolean contentAssistEnablePartialParsing;
     
 	public Class getStoreClass() {
 		return BridgePointPreferencesStore.class;
@@ -117,6 +124,13 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         enableInstanceReferences = syncTo.enableInstanceReferences;
         enableModelIntegrityCheck = syncTo.enableModelIntegrityCheck;
         enableTableBasedAssociationEditing = syncTo.enableTableBasedAssociationEditing;
+
+        contentAssistIncludeRolePhrases = syncTo.contentAssistIncludeRolePhrases;
+        contentAssistInsertSingleProposals = syncTo.contentAssistInsertSingleProposals;
+        contentAssistInvocationFormat = syncTo.contentAssistInvocationFormat;
+        contentAssistEnableAutoTriggering = syncTo.contentAssistEnableAutoTriggering;
+        contentAssistAutoTriggerSequences = syncTo.contentAssistAutoTriggerSequences;
+        contentAssistEnablePartialParsing = syncTo.contentAssistEnablePartialParsing;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -166,6 +180,13 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.enableInstanceReferences = enableInstanceReferences;
         prefs.enableModelIntegrityCheck = enableModelIntegrityCheck;
         prefs.enableTableBasedAssociationEditing = enableTableBasedAssociationEditing;
+
+        prefs.contentAssistIncludeRolePhrases = contentAssistIncludeRolePhrases;
+        prefs.contentAssistInsertSingleProposals = contentAssistInsertSingleProposals;
+        prefs.contentAssistInvocationFormat = contentAssistInvocationFormat;
+        prefs.contentAssistEnableAutoTriggering = contentAssistEnableAutoTriggering;
+        prefs.contentAssistAutoTriggerSequences = contentAssistAutoTriggerSequences;
+        prefs.contentAssistEnablePartialParsing = contentAssistEnablePartialParsing;
 
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;
