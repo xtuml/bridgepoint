@@ -30,17 +30,20 @@ import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.OALPersistenceUtil;
-import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.text.TextPlugin;
@@ -106,9 +109,19 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 					} else {
 						showInModelExplorer(declarationElement);
 						Package_c pkg = declarationElement.getFirstParentPackage();
+                        if ( null == pkg ) {
+                            pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
+                        }
 						IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
+                        NonRootModelElement selectionElement = declarationElement;
+                        if ( declarationElement instanceof Port_c ) {
+                              selectionElement = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
+                              if ( null == selectionElement ) {
+                                  selectionElement = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
+                              }
+                        }
 						editorPart.getSite().getSelectionProvider()
-								.setSelection(new StructuredSelection(declarationElement));
+								.setSelection(new StructuredSelection(selectionElement));
 						zoomToSelected(editorPart);
 					}
 				}
