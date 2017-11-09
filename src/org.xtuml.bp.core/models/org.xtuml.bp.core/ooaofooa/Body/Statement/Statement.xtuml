@@ -654,28 +654,23 @@ INSERT INTO O_TFR
    // check both for interface and operation name
    if(ifaceOpInvocation.opNameLineNumber == param.declarationLineNumber
               and ifaceOpInvocation.opNameColumn == param.declarationLineColumn)
-     select one providedOperation related by ifaceOpInvocation->SPR_PO[R680]
-                                     ->SPR_PEP[R4503]->C_EP[R4501]->C_IO[R4004];
+     select one providedOperation related by ifaceOpInvocation->SPR_PO[R680];
      if(not_empty providedOperation)
        return providedOperation.convertToInstance();
      end if;
-     select one requiredOperation related by ifaceOpInvocation->SPR_RO[R657]
-                                     ->SPR_REP[R4502]->C_EP[R4500]->C_IO[R4004];
+     select one requiredOperation related by ifaceOpInvocation->SPR_RO[R657];
      if(not_empty requiredOperation)
        return requiredOperation.convertToInstance();
      end if;     
    end if;
    if(ifaceOpInvocation.ownerNameLineNumber == param.declarationLineNumber
            and ifaceOpInvocation.ownerNameColumn == param.declarationLineColumn)
-     select one ep related by ifaceOpInvocation->SPR_PO[R680]
-                                                  ->SPR_PEP[R4503]->C_EP[R4501];
-     if(empty ep)
-       select one ep related by ifaceOpInvocation->SPR_RO[R657]
-                                                  ->SPR_REP[R4502]->C_EP[R4500];
+     select one c_po related by ifaceOpInvocation->SPR_PO[R680]->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+     if(empty c_po)
+       select one c_po related by ifaceOpInvocation->SPR_RO[R657]->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
      end if;
-     if(not_empty ep)
-       select one iface related by ep->C_I[R4003];
-       return iface.convertToInstance();
+     if(not_empty c_po)
+       return c_po.convertToInstance();
      end if;          
    end if;
  end if;
@@ -684,28 +679,23 @@ INSERT INTO O_TFR
    // check both for interface and operation name
    if(ifaceSigInvocation.sigNameLineNumber == param.declarationLineNumber
               and ifaceSigInvocation.sigNameColumn == param.declarationLineColumn)
-     select one providedSignal related by ifaceSigInvocation->SPR_PS[R663]
-                                     ->SPR_PEP[R4503]->C_EP[R4501]->C_IO[R4004];
+     select one providedSignal related by ifaceSigInvocation->SPR_PS[R663];
      if(not_empty providedSignal)
        return providedSignal.convertToInstance();
      end if;
-     select one requiredSignal related by ifaceSigInvocation->SPR_RS[R660]
-                                     ->SPR_REP[R4502]->C_EP[R4500]->C_IO[R4004];
+     select one requiredSignal related by ifaceSigInvocation->SPR_RS[R660];
      if(not_empty requiredSignal)
        return requiredSignal.convertToInstance();
      end if;     
    end if;
    if(ifaceSigInvocation.ownerNameLineNumber == param.declarationLineNumber
            and ifaceSigInvocation.ownerNameColumn == param.declarationLineColumn)
-     select one ep related by ifaceSigInvocation->SPR_PS[R663]
-                                                  ->SPR_PEP[R4503]->C_EP[R4501];
-     if(empty ep)
-       select one ep related by ifaceSigInvocation->SPR_RS[R660]
-                                                  ->SPR_REP[R4502]->C_EP[R4500];
+     select one c_po related by ifaceSigInvocation->SPR_PS[R663]->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+     if(empty c_po)
+       select one c_po related by ifaceSigInvocation->SPR_RS[R660]->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
      end if;
-     if(not_empty ep)
-       select one iface related by ep->C_I[R4003];
-       return iface.convertToInstance();
+     if(not_empty c_po)
+       return c_po.convertToInstance();
      end if;          
    end if;
  end if;

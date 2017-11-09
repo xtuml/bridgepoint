@@ -1807,26 +1807,33 @@ INSERT INTO O_TFR
   end if;
   select one msgVal related by self->V_MSV[R801];
   if(not_empty msgVal)
-    select one ep related by msgVal->SPR_PEP[R841]->C_EP[R4501];
-    if(empty ep)
-      select one ep related by msgVal->SPR_REP[R845]->C_EP[R4500];
-    end if;
-    if(not_empty ep)
-      if(msgVal.ownerNameLineNumber == param.declarationLineNumber and
-                          msgVal.ownerNameColumn == param.declarationLineColumn)
-        select one iface related by ep->C_I[R4003];
-        return iface.convertToInstance();
+    if(msgVal.ownerNameLineNumber == param.declarationLineNumber and
+                        msgVal.ownerNameColumn == param.declarationLineColumn)
+      select one c_po related by msgVal->SPR_PEP[R841]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+      if(empty c_po)
+        select one c_po related by msgVal->SPR_REP[R845]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
       end if;
-      if(self.LineNumber == param.declarationLineNumber and
-                             self.StartPosition == param.declarationLineColumn)
-        select one as related by ep->C_AS[R4004];
-        if(not_empty as)
-          return as.convertToInstance();
-        end if;
-        select one io related by ep->C_IO[R4004];
-        if(not_empty io)
-          return io.convertToInstance();
-        end if;
+      if(not_empty c_po)
+        return c_po.convertToInstance();
+      end if;          
+    end if;
+    if(self.LineNumber == param.declarationLineNumber and
+                           self.StartPosition == param.declarationLineColumn)
+      select one spr_po related by msgVal->SPR_PEP[R841]->SPR_PO[R4503];
+      if ( not_empty spr_po )
+        return spr_po.convertToInstance();
+      end if;
+      select one spr_ps related by msgVal->SPR_PEP[R841]->SPR_PS[R4503];
+      if ( not_empty spr_ps )
+        return spr_ps.convertToInstance();
+      end if;
+      select one spr_ro related by msgVal->SPR_REP[R845]->SPR_RO[R4502];
+      if ( not_empty spr_ro )
+        return spr_ro.convertToInstance();
+      end if;
+      select one spr_rs related by msgVal->SPR_REP[R845]->SPR_RS[R4502];
+      if ( not_empty spr_rs )
+        return spr_rs.convertToInstance();
       end if;
     end if;
   end if;
