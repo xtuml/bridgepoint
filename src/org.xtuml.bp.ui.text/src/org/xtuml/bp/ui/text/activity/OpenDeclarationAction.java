@@ -29,15 +29,17 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
-import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
@@ -234,10 +236,16 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		if (declarationElement instanceof StateMachineEvent_c) {
 			return true;
 		}
-		if (declarationElement instanceof InterfaceSignal_c) {
+		if (declarationElement instanceof ProvidedSignal_c) {
 			return true;
 		}
-		if (declarationElement instanceof InterfaceOperation_c) {
+		if (declarationElement instanceof ProvidedOperation_c) {
+			return true;
+		}
+		if (declarationElement instanceof RequiredSignal_c) {
+			return true;
+		}
+		if (declarationElement instanceof RequiredOperation_c) {
 			return true;
 		}
 		if (declarationElement instanceof PropertyParameter_c) {
