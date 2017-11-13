@@ -286,12 +286,20 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 
 	@Override
 	public void selectionChanged(IAction arg0, ISelection arg1) {
-		arg0.setEnabled(targetEditor instanceof ActivityEditor);
+		if (targetEditor instanceof ActivityEditor) {
+			arg0.setEnabled(true);
+		}
 	}
 
 	@Override
 	public void setActiveEditor(IAction arg0, IEditorPart arg1) {
-		this.targetEditor = arg1;
+		if (arg1 == null) {
+			arg0.setEnabled(false);
+		}
+		if (arg1 instanceof ActivityEditor) {
+			this.targetEditor = arg1;
+			arg0.setEnabled(true);
+		}
 	}
 
 }
