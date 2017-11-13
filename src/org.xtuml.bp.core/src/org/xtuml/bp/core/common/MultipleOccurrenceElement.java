@@ -20,13 +20,18 @@
 // the License.
 //======================================================================== 
 //
-package org.xtuml.bp.ui.explorer;
+package org.xtuml.bp.core.common;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.xtuml.bp.core.common.NonRootModelElement;
 
 public class MultipleOccurrenceElement implements IAdaptable {
+
+	private static Map<Integer, MultipleOccurrenceElement> multipleOccurrenceElements = new HashMap<>();
 
 	private NonRootModelElement element;
 
@@ -44,6 +49,18 @@ public class MultipleOccurrenceElement implements IAdaptable {
 
 	public NonRootModelElement getElement() {
 		return element;
+	}
+	
+	public static MultipleOccurrenceElement getElement( NonRootModelElement element, Object parentElement ) {
+		Integer key = new Integer( element.hashCode() * 31 + parentElement.hashCode() ); // create unique integer hash of two elements
+		if ( multipleOccurrenceElements.containsKey(key) ) {
+			return multipleOccurrenceElements.get(key);
+		}
+		else {
+			MultipleOccurrenceElement newElement = new MultipleOccurrenceElement(element);
+			multipleOccurrenceElements.put(key, newElement );
+			return newElement;
+		}
 	}
 	
 }

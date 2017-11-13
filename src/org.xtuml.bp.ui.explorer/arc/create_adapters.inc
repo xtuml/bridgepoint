@@ -66,6 +66,7 @@ import org.xtuml.bp.ui.explorer.ExplorerPlugin;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.xtuml.bp.core.*;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 
 import org.xtuml.bp.ui.explorer.*;
   .select many child_specs related by tree_node->T_TPS[R1000]
@@ -210,7 +211,7 @@ ${rel_nav.body}\
     .end if
     for (int i = 0 ; i < ${varName}.length ; i++) {
     .if(child.occursInMultipleLocations)
-      result[count] = new MultipleOccurrenceElement(${varName}[i]);
+      result[count] = MultipleOccurrenceElement.getElement(${varName}[i], arg );
     .else
       result[count] = ${varName}[i];
     .end if
