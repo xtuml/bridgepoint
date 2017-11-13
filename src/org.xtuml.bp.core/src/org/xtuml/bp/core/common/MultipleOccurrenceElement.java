@@ -31,11 +31,20 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 
 public class MultipleOccurrenceElement implements IAdaptable {
 
+	// This static map maintains all of the instances of MultipleOccurrenceElement
+	// in the system, mapped to the element itself and its parent element. The integer
+	// key here is produced by multiplying the hashCode() value of the element instance
+	// by 31 and adding the hashCode() value of the parent element. This technique of
+	// combining two hash values together into one hash value is covered in the book
+	// "Effective Java" by Joshua Bloch (https://of7vtvi79.qnssl.com/Effective%20Java%202nd.pdf)
+	// the static accesor method 'getElement' assures that for any unique pairing of
+	// 'element' and 'parentElement', the same instance of MultipleOccurrenceElement
+	// will be returned each time it is called.
 	private static Map<Integer, MultipleOccurrenceElement> multipleOccurrenceElements = new HashMap<>();
 
 	private NonRootModelElement element;
 
-	public MultipleOccurrenceElement(NonRootModelElement element) {
+	private MultipleOccurrenceElement(NonRootModelElement element) {
 		this.element = element;
 	}
 	
@@ -52,7 +61,7 @@ public class MultipleOccurrenceElement implements IAdaptable {
 	}
 	
 	public static MultipleOccurrenceElement getElement( NonRootModelElement element, Object parentElement ) {
-		Integer key = new Integer( element.hashCode() * 31 + parentElement.hashCode() ); // create unique integer hash of two elements
+		Integer key = new Integer( ( element.hashCode() * 31 ) + parentElement.hashCode() ); // create unique integer hash of two elements
 		if ( multipleOccurrenceElements.containsKey(key) ) {
 			return multipleOccurrenceElements.get(key);
 		}
