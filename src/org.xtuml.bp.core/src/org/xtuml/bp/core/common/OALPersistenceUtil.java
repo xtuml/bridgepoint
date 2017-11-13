@@ -24,6 +24,8 @@ package org.xtuml.bp.core.common;
 
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -81,6 +83,9 @@ public class OALPersistenceUtil {
 		} else if (me instanceof DerivedBaseAttribute_c) {
 			bdy = Body_c.getOneACT_ACTOnR698(DerivedAttributeBody_c
 					.getOneACT_DABOnR693((DerivedBaseAttribute_c) me));
+		} else if (me instanceof Attribute_c) {
+			bdy = Body_c.getOneACT_ACTOnR698(DerivedAttributeBody_c
+					.getOneACT_DABOnR693(DerivedBaseAttribute_c.getManyO_DBATTRsOnR107(BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)me))));
 		} else if (me instanceof RequiredSignal_c) {
 			bdy = Body_c.getOneACT_ACTOnR698(RequiredSignalBody_c
 					.getOneACT_RSBOnR684((RequiredSignal_c) me));

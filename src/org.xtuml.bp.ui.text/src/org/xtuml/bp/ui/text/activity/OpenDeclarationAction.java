@@ -27,9 +27,12 @@ import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Enumerator_c;
+import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
+import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
@@ -44,6 +47,7 @@ import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.VariableLocation_c;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.OALPersistenceUtil;
 import org.xtuml.bp.core.util.EditorUtil;
@@ -149,7 +153,15 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 			explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(explorerViewId);
 		}
 		StructuredViewer viewer = UIUtil.getViewer();
-		viewer.setSelection(new StructuredSelection(declarationElement), true);
+		Object selectionElement = declarationElement;
+		if ( selectionElement instanceof PropertyParameter_c ) {
+			// for C_PP instances, must get the instance of MultipleOccurrenceElement
+			// for this work, we always want the C_PP instance in the interface definition itself
+			NonRootModelElement parent = InterfaceOperation_c.getOneC_IOOnR4004(ExecutableProperty_c.getOneC_EPOnR4006((PropertyParameter_c)selectionElement));
+			if ( null == parent ) parent = InterfaceSignal_c.getOneC_ASOnR4004(ExecutableProperty_c.getOneC_EPOnR4006((PropertyParameter_c)selectionElement));
+			if ( null != parent ) selectionElement = MultipleOccurrenceElement.getElement( (NonRootModelElement)selectionElement, parent );
+		}
+		viewer.setSelection(new StructuredSelection(selectionElement), true);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(explorerView);
 
 	}

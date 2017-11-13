@@ -55,6 +55,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.*;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.sorter.*;
 import org.xtuml.bp.ui.explorer.adapters.*;
 
