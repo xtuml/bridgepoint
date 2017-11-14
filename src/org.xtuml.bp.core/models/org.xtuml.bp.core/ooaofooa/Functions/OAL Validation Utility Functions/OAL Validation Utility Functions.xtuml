@@ -8066,7 +8066,7 @@ if ( not_empty act )
         end if;
       end if;
       new_item.display_text = evt.getSignature( flavor:2 );
-      new_item.needs_space = false;
+      new_item.needs_space = true;
       list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
     for each evt in inst_events
@@ -8087,7 +8087,7 @@ if ( not_empty act )
         end if;
       end if;
       new_item.display_text = evt.getSignature( flavor:2 );
-      new_item.needs_space = false;
+      new_item.needs_space = true;
       list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
 
