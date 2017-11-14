@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="activity-editor">Activity Editor</h1>
+<p>The Activity Editor is used to edit the action language (called activities in<br />
+UML 2.0) for those model elements that can define them: functions, bridge<br />
+operations, instance-based and class-based operations, derived attributes, and<br />
+state actions. The Activity Editor is a syntactically-aware editor that assists<br />
+the user in writing the applications actions.</p>
+<p><img src="activity_editor.jpg" alt="activity_editor.jpg" /></p>
+<p>When an activity is written, it is checked for both syntax errors (missing<br />
+semi-colons and malformed keywords) and semantic errors (references to unknown<br />
+classes or events in the model). As can be seen in the figure above, the two<br />
+errors result in several indicators inside the editor and entries in the<br />
+Problems view.</p>
+<p>The small red circle with an X in the left-hand vertical ruler points to the<br />
+line that contains the error. This annotation in the editor corresponds to the<br />
+error as it is listed in the Problems view. The Problems view shows a<br />
+description of the error along with its location. Double-clicking on the error<br />
+in the Problems view positions the cursor on the activity in the editor. If the<br />
+activity is not currently being edited, the Activity Editor is brought up.</p>
+<p>The right-hand vertical ruler shows an overview of the annotations for the text<br />
+currently being displayed in the editor. The red ones indicate the position of<br />
+errors in the activities. Clicking on the annotation positions the cursor to<br />
+the activity containing the error.</p>
+<p>Each of the errors is also underlined with a red squiggly line to indicate the<br />
+exact position of the error on the line.</p>
+<h3 id="declaration-searching">Declaration searching</h3>
+<p>The Activity Editor supports searching for the declarations of certain elements<br />
+referenced from the activity. To search for a declaration, right click, then<br />
+select &quot;Open Declaration&quot;. For references to structural elements, the Model<br />
+Explorer and Canvas views will be activated to focus on the element. For local<br />
+variable references, the first usage of the variable in the editor will be<br />
+highlighted. Some element types are not supported by the &quot;Open Declaration&quot;<br />
+action. If this menu option is selected when the cursor is on an unsupported<br />
+element, no action will be taken.</p>
+<h3 id="completion-assistance">Completion assistance</h3>
+<p>The Activity Editor supports smart completion assistance in many OAL constructs.<br />
+To activate, type 'Ctl+Space'. Completion assistance can also be auto activated<br />
+on user defined character sequences. For more information about completion<br />
+assistance configuration see the <a href="../../Preferences/HTML/ContentAssist.html">Content Assist Preferences<br />
+documentation</a></p>
+</body>
+</html>

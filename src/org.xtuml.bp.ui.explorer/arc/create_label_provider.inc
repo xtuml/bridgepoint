@@ -45,6 +45,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 import org.xtuml.bp.core.*;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.common.NonRootModelElement;
 /**

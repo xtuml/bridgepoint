@@ -966,6 +966,197 @@ return false;
 	'',
 	"4b797529-7218-418c-a8c8-983fd3f9e1a3",
 	0);
+INSERT INTO O_TFR
+	VALUES ("47be481e-6e61-46a4-b087-ee4ac0755e44",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	'findDeclaration',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'/**
+ * For all statements in this Body locate a statement matching
+ * the give line number and column
+ */
+ // first look for any V_LOC instances matching the location
+ result = GD::NULL_INSTANCE();
+ select one outerBlock related by self->ACT_BLK[R650];
+ if(not_empty outerBlock)
+   result = self.findDeclarationOfVariableOrValueInBlock(blockId: outerBlock.Block_ID,
+                              declarationLineNumber:param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(result != GD::NULL_INSTANCE())
+     return result;
+   end if;
+ end if;
+ select many blocks related by self->ACT_BLK[R612];
+ for each block in blocks
+   result = self.findDeclarationOfVariableOrValueInBlock(blockId: block.Block_ID,
+                              declarationLineNumber:param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(result != GD::NULL_INSTANCE())
+     return result;
+   end if;
+ end for;
+ select one committedOuter related by self->ACT_BLK[R666];
+ if(not_empty committedOuter)
+   result = self.findDeclarationOfVariableOrValueInBlock(blockId: committedOuter.Block_ID,
+                              declarationLineNumber:param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(result != GD::NULL_INSTANCE())
+     return result;
+   end if;                        
+ end if;
+ select many blocks related by self->ACT_BLK[R601];
+ for each block in blocks
+   result = self.findDeclarationOfVariableOrValueInBlock(blockId: block.Block_ID,
+                              declarationLineNumber:param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(result != GD::NULL_INSTANCE())
+     return result;
+   end if;                            
+ end for;
+ foundInstance = GD::NULL_INSTANCE();
+ // check outer statements
+ select many outerStatements related by self->ACT_BLK[R650]->ACT_SMT[R602];
+ for each outerStatement in outerStatements
+   foundInstance = outerStatement.findDeclaration(
+                             declarationLineNumber: param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(foundInstance != GD::NULL_INSTANCE())
+     // there will only be one case where an instance
+     // was found
+     break;
+   end if;   
+ end for;
+ if(foundInstance != GD::NULL_INSTANCE())
+   return foundInstance;
+ end if;
+ // check committed outer statements
+ select many outerStatements related by self->ACT_BLK[R666]->ACT_SMT[R602];
+ for each outerStatement in outerStatements
+   foundInstance = outerStatement.findDeclaration(
+                             declarationLineNumber: param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(foundInstance != GD::NULL_INSTANCE())
+     // there will only be one case where an instance
+     // was found
+     break;
+   end if;   
+ end for; 
+ if(foundInstance != GD::NULL_INSTANCE())
+   return foundInstance;
+ end if;
+ // check committed statements
+ select many statements related by self->ACT_BLK[R601]->ACT_SMT[R602];
+ for each statement in statements
+   foundInstance = statement.findDeclaration(
+                             declarationLineNumber: param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(foundInstance != GD::NULL_INSTANCE())
+     // there will only be one case where an instance
+     // was found
+     break;
+   end if;   
+ end for; 
+ if(foundInstance != GD::NULL_INSTANCE())
+   return foundInstance;
+ end if;
+ // check nested statements
+ select many statements related by self->ACT_BLK[R612]->ACT_SMT[R602];
+ for each statement in statements
+   foundInstance = statement.findDeclaration(
+                             declarationLineNumber: param.declarationLineNumber,
+                            declarationLineColumn: param.declarationLineColumn);
+   if(foundInstance != GD::NULL_INSTANCE())
+     // there will only be one case where an instance
+     // was found
+     break;
+   end if;
+ end for;
+ return foundInstance;',
+	1,
+	'',
+	"50f475be-a583-4cdb-8a28-e7bebff13698",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("44de3d9a-78fa-46e9-90c6-da99c4e9753f",
+	"47be481e-6e61-46a4-b087-ee4ac0755e44",
+	'declarationLineNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("46048ce5-1e6b-4fbc-82ef-b80fc0f8ce3f",
+	"47be481e-6e61-46a4-b087-ee4ac0755e44",
+	'declarationLineColumn',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"44de3d9a-78fa-46e9-90c6-da99c4e9753f",
+	'');
+INSERT INTO O_TFR
+	VALUES ("93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	'findDeclarationOfVariableOrValueInBlock',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'/*
+ * For all variables in this block look for a matching location
+ */
+select any block from instances of ACT_BLK where (selected.Block_ID == param.blockId);
+select many variables related by block->V_VAR[R823];
+for each variable in variables
+  result = variable.findVariableLocationForVariable(declarationLineNumber:
+                             param.declarationLineNumber, declarationLineColumn:
+                          param.declarationLineColumn, var_id: variable.Var_ID, checkLocation: true);
+  if(result != GD::NULL_INSTANCE())
+    return result;
+  end if;
+end for;
+select many values related by block->V_VAL[R826];
+for each value in values
+  result = value.findDeclarationOfValue(declarationLineNumber:
+                           param.declarationLineNumber, declarationLineColumn:
+                           param.declarationLineColumn, val_id: value.Value_ID);
+  if(result != GD::NULL_INSTANCE())
+    return result;
+  end if;
+end for;
+return GD::NULL_INSTANCE();',
+	1,
+	'',
+	"47be481e-6e61-46a4-b087-ee4ac0755e44",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("843648db-93dc-4d99-96f3-b71856f50a78",
+	"93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
+	'blockId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("907fc361-22bf-479c-aca2-7cf65f0b1d86",
+	"93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
+	'declarationLineNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"843648db-93dc-4d99-96f3-b71856f50a78",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5bcb93a8-d6c6-4f4b-97b8-dc1a6a53e093",
+	"93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
+	'declarationLineColumn',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"907fc361-22bf-479c-aca2-7cf65f0b1d86",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af");
