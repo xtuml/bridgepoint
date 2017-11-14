@@ -93,10 +93,17 @@ public class ${java_class} {
   public java.util.UUID m_act_id = IdAssigner.NULL_UUID;
   private ${java_class} Self = null;
   private NonRootModelElement m_nrme = null;
+  private boolean contentAssistEnabled;
   
   public ${java_class}(NonRootModelElement nrme) {
     Self = this;
     m_nrme = nrme;
+    contentAssistEnabled = false;
+  }
+
+  public ${java_class}(NonRootModelElement nrme, boolean contentAssistEnabled) {
+    this(nrme);
+    this.contentAssistEnabled = contentAssistEnabled;
   }
 
 .select many fncs from instances of S_SYNC

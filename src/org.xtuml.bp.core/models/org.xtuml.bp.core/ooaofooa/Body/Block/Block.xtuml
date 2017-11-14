@@ -497,6 +497,128 @@ INSERT INTO O_TPARM
 	'',
 	"29ca50c1-a7a4-4eb9-b1e4-f33c9a2c82a0",
 	'');
+INSERT INTO O_TFR
+	VALUES ("e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'deleteStatementsAfter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// dispose all statements after the line and column
+select many following_statements related by self->ACT_SMT[R602] where ( selected.LineNumber > param.line or
+                                                                        ( selected.LineNumber == param.line and selected.StartPosition > param.col ) );
+for each following_statement in following_statements
+  following_statement.dispose();
+end for;
+
+// dispose any variables that are not declared before the line and column
+select many vars related by self->V_VAR[R823];
+for each var in vars
+  select any loc related by var->V_LOC[R835] where ( selected.LineNumber < param.line or
+                                                     ( selected.LineNumber == param.line and selected.StartPosition < param.col ) );
+  if ( empty loc )
+    var.dispose();
+  end if;
+end for;
+
+// delete variable locations after the line and column
+select many following_locs related by self->V_VAR[R823]->V_LOC[R835] where ( selected.LineNumber > param.line or
+                                                                             ( selected.LineNumber == param.line and selected.StartPosition > param.col ) );
+for each following_loc in following_locs
+  select one var related by following_loc->V_VAR[R835];
+  unrelate following_loc from var across R835;
+  delete object instance following_loc;
+end for;',
+	1,
+	'',
+	"941315c9-3b82-4a3e-bc3d-ef8d4747fc9d",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("7a833467-e2ab-4622-b754-2e12935c4ec9",
+	"e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
+	'line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f1b31d11-218d-47f1-a50d-2b3510778b40",
+	"e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
+	'col',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"7a833467-e2ab-4622-b754-2e12935c4ec9",
+	'');
+INSERT INTO O_TFR
+	VALUES ("622877c6-d612-43da-bc9b-a8c043d8664b",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'findDeclarationOfVariableOrValueInBlock',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'/*
+ * For all variables in this block look for a matching location
+ */
+select many variables related by self->V_VAR[R823];
+select one body related by self->ACT_ACT[R601.''is committed from''];
+for each variable in variables
+  result = variable.findVariableLocationForVariable(declarationLineNumber:
+                             param.declarationLineNumber, declarationLineColumn:
+                          param.declarationLineColumn, var_id: variable.Var_ID, checkLocation: true);
+  if(result != GD::NULL_INSTANCE())
+    return result;
+  end if;
+end for;
+select many values related by self->V_VAL[R826];
+for each value in values
+  result = value.findDeclarationOfValue(declarationLineNumber:
+                           param.declarationLineNumber, declarationLineColumn:
+                           param.declarationLineColumn, val_id: value.Value_ID);
+  if(result != GD::NULL_INSTANCE())
+    return result;
+  end if;
+end for;
+return GD::NULL_INSTANCE();',
+	1,
+	'',
+	"e083cb6f-1189-4ee0-8e80-3ec46b5369f5",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d41fed4b-5992-42b5-a8e1-1c148e8e80c8",
+	"622877c6-d612-43da-bc9b-a8c043d8664b",
+	'blockId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f365424a-57c5-4a30-b0df-ec9dd13a089d",
+	"622877c6-d612-43da-bc9b-a8c043d8664b",
+	'declarationLineNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"d41fed4b-5992-42b5-a8e1-1c148e8e80c8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4f544a19-b5ea-417c-84b8-9c5c8da9b060",
+	"622877c6-d612-43da-bc9b-a8c043d8664b",
+	'declarationLineColumn',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"f365424a-57c5-4a30-b0df-ec9dd13a089d",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");

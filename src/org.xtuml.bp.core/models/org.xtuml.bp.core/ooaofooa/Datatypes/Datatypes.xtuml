@@ -2028,6 +2028,36 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"709bdaae-dd45-4986-9f5a-c8ff6f767e94");
+INSERT INTO S_ENUM
+	VALUES ("f3246232-4963-40c5-8de6-93a05308d245",
+	'SignalToProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"93b1a4c0-415b-4372-b471-221da03ed7d9");
+INSERT INTO S_ENUM
+	VALUES ("6150e563-5cbd-4de3-8947-7c17e09021b0",
+	'SignalFromProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f3246232-4963-40c5-8de6-93a05308d245");
+INSERT INTO S_ENUM
+	VALUES ("fcd4dea5-95bc-43c2-82c4-7bffc607a754",
+	'OperationToProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"6150e563-5cbd-4de3-8947-7c17e09021b0");
+INSERT INTO S_ENUM
+	VALUES ("005bac48-12e0-492e-ac8e-68300297071c",
+	'OperationFromProvider',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"fcd4dea5-95bc-43c2-82c4-7bffc607a754");
+INSERT INTO S_ENUM
+	VALUES ("02e7e5b5-81da-469d-abe9-67a300978aa6",
+	'Bridge',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"005bac48-12e0-492e-ac8e-68300297071c");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

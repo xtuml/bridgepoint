@@ -94,6 +94,15 @@ These menu entries appear on only the context menu of a diagram canvas.
 | Toggle Start Visibility | Turn Communication Link start arrowhead on/off. |
 __Table 3__  
 
+## Activity Editor-specific Context Menu Entries
+
+These menu entries appear on only the context menu of an open activity editor.   
+
+| Tool                    | Description                          |
+|-------------------------|--------------------------------------|
+| Open Declaration        | Reveal the word under the cursor in the model explorer and canvas views if applicable. For local variables, the first usage in the current body is highlighted. |
+__Table 4__  
+
 ## BridgePoint Utilities Menu
 BridgePoint contains a number of tools that provide additional functionality outside 
 of the core application modeling features.  These tools are accessed through the context 
@@ -119,7 +128,7 @@ __Figure 3__
 | Locate Orphaned Elements | Another model analysis tool.  Opens a dialog that lists all "orphaned" model elements. |
 | Reconcile Graphics    | Automatically creates graphical data for imported models that have none.   |
 | Set Model Compiler    | Allows the user to change the model compiler associated with a xtUML project. |
-__Table 4__   
+__Table 5__   
 
 
   

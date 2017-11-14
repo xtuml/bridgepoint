@@ -80,6 +80,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String contentAssistInvocationFormat;
     public boolean contentAssistEnableAutoTriggering;
     public String contentAssistAutoTriggerSequences;
+    public boolean contentAssistEnablePartialParsing;
     
 	public Class getStoreClass() {
 		return BridgePointPreferencesStore.class;
@@ -129,6 +130,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         contentAssistInvocationFormat = syncTo.contentAssistInvocationFormat;
         contentAssistEnableAutoTriggering = syncTo.contentAssistEnableAutoTriggering;
         contentAssistAutoTriggerSequences = syncTo.contentAssistAutoTriggerSequences;
+        contentAssistEnablePartialParsing = syncTo.contentAssistEnablePartialParsing;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -184,6 +186,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.contentAssistInvocationFormat = contentAssistInvocationFormat;
         prefs.contentAssistEnableAutoTriggering = contentAssistEnableAutoTriggering;
         prefs.contentAssistAutoTriggerSequences = contentAssistAutoTriggerSequences;
+        prefs.contentAssistEnablePartialParsing = contentAssistEnablePartialParsing;
 
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;

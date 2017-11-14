@@ -34,6 +34,9 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
     private Button autoTriggerCheck;
     private Text autoTriggerTextbox;
 
+    private Group parsingGroup;
+    private Button parsingCheck;
+
     protected IPreferenceModel model;
 
     public ContentAssistPreferences() {
@@ -117,16 +120,26 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         GridData data4 = new GridData( GridData.FILL_BOTH );
         autoTriggerTextbox.setLayoutData( data4 );
 
+        /*
+        // Create the partial parsing preferences group
+        parsingGroup = new Group( composite, SWT.SHADOW_ETCHED_IN );
+        parsingGroup.setLayout( gl );
+        GridData data5 = new GridData( GridData.FILL_HORIZONTAL );
+        parsingGroup.setLayoutData( data5 );
+        parsingGroup.setText( "Parsing" );
+
+        // Create partial parsing checkbox
+        parsingCheck = new Button( parsingGroup, SWT.CHECK | SWT.LEFT );
+        parsingCheck.setText( "Enable partial parsing for content assist" );
+        parsingCheck.setToolTipText( "Partial parsing improves content assist performance by only parsing a small part" +
+                                     " of the body for each invocation of content assist. However, parsing only part of" +
+                                     " the body can result in stale data in proposal boxes. This is an experimental feature." );
+        */
+
         model = new BridgePointPreferencesModel();
         model.getStore().loadModel( getPreferenceStore(), null, model );
         
-        // check if preferences have been initialized yet
-        if ( "".equals(((BridgePointPreferencesModel)model).contentAssistInvocationFormat) ) {
-            performDefaults();
-        }
-        else {
-            syncUIWithPreferences();
-        }
+        syncUIWithPreferences();
         return composite;
     }
 
@@ -165,6 +178,11 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         
         // set trigger sequences
         bpPrefs.contentAssistAutoTriggerSequences = formatTriggerSequences( autoTriggerTextbox.getText() );
+
+        // set partial parsing
+        /*
+        bpPrefs.contentAssistEnablePartialParsing = parsingCheck.getSelection();
+        */
         
         model.getStore().saveModel(getPreferenceStore(), model);
         return true;
@@ -188,10 +206,10 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         // set invocation format
         invocationEmptyRadio.setSelection( false );
         invocationLabelRadio.setSelection( false );
-        if ( "empty" == bpPrefs.contentAssistInvocationFormat ) {
+        if ( "empty".equals( bpPrefs.contentAssistInvocationFormat ) ) {
             invocationEmptyRadio.setSelection( true );
         }
-        else if ( "labels" == bpPrefs.contentAssistInvocationFormat ) {
+        else if ( "labels".equals( bpPrefs.contentAssistInvocationFormat ) ) {
             invocationLabelRadio.setSelection( true );
         }
         
@@ -206,6 +224,11 @@ public class ContentAssistPreferences extends PreferencePage implements IWorkben
         else {
             autoTriggerTextbox.setEnabled( false );
         }
+
+        // set partial parsing
+        /*
+        parsingCheck.setSelection( bpPrefs.contentAssistEnablePartialParsing );
+        */
     }
     
     // Assure that there is no leading or trailing whitespace and

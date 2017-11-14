@@ -11,6 +11,29 @@ applies to is either an instance of the Variable class (R835), or a by
 reference parameter acting as an l-value (R688).  Parameters acting as
 r-values are captured by R835.',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("25999779-de85-48e9-9906-629cc4b6fcc9",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"b97bfcf1-6b18-48dd-ad44-ffa15c03e29f",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("a04ef212-f1bd-44e6-9438-41ca1bfc9637",
 	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");

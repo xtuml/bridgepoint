@@ -271,20 +271,30 @@ The following table summarizes the ordering:
 
 | Proposal type (in sorted order) | Specific sort criteria |
 |---------------------------------|------------------------|
-| Attribute                       | Alphanumerically       |
-| Operation                       | Alphanumerically       |
-| Function Parameter              | Model ordering         |
-| Operation Parameter             | Model ordering         |
-| Bridge Parameter                | Model ordering         |
-| Event Data Item                 | Model ordering         |
-| Property Parameter              | Model ordering         |
-| Event                           | Alphanumerically       |
-| Association                     | Numerically by rel num |
-| Variable                        | Alphanumerically       |
-| EE                              | Alphanumerically       |
-| Port                            | Alphanumerically       |
-| Class                           | Alphanumerically       |
-| Keyword                         | Alphanumerically       |
+Attribute                         | Alphanumerically       |
+Operation                         | Alphanumerically       |
+Signal To Provider                | Alphanumerically       |
+Signal From Provider              | Alphanumerically       |
+Operation To Provider             | Alphanumerically       |
+Operation From Provider           | Alphanumerically       |
+Function Parameter                | Model ordering         |
+Operation Parameter               | Model ordering         |
+Bridge Parameter                  | Model ordering         |
+Event Data Item                   | Model ordering         |
+Property Parameter                | Model ordering         |
+Association                       | Numerically by rel num |
+Variable                          | Alphanumerically       |
+Event                             | Alphanumerically       |
+External Entity                   | Alphanumerically       |
+Port                              | Alphanumerically       |
+Class                             | Alphanumerically       |
+Function                          | Alphanumerically       |
+Bridge                            | Alphanumerically       |
+Enumeration Data Type             | Alphanumerically       |
+Enumerator                        | Alphanumerically       |
+Constant                          | Alphanumerically       |
+Literal                           | Alphanumerically       |
+Keyword                           | Alphanumerically       |
 
 6.3.4.2 Ordering in the meta-model
 
@@ -425,7 +435,7 @@ proposals for link traversals and relate/unrelate statements.
 Help text:  
 > Include role phrases in association proposals by default
 
-The default is no role phrases.
+The default is to include role phrases.
 
 6.5.2 Invocation format
 

@@ -844,8 +844,8 @@ ${s}}
 .function emit_rule_begin_content_assist_action
   .param inst_ref node
   .param string s
-  .select any caf related by node->CAF[R28] where ( "begin" == selected.type )
   .select one r related by node->NLN[R1]->R[R2]
+  .select any caf related by node->CAF[R28] where ( "begin" == selected.type )
   .if ( ( not_empty caf ) and ( not_empty r ) )
     .assign fncname = caf.name
     .invoke result = get_validate_constants()
@@ -866,6 +866,51 @@ ${s}       ( LT(1).getLine() < m_contentAssistLine || ( LT(1).getLine() == m_con
 ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1),
     .invoke result = create_new_function(fncname, r, void_dt)
     .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
+${s}        ${upper_ruleid_name},  // upper rule id
+    .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)
+    .if ( node.validation_required )
+${s}        rule_begin_id,  // start rule id
+      .invoke result = create_new_parameter("a3_rule_begin_id", fnc, unique_id_dt)
+    .end if
+${s}        ${ruleid_name}\
+    .invoke result = create_new_parameter("a4_rule_id", fnc, unique_id_dt)
+    .assign fnc.return_value = ""
+    .assign parm_num = 1
+    .invoke grr = get_referenced_rules(r)
+    .assign rref_valid_set = grr.rref_set
+    .for each rref in rref_valid_set
+,
+${s}        ${rref.var_name}\
+      .invoke result = create_new_parameter("b${parm_num}_${rref.var_name}", fnc, unique_id_dt)
+      .assign parm_num = parm_num + 1
+    .end for
+ );
+${s}  }
+${s}}
+  .end if
+  .select any caf related by node->CAF[R28] where ( "begin2" == selected.type )
+  .if ( ( not_empty caf ) and ( not_empty r ) )
+    .assign fncname = caf.name
+    .invoke result = get_validate_constants()
+    .assign fncclass = result.fncclass
+    .assign upper_ruleid_name = result.upper_ruleid_name
+    .assign ruleid_name = result.ruleid_name
+    .assign tokenclass = result.tokenclass
+    .invoke result = find_data_type_by_name("void")
+    .assign void_dt = result.dt
+    .invoke result = find_data_type_by_name("unique_id")
+    .assign unique_id_dt = result.dt
+    .invoke result = find_data_type_by_name(tokenclass)
+    .assign tokenclass_dt = result.dt
+${s}// rule begin2 content assist action for '${fncname}'
+${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
+${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(2) &&
+${s}       ( LT(2).getLine() < m_contentAssistLine || ( LT(2).getLine() == m_contentAssistLine && LT(2).getColumn() <= m_contentAssistCol ) ) ) {
+${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1), LT(2),
+    .invoke result = create_new_function(fncname, r, void_dt)
+    .assign fnc = result.fnc
+    .invoke result = create_new_parameter("a0_rule_token", fnc, tokenclass_dt)
     .invoke result = create_new_parameter("a1_rule_token", fnc, tokenclass_dt)
 ${s}        ${upper_ruleid_name},  // upper rule id
     .invoke result = create_new_parameter("a2_upper_rule_id", fnc, unique_id_dt)

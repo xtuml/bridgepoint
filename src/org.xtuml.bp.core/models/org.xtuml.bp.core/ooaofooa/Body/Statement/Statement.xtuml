@@ -601,6 +601,279 @@ INSERT INTO O_TPARM
 	'',
 	"6defefcc-8842-4ce4-81ef-d2a55ef0a9d6",
 	'');
+INSERT INTO O_TFR
+	VALUES ("cf694822-9295-478c-85d1-5cfd357181a1",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'findDeclaration',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'/**
+ * For all subtypes of the statement locate one that matches
+ * the given line number and column
+ */
+ foundInstance = GD::NULL_INSTANCE();
+ select one bridgeInvocation related by self->ACT_BRG[R603];
+ if(not_empty bridgeInvocation)
+   // check for either the key letters or the bridge
+   if(bridgeInvocation.bridgeNameLineNumber == param.declarationLineNumber
+           and bridgeInvocation.bridgeNameColumn == param.declarationLineColumn)
+     select one brg related by bridgeInvocation->S_BRG[R674];
+     return brg.convertToInstance();
+   end if;
+   if(bridgeInvocation.externalEntityKeyLettersLineNumber == param.declarationLineNumber
+         and bridgeInvocation.externalEntityKeyLettersColumn == param.declarationLineColumn)
+     select one ee related by bridgeInvocation->S_BRG[R674]->S_EE[R19];
+     return ee.convertToInstance();
+   end if;
+ end if;
+ select one functionInvocation related by self->ACT_FNC[R603];
+ if(not_empty functionInvocation)
+   if(functionInvocation.functionNameLineNumber == param.declarationLineNumber
+        and functionInvocation.functionNameColumn == param.declarationLineColumn)
+     select one function related by functionInvocation->S_SYNC[R675];
+     return function.convertToInstance();
+   end if;
+ end if;
+ select one operationInvocation related by self->ACT_TFM[R603];
+ if(not_empty operationInvocation)
+   // check both for model class key letters and operation name
+   if(operationInvocation.modelClassKeyLettersLineNumber == param.declarationLineNumber
+        and operationInvocation.modelClassKeyLettersColumn == param.declarationLineColumn)
+     select one modelClass related by operationInvocation->O_TFR[R673]->O_OBJ[R115];
+     return modelClass.convertToInstance();
+   end if;
+   if(operationInvocation.operationNameLineNumber == param.declarationLineNumber
+        and operationInvocation.operationNameColumn == param.declarationLineColumn)
+     select one operation related by operationInvocation->O_TFR[R673];
+     return operation.convertToInstance();
+   end if;
+ end if;
+ select one ifaceOpInvocation related by self->ACT_IOP[R603];
+ if(not_empty ifaceOpInvocation)
+   // check both for interface and operation name
+   if(ifaceOpInvocation.opNameLineNumber == param.declarationLineNumber
+              and ifaceOpInvocation.opNameColumn == param.declarationLineColumn)
+     select one providedOperation related by ifaceOpInvocation->SPR_PO[R680];
+     if(not_empty providedOperation)
+       return providedOperation.convertToInstance();
+     end if;
+     select one requiredOperation related by ifaceOpInvocation->SPR_RO[R657];
+     if(not_empty requiredOperation)
+       return requiredOperation.convertToInstance();
+     end if;     
+   end if;
+   if(ifaceOpInvocation.ownerNameLineNumber == param.declarationLineNumber
+           and ifaceOpInvocation.ownerNameColumn == param.declarationLineColumn)
+     select one c_po related by ifaceOpInvocation->SPR_PO[R680]->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+     if(empty c_po)
+       select one c_po related by ifaceOpInvocation->SPR_RO[R657]->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
+     end if;
+     if(not_empty c_po)
+       return c_po.convertToInstance();
+     end if;          
+   end if;
+ end if;
+ select one ifaceSigInvocation related by self->ACT_SGN[R603];
+ if(not_empty ifaceSigInvocation)
+   // check both for interface and operation name
+   if(ifaceSigInvocation.sigNameLineNumber == param.declarationLineNumber
+              and ifaceSigInvocation.sigNameColumn == param.declarationLineColumn)
+     select one providedSignal related by ifaceSigInvocation->SPR_PS[R663];
+     if(not_empty providedSignal)
+       return providedSignal.convertToInstance();
+     end if;
+     select one requiredSignal related by ifaceSigInvocation->SPR_RS[R660];
+     if(not_empty requiredSignal)
+       return requiredSignal.convertToInstance();
+     end if;     
+   end if;
+   if(ifaceSigInvocation.ownerNameLineNumber == param.declarationLineNumber
+           and ifaceSigInvocation.ownerNameColumn == param.declarationLineColumn)
+     select one c_po related by ifaceSigInvocation->SPR_PS[R663]->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016];
+     if(empty c_po)
+       select one c_po related by ifaceSigInvocation->SPR_RS[R660]->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016];
+     end if;
+     if(not_empty c_po)
+       return c_po.convertToInstance();
+     end if;          
+   end if;
+ end if;
+ select one cr related by self->ACT_CR[R603];
+ if(not_empty cr)
+   if(cr.modelClassKeyLettersLineNumber == param.declarationLineNumber
+               and cr.modelClassKeyLettersColumn == param.declarationLineColumn)
+     select one modelClass related by cr->O_OBJ[R671];
+     return modelClass.convertToInstance();
+   end if;
+ end if;
+ select one crnovar related by self->ACT_CNV[R603];
+ if(not_empty crnovar)
+   if(crnovar.modelClassKeyLettersLineNumber == param.declarationLineNumber
+               and crnovar.modelClassKeyLettersColumn == param.declarationLineColumn)
+     select one modelClass related by crnovar->O_OBJ[R672];
+     return modelClass.convertToInstance();
+   end if;
+ end if;
+ select one sel related by self->ACT_SEL[R603];
+ if(not_empty sel)
+   // look only at class key letters in the full chain, everything else
+   // will be a V_VAR and previously handled
+   select one link related by sel->ACT_LNK[R637];
+   while(not_empty link)
+     // check for class key letters and association numbers
+     // open link phrases as associations
+     if(link.modelClassKeyLettersLineNumber == param.declarationLineNumber
+             and link.modelClassKeyLettersColumn == param.declarationLineColumn)
+       select one modelClass related by link->O_OBJ[R678];
+       return modelClass.convertToInstance();
+     end if;
+     if(link.associationNumberLineNumber == param.declarationLineNumber
+                and link.associationNumberColumn == param.declarationLineColumn)
+       select one assoc related by link->R_REL[R681];
+       return assoc.convertToInstance();
+     end if;
+     if(link.phraseLineNumber == param.declarationLineNumber
+                and link.phraseColumn == param.declarationLineColumn)
+       select one assoc related by link->R_REL[R681];
+       return assoc.convertToInstance();
+     end if;
+     select one link related by link->ACT_LNK[R604.''precedes''];
+   end while;
+ end if;
+ select one sfi related by self->ACT_FIO[R603];
+ if(not_empty sfi)
+   if(sfi.extentLineNumber == param.declarationLineNumber
+                           and sfi.extentColumn == param.declarationLineColumn)
+     select one modelClass related by sfi->O_OBJ[R677];
+     return modelClass.convertToInstance();
+   end if;
+ end if;
+ select one sfiw related by self->ACT_FIW[R603];
+ if(not_empty sfiw)
+   if(sfiw.extentLineNumber == param.declarationLineNumber
+                           and sfiw.extentColumn == param.declarationLineColumn)
+     select one modelClass related by sfiw->O_OBJ[R676];
+     return modelClass.convertToInstance();
+   end if;
+ end if;
+ select one ess related by self->E_ESS[R603];
+ if(not_empty ess)
+   // handle all subtypes here as the line and column data is available
+   if((ess.eventDerivedLabelLineNumber == param.declarationLineNumber
+           and ess.eventDerivedLabelColumn == param.declarationLineColumn) or
+                (ess.eventMeaningLineNumber == param.declarationLineNumber and
+                        ess.eventMeaningColumn == param.declarationLineColumn))
+     select one evt related by ess->E_GES[R701]->E_GSME[R703]->SM_EVT[R707];
+     if(empty evt)
+       select one evt related by ess->E_CES[R701]->E_CSME[R702]->SM_EVT[R706];
+     end if;
+     return evt.convertToInstance();
+   end if;
+   if(ess.eventTargetKeyLettersLineNumber == param.declarationLineNumber
+             and ess.eventTargetKeyLettersColumn == param.declarationLineColumn)
+     select one evt related by ess->E_GES[R701]->E_GSME[R703]->SM_EVT[R707];
+     if(empty evt)
+       select one evt related by ess->E_CES[R701]->E_CSME[R702]->SM_EVT[R706];
+     end if;
+     select one ism related by evt->SM_SM[R502]->SM_ISM[R517];
+     if(not_empty ism)
+       select one modelClass related by ism->O_OBJ[R518];
+       return modelClass.convertToInstance();
+     end if;
+     select one asm related by evt->SM_SM[R502]->SM_ASM[R517];
+     if(not_empty asm)
+       select one modelClass related by asm->O_OBJ[R519];
+       return modelClass.convertToInstance();
+     end if;
+   end if;
+ end if;
+ select one rel related by self->ACT_REL[R603];
+ if(not_empty rel)
+   // check for association number and phrase
+   if((rel.associationNumberLineNumber == param.declarationLineNumber and
+              rel.associationNumberColumn == param.declarationLineColumn) or
+            (rel.associationPhraseLineNumber == param.declarationLineNumber and
+                   rel.associationPhraseColumn == param.declarationLineColumn))
+     select one assoc related by rel->R_REL[R653];
+     return assoc.convertToInstance();
+   end if; 
+ end if;
+ select one relu related by self->ACT_RU[R603];
+ if(not_empty relu)
+   // check for association number and phrase
+   if((relu.associationNumberLineNumber == param.declarationLineNumber and
+              relu.associationNumberColumn == param.declarationLineColumn) or
+            (relu.associationPhraseLineNumber == param.declarationLineNumber and
+                   relu.associationPhraseColumn == param.declarationLineColumn))
+     select one assoc related by relu->R_REL[R654];
+     return assoc.convertToInstance();
+   end if;    
+ end if;
+ select one unrel related by self->ACT_UNR[R603];
+ if(not_empty unrel)
+   // check for association number and phrase
+   if((unrel.associationNumberLineNumber == param.declarationLineNumber and
+              unrel.associationNumberColumn == param.declarationLineColumn) or
+            (unrel.associationPhraseLineNumber == param.declarationLineNumber and
+                   unrel.associationPhraseColumn == param.declarationLineColumn))
+     select one assoc related by unrel->R_REL[R655];
+     return assoc.convertToInstance();
+   end if;  
+ end if;
+ select one unrelu related by self->ACT_URU[R603];
+ if(not_empty unrelu)
+   // check for association number and phrase
+   if((unrelu.associationNumberLineNumber == param.declarationLineNumber and
+              unrelu.associationNumberColumn == param.declarationLineColumn) or
+            (unrelu.associationPhraseLineNumber == param.declarationLineNumber and
+                   unrelu.associationPhraseColumn == param.declarationLineColumn))
+     select one assoc related by unrelu->R_REL[R656];
+     return assoc.convertToInstance();
+   end if;  
+ end if;
+ return foundInstance;',
+	1,
+	'',
+	"2641a313-ee94-4456-95b8-807c76e625aa",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("02c928e1-6665-431b-a978-450f3a9fe059",
+	"cf694822-9295-478c-85d1-5cfd357181a1",
+	'declarationLineNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("75f0808d-f471-4258-a576-e51f494f5539",
+	"cf694822-9295-478c-85d1-5cfd357181a1",
+	'declarationLineColumn',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"02c928e1-6665-431b-a978-450f3a9fe059",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("62eb1978-be0f-4575-8662-8d1229a3982c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'convertToInstance',
+	'Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"cf694822-9295-478c-85d1-5cfd357181a1",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e");

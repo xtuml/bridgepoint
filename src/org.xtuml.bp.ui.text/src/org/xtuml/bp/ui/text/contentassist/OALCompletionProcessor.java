@@ -2,8 +2,7 @@ package org.xtuml.bp.ui.text.contentassist;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.jface.text.BadLocationException;
+import java.util.regex.Pattern;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ContentAssistEvent;
@@ -15,6 +14,7 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
 import org.xtuml.bp.als.oal.ParseRunnable;
+import org.xtuml.bp.als.oal.PartialParseRunnable;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -58,6 +58,7 @@ import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 
@@ -72,12 +73,13 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private boolean isDefaultTrigger;
     private boolean needsParse;
     
+    public OALCompletionProcessor() {
+        setUp();
+    }
+    
     public OALCompletionProcessor( OALEditor editor, ContentAssistant assistant ) {
+        this();
         this.editor = editor;
-        this.isAutoTriggered = false;
-        this.setInSession(false);
-        setDefaultTriggerChars();
-        setNeedsParse(true);
         assistant.addCompletionListener( new ICompletionListener() {
             @Override
             public void assistSessionStarted( ContentAssistEvent event ) {
@@ -88,18 +90,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             
             @Override
             public void assistSessionEnded( ContentAssistEvent event ) { 
-                Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
-                ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
-                if ( null != list ) {
-                    list.Dispose();
-                }
-                ProposalCalculationCue_c[] cues = ProposalCalculationCue_c.getManyP_PCCsOnR1602( body );
-                for ( ProposalCalculationCue_c cue : cues ) {
-                    cue.Dispose();
-                }
-                setDefaultTriggerChars();
-                setNeedsParse( true );
-                setInSession( false );
+                cleanUp( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
             }
 
             @Override
@@ -110,37 +101,40 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     @Override
     public ICompletionProposal[] computeCompletionProposals( ITextViewer viewer, int position ) {
         waitForSessionToStart();
-        if ( isAutoTriggered && !isValidAutoTrigger( position ) ) return NO_PROPOSALS;
+        if ( isAutoTriggered && !isValidAutoTrigger( editor.getDocumentProvider().getDocument( editor.getEditorInput() ), position ) ) return NO_PROPOSALS;
         if ( !(editor.getEditorInput() instanceof AbstractModelElementPropertyEditorInput) ) return NO_PROPOSALS;
-        
-        // parse the body
-        parseActivity( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty(), position );
-        Body_c body = getBody( ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty() );
+        return computeCompletionProposals( editor.getDocumentProvider().getDocument( editor.getEditorInput() ), ((AbstractModelElementPropertyEditorInput)editor.getEditorInput()).getModelElementContainingProperty(), position );
+    }
+
+    public ICompletionProposal[] computeCompletionProposals( IDocument document, NonRootModelElement element, int position ) {
+        // parse from the closest parsed statement
+        parseActivityPartial( document, element, position );
+        Body_c body = getBody( element );
 
         // get the list
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, new ClassQueryInterface_c() {
             @Override
             public boolean evaluate( Object selected ) {
-                return lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol() ) <= position;
+                return DocumentUtil.lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol(), document ) <= position;
             }
         });
         if ( null == list ) return NO_PROPOSALS;
 
         // add proposals
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
-        int listPosition = lineAndColumnToPosition( list.getLine(), list.getCol() );
-        String existingText = editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( listPosition, position );
-        String leadingWhitespace = "";
-        if ( "".equals( existingText.trim() ) ) leadingWhitespace = existingText;
-        else leadingWhitespace = existingText.substring( 0, existingText.indexOf( existingText.trim() ) );
+        int listPosition = DocumentUtil.lineAndColumnToPosition( list.getLine(), list.getCol(), document );
+        String existingText = document.get().substring( listPosition, position );
+        String leadingText = "";
+        if ( "".equals( trimWhitespaceAndComments( existingText ) ) ) leadingText = existingText;
+        else leadingText = existingText.substring( 0, existingText.lastIndexOf( trimWhitespaceAndComments( existingText ) ) );
         Proposal_c[] items = Proposal_c.getManyP_PsOnR1601( list );
         for ( Proposal_c item : items ) {
             boolean insertSpace = false;
-            if ( "".equals( leadingWhitespace ) && item.getNeeds_space() ) insertSpace = true;
-            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) &&
-               ( !item.getReplacement_text().toLowerCase().equals( existingText.substring( leadingWhitespace.length() ).toLowerCase() ) ) ) {
-                String replacementText = leadingWhitespace + item.getReplacement_text();
-                int cursorPosition = leadingWhitespace.length() + item.getCursor_position();
+            if ( "".equals( leadingText ) && item.getNeeds_space() ) insertSpace = true;
+            if ( item.getReplacement_text().toLowerCase().startsWith( existingText.substring( leadingText.length() ).toLowerCase() ) &&
+               ( !item.getReplacement_text().toLowerCase().equals( existingText.substring( leadingText.length() ).toLowerCase() ) ) ) {
+                String replacementText = leadingText + item.getReplacement_text();
+                int cursorPosition = leadingText.length() + item.getCursor_position();
                 if ( insertSpace ) {
                     replacementText = " " + replacementText;
                     cursorPosition += 1;
@@ -185,11 +179,11 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return null;
     }
     
-    private boolean isValidAutoTrigger( int position ) {
+    private boolean isValidAutoTrigger( IDocument document, int position ) {
         if ( Pref_c.Getboolean( BridgePointPreferencesStore.CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING ) ) {
             if ( isDefaultTrigger ) {
                 for ( String seq : getTriggerSequences() ) {
-                    if ( editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get().substring( 0, position ).endsWith( seq ) ) return true;
+                    if ( document.get().substring( 0, position ).endsWith( seq ) ) return true;
                 }
             }
             else return true;
@@ -206,7 +200,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             case Proposaltypes_c.Association:
                 return CorePlugin.getImageFor( Association_c.class );
             case Proposaltypes_c.Variable:
-                //return CorePlugin.getImageFor( Association_c.class );
                 return null;
             case Proposaltypes_c.Class:
                 return CorePlugin.getImageFor( ModelClass_c.class );
@@ -228,6 +221,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( PropertyParameter_c.class );
             case Proposaltypes_c.Function:
                 return CorePlugin.getImageFor( Function_c.class );
+            case Proposaltypes_c.Bridge:
+                return CorePlugin.getImageFor( Bridge_c.class );
             case Proposaltypes_c.EDT:
                 return CorePlugin.getImageFor( EnumerationDataType_c.class );
             case Proposaltypes_c.Enumerator:
@@ -235,51 +230,20 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             case Proposaltypes_c.Constant:
                 return CorePlugin.getImageFor( SymbolicConstant_c.class );
             case Proposaltypes_c.Literal:
-                //return CorePlugin.getImageFor( Function_c.class );
+                return null;
+            case Proposaltypes_c.SignalToProvider:
+                return CorePlugin.getImageFor( "InterfaceSignal_cClientServer", false, null, true );
+            case Proposaltypes_c.SignalFromProvider:
+                return CorePlugin.getImageFor( "InterfaceSignal_cServerClient", false, null, true );
+            case Proposaltypes_c.OperationToProvider:
+                return CorePlugin.getImageFor( "InterfaceOperation_cClientServer", false, null, true );
+            case Proposaltypes_c.OperationFromProvider:
+                return CorePlugin.getImageFor( "InterfaceOperation_cServerClient", false, null, true );
+            case Proposaltypes_c.Keyword:
                 return null;
             default:
                 return null;
         }
-    }
-
-    private int lineAndColumnToPosition( int line, int column ) {
-        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        int position = 0;
-        for ( int i = 0; i < line-1; i++ ) {
-            try {
-                position += document.getLineLength( i );
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        position += column - 1;
-        return position;
-    }
-
-    private int positionToLine( int position ) {
-        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
-            try {
-                count += document.getLineLength(i);
-                if ( count >= position ) return i + 1;
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
-    
-    private int positionToCol( int position ) {
-        IDocument document = editor.getDocumentProvider().getDocument( editor.getEditorInput() );
-        for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
-            try {
-                if ( position - count <= document.getLineLength(i) ) return position - count + 1;
-                count += document.getLineLength(i);
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
     }
 
     private synchronized void setInSession(boolean inSession) {
@@ -337,10 +301,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return body;
     }
     
-    private void parseActivity( NonRootModelElement element, int position ) {
+    private void parseActivityPartial( IDocument document, NonRootModelElement element, int position ) {
         if ( null != element && getNeedsParse() ) {
-            ParseRunnable parseRunner = new ParseRunnable( element, editor.getDocumentProvider().getDocument( editor.getEditorInput() ).get(),
-                    positionToLine( position ), positionToCol( position ) );
+            ParseRunnable parseRunner = new PartialParseRunnable( element, document.get(),
+                    DocumentUtil.positionToLine( position, document ), DocumentUtil.positionToCol( position, document ) );
             parseRunner.run();
             setNeedsParse(false);
         }
@@ -353,8 +317,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private char[] getDefaultTriggerChars() {
         String triggerChars = "";
         for ( String seq : getTriggerSequences() ) {
-            char lastChar = seq.charAt( seq.length() - 1 );
-            if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
+            if ( !"".equals(seq) ) {
+                char lastChar = seq.charAt( seq.length() - 1 );
+                if ( -1 == triggerChars.indexOf( lastChar ) ) triggerChars += Character.toString( lastChar );
+            }
         }
         return triggerChars.toCharArray();
     }
@@ -373,6 +339,36 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private static String[] getTriggerSequences() {
         return Pref_c.Getstring( BridgePointPreferencesStore.CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES ).split( "\n" );
+    }
+    
+    private String trimWhitespaceAndComments( String input ) {
+        String blockCommentPattern = "\\/\\*[\\s\\S]*\\/\\*";
+        String lineCommentPattern = "\\/\\/.*$";
+        String whitespaceAndCommentPattern = "(" + blockCommentPattern + "|" + lineCommentPattern + "|\\s)*";
+        return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z", Pattern.MULTILINE ).matcher( input ).replaceAll( "" );
+    }
+    
+    public void setUp() {
+        this.editor = null;
+        this.isAutoTriggered = false;
+        this.setInSession(false);
+        setDefaultTriggerChars();
+        setNeedsParse(true);
+    }
+    
+    public void cleanUp( NonRootModelElement element ) {
+        Body_c body = getBody( element );
+        ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
+        if ( null != list ) {
+          list.Dispose();
+        }
+        ProposalCalculationCue_c[] cues = ProposalCalculationCue_c.getManyP_PCCsOnR1602( body );
+        for ( ProposalCalculationCue_c cue : cues ) {
+          cue.Dispose();
+        }
+        setDefaultTriggerChars();
+        setNeedsParse( true );
+        setInSession( false );
     }
 
 }

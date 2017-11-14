@@ -25,6 +25,34 @@ delete object instance self;',
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	0);
+INSERT INTO O_TFR
+	VALUES ("78b9869a-6ff2-48fe-833e-6c419b650c26",
+	"6564c28e-1961-46bc-a756-e8764f3a7520",
+	'addProposal',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any item from instances of P_P where ( selected.Proposal_ID == param.Proposal_ID );
+if ( not_empty item )
+  // do not allow two items with the same replacement text and type to be included
+  select any existing_item related by self->P_P[R1601] where ( selected.replacement_text == item.replacement_text and selected.type == item.type );
+  if ( empty existing_item )
+    relate item to self across R1601;
+  end if;
+end if;',
+	1,
+	'',
+	"02be89aa-a0dd-4046-b18f-274cd603cb00",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("e63f21eb-4fc0-42f7-8b46-6f31fd44cb65",
+	"78b9869a-6ff2-48fe-833e-6c419b650c26",
+	'Proposal_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("a84463fe-6e97-4d16-a369-8d6086751d4c",
 	"6564c28e-1961-46bc-a756-e8764f3a7520");

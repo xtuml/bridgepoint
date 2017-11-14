@@ -105,6 +105,7 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
             ca.setInformationControlCreator(getInformationControlCreator(sv));
             ca.setSorter( new OALProposalSorter() );
             ca.enableAutoInsert( true );
+            ca.enableColoredLabels( true );
             return ca;
 	    }
 	    else return null;
