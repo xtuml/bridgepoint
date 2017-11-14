@@ -343,9 +343,9 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private String trimWhitespaceAndComments( String input ) {
         String blockCommentPattern = "\\/\\*[\\s\\S]*\\/\\*";
-        String lineCommentPattern = "\\/\\/[ \\t\\n\\x0B\\f\\r\\S]*\\n";
+        String lineCommentPattern = "\\/\\/.*$";
         String whitespaceAndCommentPattern = "(" + blockCommentPattern + "|" + lineCommentPattern + "|\\s)*";
-        return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z" ).matcher( input ).replaceAll( "" );
+        return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z", Pattern.MULTILINE ).matcher( input ).replaceAll( "" );
     }
     
     public void setUp() {
