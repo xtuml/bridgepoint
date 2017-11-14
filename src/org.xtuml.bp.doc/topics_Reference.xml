@@ -42,7 +42,7 @@ the License.
         </topic>
         <topic label="Editors" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Editors.htm">
           <topic label="Diagram" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Diagram.htm"/>
-          <topic label="Activity" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Activity.htm"/>
+          <topic label="Activity" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Activity.html"/>
           <topic label="Description" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Description.htm"/>
         </topic>
         <topic label="Wizards" href="Reference/UserInterface/xtUMLModeling/Wizards/HTML/Wizards.htm">

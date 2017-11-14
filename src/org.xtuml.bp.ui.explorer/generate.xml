@@ -104,7 +104,7 @@
   <property name="cvs_java_files" value="ExplorerPlugin.java,
           FilterSelectionAction.java, IModelExplorerHelpContextIds.java, ExplorerTreeViewer.java,ModelLabelDecorator.java,
           adapters/RootAdapter.java, decorators/*.java, ILinkWithEditorListener.java,ui/actions/ExplorerCopyAction.java,
-          ui/actions/ExplorerCutAction.java,ui/actions/ExplorerPasteAction.java,MultipleOccurrenceElement.java"/>
+          ui/actions/ExplorerCutAction.java,ui/actions/ExplorerPasteAction.java"/>
 
   <target name="format_java"
         description="Format the generated java source" >

@@ -429,6 +429,80 @@ end if;',
 	'',
 	"4fa7224b-3675-4dbb-b42f-830bd7e52331",
 	0);
+INSERT INTO O_TFR
+	VALUES ("699577d3-df01-42ca-a6dd-0998165cf996",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'findVariableLocationForVariable',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'select any firstLocation from instances of V_LOC
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+foundMatchingVariable = false;
+select many locations related by self->V_LOC[R835];
+for each location in locations
+  if(empty firstLocation)
+    firstLocation = location;
+  else
+    if(location.LineNumber < firstLocation.LineNumber)
+      firstLocation = location;
+    elif(location.LineNumber == firstLocation.LineNumber
+                       and location.StartPosition < firstLocation.StartPosition)
+      firstLocation = location;
+    end if;
+  end if;
+  if(location.LineNumber == param.declarationLineNumber
+                      and location.StartPosition == param.declarationLineColumn)
+    foundMatchingVariable = true;
+  end if;
+end for;
+if(not_empty firstLocation and not param.checkLocation)
+  return firstLocation.convertToInstance();
+end if;
+if(not_empty firstLocation and foundMatchingVariable)
+  return firstLocation.convertToInstance();
+end if;
+return GD::NULL_INSTANCE();',
+	1,
+	'',
+	"93668d6b-527d-42f2-988f-50ad525550f8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("c17748b0-04ab-4172-b476-6526c4bf631d",
+	"699577d3-df01-42ca-a6dd-0998165cf996",
+	'declarationLineNumber',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c5cbac87-78b9-471a-be70-4f2fb7cf765b",
+	"699577d3-df01-42ca-a6dd-0998165cf996",
+	'declarationLineColumn',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"c17748b0-04ab-4172-b476-6526c4bf631d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e6c8aef5-d7a9-4e22-a353-aa3ae7931bea",
+	"699577d3-df01-42ca-a6dd-0998165cf996",
+	'var_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c5cbac87-78b9-471a-be70-4f2fb7cf765b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("de11832c-7d88-442e-8eef-8e3c456dc143",
+	"699577d3-df01-42ca-a6dd-0998165cf996",
+	'checkLocation',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"e6c8aef5-d7a9-4e22-a353-aa3ae7931bea",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");

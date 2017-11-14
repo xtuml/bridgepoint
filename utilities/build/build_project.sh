@@ -94,6 +94,21 @@ ret_val=0
       return 1
     fi
   done
+  # trigger generation for modified text files, we only use them
+  # in the build process for matrices
+  find $projectDir -name "*.txt" -print0 | while read -d $'' file; do
+    if [ "$timestampFile" -ot "$file" ]; then
+      echo "File: $file has been modified triggering maven build."
+      return 1
+    fi
+  done
+  # trigger generation when a build file is modified
+  find $projectDir -name "generate.xml" -print0 | while read -d $'' file; do
+    if [ "$timestampFile" -ot "$file" ]; then
+      echo "File: $file has been modified triggering maven build."
+      return 1
+    fi
+  done
   return 0
 }
 
