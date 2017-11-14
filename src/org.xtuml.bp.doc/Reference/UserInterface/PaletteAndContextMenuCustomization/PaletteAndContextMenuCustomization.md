@@ -52,6 +52,7 @@ bridgepoint.AssignEvent
 bridgepoint.AssignSignal
 bridgepoint.CantHappenEvent
 bridgepoint.CantHappeninState
+bridgepoint.CardinalityOnAssociativeLink
 bridgepoint.CheckModelIntegrity
 bridgepoint.CheckReferentialIntegrity
 bridgepoint.CombineWith

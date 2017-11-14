@@ -73,6 +73,7 @@
 		<module>../org.xtuml.bp.releng.p2</module>
 		<module>../org.xtuml.bp.releng.parent.generation</module>
 		<module>../org.xtuml.bp.releng.parent.product</module>
+		<module>../org.xtuml.bp.releng.parent.product-dev</module>
 		<module>../org.xtuml.bp.mctools.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.jre.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
@@ -122,11 +123,6 @@
 					<allowConflictingDependencies>true</allowConflictingDependencies>
 					<includePackedArtifacts>true</includePackedArtifacts>
 					<environments>
-						<!--<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>-->
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
@@ -136,11 +132,6 @@
 						    <os>macosx</os>
 						    <ws>cocoa</ws>
 						    <arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
 						</environment>
 						<environment>
 							<os>win32</os>
