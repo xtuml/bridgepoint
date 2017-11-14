@@ -293,10 +293,10 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 
 	@Override
 	public void setActiveEditor(IAction arg0, IEditorPart arg1) {
-		if (arg1 == null) {
+		if (arg1 == null && arg0 != null) {
 			arg0.setEnabled(false);
 		}
-		if (arg1 instanceof ActivityEditor) {
+		if (arg1 instanceof ActivityEditor&& arg0 != null) {
 			this.targetEditor = arg1;
 			arg0.setEnabled(true);
 		}
