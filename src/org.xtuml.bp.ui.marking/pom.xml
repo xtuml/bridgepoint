@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.xtuml.bp</groupId>
 		<artifactId>org.xtuml.bp.releng.parent.generation</artifactId>
-		<version>6.6.1-SNAPSHOT</version>
+		<version>6.8.0-SNAPSHOT</version>
 		<relativePath>../../releng/org.xtuml.bp.releng.parent.generation/</relativePath>
 	</parent>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.ui.marking</artifactId>
-	<version>6.6.1-SNAPSHOT</version>
+	<version>6.8.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
