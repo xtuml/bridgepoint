@@ -18,9 +18,9 @@
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
-          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties, format_java">
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties, format_java">
   </target>
-  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties">
+  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
@@ -479,6 +479,32 @@
        </exec>        
        <echotimestamp />
    </target>
+
+   <property name="grau.output" value="src/org/xtuml/bp/core/util/ReferentialAttributeUtil.java" />
+
+   <target name="generate_referential_attribute_util.depends" depends="sql" >
+       <uptodate property="referential_attribute_util.buildNotNeeded" targetfile="${grau.output}">
+          <srcfiles dir = "arc" includes = "generate_referential_attribute_util.arc" />
+          <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
+       </uptodate>
+   </target>
+
+   <target name="generate_referential_attribute_util" unless="referential_attribute_util.buildNotNeeded" depends="generate_referential_attribute_util.depends" >
+       <echo >Generating ${grau.output} ...</echo>
+       <echotimestamp />
+       <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <arg line="xtumlmc_gen_erate -nopersist
+            -import ${mcj_path}/ooa_schema.sql
+            -import sql/ooaofooa.sql
+            -arch arc/generate_referential_attribute_util.arc" />
+       </exec>        
+       <echotimestamp />
+   </target>
+
+
 
    <property name="grtou.output" value="src/org/xtuml/bp/core/util/RTOUtil.java" />
 
