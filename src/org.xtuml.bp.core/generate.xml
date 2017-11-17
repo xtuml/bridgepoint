@@ -701,6 +701,7 @@
       <fileset dir="src/org/xtuml/bp/core/util" includes="ActionLanguageDescriptionUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/util" includes="GlobalsUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/util" includes="SupertypeSubtypeUtil.java" />
+      <fileset dir="src/org/xtuml/bp/core/util" includes="CoreReferentialAttributeUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/util" includes="RTOUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/common" includes="BPQuickFix.java" />
         <fileset dir="src/org/xtuml/bp/core"
