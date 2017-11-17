@@ -480,12 +480,13 @@
        <echotimestamp />
    </target>
 
-   <property name="grau.output" value="src/org/xtuml/bp/core/util/ReferentialAttributeUtil.java" />
+   <property name="grau.output" value="src/org/xtuml/bp/core/util/CoreReferentialAttributeUtil.java" />
 
    <target name="generate_referential_attribute_util.depends" depends="sql" >
        <uptodate property="referential_attribute_util.buildNotNeeded" targetfile="${grau.output}">
-          <srcfiles dir = "arc" includes = "generate_referential_attribute_util.arc" />
-          <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "${mcj_path}" includes = "referential_attribute_util.inc" />
+         <srcfiles dir = "arc" includes = "generate_referential_attribute_util.arc" />
+         <srcfiles dir = "sql" includes = "ooaofooa.sql" />
          <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
        </uptodate>
    </target>

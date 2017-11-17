@@ -745,15 +745,15 @@ ${setSize.body}
                     }
                     for ( NonRootModelElement loadedInstance : loadedInstances ) {
                         // clear out all referential attributes
-                        ReferentialAttributeUtil.getInstance().clearReferentialAttributes( loadedInstance );
+                        CoreReferentialAttributeUtil.getInstance().clearReferentialAttributes( loadedInstance );
                     }
                     for ( NonRootModelElement loadedInstance : loadedInstances ) {
                         // next, recalculate all architecture provided attributes as identifier
-                        ReferentialAttributeUtil.getInstance().generateUUIDs( loadedInstance );
+                        CoreReferentialAttributeUtil.getInstance().generateUUIDs( loadedInstance );
                     }
                     for ( NonRootModelElement loadedInstance : loadedInstances ) {
                         // propagate all attribute as identifier values
-                        ReferentialAttributeUtil.getInstance().propagateIDs( loadedInstance );
+                        CoreReferentialAttributeUtil.getInstance().propagateIDs( loadedInstance );
                     }
                     for ( int i = 0; i < loadedInstances.size(); i++ ) {
                         // finally, update the instance keys
@@ -768,15 +768,15 @@ ${setSize.body}
                     }
                     for ( NonRootModelElement loadedInstance : loadedGraphicsInstances ) {
                         // clear out all referential attributes
-                        ReferentialAttributeUtil.getInstance().clearReferentialAttributes( loadedInstance );
+                        CanvasReferentialAttributeUtil.getInstance().clearReferentialAttributes( loadedInstance );
                     }
                     for ( NonRootModelElement loadedInstance : loadedGraphicsInstances ) {
                         // next, recalculate all architecture provided attributes as identifier
-                        ReferentialAttributeUtil.getInstance().generateUUIDs( loadedInstance );
+                        CanvasReferentialAttributeUtil.getInstance().generateUUIDs( loadedInstance );
                     }
                     for ( NonRootModelElement loadedInstance : loadedGraphicsInstances ) {
                         // propagate all attribute as identifier values
-                        ReferentialAttributeUtil.getInstance().propagateIDs( loadedInstance );
+                        CanvasReferentialAttributeUtil.getInstance().propagateIDs( loadedInstance );
                     }
                     for ( int i = 0; i < loadedGraphicsInstances.size(); i++ ) {
                         // finally, update the instance keys
