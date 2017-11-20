@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.8.0
+Release 6.8.1
 
 License
 -------
@@ -53,44 +53,7 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[8652](https://support.onefact.net/issues/8652) |Reconcile outstanding changes for promotion  
-[8897](https://support.onefact.net/issues/8897) |Graphical representation of the a domain class diagram and state transition from an import MASL domain do not render correctly.  
-[8934](https://support.onefact.net/issues/8934) |Graphical Issues With Editor  
-[9069](https://support.onefact.net/issues/9069) |Graphical representation of the a domain class diagram and state transition from an import MASL domain do not render correctly.  
-[9570](https://support.onefact.net/issues/9570) |Improved BridgePoint delivery mechanism  
-[9571](https://support.onefact.net/issues/9571) |Enhanced OAL Editor (phase 1)  
-[9575](https://support.onefact.net/issues/9575) |Interface message parameter attributes not editable from properties view  
-[9609](https://support.onefact.net/issues/9609) |Error Importing Domain using CLI  
-[9617](https://support.onefact.net/issues/9617) |Error Importing Domain using CLI  
-[9674](https://support.onefact.net/issues/9674) |Document mcmc build for mac  
-[9675](https://support.onefact.net/issues/9675) |Update plugin info on xtext plugins  
-[9718](https://support.onefact.net/issues/9718) |Testing for Enhanced OAL Editor phase 1
-[9719](https://support.onefact.net/issues/9719) |Automate build of integrity.exe.  
-[9720](https://support.onefact.net/issues/9720) |Include Maven2Eclipse (m2e) plug-in in developer product  
-[9745](https://support.onefact.net/issues/9745) |Stop building some Windows edition  
-[9749](https://support.onefact.net/issues/9749) |Determine use cases for OAL autocompletion  
-[9750](https://support.onefact.net/issues/9750) |Develop test matrix for oal autocompletion  
-[9751](https://support.onefact.net/issues/9751) |Using test matrix implement tests for oal context sensitive help  
-[9757](https://support.onefact.net/issues/9757) |Problem with parameter name  
-[9758](https://support.onefact.net/issues/9758) |Problem with parameter name  
-[9761](https://support.onefact.net/issues/9761) |AE8-When a variable representing an OAL instance is selected in the editor, a CME shall be present that allows the user to find the declaration of the instance.  
-[9762](https://support.onefact.net/issues/9762) |AE9-When a declaration is found using Find Declaration, the user shall be able to select it to navigate to the declaration.  
-[9763](https://support.onefact.net/issues/9763) |AE3-Context-sensitive completion assistance for user-defined identifiers is provided while editing OAL activities.  
-[9764](https://support.onefact.net/issues/9764) |unable to build integrity checker  
-[9801](https://support.onefact.net/issues/9801) |Declarations created for non-existing classes when class-based state machine  
-[9811](https://support.onefact.net/issues/9811) |Install xsltproc on build server images  
-[9814](https://support.onefact.net/issues/9814) |Move location of Cardinality CME  
-[9830](https://support.onefact.net/issues/9830) |get rid of extraneous characters  
-[9831](https://support.onefact.net/issues/9831) |Cardinality modification menu shall show current selection  
-[9832](https://support.onefact.net/issues/9832) |Move relation unformalizes and does not roll back  
-[9835](https://support.onefact.net/issues/9835) |Update Windows Integrity Checker  
-[9846](https://support.onefact.net/issues/9846) |Update build server image  
-[9856](https://support.onefact.net/issues/9856) |sort integrity test results  
-[9860](https://support.onefact.net/issues/9860) |vitalsigns cleanup  
-[9909](https://support.onefact.net/issues/9909) |Enable "Parse while editing OAL activities"  
-[9910](https://support.onefact.net/issues/9910) |Content assist after "generate" does not add a space  
-[9912](https://support.onefact.net/issues/9912) |Content assist hangs in oal_open_declarations model  
-[9914](https://support.onefact.net/issues/9914) |string_return_test invalid builders
+[9938](https://support.onefact.net/issues/9938) |Update version to 6.8.1  
 
 Known Issues and Feature Requests
 ------
