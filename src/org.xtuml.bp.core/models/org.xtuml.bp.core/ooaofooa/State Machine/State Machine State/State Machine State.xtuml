@@ -257,7 +257,7 @@ end for;
 act.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
 if ( act.Dialect == ActionDialect::masl )
   // new MASL activities get initialized with the "null" statement
-  act.Action_Semantics_internal = "begin\n  null;\nend";
+  act.Action_Semantics_internal = "begin\n  null;\nend state;";
 end if;
 act.Suc_Pars = ParseStatus::parseInitial;',
 	1,
