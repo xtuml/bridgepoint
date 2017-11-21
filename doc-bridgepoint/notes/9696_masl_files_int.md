@@ -160,23 +160,26 @@ end service;
 where appropriate.
 
 This change will be made in BridgePoint itself and the MASL to xtUML conversion
-tool (`m2x`).
+and export tools (`masl2xtuml` and `xtuml2masl`).
 
 ### 6. Implementation Comments
 
 6.1 Model upgrade
 
-Because this work changes the way `.masl` files are loaded and parsed from disk,
-a mechanism will be needed which can upgrade existing models to the new
+Because this work changes the way `.masl` files are loaded and parsed from
+disk, a mechanism will be needed which can upgrade existing models to the new
 persistence format. A script using standard regular expressions tools will be
-delivered with this issue. Note that this script will only be necessary for
-existing MASL models created before this issue is promoted.
+delivered with this issue (attached to the DEI). Note that this script will
+only be necessary for existing MASL models created before this issue is
+promoted.
 
 ### 7. Unit Test
 
 7.1 No new unit test failures shall be observed  
 7.2 No new MASL round trip failures shall be observed  
 7.3 The use case presented in [[2.1]](#2.1) shall be tested without failure  
+7.4 A model with `.masl` files persisted the "old way" shall be upgraded using
+the script, imported, and modified without failure  
 
 ### 8. User Documentation
 
