@@ -70,7 +70,7 @@ activityDefinitions:
             ;
 
 activityDefinition:     
-            ACTIVITYSTART
+            ACTIVITYBEGIN
             ( serviceDefinition 
             | stateDefinition
             | attributeDefinition
@@ -360,7 +360,7 @@ COLON               : ":";
 TERMINATOR_SCOPE    : "~>";
 DOT                 : ".";
 COMMA               : ",";
-ACTIVITYSTART       : "//! ACTIVITY START DO NOT EDIT THIS LINE" ('\r')? '\n' { newline(); };
+ACTIVITYBEGIN       : "//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
 
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
