@@ -33,21 +33,79 @@ are the following:
 3.1.6 Bridges  
 3.1.7 Functions  
 
+3.2 "Dialog of Death"
+
+There has been a chronic issue with using BridgePoint with MASL where
+inconsistencies between the `.masl` files and the `.xtuml` files can cause a
+state that is difficult for the user to escape.
+
+As an example, imagine a user edits a `.masl` file by hand and corrupts the file
+with bad syntax. Then, the MASL importer runs and is unable to properly parse
+the file, so the `Action_Semantics` fields are populated with empty strings.
+Finally, the user makes a structural change that causes the file to be
+re-persisted. The actions in the `.masl` file will be overwritten by empty
+strings and potentially hundreds of lines of MASL actions could be lost. To
+prevent this, a dialog was introduced to show before a persist in the case where
+the tool suspects that there has been a data corruption in the `.masl` file. It
+asks the user to fix the issue before continuing.
+
+This is good in theory, but it can be very very bad. In many cases, the user
+does not know where the error in the `.masl` file originated and so he cannot
+find it to rectify it. Additionally, there are bugs in the tool that can cause
+the `.masl` file to be corrupted, in which case the user definitely won't know
+where the error is. The dialog does not present an option to "continue anyway",
+so often times the user gets in a situation where they cannot continue to do
+their work.
+
+This issue is one of those situations where the tool can introduce a corruption
+into the `.masl` file. In addition to fixing the presentation to match what the
+user expects as correct MASL syntax, the solution to this issue will include a
+mechanism to prevent the tool from ever corrupting a `.masl` file through
+editing of an action body.
+
 ### 4. Requirements
 
 4.1 Display "end state;" as the last line in MASL state action bodies  
 4.2 Display "end service;" as the last line in MASL service bodies (See section
 3.1)  
+4.3 BridgePoint shall be able to properly load and persist MASL activities
+(without hitting the "Dialog of Death") in cases where the user saves syntax
+errors.  
 
 ### 5. Work Required
 
 5.1 Overview
 
-There are three main aspects of this work:
+There are four main aspects of this work:
 
-5.1.1 Import of MASL actions into xtUML model elements (as `Action_Semantics`)  
-5.1.2 Export of MASL actions in xtUML model elements (as `.masl` files)  
-5.1.3 Creation of new MASL activities  
+5.1.1 Mechanism to prevent DoD  
+5.1.2 Import of MASL actions into xtUML model elements (as `Action_Semantics`)  
+5.1.3 Export of MASL actions in xtUML model elements (as `.masl` files)  
+5.1.4 Creation of new MASL activities  
+
+5.2 Mechanism to prevent DoD  
+
+The core of the issue with the "Dialog of Death" is that the import parser
+relies on parsing the "end service;" or "end state;" phrase to terminate a body.
+If there are more than one "end service;" or "end state;" or none at all, bad
+things happen in parsing. There are checks in place to try to ensure that all
+bodies are well formed when they are persisted, but there are holes in the
+implementation. To be completely fool proof, the parser must rely on begin and
+end delimiters that are not editable by the user.
+
+For this purpose, two new tokens have been added to the grammar:
+```
+ACTIVITYBEGIN  : "//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
+ACTIVITYEND    : "//! ACTIVITY END. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
+```
+These two tokens delimit the beginning and end end of an activity. They are
+inserted automatically by the exporter, and excluded from the body by the
+importer. Because these will exist in `.masl` files, they were designed to also
+be parseable as comments by the Xtext MASL parser.
+
+By using these special token delimiters, we can parse the body even if it
+contains syntax errors (including the lack of an "end service;" or "end
+state;").
 
 5.2 Import of MASL actions
 
@@ -60,11 +118,10 @@ xtUML elements based on signature, and inserts the actions into the
 `Action_Semantics` field of the xtUML element.
 
 The grammar for the action parser does not include "end" as part of the code
-block itself, but the importer supplies it. To fulfill the requirements for this
-work, the importer shall be modified to supply the "end" keyword as well as the
-appropriate keyword for the activity ("state;" or "service;"). In this way, the
-full "end state;" or "end service;" phrase will be included in the
-`Action_Semantics` and displayed by the editor.
+block itself, but the importer supplies it. Since the import grammar no longer
+relies on "end state;" or "end service;" to parse a body (described above),
+those keywords will be part of the body itself and will just be inserted into
+the `Action_Semantics` string just like the rest of the body.
 
 5.3 Export of MASL actions
 
@@ -102,36 +159,43 @@ end service;
 ```
 where appropriate.
 
+This change will be made in BridgePoint itself and the MASL to xtUML conversion
+tool (`m2x`).
+
 ### 6. Implementation Comments
 
-6.1 Dialog of death and future improvements
+6.1 Model upgrade
 
-This issue was originally raised because modifying the body to say "end
-service;" or "end state;" and then reloading resulted in the dialog of death.
-This was because doing so resulted in something like:
-```
-end state;
-end state;
-```
-in the `.masl` file. This confused the import parser and the number of states
-parsed did not match the number of xtUML states. This type of danger will still
-be present in this work. For example, if the user deletes the "end state;" line,
-the dialog of death can occur.
+Because this work changes the way `.masl` files are loaded and parsed from disk,
+a mechanism will be needed which can upgrade existing models to the new
+persistence format. A script using standard regular expressions tools will be
+delivered with this issue. Note that this script will only be necessary for
+existing MASL models created before this issue is promoted.
 
 ### 7. Unit Test
 
+7.1 No new unit test failures shall be observed  
+7.2 No new MASL round trip failures shall be observed  
+7.3 The use case presented in [[2.1]](#2.1) shall be tested without failure  
+
 ### 8. User Documentation
+
+None
 
 ### 9. Code Changes
 
-Fork/Repository: < enter your fork and repo name name >
-Branch: < enter your branch name here >
+Fork/Repository: leviathan747/bridgepoint
+Branch: 9696_masl_files
 
 <pre>
 
- Put the file list here 
+</pre>
+
+Fork/Repository: leviathan747/mc
+Branch: 9696_masl_files
+
+<pre>
 
 </pre>
 
 ### End
-
