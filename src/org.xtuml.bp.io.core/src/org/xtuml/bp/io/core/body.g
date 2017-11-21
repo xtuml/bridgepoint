@@ -60,7 +60,7 @@ options {
     private CoreImport m_ci = null;
 }
 
-ACTIVITYEND : "//! ACTIVITY END DO NOT EDIT THIS LINE" ('\r')? '\n' { newline(); };
+ACTIVITYEND : "//! ACTIVITY END. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
 
 LINE1       : '\n'{newline();};
 LINE2       : ~('/'|'\n') (~('\n'))* ('\n'{newline();})?;
