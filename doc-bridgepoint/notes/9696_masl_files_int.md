@@ -192,12 +192,38 @@ Branch: 9696_masl_files
 
 <pre>
 
+ doc-bridgepoint/notes/9696_masl_files_int.md                                                                                                     | 204 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Signal Provisions and Requirements/Provided Operation/Provided Operation.xtuml |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Signal Provisions and Requirements/Provided Signal/Provided Signal.xtuml       |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Signal Provisions and Requirements/Required Operation/Required Operation.xtuml |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Signal Provisions and Requirements/Required Signal/Required Signal.xtuml       |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Bridge/Bridge.xtuml                                                               |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Function/Function.xtuml                                                           |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/x2m_functions/x2m_functions.xtuml                                              |  10 ++------
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/State Machine State/State Machine State.xtuml                              |   2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Operation/Operation.xtuml                                                      |   2 +-
+ src/org.xtuml.bp.io.core/arc/export_functions.inc                                                                                                |   2 ++
+ src/org.xtuml.bp.io.core/arc/gen_import_java.inc                                                                                                 |   5 ----
+ src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/actions.g                                                                                      |  18 +++++++------
+ src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/body.g                                                                                         |  47 ++++++++++++----------------------
+ 14 files changed, 242 insertions(+), 60 deletions(-)
+
 </pre>
 
 Fork/Repository: leviathan747/mc
 Branch: 9696_masl_files
 
 <pre>
+
+ masl/parser/src/MaslWalker.g                          | 10 +++++-----
+ model/masl/gen/masl/t.service_def_end.masl            |  1 -
+ model/masl/gen/masl/t.state_def_end.masl              |  1 -
+ model/masl/models/masl/masl/operation/operation.xtuml |  3 ---
+ model/masl/models/masl/masl/routine/routine.xtuml     |  3 ---
+ model/masl/models/masl/masl/state/state.xtuml         |  3 ---
+ model/masl/src/masl/t.service_def_end.masl            |  3 ---
+ model/masl/src/masl/t.state_def_end.masl              |  3 ---
+ 8 files changed, 5 insertions(+), 22 deletions(-)
 
 </pre>
 
