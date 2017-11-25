@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.6.1
+Release 6.8.1
 
 License
 -------
@@ -39,7 +39,7 @@ In this release the default is set to OAL.
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.6 is compatible with workspaces and projects created with prior 
+BridgePoint 6.8 is compatible with workspaces and projects created with prior 
 versions back to BridgePoint 5.0.  However, after opening the model in this version
 a modeler will not be able to open the model in a prior version.   
 
@@ -53,7 +53,7 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[9829](https://support.onefact.net/issues/9829) |  Update version to 6.6.1
+[9938](https://support.onefact.net/issues/9938) |Update version to 6.8.1  
 
 Known Issues and Feature Requests
 ------
@@ -63,6 +63,7 @@ following list contains specific items of note:
 
 | Issue |  Subject and Notes |
 |-------|-----------------------------------------------------------------|
-[9575](https://support.onefact.net/issues/9575) | Interface message parameter attributes not editable from properties view  
 [9773](https://support.onefact.net/issues/9773) | Parse errors in DeterministicBehaviorTestModel.  An older test model now shows parse errors indicating unsynchronized references after load. There have been no similar field reports loading existing models. Users should watch out for similar behavior and file a report if one is found.   
+[9913](https://support.onefact.net/issues/9913) | Extra attribute after paste of subtype (workaround exists)   
+[9924](https://support.onefact.net/issues/9924) | Port Reference Names Missing due to incomplete upgrade of CL_POR instances (workaround exists)   
   
