@@ -1108,6 +1108,8 @@ throws IOException
     	// get the body
     	String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
     	if ( !body.isEmpty() ) {
+        // wrap with body delimiters
+        body = "//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE.\n" + body.trim() + "\n//! ACTIVITY END. DO NOT EDIT THIS LINE.\n\n";
     		m_afh.get(dialect).print( body );
         	m_updateActions = true;
     	}

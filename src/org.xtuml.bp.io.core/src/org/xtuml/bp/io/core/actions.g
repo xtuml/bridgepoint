@@ -70,10 +70,11 @@ activityDefinitions:
             ;
 
 activityDefinition:     
-            serviceDefinition 
+            ACTIVITYBEGIN
+            ( serviceDefinition 
             | stateDefinition
             | attributeDefinition
-            | transitionDefinition
+            | transitionDefinition )
             ;
 
 serviceDefinition:
@@ -96,7 +97,7 @@ serviceDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.serviceCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -124,7 +125,7 @@ stateDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.stateCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -152,7 +153,7 @@ attributeDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.attributeCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -178,7 +179,7 @@ transitionDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.transitionCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -332,7 +333,7 @@ dictValueType returns [String s = ""]:
 
 class SignatureLexer extends Lexer;
 options {
-    k=2;
+    k=3;
 }
 {
     public SignatureLexer( Reader in, CoreImport ci ) {
@@ -359,10 +360,11 @@ COLON               : ":";
 TERMINATOR_SCOPE    : "~>";
 DOT                 : ".";
 COMMA               : ",";
+ACTIVITYBEGIN       : "//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
 
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
 WS                  : (' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+ { $setType(Token.SKIP); };
-COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { newline(); $setType(Token.SKIP); };
+COMMENT             : "//" ((~('!') (~('\n'|'\r'))* ('\r')? '\n') | '\n') { newline(); $setType(Token.SKIP); };
 
 

@@ -810,11 +810,6 @@ public class ${class_name} extends CoreImport
 
             // fix the body
             body = body.trim();
-            if ( dialect == Actiondialect_c.masl ) {
-                // if the dialect is MASL, the 'end' keyword belongs
-                // as part of the code body itself and must be added
-                body += "\nend";
-            }
 
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {

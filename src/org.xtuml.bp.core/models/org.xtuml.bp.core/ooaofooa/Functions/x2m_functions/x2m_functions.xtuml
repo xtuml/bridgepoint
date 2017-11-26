@@ -1143,7 +1143,6 @@ if ( null != inst ) {
 			else {
 				sig_end = " ) " + ret_type + "is\n";
 			}
-			end = "\nend " + activity_type + ";\n\n";
 
 			// fix parameter list
 			int buf_len = (preface + activity_type + sig_begin).length();
@@ -1154,15 +1153,10 @@ if ( null != inst ) {
 			parameter_list = parameter_list.replaceAll("\n", buf);
 
 			// fix codeblock
-			codeblock = codeblock.trim();
-			if ( codeblock.endsWith( "end" ) ) {
-				// if the codeblock ends with end, the final ''end'' is removed because
-				// the exporter will add it
-				codeblock = codeblock.substring(0, codeblock.length()-3).trim();
-			}
+			codeblock = codeblock.trim() + "\n\n";
 
 			signature = preface + activity_type + sig_begin + parameter_list + sig_end;
-			body = codeblock + end;
+			body = codeblock;
 		}
 	}
 }
