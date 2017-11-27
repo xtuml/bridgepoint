@@ -1,5 +1,7 @@
+//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE.
 public instance service MASLTemplate::Ksubsuper.deferredOp () is
 begin
   null;
 end service;
+//! ACTIVITY END. DO NOT EDIT THIS LINE.
 
