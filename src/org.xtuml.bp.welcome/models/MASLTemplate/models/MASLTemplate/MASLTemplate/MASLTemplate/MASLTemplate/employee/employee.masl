@@ -1,5 +1,7 @@
+//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE.
 public instance service MASLTemplate::employee.get_name () return string is
 begin
   return this.name;
 end service;
+//! ACTIVITY END. DO NOT EDIT THIS LINE.
 

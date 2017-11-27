@@ -1,5 +1,7 @@
+//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE.
 public service MASLTemplate::TermA~>terminator_svc_1 () is
 begin
   null;
 end service;
+//! ACTIVITY END. DO NOT EDIT THIS LINE.
 
