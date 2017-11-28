@@ -726,7 +726,7 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String smasl, int dialect, int startLine ) {
+    public void processAction( String smasl, int dialect, int startLine, UUID uuid ) {
 	.if (class_name == "ImportModelComponent")
         if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
