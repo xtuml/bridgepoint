@@ -4,7 +4,9 @@ header
     package org.xtuml.bp.io.core;
 
     import antlr.TokenStreamSelector;
+    import org.xtuml.bp.core.common.IdAssigner;
     import org.xtuml.bp.core.Url_c;
+    import java.util.UUID;
 }
 //---------------------------------------------------------------------
 // Parser class is defined here.
@@ -16,6 +18,7 @@ options {
 }
 {
     private String smasl = "";
+    private UUID uuid = null;
     private int m_dialect = -1;
     private TokenStreamSelector selector;
     private CoreImport m_ci;
@@ -52,8 +55,12 @@ options {
     }
 
     private void sendSmasl() {
-        m_ci.processAction( smasl, m_dialect, startLine );
+        m_ci.processAction( smasl, m_dialect, startLine, uuid );
         smasl = "";
+    }
+
+    private void setID( String uuidText ) {
+        uuid = IdAssigner.createUUIDFromString( uuidText.replaceAll( "'", "" ) );
     }
 
     public void reportError(RecognitionException arg0) {
@@ -70,7 +77,7 @@ activityDefinitions:
             ;
 
 activityDefinition:     
-            ACTIVITYBEGIN
+            ACTIVITYBEGIN1 id:UUID { setID( id.getText() ); } ACTIVITYBEGIN2
             ( serviceDefinition 
             | stateDefinition
             | attributeDefinition
@@ -360,11 +367,12 @@ COLON               : ":";
 TERMINATOR_SCOPE    : "~>";
 DOT                 : ".";
 COMMA               : ",";
-ACTIVITYBEGIN       : "//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
+ACTIVITYBEGIN1      : "//! ACTIVITY BEGIN.";
+ACTIVITYBEGIN2      : "DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
+
+UUID                : "'" ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) "'";
 
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
 WS                  : (' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+ { $setType(Token.SKIP); };
 COMMENT             : "//" ((~('!') (~('\n'|'\r'))* ('\r')? '\n') | '\n') { newline(); $setType(Token.SKIP); };
-
-
