@@ -18,8 +18,8 @@ options {
 }
 {
     private String smasl = "";
-    private UUID uuid = null;
-    private UUID uuid2 = null;
+    private UUID uuid = IdAssigner.NULL_UUID;
+    private UUID uuid2 = IdAssigner.NULL_UUID;
     private int m_dialect = -1;
     private TokenStreamSelector selector;
     private CoreImport m_ci;
