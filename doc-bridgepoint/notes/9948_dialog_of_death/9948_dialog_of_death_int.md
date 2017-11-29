@@ -89,6 +89,10 @@ This change will require model upgrade for existing MASL models. The simplest
 way to upgrade a model is to export the model to a single file before upgrading
 to the new build. After upgrading, import the model into a new project.
 
+6.2 Template project upgrade
+
+The MASL template domain project data was upgraded as part of this work.
+
 ### 7. Unit Test
 
 7.1 Ad hoc testing will be used to validate this promotion.
@@ -104,7 +108,19 @@ Branch: 9948_dialog_of_death
 
 <pre>
 
- Put the file list here 
+  doc-bridgepoint/notes/9948_dialog_of_death/9948_dialog_of_death_int.md                                                           | 111 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/9948_dialog_of_death/dod.png                                                                               | Bin 0 -> 97300 bytes
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/import_functions/import_functions.xtuml                        | 197 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------------------------
+ src/org.xtuml.bp.io.core/arc/export_functions.inc                                                                                |  12 +++++++++-
+ src/org.xtuml.bp.io.core/arc/gen_import_java.inc                                                                                 |  14 ++++++------
+ src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/CoreImport.java                                                                |   2 +-
+ src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/actions.g                                                                      |  23 ++++++++++++++-----
+ src/org.xtuml.bp.welcome/models/MASLTemplate/models/MASLTemplate/MASLTemplate/MASLTemplate/MASLTemplate.masl                     |   2 +-
+ src/org.xtuml.bp.welcome/models/MASLTemplate/models/MASLTemplate/MASLTemplate/MASLTemplate/MASLTemplate/Jsub/Jsub.masl           |   2 +-
+ src/org.xtuml.bp.welcome/models/MASLTemplate/models/MASLTemplate/MASLTemplate/MASLTemplate/MASLTemplate/Ksubsuper/Ksubsuper.masl |   2 +-
+ src/org.xtuml.bp.welcome/models/MASLTemplate/models/MASLTemplate/MASLTemplate/MASLTemplate/MASLTemplate/employee/employee.masl   |   2 +-
+ src/org.xtuml.bp.welcome/models/MASLTemplate/models/MASLTemplate/MASLTemplate/MASLTemplate/functions/functions.masl              |   2 +-
+ 12 files changed, 287 insertions(+), 82 deletions(-)
 
 </pre>
 
