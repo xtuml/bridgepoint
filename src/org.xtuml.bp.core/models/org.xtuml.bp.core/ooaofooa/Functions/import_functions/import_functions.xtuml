@@ -57,11 +57,13 @@ if ( not_empty sm_asm )
     select many sm_acts related by sm_asm->SM_SM[R517]->SM_ACT[R515];
     for each sm_act in sm_acts
       select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
-      if ( ( param.id == sm_act.Act_ID and param.id2 == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
-        sm_act.Action_Semantics_internal = body;
-        sm_act.Dialect = dialect;
-        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
-        return;
+      if ( not_empty sm_state )
+        if ( ( param.id2 == sm_act.Act_ID and param.id == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
+          sm_act.Action_Semantics_internal = body;
+          sm_act.Dialect = dialect;
+          IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+          return;
+        end if;
       end if;
     end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"State parsed with signature: ''" + signature + "'' not found in class state machine", line_num:param.start_line, dialect:dialect );
@@ -547,11 +549,13 @@ if ( not_empty sm_ism )
     select many sm_acts related by sm_ism->SM_SM[R517]->SM_ACT[R515];
     for each sm_act in sm_acts
       select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
-      if ( ( param.id == sm_act.Act_ID and param.id2 == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
-        sm_act.Action_Semantics_internal = body;
-        sm_act.Dialect = dialect;
-        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
-        return;
+      if ( not_empty sm_state )
+        if ( ( param.id2 == sm_act.Act_ID and param.id == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
+          sm_act.Action_Semantics_internal = body;
+          sm_act.Dialect = dialect;
+          IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+          return;
+        end if;
       end if;
     end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"State parsed with signature: ''" + signature + "'' not found in instance state machine", line_num:param.start_line, dialect:dialect );
