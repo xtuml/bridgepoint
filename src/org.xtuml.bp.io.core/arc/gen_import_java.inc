@@ -722,7 +722,7 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String smasl, int dialect, int startLine, UUID uuid ) {
+    public void processAction( String smasl, int dialect, int startLine, UUID uuid, UUID uuid2 ) {
 	.if (class_name == "ImportModelComponent")
         if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
@@ -830,11 +830,11 @@ public class ${class_name} extends CoreImport
             }
             else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
                 InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_ismsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, signature, inst.getSm_id(), startLine );
+                Ooaofooa.Sm_ismsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, uuid2, signature, inst.getSm_id(), startLine );
             }
             else if ( pmc_root_element instanceof ClassStateMachine_c ) {
                 ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_asmsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, signature, inst.getSm_id(), startLine );
+                Ooaofooa.Sm_asmsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, uuid2, signature, inst.getSm_id(), startLine );
             }
             else {
                 // Root element type not supported

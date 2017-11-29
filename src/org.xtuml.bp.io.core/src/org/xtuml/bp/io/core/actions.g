@@ -19,6 +19,7 @@ options {
 {
     private String smasl = "";
     private UUID uuid = null;
+    private UUID uuid2 = null;
     private int m_dialect = -1;
     private TokenStreamSelector selector;
     private CoreImport m_ci;
@@ -55,12 +56,16 @@ options {
     }
 
     private void sendSmasl() {
-        m_ci.processAction( smasl, m_dialect, startLine, uuid );
+        m_ci.processAction( smasl, m_dialect, startLine, uuid, uuid2 );
         smasl = "";
     }
 
     private void setID( String uuidText ) {
         uuid = IdAssigner.createUUIDFromString( uuidText.replaceAll( "'", "" ) );
+    }
+
+    private void setID2( String uuidText ) {
+        uuid2 = IdAssigner.createUUIDFromString( uuidText.replaceAll( "'", "" ) );
     }
 
     public void reportError(RecognitionException arg0) {
@@ -77,7 +82,7 @@ activityDefinitions:
             ;
 
 activityDefinition:     
-            ACTIVITYBEGIN1 id:UUID { setID( id.getText() ); } ACTIVITYBEGIN2
+            ACTIVITYBEGIN1 id:UUID { setID( id.getText() ); } ( id2:UUID { setID2( id2.getText() ); } )? ACTIVITYBEGIN2
             ( serviceDefinition 
             | stateDefinition
             | attributeDefinition

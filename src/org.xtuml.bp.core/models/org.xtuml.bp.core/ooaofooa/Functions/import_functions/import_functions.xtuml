@@ -54,10 +54,10 @@ if ( not_empty sm_asm )
 	end if;
   end if;
   if ( "state" == activity_type )
-    select many sm_states related by sm_asm->SM_SM[R517]->SM_STATE[R501];//->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-    for each sm_state in sm_states
-      if ( param.id == sm_state.SMstt_ID or sm_state.getSignature(flavor:1) == signature )
-        select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+    select many sm_acts related by sm_asm->SM_SM[R517]->SM_ACT[R515];
+    for each sm_act in sm_acts
+      select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+      if ( ( param.id == sm_act.Act_ID and param.id2 == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
         sm_act.Action_Semantics_internal = body;
         sm_act.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
@@ -158,6 +158,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"8ef90653-e0ce-4d1b-b56e-28ee49057fd2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0b5aa5fd-4613-4a22-a1da-951349f88a9a",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'id2',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"115cbb4e-f672-477f-bfe2-ed0d24551b82",
 	'');
 INSERT INTO PE_PE
 	VALUES ("d75791e8-f025-4657-a7da-a8db6274d2d7",
@@ -535,10 +544,10 @@ if ( not_empty sm_ism )
 	end if;
   end if;
   if ( "state" == activity_type )
-    select many sm_states related by sm_ism->SM_SM[R517]->SM_STATE[R501];//->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-    for each sm_state in sm_states
-      if ( param.id == sm_state.SMstt_ID or sm_state.getSignature(flavor:1) == signature )
-        select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+    select many sm_acts related by sm_ism->SM_SM[R517]->SM_ACT[R515];
+    for each sm_act in sm_acts
+      select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+      if ( ( param.id == sm_act.Act_ID and param.id2 == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
         sm_act.Action_Semantics_internal = body;
         sm_act.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
@@ -625,6 +634,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"623597a3-cf59-47b5-a9e5-9b4a344e6146",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9ecee735-a47d-45e5-85f1-9cb528c50db4",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'id2',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"edb234cd-726b-46b7-bb9a-87799e48717c",
 	'');
 INSERT INTO PE_PE
 	VALUES ("3bb908bd-182f-4fed-bb72-5c1822b2dd76",
