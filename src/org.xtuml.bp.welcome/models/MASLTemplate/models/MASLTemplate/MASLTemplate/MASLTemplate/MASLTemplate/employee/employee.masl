@@ -1,4 +1,4 @@
-//! ACTIVITY BEGIN. DO NOT EDIT THIS LINE.
+//! ACTIVITY BEGIN. '00038f94-6608-431c-9cdf-b7692de0e832' DO NOT EDIT THIS LINE.
 public instance service MASLTemplate::employee.get_name () return string is
 begin
   return this.name;
