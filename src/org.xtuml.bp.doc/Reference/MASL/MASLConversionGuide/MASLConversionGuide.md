@@ -133,10 +133,11 @@ transition tables.
  
 ### MASL projects
 
-There are some situations when the editor must distinguish between a MASL domain
-and MASL project. Because domains are where the majority of the work will take
-place, no special annotation is needed. For MASL projects however, the package
-that contains a project component must contain the string "masl_project".
+There are some situations when the editor must distinguish between a MASL
+domain and MASL project. Because domains are where the majority of the work
+will take place, no special annotation is needed. For MASL projects however,
+the description field of the package that contains a project component must
+contain the string "masl_project".
 
 ## xtUML Model Packaging for System-wide MASL Visibility
 
