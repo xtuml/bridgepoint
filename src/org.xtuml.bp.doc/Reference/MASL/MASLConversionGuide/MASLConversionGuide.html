@@ -176,6 +176,12 @@ does not enforce or validate correct naming, so type carefully!</p>
 <p>When &quot;Export MASL domain&quot; runs, BridgePoint sees the events created with this naming convention<br />
 and generates a valid textual MASL model with concrete polymorphic events specified in the state<br />
 transition tables.</p>
+<h3 id="masl-projects">MASL projects</h3>
+<p>There are some situations when the editor must distinguish between a MASL<br />
+domain and MASL project. Because domains are where the majority of the work<br />
+will take place, no special annotation is needed. For MASL projects however,<br />
+the description field of the package that contains a project component must<br />
+contain the string &quot;masl_project&quot;.</p>
 <h2 id="xtuml-model-packaging-for-system-wide-masl-visibility">xtUML Model Packaging for System-wide MASL Visibility</h2>
 <p>Under xtUML, model elements defined within one component have no knowledge or visibility of model<br />
 elements (including types) defined within another component. This is different from MASL where public<br />

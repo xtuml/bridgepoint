@@ -131,6 +131,14 @@ When "Export MASL domain" runs, BridgePoint sees the events created with this na
 and generates a valid textual MASL model with concrete polymorphic events specified in the state
 transition tables.  
  
+### MASL projects
+
+There are some situations when the editor must distinguish between a MASL
+domain and MASL project. Because domains are where the majority of the work
+will take place, no special annotation is needed. For MASL projects however,
+the description field of the package that contains a project component must
+contain the string "masl_project".
+
 ## xtUML Model Packaging for System-wide MASL Visibility
 
 Under xtUML, model elements defined within one component have no knowledge or visibility of model 
