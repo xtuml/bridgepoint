@@ -14,7 +14,7 @@ xtuml2masl [-v | -V] [-e] [-xf] [-xl] [-xt] -i <eclipse project> -d <domain comp
    
 ### Package Export
 ```
-xtuml2masl [-v | -V] [-e] [-xf] [-xl] [-xt] -i <eclipse project> -d <project package> [ -o <output directory> ]
+xtuml2masl [-v | -V] [-e] [-xf] [-xl] [-xt] -i <eclipse project> -p <project package> [ -o <output directory> ]
 ```
    
 | Parameter             | Description                          |
