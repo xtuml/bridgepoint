@@ -265,9 +265,15 @@ None.
 * :+1: `Combine With...` shows up on the CME.
 * Activate `Combine With...`
 * :+1: The dialog opens and shows `name` in the dropdown list
+* Select Finish
+* :+1: The result is a single attribute `name {I, R2}` 
+* Activate Undo
+* :+1: There are again two `name` attributes
 * Right-click on the second `name` attribute
 * :+1: `Combine With...` shows up on the CME.
 * Activate `Combine With...`
 * :+1: The dialog opens and shows `name` in the dropdown list
+* Select Finish 
+* :+1: The result is a single attribute `name {I, R2}` 
 
 ### End
