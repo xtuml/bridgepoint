@@ -78,6 +78,9 @@ combining a referential with a base attribute he said:
 > So, it would seem that this idea was well embedded in the method at that
 > point. We carried that through into the tools and also in to our own book.
 
+Note that in this older version of the method, identifiers are shown on the class 
+diagram with "*" versus regular base attributes denoted with "&bull;".  
+
 ![Figure 3](fig263.png)  
 __Figure 3__  
 
