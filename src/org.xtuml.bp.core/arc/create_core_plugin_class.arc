@@ -125,6 +125,7 @@ import org.xtuml.bp.core.ui.marker.ProblemModelChangeListener;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferenceNode;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
+import org.xtuml.bp.core.ui.preferences.BridgePointStateMachinesPreferenceNode;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.ResourceActivityVisitor;
 /**
@@ -1141,6 +1142,8 @@ public class CorePlugin extends AbstractUIPlugin {
 			PreferenceNode pn = new BridgePointProjectReferencesPreferenceNode(projectNode);
 			pm.addToRoot(pn);
 			pn = new BridgePointProjectActionLanguagePreferenceNode(projectNode);
+			pm.addToRoot(pn);
+      pn = new BridgePointStateMachinesPreferenceNode(projectNode);
 			pm.addToRoot(pn);
 			return pm;
         }
