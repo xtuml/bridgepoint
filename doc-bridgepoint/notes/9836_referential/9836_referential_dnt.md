@@ -125,7 +125,7 @@ of "baseless" referentials.  For these, we must get the type from the base attri
 
 6.2.1  Invoker is a referential attribute. After falling through all current checks
 we add a check for a base attribute that shares the same type and is an identifier.
-```
+```java
       // combining is allowed to combine this referential with a base attribute 
       // that is an identifier and is of the same type
       select many battr_candidate_set related by self->O_OBJ[R102]->O_ATTR[R102]->O_BATTR[R106];
@@ -145,7 +145,7 @@ we add a check for a base attribute that shares the same type and is an identifi
 6.2.2  Invoker is a base attribute. After falling through all current checks
 we add a check if self is an identifier and then for a referential attribute that shares the 
 same type.
-```
+```java
       // combining is allowed to combine this base with a referential provided this
       // base is part of an identifier and the referential is of the same type
       select many o_oidas related by battr->O_ATTR[R106]->O_OIDA[R105];
@@ -169,7 +169,7 @@ same type.
 it only has to check if the given (parameter) other attribute is valid to combine with 
 the invoker. Once again it handles both cases where invoker is a base or a referential.
 
-```
+```java
 select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
 
 can_combine = false;
