@@ -30,7 +30,7 @@ found and fixed some bugs in the conversion process [2.5][2.6].
 
 We have also uncovered several places where the iUML implementation of referential 
 attributes differs from the xtUML implementation.  Issue 9327 [2.4] added support
-to BridgePoint for "baseless" or "collapsed" referentials.  This is a referential
+to BridgePoint for "baseless" or "recursive" referentials.  This is a referential
 attribute from a relationship that is combined with the base attribute 
 used to formalize the relationship.  BridgePoint support for baseless referentials
 necessitated a change to the xtUML metamodel: R113 was changed from unconditional
@@ -40,7 +40,7 @@ Issue 9445 [2.3] loosened the rules built into the BridgePoint tool that govern
 what attributes a referential may be combined with.  The new rules allow a 
 referential to be combined with any other referential as long as they share the 
 same underlying type.  The referentials no longer are required to refer back to 
-the same base type (at some point back in their referential chain). This change
+the same base attribute (at some point back in their referential chain). This change
 did not require any updates to the xtUML metamodel, we simply had to update user
 interface code.
 
@@ -253,11 +253,21 @@ None.
 
 ### 9. Unit Test
 
-9.1 masl_round_trip regression   
-9.1.1 Run regression_test.   
-9.1.2 See empty diff files.   
+9.1  masl_round_trip regression   
+9.1.1  Run regression_test.   
+9.1.2  See empty diff files.   
 
-9.2 BridgePoint test   
-9.2.1 TODO - See [2.1] comment #3   
+9.2  BridgePoint test   
+9.2.1  Validate user scenario   
+* Create a xtUML project and import the test model attached to [2.1]  
+* Open model explorer and navigate to where you can see the attributes under `Dog Owner`
+* Right-click on the first `name` attribute
+* :+1: `Combine With...` shows up on the CME.
+* Activate `Combine With...`
+* :+1: The dialog opens and shows `name` in the dropdown list
+* Right-click on the second `name` attribute
+* :+1: `Combine With...` shows up on the CME.
+* Activate `Combine With...`
+* :+1: The dialog opens and shows `name` in the dropdown list
 
 ### End
