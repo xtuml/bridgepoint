@@ -217,6 +217,19 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e1cbf72c-aaee-4f58-b0a8-6c813f1a38c1",
+	"8f39b160-16d1-419f-9067-069b2d461008",
+	'polyInDifferentStateMachine',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one pevt related by self->SM_PEVT[R527];
+return pevt.SM_ID != self.SM_ID;',
+	1,
+	'',
+	"505a3a64-fc3d-46c0-81c5-317cd5b226e5",
+	0);
 INSERT INTO O_REF
 	VALUES ("8f39b160-16d1-419f-9067-069b2d461008",
 	"173a203b-677e-4e60-8aeb-678f4fd25f4b",
