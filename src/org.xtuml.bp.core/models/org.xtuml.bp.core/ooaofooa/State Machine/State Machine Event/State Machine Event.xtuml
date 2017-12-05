@@ -310,7 +310,13 @@ if (not empty polymorphic)
 	if (self.isAssignedInSubtypeStateMachine(
 		supertypeId:assignToMachineClass.Obj_ID))
 		// this event may not be assigned to the given state machine
-		return false;
+        select one s_sys related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+        if ( empty s_sys )
+          select one s_sys related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+        end if;
+        if ( not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+		  return false;
+		end if;
 	end if;
 end if;
 
@@ -329,7 +335,13 @@ end if;
 if (isSupertype and self.isAssignedInSupertypeStateMachine(
 	subtypeId:assignToMachineClass.Obj_ID))
 	// this event may not be assigned to the given state machine
-	return false;
+    select one s_sys related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+    if ( empty s_sys )
+      select one s_sys related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+    end if;
+    if ( not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+	  return false;
+	end if;
 end if;
 
 // this event may be assigned to the given state machine
@@ -614,7 +626,13 @@ returned.
 // if this event is directly associated with the given state machine
 if (self.SM_ID == param.stateMachineId)
 	// return this event
-	return self.SMevt_ID;
+	select one s_sys related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+	if ( empty s_sys )
+	  select one s_sys related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+	end if;
+	if ( not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+	  return self.SMevt_ID;
+	end if;
 end if;
 
 // if this event is polymorphic
