@@ -3175,6 +3175,21 @@ if(not_empty cl)
   cl.rename(new_name: ::getUniqueInitialNameInParent(instance:cl.convertToInstance(),
   						name:cl.Name, parent:self.convertToInstance()));
   cl.removeIncompleteNonLocalEvents();
+  // re-number the class
+  if ( self.Num_Rng == 0 )
+    cl.Numb = 1;
+  else
+    cl.Numb = self.Num_Rng;
+  end if;
+  select many other_classes related by self->PE_PE[R8000]->O_OBJ[R8001] where ( selected.Obj_ID != cl.Obj_ID );
+  for each other_class in other_classes
+    // if this other class number is greater than this model-class number
+    if ( other_class.Numb >= cl.Numb )
+      // have this model-class number be just greater
+      // than this other class number
+      cl.Numb = other_class.Numb + 1;
+    end if;
+  end for;
 end if;',
 	1,
 	'',

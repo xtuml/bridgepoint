@@ -383,6 +383,10 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+  .if ( not setComponent )
+import org.xtuml.bp.core.util.CoreReferentialAttributeUtil;
+import org.xtuml.bp.ui.canvas.util.CanvasReferentialAttributeUtil;
+  .end if
 .else
 import java.io.FileNotFoundException;
 .end if
