@@ -640,7 +640,7 @@ if (self.SM_ID == param.stateMachineId)
 end if;
 
 // if this event is polymorphic
-select any machine from instances of SM_STATE
+select any machine from instances of SM_SM
 	where selected.SM_ID == param.stateMachineId;
 select one polyEvent related by self->SM_PEVT[R525];
 if (not_empty polyEvent)
