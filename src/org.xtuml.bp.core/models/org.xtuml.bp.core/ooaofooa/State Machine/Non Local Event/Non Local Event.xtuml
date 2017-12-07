@@ -220,7 +220,7 @@ INSERT INTO S_DT_PROXY
 INSERT INTO O_TFR
 	VALUES ("e1cbf72c-aaee-4f58-b0a8-6c813f1a38c1",
 	"8f39b160-16d1-419f-9067-069b2d461008",
-	'polyInDifferentStateMachine',
+	'hasNonLocalPoly',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
