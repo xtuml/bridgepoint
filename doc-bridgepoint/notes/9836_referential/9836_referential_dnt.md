@@ -105,7 +105,8 @@ OAL-based and MASL-based models inside BridgePoint.
 4.3  Note that it is legal to combine referentials that are part of two different identifiers.  
 4.3.1  In this case the tool shall produce a union of the identifiers the attributes are 
   participating in.  
-4.3.2  The tool shall concatenate descriptions (with line break between) of combined attributes   
+  
+4.4  The tool shall concatenate descriptions (with line break between) of combined attributes   
 
 ### 5. Analysis
 
@@ -286,5 +287,12 @@ None.
 * Core Test 2 specifically tests the referential combine and split functionality and must pass
   * New tests for the rules implemented with this work are added
 * Other JUnits must pass to verify no regression of functionality  
+
+TODO - test that two referential attributes that are both part of the same identifier will produce
+a referential that only has one connection to the O_ID.  Functionality is in place, need a (preferably automated) test
+
+TODO - test that a modeler is not allowed to merge a referential with another referential whose 
+O_REFs both use the same relationship.  Functionality not in place yet.
+
 
 ### End

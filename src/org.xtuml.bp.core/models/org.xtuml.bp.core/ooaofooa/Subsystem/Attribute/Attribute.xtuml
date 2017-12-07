@@ -1137,7 +1137,7 @@ select one rattr related by self->O_RATTR[R106];
 select one other_rattr related by other_attr->O_RATTR[R106];
 
 if ( not_empty rattr and not_empty other_rattr )
-  // two rattrs pointing to the same base
+  // Combining two referential attributes
 
   select one other_rattr related by other_attr->O_RATTR[R106];
   select many other_ref_set related by other_rattr->O_REF[R108];
@@ -1159,21 +1159,35 @@ if ( not_empty rattr and not_empty other_rattr )
     relate other_ref to ref across R112.''succeeds'';
     ref = other_ref;    
   end for;
-  // Check for identifying
+ 
+  // Create union of identifiers
   select one attr related by rattr->O_ATTR[R106];
-  select any oida related by attr->O_OIDA[R105];
-  if (empty oida)
-    select any oida related by other_attr->O_OIDA[R105];
-    if ( not_empty oida )
-      // Ensure combined attribute is identifying
-      select one id related by oida->O_ID[R105];
-      relate attr to id across R105 using oida; 
+  select many attr_oid_set related by attr->O_OIDA[R105]->O_ID[R105];
+  select many other_oida_set related by other_attr->O_OIDA[R105];
+  for each other_oida in other_oida_set
+    // add the attr we''re keeping to the identifier, but only if
+    // attr isn''t already part of the same identifier
+    already_same_id = false;
+    select one id related by other_oida->O_ID[R105];
+    for each attr_oid in attr_oid_set
+      if ( attr_oid == id )
+        already_same_id = true;
+        break; 
+      end if;
+    end for;
+    if ( already_same_id == false )
+      unrelate other_attr from id across R105 using other_oida;
+      relate attr to id across R105 using other_oida; 
     end if;
-  end if;
+  end for;
+   
+  // Combine descriptions
+  attr.Descrip = attr.Descrip + "\n\n" + other_attr.Descrip;
+  
   other_attr.dispose();
 
 else
-  // on battr and one rattr where the rattr is based on the battr
+  // Combining one base attribute and one referential attribute
   select any battr from instances of O_BATTR where false;
   if ( not_empty rattr )
     select one battr related by other_attr->O_BATTR[R106];
