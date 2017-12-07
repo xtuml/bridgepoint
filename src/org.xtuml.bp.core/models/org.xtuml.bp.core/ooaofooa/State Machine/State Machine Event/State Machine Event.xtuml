@@ -58,14 +58,17 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one nlevt related by self->SM_SEVT[R525]->SM_NLEVT[R526];
-select one s_sys related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-if ( empty s_sys )
-  select one s_sys related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-end if;
-if(not_empty nlevt and not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+if(not_empty nlevt)
   select one poly related by nlevt->SM_PEVT[R527];
   if(not_empty poly)
-    return self.Mning + "::" + poly.localClassName;
+    // make sure meaning is up to date
+    select one evt related by poly->SM_EVT[R525];
+    self.Mning = evt.Mning;
+    if ( poly.SM_ID == self.SM_ID ) // if this is a local poly
+      return self.Drv_Lbl + ": " + self.Mning;
+    else
+      return self.Mning + "::" + poly.localClassName;
+    end if;
   else
     return self.Mning + "::" + ::getOrphanedElementName();
   end if;
@@ -630,11 +633,8 @@ returned.
 // if this event is directly associated with the given state machine
 if (self.SM_ID == param.stateMachineId)
 	// return this event
-	select one s_sys related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-	if ( empty s_sys )
-	  select one s_sys related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-	end if;
-	if ( not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+	select one poly related by self->SM_PEVT[R525];
+	if ( empty poly )
 	  return self.SMevt_ID;
 	end if;
 end if;
