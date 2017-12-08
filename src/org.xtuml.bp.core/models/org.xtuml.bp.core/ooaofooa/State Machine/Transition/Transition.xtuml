@@ -431,7 +431,15 @@ select any event from instances of SM_EVT where selected.SMevt_ID == eventId;
        unrelate cr_txn from levt across R509;
      end if;
      select one new_evt related by event->SM_SEVT[R525]->SM_LEVT[R526];         
-     relate cr_txn to new_evt across R509;
+     if ( empty new_evt )
+       // the event is a concrete poly and must be migrated to a local event
+       eventId = event.migrateConcretePolyToLocal( evt_id:event.SMevt_ID );
+       select any event from instances of SM_EVT where selected.SMevt_ID == eventId;
+       select one new_evt related by event->SM_SEVT[R525]->SM_LEVT[R526];         
+     end if;
+     if ( not_empty new_evt )
+       relate cr_txn to new_evt across R509;
+     end if;
    end if;
  end if;
 
@@ -488,6 +496,11 @@ else
     select one st related by self->SM_STATE[R506];
   else
     // transition doesn''t have an event assigned -- UI prevents this from happening
+  end if;
+  select one sm related by self->SM_SM[R505];
+  select one system related by sm->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+  if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+    sm.syncPolymorphicEvents();
   end if;
 end if;',
 	1,
