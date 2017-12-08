@@ -46,6 +46,15 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 9836_referential
 
 <pre>
+ doc-bridgepoint/notes/9836_referential/9836_referential_dnt.md                  | 221 ++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/9836_referential/9836_referential_int.md                  | 105 ++++++++++++++++++
+ doc-bridgepoint/notes/9836_referential/Step2.png                                | Bin 0 -> 83173 bytes
+ doc-bridgepoint/notes/9836_referential/Step5.png                                | Bin 0 -> 79778 bytes
+ doc-bridgepoint/notes/9836_referential/fig263.png                               | Bin 0 -> 298975 bytes
+ doc-bridgepoint/notes/9836_referential/fig421.png                               | Bin 0 -> 289322 bytes
+ doc-bridgepoint/review-minutes/9836_referential_dnt_rvm.md                      |  45 ++++++++
+ .../models/org.xtuml.bp.core/ooaofooa/Subsystem/Attribute/Attribute.xtuml       | 151 ++++++++++++++++++++++----
+ 8 files changed, 502 insertions(+), 27 deletions(-)
 
 </pre>
 
