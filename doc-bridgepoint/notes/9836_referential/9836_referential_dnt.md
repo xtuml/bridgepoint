@@ -96,7 +96,8 @@ xtUML implementations of the Schlaer-Mellor method.
 all cases the attributes being combined must exist in the same class:   
 4.1.1  A referential may be combined with any other referential that shares the same base attribute  
 4.1.2  A referential may be combined with the base attribute it refers to   
-4.1.3  A referential may be combined with any other referential that is of the same type   
+4.1.3  A referential may be combined with any other referential that is of the same type and is
+not part of the same association   
 4.1.4  A referential may be combined with a base attribute that of the same type and is an identifier    
 
 4.2  The new functionality shall not be MASL-specific.  It will apply to both
@@ -176,79 +177,6 @@ and then for a referential attribute that shares the same type.
 it only has to check if the given (parameter) other attribute is valid to combine with 
 the invoker. Once again it handles both cases where invoker is a base or a referential.
 
-```java
-select any o_attr from instances of O_ATTR where ( selected.Attr_ID == param.Attr_ID );
-
-can_combine = false;
-
-if ( self.Obj_ID == o_attr.Obj_ID )  // must be in the same class to combine
-    dtid_self = self.DT_ID;
-    dtid_other = o_attr.DT_ID;
-    select one rattr related by self->O_RATTR[R106];
-    if ( not_empty rattr )
-      // We have to be careful of baseless referentials. For those, the datatype
-      // is found on the referential attribute itself and not through the base.
-      // If there is an associated base attribute, we get the datatype through it.
-      // allow combination with other referentials with the same type
-      select one self_dt related by rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
-      if ( not_empty self_dt )
-        dtid_self = self_dt.DT_ID;
-      end if;
-          
-      select one other_rattr related by o_attr->O_RATTR[R106];
-      if ( not_empty other_rattr )
-        // two rattrs pointing to the same base
-        can_combine = rattr.BAttr_ID == other_rattr.BAttr_ID and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
-        if ( not can_combine )
-          select one other_rattr_dt related by other_rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
-          if ( not_empty other_rattr_dt )
-            dtid_other = other_rattr_dt.DT_ID;
-          end if;
-          type_match = dtid_self == dtid_other;
-          can_combine = type_match and not rattr.alreadyCombinedWith( id: other_rattr.Attr_ID );
-        end if; 
-      else
-        select one other_battr related by o_attr->O_BATTR[R106];
-        if ( not_empty other_battr )
-          // rattr pointing to base in same class
-          can_combine = rattr.BAttr_ID == other_battr.Attr_ID;
-+          if ( not can_combine )
-+            // base is same type and is an identifier
-+            select many o_oidas related by other_battr->O_ATTR[R106]->O_OIDA[R105];
-+            if ( not_empty o_oidas )
-+              type_match = dtid_self == dtid_other;
-+              can_combine = type_match and not rattr.alreadyCombinedWith( id: other_battr.Attr_ID );
-+            end if;
-+          end if;
-        end if;
-      end if;
-    else
-      select one battr related by self->O_BATTR[R106];
-      if ( not_empty battr)
-        select one other_rattr related by o_attr->O_RATTR[R106];
-        if ( not_empty other_rattr )
-          // rattr pointing to base in same class
-          can_combine = battr.Attr_ID == other_rattr.BAttr_ID;
-+          if ( not can_combine )
-+            // base is same type and is an identifier
-+            select many o_oidas related by battr->O_ATTR[R106]->O_OIDA[R105];
-+            if ( not_empty o_oidas )
-+              // Again being careful of baseless referentials. See comment above.
-+              select one other_dt related by other_rattr->O_BATTR[R113]->O_ATTR[R106]->S_DT[R114];
-+              if ( not_empty other_dt )
-+                dtid_other = other_dt.DT_ID;
-+              end if;
-+              type_match = dtid_self == dtid_other;
-+              can_combine = type_match and not other_rattr.alreadyCombinedWith( id: battr.Attr_ID );
-+            end if;
-+          end if;
-        end if;
-      end if;
-    end if;
-end if;
-
-return can_combine;
-```
   
 ### 7. Design Comments
 
@@ -265,7 +193,8 @@ None.
 9.1.2  See empty diff files.   
 
 9.2  BridgePoint test   
-9.2.1  Validate user scenario   
+9.2.1  Validate user scenario.  This test can be run manually, but it is also
+automated in the additions to Core Test 2  
 * Create a xtUML project and import the test model named `test_9834_after_step2.xtuml` attached to [2.1]  
 * Open model explorer and navigate to where you can see the attributes under `Dog Owner`
 * Right-click on the first `name` attribute
@@ -287,12 +216,6 @@ None.
 * Core Test 2 specifically tests the referential combine and split functionality and must pass
   * New tests for the rules implemented with this work are added
 * Other JUnits must pass to verify no regression of functionality  
-
-TODO - test that two referential attributes that are both part of the same identifier will produce
-a referential that only has one connection to the O_ID.  Functionality is in place, need a (preferably automated) test
-
-TODO - test that a modeler is not allowed to merge a referential with another referential whose 
-O_REFs both use the same relationship.  Functionality not in place yet.
 
 
 ### End
