@@ -665,11 +665,22 @@ if (not_empty polyEvent)
 else
 	// dispose this event''s associated local and event-matrix event instances
 	select one matrixEvent related by self->SM_SEVT[R525];
+	// before disposing, get any transitions that this event is assigned to
+	select many assignedTxns related by matrixEvent->SM_SEME[R503]->SM_NSTXN[R504]->SM_TXN[R507];
 	matrixEvent.dispose();
 
 	// make the event polymorphic
 	create object instance polyEvent of SM_PEVT;
 	relate polyEvent to self across R525;
+	
+	// if concrete polys are enabled, re-assign any of the previously assigned transitions
+	select one system related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+	if ( not_empty system and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+	  evt_id = self.getAssociatedEventForStateMachine( stateMachineId:self.SM_ID );
+	  for each assignedTxn in assignedTxns
+	    assignedTxn.addEvent( eventId:evt_id, eventStateMachineId:self.SM_ID );
+	  end for;
+	end if;
  		
 	// create a non-local event to alias the above polymorphic event, and return it
 	return polyEvent.createNonLocalEventForStateMachine(stateMachineId:machine.SM_ID);
