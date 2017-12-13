@@ -101,7 +101,7 @@ if(not_empty poly and not Util::isProxy(element:self.convertToInstance()))
       select one superClass related by superSm->SM_ISM[R517]->O_OBJ[R518];
     end if;
     if(not_empty superClass)
-      if(not superClass.isSupertypeOf(classId:clazz.Obj_ID))
+      if(not (superClass.isSupertypeOf(classId:clazz.Obj_ID) or superClass.Obj_ID == clazz.Obj_ID))
         // the supertype was not resolved, the would indicate
         // that the supertype/subtype association was not fully
         // copied
