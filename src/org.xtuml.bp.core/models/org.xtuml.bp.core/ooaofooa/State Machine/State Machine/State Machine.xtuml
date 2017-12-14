@@ -694,6 +694,7 @@ INSERT INTO O_TFR
 	1,
 	'select any evt from instances of SM_EVT where (selected.SMevt_ID == param.id);
 if(not_empty evt)
+  select any system from instances of S_SYS where false;
   select one existingMachine related by evt->SM_SM[R502];
   if(not_empty existingMachine)
     unrelate existingMachine from evt across R502;
@@ -701,11 +702,13 @@ if(not_empty evt)
   relate self to evt across R502;
   select one ism related by self->SM_ISM[R517];
   if(not_empty ism)
+    select one system related by ism->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     evt.Mning = ::getUniqueInitialNameInParent( 
       instance: evt.convertToInstance(), 
       name: evt.Mning, parent:ism.convertToInstance());
   else
     select one asm related by self->SM_ASM[R517];
+    select one system related by asm->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     evt.Mning = ::getUniqueInitialNameInParent( 
       instance: evt.convertToInstance(), 
       name: evt.Mning, parent:asm.convertToInstance());    
@@ -723,6 +726,9 @@ if(not_empty evt)
     end if;
     relate item to self across R516;
   end for;
+  if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+    self.syncPolymorphicEvents();
+  end if;
 end if;',
 	1,
 	'',
