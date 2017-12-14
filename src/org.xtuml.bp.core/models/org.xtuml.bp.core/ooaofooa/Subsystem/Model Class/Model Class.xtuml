@@ -588,7 +588,7 @@ If not, create the ism or asm and return true.',
                      "Unable to locate expected data type: state<State_Model>",path:self.getPath(path:self.Name,includeSelf:true));
     end if;
     if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
-      sm.syncPolymorphicEvents();
+      self.syncPolymorphicEvents();
     end if;
   end if;
 elif (param.sm_type == "ASM")
@@ -2350,6 +2350,26 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("4f4cd6e6-97df-4017-b89b-26b670d97799",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'syncPolymorphicEvents',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one ism related by self->SM_ISM[R518]->SM_SM[R517];
+if ( not_empty ism )
+  ism.syncPolymorphicEvents();
+end if;
+// sync subtype state machines
+select many subtypes related by self->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+for each subtype in subtypes
+  subtype.syncPolymorphicEvents();
+end for;',
+	1,
+	'',
+	"d2579b96-b019-4b97-9f1d-218e705f9cf2",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
 	"b7630071-9e2a-4183-9986-779dca14c275");

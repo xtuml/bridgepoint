@@ -115,12 +115,10 @@ INSERT INTO O_TFR
 	'create object instance newEvent of SM_EVT;
 relate self to newEvent across R502;
 newEvent.initialize();
-select one s_sys related by self->SM_ASM[R517]->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-if ( empty s_sys )
-  select one s_sys related by self->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-end if;
-if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
-  self.syncPolymorphicEvents();
+select one o_obj related by self->SM_ISM[R517]->O_OBJ[R518];
+select one s_sys related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if ( not_empty o_obj and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+  o_obj.syncPolymorphicEvents();
 end if;',
 	1,
 	'',
@@ -726,8 +724,9 @@ if(not_empty evt)
     end if;
     relate item to self across R516;
   end for;
-  if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
-    self.syncPolymorphicEvents();
+  select one o_obj related by self->SM_ISM[R517]->O_OBJ[R518];
+  if ( not_empty o_obj and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+    o_obj.syncPolymorphicEvents();
   end if;
 end if;',
 	1,
@@ -859,13 +858,7 @@ while ( not_empty supertypes )
     end for;
   end for;
   select many supertypes related by supertypes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-end while;
-// sync subtype state machines
-select many subtypes related by modelClass->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-for each subtype in subtypes
-  select one machine related by subtype->SM_ISM[R518]->SM_SM[R517];
-  machine.syncPolymorphicEvents();
-end for;',
+end while;',
 	1,
 	'',
 	"267b3cf2-8214-46a8-b90b-c149923d9b52",
