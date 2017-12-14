@@ -347,9 +347,10 @@ end if;
 // and any of the given state machine''s supertype state
 // machines have this event assigned to a transition
 if (isSupertype and self.isAssignedInSupertypeStateMachine(
-	subtypeId:assignToMachineClass.Obj_ID))
-	// this event may not be assigned to the given state machine
-    if ( not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+	subtypeId:assignToMachineClass.Obj_ID, creationTransitionsOnly:false))
+	// this event may not be assigned to the given state machine unless concrete polys are enabled
+    if ( self.isAssignedInSupertypeStateMachine( subtypeId:assignToMachineClass.Obj_ID, creationTransitionsOnly:true) or 
+         not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
 	  return false;
 	end if;
 end if;
@@ -467,15 +468,20 @@ for each supertype in supertypes
 			// if this event is assigned to a transition in this supertype''s state machine 
 			select any transition related by event->SM_SEVT[R525]->SM_SEME[R503]
 				->SM_NSTXN[R504];
-			if (not_empty transition)
+			if (not_empty transition and not param.creationTransitionsOnly)
 				// we have a positive result
 				return true;
+		    else
+		      select one creationTransition related by event->SM_SEVT[R525]->SM_LEVT[R526]->SM_CRTXN[R509];
+		      if ( not_empty creationTransition )
+		        return true;
+		      end if;
 			end if;
 	
 			// if this event is ignored by any state in this supertype''s state machine 
 			select any ignored related by event->SM_SEVT[R525]->SM_SEME[R503]
 				->SM_EIGN[R504];
-			if (not_empty ignored)
+			if (not_empty ignored and not param.creationTransitionsOnly)
 				// we have a positive result
 				return true;
 			end if;
@@ -487,7 +493,7 @@ for each supertype in supertypes
 			->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]
 			where selected.SMevt_ID == self.SMevt_ID 
 				and selected.SM_ID == self.SM_ID;
-		if (not_empty aliasedEvent)
+		if (not_empty aliasedEvent and not param.creationTransitionsOnly)
 			// we have a positive result
 			return true;
 		end if;
@@ -495,7 +501,7 @@ for each supertype in supertypes
 	
 	// recurse to the next level of supertype state machines
 	if (self.isAssignedInSupertypeStateMachine(
-		subtypeId:supertype.Obj_ID))
+		subtypeId:supertype.Obj_ID, creationTransitionsOnly:param.creationTransitionsOnly))
 		return true;
 	end if;
 end for;		
@@ -514,6 +520,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("fab3e817-9d3a-43ac-99e4-447e6624a6a3",
+	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f",
+	'creationTransitionsOnly',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"a644c6c7-bc3d-4968-9197-7e9277f91cb5",
 	'');
 INSERT INTO O_TFR
 	VALUES ("cb77e0de-4c05-40e3-8bc4-b033255fcd57",
