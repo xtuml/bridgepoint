@@ -115,6 +115,18 @@ columns at the following actions:
 5.3.4 Add subtype to subtype/supertype hierarchy  
 5.3.5 Unassign event from creation transition (see section 5.5)  
 
+5.3.6 Can non-local events be deleted?
+
+Currently BridgePoint allows the deletion of non-local events. In the abstract
+idiom, this makes sense as non-local events only ever apear if it is used in a
+transition. Deleting such an event results in all of the transitions it
+participates in being unassigned.
+
+In the concrete case, this does not make sense since an event _must_ be handled
+in every subtype state machine (include "Cannot Happen" or "Ignore"). Because
+of this property, deletion of non-local events shall be disallowed when
+concrete polymorphic events are enabled.
+
 5.4 UI Masking in the supertype
 
 This strategy of using a non-local event referring to a local polymorphic event
@@ -144,15 +156,68 @@ other creation transitions in the state machine.
 
 ### 6. Design
 
-TODO:
-- paste event
-- unassign from creation event when the event is on another creation transition
-- cause sync when a creation event is assigned. does it get propagated?
+6.1 Preference
+
+A new preference page was added to the project preferences for state machines.
+This page contains a single new preference check box which states whether or not
+concrete polymorphic event editing is enabled.
+
+6.2 UI elements and changes
+
+6.2.1 Model changes
+
+The changes associated with UI elements were done almost completely in OAL in
+the OOA of OOA. Logic was implemented in key places to implement the behaviors
+analyzed in section 5. Checking of the preference was done as sparingly as
+possible. The state of the model was used whenever possible to determine
+"concreteness" (e.g. if a non-local event was pointing to a polymorphic event in
+the same state machine, it is assumed to be a concrete poly. There is no need to
+check the preference here).
+
+6.2.2 Non-model changes
+
+The model explorer archetypes and PEI were changed to prevent non-local events
+from being displayed in the tree if the polymorphic event is in the same state
+machine.
+
+The State Event Matrix editor was modified to not show a column for polymorphic
+events. This was actually a change from current behavior event with abstract
+polys, but it was decided that there is no use for showing these columns.
+
+6.3 Architecture modifications
+
+6.3.1 MC-Java
+
+MC-Java was extended to generate selection methods for this general case:
+```
+select one ... related by ... where ...
+```
+Before, generating such a statement in MC-Java would result in Java that would
+not compile. This enhancement was needed for this implementation.
+
+6.3.2 Persistence
+
+The stream exporter uses PEI data to export proxy elements for other elements.
+This is used in copy and paste. Conventionally, non-local events need a proxy to
+the state machine instances of the event they refer to. However, when the
+non-local event is in the same state machine as the polymorphic event, exporting
+these instances can result in an infinite recursion. The PEI and archetypes
+needed to be updated to handle this new case.
 
 ### 7. Design Comments
 
+None
+
 ### 8. User Documentation
 
+8.1 The documentation that described the concrete polymorphic event naming
+idiom shall be removed
+
+8.2 Documentation of the new project preference to enable concrete polymorphic
+events shall be introduced
+
 ### 9. Unit Test
+
+9.1
 
 ### End
