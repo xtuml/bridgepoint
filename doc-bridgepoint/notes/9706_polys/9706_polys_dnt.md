@@ -51,6 +51,8 @@ polymorphic events
 4.1.1 A mechanism shall be designed to clearly distinguish between models of the
 two types  
 4.1.2 No support shall be implemented for converting between the two idioms
+4.1.3 A mechanism shall be provided to specify the default behavior for an
+installation  
 4.2 The support for concrete polymorphic events shall be integrated with the
 MASL tools to produce valid MASL models  
 4.2.1 The MASL importer shall be modified to properly create concrete
@@ -218,6 +220,17 @@ events shall be introduced
 
 ### 9. Unit Test
 
-9.1
+9.1 MASL round trip shall pass
+
+9.2 Editing test
+9.2.1 Open a new workspace. Assure that the default action language dialect is
+"MASL".  
+9.2.2 Convert and import the model at `masl/test/poly` in the `models` repo
+using the MASL conversion utility.  
+9.2.3 Create a new project in the workspace. Open the project preferences and
+assure that "Allow concrete polymorphic events" is checked in the "State
+Machines" section.  
+9.2.4 Attempt to duplicate the `poly` model. Take note of any errors logged or
+strange behavior.  
 
 ### End
