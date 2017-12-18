@@ -224,15 +224,21 @@ events shall be introduced
 
 9.1 MASL round trip shall pass
 
-9.2 Editing test
-9.2.1 Open a new workspace. Assure that the default action language dialect is
+9.2 Editing test  
+9.2.1 Before opening BridgePoint:  
+9.2.1.1 Open the file `plugin_customization.ini` which can be found under the
+`plugins/plugins/org.xtuml.bp.pkg_<build_id>/` directory.  
+9.2.1.2 Find the line that says:  
+```
+org.xtuml.bp.core/bridgepoint_prefs_allow_concrete_polys=false
+```
+9.2.1.3 Change the value to `true`  
+9.2.2 Open a new workspace. Assure that the default action language dialect is
 "MASL".  
-9.2.2 Convert and import the model at `masl/test/poly` in the `models` repo
+9.2.3 Convert and import the model at `masl/test/poly` in the `models` repo
 using the MASL conversion utility.  
-9.2.3 Create a new project in the workspace. Open the project preferences and
-assure that "Allow concrete polymorphic events" is checked in the "State
-Machines" section.  
-9.2.4 Attempt to duplicate the `poly` model. Take note of any errors logged or
+9.2.4 Create a new project in the workspace.
+9.2.5 Attempt to duplicate the `poly` model. Take note of any errors logged or
 strange behavior.  
 
 ### End
