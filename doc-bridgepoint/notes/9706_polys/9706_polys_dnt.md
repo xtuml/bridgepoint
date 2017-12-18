@@ -160,9 +160,11 @@ other creation transitions in the state machine.
 
 6.1 Preference
 
-A new preference page was added to the project preferences for state machines.
-This page contains a single new preference check box which states whether or not
-concrete polymorphic event editing is enabled.
+A new workspace preference was added to specify whether or not concrete
+polymorphic event editing is enabled. No UI was introduced for this preference,
+so it is not directly editable through the tool. An installation default can be
+set through modifying the `plugin_customization.ini` file. The default delivered
+with the tool is that concrete polymorphic events are _disabled_.
 
 6.2 UI elements and changes
 
