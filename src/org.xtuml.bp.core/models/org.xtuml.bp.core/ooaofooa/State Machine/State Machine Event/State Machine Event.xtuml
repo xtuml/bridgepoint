@@ -323,7 +323,7 @@ if (not empty polymorphic)
 	if (self.isAssignedInSubtypeStateMachine(
 		supertypeId:assignToMachineClass.Obj_ID))
 		// this event may not be assigned to the given state machine
-        if ( not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+        if ( not PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
 		  return false;
 		end if;
 	end if;
@@ -350,7 +350,7 @@ if (isSupertype and self.isAssignedInSupertypeStateMachine(
 	subtypeId:assignToMachineClass.Obj_ID, creationTransitionsOnly:false))
 	// this event may not be assigned to the given state machine unless concrete polys are enabled
     if ( self.isAssignedInSupertypeStateMachine( subtypeId:assignToMachineClass.Obj_ID, creationTransitionsOnly:true) or 
-         not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+         not PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
 	  return false;
 	end if;
 end if;
@@ -682,7 +682,7 @@ else
 
 	// if concrete polys are enabled, migrate the sem event to a local poly
 	select one system related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-	if ( not_empty system and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+	if ( not_empty system and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
 	  matrixEvent.migrateToLocalPoly();
 	  select one polyEvent related by matrixEvent->SM_NLEVT[R526]->SM_PEVT[R527];
 	else
@@ -1184,7 +1184,7 @@ if(not_empty system)
 end if;
 select many events related by machine->SM_EVT[R502];
 for each evt in events
-  if(evt != self and evt.getSignature(flavor:0) == self.getSignature(flavor:0) and not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+  if(evt != self and evt.getSignature(flavor:0) == self.getSignature(flavor:0) and not PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
     MI_IM::createIssue(sys_id:sys_id, description:
                "Found another event under the same state machine with a " +
                                                           "matching signature."
@@ -1662,7 +1662,7 @@ INSERT INTO O_DBATTR
   if ( empty s_sys )
     select one s_sys related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
   end if;
-  if ( not_empty nlevt and not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+  if ( not_empty nlevt and not PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
     select one poly related by nlevt->SM_PEVT[R527];
     select one pevt related by poly->SM_EVT[R525];
     if ( not_empty pevt )

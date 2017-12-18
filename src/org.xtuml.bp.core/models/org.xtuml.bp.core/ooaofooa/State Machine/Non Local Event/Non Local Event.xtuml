@@ -239,7 +239,7 @@ INSERT INTO O_TFR
 	1,
 	'// do not allow deletion of non-local events when concrete polys are enabled
 select one system related by self->SM_SEVT[R526]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-if ( not_empty system and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+if ( not_empty system and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
   return false;
 else
   return true;

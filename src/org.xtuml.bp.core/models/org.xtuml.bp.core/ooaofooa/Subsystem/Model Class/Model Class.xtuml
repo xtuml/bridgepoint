@@ -587,7 +587,7 @@ If not, create the ism or asm and return true.',
       USER::logError(msg:
                      "Unable to locate expected data type: state<State_Model>",path:self.getPath(path:self.Name,includeSelf:true));
     end if;
-    if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+    if ( PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
       self.syncPolymorphicEvents();
     end if;
   end if;

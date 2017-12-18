@@ -257,7 +257,7 @@ INSERT INTO O_TFR
 		for each event in events
 			// if this event is assigned in a subtype state machine
 			if (event.isAssignedInSubtypeStateMachine(
-				supertypeId:instanceStateMachine.Obj_ID) and not PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+				supertypeId:instanceStateMachine.Obj_ID) and not PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
 				// there is one less self-type event which might possibly
 				// be assigned to this transition 			
 				numSelfTypeEvents = numSelfTypeEvents - 1;
@@ -499,7 +499,7 @@ else
   end if;
   select one o_obj related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
   select one system related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-  if ( not_empty o_obj and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+  if ( not_empty o_obj and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
     o_obj.syncPolymorphicEvents();
   end if;
 end if;',

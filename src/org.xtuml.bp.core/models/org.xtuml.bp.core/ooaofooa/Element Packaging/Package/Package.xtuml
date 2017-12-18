@@ -2519,7 +2519,7 @@ if (not_empty fromClass)
           end if;
           // if using concrete polys, sync the state machine
           select one system related by self->S_SYS[R1405];
-          if ( PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+          if ( PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
             fromClass.syncPolymorphicEvents();
           end if;
           return true;

@@ -117,7 +117,7 @@ relate self to newEvent across R502;
 newEvent.initialize();
 select one o_obj related by self->SM_ISM[R517]->O_OBJ[R518];
 select one s_sys related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-if ( not_empty o_obj and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:s_sys.Name ) )
+if ( not_empty o_obj and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
   o_obj.syncPolymorphicEvents();
 end if;',
 	1,
@@ -725,7 +725,7 @@ if(not_empty evt)
     relate item to self across R516;
   end for;
   select one o_obj related by self->SM_ISM[R517]->O_OBJ[R518];
-  if ( not_empty o_obj and PREF::getSystemBoolean( name:"bp.project.concrete_polys", systemName:system.Name ) )
+  if ( not_empty o_obj and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
     o_obj.syncPolymorphicEvents();
   end if;
 end if;',
