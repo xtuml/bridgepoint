@@ -147,4 +147,13 @@ Tips and Tricks
 
 FAQ/Troubleshooting
 ---------------
+- If you have built before and pulled in new repository updates, then you might need to clean the bridgepoint repository.  
+```
+# Clean bridgepoint repository
+cd ~/git/bridgepoint
+git clean -fdx -e build_configuration.sh
+# Clean unit test repository
+cd ~/git/bptest
+git clean -fdx
+```
 - Check the Unit Testing section of [BridgePoint FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#unittesting) 
