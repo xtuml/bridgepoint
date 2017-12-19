@@ -146,13 +146,10 @@ src/org.xtuml.bp.ui.properties.test/generate.xml
 </pre>
 
 Fork/Repository: keithbrown/pyrsl 
-Branch: kb_1.0_qim  
+Branch: 9911_qim  
 
 <pre>
-.gitignore
 rsl/gen_erate.py
-rsl/version.py
-setup.py
 tests/test_cli.py
 </pre>
 
