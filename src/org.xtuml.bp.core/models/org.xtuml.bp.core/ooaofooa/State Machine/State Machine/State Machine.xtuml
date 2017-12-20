@@ -115,8 +115,11 @@ INSERT INTO O_TFR
 	'create object instance newEvent of SM_EVT;
 relate self to newEvent across R502;
 newEvent.initialize();
-
-',
+select one o_obj related by self->SM_ISM[R517]->O_OBJ[R518];
+select one s_sys related by o_obj->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if ( not_empty o_obj and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
+  o_obj.syncPolymorphicEvents();
+end if;',
 	1,
 	'',
 	"a875249f-70b4-4683-bf47-ec6a091ab5d5",
@@ -689,6 +692,7 @@ INSERT INTO O_TFR
 	1,
 	'select any evt from instances of SM_EVT where (selected.SMevt_ID == param.id);
 if(not_empty evt)
+  select any system from instances of S_SYS where false;
   select one existingMachine related by evt->SM_SM[R502];
   if(not_empty existingMachine)
     unrelate existingMachine from evt across R502;
@@ -696,11 +700,13 @@ if(not_empty evt)
   relate self to evt across R502;
   select one ism related by self->SM_ISM[R517];
   if(not_empty ism)
+    select one system related by ism->O_OBJ[R518]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     evt.Mning = ::getUniqueInitialNameInParent( 
       instance: evt.convertToInstance(), 
       name: evt.Mning, parent:ism.convertToInstance());
   else
     select one asm related by self->SM_ASM[R517];
+    select one system related by asm->O_OBJ[R519]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     evt.Mning = ::getUniqueInitialNameInParent( 
       instance: evt.convertToInstance(), 
       name: evt.Mning, parent:asm.convertToInstance());    
@@ -718,6 +724,10 @@ if(not_empty evt)
     end if;
     relate item to self across R516;
   end for;
+  select one o_obj related by self->SM_ISM[R517]->O_OBJ[R518];
+  if ( not_empty o_obj and PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
+    o_obj.syncPolymorphicEvents();
+  end if;
 end if;',
 	1,
 	'',
@@ -816,6 +826,42 @@ return result;
 	1,
 	'',
 	"2470b25d-70b2-49ce-8b5c-2b78ae2741eb",
+	0);
+INSERT INTO O_TFR
+	VALUES ("76ab2cf9-d28c-41f9-9ed7-e4ebf42e3a3d",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	'syncPolymorphicEvents',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// When using concrete polymorphic events, all events are polymorphic and
+// should appear in each subtype state event matrix, even if they are not
+// assigned to any transition in the state machine
+select one modelClass related by self->SM_ISM[R517]->O_OBJ[R518];
+select many supertypes related by modelClass->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+while ( not_empty supertypes )
+  for each supertype in supertypes
+    select one machine related by supertype->SM_ISM[R518]->SM_SM[R517];
+    select many local_evts related by machine->SM_EVT[R502]->SM_SEVT[R525]->SM_LEVT[R526];
+    for each local_evt in local_evts
+      select one crtxn related by local_evt->SM_CRTXN[R509];
+      if ( empty crtxn ) // exclude creation events
+        select one evt related by local_evt->SM_SEVT[R526]->SM_EVT[R525];
+        evt_id = evt.getAssociatedEventForStateMachine( stateMachineId:self.SM_ID ); // this call will cause the SM_NLEVT instance to be created
+                                                                                     // and the SEM column to be initialized if it is not already
+      end if;
+    end for;
+    select many polymorphic_evts related by machine->SM_EVT[R502]->SM_PEVT[R525]->SM_EVT[R525];
+    for each evt in polymorphic_evts
+      evt_id = evt.getAssociatedEventForStateMachine( stateMachineId:self.SM_ID ); // this call will cause the SM_NLEVT instance to be created
+                                                                                   // and the SEM column to be initialized if it is not already
+    end for;
+  end for;
+  select many supertypes related by supertypes->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+end while;',
+	1,
+	'',
+	"267b3cf2-8214-46a8-b90b-c149923d9b52",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",

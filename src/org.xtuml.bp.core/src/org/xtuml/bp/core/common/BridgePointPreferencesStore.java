@@ -83,6 +83,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	public static final String CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES = PREFIX + "content_assist_auto_trigger_sequences"; //$NON-NLS-1$
 	public static final String CONTENT_ASSIST_ENABLE_PARTIAL_PARSING = PREFIX + "content_assist_enable_partial_parsing";
 
+	public static final String ALLOW_CONCRETE_POLYS = PREFIX + "allow_concrete_polys";
+
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
 	public static final String OBLIQUE_ROUTING = "OBLIQUE_ROUTING"; //$NON-NLS-1$
@@ -135,6 +137,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING, prefs.contentAssistEnableAutoTriggering);
         store.setValue(CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES, prefs.contentAssistAutoTriggerSequences);
         store.setValue(CONTENT_ASSIST_ENABLE_PARTIAL_PARSING, prefs.contentAssistEnablePartialParsing);
+
+        store.setValue(ALLOW_CONCRETE_POLYS, prefs.allowConcretePolys);
                 
 
         store.setValue(ENABLE_VERIFIER_AUDIT, prefs.enableVerifierAudit);
@@ -233,6 +237,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.contentAssistEnableAutoTriggering = store.getBoolean( CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING );
         prefs.contentAssistAutoTriggerSequences = store.getString( CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES );
         prefs.contentAssistEnablePartialParsing = store.getBoolean( CONTENT_ASSIST_ENABLE_PARTIAL_PARSING );
+
+        prefs.allowConcretePolys = store.getBoolean( ALLOW_CONCRETE_POLYS );
         
         prefs.enableVerifierAudit =
           store.getBoolean(BridgePointPreferencesStore.ENABLE_VERIFIER_AUDIT);
@@ -309,6 +315,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.contentAssistEnableAutoTriggering = true;
         prefs.contentAssistAutoTriggerSequences = ".\n::\n->\n,";
         prefs.contentAssistEnablePartialParsing = false;
+
+        prefs.allowConcretePolys = false;
         
         prefs.enableVerifierAudit = false;
         prefs.enableSelectAudit = 1;
