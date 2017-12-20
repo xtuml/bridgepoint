@@ -24,6 +24,8 @@ From [[2.1]](#2.1):
 <a id="2.1"></a>2.1 [#9706 When polymorphic events are changed in a supertype, reflect the change in the subtype(s)](https://support.onefact.net/issues/9706)  
 <a id="2.2"></a>2.2 [#9178 MASL Polymorphic events and transition tables](https://support.onefact.net/issues/9178)  
 <a id="2.3"></a>2.3 [#9300 Document MASL idiom for polys](https://support.onefact.net/issues/9300)  
+<a id="2.4"></a>2.4 [#9966 Analyze impact of concrete polys on Verifier](https://support.onefact.net/issues/9966)  
+<a id="2.5"></a>2.5 [#9967 Analyze impact of concrete polys on model compilers](https://support.onefact.net/issues/9967)  
 
 ### 3. Background
 
@@ -40,9 +42,8 @@ be handled by one subtype in the hierarchy and "concrete polymorphic event" will
 refer to a MASL style polymorphic event that must be handled by every instance
 in the hierarchy.
 
-It is now time to start supporting concrete polymorphic event events in
-BridgePoint. This note specifies the analysis and design to support these
-events.
+It is now time to start supporting concrete polymorphic events in BridgePoint.
+This note specifies the analysis and design to support these events.
 
 ### 4. Requirements
 
@@ -50,7 +51,7 @@ events.
 polymorphic events  
 4.1.1 A mechanism shall be designed to clearly distinguish between models of the
 two types  
-4.1.2 No support shall be implemented for converting between the two idioms
+4.1.2 No support shall be implemented for converting between the two idioms  
 4.1.3 A mechanism shall be provided to specify the default behavior for an
 installation  
 4.2 The support for concrete polymorphic events shall be integrated with the
@@ -61,14 +62,14 @@ polymorphic events as metamodel instances
 valid MASL  
 4.2.3 An upgrade strategy shall be considered for models that follow the current
 MASL idiom  
-4.3 An issue shall be raised to analyze the impact on Verifier  
-4.4 An issue shall be raised to analyze the impact on the model compilers  
+4.3 An issue shall be raised to analyze the impact on Verifier [[2.4]](#2.4)  
+4.4 An issue shall be raised to analyze the impact on the model compilers [[2.5]](#2.5)  
 
 ### 5. Analysis
 
 5.1 Overview
 
-Study the following portion of the "State Machine subsystem:
+Study the following portion of the "State Machine" subsystem:
 ![events.png](events.png)
 
 Currently BridgePoint supports abstract polymorphic events by creating an event
@@ -125,7 +126,7 @@ transition. Deleting such an event results in all of the transitions it
 participates in being unassigned.
 
 In the concrete case, this does not make sense since an event _must_ be handled
-in every subtype state machine (include "Cannot Happen" or "Ignore"). Because
+in every subtype state machine (including "Cannot Happen" or "Ignore"). Because
 of this property, deletion of non-local events shall be disallowed when
 concrete polymorphic events are enabled.
 
@@ -152,7 +153,7 @@ assigned to a transition. Once selected for assignment, the polymorphic event
 will be migrated to a local event.
 
 Additionally, when an event is unassigned from a creation transition, the sync
-will be invoked to re-migrated to a polymorphic event and propagated to the
+will be invoked to re-migrate to a polymorphic event and propagate to the
 subtype state machines. This will only occur if the event is not assigned to any
 other creation transitions in the state machine.
 
@@ -237,7 +238,7 @@ org.xtuml.bp.core/bridgepoint_prefs_allow_concrete_polys=false
 "MASL".  
 9.2.3 Convert and import the model at `masl/test/poly` in the `models` repo
 using the MASL conversion utility.  
-9.2.4 Create a new project in the workspace.
+9.2.4 Create a new project in the workspace.  
 9.2.5 Attempt to duplicate the `poly` model. Take note of any errors logged or
 strange behavior.  
 
