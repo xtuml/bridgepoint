@@ -843,6 +843,47 @@ end if;
 	'',
 	"db818c67-a176-46df-95bd-be1be9a0ddee",
 	0);
+INSERT INTO O_TFR
+	VALUES ("604c8c15-c394-438b-b017-efd9fffae356",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'actionFilter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'allowIt = true;
+if (param.name == "can" )
+  if ( param.value == "publish" )
+    // If more than 1 function with the same name is in the selection don''t 
+    // allow the publish CME
+    numFunctionsWithThisNameInSelection = Sel::numFunctionsSelected( functionName:self.Name );
+    if (numFunctionsWithThisNameInSelection > 1)
+      allowIt = false; 
+    end if;
+  end if;
+end if;
+return allowIt;',
+	1,
+	'',
+	"7776869e-dc27-4ad9-8c73-5e2a0a32b6f6",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("dd89a909-3c76-4830-ac0b-dc0e5999d777",
+	"604c8c15-c394-438b-b017-efd9fffae356",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("216da4b3-7477-45f1-9729-a7b02efcc7de",
+	"604c8c15-c394-438b-b017-efd9fffae356",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"dd89a909-3c76-4830-ac0b-dc0e5999d777",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("d1398f19-3322-4cf6-882c-368b5143249f",
 	"bc9a6c16-8809-4681-92ab-421898fa108a");
