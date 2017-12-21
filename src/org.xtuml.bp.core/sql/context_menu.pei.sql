@@ -491,4 +491,4 @@ INSERT INTO MEF VALUES ('',    'Set To Provider',  'C_AS',    'can', 'setToProvi
 INSERT INTO MEF VALUES ('',    'Set From Provider',  'C_AS',    'can', 'setFromProvider' );
 INSERT INTO MEF VALUES ('',    'Set To Provider',  'C_IO',    'can', 'setToProvider' );
 INSERT INTO MEF VALUES ('',    'Set From Provider',  'C_IO',    'can', 'setFromProvider' );
-INSERT INTO CME VALUES ('',    'Publish To Interface','S_SYNC', 'can', 'publish' );
+

@@ -2725,37 +2725,6 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_BRG
-	VALUES ("b57f5c32-e11d-4e8e-9878-e5fbc5dcd478",
-	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
-	'numFunctionsSelected',
-	'Return a count of the number of S_SYNC instances in the selection that have the given name',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
-	'        int numSelected = 0;
-        Iterator iter = Selection.getInstance().getStructuredSelection().iterator();
-        while (iter.hasNext()) {
-            Object obj = iter.next();
-            if (obj instanceof Function_c) {
-                if (((Function_c)obj).getName().equals(p_Functionname)) {
-                    numSelected++;
-                }
-            }
-        }
-        return numSelected;
-',
-	0,
-	'',
-	0);
-INSERT INTO S_BPARM
-	VALUES ("ec7fb70d-d439-4e6f-b96b-16669c7e9690",
-	"b57f5c32-e11d-4e8e-9878-e5fbc5dcd478",
-	'functionName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
 INSERT INTO PE_PE
 	VALUES ("ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
 	1,
