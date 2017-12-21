@@ -7683,6 +7683,33 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("025f26e4-b688-489f-b800-58d7079fab21",
+	"00000000-0000-0000-0000-000000000000",
+	'S_SYNC_PublishToInterface',
+	'',
+	'// User has selected the function(s) to publish from ME
+select any element from instances of S_SYNC  where USER::selectOne(id:selected.Sync_ID);
+select any existingInterface related by element->PE_PE[R8001]->
+            EP_PKG[R8001]->S_SYS[R1405]->EP_PKG[R1405.''contains'']->
+            PE_PE[R8000.''contains'']->C_I[R8001] where USER::selectExisting(id:selected.Id); 
+if(not_empty element)
+  select any selectedInterface from instances of C_I
+                                          where USER::selectOne(id:selected.Id);
+  if(not_empty selectedInterface)
+      selectedInterface.publishOperationFromFunction(syncID:element.Sync_ID); 
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("025f26e4-b688-489f-b800-58d7079fab21",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,

@@ -289,7 +289,7 @@ INSERT INTO CME VALUES ('',          'Make Public',      'CNST_CSP',   '',      
 INSERT INTO CME VALUES ('',          'Make Protected',   'CNST_CSP',   '',                   false, '' );
 INSERT INTO CME VALUES ('',          'Make Private',     'CNST_CSP',   '',                   false, '' );
 
--- Generic package interaction formalization CME definitions
+-- Generic package interaction formalization CME definitions 
 INSERT INTO CME VALUES ('Generic Package',      'Formalize',    'SQ_COP','',  false, 'Choose the component that this instance should represent' , '1', false, '', true, true, 'component');
 INSERT INTO CME VALUES ('Generic Package',      'Formalize',    'SQ_CIP','',  false, 'Choose the class that this instance should represent' , '1', false, '', true, true, 'class');
 INSERT INTO CME VALUES ('Generic Package',      'Formalize',    'SQ_CP', '',  false, 'Choose the class to import'  , '1', false, '', true, true, 'class');
@@ -341,6 +341,7 @@ INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_IO', '
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_IO', '',                 false );
 INSERT INTO CME VALUES ('Delete', '',                         'S_EXP',    '',              true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_EXP',   '',              true );
+INSERT INTO CME VALUES ('',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '1', false, '', true, false, 'interface');
 --
 INSERT INTO MEF VALUES ('New',	  'Package',                  'C_C',   'new', 'package' );
 INSERT INTO MEF VALUES ('New',    'Component',         		  'C_C',   'new', 'component' );
@@ -441,7 +442,7 @@ INSERT INTO MEF VALUES ('',       'Make Public',   'CNST_CSP',     'can', 'make 
 INSERT INTO MEF VALUES ('',       'Make Protected','CNST_CSP',     'can', 'make protected' );
 INSERT INTO MEF VALUES ('',       'Make Private',  'CNST_CSP',     'can', 'make private' );
 
--- Interaction element filtering
+-- Interaction element filtering 
 
 -- Formalize interaction participants
 INSERT INTO MEF VALUES ('Generic Package',      'Formalize',  'SQ_CIP',    'can', 'formClass generic pkg' );
@@ -490,3 +491,4 @@ INSERT INTO MEF VALUES ('',    'Set To Provider',  'C_AS',    'can', 'setToProvi
 INSERT INTO MEF VALUES ('',    'Set From Provider',  'C_AS',    'can', 'setFromProvider' );
 INSERT INTO MEF VALUES ('',    'Set To Provider',  'C_IO',    'can', 'setToProvider' );
 INSERT INTO MEF VALUES ('',    'Set From Provider',  'C_IO',    'can', 'setFromProvider' );
+

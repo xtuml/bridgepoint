@@ -864,6 +864,113 @@ INSERT INTO O_TFR
 	'',
 	"041af5ee-823a-4764-bccf-d6d3d28a8672",
 	0);
+INSERT INTO O_TFR
+	VALUES ("cf75b2c0-67f0-4226-b7bb-e18787581879",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'publishOperationFromFunction',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// For the given function create an operation 
+select any function from instances of S_SYNC where (selected.Sync_ID == param.syncID);
+if (not_empty function)
+
+  //
+  // create the new operation if needed (it is created via the C_EP)
+  //
+  newName = function.Name;
+  select any operationToUpdate related by self->C_EP[R4003]->C_IO[R4004] where (selected.Id==GD::NULL_UNIQUE_ID());
+  updateExistingOperation = false;
+  // See if this operation is overloaded. If it is, skip it.
+  select many overloadedOperations related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
+  if (cardinality overloadedOperations > 1) 
+    duplicateMsg = "Operation: " + function.Name + " is overloaded in Interface: " + self.Name + ".\n" +
+                    "This operation will be publish with the name: " + newName;
+    USER::information( msg:duplicateMsg, title: "Publish Operation From Function");
+  elif (cardinality overloadedOperations == 1)
+    // If there is just 1 matching operation in the target then update it.
+    select any operationToUpdate related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
+    updateExistingOperation = true;
+  end if;
+  epID = GD::NULL_UNIQUE_ID();
+  if (updateExistingOperation)
+    select one ep related by operationToUpdate->C_EP[R4004];
+    epID = ep.Id;
+  else
+    epID = self.newExecutableProperty( asynchronous:false );
+  end if;
+  select any execProp from instances of C_EP where (selected.Id == epID);
+  select one iop related by execProp->C_IO[R4004];
+  iop.Name = newName;
+  iop.Descrip = function.Descrip;
+   
+  //  
+  // Now update the return type if it is different than the function''s return type
+  //
+  select one functionDT related by function->S_DT[R25.''has return type of''];
+  if(not_empty functionDT)
+    select one originalDT related by iop->S_DT[R4008];
+    // If the return type is different, update it
+    if(functionDT != originalDT)
+      unrelate iop from originalDT across R4008;
+      relate iop to functionDT across R4008;
+    end if;
+  end if;
+
+  //
+  // Now create the interface parameters from the function parameters.  Note that
+  // if we are updating an existing operation we delete all the existing 
+  // parameters first.   
+  //
+  
+  if (updateExistingOperation) 
+    // If we are updating an existing operation, then we 
+    // start by deleting all exisitng parameters
+    select many oip_params related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
+    for each oip_param in oip_params
+      oip_param.dispose();
+    end for;
+  end if;
+  
+  select many sparams related by function->S_SPARM[R24.''defines''];
+  for each sparam in sparams 
+    select one sparamDT related by sparam->S_DT[R26.''is typed by ''];
+  
+    iop.newParameter();
+    // The new paramater will be at the end of the list of parameters, starting 
+    // with the first, we go to "precedes" to get to this new one
+    select any newParam related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to'']->C_PP[R4021.''precedes''];
+    newParam.Descrip = sparam.Descrip;
+    newParam.Dimensions = sparam.Dimensions;     
+    newParam.Name = sparam.Name;
+
+    // Set the data type for the new param
+    select one newParamDefaultDataType related by newParam->S_DT[R4007];
+    if(newParamDefaultDataType != sparamDT)
+      unrelate newParam from newParamDefaultDataType across R4007;
+      relate newParam to sparamDT across R4007;
+    end if;
+  end for;    
+
+  // If a new operartion was created, hook-up 
+  // the operation that was just created to this interface
+  if (not updateExistingOperation)
+    self.pasteInterfaceOperation( id:iop.Id );
+  end if;
+end if;',
+	1,
+	'',
+	"111a8f19-e4c5-4489-9873-da1e35dfca54",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("1a6ba669-16cf-4099-8b9b-3970d955f499",
+	"cf75b2c0-67f0-4226-b7bb-e18787581879",
+	'syncID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
 	"f021c5c6-f37d-4215-afe4-a3e777964197");
