@@ -104,33 +104,14 @@ To create a deferred operation, create an operation with an identical signature 
 class.  Then use the Properties view to set the dialect of the supertype class' operation to
 "None".  Each subtype class' operation dialect is set to "MASL".
 
-### Polymorphic Events
+### MASL projects
 
-Polymorphic events in MASL are different than polymorphic events in xtUML.  In xtUML a polymorphic 
-event may be acted upon at only one level of the subtype/supertype class hierarchy. For comparison
-and contrast we call these "abstract polymorphic events."  In MASL a polymorphic event declared in
-a supertype must be handled explicitly in the state transition table of each subtype.  We call
-these "concrete polymorphic events."   
+There are some situations when the editor must distinguish between a MASL
+domain and MASL project. Because domains are where the majority of the work
+will take place, no special annotation is needed. For MASL projects however,
+the description field of the package that contains a project component must
+contain the string "masl_project".
 
-Due to this fundamental methodological difference, modeling MASL concrete polymorphic events inside 
-BridgePoint requires some special procedures. Currently, MASL polymorphic events are created and 
-managed only by convention (that is, by the user following the idiom described here).  This style 
-of polymorphic event is not enforced by the model editor interface. It is up to the modeler to 
-create and maintain each of the events that are treated as polymorphic in a MASL-idiom model.   
-
-To create a MASL concrete polymorphic event, first create an event in the supertype state machine
-using __&lt;RMB&gt; > New > Event__ and name the event.  Next, create an event in the subtype
-state machine and name the event ```<supertype class name>.<event name>``` (see Figure 2).  Repeat 
-this process, creating a new event inside each subtype state machine.  Note, again, that the editor 
-does not enforce or validate correct naming, so type carefully!   
-
-![MASL Idiom Concrete Polymorphic Events](images/image05.png)  
-__Figure 2__  
-
-When "Export MASL domain" runs, BridgePoint sees the events created with this naming convention 
-and generates a valid textual MASL model with concrete polymorphic events specified in the state
-transition tables.  
- 
 ## xtUML Model Packaging for System-wide MASL Visibility
 
 Under xtUML, model elements defined within one component have no knowledge or visibility of model 

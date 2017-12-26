@@ -2517,6 +2517,11 @@ if (not_empty fromClass)
                   id: unused_oid);
             end for;
           end if;
+          // if using concrete polys, sync the state machine
+          select one system related by self->S_SYS[R1405];
+          if ( PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
+            fromClass.syncPolymorphicEvents();
+          end if;
           return true;
         end if; // already sub class
       end if; // not own supertype

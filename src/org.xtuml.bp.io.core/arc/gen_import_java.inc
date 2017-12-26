@@ -726,7 +726,7 @@ public class ${class_name} extends CoreImport
         .end if
     }
 
-    public void processAction( String smasl, int dialect, int startLine ) {
+    public void processAction( String smasl, int dialect, int startLine, UUID uuid, UUID uuid2 ) {
 	.if (class_name == "ImportModelComponent")
         if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
@@ -814,36 +814,31 @@ public class ${class_name} extends CoreImport
 
             // fix the body
             body = body.trim();
-            if ( dialect == Actiondialect_c.masl ) {
-                // if the dialect is MASL, the 'end' keyword belongs
-                // as part of the code body itself and must be added
-                body += "\nend";
-            }
 
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {
                 SystemModel_c inst = (SystemModel_c)pmc_root_element;
-                Ooaofooa.S_syssetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getSys_id(), signature, startLine );
+                Ooaofooa.S_syssetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, inst.getSys_id(), signature, startLine );
             }
             else if ( pmc_root_element instanceof Package_c ) {
                 Package_c inst = (Package_c)pmc_root_element;
-                Ooaofooa.Ep_pkgsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getPackage_id(), signature, startLine );
+                Ooaofooa.Ep_pkgsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getPackage_id(), uuid, signature, startLine );
             }
             else if ( pmc_root_element instanceof ModelClass_c ) {
                 ModelClass_c inst = (ModelClass_c)pmc_root_element;
-                Ooaofooa.O_objsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, inst.getObj_id(), signature, startLine );
+                Ooaofooa.O_objsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, inst.getObj_id(), signature, startLine );
             }
             else if ( pmc_root_element instanceof Component_c ) {
                 Component_c inst = (Component_c)pmc_root_element;
-                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, domain_name, port_name, signature, startLine );
+                Ooaofooa.C_csetactions( modelRoot, (Object)m_component, activity_type, body, inst.getId(), dialect, domain_name, uuid, port_name, signature, startLine );
             }
             else if ( pmc_root_element instanceof InstanceStateMachine_c ) {
                 InstanceStateMachine_c inst = (InstanceStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_ismsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, signature, inst.getSm_id(), startLine );
+                Ooaofooa.Sm_ismsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, uuid2, signature, inst.getSm_id(), startLine );
             }
             else if ( pmc_root_element instanceof ClassStateMachine_c ) {
                 ClassStateMachine_c inst = (ClassStateMachine_c)pmc_root_element;
-                Ooaofooa.Sm_asmsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, signature, inst.getSm_id(), startLine );
+                Ooaofooa.Sm_asmsetactions( modelRoot, (Object)m_component, activity_type, body, dialect, uuid, uuid2, signature, inst.getSm_id(), startLine );
             }
             else {
                 // Root element type not supported

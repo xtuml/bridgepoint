@@ -81,6 +81,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public boolean contentAssistEnableAutoTriggering;
     public String contentAssistAutoTriggerSequences;
     public boolean contentAssistEnablePartialParsing;
+
+    public boolean allowConcretePolys;
     
 	public Class getStoreClass() {
 		return BridgePointPreferencesStore.class;
@@ -131,6 +133,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         contentAssistEnableAutoTriggering = syncTo.contentAssistEnableAutoTriggering;
         contentAssistAutoTriggerSequences = syncTo.contentAssistAutoTriggerSequences;
         contentAssistEnablePartialParsing = syncTo.contentAssistEnablePartialParsing;
+
+        allowConcretePolys = syncTo.allowConcretePolys;
 
         enableVerifierAudit = syncTo.enableVerifierAudit;
         enableSelectAudit = syncTo.enableSelectAudit;
@@ -187,6 +191,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.contentAssistEnableAutoTriggering = contentAssistEnableAutoTriggering;
         prefs.contentAssistAutoTriggerSequences = contentAssistAutoTriggerSequences;
         prefs.contentAssistEnablePartialParsing = contentAssistEnablePartialParsing;
+
+        prefs.allowConcretePolys = allowConcretePolys;
 
         prefs.enableVerifierAudit = enableVerifierAudit;
         prefs.enableSelectAudit = enableSelectAudit;
