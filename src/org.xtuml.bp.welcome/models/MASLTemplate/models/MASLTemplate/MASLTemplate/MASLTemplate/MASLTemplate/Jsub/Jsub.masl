@@ -1,5 +1,7 @@
+//! ACTIVITY BEGIN. 'f2ec840a-c76e-46d4-b7de-56cb3da2681c' DO NOT EDIT THIS LINE.
 public instance service MASLTemplate::Jsub.deferredOp () is
 begin
   null;
 end service;
+//! ACTIVITY END. DO NOT EDIT THIS LINE.
 

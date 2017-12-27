@@ -17,9 +17,9 @@
 project depending on parameter settings.</p>
 <h2 id="syntax">Syntax</h2>
 <h3 id="domain-export">Domain Export</h3>
-<pre><code>xtuml2masl [-v | -V] [-e] -i &lt;eclipse project&gt; -d &lt;domain component&gt; [ -o &lt;output directory&gt; ]</code></pre>
+<pre><code>xtuml2masl [-v | -V] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -d &lt;domain component&gt; [ -o &lt;output directory&gt; ]</code></pre>
 <h3 id="package-export">Package Export</h3>
-<pre><code>xtuml2masl [-v | -V] [-e] -i &lt;eclipse project&gt; -p &lt;project package&gt; [ -o &lt;output directory&gt; ] </code></pre>
+<pre><code>xtuml2masl [-v | -V] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -p &lt;project package&gt; [ -o &lt;output directory&gt; ]</code></pre>
 <table style="width:88%;">
 <colgroup>
 <col style="width: 33%" />
@@ -39,6 +39,14 @@ project depending on parameter settings.</p>
 <tr class="even">
 <td>-e</td>
 <td>Optionally used to indicate the tool is called from eclipse and pre-builder should not be run</td>
+</tr>
+<tr class="odd">
+<td>-xf</td>
+<td>Optionally skip the formatting step</td>
+</tr>
+<tr class="even">
+<td>-xl</td>
+<td>Optionally exclude action langauge from export</td>
 </tr>
 <tr class="odd">
 <td>-i &lt;eclipse project&gt;</td>

@@ -257,7 +257,7 @@ end for;
 act.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
 if ( act.Dialect == ActionDialect::masl )
   // new MASL activities get initialized with the "null" statement
-  act.Action_Semantics_internal = "begin\n  null;\nend";
+  act.Action_Semantics_internal = "begin\n  null;\nend state;";
 end if;
 act.Suc_Pars = ParseStatus::parseInitial;',
 	1,
@@ -490,7 +490,7 @@ else
 		// if the given event is assigned (or ignored/can''t-happened) anywhere 
 		// on the path from the supertype state machine (inclusive) to this 
 		// state''s state machine (exclusive)  
-		if (event.isAssignedInSupertypeStateMachine(subtypeId:selfClass.Obj_ID))
+		if (event.isAssignedInSupertypeStateMachine(subtypeId:selfClass.Obj_ID, creationTransitionsOnly:false))
 			// it can''t be ignored/can''t-happened within this state''s state machine
 			return false;
 		end if;

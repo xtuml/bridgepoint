@@ -168,7 +168,7 @@ public abstract class CoreImport implements IModelImport {
 
     public abstract int postprocessStatements();
 
-    public abstract void processAction( String smasl, int dialect, int startLine );
+    public abstract void processAction( String smasl, int dialect, int startLine, UUID uuid, UUID uuid2 );
 
     protected Ooaofooa getModelRoot() {
         return m_modelRoot;

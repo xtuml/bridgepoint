@@ -603,7 +603,8 @@ public class SEMEditorPage extends Composite {
 	}
 
 	private void setupInitialEvents() {
-		StateMachineEvent_c[] currentEvents = StateMachineEvent_c.getManySM_EVTsOnR502(fStateMachine);
+		// Do not create columns for polymorphic events
+		StateMachineEvent_c[] currentEvents = StateMachineEvent_c.getManySM_EVTsOnR525(SemEvent_c.getManySM_SEVTsOnR525(StateMachineEvent_c.getManySM_EVTsOnR502(fStateMachine)));
 		for(int i = 0; i < currentEvents.length; i++) {
 			events.add(currentEvents[i]);
 		}

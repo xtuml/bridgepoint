@@ -4,7 +4,9 @@ header
     package org.xtuml.bp.io.core;
 
     import antlr.TokenStreamSelector;
+    import org.xtuml.bp.core.common.IdAssigner;
     import org.xtuml.bp.core.Url_c;
+    import java.util.UUID;
 }
 //---------------------------------------------------------------------
 // Parser class is defined here.
@@ -16,6 +18,8 @@ options {
 }
 {
     private String smasl = "";
+    private UUID uuid = IdAssigner.NULL_UUID;
+    private UUID uuid2 = IdAssigner.NULL_UUID;
     private int m_dialect = -1;
     private TokenStreamSelector selector;
     private CoreImport m_ci;
@@ -52,8 +56,16 @@ options {
     }
 
     private void sendSmasl() {
-        m_ci.processAction( smasl, m_dialect, startLine );
+        m_ci.processAction( smasl, m_dialect, startLine, uuid, uuid2 );
         smasl = "";
+    }
+
+    private void setID( String uuidText ) {
+        uuid = IdAssigner.createUUIDFromString( uuidText.replaceAll( "'", "" ) );
+    }
+
+    private void setID2( String uuidText ) {
+        uuid2 = IdAssigner.createUUIDFromString( uuidText.replaceAll( "'", "" ) );
     }
 
     public void reportError(RecognitionException arg0) {
@@ -70,10 +82,11 @@ activityDefinitions:
             ;
 
 activityDefinition:     
-            serviceDefinition 
+            ACTIVITYBEGIN1 id:UUID { setID( id.getText() ); } ( id2:UUID { setID2( id2.getText() ); } )? ACTIVITYBEGIN2
+            ( serviceDefinition 
             | stateDefinition
             | attributeDefinition
-            | transitionDefinition
+            | transitionDefinition )
             ;
 
 serviceDefinition:
@@ -96,7 +109,7 @@ serviceDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.serviceCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -124,7 +137,7 @@ stateDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.stateCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -152,7 +165,7 @@ attributeDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.attributeCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -178,7 +191,7 @@ transitionDefinition:
             {
                 selector.push("bodylexer");
                 BodyParser bodyparser = new BodyParser(selector, m_ci);
-                values[0] = bodyparser.transitionCodeBlock();
+                values[0] = bodyparser.codeBlock();
                 if ( bodyparser.m_errors ) {
                     m_errors = true;
                     m_output += bodyparser.m_output;
@@ -332,7 +345,7 @@ dictValueType returns [String s = ""]:
 
 class SignatureLexer extends Lexer;
 options {
-    k=2;
+    k=3;
 }
 {
     public SignatureLexer( Reader in, CoreImport ci ) {
@@ -359,10 +372,12 @@ COLON               : ":";
 TERMINATOR_SCOPE    : "~>";
 DOT                 : ".";
 COMMA               : ",";
+ACTIVITYBEGIN1      : "//! ACTIVITY BEGIN.";
+ACTIVITYBEGIN2      : "DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
+
+UUID                : "'" ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) "'";
 
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
 WS                  : (' ' | '\t' | '\f' | '\n'{newline();} | '\r' )+ { $setType(Token.SKIP); };
-COMMENT             : "//" (~('\n'|'\r'))* ('\r')? '\n' { newline(); $setType(Token.SKIP); };
-
-
+COMMENT             : "//" ((~('!') (~('\n'|'\r'))* ('\r')? '\n') | '\n') { newline(); $setType(Token.SKIP); };

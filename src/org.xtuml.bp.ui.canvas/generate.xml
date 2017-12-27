@@ -5,12 +5,12 @@
    
    <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,java,Build_Outline,inspector.java, cell_modifiers, format_java">
+          depends="sql,schema,java,Build_Outline,inspector.java, cell_modifiers, generate_referential_attribute_util, format_java">
    </target>
 
    <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,java,Build_Outline, inspector.java, cell_modifiers">
+          depends="sql,java,Build_Outline, inspector.java, cell_modifiers, generate_referential_attribute_util">
    </target>
 
    <property name="plugins-home" value="${ant.home}/../.."/>
@@ -263,10 +263,35 @@
       <touch file="${cell_modifier.output}" />
    </target>
 
+   <property name="grau.output" value="src/org/xtuml/bp/ui/canvas/util/CanvasReferentialAttributeUtil.java" />
+
+   <target name="generate_referential_attribute_util.depends" depends="sql" >
+       <uptodate property="referential_attribute_util.buildNotNeeded" targetfile="${grau.output}">
+         <srcfiles dir = "${mcj_path}" includes = "referential_attribute_util.inc" />
+         <srcfiles dir = "arc" includes = "generate_referential_attribute_util.arc" />
+         <srcfiles dir = "sql" includes = "ooaofgraphics.sql" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
+       </uptodate>
+   </target>
+
+   <target name="generate_referential_attribute_util" unless="referential_attribute_util.buildNotNeeded" depends="generate_referential_attribute_util.depends" >
+       <echo >Generating ${grau.output} ...</echo>
+       <echotimestamp />
+       <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <arg line="xtumlmc_gen_erate -nopersist
+            -import ${mcj_path}/ooa_schema.sql
+            -import sql/ooaofgraphics.sql
+            -arch arc/generate_referential_attribute_util.arc" />
+       </exec>        
+       <echotimestamp />
+   </target>
+
 
    <property name="cvs_java_files" value="preferences/*,Canvas*.java, GCDelegate.java, Gr_c.java,
     ModelContentOutlinePage.java, ShowCanvasAction.java, Cl_c.java, ToolAction.java,
-    ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/*, IEditorTabFactory.java, GraphicsReconcilerLauncher.java" />
+    ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/ConnectorUtil.java, util/GraphicalElementUtil.java, util/GraphicsUtil.java, util/GraphNodeUtil.java, IEditorTabFactory.java, GraphicsReconcilerLauncher.java" />
 
    <target name="format_java" description="Format the generated java source">
       <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">
