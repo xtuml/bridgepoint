@@ -41,7 +41,7 @@ Setup Instructions
       - [Maven](https://maven.apache.org/install.html)    
 
     - __MAC__
-      - Install pypy and git (we suggest via homebrew)
+      - Install flex, bison, pypy and git (we suggest via homebrew)
       
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
