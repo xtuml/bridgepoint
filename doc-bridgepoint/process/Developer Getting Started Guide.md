@@ -36,12 +36,15 @@ Setup Instructions
     - You may unzip wherever you like, a suggestion is:  ```~/xtuml/```
       - On MacOS, you must now run the additional step: ```cp ~/xtuml/BridgePoint.app/Contents/MacOS/bridgepoint ~/xtuml/BridgePoint.app/Contents/Eclipse```
 
+  - [Download the special version of generator](https://s3.amazonaws.com/xtuml-releases/development-environment/gen_erate.pyz.0.5.0)  
+    - Replace generator in the installation with this downloaded version: `mv ~/Downloads/gen_erate.pyz.0.5.0 ~/xtuml/BridgePoint.app/Contents/Eclipse/tools/mc/bin/gen_erate.pyz`  
+    
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __ALL__  
       - [Maven](https://maven.apache.org/install.html)    
 
     - __MAC__
-      - Install pypy and git (we suggest via homebrew)
+      - Install flex, bison, pypy and git (we suggest via homebrew)
       
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).

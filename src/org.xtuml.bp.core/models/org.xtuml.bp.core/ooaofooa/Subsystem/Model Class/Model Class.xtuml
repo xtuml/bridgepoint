@@ -587,6 +587,9 @@ If not, create the ism or asm and return true.',
       USER::logError(msg:
                      "Unable to locate expected data type: state<State_Model>",path:self.getPath(path:self.Name,includeSelf:true));
     end if;
+    if ( PREF::getBoolean( name:"bridgepoint_prefs_allow_concrete_polys" ) )
+      self.syncPolymorphicEvents();
+    end if;
   end if;
 elif (param.sm_type == "ASM")
   select one asm related by self->SM_ASM[R519];
@@ -2323,6 +2326,49 @@ return cuttable;',
 	1,
 	'',
 	"f3fe145f-45a8-4b16-a710-e24001ba26d9",
+	0);
+INSERT INTO O_TFR
+	VALUES ("d2579b96-b019-4b97-9f1d-218e705f9cf2",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'doesNotContainTransition',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any ism_txn related by self->SM_ISM[R518]->SM_SM[R517]->SM_TXN[R505] where ( selected.Trans_ID == param.Trans_ID );
+select any asm_txn related by self->SM_ASM[R519]->SM_SM[R517]->SM_TXN[R505] where ( selected.Trans_ID == param.Trans_ID );
+return empty ism_txn and empty asm_txn;',
+	1,
+	'',
+	"d2c60b29-75d5-4726-8896-688c67da2b57",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("7bfc0b6c-4479-4bd8-a4fd-37be6d17bc2c",
+	"d2579b96-b019-4b97-9f1d-218e705f9cf2",
+	'Trans_ID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4f4cd6e6-97df-4017-b89b-26b670d97799",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'syncPolymorphicEvents',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one ism related by self->SM_ISM[R518]->SM_SM[R517];
+if ( not_empty ism )
+  ism.syncPolymorphicEvents();
+end if;
+// sync subtype state machines
+select many subtypes related by self->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+for each subtype in subtypes
+  subtype.syncPolymorphicEvents();
+end for;',
+	1,
+	'',
+	"d2579b96-b019-4b97-9f1d-218e705f9cf2",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
