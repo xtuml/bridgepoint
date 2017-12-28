@@ -874,26 +874,64 @@ INSERT INTO O_TFR
 	'// For the given function create an operation 
 select any function from instances of S_SYNC where (selected.Sync_ID == param.syncID);
 if (not_empty function)
+  //
+  // We start by looking to see there are duplicate involved, and if we
+  // will be creating a new operation or updating an existing one.
+  //
+  
+  selectionHasDuplicates = false;
+  targetHasDuplicates = false;
+  updateExistingOperation = false;
+  if (Sel::numFunctionsSelected( functionName:function.Name) > 1)
+    selectionHasDuplicates = true;
+  end if;
+  select many existingOperations related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == function.Name);
+  if (cardinality existingOperations > 1)
+    targetHasDuplicates = true;
+  end if;
+  if (not selectionHasDuplicates and (cardinality existingOperations == 1))
+    updateExistingOperation = true;
+  end if;  
 
+  //
+  // Determine what the name of the operation being created/updated is
+  //
+  newName = function.Name;
+  if (not updateExistingOperation)
+    baseName=function.Name;
+    count=1;
+    newName = baseName + "-" + GD::int_to_string(value:count);
+    // Determine a new name that will not be a duplicate
+    select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
+    while (not_empty existingOp)
+      count = count + 1;
+      newName = baseName + "-" + GD::int_to_string(value:count);
+      select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
+    end while;
+  end if;
+    
+  // 
+  // If there are duplicates involved tell the user, but proceed with the new name
+  //   
+  if (selectionHasDuplicates or targetHasDuplicates)
+    duplicateMsg = "";
+    if (targetHasDuplicates)
+      duplicateMsg = duplicateMsg + "Operation: " + function.Name + " is overloaded in Interface: " + self.Name + ".\n";
+    end if;
+    if (selectionHasDuplicates) 
+      duplicateMsg = duplicateMsg + "Operation: " + function.Name + " has a duplicate in the selection." + ".\n";
+    end if;
+    duplicateMsg = duplicateMsg + "This operation will be published with the name: " + newName;
+    USER::information( msg:duplicateMsg, title: "Publish Operation From Function");
+  end if;
+  
   //
   // create the new operation if needed (it is created via the C_EP)
   //
-  newName = function.Name;
-  select any operationToUpdate related by self->C_EP[R4003]->C_IO[R4004] where (selected.Id==GD::NULL_UNIQUE_ID());
-  updateExistingOperation = false;
   // See if this operation is overloaded. If it is, skip it.
-  select many overloadedOperations related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
-  if (cardinality overloadedOperations > 1) 
-    duplicateMsg = "Operation: " + function.Name + " is overloaded in Interface: " + self.Name + ".\n" +
-                    "This operation will be publish with the name: " + newName;
-    USER::information( msg:duplicateMsg, title: "Publish Operation From Function");
-  elif (cardinality overloadedOperations == 1)
-    // If there is just 1 matching operation in the target then update it.
-    select any operationToUpdate related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
-    updateExistingOperation = true;
-  end if;
   epID = GD::NULL_UNIQUE_ID();
   if (updateExistingOperation)
+    select any operationToUpdate related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
     select one ep related by operationToUpdate->C_EP[R4004];
     epID = ep.Id;
   else
