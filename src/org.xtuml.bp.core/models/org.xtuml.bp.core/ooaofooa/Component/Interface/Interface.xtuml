@@ -899,8 +899,8 @@ if (not_empty function)
   newName = function.Name;
   if (not updateExistingOperation)
     baseName=function.Name;
-    count=1;
-    newName = baseName + "-" + GD::int_to_string(value:count);
+    count=0;
+    newName = baseName;
     // Determine a new name that will not be a duplicate
     select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
     while (not_empty existingOp)
