@@ -341,7 +341,8 @@ INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_IO', '
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_IO', '',                 false );
 INSERT INTO CME VALUES ('Delete', '',                         'S_EXP',    '',              true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_EXP',   '',              true );
-INSERT INTO CME VALUES ('',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '1', false, '', true, false, 'interface');
+INSERT INTO CME VALUES ('',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '*', false, '', true, false, 'interface');
+
 --
 INSERT INTO MEF VALUES ('New',	  'Package',                  'C_C',   'new', 'package' );
 INSERT INTO MEF VALUES ('New',    'Component',         		  'C_C',   'new', 'component' );

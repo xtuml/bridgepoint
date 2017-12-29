@@ -975,9 +975,18 @@ if (not_empty function)
     select one sparamDT related by sparam->S_DT[R26.''is typed by ''];
   
     iop.newParameter();
-    // The new paramater will be at the end of the list of parameters, starting 
-    // with the first, we go to "precedes" to get to this new one
-    select any newParam related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to'']->C_PP[R4021.''precedes''];
+    // The new paramater will be at the end of the list of parameters, 
+    // iterate over them to find the one with no "succeeds" and that is the one
+    // we just created.  
+    select any newParam related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
+    select many params related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
+    for each pp in params
+      newParam = pp;
+      select one nextParam related by pp->C_PP[R4021.''succeeds''];
+      if (empty nextParam)
+        break;
+      end if;
+    end for;
     newParam.Descrip = sparam.Descrip;
     newParam.Dimensions = sparam.Dimensions;     
     newParam.Name = sparam.Name;
