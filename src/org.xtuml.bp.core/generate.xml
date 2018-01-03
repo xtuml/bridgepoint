@@ -583,7 +583,7 @@
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
   	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java,
-	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java" />
+	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java, ui/actions/PublishToInterfaceOnS_SYNCAction.java" />
 
   <target name="format_java.depends" >
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">
