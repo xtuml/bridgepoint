@@ -22,25 +22,25 @@ Creating interfaces that match domain functions in the domain-first design idiom
 modeling is manual and time-consuming when there are lots of domain functions with lots of 
 parameters.  
 
-This issue is raise to introduce a mechanism that simplifies Interface creation in this situation.  
+This issue is raised to introduce a mechanism that simplifies Interface creation in this situation.  
 
 ### 4. Requirements
 
-4.1 Given a user-selected group of domain functions, automatically create interface(s)s with 
+4.1 Given a user-selected group of domain functions, automatically create interface operation(s) with 
 the same signature.  
 4.2 If there are no duplicate names present, but a single matching name exists in the source and target, the 
 target shall be updated with the source.  
 4.2.1 An update in this situation means parameters, description, and return value from the source is replaced in the target.  
 4.3 If duplicate names are present, warn the user and provide a unique name in the target for the operation.  
-4.3.1 A duplicate is defined when:
+4.3.1 A duplicate is defined when:  
 4.3.1.1 More than 1 function with the same name exists in the user's source selection.  
-4.3.1.2 More than 1 operation exists in the selected target with the same name as one of the source functions.  
-4.3.2 When a duplicate is identified the unique target name shall be of the form: <base name>-X, where base-name 
-is the name of duplicaet and "-X" provides an incrementing count to assure a unique name.  
+4.3.1.2 More than 1 operation exists in the selected target Interface with the same name as one of the source functions.  
+4.3.2 When a duplicate is identified the unique target operation name shall be of the form: <base name>-X, where 
+<base name> is the name of the duplicate and "-X" provides an incrementing count to assure a unique name.  
 
 ### 5. Work Required
 
-5.1 Update the pre-existing instance (PEI) data associated with the bp.core/CME more to add a new CME for 
+5.1 Update the pre-existing instance (PEI) data associated with the bp.core/CME model to add a new CME for 
 this functionality. This change shall be made in bp.core/sql/context_menu.pei.sql.    
 5.1.1 The new CME shall be named: "Publish to interface..."  
 5.1.2 The new CME shall be added in model elements of type S_SYNC  
@@ -49,22 +49,21 @@ this functionality. This change shall be made in bp.core/sql/context_menu.pei.sq
 
 5.2 Introduce a new CME Function to process the new CME action defined by the updated PEI data. This is 
 added to the ooaofooa model in Functions/Context Menu Entry Functions  
-5.2.1 Following the required foramt for the CME actions archetype, this function is named: S_SYNC_PublishToInterface. Additionally,
-a class-based operation was introduced, ooaofoo::Interface::publishOperationFromFunction(syncID:Sync_ID) to perfom the task 
-of creating an interface operation based on a given function (S_SYNC) id.  
+5.2.1 Following the required format for the CME actions archetype, this function is named: S_SYNC_PublishToInterface. Additionally, an operation was introduced, ooaofooa::Interface::publishOperationFromFunction(syncID:Sync_ID), to perfom the task of creating an interface operation based on a given function (S_SYNC) id.  
 5.2.2 The OAL in this function shall present the user with a dialog that allows the user to select an 
-existing Interface to "publish" the selection function(s) to.  
-5.2.3 After selection of the target, the user selects the "Next" button to proceed.  
+existing Interface to "publish" the selected function(s) to.  
+5.2.3 After selection of the target Interface, the user selects the "Finish" button to proceed.  
 5.2.3.1 If there are no duplicates [4.3.1], the operation is completed, and all selected functions will have been 
-published to the target.  
-5.2.3.2 It there were duplicates, the user will be informed of the source and target name for each duplicate encountered.  
+published to the target Interface.  
+5.2.3.2 It there were duplicates, the user will be informed of the source function and target operation name for each duplicate encountered.  
 
 ### 6. Implementation Comments
 6.1 A helper function, integer numFunctionsSelected(string:functionName), was added to  
-ooaofooa::External Entities::Selection faciliate the work required to check for duplicates in the source selection. 
+ooaofooa::External Entities::Selection to faciliate the work required to check for duplicates in the source selection. 
 This was needed because the CME infrastructure processes a multi-select one element at a time. To be able to 
-inform the user of the source and target name of such a source duplicate a mechanism was needed to check the 
-entire source selection for duplicate names.  
+inform the user of the source function and target operation name of such a source function duplicate, a mechanism was needed to check the entire source selection for duplicate names.  
+
+6.2 While reviewing documentation it was noted that "Sync references" and "Sync with library" have descriptions backwards, I fixed this.  
 
 ### 7. Unit Test
 
@@ -81,7 +80,7 @@ Source selection multiplicity
 
 Source select name multiplicity
 1. No duplicate names in selection
-2. Duplicate names in selection (this is not allowed by the selection)
+2. Duplicate names in selection  
 
 Target name conflict multiplicity
 1. No Conflict
@@ -90,12 +89,16 @@ Target name conflict multiplicity
 
 Target Updates
 1. Return Type
-2. Parameter Changed
+2. Return Dimensions
+3. Parameter Changed
+4. Description Changed
 ```
 
 ### 8. User Documentation
 
-Appropriate section of the documation shall be updated.    
+8.1 bridgepoint/src/org.xtuml.bp.doc/Reference/UserInterface/BridgePointContextMenuTools   
+
+8.2 bridgepoint/src/org.xtuml.bp.doc/Reference/UserInterface/PaletteAndContextMenuCustomization/PaletteAndContextMenuCustomization.md (in the context menu section)  
 
 ### 9. Code Changes
 
