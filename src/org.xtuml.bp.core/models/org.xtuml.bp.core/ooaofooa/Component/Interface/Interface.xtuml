@@ -941,6 +941,7 @@ if (not_empty function)
   select one iop related by execProp->C_IO[R4004];
   iop.Name = newName;
   iop.Descrip = function.Descrip;
+  iop.Return_Dimensions = function.Return_Dimensions;
    
   //  
   // Now update the return type if it is different than the function''s return type
