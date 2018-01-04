@@ -21,6 +21,9 @@ x - 05  min   LS   code     Missing work to update return dimensions in the rout
 x - 06  min   LS   code     Updating the "Dimensions" attribute might not be enough. You may have to invoke the operation "resizeDimensions"  
 o - 07  min   LS   code     The pull request looks really weird; there are a lot of extraneous commits. Bob is going to try to rebase with master to see what happens  
 
+note:  job:#9958 backed out the PaletteAndContextMenuCustomization.{md | html} change because the we do not 
+currently allow generated CME code that uses a selection dialog to be filtered, so this can not be filtered 
+
 </pre>
    
 No major observations, a re-review is not required.

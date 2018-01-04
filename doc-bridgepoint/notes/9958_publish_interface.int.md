@@ -109,8 +109,6 @@ Target Updates
 
 8.1 bridgepoint/src/org.xtuml.bp.doc/Reference/UserInterface/BridgePointContextMenuTools   
 
-8.2 bridgepoint/src/org.xtuml.bp.doc/Reference/UserInterface/PaletteAndContextMenuCustomization/PaletteAndContextMenuCustomization.md (in the context menu section)  
-
 ### 9. Code Changes
 
 Fork/Repository: rmulvey/bridgepoint  

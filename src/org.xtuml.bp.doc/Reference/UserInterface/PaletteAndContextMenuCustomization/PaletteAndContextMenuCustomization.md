@@ -91,7 +91,6 @@ bridgepoint.ToggleEndVisibility
 bridgepoint.ToggleStartVisibility
 bridgepoint.Unassign
 bridgepoint.Unformalize
-bridgepoint.PublishToInterface
 ```
 
 ### Palette and "New >" Context Menu
