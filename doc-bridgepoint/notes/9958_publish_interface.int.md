@@ -52,18 +52,29 @@ added to the ooaofooa model in Functions/Context Menu Entry Functions
 5.2.1 Following the required format for the CME actions archetype, this function is named: S_SYNC_PublishToInterface. Additionally, an operation was introduced, ooaofooa::Interface::publishOperationFromFunction(syncID:Sync_ID), to perfom the task of creating an interface operation based on a given function (S_SYNC) id.  
 5.2.2 The OAL in this function shall present the user with a dialog that allows the user to select an 
 existing Interface to "publish" the selected function(s) to.  
-5.2.3 After selection of the target Interface, the user selects the "Finish" button to proceed.  
+5.2.3 After selection of the target Interface, the user selects the "OK" button to proceed.  
 5.2.3.1 If there are no duplicates [4.3.1], the operation is completed, and all selected functions will have been 
 published to the target Interface.  
 5.2.3.2 It there were duplicates, the user will be informed of the source function and target operation name for each duplicate encountered.  
 
 ### 6. Implementation Comments
+
 6.1 A helper function, integer numFunctionsSelected(string:functionName), was added to  
 ooaofooa::External Entities::Selection to faciliate the work required to check for duplicates in the source selection. 
 This was needed because the CME infrastructure processes a multi-select one element at a time. To be able to 
 inform the user of the source function and target operation name of such a source function duplicate, a mechanism was needed to check the entire source selection for duplicate names.  
 
 6.2 While reviewing documentation it was noted that "Sync references" and "Sync with library" have descriptions backwards, I fixed this.  
+
+6.3 Example CME and dialog  
+*Publish To Interface CME*
+![Publish To Interface CME](PublishToInterface_ME.png)
+
+
+*Publish To Interface Dialog*
+![Publish To Interface Dialog](PublishToInterface_Dialog.png)
+
+
 
 ### 7. Unit Test
 
