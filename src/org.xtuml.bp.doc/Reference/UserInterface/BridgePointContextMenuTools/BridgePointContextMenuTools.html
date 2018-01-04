@@ -1,35 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="../../../github-pandoc.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-</head>
-<body>
-<h1 id="bridgepoint-context-menu-tools">BridgePoint Context Menu Tools</h1>
-<p>BridgePoint allows the user to create model elements, run tools, and format canvases<br />
-via context menu entries. This document describes these tools. Some of the tools have<br />
-additional detailed help content in other sections of the Help system.</p>
-<p>The Model Explorer view context menu is shown in Figure 1. This figure shows access<br />
-into the submenus for creating a new model Class.</p>
+<h1>BridgePoint Context Menu Tools</h1>
+<p>BridgePoint allows the user to create model elements, run tools, and format canvases via context menu entries. This document describes these tools. Some of the tools have additional detailed help content in other sections of the Help system.</p>
+<p>The Model Explorer view context menu is shown in Figure 1. This figure shows access into the submenus for creating a new model Class.</p>
 <p><img src="me_menu.png" alt="Image of BridgePoint ME CME" /><br />
 <strong>Figure 1</strong></p>
-<p>The diagram context menu is shown in Figure 2. This figure shows access into the submenus<br />
-for adding an attribute to the selected class.</p>
+<p>The diagram context menu is shown in Figure 2. This figure shows access into the submenus for adding an attribute to the selected class.</p>
 <p><img src="canvas_menu.png" alt="Image of BridgePoint canvas CME" /><br />
 <strong>Figure 2</strong></p>
-<h2 id="shared-context-menu-entries">Shared Context Menu Entries</h2>
+<h2>Shared Context Menu Entries</h2>
 <p>These menu entries appear on the context menu of Model Explorer and the canvas.</p>
-<table style="width:88%;">
+<table>
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 54%" />
+<col style="width: 37%" />
+<col style="width: 62%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -105,12 +87,12 @@ for adding an attribute to the selected class.</p>
 </tbody>
 </table>
 <p><strong>Table 1</strong></p>
-<h2 id="model-explorer-specific-context-menu-entries">Model Explorer-specific Context Menu Entries</h2>
+<h2>Model Explorer-specific Context Menu Entries</h2>
 <p>These menu entries appear on only the context menu of Model Explorer.</p>
-<table style="width:90%;">
+<table>
 <colgroup>
-<col style="width: 36%" />
-<col style="width: 54%" />
+<col style="width: 39%" />
+<col style="width: 60%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -204,22 +186,26 @@ for adding an attribute to the selected class.</p>
 <td>Breaks a combined attribute back into the parts that where combined when it was created.</td>
 </tr>
 <tr class="even">
-<td>Synchronize references</td>
+<td>Synchronize with library</td>
 <td>Update local interface references by pulling in changes to the referred-to interfaces.</td>
 </tr>
 <tr class="odd">
-<td>Synchronize with library</td>
+<td>Synchronize references</td>
 <td>Update remote interface references by pushing changes to local interfaces.</td>
+</tr>
+<tr class="even">
+<td>Publish To Interface...</td>
+<td>Opens a dialog that allows the user to choose an Interface to publish selected operations to.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Table 2</strong></p>
-<h2 id="canvas-specific-context-menu-entries">Canvas-specific Context Menu Entries</h2>
+<h2>Canvas-specific Context Menu Entries</h2>
 <p>These menu entries appear on only the context menu of a diagram canvas.</p>
-<table style="width:90%;">
+<table>
 <colgroup>
-<col style="width: 36%" />
-<col style="width: 54%" />
+<col style="width: 39%" />
+<col style="width: 60%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -287,12 +273,12 @@ for adding an attribute to the selected class.</p>
 </tbody>
 </table>
 <p><strong>Table 3</strong></p>
-<h2 id="activity-editor-specific-context-menu-entries">Activity Editor-specific Context Menu Entries</h2>
+<h2>Activity Editor-specific Context Menu Entries</h2>
 <p>These menu entries appear on only the context menu of an open activity editor.</p>
-<table style="width:90%;">
+<table>
 <colgroup>
-<col style="width: 36%" />
-<col style="width: 54%" />
+<col style="width: 39%" />
+<col style="width: 60%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -308,21 +294,17 @@ for adding an attribute to the selected class.</p>
 </tbody>
 </table>
 <p><strong>Table 4</strong></p>
-<h2 id="bridgepoint-utilities-menu">BridgePoint Utilities Menu</h2>
-<p>BridgePoint contains a number of tools that provide additional functionality outside<br />
-of the core application modeling features. These tools are accessed through the context<br />
-menu in the Model Explorer view and on diagram canvases.</p>
-<p>The items inside this context menu are dependent upon the model element that is selected. Tools<br />
-that are not pertinent or valid for the current selection are not displayed.</p>
-<h3 id="user-interface">User Interface</h3>
-<p>To access the BridgePoint Utilities context-menu, right-click on an xtUML element in Model<br />
-Explorer (Figure 3).</p>
+<h2>BridgePoint Utilities Menu</h2>
+<p>BridgePoint contains a number of tools that provide additional functionality outside of the core application modeling features. These tools are accessed through the context menu in the Model Explorer view and on diagram canvases.</p>
+<p>The items inside this context menu are dependent upon the model element that is selected. Tools that are not pertinent or valid for the current selection are not displayed.</p>
+<h3>User Interface</h3>
+<p>To access the BridgePoint Utilities context-menu, right-click on an xtUML element in Model Explorer (Figure 3).</p>
 <p><img src="utilities_menu.png" alt="Image of BridgePoint Utilities CME" /><br />
 <strong>Figure 3</strong></p>
-<table style="width:88%;">
+<table>
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 54%" />
+<col style="width: 37%" />
+<col style="width: 62%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -366,5 +348,3 @@ Explorer (Figure 3).</p>
 </tbody>
 </table>
 <p><strong>Table 5</strong></p>
-</body>
-</html>
