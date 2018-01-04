@@ -68,8 +68,9 @@ These menu entries appear on only the context menu of Model Explorer.
 | Set To Provider         | Sets the direction of an interface message to "To Provider". |
 | Set Type...             | Opens dialog to set the data type of the selection. |
 | Split                   | Breaks a combined attribute back into the parts that where combined when it was created. |
-| Synchronize references  | Update local interface references by pulling in changes to the referred-to interfaces. |
-| Synchronize with library| Update remote interface references by pushing changes to local interfaces. |
+| Synchronize with library| Update local interface references by pulling in changes to the referred-to interfaces. |
+| Synchronize references  | Update remote interface references by pushing changes to local interfaces. |
+| Publish To Interface... | Opens a dialog that allows the user to choose an Interface to publish selected operations to. |
 __Table 2__   
 
 ## Canvas-specific Context Menu Entries
