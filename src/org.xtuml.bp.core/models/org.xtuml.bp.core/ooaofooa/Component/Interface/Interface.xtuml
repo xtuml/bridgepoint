@@ -916,12 +916,12 @@ if (not_empty function)
   if (selectionHasDuplicates or targetHasDuplicates)
     duplicateMsg = "";
     if (targetHasDuplicates)
-      duplicateMsg = duplicateMsg + "Operation: " + function.Name + " is overloaded in Interface: " + self.Name + ".\n";
+      duplicateMsg = duplicateMsg + "There are multiple operations in the " + self.Name + " interface named " + function.Name + ".\n";
     end if;
     if (selectionHasDuplicates) 
-      duplicateMsg = duplicateMsg + "Operation: " + function.Name + " has a duplicate in the selection." + ".\n";
+      duplicateMsg = duplicateMsg + "There are multiple functions in the selection named " + function.Name + ".\n";
     end if;
-    duplicateMsg = duplicateMsg + "This operation will be published with the name: " + newName;
+    duplicateMsg = duplicateMsg + "\nThis function will be published with the operation name " + newName + ".";
     USER::information( msg:duplicateMsg, title: "Publish Operation From Function");
   end if;
   
