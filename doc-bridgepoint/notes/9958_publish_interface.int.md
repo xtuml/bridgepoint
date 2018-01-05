@@ -35,8 +35,8 @@ target shall be updated with the source.
 4.3.1 A duplicate is defined when:  
 4.3.1.1 More than 1 function with the same name exists in the user's source selection.  
 4.3.1.2 More than 1 operation exists in the selected target Interface with the same name as one of the source functions.  
-4.3.2 When a duplicate is identified the unique target operation name shall be of the form: <base name>-X, where 
-<base name> is the name of the duplicate and "-X" provides an incrementing count to assure a unique name.  
+4.3.2 When a duplicate is identified the unique target operation name shall be of the form: `<base name>-X`, where 
+`<base name>` is the name of the duplicate and `-X` provides an incrementing count to assure a unique name.  
 
 ### 5. Work Required
 
