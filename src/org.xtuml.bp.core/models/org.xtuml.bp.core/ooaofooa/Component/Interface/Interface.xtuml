@@ -928,7 +928,7 @@ if (not_empty function)
   //
   // create the new operation if needed (it is created via the C_EP)
   //
-  // See if this operation is overloaded. If it is, skip it.
+  // See if this operation is overloaded. If it is, skip it.  (TODO: Keith thinks this is a bad comment)
   epID = GD::NULL_UNIQUE_ID();
   if (updateExistingOperation)
     select any operationToUpdate related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
@@ -977,13 +977,13 @@ if (not_empty function)
   
     iop.newParameter();
     // The new paramater will be at the end of the list of parameters, 
-    // iterate over them to find the one with no "succeeds" and that is the one
+    // iterate over them to find the one with no "precedes" and that is the one
     // we just created.  
     select any newParam related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
     select many params related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
     for each pp in params
       newParam = pp;
-      select one nextParam related by pp->C_PP[R4021.''succeeds''];
+      select one nextParam related by pp->C_PP[R4021.''precedes''];
       if (empty nextParam)
         break;
       end if;
