@@ -18,6 +18,8 @@ not being the case, the two did turn out to be very closely related.
 <a id="2.1"></a>2.1 [#9983 Incorrect population of parameter list for class-based operation parameters, if user-defined dt from another package is used](https://support.onefact.net/issues/9983)  
 <a id="2.2"></a>2.2 [#9735 Using component external datatype as event data result in "Unassigned Parameter Placeholder"](https://support.onefact.net/issues/9735)  
 <a id="2.3"></a>2.3 [#9735 implementation note](9735_unassigned_parameter_placeholder/9735_unassigned_parameter_placeholder_int.md)  
+<a id="2.4"></a>2.4 [#9735 explore multi-file updates that should not](https://support.onefact.net/issues/10008)  
+
 
 ### 3. Background
 
@@ -77,8 +79,8 @@ would be as follows:
 > Upgrade code should only operate on instances which were loaded by the current
 > PMC load. It should never touch instances that were loaded before or after.
 
-An issue has been raised to analyze other areas in which upgrade code operates
-on too broad of a scope.
+An issue has been raised [[2.4]](#2.4) to analyze other areas in which upgrade
+code operates on too broad of a scope.
 
 ### 7. Unit Test
 
