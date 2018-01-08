@@ -26,6 +26,8 @@ not.
 Information on the original design and use cases of content assist can be found
 in [[2.3]](#2.3) and [[2.4]](#2.4). 
 
+This analysis was conducted using BridgePoint 6.8.1 (Build ID: 2017-12-27 08:06)
+
 ### 4. Requirements
 
 4.1 Analysis shall determine all situations where OAL keywords are not provided
