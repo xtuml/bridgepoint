@@ -142,9 +142,29 @@ break;
 bridge LOG::LogInfo( message: "hello world" );
 ```
 
+5.2.4.1
+```
+bridge self.attr1 = TIM::get_second( date:TIM::current_date() );
+```
+
+5.2.4.2
+```
+bridge param.param1 = TIM::get_second( date:TIM::current_date() );
+```
+
 5.2.5
 ```
 send Port1::msg() to sender;
+```
+
+5.2.5.1
+```
+send self.attr1 = Port1::msg2();
+```
+
+5.2.5.2
+```
+send param.param1 = Port1::msg2();
 ```
 
 5.2.6
@@ -160,6 +180,21 @@ create object instance foo of FOO;
 5.2.8
 ```
 create event instance evt1 of BAR1:evt1() to bar;
+```
+
+5.2.8.1
+```
+create event instance evt1_1 of BAR1 to bar;
+```
+
+5.2.8.2
+```
+create event instance evt1_2 of BAR1:evt1 to bar;
+```
+
+5.2.8.3
+```
+create event instance evt1l3 of BAR4* to bar;
 ```
 
 5.2.9
@@ -210,9 +245,19 @@ end if;
 relate a to b across R1 using c;
 ```
 
+5.2.16.1
+```
+relate a to b across R1.'a_to_b' using c;
+```
+
 5.2.17
 ```
 unrelate a from b across R1 using c;
+```
+
+5.2.17.1
+```
+unrelate a from b across R1.'a_to_b' using c;
 ```
 
 5.2.18
@@ -238,6 +283,16 @@ select many foos from instances of FOO;
 5.2.22
 ```
 transform FOO::tfm();
+```
+
+5.2.22.1
+```
+transform self.attr1 = FOO::tfm2();
+```
+
+5.2.22.2
+```
+transform param.param1 = FOO::tfm2();
 ```
 
 5.2.23
@@ -352,33 +407,39 @@ keyword proposals are missing. Some rows refer to multiple use cases from
 section 5.2. This is because in some cases, the use cases overlap in the branch
 of the parse tree they cover.
 
-| ID       | Keyword     | Use Case(s) |
-|----------|-------------|-------------|
-| 5.4.1.1  | `assign`    | 5.2.1       |
-| 5.4.1.2  | `bridge`    | 5.2.4       |
-| 5.4.1.3  | `to`        | 5.2.5       |
-| 5.4.1.4  | `of`        | 5.2.7       |
-| 5.4.1.5  | `of`        | 5.2.8, 5.2.9, 5.2.10, 5.2.11 |
-| 5.4.1.6  | `to`        | 5.2.8, 5.2.9, 5.2.10, 5.2.11, 5.2.14 |
-| 5.4.1.7  | `assigner`  | 5.2.10      |
-| 5.4.1.8  | `in`        | 5.2.13      |
-| 5.4.1.9  | `to`        | 5.2.16      |
-| 5.4.1.10 | `across`    | 5.2.16      |
-| 5.4.1.11 | `using`     | 5.2.16      |
-| 5.4.1.12 | `from`      | 5.2.17      |
-| 5.4.1.13 | `across`    | 5.2.17      |
-| 5.4.1.14 | `using`     | 5.2.17      |
-| 5.4.1.15 | `transform` | 5.2.22      |
-| 5.4.1.16 | `_debug`    | 5.2.24, 5.2.25, 5.2.26, 5.2.27, 5.2.28, 5.2.29, 5.2.30, 5.2.31, 5.2.32 |
-| 5.4.1.17 | `_trace`    | 5.2.24, 5.2.25 |
-| 5.4.1.18 | `_dump`     | 5.2.26, 5.2.27 |
-| 5.4.1.19 | `_sor`      | 5.2.28, 5.2.29 |
-| 5.4.1.20 | `_on`       | 5.2.24, 5.2.26, 5.2.28, 5.2.30 |
-| 5.4.1.21 | `_off`      | 5.2.25, 5.2.27, 5.2.29, 5.2.31 |
-| 5.4.1.22 | `_stat`     | 5.2.32      |
-| 5.4.1.23 | `or`        | 5.2.33      |
-| 5.4.1.24 | `and`       | 5.2.34      |
-| 5.4.1.25 | `rcvd_evt`  | 5.2.40      |
+| ID         | Keyword     | Use Case(s) |
+|------------|-------------|-------------|
+| 5.4.1.1    | `assign`    | 5.2.1       |
+| 5.4.1.2    | `bridge`    | 5.2.4, 5.2.4.1, 5.2.4.2 |
+| 5.4.1.2.1  | `self`      | 5.2.4.1     |
+| 5.4.1.2.2  | `param`     | 5.2.4.2     |
+| 5.4.1.3    | `to`        | 5.2.5       |
+| 5.4.1.3.1  | `self`      | 5.2.5.1     |
+| 5.4.1.3.2  | `param`     | 5.2.5.2     |
+| 5.4.1.4    | `of`        | 5.2.7       |
+| 5.4.1.5    | `of`        | 5.2.8, 5.2.9, 5.2.10, 5.2.11 |
+| 5.4.1.6    | `to`        | 5.2.8, 5.2.8.1, 5.2.8.2, 5.2.8.3, 5.2.9, 5.2.10, 5.2.11, 5.2.14 |
+| 5.4.1.7    | `assigner`  | 5.2.10      |
+| 5.4.1.8    | `in`        | 5.2.13      |
+| 5.4.1.9    | `to`        | 5.2.16      |
+| 5.4.1.10   | `across`    | 5.2.16      |
+| 5.4.1.11   | `using`     | 5.2.16, 5.2.16.1 |
+| 5.4.1.12   | `from`      | 5.2.17      |
+| 5.4.1.13   | `across`    | 5.2.17      |
+| 5.4.1.14   | `using`     | 5.2.17, 5.2.17.1 |
+| 5.4.1.15   | `transform` | 5.2.22, 5.2.22.1, 5.2.22.2 |
+| 5.4.1.15.1 | `self`      | 5.2.22.1    |
+| 5.4.1.15.2 | `param`     | 5.2.22.2    |
+| 5.4.1.16   | `_debug`    | 5.2.24, 5.2.25, 5.2.26, 5.2.27, 5.2.28, 5.2.29, 5.2.30, 5.2.31, 5.2.32 |
+| 5.4.1.17   | `_trace`    | 5.2.24, 5.2.25 |
+| 5.4.1.18   | `_dump`     | 5.2.26, 5.2.27 |
+| 5.4.1.19   | `_sor`      | 5.2.28, 5.2.29 |
+| 5.4.1.20   | `_on`       | 5.2.24, 5.2.26, 5.2.28, 5.2.30 |
+| 5.4.1.21   | `_off`      | 5.2.25, 5.2.27, 5.2.29, 5.2.31 |
+| 5.4.1.22   | `_stat`     | 5.2.32      |
+| 5.4.1.23   | `or`        | 5.2.33      |
+| 5.4.1.24   | `and`       | 5.2.34      |
+| 5.4.1.25   | `rcvd_evt`  | 5.2.40      |
 
 5.4.2 Other notes
 
@@ -387,11 +448,12 @@ of the parse tree they cover.
 
 5.4.5 Analysis of missing proposals
 
-There are 25 missing keyword proposals.
+There are 31 missing keyword proposals.
 
-11 of these are legitimate missing proposals:  
-5.4.1.3, 5.4.1.4, 5.4.1.5, 5.4.1.6, 5.4.1.8, 5.4.1.9, 5.4.1.10, 5.4.1.11,
-5.4.1.12, 5.4.1.13, and 5.4.1.14.  
+17 of these are legitimate missing proposals:  
+5.4.1.2.1, 5.4.1.2.2, 5.4.1.3, 5.4.1.3.1, 5.4.1.3.2, 5.4.1.4, 5.4.1.5, 5.4.1.6,
+5.4.1.8, 5.4.1.9, 5.4.1.10, 5.4.1.11, 5.4.1.12, 5.4.1.13, 5.4.1.14, 5.4.1.15.1,
+and 5.4.1.15.2.  
 These ones should be added.
 
 12 of these are left out by design:  
