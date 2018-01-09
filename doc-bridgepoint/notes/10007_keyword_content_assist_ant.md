@@ -17,7 +17,7 @@ not.
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [#10007 Analyze missing keywords in content assist](https://support.onefact.net/issues/10007)  
-<a id="2.2"></a>2.2 [keyword test model](https://support.onefact.net/attachments/download/1056/10007_keywords.zip)  
+<a id="2.2"></a>2.2 [keyword test model](https://support.onefact.net/attachments/download/1057/10007_keywords.zip)  
 <a id="2.3"></a>2.3 [#9763 content assistance design note](9763_content_assistance/9763_content_assistance_dnt.md)  
 <a id="2.4"></a>2.4 [#9749 phase 1 use cases](9749_usecases/9749_usecases_phase_1.md)  
 
