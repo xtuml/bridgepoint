@@ -112,16 +112,16 @@ to making this error go away was found.
 
 None.  
 
-### 9. Code Changes
+### 10. Code Changes
 
 Fork/Repository: keithbrown/bridgepoint   
 Branch: 9932_masl_prj_export  
 
 <pre>
 doc-bridgepoint/notes/9932_prj_export_int.md
-org.xtuml.bp.cli/src/org/xtuml/bp/cli/BPCLIWorkbenchAdvisor.java
-org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportExecutor.java
-
+src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/BPCLIWorkbenchAdvisor.java
+src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportExecutor.java
+src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/ImportHelper.java
 
 </pre>
 
