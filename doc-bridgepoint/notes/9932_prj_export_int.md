@@ -118,6 +118,10 @@ Fork/Repository: keithbrown/bridgepoint
 Branch: 9932_masl_prj_export  
 
 <pre>
+doc-bridgepoint/notes/9932_prj_export_int.md
+org.xtuml.bp.cli/src/org/xtuml/bp/cli/BPCLIWorkbenchAdvisor.java
+org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportExecutor.java
+
 
 </pre>
 
