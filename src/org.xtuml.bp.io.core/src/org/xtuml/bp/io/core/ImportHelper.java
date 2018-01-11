@@ -2261,62 +2261,56 @@ public class ImportHelper
         } // end for each state machine
     }
     
-    public void upgradeElementOrder(Ooaofooa modelRoot) {
-        // Owns C_AS and C_IO
-      InstanceList il = modelRoot.getInstanceList(Interface_c.class);
-        Interface_c[] intr = il.toArray(new Interface_c[0]);
-        for(int i = 0; i < intr.length; i++) {
-            intr[i].Initializeorder();
-        }
+    public void upgradeElementOrder( List<NonRootModelElement> modelElems ) {
+        for ( NonRootModelElement elem : modelElems ) {
+            if ( elem instanceof Interface_c ) {
+                // Owns C_AS and C_IO
+                Interface_c intr = (Interface_c)elem;
+                intr.Initializeorder();
+            }
 
-        // Owns C_PP
-        il = modelRoot.getInstanceList(ExecutableProperty_c.class);
-        ExecutableProperty_c[] exP = il.toArray(new ExecutableProperty_c[0]);
-        for(int i = 0; i < exP.length; i++) {
-            exP[i].Initializeorder();
-        }       
+            else if ( elem instanceof ExecutableProperty_c ) {
+                // Owns C_PP
+                ExecutableProperty_c exP = (ExecutableProperty_c)elem;
+                exP.Initializeorder();
+            }
         
-        // Owns O_TPARM
-    il = modelRoot.getInstanceList(Operation_c.class);
-    Operation_c[] op = il.toArray(new Operation_c[0]);
-        for(int i = 0; i < op.length; i++) {
-            op[i].Initializeorder();
-        }       
+            else if ( elem instanceof Operation_c ) {
+                // Owns O_TPARM
+                Operation_c op = (Operation_c)elem;
+                op.Initializeorder();
+            }
         
-        // Owns Operation
-    il = modelRoot.getInstanceList(ModelClass_c.class);
-    ModelClass_c[] mc = il.toArray(new ModelClass_c[0]);
-        for(int i = 0; i < mc.length; i++) {
-            mc[i].Initializeorder();
-        }       
+            else if ( elem instanceof ModelClass_c ) {
+                // Owns Operation
+                ModelClass_c mc = (ModelClass_c)elem;
+                mc.Initializeorder();
+            }
         
-        // Owns SM_EVTDI
-    il = modelRoot.getInstanceList(StateMachineEvent_c.class);
-        StateMachineEvent_c[] sme = il.toArray(new StateMachineEvent_c[0]);
-        for(int i = 0; i < sme.length; i++) {
-            sme[i].Initializeorder();
-        }       
+            else if ( elem instanceof StateMachineEvent_c ) {
+                // Owns SM_EVTDI
+                StateMachineEvent_c sme = (StateMachineEvent_c)elem;
+                sme.Initializeorder();
+            }
         
-        // Owns S_ENUM
-    il = modelRoot.getInstanceList(EnumerationDataType_c.class);
-    EnumerationDataType_c[] edt = il.toArray(new EnumerationDataType_c[0]);
-        for(int i = 0; i < edt.length; i++) {
-            edt[i].Initializeorder();
-        }       
+            else if ( elem instanceof EnumerationDataType_c ) {
+                // Owns S_ENUM
+                EnumerationDataType_c edt = (EnumerationDataType_c)elem;
+                edt.Initializeorder();
+            }
         
-        // Owns S_SPARM
-    il = modelRoot.getInstanceList(Function_c.class);
-    Function_c[] func = il.toArray(new Function_c[0]);
-        for(int i = 0; i < func.length; i++) {
-            func[i].Initializeorder();
-        }       
+            else if ( elem instanceof Function_c ) {
+                // Owns S_SPARM
+                Function_c func = (Function_c)elem;
+                func.Initializeorder();
+            }
         
-        // Owns S_BPARM
-    il = modelRoot.getInstanceList(Bridge_c.class);
-    Bridge_c[] brg = il.toArray(new Bridge_c[0]);
-        for(int i = 0; i < brg.length; i++) {
-            brg[i].Initializeorder();
-        }       
+            else if ( elem instanceof Bridge_c ) {
+                // Owns S_BPARM
+                Bridge_c brg = (Bridge_c)elem;
+                brg.Initializeorder();
+            }
+        }
     }
     
     public List<NonRootModelElement> upgradeDatatypes(List<NonRootModelElement> loadedInstances) {

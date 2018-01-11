@@ -9,12 +9,12 @@ Syntax
 ------------
 ### Domain Export
 ```
-xtuml2masl [-v | -V] [-e] [-xf] [-xl] [-xt] -i <eclipse project> -d <domain component> [ -o <output directory> ]
+xtuml2masl [-v | -V] [-e] [-xf] [-xl] -i <eclipse project> -d <domain component> [ -o <output directory> ]
 ```
    
 ### Package Export
 ```
-xtuml2masl [-v | -V] [-e] [-xf] [-xl] [-xt] -i <eclipse project> -p <project package> [ -o <output directory> ]
+xtuml2masl [-v | -V] [-e] [-xf] [-xl] -i <eclipse project> -p <project package> [ -o <output directory> ]
 ```
    
 | Parameter             | Description                          |
@@ -23,7 +23,6 @@ xtuml2masl [-v | -V] [-e] [-xf] [-xl] [-xt] -i <eclipse project> -p <project pac
 | -e                    | Optionally used to indicate the tool is called from eclipse and pre-builder should not be run  |
 | -xf                   | Optionally skip the formatting step |
 | -xl                   | Optionally exclude action langauge from export |
-| -xt                   | Optionally exclude type forward declarations from export |
 | -i &lt;eclipse project&gt; | Specify an absolute or relative path to the root directory of the Eclipse project containing the input model |
 | -d &lt;domain component&gt;| Specify xtUML component that will be exported as a MASL domain |
 | -p &lt;project package&gt;| Specify xtUML package that will be exported as a MASL project |

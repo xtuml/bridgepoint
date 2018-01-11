@@ -67,6 +67,55 @@ end for;
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	0);
+INSERT INTO O_TFR
+	VALUES ("c383bdd7-3e15-4ddd-b8b2-ef9f85adf150",
+	"173a203b-677e-4e60-8aeb-678f4fd25f4b",
+	'migrateToLocalPoly',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one orig_evt related by self->SM_EVT[R525];
+select one sm related by orig_evt->SM_SM[R502];
+select one sm_levt related by self->SM_LEVT[R526];
+if ( empty sm_levt )
+  USER::logError( msg:"Cannot migrate non-local event to local poly: " + orig_evt.Mning, path:sm.getPath() );
+else
+  select one sm_crtxn related by sm_levt->SM_CRTXN[R509];
+  if ( not_empty sm_crtxn )
+    USER::logError( msg:"Cannot migrate event that is assigned to a creation transition: " + orig_evt.Mning, path:sm.getPath() );
+  else
+    // unhook local event and dispose
+    unrelate sm_levt from self across R526;
+    delete object instance sm_levt;
+    
+    // create polymorphic event
+    create object instance sm_evt of SM_EVT;
+    create object instance sm_pevt of SM_PEVT;
+    sm_evt.Numb = orig_evt.Numb;
+    sm_evt.Mning = orig_evt.Mning;
+    sm_evt.Is_Lbl_U = orig_evt.Is_Lbl_U;
+    sm_evt.Unq_Lbl = orig_evt.Unq_Lbl;
+    sm_evt.Descrip = orig_evt.Descrip;
+    relate sm_evt to sm across R502;
+    relate sm_pevt to sm_evt across R525;
+    
+    // move parameters to the poly
+    select many sm_evtdis related by orig_evt->SM_EVTDI[R532];
+    for each sm_evtdi in sm_evtdis
+      unrelate sm_evtdi from orig_evt across R532;
+      relate sm_evtdi to sm_evt across R532;
+    end for;
+    
+    // create new non-local event
+    create object instance sm_nlevt of SM_NLEVT;
+    relate sm_nlevt to self across R526;
+    relate sm_nlevt to sm_pevt across R527;
+  end if;
+end if;',
+	1,
+	'',
+	"0eb5a189-cf18-4694-bb37-0994cfa23684",
+	0);
 INSERT INTO O_REF
 	VALUES ("173a203b-677e-4e60-8aeb-678f4fd25f4b",
 	"31832e28-c7f1-4e83-9c56-28614980fb33",
