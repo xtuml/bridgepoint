@@ -111,13 +111,21 @@ shutting down by making a direct invocation is a clear fix for this issue.
 ### 8. Unit Test
 
 8.1 Run the full `masl_round_trip` suite and verify success.    
+* cd ~/git/models/masl/test
+* edit `regression_test` to point at the correct BridgePoint installation on the `BPINSTALL=...` line
+* ./regression_test -o /tmp/regout < all_tests
+* __R__ The file diffs should all show 0
 
 8.2 Run `masl_round_trip` on SAC_OOA and SAC_PROC and verify the `.tr` files are output for SAC_PROC.  
+* cd ~/git/models/masl/test
+* create a new file `sac_test` that only contains the text `../SAC/SAC_OOA ../SAC/SAC_PROC`
+* ./regression_test -o /tmp/regout < sac_test
+* __R__ The MASLFormatter may throw errors, but there are `.tr` files under /tmp/regout/1/SAC_PROC  
 
 8.3 Verify UI export  
 * Open the `/tmp/importwork` workspace created previously in 8.2  
-* Open the SAC_PROC project in Navigator and delete the `masl/` folder
-* In Model Explorer, expand SAC_PROC and note that one component reference is assigned to SAC  
+* Open the p1 project in Navigator and delete the `masl/` folder if it exists
+* In Model Explorer, expand p1/SAC_PROC and note that one component reference is assigned to SAC  
 * Run `Export MASL Project`  
 * __R__ Verify `.tr` files are created under the `SAC_PROC/masl/` tree  
 
