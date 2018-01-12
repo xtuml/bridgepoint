@@ -25,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
@@ -103,6 +104,7 @@ import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
@@ -322,6 +324,7 @@ public class ImportHelper
         if ( elements == null ) return;
         
         boolean transaction_aborted = false;
+        Selection.getInstance().setSelection(new StructuredSelection(system));
 		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
 				.startTransactionsOnSelectedModelRoots("Import MASL");
 		Ooaofooa.beginSaveOperation();
@@ -358,6 +361,10 @@ public class ImportHelper
 	        if (m_maslProjectImported != null) {	        	
 	            // create satisfactions
 	            createMASLSatisfactions(elements);
+		    	// create any missing port interface operations 
+		    	// MASL projects don't always declare all domain 
+		    	// terminator services in a masl project
+		    	synchronizeWithMASLDomain(system);
 	        }
 		} catch (Exception e) {
 			// revert the transaction
@@ -370,12 +377,6 @@ public class ImportHelper
 				TransactionUtil.endTransactions(transactionGroup);				
 			}
 		}
-        if (m_maslProjectImported != null) {	        	
-	    	// create any missing port interface operations 
-	    	// MASL projects don't always declare all domain 
-	    	// terminator services in a masl project
-	    	synchronizeWithMASLDomain(system);
-        }		
     }
 
 	// process an unformalized provided interface
@@ -1703,17 +1704,6 @@ public class ImportHelper
         return null;
     }
 
-    /**
-     * Migrate the date (genType 1), timestamp (genType 2), and inst_ref<Timer> (genType 3)
-     * system level datatypes if their core types are not correct.
-     * 
-     * @parameter system An instance of the system model class
-     */
-    public void migrateSLDTs(SystemModel_c system)
-    {
-    	// TODO: BOB remove this
-    }    
-        
     /**
      * Migrate the 1.5.1 dynamic arrays to 1.5.2 where both dynamic and fixed-
      * size arrays are supported.
