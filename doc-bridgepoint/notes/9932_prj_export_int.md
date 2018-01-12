@@ -73,15 +73,19 @@ the pre-build step on the correct in-memory data.
 
 ### 6. Work Required
 
-6.1 When a component is assigned via the user interface, the assignment is wrapped in a
-transaction that triggers the `ComponentTransactionListener` (`PersistableModelComponent` _not_ xtUML `Component`).  The
-end of the transaction triggers a persist to occur.  
+6.1  `ImportHelper.resolveMASLProject()`  
+6.1.1  At the beginning of this function, the flow starts a transaction by calling 
+`TransactionManager.startTransactionsOnSelectedModelRoots(...)`.  As the function name suggests, the
+transaction uses model roots that are part of the selection.  Via step debugging, we see that in the
+current flow there are no model elements in the selection, thus, no transaction is created.  The code is
+modified to add the `SystemModel_c` instance to the selection before making the call so that a transaction
+is created.  
 
-6.2  The import processing for a MASL project looks for domains to assign to component 
-references.  If it finds them, it calls `<CL_IC>.assignToComp()` directly.  This is not wrapped 
-in a transaction.  
+6.1.2  At the end of this function there is code that executes outside of the transaction.  After discussion
+among the engineering team, there appears to be no reason for this.  The call to `synchronizeWithMASLDomain(system)`
+is moved up inside the transaction.  
 
-6.3  Change the CLI `ImportExecutor` to call `<SystemModel_c>.persistSelfAndChildren()` after the 
+6.2  Change the CLI `ImportExecutor` to call `<SystemModel_c>.persistSelfAndChildren()` after the 
 project or file is imported.  This will force persist the in-memory data before the application exits.  
 
 ### 7. Implementation Comments
@@ -94,6 +98,15 @@ We researched a solution for this issue but turned up nothing.  We also attempte
 the error, but again without success.  The problem is happening in eclipse code that is outside of BridgePoint
 control.  We are calling the proper function `IWorkbench.close()` to exit the application.  No solution
 to making this error go away was found.   
+
+7.2  Removed obsolete and unused function `migrateSLDTs` from `ImportHelper.java`.  The function
+has no implementation and is not called from anywhere.    
+
+7.3  It is not clear why the resolution and assignment of component references inside the (now properly 
+constructed) transaction in `ImportHelper` does not cause a persist of the in-memory data to occur. It could 
+be that there is a race condition between persistence launched by a listener and the application shutdown 
+is happening.  Whatever the cause, it is clear that making sure the CLI Import persists everything before
+shutting down by making a direct invocation is a clear fix for this issue.  
 
 ### 8. Unit Test
 
