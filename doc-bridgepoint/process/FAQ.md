@@ -51,7 +51,7 @@
     * [What are xtUML.org accounts for?](#xorgacct)    
     * [What are support.onefact.net accounts for?](#redmineacct)  
     * [How do I use Github with two-factor authentication](#github2fa)  
-
+    * [What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)](#synchronize)  
 
 
 xtUML Profile <a id="xtuml_profile"></a>
@@ -478,4 +478,13 @@ Miscellaneous <a id="misc"></a>
   Your support.onefact.net account allows you to open and track features requests and issues against BridgePoint.  This includes the public issue tracking for xtUML community members as well as private areas for One Fact customers to track service requests.  To get started in this system, [see the instructions here](https://support.onefact.net/redmine).  New account requests in this system are approved manually.   
 
 * **How do I use Github with two-factor authentication?**  <a id="github2fa"></a>  
-  You can set up 2FA on your Github account and use git from the command line or EGit. [See the instructions here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-setup-github-2-factor-auth.md)
+  You can set up 2FA on your Github account and use git from the command line or EGit. [See the instructions here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-setup-github-2-factor-auth.md)   
+  
+* **What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)** <a id="synchronize"></a>)  
+  When an interface is changed (operation/signal added or deleted), BridgePoint will detect this and decorate the project and affected elements in Model Explorer with the yellow warning sign.  For example, in the screenshot below you will see that a new operation has been added to the UI interface, which caused the project and affected components and ports to get decorated with the warning sign.  
+
+  From this point the modeler can run the "Synchronize references" (push changes) or "Synchronize with library" (pull changes) on the project.  These actions will perform the desired update and dirty the affected elements in the underlying revision control.  Using these tools there is no need to unformalize/reformalize or break the satisfaction of connected interfaces.  
+
+  If you are interested in more learning why this is implemented in this manner, the following engineering notes provide background: [9717_interface_msg_dnt.md](../notes/9717_interface_msg/9717_interface_msg_dnt.md), [dts0100841747.dnt](../notes/9717_interface_msg/dts0100841747.dnt.txt).  
+
+  <img src="ModelExplorerSynchronizeWarning.png" alt="ModelExplorerSynchronizeWarning" style="width: 20px;"/>  

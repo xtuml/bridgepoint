@@ -891,7 +891,7 @@ public class ${class_name} extends CoreImport
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
             helper.upgradeDSAs(getModelRoot());
-            helper.upgradeElementOrder(getModelRoot());
+            helper.upgradeElementOrder(loadedInstances);
 			loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 			helper.fixSatisfactionAssociations(loadedInstances);
 			helper.loadDataTypesFromCoreTypeProxy(loadedInstances);

@@ -1,0 +1,1057 @@
+========================================================================
+
+File:      $RCSfile: dts0100841747.dnt,v $
+Version:   $Revision: 1991 $
+Modified:  $Date: 2012-11-02 14:29:43 -0700 (Fri, 02 Nov 2012) $
+
+(c) Copyright 2007-2012 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Project Design Note
+Manual synchronization for interface references
+
+1. Abstract
+-----------
+This note describes the changes required to support manual synchronization for
+interface references and their messages.
+
+2. History
+----------
+
+3. Document References
+----------------------
+[1] ClearQuest DEI dts0100841747 Existing interface references are not updated
+                                 when the interface is updated via a CM
+                                 repository
+[2] ClearQuest DEI dts0100772842 Port OAL defined in an imported interface
+                                 reference is not pasted
+
+4. Background
+-------------
+Interface references host OAL for component definitions.  The OAL homes must be
+created locally and must be created for each operation and signal in the
+referred to interface.  Before the introduction of cross project referencing
+this was always handled as the interface and the interface reference were always
+present.  With the introduction of cross project referencing this is no longer
+true as each project may not exist in the workspace.  This introduces a
+synchronization issue that is being hit by customers as we try to move them to
+cross project referencing. 
+
+Other elements were investigated to determine if they should belong to the
+manual synchronization infrastructure.  None were necessary for this release.
+
+5. Requirements
+---------------
+5.1 Keep interfaces and references synchronized
+
+The tool must support a way to keep interfaces and the references to them
+synchronized.  Rather than automatically updating the references the tool shall
+instead provide a manual way to synchronize the data.  This prevents unexpected
+loss of OAL data, where in an automated solution a dialog would be required and
+would display at load time.  This is not an ideal location for dialogs.  With
+the change to manual synchronization the tool must indicate to the user
+unsynchronized elements.
+
+5.2 Provide push synchronization
+
+The tool must support a one pass synchronization for a project containing
+interfaces.  This type of synchronization is considered a push as it will push
+the required data to all referring elements in the workspace.  With a push
+synchronization all referring projects must be present in the workspace for them
+to be updated.  The tool will only synchronize those that are in the workspace,
+others are not known about at the time and are not processed.
+
+5.3 Provide pull synchronization
+
+The tool must support a pull synchronization for a project containing interface
+references.  This is considered a pull as it pulls synchronization data from the
+interface, and only for the selected project(s).
+
+6. Analysis
+-----------
+6.1 Remove automated synchronization logic
+
+All logic that currently automates synchronization between an interface and
+interface reference shall be removed.  The areas that currently handle the
+automated synchronization are:
+
+- Dispose (of the interface)
+- Resolution (of the referred to interface during paste)
+- Creation (of executable properties)
+
+6.2 Add manual synchronization support
+
+Manual synchronization support shall be added in the form of context menu
+actions.  Manual synchronization shall occur on an entire project rather than
+on each individual interface reference.  This makes the synchronization less
+tedious.  In both synchronization methods the tool shall inform the user of any
+data that will be removed before synchronization occurs.  The tool shall allow
+the user to abort the operation if they decide.  In both synchronization methods
+the tool shall inform the user if nothing was found to be unsynchronized.
+
+6.2.1 Add push synchronization support
+
+The tool shall support pushing synchronization data out to all interface
+references.  When performed the tool shall locate all interfaces under the
+selected system(s) and synchronize the local data with the external reference
+data.
+
+6.2.2 Add pull synchronization support
+
+The tool shall support pulling synchronization data from the referred to
+interfaces.  When performed the tool shall locate all interface references under
+the selected project(s) and synchronize the local data with the referenced
+interface.  If the referenced interface has been removed the tool shall
+unformalize the interface reference.  In the case of an unformalize the user
+shall be informed prior to completing the synchronization.
+
+6.3 Support multiple selection formalization
+
+The tool shall support selecting multiple interface references when formalizing.
+This will ease the process of restoring interface references that have been
+unformalized due to the synchronization process.  In general, it will also be
+useful for users who have created a large number of interface references that
+will formalize to the same interface.  Currently, the infrastructure is limited
+in that elements of the same type must be selected for enablement.  This means
+that until the infrastructure limitation is addressed provisions and
+requirements cannot be formalized at the same time.
+
+6.4 Support manual deletion of OAL homes
+
+When the interface references were managed automatically it was not necessary to
+provide delete support for the elements that contain the OAL homes.  With
+synchronization occurring manually the tool can leave these elements in place
+even when they do not have a valid interface operation or signal present.  The
+tool shall allow removal of such elements.
+
+6.5 Support decoration of unsynchronized data
+
+The tool shall inform users of data that is not synchronized.  This shall be
+done through a decorator that overlays an image on the icons in model explorer.
+The decorator shall make use of the eclipse decoration framework, which allows
+icon overlaying and text modification.  For this work only the icon overlay
+shall be used.
+
+7. Design
+---------
+7.1 Remove automated synchronization logic
+
+In Executable Property.dispose() OAL logic exist that disposes the associated
+Provided Executable Property and Required Executable Property instances.  This 
+OAL is removed.
+
+In Interface.dispose() there is logic that unformalizes associated interface
+references.  This logic is removed.
+
+In Interface.newExecutableProperty() there is logic that creates new Provided
+Executable Property and Required Executable Property instances to match the
+newly added interface operation or signal.  This logic is removed.
+
+In Interface Reference.resolveInterface() there is logic that removes all local
+operation and signal data and then recreates it after finding a new interface.
+This logic is removed.
+
+7.2 Add manual synchronization support
+
+Two new context menu actions are created, Synchronize references and Synchronize
+with library.  These actions will support the push and pull synchronization
+requirements.  The context menu definitions are added to
+bp.core/arc/create_core_plugin.inc.  They are shown when System Model instances
+are selected.  No filtering is performed at this time.
+
+7.2.1 Add push synchronization support
+
+A new class is created PublishInterfaceSynchronizationChanges.java.  This class
+supports the push menu item created in 7.2.  The class gathers all interfaces
+found under the selected system models, then for each gathers all referencing
+interface references.  For each of the interface references a call to a new
+operation, Interface Reference.synchronizeSignalsAndOperations(), is made.  The
+new operation looks for Provided Executable Property and Required Executable
+Property elements that refer to torn down Executable Property instances.  For
+each of these it removes them by calling dispose.  In addition the operation
+scans the Executable Property instances in the interface and creates new local
+data for those that are not already covered.
+
+The synchronization action is performed with a transaction.  This allows the
+synchronization to reverted if desired.
+
+7.2.2 Add pull synchronization support
+
+A new class is created PullInterfaceSynchronizationChanges.java.  This class
+supports the pull menu item created in 7.2.  The class gathers all interface
+references that exist under the selected system models.  For each of them the
+class calls a new operation, Interface Reference.synchronize().  The new
+operation checks to see if the interface reference is referring to a torn down
+interface and if true unformalizes the interface reference.  If the referred to
+interface is not torn down the operation called out in 7.2.1 is called to
+synchronize the signal and operation data.
+
+This action is also performed in a transaction.
+
+In addition to the above this class handles reporting.  There are two dialogs
+that may show.  The first is shown if any element will be removed or
+unformalized as a result of the synchronization.  Those elements being removed
+or unformalized are listed in the dialog.  The second is shown after
+synchronization has completed and gives a list of the data that has changed.
+The dialogs are instances of a new class ScrolledTextDialog.  This new dialog
+class supports a message at the top, with a scrollable text widget in the
+center.  The dialog class' constructor takes a string value for determining the
+data to place at these points.  The dialog class supports the four button
+configurations detailed below:
+
+* OK, Cancel, do not show again (check box)
+* OK, do not show again (check box)
+* OK, Cancel
+* OK
+
+The first dialog instance mentioned uses the OK, Cancel, and do not show again
+configuration.  
+
+The second dialog instance is only a report so it leaves out the Cancel button.
+
+Once these boxes have been checked and the dialog closed they will not show
+again unless the user re-enables them in the BridgePoint preferences.  To
+support this two new preferences are added to the main BridgePoint preference
+page:
+
+Show message synchronization warning (check box)
+ - tooltip: Enables warnings about removals or unformalizations before
+            synchronization
+Show message synchronization report (check box)
+ - tooltip: Enables a report after message synchronization
+
+7.3 Support multiple selection formalization
+
+The tool infrastructure already supports multiple selections when using the flat
+view selection approach.  To enable it for formalization the
+context_menu_pei.sql data is extended to set "*" rather than "1" for the 
+required selection count. 
+
+7.4 Support manual deletion of OAL homes
+
+To support deletion of the OAL home containers four new functions are added to
+the Context Menu Entry Functions function package:
+
+SPR_PO_Delete
+SPR_PS_Delete
+SPR_RO_Delete
+SPR_RS_Delete
+
+Each one calls the corresponding dispose operation.
+
+New CME entries are added to the context_menu.pei.sql data that correspond to
+the above functions.
+
+7.5 Support decoration of unsynchronized data
+
+To support decorating elements in model explorer a new class is added,
+SynchronizationDecorator.java.  This class implements the
+ILightweightLabelDecorator interface.  The decorate method from that interface
+checks the given element for one of the following types:
+
+SystemModel_c
+Package_c
+Component_c
+Port_c
+Provision_c
+Requirement_c
+ProvidedSignal_c
+ProvidedOperation_c
+RequiredSignal_c
+RequiredOperation_c
+
+The list of classes above is derived from those that have isSynchronized()
+operations and their containers up to the System Model instance.
+
+If it is given an instance of any of these it checks the provisions,
+requirements, and provided and required operations or signals to see if they are
+synchronized.  This is done through java reflection, calling a method named
+Issynchronized().  The methods are written in OAL as operations under the
+corresponding ooaofooa classes.  Each are listed below.
+
+Interface Reference.isSynchronized() - returns true if unformalized or the
+interface referred to is not torn down and all children are synchronized
+
+Provision.isSynchronized() - calls supertype
+Interface Reference.isSynchronized()
+
+Requirement.isSynchronized() - calls supertype
+Interface Reference.isSynchronized()
+
+Provided Executable Property.isSynchronized() - returns true if the associated
+Excutable Property is not torn down.
+
+Required Executable Property.isSynchronized() - returns true if the associated
+Excutable Property is not torn down.
+
+The Provided Signal, Provided Operation, Required Signal, and Required Operation
+classes implement the operation such that they call the supertype
+isSynchronized() operation (Provided Executable Property and Required Executable
+Property). 
+
+If any element is considered unsynchronized the decorator will overlay a warning
+symbol icon (as seen on JDT elements).
+
+7.6 Support cross project interface resolution during paste
+
+Currently the tool does not consider interfaces that are outside of the paste
+destination system during resolution.  This leaves interface references
+unformalized after paste, which also results in lost OAL [2].
+
+The Interface Reference.findMatchingInterface() operation is modified to use the
+element visibility infrastructure to locate all interfaces that match by name.
+To do this a new operation is added in Packageable Element,
+resolveInterfaceRelativeToSelf.  This operation calls the element visibility
+infrastructure directly.  The located set is obtained through the element
+visibility associations.  A new operation is created Interface
+Reference.interfacePreciselyMatches().  This operation is given an interface and
+checks the interface to see that all signals and operations match local signal
+and operation data in the interface reference.  To match the local and external
+data must name match for each Executable Property and the associated Executable
+Property proxy.  This operation is called during resolution, and the first
+matching interface is used for the resolution.  If there are no interfaces that
+precisely match the first one found by name is used.
+
+To support name matching of the Executable Property proxy the Executable
+Property data structure must change to cache name data.  The actual name data is
+actually stored in the two subtypes of Executable Property.  To do this a new
+attribute is added to Executable Property, Name.  This attribute is marked as
+derived.  The OAL for the new attribute attempts to get the name from the
+subtypes, failing that it uses the cached value that is retrieved through a new
+operation getCachedName().  This operation is written natively and returns the
+value of the name field in the generated java class.
+
+In io.core/arc/gen_import_java.inc code was added to account for the new
+attribute by passing an empty string if the older element does not have a value.
+
+To properly display unsynchronized signals and operations in Model Explorer the
+Name attribute OAL for each is modified to use the cached name value above.
+
+8. Design Comments
+------------------
+8.1 Add support for component reference manual synchronization
+
+Testing revealed that component references end up in a broken state when a
+referred to component is modified while the reference is not present.  Given
+this it was decided that component reference manual synchronization support will
+be added.
+
+To do this the following new operations are added to the model classes:
+
+Component Reference.isSynchronized() - returns false if the referenced component
+is torn down.  Also returns false if there are additional interface references
+in the referred to component.
+
+Component Reference.synchronize() - called by the synchronization actions,
+unassigns the component reference.  If the referred to component is not torn
+down it will add additional imported references from the component.
+
+Component Reference.collectChanges() - called by the synchronization actions,
+returns all possible changes (unassign, additional imported references, and
+removed references)
+
+Component Reference.getCachedName() - returns the value of m_name (cached
+derived value), this allows for proper name display when referred to component
+is torn down.
+
+Component Reference.collectReferencesForSynchronization() - returns all imported
+references for synchronization checking.
+
+Imported Provision.isSynchronized() - asks supertype if is synchronized
+
+Imported Provision.getCachedName() - same as Component Reference.getCachedName()
+
+Imported Reference.isSynchronized() - returns false if there is no associated
+interface reference or the reference is torn down.
+
+Imported Reference.collectChanges() - adds self to list of changes if not
+synchronized
+
+Imported Reference.synchronize() -  disposes self if not synchronized
+
+Imported Requirement.isSynchronized() - asks supertype if is synchronized
+
+Imported Requirement.getCachedName() - same as Component
+Reference.getCachedName()
+
+The decoration class is modified to be more generic, now using
+NonRootModelElement as the interesting class.  The following methods are added
+to the NonRootModelElement class and are overridden when synchronziation support
+is necessary:
+
+Collectchanges(Object)
+Issynchronized()
+Synchronize()
+
+Automated synchronization is removed for component references.  This is done by
+removing the following logic:
+
+Interface Reference.dispose() - logic existed that also disposed imported
+interface references.
+
+Interface Reference.formalize() - logic existed that created imported interface
+references.
+
+Interface Reference.unformalize() - logic existed that disposed imported
+interface references.
+
+Component.dispose() - logic existed that unassigned any referring component
+references
+
+8.2 Do not dispose model root if containing elements
+
+Testing revealed that a project close would delete model roots.  This also
+removed access to proxy elements as they are stored in the real elements model
+root.  With out access to the proxies, referring elements in other projects
+could not become associated with the real element when the project was opened.
+
+To support this code is added that prevents removal of a model root if any
+elements still exist.
+
+9. Work Required
+----------------
+See design section.
+
+10. Unit Test
+------------
+10.1 Test removal of automated synchronization
+
+10.1.1 Creation of new operation
+
+_- Create an interface
+_- Create an interface reference and formalize it to the new interface
+_- Create an operation
+_R The interface reference does not have an operation
+
+10.1.2 Creation of new signal
+
+_- Create an interface
+_- Create an interface reference and formalize it to the new interface
+_- Create a signal
+_R The interface reference does not have a signal
+
+10.1.3 Deletion of an operation
+
+_- Create an interface with an operation
+_- Create an interface reference and formalize it to the new interface
+_R The interface reference has the new operation
+_- Delete the operation in the interface
+_R The interface reference still has the new operation
+
+10.1.4 Deletion of a signal
+
+_- Create an interface with a signal
+_- Create an interface reference and formalize it to the new interface
+_R The interface reference has the new signal
+_- Delete the signal in the interface
+_R The interface reference still has the new signal
+
+10.1.5 Interface resolution
+
+_- Create an interface with an operation and a signal
+_- Create an interface reference and formalize it to the new interface
+_- Copy the interface reference and its component
+_- Remove the operation and signal from the interface
+_- Paste the component and interface reference
+_R The pasted interface reference still has the operation and the signal
+
+10.2 Test manual synchronization
+
+10.2.1 Push synchronization
+
+Note the following tests configure the preference to not show the warning and
+report dialog as that is tested later.
+
+10.2.1.1 Provision, additional operation
+
+_- Create an interface
+_- Create a provision and formalize it to the interface
+_- Add an operation to the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The provision has an operation added
+
+10.2.1.2 Provision, additional signal
+
+_- Create an interface
+_- Create a provision and formalize it to the interface
+_- Add a signal to the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The provision has an signal added
+
+10.2.1.3 Provision, removed operation
+
+_- Create an interface with an operation
+_- Create a provision and formalize it to the interface
+_- Delete the operation in the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The provision has the operation removed
+
+10.2.1.4 Provision, removed signal
+
+_- Create an interface with a signal
+_- Create a provision and formalize it to the interface
+_- Delete the signal in the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The provision has the signal removed
+
+10.2.1.5 Requirement, additional operation
+
+_- Create an interface
+_- Create a requirement and formalize it to the interface
+_- Add an operation to the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The requirement has an operation added
+
+10.2.1.6 Requirement, additional signal
+
+_- Create an interface
+_- Create a requirement and formalize it to the interface
+_- Add a signal to the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The requirement has an signal added
+
+10.2.1.7 Requirement, removed operation
+
+_- Create an interface with an operation
+_- Create a requirement and formalize it to the interface
+_- Delete the operation in the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The requirement has the operation removed
+
+10.2.1.8 Requirement, removed signal
+
+_- Create an interface with a signal
+_- Create a requirement and formalize it to the interface
+_- Delete the signal in the interface
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The requirement has the signal removed
+
+10.2.1.9 Interface Reference, interface deleted
+
+_- Create an interface
+_- Create an provision and formalize it to the interface
+_- Create a requirement and formalize it to the interface
+_- Delete the interface
+_R The provision is left formalized
+_R The requirement is left formalized
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The provision and requirement are unformalized
+
+10.2.1.10 Interface Reference, package containing interface deleted
+
+_- Create an interface
+_- Create an provision and formalize it to the interface
+_- Create a requirement and formalize it to the interface
+_- Delete the interface's containing package
+_R The provision is left formalized
+_R The requirement is left formalized
+_- Right click on the interface's project
+_R The Synchronize references menu item is present
+_- Execute the menu item
+_R The provision and requirement are unformalized
+
+10.2.2 Pull synchronization
+
+10.2.2.1 Provision, additional operation
+
+_- Create an interface
+_- Create a provision and formalize it to the interface
+_- Add an operation to the interface
+_- Right click on the provision's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The provision has an operation added
+
+10.2.2.2 Provision, additional signal
+
+_- Create an interface
+_- Create a provision and formalize it to the interface
+_- Add a signal to the interface
+_- Right click on the provision's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The provision has an signal added
+
+10.2.2.3 Provision, removed operation
+
+_- Create an interface with an operation
+_- Create a provision and formalize it to the interface
+_- Delete the operation in the interface
+_- Right click on the provision's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The provision has the operation removed
+
+10.2.2.4 Provision, removed signal
+
+_- Create an interface with a signal
+_- Create a provision and formalize it to the interface
+_- Delete the signal in the interface
+_- Right click on the provision's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The provision has the signal removed
+
+10.2.2.5 Requirement, additional operation
+
+_- Create an interface
+_- Create a requirement and formalize it to the interface
+_- Add an operation to the interface
+_- Right click on the requirement's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The requirement has an operation added
+
+10.2.2.6 Requirement, additional signal
+
+_- Create an interface
+_- Create a requirement and formalize it to the interface
+_- Add a signal to the interface
+_- Right click on the requirement's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The requirement has an signal added
+
+10.2.2.7 Requirement, removed operation
+
+_- Create an interface with an operation
+_- Create a requirement and formalize it to the interface
+_- Delete the operation in the interface
+_- Right click on the requirement's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The requirement has the operation removed
+
+10.2.2.8 Requirement, removed signal
+
+_- Create an interface with a signal
+_- Create a requirement and formalize it to the interface
+_- Delete the signal in the interface
+_- Right click on the requirement's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The requirement has the signal removed
+
+10.2.2.9 Interface Reference, interface deleted
+
+_- Create an interface
+_- Create an provision and formalize it to the interface
+_- Create a requirement and formalize it to the interface
+_- Delete the interface
+_R The provision is left formalized
+_R The requirement is left formalized
+_- Right click on the provision's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The provision and requirement are unformalized
+
+10.2.2.10 Interface Reference, package containing interface deleted
+
+_- Create an interface
+_- Create an provision and formalize it to the interface
+_- Create a requirement and formalize it to the interface
+_- Delete the interface's containing package
+_R The provision is left formalized
+_R The requirement is left formalized
+_- Right click on the provision's project
+_R The Synchronize with library menu item is present
+_- Execute the menu item
+_R The provision and requirement are unformalized
+
+
+10.2.3 Dialogs
+
+10.2.3.1 Push action
+
+_- Create an interface with an operation and a signal
+_- Create a provision and formalize it to the interface
+_- Create another interface
+_- Create another provision and formalize it to the interface with no operations
+   or signals
+_- Create a requirement and formalize it to the interface
+_- Create a new operation under the interface
+_- Delete the signal from the interface
+_- Delete the interface with no operations or signals
+_- Right click on the interface's project
+_- Select the Synchronize references menu item
+_R A warning dialog is shown
+_R The dialog contains a list of each interface reference operation and signal
+_R The dialog contains the interface reference that was formalized to the
+   interface with no operations or signals
+_- Click Cancel
+_R The synchronization did not occur
+_- Execute the Synchronize references action again
+_R The same dialog appears
+_- Check the "Do not ask again" box
+_- Click OK
+_R A report dialog is shown
+_R The report dialog contains the same list as the warning dialog with new
+   entries for the added operation
+_- Check the "Do not show again" box
+_- Click OK
+_R The synchronization occurs
+_- Undo the synchronization
+_- Execute the Synchronize references action again
+_R The synchronization occurs with no dialogs shown
+
+10.2.3.2 Pull action
+
+_- Create an interface with an operation and a signal
+_- Create a provision and formalize it to the interface
+_- Create another interface
+_- Create another provision and formalize it to the interface with no operations
+   or signals
+_- Create a requirement and formalize it to the interface
+_- Create a new operation under the interface
+_- Delete the signal from the interface
+_- Delete the interface with no operations or signals
+_- Right click on the interface reference's project
+_- Select the Synchronize with library menu item
+_R A warning dialog is shown
+_R The dialog contains a list of each interface reference operation and signal
+_R The dialog contains the interface reference that was formalized to the
+   interface with no operations or signals
+_- Click Cancel
+_R The synchronization did not occur
+_- Execute the Synchronize with library action again
+_R The same dialog appears
+_- Check the "Do not ask again" box
+_- Click OK
+_R A report dialog is shown
+_R The report dialog contains the same list as the warning dialog with new
+   entries for the added operation
+_- Check the "Do not show again" box
+_- Click OK
+_R The synchronization occurs
+_- Undo the synchronization
+_- Execute the Synchronize with library action again
+_R The synchronization occurs with no dialogs shown
+
+10.3 Multiple selection formalization
+
+_- Create an interface
+_- Create two provisions
+_- Select both provisions and right click
+_R The Formalize... menu item is present
+_- Select the Formalize... action
+_R Each provision is formalized to the interface
+_- Create two requirements
+_- Select both requirements and right click
+_R The Formalize... menu item is present
+_- Select the Formalize... action
+_R Each requirement is formalized to the interface
+
+10.4 Support delete of OAL homes
+
+_- Create an interface with an operation and a signal
+_- Create an provision and formalize it to the interface
+_- Right click on the operation and signal under the provision
+_R The Delete menu item is present
+_- Execute the delete action
+_R The operation and signal are removed locally
+_R The operation and signal in the interface remain
+_- Create a requirement and formalize it to the interface
+_- Right click on the operation and signal under the requirement
+_R The Delete menu item is present
+_- Execute the delete action
+_R The operation and signal are removed locally
+_R The operation and signal in the interface remain
+
+10.5 Decorations
+
+Note the following tests create an interface and interface reference in two
+different projects.
+
+10.5.1 Decoration display
+
+_- Create an interface with an operation and a signal
+_- Create an interface reference and formalize it to the interface
+_- Delete the operation under the interface
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Undo the deletion
+_R Nothing is decorated
+_- Delete the signal under the interface
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Undo the deletion
+_R Nothing is decorated
+_- Delete the interface
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Undo the deletion
+_R Nothing is decorated
+
+10.5.2 Decoration update
+
+10.5.2.1 On resource change interface reference
+
+_- Create an interface with an operation
+_- Create an interface reference and formalize it to the interface
+_- Delete the operation under the interface reference
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Replace the interface reference file with the previous from local history
+_R Nothing is decorated
+_- Replace the interface reference file with the previous from local history
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+
+10.5.2.2 On resource change interface
+
+_- Create an interface with an operation
+_- Create an interface reference and formalize it to the interface
+_- Close the project containing the interface reference
+_- Delete the operation under the interface
+_- Open the project containing the interface reference
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Replace the interface file with the previous from local history
+_R Nothing is decorated
+_- Replace the interface file with the previous from local history
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+
+10.5.2.3 On BridgePoint action interface
+
+_- Create an interface with an operation
+_- Create an interface reference and formalize it to the interface
+_- Delete the operation under the interface
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Undo the deletion
+_R Nothing is decorated
+
+10.5.2.4 On BridgePoint action interface reference
+
+_- Create an interface with an operation
+_- Create an interface reference and formalize it to the interface
+_- Delete the operation under the interface reference
+_R The System Model, Package, Component, Port, Interface Reference and local
+   operation are decorated
+_- Undo the deletion
+_R Nothing is decorated
+
+10.6 Interface resolution
+
+10.6.1 Cross project, precise matching
+
+_- Create an interface in one project with an operation and a signal
+_- Create a provision in another project and formalize it to the interface
+_- Add OAL to the operation and signal
+_- Copy the component which owns the provision
+_- Paste the component in the same project
+_R The provision is left formal and is synchronized
+_R The OAL added still remains
+_- Create an interface in one project with an operation and a signal
+_- Create a requirement in another project and formalize it to the interface
+_- Add OAL to the operation and signal
+_- Copy the component which owns the requirement
+_- Paste the component in the same project
+_R The requirement is left formal and is synchronized
+_R The OAL added still remains
+
+
+10.6.2 Multiple matches no precise matching
+
+_- Create an interface in one project with an operation and a signal
+_- Create an interface in another project with the same name as the above
+   interface
+_- Create a provision in another project and formalize it to the first interface
+_- Add OAL to the operation and signal
+_- Copy the component which owns the provision
+_- Delete the first interface 
+_- Paste the component in the same project
+_R The provision is formalized to the interface with no operations or signals
+_R The provision is not synchronized and has decorations
+_R The OAL added still remains
+_- Create an interface in one project with an operation and a signal
+_- Create an interface in another project with the same name as the above
+   interface
+_- Create a requirement in another project and formalize it to the first
+   interface
+_- Add OAL to the operation and signal
+_- Copy the component which owns the requirement
+_- Delete the first interface
+_- Paste the component in the same project
+_R The requirement is formalized to the interface with no operations or signals
+_R The requirement is not synchronized and has decorations
+_R The OAL added still remains
+
+10.7 Test Push synchronization with pessimistic locking
+
+_- Check out svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/
+    trunk/Models/Test/SVNPessimisticLocking
+_- Delete IPkg1::Intrf1
+_- Check out the file to make the change
+_R The CPkg1 component package is marked as unsynchronized
+_- Right click on the system and select Synchronize with library
+_- Hit OK on the confirm changes dialog (sync dialog)
+_- Do not check out the files to be modified, hit Cancel
+_R The report dialog is not shown
+_R Only the interface package is marked dirty
+
+10.8 Component Reference automatic synchronization
+
+10.8.1 Component removed
+
+_- Create a project with a component
+_- Create another project with a component reference and assign it to the
+   component
+_- Delete the component
+_R The component reference is not unassigned
+_R The component reference is marked as unsynchronized
+
+10.8.1 Interface reference removed
+
+_- Create a project with a component that has a provision and requirement
+   formalzied
+_- Create another project with a component reference and assign it to the
+   component
+_- Delete the provision
+_R The imported provision under the component reference is not removed
+_R The imported provision under the component reference is marked as
+   unsynchronized
+_- Delete the requirement
+_R The imported requirement under the component reference is not removed
+_R The imported requirement under the component reference is marked as
+   unsynchronized
+   
+10.8.2 Interface reference formalized
+
+_- Create a project with a component that has a provision and requirement
+   unformalized
+_- Create another project with a component reference and assign it to the
+   component
+_- Formalize the provision 
+_R No imported provision is created in the component reference
+_R The component reference is marked as unsynchronized
+_- Undo the change
+_- Formalize the requirement
+_R No imported requirement is created in the component reference
+_R The component reference is marked as unsynchronized
+
+10.8.3 Interface reference unformalized
+
+_- Create a project with a component that has a provision and requirement
+   formalized
+_- Create another project with a component reference and assign it to the
+   component
+_- Unformalize the provision 
+_R The imported provision is not removed
+_R The imported provision is marked as unsynchronized
+_- Unformalize the requirement
+_R The imported requirement is not removed
+_R The imported requirement is marked as unsynchronized
+
+10.9 Component Reference manual Synchronization
+
+10.9.1 Component removed
+
+_- Create a project with a component
+_- Create another project with a component reference and assign it to the
+   component
+_- Delete the component
+_R The component reference is not unassigned
+_R The component reference is marked as unsynchronized
+_- Run Synchronize with library
+_R The component reference is unassigned
+
+10.9.2 Interface Reference removed
+
+_- Create a project with a component that has a provision and requirement
+   formalzied
+_- Create another project with a component reference and assign it to the
+   component
+_- Delete the provision
+_R The imported provision under the component reference is not removed
+_R The imported provision under the component reference is marked as
+   unsynchronized
+_- Delete the requirement
+_R The imported requirement under the component reference is not removed
+_R The imported requirement under the component reference is marked as
+   unsynchronized
+_- Run Synchronize with library
+_R Each imported provision and requirement is removed
+
+10.9.3 Interface Reference formalized
+
+_- Create a project with a component that has a provision and requirement
+   unformalized
+_- Create another project with a component reference and assign it to the
+   component
+_- Formalize the provision 
+_R No imported provision is created in the component reference
+_R The component reference is marked as unsynchronized
+_- Formalize the requirement
+_R No imported requirement is created in the component reference
+_R The component reference is marked as unsynchronized
+_- Run Synchronize with library
+_R An imported reference is created for each
+
+10.9.4 Interface Reference unformalized
+
+_- Create a project with a component that has a provision and requirement
+   formalized
+_- Create another project with a component reference and assign it to the
+   component
+_- Unformalize the provision 
+_R The imported provision is not removed
+_R The imported provision is marked as unsynchronized
+_- Unformalize the requirement
+_R The imported requirement is not removed
+_R The imported requirement is marked as unsynchronized
+_- Run Synchronize with library
+_R The imported provision and requirement are removed
+
+End
+---
+
+$Log: dts0100841747.dnt,v $
+Revision 1.5  2012/03/14 16:13:56  tlondon
+Job: dts0100841747
+
+Add component ref changes and tests
+
+Revision 1.4  2012/03/13 23:01:41  tlondon
+Job: dts0100841747
+
+Address review minutes
+
+Revision 1.3  2012/03/07 22:08:43  tlondon
+Job: dts0100841747
+
+Add tests for cross project resolution and precise matching
+
+Revision 1.2  2012/03/07 21:58:43  tlondon
+Job: dts0100841747
+
+Add test section to note
+
+Revision 1.1  2012/03/07 20:23:12  tlondon
+Job: dts0100841747
+
+Introduce initial draft design note
+

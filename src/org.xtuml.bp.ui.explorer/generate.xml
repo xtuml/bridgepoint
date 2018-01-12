@@ -33,7 +33,8 @@
     <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
        <srcfiles dir = "sql" includes = "UITree.pei.sql" />
        <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
-       <srcfiles dir = "arc"        includes = "BuildTree.arc,parse_chain.inc,create_adapters.inc,create_label_provider.inc,create_content_provider.inc,create_filters_content_provider.inc,create_explorer_view.inc" />
+       <srcfiles dir = "arc"        includes = "BuildTree.arc,create_adapters.inc,create_label_provider.inc,create_content_provider.inc,create_filters_content_provider.inc,create_explorer_view.inc" />
+       <srcfiles dir = "../org.xtuml.bp.core/arc"        includes = "parse_chain.inc" />
        <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
     </uptodate>
   </target>
@@ -69,7 +70,8 @@
       <uptodate property="javamonitor.buildNotNeeded" targetfile="${javamonitor.output}">
          <srcfiles dir = "sql" includes = "MonUITree.pei.sql" />
          <srcfiles dir = "../org.xtuml.bp.core/sql" includes = "ooaofooa.sql" />
-         <srcfiles dir = "arc" includes = "BuildMonitorTree.arc,parse_chain.inc,create_adapters.inc,create_monitor_label_provider.inc,create_monitor_content_provider.inc,create_monitor_explorer_view.inc" />
+         <srcfiles dir = "arc" includes = "BuildMonitorTree.arc,create_adapters.inc,create_monitor_label_provider.inc,create_monitor_content_provider.inc,create_monitor_explorer_view.inc" />
+       <srcfiles dir = "../org.xtuml.bp.core/arc"        includes = "parse_chain.inc" />
          <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
       </uptodate>
     </target>
