@@ -51,23 +51,23 @@ function in the OOA of OOA.
 
 The following functions were added:
 
-5.2.x `Message_invocation_tok_rparen_content_assist`  
-5.2.x `Create_event_statement_local_variable_content_assist`  
-5.2.x `Event_spec_event_label_content_assist`  
-5.2.x `Event_spec_tok_times_content_assist`  
-5.2.x `Event_spec_tok_rparen_content_assist`  
-5.2.x `Event_spec_event_meaning_content_assist`  
-5.2.x `For_statement_local_variable_content_assist`  
-5.2.x `Relate_statement_inst_ref_var2_content_assist`  
-5.2.x `Relate_statement_inst_ref_var4_content_assist`  
-5.2.x `Relate_statement_relationship_content_assist`  
-5.2.x `Relate_statement_phrase_content_assist`  
-5.2.x `Unrelate_statement_inst_ref_var2_content_assist`  
-5.2.x `Unrelate_statement_inst_ref_var4_content_assist`  
-5.2.x `Unrelate_statement_relationship_content_assist`  
-5.2.x `Unrelate_statement_phrase_content_assist`  
-5.2.x `bridge_content_assist`  
-5.2.x `transform_content_assist`  
+5.2.1 `Message_invocation_tok_rparen_content_assist`  
+5.2.2 `Create_event_statement_local_variable_content_assist`  
+5.2.3 `Event_spec_event_label_content_assist`  
+5.2.4 `Event_spec_tok_times_content_assist`  
+5.2.5 `Event_spec_tok_rparen_content_assist`  
+5.2.6 `Event_spec_event_meaning_content_assist`  
+5.2.7 `For_statement_local_variable_content_assist`  
+5.2.8 `Relate_statement_inst_ref_var2_content_assist`  
+5.2.9 `Relate_statement_inst_ref_var4_content_assist`  
+5.2.10 `Relate_statement_relationship_content_assist`  
+5.2.11 `Relate_statement_phrase_content_assist`  
+5.2.12 `Unrelate_statement_inst_ref_var2_content_assist`  
+5.2.13 `Unrelate_statement_inst_ref_var4_content_assist`  
+5.2.14 `Unrelate_statement_relationship_content_assist`  
+5.2.15 `Unrelate_statement_phrase_content_assist`  
+5.2.16 `bridge_content_assist`  
+5.2.17 `transform_content_assist`  
 
 Each one makes invocations to `single_keyword_content_assist` to add keywords
 that apply.
