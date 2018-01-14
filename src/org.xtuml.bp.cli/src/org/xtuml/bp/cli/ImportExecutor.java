@@ -2,18 +2,19 @@ package org.xtuml.bp.cli;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import java.io.FileOutputStream;
-import org.apache.commons.io.FilenameUtils;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.osgi.service.prefs.BackingStoreException;
@@ -47,6 +48,11 @@ public class ImportExecutor implements Executor {
                 importFile();
             } else {
                 throw new BPCLIException("You must specify either a project or file to import.");
+            }
+            
+            if ( project != null) {
+            	SystemModel_c sys = ProjectUtilities.getSystemModel(project);
+            	sys.getPersistableComponent().persistSelfAndChildren();
             }
         } catch (CoreException e) {
             System.err.println(e.getMessage());
