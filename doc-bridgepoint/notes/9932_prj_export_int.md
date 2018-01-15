@@ -81,10 +81,6 @@ current flow there are no model elements in the selection, thus, no transaction 
 modified to add the `SystemModel_c` instance to the selection before making the call so that a transaction
 is created.  
 
-6.1.2  At the end of this function there is code that executes outside of the transaction.  After discussion
-among the engineering team, there appears to be no reason for this.  The call to `synchronizeWithMASLDomain(system)`
-is moved up inside the transaction.  
-
 6.2  Change the CLI `ImportExecutor` to call `<SystemModel_c>.persistSelfAndChildren()` after the 
 project or file is imported.  This will force persist the in-memory data before the application exits.  
 
