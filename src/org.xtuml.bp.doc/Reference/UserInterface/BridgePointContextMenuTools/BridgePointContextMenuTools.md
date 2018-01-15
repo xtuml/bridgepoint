@@ -60,6 +60,7 @@ These menu entries appear on only the context menu of Model Explorer.
 | Move Up                 | Move the selected attribute or parameter up in the parent's containment list. |
 | Parse All Activities    | Parse the OAL action bodies in the selection and look for syntax issues. |
 | Project Preferences     | Opens a dialog to manipulate project-specific BridgePoint settings. |
+| Publish To Interface... | Opens a dialog that allows the user to choose an Interface to publish selected operations to. |
 | Remove from Identifier... | Opens dialog to remove the selected attribute from being part of a class identifier. |
 | Set as Base Attribute   | Change the attribute from a mathematically-derived attribute to a base attribute. | 
 | Set as Derived Attribute| Change the attribute from a base attribute to a mathematically-derived attribute. | 
@@ -68,9 +69,8 @@ These menu entries appear on only the context menu of Model Explorer.
 | Set To Provider         | Sets the direction of an interface message to "To Provider". |
 | Set Type...             | Opens dialog to set the data type of the selection. |
 | Split                   | Breaks a combined attribute back into the parts that where combined when it was created. |
-| Synchronize with library| Update local interface references by pulling in changes to the referred-to interfaces. |
 | Synchronize references  | Update remote interface references by pushing changes to local interfaces. |
-| Publish To Interface... | Opens a dialog that allows the user to choose an Interface to publish selected operations to. |
+| Synchronize with library| Update local interface references by pulling in changes to the referred-to interfaces. |
 __Table 2__   
 
 ## Canvas-specific Context Menu Entries

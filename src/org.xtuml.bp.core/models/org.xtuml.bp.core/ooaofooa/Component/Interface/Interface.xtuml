@@ -905,7 +905,7 @@ if (not_empty function)
     select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
     while (not_empty existingOp)
       count = count + 1;
-      newName = baseName + "-" + GD::int_to_string(value:count);
+      newName = baseName + "_" + GD::int_to_string(value:count);
       select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
     end while;
   end if;
