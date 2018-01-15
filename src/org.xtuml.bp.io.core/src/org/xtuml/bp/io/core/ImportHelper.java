@@ -361,10 +361,6 @@ public class ImportHelper
 	        if (m_maslProjectImported != null) {	        	
 	            // create satisfactions
 	            createMASLSatisfactions(elements);
-		    	// create any missing port interface operations 
-		    	// MASL projects don't always declare all domain 
-		    	// terminator services in a masl project
-		    	synchronizeWithMASLDomain(system);
 	        }
 		} catch (Exception e) {
 			// revert the transaction
@@ -377,6 +373,15 @@ public class ImportHelper
 				TransactionUtil.endTransactions(transactionGroup);				
 			}
 		}
+        if (m_maslProjectImported != null) {	        	
+	    	// Create any missing port interface operations 
+	    	// MASL projects don't always declare all domain 
+	    	// terminator services in a MASL project.  Note that
+        	// this call should _not_ be moved up inside the 
+        	// transaction.  It needs to occur after all that 
+        	// work is done.
+	    	synchronizeWithMASLDomain(system);
+        }		
     }
 
 	// process an unformalized provided interface
