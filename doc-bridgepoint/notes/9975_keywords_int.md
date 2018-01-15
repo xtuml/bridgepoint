@@ -145,7 +145,6 @@ Branch: 9975_keywords
 
 <pre>
 
- applications/gps/GPS Watch/models/GPS Watch/Library/Library.xtuml                                                                     | 205 ++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------------------
  test/oal_autocomplete/models/oal_autocomplete/Container/Container/AH01/Class/Class.xtuml                                              |   2 +-
  test/oal_autocomplete/models/oal_autocomplete/Container/Container/AH01/Class/InstanceStateMachine/InstanceStateMachine.xtuml          |   6 +--
  test/oal_autocomplete/models/oal_autocomplete/Container/Container/AH06/AH06.xtuml                                                     | 152 +++++++++++++++++++++++++++++++++++++++------------------------------
@@ -166,7 +165,7 @@ Branch: 9975_keywords
  test/oal_autocomplete/models/oal_autocomplete/Container/Container/Classes/L33/L33.xtuml                                               |   4 +-
  test/oal_autocomplete/models/oal_autocomplete/Container/Container/Container.xtuml                                                     |   8 ++--
  test/oal_autocomplete/models/oal_autocomplete/Container/Container/Functions/Functions.xtuml                                           |   4 +-
- 21 files changed, 1311 insertions(+), 552 deletions(-)
+ 20 files changed, 1206 insertions(+), 452 deletions(-)
 
 </pre>
 
