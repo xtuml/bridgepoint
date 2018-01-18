@@ -91,11 +91,17 @@ None.
 
 ### 9. Code Changes
 
-Fork/Repository: keithbrown/bptest     
-Branch: 10030_test_update   
+__Fork/Repository: keithbrown/bptest__     
+__Branch: 10030_test_update__   
 
 <pre>
  doc-bridgepoint/notes/10030_test_update_int.md
+</pre>
+
+__Fork/Repository: keithbrown/bptest__     
+__Branch: 10030_test_update__   
+
+<pre>
  src/org.xtuml.bp.core.test/src/SystemLevelGlobalsTestSuite.java
  src/org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/CombineSplitReferentialsTestGenerics.java
  src/org.xtuml.bp.ui.canvas.test/expected_results/CopyPasteTests_3/CopyPasteTests_3-112
