@@ -20,6 +20,7 @@ Several test suites are failing on the build server.  This issue addresses some 
 <a id="2.4"></a>2.4 [BridgePoint DEI #9939](https://support.onefact.net/issues/9939) Pasting a class in a package does not update class number        
 <a id="2.5"></a>2.5 [BridgePoint DEI #1447](https://support.onefact.net/issues/1447) Fix Canvas JUnit tests        
 <a id="2.6"></a>2.6 [BridgePoint DEI #8568](https://support.onefact.net/issues/8568) Revisit Canvas CCP tests   
+<a id="2.7"></a>2.7 [BridgePoint DEI #9947](https://support.onefact.net/issues/9947) Type ordering   
 
 ### 3. Background
 
@@ -68,6 +69,17 @@ also re-enabled and updated and undo/redo test here.
 5.10  Issue [2.5] disabled two tests in the `ConnectsAsAnchorsTest` class.  This was seven years ago.  We removed 
 these 2 commented out tests.  
 
+5.11 One test was failing in the Xtext MASL tests. The failure was related to a regression test which loaded and
+parsed all MASL models in  the `models/masl/test/` directory. As part of the fix for issue #9947 [2.7], three models
+were introduced into the `models/masl/test/` directory which contain MASL parse errors. Two of these intentionally
+contain errors. `9947_typeorder2` was fixed to resolve the errors. `malformed_9947_typeorder1` and `malformed_9947_typeorder3`
+were moved to `models/masl/malformed/`. `all_tests` was updated with their new location so the MASL round trip
+regression test still works. Taking this action resolved the test failure in the Xtext test suite. From now on, we
+will take the position that any MASL model in `models/masl/test/` shall be a valid MASL model.  
+
+5.11.1 22 new launch configurations were added to BridgePoint. There are 11 Xtext MASL test suites. A launch configuration
+was added for each suite for both OSX and linux.  
+
 ### 6. Implementation Comments
 
 6.1  During the course of this work we noticed that the Canvas CCP tests need some work in the area of the
@@ -91,11 +103,33 @@ None.
 
 ### 9. Code Changes
 
-__Fork/Repository: keithbrown/bptest__     
+__Fork/Repository: keithbrown/bridgepoint__     
 __Branch: 10030_test_update__   
 
 <pre>
  doc-bridgepoint/notes/10030_test_update_int.md
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL DeclarationTypeProviderTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL DeclarationTypeProviderTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL ExampleModelsIntegrationTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL ExampleModelsIntegrationTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL LexerTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL LexerTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL LibraryTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL LibraryTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL LinkingTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL LinkingTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL PrimitiveTypesTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL PrimitiveTypesTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL SyntacticPredicateTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL SyntacticPredicateTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL TypeConformanceTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL TypeConformanceTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL TypeProviderTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL TypeProviderTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL ValidatorTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL ValidatorTest.launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL ValueConverterTest (OSX).launch
+ doc-bridgepoint/process/templates/launch_configs/Xtext MASL ValueConverterTest.launch
 </pre>
 
 __Fork/Repository: keithbrown/bptest__     
@@ -123,6 +157,19 @@ __Branch: 10030_test_update__
  src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/GlobalsCanvasTestSuite1.java
  src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/GlobalsCanvasTestSuite2.java
  src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/ModelRecreationTests.java
+</pre>
+
+__Fork/Repository: leviathan747/models__     
+__Branch: 10030_test_update__   
+
+<pre>
+ masl/{test => malformed}/malformed_9947_typeorder1/typeorder.int
+ masl/{test => malformed}/malformed_9947_typeorder1/typeorder.mod
+ masl/{test => malformed}/malformed_9947_typeorder3/typeorder.int
+ masl/{test => malformed}/malformed_9947_typeorder3/typeorder.mod
+ masl/test/9947_typeorder2/MyDom.int
+ masl/test/9947_typeorder2/typeorder.mod
+ masl/test/all_tests
 </pre>
 
 ### End
