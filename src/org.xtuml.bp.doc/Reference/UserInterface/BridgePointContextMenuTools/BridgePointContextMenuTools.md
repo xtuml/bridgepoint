@@ -73,15 +73,15 @@ These menu entries appear on only the context menu of Model Explorer.
 | Synchronize with library| Update local interface references by pulling in changes to the referred-to interfaces. |
 __Table 2__   
 
-[1] The `Publish to Interface...` action updates an existing interface message by performing
-a name-based lookup.  If a single match is found, the existing message is updated. However,
-the feature is unable to perform this in-place update if the selection of operations being
-published contains more than one operation of the same name (i.e. the operation is 
-overloaded). Likewise, the in-place update cannot be performed if the target interface contains
-more than one message with the same name.  In either case the tool creates new messages in 
-the interface with unique names that have numbers appended.  The user is notified with popup 
-dialogs containing the details of what action the tool performed.  It is left to the modeler 
-to rectify the interface message set manually.   
+[1] The `Publish to Interface...` action creates a new interface message from a selected
+operation. The tool attempts to update existing interface messages when a name match is found. 
+If a single match is found, the existing message is updated. However, the feature is unable to 
+perform this in-place update if the selection of operations being published contains more than 
+one operation of the same name (i.e. the operation is overloaded). Likewise, the in-place update 
+cannot be performed if the target interface contains more than one message with the same name. In 
+either case the tool creates new messages in the interface with unique names that have numbers 
+appended.  The user is notified with popup dialogs containing the details of what action the tool 
+performed.  It is left to the modeler to rectify the interface message set manually.   
 
 ## Canvas-specific Context Menu Entries
 
