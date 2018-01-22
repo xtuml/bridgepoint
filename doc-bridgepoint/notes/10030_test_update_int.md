@@ -95,7 +95,8 @@ was raised previously to address exactly this.  That issue remains open.
 7.1.4  UI Canvas Suite 1
 7.1.5  UI Canvas Suite 3
 
-7.2  Run build with test on the server for dev branch `keithbrown/10030_test_update` and verify success    
+7.2  Run build with test on the server for dev branch `keithbrown/10030_test_update` and verify success
+in the modified suites      
 
 ### 8. User Documentation
 
@@ -138,6 +139,7 @@ __Branch: 10030_test_update__
 <pre>
  src/org.xtuml.bp.core.test/src/SystemLevelGlobalsTestSuite.java
  src/org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/CombineSplitReferentialsTestGenerics.java
+ /org.xtuml.bp.io.mdl.test/src/org/xtuml/bp/io/mdl/test/ImportPasteElementsWithIPRTest.java
  src/org.xtuml.bp.ui.canvas.test/expected_results/CopyPasteTests_3/CopyPasteTests_3-112
  src/org.xtuml.bp.ui.canvas.test/expected_results/CopyPasteTests_4/CopyPasteTests_4-112
  src/org.xtuml.bp.ui.canvas.test/expected_results/CopyPasteTests_5/CopyPasteTests_5-112
