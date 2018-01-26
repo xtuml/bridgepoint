@@ -23,7 +23,7 @@ Additionally, a bug is fixed where content assist raised a selection list at the
 Publish to Interface
 ------
 Some modelers prefer to create their application from a domain-first, bottom-up approach.  This approach typically
-involves the creation of domain functions that help define the API in and out of the domain.  When the time comes to
+involves the creation of domain functions that help define the API provided by the domain.  When the time comes to
 wire the component into a full system, the modeler is left to manually create interfaces and messages that expose 
 the API.  
 
@@ -39,8 +39,7 @@ Editor Enhancements
 ------
 Ongoing improvements and fixes in the model editor continue.  
 
-Handling of referential attributes and the rules that govern when referentials and identifiers may be combined
-are loosened and improved.   
+Handling of referential attributes and the rules that govern when referentials and identifiers may be combined are improved.   
 
 A fix is made to the handling of the parameter list for class-based operation parameters if a user-defined 
 datatype from another package is used.   
@@ -56,21 +55,19 @@ subtype classes, and terminators are now exported cleanly to feed into downstrea
 
 Additionally, the MASL editing inside BridgePoint is more robust, specifically in the area of handling the 
 synchronization of data stored on disk versus displayed in the editor.  Problems that lead to the "data out of synch" 
-error dialog   have been addressed.  
+error dialog have been addressed.  
 
 
 Concrete Polymorphic Events
 ------
-The implementation of the behavior of polymorphic events as defined in the Schlaer-Mellor Executable 
-UML methology diverged over time in BridgePoint and iUML.  BridgePoint/xtUML defined polymorphic events 
-as "abstract".  It defined that polymorphic events may only be handled at a single level of the supertype/subtype
+The implementation of the behavior of polymorphic events as defined in the Schlaer-Mellor Method diverged over time in BridgePoint and iUML.  BridgePoint/xtUML defined polymorphic events 
+as "abstract".  It defined that polymorphic events may be handled at only one level of the supertype/subtype
 hierarchy.  
 
 On the other hand, iUML/MASL defined polymorphic events as "concrete".  It defined that polymorphic events must
 be handled at every level of the supertype/subtype hierarchy.  
 
 As part of the improvement of MASL capabilities BridgePoint now supports concrete polymorphic events.  The feature
-is enabled with a installation-level setting and should only be used for models that use MASL action language. This 
-new feature addresses problems encountered by MASL modelers.   
+is enabled with an installation-level setting and should only be used for models that use MASL action language.   
 
 
