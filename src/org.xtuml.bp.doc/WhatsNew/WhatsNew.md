@@ -39,13 +39,14 @@ Editor Enhancements
 ------
 Ongoing improvements and fixes in the model editor continue.  
 
-Handling of referential attributes and the rules that govern when referentials and identifiers may be combined are improved.   
+Handling of referential attributes and the rules that govern when referentials and identifiers may be combined 
+are improved.   
 
 A fix is made to the handling of the parameter list for class-based operation parameters if a user-defined 
 datatype from another package is used.   
 
-During paste of a class, the class number is now updated automatically so the modeler is saved making the modification
-himself to avoid duplicate class number errors.    
+During paste of a class, the class number is now updated automatically so the modeler is saved making the 
+modification himself to avoid duplicate class number errors.    
 
 
 MASL Flow Improvements  
@@ -60,14 +61,19 @@ error dialog have been addressed.
 
 Concrete Polymorphic Events
 ------
-The implementation of the behavior of polymorphic events as defined in the Schlaer-Mellor Method diverged over time in BridgePoint and iUML.  BridgePoint/xtUML defined polymorphic events 
-as "abstract".  It defined that polymorphic events may be handled at only one level of the supertype/subtype
-hierarchy.  
+The implementation of the behavior of polymorphic events as defined in the Schlaer-Mellor Method diverged over time 
+in BridgePoint and iUML.  BridgePoint/xtUML defined polymorphic events as "abstract".  It defined that polymorphic 
+events may be handled at only one level of the supertype/subtype hierarchy.  
 
 On the other hand, iUML/MASL defined polymorphic events as "concrete".  It defined that polymorphic events must
 be handled at every level of the supertype/subtype hierarchy.  
 
 As part of the improvement of MASL capabilities BridgePoint now supports concrete polymorphic events.  The feature
-is enabled with an installation-level setting and should only be used for models that use MASL action language.   
+is enabled with an installation-level setting [Figure 2] and should only be used for models that use MASL action 
+language.   
 
-
+```
+org.xtuml.bp.core/bridgepoint_prefs_parse_allow_concrete_polys=true
+```
+__org.xtuml.bp.pkg/plugin_customization.ini__
+__Figure 2__
