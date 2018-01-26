@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: ImportHelper.java,v $
-//Version:   $Revision: 1.83 $
-//Modified:  $Date: 2013/06/12 13:08:03 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -22,39 +14,21 @@
 
 package org.xtuml.bp.io.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
-import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
@@ -82,15 +56,12 @@ import org.xtuml.bp.core.ImportedProvisionInSatisfaction_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedReference_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
-import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
-import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
-import org.xtuml.bp.core.MooreActionHome_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -114,7 +85,6 @@ import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
-import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.SupplementalDataItems_c;
@@ -124,32 +94,23 @@ import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
-import org.xtuml.bp.core.UseCaseAssociation_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.ComponentResourceListener;
-import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.core.inspector.IModelClassInspector;
-import org.xtuml.bp.core.inspector.ModelInspector;
-import org.xtuml.bp.core.ui.actions.ElementChange;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
 import org.xtuml.bp.core.ui.actions.PullSynchronizationChanges;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.util.TransactionUtil;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
-import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -162,12 +123,9 @@ import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
-import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
-import org.xtuml.bp.ui.canvas.Modeltype_c;
 import org.xtuml.bp.ui.canvas.NoncontainingShape_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
@@ -366,6 +324,7 @@ public class ImportHelper
         if ( elements == null ) return;
         
         boolean transaction_aborted = false;
+        Selection.getInstance().setSelection(new StructuredSelection(system));
 		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil
 				.startTransactionsOnSelectedModelRoots("Import MASL");
 		Ooaofooa.beginSaveOperation();
@@ -404,7 +363,7 @@ public class ImportHelper
 	            createMASLSatisfactions(elements);
 	        }
 		} catch (Exception e) {
-			// revert the transation
+			// revert the transaction
 			CorePlugin.logError("Aborting the MASL import transaction", e);
 			transaction_aborted = true;
 			TransactionUtil.cancelTransactions(transactionGroup, e);
@@ -415,9 +374,12 @@ public class ImportHelper
 			}
 		}
         if (m_maslProjectImported != null) {	        	
-	    	// create any missing port interface operations 
+	    	// Create any missing port interface operations 
 	    	// MASL projects don't always declare all domain 
-	    	// terminator services in a masl project
+	    	// terminator services in a MASL project.  Note that
+        	// this call should _not_ be moved up inside the 
+        	// transaction.  It needs to occur after all that 
+        	// work is done.
 	    	synchronizeWithMASLDomain(system);
         }		
     }
@@ -664,7 +626,7 @@ public class ImportHelper
      * @see issue https://support.onefact.net/issues/9316
      */          
 	private void synchronizeWithMASLDomain(SystemModel_c system) {
-		// Set dialect to non while updating missing interfaces
+		// Set dialect to none while updating missing interfaces
 
 		int dialect = Pref_c.Getactiondialect(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 		IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -1748,17 +1710,6 @@ public class ImportHelper
     }
 
     /**
-     * Migrate the date (genType 1), timestamp (genType 2), and inst_ref<Timer> (genType 3)
-     * system level datatypes if their core types are not correct.
-     * 
-     * @parameter system An instance of the system model class
-     */
-    public void migrateSLDTs(SystemModel_c system)
-    {
-    	// TODO: BOB remove this
-    }    
-        
-    /**
      * Migrate the 1.5.1 dynamic arrays to 1.5.2 where both dynamic and fixed-
      * size arrays are supported.
      * 
@@ -2305,62 +2256,56 @@ public class ImportHelper
         } // end for each state machine
     }
     
-    public void upgradeElementOrder(Ooaofooa modelRoot) {
-        // Owns C_AS and C_IO
-      InstanceList il = modelRoot.getInstanceList(Interface_c.class);
-        Interface_c[] intr = il.toArray(new Interface_c[0]);
-        for(int i = 0; i < intr.length; i++) {
-            intr[i].Initializeorder();
-        }
+    public void upgradeElementOrder( List<NonRootModelElement> modelElems ) {
+        for ( NonRootModelElement elem : modelElems ) {
+            if ( elem instanceof Interface_c ) {
+                // Owns C_AS and C_IO
+                Interface_c intr = (Interface_c)elem;
+                intr.Initializeorder();
+            }
 
-        // Owns C_PP
-        il = modelRoot.getInstanceList(ExecutableProperty_c.class);
-        ExecutableProperty_c[] exP = il.toArray(new ExecutableProperty_c[0]);
-        for(int i = 0; i < exP.length; i++) {
-            exP[i].Initializeorder();
-        }       
+            else if ( elem instanceof ExecutableProperty_c ) {
+                // Owns C_PP
+                ExecutableProperty_c exP = (ExecutableProperty_c)elem;
+                exP.Initializeorder();
+            }
         
-        // Owns O_TPARM
-    il = modelRoot.getInstanceList(Operation_c.class);
-    Operation_c[] op = il.toArray(new Operation_c[0]);
-        for(int i = 0; i < op.length; i++) {
-            op[i].Initializeorder();
-        }       
+            else if ( elem instanceof Operation_c ) {
+                // Owns O_TPARM
+                Operation_c op = (Operation_c)elem;
+                op.Initializeorder();
+            }
         
-        // Owns Operation
-    il = modelRoot.getInstanceList(ModelClass_c.class);
-    ModelClass_c[] mc = il.toArray(new ModelClass_c[0]);
-        for(int i = 0; i < mc.length; i++) {
-            mc[i].Initializeorder();
-        }       
+            else if ( elem instanceof ModelClass_c ) {
+                // Owns Operation
+                ModelClass_c mc = (ModelClass_c)elem;
+                mc.Initializeorder();
+            }
         
-        // Owns SM_EVTDI
-    il = modelRoot.getInstanceList(StateMachineEvent_c.class);
-        StateMachineEvent_c[] sme = il.toArray(new StateMachineEvent_c[0]);
-        for(int i = 0; i < sme.length; i++) {
-            sme[i].Initializeorder();
-        }       
+            else if ( elem instanceof StateMachineEvent_c ) {
+                // Owns SM_EVTDI
+                StateMachineEvent_c sme = (StateMachineEvent_c)elem;
+                sme.Initializeorder();
+            }
         
-        // Owns S_ENUM
-    il = modelRoot.getInstanceList(EnumerationDataType_c.class);
-    EnumerationDataType_c[] edt = il.toArray(new EnumerationDataType_c[0]);
-        for(int i = 0; i < edt.length; i++) {
-            edt[i].Initializeorder();
-        }       
+            else if ( elem instanceof EnumerationDataType_c ) {
+                // Owns S_ENUM
+                EnumerationDataType_c edt = (EnumerationDataType_c)elem;
+                edt.Initializeorder();
+            }
         
-        // Owns S_SPARM
-    il = modelRoot.getInstanceList(Function_c.class);
-    Function_c[] func = il.toArray(new Function_c[0]);
-        for(int i = 0; i < func.length; i++) {
-            func[i].Initializeorder();
-        }       
+            else if ( elem instanceof Function_c ) {
+                // Owns S_SPARM
+                Function_c func = (Function_c)elem;
+                func.Initializeorder();
+            }
         
-        // Owns S_BPARM
-    il = modelRoot.getInstanceList(Bridge_c.class);
-    Bridge_c[] brg = il.toArray(new Bridge_c[0]);
-        for(int i = 0; i < brg.length; i++) {
-            brg[i].Initializeorder();
-        }       
+            else if ( elem instanceof Bridge_c ) {
+                // Owns S_BPARM
+                Bridge_c brg = (Bridge_c)elem;
+                brg.Initializeorder();
+            }
+        }
     }
     
     public List<NonRootModelElement> upgradeDatatypes(List<NonRootModelElement> loadedInstances) {

@@ -958,7 +958,7 @@ ${gpe.body}\
               .if(child_eo.Numb != -1)
                 .assign variableName = variableName + "${child_eo.Numb}"
               .end if
-              .invoke nav = generate_backward_rel_chain_nav_from_kl(table.Key_Lett, aep.Rel_Chain, aep.Card, "inst", "${variableName}${count}_set", false)
+              .invoke nav = generate_backward_rel_chain_nav_with_query(table.Key_Lett, aep.Rel_Chain, aep.Card, "inst", "${variableName}${count}_set", false, aep.WhereClause)
       ${nav.body}
       for ( int ${child_name.body}_index = 0;
             ${child_name.body}_index < ${variableName}${count}_set.length;
@@ -988,7 +988,7 @@ ${gpe.body}\
               .end if
       }
             .else
-              .invoke nav = generate_backward_rel_chain_nav_from_kl(table.Key_Lett, aep.Rel_Chain, aep.Card, "inst", "${child_name.body}${count}_inst", false)
+              .invoke nav = generate_backward_rel_chain_nav_with_query(table.Key_Lett, aep.Rel_Chain, aep.Card, "inst", "${child_name.body}${count}_inst", false, aep.WhereClause)
       ${nav.body}
               .if(aep.exportChildrenOfChild)
                 .if(aep.writeProxies)
@@ -1108,6 +1108,18 @@ throws IOException
     	// get the body
     	String body = Ooaofooa.Get_formatted_body( inst.getModelRoot(), inst, false );
     	if ( !body.isEmpty() ) {
+        // get instance key
+        String idString = "'00000000-0000-0000-0000-000000000000' ";
+        Object key = inst.getInstanceKey();
+        if ( key instanceof Object[] ) {
+            idString = "";
+            Object[] uuids = (Object[])inst.getInstanceKey();
+            for ( int i = 0; i < uuids.length && i < 2; i++ ) {
+                if ( uuids[i] instanceof UUID ) idString += "'" + uuids[i].toString() + "' ";
+            }
+        }
+        // wrap with body delimiters
+        body = "//! ACTIVITY BEGIN. " + idString + "DO NOT EDIT THIS LINE.\n" + body.trim() + "\n//! ACTIVITY END. DO NOT EDIT THIS LINE.\n\n";
     		m_afh.get(dialect).print( body );
         	m_updateActions = true;
     	}

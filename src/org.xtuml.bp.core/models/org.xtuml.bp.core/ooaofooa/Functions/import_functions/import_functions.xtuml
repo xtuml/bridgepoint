@@ -54,14 +54,16 @@ if ( not_empty sm_asm )
 	end if;
   end if;
   if ( "state" == activity_type )
-    select many sm_states related by sm_asm->SM_SM[R517]->SM_STATE[R501];//->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-    for each sm_state in sm_states
-      if ( sm_state.getSignature(flavor:1) == signature )
-        select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-        sm_act.Action_Semantics_internal = body;
-        sm_act.Dialect = dialect;
-        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
-        return;
+    select many sm_acts related by sm_asm->SM_SM[R517]->SM_ACT[R515];
+    for each sm_act in sm_acts
+      select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+      if ( not_empty sm_state )
+        if ( ( param.id2 == sm_act.Act_ID and param.id == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
+          sm_act.Action_Semantics_internal = body;
+          sm_act.Dialect = dialect;
+          IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+          return;
+        end if;
       end if;
     end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"State parsed with signature: ''" + signature + "'' not found in class state machine", line_num:param.start_line, dialect:dialect );
@@ -150,6 +152,24 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("115cbb4e-f672-477f-bfe2-ed0d24551b82",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"8ef90653-e0ce-4d1b-b56e-28ee49057fd2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0b5aa5fd-4613-4a22-a1da-951349f88a9a",
+	"d75791e8-f025-4657-a7da-a8db6274d2d7",
+	'id2',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"115cbb4e-f672-477f-bfe2-ed0d24551b82",
+	'');
 INSERT INTO PE_PE
 	VALUES ("d75791e8-f025-4657-a7da-a8db6274d2d7",
 	1,
@@ -179,7 +199,7 @@ if ( not_empty o_obj )
     end if;
     select many o_tfrs related by o_obj->O_TFR[R115];
     for each o_tfr in o_tfrs
-      if ( o_tfr.getSignature(flavor:1) == signature )
+      if ( param.id == o_tfr.Tfr_ID or o_tfr.getSignature(flavor:1) == signature )
         o_tfr.Action_Semantics_internal = body;
         o_tfr.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"O_TFR", dialect:param.dialect );
@@ -258,6 +278,15 @@ INSERT INTO S_SPARM
 	'',
 	"dc57e706-d662-4957-9e68-5673d61ea4be",
 	'');
+INSERT INTO S_SPARM
+	VALUES ("21040e19-9672-44ba-91b3-804b375d8c2f",
+	"d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"adf99457-ae3c-4e3c-88f1-2a067ce2af48",
+	'');
 INSERT INTO PE_PE
 	VALUES ("d95d98c2-dac3-4f07-8e64-e6d8c6a49a7c",
 	1,
@@ -288,7 +317,7 @@ if ( not_empty s_sys )
   if ( "routine" == activity_type )
     select many s_syncs related by s_sys->PE_PE[R9100]->S_SYNC[R8001];
     for each s_sync in s_syncs
-      if ( s_sync.getSignature(flavor:1) == signature )
+      if ( param.id == s_sync.Sync_ID or s_sync.getSignature(flavor:1) == signature )
         s_sync.Action_Semantics_internal = body;
         s_sync.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
@@ -365,6 +394,15 @@ INSERT INTO S_SPARM
 	'',
 	"1da820d5-b82b-41d8-8e58-b82e6c1feb0b",
 	'');
+INSERT INTO S_SPARM
+	VALUES ("9e8987cd-2d53-43ed-a18b-9e6ce0821aac",
+	"a193cba0-de4d-497f-8cf7-b07ccf9d4270",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fb29a153-8e5d-4ed5-9233-e6fc5fe66484",
+	'');
 INSERT INTO PE_PE
 	VALUES ("a193cba0-de4d-497f-8cf7-b07ccf9d4270",
 	1,
@@ -395,7 +433,7 @@ if ( not_empty ep_pkg )
   if ( "routine" == activity_type )
     select many s_syncs related by ep_pkg->PE_PE[R8000]->S_SYNC[R8001];
     for each s_sync in s_syncs
-      if ( s_sync.getSignature(flavor:1) == signature )
+      if ( param.id == s_sync.Sync_ID or s_sync.getSignature(flavor:1) == signature )
         s_sync.Action_Semantics_internal = body;
         s_sync.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
@@ -472,6 +510,15 @@ INSERT INTO S_SPARM
 	'',
 	"ec76adcc-1696-46c5-9286-76cc0ca6d66a",
 	'');
+INSERT INTO S_SPARM
+	VALUES ("fecd610e-719d-4a7e-bea6-0e46f84a62cd",
+	"eeba59f4-8e74-4937-bbff-588d35c7ab45",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c617aaef-821f-4068-a7b8-f989e607fc66",
+	'');
 INSERT INTO PE_PE
 	VALUES ("eeba59f4-8e74-4937-bbff-588d35c7ab45",
 	1,
@@ -499,14 +546,16 @@ if ( not_empty sm_ism )
 	end if;
   end if;
   if ( "state" == activity_type )
-    select many sm_states related by sm_ism->SM_SM[R517]->SM_STATE[R501];//->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-    for each sm_state in sm_states
-      if ( sm_state.getSignature(flavor:1) == signature )
-        select one sm_act related by sm_state->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
-        sm_act.Action_Semantics_internal = body;
-        sm_act.Dialect = dialect;
-        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
-        return;
+    select many sm_acts related by sm_ism->SM_SM[R517]->SM_ACT[R515];
+    for each sm_act in sm_acts
+      select one sm_state related by sm_act->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+      if ( not_empty sm_state )
+        if ( ( param.id2 == sm_act.Act_ID and param.id == sm_act.SM_ID ) or sm_state.getSignature(flavor:1) == signature )
+          sm_act.Action_Semantics_internal = body;
+          sm_act.Dialect = dialect;
+          IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SM_ACT", dialect:param.dialect );
+          return;
+        end if;
       end if;
     end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"State parsed with signature: ''" + signature + "'' not found in instance state machine", line_num:param.start_line, dialect:dialect );
@@ -581,6 +630,24 @@ INSERT INTO S_SPARM
 	'',
 	"73f8a9cc-12cb-4b50-959e-de6f4b402cd4",
 	'');
+INSERT INTO S_SPARM
+	VALUES ("edb234cd-726b-46b7-bb9a-87799e48717c",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"623597a3-cf59-47b5-a9e5-9b4a344e6146",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9ecee735-a47d-45e5-85f1-9cb528c50db4",
+	"3bb908bd-182f-4fed-bb72-5c1822b2dd76",
+	'id2',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"edb234cd-726b-46b7-bb9a-87799e48717c",
+	'');
 INSERT INTO PE_PE
 	VALUES ("3bb908bd-182f-4fed-bb72-5c1822b2dd76",
 	1,
@@ -613,7 +680,7 @@ if ( not_empty c_c )
   if ( "routine" == activity_type and "" == port )
     select many s_syncs related by c_c->PE_PE[R8003]->S_SYNC[R8001];
     for each s_sync in s_syncs
-      if ( s_sync.getSignature(flavor:1) == signature )
+      if ( param.id == s_sync.Sync_ID or s_sync.getSignature(flavor:1) == signature )
         s_sync.Action_Semantics_internal = body;
         s_sync.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"S_SYNC", dialect:param.dialect );
@@ -629,49 +696,44 @@ if ( not_empty c_c )
       // if not found, check for terminator ports in a domain component
       select any c_po related by c_c->C_PO[R4010] where ( selected.Name == port );
     end if;
-    select many c_eps related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003];
-    for each c_ep in c_eps
-      if ( c_ep.getSignature(flavor:1) == signature )
-        // once the c_ep is found, find the spr_* instance in the port
-        select any requirement related by c_po->C_IR[R4016]->C_R[R4009];
-        if ( not_empty requirement )
-          select any spr_rep related by c_ep->SPR_REP[R4500] where ( selected.Requirement_Id == requirement.Requirement_Id );
-          select one spr_ro related by spr_rep->SPR_RO[R4502];
-          if ( not_empty spr_ro )
-			spr_ro.Action_Semantics_internal = body;
-			spr_ro.Dialect = dialect;
-            IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_RO", dialect:param.dialect );
-			return;
-          else
-            select one spr_rs related by spr_rep->SPR_RS[R4502];
-            if ( not_empty spr_rs )
-			  spr_rs.Action_Semantics_internal = body;
-			  spr_rs.Dialect = dialect;
-              IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_RS", dialect:param.dialect );
-			  return;
-            end if;
-          end if;
-        else
-          select any provision related by c_po->C_IR[R4016]->C_P[R4009];
-          if ( not_empty provision )
-			select any spr_pep related by c_ep->SPR_PEP[R4501] where ( selected.Provision_Id == provision.Provision_Id );
-			select one spr_po related by spr_pep->SPR_PO[R4503];
-			if ( not_empty spr_po )
-			  spr_po.Action_Semantics_internal = body;
-			  spr_po.Dialect = dialect;
-              IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_PO", dialect:param.dialect );
-			  return;
-			else
-			  select one spr_ps related by spr_pep->SPR_PS[R4503];
-			  if ( not_empty spr_ps )
-				spr_ps.Action_Semantics_internal = body;
-				spr_ps.Dialect = dialect;
-                IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_PS", dialect:param.dialect );
-			    return;
-			  end if;
-			end if;
-          end if;
-        end if;
+    select many spr_pos related by c_po->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501]->SPR_PO[R4503];
+    for each spr_po in spr_pos
+      select one c_ep related by spr_po->SPR_PEP[R4503]->C_EP[R4501];
+      if ( param.id == spr_po.Id or c_ep.getSignature(flavor:1) == signature )
+        spr_po.Action_Semantics_internal = body;
+        spr_po.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_PO", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    select many spr_pss related by c_po->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501]->SPR_PS[R4503];
+    for each spr_ps in spr_pss
+      select one c_ep related by spr_ps->SPR_PEP[R4503]->C_EP[R4501];
+      if ( param.id == spr_ps.Id or c_ep.getSignature(flavor:1) == signature )
+	    spr_ps.Action_Semantics_internal = body;
+	    spr_ps.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_PS", dialect:param.dialect );
+	    return;
+      end if;
+    end for;
+    select many spr_ros related by c_po->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500]->SPR_RO[R4502];
+    for each spr_ro in spr_ros
+      select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
+      if ( param.id == spr_ro.Id or c_ep.getSignature(flavor:1) == signature )
+		spr_ro.Action_Semantics_internal = body;
+	    spr_ro.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_RO", dialect:param.dialect );
+        return;
+      end if;
+    end for;
+    select many spr_rss related by c_po->C_IR[R4016]->C_R[R4009]->SPR_REP[R4500]->SPR_RS[R4502];
+    for each spr_rs in spr_rss
+      select one c_ep related by spr_rs->SPR_REP[R4502]->C_EP[R4500];
+      if ( param.id == spr_rs.Id or c_ep.getSignature(flavor:1) == signature )
+		spr_rs.Action_Semantics_internal = body;
+	    spr_rs.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"SPR_RS", dialect:param.dialect );
+		return;
       end if;
     end for;
     portName = "<port not found>";
@@ -765,6 +827,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"a694049c-c3db-4236-895f-3a8d4a050a29",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("bd1b0dbd-a553-475f-8624-7961f649ea4f",
+	"11781c06-7e09-45ea-a448-ab85e9fdb235",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4f52c0c4-2df6-4693-8f18-9feedb9e4a6b",
 	'');
 INSERT INTO PE_PE
 	VALUES ("11781c06-7e09-45ea-a448-ab85e9fdb235",

@@ -17,7 +17,7 @@ INSERT INTO O_TFR
 	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
 if ( self.Dialect == ActionDialect::masl )
   // new MASL activities get initialized with the "null" statement
-  self.Action_Semantics_internal = "begin\n  null;\nend";
+  self.Action_Semantics_internal = "begin\n  null;\nend service;";
 end if;
 self.Suc_Pars = ParseStatus::parseInitial;',
 	1,

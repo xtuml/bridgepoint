@@ -60,6 +60,7 @@ These menu entries appear on only the context menu of Model Explorer.
 | Move Up                 | Move the selected attribute or parameter up in the parent's containment list. |
 | Parse All Activities    | Parse the OAL action bodies in the selection and look for syntax issues. |
 | Project Preferences     | Opens a dialog to manipulate project-specific BridgePoint settings. |
+| Publish To Interface... | Opens a dialog that allows the user to choose an Interface to publish selected operations to. [1] |
 | Remove from Identifier... | Opens dialog to remove the selected attribute from being part of a class identifier. |
 | Set as Base Attribute   | Change the attribute from a mathematically-derived attribute to a base attribute. | 
 | Set as Derived Attribute| Change the attribute from a base attribute to a mathematically-derived attribute. | 
@@ -68,9 +69,19 @@ These menu entries appear on only the context menu of Model Explorer.
 | Set To Provider         | Sets the direction of an interface message to "To Provider". |
 | Set Type...             | Opens dialog to set the data type of the selection. |
 | Split                   | Breaks a combined attribute back into the parts that where combined when it was created. |
-| Synchronize references  | Update local interface references by pulling in changes to the referred-to interfaces. |
-| Synchronize with library| Update remote interface references by pushing changes to local interfaces. |
+| Synchronize references  | Update remote interface references by pushing changes to local interfaces. |
+| Synchronize with library| Update local interface references by pulling in changes to the referred-to interfaces. |
 __Table 2__   
+
+[1] The `Publish to Interface...` action creates a new interface message from a selected
+operation. The tool attempts to update existing interface messages when a name match is found. 
+If a single match is found, the existing message is updated. However, the feature is unable to 
+perform this in-place update if the selection of operations being published contains more than 
+one operation of the same name (i.e. the operation is overloaded). Likewise, the in-place update 
+cannot be performed if the target interface contains more than one message with the same name. In 
+either case the tool creates new messages in the interface with unique names that have numbers 
+appended.  The user is notified with popup dialogs containing the details of what action the tool 
+performed.  It is left to the modeler to rectify the interface message set manually.   
 
 ## Canvas-specific Context Menu Entries
 

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Integrity Check Plug-in
 Bundle-SymbolicName: org.xtuml.bp.integrity; singleton:=true
-Bundle-Version: 6.6.1.qualifier
+Bundle-Version: 6.8.1.qualifier
 Bundle-ClassPath: integrity.jar
 Bundle-Activator: org.xtuml.bp.integrity.IntegrityPlugin
 Bundle-Vendor: xtUML.org

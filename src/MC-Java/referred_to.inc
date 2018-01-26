@@ -174,10 +174,21 @@ public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} [] targets, ${g
 
 public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target)
 {
-	return ${nfn.body}${loc_phrase}(target, true);
+	return ${nfn.body}${loc_phrase}(target, null, true);
 }
-.// method override to allow for choosing component loads
+
 public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, boolean loadComponent)
+{
+	return ${nfn.body}${loc_phrase}(target, null, loadComponent);
+}
+
+public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, ${gtcn.body} test)
+{
+	return ${nfn.body}${loc_phrase}(target, test, true);
+}
+
+.// method override to allow for choosing component loads
+public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, ${gtcn.body} test, boolean loadComponent)
 {
   if (target != null) {
   .if (persistent)
@@ -195,7 +206,18 @@ public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, boolean
 	.end if
 	}
 	.end if
-    return target.$cr{loc_txt_phrs}$cr{loc_obj.Name} ;
+    if ( test != null ) {
+      ${locn.body} candidate_val = target.$cr{loc_txt_phrs}$cr{loc_obj.Name};
+      if ( candidate_val != null && test.evaluate(candidate_val) ) {
+        return candidate_val;
+      }
+      else {
+        return null;
+      }
+    }
+    else {
+      return target.$cr{loc_txt_phrs}$cr{loc_obj.Name};
+    }
   } else {
     return null;
   }

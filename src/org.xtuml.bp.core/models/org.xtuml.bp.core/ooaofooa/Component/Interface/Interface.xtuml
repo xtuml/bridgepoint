@@ -864,6 +864,161 @@ INSERT INTO O_TFR
 	'',
 	"041af5ee-823a-4764-bccf-d6d3d28a8672",
 	0);
+INSERT INTO O_TFR
+	VALUES ("cf75b2c0-67f0-4226-b7bb-e18787581879",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	'publishOperationFromFunction',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// For the given function create an operation 
+select any function from instances of S_SYNC where (selected.Sync_ID == param.syncID);
+if (not_empty function)
+  //
+  // We start by looking to see there are duplicate involved, and if we
+  // will be creating a new operation or updating an existing one.
+  //
+  
+  selectionHasDuplicates = false;
+  targetHasDuplicates = false;
+  updateExistingOperation = false;
+  if (Sel::numFunctionsSelected( functionName:function.Name) > 1)
+    selectionHasDuplicates = true;
+  end if;
+  select many existingOperations related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == function.Name);
+  if (cardinality existingOperations > 1)
+    targetHasDuplicates = true;
+  end if;
+  if (not selectionHasDuplicates and (cardinality existingOperations == 1))
+    updateExistingOperation = true;
+  end if;  
+
+  //
+  // Determine what the name of the operation being created/updated is
+  //
+  newName = function.Name;
+  if (not updateExistingOperation)
+    baseName=function.Name;
+    count=0;
+    newName = baseName;
+    // Determine a new name that will not be a duplicate
+    select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
+    while (not_empty existingOp)
+      count = count + 1;
+      newName = baseName + "_" + GD::int_to_string(value:count);
+      select any existingOp related by self->C_EP[R4003]->C_IO[R4004] where (selected.Name == newName);
+    end while;
+  end if;
+    
+  // 
+  // If there are duplicates involved tell the user, but proceed with the new name
+  //   
+  if (selectionHasDuplicates or targetHasDuplicates)
+    duplicateMsg = "";
+    if (targetHasDuplicates)
+      duplicateMsg = duplicateMsg + "There are multiple operations in the " + self.Name + " interface named " + function.Name + ".\n";
+    end if;
+    if (selectionHasDuplicates) 
+      duplicateMsg = duplicateMsg + "There are multiple functions in the selection named " + function.Name + ".\n";
+    end if;
+    duplicateMsg = duplicateMsg + "\nThis function will be published with the operation name " + newName + ".";
+    USER::information( msg:duplicateMsg, title: "Publish Operation From Function");
+  end if;
+  
+  //
+  // create the new operation if needed (it is created via the C_EP)
+  //
+  // See if this operation is overloaded. If it is, skip it.  (TODO: Keith thinks this is a bad comment)
+  epID = GD::NULL_UNIQUE_ID();
+  if (updateExistingOperation)
+    select any operationToUpdate related by self->C_EP[R4003.''is defined by'']->C_IO[R4004] where (selected.Name == function.Name);
+    select one ep related by operationToUpdate->C_EP[R4004];
+    epID = ep.Id;
+  else
+    epID = self.newExecutableProperty( asynchronous:false );
+  end if;
+  select any execProp from instances of C_EP where (selected.Id == epID);
+  select one iop related by execProp->C_IO[R4004];
+  iop.Name = newName;
+  iop.Descrip = function.Descrip;
+  iop.Return_Dimensions = function.Return_Dimensions;
+   
+  //  
+  // Now update the return type if it is different than the function''s return type
+  //
+  select one functionDT related by function->S_DT[R25.''has return type of''];
+  if(not_empty functionDT)
+    select one originalDT related by iop->S_DT[R4008];
+    // If the return type is different, update it
+    if(functionDT != originalDT)
+      unrelate iop from originalDT across R4008;
+      relate iop to functionDT across R4008;
+    end if;
+  end if;
+
+  //
+  // Now create the interface parameters from the function parameters.  Note that
+  // if we are updating an existing operation we delete all the existing 
+  // parameters first.   
+  //
+  
+  if (updateExistingOperation) 
+    // If we are updating an existing operation, then we 
+    // start by deleting all exisitng parameters
+    select many oip_params related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
+    for each oip_param in oip_params
+      oip_param.dispose();
+    end for;
+  end if;
+  
+  select many sparams related by function->S_SPARM[R24.''defines''];
+  for each sparam in sparams 
+    select one sparamDT related by sparam->S_DT[R26.''is typed by ''];
+  
+    iop.newParameter();
+    // The new paramater will be at the end of the list of parameters, 
+    // iterate over them to find the one with no "precedes" and that is the one
+    // we just created.  
+    select any newParam related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
+    select many params related by iop->C_EP[R4004]->C_PP[R4006.''is parameter to''];
+    for each pp in params
+      newParam = pp;
+      select one nextParam related by pp->C_PP[R4021.''precedes''];
+      if (empty nextParam)
+        break;
+      end if;
+    end for;
+    newParam.Descrip = sparam.Descrip;
+    newParam.Dimensions = sparam.Dimensions;     
+    newParam.Name = sparam.Name;
+
+    // Set the data type for the new param
+    select one newParamDefaultDataType related by newParam->S_DT[R4007];
+    if(newParamDefaultDataType != sparamDT)
+      unrelate newParam from newParamDefaultDataType across R4007;
+      relate newParam to sparamDT across R4007;
+    end if;
+  end for;    
+
+  // If a new operartion was created, hook-up 
+  // the operation that was just created to this interface
+  if (not updateExistingOperation)
+    self.pasteInterfaceOperation( id:iop.Id );
+  end if;
+end if;',
+	1,
+	'',
+	"111a8f19-e4c5-4489-9873-da1e35dfca54",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("1a6ba669-16cf-4099-8b9b-3970d955f499",
+	"cf75b2c0-67f0-4226-b7bb-e18787581879",
+	'syncID',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("7f16eece-6595-4e3d-be9a-4f17d2b638a3",
 	"f021c5c6-f37d-4215-afe4-a3e777964197");
