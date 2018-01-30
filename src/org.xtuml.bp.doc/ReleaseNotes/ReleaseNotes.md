@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.10.0
+Release 6.11.0
 
 License
 -------
@@ -53,37 +53,7 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[8306](https://support.onefact.net/issues/8306) |  Combining referential attributes causes orphaned attributes
-[9283](https://support.onefact.net/issues/9283) |  Abstract and Concrete Polymorphic Events
-[9699](https://support.onefact.net/issues/9699) |  Required Operation MASL Editing Not Possible
-[9700](https://support.onefact.net/issues/9700) |  Inconsistencies with file contents and tool
-[9709](https://support.onefact.net/issues/9709) |  Subtype appears in mod file before supertype when MASL is exported
-[9710](https://support.onefact.net/issues/9710) |  When polymorphic events are changed in a supertype, reflect the change in the subtype(s)
-[9836](https://support.onefact.net/issues/9836) |  Cannot merge referential with identifier when formalising super type
-[9877](https://support.onefact.net/issues/9877) |  mcmc on mac requires flex
-[9913](https://support.onefact.net/issues/9913) |  extra attribute after paste of subtype
-[9932](https://support.onefact.net/issues/9932) |  Dumping MASL project only produces prj file
-[9935](https://support.onefact.net/issues/9935) |  OAL content assist raises selection list at end of comment
-[9937](https://support.onefact.net/issues/9937) |  Archive 6.8.0 build server
-[9939](https://support.onefact.net/issues/9939) |  Pasting a class in a package does not update class number
-[9940](https://support.onefact.net/issues/9940) |  Create department branch for intermediate promotions
-[9942](https://support.onefact.net/issues/9942) |  git-refresh fails on build server for branches on xtuml fork
-[9948](https://support.onefact.net/issues/9948) |  Bi-directional synchronization of MASL data can lead to problems
-[9951](https://support.onefact.net/issues/9951) |  Scale back to a much smaller submission.
-[9989](https://support.onefact.net/issues/9989) |  type export needs to be ordered
-[9990](https://support.onefact.net/issues/9990) |  Utility to create interface messages from domain functions and class operations
-[9991](https://support.onefact.net/issues/9991) |  Update AWS launch script for AMIs created Nov 2017
-[9993](https://support.onefact.net/issues/9993) |  Remove AMIs no longer used
-[9994](https://support.onefact.net/issues/9994) |  typo in TE_C_sort routine of C MC
-[10009](https://support.onefact.net/issues/10009) |  Incorrect population of parameter list for class-based operation parameters, if user-defined dt from another package is used
-[10013](https://support.onefact.net/issues/10013) |  support multiple format characters in the template engine
-[10014](https://support.onefact.net/issues/10014) |  Publish to interface duplicates should append "_X" not "-X"
-[10022](https://support.onefact.net/issues/10022) |  Content assist for relate statement
-[10026](https://support.onefact.net/issues/10026) |  Exit jenkins BridgePoint build if mc executables are not created
-[10027](https://support.onefact.net/issues/10027) |  Test test_G_ALL_nested_invoke in IOMdlTestGenerics fails
-[10028](https://support.onefact.net/issues/10028) |  v6.10 Release Prep
-[10030](https://support.onefact.net/issues/10030) |  Address failures in Junit Tests
-[10031](https://support.onefact.net/issues/10031) |  Add more detail to help for "Publish to Interface..."
+[10047](https://support.onefact.net/issues/10047) |  v6.11 kickoff
 
 Known Issues and Feature Requests
 ------
