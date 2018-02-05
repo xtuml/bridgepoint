@@ -60,7 +60,8 @@ Issue [[2.3] Comment 1](https://support.onefact.net/issues/1143#note-1) describe
 
 Recent discussion of type system improvements led to analysis that also speaks to possible updates in ooaofooa::Functions::OAL Validation Utility Functions::data_types_compatible() [[2.5]](#2.5).
 
-Since that observation package scoping was added. However, its implementation may not have been as anticipated [[2.6]](2.6). The parser was not updated to account for duplicates in this issue.  
+Since that observation, some work in the area of package scoping was done. However, its implementation may not have been as anticipated [[2.6]](2.6). The parser was not updated to account for duplicates in this issue.  Issue [[2.6]](2.6) introduced the ability to [give visibility to a package that is outside the current component](https://www.youtube.com/watch?v=1qWhGdJMTSg), it did not change the parser.  
+
 
 ### 6. Design
 
