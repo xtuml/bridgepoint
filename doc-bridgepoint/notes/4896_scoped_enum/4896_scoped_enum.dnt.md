@@ -25,6 +25,10 @@ This is an old BridgePoint issue that looked into this issue at a very high-leve
 suggesting for implementation of a fix was made.  
 <a id="2.4"></a>2.4 [Test Model For reproduction](https://github.com/rmulvey/models/tree/4896_scoped_enum) An existing test 
 model, enum4, from the xtuml/models test repository was modified to reproducd this problem.  
+<a id="2.5"></a>2.5 [Analysis for xtUML Revised Type System](
+https://github.com/xtuml/bridgepoint/blob/1c1fc116e770f70a44aac7e73e0bcc2de00c66c6/doc-bridgepoint/notes/9416_type_system/9416_type_system_ant.md) This is an analysis that speaks to recent discussion about type system improvements.  
+<a id="2.6"></a>2.1 [BridgePoint DEI #8061 Implementation note](https://github.com/xtuml/bridgepoint/blob/e47b13b9cb1004459f586b5bb1eb174df33b168f/doc-bridgepoint/notes/8061_ipr_classes.md) Allow Imported Classes via IPR (Phase 1)  
+
 
 
 ### 3. Background
@@ -52,16 +56,11 @@ that this is already allowed in the tool today. However, it is simply added here
 
 ### 5. Analysis
 
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note. Here is an example reference to the Document References section [[2.1]](#2.1)
+Issue [[2.3] Comment 1](https://support.onefact.net/issues/1143#note-1) describes that this change requires a significant change to the parser validation implementation "for enumerators": "At the level it is currently being performed, there is too little scope to validate correctly. It needs to be performed at a much higher level, where the complete assignment statement syntax tree is accessible. One suggestion might be in data_types_compatible()".  
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
+Recent discussion of type system improvements led to analysis that also speaks to possible updates in data_types_compatible() [[2.5]](#2.5).
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
+Since that observation package scoping was added. However, its implementation may not have been as anticipated [[2.6]](2.6). The parser was not updated to account for duplicates in this issue.  
 
 ### 6. Design
 
