@@ -36,7 +36,7 @@ component, attempted usage of the data type results in a syntax error of the for
 Multiple enumerations found for ->color<-: enum4::enum4::Enumeration Four::ScopedEnum::ScopedEnum::color ,enum4::enum4::Datatypes::color	Object_A__one.oal_err	/enum4/models/enum4/enum4/Enumeration Four/ScopedEnum/ScopedEnum/Object A/InstanceStateMachine	line 1	Problem
 ```
 
-![4896_error](4896_error.jpg)  
+![4896_error](4896_error.png)  
 
 This issue is raised to investigate and provide a resolution that allows duplicate-named types to exist in the model.  
 
