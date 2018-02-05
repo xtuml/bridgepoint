@@ -47,12 +47,15 @@ This issue is raised to investigate and provide a resolution that allows duplica
 ## 4. Requirements
 
 The requirements are sourced from [[2.4]](#2.4).  
-4.1 A BridgePoint model shall allow duplicate-named enumeration data types to exist in separate packages in a model.  
-4.2 A BridgePoint model shall allow duplicate-named constant data types to exist in separate packages in a model.  
-4.3 A BridgePoint model shall allow duplicate-named structured data types to exist in separate packages in a model.  
-4.4 A BridgePoint model shall allow duplicate-named user data types to exist in separate packages in a model.  Note 
-that this is already allowed in the tool today. However, it is simply added here for completeness.  
-4.5 The mechanism introduced to allow duplicate types to exist shall allow for backwards compatibility of existing OAL.  
+
+4.1 A BridgePoint model shall allow duplicate-named enumeration data types to exist in separate packages in a model.   
+4.2 A BridgePoint model shall allow duplicate-named constant data types to exist in separate packages in a model.   
+4.3 A BridgePoint model shall allow duplicate-named structured data types to exist in separate packages in a model.   
+4.4 Duplicate names shall not be allowed in separate packages that are at the same level in the model.  
+4.5 When a duplicate name is encountered in this situation [4.4]], the error given shall be in the same form the tool gives today.  
+4.6 A BridgePoint model shall allow duplicate-named user data types to exist in separate packages in a model.  Note that this is already allowed in the tool today. However, it is simply added here for completeness.  
+4.7 The mechanism introduced to allow duplicate types to exist shall allow for backwards compatibility of existing OAL.   
+4.8 Where a duplicate is present today, a search from the OAL action body “out” shall be performed, and the first element name that resolve the data-type shall be used.  
 
 ### 5. Analysis
 
