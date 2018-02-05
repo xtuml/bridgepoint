@@ -18,6 +18,7 @@ xtUML search to be able to locate structural model elements.
 <a id="2.1"></a>2.1 [BridgePoint DEI #10049](https://support.onefact.net/issues/10049) Headline issue   
 <a id="2.2"></a>2.2 [BridgePoint DEI #942](https://support.onefact.net/issues/942)  Search facility   
 <a id="2.3"></a>2.3 [Engineering documentation for original implementation](https://github.com/xtuml/internal/tree/71c842bdcd937f946f977d529dc90e0f9a5f2486/Documentation_archive/20111020/technical/notes/dts0100580449)   
+<a id="2.4"></a>2.4 [Open Declaration Design Note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/9761_9762_find_declarations/9761_9762_find_declarations.dnt.md)   
 
 ### 3. Background
 
@@ -38,10 +39,14 @@ this shrinkage of scope occurred.
 
 4.1  xtUML Search shall support locating a structural element by matching the
   user input against the structural element's name.     
-4.2  Search results shall be displayed in the Search view.
-4.3  Double-clicking on a result entry in the Search view shall display the 
-  selected element in Model Explorer view. Elements with associated graphical
-  data shall also be displayed in a highlighted form on the canvas.     
+4.2  Search results shall be displayed in the eclipse Search view.   
+4.3  Double-clicking on a name-based result entry in the Search view shall 
+  display the selected element in Model Explorer view. Elements with associated 
+  graphical data shall also be displayed in a highlighted form on the canvas.     
+4.4  The xtUML Search page shall be extended with a checkbox corresponding to
+  name-based searching to match existing checkboxes for "Action Language" and 
+  "Description" searching.  
+  
 
 ### 5. Analysis
 
@@ -50,22 +55,53 @@ this shrinkage of scope occurred.
   8.1.   
 5.1.1  Just having a `Name` attribute does not mean the metamodel element should
   be included in structural name searches (e.g. `Element Visibility` should be
-  excluded).
+  excluded).   
+  
 5.2  Some structural elements that should be found by the new "Name" search do
   not actually have a "Name" attribute in the metamodel.  A key example of this
   is for events where the displayed event name is a combination of several pieces
   of information, one part of which is the metamodel attribute `SM_EVT.Mning`.   
 5.2.1  A search of all metamodel classes that have a `get_name()` operation is
   found in appendix 8.2.  
-5.2.2  Simply having a `get_name()` operation does not mean that xtUML search 
+5.2.2  Note that the `get_name()` operation provides the displayed name for an  
+  element that may have concatenated or constructed name such as in the case of
+  the displayed name for state events or associations ("R" + `Association.Numb`).  
+5.2.3  Simply having a `get_name()` operation does not mean that xtUML search 
   should include the element in a structural name search.  In order to provide
   useful and relevant results we should judiciously consider which metamodel
-  elements to look at.  
+  elements to look at. For example, `Association > Class As Associated One Side`
+  has the metamodel operation `get_name()`, but this doesn't really make sense to 
+  include in search results.   
+  
+5.3  BridgePoint recently added logic to find and show selected elements from
+  OAL.  This is attached to the "Open Declaration" context menu entry.  The
+  feature is described in [2.4].  The behavior needed to meet requirement 4.3 is
+  the same as provided by "Open Declaration".  
+  
 
 ### 6. Work Required
 
 6.1  Modify existing metamodel tooling under the `Search` package to include 
   support for "Declaration queries".   
+6.1.1  Add `processQuery()` operation to `Declarations Engine`  
+6.1.2  Add `configureParticipants()` and `createParticipant()` operations to 
+  `Declaration Query`  
+6.1.3  Extend `Name Match` class to record desired information of matched 
+  elements.   
+
+6.2  Modify the Search EE implementation in `bp.core/Search_c.java`   
+6.2.1  Add set to hold `declarationElementsInScope`  
+6.2.2  Add `gatherDeclarationParticipants()` operation  
+
+6.3  Update `action_language_description_util.arc` to create functions that 
+  support querying classes for declaration (name) queries.  Decide what elements
+  to support based on the analysis in 5.2   
+
+6.4  Connect in Open Declaration functionality to opening a name/declaration 
+  search result.  
+  
+6.5  Update `ModelSearchPage.java` and related hand-craft classes to provide new 
+  hooks for structural element name searching.  
 
 ### 7. Acceptance Test
 
