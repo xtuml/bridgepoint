@@ -58,7 +58,7 @@ that this is already allowed in the tool today. However, it is simply added here
 
 Issue [[2.3] Comment 1](https://support.onefact.net/issues/1143#note-1) describes that this change requires a significant change to the parser validation implementation "for enumerators": "At the level it is currently being performed, there is too little scope to validate correctly. It needs to be performed at a much higher level, where the complete assignment statement syntax tree is accessible. One suggestion might be in data_types_compatible()".  
 
-Recent discussion of type system improvements led to analysis that also speaks to possible updates in data_types_compatible() [[2.5]](#2.5).
+Recent discussion of type system improvements led to analysis that also speaks to possible updates in ooaofooa::Functions::OAL Validation Utility Functions::data_types_compatible() [[2.5]](#2.5).
 
 Since that observation package scoping was added. However, its implementation may not have been as anticipated [[2.6]](2.6). The parser was not updated to account for duplicates in this issue.  
 
