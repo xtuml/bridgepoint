@@ -185,7 +185,7 @@ generate appropriate Java to do the job.
 
 5.5.2 MC-3020
 
-TODO
+More analysis for support in MC-3020 will come in the design phase.
 
 ### 6. Work Required
 
@@ -197,7 +197,7 @@ sets for set operators.
 `setDifference` operations for `V_BIN`.  
 6.5 Update `getValue` operation on `V_BIN` to call `getInstanceSet` when the
 operation type is an instance set type.  
-6.6 TODO MC-3020.  
+6.6 Analyze and implement support in MC-3020.  
 6.7 Create and run tests.  
 
 ### 7. Acceptance Test
@@ -216,6 +216,6 @@ correctness of the populated instances).
 
 7.3 MC-Java shall be tested manually, but no new test cases shall be introduced.
 
-7.4 TODO MC-3020 test
+7.4 Test of MC-3020 will be specified in the design note.  
 
 ### End
