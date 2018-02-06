@@ -66,6 +66,8 @@ TOK_RSQBR       : ']';
 Semicolon       : ';';
 TOK_TIMES       : '*';
 TOK_QMARK       : '?';
+TOK_AMP         : '&';
+TOK_PIPE        : '|';
 
 
 protected

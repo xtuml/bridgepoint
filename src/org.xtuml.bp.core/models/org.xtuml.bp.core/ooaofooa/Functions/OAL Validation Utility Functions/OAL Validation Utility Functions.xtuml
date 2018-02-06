@@ -106,8 +106,13 @@ ParserUtilityFunction: TRUE
                 if ( param.a5_set_dt )
                   if ( op_dt_id == lhs_val_dt.DT_ID )
                     relate comp_val to lhs_val_dt across R820;
-                  else
+                  elif ( op_dt_id == rhs_val_dt.DT_ID )
                     relate comp_val to rhs_val_dt across R820;
+                  else
+                    select any op_dt from instances of S_DT where ( selected.DT_ID == op_dt_id );
+                    if ( not_empty op_dt )
+                      relate comp_val to op_dt across R820;
+                    end if;
                   end if;
                 end if;
                 return bin.Value_ID;
@@ -308,28 +313,16 @@ if isInGenericPackage
    *  If both types are not IRDTs then they are incompatible, with
    *  one exception inst_ref<Object>
    */
-  if(dt1_is_ir and (not dt2_is_ir and not ::has_substring(p1_base: dt2_dt.Name,
-                                  p2_str: "inst_ref<Object>", p3_fromIndex: 0)))
-    return GD::NULL_UNIQUE_ID();
-  end if;
-
-  if(dt1_is_irs and (not dt2_is_irs and not ::has_substring(p1_base: dt2_dt.Name,
-                              p2_str: "inst_ref_set<Object>", p3_fromIndex: 0)))
+  if ( ( dt1_is_ir or dt1_is_irs ) and not ( dt2_is_ir or dt2_is_irs or ::has_substring( p1_base: dt2_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
+                                             ::has_substring( p1_base: dt2_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) ) )
     return GD::NULL_UNIQUE_ID();
   end if;
 
   /**
    *  Check the opposite, where dt1 is inst_ref<Object> and dt2 is IRDT
    */
-  if((not dt1_is_ir and not ::has_substring(p1_base: dt1_dt.Name,
-                                  p2_str: "inst_ref<Object>", p3_fromIndex: 0))
-                                  and dt2_is_ir)
-    return GD::NULL_UNIQUE_ID();                                  
-  end if;
-
-  if((not dt1_is_irs and not ::has_substring(p1_base: dt1_dt.Name,
-                                p2_str: "inst_ref_set<Object", p3_fromIndex: 0))
-                                and dt2_is_irs)
+  if ( ( dt2_is_ir or dt2_is_irs ) and not ( dt1_is_ir or dt1_is_irs or ::has_substring( p1_base: dt1_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
+                                             ::has_substring( p1_base: dt1_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) ) )
     return GD::NULL_UNIQUE_ID();
   end if;
 
@@ -378,7 +371,7 @@ if isInGenericPackage
          param.op == ">" or param.op == "<" or param.op == ">=" or param.op == "<=" ) )
       return GD::NULL_UNIQUE_ID();
     elif ( (dt1_is_ir or dt1_is_irs) and
-       ( param.op == "and" or param.op == "or" or param.op == "+"  or
+       ( param.op == "&" or param.op == "|" or param.op == "+"  or
          param.op == "-" ) )
       return_type = param.dt1;
       if ( dt1_is_ir )
@@ -418,7 +411,7 @@ if isInGenericPackage
     //      <inst_ref_set>  +  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  -  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
-      if ( param.op != "and" and param.op != "or" and param.op != "+" and
+      if ( param.op != "&" and param.op != "|" and param.op != "+" and
          param.op != "-" )
         return GD::NULL_UNIQUE_ID();
       end if;
@@ -654,7 +647,7 @@ else
          param.op == ">" or param.op == "<" or param.op == ">=" or param.op == "<=" ) )
       return GD::NULL_UNIQUE_ID();
     elif ( (dt1_is_ir or dt1_is_irs) and
-       ( param.op == "and" or param.op == "or" or param.op == "+"  or
+       ( param.op == "&" or param.op == "|" or param.op == "+"  or
          param.op == "-" ) )
       return_type = param.dt1;
       if ( dt1_is_ir )
@@ -694,7 +687,7 @@ else
     //      <inst_ref_set>  +  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  -  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
-      if ( param.op != "and" and param.op != "or" and param.op != "+" and
+      if ( param.op != "&" and param.op != "|" and param.op != "+" and
          param.op != "-" )
         return GD::NULL_UNIQUE_ID();
       end if;
@@ -863,110 +856,7 @@ if ( param.a2_dt_name != "" )
   end if;
 end if;
 relate val to bin across R801;
-return val.Value_ID;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-',
+return val.Value_ID;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',

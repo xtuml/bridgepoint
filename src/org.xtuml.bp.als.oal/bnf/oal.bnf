@@ -800,9 +800,17 @@ conjunction
   ;
 relational_expr
   :
-    addition
+    set_expr
     (
       comparison_operator
+      set_expr
+    )?
+  ;
+set_expr
+  :
+    addition
+    (
+      set_operator
       addition
     )?
   ;
@@ -967,6 +975,12 @@ comparison_operator!
     TOK_GT
   |
     TOK_GE
+  ;
+set_operator!
+  :
+    TOK_AMP
+  |
+    TOK_PIPE
   ;
 plus_or_minus!
   :
