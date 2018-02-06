@@ -101,7 +101,7 @@ future [2.5](#2.5), it is not necessary for this task.
 
 ### 6. Design
 
-This shall be done in the design note that follows.    
+This shall be done in the implementation note that follows.    
 
 ### 7. Design Comments
 
