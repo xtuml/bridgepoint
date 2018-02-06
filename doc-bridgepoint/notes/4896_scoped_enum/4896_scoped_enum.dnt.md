@@ -87,7 +87,7 @@ The parser name resolition used by BridgePoint is partially modeled. It is model
 
 An operation, PE_PE::collectVisibleElementsForName, serves as the entry-point for this search. This search honors current BridgePoint scoping and visibility rules.  
 
-5.3 Options 
+5.3 Options  
 5.3.1 Introduce an "path-spec" to the OAL grammar  
 A full-qualifed path to the referenced data-type could be included by the user in OAL to specify which data-type they wisj to refer to. It is observed that the "data-type chooser" does this when allowing the user to select a "user data type" to assign to an element.  OAL grammer could be modifed to intriduce such a path that could be specified in the grammar.  
 
@@ -95,7 +95,8 @@ A full-qualifed path to the referenced data-type could be included by the user i
 Modify PE_PE::collectVisibleElementsForName and introduce a "search depth". Since PE_PE::collectVisibleElementsForName is essentially a recursive-decent search, this "search depth" would allow the parser to know which duplicate name (if there was a duplicate) is the "closest" in scope to the OAL Action body. In the case of a duplicate name, the "closest to the action body" when searching "out" would be used. If the search resulted in multiple matches with an equal "search depth" then it would still be considered a duplicate.  
 
 5.4 Design Choice  
-The "closest match" is the choice selected. 
+The "closest match" [5.3.2] is the choice selected. While enhancing the OAL grammer for scoping may be something done in the
+future [2.5](#2.5), it is not necessary for this task.  
 
 
 ### 6. Design
