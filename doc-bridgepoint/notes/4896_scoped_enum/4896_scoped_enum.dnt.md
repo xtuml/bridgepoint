@@ -78,7 +78,7 @@ Since the observation called out in [[2.3] Comment 1](https://support.onefact.ne
 Recent discussion of possible type system improvements led to analysis that speaks to possible updates in ooaofooa::Functions::OAL Validation Utility Functions::data_types_compatible() [[2.5]](#2.5). Changes to rules around 
 scoping of datatypes is a likely part of this work.
 
-5.2 Current BridgePoint Search (parser name-based resolution)
+5.2 Current BridgePoint Search (parser name-based resolution)  
 The parser name resolition used by BridgePoint is partially modeled. It is modeled in ooaofooa::Packageable Element (PE_PE), and the relevant snippets of this diagram are included below:
 
 ![4896_package_search](4896_package_search.png)  
