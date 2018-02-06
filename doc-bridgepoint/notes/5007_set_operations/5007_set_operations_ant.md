@@ -53,11 +53,11 @@ either operand
 4.2.1 An operand of instance reference type shall logically be considered an
 instance set containing exactly one instance  
 4.3 The following operators shall be supported:  
-4.3.1 `+`, `or`, and `|` for union  
-4.3.2 `and` and `&` for intersection  
+4.3.1 `+` and `|` for union  
+4.3.2 `&` for intersection  
 4.3.3 `-` for subtraction  
-4.4 Verifier support shall be considered  
-4.5 Model compiler support shall be considered  
+4.4 Verifier shall support the set operations  
+4.5 MC-3020 shall support the set operations  
 
 ### 5. Analysis
 
@@ -128,10 +128,6 @@ reference type, or instance set type in all cases. OAL shall support this as
 well (instance references used in these operations shall be converted to sets of
 cardinality 1 before evaluation).
 
-OAL shall support all the operators listed in the table. The behavior of `+`,
-`or`, and `|` shall be identical. The behavior of `and` and `&` shall be
-identical.
-
 5.2 meta-model support
 
 The way expressions are modeled in the meta-model is such that there will be no
@@ -187,7 +183,7 @@ Java has a strong collections library. Adding support for set operations will be
 trivial. `gen_binary_op_value` in `value.inc` will need to be modified to
 generate appropriate Java to do the job.
 
-5.5.2 MC3020
+5.5.2 MC-3020
 
 TODO
 
@@ -201,7 +197,7 @@ sets for set operators.
 `setDifference` operations for `V_BIN`.  
 6.5 Update `getValue` operation on `V_BIN` to call `getInstanceSet` when the
 operation type is an instance set type.  
-6.6 TODO MC3020.  
+6.6 TODO MC-3020.  
 6.7 Create and run tests.  
 
 ### 7. Acceptance Test
@@ -220,6 +216,6 @@ correctness of the populated instances).
 
 7.3 MC-Java shall be tested manually, but no new test cases shall be introduced.
 
-7.4 TODO MC3020 test
+7.4 TODO MC-3020 test
 
 ### End
