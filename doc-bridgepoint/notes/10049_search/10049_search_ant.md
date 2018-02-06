@@ -37,13 +37,17 @@ this shrinkage of scope occurred.
 
 ### 4. Requirements
 
-4.1  xtUML Search shall support locating a structural element by matching the
+4.1  This feature shall be implemented as an extension to the existing xtUML Search
+  capability.
+4.2  xtUML Search shall support locating a structural element by matching the
   user input against the structural element's name.     
-4.2  Search results shall be displayed in the eclipse Search view.   
-4.3  Double-clicking on a name-based result entry in the Search view shall 
+4.2.1  A list of metamodel elements that the tool will support finding by name shall 
+  be compiled and reviewed with xtUML users.   
+4.3  Search results shall be displayed in the eclipse Search view.   
+4.4  Double-clicking on a name-based result entry in the Search view shall 
   display the selected element in Model Explorer view. Elements with associated 
   graphical data shall also be displayed in a highlighted form on the canvas.     
-4.4  The xtUML Search page shall be extended with a checkbox corresponding to
+4.5  The xtUML Search page shall be extended with a checkbox corresponding to
   name-based searching to match existing checkboxes for "Action Language" and 
   "Description" searching.  
   
