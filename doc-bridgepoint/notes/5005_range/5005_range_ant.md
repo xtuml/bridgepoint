@@ -9,15 +9,16 @@ This work is licensed under the Creative Commons CC0 License
 
 ### 1. Abstract
 
-"It would be very powerful to be able to define min and max values for
-data types, of core integer and real types.  Initially it could be
-enough only to add the data into the model and store them in the
-metamodel.  The ranges can then be used by model compilers.
-The ranges should be added to `S_CDT` and `S_UDT` of types
-integer and real types.
-
-Later on the ranges can be used for run time checks during Verifier
-execution."
+Quoted from the issue:  
+>It would be very powerful to be able to define min and max values for
+>data types, of core integer and real types.  Initially it could be
+>enough only to add the data into the model and store them in the
+>metamodel.  The ranges can then be used by model compilers.
+>The ranges should be added to `S_CDT` and `S_UDT` of types
+>integer and real types.
+>
+>Later on the ranges can be used for run time checks during Verifier
+>execution.
 
 ### 2. Document References
 
@@ -25,18 +26,22 @@ execution."
 
 ### 3. Background
 
-
+Ranges are fundamental contraints that are used to limit the extent of
+values that may be represented by a model element defined with the constrained
+type.  A range is composed of a minimum and a maximum value.  Ranges are most
+often applied to numeric (integer and real) types which is the case for this
+feature.
 
 ### 4. Requirements
 
 4.1 Range data shall be stored in the metamodel.  
 4.2 A minimum setting shall be supported.  
 4.3 A maximum setting shall be supported.  
-4.4 User defined types (UDTs) based on integer and real shall be supported.  
-
-optional additional requirements  
-4.5 Enforce range constraints in Verifer.  
-4.6 Enforce range constraints in MC-3020.  
+4.4 Support ranges on User Defined Types (UDTs) based on integer and real only.  
+4.5 The ability to establish ranges shall be supplied by the editor
+user interface.  
+4.6 Range constraints shall be enforced in Verifer.  
+4.7 Range constraints shall be enforced in MC-3020 generated code.  
 
 ### 5. Analysis
 
@@ -50,7 +55,7 @@ Add a Range attribute to Data Type and be done.  The range would carry
 a free-form, unparsed, unvalidated string that is edited in Properties
 and persisted and propagated in the model data.  No work would be done on
 Verifier or model compilers at this time.  A suggestion for syntax would
-be to use '..' notation, but it this would not be enforced by the editor.
+be to use '..' notation, but this would not be enforced by the editor.
 
 It is a consideration to place this field on `S_UDT` which would imply
 that built-in types, Structured Data Types and Enumerations cannot
@@ -68,42 +73,55 @@ editor, but the future work in Verifier and model compilers would be
 simplified.
 
 Again, it would be a consideration to place this on `S_DT` rather than
-on `S_UDT`.  `S_UDT` is expressed here, because it is considered the
-preferred solution.
+on `S_UDT`.
 
 5.3 Range Class  
-The Range class would be conditionally linked to Data Type (or User Data
-Type).  It would have fields Min and Max.
+Instead of storing range information directly in the Data Type or User
+Data Type class, range data would be stored in an instance of a Range
+class and conditionally linked to the User Data Type class with a new
+association.  Range would have attributes `Range.DT_ID {R}`, `Range.Min`
+and `Range.Max`.
+
+This option has the advantage of minimal impact on the metamodel and on
+compatibility.  All existing classes are unmodified.  New information is
+expressed in new instance data.  The association is formalized on the
+new class side which keeps existing classes untouched.
 
 5.4 Range Class Linked to Values  
 In this option, the Range class would be linked twice to Value.  The first
 link would realize 'has min'; the second would realize 'has max'.
 
+This option suffers from the problem that Value (`V_VAL`) is unconditionally
+linked to Block (`ACT_BLK`) meaning that an instance of a Value is always
+part of a Block which is part of a action language Body which is contained
+in one of the action language homes (like Function, Operation, etc).
+
 5.5 Constraint Class  
 The Constraint class would be linked to Data Type and then linked to a
-subtype Range.  Range would have Min and Max fields to take the place
-of future links to Value.
+subtype Range.
 
 5.6 Recommendation  
-The recommendation at this time is to add Min and Max string fields to
-User Data Type.  This is simple, easy and flexible.  Since truly modeling
-Range is impossible until there is a model of Constraint and we are able to
-link directly to Value (Expression), any model is a compromise.  This
-compromise is the most direct, easy to implement and easy to upgrade
-in the future.
+The recommendation at this time is a Range class with Min and Max, [5.3].
+This is reasonably simple and flexible.  Any model is a compromise until
+there is a model of Constraint and we are able to link directly to Value
+(Expression).  This compromise is direct, easy to implement and easy to
+upgrade in the future.  A (potentially temporary) restriction to edit only
+integer and real based UDTs can be enforced in the user interface.
 
+![Range Model](range2.png) Range and User Data Type  
 
 ### 6. Work Required
 
-6.1 Item 1  
+6.1 Update metamodels (`ooaofooa` and `mcooa`).  
+6.2 Update editor.  
+6.3 Update Verifier.  
+6.4 Update model compilers.  
+6.5 Implement test cases.  
 
 ### 7. Acceptance Test
 
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
+7.1 Pass existing unit tests.  
+7.2 Pass new unit tests.  
+7.3 Pass manual tests of adding ranges to numeric user defined types.  
 
 ### End
