@@ -23,10 +23,14 @@
 package org.xtuml.bp.core.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
@@ -333,6 +337,81 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 		return path;
 	}
+    
+    /**
+     * Set union for model elements
+     */
+    public static <T extends NonRootModelElement> T[] setUnion( T a, T b, T[] emptyArray ) {
+        return setUnion( Collections.singleton( a ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setUnion( T a, T[] b, T[] emptyArray ) {
+        return setUnion( Collections.singleton(a), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setUnion( T[] a, T b, T[] emptyArray ) {
+        return setUnion( new HashSet<>( Arrays.asList( a ) ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setUnion( T[] a, T[] b, T[] emptyArray ) {
+        return setUnion( new HashSet<>( Arrays.asList( a ) ), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    private static <T extends NonRootModelElement> Set<T> setUnion( Set<T> a, Set<T> b ) {
+        Set<T> returnSet = new HashSet<>( a );
+        returnSet.addAll( b );
+        return returnSet;
+    }
+
+    /**
+     * Set intersection for model elements
+     */
+    public static <T extends NonRootModelElement> T[] setIntersection( T a, T b, T[] emptyArray ) {
+        return setIntersection( Collections.singleton( a ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setIntersection( T a, T[] b, T[] emptyArray ) {
+        return setIntersection( Collections.singleton(a), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setIntersection( T[] a, T b, T[] emptyArray ) {
+        return setIntersection( new HashSet<>( Arrays.asList( a ) ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setIntersection( T[] a, T[] b, T[] emptyArray ) {
+        return setIntersection( new HashSet<>( Arrays.asList( a ) ), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    private static <T extends NonRootModelElement> Set<T> setIntersection( Set<T> a, Set<T> b ) {
+        Set<T> returnSet = new HashSet<>( a );
+        returnSet.retainAll( b );
+        return returnSet;
+    }
+
+    /**
+     * Set difference for model elements
+     */
+    public static <T extends NonRootModelElement> T[] setDifference( T a, T b, T[] emptyArray ) {
+        return setDifference( Collections.singleton( a ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setDifference( T a, T[] b, T[] emptyArray ) {
+        return setDifference( Collections.singleton(a), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setDifference( T[] a, T b, T[] emptyArray ) {
+        return setDifference( new HashSet<>( Arrays.asList( a ) ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setDifference( T[] a, T[] b, T[] emptyArray ) {
+        return setDifference( new HashSet<>( Arrays.asList( a ) ), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    private static <T extends NonRootModelElement> Set<T> setDifference( Set<T> a, Set<T> b ) {
+        Set<T> returnSet = new HashSet<>( a );
+        returnSet.removeAll( b );
+        return returnSet;
+    }
     
 	/**
      * Set the unique id for this instance.

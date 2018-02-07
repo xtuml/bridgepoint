@@ -277,6 +277,13 @@
   .invoke gen_value(root_pkg_name, l_val)
   .invoke gen_value(root_pkg_name, r_val)
   .select one dt related by l_val->S_DT[R820]
+  .select one irdt related by dt->S_IRDT[R17]
+  .select one irdt_obj related by irdt->O_OBJ[R123]
+  .assign class_name = ""
+  .if ( not_empty irdt_obj )
+    .invoke cn = get_class_name( irdt_obj )
+    .assign class_name = cn.body
+  .end if
   .if (("${binary_op.operator}" == "==") AND ((dt.Name == "string") OR (dt.Name == "unique_id")))
     .// Test for string equality using the equals method otherwise
     .// test will fail unless strings are exactly the same instance
@@ -285,6 +292,12 @@
 (! ${l_val.buffer}.equals(${r_val.buffer}))\
   .elif ((dt.Name == "string") AND ((("${binary_op.operator}" == ">") OR ("${binary_op.operator}" == "<")) OR (("${binary_op.operator}" == ">=") OR ("${binary_op.operator}" == "<="))))
 (${l_val.buffer}.compareTo(${r_val.buffer}) ${binary_op.operator} 0)\
+  .elif ( ( ( "+" == binary_op.operator ) OR ( "|" == binary_op.operator ) ) AND ( not_empty irdt ) )
+NonRootModelElement.setUnion( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "&" == binary_op.operator ) AND ( not_empty irdt ) )
+NonRootModelElement.setIntersection( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "-" == binary_op.operator ) AND ( not_empty irdt ) )
+NonRootModelElement.setDifference( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
   .else
     .if ("$Ur{binary_op.operator}" == "AND")
       .assign binary_op.operator = "&&"
