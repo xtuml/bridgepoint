@@ -261,12 +261,13 @@ elif (self.Operator == "==" or self.Operator == "!=")
 	  rVal_ID = rightOperand.getRuntimeValue(stack_frame_id:param.stack_frame_id);
 	  if rVal_ID != GD::NULL_UNIQUE_ID()
 		// The two RuntimeValue instances for both operands are found	    
-          result = self.compareInstRefSets(rRtVal:rVal_ID,lRtVal: lVal_ID);
-          if (self.Operator == "==")
-            return result;
-          else
-            return not result;
-          end if;
+        select many leftInstances related by leftRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+        select many rightInstances related by rightRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+        if (self.Operator == "==")
+          return leftInstances == rightInstances;
+        else
+          return leftInstances != rightInstances;
+        end if;
       end if;                                            
     end if;                                              
   else
@@ -705,79 +706,6 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TFR
-	VALUES ("3fbaa48c-2c60-492c-bee8-b734aeb25b36",
-	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
-	'compareInstRefSets',
-	'Translate:native',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'Ooaofooa.log.println(ILogger.OPERATION, "Binary Operation",
-		" Operation entered: BinaryOperation::compareInstRefSets");
-final ModelRoot modelRoot = getModelRoot();
-RuntimeValue_c v_lRtVal = (RuntimeValue_c) modelRoot.getInstanceList(
-		RuntimeValue_c.class).getGlobal(p_Lrtval);
-Instance_c[] v_instancesLeft = Instance_c
-		.getManyI_INSsOnR3013(InstanceInReference_c
-				.getManyL_IIRsOnR3311(InstanceReferenceValue_c
-						.getManyRV_IRVsOnR3308(SimpleValue_c
-								.getManyRV_SMVsOnR3300(v_lRtVal))));
-
-RuntimeValue_c v_rRtVal = (RuntimeValue_c) modelRoot.getInstanceList(
-		RuntimeValue_c.class).getGlobal(p_Rrtval);
-
-Instance_c[] v_instancesRight = Instance_c
-		.getManyI_INSsOnR3013(InstanceInReference_c
-				.getManyL_IIRsOnR3311(InstanceReferenceValue_c
-						.getManyRV_IRVsOnR3308(SimpleValue_c
-								.getManyRV_SMVsOnR3300(v_rRtVal))));
-								
-if (v_instancesLeft.length != v_instancesRight.length) {
-	return false;
-}
-int rightIndex;
-int leftIndex;
-// find a match for each instance in the right set with another one in the left set.
-boolean[] matched = new boolean[v_instancesLeft.length];
-for (rightIndex = 0; rightIndex < v_instancesRight.length; rightIndex++) {
-	for (leftIndex = 0; leftIndex < v_instancesLeft.length; leftIndex++) {
-		if (matched[leftIndex] == false) {
-			if (v_instancesLeft[leftIndex] == v_instancesRight[rightIndex]) {
-				// mark the left instance as matched so it is not used in matching again.
-				matched[leftIndex] = true;
-				break;
-			}
-		}
-	}
-
-	if (leftIndex == v_instancesLeft.length) {
-		// failed to find matched instance in left set for selected instance from right set
-		return false;
-	}
-}
-return true;',
-	0,
-	'',
-	"dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("a8761cf8-c3aa-4b65-803f-e9b988d856b5",
-	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",
-	'rRtVal',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("163dd006-d2a5-4405-b417-429c2ad8556d",
-	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",
-	'lRtVal',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"a8761cf8-c3aa-4b65-803f-e9b988d856b5",
 	'');
 INSERT INTO O_TFR
 	VALUES ("0e14a938-1c79-4982-8baa-5f633e2adf08",
