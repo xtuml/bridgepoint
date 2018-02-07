@@ -280,9 +280,11 @@
   .select one irdt related by dt->S_IRDT[R17]
   .select one irdt_obj related by irdt->O_OBJ[R123]
   .assign class_name = ""
-  .if ( not_empty irdt_obj )
+  .assign irdt_is_set = false
+  .if ( not_empty irdt )
     .invoke cn = get_class_name( irdt_obj )
     .assign class_name = cn.body
+    .assign irdt_is_set = irdt.isSet
   .end if
   .if (("${binary_op.operator}" == "==") AND ((dt.Name == "string") OR (dt.Name == "unique_id")))
     .// Test for string equality using the equals method otherwise
@@ -298,6 +300,10 @@ NonRootModelElement.setUnion( ${l_val.buffer}, ${r_val.buffer}, new ${class_name
 NonRootModelElement.setIntersection( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
   .elif ( ( "-" == binary_op.operator ) AND ( not_empty irdt ) )
 NonRootModelElement.setDifference( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "==" == binary_op.operator ) AND ( irdt_is_set ) )
+NonRootModelElement.setEquals( ${l_val.buffer}, ${r_val.buffer} )\
+  .elif ( ( "!=" == binary_op.operator ) AND ( irdt_is_set ) )
+(!NonRootModelElement.setEquals( ${l_val.buffer}, ${r_val.buffer} ))\
   .else
     .if ("$Ur{binary_op.operator}" == "AND")
       .assign binary_op.operator = "&&"

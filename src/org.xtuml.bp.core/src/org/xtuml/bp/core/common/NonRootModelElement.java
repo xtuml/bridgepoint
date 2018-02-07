@@ -412,6 +412,16 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
         returnSet.removeAll( b );
         return returnSet;
     }
+
+    /**
+     * Set compare equal for model elements
+     */
+    public static <T extends NonRootModelElement> boolean setEquals( T[] a, T[] b ) {
+    	if ( ( null == a || null == b ) || a.length != b.length ) return false;
+    	Set<T> setA = new HashSet<>( Arrays.asList( a ) );
+    	Set<T> setB = new HashSet<>( Arrays.asList( b ) );
+    	return ( setA.containsAll( setB ) && setB.containsAll( setA ) );
+    }
     
 	/**
      * Set the unique id for this instance.
