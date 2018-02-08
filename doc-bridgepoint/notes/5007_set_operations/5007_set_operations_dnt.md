@@ -23,12 +23,47 @@ support will also be considered.
 
 The reader should review the background section of [[2.2]](#2.2).
 
+In addition to the three set operations covered in the background section of
+[[2.2]](#2.2), the reader should be familiar with the following:
+
+* The **symmetric difference** (disjunctive union/disunion) of sets A and B (`A
+  ^ B`) is the set of all elements that are in set A or in set B but _not_ both.
+  Symmetric difference is also commutative, meaning `A ^ B == B ^ A`.  
+![symmetric_difference.png](symmetric_difference.png)
+
 ### 4. Requirements
 
-See the requirements section of [[2.2]](#2.2) for list of requirements. These
-requirements are sourced from the Sortie-1 SRS [[2.3]](#2.3).
+The following requirements are sourced from the Sortie-1 SRS [[2.3]](#2.3).
+They are worded slightly differently than the requirements in the analysis note
+[[2.2]](#2.2) because they were reformatted when the Sortie-1 SRS was produced.
+
+4.1 OAL shall support instance set union (addition) expressions.  
+4.2 OAL shall support instance set intersection expressions.  
+4.3 OAL shall support instance set subtraction expressions.  
+4.4 Both instance set types and instance reference types shall be supported for
+either operand.  
+4.4.1 An operand of instance reference type shall logically be considered an
+instance set containing exactly one instance.  
+4.5 Operators `+` and `|` shall be supported for union expressions.  
+4.6 Operator `&` shall be supported for intersection expressions.  
+4.7 Operator `-` shall be supported for subtraction expressions.  
+4.8 Verifier shall support the set operations.  
+
+The following requirements are not part of the Sortie-1 deliverable requirements
+however they shall be satisfied as part of this work.
+
+4.9 OAL shall support instance set symmetric difference (disunion) expressions.  
+4.10 Operator `^` shall be supported for symmetric difference expressions.  
+4.11 MC-3020 shall support the set operations.  
 
 ### 5. Analysis
+
+5.1 MC-3020
+
+PR for set addition: https://github.com/xtuml/mc/pull/109
+
+This was merged in, but it modified one of the source sets. Also, it was simple concatenation, so there
+was opportunity for duplicates. This only supported sets and not instance handles.
 
 TODO
 
