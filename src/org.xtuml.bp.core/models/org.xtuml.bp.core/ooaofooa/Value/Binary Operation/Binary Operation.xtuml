@@ -727,7 +727,7 @@ stack_frame.popValue(value_id:leftOperand.Value_ID);
 stack_frame.popValue(value_id:rightOperand.Value_ID);
 
 // set operations
-if ( self.Operator == "+" or self.Operator == "|" or self.Operator == "&" or self.Operator == "-" )
+if ( self.Operator == "+" or self.Operator == "|" or self.Operator == "&" or self.Operator == "-" or self.Operator == "^" )
 
   // get the instances for left and right hand sides
   select many leftInstances related by leftRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
@@ -743,6 +743,9 @@ if ( self.Operator == "+" or self.Operator == "|" or self.Operator == "&" or sel
   // difference
   elif ( self.Operator == "-" )
     resultSet = leftInstances - rightInstances;
+  // symmetric difference
+  elif ( self.Operator == "^" )
+    resultSet = leftInstances ^ rightInstances;
   end if;
   
   // create a new runtime value for the combined set
