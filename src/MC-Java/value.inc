@@ -300,6 +300,8 @@ NonRootModelElement.setUnion( ${l_val.buffer}, ${r_val.buffer}, new ${class_name
 NonRootModelElement.setIntersection( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
   .elif ( ( "-" == binary_op.operator ) AND ( not_empty irdt ) )
 NonRootModelElement.setDifference( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "^" == binary_op.operator ) AND ( not_empty irdt ) )
+NonRootModelElement.setSymmetricDifference( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
   .elif ( ( "==" == binary_op.operator ) AND ( irdt_is_set ) )
 NonRootModelElement.setEquals( ${l_val.buffer}, ${r_val.buffer} )\
   .elif ( ( "!=" == binary_op.operator ) AND ( irdt_is_set ) )

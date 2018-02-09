@@ -414,6 +414,31 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     }
 
     /**
+     * Set symmetric difference for model elements
+     */
+    public static <T extends NonRootModelElement> T[] setSymmetricDifference( T a, T b, T[] emptyArray ) {
+        return setSymmetricDifference( Collections.singleton( a ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setSymmetricDifference( T a, T[] b, T[] emptyArray ) {
+        return setSymmetricDifference( Collections.singleton(a), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setSymmetricDifference( T[] a, T b, T[] emptyArray ) {
+        return setSymmetricDifference( new HashSet<>( Arrays.asList( a ) ), Collections.singleton( b ) ).toArray( emptyArray );
+    }
+
+    public static <T extends NonRootModelElement> T[] setSymmetricDifference( T[] a, T[] b, T[] emptyArray ) {
+        return setSymmetricDifference( new HashSet<>( Arrays.asList( a ) ), new HashSet<>( Arrays.asList( b ) ) ).toArray( emptyArray );
+    }
+
+    private static <T extends NonRootModelElement> Set<T> setSymmetricDifference( Set<T> a, Set<T> b ) {
+        Set<T> returnSet = setUnion( a, b );
+        returnSet.removeAll( setIntersection( a, b ) );
+        return returnSet;
+    }
+
+    /**
      * Set compare equal for model elements
      */
     public static <T extends NonRootModelElement> boolean setEquals( T[] a, T[] b ) {
