@@ -68,6 +68,7 @@ TOK_TIMES       : '*';
 TOK_QMARK       : '?';
 TOK_AMP         : '&';
 TOK_PIPE        : '|';
+TOK_CARET       : '^';
 
 
 protected

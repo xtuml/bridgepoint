@@ -800,17 +800,9 @@ conjunction
   ;
 relational_expr
   :
-    set_expr
-    (
-      comparison_operator
-      set_expr
-    )?
-  ;
-set_expr
-  :
     addition
     (
-      set_operator
+      comparison_operator
       addition
     )?
   ;
@@ -818,7 +810,7 @@ addition
   :
     multiplication
     (
-      plus_or_minus
+      additive_operator
       multiplication
     )*
   ;
@@ -976,9 +968,11 @@ comparison_operator!
   |
     TOK_GE
   ;
-set_operator!
+additive_operator!
   :
-    TOK_AMP
+    TOK_PLUS
+  |
+    TOK_MINUS
   |
     TOK_PIPE
   ;
@@ -995,6 +989,10 @@ mult_op!
     TOK_DIV
   |
     TOK_MOD
+  |
+    TOK_AMP
+  |
+    TOK_CARET
   ;
 partial_block[boolean isRoot]
   :

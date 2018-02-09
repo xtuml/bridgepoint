@@ -91,7 +91,7 @@ ParserUtilityFunction: TRUE
                    token: param.a6_rule_token );
             else
               // for set operations, instance reference types must be published
-              if ( ( bin.Operator == "+" or bin.Operator == "-" or bin.Operator == "&" or bin.Operator == "|" ) and
+              if ( ( bin.Operator == "+" or bin.Operator == "-" or bin.Operator == "&" or bin.Operator == "|" or bin.Operator == "^" ) and
                    ( ::has_substring( p1_base:lhs_val_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
                      ::has_substring( p1_base:lhs_val_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) or
                      ::has_substring( p1_base:rhs_val_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
@@ -384,7 +384,7 @@ if isInGenericPackage
       return GD::NULL_UNIQUE_ID();
     elif ( (dt1_is_ir or dt1_is_irs) and
        ( param.op == "&" or param.op == "|" or param.op == "+"  or
-         param.op == "-" ) )
+         param.op == "-" or param.op == "^" ) )
       return_type = param.dt1;
       if ( dt1_is_ir )
         // The result of an operation on two inst_ref''s is an inst_ref_set.  So,
@@ -418,13 +418,15 @@ if isInGenericPackage
     //      <inst_ref>      &  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      +  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      -  <inst_ref_set>   <inst_ref_set>
+    //      <inst_ref>      ^  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref_set>  |  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  &  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  +  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  -  <inst_ref>       <inst_ref_set>
+    //      <inst_ref_set>  ^  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
       if ( param.op != "&" and param.op != "|" and param.op != "+" and
-         param.op != "-" )
+         param.op != "-" or param.op == "^" )
         return GD::NULL_UNIQUE_ID();
       end if;
 
@@ -651,7 +653,7 @@ else
       return GD::NULL_UNIQUE_ID();
     elif ( (dt1_is_ir or dt1_is_irs) and
        ( param.op == "&" or param.op == "|" or param.op == "+"  or
-         param.op == "-" ) )
+         param.op == "-" or param.op == "^" ) )
       return_type = param.dt1;
       if ( dt1_is_ir )
         // The result of an operation on two inst_ref''s is an inst_ref_set.  So,
@@ -685,13 +687,15 @@ else
     //      <inst_ref>      &  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      +  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      -  <inst_ref_set>   <inst_ref_set>
+    //      <inst_ref>      ^  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref_set>  |  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  &  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  +  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  -  <inst_ref>       <inst_ref_set>
+    //      <inst_ref_set>  ^  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
       if ( param.op != "&" and param.op != "|" and param.op != "+" and
-         param.op != "-" )
+         param.op != "-" or param.op == "^" )
         return GD::NULL_UNIQUE_ID();
       end if;
 
