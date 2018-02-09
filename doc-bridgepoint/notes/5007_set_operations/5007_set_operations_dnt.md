@@ -18,6 +18,9 @@ support will also be considered.
 <a id="2.1"></a>2.1 [#5007 Operators +, -, and and or of instance handle sets are missing in OAL.](https://support.onefact.net/issues/5007)  
 <a id="2.2"></a>2.2 [#5007 analysis note](5007_set_operations_ant.md)  
 <a id="2.3"></a>2.3 [#10045 Sortie-1 SRS](https://docs.google.com/document/d/124tp5O8PvCHCDZUDLX173c0B8u4N9d7CXEF-X8Voszw/edit) Internal requirements document for the Sortie project part 1  
+<a id="2.4"></a>2.4 [Python 2 docs: operator precedence](https://docs.python.org/2/reference/expressions.html#operator-precedence)  
+<a id="2.5"></a>2.5 [#8287 Add support for instance reference set addition](https://support.onefact.net/issues/8287)  
+<a id="2.6"></a>2.6 [#8287 Github pull request](https://github.com/xtuml/mc/pull/109)  
 
 ### 3. Background
 
@@ -58,14 +61,88 @@ however they shall be satisfied as part of this work.
 
 ### 5. Analysis
 
-5.1 MC-3020
+5.a Operator precedence
 
-PR for set addition: https://github.com/xtuml/mc/pull/109
+Part of this feature that was not explored in depth in the analysis note is
+operator precedence. The operators that are introduced must fit into the
+hierarchy of existing operators and have well established rules of precedence
+among themselves. Several outside sources were analyzed to make a decision that
+fits in with existing tools.
 
-This was merged in, but it modified one of the source sets. Also, it was simple concatenation, so there
-was opportunity for duplicates. This only supported sets and not instance handles.
+5.a.1 RSL (old generator)
 
-TODO
+The old RSL generator did not have explicit precedence for binary
+operations but required parentheses to explicitly specify order of operations.
+This is the way the `rsl2oal` converter utility that is used by MC-3020 works.
+
+5.a.2 `pyrsl`
+
+Version 1.0.0 of `pyrsl` does have inherent precedence of binary operators,
+however it wasn't explicitly stated in the docs. Not much further investigation
+into `pyrsl` was done to discover the exact ordering. The original designer
+stated that little attention was paid to this part of the interpreter design.
+
+5.a.3 Python
+
+Operator precedence in Python was analyzed since set operations are supported
+natively (see [[2.4]](#2.4)). The table in the Python docs shows that the `|`
+and `&` operators (which are used for union and intersection) are lower
+precedence than even addition. The table only cites bitwise operations, however
+so the actual precedence for the set operations is not clear, however it is
+assumed to be the same as the bitwise operations since they use the same
+operators.
+
+5.a.4 MASL
+
+The most definitive data we have is from MASL. One of the original designers of
+the MASL language provided this operator precedence table. The rows are listed
+in order from highest precedence (most binding) to lowest precedence (least
+binding).
+
+| Expression/operation type        | Operators                                                        |
+|----------------------------------|------------------------------------------------------------------|
+| Primary                          | (...), literal, name, domain::name                               |
+| Extended (postfix, create, find) | a.b, a~>b, a[…], a’b, a(...), find a where (...), create a (...) |
+| Navigate                         | a->Rx                                                            |
+| Link                             | link a Rx b                                                      |
+| Unary                            | +a -a, not a, abs a                                              |
+| Multiplicative                   | \*, /, mod, pow, rem, intersection, disunion                     |
+| Additive                         | +, -, & (concatenate), union, not_in                             |
+| Relational                       | <, >, <=, >=                                                     |
+| Equality                         | =, /= (not equal to... Ada heritage!)                            |
+| Logical And                      | and                                                              |
+| Logical XOR                      | xor                                                              |
+| Logical Or                       | or                                                               |
+| Range                            | a .. b                                                           |
+
+MASL supports all three of the originally analyzed set operations, however, in
+MASL, set subtraction is done by the operator `not_in` (e.g. `A not_in B`
+returns a set containing all the elements which are in `A` but not `B`). MASL
+also supports "disunion" which is the symmetric difference (or disjunctive
+union).
+
+5.a.5 Conclusion
+
+The crispness and precision of the MASL specification in this area is very
+valuable. Additionally, the fact that union and difference are additive while
+disunion and intersection are multiplicative is consistent with gut feel that
+`&` should bind closer than `|`. Support for OAL set operations shall follow the
+lead of MASL in precedence rules. Additionally, because MASL supports disunion,
+OAL shall support it as part of this work since it will take little extra effort
+to achieve.
+
+5.b MC-3020
+
+Some work has already been done to add set addition to MC-3020 [[2.5]](#2.5).
+There were problems with the original implementation. The input sets were
+modified by the addition operation. Also, the routine assumed that the two sets
+were disjoint (no elements existed in both sets). OAL parser limitations
+prevented the feature from being very useful.
+
+The work in this area was merged into master [[2.6]](#2.6). This changeset will
+be used to set up the framework for the changes to fully implement the set
+operations in MC-3020, however, little of the actual implementation will be
+reused.
 
 ### 6. Design
 
