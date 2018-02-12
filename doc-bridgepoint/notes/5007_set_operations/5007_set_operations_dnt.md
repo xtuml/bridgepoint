@@ -52,8 +52,8 @@ instance set containing exactly one instance.
 4.7 Operator `-` shall be supported for subtraction expressions.  
 4.8 Verifier shall support the set operations.  
 
-The following requirements are not part of the Sortie-1 deliverable requirements
-however they shall be satisfied as part of this work.
+The following requirements are not part of the Sortie-1 deliverable
+requirements however they will be satisfied as part of this work.
 
 4.9 OAL shall support instance set symmetric difference (disunion) expressions.  
 4.10 Operator `^` shall be supported for symmetric difference expressions.  
@@ -61,7 +61,7 @@ however they shall be satisfied as part of this work.
 
 ### 5. Analysis
 
-5.a Operator precedence
+5.1 Operator precedence
 
 Part of this feature that was not explored in depth in the analysis note is
 operator precedence. The operators that are introduced must fit into the
@@ -69,30 +69,29 @@ hierarchy of existing operators and have well established rules of precedence
 among themselves. Several outside sources were analyzed to make a decision that
 fits in with existing tools.
 
-5.a.1 RSL (old generator)
+5.1.1 RSL (old generator)
 
 The old RSL generator did not have explicit precedence for binary
 operations but required parentheses to explicitly specify order of operations.
 This is the way the `rsl2oal` converter utility that is used by MC-3020 works.
 
-5.a.2 `pyrsl`
+5.1.2 `pyrsl`
 
 Version 1.0.0 of `pyrsl` does have inherent precedence of binary operators,
 however it wasn't explicitly stated in the docs. Not much further investigation
 into `pyrsl` was done to discover the exact ordering. The original designer
 stated that little attention was paid to this part of the interpreter design.
 
-5.a.3 Python
+5.1.3 Python
 
 Operator precedence in Python was analyzed since set operations are supported
 natively (see [[2.4]](#2.4)). The table in the Python docs shows that the `|`
 and `&` operators (which are used for union and intersection) are lower
-precedence than even addition. The table only cites bitwise operations, however
-so the actual precedence for the set operations is not clear, however it is
-assumed to be the same as the bitwise operations since they use the same
-operators.
+precedence than even addition. The table only cites bitwise operations, so the
+actual precedence for the set operations is not clear, however it is assumed to
+be the same as the bitwise operations since they use the same operators.
 
-5.a.4 MASL
+5.1.4 MASL
 
 The most definitive data we have is from MASL. One of the original designers of
 the MASL language provided this operator precedence table. The rows are listed
@@ -121,7 +120,7 @@ returns a set containing all the elements which are in `A` but not `B`). MASL
 also supports "disunion" which is the symmetric difference (or disjunctive
 union).
 
-5.a.5 Conclusion
+5.1.5 Conclusion
 
 The crispness and precision of the MASL specification in this area is very
 valuable. Additionally, the fact that union and difference are additive while
@@ -131,7 +130,7 @@ lead of MASL in precedence rules. Additionally, because MASL supports disunion,
 OAL shall support it as part of this work since it will take little extra effort
 to achieve.
 
-5.b MC-3020
+5.2 MC-3020
 
 Some work has already been done to add set addition to MC-3020 [[2.5]](#2.5).
 There were problems with the original implementation. The input sets were
@@ -143,6 +142,96 @@ The work in this area was merged into master [[2.6]](#2.6). This changeset will
 be used to set up the framework for the changes to fully implement the set
 operations in MC-3020, however, little of the actual implementation will be
 reused.
+
+5.3 Instance reference types
+
+Due to some heritage of the language and weaknesses of instance reference types,
+users will be required to "Publish References" to instance reference types in
+order to use set operations.
+
+Study the following diagram. Important classes and associations are highlighted
+in blue.
+
+![val2.png](val2.png)  
+
+In xtUML an instance of `Value` represents an expression. The subtypes of
+`Value` represent the different types of values that can be expressed. Notice
+that every instance of `Value` has an associated data type (R820). An instance
+of `Variable` represents a local variable declared in a block (in OAL,
+variables are declared implicitly at the first point of reference). The
+variable can be one of three subtypes: an `Instance Handle` is a pointer to one
+distinct instance. An `Instance Set` is a pointer to a set of zero to many
+instances. A `Transient Var` is a variable that is given any other type besides
+an instance or instance set type. Notice that for each of these variable types,
+there is a corresponding subtype for `Value` (`Instance Reference`, `Instance
+Set Reference`, and `Transient Value Reference`).
+
+In xtUML, instance references and instance sets can only be used to type
+attributes, structure members, parameters, and return types if the references
+are "published". Publishing references creates two explicit data types in the
+same package as the class -- one for instance reference (`inst_ref<ClassName>`)
+and one for instance reference set (`inst_ref_set<ClassName>`). Once these data
+types are created, they can be assigned using the type chooser.
+
+Consider that even if types are not published for a class, a user may select
+instances of that class and store them in a set variable. The user can then
+subsequently assign the value of the set variable to another variable.
+```
+select many foos from instances of FOO;
+foos1 = foos;
+```
+
+Remember that every value has an associated type. If instance reference types
+for `FOO` are not published, what is the type of the right hand side value of
+the assignment in line 2 above? The answer is the that the type is the special
+instance set core type `inst_ref_set<Object>`. This type and `inst_ref<Object>`
+are used to type instance set reference and instance reference values when
+instance reference types are not explicitly published.  When the parser has to
+check type compatibility for such types, first it checks that the types match
+(i.e. both operands are typed `inst_ref_set<Object>`), then it must check that
+the underlying classes are the same (you cannot assign a set of `FOO`s to a
+variable typed as a set of `BAR`s). The parser navigates through the value
+subtype to the backing `Variable` instance, then to the instance of `Model
+Class`. This navigation is
+`val->V_ISR[R801]->V_VAR[R809]->V_INS[R814]->O_OBJ[R819]` for sets and
+`val->V_IRF[R801]->V_VAR[R808]->V_INT[R814]->O_OBJ[R818]` for instance
+references.
+
+In a model without any published instance reference types, there is no subtype
+of `Value` which returns an instance type except `Instance Reference` and
+`Instance Set Reference`. For these, type checking can be done as described
+above. If however binary operations are extended to be able to return instance
+set types from set operations, there will be no way to do type checking. The
+type of the `Value` instance across R820 would be `inst_ref_set<Object>`, but
+there is no path to navigate from an instance of `Binary Operation` to the
+actual instance of `Model Class` associated with its return value. If instance
+reference types are explicitly published however, it is trivial to navigate for
+type checking since the type related across R820 stores a link to the underlying
+`Model Class`
+
+Type checking binary operations without publishing instance reference types is
+not an impossible task. It would be possible to write a recursive routine which
+would drill down through either the left or right operand of the binary
+operation until either an instance reference or instance set is found. This
+would be an inefficient design since there is no maximum depth to a binary
+operation tree. For example:
+```
+x = ( ( set1 | set2 ) & ( set3 - set4 ) ) ^ set5
+```
+If the parser were trying to determine the type of the `^` operation, the
+routine may arbitrarily choose the left operand to get the type. Then the
+routine would have to determine the type of the `&` operation, etc. until
+finally `set1` is reached and the underlying `Model Class` can be found through
+the `Instance Set` variable.
+
+Another option would be to modify the metamodel to include some way to store a
+reference to the underlying `Model Class` at the level of the `Binary Operation`
+instance. There are many different choices to accomplish this, but all would
+require more analysis and update of model compilers.
+
+In light of this limitation, the design choice is to simply require users to
+explicitly publish any instance reference types for classes they plan to use
+with set operations.
 
 ### 6. Design
 
@@ -157,18 +246,30 @@ operations to implement set operations).
 6.1.4 Build BridgePoint again.  
 6.1.5 Use set operations in Verifier.  
 
-TODO
+6.2 OAL parser modification
+
+6.3 MC-Java
+
+6.4 Verifier
+
+6.5 MC-3020
 
 ### 7. Design Comments
 
-TODO
+7.1 Set equality
 
 ### 8. User Documentation
 
-TODO
+8.1 The help section "BridgePoint UML Suite Help > Reference > OAL reference >
+Expressions" shall be rewritten to include the most current and correct
+information about OAL expressions.  
+8.1.1 Current documentation shall be revised and updated.  
+8.1.2 A new section shall be created to discuss the use of the set operators.  
+8.1.3 A table shall be included that explicitly defines the order of operations
+in OAL.  
 
 ### 9. Unit Test
 
-TODO
+9.1 The existing unit tests shall pass.  
 
 ### End
