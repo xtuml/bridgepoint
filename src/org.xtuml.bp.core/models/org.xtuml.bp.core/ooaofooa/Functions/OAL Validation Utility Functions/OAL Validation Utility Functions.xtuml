@@ -426,7 +426,7 @@ if isInGenericPackage
     //      <inst_ref_set>  ^  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
       if ( param.op != "&" and param.op != "|" and param.op != "+" and
-         param.op != "-" or param.op == "^" )
+         param.op != "-" and param.op != "^" )
         return GD::NULL_UNIQUE_ID();
       end if;
 
@@ -695,7 +695,7 @@ else
     //      <inst_ref_set>  ^  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
       if ( param.op != "&" and param.op != "|" and param.op != "+" and
-         param.op != "-" or param.op == "^" )
+         param.op != "-" and param.op != "^" )
         return GD::NULL_UNIQUE_ID();
       end if;
 
