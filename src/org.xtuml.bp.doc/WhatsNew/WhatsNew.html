@@ -12,57 +12,13 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-6.10.0">What's New in BridgePoint 6.10.0</h1>
+<h1 id="whats-new-in-bridgepoint-6.11.0">What's New in BridgePoint 6.11.0</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
-<li>OAL Content Assist Improvements</li>
-<li>&quot;Publish to Interface...&quot; Tool</li>
-<li>Editor Enhancements</li>
-<li>MASL Flow Improvements<br />
-</li>
-<li>Concrete Polymorphic Events</li>
+<li>Engineering build</li>
 </ul>
 <hr />
-<h2 id="oal-content-assist-improvements">OAL Content Assist Improvements</h2>
-<p>The OAL content assist feature is improved in this release. Specifically, BridgePoint has improved<br />
-proposals in <code>relate</code>, <code>unrelate</code>, and <code>create</code> statements and numerous places where <code>self</code> and <code>param</code><br />
-may be used.</p>
-<p>Additionally, a bug is fixed where content assist raised a selection list at the end of a comment.</p>
-<h2 id="publish-to-interface">Publish to Interface</h2>
-<p>Some modelers prefer to create their application from a domain-first, bottom-up approach. This approach typically<br />
-involves the creation of domain functions that help define the API provided by the domain. When the time comes to<br />
-wire the component into a full system, the modeler is left to manually create interfaces and messages that expose<br />
-the API.</p>
-<p>To simplify this process, BridgePoint now includes a <code>Publish to Interface...</code> tool [Figure 1]. This tool creates<br />
-interface messages and parameters automatically from the selected domain functions. The tool is smart enough to<br />
-update existing messages when applicable and handle situations where ambiguity exists.</p>
-<p><img src="publish_to_interface.png" alt="Publish to Interface" /><br />
-<strong>Figure 1</strong></p>
-<h2 id="editor-enhancements">Editor Enhancements</h2>
-<p>Ongoing improvements and fixes in the model editor continue.</p>
-<p>Handling of referential attributes and the rules that govern when referentials and identifiers may be combined<br />
-are improved.</p>
-<p>A fix is made to the handling of the parameter list for class-based operation parameters if a user-defined<br />
-datatype from another package is used.</p>
-<p>During paste of a class, the class number is now updated automatically so the modeler is saved making the<br />
-modification himself to avoid duplicate class number errors.</p>
-<h2 id="masl-flow-improvements">MASL Flow Improvements</h2>
-<p>All areas of the MASL to xtUML experience are improved. Several import and export issues are addressed. Types,<br />
-subtype classes, and terminators are now exported cleanly to feed into downstream MASL tools.</p>
-<p>Additionally, the MASL editing inside BridgePoint is more robust, specifically in the area of handling the<br />
-synchronization of data stored on disk versus displayed in the editor. Problems that lead to the &quot;data out of synch&quot;<br />
-error dialog have been addressed.</p>
-<h2 id="concrete-polymorphic-events">Concrete Polymorphic Events</h2>
-<p>The implementation of the behavior of polymorphic events as defined in the Schlaer-Mellor Method diverged over time<br />
-in BridgePoint and iUML. BridgePoint/xtUML defined polymorphic events as &quot;abstract&quot;. It defined that polymorphic<br />
-events may be handled at only one level of the supertype/subtype hierarchy.</p>
-<p>On the other hand, iUML/MASL defined polymorphic events as &quot;concrete&quot;. It defined that polymorphic events must<br />
-be handled at every level of the supertype/subtype hierarchy.</p>
-<p>As part of the improvement of MASL capabilities BridgePoint now supports concrete polymorphic events. The feature<br />
-is enabled with an installation-level setting [Figure 2] and should only be used for models that use MASL action<br />
-language.</p>
-<pre><code>org.xtuml.bp.core/bridgepoint_prefs_parse_allow_concrete_polys=true</code></pre>
-<p><strong>org.xtuml.bp.pkg/plugin_customization.ini</strong><br />
-<strong>Figure 2</strong></p>
+<h2 id="engineering-build">Engineering build</h2>
+<p>This is an engineering build. It is a work in progress.</p>
 </body>
 </html>
