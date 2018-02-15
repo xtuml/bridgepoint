@@ -29,19 +29,23 @@ Quoted from the issue:
 Ranges are fundamental contraints that are used to limit the extent of
 values that may be represented by a model element defined with the constrained
 type.  A range is composed of a minimum and a maximum value.  Ranges are most
-often applied to numeric (integer and real) types which is the case for this
-feature.
+often applied to numeric (real and integer including enumerations) types which
+is the case for this feature.
 
 ### 4. Requirements
 
 4.1 Range data shall be stored in the metamodel.  
 4.2 A minimum setting shall be supported.  
 4.3 A maximum setting shall be supported.  
-4.4 Support ranges on User Defined Types (UDTs) based on integer and real only.  
+Note that minimum and maximum range settings are `inclusive`, meaning
+that the minimum value of the range is the lowest legal value to be
+taken by an element linked to the ranged type.  The maximum value of
+the range is the maximum legal value.  
+4.4 Support ranges on User Defined Types (`S_UDT`).  
 4.5 The ability to establish ranges shall be supplied by the editor
 user interface.  
-4.6 Range constraints shall be enforced in Verifer.  
-4.7 Range constraints shall be enforced in MC-3020 generated code.  
+4.6 Range constraints shall be analyzed in a note for Verifer.  
+4.7 Range constraints shall be analyzed in a note for MC-3020.  
 
 ### 5. Analysis
 
@@ -106,7 +110,7 @@ This is reasonably simple and flexible.  Any model is a compromise until
 there is a model of Constraint and we are able to link directly to Value
 (Expression).  This compromise is direct, easy to implement and easy to
 upgrade in the future.  A (potentially temporary) restriction to edit only
-integer and real based UDTs can be enforced in the user interface.
+integer (including enumerations) and real based UDTs can be enforced in the user interface.
 
 ![Range Model](range2.png) Range and User Data Type  
 
@@ -114,8 +118,8 @@ integer and real based UDTs can be enforced in the user interface.
 
 6.1 Update metamodels (`ooaofooa` and `mcooa`).  
 6.2 Update editor.  
-6.3 Update Verifier.  
-6.4 Update model compilers.  
+6.3 Analyze and document enforcement in Verifier.  
+6.4 Analyze and document enforcement in model compilers.  
 6.5 Implement test cases.  
 
 ### 7. Acceptance Test
