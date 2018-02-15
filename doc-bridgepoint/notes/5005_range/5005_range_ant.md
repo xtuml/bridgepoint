@@ -41,7 +41,7 @@ feature.
 4.5 The ability to establish ranges shall be supplied by the editor
 user interface.  
 4.6 Range constraints shall be analyzed in a note for Verifer.  
-4.7 Range constraints shall be analyzed in a note MC-3020.  
+4.7 Range constraints shall be analyzed in a note for MC-3020.  
 
 ### 5. Analysis
 
