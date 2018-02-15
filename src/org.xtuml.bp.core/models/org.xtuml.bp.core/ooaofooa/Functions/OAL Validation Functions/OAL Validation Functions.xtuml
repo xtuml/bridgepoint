@@ -34800,7 +34800,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("1e736fb6-30b2-49b4-9918-40ac2faba479",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_plus_or_minus_content_assist',
+	'Addition_additive_operator_content_assist',
 	'ParserValidateFunction: TRUE',
 	'::rval_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
