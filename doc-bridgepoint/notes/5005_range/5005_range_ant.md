@@ -29,14 +29,18 @@ Quoted from the issue:
 Ranges are fundamental contraints that are used to limit the extent of
 values that may be represented by a model element defined with the constrained
 type.  A range is composed of a minimum and a maximum value.  Ranges are most
-often applied to numeric (integer and real) types which is the case for this
-feature.
+often applied to numeric (real and integer including enumerations) types which
+is the case for this feature.
 
 ### 4. Requirements
 
 4.1 Range data shall be stored in the metamodel.  
 4.2 A minimum setting shall be supported.  
 4.3 A maximum setting shall be supported.  
+Note that minimum and maximum range settings are `inclusive`, meaning
+that the minimum value of the range is the lowest legal value to be
+taken by an element linked to the ranged type.  The maximum value of
+the range is the maximum legal value.  
 4.4 Support ranges on User Defined Types (`S_UDT`).  
 4.5 The ability to establish ranges shall be supplied by the editor
 user interface.  
