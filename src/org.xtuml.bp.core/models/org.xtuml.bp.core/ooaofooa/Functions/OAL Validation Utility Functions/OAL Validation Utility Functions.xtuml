@@ -114,6 +114,9 @@ ParserUtilityFunction: TRUE
                 else
                   relate bin to lhs_val across R802;
                   relate bin to rhs_val across R803;
+                  comp_val.LineNumber = lhs_val.LineNumber;
+                  comp_val.StartPosition = lhs_val.StartPosition;
+                  comp_val.setEndPosition();
                   if ( param.a5_set_dt )
                     if ( op_dt_id == lhs_val_dt.DT_ID )
                       relate comp_val to lhs_val_dt across R820;
