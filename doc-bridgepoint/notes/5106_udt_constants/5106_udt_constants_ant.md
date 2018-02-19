@@ -27,7 +27,7 @@ None.
 following conditions:  
 4.1.1 The type is `boolean`, `integer`, `real`, `string` or an enumerated data
 type  
-4.1.2 The type is a user defined type that is based on one of the four types in
+4.1.2 The type is a user defined type that is based on one of the five types in
 4.1.1  
 4.1.3 The type is a user defined type that is based on another user defined
 type that satisfies 4.1.2 or 4.1.3  
