@@ -25,13 +25,14 @@ None.
 
 4.1 BridgePoint shall allow assignment of types to symbolic constants under the
 following conditions:  
-4.1.1 The type is `boolean`, `integer`, `real`, or `string`, _OR_  
-4.1.2 The type is a user defined type that is based on one of the four types
-listed in 4.1.1, _OR_  
-4.1.3 The type is a user defined type that is based on another user defined type
-that satisfies 4.1.2 or 4.1.3.  
-4.2 Verifier shall support constants with UDT types.  
-4.3 MC-3020 shall support constants with UDT types.  
+4.1.1 The type is `boolean`, `integer`, `real`, `string` or an enumerated data
+type  
+4.1.2 The type is a user defined type that is based on one of the four types in
+4.1.1  
+4.1.3 The type is a user defined type that is based on another user defined
+type that satisfies 4.1.2 or 4.1.3  
+4.2 Verifier shall support typing constants as specified in 4.1  
+4.3 MC-3020 shall support typing constants as specified in 4.1  
 
 ### 5. Analysis
 
