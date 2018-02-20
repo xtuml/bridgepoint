@@ -13,7 +13,7 @@ Present: Cort, Levi, Keith, Bob
 <pre>
 
 --  Num Type  Who  Section  Comment
-_ - 01  min   XX   3        form -> from
+o - 01  min   XX   3        form -> from
 _ - 02  min   all   3.3     There was a long discussion here.  Clarify (some notes):
                             Cort: When does acion language invoke a service using domain::service and NOT be a port in Domain 
                             component? When do a have name::service where I do NOT have a port of name
@@ -32,8 +32,8 @@ _ - 02  min   all   3.3     There was a long discussion here.  Clarify (some not
                               EEs, but they are "worse" they are like implied EEs. You can call them without seeing them. You do 
                               need the int file if you are using a type from another domain.
                               
-_ - 03  min   4   cds       Should we have 4.1.5: Users should be able to specify a file-system relative path.  ?     
-_ - 04  maj   4   bob       We must refer to the requirement(s) from the SRS here too. They are the root requirements the customer
+x - 03  min   4   cds       Should we have 4.1.5: Users should be able to specify a file-system relative path.  ?     
+x - 04  maj   4   bob       We must refer to the requirement(s) from the SRS here too. They are the root requirements the customer
                             signed-off on. 
                             We must refer to them and assure these requirements are here because they help 
                             satisfy those higher-level requirements. There is only 1 for this issue:
@@ -41,9 +41,9 @@ _ - 04  maj   4   bob       We must refer to the requirement(s) from the SRS her
                           9679-1
                           Inter-domain references shall be managed without manual intervention from the user.
 
-_ - 05  min   4.3/4.4  Levi     The contents of "depended upon folders"
+x - 05  min   4.3/4.4  Levi     The contents of "depended upon folders"
 _ - 06  maj   6   bob     This was just a brain dump from keith to get input. It will be redone     
-_ - 07  min   n/a   cort    Cort brings up the idea of using the marking editor and type in a path. Somehow hand that 
+x - 07  min   n/a   cort    Cort brings up the idea of using the marking editor and type in a path. Somehow hand that 
                           path to xtext, or link things in the file system to use it. Consider this.
 _ - 08  min   n/a   bob     keith wants to share requirements with the customer ASAP to get sign-off. Bob suggests creating an 
                           analysis note and put these requirements there, then just leave this design note as-is. Then
