@@ -17,7 +17,8 @@ dependencies are managed inside BridgePoint.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #9021](https://support.onefact.net/issues/9021) Headline DEI    
 <a id="2.2"></a>2.2 [BridgePoint DEI #9679](https://support.onefact.net/issues/9679) Headline SR    
-<a id="2.3"></a>2.3 [Prototype implementation for automatic generation](https://github.com/xtuml/mc/pull/289)   
+<a id="2.3"></a>2.3 [Prototype implementation for automatic generation of INT files](https://github.com/xtuml/mc/pull/289)   
+<a id="2.4"></a>2.4 [Project Rapping SRS - One Fact Internal](https://docs.google.com/document/d/1Drp57-DkoHEkMmCsTmUrp5TLZvSgdv5cLRSNEmhnbPU/edit)   
 
 ### 3. Background
 
@@ -62,6 +63,10 @@ a MASL Domain.  But more generally, a project may also contain an xtUML model, a
 or Java application, or just a set of files.   
 
 ### 4. Requirements
+The requirements in this section stem from the high-level requirement in the SRS[2.3]:
+```
+9679-1: Inter-domain references shall be managed without manual intervention from the user.   
+```  
 
 4.1  The user shall be able to specify a list of directories that may contain
   interface files to use when validating the MASL model inside the current project.  
@@ -69,14 +74,15 @@ or Java application, or just a set of files.
 4.1.2  The list shall be persisted in a file under the project.  
 4.1.3  User shall be able to specify an absolute path for a dependent directory  
 4.1.4  User shall be able to specify a workspace-relative path for a dependent directory   
+4.1.5  User shall be able to specify a filesystem-relative path for a dependent directory
 
 4.2  When the current model is being validated, it shall assure that validation 
   is performed against up-to-date dependencies.    
 
-4.3  The contents of the dependent folders shall not be persisted as part of the
+4.3  The contents of the dependend-upon folders shall not be persisted as part of the
   configuration management of the depending project.  
   
-4.4  The contents of the dependent folders shall not be exported to the current
+4.4  The contents of the dependend-upon folders shall not be exported to the depending
   project's `masl/` folder as part of "Export MASL [Domain|Project]".  
 
 ### 5. Analysis
@@ -121,7 +127,6 @@ __Figure 2__
 __Figure 3__  
 
 
-
 ### 6. Design
 
 TODO - this section is just a brain dump right now
@@ -163,6 +168,12 @@ project to "see" the latest version of the files on disk.
  65     </linkedResources>
 ```
 __Links in a .project file__
+
+-  BridgePoint currently supports a marking editor for MASL projects
+  - saves data under the project in application.mark
+  - specify include paths in a system-level marking somehow?
+  - hand the info from this file off to xtext...
+  
 ### 7. Design Comments
 
 None.  
