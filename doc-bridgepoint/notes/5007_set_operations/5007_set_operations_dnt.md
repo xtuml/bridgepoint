@@ -21,6 +21,7 @@ support will also be considered.
 <a id="2.4"></a>2.4 [Python 2 docs: operator precedence](https://docs.python.org/2/reference/expressions.html#operator-precedence)  
 <a id="2.5"></a>2.5 [#8287 Add support for instance reference set addition](https://support.onefact.net/issues/8287)  
 <a id="2.6"></a>2.6 [#8287 Github pull request](https://github.com/xtuml/mc/pull/109)  
+<a id="2.7"></a>2.7 [#5007 test model](TODO)  
 
 ### 3. Background
 
@@ -33,6 +34,10 @@ In addition to the three set operations covered in the background section of
   ^ B`) is the set of all elements that are in set A or in set B but _not_ both.
   Symmetric difference is also commutative, meaning `A ^ B == B ^ A`.  
 ![symmetric_difference.png](symmetric_difference.png)
+* Set A is a **subset** of set B if and only if every element in set A is also
+  contained in set B.  
+* Set A and set B are said to be **equal** (`A == B`) if and only if set A is a
+  subset of set B _and_ set B is a subset of set A.
 
 ### 4. Requirements
 
@@ -248,15 +253,120 @@ operations to implement set operations).
 
 6.2 OAL parser modification
 
+6.2.1 Grammar
+
+The modification to the grammar is quite minor since it was determined that the
+set operations fit into the categories of addition and multiplication. A new
+rule called `additive_operator` is added to the grammar which matches the tokens
+`+`, `-` and `|`. This rule is necessary because the `plus_or_minus` rule is
+also used for sign expressions (arithmetic negation), so it could not be
+extended to include the `|` operator. Additionally, the `&` and `^` operators
+are added to the `mult_op` rule.
+
+6.2.2 Validation functions
+
+A new function `Additive_operator_validate` is introduced which invokes the
+utility function `binary_operator_create` to create the instance of the "Binary
+Operation".
+
+The function `binary_operation_validate` is modified to raise a parse error if
+set operations are used on a type which does not have instance reference types
+published. This check is introduced because of the analysis done in section 5.3.
+
+The function `data_types_compatible` is extended to include the new operators
+introduced for set operations (`|`, `&`, and `^`).
+
+6.2.3 Content assist
+
+The function `Addition_additive_operator_content_assist` is renamed to
+`Addition_plus_or_minus_content_assist` to enable content assist after any
+addition operator.
+
 6.3 MC-Java
+
+The set operations are implemented as static methods on `NonRootModelElement`.
+Method overloading is used to allow the input parameters to be any combination
+of instance reference or instance set types. The built in methods of the Java
+`HashSet` class (which implements the `Set` interface) are used to perform the
+operations. An instance reference set is always returned.
+
+The assignment statement generation does not support assigning instance
+reference set variables, so must be extended. `gen_binary_op_value` was extended
+to invoke the set operation methods on `NonRootModelElement`.
 
 6.4 Verifier
 
+The set operations are implemented in OAL for Verifier. "Binary Operation" has
+an operation `getValue` which checks the return type of the operation and
+invokes another operation accordingly. `getBoolean`, `getString`, `getInteger`,
+and `getReal` are currently implemented. A new operation `getInstanceSet` is
+added to handle the set operations (which all return an instance set).
+
+In `getInstanceSet`, the left and right instance sets are selected through the
+instance of "Runtime Value". Next, the operator is checked. The operation is
+performed simply by combining the left and right instance sets using the set
+operator in OAL. Since the set operations are implemented already in MC-Java,
+this can be done simply this way. Finally, the results are packaged into a newly
+created "Runtime Value" instance. The way that the value is assigned in Verifier
+is to actually create a dummy "Runtime Value" instance and return the unique ID
+cast to a Java `Object`. The dummy "Runtime Value" instance is related to the
+current stack frame instance to be sure it is properly disposed.
+
+Since it is required to publish instance reference types for any class that uses
+set operations, references must be published for the class "Instance" (`I_INS`).
+
 6.5 MC-3020
+
+As noted in section 5.2, a type of "set add" implementation is already in place.
+In all cases the set union operation replaces the implementation for set add.
+
+The model and schema for the class "set" (`TE_SET`) are updated to include
+string attributes for the names of the new set operations and the names of the
+new set operations must be populated in `q.sys.singletons.arc`.  
+
+The header files `t.sys_sets.h` must be updated (for C and SystemC). The set
+operation functions take a return set handle, two generic pointers for inputs
+and an integer field for passing flags. The API is designed such that it can be
+used with both sets and single instance references. The integer flags field is a
+bitmap used to specify the types of the inputs (instance reference set or just
+instance reference). The functions themselves are implemented in `t.sys_sets.c`.
+
+A case is added to `val_binary_op_value` in `q.val.translate.arc` where the set
+operation functions are invoked.
+
+The source for `mcmc` must be updated and the executables regenerated and
+committed.
 
 ### 7. Design Comments
 
 7.1 Set equality
+
+Set equality operators (`==` and `!=`) are not ubiquitously supported across all
+platforms. Since they are so closely related to the other set operations and
+since they are convenient for use in testing the set operations, they shall be
+implemented as part of this work.
+
+7.1.1 MC-Java and Verifier
+
+Set equality is not currently supported in MC-Java, although verifier supports
+it using a native operation `compareInstRefSets`. Set equality is also
+implemented as a static method on `NonRootModelElement`, and invoked through
+`gen_binary_op_value`.
+
+Once this is done, `compareInstRefSets` is deleted and instead the `==` and `!=`
+operators are used natively in the `getBoolean` operation.
+
+7.1.2 MC-3020
+
+Set equality is currently implemented in `t.sys_sets.c`, however invocations to
+it are never generated. Also, the check itself is a simple cardinality check.
+The function is updated to implement the definition of equality specified in
+section 3 and `val_binary_op_value` is updated in `q.val.translate.arc` to
+invoke it for set equality.
+
+7.2 MC-3020 test plugin
+
+TODO
 
 ### 8. User Documentation
 
@@ -271,5 +381,103 @@ in OAL.
 ### 9. Unit Test
 
 9.1 The existing unit tests shall pass.  
+
+9.2 Set operations tests
+
+Three new matrices are introduced to generate tests for the set operations. A
+test model is introduced [[2.7]](#2.7) for testing. Each cell in each matrix has
+a corresponding function in the model which executes that test case and returns
+a boolean value whether it passed or failed. There are also functions which call
+each of the tests sequentially. This is so that the project can be easily built
+and run with model compilers.
+
+9.2.1 Compare tests
+
+The first matrix generates tests for set compare. This is done first since set
+compare will be used later as part of the other set operations tests. The
+degrees of freedom for this test are as follows:
+
+9.2.1.1 Operand types (instance reference or instance reference sets)  
+9.2.1.2 Operator (`==` or `!=`)  
+9.2.1.3 Equality (are the instances/sets actually equal or are they different)  
+
+9.2.2 Simple set operations tests
+
+The second matrix tests the simple cases of the set operations, testing each
+operator and each combination of input types (instance and instance set). Set
+comparison is used to verify that the resulting set is equivalent to the
+expected result set. Each input set or instance is selected using a "select from
+instances" and a "where" clause from a sample instance population. The expected
+results set is selected from the same instance population using a "where" clause
+which will select the same set that is expected from the set operation. For
+example:
+```
+select many set1 from instances of POLYGON where ( selected.numSides == 4 );
+select many set2 from instances of POLYGON where ( selected.equilateral == true );
+select many expected_results from instances of POLYGON where ( selected.numSides == 4 and selected.equilateral == true );
+actual_results = set1 & set2;
+```
+In this case, `expected_results` and `actual_results` should be equivalent sets
+because set intersection is defined as the set of elements that are in both
+`set1` _and_ `set2`. All of the set operations can be mapped this way using a
+selection.
+
+The degrees of freedom for the simple test matrix are as follows:
+
+9.2.2.1 Operation (union, intersection, difference, symmetric difference)  
+9.2.2.2 Left operand type (instance reference, instance reference set)  
+9.2.2.3 Right operand type (instance reference, instance reference set)  
+
+9.2.3 Operator precedence tests
+
+The third matrix tests expressions that have multiple set operations in a row.
+The matrix generates a test for every unique permutation of the sequence of the
+four operators where none are repeated (e.g. `set1 | set2 ^ set3 & set4 -
+set5`). It also tests each operator four times in a row (e.g. `set1 | set2 |
+set3 | set4 | set5`) to assure that when the same operation is done multiple
+times, it is evaluated left to right.
+
+In this case, the expected results are calculated by evaluating each operation
+in its own statement in the order that is expected. For example:
+```
+temp_results = set2 ^ set3;
+temp_results = temp_results & set4;
+temp_results = set1 | temp_results;
+expected_results = temp_results - set5;
+actual_results = set1 | set2 ^ set3 & set4 - set5;
+```
+In this example, each operation is performed sequentially where `^` and `&` have
+higher precedence than `|` and `-` and operations of equal precedence are
+evaluated left to right. This test is run after the simple test, since it relies
+on the set operations themselves being correct for the expected results to be
+correct.
+
+There are two additional tests tossed in to test parenthesized expressions with
+set operations. In these two tests, parentheses are used to modify the natural
+order of evaluation. The expected results are calculated taking this into
+account.
+
+The degrees of freedom for the simple test matrix are as follows:
+
+9.2.3.1 First operation (union, intersection, difference, symmetric difference)  
+9.2.3.2 Second operation (union, intersection, difference, symmetric difference)  
+9.2.3.3 Third operation (union, intersection, difference, symmetric difference)  
+9.2.3.4 Fourth operation (union, intersection, difference, symmetric difference)  
+9.2.3.5 Uses parentheses (no, yes)  
+
+9.3 MC-3020 test
+
+The test model [[2.7]](#2.7) is set up such that the project can be imported
+into a workspace, built, run, and tested against expected results. The build
+will result in an executable `set_ops_test` in the `src/` directory. To run the
+test:
+
+9.3.1 Import the test model [[2.7]](#2.7) into a workspace.  
+9.3.2 Build the project.  
+9.3.3 From a shell (in the working directory of a project): `src/set_ops_test >
+actual_results.txt`.  
+9.3.4 From a shell (in the working directory of a project): `diff
+gen/expected_results.txt actual_results.txt`. Verify that there are no
+differences.  
 
 ### End
