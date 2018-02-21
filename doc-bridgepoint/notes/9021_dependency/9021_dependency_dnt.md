@@ -23,27 +23,41 @@ dependencies are managed inside BridgePoint.
 ### 3. Background
 
 3.1  Cross references  
-MASL models often refer to public model elements from other domains.  Domains
+MASL models may refer to public model elements from other domains.  Domains
 publish their publicly-accessible elements in files named `<domain>.int`.  The
-dependent domain's MASL then refers to these elements using the form 
+depending Domain's MASL then refers to these elements using the form 
 `<domain>::<element>`.  BridgePoint currently requires these `.int` files to be 
 copied by the user into the `models/` folder of the project that wants to use 
-the elements inside the `.int`. Copying these files around is a pain for the user.
+the elements inside the `.int`. In addition to declared Domains, MASL provides
+a number of "service domains".  These service domains are not modeled in the
+user interface.  The `.int` file for the service domain is provided to the MASL 
+Domain or MASL Project being modeled to give access to the public elements. Copying 
+these files around is a pain for the user.
 
-There are only two types of element that can be referred to across domains: types 
-and services. 
+There are only two styles of element that can be referred to across domains: types 
+and domain services. 
 
 3.2  Types  
 Types can be referred to in two ways:  
 * Declared as a transient variable in an action body.  
 * A structural type reference type, encoded with a special name of the type itself (e.g. `MyDom::MyType`). 
+
 Note that the idiom that BridgePoint currently enforces requires that the modeler 
 create a local xtUML type that mirrors the type found in the other domain. This 
 is to allow the MASL export to produce properly constructed MASL in the face of 
 BridgePoint not having type references as first class model elements. 
 
 3.3  Services  
-Services can be referred to in only one way: invoked in an action body.  
+Services can be referred to in only one way: invoked in an action body.   
+
+Inside a MASL Domain modeled in xtUML, a terminator is implemented as a port and 
+terminator services are operations in a required interface.  These are invoked from
+within the MASL Domain with the form `<port>~><operation>()`.  Within the MASL
+Domain, utility services are invoked with `<service domain>::<service>()`.   
+
+Inside a MASL Project the service domain access is the same as a MASL Domain and 
+public domain services follow the same `<domain>::<service>()` form.  The MASL Project
+uses the `.int` files under the project's `models/` folder to validate the calls.  
 
 3.4  Usage    
 Models will refer to external types and services. MASL users tend to
@@ -126,27 +140,50 @@ __Figure 2__
 ![Figure 3](jdt_libs_tree_classpath.png)  
 __Figure 3__  
 
+5.3  Options  
+5.3.1  Automatic dependency creation  
+5.3.1.1  An exploratory modification [2.3] was made to MASL export that created 
+`.int` files based on the MASL inside the model.  Based on feedback from users, it
+was decided this solution was not flexible enough, so it was never promoted.  
+
+5.3.2  Provide the depended-upon paths to BridgePoint from a persisted source.   
+5.3.2.1  This could be done via a new file under the project or leveraging a 
+different mechanism such as the marking editor (persisting the data into 
+`application.mark`).   
+5.3.2.2  In any such form, BridgePoint would need to read this file and pass the 
+data to the xText Parser so it could "see" these library folders (see 5.1).  
+
+5.3.3  Leverage existing eclipse infrastructure for linked resources.  
+5.3.3.1  Eclipse provides the ability to create linked resources that are basically
+the equivalent of a Unix filesystem symbolic link.  
+5.3.3.2  By placing these links under the current project's `models/` folder there
+is not change to the xText MASL Parser needed, it sees the contents of the linked
+resource automatically. 
+ 
+5.4  The chosen option to use is 5.3.3.   
 
 ### 6. Design
 
-TODO - this section is just a brain dump right now
+6.1  Persisting linked resources  
+6.1.1  Eclipse persists the links in the XML inside the `<project>/.project` file
+as shown in Figure 1.  
+6.1.2  This file may be edited by hand.  
+6.1.3  The linked resources may point to either a folder or a file.  It is important
+to note that if a folder is linked, the xText MASL parser will read and parse 
+__all__ the MASL files inside that folder.  Users should be careful to create direct
+file dependencies in situations where the folder behavior is not desireable.  
 
-- Reference the prototype work Cort did to scoop and create the .int
-
-- If we shall support direct filesystem links (not to projects inside eclipse) 
-then it seems to me the masl parser should refresh the current project before it 
-runs as this is needed (either manually or programmatically) for the current 
-project to "see" the latest version of the files on disk. 
-
-- Use folder links.  Stored pretty cleanly in .project, which is good.  
-  - Can currently be created with New > Folder > Advanced
-  - This "brings in" all the content from the referred to folder.  We really only want the .int files loaded into memory for validation.
-  - Put under models/?  This "just works" with the current xtext masl architecture
-  - Put under .libs/ (.externals/, models/.dependencies/)?  May have to make xtext see this new folder?  See 5.1. 
-  - Links can be absolute or workspace relative
-  - Show the dependencies in the Model Explorer nicely somehow like JDT does. 
-  - New CME that pops a dialog for configuring the dependency in a nicer way than New > Folder
-  - What happens when we have a linked folder when there is no data?  Is it cool?  What about if an .int is deleted from a dependent folder?
+6.2  Linked resources fulfill all the requirements of absolute as well as 
+relative path support.  
+6.2.1  Eclipse provides the variable `WORKSPACE_LOC` that resolves to the root
+directory of the workspace on the file system.  
+6.2.2  Eclipse provides the variable `PROJECT_LOC` that resolves to the root 
+directory of the project on the file system.  
+6.2.3  It should be noted that relative paths are not persisted inside this XML.  If
+a relative path is needed the number of `../` entries in the path are substituted 
+with a matching number (see line 63 in Figure 1).  This line corresponds to 
+the actual path `PARENT_LOC/../../servicedom3`.   
+6.2.4  In the XML, linked files have type value 1 and folders have type value 2.  
 
 ```xml
  49     <linkedResources>
@@ -163,27 +200,65 @@ project to "see" the latest version of the files on disk.
  60         <link>
  61             <name>models/servicedominvalid</name>
  62             <type>2</type>
- 63             <location>/Users/kbrown/tmp/servicedominvalid</location>
+ 63             <location>PARENT-2-PROJECT_LOC/servicedom3</location>
  64         </link>
- 65     </linkedResources>
+ 65         <link>
+ 66             <name>models/sac.int</name>
+ 67             <type>1</type>
+ 68             <locationURI>WORKSPACE_LOC/calc/masl/calc.int</locationURI>
+ 69         </link>
+ 70     </linkedResources>
 ```
-__Links in a .project file__
+__Figure 1: Links in a .project file__
 
--  BridgePoint currently supports a marking editor for MASL projects
-  - saves data under the project in application.mark
-  - specify include paths in a system-level marking somehow?
-  - hand the info from this file off to xtext...
-  
+6.3  User interface  
+6.3.1  Linked resources can be created in the current version of BridgePoint 
+with `New > Folder > Advanced` or `New > File > Advanced` and selecting the 
+"Link to alternate location" radio button.  
+6.3.2  Since the `New > ...` approach is not particularly user friendly, we shall
+implement a new page on the Project Preferences dialog named "Project Dependencies" 
+that supports the specification of files or folders to depend upon.  
+6.3.3  When the user enters a new value on this page, the link shall be created 
+under the `models/` folder.  
+6.3.4  The page will support removing an existing dependency.  
+6.3.5  The page shall not allow duplicate entries.  
+6.3.6  The page shall show existing links when the project properties dialog is
+opened.  
+6.3.7  The page shall show the current value of `WORKSPACE_LOC` and `PROJECT_LOC`.  
+ 
+6.4 Operation   
+6.4.1  The xText parser needs to use the most up-to-date information when it validates
+MASL. Therefore, it may need to run a project refresh to pick up any dependency 
+changes as it begins validation.  
+
+
 ### 7. Design Comments
 
 None.  
 
 ### 8. User Documentation
 
-TODO - updated docs are definitely necessary
+8.1  BridgePoint does not currently have a help doc on project preferences so one
+shall be created or added to the existing xtUML system preferences document.   
+8.2  Update the MASL modeling guide with a pointer to the project preferences help
+for dependencies.  
 
 ### 9. Unit Test
 
-TODO - exercise the functionality
+9.1  Test valid links using   
+9.1.1  Absolute paths  
+9.1.2  Variable WORKSPACE_LOC in a path  
+9.1.3  Variable PROJECT_LOC in a path  
+
+9.2  Test invalid links or a linked resource has no data    
+
+9.3  Test that updates in the linked resources are used during parse.  That is, 
+the latest data is used for validation and not outdated, cached information.  
+
+9.4  Test the User Interface  
+9.4.1  Dependency page is populated on popup with current linked resources  
+9.4.2  User may add new links  
+9.4.3  User may remove existing links  
+9.4.4  Changes are persisted properly  
 
 ### End
