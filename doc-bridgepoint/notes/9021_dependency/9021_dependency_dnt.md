@@ -86,7 +86,7 @@ The requirements in this section stem from the high-level requirement in the SRS
 4.1.2  The list shall be persisted in a file under the project.  
 4.1.3  User shall be able to specify an absolute path for a dependent resource  
 4.1.4  User shall be able to specify a workspace-relative path for a dependent resource   
-4.1.5  User shall be able to specify a filesystem-relative path for a dependent resource
+4.1.5  User shall be able to specify a filesystem-relative path for a dependent resource   
 4.1.6  The depended-upon resource may be either a file or a directory   
 
 4.2  When the current model is being validated, it shall assure that validation 
@@ -259,7 +259,6 @@ the latest data is used for validation and not outdated, cached information.
 9.4.2  User may add new links  
 9.4.3  User may remove existing links  
 9.4.4  Changes are persisted properly  
-
 
 9.5  Verify that the contents of the dependend-upon resources are not persisted 
 as part of the configuration management of the depending project.  
