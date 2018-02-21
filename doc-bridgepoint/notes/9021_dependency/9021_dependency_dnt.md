@@ -29,13 +29,13 @@ depending Domain's MASL then refers to these elements using the form
 `<domain>::<element>`.  BridgePoint currently requires these `.int` files to be 
 copied by the user into the `models/` folder of the project that wants to use 
 the elements inside the `.int`. In addition to declared Domains, MASL provides
-a number of "service domains".  These service domains are not modeled in the
-user interface.  The `.int` file for the service domain is provided to the MASL 
-Domain or MASL Project being modeled to give access to the public elements. Copying 
-these files around is a pain for the user.
+a number of "service domains" (e.g. Logging and Filesystem).  These service 
+domains are not modeled in the user interface.  The `.int` file for the service 
+domain is provided to the MASL Domain or MASL Project being modeled to give 
+access to the public elements. Copying these files around is a pain for the user.
 
 There are only two styles of element that can be referred to across domains: types 
-and domain services. 
+and services. 
 
 3.2  Types  
 Types can be referred to in two ways:  
@@ -55,16 +55,14 @@ terminator services are operations in a required interface.  These are invoked f
 within the MASL Domain with the form `<port>~><operation>()`.  Within the MASL
 Domain, utility services are invoked with `<service domain>::<service>()`.   
 
-Inside a MASL Project the service domain access is the same as a MASL Domain and 
-public domain services follow the same `<domain>::<service>()` form.  The MASL Project
-uses the `.int` files under the project's `models/` folder to validate the calls.  
+Inside a MASL Project the service domain access follows the `<domain>::<service>()` 
+form.  The MASL Project uses the `.int` files under the project's `models/` folder 
+to validate the calls. The MASL inside the Project may also refer to public domain 
+services in wired domains that are in the same workspace using the same 
+`<domain>::service()` form.  Note that validation is performed against the 
+`<domain>.int` and not the project's ports and messages.  
 
-3.4  Usage    
-Models will refer to external types and services. MASL users tend to
-invoke public services from other domains directly when it is used as a
-library (e.g. the service domains like Logging and Filesystem).  
-
-3.5  Terminology clarification  
+3.4  Terminology clarification  
 The word "project" is overloaded in MASL-xtUML modeling.  Throughout this document
 references to "project", "eclipse project", or "xtUML project" all refer to a directory
 on disk that contains a `.project` XML file that allows for the display and management
@@ -82,21 +80,22 @@ The requirements in this section stem from the high-level requirement in the SRS
 9679-1: Inter-domain references shall be managed without manual intervention from the user.   
 ```  
 
-4.1  The user shall be able to specify a list of directories that may contain
+4.1  The user shall be able to specify a list of resources that may contain
   interface files to use when validating the MASL model inside the current project.  
 4.1.1  The list shall be configurable for each project.  
 4.1.2  The list shall be persisted in a file under the project.  
-4.1.3  User shall be able to specify an absolute path for a dependent directory  
-4.1.4  User shall be able to specify a workspace-relative path for a dependent directory   
-4.1.5  User shall be able to specify a filesystem-relative path for a dependent directory
+4.1.3  User shall be able to specify an absolute path for a dependent resource  
+4.1.4  User shall be able to specify a workspace-relative path for a dependent resource   
+4.1.5  User shall be able to specify a filesystem-relative path for a dependent resource
+4.1.6  The depended-upon resource may be either a file or a directory   
 
 4.2  When the current model is being validated, it shall assure that validation 
   is performed against up-to-date dependencies.    
 
-4.3  The contents of the dependend-upon folders shall not be persisted as part of the
+4.3  The contents of the dependend-upon resources shall not be persisted as part of the
   configuration management of the depending project.  
   
-4.4  The contents of the dependend-upon folders shall not be exported to the depending
+4.4  The contents of the dependend-upon resource shall not be exported to the depending
   project's `masl/` folder as part of "Export MASL [Domain|Project]".  
 
 ### 5. Analysis
@@ -260,5 +259,12 @@ the latest data is used for validation and not outdated, cached information.
 9.4.2  User may add new links  
 9.4.3  User may remove existing links  
 9.4.4  Changes are persisted properly  
+
+
+9.5  Verify that the contents of the dependend-upon resources are not persisted 
+as part of the configuration management of the depending project.  
+  
+9.6  Verify the contents of the dependend-upon resource are not exported to the 
+depending project's `masl/` folder as part of "Export MASL [Domain|Project]".   
 
 ### End
