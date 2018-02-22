@@ -101,7 +101,7 @@ The requirements in this section stem from the high-level requirement in the SRS
 ### 5. Analysis
 
 5.1 Original BridgePoint MASL Parser Implementation  
-5.1.1  In the original (current) implementation, the xText tooling is restricted
+5.1.1  In the original (current) implementation, the Xtext tooling is restricted
   to only look for MASL to parse and validate under the `models/` folder of the
   project.   
 5.1.2  This restriction in the MASL parser is implemented in commits 
@@ -150,13 +150,13 @@ was decided this solution was not flexible enough, so it was never promoted.
 different mechanism such as the marking editor (persisting the data into 
 `application.mark`).   
 5.3.2.2  In any such form, BridgePoint would need to read this file and pass the 
-data to the xText Parser so it could "see" these library folders (see 5.1).  
+data to the Xtext Parser so it could "see" these library folders (see 5.1).  
 
 5.3.3  Leverage existing eclipse infrastructure for linked resources.  
 5.3.3.1  Eclipse provides the ability to create linked resources that are basically
 the equivalent of a Unix filesystem symbolic link.  
 5.3.3.2  By placing these links under the current project's `models/` folder there
-is not change to the xText MASL Parser needed, it sees the contents of the linked
+is not change to the Xtext MASL Parser needed, it sees the contents of the linked
 resource automatically. 
  
 5.4  The chosen option to use is 5.3.3.   
@@ -168,7 +168,7 @@ resource automatically.
 as shown in Figure 1.  
 6.1.2  This file may be edited by hand.  
 6.1.3  The linked resources may point to either a folder or a file.  It is important
-to note that if a folder is linked, the xText MASL parser will read and parse 
+to note that if a folder is linked, the Xtext MASL parser will read and parse 
 __all__ the MASL files inside that folder.  Users should be careful to create direct
 file dependencies in situations where the folder behavior is not desireable.  
 
@@ -226,7 +226,7 @@ opened.
 6.3.7  The page shall show the current value of `WORKSPACE_LOC` and `PROJECT_LOC`.  
  
 6.4 Operation   
-6.4.1  The xText parser needs to use the most up-to-date information when it validates
+6.4.1  The Xtext parser needs to use the most up-to-date information when it validates
 MASL. Therefore, it may need to run a project refresh to pick up any dependency 
 changes as it begins validation.  
 
