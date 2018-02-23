@@ -165,7 +165,7 @@ resource automatically.
 
 6.1  Persisting linked resources  
 6.1.1  Eclipse persists the links in the XML inside the `<project>/.project` file
-as shown in Figure 1.  
+as shown in Figure 4.  
 6.1.2  This file may be edited by hand.  
 6.1.3  The linked resources may point to either a folder or a file.  It is important
 to note that if a folder is linked, the Xtext MASL parser will read and parse 
@@ -180,7 +180,7 @@ directory of the workspace on the file system.
 directory of the project on the file system.  
 6.2.3  It should be noted that relative paths are not persisted inside this XML.  If
 a relative path is needed the number of `../` entries in the path are substituted 
-with a matching number (see line 63 in Figure 1).  This line corresponds to 
+with a matching number (see line 63 in Figure 4).  This line corresponds to 
 the actual path `PARENT_LOC/../../servicedom3`.   
 6.2.4  In the XML, linked files have type value 1 and folders have type value 2.  
 
@@ -208,15 +208,16 @@ the actual path `PARENT_LOC/../../servicedom3`.
  69         </link>
  70     </linkedResources>
 ```
-__Figure 1: Links in a .project file__
+__Figure 4: Links in a .project file__
 
 6.3  User interface  
 6.3.1  Linked resources can be created in the current version of BridgePoint 
 with `New > Folder > Advanced` or `New > File > Advanced` and selecting the 
 "Link to alternate location" radio button.  
 6.3.2  Since the `New > ...` approach is not particularly user friendly, we shall
-implement a new page on the Project Preferences dialog named "Project Dependencies" 
-that supports the specification of files or folders to depend upon.  
+implement a new page on the Project Preferences dialog named "Dependencies" 
+that supports the specification of files or folders to depend upon. A mock-up of
+this interface is shown in Figure 5.    
 6.3.3  When the user enters a new value on this page, the link shall be created 
 under the `models/` folder.  
 6.3.4  The page will support removing an existing dependency.  
@@ -224,7 +225,13 @@ under the `models/` folder.
 6.3.6  The page shall show existing links when the project properties dialog is
 opened.  
 6.3.7  The page shall show the current value of `WORKSPACE_LOC` and `PROJECT_LOC`.  
+6.3.8  The page shall handle the conversion of specified relative paths to their 
+persisted "PARENT-x" form so the user specifies the paths naturally with `../` 
+traversals.  
  
+![Figure 5](dependency_prefs.png)  
+__Figure 5__  
+
 6.4 Operation   
 6.4.1  The Xtext parser needs to use the most up-to-date information when it validates
 MASL. Therefore, it may need to run a project refresh to pick up any dependency 
