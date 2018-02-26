@@ -123,6 +123,7 @@ import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
 import org.xtuml.bp.core.ui.marker.ProblemModelChangeListener;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferenceNode;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferenceNode;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -1141,6 +1142,8 @@ public class CorePlugin extends AbstractUIPlugin {
 			PreferenceNode pn = new BridgePointProjectReferencesPreferenceNode(projectNode);
 			pm.addToRoot(pn);
 			pn = new BridgePointProjectActionLanguagePreferenceNode(projectNode);
+			pm.addToRoot(pn);
+			pn = new BridgePointProjectDependenciesPreferenceNode(projectNode);
 			pm.addToRoot(pn);
 			return pm;
         }
