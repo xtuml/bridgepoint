@@ -365,7 +365,7 @@ if isInGenericPackage
 
   if ( areCompatible )
     // only check for disallowed operations, since they are fewer
-    if ( (not dt1_is_ir and not dt1_is_irs and dt1_dt.Name != "boolean") and
+    if ( (dt1_dt.Name != "boolean") and
         (param.op == "and" or param.op == "or")  )
       return GD::NULL_UNIQUE_ID();
     elif ( dt1_dt.Name == "boolean" and
