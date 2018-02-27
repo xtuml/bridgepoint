@@ -21,7 +21,8 @@ support will also be considered.
 <a id="2.4"></a>2.4 [Python 2 docs: operator precedence](https://docs.python.org/2/reference/expressions.html#operator-precedence)  
 <a id="2.5"></a>2.5 [#8287 Add support for instance reference set addition](https://support.onefact.net/issues/8287)  
 <a id="2.6"></a>2.6 [#8287 Github pull request](https://github.com/xtuml/mc/pull/109)  
-<a id="2.7"></a>2.7 [#5007 test model](TODO)  
+<a id="2.7"></a>2.7 [#5007 test model](https://github.com/xtuml/models/tree/master/test/test_set_operations_5007)  
+<a id="2.8"></a>2.8 [MC source test plugin (incomplete)](https://github.com/leviathan747/bptest/tree/5007_set_operations_mc_test/src/org.xtuml.bp.mc.c.source.test)  
 
 ### 3. Background
 
@@ -48,20 +49,20 @@ They are worded slightly differently than the requirements in the analysis note
 4.1 OAL shall support instance set union (addition) expressions.  
 4.2 OAL shall support instance set intersection expressions.  
 4.3 OAL shall support instance set subtraction expressions.  
-4.4 Both instance set types and instance reference types shall be supported for
+4.4 OAL shall support instance set symmetric difference (disunion) expressions.  
+4.5 Both instance set types and instance reference types shall be supported for
 either operand.  
-4.4.1 An operand of instance reference type shall logically be considered an
+4.5.1 An operand of instance reference type shall logically be considered an
 instance set containing exactly one instance.  
-4.5 Operators `+` and `|` shall be supported for union expressions.  
-4.6 Operator `&` shall be supported for intersection expressions.  
-4.7 Operator `-` shall be supported for subtraction expressions.  
-4.8 Verifier shall support the set operations.  
+4.6 Operators `+` and `|` shall be supported for union expressions.  
+4.7 Operator `&` shall be supported for intersection expressions.  
+4.8 Operator `-` shall be supported for subtraction expressions.  
+4.9 Operator `^` shall be supported for symmetric difference expressions.  
+4.10 Verifier shall support the set operations.  
 
-The following requirements are not part of the Sortie-1 deliverable
-requirements however they will be satisfied as part of this work.
+The following requirement is not included in the Sortie-1 deliverable
+requirements however it will be satisfied as part of this work.
 
-4.9 OAL shall support instance set symmetric difference (disunion) expressions.  
-4.10 Operator `^` shall be supported for symmetric difference expressions.  
 4.11 MC-3020 shall support the set operations.  
 
 ### 5. Analysis
@@ -240,20 +241,9 @@ with set operations.
 
 ### 6. Design
 
-6.1 Implementation flow
+6.1 OAL parser modification
 
-6.1.1 Modify parser to allow syntax of set operations and to correctly parse
-them into `V_` instances.  
-6.1.2 Build BridgePoint.  
-6.1.3 Modify MC-Java to support set operations.  
-6.1.4 Use new BridgePoint to implement set operations in Verifier (use the set
-operations to implement set operations).  
-6.1.4 Build BridgePoint again.  
-6.1.5 Use set operations in Verifier.  
-
-6.2 OAL parser modification
-
-6.2.1 Grammar
+6.1.1 Grammar
 
 The modification to the grammar is quite minor since it was determined that the
 set operations fit into the categories of addition and multiplication. A new
@@ -263,7 +253,7 @@ also used for sign expressions (arithmetic negation), so it could not be
 extended to include the `|` operator. Additionally, the `&` and `^` operators
 are added to the `mult_op` rule.
 
-6.2.2 Validation functions
+6.1.2 Validation functions
 
 A new function `Additive_operator_validate` is introduced which invokes the
 utility function `binary_operator_create` to create the instance of the "Binary
@@ -276,13 +266,13 @@ published. This check is introduced because of the analysis done in section 5.3.
 The function `data_types_compatible` is extended to include the new operators
 introduced for set operations (`|`, `&`, and `^`).
 
-6.2.3 Content assist
+6.1.3 Content assist
 
 The function `Addition_additive_operator_content_assist` is renamed to
 `Addition_plus_or_minus_content_assist` to enable content assist after any
 addition operator.
 
-6.3 MC-Java
+6.2 MC-Java
 
 The set operations are implemented as static methods on `NonRootModelElement`.
 Method overloading is used to allow the input parameters to be any combination
@@ -294,7 +284,7 @@ The assignment statement generation does not support assigning instance
 reference set variables, so must be extended. `gen_binary_op_value` was extended
 to invoke the set operation methods on `NonRootModelElement`.
 
-6.4 Verifier
+6.3 Verifier
 
 The set operations are implemented in OAL for Verifier. "Binary Operation" has
 an operation `getValue` which checks the return type of the operation and
@@ -315,7 +305,7 @@ current stack frame instance to be sure it is properly disposed.
 Since it is required to publish instance reference types for any class that uses
 set operations, references must be published for the class "Instance" (`I_INS`).
 
-6.5 MC-3020
+6.4 MC-3020
 
 As noted in section 5.2, a type of "set add" implementation is already in place.
 In all cases the set union operation replaces the implementation for set add.
@@ -366,17 +356,31 @@ invoke it for set equality.
 
 7.2 MC-3020 test plugin
 
-TODO
+Some work was done to add a new test plugin to test the model compiler. The goal
+was to build a framework to allow tests to be easily defined where a project is
+loaded, built (with MC-3020) and run. Output could then be verified with expected
+results. During implementation of this plugin, some complications were
+encountered because of the way the model compiler is packaged. The RSL
+archetypes, metamodel schema and the `mcmc` executable are packaged in a
+directory at the root of the Eclipse installation, and not in the model compiler
+plugin itself. When the tycho testing plugin is run, it is not in the context of
+a "normal" Eclipse instance, so the location of the Eclipse installation is not
+consistent when testing via the UI versus via the command line and maven. Since
+this work is not necessary to fulfill the requirements or satisfy testing
+requirements, it was abandoned for the time being. The incomplete work can be
+found at [[2.8]](#2.8). A manual test has been defined to use for acceptance at
+promotion time.
 
 ### 8. User Documentation
 
 8.1 The help section "BridgePoint UML Suite Help > Reference > OAL reference >
 Expressions" shall be rewritten to include the most current and correct
 information about OAL expressions.  
-8.1.1 Current documentation shall be revised and updated.  
+8.1.1 The current document shall be revised and updated.  
 8.1.2 A new section shall be created to discuss the use of the set operators.  
 8.1.3 A table shall be included that explicitly defines the order of operations
 in OAL.  
+8.1.4 The updated document shall be formatted with markdown.  
 
 ### 9. Unit Test
 
