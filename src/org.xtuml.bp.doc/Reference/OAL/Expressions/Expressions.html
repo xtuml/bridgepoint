@@ -175,11 +175,11 @@ usually contain other expression types (such as arithmetic or string<br />
 expressions), they can also be used to compare time values, instance references,<br />
 instance set references, and unique IDs. There is also one unary operator,<br />
 <code>not</code>, which can be used to logically negate a boolean expression.</p>
-<table style="width:100%;">
+<table>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 37%" />
-<col style="width: 47%" />
+<col style="width: 23%" />
+<col style="width: 33%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -235,22 +235,25 @@ instance set references, and unique IDs. There is also one unary operator,<br />
 <td>boolean</td>
 </tr>
 <tr class="even">
-<td>*empty</td>
+<td>empty<sup>1</sup></td>
 <td>instance reference/set empty</td>
 <td>instance reference, instance reference set</td>
 </tr>
 <tr class="odd">
-<td>*not_empty</td>
+<td>not_empty<sup>1</sup></td>
 <td>instance reference/set not empty</td>
 <td>instance reference, instance reference set</td>
 </tr>
 </tbody>
 </table>
-<p>* see section <a href="#additional_unary_operators">&quot;Additional unary operators&quot;</a></p>
+<p><sup>1</sup> see section <a href="#additional_unary_operators">&quot;Additional unary operators&quot;</a></p>
 <h3 id="note">Note</h3>
 <ul>
-<li>Both operands of equality and comparison operators must be of the same type or<br />
-of a user defined type based on the same core type.</li>
+<li>Both operands of equality and comparison operators must be of the same type<br />
+or of a user defined type based on the same core type, except for numeric<br />
+types. Integers and reals can be mixed in equality and comparison<br />
+operations. See section <a href="../HTML/bpalref.book-3.htm#data-type-strength">&quot;Data Type Strength&quot;</a><br />
+for more information.</li>
 </ul>
 <h3 id="examples-3">Examples</h3>
 <pre><code>  x == 1

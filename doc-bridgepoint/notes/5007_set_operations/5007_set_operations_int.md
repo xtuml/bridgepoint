@@ -18,7 +18,7 @@ support will also be considered.
 <a id="2.1"></a>2.1 [#5007 Operators +, -, and and or of instance handle sets are missing in OAL.](https://support.onefact.net/issues/5007)  
 <a id="2.2"></a>2.2 [#5007 analysis note](5007_set_operations_ant.md)  
 <a id="2.3"></a>2.3 [#5007 design note](5007_set_operations_dnt.md)  
-<a id="2.4"></a>2.1 [#10119 Investigate existing tests which call setUp and tearDown twice](https://support.onefact.net/issues/10119)  
+<a id="2.4"></a>2.4 [#10119 Investigate existing tests which call setUp and tearDown twice](https://support.onefact.net/issues/10119)  
 
 ### 3. Background
 
@@ -45,12 +45,51 @@ them into `V_` instances.
 5.1.3 Modify MC-Java to support set operations.  
 5.1.4 Use new BridgePoint to implement set operations in Verifier (use the set
 operations to implement set operations).  
-5.1.4 Build BridgePoint again.  
-5.1.5 Use set operations in Verifier.  
+5.1.5 Build BridgePoint again.  
+5.1.6 Use set operations in Verifier.  
 
 ### 6. Implementation Comments
 
-None
+6.1 Build environment
+
+This work introduces a unique situation. We do not commonly use new BridgePoint
+features in the development of the features themselves (as explained in section
+5.1). Once this work is promoted, there will be no published version of
+BridgePoint capable of building BridgePoint. Action must be taken to produce and
+distribute a nightly build which developers can use to build the `master`
+branch. The following actions will be taken:
+
+6.1.1 The BridgePoint build server shall be updated and re-imaged.  
+6.1.2 The developer VM shall be updated with a new version of BridgePoint.  
+6.1.3 An announcement shall be made in the xtUML community chat that the latest
+nightly build will be necessary to develop BridgePoint moving forward.  
+
+6.2 Build server update
+
+The following process will be taken to update the build server with the newest
+version of BridgePoint:
+
+6.2.1 Promote this work into `master`.  
+6.2.2 Launch a build server instance. Install the latest 5007 branch build on
+the build server instance. Run a nightly build (`master`). Terminate the
+instance.  
+6.2.3 Launch a new build server instance. Install the newest nightly build on
+the new build server instance. Run another nightly build.  
+6.2.4 Image the server instance. Propagate to all AWS regions. Update the server
+launch scripts with new AMI IDs.  
+6.2.5 Launch a final nightly build with test enabled to ensure that the build
+server has been updated properly and no manual intervention is necessary.  
+
+6.3 Build workaround
+
+For developers who are unable to update or are unwilling to wait for the process
+specified in 6.2, it will still be possible to build BridgePoint with old
+builds. If the developer opens the `getInstanceSet` operation on "Binary
+Operation" and comments out the lines which use the set operators, the build
+should succeed. However, the behavior of the set operators in Verifier for any
+resulting build will be incorrect. This is an unlikely use case, so this
+workaround may be valuable for developers to prevent them from getting stuck
+during the process of updating the build server.
 
 ### 7. Unit Test
 
@@ -74,7 +113,7 @@ explicit invocations.
 After implementation of the set operations and the unit tests for them, some
 changes/updates were needed to ensure that all existing tests continue to pass.
 
-7.2.1 In the parser, a two string used for parse errors were modified from
+7.2.1 In the parser, two strings used for parse errors were modified from
 "addition expression" -> "additive expression" and "multiplication expression"
 -> "multiplicative expression". This was done because now the set operations are
 categorized as additive and multiplicative expressions and the new wording is
@@ -96,7 +135,7 @@ information (before it was all `-1`s).
 
 7.2.4 The export tests perform comparisons of expected output files in certain
 tests. Three tests were showing diffs in the exported `.xtuml` files because of
-the same issue noted in 7.1.3. The expected result files needed to be
+the same issue noted in 7.2.3. The expected result files needed to be
 regenerated for these tests. During this regeneration, it was manually confirmed
 that the only new differences were in the line and column information of the
 binary operations.

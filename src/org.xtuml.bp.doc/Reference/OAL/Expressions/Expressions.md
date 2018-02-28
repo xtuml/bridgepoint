@@ -138,26 +138,29 @@ expressions), they can also be used to compare time values, instance references,
 instance set references, and unique IDs. There is also one unary operator,
 `not`, which can be used to logically negate a boolean expression.
 
-| Operator    | Description                      | Valid operand types                        |
-|-------------|----------------------------------|--------------------------------------------|
-| ==          | equality                         | any                                        |
-| !=          | inequality                       | any                                        |
-| <           | less than                        | integer, real, date, timestamp, string     |
-| >           | greater than                     | integer, real, date, timestamp, string     |
-| <=          | less than or equal to            | integer, real, date, timestamp, string     |
-| >=          | greater than or equal to         | integer, real, date, timestamp, string     |
-| and         | logical conjunction              | boolean                                    |
-| or          | logical disjunction              | boolean                                    |
-| not         | boolean negation                 | boolean                                    |
-| \*empty     | instance reference/set empty     | instance reference, instance reference set |
-| \*not_empty | instance reference/set not empty | instance reference, instance reference set |
+| Operator              | Description                      | Valid operand types                        |
+|-----------------------|----------------------------------|--------------------------------------------|
+| ==                    | equality                         | any                                        |
+| !=                    | inequality                       | any                                        |
+| <                     | less than                        | integer, real, date, timestamp, string     |
+| >                     | greater than                     | integer, real, date, timestamp, string     |
+| <=                    | less than or equal to            | integer, real, date, timestamp, string     |
+| >=                    | greater than or equal to         | integer, real, date, timestamp, string     |
+| and                   | logical conjunction              | boolean                                    |
+| or                    | logical disjunction              | boolean                                    |
+| not                   | boolean negation                 | boolean                                    |
+| empty<sup>1</sup>     | instance reference/set empty     | instance reference, instance reference set |
+| not_empty<sup>1</sup> | instance reference/set not empty | instance reference, instance reference set |
 
-\* see section ["Additional unary operators"](#additional_unary_operators)
+<sup>1</sup> see section ["Additional unary operators"](#additional_unary_operators)
 
 ### Note
 
-* Both operands of equality and comparison operators must be of the same type or
-  of a user defined type based on the same core type.
+* Both operands of equality and comparison operators must be of the same type
+  or of a user defined type based on the same core type, except for numeric
+  types.  Integers and reals can be mixed in equality and comparison
+  operations. See section ["Data Type Strength"](../HTML/bpalref.book-3.htm#data-type-strength)
+  for more information.
 
 ### Examples
 ```

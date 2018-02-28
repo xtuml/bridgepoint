@@ -247,9 +247,9 @@ with set operations.
 
 The modification to the grammar is quite minor since it was determined that the
 set operations fit into the categories of addition and multiplication. A new
-rule called `additive_operator` is added to the grammar which matches the tokens
-`+`, `-` and `|`. This rule is necessary because the `plus_or_minus` rule is
-also used for sign expressions (arithmetic negation), so it could not be
+rule called `additive_operator` is added to the grammar which matches the
+tokens `+`, `-` and `|`. This rule is necessary because the `plus_or_minus`
+rule is used for sign expressions (arithmetic negation), so it could not be
 extended to include the `|` operator. Additionally, the `&` and `^` operators
 are added to the `mult_op` rule.
 
@@ -261,15 +261,19 @@ Operation".
 
 The function `binary_operation_validate` is modified to raise a parse error if
 set operations are used on a type which does not have instance reference types
-published. This check is introduced because of the analysis done in section 5.3.
+published. This check is introduced because of the analysis done in section
+5.3. The text of the new parse error is as follows:
+```
+Must publish instance reference types to use set operator <operator>
+```
 
 The function `data_types_compatible` is extended to include the new operators
 introduced for set operations (`|`, `&`, and `^`).
 
 6.1.3 Content assist
 
-The function `Addition_additive_operator_content_assist` is renamed to
-`Addition_plus_or_minus_content_assist` to enable content assist after any
+The function `Addition_plus_or_minus_content_assist` is renamed to
+`Addition_additive_operator_content_assist` to enable content assist after any
 addition operator.
 
 6.2 MC-Java
@@ -317,9 +321,10 @@ new set operations must be populated in `q.sys.singletons.arc`.
 The header files `t.sys_sets.h` must be updated (for C and SystemC). The set
 operation functions take a return set handle, two generic pointers for inputs
 and an integer field for passing flags. The API is designed such that it can be
-used with both sets and single instance references. The integer flags field is a
-bitmap used to specify the types of the inputs (instance reference set or just
-instance reference). The functions themselves are implemented in `t.sys_sets.c`.
+used with both sets and single instance references. The integer flags field is
+a bit map used to specify the types of the inputs (instance reference set or
+just instance reference). The functions themselves are implemented in
+`t.sys_sets.c`.
 
 A case is added to `val_binary_op_value` in `q.val.translate.arc` where the set
 operation functions are invoked.
@@ -378,7 +383,7 @@ Expressions" shall be rewritten to include the most current and correct
 information about OAL expressions.  
 8.1.1 The current document shall be revised and updated.  
 8.1.2 A new section shall be created to discuss the use of the set operators.  
-8.1.3 A table shall be included that explicitly defines the order of operations
+8.1.3 A table shall be included that explicitly defines the precedence rules.  
 in OAL.  
 8.1.4 The updated document shall be formatted with markdown.  
 
@@ -420,6 +425,9 @@ select many set1 from instances of POLYGON where ( selected.numSides == 4 );
 select many set2 from instances of POLYGON where ( selected.equilateral == true );
 select many expected_results from instances of POLYGON where ( selected.numSides == 4 and selected.equilateral == true );
 actual_results = set1 & set2;
+if ( expected_results == actual_results )
+  // test passes
+end if;
 ```
 In this case, `expected_results` and `actual_results` should be equivalent sets
 because set intersection is defined as the set of elements that are in both
@@ -449,6 +457,9 @@ temp_results = temp_results & set4;
 temp_results = set1 | temp_results;
 expected_results = temp_results - set5;
 actual_results = set1 | set2 ^ set3 & set4 - set5;
+if ( expected_results == actual_results )
+  // test passes
+end if;
 ```
 In this example, each operation is performed sequentially where `^` and `&` have
 higher precedence than `|` and `-` and operations of equal precedence are
