@@ -20731,7 +20731,7 @@ INSERT INTO S_SYNC
   return  ::binary_operation_validate( a1_left_op: lhs_id, 
               a2_operator: param.b2_plus_or_minus2_id, 
               a3_right_op: param.b3_multiplication3_id, 
-              a4_op_type: "addition expression",
+              a4_op_type: "additive expression",
               a5_set_dt: TRUE, a6_rule_token: param.a1_rule_token, a7_rule_id:param.a3_ruleid_name );
 
 end if;
@@ -21809,7 +21809,7 @@ INSERT INTO S_SYNC
   return  ::binary_operation_validate( a1_left_op: lhs_id, 
               a2_operator: param.b3_mult_op3_id, 
               a3_right_op: param.b4_sign_expr4_id, 
-              a4_op_type: "multiplication expression",
+              a4_op_type: "multiplicative expression",
               a5_set_dt: TRUE, a6_rule_token: param.a1_rule_token, a7_rule_id:param.a3_ruleid_name );
 
 end if;
@@ -34800,7 +34800,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("1e736fb6-30b2-49b4-9918-40ac2faba479",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_plus_or_minus_content_assist',
+	'Addition_additive_operator_content_assist',
 	'ParserValidateFunction: TRUE',
 	'::rval_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -38637,6 +38637,67 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("f1bcf10b-02a8-451b-9fda-bffc771a2294",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a96b2b06-5987-494a-885f-845f03e07a29",
+	"00000000-0000-0000-0000-000000000000",
+	'Additive_operator_validate',
+	'ParserValidateFunction: TRUE',
+	'return ::binary_operator_create( a1_text: param.a3_text, a2_dt_name: "" );',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("77ed7069-9dbb-413e-8893-f1a8efc68330",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a5804623-5db3-4ef8-add8-ebc69741b3f0",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"77ed7069-9dbb-413e-8893-f1a8efc68330",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6d233844-29f3-479a-bb0e-6d9bb466813c",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a5804623-5db3-4ef8-add8-ebc69741b3f0",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7de148e7-bd85-4ad9-ade3-79f924578d24",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6d233844-29f3-479a-bb0e-6d9bb466813c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d0222c07-5aa0-4838-9689-a9f397506376",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7de148e7-bd85-4ad9-ade3-79f924578d24",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a96b2b06-5987-494a-885f-845f03e07a29",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
