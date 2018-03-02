@@ -156,87 +156,57 @@ data to the Xtext Parser so it could "see" these library folders (see 5.1).
 5.3.3.1  Eclipse provides the ability to create linked resources that are basically
 the equivalent of a Unix filesystem symbolic link.  
 5.3.3.2  By placing these links under the current project's `models/` folder there
-is not change to the Xtext MASL Parser needed, it sees the contents of the linked
+is no change to the Xtext MASL Parser needed, it sees the contents of the linked
 resource automatically. 
  
-5.4  The chosen option to use is 5.3.3.   
+5.4  Choice  
+5.4.1  The chosen option to use is 5.3.2.  The design for this choice follows in 
+section 6.     
+5.4.2  A prior version of this note described the design work needed in order to 
+implement option 5.3.3.  However, after review with the primary user, it was 
+determined that the solution did not meet the user's needs.  Specifically their
+desire to be able to avoid storing the dependency information in revision control.      
 
 ### 6. Design
 
-6.1  Persisting linked resources  
-6.1.1  Eclipse persists the links in the XML inside the `<project>/.project` file
-as shown in Figure 4.  
-6.1.2  This file may be edited by hand.  
-6.1.3  The linked resources may point to either a folder or a file.  It is important
-to note that if a folder is linked, the Xtext MASL parser will read and parse 
+6.1  Persisting to stand-alone file    
+6.1.1  This file may be edited by hand via a text editor or via a user interface.  
+6.1.2  A file named `.dependencies` under the project root folder shall contain,
+one per line, a path to a depended-upon resource.   
+6.1.3  The depended-upon resource may point to either a folder or a file.  It is important
+to note that if a folder is specified, the Xtext MASL parser will read and parse 
 __all__ the MASL files inside that folder.  Users should be careful to create direct
-file dependencies in situations where the folder behavior is not desireable.  
+file dependencies in situations where the folder behavior is not desirable.  
+6.1.4  User may add the `.dependencies` filename to their `.gitignore` file to 
+keep the dependency information entirely out of revision control.  
 
-6.2  Linked resources fulfill all the requirements of absolute as well as 
-relative path support.  
-6.2.1  Eclipse provides the variable `WORKSPACE_LOC` that resolves to the root
-directory of the workspace on the file system.  
-6.2.2  Eclipse provides the variable `PROJECT_LOC` that resolves to the root 
-directory of the project on the file system.  
-6.2.3  It should be noted that relative paths are not persisted inside this XML.  If
-a relative path is needed the number of `../` entries in the path are substituted 
-with a matching number (see line 63 in Figure 4).  This line corresponds to 
-the actual path `PARENT_LOC/../../servicedom3`.   
-6.2.4  In the XML, linked files have type value 1 and folders have type value 2.  
-
-```xml
- 49     <linkedResources>
- 50         <link>
- 51             <name>models/servicedom</name>
- 52             <type>2</type>
- 53             <locationURI>WORKSPACE_LOC/services/interfaces</locationURI>
- 54         </link>
- 55         <link>
- 56             <name>models/servicedom2</name>
- 57             <type>2</type>
- 58             <location>/Users/kbrown/tmp/servicedom2/ints</location>
- 59         </link>
- 60         <link>
- 61             <name>models/servicedominvalid</name>
- 62             <type>2</type>
- 63             <location>PARENT-2-PROJECT_LOC/servicedom3</location>
- 64         </link>
- 65         <link>
- 66             <name>models/sac.int</name>
- 67             <type>1</type>
- 68             <locationURI>WORKSPACE_LOC/calc/masl/calc.int</locationURI>
- 69         </link>
- 70     </linkedResources>
-```
-__Figure 4: Links in a .project file__
+6.2  Dependencies may use absolute or relative paths.  
+6.2.1  The variable `WORKSPACE_LOC` resolves to the root directory of the 
+workspace on the file system.  
+6.2.2  The variable `PROJECT_LOC` that resolves to the root directory of the 
+project on the file system.  
 
 6.3  User interface  
-6.3.1  Linked resources can be created in the current version of BridgePoint 
-with `New > Folder > Advanced` or `New > File > Advanced` and selecting the 
-"Link to alternate location" radio button.  
-6.3.2  Since the `New > ...` approach is not particularly user friendly, we shall
-implement a new page on the Project Preferences dialog named "Dependencies" 
-that supports the specification of files or folders to depend upon. A mock-up of
-this interface is shown in Figure 5.    
-6.3.3  When the user enters a new value on this page, the link shall be created 
-under the `models/` folder.  
-6.3.4  The page will support removing an existing dependency.  
-6.3.5  The page shall not allow duplicate entries.  
-6.3.6  The page shall show existing links when the project properties dialog is
-opened.  
-6.3.7  The page shall show the current value of `WORKSPACE_LOC` and `PROJECT_LOC`.  
-6.3.8  The page shall handle the conversion of specified relative paths to their 
-persisted "PARENT-x" form so the user specifies the paths naturally with `../` 
-traversals.  
+6.3.1  BridgePoint shall implement a new page on the Project Preferences dialog 
+named "Dependencies" that supports the specification of files or folders to 
+depend upon. A mock-up of this interface is shown in Figure 4.    
+6.3.2  The page will support removing an existing dependency.  
+6.3.3  The page shall not allow duplicate entries.  
+6.3.4  The page shall show existing dependencies (read from the `.dependencies` file) 
+when the project properties dialog is opened.  
+6.3.5  The page shall show the current value of `WORKSPACE_LOC` and `PROJECT_LOC`.  
+6.3.6  The "Dependencies" page on the project preferences shall be able to be 
+hidden with the INI setting `-Dbridgepoint.Dependencies=disabled`.  
  
-![Figure 5](dependency_prefs.png)  
-__Figure 5__  
+![Figure 4](dependency_prefs.png)  
+__Figure 4__  
 
 6.4 Operation   
 6.4.1  The Xtext parser needs to use the most up-to-date information when it validates
 MASL. Therefore, it may need to run a project refresh to pick up any dependency 
-changes as it begins validation.  
-
+changes as it begins validation.   
+6.4.2  The Xtext parser shall read the dependencies from the file and include them
+as part of the data to validate.  
 
 ### 7. Design Comments
 
@@ -255,6 +225,7 @@ for dependencies.
 9.1.1  Absolute paths  
 9.1.2  Variable WORKSPACE_LOC in a path  
 9.1.3  Variable PROJECT_LOC in a path  
+9.1.4  Relative path traversals with both variables
 
 9.2  Test invalid links or a linked resource has no data    
 
@@ -262,9 +233,9 @@ for dependencies.
 the latest data is used for validation and not outdated, cached information.  
 
 9.4  Test the User Interface  
-9.4.1  Dependency page is populated on popup with current linked resources  
-9.4.2  User may add new links  
-9.4.3  User may remove existing links  
+9.4.1  Dependency page is populated on popup with current data from the `.dependencies` file  
+9.4.2  User may add new dependencies  
+9.4.3  User may remove existing dependencies  
 9.4.4  Changes are persisted properly  
 
 9.5  Verify that the contents of the dependend-upon resources are not persisted 
