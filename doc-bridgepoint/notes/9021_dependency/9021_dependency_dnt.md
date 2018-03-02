@@ -202,10 +202,7 @@ hidden with the INI setting `-Dbridgepoint.Dependencies=disabled`.
 __Figure 4__  
 
 6.4 Operation   
-6.4.1  The Xtext parser needs to use the most up-to-date information when it validates
-MASL. Therefore, it may need to run a project refresh to pick up any dependency 
-changes as it begins validation.   
-6.4.2  The Xtext parser shall read the dependencies from the file and include them
+6.4.1  The Xtext parser shall read the dependencies from the file and include them
 as part of the data to validate.  
 
 ### 7. Design Comments
