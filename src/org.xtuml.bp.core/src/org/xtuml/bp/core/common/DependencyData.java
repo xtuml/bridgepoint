@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.xtuml.bp.core.CorePlugin;
 
@@ -98,21 +100,27 @@ public class DependencyData {
 			populateDependencies(project, dependencyList, commentList);
 		}
 
-		Vector<String> modifiedDeps = dependencyList;
+		Vector<String> modifiedDeps = new Vector<String>();
 		String r;
 		// Iterate through each item replacing variables PROJECT_LOC and WORKSPACE_LOC with 
 		// real values
-		int len = modifiedDeps.size();
+		int len = dependencyList.size();
 		for (int i=0; i < len; i++) {
-			String d = modifiedDeps.get(i);
+			String d = dependencyList.get(i);
 			if (d.contains("PROJECT_LOC")) {
 				if ( project != null ) {
 					r = d.replace("PROJECT_LOC", project.getLocation().toOSString());
-					modifiedDeps.set(i, r);
+					modifiedDeps.add(r);
 				}
 			} else if (d.contains("WORKSPACE_LOC")) {
-				r = d.replace("WORKSPACE_LOC", ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
-				modifiedDeps.set(i, r);
+				final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+				IResource ir = root.findMember(d.replace("WORKSPACE_LOC", ""));
+				if (ir != null) {
+					r = ir.getLocation().toOSString();
+					modifiedDeps.add(r);
+				}
+			} else {
+				modifiedDeps.add(d);
 			}
 		}
 		return modifiedDeps;
