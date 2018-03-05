@@ -27,7 +27,7 @@ public class DependencyData {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + DEPENDENCY_FILE));
 			inFile.useDelimiter("\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			System.out.println("Error loading feature markings from " + DEPENDENCY_FILE);
+			// Don't throw an error.  User may never have created the file yet.
 		}
 		
 		while ( inFile.hasNext() ) {
@@ -80,7 +80,7 @@ public class DependencyData {
 
 			fout.close();
 		} catch (IOException e) {
-			System.out.println("Error persisting to " + DEPENDENCY_FILE);
+			CorePlugin.logError("Error persisting to " + DEPENDENCY_FILE, null);
 		}        
 	}
 
