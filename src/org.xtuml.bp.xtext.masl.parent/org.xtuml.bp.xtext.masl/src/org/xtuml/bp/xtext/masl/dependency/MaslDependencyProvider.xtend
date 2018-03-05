@@ -16,37 +16,43 @@ class MaslDependencyProvider {
     static val LOG = Logger.getLogger( MaslDependencyProvider )
 
     protected Set<String> dependencyHandles = newHashSet
-    protected Map<String, URI> dependencyUris = newHashMap
+    protected Set<URI> dependencyUris = newHashSet
+    protected Map<String, Set<URI>> dependencyHandleUris = newHashMap
+    protected Map<URI, String> dependencyUriHandles = newHashMap
     
     @Inject Provider<XtextResourceSet> resourceSetProvider
     @Inject IResourceDescription.Manager resourceDescriptionManager
 
-    def public updateDependencies( Set<String> dependencyHandles, Map<String, URI> dependencyUris ) {
+    def public setDependencies( Set<String> dependencyHandles, Set<URI> dependencyUris, Map<String, Set<URI>> dependencyHandleUris, Map<URI, String> dependencyUriHandles ) {
         this.dependencyHandles = dependencyHandles
         this.dependencyUris = dependencyUris
+        this.dependencyHandleUris = dependencyHandleUris;
+        this.dependencyUriHandles = dependencyUriHandles;
     }
 
     def public getDependencyHandles() {
-        dependencyHandles.toList
+        dependencyHandles
     }
     
-    def public getDependencyURIs() {
-        dependencyUris.values.toList
+    def public getDependencyUris() {
+        dependencyUris
     }
     
     def public uriToHandle( URI uri ) {
-        dependencyUris.entrySet.filter[value==uri].head.key
+        dependencyUriHandles.get( uri )
     }
     
-    def public handleToUri( String handle ) {
-        dependencyUris.get( handle )
+    def public handleToUris( String handle ) {
+        dependencyHandleUris.get( handle )
     }
     
     def public getResourceDescriptions( String containerHandle ) {
         try {
             val resourceSet = resourceSetProvider.get
-            val resource = resourceSet.getResource( handleToUri( containerHandle ), true )
-            #[resourceDescriptionManager.getResourceDescription( resource )]
+            val resourceDescriptions = newArrayList
+            for ( uri : handleToUris( containerHandle ) )
+                resourceDescriptions += resourceDescriptionManager.getResourceDescription( resourceSet.getResource( uri, true ) )
+            resourceDescriptions
         } catch (Exception exc) {
             LOG.error('Error loading MASL library', exc)
         }

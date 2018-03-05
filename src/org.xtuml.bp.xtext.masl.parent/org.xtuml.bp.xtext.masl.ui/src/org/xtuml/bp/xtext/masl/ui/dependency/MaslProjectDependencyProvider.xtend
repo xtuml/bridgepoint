@@ -17,23 +17,34 @@ import static org.eclipse.xtext.ui.XtextProjectHelper.*
 class MaslProjectDependencyProvider {
 
     private Map<IProject, Set<String>> projectDependencies
+    private boolean upToDate = false
     
     @Inject MaslDependencyProvider internalDependencyProvider
     
     def private updateDependencies() {
-        val dependencyHandles = newHashSet
-        val dependencyUris = newHashMap
-        projectDependencies = newHashMap
-        for ( project : ResourcesPlugin.workspace.root.projects.filter[hasNature(NATURE_ID)] ) {
-            val projectDeps = newHashSet
-            projectDependencies.put( project, projectDeps )
-            val dependencies = DependencyData::getDependencies( project )
-            for ( dependency : dependencies ) {
-                if ( dependencyHandles.add( dependency ) ) dependencyUris.put( dependency, URI.createFileURI( dependency ) )
-                projectDeps.add( dependency )
+        if ( !upToDate ) {
+            val dependencyHandles = newHashSet
+            val dependencyUris = newHashSet
+            val dependencyHandleUris = newHashMap
+            val dependencyUriHandles = newHashMap
+            projectDependencies = newHashMap
+            for ( project : ResourcesPlugin.workspace.root.projects.filter[hasNature(NATURE_ID)] ) {
+                val projectDeps = newHashSet
+                projectDependencies.put( project, projectDeps )
+                val dependencies = DependencyData::getDependencies( project )
+                for ( dependency : dependencies ) {
+                    val uri = URI.createFileURI( dependency )
+                    if ( dependencyUris.add( uri ) ) {
+                        dependencyUriHandles.put( uri, dependency )
+                        if ( dependencyHandles.add( dependency ) ) dependencyHandleUris.put( dependency, newHashSet( uri ) as Set<URI> )
+                        else dependencyHandleUris.get( dependency ).add( uri )
+                    }
+                    projectDeps.add( dependency )
+                }
             }
+            internalDependencyProvider.setDependencies( dependencyHandles, dependencyUris, dependencyHandleUris, dependencyUriHandles )
+            upToDate = true
         }
-        internalDependencyProvider.updateDependencies( dependencyHandles, dependencyUris )
     }
 
     def public getDependencyHandles() {
@@ -41,9 +52,9 @@ class MaslProjectDependencyProvider {
         internalDependencyProvider.dependencyHandles
     }
     
-    def public getDependencyURIs() {
+    def public getDependencyUris() {
         updateDependencies
-        internalDependencyProvider.dependencyURIs
+        internalDependencyProvider.dependencyUris
     }
     
     def public uriToHandle( URI uri ) {
@@ -51,21 +62,20 @@ class MaslProjectDependencyProvider {
         internalDependencyProvider.uriToHandle( uri )
     }
     
-    def public handleToUri( String handle ) {
+    def public handleToUris( String handle ) {
         updateDependencies
-        internalDependencyProvider.handleToUri( handle )
+        internalDependencyProvider.handleToUris( handle )
     }
  
     
     def public getProjectDependencies( String containerHandle ) {
         updateDependencies
-        val dependencyHandles = newArrayList
         val projectName = containerHandle.split( CONTAINER_HANDLE_SEPARATOR ).head
-        for ( project : ResourcesPlugin.workspace.root.projects.filter[name==projectName] ) {
-            val projectDeps = projectDependencies.get( project )
-            if ( null != projectDeps ) dependencyHandles += projectDeps
-        }
-        dependencyHandles
+        val project = ResourcesPlugin.workspace.root.projects.filter[name==projectName].head
+        if ( null != project )
+            projectDependencies.get( project )
+        else
+            newHashSet
     }
     
 }
