@@ -15,8 +15,8 @@ variables are dynamic for each user.  Paths may also specify an absolute locatio
 Currently, BridgePoint only uses this information for MASL activity validation.  However,
 a custom down-stream tool could use this information as well for any purpose.  
 
-The page may be disabled by setting `-Dbridgepoint.Dependencies=disabled` at the end of
-the `bridgepoint.ini` file inside the installation.  
+This preference page may be disabled by setting `-Dbridgepoint.Dependencies=disabled` at 
+the end of the `bridgepoint.ini` file inside the installation.  
 
 ## Preference Page
 
