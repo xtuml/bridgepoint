@@ -1,5 +1,6 @@
 package org.xtuml.bp.xtext.masl.ui.dependency
 
+import com.google.inject.Inject
 import com.google.inject.Singleton
 import java.util.Map
 import java.util.Set
@@ -7,14 +8,17 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.xtuml.bp.core.common.DependencyData
-
-import static org.xtuml.bp.xtext.masl.lib.MASLContainerManager.*
-import com.google.inject.Inject
 import org.xtuml.bp.xtext.masl.dependency.MaslDependencyProvider
+
 import static org.eclipse.xtext.ui.XtextProjectHelper.*
+import static org.xtuml.bp.xtext.masl.lib.MASLContainerManager.*
+import java.io.File
+import java.io.FileFilter
 
 @Singleton
 class MaslProjectDependencyProvider {
+
+    private static val DEPENDENCY_FILE_EXTENSION = ".int"
 
     private Map<IProject, Set<String>> projectDependencies
     private boolean upToDate = false
@@ -33,11 +37,12 @@ class MaslProjectDependencyProvider {
                 projectDependencies.put( project, projectDeps )
                 val dependencies = DependencyData::getDependencies( project )
                 for ( dependency : dependencies ) {
-                    val uri = URI.createFileURI( dependency )
-                    if ( dependencyUris.add( uri ) ) {
-                        dependencyUriHandles.put( uri, dependency )
-                        if ( dependencyHandles.add( dependency ) ) dependencyHandleUris.put( dependency, newHashSet( uri ) as Set<URI> )
-                        else dependencyHandleUris.get( dependency ).add( uri )
+                    for ( uri : getValidDependencies( dependency ).map[URI.createFileURI( it )] ) {
+                        if ( dependencyUris.add( uri ) ) {
+                            dependencyUriHandles.put( uri, dependency )
+                            if ( dependencyHandles.add( dependency ) ) dependencyHandleUris.put( dependency, newHashSet( uri ) as Set<URI> )
+                            else dependencyHandleUris.get( dependency ).add( uri )
+                        }
                     }
                     projectDeps.add( dependency )
                 }
@@ -46,6 +51,21 @@ class MaslProjectDependencyProvider {
             upToDate = true
         }
     }
+    
+    def private getValidDependencies( String dependency ) {
+        val validDependencies = newArrayList
+        val dependencyFile = new File( dependency )
+        if ( dependencyFile.exists && dependencyFile.file && dependency.endsWith( DEPENDENCY_FILE_EXTENSION ) )
+            validDependencies += dependency
+        else if ( dependencyFile.exists && dependencyFile.directory )
+            validDependencies += dependencyFile.listFiles( new FileFilter() {
+                override accept( File pathname ) {
+                    pathname.name.endsWith( DEPENDENCY_FILE_EXTENSION )
+                }
+            }).map[absolutePath]
+        validDependencies
+    }
+    
 
     def public getDependencyHandles() {
         updateDependencies
