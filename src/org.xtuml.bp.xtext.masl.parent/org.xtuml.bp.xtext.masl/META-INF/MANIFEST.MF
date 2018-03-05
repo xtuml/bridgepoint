@@ -22,6 +22,7 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.ecore.xcore;bundle-version="1.3.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.xtuml.bp.xtext.masl,
+ org.xtuml.bp.xtext.masl.dependency,
  org.xtuml.bp.xtext.masl.doc,
  org.xtuml.bp.xtext.masl.formatting2,
  org.xtuml.bp.xtext.masl.layout,
