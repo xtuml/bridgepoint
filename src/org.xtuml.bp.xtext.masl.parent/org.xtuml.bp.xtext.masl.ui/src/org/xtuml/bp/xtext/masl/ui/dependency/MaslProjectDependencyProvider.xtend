@@ -21,12 +21,12 @@ class MaslProjectDependencyProvider {
     private static val DEPENDENCY_FILE_EXTENSION = ".int"
 
     private Map<IProject, Set<String>> projectDependencies
-    private boolean upToDate = false
+    private boolean reload = true
     
     @Inject MaslDependencyProvider internalDependencyProvider
     
     def private updateDependencies() {
-        if ( !upToDate ) {
+        if ( reload ) {
             val dependencyHandles = newHashSet
             val dependencyUris = newHashSet
             val dependencyHandleUris = newHashMap
@@ -48,7 +48,10 @@ class MaslProjectDependencyProvider {
                 }
             }
             internalDependencyProvider.setDependencies( dependencyHandles, dependencyUris, dependencyHandleUris, dependencyUriHandles )
-            upToDate = true
+            //reload = false
+            // At this point, we are reloading the dependencies from disk each time they are needed. If this
+            // ends up being a performance liability, we may need to implement something smarter to notify
+            // the dependency provider when something has changed.
         }
     }
     

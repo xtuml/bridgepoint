@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.URI
 import java.util.Set
 import java.util.Map
 import com.google.inject.Singleton
+import org.eclipse.emf.ecore.resource.Resource
 
 @Singleton
 class MaslDependencyProvider {
@@ -19,6 +20,8 @@ class MaslDependencyProvider {
     protected Set<URI> dependencyUris = newHashSet
     protected Map<String, Set<URI>> dependencyHandleUris = newHashMap
     protected Map<URI, String> dependencyUriHandles = newHashMap
+    
+    private Map<URI, Resource> cachedDependencyResources = newHashMap
     
     @Inject Provider<XtextResourceSet> resourceSetProvider
     @Inject IResourceDescription.Manager resourceDescriptionManager
@@ -51,7 +54,13 @@ class MaslDependencyProvider {
             val resourceSet = resourceSetProvider.get
             val resourceDescriptions = newArrayList
             for ( uri : handleToUris( containerHandle ) )
-                resourceDescriptions += resourceDescriptionManager.getResourceDescription( resourceSet.getResource( uri, true ) )
+                if ( cachedDependencyResources.containsKey( uri ) )
+                    resourceDescriptions += resourceDescriptionManager.getResourceDescription( cachedDependencyResources.get( uri ) )
+                else {
+                    val res = resourceSet.getResource( uri, true )
+                    cachedDependencyResources.put( uri, res )
+                    resourceDescriptions += resourceDescriptionManager.getResourceDescription( res )
+                }
             resourceDescriptions
         } catch (Exception exc) {
             LOG.error('Error loading MASL library', exc)
