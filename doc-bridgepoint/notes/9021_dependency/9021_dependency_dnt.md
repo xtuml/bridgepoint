@@ -19,6 +19,7 @@ dependencies are managed inside BridgePoint.
 <a id="2.2"></a>2.2 [BridgePoint DEI #9679](https://support.onefact.net/issues/9679) Headline SR    
 <a id="2.3"></a>2.3 [Prototype implementation for automatic generation of INT files](https://github.com/xtuml/mc/pull/289)   
 <a id="2.4"></a>2.4 [Project Rapping SRS - One Fact Internal](https://docs.google.com/document/d/1Drp57-DkoHEkMmCsTmUrp5TLZvSgdv5cLRSNEmhnbPU/edit)   
+<a id="2.5"></a>2.5 [BridgePoint DEI #10123](https://support.onefact.net/issues/10123) Update Preferences help documentation      
 
 ### 3. Background
 
@@ -181,8 +182,8 @@ file dependencies in situations where the folder behavior is not desirable.
 keep the dependency information entirely out of revision control.  
 
 6.2  Dependencies may use absolute or relative paths.  
-6.2.1  The variable `WORKSPACE_LOC` resolves to the root directory of the 
-workspace on the file system.  
+6.2.1  The variable `WORKSPACE_LOC` may be used to tell the dependency manager
+to look inside projects inside the current workspace.   
 6.2.2  The variable `PROJECT_LOC` that resolves to the root directory of the 
 project on the file system.  
 
@@ -204,6 +205,8 @@ __Figure 4__
 6.4 Operation   
 6.4.1  The Xtext parser shall read the dependencies from the file and include them
 as part of the data to validate.  
+6.4.2  The user dependencies are made into resource providers that are made available
+to the MASL container manager when validating the given container.  
 
 ### 7. Design Comments
 
@@ -215,6 +218,8 @@ None.
 shall be created or added to the existing xtUML system preferences document.   
 8.2  Update the MASL modeling guide with a pointer to the project preferences help
 for dependencies.  
+8.3  As part of this work, the entire help documentation on BridgePoint preferences,
+which is very out of date, shall be revamped [2.5].  
 
 ### 9. Unit Test
 

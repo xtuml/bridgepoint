@@ -387,8 +387,8 @@ To access shared data from service domains the modeler must create a dependency 
 file or a folder containing one or more ```<other domain>.int``` files in the local project's 
 [Dependencies project preferences](../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html).   
 
-When a folder dependency is specified, all MASL files under the folder are parsed as part of the local 
-project's validation process.  
+When a folder dependency is specified, all MASL `*.int` files directly under the folder are parsed as 
+part of the local project's validation process.  
 
 #### Inter-Project References and MASL
 
