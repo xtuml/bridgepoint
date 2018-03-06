@@ -33,7 +33,7 @@ class MaslWorkspaceProjectsState extends WorkspaceProjectsState {
 			val projectHandle = segments.head
 			val projectContainedURIs = super.doInitContainedURIs(projectHandle)
 			val containedURIs = newArrayList
-			containedURIs += projectContainedURIs.filter[it.containerHandle == containerHandle]
+			containedURIs += projectContainedURIs.filter[it.containerHandle == containerHandle && it.fileExtension != "int"]
 			return new HashSet(containedURIs)
 		} 
 	}
@@ -60,8 +60,6 @@ class MaslWorkspaceProjectsState extends WorkspaceProjectsState {
 	override protected doInitVisibleHandles(String handle) {
 		if(handle == BUILTIN_LIBRARY_CONTAINER_HANDLE)
 			return #[handle]
-        else if ( dependencyProvider.dependencyHandles.contains( handle ) )
-            return #[handle, BUILTIN_LIBRARY_CONTAINER_HANDLE]
         else {
             val visibleHandles = newArrayList
             visibleHandles += handle

@@ -18,7 +18,8 @@ import java.io.FileFilter
 @Singleton
 class MaslProjectDependencyProvider {
 
-    private static val DEPENDENCY_FILE_EXTENSION = ".int"
+    public static val DEPENDENCY_FILE_EXTENSION = "int"
+    private static val DEPENDENCY_PREFIX = "dependency:"
 
     private Map<IProject, Set<String>> projectDependencies
     private boolean reload = true
@@ -36,15 +37,16 @@ class MaslProjectDependencyProvider {
                 val projectDeps = newHashSet
                 projectDependencies.put( project, projectDeps )
                 val dependencies = DependencyData::getDependencies( project )
-                for ( dependency : dependencies ) {
+                for ( dependency : dependencies.filter[validDependency] ) {
+                    val handle = project.name + CONTAINER_HANDLE_SEPARATOR + DEPENDENCY_PREFIX + dependency
                     for ( uri : getValidDependencies( dependency ).map[URI.createFileURI( it )] ) {
                         if ( dependencyUris.add( uri ) ) {
-                            dependencyUriHandles.put( uri, dependency )
-                            if ( dependencyHandles.add( dependency ) ) dependencyHandleUris.put( dependency, newHashSet( uri ) as Set<URI> )
-                            else dependencyHandleUris.get( dependency ).add( uri )
+                            dependencyUriHandles.put( uri, handle )
+                            if ( dependencyHandles.add( handle ) ) dependencyHandleUris.put( handle, newHashSet( uri ) as Set<URI> )
+                            else dependencyHandleUris.get( handle ).add( uri )
                         }
                     }
-                    projectDeps.add( dependency )
+                    projectDeps.add( handle )
                 }
             }
             internalDependencyProvider.setDependencies( dependencyHandles, dependencyUris, dependencyHandleUris, dependencyUriHandles )
@@ -55,15 +57,21 @@ class MaslProjectDependencyProvider {
         }
     }
     
+    def private isValidDependency( String dependency ) {
+        val dependencyFile = new File( dependency )
+        ( dependencyFile.exists && dependencyFile.file && dependency.endsWith( "." + DEPENDENCY_FILE_EXTENSION ) ) ||
+        ( dependencyFile.exists && dependencyFile.directory )
+    }
+    
     def private getValidDependencies( String dependency ) {
         val validDependencies = newArrayList
         val dependencyFile = new File( dependency )
-        if ( dependencyFile.exists && dependencyFile.file && dependency.endsWith( DEPENDENCY_FILE_EXTENSION ) )
+        if ( dependencyFile.exists && dependencyFile.file && dependency.endsWith( "." + DEPENDENCY_FILE_EXTENSION ) )
             validDependencies += dependency
         else if ( dependencyFile.exists && dependencyFile.directory )
             validDependencies += dependencyFile.listFiles( new FileFilter() {
                 override accept( File pathname ) {
-                    pathname.name.endsWith( DEPENDENCY_FILE_EXTENSION )
+                    pathname.name.endsWith( "." + DEPENDENCY_FILE_EXTENSION )
                 }
             }).map[absolutePath]
         validDependencies
