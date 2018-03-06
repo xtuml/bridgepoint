@@ -203,8 +203,8 @@ in MASL can further constrain the type that is applied to the affected model ele
 declarations exist only within activities expressed in MASL, these references do not receive special 
 handling and are kept with the MASL code block.  
 
-To access shared types from other domains in MASL action language, the modeler must copy the ```<other domain>.int```
-file into the local project's ```models/``` folder.  
+To access shared types from other domains in MASL action language, the modeler must create a dependency
+to the ```<other domain>.int``` file into the local project's [Dependencies project preferences](../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html).  
 
 To access shared types from the structural part of the model, the modeler must create a type reference
 in the local domain.  This is done by creating a new UDT in the current domain with a special name that 
@@ -380,6 +380,15 @@ __Figure 4__
 An alternative means is to set a default choice using the Default Action Language preferences (__Figure 4__). 
 The preference is located under __Window > Preferences > xtUML__, and after selecting the button next to 
 desired editor, __&lt;click&gt; OK__ to close the window.
+
+#### Accessing Service Domains
+
+To access shared data from service domains the modeler must create a dependency to the ```<other domain>.int``` 
+file or a folder containing one or more ```<other domain>.int``` files in the local project's 
+[Dependencies project preferences](../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html).   
+
+When a folder dependency is specified, all MASL files under the folder are parsed as part of the local 
+project's validation process.  
 
 #### Inter-Project References and MASL
 
