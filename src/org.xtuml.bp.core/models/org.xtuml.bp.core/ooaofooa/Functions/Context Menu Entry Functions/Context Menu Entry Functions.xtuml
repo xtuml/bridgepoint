@@ -7794,6 +7794,25 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
+	VALUES ("e9a4922c-32de-41cd-9f8c-5202d95d6b6d",
+	"00000000-0000-0000-0000-000000000000",
+	'O_TFR_MakeDeferred',
+	'ContextMenuFunction: TRUE',
+	'select any o_tfr from instances of O_TFR where USER::selectOne( id:selected.Tfr_ID );
+select any Relationship related by o_tfr->O_OBJ[R115]->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_REL[R206]
+  where ( USER::selectOne( id:selected.Rel_ID ) );
+o_tfr.makeDeferred( rel_id:Relationship.Rel_ID );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("e9a4922c-32de-41cd-9f8c-5202d95d6b6d",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
 	VALUES ("e19ebe7c-84a6-4464-af1b-da1260d131a8",
 	"00000000-0000-0000-0000-000000000000",
 	'D_DEPL_Rename',
@@ -8343,6 +8362,23 @@ r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:i
 	0);
 INSERT INTO PE_PE
 	VALUES ("ef9aae71-c299-44cc-83e4-1a8f065962ca",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("d136a0c1-c711-4249-96d3-03a0bee6b3c4",
+	"00000000-0000-0000-0000-000000000000",
+	'O_TFR_MakeRetained',
+	'ContextMenuFunction: TRUE',
+	'select any o_tfr from instances of O_TFR where USER::selectOne( id:selected.Tfr_ID );
+o_tfr.makeRetained();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("d136a0c1-c711-4249-96d3-03a0bee6b3c4",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
