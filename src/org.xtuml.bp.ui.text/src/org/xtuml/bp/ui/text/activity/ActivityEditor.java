@@ -30,6 +30,7 @@ import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.Deferral_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Parsestatus_c;
@@ -133,7 +134,9 @@ public class ActivityEditor extends OALEditor
         String document = m_document.get();
         if ( m_modelElement instanceof Operation_c ) {
         	// handle deferred operations
-        	document = ((Operation_c)m_modelElement).Generatedeferredbody();
+        	if ( null != Deferral_c.getOneO_DEFOnR126((Operation_c)m_modelElement) ) {
+        		document = ((Operation_c)m_modelElement).Generatedeferredbody();
+        	}
         }
         
 		Ooaofooa modelRoot = (Ooaofooa)m_modelElement.getModelRoot();
