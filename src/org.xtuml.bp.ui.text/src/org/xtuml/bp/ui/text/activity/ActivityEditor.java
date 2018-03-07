@@ -31,6 +31,7 @@ import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -129,9 +130,15 @@ public class ActivityEditor extends OALEditor
         if (m_modelElement == null  || m_modelElement.isOrphaned() || 
             (forEditor != null && forEditor.disposed)) return;
         
+        String document = m_document.get();
+        if ( m_modelElement instanceof Operation_c ) {
+        	// handle deferred operations
+        	document = ((Operation_c)m_modelElement).Generatedeferredbody();
+        }
+        
 		Ooaofooa modelRoot = (Ooaofooa)m_modelElement.getModelRoot();
 		OalLexer lexer = new OalLexer(
-				new StringReader(m_document.get()));
+				new StringReader(document));
 		EditorTextParser parser = new EditorTextParser(modelRoot, lexer,
 				m_myAnnotationModel, m_ae_input, m_document);
         boolean parseCompleted = false;
