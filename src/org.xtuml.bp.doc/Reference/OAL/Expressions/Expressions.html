@@ -100,8 +100,8 @@ binding).</p>
 <td>multiplicative operation</td>
 </tr>
 <tr class="even">
-<td>+ , - , \</td>
-<td></td>
+<td>+ , - , |</td>
+<td>additive operation</td>
 </tr>
 <tr class="odd">
 <td>== , != , &lt; , &gt; , &lt;= , &gt;=</td>
@@ -299,8 +299,8 @@ considered to be an instance set containing exactly one instance.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>\</td>
-<td>, +</td>
+<td>| , +</td>
+<td>set union</td>
 </tr>
 <tr class="even">
 <td>&amp;</td>
@@ -319,14 +319,14 @@ considered to be an instance set containing exactly one instance.</p>
 <h3 id="set-arithmetic-definitions">Set arithmetic definitions</h3>
 <ul>
 <li>A <strong>set</strong> is a collection of elements in which there are no duplicates.</li>
-<li>The <strong>union</strong> of sets A and B (<code>A ∪ B</code> or <code>A + B</code>) is<br />
+<li>The <strong>union</strong> of sets A and B (<code>A | B</code> or <code>A + B</code>) is<br />
 the set of all elements that are contained in either A or B (or both). Note<br />
 that the result is still a set (no duplicates) even if an element is in both A<br />
-and B. Union is commutative, meaning <code>A ∪ B == B ∪ A</code>.<br />
+and B. Union is commutative, meaning <code>A | B == B | A</code>.<br />
 <img src="union.png" alt="union.png" /></li>
-<li>The <strong>intersection</strong> of sets A and B (<code>A ∩ B</code>) is the set of all elements that<br />
+<li>The <strong>intersection</strong> of sets A and B (<code>A &amp; B</code>) is the set of all elements that<br />
 are contained in both A and B. Note again that the result is still a set (no<br />
-duplicates). Intersection is also commutative, meaning <code>A ∩ B == B ∩ A</code>.<br />
+duplicates). Intersection is also commutative, meaning <code>A &amp; B == B &amp; A</code>.<br />
 <img src="intersection.png" alt="intersection.png" /></li>
 <li>The <strong>difference</strong> (subtraction) of sets A and B (<code>A - B</code>) is the set of all<br />
 elements that are in set A and <em>not</em> in set B. Subtraction is <em>not</em><br />
