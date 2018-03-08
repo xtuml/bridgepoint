@@ -252,8 +252,15 @@ public class MaslProjectDependencyProvider {
       Iterable<IProject> _filter = IterableExtensions.<IProject>filter(((Iterable<IProject>)Conversions.doWrapArray(_projects)), _function);
       final IProject project = IterableExtensions.<IProject>head(_filter);
       Set<String> _xifexpression = null;
+      boolean _and = false;
       boolean _notEquals = (!Objects.equal(null, project));
-      if (_notEquals) {
+      if (!_notEquals) {
+        _and = false;
+      } else {
+        boolean _containsKey = this.projectDependencies.containsKey(project);
+        _and = _containsKey;
+      }
+      if (_and) {
         _xifexpression = this.projectDependencies.get(project);
       } else {
         _xifexpression = CollectionLiterals.<String>newHashSet();

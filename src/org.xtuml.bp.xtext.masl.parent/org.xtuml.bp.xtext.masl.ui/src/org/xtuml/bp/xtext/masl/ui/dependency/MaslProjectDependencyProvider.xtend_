@@ -103,7 +103,7 @@ class MaslProjectDependencyProvider {
         updateDependencies
         val projectName = containerHandle.split( CONTAINER_HANDLE_SEPARATOR ).head
         val project = ResourcesPlugin.workspace.root.projects.filter[name==projectName].head
-        if ( null != project )
+        if ( null != project && projectDependencies.containsKey( project ) )
             projectDependencies.get( project )
         else
             newHashSet

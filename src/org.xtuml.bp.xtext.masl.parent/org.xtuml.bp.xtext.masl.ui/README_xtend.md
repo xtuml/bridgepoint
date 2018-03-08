@@ -15,10 +15,11 @@ found in `git/bridgepoint/src/org.xtuml.bp.xtext.masl.parent/org.xtuml.bp.xtext.
 BridgePoint developers are encouraged to make enhancements to the xtend source 
 and regenerate the java file to be committed.  The process is roughly:
 
-1. Rename the `.xtend_` file to `.xtend`
-2. Make the required changes.  Build cleanly in an Eclipse environment.
-3. Copy the `.java` file that refers to `bp.*` from `<project>/xtend-gen/...` to `<project>/src/...`
-4. Rename the source `.xtend` file back to `.xtend_`
-5. Commit changes
-6. Clean and rebuild to assure that there is no behavior change  
+1. Delete the existing `.java` file in `<project>/src/...`
+2. Rename the `.xtend_` file to `.xtend`
+3. Make the required changes.  Build cleanly in an Eclipse environment.
+4. Copy the `.java` file that refers to `bp.*` from `<project>/xtend-gen/...` to `<project>/src/...`
+5. Rename the source `.xtend` file back to `.xtend_`
+6. Commit changes
+7. Clean and rebuild to assure that there is no behavior change  
 
