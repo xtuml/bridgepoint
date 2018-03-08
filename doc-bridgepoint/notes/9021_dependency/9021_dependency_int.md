@@ -79,7 +79,95 @@ Branch: 9021_dependency
 
 <pre>
 
-
+ doc-bridgepoint/notes/9021_dependency/9021_dependency_dnt.md     | 249 ++++++++++++++++++++++++++
+ doc-bridgepoint/notes/9021_dependency/9021_dependency_int.md     |  86 +++++++++
+ doc-bridgepoint/notes/9021_dependency/c_lib_setting.png          | Bin 0 -> 175154 bytes
+ doc-bridgepoint/notes/9021_dependency/dependency_prefs.png       | Bin 0 -> 171660 bytes
+ doc-bridgepoint/notes/9021_dependency/java_lib_config.png        | Bin 0 -> 120437 bytes
+ .../notes/9021_dependency/jdt_libs_tree_classpath.png            | Bin 0 -> 116588 bytes
+ .../9021_improved_inter_domain_ref_handling.dnt.rvm.md           |  60 +++++++
+ src/org.xtuml.bp.core/arc/create_core_plugin_class.arc           |  11 +-
+ src/org.xtuml.bp.core/generate.xml                               |   1 +
+ .../org/xtuml/bp/core/common/BridgePointPreferencesStore.java    |   2 +-
+ .../src/org/xtuml/bp/core/common/DependencyData.java             | 146 ++++++++++++++++
+ .../xtuml/bp/core/ui/preferences/ActionLanguagePreferences.java  |  10 --
+ .../BridgePointProjectDependenciesPreferenceNode.java            |  21 +++
+ .../preferences/BridgePointProjectDependenciesPreferences.java   | 209 ++++++++++++++++++++++
+ .../ui/preferences/BridgePointProjectReferencesPreferences.java  |  13 --
+ .../Reference/MASL/MASLConversionGuide/MASLConversionGuide.html  |  10 +-
+ .../Reference/MASL/MASLConversionGuide/MASLConversionGuide.md    |  13 +-
+ src/org.xtuml.bp.doc/Reference/OAL/Expressions/Expressions.html  |  16 +-
+ src/org.xtuml.bp.doc/Reference/OAL/Expressions/Expressions.md    |  12 +-
+ .../Reference/UserInterface/CommandLineInterface/.project        |  11 --
+ .../UserInterface/xtUMLModeling/Preferences/ActionLanguage.html  |  74 ++++++++
+ .../UserInterface/xtUMLModeling/Preferences/ActionLanguage.md    |  80 +++++++++
+ .../UserInterface/xtUMLModeling/Preferences/ActionLanguage.png   | Bin 0 -> 99905 bytes
+ .../UserInterface/xtUMLModeling/Preferences/ActivityEditor.html  |  29 +++
+ .../UserInterface/xtUMLModeling/Preferences/ActivityEditor.md    |  18 ++
+ .../UserInterface/xtUMLModeling/Preferences/ActivityEditor.png   | Bin 0 -> 93634 bytes
+ .../xtUMLModeling/Preferences/{HTML => }/CAprefs.png             | Bin
+ .../UserInterface/xtUMLModeling/Preferences/ColorsAndFonts.html  |  22 +++
+ .../UserInterface/xtUMLModeling/Preferences/ColorsAndFonts.md    |  11 ++
+ .../xtUMLModeling/Preferences/{HTML => }/ContentAssist.html      |  24 ++-
+ .../xtUMLModeling/Preferences/{HTML => }/ContentAssist.md        |   0
+ .../UserInterface/xtUMLModeling/Preferences/DiagramEditors.html  |  65 +++++++
+ .../UserInterface/xtUMLModeling/Preferences/DiagramEditors.md    |  47 +++++
+ .../UserInterface/xtUMLModeling/Preferences/DiagramEditors.png   | Bin 0 -> 76776 bytes
+ .../UserInterface/xtUMLModeling/Preferences/DiagramText.png      | Bin 0 -> 107427 bytes
+ .../xtUMLModeling/Preferences/HTML/ActivityEditor.htm            | 258 ---------------------------
+ .../Preferences/HTML/ActivityEditor_files/image001.jpg           | Bin 54456 -> 0 bytes
+ .../Preferences/HTML/ActivityEditor_files/image002.png           | Bin 39818 -> 0 bytes
+ .../Preferences/HTML/ActivityEditor_files/image003.jpg           | Bin 57726 -> 0 bytes
+ .../xtUMLModeling/Preferences/HTML/DiagramEditor.htm             | 232 ------------------------
+ .../Preferences/HTML/DiagramEditor_files/image001.jpg            | Bin 53681 -> 0 bytes
+ .../Preferences/HTML/DiagramEditor_files/image001.png            | Bin 35066 -> 0 bytes
+ .../Preferences/HTML/DiagramEditor_files/image002.jpg            | Bin 62041 -> 0 bytes
+ .../Preferences/HTML/DiagramEditor_files/image003.jpg            | Bin 51198 -> 0 bytes
+ .../UserInterface/xtUMLModeling/Preferences/HTML/DiagramText.htm | 231 ------------------------
+ .../Preferences/HTML/DiagramText_files/image001.jpg              | Bin 49249 -> 0 bytes
+ .../Preferences/HTML/DiagramText_files/image001.png              | Bin 38103 -> 0 bytes
+ .../UserInterface/xtUMLModeling/Preferences/HTML/Preferences.htm | 208 ----------------------
+ .../xtUMLModeling/Preferences/MessageDirection.html              |  23 +++
+ .../UserInterface/xtUMLModeling/Preferences/MessageDirection.md  |  12 ++
+ .../UserInterface/xtUMLModeling/Preferences/MessageDirection.png | Bin 0 -> 56003 bytes
+ .../UserInterface/xtUMLModeling/Preferences/ModelExport.html     |  28 +++
+ .../UserInterface/xtUMLModeling/Preferences/ModelExport.md       |  20 +++
+ .../UserInterface/xtUMLModeling/Preferences/ModelExport.png      | Bin 0 -> 56023 bytes
+ .../UserInterface/xtUMLModeling/Preferences/ObliqueRouting.png   | Bin 0 -> 13631 bytes
+ .../UserInterface/xtUMLModeling/Preferences/Preferences.html     |  47 +++++
+ .../UserInterface/xtUMLModeling/Preferences/Preferences.md       |  34 ++++
+ .../xtUMLModeling/Preferences/ProjActionLanguage.html            |  33 ++++
+ .../xtUMLModeling/Preferences/ProjActionLanguage.md              |  22 +++
+ .../xtUMLModeling/Preferences/ProjActionLanguage.png             | Bin 0 -> 55725 bytes
+ .../xtUMLModeling/Preferences/ProjDependencies.html              |  32 ++++
+ .../UserInterface/xtUMLModeling/Preferences/ProjDependencies.md  |  25 +++
+ .../UserInterface/xtUMLModeling/Preferences/ProjDependencies.png | Bin 0 -> 81965 bytes
+ .../UserInterface/xtUMLModeling/Preferences/ProjIPR.html         |  38 ++++
+ .../Reference/UserInterface/xtUMLModeling/Preferences/ProjIPR.md |  35 ++++
+ .../UserInterface/xtUMLModeling/Preferences/ProjIPR.png          | Bin 0 -> 66756 bytes
+ .../xtUMLModeling/Preferences/ProjectPreferencesCME.png          | Bin 0 -> 36606 bytes
+ .../xtUMLModeling/Preferences/RectilinearRouting.png             | Bin 0 -> 13166 bytes
+ .../Reference/UserInterface/xtUMLModeling/Preferences/xtUML.html |  51 ++++++
+ .../Reference/UserInterface/xtUMLModeling/Preferences/xtUML.md   |  59 +++++++
+ .../Reference/UserInterface/xtUMLModeling/Preferences/xtUML.png  | Bin 0 -> 87229 bytes
+ .../UserInterface/xtUMLModeling/Preferences/xtUMLTranslate.html  |  23 +++
+ .../UserInterface/xtUMLModeling/Preferences/xtUMLTranslate.md    |  12 ++
+ .../UserInterface/xtUMLModeling/Preferences/xtUMLTranslate.png   | Bin 0 -> 54954 bytes
+ .../UserInterface/xtUMLModeling/Preferences/xtUMLeXecute.html    |  41 +++++
+ .../UserInterface/xtUMLModeling/Preferences/xtUMLeXecute.md      |  34 ++++
+ .../UserInterface/xtUMLModeling/Preferences/xtUMLeXecute.png     | Bin 0 -> 73463 bytes
+ src/org.xtuml.bp.doc/topics_Reference.xml                        |  23 ++-
+ .../org.xtuml.bp.xtext.masl.ui/README_xtend.md                   |  25 +++
+ .../xtext/masl/ui/dependency/MaslProjectDependencyProvider.java  | 272 +++++++++++++++++++++++++++++
+ .../masl/ui/dependency/MaslProjectDependencyProvider.xtend_      | 112 ++++++++++++
+ .../bp/xtext/masl/ui/index/MaslWorkspaceProjectsState.xtend      |  20 ++-
+ .../org.xtuml.bp.xtext.masl/META-INF/MANIFEST.MF                 |   1 +
+ .../xtuml/bp/xtext/masl/dependency/MaslDependencyProvider.xtend  |  70 ++++++++
+ .../src/org/xtuml/bp/xtext/masl/lib/MASLContainerManager.xtend   |   8 +
+ .../bp/xtext/masl/scoping/MaslResourceDescriptionManager.xtend   |  18 +-
+ utilities/build/build_configuration.sh                           |   5 +-
+ 87 files changed, 2276 insertions(+), 1016 deletions(-)
+ 
 </pre>
 
 ### End
