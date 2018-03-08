@@ -19,6 +19,7 @@ MASL models.
 <a id="2.3"></a>2.3 [Design note for DEI #9021](9021_dependency.md)      
 <a id="2.4"></a>2.4 [BridgePoint DEI #10123](https://support.onefact.net/issues/10123) Update Preferences help documentation    
 <a id="2.5"></a>2.5 [BridgePoint DEI #10128](https://support.onefact.net/issues/10128) Documentation issue for tables that want to display | operator  
+<a id="2.6"></a>2.6 [BridgePoint DEI #10131](https://support.onefact.net/issues/10131) Re-read dependency files more often  
 
 ### 3. Background
 
@@ -61,6 +62,9 @@ None.
 ### 7. Unit Test
 
 See 2.3  
+
+During the testing process, the test 9.3 does not pass regularly.  Issue [2.5] is 
+opened to address this in follow on work.  
 
 ### 8. User Documentation
 
