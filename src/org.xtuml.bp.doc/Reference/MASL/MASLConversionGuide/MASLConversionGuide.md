@@ -203,6 +203,16 @@ in MASL can further constrain the type that is applied to the affected model ele
 declarations exist only within activities expressed in MASL, these references do not receive special 
 handling and are kept with the MASL code block.  
 
+Type references must be used to add constraints to types, use collection types, or instance types.
+To use these types, create a new public type and enter the full type reference as the type name. For
+example, a type named "sequence of integer" could be used to type an element which is a sequence of
+the type "integer".
+
+MASL allows modelers to constrain sequence types with a max size. Due to limitations in the tool,
+only integer literals are allowed to be used to constrain sequences when the type is used to type an
+activity parameter or a return type. If the type is used to type a local variable, an attribute, or
+a structure member, any constant expression of type integer can be used in a sequence constraint.
+
 To access shared types from other domains in MASL action language, the modeler must create a dependency
 to the ```<other domain>.int``` file into the local project's [Dependencies project preferences](../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html).  
 

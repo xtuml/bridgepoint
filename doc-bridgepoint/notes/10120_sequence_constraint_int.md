@@ -36,8 +36,10 @@ situation.
 ### 4. Requirements
 
 4.1 Size constraints shall be supported on sequence types.  
-4.1.1 Integer literals shall be allowed as a size constraint.  
-4.1.2 No other expression shall be supported as a size constraint.  
+4.1.1 Integer literals shall be allowed as a size constraint on types used to
+type parameters and activity return types.  
+4.1.2 No other expression shall be supported as a size constraint on types used
+to type parameters and activity return types.  
 
 ### 5. Work Required
 
@@ -46,9 +48,28 @@ allow integer literals as sequence constraints.
 5.1.1 Add a lexer rule for integer literals.  
 5.1.2 Add an optional constraint to the sequence production rule.  
 
+5.2 Updated MASL modeling guide.  
+
 ### 6. Implementation Comments
 
-None.
+6.1 Constraints on constraints
+
+The decision was made to only allow integer literals to be used as constraints
+on sequence types in the signatures of activities. This decision was made to
+avoid unnecessary complexity in the load grammar. Constraints on sequence types
+are rarely used, and when they are, they can only be constant expressions that
+return an integer. This includes integer literals, binary and unary operators on
+integers, and characteristics on types. When constraints on sequences are used,
+they are almost always simply an integer literal. When they are not, it is easy
+to determine the integer literal that would be produced by the constant
+expression and use that instead. For these reasons, it is not worth the
+maintenance effort to implement a full constant expression parser for the
+activity load parser.
+
+Note that this only affects type references that are part of activity
+signatures. Sequence types with complicated constraint expressions can still be
+used to type local variables declared in a body, class attributes, and structure
+members. These elements do not require parsing by the load parser.
 
 ### 7. Unit Test
 
@@ -73,7 +94,8 @@ in the MASL editor.
 
 ### 8. User Documentation
 
-None.
+8.1 MASL modeling guide will be updated to include explanation of the
+restrictions on sequence constraints
 
 ### 9. Code Changes
 
@@ -82,9 +104,11 @@ Branch: 10120_sequence_constraint
 
 <pre>
 
- doc-bridgepoint/notes/10120_sequence_constraint_int.md      | 101 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/actions.g |   4 +++-
- 2 files changed, 104 insertions(+), 1 deletion(-)
+  doc-bridgepoint/notes/10120_sequence_constraint_int.md                           | 126 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.doc/Reference/MASL/MASLConversionGuide/MASLConversionGuide.html |   8 ++++++++
+ src/org.xtuml.bp.doc/Reference/MASL/MASLConversionGuide/MASLConversionGuide.md   |  10 ++++++++++
+ src/org.xtuml.bp.io.core/src/org/xtuml/bp/io/core/actions.g                      |   4 +++-
+ 4 files changed, 147 insertions(+), 1 deletion(-)
 
 </pre>
 
