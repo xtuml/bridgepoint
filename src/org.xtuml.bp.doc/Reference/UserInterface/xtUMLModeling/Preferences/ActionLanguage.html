@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="action-language-preferences">Action Language Preferences</h1>
+<h2 id="default-action-language-dialect">Default action language dialect</h2>
+<p>BridgePoint supports more than one action language. This setting controls which<br />
+action language dialect is set as the default for new model elements that contain<br />
+action language.</p>
+<p>Changing this setting does not modify the dialect of any existing model elements.</p>
+<h2 id="allow-promotion-of-integer-to-real">Allow promotion of integer to real</h2>
+<p>OAL requires that the operands of a given operator are of matching type or a problem<br />
+marker is displayed. For example, a modeler cannot compare an integer with a<br />
+string.</p>
+<p>However, modelers may find it useful to have some flexibility when using operators<br />
+on numeric types. This setting relaxes strict operand requirements and allows<br />
+integers to be treated as reals when the other operand is a real. The result of<br />
+the operation is a real.</p>
+<h2 id="allow-lossy-assignment-of-real-to-integer">Allow lossy assignment of real to integer</h2>
+<p>This settings exists for the same flexibility reasons as the previous setting. However,<br />
+this setting only applies to the case where a real value is being assigned into<br />
+a element (structural or transient) of type integer. When this setting is enabled,<br />
+BridgePoint will allow the assignment by truncating the real value down to the<br />
+nearest integer.</p>
+<h2 id="missing-return-value-on-synchronous-messages">Missing return value on synchronous messages</h2>
+<p>This preference will enable parse errors when a return value is required. The parse<br />
+errors will be created for the following elements when they have no action language:</p>
+<ul>
+<li>Function</li>
+<li>Class Operation</li>
+<li>Bridge Operation</li>
+<li>Provided Interface Operation</li>
+<li>Required Interface Operation</li>
+</ul>
+<p>The sub-setting controls whether or not parse errors are raised for realized elements<br />
+without return values.</p>
+<h2 id="allow-implicit-component-addressing">Allow implicit component addressing</h2>
+<p>Allow (or not) the use of the <code>sender</code> keyword outside of interface activities. Enabling<br />
+this setting relies on architectural support for caching the component identity<br />
+for a given thread of control.</p>
+<h2 id="parse-while-editing-oal-activities">Parse while editing OAL activities</h2>
+<p>Enabling this option causes the parser to run as you edit OAL. When enabled,<br />
+syntax errors are shown as you type. The disadvantage is that large action bodies<br />
+may take a long time to parse. When disabled, you must manually parse the OAL<br />
+using the <code>Parse All Activities</code> option found in the context menu.</p>
+<p>A full parse is also performed by BridgePoint at the start of a xtUML Debug<br />
+launch and during the model compiler pre-build step at the beginning of a model<br />
+translation.</p>
+<h2 id="allow-operations-inside-where-clauses-of-select-statements">Allow operations inside where clauses of select statements</h2>
+<p>The <code>where</code> clause of an OAL <code>select</code> statement must evaluate to a boolean<br />
+expression. This setting allows (or not) operation calls as part of the expression<br />
+processed during the <code>where</code> clause.</p>
+<p>Support for this feature at run time is architecture-dependent. Verifier does<br />
+not support using derived attributes, operations, functions, messages, or bridges<br />
+inside the <code>where</code> clause.</p>
+<h2 id="allow-interface-names-for-sending-inter-component-messages">Allow interface names for sending inter-component messages</h2>
+<p>Inter-component messages defined by interfaces are best sent via uniquely named<br />
+ports. Enabling this option allows a modeler to write OAL <code>send</code> statements that<br />
+use (potentially non-unique) interface names. This feature is provided for<br />
+backwards compatibility and is not recommended for use.</p>
+<h2 id="preference-page">Preference Page</h2>
+<p><img src="ActionLanguage.png" alt="Action Language Preferences" /></p>
+</body>
+</html>

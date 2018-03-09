@@ -1,19 +1,10 @@
 package org.xtuml.bp.core.ui.preferences;
-//====================================================================
-//
-//File:      BridgePointProjectReferencesPreferences.java
-//
-//(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
-//
-//====================================================================
-//
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -23,13 +14,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
-import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
-
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.ui.Selection;
 
 public class BridgePointProjectReferencesPreferences extends
 		BridgePointProjectPreferences {
