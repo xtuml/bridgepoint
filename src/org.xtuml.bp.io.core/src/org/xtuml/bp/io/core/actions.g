@@ -324,7 +324,7 @@ arrayBounds:
 
 collectionTypeRef returns [String s = ""]:
             { String val = ""; }
-            ( "sequence" /*("(" expression ")")?*/ "of" val=typeReference { s = "sequence of " + val; }
+            ( "sequence" ( "(" INTEGER ")" )? "of" val=typeReference { s = "sequence of " + val; }
             //| "array"  arrayBounds "of" typeReference
             | "set" "of" val=typeReference { s = "set of " + val; }
             | "bag" "of" val=typeReference { s = "bag of " + val; }
@@ -376,6 +376,8 @@ ACTIVITYBEGIN1      : "//! ACTIVITY BEGIN.";
 ACTIVITYBEGIN2      : "DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
 
 UUID                : "'" ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) '-' ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) ( '0'..'9' | 'a'..'f' ) "'";
+
+INTEGER             : ('0'..'9')+;
 
 ID                  : ( ('A'..'Z' | 'a'..'z') | '_' ) ( ('A'..'Z' | 'a'..'z') | ('0'..'9') | '_' )*;
 
