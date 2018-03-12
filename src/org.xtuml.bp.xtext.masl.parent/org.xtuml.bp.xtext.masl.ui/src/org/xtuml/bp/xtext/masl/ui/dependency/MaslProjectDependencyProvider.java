@@ -59,7 +59,15 @@ public class MaslProjectDependencyProvider {
         IProject[] _projects = _root.getProjects();
         final Function1<IProject, Boolean> _function = (IProject it) -> {
           try {
-            return Boolean.valueOf(it.hasNature(XtextProjectHelper.NATURE_ID));
+            boolean _and = false;
+            boolean _isOpen = it.isOpen();
+            if (!_isOpen) {
+              _and = false;
+            } else {
+              boolean _hasNature = it.hasNature(XtextProjectHelper.NATURE_ID);
+              _and = _hasNature;
+            }
+            return Boolean.valueOf(_and);
           } catch (Throwable _e) {
             throw Exceptions.sneakyThrow(_e);
           }
