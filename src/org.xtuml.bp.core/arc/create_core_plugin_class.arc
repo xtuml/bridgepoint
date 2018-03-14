@@ -123,6 +123,7 @@ import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
 import org.xtuml.bp.core.ui.marker.ProblemModelChangeListener;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferenceNode;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferenceNode;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -1142,11 +1143,19 @@ public class CorePlugin extends AbstractUIPlugin {
 			pm.addToRoot(pn);
 			pn = new BridgePointProjectActionLanguagePreferenceNode(projectNode);
 			pm.addToRoot(pn);
+			String PROPERTY_PREFIX = "bridgepoint.";
+            String DEPEND_PROPERTY = "Dependencies";
+            String propertyKey = PROPERTY_PREFIX + DEPEND_PROPERTY;
+            String actualPropertyValue = System.getProperty(propertyKey, "enabled");
+            if ( !actualPropertyValue.equals("disabled") ) {
+                pn = new BridgePointProjectDependenciesPreferenceNode(projectNode);
+                pm.addToRoot(pn);
+            }
 			return pm;
         }
         
         /**
-         * This routine intializes the static member imageRegistry if it has not been initialized.
+         * This routine initializes the static member imageRegistry if it has not been initialized.
          * This is done here instead of in a member initializer for plugin start-up purposes.
          * When called from the command-line there may not be a workbench.
          */

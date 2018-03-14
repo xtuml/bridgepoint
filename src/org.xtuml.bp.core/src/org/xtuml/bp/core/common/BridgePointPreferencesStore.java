@@ -73,7 +73,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String REQUIRE_MASL_STYLE_IDENTIFIERS = PREFIX + "require_masl_style_identifiers"; //$NON-NLS-1$
     public static final String OPAQUE_COMPONENTS = PREFIX + "opaque_components"; //$NON-NLS-1$
     public static final String ENABLE_MODEL_INTEGRITY_CHECK = PREFIX + "enable_model_integrity_check"; //$NON-NLS-1$
-	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model opertions and validate the integrity of the model for the opertion performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
+	public final static String EnableModelIntegrityToolTip = "When enabled, model integrity checks run during most BridgePoint model operations and validate the integrity of the model for the operation performed. This can be useful to assure there is no model corruption, but there is performance overhead when enabled.";
 	public static final String ENABLE_TABLE_BASED_ASSOCIATION_EDITING = PREFIX + "enable_table_based_association_editing"; //$NON-NLS-1$
 
 	public static final String CONTENT_ASSIST_INCLUDE_ROLE_PHRASES = PREFIX + "content_assist_include_role_phrases"; //$NON-NLS-1$

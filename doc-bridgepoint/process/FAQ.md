@@ -52,6 +52,7 @@
     * [What are support.onefact.net accounts for?](#redmineacct)  
     * [How do I use Github with two-factor authentication](#github2fa)  
     * [What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)](#synchronize)  
+    * [Capture a stack dump when Eclipse hangs](#stack_dump)  
 
 
 xtUML Profile <a id="xtuml_profile"></a>
@@ -488,3 +489,21 @@ Miscellaneous <a id="misc"></a>
   If you are interested in more learning why this is implemented in this manner, the following engineering notes provide background: [9717_interface_msg_dnt.md](../notes/9717_interface_msg/9717_interface_msg_dnt.md), [dts0100841747.dnt](../notes/9717_interface_msg/dts0100841747.dnt.txt).  
 
   <img src="ModelExplorerSynchronizeWarning.png" alt="ModelExplorerSynchronizeWarning" style="width: 20px;"/>  
+
+* **Capture a stack dump when Eclipse hangs** <a id="stack_dump"></a>)  
+Using JVisualVM to capture thread dumps when a deadlock occurs  
+  - Download the JDK 1.6
+     Note: It MUST be the JDK, the JRE does NOT include the needed tool (jvisualvm.exe)
+  - Install this JDK on the machine with the problem
+  - Navigate to the JDK installation folder.  
+    For example the default is:  
+    C:\Program Files\Java\jdk1.6.0_23\bin
+  - Run jvisualvm.exe
+  - The tool will show you a list of the Java processes running on the machine
+  - Connect to Eclipse by double clicking the process.   
+  - Switch to the Threads tab.
+  - Click the "Thread Dump" button in upper right.
+  - A dump of all threads is displayed.  It even reports any deadlocks that it sees. 
+  - Select-all from this report and save it.  This is the information we need. 
+    Paste it to a file and include it in the CQ bug report.
+

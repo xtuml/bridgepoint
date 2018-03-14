@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="inter-project-references-project-preferences">Inter-project References Project Preferences</h1>
+<h2 id="ipr-usage">IPR Usage</h2>
+<h3 id="allow-inter-project-model-references">Allow inter-project model references</h3>
+<p>Allow (or not) xtUML models to see the contents of public packages in other xtUML<br />
+models in this workspace.</p>
+<h3 id="allow-class-and-function-access-via-ipr">Allow class and function access via IPR</h3>
+<p>When IPRs are enabled, this option extends the functionality to allow an imported<br />
+class inside a project to be assigned to a class that lives in another xtUML<br />
+project. This allows for the creation of &quot;library&quot; classes.</p>
+<p>An imported class assigned via an inter-project reference is then treated<br />
+like a locally-assigned imported class. Create, relate, select, member access<br />
+shall work.</p>
+<p>This option also allows the modeler to invoke functions that exist inside a<br />
+different xtUML project.</p>
+<h2 id="emit-referred-to-model-elements-in-other-projects">Emit referred to model elements in other projects</h2>
+<p>In the context of projects employing inter-project references, enabling this<br />
+option causes Model Compiler Pre-Build to follow and resolve references and<br />
+output an aggregate file to pass to the model compiler tool chain.</p>
+<p>This option overrides the workspace-level setting of the same name in the<br />
+general preferences at <code>xtUML &gt; xtUML Translate</code>.</p>
+<h2 id="preference-page">Preference Page</h2>
+<p><img src="ProjIPR.png" alt="Inter-project References" /></p>
+</body>
+</html>

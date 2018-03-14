@@ -42,6 +42,7 @@ INSERT INTO O_TFR
 	'//Value: Binary Operation.getValue()
 select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
 select one dt related by self->V_VAL[R801]->S_DT[R820];
+select one irdt related by dt->S_IRDT[R17];
 coreDataTypeName = dt.getCoreDataTypeName();
 if (coreDataTypeName == "boolean")
   return GD::boolean_to_instance(value:self.getBoolean(stack_frame_id: param.stack_frame_id));
@@ -51,6 +52,8 @@ elif (coreDataTypeName == "real")
   return GD::real_to_instance(value:self.getReal(stack_frame_id: param.stack_frame_id));
 elif (coreDataTypeName == "string")
   return GD::string_to_instance(value:self.getString(stack_frame_id: param.stack_frame_id));
+elif ( not_empty irdt and irdt.isSet )
+  return self.getInstanceSet( stack_frame_id:param.stack_frame_id );
 else
   error_message = "Error: Did not find a supported data type " + coreDataTypeName + " in attempt to retrieve value in binary operation.";
   USER::logError(msg:error_message,path:body.getPath());
@@ -59,7 +62,7 @@ end if;
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"aaf12aee-72a0-4fcd-afd0-e88be4d337cd",
+	"0e14a938-1c79-4982-8baa-5f633e2adf08",
 	0);
 INSERT INTO O_TPARM
 	VALUES ("10924281-1032-458e-9941-8f3dffe5bf93",
@@ -258,12 +261,13 @@ elif (self.Operator == "==" or self.Operator == "!=")
 	  rVal_ID = rightOperand.getRuntimeValue(stack_frame_id:param.stack_frame_id);
 	  if rVal_ID != GD::NULL_UNIQUE_ID()
 		// The two RuntimeValue instances for both operands are found	    
-          result = self.compareInstRefSets(rRtVal:rVal_ID,lRtVal: lVal_ID);
-          if (self.Operator == "==")
-            return result;
-          else
-            return not result;
-          end if;
+        select many leftInstances related by leftRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+        select many rightInstances related by rightRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+        if (self.Operator == "==")
+          return leftInstances == rightInstances;
+        else
+          return leftInstances != rightInstances;
+        end if;
       end if;                                            
     end if;                                              
   else
@@ -704,77 +708,87 @@ INSERT INTO O_TPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO O_TFR
-	VALUES ("3fbaa48c-2c60-492c-bee8-b734aeb25b36",
+	VALUES ("0e14a938-1c79-4982-8baa-5f633e2adf08",
 	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
-	'compareInstRefSets',
-	'Translate:native',
-	"ba5eda7a-def5-0000-0000-000000000001",
+	'getInstanceSet',
+	'Performs Binary Operation and returns the boolean value.',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	1,
-	'Ooaofooa.log.println(ILogger.OPERATION, "Binary Operation",
-		" Operation entered: BinaryOperation::compareInstRefSets");
-final ModelRoot modelRoot = getModelRoot();
-RuntimeValue_c v_lRtVal = (RuntimeValue_c) modelRoot.getInstanceList(
-		RuntimeValue_c.class).getGlobal(p_Lrtval);
-Instance_c[] v_instancesLeft = Instance_c
-		.getManyI_INSsOnR3013(InstanceInReference_c
-				.getManyL_IIRsOnR3311(InstanceReferenceValue_c
-						.getManyRV_IRVsOnR3308(SimpleValue_c
-								.getManyRV_SMVsOnR3300(v_lRtVal))));
+	'// Value: Binary Operation.getInstanceSet()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select any stack_frame related by self->V_VAL[R801]->I_VSF[R2978]->I_STF[R2951] where selected.Stack_Frame_ID == param.stack_frame_id;
+select one leftOperand related by self->V_VAL[R802];
+select any leftResult related by leftOperand->I_VSF[R2978] where selected.Stack_Frame_ID == param.stack_frame_id;
+select one leftRtVal related by leftResult->RV_RVL[R3305];
+select one rightOperand related by self->V_VAL[R803];
+select any rightResult related by rightOperand->I_VSF[R2978] where selected.Stack_Frame_ID == param.stack_frame_id;
+select one rightRtVal related by rightResult->RV_RVL[R3305];
+stack_frame.popValue(value_id:leftOperand.Value_ID);
+stack_frame.popValue(value_id:rightOperand.Value_ID);
 
-RuntimeValue_c v_rRtVal = (RuntimeValue_c) modelRoot.getInstanceList(
-		RuntimeValue_c.class).getGlobal(p_Rrtval);
+// set operations
+if ( self.Operator == "+" or self.Operator == "|" or self.Operator == "&" or self.Operator == "-" or self.Operator == "^" )
 
-Instance_c[] v_instancesRight = Instance_c
-		.getManyI_INSsOnR3013(InstanceInReference_c
-				.getManyL_IIRsOnR3311(InstanceReferenceValue_c
-						.getManyRV_IRVsOnR3308(SimpleValue_c
-								.getManyRV_SMVsOnR3300(v_rRtVal))));
-								
-if (v_instancesLeft.length != v_instancesRight.length) {
-	return false;
-}
-int rightIndex;
-int leftIndex;
-// find a match for each instance in the right set with another one in the left set.
-boolean[] matched = new boolean[v_instancesLeft.length];
-for (rightIndex = 0; rightIndex < v_instancesRight.length; rightIndex++) {
-	for (leftIndex = 0; leftIndex < v_instancesLeft.length; leftIndex++) {
-		if (matched[leftIndex] == false) {
-			if (v_instancesLeft[leftIndex] == v_instancesRight[rightIndex]) {
-				// mark the left instance as matched so it is not used in matching again.
-				matched[leftIndex] = true;
-				break;
-			}
-		}
-	}
+  // get the instances for left and right hand sides
+  select many leftInstances related by leftRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+  select many rightInstances related by rightRtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+  select many resultSet from instances of I_INS where false;
 
-	if (leftIndex == v_instancesLeft.length) {
-		// failed to find matched instance in left set for selected instance from right set
-		return false;
-	}
-}
-return true;',
-	0,
+  // union
+  if ( self.Operator == "+" or self.Operator == "|" )
+    resultSet = leftInstances | rightInstances;
+  // intersection
+  elif ( self.Operator == "&" )
+    resultSet = leftInstances & rightInstances;
+  // difference
+  elif ( self.Operator == "-" )
+    resultSet = leftInstances - rightInstances;
+  // symmetric difference
+  elif ( self.Operator == "^" )
+    resultSet = leftInstances ^ rightInstances;
+  end if;
+  
+  // create a new runtime value for the combined set
+  create object instance resultRtVal of RV_RVL;
+  relate resultRtVal to stack_frame across R3310;
+  select one s_dt related by self->V_VAL[R801]->S_DT[R820];
+  relate s_dt to resultRtVal across R3307;
+  resultRtVal.createSimpleValue();
+  select one rv_irv related by resultRtVal->RV_SMV[R3300]->RV_IRV[R3308];
+  select any current_iir from instances of L_IIR where false;
+  for each inst in resultSet
+    create object instance inst_in_reference of L_IIR;
+    relate inst_in_reference to rv_irv across R3311;
+    relate inst_in_reference to inst across R3013;
+    if ( not_empty current_iir )
+      relate inst_in_reference to current_iir across R3011.''is after'';
+      current_iir = inst_in_reference;
+    end if;
+  end for;
+
+  // return the ID of the new runtime value
+  return GD::unique_id_to_instance( value:resultRtVal.RuntimeValue_ID );
+
+else
+  pathMsg = "<No Path Available - Empty instance>";
+  if (not_empty body)
+    pathMsg = body.getPath();
+  end if;
+  USER::logError( msg:"Binary Operation.getInstanceSet error: operator unknown - returning default value, null", path:pathMsg );
+  return GD::NULL_INSTANCE();
+end if;',
+	1,
 	'',
-	"dffe2eb3-3c17-4ddd-a272-1cf1a7184589",
+	"aaf12aee-72a0-4fcd-afd0-e88be4d337cd",
 	0);
 INSERT INTO O_TPARM
-	VALUES ("a8761cf8-c3aa-4b65-803f-e9b988d856b5",
-	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",
-	'rRtVal',
+	VALUES ("11378405-d450-45d6-b176-74af1a9abc59",
+	"0e14a938-1c79-4982-8baa-5f633e2adf08",
+	'stack_frame_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("163dd006-d2a5-4405-b417-429c2ad8556d",
-	"3fbaa48c-2c60-492c-bee8-b734aeb25b36",
-	'lRtVal',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"a8761cf8-c3aa-4b65-803f-e9b988d856b5",
 	'');
 INSERT INTO O_REF
 	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",

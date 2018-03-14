@@ -31,15 +31,15 @@ set theory, here is some basic terminology:
 * The **union** of sets A and B (`A ∪ B` or `A + B`) is
   the set of all elements that are contained in either A or B (or both). Note
   that the result is still a set (no duplicates) even if an element is in both A
-  and B. Union is associative, meaning `A ∪ B == B ∪ A`.  
+  and B. Union is commutative, meaning `A ∪ B == B ∪ A`.  
 ![union.png](union.png)
 * The **intersection** of sets A and B (`A ∩ B`) is the set of all elements that
   are contained in both A and B. Note again that the result is still a set (no
-  duplicates). Intersection is also associative, meaning `A ∩ B == B ∩ A`.  
+  duplicates). Intersection is also commutative, meaning `A ∩ B == B ∩ A`.  
 ![intersection.png](intersection.png)
 * The **difference** (subtraction) of sets A and B (`A - B`) is the set of all
   elements that are in set A and _not_ in set B. Subtraction is _not_
-  associative meaning `A - B != B - A`.  
+  commutative meaning `A - B != B - A`.  
 ![difference.png](difference.png)
 
 ### 4. Requirements
