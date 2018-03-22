@@ -18,7 +18,7 @@ class MaslDependencyProvider {
 
     protected Set<String> dependencyHandles = newHashSet
     protected Set<URI> dependencyUris = newHashSet
-    protected Map<String, Set<URI>> dependencyHandleUris = newHashMap
+    protected Map<String, URI> dependencyHandleUris = newHashMap
     protected Map<URI, String> dependencyUriHandles = newHashMap
     
     private Map<URI, Resource> cachedDependencyResources = newHashMap
@@ -26,7 +26,7 @@ class MaslDependencyProvider {
     @Inject Provider<XtextResourceSet> resourceSetProvider
     @Inject IResourceDescription.Manager resourceDescriptionManager
 
-    def public setDependencies( Set<String> dependencyHandles, Set<URI> dependencyUris, Map<String, Set<URI>> dependencyHandleUris, Map<URI, String> dependencyUriHandles ) {
+    def public setDependencies( Set<String> dependencyHandles, Set<URI> dependencyUris, Map<String, URI> dependencyHandleUris, Map<URI, String> dependencyUriHandles ) {
         this.dependencyHandles = dependencyHandles
         this.dependencyUris = dependencyUris
         this.dependencyHandleUris = dependencyHandleUris;
@@ -41,11 +41,19 @@ class MaslDependencyProvider {
         dependencyUris
     }
     
+    def public getDependencyUriHandles () {
+        dependencyUriHandles
+    }
+    
+    def public getDependencyHandleUris () {
+        dependencyHandleUris
+    }
+    
     def public uriToHandle( URI uri ) {
         dependencyUriHandles.get( uri )
     }
     
-    def public handleToUris( String handle ) {
+    def public handleToUri( String handle ) {
         dependencyHandleUris.get( handle )
     }
     
@@ -53,14 +61,14 @@ class MaslDependencyProvider {
         try {
             val resourceSet = resourceSetProvider.get
             val resourceDescriptions = newArrayList
-            for ( uri : handleToUris( containerHandle ) )
-                if ( cachedDependencyResources.containsKey( uri ) )
-                    resourceDescriptions += resourceDescriptionManager.getResourceDescription( cachedDependencyResources.get( uri ) )
-                else {
-                    val res = resourceSet.getResource( uri, true )
-                    cachedDependencyResources.put( uri, res )
-                    resourceDescriptions += resourceDescriptionManager.getResourceDescription( res )
-                }
+            val uri = handleToUri( containerHandle )
+            if ( cachedDependencyResources.containsKey( uri ) )
+                resourceDescriptions += resourceDescriptionManager.getResourceDescription( cachedDependencyResources.get( uri ) )
+            else {
+                val res = resourceSet.getResource( uri, true )
+                cachedDependencyResources.put( uri, res )
+                resourceDescriptions += resourceDescriptionManager.getResourceDescription( res )
+            }
             resourceDescriptions
         } catch (Exception exc) {
             LOG.error('Error loading MASL library', exc)

@@ -27,7 +27,7 @@ class MaslWorkspaceProjectsState extends WorkspaceProjectsState {
 		if(containerHandle == BUILTIN_LIBRARY_CONTAINER_HANDLE) {
 			#[MASLLibraryProvider.MODEL_URI]		
         } else if ( dependencyProvider.dependencyHandles.contains( containerHandle ) ) {
-            dependencyProvider.handleToUris( containerHandle )
+            #[dependencyProvider.handleToUri( containerHandle )]
 		} else {
 			val segments = containerHandle.split(CONTAINER_HANDLE_SEPARATOR)
 			val projectHandle = segments.head
@@ -60,6 +60,13 @@ class MaslWorkspaceProjectsState extends WorkspaceProjectsState {
 	override protected doInitVisibleHandles(String handle) {
 		if(handle == BUILTIN_LIBRARY_CONTAINER_HANDLE)
 			return #[handle]
+        else if ( handle.startsWith( MaslProjectDependencyProvider.DEPENDENCY_PREFIX ) ) {
+            val visibleHandles = newArrayList
+            visibleHandles += handle
+            visibleHandles += dependencyProvider.getDependencyDependencies( handle ).filter[it!=handle]
+            visibleHandles += BUILTIN_LIBRARY_CONTAINER_HANDLE
+            return visibleHandles
+        }
         else {
             val visibleHandles = newArrayList
             visibleHandles += handle
