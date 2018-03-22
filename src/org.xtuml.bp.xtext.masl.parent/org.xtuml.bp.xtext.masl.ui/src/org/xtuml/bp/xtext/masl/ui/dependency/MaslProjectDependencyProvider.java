@@ -44,6 +44,8 @@ public class MaslProjectDependencyProvider {
   
   private Map<String, Set<IProject>> referringProjects;
   
+  private Map<String, Set<String>> dependencyDependencies;
+  
   private Map<IProject, Integer> dependencyVersions;
   
   @Inject
@@ -66,11 +68,17 @@ public class MaslProjectDependencyProvider {
         HashMap<String, Set<IProject>> _newHashMap_1 = CollectionLiterals.<String, Set<IProject>>newHashMap();
         this.referringProjects = _newHashMap_1;
       }
-      boolean _equals_2 = Objects.equal(null, this.dependencyVersions);
+      boolean _equals_2 = Objects.equal(null, this.dependencyDependencies);
       if (_equals_2) {
-        HashMap<IProject, Integer> _newHashMap_2 = CollectionLiterals.<IProject, Integer>newHashMap();
-        this.dependencyVersions = _newHashMap_2;
+        HashMap<String, Set<String>> _newHashMap_2 = CollectionLiterals.<String, Set<String>>newHashMap();
+        this.dependencyDependencies = _newHashMap_2;
       }
+      boolean _equals_3 = Objects.equal(null, this.dependencyVersions);
+      if (_equals_3) {
+        HashMap<IProject, Integer> _newHashMap_3 = CollectionLiterals.<IProject, Integer>newHashMap();
+        this.dependencyVersions = _newHashMap_3;
+      }
+      boolean rebuilt = false;
       IWorkspace _workspace = ResourcesPlugin.getWorkspace();
       IWorkspaceRoot _root = _workspace.getRoot();
       IProject[] _projects = _root.getProjects();
@@ -101,6 +109,7 @@ public class MaslProjectDependencyProvider {
           Integer _get = this.dependencyVersions.get(project);
           final int dependencyVersion = _defaultDependencyProvider.dependenciesChanged(project, (_get).intValue());
           if ((dependencyVersion > 0)) {
+            rebuilt = true;
             this.dependencyVersions.put(project, Integer.valueOf(dependencyVersion));
             final HashSet<String> projectDeps = CollectionLiterals.<String>newHashSet();
             final Set<String> oldProjectDeps = this.projectDependencies.put(project, projectDeps);
@@ -142,6 +151,50 @@ public class MaslProjectDependencyProvider {
                 }
               }
             }
+          }
+        }
+      }
+      if (rebuilt) {
+        for (final String handle : dependencyHandles) {
+          {
+            final HashSet<String> depDeps = CollectionLiterals.<String>newHashSet(handle);
+            boolean _containsKey = this.referringProjects.containsKey(handle);
+            if (_containsKey) {
+              Set<IProject> _get = this.referringProjects.get(handle);
+              for (final IProject referringProj : _get) {
+                boolean _containsKey_1 = this.projectDependencies.containsKey(referringProj);
+                if (_containsKey_1) {
+                  Set<String> _get_1 = this.projectDependencies.get(referringProj);
+                  for (final String dep : _get_1) {
+                    final Function1<String, String> _function_1 = (String it) -> {
+                      URI _handleToUri = this.internalDependencyProvider.handleToUri(it);
+                      return _handleToUri.lastSegment();
+                    };
+                    Iterable<String> _map = IterableExtensions.<String, String>map(depDeps, _function_1);
+                    Set<String> _set = IterableExtensions.<String>toSet(_map);
+                    URI _handleToUri = this.internalDependencyProvider.handleToUri(dep);
+                    String _lastSegment = _handleToUri.lastSegment();
+                    boolean _contains = _set.contains(_lastSegment);
+                    boolean _not = (!_contains);
+                    if (_not) {
+                      depDeps.add(dep);
+                    } else {
+                      boolean _contains_1 = depDeps.contains(dep);
+                      boolean _not_1 = (!_contains_1);
+                      if (_not_1) {
+                        URI _handleToUri_1 = this.internalDependencyProvider.handleToUri(handle);
+                        String _plus = ("Ignoring duplicate dependency for \'" + _handleToUri_1);
+                        String _plus_1 = (_plus + "\' at: ");
+                        URI _handleToUri_2 = this.internalDependencyProvider.handleToUri(dep);
+                        String _plus_2 = (_plus_1 + _handleToUri_2);
+                        MaslProjectDependencyProvider.LOG.warn(_plus_2);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            this.dependencyDependencies.put(handle, depDeps);
           }
         }
       }
@@ -277,45 +330,25 @@ public class MaslProjectDependencyProvider {
     return _xblockexpression;
   }
   
-  public HashSet<String> getDependencyDependencies(final String containerHandle) {
-    HashSet<String> _xblockexpression = null;
+  public Set<String> getDependencyDependencies(final String containerHandle) {
+    Set<String> _xblockexpression = null;
     {
       this.updateDependencies();
-      final HashSet<String> dependencyDependencies = CollectionLiterals.<String>newHashSet(containerHandle);
-      boolean _containsKey = this.referringProjects.containsKey(containerHandle);
-      if (_containsKey) {
-        Set<IProject> _get = this.referringProjects.get(containerHandle);
-        for (final IProject project : _get) {
-          boolean _containsKey_1 = this.projectDependencies.containsKey(project);
-          if (_containsKey_1) {
-            Set<String> _get_1 = this.projectDependencies.get(project);
-            for (final String dependency : _get_1) {
-              final Function1<String, String> _function = (String it) -> {
-                URI _handleToUri = this.internalDependencyProvider.handleToUri(it);
-                return _handleToUri.lastSegment();
-              };
-              Iterable<String> _map = IterableExtensions.<String, String>map(dependencyDependencies, _function);
-              Set<String> _set = IterableExtensions.<String>toSet(_map);
-              URI _handleToUri = this.internalDependencyProvider.handleToUri(dependency);
-              String _lastSegment = _handleToUri.lastSegment();
-              boolean _contains = _set.contains(_lastSegment);
-              boolean _not = (!_contains);
-              if (_not) {
-                dependencyDependencies.add(dependency);
-              } else {
-                boolean _contains_1 = dependencyDependencies.contains(dependency);
-                boolean _not_1 = (!_contains_1);
-                if (_not_1) {
-                  URI _handleToUri_1 = this.internalDependencyProvider.handleToUri(dependency);
-                  String _plus = ("Ignoring duplicate dependency at: " + _handleToUri_1);
-                  MaslProjectDependencyProvider.LOG.warn(_plus);
-                }
-              }
-            }
-          }
-        }
+      Set<String> _xifexpression = null;
+      boolean _and = false;
+      boolean _notEquals = (!Objects.equal(null, containerHandle));
+      if (!_notEquals) {
+        _and = false;
+      } else {
+        boolean _containsKey = this.dependencyDependencies.containsKey(containerHandle);
+        _and = _containsKey;
       }
-      _xblockexpression = dependencyDependencies;
+      if (_and) {
+        _xifexpression = this.dependencyDependencies.get(containerHandle);
+      } else {
+        _xifexpression = CollectionLiterals.<String>newHashSet();
+      }
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }

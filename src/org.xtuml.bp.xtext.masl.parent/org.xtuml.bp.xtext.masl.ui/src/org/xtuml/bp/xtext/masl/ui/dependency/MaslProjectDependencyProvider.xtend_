@@ -26,6 +26,7 @@ class MaslProjectDependencyProvider {
 
     private Map<IProject, Set<String>> projectDependencies  // set of all dependencies for a given project
     private Map<String, Set<IProject>> referringProjects    // set of all projects referring to a given dependency
+    private Map<String, Set<String>> dependencyDependencies // set of all dependencies for a given dependency
     private Map<IProject, Integer> dependencyVersions       // keep track of the versions of each dependency
     
     @Inject MaslDependencyProvider internalDependencyProvider
@@ -37,11 +38,14 @@ class MaslProjectDependencyProvider {
         val dependencyUriHandles = internalDependencyProvider.dependencyUriHandles
         if ( null == projectDependencies ) projectDependencies = newHashMap
         if ( null == referringProjects ) referringProjects = newHashMap
+        if ( null == dependencyDependencies ) dependencyDependencies = newHashMap
         if ( null == dependencyVersions ) dependencyVersions = newHashMap
+        var rebuilt = false
         for ( project : ResourcesPlugin.workspace.root.projects.filter[open && hasNature(NATURE_ID)] ) {
             if ( !dependencyVersions.containsKey( project ) ) dependencyVersions.put( project, -1 )
             val dependencyVersion = CorePlugin.defaultDependencyProvider.dependenciesChanged( project, dependencyVersions.get( project ) )
             if ( dependencyVersion > 0 ) {
+                rebuilt = true
                 dependencyVersions.put( project, dependencyVersion )
                 val projectDeps = newHashSet
                 val oldProjectDeps = projectDependencies.put( project, projectDeps )
@@ -72,6 +76,21 @@ class MaslProjectDependencyProvider {
                     if ( referringProjects.containsKey( handle ) ) referringProjects.get( handle ).add( project )
                     else referringProjects.put( handle, newHashSet( project ) as Set<IProject> )
                 }
+            }
+        }
+        // update dependency dependencies
+        if ( rebuilt ) {
+            for ( handle : dependencyHandles ) {
+                val depDeps = newHashSet( handle )
+                if ( referringProjects.containsKey( handle ) )
+                    for ( referringProj : referringProjects.get( handle ) )
+                        if ( projectDependencies.containsKey( referringProj ) )
+                            for ( dep : projectDependencies.get( referringProj ) )
+                                if ( !depDeps.map[internalDependencyProvider.handleToUri(it).lastSegment].toSet.contains( internalDependencyProvider.handleToUri(dep).lastSegment ) )
+                                    depDeps.add( dep )
+                                else if ( !depDeps.contains( dep ) )
+                                    LOG.warn( "Ignoring duplicate dependency for '" + internalDependencyProvider.handleToUri(handle) + "' at: " + internalDependencyProvider.handleToUri( dep ) )
+                dependencyDependencies.put( handle, depDeps )
             }
         }
         internalDependencyProvider.setDependencies( dependencyHandles, dependencyUris, dependencyHandleUris, dependencyUriHandles )
@@ -130,16 +149,10 @@ class MaslProjectDependencyProvider {
     // duplicates
     def public getDependencyDependencies( String containerHandle ) {
         updateDependencies
-        val dependencyDependencies = newHashSet( containerHandle )
-        if ( referringProjects.containsKey( containerHandle ) )
-            for ( project : referringProjects.get( containerHandle) )
-                if ( projectDependencies.containsKey( project ) )
-                    for ( dependency : projectDependencies.get( project ) )
-                        if ( !dependencyDependencies.map[internalDependencyProvider.handleToUri(it).lastSegment].toSet.contains( internalDependencyProvider.handleToUri(dependency).lastSegment ) )
-                            dependencyDependencies.add( dependency )
-                        else if ( !dependencyDependencies.contains( dependency ) )
-                            LOG.warn( "Ignoring duplicate dependency at: " + internalDependencyProvider.handleToUri( dependency ) )
-        dependencyDependencies
+        if ( null != containerHandle && dependencyDependencies.containsKey( containerHandle ) )
+            dependencyDependencies.get( containerHandle )
+        else
+            newHashSet
     }
     
 }
