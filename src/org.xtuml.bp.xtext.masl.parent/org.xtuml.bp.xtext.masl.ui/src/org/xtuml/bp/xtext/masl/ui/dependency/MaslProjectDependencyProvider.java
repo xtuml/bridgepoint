@@ -26,7 +26,8 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
-import org.xtuml.bp.core.common.DependencyData;
+import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.common.IDependencyProvider;
 import org.xtuml.bp.xtext.masl.dependency.MaslDependencyProvider;
 import org.xtuml.bp.xtext.masl.lib.MASLContainerManager;
 
@@ -42,6 +43,8 @@ public class MaslProjectDependencyProvider {
   private Map<IProject, Set<String>> projectDependencies;
   
   private Map<String, Set<IProject>> referringProjects;
+  
+  private Map<IProject, Integer> dependencyVersions;
   
   @Inject
   private MaslDependencyProvider internalDependencyProvider;
@@ -63,6 +66,11 @@ public class MaslProjectDependencyProvider {
         HashMap<String, Set<IProject>> _newHashMap_1 = CollectionLiterals.<String, Set<IProject>>newHashMap();
         this.referringProjects = _newHashMap_1;
       }
+      boolean _equals_2 = Objects.equal(null, this.dependencyVersions);
+      if (_equals_2) {
+        HashMap<IProject, Integer> _newHashMap_2 = CollectionLiterals.<IProject, Integer>newHashMap();
+        this.dependencyVersions = _newHashMap_2;
+      }
       IWorkspace _workspace = ResourcesPlugin.getWorkspace();
       IWorkspaceRoot _root = _workspace.getRoot();
       IProject[] _projects = _root.getProjects();
@@ -83,44 +91,55 @@ public class MaslProjectDependencyProvider {
       };
       Iterable<IProject> _filter = IterableExtensions.<IProject>filter(((Iterable<IProject>)Conversions.doWrapArray(_projects)), _function);
       for (final IProject project : _filter) {
-        if (true) {
-          final HashSet<String> projectDeps = CollectionLiterals.<String>newHashSet();
-          final Set<String> oldProjectDeps = this.projectDependencies.put(project, projectDeps);
-          boolean _notEquals = (!Objects.equal(null, oldProjectDeps));
-          if (_notEquals) {
-            for (final String oldProjectDep : oldProjectDeps) {
-              {
-                final String oldHandle = (MaslProjectDependencyProvider.DEPENDENCY_PREFIX + oldProjectDep);
-                final URI oldUri = URI.createFileURI(oldProjectDep);
-                final Set<IProject> referringProjs = this.referringProjects.get(oldProjectDep);
-                referringProjs.remove(project);
-                boolean _isEmpty = referringProjs.isEmpty();
-                if (_isEmpty) {
-                  dependencyHandles.remove(oldHandle);
-                  dependencyHandleUris.remove(oldHandle);
-                  dependencyUris.remove(oldUri);
-                  dependencyUriHandles.remove(oldUri);
+        {
+          boolean _containsKey = this.dependencyVersions.containsKey(project);
+          boolean _not = (!_containsKey);
+          if (_not) {
+            this.dependencyVersions.put(project, Integer.valueOf((-1)));
+          }
+          IDependencyProvider _defaultDependencyProvider = CorePlugin.getDefaultDependencyProvider();
+          Integer _get = this.dependencyVersions.get(project);
+          final int dependencyVersion = _defaultDependencyProvider.dependenciesChanged(project, (_get).intValue());
+          if ((dependencyVersion > 0)) {
+            this.dependencyVersions.put(project, Integer.valueOf(dependencyVersion));
+            final HashSet<String> projectDeps = CollectionLiterals.<String>newHashSet();
+            final Set<String> oldProjectDeps = this.projectDependencies.put(project, projectDeps);
+            boolean _notEquals = (!Objects.equal(null, oldProjectDeps));
+            if (_notEquals) {
+              for (final String oldProjectDep : oldProjectDeps) {
+                {
+                  final String oldHandle = (MaslProjectDependencyProvider.DEPENDENCY_PREFIX + oldProjectDep);
+                  final URI oldUri = URI.createFileURI(oldProjectDep);
+                  final Set<IProject> referringProjs = this.referringProjects.get(oldProjectDep);
+                  referringProjs.remove(project);
+                  boolean _isEmpty = referringProjs.isEmpty();
+                  if (_isEmpty) {
+                    dependencyHandles.remove(oldHandle);
+                    dependencyHandleUris.remove(oldHandle);
+                    dependencyUris.remove(oldUri);
+                    dependencyUriHandles.remove(oldUri);
+                  }
                 }
               }
             }
-          }
-          ArrayList<String> _validDependencies = this.getValidDependencies(project);
-          for (final String dependency : _validDependencies) {
-            {
-              final String handle = (MaslProjectDependencyProvider.DEPENDENCY_PREFIX + dependency);
-              final URI uri = URI.createFileURI(dependency);
-              dependencyHandles.add(handle);
-              dependencyHandleUris.put(handle, uri);
-              dependencyUris.add(uri);
-              dependencyUriHandles.put(uri, handle);
-              projectDeps.add(handle);
-              boolean _containsKey = this.referringProjects.containsKey(handle);
-              if (_containsKey) {
-                Set<IProject> _get = this.referringProjects.get(handle);
-                _get.add(project);
-              } else {
-                HashSet<IProject> _newHashSet = CollectionLiterals.<IProject>newHashSet(project);
-                this.referringProjects.put(handle, ((Set<IProject>) _newHashSet));
+            ArrayList<String> _validDependencies = this.getValidDependencies(project);
+            for (final String dependency : _validDependencies) {
+              {
+                final String handle = (MaslProjectDependencyProvider.DEPENDENCY_PREFIX + dependency);
+                final URI uri = URI.createFileURI(dependency);
+                dependencyHandles.add(handle);
+                dependencyHandleUris.put(handle, uri);
+                dependencyUris.add(uri);
+                dependencyUriHandles.put(uri, handle);
+                projectDeps.add(handle);
+                boolean _containsKey_1 = this.referringProjects.containsKey(handle);
+                if (_containsKey_1) {
+                  Set<IProject> _get_1 = this.referringProjects.get(handle);
+                  _get_1.add(project);
+                } else {
+                  HashSet<IProject> _newHashSet = CollectionLiterals.<IProject>newHashSet(project);
+                  this.referringProjects.put(handle, ((Set<IProject>) _newHashSet));
+                }
               }
             }
           }
@@ -135,7 +154,8 @@ public class MaslProjectDependencyProvider {
     ArrayList<String> _xblockexpression = null;
     {
       final ArrayList<String> validDependencies = CollectionLiterals.<String>newArrayList();
-      Vector<String> _dependencies = DependencyData.getDependencies(project);
+      IDependencyProvider _defaultDependencyProvider = CorePlugin.getDefaultDependencyProvider();
+      Vector<String> _dependencies = _defaultDependencyProvider.getDependencies(project);
       for (final String dependency : _dependencies) {
         {
           final File dependencyFile = new File(dependency);

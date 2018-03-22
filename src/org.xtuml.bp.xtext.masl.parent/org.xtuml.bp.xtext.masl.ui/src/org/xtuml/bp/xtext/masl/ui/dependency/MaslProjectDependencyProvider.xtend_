@@ -2,19 +2,19 @@ package org.xtuml.bp.xtext.masl.ui.dependency
 
 import com.google.inject.Inject
 import com.google.inject.Singleton
+import java.io.File
+import java.io.FileFilter
 import java.util.Map
 import java.util.Set
+import org.apache.log4j.Logger
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
-import org.xtuml.bp.core.common.DependencyData
+import org.xtuml.bp.core.CorePlugin
 import org.xtuml.bp.xtext.masl.dependency.MaslDependencyProvider
 
 import static org.eclipse.xtext.ui.XtextProjectHelper.*
 import static org.xtuml.bp.xtext.masl.lib.MASLContainerManager.*
-import java.io.File
-import java.io.FileFilter
-import org.apache.log4j.Logger
 
 @Singleton
 class MaslProjectDependencyProvider {
@@ -26,6 +26,7 @@ class MaslProjectDependencyProvider {
 
     private Map<IProject, Set<String>> projectDependencies  // set of all dependencies for a given project
     private Map<String, Set<IProject>> referringProjects    // set of all projects referring to a given dependency
+    private Map<IProject, Integer> dependencyVersions       // keep track of the versions of each dependency
     
     @Inject MaslDependencyProvider internalDependencyProvider
     
@@ -36,8 +37,12 @@ class MaslProjectDependencyProvider {
         val dependencyUriHandles = internalDependencyProvider.dependencyUriHandles
         if ( null == projectDependencies ) projectDependencies = newHashMap
         if ( null == referringProjects ) referringProjects = newHashMap
+        if ( null == dependencyVersions ) dependencyVersions = newHashMap
         for ( project : ResourcesPlugin.workspace.root.projects.filter[open && hasNature(NATURE_ID)] ) {
-            if ( true ) {  // if dependency file changed
+            if ( !dependencyVersions.containsKey( project ) ) dependencyVersions.put( project, -1 )
+            val dependencyVersion = CorePlugin.defaultDependencyProvider.dependenciesChanged( project, dependencyVersions.get( project ) )
+            if ( dependencyVersion > 0 ) {
+                dependencyVersions.put( project, dependencyVersion )
                 val projectDeps = newHashSet
                 val oldProjectDeps = projectDependencies.put( project, projectDeps )
                 // remove old project dependencies
@@ -74,7 +79,7 @@ class MaslProjectDependencyProvider {
     
     def private getValidDependencies( IProject project ) {
         val validDependencies = newArrayList
-        for ( dependency : DependencyData::getDependencies( project ) ) {
+        for ( dependency : CorePlugin.defaultDependencyProvider.getDependencies( project ) ) {
             val dependencyFile = new File( dependency )
             if ( dependencyFile.exists && dependencyFile.file && dependency.endsWith( "." + DEPENDENCY_FILE_EXTENSION ) )
                 validDependencies += dependency
