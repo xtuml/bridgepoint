@@ -5,49 +5,110 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.CorePlugin;
 
 public class DependencyData implements IDependencyProvider {
 
-    private static final String DEPENDENCY_FILE = "/.dependencies";
+    private static final String DEPENDENCY_FILE = ".dependencies";
+    private static final String PATH_SEPARATOR = "/";
+
     private static DependencyData defaultInstance = null;
 
-    private int versionId;
+    private Map<IProject, Integer> versionIds;
     
     private DependencyData() {
-    	versionId = 0;
-	}
+        versionIds = new HashMap<>();
+        ResourcesPlugin.getWorkspace().addResourceChangeListener( new DependencyFileChangeListener() );
+    }
 
+    /**
+     * @param project Project handle for which to get dependencies
+     * @return Array of dependencies with variables translated to actual values 
+     */
     @Override
     public Vector<String> getDependencies( IProject project ) {
         return doGetDependencies( project );
     }
 
+    /**
+     * @param project Project handle for which to get dependencies
+     * @return Array of raw dependencies with variables left untranslated 
+     */
     @Override
     public Vector<String> getRawDependencies(IProject project) {
         return doGetRawDependencies( project );
     }
 
+    /**
+     * @param project Project handle for which to get dependencies
+     * @param updatedDeps Array of dependencies to store
+     * Save modified dependencies
+     */
     @Override
     public void setDependencies( IProject project, String[] updatedDeps ) {
-        persist( project, updatedDeps );
+        if ( null != project ) {
+            incrementVersionId( project );
+            persist( project, updatedDeps );
+        }
     }
 
+    /**
+     * @param project Project handle for which to check dependency version
+     * @param versionId integer ID of the version to check against
+     * @return If the current version of the dependencies matches the versionId
+     *         passed in, -1 is returned. If they do not match, a positive integer is
+     *         returned which represents the current version of the dependencies.
+     */
     @Override
     public int dependenciesChanged( IProject project, int versionId ) {
-        return ++this.versionId;
+        if ( null == project ) return -1;
+        else {
+            if ( versionIds.containsKey( project ) ) {
+                final int currentVersionId = getVersionId( project );
+                if ( currentVersionId == versionId ) return -1;
+                else return currentVersionId;
+            }
+            else {
+                initializeVersionId( project );
+                return 1;
+            }
+        }
     }
     
     public static DependencyData getDefaultInstance() {
-    	if ( null == defaultInstance ) defaultInstance = new DependencyData();
-    	return defaultInstance;
+        if ( null == defaultInstance ) defaultInstance = new DependencyData();
+        return defaultInstance;
+    }
+    
+    private synchronized int getVersionId( IProject project ) {
+        return versionIds.get( project );
+    }
+    
+    private synchronized void initializeVersionId( IProject project ) {
+        // initialize version id to 1
+        versionIds.put( project, 1 );
+    }
+
+    private synchronized void incrementVersionId( IProject project ) {
+        if ( versionIds.containsKey( project ) ) {
+            versionIds.put( project, versionIds.get( project ) + 1 );
+        }
+        else initializeVersionId( project );
     }
     
     // Read the feature data from the file on disk.  Populate it into an
@@ -56,7 +117,7 @@ public class DependencyData implements IDependencyProvider {
         Scanner inFile = new Scanner("");
         
         try {
-            inFile = new Scanner(new FileReader(project.getLocation().toString() + DEPENDENCY_FILE));
+            inFile = new Scanner(new FileReader(project.getLocation().toString() + PATH_SEPARATOR + DEPENDENCY_FILE));
             inFile.useDelimiter("\\r|\\n");
         } catch (FileNotFoundException fnfe) {
             // Don't throw an error.  User may never have created the file yet.
@@ -95,7 +156,7 @@ public class DependencyData implements IDependencyProvider {
                 populateDependencies(project, dependencyList, commentList);
             }
             
-            FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + DEPENDENCY_FILE);
+            FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + PATH_SEPARATOR + DEPENDENCY_FILE);
             PrintStream stream = new PrintStream(fout);
             
             // Persist the new dependencies
@@ -171,6 +232,28 @@ public class DependencyData implements IDependencyProvider {
         }
 
         return dependencyList; 
+    }
+    
+    private class DependencyFileChangeListener implements IResourceChangeListener, IResourceDeltaVisitor {
+        
+        @Override
+        public void resourceChanged( IResourceChangeEvent evt ) {
+            if ( IResourceChangeEvent.POST_CHANGE == evt.getType() ) {
+                try {
+                    evt.getDelta().accept( this );
+                } catch (CoreException e) {}
+            }
+        }
+
+        @Override
+        public boolean visit( IResourceDelta delta ) throws CoreException {
+            if ( delta.getResource().getProjectRelativePath().equals( new Path( DEPENDENCY_FILE ) ) ) {
+                incrementVersionId( delta.getResource().getProject() );
+                return false;
+            }
+            else return true;
+        }
+        
     }
 
 }
