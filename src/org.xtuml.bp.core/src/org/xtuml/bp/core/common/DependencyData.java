@@ -62,8 +62,13 @@ public class DependencyData implements IDependencyProvider {
     @Override
     public void setDependencies( IProject project, String[] updatedDeps ) {
         if ( null != project ) {
-            incrementVersionId( project );
             persist( project, updatedDeps );
+            IResource dependenciesResource = project.getFile( DEPENDENCY_FILE );
+            if ( null != dependenciesResource ) {
+                try {
+                    dependenciesResource.refreshLocal( IResource.DEPTH_INFINITE, null );
+                } catch (CoreException e) {}
+            }
         }
     }
 
