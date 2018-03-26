@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.osgi.service.prefs.Preferences;
-import org.xtuml.bp.core.common.DependencyData;
+import org.xtuml.bp.core.CorePlugin;
 
 public class BridgePointProjectDependenciesPreferences extends
 		BridgePointProjectPreferences {
@@ -195,7 +195,7 @@ public class BridgePointProjectDependenciesPreferences extends
 
 	@Override
 	protected void syncUIWithPreferences() {
-		Vector<String> curDeps = DependencyData.getRawDependencies(project);
+		Vector<String> curDeps = CorePlugin.getDefaultDependencyProvider().getRawDependencies(project);
 		for (String curDep : curDeps) {
 			dependencyListCtrl.add(curDep);
 		}
@@ -203,7 +203,7 @@ public class BridgePointProjectDependenciesPreferences extends
 
 	@Override
 	protected void syncPreferencesWithUI() {
-		DependencyData.persist(project, dependencyListCtrl.getItems());
+		CorePlugin.getDefaultDependencyProvider().setDependencies(project, dependencyListCtrl.getItems());
 	}
 
 }

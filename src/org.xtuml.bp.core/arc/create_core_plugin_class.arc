@@ -113,6 +113,8 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceChangeTracker;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.ActionFile;
+import org.xtuml.bp.core.common.DependencyData;
+import org.xtuml.bp.core.common.IDependencyProvider;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.AbstractStreamExportFactory;
@@ -1271,6 +1273,10 @@ public class CorePlugin extends AbstractUIPlugin {
 						..getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 				projectNode.removePreferenceChangeListener(listener);
 			}
+		}
+		
+		public static IDependencyProvider getDefaultDependencyProvider() {
+		    return DependencyData.getDefaultInstance();
 		}
 }
 .end function
