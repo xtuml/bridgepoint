@@ -3,13 +3,16 @@
  */
 package org.xtuml.bp.xtext.masl.scoping
 
+import com.google.common.base.Predicate
 import com.google.inject.Inject
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.impl.FilteringScope
 import org.eclipse.xtext.scoping.impl.MapBasedScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.xtuml.bp.xtext.masl.MASLExtensions
@@ -17,14 +20,20 @@ import org.xtuml.bp.xtext.masl.lib.MASLLibraryProvider
 import org.xtuml.bp.xtext.masl.masl.behavior.AssignStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.AttributeReferential
 import org.xtuml.bp.xtext.masl.masl.behavior.BehaviorPackage
+import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
+import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.CharacteristicCall
 import org.xtuml.bp.xtext.masl.masl.behavior.CodeBlock
+import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 import org.xtuml.bp.xtext.masl.masl.behavior.CreateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.Equality
 import org.xtuml.bp.xtext.masl.masl.behavior.Expression
 import org.xtuml.bp.xtext.masl.masl.behavior.FindExpression
 import org.xtuml.bp.xtext.masl.masl.behavior.ForStatement
 import org.xtuml.bp.xtext.masl.masl.behavior.GenerateStatement
+import org.xtuml.bp.xtext.masl.masl.behavior.LoopVariable
 import org.xtuml.bp.xtext.masl.masl.behavior.NavigateExpression
+import org.xtuml.bp.xtext.masl.masl.behavior.RelationalExp
 import org.xtuml.bp.xtext.masl.masl.behavior.SimpleFeatureCall
 import org.xtuml.bp.xtext.masl.masl.behavior.SortOrderFeature
 import org.xtuml.bp.xtext.masl.masl.behavior.TerminatorActionCall
@@ -48,6 +57,7 @@ import org.xtuml.bp.xtext.masl.masl.structure.TerminatorDefinition
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionOption
 import org.xtuml.bp.xtext.masl.masl.structure.TransitionRow
 import org.xtuml.bp.xtext.masl.masl.types.StructureComponentDefinition
+import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
 import org.xtuml.bp.xtext.masl.typesystem.CollectionType
 import org.xtuml.bp.xtext.masl.typesystem.EnumType
 import org.xtuml.bp.xtext.masl.typesystem.InstanceType
@@ -61,12 +71,6 @@ import org.xtuml.bp.xtext.masl.typesystem.TypeParameterResolver
 import static org.eclipse.xtext.scoping.Scopes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.xtuml.bp.xtext.masl.typesystem.BuiltinType
-import org.xtuml.bp.xtext.masl.masl.behavior.Equality
-import org.xtuml.bp.xtext.masl.masl.behavior.RelationalExp
-import org.xtuml.bp.xtext.masl.masl.behavior.CaseAlternative
-import org.xtuml.bp.xtext.masl.masl.behavior.CaseStatement
-import org.xtuml.bp.xtext.masl.masl.behavior.CreateArgument
 
 /**
  * This class contains custom scoping description.
@@ -227,7 +231,14 @@ class MASLScopeProvider extends AbstractMASLScopeProvider {
 	
 	private def dispatch IScope getFeatureScope(SimpleFeatureCall call) {
 		if(call.receiver == null) {
-			val localFeatureScope = call.getLocalSimpleFeatureScope(delegate.getScope(call, featureCall_Feature), call.eContainmentFeature, false) 
+            val delegateScope = delegate.getScope(call, featureCall_Feature)
+            // filter out all loop variables for 'for' loops. they will be added back in in a context where they are valid
+            val filteredScope = new FilteringScope( delegateScope, new Predicate<IEObjectDescription>() {
+                override apply( IEObjectDescription input ) {
+                    return !(input.EObjectOrProxy instanceof LoopVariable)
+                }
+            })
+            val localFeatureScope = call.getLocalSimpleFeatureScope(filteredScope, call.eContainmentFeature, false) 
 			val parent = call.eContainer
 			switch parent {
 				AttributeDefinition case call == parent.defaultValue: 
