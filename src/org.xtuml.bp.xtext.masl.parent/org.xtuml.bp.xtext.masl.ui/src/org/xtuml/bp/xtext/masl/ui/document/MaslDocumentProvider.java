@@ -206,6 +206,16 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
     return _xblockexpression;
   }
   
+  /**
+   * The following 3 variables are used to assure the call into
+   * BridgePoint to persist a MASL action body is not blocked on the
+   * Workspace monitor lock. What happens is MASLSnipetEditor.java::doSave 
+   * class calls doSave
+   */
+  private volatile boolean bridgePointSave;
+  private AbstractModelElementPropertyEditorInput inputElement;
+  private String elementDefinition;
+  
   @Override
   protected void doSaveDocument(final IProgressMonitor monitor, final Object element, final IDocument document, final boolean overwrite) throws CoreException {
     try {
@@ -235,21 +245,29 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
         } else {
           _xifexpression = editable;
         }
-        final String newDefinition = _xifexpression;
-        Display _default = Display.getDefault();
-        final Runnable _function = () -> {
-          try {
-            ((AbstractModelElementPropertyEditorInput)element).setPropertyValue(newDefinition);
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
-        };
-        _default.asyncExec(_function);
+        elementDefinition = _xifexpression;
+        inputElement = (AbstractModelElementPropertyEditorInput)element;
+        bridgePointSave = true;
       } else {
         super.doSaveDocument(monitor, element, document, overwrite);
-      }
+      } 
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
+  
+	@Override
+	protected void executeOperation(
+			org.eclipse.ui.texteditor.AbstractDocumentProvider.DocumentProviderOperation operation,
+			org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException 
+	{
+		// @see bridgePointSave for the description of why this exists
+		bridgePointSave = false;
+		super.executeOperation(operation, monitor);
+
+		if (bridgePointSave) {
+			((AbstractModelElementPropertyEditorInput)inputElement).setPropertyValue(elementDefinition);
+		}
+		
+	}
 }
