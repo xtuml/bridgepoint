@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Compare Plug-in
 Bundle-SymbolicName: org.xtuml.bp.compare; singleton:=true
-Bundle-Version: 6.11.0.qualifier
+Bundle-Version: 6.12.0.qualifier
 Bundle-ClassPath: compare.jar
 Bundle-Activator: org.xtuml.bp.compare.ComparePlugin
 Bundle-Vendor: xtUML.org
