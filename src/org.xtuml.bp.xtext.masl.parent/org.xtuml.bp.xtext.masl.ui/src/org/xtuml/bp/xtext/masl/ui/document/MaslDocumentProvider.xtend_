@@ -91,6 +91,16 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			default: ''
 		}
 	}
+
+   /**
+    * The following 3 variables are used to assure the call into
+    * BridgePoint to persist a MASL action body is not blocked on the
+    * Workspace monitor lock. 
+	* @see https://support.onefact.net/issues/9847
+    */
+	private volatile boolean bridgePointSave;
+	private AbstractModelElementPropertyEditorInput inputElement;
+	private String elementDefinition;
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		if(element instanceof AbstractModelElementPropertyEditorInput) {
@@ -101,11 +111,27 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 					editable.substring(0, editable.length - 1)
 				else
 					editable
-			Display.^default.asyncExec [
-	            element.propertyValue = newDefinition
-			]
+			elementDefinition = _xifexpression;
+			inputElement = (AbstractModelElementPropertyEditorInput)element;
+			bridgePointSave = true;
 		} else {
 			super.doSaveDocument(monitor, element, document, overwrite)
 		}
 	}
+	
+  
+	override protected void executeOperation(
+			org.eclipse.ui.texteditor.AbstractDocumentProvider.DocumentProviderOperation operation,
+			org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException 
+	{
+		// @see bridgePointSave for the description of why this exists
+		bridgePointSave = false;
+		super.executeOperation(operation, monitor);
+
+		if (bridgePointSave) {
+			((AbstractModelElementPropertyEditorInput)inputElement).setPropertyValue(elementDefinition);
+		}
+		
+	}
+	
 }
