@@ -195,7 +195,17 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
   /**
    * The following 3 variables are used to assure the call into
    * BridgePoint to persist a MASL action body is not blocked on the
-   * Workspace monitor lock.
+   * Workspace monitor lock. The boolean, bridgePointSave, is used to
+   * flag that a documentSave was requested in the MASL editor. This
+   * request comes to this class via a save operation handled in executeOperation().
+   * executeOperation()'s default implementation is to create a workspace
+   * lock and call doSaveDocument(). BridgePoint's save implementation
+   * involves a BridgePoint transaction which creates a thread to complete the
+   * transaction, it deadlocks if this thread already holds the workspace lock.
+   * Therefore, we simply have this class's doSaveDcoument() flag that a save
+   * has been requested, and allow the processing to occur back in
+   * executeOperation() when there is no lock.
+   * 
    * @see https://support.onefact.net/issues/9847
    */
   private volatile boolean bridgePointSave;
@@ -207,6 +217,7 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
   @Override
   protected void doSaveDocument(final IProgressMonitor monitor, final Object element, final IDocument document, final boolean overwrite) throws CoreException {
     try {
+      this.bridgePointSave = false;
       if ((element instanceof AbstractModelElementPropertyEditorInput)) {
         String _prefix = this.getPrefix(((AbstractModelElementPropertyEditorInput)element));
         final int prefixLength = _prefix.length();
