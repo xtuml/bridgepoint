@@ -64,6 +64,8 @@ Steps
   - Commit and push the files changed with this work.  Record the changed files
    list in the commit message.  As always, commit against the issue for this
    task.
+     - Make sure to commit updated files from the `releng/` folder under the 
+       repository and not just the updated files under the `src/` folder.
 
   - Create a pull request for the branch.
 

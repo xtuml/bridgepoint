@@ -12,87 +12,13 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-6.12.0">What's New in BridgePoint 6.12.0</h1>
+<h1 id="whats-new-in-bridgepoint-6.13.0">What's New in BridgePoint 6.13.0</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
-<li>New MASL Features</li>
-<li>MASL Bug Fixes</li>
-<li>MASL Example Models</li>
-<li>Set Operations</li>
-<li>Documentation Updates</li>
+<li>Engineering Build</li>
 </ul>
 <hr />
-<h2 id="new-masl-features">New MASL Features</h2>
-<h4 id="dependency-manager">Dependency Manager</h4>
-<p>BridgePoint now supports configuring project dependencies via the Project Preferences.</p>
-<p><img src="../Reference/UserInterface/xtUMLModeling/Preferences/ProjDependencies.png" alt="Dependencies" /></p>
-<p>The dependencies are stored under the project in a file named <code>.dependencies</code>. Additional<br />
-help information is available inside the tool at <code>Help &gt; BridgePoint UML Suite Help &gt; Reference &gt; User Interface &gt; xtUML Modeling Perspective &gt; Preferences &gt; Project Preferences &gt; Project Dependencies</code>.</p>
-<p>BridgePoint uses the configured dependencies to locate <code>*.int</code> files that provide additional<br />
-MASL data to validate MASL action bodies.</p>
-<h4 id="coverage-tool">Coverage Tool</h4>
-<p>This work begins to measure how much of the MASL language is being used by an input set of<br />
-models. Coverage is based upon the degree to which meta-model elements are populated. Namely,<br />
-after an application model has been loaded into the model of MASL structure (meta-model), the<br />
-classes and associations are queried and tallied. A ratio of model elements employed over the<br />
-total number of possible elements provides a repeatable measurement by which to evaluate coverage.</p>
-<p>The coverage report is written during the MASL export process to <code>&lt;project&gt;/gen/code_generation/masl_output.txt</code></p>
-<p><img src="coverage_report.png" alt="coverage report" /></p>
-<p>The report shows what classes and relationships are used (indicated by <code>*</code>) or not (indicated by space). The<br />
-name of the meta-model element or relationship is shown in the column underneath the indicator.</p>
-<h2 id="masl-bug-fixes">MASL Bug Fixes</h2>
-<p>Numerous bug fixes are included in this release. The complete list is available in the <a href="../ReleaseNotes/ReleaseNotes.html">Release Notes</a>.</p>
-<p>Highlights include:</p>
-<ul>
-<li><a href="https://support.onefact.net/issues/10120">10120</a>: Valid syntax causes problems with parser and export (MASL)</li>
-<li><a href="https://support.onefact.net/issues/10044">10044</a>: Polymorphic creation events cause round trip to crash</li>
-<li><a href="https://support.onefact.net/issues/10132">10132</a>: Malformed for loop causes tool hang</li>
-<li><a href="https://support.onefact.net/issues/10139">10139</a>: Published interface operations have wrong dialect in MASL mode</li>
-<li><a href="https://support.onefact.net/issues/10156">10156</a>: Support export of public EDTs for MASL</li>
-</ul>
-<h2 id="masl-example-models">MASL Example Models</h2>
-<p>Two new MASL example models are now available. The models are published in the public BridgePoint<br />
-models repository on github.</p>
-<p>The <a href="https://github.com/xtuml/models/tree/pei_masl/VandMC_testing/mctest/pei">PEI model</a> exercises classes, associations, and MASL action language constructs.</p>
-<p>The <a href="https://github.com/xtuml/models/tree/master/masl/calculator">calculator model</a> demonstrates MASL domain and MASL project modeling following the recommended<br />
-idiom. It is translatable and compilable with the MASL model compiler.</p>
-<h2 id="set-operations">Set Operations</h2>
-<p>BridgePoint OAL now supports operations on instance sets.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Operator(s)</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>| , +</td>
-<td>set union</td>
-</tr>
-<tr class="even">
-<td>&amp;</td>
-<td>set intersection</td>
-</tr>
-<tr class="odd">
-<td>-</td>
-<td>set difference</td>
-</tr>
-<tr class="even">
-<td>^</td>
-<td>set symmetric difference</td>
-</tr>
-</tbody>
-</table>
-<p>Instance set expressions are used for set arithmetic. Instance reference and instance reference<br />
-set types are valid operands for instance set expressions. During evaluation, an operand of<br />
-instance reference type is considered to be an instance set containing exactly one instance.</p>
-<p><img src="../Reference/OAL/Expressions/union.png" alt="union.png" /></p>
-<p>Additional help documentation is available inside the tool via <code>Help &gt; BridgePoint UML Suite Help &gt; Reference &gt; OAL Reference &gt; Expressions</code>.</p>
-<h2 id="documentation-updates">Documentation Updates</h2>
-<p>The MASL Modeling and Conversion Guide is updated to reflect new functionality and for overall<br />
-cleanup and improvement.</p>
-<p>The entire help documentation for BridgePoint preferences is rewritten to bring it up to date<br />
-for available workspace and project preferences.</p>
+<h2 id="engineering-build">Engineering Build</h2>
+<p>This is an engineering build of BridgePoint. It has undergone limited testing.</p>
 </body>
 </html>

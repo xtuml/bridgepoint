@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Debug UI Plug-in
 Bundle-SymbolicName: org.xtuml.bp.debug.ui; singleton:=true
-Bundle-Version: 6.12.0.qualifier
+Bundle-Version: 6.13.0.qualifier
 Bundle-ClassPath: verifier.jar
 Bundle-Activator: org.xtuml.bp.debug.ui.BPDebugUIPlugin
 Bundle-Vendor: xtUML.org
