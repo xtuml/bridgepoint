@@ -1,36 +1,22 @@
 package org.xtuml.bp.xtext.masl.ui.document;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.AbstractDocumentProvider;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.UserDataType_c;
-import org.xtuml.bp.core.common.IModelChangeListener;
-import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
-import org.xtuml.bp.ui.text.masl.MASLEditorInputFactory;
 
 @SuppressWarnings("all")
 public class MaslDocumentProvider extends XtextDocumentProvider {
@@ -209,12 +195,14 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
   /**
    * The following 3 variables are used to assure the call into
    * BridgePoint to persist a MASL action body is not blocked on the
-   * Workspace monitor lock. What happens is MASLSnipetEditor.java::doSave 
-   * class calls doSave
+   * Workspace monitor lock.
+   * @see https://support.onefact.net/issues/9847
    */
   private volatile boolean bridgePointSave;
-  private AbstractModelElementPropertyEditorInput inputElement;
-  private String elementDefinition;
+  
+  private AbstractModelElementPropertyEditorInput bridgePointSave_inputElement;
+  
+  private String bridgePointSave_elementDefinition;
   
   @Override
   protected void doSaveDocument(final IProgressMonitor monitor, final Object element, final IDocument document, final boolean overwrite) throws CoreException {
@@ -245,29 +233,24 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
         } else {
           _xifexpression = editable;
         }
-        elementDefinition = _xifexpression;
-        inputElement = (AbstractModelElementPropertyEditorInput)element;
-        bridgePointSave = true;
+        final String newDefinition = _xifexpression;
+        this.bridgePointSave_elementDefinition = newDefinition;
+        this.bridgePointSave_inputElement = ((AbstractModelElementPropertyEditorInput) element);
+        this.bridgePointSave = true;
       } else {
         super.doSaveDocument(monitor, element, document, overwrite);
-      } 
+      }
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
-	@Override
-	protected void executeOperation(
-			org.eclipse.ui.texteditor.AbstractDocumentProvider.DocumentProviderOperation operation,
-			org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException 
-	{
-		// @see bridgePointSave for the description of why this exists
-		bridgePointSave = false;
-		super.executeOperation(operation, monitor);
-
-		if (bridgePointSave) {
-			((AbstractModelElementPropertyEditorInput)inputElement).setPropertyValue(elementDefinition);
-		}
-		
-	}
+  @Override
+  protected void executeOperation(final AbstractDocumentProvider.DocumentProviderOperation operation, final IProgressMonitor monitor) throws CoreException {
+    this.bridgePointSave = false;
+    super.executeOperation(operation, monitor);
+    if (this.bridgePointSave) {
+      ((AbstractModelElementPropertyEditorInput) this.bridgePointSave_inputElement).setPropertyValue(this.bridgePointSave_elementDefinition);
+    }
+  }
 }
