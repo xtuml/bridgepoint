@@ -95,7 +95,17 @@ class MaslDocumentProvider extends XtextDocumentProvider {
    /**
     * The following 3 variables are used to assure the call into
     * BridgePoint to persist a MASL action body is not blocked on the
-    * Workspace monitor lock. 
+    * Workspace monitor lock. The boolean, bridgePointSave, is used to 
+    * flag that a documentSave was requested in the MASL editor. This 
+    * request comes to this class via a save operation handled in executeOperation(). 
+    * executeOperation()'s default implementation is to create a workspace
+    * lock and call doSaveDocument(). BridgePoint's save implementation 
+    * involves a BridgePoint transaction which creates a thread to complete the
+    * transaction, it deadlocks if this thread already holds the workspace lock.
+    * Therefore, we simply have this class's doSaveDcoument() flag that a save
+    * has been requested, and allow the processing to occur back in 
+    * executeOperation() when there is no lock.
+    * 
 	* @see https://support.onefact.net/issues/9847
     */
 	private volatile boolean bridgePointSave;
@@ -103,6 +113,7 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 	private String bridgePointSave_elementDefinition;
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
+		bridgePointSave = false;
 		if(element instanceof AbstractModelElementPropertyEditorInput) {
 			// we have the workspace lock which is makes the transaction manager deadlock
 			val prefixLength = element.prefix.length
@@ -126,7 +137,7 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			org.eclipse.ui.texteditor.AbstractDocumentProvider.DocumentProviderOperation operation,
 			org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException 
 	{
-		// @see bridgePointSave for the description of why this exists
+		// @see bridgePointSave declaration for the description of why this exists
 		bridgePointSave = false;
 		super.executeOperation(operation, monitor);
 
