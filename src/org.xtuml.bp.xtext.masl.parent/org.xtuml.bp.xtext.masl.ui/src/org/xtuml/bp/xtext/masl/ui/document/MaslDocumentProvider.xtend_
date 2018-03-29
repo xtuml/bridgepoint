@@ -99,8 +99,8 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 	* @see https://support.onefact.net/issues/9847
     */
 	private volatile boolean bridgePointSave;
-	private AbstractModelElementPropertyEditorInput inputElement;
-	private String elementDefinition;
+	private AbstractModelElementPropertyEditorInput bridgePointSave_inputElement;
+	private String bridgePointSave_elementDefinition;
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
 		if(element instanceof AbstractModelElementPropertyEditorInput) {
@@ -108,11 +108,13 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			val prefixLength = element.prefix.length
 			val editable = document.get(prefixLength, document.length - element.suffix.length - prefixLength).trim
 			val newDefinition = if(element.modelElement instanceof UserDataType_c && editable.endsWith(';')) 
+				{
 					editable.substring(0, editable.length - 1)
-				else
-					editable
-			elementDefinition = _xifexpression;
-			inputElement = (AbstractModelElementPropertyEditorInput)element;
+				} else {
+					editable	
+				}
+			bridgePointSave_elementDefinition = newDefinition;
+			bridgePointSave_inputElement = (element as AbstractModelElementPropertyEditorInput);
 			bridgePointSave = true;
 		} else {
 			super.doSaveDocument(monitor, element, document, overwrite)
@@ -129,7 +131,7 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 		super.executeOperation(operation, monitor);
 
 		if (bridgePointSave) {
-			((AbstractModelElementPropertyEditorInput)inputElement).setPropertyValue(elementDefinition);
+			(this.bridgePointSave_inputElement as AbstractModelElementPropertyEditorInput).setPropertyValue(this.bridgePointSave_elementDefinition);
 		}
 		
 	}
