@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1 id="bridgepoint-xtuml-release-notes">BridgePoint xtUML Release Notes</h1>
-<p>Release 6.11.0</p>
+<p>Release 6.12.0</p>
 <h2 id="license">License</h2>
 <p>BridgePoint is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License Agreement</a>.</p>
 <h2 id="system-requirements">System Requirements</h2>
@@ -27,7 +27,7 @@
 <tbody>
 <tr class="odd">
 <td>Operating System</td>
-<td>Windows 7/8/10, Linux variants, MacOS</td>
+<td>Linux, MacOS, Windows</td>
 </tr>
 <tr class="even">
 <td>*Eclipse</td>
@@ -39,47 +39,25 @@
 </tr>
 </tbody>
 </table>
-<p>*(supplied by installer)</p>
+<p>*(supplied by installer, except JVM not supplied on MacOS)</p>
 <h2 id="general-notes">General Notes</h2>
 <ul>
-<li><p>A summary of the release highlights and new functionality is available on the<br />
-<a href="../WhatsNew/WhatsNew.html">What's New</a> page.</p></li>
-<li><p><strong>IMPORTANT</strong>: BridgePoint is completely open source software.<br />
-Please see <a href="http://xtuml.org">xtUML.org</a> and <a href="http://onefact.net">onefact.net</a><br />
+<li><p>A summary of the release highlights and new functionality is available on the <a href="../WhatsNew/WhatsNew.html">What's New</a> page.</p></li>
+<li><p><strong>IMPORTANT</strong>: BridgePoint is completely open source software. Please see <a href="http://xtuml.org">xtUML.org</a> and <a href="http://onefact.net">onefact.net</a><br />
 for ongoing development and support of BridgePoint.</p></li>
-<li><p>BridgePoint ships as a zip file, similar to standard eclipse packages. Users<br />
-who wish to create desktop shortcuts to start BridgePoint should set the<br />
-shortcut to start <code>&lt;install dir&gt;/bridgepoint</code>.</p></li>
-<li><p>BridgePoint supports two different action languages: OAL and MASL. The default<br />
-is set via workspace preferences at xtUML &gt; Action Language &gt; Default Action Language Dialect.<br />
-In this release the default is set to OAL.</p></li>
+<li><p>BridgePoint ships as a zip file, similar to standard eclipse packages. Users who wish to<br />
+create desktop shortcuts to start BridgePoint should set the shortcut to start <code>&lt;install dir&gt;/bridgepoint</code>.</p></li>
+<li><p>BridgePoint supports two different action languages: OAL and MASL. The default is set via workspace<br />
+preferences at <code>xtUML &gt; Action Language &gt; Default Action Language Dialect</code>. The default is set to OAL.</p></li>
 </ul>
 <h2 id="interoperability-with-previous-releases">Interoperability with Previous Releases</h2>
-<p>BridgePoint 6.10 is compatible with workspaces and projects created with prior<br />
-versions back to BridgePoint 5.0. However, after opening the model in this version<br />
-a modeler will not be able to open the model in a prior version.</p>
+<p>BridgePoint 6.12 is compatible with workspaces and projects created with prior versions back to<br />
+BridgePoint 5.0. However, after opening the model in this version a modeler will not be able to<br />
+open the model in a prior version.</p>
 <h2 id="changelog-roadmap">Changelog / Roadmap</h2>
 <p>For a complete list of changes for this and all completed BridgePoint Pro releases see the<br />
 <a href="https://support.onefact.net/projects/bridgepoint/roadmap?utf8=%E2%9C%93&amp;completed=1">BridgePoint roadmap</a> in the issue tracking system.</p>
 <h2 id="closed-issues">Closed Issues</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Issue</th>
-<th>Subject</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/10047">10047</a></td>
-<td>v6.11 kickoff</td>
-</tr>
-</tbody>
-</table>
-<h2 id="known-issues-and-feature-requests">Known Issues and Feature Requests</h2>
-<p>The BridgePoint support system is hosted at <a href="http://support.onefact.net" class="uri">http://support.onefact.net</a>. Please check here for known issues and to<br />
-submit bug reports and requests for new features. This issue tracker contains <a href="https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&amp;set_filter=1&amp;f%5B%5D=status_id&amp;op%5Bstatus_id%5D=%3D&amp;v%5Bstatus_id%5D%5B%5D=1&amp;v%5Bstatus_id%5D%5B%5D=7&amp;v%5Bstatus_id%5D%5B%5D=2&amp;f%5B%5D=&amp;c%5B%5D=project&amp;c%5B%5D=status&amp;c%5B%5D=subject&amp;c%5B%5D=fixed_version&amp;c%5B%5D=due_date&amp;group_by=&amp;t%5B%5D=">all open bugs and feature requests</a>. The<br />
-following list contains specific items of note:</p>
 <table>
 <colgroup>
 <col style="width: 10%" />
@@ -88,19 +66,94 @@ following list contains specific items of note:</p>
 <thead>
 <tr class="header">
 <th>Issue</th>
-<th>Subject and Notes</th>
+<th>Subject</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://support.onefact.net/issues/9773">9773</a></td>
-<td>Parse errors in DeterministicBehaviorTestModel. An older test model now shows parse errors indicating unsynchronized references after load. There have been no similar field reports loading existing models. Users should watch out for similar behavior and file a report if one is found.</td>
+<td><a href="https://support.onefact.net/issues/8287">8287</a></td>
+<td>Add support for instance reference set addition</td>
 </tr>
 <tr class="even">
-<td><a href="https://support.onefact.net/issues/9924">9924</a></td>
-<td>Port Reference Names Missing due to incomplete upgrade of CL_POR instances (workaround exists)</td>
+<td><a href="https://support.onefact.net/issues/9021">9021</a></td>
+<td>Improve mechanism for inter-domain references - Ensure .int (interface) files are provided to MASL editor</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/9322">9322</a></td>
+<td>Document types</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10042">10042</a></td>
+<td>Change default for &quot;Allow operations in where clause&quot; preference</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10044">10044</a></td>
+<td>Polymorphic creation events cause round trip to crash</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10046">10046</a></td>
+<td>Update the developer virtual machine</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10052">10052</a></td>
+<td>Create coverage tool</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10053">10053</a></td>
+<td>PEI Model to MASL</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10107">10107</a></td>
+<td>Issues in calculator test model</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10108">10108</a></td>
+<td>Update MASL Conversion Guide</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10120">10120</a></td>
+<td>Valid syntax causes problems with parser and export (MASL)</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10123">10123</a></td>
+<td>Update Preferences help documentation</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10128">10128</a></td>
+<td>Documentation issue for tables that want to display | operator</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10132">10132</a></td>
+<td>Malformed for loop causes tool hang</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10136">10136</a></td>
+<td>Create calculator MASL reference model</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10139">10139</a></td>
+<td>Published interface operations have wrong dialect in MASL mode</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10150">10150</a></td>
+<td>MC-3020 fails to translate referential attributes of type timestamp and date</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10155">10155</a></td>
+<td>Multiple projects depending on same INT file not working</td>
+</tr>
+<tr class="odd">
+<td><a href="https://support.onefact.net/issues/10156">10156</a></td>
+<td>Support export of public EDTs for MASL</td>
+</tr>
+<tr class="even">
+<td><a href="https://support.onefact.net/issues/10163">10163</a></td>
+<td>v6.12 Release Prep</td>
 </tr>
 </tbody>
 </table>
+<h2 id="known-issues-and-feature-requests">Known Issues and Feature Requests</h2>
+<p>The BridgePoint support system is hosted at <a href="http://support.onefact.net" class="uri">http://support.onefact.net</a>. Please check here for known issues and to<br />
+submit bug reports and requests for new features. This issue tracker contains <a href="https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&amp;set_filter=1&amp;f%5B%5D=status_id&amp;op%5Bstatus_id%5D=%3D&amp;v%5Bstatus_id%5D%5B%5D=1&amp;v%5Bstatus_id%5D%5B%5D=7&amp;v%5Bstatus_id%5D%5B%5D=2&amp;f%5B%5D=&amp;c%5B%5D=project&amp;c%5B%5D=status&amp;c%5B%5D=subject&amp;c%5B%5D=fixed_version&amp;c%5B%5D=due_date&amp;group_by=&amp;t%5B%5D=">all open bugs and feature requests</a>.</p>
 </body>
 </html>
