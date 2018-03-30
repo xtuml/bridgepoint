@@ -27,7 +27,7 @@ The user is unable to provide a reproducable case. However, the user is able to 
 ### 4. Requirements
 
 4.1 Isolate the situation that causes the deadlock/hang.  
-4.2 Make change(s) as need to prevent the deadlock/hang from happening.  
+4.2 Make change(s) as needed to prevent the deadlock/hang from happening.  
 
 ### 5. Design
 
