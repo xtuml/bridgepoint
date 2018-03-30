@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.12.0
+Release 6.13.0
 
 License
 -------
@@ -35,7 +35,7 @@ preferences at `xtUML > Action Language > Default Action Language Dialect`. The 
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.12 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 6.13 is compatible with workspaces and projects created with prior versions back to 
 BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to 
 open the model in a prior version.   
 
@@ -49,26 +49,7 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[8287](https://support.onefact.net/issues/8287) | Add support for instance reference set addition  
-[9021](https://support.onefact.net/issues/9021) | Improve mechanism for inter-domain references - Ensure .int (interface) files are provided to MASL editor  
-[9322](https://support.onefact.net/issues/9322) | Document types  
-[10042](https://support.onefact.net/issues/10042) | Change default for "Allow operations in where clause" preference  
-[10044](https://support.onefact.net/issues/10044) | Polymorphic creation events cause round trip to crash  
-[10046](https://support.onefact.net/issues/10046) | Update the developer virtual machine  
-[10052](https://support.onefact.net/issues/10052) | Create coverage tool  
-[10053](https://support.onefact.net/issues/10053) | PEI Model to MASL  
-[10107](https://support.onefact.net/issues/10107) | Issues in calculator test model  
-[10108](https://support.onefact.net/issues/10108) | Update MASL Conversion Guide  
-[10120](https://support.onefact.net/issues/10120) | Valid syntax causes problems with parser and export (MASL)  
-[10123](https://support.onefact.net/issues/10123) | Update Preferences help documentation  
-[10128](https://support.onefact.net/issues/10128) | Documentation issue for tables that want to display &#124; operator  
-[10132](https://support.onefact.net/issues/10132) | Malformed for loop causes tool hang  
-[10136](https://support.onefact.net/issues/10136) | Create calculator MASL reference model  
-[10139](https://support.onefact.net/issues/10139) | Published interface operations have wrong dialect in MASL mode  
-[10150](https://support.onefact.net/issues/10150) | MC-3020 fails to translate referential attributes of type timestamp and date  
-[10155](https://support.onefact.net/issues/10155) | Multiple projects depending on same INT file not working  
-[10156](https://support.onefact.net/issues/10156) | Support export of public EDTs for MASL  
-[10163](https://support.onefact.net/issues/10163) | v6.12 Release Prep  
+[10168](https://support.onefact.net/issues/10168) | Increment version to 6.13.0   
 
 Known Issues and Feature Requests
 ------
