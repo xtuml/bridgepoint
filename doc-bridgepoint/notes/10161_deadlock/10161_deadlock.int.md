@@ -219,11 +219,13 @@ workspace is setup for MASL model editing.
 * Note that I also set some addtional breakpoint inside the BridgePoint transaction processing, but they were not 
 actually needed to reproduce the problem. The following picture shows the all the breakpoints:  
 ![Breakpoints Set](breakpoints_set_during_calculator_reproduction.png)  
+
 6.4.5 Exit the debug session  
 6.4.6 Launch the debug session  
 6.4.7 In the open state action body, make a change and press <ctrl>-s  
 6.4.7.1 Here is an example of what the action body I edited looked like:  
 ![Action Body Being Edited](calc_Display_state_BeingEdited.png)  
+	
 6.4.8 When the breakpoint is hit, assure that the application is selected in the debugger (NOT JUST THE THREAD), and then select run to continue  
 6.4.9 Repeat 6.4.8 until the the last breakpoitn has been completed and the application is hung. Note that you can step instead of run if you choose, but it is not nessary.  
 
