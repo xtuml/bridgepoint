@@ -243,7 +243,7 @@ class MaslDocumentProvider. Instead of allowing the default implementation for e
 This is a manual test. It shall not be added to permanent testing because it is a race condition 
 and does not provide value as a permanent manual test.  
 
-7.1 Run the in-house reproducable case as described in section 6 and assure the deadlock does nto happen.  
+7.1 Run the in-house reproducible case as described in section 6 and assure the deadlock does not happen.  
 7.2 Provide the fixed version to the user and let them test their case to assure it it resolved.  
 
 ### 8. User Documentation
