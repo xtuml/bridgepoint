@@ -134,7 +134,15 @@ aggravate the problem, the root issue should be able to be reproduced in a singl
 
 
 6.4 Reproduce the problem (if possible)  
-Given the analysis of the problem above, 
+A reproduable case was created. Note however, that the reprodicable case involves running 
+under a BridgePoint development, in debug mode, and setting breakpoints at key loctions in 
+order to aggravate a race condition. The MASL Calculator model was used to reproduce the problem.  
+6.4.1 From a BridgePoint development workspace, launch a debug configuration in a workspace and assure that
+workspace is setup for MASL model editing.  
+6.4.2 Import the MASL Calculator model from the models repository into the debug workspace.  
+6.4.3 Open any state from the calc::Display instance state machine  
+6.4.4 Set breakpoints in MaslDocumentProvider.java::doSaveDocument() on the 
+
 
 6.5 Propose and implement the solution.  
 
