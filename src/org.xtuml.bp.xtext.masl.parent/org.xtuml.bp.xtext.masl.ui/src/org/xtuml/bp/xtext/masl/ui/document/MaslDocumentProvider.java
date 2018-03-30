@@ -206,7 +206,7 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
    * has been requested, and allow the processing to occur back in
    * executeOperation() when there is no lock.
    * 
-   * @see https://support.onefact.net/issues/9847
+   * @see https://support.onefact.net/issues/10161
    */
   private volatile boolean bridgePointSave;
   
