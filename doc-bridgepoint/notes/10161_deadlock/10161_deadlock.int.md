@@ -22,7 +22,7 @@ Give the full path to reference a file.
 
 ### 3. Background
 
-The user is unable to provide a reproducable case. However, the user is able to provide a thread dump.
+The user is unable to provide a reproducable case. However, the user is able to provide a thread dump, and it is attached to the issue [[2.1]](#2.1).  
 
 ### 4. Requirements
 
@@ -60,10 +60,11 @@ org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider(MaslDocumentProvider.ja
 org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider$$Lambda$82/1428658825(null:-1)
 org.eclipse.swt.widgets.RunnableLock(RunnableLock.java:35)
 ...
+</pre>
 
 The above code references MaslDocumentProvider.java:242 which is in the 
 operation MaslDocumentProvider.java::doSaveDocument(). The arrow below shows line 242.
-
+<pre>
         Display _default = Display.getDefault();
         final Runnable _function = () -> {
           try {
@@ -89,11 +90,12 @@ org.eclipse.core.internal.resources.Workspace(Workspace.java:2189)
 org.eclipse.core.internal.resources.Workspace(Workspace.java:2236)
 org.xtuml.bp.core.common.TransactionManager$TransactionEndedJob(TransactionManager.java:706)
 org.eclipse.core.internal.jobs.Worker(Worker.java:55)
+...
+</pre>
 
 The code above references TransactionManager.java:706. TransactionManager.java::TransactionEndedJob::run().
 Below is a code snippet of this with an error pointing to the spot that represent line 706.
-
-
+<pre>
 		public IStatus run(IProgressMonitor monitor) {
 			try {
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -116,19 +118,20 @@ Below is a code snippet of this with an error pointing to the spot that represen
 
 6.2 Examine the flow of control of the code in the area(s) that the stack dump shows a deadlock.  
 
-Examination of the dumps all shows the same situation. The user reports other senarios, but is not sure
-what they all are. The facts we have though lead to the conclusion that the problem is a deadlock between 
-the xtuml xtext editor save and the BridgePoint transaction processing that handles that save opertion 
-(and thus persists the change).  
+Examination of the dumps all shows the same situation. The user reports other senarios but is not sure
+what they all are. The facts we have lead to the conclusion that the problem is a deadlock between 
+the xtuml xtext editor save and the BridgePoint transaction processing that handles that save operation 
+(and thus persists the change). At this time we do not see another senario.  
 
 6.3 From the analysis, determine likely senario(s) for which the deadlock may occur  
  
-The user reports that, is is often that case that they have many xtext editors open when the 
-error occurs. However, flow of control in the code is such that only 1 save is processed at a time, and
-it is handled atomically before moving on to the next save. Therefore, while multiple dirty editors may 
+The user reports that, it is often that case that they have many xtext editors open when the 
+error occurs. However, flow of control in the code is such that only 1 save is processed at a time. The save
+is handled atomically before moving on to the next save. Therefore, while multiple dirty editors may 
 aggravate the problem, the root issue should be able to be reproduced in a single save operation.  
 
 6.3.1 Flow of control for the save operation  
+
 1. User saves a Xtext editor with <ctlr>-s
 2. Thread1: 
     1. MaslSnippetEditor::doSave
@@ -144,15 +147,14 @@ aggravate the problem, the root issue should be able to be reproduced in a singl
 		callback.afterSave(this);
 	}
 	```
-        The super.doSave(progressMonitor) call above is what trigger the next step in this flow.  
+        The super.doSave(progressMonitor) call above is what trigger the next step in this flow.
     2. org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider.java::executeOperation()
 	1. The MaslDocumentProvider.java class extends 
 	org.eclipse.xtext.ui.editor.model.XtextDocumentProvider to implemnt the action to perform against
 	the document. This executeOperation() has a default implention that aquires a worksapce lock
 	via a class WorkspaceModifyDelegatingOperation class and then calls-back into operations in the
 	MaslDocumentProvider class to perform the work. In the case of a save operation, the call-back 
-	goes to XtextDocumentProvider.java::doSaveDocument() which is overridden by 
-	MaslDocumentProvider.java::doSaveDocument.
+	goes to XtextDocumentProvider.java::doSaveDocument() which is overridden by MaslDocumentProvider.java::doSaveDocument.
     3. org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider.java::doSaveDocument()
 	1. This operation perform the call to actually save the document. In the BridgePoint
 	senario we are looking at, the code looks like this:
