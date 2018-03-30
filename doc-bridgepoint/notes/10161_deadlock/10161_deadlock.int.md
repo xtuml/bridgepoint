@@ -42,7 +42,7 @@ The user is unable to provide a reproducable case. However, the user is able to 
 6.1 Analysis of the thread dump(s)   
 
 The thread dumps the user provided, indicate that the deadlock is between the xtuml 
-xtext editor BridgePoint transaction processing. Below are snippetts from the the dump 
+xtext editor, and the BridgePoint transaction processing. Below are snippetts from the the dump 
 and the related code.  
 
 This is the "main thread" (the display thread in Eclipse). You can see that an editor save operation 
@@ -93,7 +93,7 @@ org.eclipse.core.internal.jobs.Worker(Worker.java:55)
 ...
 </pre>
 
-The code above references TransactionManager.java:706. TransactionManager.java::TransactionEndedJob::run().
+The code above references TransactionManager.java:706. This is in TransactionManager.java::TransactionEndedJob::run().
 Below is a code snippet of this with an error pointing to the spot that represent line 706.
 <pre>
 		public IStatus run(IProgressMonitor monitor) {
@@ -118,14 +118,13 @@ Below is a code snippet of this with an error pointing to the spot that represen
 
 6.2 Examine the flow of control of the code in the area(s) that the stack dump shows a deadlock.  
 
-Examination of the dumps all shows the same situation. The user reports other senarios but is not sure
-what they all are. The facts we have lead to the conclusion that the problem is a deadlock between 
-the xtuml xtext editor save and the BridgePoint transaction processing that handles that save operation 
-(and thus persists the change). At this time we do not see another senario.  
+Examination of the dumps all show the same situation. The user reports several possible use-case senarios, 
+but is not sure which lead to the problem. The facts we currently have lead to the conclusion that the 
+problem is a deadlock between the xtuml xtext editor save and the BridgePoint transaction processing that handles that save operation (and thus persists the change). At this time we do not see another senario.  
 
 6.3 From the analysis, determine likely senario(s) for which the deadlock may occur  
  
-The user reports that, it is often that case that they have many xtext editors open when the 
+The user reports that it is often that case that they have many xtext editors open when the 
 error occurs. However, flow of control in the code is such that only 1 save is processed at a time. The save
 is handled atomically before moving on to the next save. Therefore, while multiple dirty editors may 
 aggravate the problem, the root issue should be able to be reproduced in a single save operation.  
@@ -147,7 +146,7 @@ aggravate the problem, the root issue should be able to be reproduced in a singl
 	callback.afterSave(this);
   }
   ```  
-  The super.doSave(progressMonitor) call above is what trigger the next step in this flow.  
+  The super.doSave(progressMonitor) call above is what triggers the next step in this flow.  
 
 6.3.1.2.2 org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider.java::executeOperation()  
 The MaslDocumentProvider.java class extends org.eclipse.xtext.ui.editor.model.XtextDocumentProvider to implemnt the action to perform against the document. This executeOperation() has a default implention that aquires a worksapce lock via a class WorkspaceModifyDelegatingOperation class and then calls-back into operations in the MaslDocumentProvider class to perform the work. In the case of a save operation, the call-back goes to XtextDocumentProvider.java::doSaveDocument() which is overridden by MaslDocumentProvider.java::doSaveDocument.  
@@ -165,7 +164,7 @@ The MaslDocumentProvider.java class extends org.eclipse.xtext.ui.editor.model.Xt
         };
         _default.asyncExec(_function);
   ```  
-  Note that this is the spot called out in the deadlock stack dump.  
+  Note that this is a spot called out in the deadlock stack dump.  
 
 6.3.1.2.4. bp.ui.text/ModelPropertyStorageModel.java::setPropertyValue()  
   This changes the Bridgpoint attribute in the in-memory model. In this case,it is an Action_Semantics_Internal attribute.  
@@ -174,7 +173,7 @@ The MaslDocumentProvider.java class extends org.eclipse.xtext.ui.editor.model.Xt
   Gathers information about the currently running transaction.  
 
 6.3.1.2.6 TransactionManager.java::completeTransaction()  
-  This creates a Eclipse job, and schedules the job to run. It this waits for the job it scheduled to completed. The relevant   code in the operation looks like this:  
+  This creates a Eclipse job, and schedules the job to run. It then waits for the job it scheduled to complete. The relevant   code in the operation looks like this:  
   ```
   ...
   if (transactionEndedJob == null) {
@@ -190,7 +189,7 @@ The MaslDocumentProvider.java class extends org.eclipse.xtext.ui.editor.model.Xt
   ...
   ```  
 
-6.3.1.3 Thread2  
+6.3.1.3 Thread2 (started in the step above)  
 6.3.1.3.1 TransactionManager.java::TransactionEndedJob::run()  
   This job signals listeners that a transaction is complete. Note that this job is run in a way
   that prevent notifications from being processed until after the complete is complete. This is also one of the 
@@ -203,8 +202,8 @@ The MaslDocumentProvider.java class extends org.eclipse.xtext.ui.editor.model.Xt
   }, workspace.getRoot(), IWorkspace.AVOID_UPDATE, null);
   ```  
   It is worth noting that this is the spot where the code attempts to aquire a lock that is already held. It is
-  the wokspce monitor lock, and run() must aquire it before it can beign, thus, the deadlock is here because as 
-  described above in 2.2.1, the lock is already held. This will be described more below.  
+  the wokspace monitor lock, and run() must aquire this lock before it can beign. Thus, the deadlock is here because as 
+  described above in 6.3.1.2.2, the lock is already held. This will be described more below [6.5].  
 
 6.4 Reproduce the problem (if possible)  
 
@@ -232,6 +231,7 @@ actually needed to reproduce the problem. The following picture shows the all th
 6.5.1 Explanation  
 "Thread1" identified above aquired the workspace lock and used asyncExec() to call into the BridgePoint transaction mechanism to persist the change. The problem is that "Thread2" identifed above also needed to aquire the workspace lock. Thread1 was running on the display thread, and if it returned back to the spot where it had aquire it's workspace lock before Thread2 ran, there would be no deadlock. However, if it did not, the deadlock would occor. Addtionally, note that the code snippet shown above in XtextEditor.java::doSave() [6.3.1.2.3] makes a call to callback.afterSave(this) when it returns. that call is actually notifying listeners that persistence of the change is complete. In the case where this senario does NOT deadlock that
 notification is actually happening before the persistence is really complete (which is also wrong even though there is no deadlock in that senario).  
+
 5.5.2 Solution and implementation  
 The solution is to delay the save until the lock has been released. This can be implemented with a small changeset to 
 class MaslDocumentProvider. Instead of allowing the default implentation for exectuteOperation(), this operation shall be overridden. The code currently in MaslDocumentProvider::doSaveDocument() shall be moved to this spot and run when a save operation is executed. Note that it is not necessary to run this in a sererate thread at this spot, so the call is simply made in-line.  
