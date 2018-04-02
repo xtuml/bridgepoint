@@ -91,21 +91,60 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 			default: ''
 		}
 	}
+
+   /**
+    * The following 3 variables are used to assure the call into
+    * BridgePoint to persist a MASL action body is not blocked on the
+    * Workspace monitor lock. The boolean, bridgePointSave, is used to 
+    * flag that a documentSave was requested in the MASL editor. This 
+    * request comes to this class via a save operation handled in executeOperation(). 
+    * executeOperation()'s default implementation is to create a workspace
+    * lock and call doSaveDocument(). BridgePoint's save implementation 
+    * involves a BridgePoint transaction which creates a thread to complete the
+    * transaction, it deadlocks if this thread already holds the workspace lock.
+    * Therefore, we simply have this class's doSaveDcoument() flag that a save
+    * has been requested, and allow the processing to occur back in 
+    * executeOperation() when there is no lock.
+    * 
+	* @see https://support.onefact.net/issues/10161
+    */
+	private volatile boolean bridgePointSave;
+	private AbstractModelElementPropertyEditorInput bridgePointSave_inputElement;
+	private String bridgePointSave_elementDefinition;
 	
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
+		bridgePointSave = false;
 		if(element instanceof AbstractModelElementPropertyEditorInput) {
 			// we have the workspace lock which is makes the transaction manager deadlock
 			val prefixLength = element.prefix.length
 			val editable = document.get(prefixLength, document.length - element.suffix.length - prefixLength).trim
 			val newDefinition = if(element.modelElement instanceof UserDataType_c && editable.endsWith(';')) 
+				{
 					editable.substring(0, editable.length - 1)
-				else
-					editable
-			Display.^default.asyncExec [
-	            element.propertyValue = newDefinition
-			]
+				} else {
+					editable	
+				}
+			bridgePointSave_elementDefinition = newDefinition;
+			bridgePointSave_inputElement = (element as AbstractModelElementPropertyEditorInput);
+			bridgePointSave = true;
 		} else {
 			super.doSaveDocument(monitor, element, document, overwrite)
 		}
 	}
+	
+  
+	override protected void executeOperation(
+			org.eclipse.ui.texteditor.AbstractDocumentProvider.DocumentProviderOperation operation,
+			org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException 
+	{
+		// @see bridgePointSave declaration for the description of why this exists
+		bridgePointSave = false;
+		super.executeOperation(operation, monitor);
+
+		if (bridgePointSave) {
+			(this.bridgePointSave_inputElement as AbstractModelElementPropertyEditorInput).setPropertyValue(this.bridgePointSave_elementDefinition);
+		}
+		
+	}
+	
 }
