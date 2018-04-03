@@ -570,6 +570,7 @@
     ui/preferences/ActionLanguagePreferences.java, ui/preferences/ContentAssistPreferences.java, ui/preferences/BridgePointProjectPreferences.java,
    ui/preferences/BridgePointProjectReferencesPreferenceNode.java, ui/preferences/BridgePointProjectReferencesPreferences.java,
    ui/preferences/BridgePointProjectActionLanguagePreferenceNode.java,  ui/preferences/BridgePointProjectActionLanguagePreferences.java,
+   ui/preferences/BridgePointProjectDependenciesPreferenceNode.java,  ui/preferences/BridgePointProjectDependenciesPreferences.java,
    ui/preferences/EmptySynchronousMessageParsePreferenceButtons.java,
    sorter/AlphaSorter.java,sorter/BaseTypeSpecificSorter.java, ui/GenericPackageAssignEventOnSM_TXNWizardPage1.java,
     inspector/IModelInspectorRegistry.java,inspector/BaseModelClassInspector.java,

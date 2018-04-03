@@ -810,7 +810,7 @@ addition
   :
     multiplication
     (
-      plus_or_minus
+      additive_operator
       multiplication
     )*
   ;
@@ -968,6 +968,14 @@ comparison_operator!
   |
     TOK_GE
   ;
+additive_operator!
+  :
+    TOK_PLUS
+  |
+    TOK_MINUS
+  |
+    TOK_PIPE
+  ;
 plus_or_minus!
   :
     TOK_PLUS
@@ -981,6 +989,10 @@ mult_op!
     TOK_DIV
   |
     TOK_MOD
+  |
+    TOK_AMP
+  |
+    TOK_CARET
   ;
 partial_block[boolean isRoot]
   :

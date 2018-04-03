@@ -67,10 +67,10 @@ exported back as MASL for processing by downstream tools.
 
 Systems are typically constructed by connecting multiple MASL domains or xtUML components using 
 some form of bridging technology. Where MASL employs terminators and public services, xtUML uses 
-interfaces consisting of interface operations/signals and ports. The basic mappings between MASL 
+interfaces consisting of interface operations and ports. The basic mappings between MASL 
 and xtUML are simple: a service declared on a terminator corresponds to an interface operation on 
-a port while a public service surfaced by a MASL domain is rendered as a function invoked by a 
-port activity.  
+a port with a required interface while a public service surfaced by a MASL domain is rendered as 
+a function invoked by a port activity in a provided interface.  
   
 However, MASL bridging provides flexibility in the way MASL domains can communicate. For example, 
 a MASL domain may use a subset of the services surfaced by another MASL domain, and it may choose 
@@ -104,13 +104,39 @@ To create a deferred operation, create an operation with an identical signature 
 class.  Then use the Properties view to set the dialect of the supertype class' operation to
 "None".  Each subtype class' operation dialect is set to "MASL".
 
+### Functions and Terminator Services 
+
+MASL domain functions are modeled in BridgePoint as a function inside a component and 
+a matching operation in a provided interface on the component boundary.  See `clear()` and 
+`key()` of the calc domain in Figure 2.  By convention, the port name of this provided 
+interface is renamed by the modeler to match the component (domain) name. The `Publish to interface...` 
+tool is available on the context menu of functions shown in Model Explorer.  This tool helps
+the user keep the interface operations in synch with changes made to the signatures of the 
+domain functions. If there is a domain function without a matching provided operation, it 
+represents a private domain service in MASL.    
+
+MASL terminators and terminator services are modeled in BridgePoint as a required interface
+implementing interface operations on the component boundary. See the "disp" terminator and the 
+`error()` and `result()` terminator services in Figure 2.   
+ 
+The dialect property of the functions and terminator services are important. 
+For a MASL Domain, all provided operations and domain functions should have dialect "None" 
+and required operations (i.e. terminator services) should have dialect "MASL". For a 
+MASL Project it is the opposite, all provided operations should have dialect "MASL", 
+and required operations have dialect "None". For MASL Domains and MASL Projects 
+that are converted and imported the dialect properties are configured automatically.   
+
+![MASL Functions and Terminators](images/function_terminator.png)  
+__Figure 2__  
+
 ### MASL projects
 
 There are some situations when the editor must distinguish between a MASL
 domain and MASL project. Because domains are where the majority of the work
 will take place, no special annotation is needed. For MASL projects however,
 the description field of the package that contains a project component must
-contain the string "masl_project".
+contain the string "masl_project".  This value must be set _before_ the package 
+is populated with a Component (MASL Project) and Component References (MASL Domains).  
 
 ## xtUML Model Packaging for System-wide MASL Visibility
 
@@ -149,15 +175,24 @@ they see fit, so long as these two conditions are met:
 * all elements shared among components are defined outside the components that refer to them  
 * all elements associated with a MASL domain reside within the domain package for that MASL domain  
   
+Types that a domain intends to make public to the outside world should be created in 
+the "Shared" package that is a sibling to the component (domain).  The "Shared" package 
+also includes the interfaces that are mapped to MASL domain functions and terminator 
+services.   
+
+Types that a domain intends to keep private from the outside world should be created in 
+a package underneath the component (domain).   
+
 For xtUML models, packaged in this way, the export facility produces a MASL domain interface file (```.int```) 
 that includes the shared types residing in the package associated with the MASL Domain.  
    
 ### Keeping xtUML and MASL Types Separate
 
 The MASL type system does not align perfectly with that of xtUML. So during import, no MASL types 
-are mapped to xtUML types, and the entire MASL type system is adopted into the xtUML Editor. While 
-editing the model, the MASL activities can be freely edited and parameters and attributes can be 
-typed with MASL types.  
+are mapped to xtUML types, and the entire MASL type system is adopted into the xtUML Editor. These
+MASL core types are stored in the `types` package of a converted and imported model. While 
+editing the model in BridgePoint, the MASL activities can be freely edited and parameters and 
+attributes can be typed with these MASL types.  
 
 #### Type Reference
 
@@ -168,8 +203,18 @@ in MASL can further constrain the type that is applied to the affected model ele
 declarations exist only within activities expressed in MASL, these references do not receive special 
 handling and are kept with the MASL code block.  
 
-To access shared types from other domains in MASL action language, the modeler must copy the ```<other domain>.int```
-file into the local project's ```models/``` folder.  
+Type references must be used to add constraints to types, use collection types, or instance types.
+To use these types, create a new public type and enter the full type reference as the type name. For
+example, a type named "sequence of integer" could be used to type an element which is a sequence of
+the type "integer".
+
+MASL allows modelers to constrain sequence types with a max size. Due to limitations in the tool,
+only integer literals are allowed to be used to constrain sequences when the type is used to type an
+activity parameter or a return type. If the type is used to type a local variable, an attribute, or
+a structure member, any constant expression of type integer can be used in a sequence constraint.
+
+To access shared types from other domains in MASL action language, the modeler must create a dependency
+to the ```<other domain>.int``` file into the local project's [Dependencies project preferences](../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html).  
 
 To access shared types from the structural part of the model, the modeler must create a type reference
 in the local domain.  This is done by creating a new UDT in the current domain with a special name that 
@@ -346,6 +391,15 @@ An alternative means is to set a default choice using the Default Action Languag
 The preference is located under __Window > Preferences > xtUML__, and after selecting the button next to 
 desired editor, __&lt;click&gt; OK__ to close the window.
 
+#### Accessing Service Domains
+
+To access shared data from service domains the modeler must create a dependency to the ```<other domain>.int``` 
+file or a folder containing one or more ```<other domain>.int``` files in the local project's 
+[Dependencies project preferences](../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html).   
+
+When a folder dependency is specified, all MASL `*.int` files directly under the folder are parsed as 
+part of the local project's validation process.  
+
 #### Inter-Project References and MASL
 
 The MASL-xtUML idiom uses Inter-Project References (IPRs) to provide system-wide scope to some 
@@ -358,13 +412,12 @@ Explorer View and then select __&lt;RMB&gt; > Project Preferences__. This will o
 and selecting Inter-Project References will show the setting Allow inter-project model references. 
 The use of IPRs is enabled if the checkbox is marked. For the models based on the MASL-xtUML idiom, 
 all xtUML projects containing a MASL Domain component must have this checkbox unmarked and those xtUML 
-projects containing a MASL Project must have this checkbox marked.  For these xtUML/MASL Projects,  
+projects containing a MASL Project must have this checkbox marked.  For these xtUML/MASL Projects, 
 the preference must be set prior to importing the file created by masl2xtuml.
   
 ![xtUML Project Preferences](images/image01.png)  
 __Figure 5__  
 
-TODO
 When a domain component, shared data type or shared interface is modified, all projects referencing 
 that model element will be marked with a warning icon on all affected model elements. There are 
 two approaches to resolving these warnings. For projects where the modeler is not the owner of 

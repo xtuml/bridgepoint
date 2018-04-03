@@ -1,0 +1,158 @@
+package org.xtuml.bp.xtext.masl.ui.dependency
+
+import com.google.inject.Inject
+import com.google.inject.Singleton
+import java.io.File
+import java.io.FileFilter
+import java.util.Map
+import java.util.Set
+import org.apache.log4j.Logger
+import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.emf.common.util.URI
+import org.xtuml.bp.core.CorePlugin
+import org.xtuml.bp.xtext.masl.dependency.MaslDependencyProvider
+
+import static org.eclipse.xtext.ui.XtextProjectHelper.*
+import static org.xtuml.bp.xtext.masl.lib.MASLContainerManager.*
+
+@Singleton
+class MaslProjectDependencyProvider {
+
+    static val LOG = Logger.getLogger( MaslProjectDependencyProvider )
+
+    public static val DEPENDENCY_FILE_EXTENSION = "int"
+    public static val DEPENDENCY_PREFIX = "dependency:"
+
+    private Map<IProject, Set<String>> projectDependencies  // set of all dependencies for a given project
+    private Map<String, Set<IProject>> referringProjects    // set of all projects referring to a given dependency
+    private Map<String, Set<String>> dependencyDependencies // set of all dependencies for a given dependency
+    private Map<IProject, Integer> dependencyVersions       // keep track of the versions of each dependency
+    
+    @Inject MaslDependencyProvider internalDependencyProvider
+    
+    def private updateDependencies() {
+        val dependencyHandles = internalDependencyProvider.dependencyHandles
+        val dependencyUris = internalDependencyProvider.dependencyUris
+        val dependencyHandleUris = internalDependencyProvider.dependencyHandleUris
+        val dependencyUriHandles = internalDependencyProvider.dependencyUriHandles
+        if ( null == projectDependencies ) projectDependencies = newHashMap
+        if ( null == referringProjects ) referringProjects = newHashMap
+        if ( null == dependencyDependencies ) dependencyDependencies = newHashMap
+        if ( null == dependencyVersions ) dependencyVersions = newHashMap
+        var rebuilt = false
+        for ( project : ResourcesPlugin.workspace.root.projects.filter[open && hasNature(NATURE_ID)] ) {
+            if ( !dependencyVersions.containsKey( project ) ) dependencyVersions.put( project, -1 )
+            val dependencyVersion = CorePlugin.defaultDependencyProvider.dependenciesChanged( project, dependencyVersions.get( project ) )
+            if ( dependencyVersion > 0 ) {
+                rebuilt = true
+                dependencyVersions.put( project, dependencyVersion )
+                val projectDeps = newHashSet
+                val oldProjectDeps = projectDependencies.put( project, projectDeps )
+                // remove old project dependencies
+                if ( null != oldProjectDeps ) {
+                    for ( oldProjectDep : oldProjectDeps ) {
+                        val oldHandle = DEPENDENCY_PREFIX + oldProjectDep
+                        val oldUri = URI.createFileURI( oldProjectDep )
+                        val referringProjs = referringProjects.get( oldProjectDep )
+                        referringProjs.remove( project )
+                        if ( referringProjs.empty ) {
+                            dependencyHandles.remove( oldHandle )
+                            dependencyHandleUris.remove( oldHandle )
+                            dependencyUris.remove( oldUri )
+                            dependencyUriHandles.remove( oldUri )
+                        }
+                    }
+                }
+                // add new project dependencies
+                for ( dependency : getValidDependencies( project ) ) {
+                    val handle = DEPENDENCY_PREFIX + dependency
+                    val uri = URI.createFileURI( dependency )
+                    dependencyHandles.add( handle )
+                    dependencyHandleUris.put( handle, uri )
+                    dependencyUris.add( uri )
+                    dependencyUriHandles.put( uri, handle )
+                    projectDeps.add( handle )
+                    if ( referringProjects.containsKey( handle ) ) referringProjects.get( handle ).add( project )
+                    else referringProjects.put( handle, newHashSet( project ) as Set<IProject> )
+                }
+            }
+        }
+        // update dependency dependencies
+        if ( rebuilt ) {
+            for ( handle : dependencyHandles ) {
+                val depDeps = newHashSet( handle )
+                if ( referringProjects.containsKey( handle ) )
+                    for ( referringProj : referringProjects.get( handle ) )
+                        if ( projectDependencies.containsKey( referringProj ) )
+                            for ( dep : projectDependencies.get( referringProj ) )
+                                if ( !depDeps.map[internalDependencyProvider.handleToUri(it).lastSegment].toSet.contains( internalDependencyProvider.handleToUri(dep).lastSegment ) )
+                                    depDeps.add( dep )
+                                else if ( !depDeps.contains( dep ) )
+                                    LOG.warn( "Ignoring duplicate dependency for '" + internalDependencyProvider.handleToUri(handle) + "' at: " + internalDependencyProvider.handleToUri( dep ) )
+                dependencyDependencies.put( handle, depDeps )
+            }
+        }
+        internalDependencyProvider.setDependencies( dependencyHandles, dependencyUris, dependencyHandleUris, dependencyUriHandles )
+    }
+    
+    def private getValidDependencies( IProject project ) {
+        val validDependencies = newArrayList
+        for ( dependency : CorePlugin.defaultDependencyProvider.getDependencies( project ) ) {
+            val dependencyFile = new File( dependency )
+            if ( dependencyFile.exists && dependencyFile.file && dependency.endsWith( "." + DEPENDENCY_FILE_EXTENSION ) )
+                validDependencies += dependency
+            else if ( dependencyFile.exists && dependencyFile.directory )
+                validDependencies += dependencyFile.listFiles( new FileFilter() {
+                    override accept( File pathname ) {
+                        pathname.name.endsWith( "." + DEPENDENCY_FILE_EXTENSION )
+                    }
+                }).map[absolutePath]
+        }
+        validDependencies
+    }
+    
+
+    def public getDependencyHandles() {
+        updateDependencies
+        internalDependencyProvider.dependencyHandles
+    }
+    
+    def public getDependencyUris() {
+        updateDependencies
+        internalDependencyProvider.dependencyUris
+    }
+    
+    def public uriToHandle( URI uri ) {
+        updateDependencies
+        internalDependencyProvider.uriToHandle( uri )
+    }
+    
+    def public handleToUri( String handle ) {
+        updateDependencies
+        internalDependencyProvider.handleToUri( handle )
+    }
+ 
+    // Get the set of dependencies for a given project container handle
+    def public getProjectDependencies( String containerHandle ) {
+        updateDependencies
+        val projectName = containerHandle.split( CONTAINER_HANDLE_SEPARATOR ).head
+        val project = ResourcesPlugin.workspace.root.projects.filter[name==projectName].head
+        if ( null != project && projectDependencies.containsKey( project ) )
+            projectDependencies.get( project )
+        else
+            newHashSet
+    }
+    
+    // Get the set of dependencies for a dependency. This is the set of all
+    // dependencies of the projects which refer to this dependency filtering out
+    // duplicates
+    def public getDependencyDependencies( String containerHandle ) {
+        updateDependencies
+        if ( null != containerHandle && dependencyDependencies.containsKey( containerHandle ) )
+            dependencyDependencies.get( containerHandle )
+        else
+            newHashSet
+    }
+    
+}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.8.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.13.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <license>
      <url>https://www.apache.org/licenses/LICENSE-2.0</url>

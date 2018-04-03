@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="xtuml-preferences">xtUML Preferences</h1>
+<h2 id="parse-all-activities-on-resource-change">Parse all activities on resource change</h2>
+<p>This setting controls whether or not the OAL parser shall re-parse all activities<br />
+when a structural change is made to the model. This process may be time consuming<br />
+on large models.</p>
+<h2 id="show-actions-on-transitions">Show actions on transitions</h2>
+<p>Display (or not) the OAL of state transitions on the canvas of State Machine diagrams.</p>
+<h2 id="show-parameters-on-events">Show parameters on events</h2>
+<p>Display (or not) the parameters of events associated with state transitions on the<br />
+canvas of State Machine diagrams.</p>
+<h2 id="enable-fixed-length-arrays">Enable fixed-length arrays</h2>
+<p>Allow (or not) models to use arrays that have fixed sizes.</p>
+<h2 id="enable-dynamically-sized-arrays">Enable dynamically-sized arrays</h2>
+<p>Allow (or not) models to use arrays of variable size that may expand in length<br />
+at run time.</p>
+<h2 id="show-reference-synchronization-warning">Show reference synchronization warning</h2>
+<p>Display (or not) a warning dialog containing any references that will be lost before synchronization.</p>
+<h2 id="show-reference-synchronization-report">Show reference synchronization report</h2>
+<p>Display (or not) a report of changes to the model after reference synchronization.</p>
+<h2 id="use-default-names-for-new-model-elements">Use default names for new model elements</h2>
+<p>When enabled BridgePoint will automatically name newly created structural model<br />
+elements. When disabled BridgePoint will display a dialog to prompt the user to<br />
+enter a name for the new element.</p>
+<h2 id="enable-restricted-identifier-naming-for-model-elements">Enable restricted identifier naming for model elements</h2>
+<p>When enabled all new elements and elements being renamed must follow the BNF rule:<br />
+<code>( Letter | '_' )( Letter | Digit | '_')*;</code>.</p>
+<p>That is, identifiers may only contain letters, numbers, and underscores. Spaces,<br />
+hyphens, and other characters are not allowed.</p>
+<h2 id="enable-model-integrity-checks">Enable model integrity checks</h2>
+<p>When enabled, model integrity checks run during most BridgePoint model operations<br />
+and validate the integrity of the model for the operation performed. This can be<br />
+useful to assure there is no model corruption, but there is performance overhead<br />
+when enabled.</p>
+<h2 id="preference-page">Preference Page</h2>
+<p><img src="xtUML.png" alt="xtUML" /></p>
+</body>
+</html>

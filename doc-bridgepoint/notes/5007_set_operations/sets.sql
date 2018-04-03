@@ -1,0 +1,4 @@
+CREATE TABLE A_CLASS (
+  name STRING,
+  num INTEGER
+);

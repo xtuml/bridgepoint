@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="project-dependencies">Project Dependencies</h1>
+<h2 id="dependencies">Dependencies</h2>
+<p>The list box shows paths to files or folders that this project depends upon. User<br />
+may <code>Add...</code>, <code>Edit...</code> or <code>Remove</code> a dependency from the list.</p>
+<p>The given list is persisted to the <code>.dependencies</code> file located direction under<br />
+the project's location on disk.</p>
+<p>The paths may start with either of the variables <code>PROJECT_LOC</code> or <code>WORKSPACE_LOC</code>. These<br />
+variables are dynamic for each user. Paths may also specify an absolute location.</p>
+<p>Currently, BridgePoint only uses this information for MASL activity validation. However,<br />
+a custom down-stream tool could use this information for any purpose. When used for MASL<br />
+projects, BridgePoint will include all <code>*.int</code> files directly under the specified directories<br />
+in the activity validation process. Individual files may also be specified as dependencies.</p>
+<p>This preference page may be disabled by setting <code>-Dbridgepoint.Dependencies=disabled</code> at<br />
+the end of the <code>bridgepoint.ini</code> file inside the installation.</p>
+<h2 id="preference-page">Preference Page</h2>
+<p><img src="ProjDependencies.png" alt="Dependencies Preferences" /></p>
+</body>
+</html>

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.xtuml.bp.xtext.masl</groupId>
 		<artifactId>org.xtuml.bp.xtext.masl.parent</artifactId>
-		<version>6.8.1-SNAPSHOT</version>
+		<version>6.13.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.xtuml.bp.xtext.masl.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>

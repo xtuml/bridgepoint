@@ -16,8 +16,15 @@ INSERT INTO O_TFR
 	1,
 	'self.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
 if ( self.Dialect == ActionDialect::masl )
-  // new MASL activities get initialized with the "null" statement
-  self.Action_Semantics_internal = "begin\n  null;\nend service;";
+  // if the default dialect is MASL check if it should be None dialect for this case
+  select one package related by self->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+  if ( empty package or not Util::stringContains(haystack:package.Descrip, needle:"masl_project") )
+    self.Dialect = ActionDialect::none;
+    self.Action_Semantics_internal = "";
+  else
+    // new MASL activities get initialized with the "null" statement
+    self.Action_Semantics_internal = "begin\n  null;\nend service;";
+  end if;
 end if;
 self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
