@@ -1,13 +1,5 @@
 package org.xtuml.bp.search.results;
 //========================================================================
-//
-//File:      $RCSfile: ModelSearchResult.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 23:14:29 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -32,12 +24,12 @@ import org.eclipse.search.ui.text.AbstractTextSearchResult;
 import org.eclipse.search.ui.text.IEditorMatchAdapter;
 import org.eclipse.search.ui.text.IFileMatchAdapter;
 import org.eclipse.search.ui.text.Match;
-
 import org.xtuml.bp.core.ActionLanguageSearchable_c;
 import org.xtuml.bp.core.ContentMatch_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Match_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.NamedSearchable_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SearchParticipant_c;
 import org.xtuml.bp.core.SearchResult_c;
@@ -103,6 +95,13 @@ public class ModelSearchResult extends AbstractTextSearchResult {
 										.getOneSP_SPOnR9802(result)));
 				if(actionLanguageSearchable != null) {
 					type = ModelMatch.ACTION_LANGUAGE;
+				}
+				NamedSearchable_c namedSearchable = NamedSearchable_c
+						.getOneSP_NSOnR9702(SearchableElement_c
+								.getOneSP_SEOnR9700(SearchParticipant_c
+										.getOneSP_SPOnR9802(result)));
+				if(namedSearchable != null) {
+					type = ModelMatch.ELEMENT_NAME;
 				}
 				ModelMatch match = new ModelMatch(getElementForResult(result),
 						matches[j].getStartposition(), matches[j]
@@ -217,6 +216,13 @@ public class ModelSearchResult extends AbstractTextSearchResult {
 								.getOneSP_SPOnR9802(result)));
 		if (actionLanguageSearchable != null) {
 			type = ModelMatch.ACTION_LANGUAGE;
+		}
+		NamedSearchable_c namedSearchable = NamedSearchable_c
+				.getOneSP_NSOnR9702(SearchableElement_c
+						.getOneSP_SEOnR9700(SearchParticipant_c
+								.getOneSP_SPOnR9802(result)));
+		if(namedSearchable != null) {
+			type = ModelMatch.ELEMENT_NAME;
 		}
 		ContentMatch_c cm = ContentMatch_c.getOneSR_CMOnR9801(match);
 		ModelMatch modelMatch = new ModelMatch(getElementForResult(result),

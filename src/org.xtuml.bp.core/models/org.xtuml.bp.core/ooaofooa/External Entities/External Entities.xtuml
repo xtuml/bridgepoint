@@ -3559,6 +3559,44 @@ INSERT INTO S_BPARM
 	'',
 	"40275a35-1743-4a8a-815e-019069f145d5",
 	'');
+INSERT INTO S_BRG
+	VALUES ("9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	"4dbc824e-7f35-4e67-b275-79632eac75cc",
+	'locateNameResults',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("d64d6dc9-5e4c-46aa-9e10-3c2730d03e9c",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'pattern',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c9d3c31e-5b74-4656-9010-e533b17f4e0a",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'contents',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"d64d6dc9-5e4c-46aa-9e10-3c2730d03e9c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7de8afce-ffa0-4a7b-8f9c-8210ed003e33",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'isCaseSensitive',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"c9d3c31e-5b74-4656-9010-e533b17f4e0a",
+	'');
 INSERT INTO PE_PE
 	VALUES ("4dbc824e-7f35-4e67-b275-79632eac75cc",
 	1,

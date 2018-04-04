@@ -7,6 +7,99 @@ INSERT INTO O_OBJ
 	'SEN_DCE',
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("c55e8192-5bd1-4eef-8b30-241ceb3863cb",
+	"ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
+	'processQuery',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// for each participant associated we apply the given pattern
+// for any matches we create the necessary results
+select any query from instances of SQU_Q where (selected.Id == param.queryId);
+select one engine related by self->SEN_E[R9501];
+select many participants related by engine->SP_SP[R9502];
+for each participant in participants
+  select one namedParticipant related by participant->SP_SE[R9700]
+                                                                 ->SP_NS[R9702];
+  if(not_empty namedParticipant)
+    // cache a variable for the singleton result
+    // used for this participant
+    select any searchResult from instances of SR_SR 
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+    // should not be empty, but no harm in checking
+    contents = namedParticipant.searchableValue;
+    // process this call in a while loop, the call will return
+    // a negative value when no more matches exist
+    result = "";
+    while(result != "")
+      matchResultId = Search::locateNameResults(pattern:query.pattern,
+                        contents:contents, isCaseSensitive:query.caseSensitive);
+      select any matchResult from instances of SR_NMR
+                                           where (selected.Id == matchResultId);
+      if(not_empty matchResult)
+        result = matchResult.name;
+        if(result == "")
+          // create a search result
+          if(empty searchResult)
+            create object instance searchResult of SR_SR;
+            relate searchResult to engine across R9503;
+            relate searchResult to participant across R9802;
+          end if;
+          // create a match
+          create object instance match of SR_M;
+          create object instance nameMatch of SR_NM;
+          relate match to nameMatch across R9801;
+          relate searchResult to match across R9800;
+          nameMatch.name = matchResult.name;
+          delete object instance matchResult;
+          // send creation notification
+          Search::matchCreated(match:match.convertToInstance());
+        end if;
+      else
+        // no match found set result to -1
+        result = "";
+      end if;
+      // if the passed in progress monitor indicates
+      // that the user has cancelled this search, then
+      // end all processing
+      if(Search::monitorCanceled(monitor:param.monitor))
+        Search::clearQueryData();
+        return;
+      end if;
+    end while;
+    Search::clearQueryData();
+  end if;
+end for;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("f41c00a8-1348-4200-8072-188756d83adb",
+	"c55e8192-5bd1-4eef-8b30-241ceb3863cb",
+	'queryId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ff5fd50d-1ea6-41d5-88ac-4eaf01faf5b8",
+	"c55e8192-5bd1-4eef-8b30-241ceb3863cb",
+	'monitor',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"f41c00a8-1348-4200-8072-188756d83adb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
 	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
