@@ -83,7 +83,9 @@ public class Search_c {
 			matcher = pattern.matcher(sequence);
 		}
 		if (matcher.find()) {
-			if (matcher.matches()) {
+			int start = matcher.start();
+			int end = matcher.end();
+			if (end != start) {
 				NameMatchResult_c nmr = new NameMatchResult_c(Ooaofooa
 						.getDefaultInstance());
 				nmr.setName(p_Contents);

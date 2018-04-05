@@ -37,11 +37,12 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
-
 import org.xtuml.bp.core.ActionLanguageSearchable_c;
 import org.xtuml.bp.core.ContentMatch_c;
 import org.xtuml.bp.core.DescriptionEngine_c;
 import org.xtuml.bp.core.Match_c;
+import org.xtuml.bp.core.NameMatch_c;
+import org.xtuml.bp.core.NamedSearchable_c;
 import org.xtuml.bp.core.SearchEngine_c;
 import org.xtuml.bp.core.SearchParticipant_c;
 import org.xtuml.bp.core.SearchResult_c;
@@ -144,6 +145,7 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					((TextEditor) editor).selectAndReveal(
 							cm.getStartposition(), cm.getMatchlength());
 				}
+				// TODO - SKB - leverage the open declaration work here to show what we want
 				return;
 			}
 			if(selected instanceof NonRootModelElement) {
@@ -231,14 +233,21 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 							.getOneSR_SROnR9800((Match_c) element));
 			Match[] matches = ((ModelSearchResult) getViewer().getInput())
 					.getMatches(elementForResult);
-			ContentMatch_c modelMatch = ContentMatch_c
-					.getOneSR_CMOnR9801((Match_c) element);
 			for (int i = 0; i < matches.length; i++) {
-				if (matches[i].getOffset() == modelMatch.getStartposition()
+				ContentMatch_c modelMatch = ContentMatch_c
+					.getOneSR_CMOnR9801((Match_c) element);
+				if (modelMatch != null && matches[i].getOffset() == modelMatch.getStartposition()
 						&& matches[i].getLength() == modelMatch
 								.getMatchlength()
 						&& getMatchType(modelMatch) == ((ModelMatch) matches[i])
 								.getType()) {
+					count++;
+				}
+				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
+				// TODO - SKB
+				String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
+				String s2 = modelNameMatch.getName();
+				if (modelNameMatch != null && s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
 					count++;
 				}
 			}
@@ -262,13 +271,19 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					.getElementForResult(SearchResult_c
 							.getOneSR_SROnR9800((Match_c) element));
 			Match[] matches = ((ModelSearchResult) getViewer().getInput()).getMatches(elementForResult);
-			ContentMatch_c modelMatch = ContentMatch_c.getOneSR_CMOnR9801((Match_c) element);
 			for(int i = 0; i < matches.length; i++) {
-				if (matches[i].getOffset() == modelMatch.getStartposition()
+				ContentMatch_c modelMatch = ContentMatch_c.getOneSR_CMOnR9801((Match_c) element);
+				if (modelMatch != null && matches[i].getOffset() == modelMatch.getStartposition()
 						&& matches[i].getLength() == modelMatch
 								.getMatchlength()
 						&& getMatchType(modelMatch) == ((ModelMatch) matches[i])
 								.getType()) {
+					return new Match[] { matches[i] };
+				}
+				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
+				String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
+				String s2 = modelNameMatch.getName();
+				if (modelNameMatch != null && s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
 					return new Match[] { matches[i] };
 				}
 			}
@@ -318,4 +333,17 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 		return type;
 	}
 	
+	private int getMatchType(NameMatch_c modelMatch) {
+		int type = -1;
+		NamedSearchable_c ns = NamedSearchable_c
+				.getOneSP_NSOnR9702(SearchableElement_c
+						.getOneSP_SEOnR9700(SearchParticipant_c
+								.getOneSP_SPOnR9802(SearchResult_c
+										.getOneSR_SROnR9800(Match_c
+												.getOneSR_MOnR9801(modelMatch)))));
+		if(ns != null) {
+			type = ModelMatch.ELEMENT_NAME;
+		}
+		return type;
+	}
 }

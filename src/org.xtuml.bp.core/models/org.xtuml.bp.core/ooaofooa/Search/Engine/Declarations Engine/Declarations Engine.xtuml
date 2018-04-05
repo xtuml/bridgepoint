@@ -30,8 +30,8 @@ for each participant in participants
     // should not be empty, but no harm in checking
     contents = namedParticipant.searchableValue;
     // process this call in a while loop, the call will return
-    // a negative value when no more matches exist
-    result = "";
+    // a empty string when no more matches exist
+    result = "empty";
     while(result != "")
       matchResultId = Search::locateNameResults(pattern:query.pattern,
                         contents:contents, isCaseSensitive:query.caseSensitive);
@@ -39,7 +39,7 @@ for each participant in participants
                                            where (selected.Id == matchResultId);
       if(not_empty matchResult)
         result = matchResult.name;
-        if(result == "")
+        if(result != "")
           // create a search result
           if(empty searchResult)
             create object instance searchResult of SR_SR;
@@ -57,7 +57,7 @@ for each participant in participants
           Search::matchCreated(match:match.convertToInstance());
         end if;
       else
-        // no match found set result to -1
+        // no match found set result to empty string 
         result = "";
       end if;
       // if the passed in progress monitor indicates
