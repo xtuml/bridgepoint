@@ -1303,6 +1303,8 @@ if ( not_empty s_dt )
     // special mappings
     if ( s_dt.Name == "MASLunique" )  // MASLunique is always an integer 
       typeref = "integer";
+    elif ( s_dt.Name == "inst_ref<Timer>" ) // inst_ref<Timer> maps to MASL timer
+      typeref = "timer";
     end if;
   end if;
 end if;
