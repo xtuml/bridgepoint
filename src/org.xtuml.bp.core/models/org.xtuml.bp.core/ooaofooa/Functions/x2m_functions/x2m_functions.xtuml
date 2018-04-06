@@ -1269,36 +1269,63 @@ if ( not_empty s_dt )
    // Do not send a void typeref.  No typeref equals void in MASL. 
   if ( "void" != s_dt.Name )
     typeref = s_dt.Name;  // typref is the name of the type
-    // check if this type is defined in a different domain
-    select one containing_s_sys related by containing_c_c->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
-    select one dt_s_sys related by s_dt->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
     // if the type is already qualified with a domain name, no need to qualify it again
-    if ( containing_s_sys != dt_s_sys and not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
-      select any domain_c_c from instances of C_C where false;
-      select one containing_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
-      // if containing_pkg is empty, we are either directly under a system or inside a component. 
-      // if inside a component, this type is private anyway (and cannot be referenced from another domain).
-      // if under the system we need to break out to avoid an infinite loop scenario.
-      while ( empty domain_c_c and not_empty containing_pkg )
-        // find the nearest sibling component. if there are more than one, show an error
-        select many domain_c_cs related by containing_pkg->PE_PE[R8000]->C_C[R8001];
-        if ( cardinality domain_c_cs > 1 ) 
-          Util::logError( message:"Multiple domain components found for type: " + s_dt.Name );
-          break;
-        else
-          for each c_c in domain_c_cs     
-            domain_c_c = c_c; // because of the above check, this only gets executed once
-          end for;
-        end if;
-        select one containing_pkg related by containing_pkg->PE_PE[R8001]->EP_PKG[R8000];
-        if ( empty containing_pkg and empty domain_c_c )                                                  
-          Util::logError( message:"No domain component found for type: " + s_dt.Name );
-        end if;
+    if ( not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
+      // If type is inside a component, it is local.
+      select one parent_ep_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
+      select one parent_c_c related by parent_ep_pkg->PE_PE[R8001]->C_C[R8003];
+      while ( not_empty parent_ep_pkg and empty parent_c_c )
+        select one parent_ep_pkg related by parent_ep_pkg->PE_PE[R8001]->EP_PKG[R8000];
+        select one parent_c_c related by parent_ep_pkg->PE_PE[R8001]->C_C[R8003];
       end while;
-      // qualify the type name with the name of the domain
-      if ( not_empty domain_c_c )     
-        typeref = domain_c_c.Name + "::" + typeref;
+      if ( empty parent_c_c ) // not in a component, so keep looking
+        // check if this type is defined in the same domain
+        // Do this by traversing up from the type to see if ever we hit the domain package (containing the domain component).
+        select one dt_ep_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
+        select one domain_ep_pkg related by containing_c_c->PE_PE[R8001]->EP_PKG[R8000];
+        same_domain = false;
+        while ( not_empty dt_ep_pkg )
+          if ( dt_ep_pkg == domain_ep_pkg )
+            same_domain = true;
+            break;
+          end if;
+          select one dt_ep_pkg related by dt_ep_pkg->PE_PE[R8001]->EP_PKG[R8000];
+        end while;
+        if ( not same_domain ) // foreign type, find owner
+          // Otherwise, foreign.  Find owning domain.
+          select any domain_c_c from instances of C_C where false;
+          select one containing_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
+          // if containing_pkg is empty, we are either directly under a system or inside a component.
+          // if inside a component, this type is private anyway (and cannot be referenced from another domain).
+          // if under the system we need to break out to avoid an infinite loop scenario.
+          while ( empty domain_c_c and not_empty containing_pkg )
+            // find the nearest sibling component. if there are more than one, show an error
+            select many domain_c_cs related by containing_pkg->PE_PE[R8000]->C_C[R8001];
+            if ( cardinality domain_c_cs > 1 )
+              Util::logError( message:"Multiple domain components found for type: " + s_dt.Name );
+              break;
+            else
+              for each c_c in domain_c_cs
+                domain_c_c = c_c; // because of the above check, this only gets executed once
+              end for;
+            end if;
+            select one containing_pkg related by containing_pkg->PE_PE[R8001]->EP_PKG[R8000];
+            if ( empty containing_pkg and empty domain_c_c )
+              Util::logError( message:"No domain component found for type: " + s_dt.Name );
+            end if;
+          end while;
+          // qualify the type name with the name of the domain
+          if ( not_empty domain_c_c )
+            typeref = domain_c_c.Name + "::" + typeref;
+          end if;
+        else
+          // local to domain, no qualification needed
+        end if;
+      else
+        // private, inside a component
       end if;
+    else
+      // already has qualifier
     end if;
     // special mappings
     if ( s_dt.Name == "MASLunique" )  // MASLunique is always an integer 
