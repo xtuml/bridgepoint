@@ -1270,7 +1270,6 @@ if ( not_empty s_dt )
   if ( "void" != s_dt.Name )
     typeref = s_dt.Name;  // typref is the name of the type
     // if the type is already qualified with a domain name, no need to qualify it again
-    if ( -1 == STRING::indexof( haystack:s_dt.Name, needle:"::" ) )
     if ( not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
       // If type is inside a component, it is local.
       select one parent_ep_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
