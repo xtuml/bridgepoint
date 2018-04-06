@@ -57,6 +57,7 @@ import org.xtuml.bp.ui.search.providers.ModelSearchTableContentProvider;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.activity.OpenDeclarationAction;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 
 public class ModelSearchResultPage extends AbstractTextSearchViewPage {
@@ -136,16 +137,28 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 			}
 			if(selected instanceof Match_c) {
 				SearchResult_c result = SearchResult_c.getOneSR_SROnR9800((Match_c) selected);
-				DescriptionEngine_c engine = DescriptionEngine_c
-						.getOneSEN_DEOnR9501(SearchEngine_c
-								.getOneSEN_EOnR9503(result));
-				IEditorPart editor = handleOpen(ModelSearchResult.getElementForResult(result), engine != null, true);
+				
 				ContentMatch_c cm = ContentMatch_c.getOneSR_CMOnR9801((Match_c) selected);
-				if(cm != null && editor instanceof TextEditor) {
-					((TextEditor) editor).selectAndReveal(
-							cm.getStartposition(), cm.getMatchlength());
+				if (cm != null) {
+					DescriptionEngine_c engine = DescriptionEngine_c
+							.getOneSEN_DEOnR9501(SearchEngine_c.getOneSEN_EOnR9503(result));
+					IEditorPart editor = handleOpen(ModelSearchResult.getElementForResult(result), engine != null,
+							true);
+					if (editor instanceof TextEditor) {
+						((TextEditor) editor).selectAndReveal(cm.getStartposition(), cm.getMatchlength());
+					}
+				}			
+				
+				NameMatch_c nm = NameMatch_c.getOneSR_NMOnR9801((Match_c) selected);
+				if ( nm != null ) {
+					// TODO - SKB - leverage the open declaration work here to show what we want.
+					// refactor...
+					OpenDeclarationAction oda = new OpenDeclarationAction();
+					Object o = ModelSearchResult.getElementForResult(result);
+					if ( o instanceof NonRootModelElement ) {
+						oda.showElement((NonRootModelElement) o);
+					}
 				}
-				// TODO - SKB - leverage the open declaration work here to show what we want
 				return;
 			}
 			if(selected instanceof NonRootModelElement) {
@@ -156,16 +169,28 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					return;
 				} else {
 					boolean description = true;
+					boolean nameMatch = false;
 					for(int i = 0; i < matches.length; i++) {
 						if(matches[i] instanceof ModelMatch) {
 							ModelMatch modelMatch = (ModelMatch) matches[i];
 							if(modelMatch.getType() == ModelMatch.ACTION_LANGUAGE) {
 								description = false;
 								break;
+							} else if (modelMatch.getType() == ModelMatch.ELEMENT_NAME) {
+								nameMatch = true;
+								break;
 							}
 						}
 					}
-					handleOpen(selected, description, true);
+					if (nameMatch) {
+						// TODO - SKB - leverage the open declaration work here
+						// to show what we want.
+						// refactor...
+						OpenDeclarationAction oda = new OpenDeclarationAction();
+						oda.showElement((NonRootModelElement)selected);
+					} else {
+						handleOpen(selected, description, true);
+					}
 				}
 			}
 		}
@@ -245,10 +270,12 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 				}
 				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
 				// TODO - SKB
-				String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
-				String s2 = modelNameMatch.getName();
-				if (modelNameMatch != null && s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
-					count++;
+				if (modelNameMatch != null) {
+					String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
+					String s2 = modelNameMatch.getName();
+					if ( s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
+						count++;
+					}
 				}
 			}
 			return count;
@@ -281,10 +308,12 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					return new Match[] { matches[i] };
 				}
 				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
-				String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
-				String s2 = modelNameMatch.getName();
-				if (modelNameMatch != null && s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
-					return new Match[] { matches[i] };
+				if (modelNameMatch != null) {
+					String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
+					String s2 = modelNameMatch.getName();
+					if ( s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
+						return new Match[] { matches[i] };
+					}
 				}
 			}
 			return new Match[0];

@@ -102,10 +102,23 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 				declarationElement = (NonRootModelElement) bdy.Finddeclaration(offsetWithinLine,
 						startLine);
 			}
+			showElement(declarationElement, editor, doc);
+		} catch (BadLocationException e) {
+			TextPlugin.logError("Unable to locate line information for the text editor selection.", e);
+		}
+
+	}
+	
+	public void showElement(NonRootModelElement declarationElement) {
+		showElement(declarationElement, null, null);
+	}
+
+	public void showElement(NonRootModelElement declarationElement, ActivityEditor editor, IDocument doc) {
+		try {
 			if (declarationElement != null) {
-				if (declarationElement instanceof VariableLocation_c) {
+				if ((declarationElement instanceof VariableLocation_c) && (editor != null) && (doc != null)) {
 					VariableLocation_c location = (VariableLocation_c) declarationElement;
-				    lineOffset = doc.getLineOffset(location.getLinenumber() - 1);
+					int lineOffset = doc.getLineOffset(location.getLinenumber() - 1);
 					editor.selectAndReveal(lineOffset + location.getStartposition() - 1,
 							location.getEndposition() + 1 - location.getStartposition());
 				} else {
@@ -115,17 +128,19 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 					} else {
 						showInModelExplorer(declarationElement);
 						Package_c pkg = declarationElement.getFirstParentPackage();
-                        if ( null == pkg ) {
-                            pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
-                        }
+						if (null == pkg) {
+							pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
+						}
 						IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
-                        NonRootModelElement selectionElement = declarationElement;
-                        if ( declarationElement instanceof Port_c ) {
-                              selectionElement = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
-                              if ( null == selectionElement ) {
-                                  selectionElement = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
-                              }
-                        }
+						NonRootModelElement selectionElement = declarationElement;
+						if (declarationElement instanceof Port_c) {
+							selectionElement = Requirement_c.getOneC_ROnR4009(
+									InterfaceReference_c.getOneC_IROnR4016((Port_c) declarationElement));
+							if (null == selectionElement) {
+								selectionElement = Provision_c.getOneC_POnR4009(
+										InterfaceReference_c.getOneC_IROnR4016((Port_c) declarationElement));
+							}
+						}
 						editorPart.getSite().getSelectionProvider()
 								.setSelection(new StructuredSelection(selectionElement));
 						zoomToSelected(editorPart);
@@ -135,9 +150,8 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		} catch (BadLocationException | PartInitException e) {
 			TextPlugin.logError("Unable to locate line information for the text editor selection.", e);
 		}
-
 	}
-	
+
 	private void parseBody(NonRootModelElement modelElement, int offsetWithinLine, IDocument doc) {
 		// run a parse of this body
 		ParseRunnable parseRunner = new ParseRunnable(modelElement, doc.get());
