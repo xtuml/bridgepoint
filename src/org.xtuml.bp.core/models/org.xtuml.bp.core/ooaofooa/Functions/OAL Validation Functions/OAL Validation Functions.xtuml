@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Functions::OAL Validation Functions');
 INSERT INTO DIM_DIA
 	VALUES ("5f621d58-9258-4b88-9d21-e26f427a617f",
@@ -11445,20 +11445,24 @@ if isInGenericPackage
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
   select many edts related by results->S_DT[R8001]->S_EDT[R17];
+  select any edt related by results->S_DT[R8001]->S_EDT[R17];
+  for each otherEdt in edts
+    edt = otherEdt;
+    break;
+  end for;
   select many udts related by results->S_DT[R8001]->S_UDT[R17];
-  UDTCount = 0;
-  for each udt in udts
+  select any udt related by results->S_DT[R8001]->S_UDT[R17];
+  for each otherUdt in udts
+    udt = otherUdt;
+    break;
+  end for;
+  if(not_empty udt)
     baseId = udt.getCoreType();
     select any pe from instances of PE_PE where (selected.Element_ID == baseId);
     if(not_empty pe)
-      select one baseTypeEDT related by pe->S_DT[R8001]->S_EDT[R17];
-      if(not_empty baseTypeEDT)
-        UDTCount = UDTCount + 1;
-      end if;
+      select one edt related by pe->S_DT[R8001]->S_EDT[R17];
     end if;
-  end for;
-  EDTCount = cardinality edts;
-  EDTCount = EDTCount + UDTCount;
+  end if;
 
   // Check for a Constant Specification match for token
   if not_empty component
@@ -11484,64 +11488,31 @@ if isInGenericPackage
                                 selected.Type == ElementTypeConstants::CONSTANT; 
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
-  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
-  CSPCount = cardinality csps;
-  TOTALCount = CSPCount + EDTCount;
-  if TOTALCount == 0
+  select many csps related by results->CNST_CSP[R8001];
+  select any csp related by results->CNST_CSP[R8001];
+  // just in case the architecture does not return the first
+  // in a list for any
+  for each otherCsp in csps
+    csp = otherCsp;
+    break;
+  end for;
+  // give preference to EDTs
+  if(not_empty edt)
+	// store the textual position of the data type name 
+	block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+	block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
+    return edt.DT_ID;
+  elif(not_empty csp)
+    // store the textual position of the data type name 
+    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
+    return csp.Constant_Spec_ID;
+  else
     ERR::reportParseError( 
-        msg: "Cannot find specified enumeration or constant specification ->%s<-.", 
+         msg: "Cannot find specified enumeration or constant specification ->%s<-.", 
                                                    token: param.a1_rule_token );
-  elif EDTCount > 1 and CSPCount != 1
-    resultList = "";
-    sep = "";
-    for each edt in edts
-      select one result related by edt->S_DT[R17]->PE_PE[R8001];
-      resultList = resultList + sep + result.getQualifiedName();
-      sep = " ,";
-    end for;
-    for each udt in udts
-      select one result related by udt->S_DT[R17]->PE_PE[R8001];
-      resultList = resultList + sep + result.getQualifiedName();
-      sep = " ,";
-    end for;
-    ERR::reportParseError(msg: "Multiple enumerations found for ->%s<-: " +
-                                           resultList, token: param.a1_rule_token);
-  elif CSPCount > 1 and EDTCount != 1
-    resultList = "";
-    sep = "";
-    for each csp in csps
-      select one result related by csp->PE_PE[R8001];
-      resultList = resultList + sep + result.getQualifiedName();
-      sep = ", ";
-    end for;
-    ERR::reportParseError(msg: "Multiple constant specifications found for ->%s<-: " +
-                                           resultList, token: param.a1_rule_token);
-  // an enumeration type is given preference over a constant specification
-  // here, however when the enum is validated, a constant specification of
-  // the same name is checked for
-  elif EDTCount == 1
-    // store the textual position of the data type name 
-    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
-    select any dt related by edts->S_DT[R17];
-    if ( empty dt )
-      for each udt in udts
-        select any pe from instances of PE_PE where ( selected.Element_ID == udt.getCoreType() );
-        select one dt related by pe->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
-      end for;
-    end if;
-    return dt.DT_ID;
-  elif CSPCount == 1
-    // store the textual position of the data type name 
-    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
-    for each csp in csps
-      // cardinality of csps is 1
-      return csp.Constant_Spec_ID;
-    end for;
+    return GD::NULL_UNIQUE_ID();
   end if;
-
-  return GD::NULL_UNIQUE_ID();
 else
     // see if any enumerations are located at the system level
     cur_sys_name = ::getSystemName();
