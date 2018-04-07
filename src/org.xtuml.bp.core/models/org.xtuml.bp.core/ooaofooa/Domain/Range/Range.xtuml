@@ -1,0 +1,119 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	'Range',
+	38,
+	'Range',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("67cd2f59-3300-4f1f-8b5e-226c23be3070",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO O_BATTR
+	VALUES ("67cd2f59-3300-4f1f-8b5e-226c23be3070",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO O_ATTR
+	VALUES ("67cd2f59-3300-4f1f-8b5e-226c23be3070",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	"fd48f1f1-57b8-4b70-9894-9ca53b23aee0",
+	'min',
+	'Full Name: Minimum',
+	'',
+	'min',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("05b12f2b-692e-430b-87fe-1f5804e5a4f4",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO O_BATTR
+	VALUES ("05b12f2b-692e-430b-87fe-1f5804e5a4f4",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO O_ATTR
+	VALUES ("05b12f2b-692e-430b-87fe-1f5804e5a4f4",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	"67cd2f59-3300-4f1f-8b5e-226c23be3070",
+	'max',
+	'Full Name: Maximum',
+	'',
+	'max',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	"2150fa65-813f-46c3-a6f9-7c7dbae3aced",
+	0,
+	"6ae84a1a-90f9-44d8-868a-df1916d60a10",
+	"c0d16656-463a-4e53-8468-0853dedd3a5b",
+	"fee69c3c-7ec7-40d8-9b42-638e7e63dde8",
+	"f378e2a5-0ca4-46c3-9914-ae913fccfae1",
+	"fd48f1f1-57b8-4b70-9894-9ca53b23aee0",
+	"726a1b6e-3936-4757-af30-0cf3400e7849",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'User Data Type',
+	'DT_ID',
+	'R57.''contrains value of''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	"c0d16656-463a-4e53-8468-0853dedd3a5b",
+	"fee69c3c-7ec7-40d8-9b42-638e7e63dde8",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6ae84a1a-90f9-44d8-868a-df1916d60a10",
+	"2150fa65-813f-46c3-a6f9-7c7dbae3aced",
+	0,
+	"c0d16656-463a-4e53-8468-0853dedd3a5b",
+	"f378e2a5-0ca4-46c3-9914-ae913fccfae1",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("fd48f1f1-57b8-4b70-9894-9ca53b23aee0",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("fd48f1f1-57b8-4b70-9894-9ca53b23aee0",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	"00000000-0000-0000-0000-000000000000",
+	'DT_ID',
+	'',
+	'',
+	'DT_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO O_ID
+	VALUES (1,
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO O_ID
+	VALUES (2,
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");
+INSERT INTO PE_PE
+	VALUES ("78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	1,
+	'../Domain.xtuml');
