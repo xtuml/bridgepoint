@@ -42,6 +42,11 @@ public class OpenGraphicsEditor implements IActionDelegate {
   public void run(IAction action) {
     Object current = (Selection.getInstance().getStructuredSelection()).iterator().next();
     current = EditorUtil.getElementToEdit(current);
+    if(current == null) {
+    	// handled by different functionality
+    	// just return
+    	return;
+    }
     try {
       GraphicalEditorInput input = GraphicalEditorInput.createInstance(current);
       if (input != null) {

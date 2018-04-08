@@ -182,6 +182,7 @@ public class EditorUtil
 	    		NonRootModelElement declaredElement = UIUtil.getDeclaredElement((NonRootModelElement) forElement);
 	    		if(declaredElement != forElement) {
 	    			UIUtil.openDeclaration(declaredElement);
+	    			return null;
 	    		}
 			} catch (PartInitException e) {
 				CorePlugin.logError("Unable to initialize Model Explorer part.", e);

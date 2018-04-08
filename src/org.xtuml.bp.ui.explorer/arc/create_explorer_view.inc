@@ -850,6 +850,11 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 		// see if the current element should open
 		// something other than itself
 		current = EditorUtil.getElementToEdit(current);
+	    if(current == null) {
+	    	// handled by different functionality
+	    	// just return
+	    	return;
+	    }
 		
     String name = current.getClass().getName();
     //

@@ -60,9 +60,11 @@ public class GraphicsUtil {
 		Class clazz = element.getClass();
 		if(checkElementToEdit) {
 			Object elementToEdit = EditorUtil.getElementToEdit(element);
-			if(elementToEdit.getClass() != clazz) {
-				clazz = elementToEdit.getClass();
-			}
+		    if(elementToEdit != null) {
+				if(elementToEdit.getClass() != clazz) {
+					clazz = elementToEdit.getClass();
+				}
+		    }
 		}
 		for (int i = 0; i < modelSpecs.length; i++) {
 			if (modelSpecs[i].getRepresents() == clazz) {
