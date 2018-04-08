@@ -144,6 +144,8 @@ INSERT INTO CME VALUES ('',  'Set as Derived Attribute','O_ATTR',   '',         
 INSERT INTO CME VALUES ('',     'Set as Base Attribute','O_ATTR',   '',                      false );
 INSERT INTO CME VALUES ('',       'Move Up',            'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Move Down',          'O_ATTR',   '',                      false, '' );
+INSERT INTO CME VALUES ('',       'Move Up',            'CNST_LSC',   '',                      false, '' );
+INSERT INTO CME VALUES ('',       'Move Down',          'CNST_LSC',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Combine With',       'O_ATTR',   '',                      false, 'Select attribute to combine with this one' );
 INSERT INTO CME VALUES ('Referential',       'Split',              'O_ATTR',   '',           false, 'Select reference to split from this one' );
 INSERT INTO CME VALUES ('Base And Ref',       'Split',              'O_ATTR',   '',            false, '' );
@@ -359,6 +361,8 @@ INSERT INTO MEF VALUES ('',       'Set as Derived Attribute', 'O_ATTR', 'subtype
 INSERT INTO MEF VALUES ('',       'Set as Base Attribute', 'O_ATTR', 'subtype', 'O_DBATTR');
 INSERT INTO MEF VALUES ('',       'Move Up',       'O_ATTR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_ATTR',    'can', 'move down' );
+INSERT INTO MEF VALUES ('',       'Move Up',       'CNST_LSC',    'can', 'move up' );
+INSERT INTO MEF VALUES ('',       'Move Down',     'CNST_LSC',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Combine With',  'O_ATTR',    'can', 'combine' );
 INSERT INTO MEF VALUES ('Referential',       'Split',         'O_ATTR',    'can', 'split ref' );
 INSERT INTO MEF VALUES ('Base And Ref',       'Split',         'O_ATTR',    'can', 'split base' );

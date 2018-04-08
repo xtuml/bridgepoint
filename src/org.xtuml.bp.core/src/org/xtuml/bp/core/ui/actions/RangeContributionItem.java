@@ -56,6 +56,9 @@ public class RangeContributionItem extends ContributionItem {
 				}
 			}
 		}
+		if(selectedNonRootModelElements.length == 0) {
+			return;
+		}
 		// do not allow mixing real and integer
 		if(foundInt && foundReal || foundReal && foundEdt) {
 			return;

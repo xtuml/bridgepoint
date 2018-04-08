@@ -37,7 +37,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Justification_c;
 import org.xtuml.bp.core.Style_c;
@@ -58,31 +57,38 @@ public class Gr_c {
     Gr_c.lastY = value;
   }
   public static void Drawtext(final GCDelegate Context, final int Justified_to, final String Text, final int Text_style, final int X, final int Y) {
-    String[] toPrint = Text.split("\n");  //$NON-NLS-1$
-    int yOffset = 0;
-    if (Justified_to == Justification_c.Center_in_X) {
-      for (int i = 0; i < toPrint.length; i++) {
-        int width = Scale(Context.textExtent(toPrint[i]).x);
-        Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
-        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
-      }
-    } else if (Justified_to == Justification_c.Center) {
-      // Start by Centering the text block in the y axis
-      yOffset = -Scale(Context.textExtent(Text).y) / 2;
-      for (int i = 0; i < toPrint.length; i++) {
-        int width = Scale(Context.textExtent(toPrint[i]).x);
-        Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
-        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
-      }
-    } else if (Justified_to == Justification_c.Right) {
-      for (int i = 0; i < toPrint.length; i++) {
-        int width = Scale(Context.textExtent(toPrint[i]).x);
-        Context.drawText(toPrint[i], (int) ((X - width) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
-        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
-      }
-    } else {
-      Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
-    }
+	    String[] toPrint = Text.split("\n");  //$NON-NLS-1$
+	    int yOffset = 0;
+	    if (Justified_to == Justification_c.Center_in_X) {
+	      for (int i = 0; i < toPrint.length; i++) {
+	        int width = Scale(Context.textExtent(toPrint[i]).x);
+	        Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
+	        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
+	      }
+	    } else if (Justified_to == Justification_c.Center) {
+	      // Start by Centering the text block in the y axis
+	      yOffset = -Scale(Context.textExtent(Text).y) / 2;
+	      for (int i = 0; i < toPrint.length; i++) {
+	        int width = Scale(Context.textExtent(toPrint[i]).x);
+	        Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
+	        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
+	      }
+	    } else if (Justified_to == Justification_c.Right) {
+	      for (int i = 0; i < toPrint.length; i++) {
+	        int width = Scale(Context.textExtent(toPrint[i]).x);
+	        Context.drawText(toPrint[i], (int) ((X - width) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
+	        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
+	      }
+	    } else {
+	      Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
+		  // draw an underline (style text is not easily supported in GEF
+		  // or at least at the time of writing this no easy way to make use
+		  // of it was found
+		  if(Text_style == Style_c.Underlined) {
+			  Point textExtent = Context.textExtent(Text);
+			  Context.drawLine(X, Y + textExtent.y, X + textExtent.x, Y + textExtent.y);
+		  }
+	    }
   } // End drawText
   public static void Drawrect(final GCDelegate Context, boolean filled, final int H, final int W, final int X, final int Y) {
     if (filled) {

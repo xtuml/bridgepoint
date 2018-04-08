@@ -26,6 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -47,8 +48,9 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -58,28 +60,59 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.osgi.framework.Bundle;
-
+import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BridgeParameter_c;
+import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.ComponentReference_c;
+import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.Enumerator_c;
+import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.FunctionParameter_c;
+import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.ImportedClass_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.InterfaceReference_c;
+import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.OperationParameter_c;
+import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.ProvidedExecutableProperty_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.ProvidedSignal_c;
+import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.RequiredExecutableProperty_c;
+import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.RequiredSignal_c;
+import org.xtuml.bp.core.Requirement_c;
+import org.xtuml.bp.core.StateMachineEventDataItem_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelElement;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.RenameAction;
@@ -905,4 +938,219 @@ public class UIUtil
 		}
 
 	}
+	public static void openDeclaration(NonRootModelElement declarationElement) throws PartInitException {
+		boolean showInME = shouldShowInME(declarationElement);
+		if (showInME) {
+			showInModelExplorer(declarationElement);
+		} else {
+			showInModelExplorer(declarationElement);
+			Package_c pkg = declarationElement.getFirstParentPackage();
+            if ( null == pkg ) {
+                pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
+            }
+			IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
+            NonRootModelElement selectionElement = declarationElement;
+            if ( declarationElement instanceof Port_c ) {
+                  selectionElement = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
+                  if ( null == selectionElement ) {
+                      selectionElement = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
+                  }
+            }
+			editorPart.getSite().getSelectionProvider()
+					.setSelection(new StructuredSelection(selectionElement));
+			zoomToSelected(editorPart);
+		}
+	}
+	private static void showInModelExplorer(NonRootModelElement declarationElement) throws PartInitException {
+		String explorerViewId = "org.xtuml.bp.ui.explorer.ExplorerView";
+		IViewPart explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+				.findView(explorerViewId);
+		if(explorerView == null) {
+			// not opened, open now
+			explorerView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(explorerViewId);
+		}
+		StructuredViewer viewer = UIUtil.getViewer();
+		Object selectionElement = declarationElement;
+		if ( selectionElement instanceof PropertyParameter_c ) {
+			// for C_PP instances, must get the instance of MultipleOccurrenceElement
+			// for this work, we always want the C_PP instance in the interface definition itself
+			NonRootModelElement parent = InterfaceOperation_c.getOneC_IOOnR4004(ExecutableProperty_c.getOneC_EPOnR4006((PropertyParameter_c)selectionElement));
+			if ( null == parent ) parent = InterfaceSignal_c.getOneC_ASOnR4004(ExecutableProperty_c.getOneC_EPOnR4006((PropertyParameter_c)selectionElement));
+			if ( null != parent ) selectionElement = MultipleOccurrenceElement.getElement( (NonRootModelElement)selectionElement, parent );
+		}
+		viewer.setSelection(new StructuredSelection(selectionElement), true);
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(explorerView);
+
+	}
+
+	private static void zoomToSelected(IEditorPart editorPart) {
+		// open the editor using the explorer view
+		final String packageName = "org.xtuml.bp.ui.graphics"; //$NON-NLS-1$
+		Bundle bundle = Platform.getBundle(packageName);
+		try {
+			// use reflection due to dependency loops, i.e, we
+			// cannot import
+			// ui.graphics
+			Class<?> loadClass = bundle.loadClass(packageName + ".editor." + "ModelEditor"); //$NON-NLS-1$ //$NON-NLS-2$
+			Method method = loadClass.getMethod("getGraphicalEditor", new Class[0]); //$NON-NLS-1$
+			Object result = method.invoke(editorPart, new Object[0]);
+			// we need to wait for the graphical editor to be
+			// fully configured in order to zoom to selected
+			// do this by waiting until the horizontal control
+			// has an extent
+			Method getCanvas = result.getClass().getMethod("getCanvas", new Class[0]);
+			Object canvas = getCanvas.invoke(result, new Object[0]);
+			Method addControlListener = canvas.getClass().getMethod("addControlListener",
+					new Class[] { ControlListener.class });
+			Method getViewport = canvas.getClass().getMethod("getViewport", new Class[0]);
+			Object viewport = getViewport.invoke(canvas, new Object[0]);
+			Method getHorizontalRangeModel = viewport.getClass().getMethod("getHorizontalRangeModel",
+					new Class[0]);
+			Object horizontalRangeModel = getHorizontalRangeModel.invoke(viewport, new Object[0]);
+			Method getExtent = horizontalRangeModel.getClass().getMethod("getExtent", new Class[0]);
+			Integer extent = (Integer) getExtent.invoke(horizontalRangeModel, new Object[0]);
+			if(extent > 100) {
+				// just resize, otherwise the canvas is initializing
+				// and we must do it in a control listener
+				performZoom(result);
+			}
+			addControlListener.invoke(canvas, new Object[] { new ControlListener() {
+
+				@Override
+				public void controlResized(ControlEvent event) {
+					try {
+						Method getExtent = horizontalRangeModel.getClass().getMethod("getExtent", new Class[0]);
+						Integer extent = (Integer) getExtent.invoke(horizontalRangeModel, new Object[0]);
+						if (extent > 100) {
+							performZoom(result);
+						}
+					} catch (NoSuchMethodException | SecurityException | IllegalAccessException
+							| IllegalArgumentException | InvocationTargetException e1) {
+						CorePlugin.logError("Unable to zoom to selected when opening declaration.", e1);
+					}
+				}
+
+				@Override
+				public void controlMoved(ControlEvent e) {
+					// nothing to do
+				}
+			} });			
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			CorePlugin.logError("Could not access ModelEditor class.", e);
+		}
+	}
+
+	private static void performZoom(Object result) {
+		Method zoom;
+		try {
+			zoom = result.getClass().getMethod("zoomSelected", new Class[0]);
+			zoom.invoke(result, new Object[0]);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			CorePlugin.logError("Unable to zoom to selected when opening declaration.", e);
+		}
+	}
+
+	private static boolean shouldShowInME(NonRootModelElement declarationElement) {
+		if (declarationElement instanceof Function_c) {
+			return true;
+		}
+		if (declarationElement instanceof Bridge_c) {
+			return true;
+		}
+		if (declarationElement instanceof Operation_c) {
+			return true;
+		}
+		if (declarationElement instanceof StateMachineEvent_c) {
+			return true;
+		}
+		if (declarationElement instanceof ProvidedSignal_c) {
+			return true;
+		}
+		if (declarationElement instanceof ProvidedOperation_c) {
+			return true;
+		}
+		if (declarationElement instanceof RequiredSignal_c) {
+			return true;
+		}
+		if (declarationElement instanceof RequiredOperation_c) {
+			return true;
+		}
+		if (declarationElement instanceof PropertyParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof BridgeParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof FunctionParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof OperationParameter_c) {
+			return true;
+		}
+		if (declarationElement instanceof Attribute_c) {
+			return true;
+		}
+		if (declarationElement instanceof StateMachineEventDataItem_c) {
+			return true;
+		}
+		if (declarationElement instanceof Enumerator_c) {
+			return true;
+		}
+		if (declarationElement instanceof InterfaceSignal_c) {
+			return true;
+		}
+		if (declarationElement instanceof InterfaceOperation_c) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static NonRootModelElement getDeclaredElement(NonRootModelElement reference) {
+		if (reference instanceof ProvidedOperation_c) {
+			return InterfaceOperation_c.getOneC_IOOnR4004(ExecutableProperty_c.getManyC_EPsOnR4501(
+					ProvidedExecutableProperty_c.getManySPR_PEPsOnR4503((ProvidedOperation_c) reference)));
+		}
+		if (reference instanceof ProvidedSignal_c) {
+			return InterfaceSignal_c.getOneC_ASOnR4004(ExecutableProperty_c.getManyC_EPsOnR4501(
+					ProvidedExecutableProperty_c.getManySPR_PEPsOnR4503((ProvidedSignal_c) reference)));
+		}
+		if (reference instanceof RequiredOperation_c) {
+			return InterfaceOperation_c.getOneC_IOOnR4004(ExecutableProperty_c.getManyC_EPsOnR4500(
+					RequiredExecutableProperty_c.getManySPR_REPsOnR4502((RequiredOperation_c) reference)));
+		}
+		if (reference instanceof RequiredSignal_c) {
+			return InterfaceSignal_c.getOneC_ASOnR4004(ExecutableProperty_c.getManyC_EPsOnR4500(
+					RequiredExecutableProperty_c.getManySPR_REPsOnR4502((RequiredSignal_c) reference)));
+		}
+		if (reference instanceof ComponentReference_c) {
+			return Component_c.getOneC_COnR4201((ComponentReference_c) reference);
+		}
+		if (reference instanceof ImportedClass_c) {
+			return ModelClass_c.getOneO_OBJOnR101((ImportedClass_c) reference);
+		}
+		if (reference instanceof UserDataType_c) {
+			UserDataType_c udt = (UserDataType_c) reference;
+			DataType_c coreDT = (DataType_c) Ooaofooa.getDefaultInstance().getInstanceList(DataType_c.class)
+					.getGlobal(udt.Getcoretype());
+			List<NonRootModelElement> subtypes = SupertypeSubtypeUtil.getSubtypes(coreDT);
+			NonRootModelElement firstSubtype = subtypes.get(0);
+			if(!(firstSubtype instanceof CoreDataType_c)) {
+				return firstSubtype;
+			}
+		}
+		if (reference instanceof LiteralSymbolicConstant_c) {
+			LiteralSymbolicConstant_c lsc = (LiteralSymbolicConstant_c) reference;
+			DataType_c type = DataType_c.getOneS_DTOnR1500(
+					SymbolicConstant_c.getManyCNST_SYCsOnR1502(LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1503(lsc)));
+			List<NonRootModelElement> subtypes = SupertypeSubtypeUtil.getSubtypes(type);
+			NonRootModelElement firstSubtype = subtypes.get(0);
+			if(!(firstSubtype instanceof CoreDataType_c)) {
+				return firstSubtype;
+			}
+		}
+		return reference;
+	}
+
 }

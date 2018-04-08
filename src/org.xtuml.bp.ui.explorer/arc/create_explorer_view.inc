@@ -164,6 +164,24 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     parent.setLayout(layout);
     treeViewer = new ExplorerTreeViewer(parent);
     treeViewer.setContentProvider(new ModelContentProvider());
+	treeViewer.getTree().addListener(SWT.PaintItem, new Listener() {
+		@Override
+		public void handleEvent(Event event) {
+			// TODO: Generalize this based on the Get_text_style methods
+			// at this point simply look for the one special case (class based ops)
+			TreeItem item = (TreeItem) event.item;
+			if(item.getData() instanceof Operation_c) {
+				Operation_c op = (Operation_c) item.getData();
+				if(op.getInstance_based() == Scope_c.Class) {
+					Rectangle bounds = item.getBounds();
+					event.gc.drawLine(bounds.x, bounds.y + bounds.height, bounds.x + bounds.width,
+							bounds.y + bounds.height);
+				}
+			}
+		}
+
+	});
+
     labelProvider = new ModelLabelProvider();
     treeViewer.setLabelProvider(labelProvider);
     // This call must be disabled until eclipse bug 117534 is fixed

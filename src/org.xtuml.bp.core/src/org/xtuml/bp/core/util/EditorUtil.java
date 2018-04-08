@@ -32,6 +32,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.EditorReference;
 import org.osgi.framework.Bundle;
@@ -173,6 +174,19 @@ public class EditorUtil
      */
     public static Object getElementToEdit(Object forElement)
     {
+    	if(forElement instanceof NonRootModelElement) {
+	    	/*
+	    	 * Use newer functionality for opening a declaration
+	    	 */
+	    	try {
+	    		NonRootModelElement declaredElement = UIUtil.getDeclaredElement((NonRootModelElement) forElement);
+	    		if(declaredElement != forElement) {
+	    			UIUtil.openDeclaration(declaredElement);
+	    		}
+			} catch (PartInitException e) {
+				CorePlugin.logError("Unable to initialize Model Explorer part.", e);
+			}
+    	}
         // special case: if the given element is a model-class
         if (forElement instanceof ModelClass_c) {
             // edit the class's associated instance state 
