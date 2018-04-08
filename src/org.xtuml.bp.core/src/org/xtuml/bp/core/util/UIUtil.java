@@ -83,9 +83,13 @@ import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ImportedClass_c;
+import org.xtuml.bp.core.ImportedProvision_c;
+import org.xtuml.bp.core.ImportedReference_c;
+import org.xtuml.bp.core.ImportedRequirement_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
+import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
 import org.xtuml.bp.core.ModelClass_c;
@@ -1129,6 +1133,20 @@ public class UIUtil
 		}
 		if (reference instanceof ImportedClass_c) {
 			return ModelClass_c.getOneO_OBJOnR101((ImportedClass_c) reference);
+		}
+		if (reference instanceof ImportedProvision_c) {
+			return Provision_c.getOneC_POnR4009(InterfaceReference_c
+					.getManyC_IRsOnR4701(ImportedReference_c.getManyCL_IIRsOnR4703((ImportedProvision_c) reference)));
+		}
+		if (reference instanceof ImportedRequirement_c) {
+			return Requirement_c.getOneC_ROnR4009(InterfaceReference_c
+					.getManyC_IRsOnR4701(ImportedReference_c.getManyCL_IIRsOnR4703((ImportedRequirement_c) reference)));
+		}
+		if (reference instanceof Provision_c) {
+			return Interface_c.getOneC_IOnR4012(InterfaceReference_c.getManyC_IRsOnR4009((Provision_c) reference));
+		}
+		if (reference instanceof Requirement_c) {
+			return Interface_c.getOneC_IOnR4012(InterfaceReference_c.getManyC_IRsOnR4009((Requirement_c) reference));
 		}
 		if (reference instanceof UserDataType_c) {
 			UserDataType_c udt = (UserDataType_c) reference;

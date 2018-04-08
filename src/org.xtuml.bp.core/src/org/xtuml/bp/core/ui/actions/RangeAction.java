@@ -52,10 +52,17 @@ public class RangeAction implements IActionDelegate {
 			typeString = "type";
 			Range_c firstRange = Range_c.getOneRANGEOnR57(first);
 			if(firstRange != null) {
-				initialValue = String.valueOf(firstRange.getMin());
-				if(type.equals("max")) { //$NON-NLS-1$
+				String initialMin = String.valueOf(firstRange.getMin());
+				String initialMax = String.valueOf(firstRange.getMax());
+				if(!isReal) {
+					initialMin = String.valueOf((int) firstRange.getMin());
+					initialMax = String.valueOf((int) firstRange.getMax());
+				}
+				if(type.equals("min")) { //$NON-NLS-1$
+					initialValue = initialMin;
+				} else if(type.equals("max")) { //$NON-NLS-1$
 					if(firstRange.getMax() != 0) {
-						initialValue = String.valueOf(firstRange.getMax());
+						initialValue = initialMax;
 					}
 				}
 			}
@@ -90,7 +97,7 @@ public class RangeAction implements IActionDelegate {
 					}
 				});
 		if (okPressed & !UIUtil.inputDialogResult.equals(initialValue)) {
-			int intVal = Integer.valueOf(UIUtil.inputDialogResult);
+			float value = Float.valueOf(UIUtil.inputDialogResult);
 			try {
 				Transaction transaction = TransactionManager.getSingleton().startTransaction("Set range",
 						new ModelElement[] { Ooaofooa.getDefaultInstance() });
@@ -108,9 +115,9 @@ public class RangeAction implements IActionDelegate {
 						range.relateAcrossR57To(udt);
 					}
 					if (type.equals("min")) { //$NON-NLS-1$
-						range.setMin(intVal);
+						range.setMin(value);
 					} else {
-						range.setMax(intVal);
+						range.setMax(value);
 					}
 				}
 				TransactionManager.getSingleton().endTransaction(transaction);
