@@ -339,7 +339,7 @@ ${rel_nav.body}\
       ${external_cn.body} ${external_attr.Attribute_Name}Owner = 
       ${rel_nav.body};
       if(${external_attr.Attribute_Name}Owner != null) {
-		   attrSet[${original_attr_count}] = new ObjectElement("${external_attr.Attribute_Name}", ObjectElement.ATTRIBUTE_ELEMENT, ((${external_cn.body}) ${external_attr.Attribute_Name}Owner).get${external_attr.Attribute_Name}(), arg, "get${external_attr.Attribute_Name}", $l{user_modifiable});
+		   attrSet[${original_attr_count}] = new ObjectElement("${external_attr.Attribute_Name}", ObjectElement.ATTRIBUTE_ELEMENT, ((${external_cn.body}) ${external_attr.Attribute_Name}Owner).get$c{external_attr.Attribute_Name}(), arg, "get$c{external_attr.Attribute_Name}", $l{user_modifiable});
 		   attrSet[${original_attr_count}].setAttributeOwner(${external_attr.Attribute_Name}Owner);
   	  }
     .assign original_attr_count = original_attr_count + 1

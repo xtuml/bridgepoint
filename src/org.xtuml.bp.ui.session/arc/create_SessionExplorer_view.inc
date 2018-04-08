@@ -792,6 +792,10 @@ public class ${viewer_name} extends ViewPart {
 	}
 	Object current = sel.iterator().next();    
     String name = current.getClass().getName();
+    Object elementToEdit = EditorUtil.getElementToEdit(current);
+    if(elementToEdit == null) {
+    	return null;
+    }
     //
     // Get the registry
     //
@@ -829,7 +833,7 @@ public class ${viewer_name} extends ViewPart {
                 //
                 Method createInstanceMethod = inputClass.getMethod("createInstance", type);          //$$NON-NLS-1$$
                 Object[] args = new Object[1];
-                args[0] = EditorUtil.getElementToEdit(current);
+                args[0] = elementToEdit;
                 //
                 // Invoke the method.
                 // The method is static; no instance is needed, so first argument is null

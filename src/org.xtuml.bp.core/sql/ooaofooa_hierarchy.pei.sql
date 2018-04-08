@@ -126,7 +126,7 @@ INSERT INTO T_TNS VALUES (297, 'Package.gif', 'EP_PKG',  '', 'Label', '', 'Packa
 INSERT INTO T_TNS VALUES (298, 'Association.gif',                'I_LIP',   '', 'Label', '',                     'Association', 					-1, '');
 INSERT INTO T_TNS VALUES (299, 'Class.gif',                  'CSME_CIE',   '', 'Label', '',                 'Classes Under Execution',                     -1, '');
 INSERT INTO T_TNS VALUES (300, 'ConstantSpecification.gif',  'CNST_CSP',  '', 'InformalGroupName', '',      'Constant Specification',  -1, '');
-INSERT INTO T_TNS VALUES (301, 'Enumerator.gif',             'CNST_LSC',  '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constant', -1, '');
+INSERT INTO T_TNS VALUES (301, 'Enumerator.gif',             'CNST_LSC',  '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constant', 1505, 'succeeds');
 INSERT INTO T_TNS VALUES (302, 'Enumerator.gif',             'CNST_SYC',  '', '', '',                 'Symbolic Constant', 				-1, '');
 INSERT INTO T_TNS VALUES (303, 'Satisfaction.gif',           'C_SF',  '', 'Label', '',                 'Satisfactions', 				-1, '');
 INSERT INTO T_TNS VALUES (305, 'Attribute.gif',           'O_NBATTR','', '', '',                     'Non Derived Attribute', 			-1, '');
@@ -426,3 +426,8 @@ INSERT INTO T_EDL VALUES (6, 297, 'PE_PE', '->PE_PE[R8001]');
 INSERT INTO T_EA VALUES (6, 'Visibility');
 INSERT INTO T_EDL VALUES (7, 6, 'PE_PE', '->PE_PE[R8001]');
 INSERT INTO T_EA VALUES (7, 'Visibility');
+INSERT INTO T_EDL VALUES (8, 74, 'Range', '->Range[R57]');
+INSERT INTO T_EA VALUES (8, 'min');
+INSERT INTO T_EA VALUES (8, 'max');
+
+

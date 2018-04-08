@@ -52,6 +52,19 @@ select one component related by packageableElem->C_C[R8003];
                      PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == param.id;
   end if;
   if(not_empty dt)
+	select one edt related by dt->S_EDT[R17];
+	if(not_empty edt)
+	  return true;
+	end if;
+    select one udt related by dt->S_UDT[R17];
+    if(not_empty udt)
+      coreId = udt.getCoreType();
+      select any dt from instances of S_DT where (selected.DT_ID == coreId);
+      select one edt related by dt->S_EDT[R17];
+      if(not_empty edt)
+        return true;
+      end if;
+    end if;
     if(self.isAllowedType(typeName:dt.Name))
       return true;
     end if;
@@ -325,6 +338,65 @@ return symb_cnst.Name;
 	1,
 	'',
 	"3b350c62-1e8a-4bef-ae84-2305508021d0",
+	0);
+INSERT INTO O_TFR
+	VALUES ("266975df-07bc-408a-b45c-21cc0d0068d4",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'actionFilter',
+	'Returns whether or not a given context menu entry item should be available.',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one sc related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
+return sc.actionFilter(name: param.name, value: param.value);',
+	1,
+	'',
+	"4690d46f-fc87-41bc-9c30-6d92d446ce95",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d8ffac44-368c-4f39-b67b-4a2d5fbbedc3",
+	"266975df-07bc-408a-b45c-21cc0d0068d4",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("55c3592e-f002-4dbd-9b5f-6f4f9cf7f609",
+	"266975df-07bc-408a-b45c-21cc0d0068d4",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"d8ffac44-368c-4f39-b67b-4a2d5fbbedc3",
+	'');
+INSERT INTO O_TFR
+	VALUES ("30f0ba3d-c5e3-4f07-8757-0edb43d3ddb4",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'moveDown',
+	'Move this Symbolic Constant down in the list of CNST_SYCs in this Constant
+Specification Package.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one sc related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
+sc.moveDown();',
+	1,
+	'',
+	"266975df-07bc-408a-b45c-21cc0d0068d4",
+	0);
+INSERT INTO O_TFR
+	VALUES ("8622a7cf-1dd5-4753-b9f3-fb7b9237629d",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'moveUp',
+	'Move this Symbolic Constant up in the list of CNST_SYCs in this Constant
+Specification Package.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one sc related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
+sc.moveUp();',
+	1,
+	'',
+	"30f0ba3d-c5e3-4f07-8757-0edb43d3ddb4",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("6e5a5eff-cd31-48e6-897d-853878d5065f",

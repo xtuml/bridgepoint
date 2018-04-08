@@ -43,45 +43,91 @@ package org.xtuml.bp.ui.explorer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.*;
-import org.eclipse.jface.action.*;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.*;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
+import org.eclipse.jface.viewers.IElementComparer;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IOpenListener;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.*;
-import org.eclipse.ui.actions.*;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.NewWizardMenu;
+import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.ui.views.framelist.*;
+import org.eclipse.ui.views.framelist.BackAction;
+import org.eclipse.ui.views.framelist.ForwardAction;
+import org.eclipse.ui.views.framelist.FrameList;
+import org.eclipse.ui.views.framelist.TreeViewerFrameSource;
+import org.eclipse.ui.views.framelist.UpAction;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osgi.framework.Bundle;
-
 import org.xtuml.bp.core.*;
-import org.xtuml.bp.core.common.*;
-import org.xtuml.bp.core.ui.*;
-import org.xtuml.bp.core.util.*;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import org.xtuml.bp.core.common.IModelChangeListener;
+import org.xtuml.bp.core.common.IModelDelta;
+import org.xtuml.bp.core.common.IModelViewerProvider;
+import org.xtuml.bp.core.common.ITransactionListener;
+import org.xtuml.bp.core.common.ModelChangeAdapter;
+import org.xtuml.bp.core.common.ModelChangedEvent;
+import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.core.ui.DeleteAction;
+import org.xtuml.bp.core.ui.RenameAction;
+import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.EditorUtil;
+import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerPasteAction;
 import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
 import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
-
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
-import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * ExplorerView allows the user to navigate the BridgePoint
@@ -164,6 +210,24 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     parent.setLayout(layout);
     treeViewer = new ExplorerTreeViewer(parent);
     treeViewer.setContentProvider(new ModelContentProvider());
+	treeViewer.getTree().addListener(SWT.PaintItem, new Listener() {
+		@Override
+		public void handleEvent(Event event) {
+			// TODO: Generalize this based on the Get_text_style methods
+			// at this point simply look for the one special case (class based ops)
+			TreeItem item = (TreeItem) event.item;
+			if(item.getData() instanceof Operation_c) {
+				Operation_c op = (Operation_c) item.getData();
+				if(op.getInstance_based() == Scope_c.Class) {
+					Rectangle bounds = item.getBounds();
+					event.gc.drawLine(bounds.x, bounds.y + bounds.height, bounds.x + bounds.width,
+							bounds.y + bounds.height);
+				}
+			}
+		}
+
+	});
+
     labelProvider = new ModelLabelProvider();
     treeViewer.setLabelProvider(labelProvider);
     // This call must be disabled until eclipse bug 117534 is fixed
@@ -832,6 +896,11 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 		// see if the current element should open
 		// something other than itself
 		current = EditorUtil.getElementToEdit(current);
+	    if(current == null) {
+	    	// handled by different functionality
+	    	// just return
+	    	return null;
+	    }
 		
     String name = current.getClass().getName();
     //

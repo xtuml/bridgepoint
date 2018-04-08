@@ -526,6 +526,12 @@ public class GraphicalOutlinePage extends ContentOutlinePage {
 		// see if the current element should open
 		// something other than itself
 		current = EditorUtil.getElementToEdit(current);
+	    if(current == null) {
+	    	// handled by different functionality
+	    	// just return
+	    	return;
+	    }
+
 		//
 		// Get the registry
 		//
