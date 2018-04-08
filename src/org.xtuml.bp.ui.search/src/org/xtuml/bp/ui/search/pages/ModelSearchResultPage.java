@@ -151,8 +151,6 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 				
 				NameMatch_c nm = NameMatch_c.getOneSR_NMOnR9801((Match_c) selected);
 				if ( nm != null ) {
-					// TODO - SKB - leverage the open declaration work here to show what we want.
-					// refactor...
 					OpenDeclarationAction oda = new OpenDeclarationAction();
 					Object o = ModelSearchResult.getElementForResult(result);
 					if ( o instanceof NonRootModelElement ) {
@@ -183,9 +181,6 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 						}
 					}
 					if (nameMatch) {
-						// TODO - SKB - leverage the open declaration work here
-						// to show what we want.
-						// refactor...
 						OpenDeclarationAction oda = new OpenDeclarationAction();
 						oda.showElement((NonRootModelElement)selected);
 					} else {
@@ -269,7 +264,6 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					count++;
 				}
 				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
-				// TODO - SKB
 				if (modelNameMatch != null) {
 					String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
 					String s2 = modelNameMatch.getName();
