@@ -357,7 +357,10 @@ public class ${manager_name} {
 .//
 .select many tree_nodes from instances of T_TNS 
 .for each node in tree_nodes
-  .if(node.SortingRelationNumber >= 0)
+  .// TODO: remove the below work around for association 1505.  It is added as the infrastructure did
+  .// not support its situation and the class had to be hand crafted.  The SortingRelationNumber is required
+  .// for sorting elsewhere so it is not turned off in the pei data
+  .if(node.SortingRelationNumber >= 0 and node.SortingRelationNumber != 1505)
     .select any model_class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
     .select any sorting_relation from instances of R_REL where (selected.Numb == node.SortingRelationNumber)
     .invoke result = create_type_sorter(model_class, sorting_relation, node.SortingRelationPhrase, sorter_dir, core_path, core_package_name, manager_name)
