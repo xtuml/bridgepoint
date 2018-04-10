@@ -39,6 +39,8 @@ LinkedFormalizeOnR_RELWizard.java
 LinkedFormalizeOnR_RELWizardPage1.java
 MoveDownOnO_ATTRAction.java
 MoveUpOnO_ATTRAction.java
+MoveDownOnCNST_LSCAction.java
+MoveUpOnCNST_LSCAction.java
 NewAttributeOnO_OBJAction.java
 NewBridgeOperationOnS_EEAction.java
 NewClassStateMachineOnO_OBJAction.java
