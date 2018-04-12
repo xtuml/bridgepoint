@@ -83,9 +83,13 @@
           <link id="basics" label="Cheat Sheet Walkthroughs" style-id="left"   url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.ShowCheatSheetWindowAction">
              <text>BridgePoint includes instructional guides to help you get started.  Select Help > Cheat Sheets... > BridgePoint .</text>
         </link>
-        <link id="folder" label="Example Application - GPS Watch" style-id="left"
-              url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS Watch&amp;SingleFileModel=zip">
-          <text>Click here to create a project that includes a sample application model of a GPS watch.</text>
+        <link id="folder" label="Example Application - GPS Watch (OAL)" style-id="left"
+              url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS_Watch_OAL&amp;SingleFileModel=zip&amp;readmePath=GPS_Watch/README.md">
+          <text>Click here to create a project that includes a sample application model of a GPS watch (OAL version).</text>
+        </link>
+        <link id="folder" label="Example Application - GPS Watch (MASL)" style-id="left"
+              url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS_Watch_MASL&amp;SingleFileModel=zip&amp;readmePath=GPS_Watch/README.md">
+          <text>Click here to create a project that includes a sample application model of a GPS watch (MASL version).</text>
         </link>
         <link  id="basics" label="Workbench Basics" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.platform.doc.user/concepts/concepts-2.htm">
           <text>Learn about basic BridgePoint UML workbench concepts.</text>

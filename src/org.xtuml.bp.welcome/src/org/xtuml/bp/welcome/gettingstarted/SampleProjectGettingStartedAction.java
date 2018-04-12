@@ -20,9 +20,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.swt.widgets.Display;
@@ -38,7 +40,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.util.UIUtil;
@@ -54,16 +55,17 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         String enableIPR = params.getProperty("enableIPR", "false");
         String importIntoWorkspace = params.getProperty("ImportIntoWorkspace", "true");
         String launchGettingStartedHelp = params.getProperty("LaunchGettingStartedHelp", "true");
+        String readmePath = params.getProperty("readmePath", "");
         if (modelName.equals("load_error")) {
        		CorePlugin.logError(
                     "The SampleProjectGettingStartedAction could not determine the model requested.", null);
        		return;
         } else {
-        	setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp);
+        	setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp, readmePath);
         }
     }
 
-	private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted) {
+	private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath) {
 		// create project and all necessary parts
 		if ( setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace) ) {
 		    // show the xtUML Modeling perspective if not shown
@@ -74,7 +76,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 
 		    if (singleFile.compareToIgnoreCase("true") != 0)  {
 		    	// See if there is a readme file and if so open it
-		    	openReadme(modelName);
+		    	openReadme(modelName, readmePath);
 		    }
 
 		    if (launchGettingStarted.equalsIgnoreCase("true")) {
@@ -204,10 +206,17 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	 * 
 	 * @param modelFolderName
 	 */
-	private void openReadme(String modelFolderName) {
+	private void openReadme(String modelFolderName, String readmePath) {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
 				modelFolderName);
-		IFile fileToBeOpened = project.getFile("README");
+		IFile fileToBeOpened;
+    if ( "" != readmePath ) {
+    	IPath path = new Path( "GPS_Watch/README.md" );
+      fileToBeOpened = ResourcesPlugin.getWorkspace().getRoot().getFile( path );
+    }
+    else {
+      fileToBeOpened = project.getFile("README");
+    }
 		if (!fileToBeOpened.exists()) {
 			// A readme does not have to exist.  We just display it if it does.
 			return;
