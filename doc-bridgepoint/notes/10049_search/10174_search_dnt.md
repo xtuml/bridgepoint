@@ -45,6 +45,12 @@ __Carried forward verbatim from the analysis:__
 ### 5. Analysis
 
 5.1 Searchable Elements  
+
+The original analysis called out the fact that not all elements with `Name` attributes
+or `get_name()` operations are desirable search results.  The lists here detail exactly
+what metamodel elements are searchable.  By returning results judiciously we improve 
+the quality relevancy of search results. 
+
 5.1.1  The following metamodel instances have `Name` attributes and __will be__ included in
 searches:    
 ```
@@ -61,7 +67,6 @@ Component/Component Library/Imported Provision
 Component/Component Library/Imported Reference
 Component/Component Library/Imported Requirement
 Component/Component Library/Port Reference
-Component/Delegation
 Component/Interface
 Component/Interface Operation
 Component/Interface Signal
@@ -69,18 +74,15 @@ Component/Requirement
 Component/Port
 Component/Property Parameter
 Component/Provision
-Component/Signal Provisions and Requirements/Provided Operation (not sure these 4 are needed...)
+Component/Signal Provisions and Requirements/Provided Operation 
 Component/Signal Provisions and Requirements/Provided Signal
 Component/Signal Provisions and Requirements/Required Operation
 Component/Signal Provisions and Requirements/Required Signal
-Constants/Symbolic Constant
 Domain/Bridge
 Domain/Bridge Parameter
 Domain/Enumerator
 Domain/Exception
 Domain/External Entity
-Domain/External Entity Data Item
-Domain/Function
 Domain/Function Parameter
 Domain/Structure Member
 Domain/System Model
@@ -105,7 +107,6 @@ searches:
 ```
 Association/Association
 Communication/Communication Link
-Component/Component
 Component/Delegation
 Component/Interface Reference
 Component/Satisfaction
@@ -143,8 +144,12 @@ Subsystem/Referential Attribute
 5.2.1  The following metamodel instances have `Name` attributes, but __will not__ be included 
 in searches:    
 ```
+Constants/Symbolic Constant
+Component/Delegation
 Component/Executable Property
 Domain/Data Type
+Domain/Function
+Domain/External Entity Data Item
 Domain/External Entity Event Data Item
 Instance/Instance
 Packageable Element/Element Visibility
@@ -177,6 +182,7 @@ Association/Class As Simple Participant
 Association/Class As Subtype
 Association/Class As Supertype
 Association/Derived Association
+Component/Component
 Domain/Core Data Type
 Domain/External Entity Event
 Domain/External Entity Event Data
@@ -210,17 +216,44 @@ Use Case/Include
 
 ### 6. Design
 
-TODO
+6.1  Search dialog update  
+The xtUML Search dialog now includes the ability to restrict searches for element names.  
+
+![Search dialog](xtuml_search.png)  
+
+
+6.2  `src/org.xtuml.bp.core/arc/action_language_description_util.arc`  
+6.2.1  Updated to add name search support functions to the generated class `ActionLanguageDescriptionUtil.java`.  
+6.2.1.1  The new functions are: `hasSearchableName()`, `getNameAttributeValue()`, `getClassesSupportingName()`.  
+6.2.1.1  All three of the new functions rely on the included archetype `src/org.xtuml.bp.core/arc/name_search_utils.inc` 
+for some RSL support functions that help filter the searchable elements as desribed in section 5.1 and 5.2.  
+
+6.3  OOAofOOA Metamodel `Search` External Entity    
+6.3.1  Update the `Search` EE to add bridge `locateNameResults(pattern, contents, isCaseSensitive)`   
+
+6.4  OOAofOOA Metamodel `Declarations Engine`   
+6.4.1  Add `processQuery()` operation.  This is the heart of the name-based search.  It uses
+the Search EE to locate name matches against the valid search participants.  Search results
+are captured and match instances are created and given to the Search EE to notify the match 
+listener that a new match has been created.  
+
+6.5  OOAofOOA Search infrastructure  
+6.5.1  The other parts of the existing `Search` architecture are modified and extended 
+to create the name-based searching: the declaration engine, declaration query, declaration participants, and
+name match results. In these cases we simply followed the existing patterns in code that currently performs
+search and result creation for Description and Action Language searching.   
+
+6.6  `src/org.xtuml.bp.ui.text/src/org/xtuml/bp/ui/text/activity/OpenDeclarationAction.java`  
+Updated the code to add additional safety checks to prevent NPEs that were encountered when opening
+name-based search results.  
 
 ### 7. Design Comments
 
-TODO
-
+None.  
 
 ### 8. User Documentation
 
-TODO
-
+None.  
 
 ### 9. Unit Test
 
