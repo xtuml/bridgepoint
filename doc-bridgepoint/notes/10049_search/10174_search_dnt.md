@@ -49,7 +49,7 @@ __Carried forward verbatim from the analysis:__
 The original analysis called out the fact that not all elements with `Name` attributes
 or `get_name()` operations are desirable search results.  The lists here detail exactly
 what metamodel elements are searchable.  By returning results judiciously we improve 
-the quality relevancy of search results. 
+the quality and relevance of search results.  See the analysis note for more information.   
 
 5.1.1  The following metamodel instances have `Name` attributes and __will be__ included in
 searches:    
