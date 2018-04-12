@@ -224,15 +224,29 @@ public class ActionLanguageDescriptionUtil {
 	}
 	
     public static List<Class<?>> getClassesSupportingName() {
-.// TODO - SKB - another spot to change via analysis
         List<Class<?>> classes = new ArrayList<Class<?>>();
+.// See comments above in hasSearchableName() about the flow used here.
 .select many objs from instances of O_OBJ
 .for each obj in objs
   .select any attr related by obj->O_ATTR[R102] where (selected.Name == "Name")
   .if(not_empty attr)
-    .invoke gn = get_class_name(obj)
-    .assign className = gn.body
+    .invoke result = skip_class_with_name_attr(obj)
+    .if (result.skip)
+        .// skipping 
+    .else
+      .invoke gn = get_class_name(obj)
+      .assign className = gn.body
         classes.add(${className}.class);
+    .end if
+  .end if
+  .select any otfr related by obj->O_TFR[R115] where (selected.Name == "get_name")
+  .if(not_empty otfr)
+    .invoke result = include_class_with_get_name_otfr(obj)
+    .if (result.include)
+      .invoke gn = get_class_name(obj)
+      .assign className = gn.body
+        classes.add(${className}.class);
+    .end if
   .end if
 .end for
         return classes;

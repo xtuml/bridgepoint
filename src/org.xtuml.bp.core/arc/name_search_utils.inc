@@ -39,11 +39,17 @@
       .assign attr_skip = true
     .elif (obj.Key_Lett == "C_EP")
       .assign attr_skip = true
+    .elif (obj.Key_Lett == "S_EEDI")
+      .assign attr_skip = true
     .elif (obj.Key_Lett == "S_EEEDI")
       .assign attr_skip = true
     .elif (obj.Key_Lett == "SM_NLEVT")
       .assign attr_skip = true
     .elif (obj.Key_Lett == "S_DT")
+      .assign attr_skip = true
+    .elif (obj.Key_Lett == "CNST_SYC")
+      .assign attr_skip = true
+    .elif (obj.Key_Lett == "C_DG")
       .assign attr_skip = true
     .end if
 .end function
@@ -59,8 +65,6 @@
     .elif (obj.Key_Lett == "CNST_CSP")
       .assign attr_include = true
     .elif (obj.Key_Lett == "CNST_LSC")
-      .assign attr_include = true
-    .elif (obj.Key_Lett == "C_C")
       .assign attr_include = true
     .elif (obj.Key_Lett == "C_DG")
       .assign attr_include = true
