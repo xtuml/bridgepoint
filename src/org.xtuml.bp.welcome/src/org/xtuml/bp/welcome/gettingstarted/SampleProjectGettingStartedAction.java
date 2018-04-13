@@ -2,11 +2,11 @@ package org.xtuml.bp.welcome.gettingstarted;
 
 //====================================================================
 //
-//	File: $RCSfile: SampleProjectGettingStartedAction.java,v $
-//	Version: $Revision: 1.9 $
-//	Modified: $Date: 2013/06/12 13:09:36 $
+//    File: $RCSfile: SampleProjectGettingStartedAction.java,v $
+//    Version: $Revision: 1.9 $
+//    Modified: $Date: 2013/06/12 13:09:36 $
 //
-//	(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+//    (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //====================================================================
 //
@@ -57,36 +57,36 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         String launchGettingStartedHelp = params.getProperty("LaunchGettingStartedHelp", "true");
         String readmePath = params.getProperty("readmePath", "");
         if (modelName.equals("load_error")) {
-       		CorePlugin.logError(
+               CorePlugin.logError(
                     "The SampleProjectGettingStartedAction could not determine the model requested.", null);
-       		return;
+               return;
         } else {
-        	setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp, readmePath);
+            setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp, readmePath);
         }
     }
 
-	private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath) {
-		// create project and all necessary parts
-		if ( setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace) ) {
-		    // show the xtUML Modeling perspective if not shown
-		    ProjectUtilities.openxtUMLPerspective();
-		    // close welcome page for the xtUML perspective
+    private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath) {
+        // create project and all necessary parts
+        if ( setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace) ) {
+            // show the xtUML Modeling perspective if not shown
+            ProjectUtilities.openxtUMLPerspective();
+            // close welcome page for the xtUML perspective
 
-		    closeWelcomePage();
+            closeWelcomePage();
 
-		    if (singleFile.compareToIgnoreCase("true") != 0)  {
-		    	// See if there is a readme file and if so open it
-		    	openReadme(modelName, readmePath);
-		    }
+            if (singleFile.compareToIgnoreCase("true") != 0)  {
+                // See if there is a readme file and if so open it
+                openReadme(modelName, readmePath);
+            }
 
-		    if (launchGettingStarted.equalsIgnoreCase("true")) {
-			    // Display the getting started help
-			    PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(IGettingStartedConstants.gpsGettingStartedLink);
-		    }
-		}
-	}
+            if (launchGettingStarted.equalsIgnoreCase("true")) {
+                // Display the getting started help
+                PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(IGettingStartedConstants.gpsGettingStartedLink);
+            }
+        }
+    }
 
-	private boolean setupProject(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace) {
+    private boolean setupProject(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace) {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(modelName);
         boolean setupSucceeded = false;
         try {
@@ -111,51 +111,51 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
             }
 
             try {
-    			WorkspaceUtil.setAutobuilding(false);
-    		} catch (CoreException e1) {
-    			// Log an error for this, but continue
-    			CorePlugin.logError(
-    					"Could not disable Auto Building", e1);
-    		}
+                WorkspaceUtil.setAutobuilding(false);
+            } catch (CoreException e1) {
+                // Log an error for this, but continue
+                CorePlugin.logError(
+                        "Could not disable Auto Building", e1);
+            }
  
             String modelPath; 
             if (singleFile.compareToIgnoreCase("true") == 0) {
-	            project = ProjectUtilities.createProject(modelName);
-	            SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
-	            project.open(new NullProgressMonitor());
-	            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+                project = ProjectUtilities.createProject(modelName);
+                SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
+                project.open(new NullProgressMonitor());
+                project.refreshLocal(IResource.DEPTH_INFINITE, null);
 
-	            if (enableIPR.compareToIgnoreCase("true") == 0) {
-	    			IScopeContext projectScope = new ProjectScope(project);
-	    			Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-	    			projectNode.putBoolean("com.mentor.nucleus.bp.ui.project.references", true);
-	            }
-	        
-	            modelPath = resolvePath(IGettingStartedConstants.modelFolder
-	                    + "/" + modelName + "." + Ooaofooa.MODELS_EXT); //$NON-NLS-1$ //$NON-NLS-2$
-	            if (!modelPath.isEmpty()) {
-	            	setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
-	            }
+                if (enableIPR.compareToIgnoreCase("true") == 0) {
+                    IScopeContext projectScope = new ProjectScope(project);
+                    Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+                    projectNode.putBoolean("com.mentor.nucleus.bp.ui.project.references", true);
+                }
+            
+                modelPath = resolvePath(IGettingStartedConstants.modelFolder
+                        + "/" + modelName + "." + Ooaofooa.MODELS_EXT); //$NON-NLS-1$ //$NON-NLS-2$
+                if (!modelPath.isEmpty()) {
+                    setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
+                }
             } else {
-            	if (singleFile.compareToIgnoreCase("false") != 0 && enableImportIntoWorkspace.equalsIgnoreCase("true")) {
-            		modelName += "." + singleFile;
-            	}
-            	if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
-            		modelPath = resolvePath(IGettingStartedConstants.modelFolder
-	                    + "/" + modelName); //$NON-NLS-1$
-            	} else {
-            		modelPath = singleFile;
-            	}
+                if (singleFile.compareToIgnoreCase("false") != 0 && enableImportIntoWorkspace.equalsIgnoreCase("true")) {
+                    modelName += "." + singleFile;
+                }
+                if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
+                    modelPath = resolvePath(IGettingStartedConstants.modelFolder
+                        + "/" + modelName); //$NON-NLS-1$
+                } else {
+                    modelPath = singleFile;
+                }
 
-	            if (!modelPath.isEmpty()) {
-	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
-	            }
-           	}
+                if (!modelPath.isEmpty()) {
+                    setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
+                }
+               }
 
         } catch (CoreException e) {
-        	setupSucceeded = false;
+            setupSucceeded = false;
         } catch (OperationCanceledException oce) {
-        	// The user canceled the operation
+            // The user canceled the operation
             return false;
         }
 
@@ -165,69 +165,69 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                     "Failed to create the sample project: " + modelName, null);
             CoreException ce = new CoreException(status);
             CorePlugin.logError(
-					"Could not create requested project " + modelName, ce);
+                    "Could not create requested project " + modelName, ce);
         }
 
         return setupSucceeded;
-	}
+    }
 
-	private String resolvePath(String path) {
-		String pathString = WelcomePlugin.getPluginPathAbsolute() + path;
-		File myFile = new File(pathString);
-		if (!myFile.exists()) {
-			CorePlugin.logError("Could not locate \"" + path + "\" in " + WelcomePlugin.getDefault().getClass().getName(), null);
-			return "";
-		}
-		return pathString;
-	}
+    private String resolvePath(String path) {
+        String pathString = WelcomePlugin.getPluginPathAbsolute() + path;
+        File myFile = new File(pathString);
+        if (!myFile.exists()) {
+            CorePlugin.logError("Could not locate \"" + path + "\" in " + WelcomePlugin.getDefault().getClass().getName(), null);
+            return "";
+        }
+        return pathString;
+    }
 
-	private void closeWelcomePage() {
-		// close welcome page
-		// Check to see if the xtUML perspective contains an intro part
-		// This prevents a NPE in the case where no welcome page exists
-		boolean foundIntroPart = false;
-		IViewReference views[] = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getViewReferences();
-		for(int i = 0; i < views.length; i ++) {
-			if(views[i].getPartName().equals("Welcome")) { //$NON-NLS-1$
-				foundIntroPart = true;
-			}
-		}
-		if(foundIntroPart == true) {
-			IIntroPart introPart = PlatformUI.getWorkbench().getIntroManager().getIntro();
-			if(introPart != null) {
-				PlatformUI.getWorkbench().getIntroManager().closeIntro(introPart);
-			}
-			while(Display.getCurrent().readAndDispatch());
-		}
-	}
+    private void closeWelcomePage() {
+        // close welcome page
+        // Check to see if the xtUML perspective contains an intro part
+        // This prevents a NPE in the case where no welcome page exists
+        boolean foundIntroPart = false;
+        IViewReference views[] = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getViewReferences();
+        for(int i = 0; i < views.length; i ++) {
+            if(views[i].getPartName().equals("Welcome")) { //$NON-NLS-1$
+                foundIntroPart = true;
+            }
+        }
+        if(foundIntroPart == true) {
+            IIntroPart introPart = PlatformUI.getWorkbench().getIntroManager().getIntro();
+            if(introPart != null) {
+                PlatformUI.getWorkbench().getIntroManager().closeIntro(introPart);
+            }
+            while(Display.getCurrent().readAndDispatch());
+        }
+    }
 
-	/**
-	 * Open the file named README if it exists for the given project name.
-	 * 
-	 * @param modelFolderName
-	 */
-	private void openReadme(String modelFolderName, String readmePath) {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
-				modelFolderName);
-		IFile fileToBeOpened;
+    /**
+     * Open the file named README if it exists for the given project name.
+     * 
+     * @param modelFolderName
+     */
+    private void openReadme(String modelFolderName, String readmePath) {
+        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
+                modelFolderName);
+        IFile fileToBeOpened;
     if ( "" != readmePath ) {
-    	IPath path = new Path( "GPS_Watch/README.md" );
+        IPath path = new Path( "GPS_Watch/README.md" );
       fileToBeOpened = ResourcesPlugin.getWorkspace().getRoot().getFile( path );
     }
     else {
       fileToBeOpened = project.getFile("README");
     }
-		if (!fileToBeOpened.exists()) {
-			// A readme does not have to exist.  We just display it if it does.
-			return;
-		}
-		IEditorInput editorInput = new FileEditorInput(fileToBeOpened);
-		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		try {
-			page.openEditor(editorInput, org.eclipse.ui.editors.text.EditorsUI.DEFAULT_TEXT_EDITOR_ID); //$NON-NLS-1$
-		} catch (PartInitException pie) {
-			CorePlugin.logError("Failed to open " + modelFolderName + " README.", pie);
-		}
-	}
-	
+        if (!fileToBeOpened.exists()) {
+            // A readme does not have to exist.  We just display it if it does.
+            return;
+        }
+        IEditorInput editorInput = new FileEditorInput(fileToBeOpened);
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        try {
+            page.openEditor(editorInput, org.eclipse.ui.editors.text.EditorsUI.DEFAULT_TEXT_EDITOR_ID); //$NON-NLS-1$
+        } catch (PartInitException pie) {
+            CorePlugin.logError("Failed to open " + modelFolderName + " README.", pie);
+        }
+    }
+    
 }
