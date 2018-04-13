@@ -18,9 +18,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -56,16 +56,17 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         String importIntoWorkspace = params.getProperty("ImportIntoWorkspace", "true");
         String launchGettingStartedHelp = params.getProperty("LaunchGettingStartedHelp", "true");
         String readmePath = params.getProperty("readmePath", "");
+        String exes = params.getProperty("exes", "");
         if (modelName.equals("load_error")) {
                CorePlugin.logError(
                     "The SampleProjectGettingStartedAction could not determine the model requested.", null);
                return;
         } else {
-            setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp, readmePath);
+            setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp, readmePath, exes);
         }
     }
 
-    private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath) {
+    private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath, String exes) {
         // create project and all necessary parts
         if ( setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace) ) {
             // show the xtUML Modeling perspective if not shown
@@ -73,6 +74,9 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
             // close welcome page for the xtUML perspective
 
             closeWelcomePage();
+            
+            // if there are executables, assure their permissions are set properly
+            setExePermissions( exes );
 
             if (singleFile.compareToIgnoreCase("true") != 0)  {
                 // See if there is a readme file and if so open it
@@ -203,20 +207,22 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 
     /**
      * Open the file named README if it exists for the given project name.
+     * If 'readmePath' contains a value, attempt to open the file that it points
+     * to.
      * 
      * @param modelFolderName
+     * @param readmePath
      */
     private void openReadme(String modelFolderName, String readmePath) {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
                 modelFolderName);
         IFile fileToBeOpened;
-    if ( "" != readmePath ) {
-        IPath path = new Path( "GPS_Watch/README.md" );
-      fileToBeOpened = ResourcesPlugin.getWorkspace().getRoot().getFile( path );
-    }
-    else {
-      fileToBeOpened = project.getFile("README");
-    }
+        if ( null != readmePath && !"".equals(readmePath) ) {
+            fileToBeOpened = ResourcesPlugin.getWorkspace().getRoot().getFile( new Path( readmePath ) );
+        }
+        else {
+            fileToBeOpened = project.getFile("README");
+        }
         if (!fileToBeOpened.exists()) {
             // A readme does not have to exist.  We just display it if it does.
             return;
@@ -228,6 +234,31 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         } catch (PartInitException pie) {
             CorePlugin.logError("Failed to open " + modelFolderName + " README.", pie);
         }
+    }
+    
+    /**
+     * Mark each file in exeString as executable. exeString is a comma
+     * separated list of files. If exeString is null or empty, or the file does
+     * not exist in the workspace, silently do nothing.
+     * 
+     * @param exeString
+     */
+    private void setExePermissions( String exeString ) {
+    	if ( null != exeString ) {
+    	    String[] exes = exeString.split( "," );
+    	    for ( String exe : exes ) {
+    	    	IFile exeFile = ResourcesPlugin.getWorkspace().getRoot().getFile( new Path( exe ) );
+    	    	if ( exeFile.exists() ) {
+    	    		ResourceAttributes attributes = exeFile.getResourceAttributes();
+    	    		attributes.setExecutable( true );
+    	    		try {
+						exeFile.setResourceAttributes( attributes );
+					} catch (CoreException e) {
+						CorePlugin.logError( "Error setting file executable.", e);
+					}
+    	    	}
+    	    }
+    	}
     }
     
 }
