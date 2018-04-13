@@ -88,7 +88,7 @@
           <text>Click here to create a project that includes a sample application model of a GPS watch (OAL version).</text>
         </link>
         <link id="folder" label="Example Application - GPS Watch (MASL)" style-id="left"
-              url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS_Watch_MASL&amp;SingleFileModel=zip&amp;readmePath=GPS_Watch/README.md&amp;exes=GPS_Watch/bin/GPS_Watch_sqlite,GPS_Watch/bin/GPS_Watch_transient">
+              url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS_Watch_MASL&amp;SingleFileModel=zip&amp;readmePath=GPS_Watch/README.md&amp;exes=GPS_Watch/bin/GPS_Watch_sqlite,GPS_Watch/bin/GPS_Watch_transient&amp;dialect=MASL">
           <text>Click here to create a project that includes a sample application model of a GPS watch (MASL version).</text>
         </link>
         <link  id="basics" label="Workbench Basics" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.platform.doc.user/concepts/concepts-2.htm">
@@ -106,10 +106,10 @@
         <link id="folder" label="TemplateProject" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=TemplateProject&amp;SingleFileModel=false">
           <text>Click here to create a template project that includes two components and one interface.</text>
         </link>
-        <link id="folder" label="MASL Domain" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MASLTemplate&amp;SingleFileModel=false">
+        <link id="folder" label="MASL Domain" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MASLTemplate&amp;SingleFileModel=false&amp;dialect=MASL">
           <text>Click here to create an xtUML project that serves as a template for a MASL-idiom Domain.  Use this project as a reference and copy pieces from here to your own project.</text>
         </link>
-        <link id="folder" label="MASL Project" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MASLProject&amp;SingleFileModel=true&amp;enableIPR=true">
+        <link id="folder" label="MASL Project" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MASLProject&amp;SingleFileModel=true&amp;enableIPR=true&amp;dialect=MASL">
           <text>Click here to create an xtUML project that serves as a template for a MASL-idiom Project. Create this after creating MASL Domain project.</text>
         </link>
         <link id="folder" label="System Access Control Domain (SAC_OOA)" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=org.xtuml.bp.welcome&amp;class=org.xtuml.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=SAC_OOA&amp;SingleFileModel=true">
