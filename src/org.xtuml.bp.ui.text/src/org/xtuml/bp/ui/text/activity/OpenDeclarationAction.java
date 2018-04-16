@@ -25,11 +25,13 @@ import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
@@ -46,7 +48,10 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -131,6 +136,24 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 						IEditorPart editorPart = null;
 						if (declarationElement instanceof SystemModel_c) {
 							editorPart = EditorUtil.openEditorForElement(declarationElement);
+						} else if (declarationElement instanceof StateMachineState_c) {
+							StateMachine_c sm = StateMachine_c.getOneSM_SMOnR501((StateMachineState_c)declarationElement);
+							InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(sm);
+							if ( ism != null ) {
+								editorPart = EditorUtil.openEditorForElement(ism);
+							} else {
+								ClassStateMachine_c csm = ClassStateMachine_c.getOneSM_ASMOnR517(sm);
+								editorPart = EditorUtil.openEditorForElement(csm);
+							}
+						} else if (declarationElement instanceof Transition_c) {
+							StateMachine_c sm = StateMachine_c.getOneSM_SMOnR505((Transition_c)declarationElement);
+							InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(sm);
+							if ( ism != null ) {
+								editorPart = EditorUtil.openEditorForElement(ism);
+							} else {
+								ClassStateMachine_c csm = ClassStateMachine_c.getOneSM_ASMOnR517(sm);
+								editorPart = EditorUtil.openEditorForElement(csm);
+							}
 						} else {
 							Package_c pkg = declarationElement.getFirstParentPackage();
 							if (null == pkg) {
