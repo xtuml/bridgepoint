@@ -46,6 +46,7 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -122,16 +123,21 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 					editor.selectAndReveal(lineOffset + location.getStartposition() - 1,
 							location.getEndposition() + 1 - location.getStartposition());
 				} else {
-					boolean showInME = shouldShowInME(declarationElement);
-					if (showInME) {
+					boolean showInMEOnly = shouldShowInMEOnly(declarationElement);
+					if (showInMEOnly) {
 						showInModelExplorer(declarationElement);
 					} else {
 						showInModelExplorer(declarationElement);
-						Package_c pkg = declarationElement.getFirstParentPackage();
-						if (null == pkg) {
-							pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
+						IEditorPart editorPart = null;
+						if (declarationElement instanceof SystemModel_c) {
+							editorPart = EditorUtil.openEditorForElement(declarationElement);
+						} else {
+							Package_c pkg = declarationElement.getFirstParentPackage();
+							if (null == pkg) {
+								pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
+							}
+							editorPart = EditorUtil.openEditorForElement(pkg);
 						}
-						IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
 						NonRootModelElement selectionElement = declarationElement;
 						if (declarationElement instanceof Port_c) {
 							selectionElement = Requirement_c.getOneC_ROnR4009(
@@ -249,7 +255,7 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		}
 	}
 
-	private boolean shouldShowInME(NonRootModelElement declarationElement) {
+	private boolean shouldShowInMEOnly(NonRootModelElement declarationElement) {
 		if (declarationElement instanceof Function_c) {
 			return true;
 		}
