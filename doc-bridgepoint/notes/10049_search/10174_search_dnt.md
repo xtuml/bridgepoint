@@ -87,8 +87,6 @@ Domain/Function Parameter
 Domain/Structure Member
 Domain/System Model
 Element Packaging/Package
-State Machine/State Machine Event Data Item
-State Machine/State Machine State
 Interaction/Actor Participant
 Interaction/Class Instance Participant
 Interaction/Class Participant Attribute
@@ -96,6 +94,8 @@ Interaction/Timing Mark
 Interaction/Time Span
 Interaction/Use Case Participant
 Message/Return Message
+State Machine/State Machine Event Data Item
+State Machine/State Machine State
 Subsystem/Attribute
 Subsystem/Model Class
 Subsystem/Operation
@@ -132,8 +132,6 @@ Message/Message Argument
 Message/Operation Message
 Message/Signal Message
 Message/Synchronous Message
-State Machine/Creation Transition
-State Machine/New State Transition
 State Machine/State Machine Event
 State Machine/Transition
 Subsystem/Imported Class
@@ -191,10 +189,12 @@ Interaction/Lifespan
 State Machine/Action
 State Machine/Cant Happen
 State Machine/Class State Machine
+State Machine/Creation Transition
 State Machine/Event Ignored
 State Machine/Event Supplemental Data
 State Machine/Instance State Machine
 State Machine/Local Event
+State Machine/New State Transition
 State Machine/No Event Transition
 State Machine/Non Local Event
 State Machine/Polymorphic Event
