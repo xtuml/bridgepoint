@@ -76,10 +76,6 @@
       .assign attr_include = true
     .elif (obj.Key_Lett == "SM_TXN")
       .assign attr_include = true
-    .elif (obj.Key_Lett == "SM_NSTXN")
-      .assign attr_include = true
-    .elif (obj.Key_Lett == "SM_CRTXN")
-      .assign attr_include = true
     .elif (obj.Key_Lett == "O_IOBJ")
       .assign attr_include = true
     .elif (obj.Key_Lett == "O_RATTR")
