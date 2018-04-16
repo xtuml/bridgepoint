@@ -353,6 +353,13 @@ public class Search_c {
 			selected = gatherChildrenForSelected(selected, progressMonitor);
 			for (int i = 0; i < selected.length; i++) {
 				Object originalInstance = selected[i];
+				if (ActionLanguageDescriptionUtil
+						.hasSearchableName(originalInstance.getClass())) {
+					declarationElementsInScope
+							.add((NonRootModelElement) originalInstance);
+				}
+				
+				// special handling for action language and descriptions
 				originalInstance = getAttributeHolder(originalInstance, false);
 				if (ActionLanguageDescriptionUtil
 						.hasActionLanguageAttribute(originalInstance.getClass())) {
@@ -364,11 +371,7 @@ public class Search_c {
 					descriptionElementsInScope
 							.add((NonRootModelElement) originalInstance);
 				}
-				if (ActionLanguageDescriptionUtil
-						.hasSearchableName(originalInstance.getClass())) {
-					declarationElementsInScope
-							.add((NonRootModelElement) originalInstance);
-				}
+
 				progressMonitor.worked(1);
 				if (progressMonitor.isCanceled()) {
 					// user cancelled, return
