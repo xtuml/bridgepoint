@@ -52,17 +52,19 @@ select one component related by packageableElem->C_C[R8003];
                      PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == param.id;
   end if;
   if(not_empty dt)
-	select one edt related by dt->S_EDT[R17];
-	if(not_empty edt)
-	  return true;
-	end if;
+  select one edt related by dt->S_EDT[R17];
+  if(not_empty edt)
+    select any s_enum related by edt->S_ENUM[R27];
+    return not_empty s_enum;
+  end if;
     select one udt related by dt->S_UDT[R17];
     if(not_empty udt)
       coreId = udt.getCoreType();
       select any dt from instances of S_DT where (selected.DT_ID == coreId);
       select one edt related by dt->S_EDT[R17];
       if(not_empty edt)
-        return true;
+        select any s_enum related by edt->S_ENUM[R27];
+        return not_empty s_enum;
       end if;
     end if;
     if(self.isAllowedType(typeName:dt.Name))
@@ -213,7 +215,7 @@ if(not_empty selectedDT)
   relate syc to selectedDT across R1500;
 
   // Set the value to the default for this type
-  self.updateValueToDefault(typeName:selectedDT.Name);
+  self.updateValueToDefault(type_id:selectedDT.DT_ID);
 end if;
 ',
 	1,
@@ -288,17 +290,27 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Set the value to the default for this type
-if (param.typeName == "integer")
-  self.Value = "0";
-elif (param.typeName == "real")
-  self.Value = "0.0";
-elif (param.typeName == "boolean")
-  self.Value = "false";
-else
-  self.Value = "";
+	'select any s_dt from instances of S_DT where ( selected.DT_ID == param.type_id );
+select one udt related by s_dt->S_UDT[R17];
+if( not_empty udt )
+  coreId = udt.getCoreType();
+  select any s_dt from instances of S_DT where ( selected.DT_ID == coreId );
 end if;
-',
+if ( not_empty s_dt )
+  // Set the value to the default for this type
+  select any s_enum related by s_dt->S_EDT[R17]->S_ENUM[R27] where ( selected.Previous_Enum_ID == GD::NULL_UNIQUE_ID() ); // select first enum if there is one
+  if ( not_empty s_enum )
+    self.Value = s_dt.Name + "::" + s_enum.Name;
+  elif (s_dt.Name == "integer")
+    self.Value = "0";
+  elif (s_dt.Name == "real")
+    self.Value = "0.0";
+  elif (s_dt.Name == "boolean")
+    self.Value = "false";
+  else
+    self.Value = "";
+  end if;
+end if;',
 	1,
 	'',
 	"839baff2-bdf2-4479-aed1-487e317e7991",
@@ -306,8 +318,8 @@ end if;
 INSERT INTO O_TPARM
 	VALUES ("4b7ffbdb-240f-4df2-b8fd-349263aa9dce",
 	"bdb8a64d-4180-45ff-ba98-cba5028c931f",
-	'typeName',
-	"ba5eda7a-def5-0000-0000-000000000004",
+	'type_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",

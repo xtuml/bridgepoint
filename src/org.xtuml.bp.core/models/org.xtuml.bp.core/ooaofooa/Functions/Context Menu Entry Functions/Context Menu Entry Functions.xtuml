@@ -5467,7 +5467,7 @@ if(not_empty element)
     relate syc to selectedDT across R1500;
 
     // Set the value to the default for this type
-    element.updateValueToDefault(typeName:selectedDT.Name);
+    element.updateValueToDefault(type_id:selectedDT.DT_ID);
   end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
