@@ -77,11 +77,11 @@
   .invoke rgo_class_name = get_class_name( rgo_obj )
   .if ( "one" == mult )
     .assign attr_instance_name = "rgo${rgo_counter}"
-                ${rgo_class_name.body} rgo${rgo_counter} = ${rgo_class_name.body}.getOne${rgo_obj.Key_Lett}OnR${rgo_rel.Numb}${role_phrase}( me );
+                ${rgo_class_name.body} rgo${rgo_counter} = ${rgo_class_name.body}.getOne$U_{rgo_obj.Key_Lett}OnR${rgo_rel.Numb}${role_phrase}( me );
                 if ( null != rgo${rgo_counter} ) {
   .elif ( "many" == mult )
     .assign attr_instance_name = "rgo"
-                ${rgo_class_name.body}[] rgos${rgo_counter} = ${rgo_class_name.body}.getMany${rgo_obj.Key_Lett}sOnR${rgo_rel.Numb}${role_phrase}( me );
+                ${rgo_class_name.body}[] rgos${rgo_counter} = ${rgo_class_name.body}.getMany$U_{rgo_obj.Key_Lett}sOnR${rgo_rel.Numb}${role_phrase}( me );
                 for ( ${rgo_class_name.body} rgo : rgos${rgo_counter} ) {
   .end if
 .end function

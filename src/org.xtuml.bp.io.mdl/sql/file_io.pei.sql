@@ -101,7 +101,8 @@ INSERT INTO EO VALUES ( '14.1.3.1.3.1', '', '',     'Dimensions', 4017, 'many', 
 INSERT INTO EO VALUES ( '14.1.3.2',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '1.5.3.1.1',	'',             '1.5.3.1.2', 'Core Data Type', 17, 'one', 'first' );
-INSERT INTO EO VALUES ( '1.5.3.1.2', 	'',             '1.5.3.1.3', 'User Data Type', 17, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.5.3.1.2', 	'1.5.3.1.2.1',             '1.5.3.1.3', 'User Data Type', 17, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.5.3.1.2.1', 	'',             '', 'Range', 57, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.3', 	'1.5.3.1.3.1', 	'1.5.3.1.4', 'Enumeration Data Type', 17, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.3.1', 	'',             '',          'Enumerator', 27, 'many', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.4', 	'1.5.3.1.4.1',  '1.5.3.1.5', 'Structured Data Type', 17, 'one', 'first' );
