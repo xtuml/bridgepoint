@@ -138,11 +138,47 @@ provide a consistent user experience.
 
 ### 6. Work Required
 
+6.1 Update `CNST_LSC.canUseDataType` to allow EDTs and UDTs as described in
+secion 5.1. Tighten the rules a little bit to only allow EDTs if they have at
+least one enumerator.  
+6.2 Update `ConstantValueInputValidator` as described in secion 5.1.  
+6.3 Update `CNST_LSC.updateValueToDefault` to take a data type unique ID instead
+of a data type name string as a parameter. Update all invocations accordingly.
+Modify the body to select the core type (in the case of a UDT) and use the
+default value of the core type. For EDTs, set the value to the first enumerator.  
+6.4 Add new operation `CNST_LSC.downgradeCheck`. In this operation, check if the
+type assigned to the constant is still valid. If no, set the type to the
+default type. In all cases, reset the value to the default value for the new
+type. Use the existing downgrade reporting mechanism to alert the user.  
+6.5 In the CME function `S_UDT_SetType` to invoke `downgradeCheck` operation on
+any instance of `CNST_LSC` which is either directly typed by the selected UDT or
+typed by a UDT that is based on the selected UDT (and therefore is affected).  
+6.6 Update the message in the downgrade dialog in `TransactionManager` to
+contain an explanation of changes made to constants during downgrade.  
+
+6.7 Update `q.val.translate.arc` in MC-3020 using the implementation in 5.1 as a
+base. This implementation was untested and had several bugs that prevented it
+from running properly. The overall logic is correct, so only the bugs have been
+fixed but the algorithm remains the same as shown in 5.1.  
+6.8 Update and rebuild `mcmc`  
+
 ### 7. Implementation Comments
+
+None.
 
 ### 8. Unit Test
 
+8.1 Existing unit tests shall pass  
+
+8.2 Model edit test  
+
+8.3 Verifier test  
+
+8.4 MC-3020 test  
+
 ### 9. User Documentation
+
+TODO
 
 ### 10. Code Changes
 
