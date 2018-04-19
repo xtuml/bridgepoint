@@ -119,31 +119,7 @@ integer (including enumerations) and real based UDTs can be enforced in the user
 6.1 Update metamodels (`ooaofooa` and `mcooa`).  
 6.2 Update editor.  
 6.3 Analyze and document enforcement in Verifier.  
-6.3.1 R3307  
-In Verifier, Runtime Value is a key class used to store and move information
-in the runtime instances of an executing model.  `R3307` links a Runtime Value
-to a Data Type (`S_DT`).  
 6.4 Analyze and document enforcement in model compilers.  
-6.4.1 R820  
-In MC-3020, Value (`V_VAL`) is the key class dealing with the dynamics of
-data in action bodies.  `R820` links Value to Data Type (`S_DT`) (and thus
-to User Data Type and Range).  Upon first analysis, it looks like R820 is
-traversed in 3 places representing the 3 places where range checking should
-be implemented.  
-6.4.1.1 Assignment Statement  
-A value moves from one value to another during an assignment.  A value moves
-from the right-hand side (rhs) to left-hand side (lhs) across the assignment
-operator ('=').  The left-hand value (lval) receives the right-hand value
-(rval).
-6.4.1.1.1 hmmm  
-Research where this is necessary.  Depending upon type compatiblity,
-this may be superfluous.  In some situations the rhs has already been checked
-and is therefore O.K. to be applied to the lhs.  Immediate data assignement
-is an example where the checking must occur.  
-6.4.1.2 Binary Operation  
-When two values are combined with an operator, a new value is produced.  The
-new value type is discovered across R820.
-6.4.1.3 Actual Parameters  
 6.5 Implement test cases.  
 
 ### 7. Acceptance Test
