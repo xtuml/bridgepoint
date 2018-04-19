@@ -351,6 +351,25 @@ return symb_cnst.Name;
 	'',
 	"3b350c62-1e8a-4bef-ae84-2305508021d0",
 	0);
+INSERT INTO O_TFR
+	VALUES ("d8af29f0-f550-4d92-8619-28ad31cc29a9",
+	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one dt related by self->CNST_LFSC[R1503]->CNST_SYC[R1502]->S_DT[R1500];
+Util::reportElementDowngraded(rto:dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"");
+if ( not self.canUseDataType( id:dt.DT_ID ) )
+  select one syc related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];
+  syc.setToDefaultDatatype();
+  select one dt related by self->CNST_LFSC[R1503]->CNST_SYC[R1502]->S_DT[R1500];
+end if;
+self.updateValueToDefault( type_id:dt.DT_ID );',
+	1,
+	'',
+	"4690d46f-fc87-41bc-9c30-6d92d446ce95",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("6e5a5eff-cd31-48e6-897d-853878d5065f",
 	"5abf1386-4a94-4a45-a9e4-cd8f42a1a63a");
