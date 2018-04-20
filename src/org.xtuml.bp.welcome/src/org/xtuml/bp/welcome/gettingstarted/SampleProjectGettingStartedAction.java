@@ -12,6 +12,9 @@ package org.xtuml.bp.welcome.gettingstarted;
 //
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IFile;
@@ -71,7 +74,14 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 
     private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath, String exes, String dialect) {
         // create project and all necessary parts
-        if ( setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace) ) {
+    	boolean setupSucceeded = false;
+    	if ( modelName.contains(",") && singleFile.equals("zip") ) {
+            setupSucceeded = setupProjects(modelName.split(",")[0], Arrays.copyOfRange(modelName.split(","), 1, modelName.split(",").length), singleFile, enableIPR, enableImportIntoWorkspace);
+    	}
+    	else {
+            setupSucceeded = setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace);
+    	}
+        if ( setupSucceeded ) {
             // show the xtUML Modeling perspective if not shown
             ProjectUtilities.openxtUMLPerspective();
             // close welcome page for the xtUML perspective
@@ -176,6 +186,75 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
             CoreException ce = new CoreException(status);
             CorePlugin.logError(
                     "Could not create requested project " + modelName, ce);
+        }
+
+        return setupSucceeded;
+    }
+
+    // used for multiple project models in zip archives
+    private boolean setupProjects(String archiveName, String[] modelNames, String singleFile, String enableIPR, String enableImportIntoWorkspace) {
+        boolean setupSucceeded = false;
+        try {
+            List<IProject> existingProjects = new ArrayList<>();
+    	    for ( String modelName : modelNames ) {
+                IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(modelName);
+                if (project.exists()) {
+                	existingProjects.add( project );
+                }
+    	    }
+    	    if ( existingProjects.size() > 0 ) {
+                boolean userOKsNotice = false;
+                String formattedProjects = "";
+                String sep = "";
+                for ( IProject project : existingProjects ) { formattedProjects += sep + project.getName(); sep = ", "; }
+                String msg = "Your workspace already contains the following projects: " + formattedProjects
+                     + ".\n\nDo you wish to delete these projects and create new ones?";
+                userOKsNotice = UIUtil.displayYesNoQuestion(msg);
+
+                if (userOKsNotice) {
+                    for ( IProject project : existingProjects ) {
+                        try {
+                            ProjectUtilities.deleteProject(project);
+                        } catch (CoreException e) {
+                            CorePlugin.logError("Could not delete existing "
+                                + project.getName() + " project", e);
+                            return false;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+    	    }
+
+            try {
+                WorkspaceUtil.setAutobuilding(false);
+            } catch (CoreException e1) {
+                // Log an error for this, but continue
+                CorePlugin.logError(
+                        "Could not disable Auto Building", e1);
+            }
+
+            String modelPath = "";
+            if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
+                modelPath = resolvePath(IGettingStartedConstants.modelFolder + "/" + archiveName + "." + singleFile);
+            }
+
+            if (!modelPath.isEmpty()) {
+                setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
+            }
+
+        } catch (OperationCanceledException oce) {
+            // The user canceled the operation
+            return false;
+        }
+
+        if (!setupSucceeded) {
+            IStatus status = new Status(IStatus.ERROR, SampleProjectGettingStartedAction.class
+                    .getPackage().getName(), IStatus.ERROR,
+                    "Failed to create the sample projects: " + Arrays.toString(modelNames), null);
+            CoreException ce = new CoreException(status);
+            CorePlugin.logError(
+                    "Could not create requested projects " + Arrays.toString(modelNames), ce);
         }
 
         return setupSucceeded;
