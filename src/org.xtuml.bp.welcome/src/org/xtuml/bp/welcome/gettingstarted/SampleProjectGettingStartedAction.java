@@ -89,7 +89,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
             closeWelcomePage();
 
             // if there are executables, assure their permissions are set properly
-            setExePermissions( exes );
+            if ( !exes.isEmpty() ) setExePermissions( exes );
 
             // check for dialect specific workspace settings
             checkWorkspaceSettings( dialect );
