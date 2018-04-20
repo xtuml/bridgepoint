@@ -192,6 +192,63 @@ public class ActionLanguageDescriptionUtil {
         return "";
     }
 
+    public static String getKeyLetterValue(Object element) {
+        if(element instanceof ModelClass_c) {
+            return ((ModelClass_c) element).getKey_lett();
+        }
+        return "";
+    }
+
+    public static String[] getRolePhraseValues(Object element) {
+        String[] rval = new String[]{"",""};
+        if(element instanceof Association_c) {
+            SimpleAssociation_c rsimp = SimpleAssociation_c.getOneR_SIMPOnR206((Association_c)element);
+            if (rsimp != null) {
+                ClassAsSimpleParticipant_c[] rparts = ClassAsSimpleParticipant_c.getManyR_PARTsOnR207(rsimp);
+                if (rparts.length > 1) {
+                    // We know we have two rparts
+                    rval[0] = rparts[0].getTxt_phrs();
+                    rval[1] = rparts[1].getTxt_phrs();
+                } else {
+                    // We know we have one rpart and one rform
+                    rval[0] = rparts[0].getTxt_phrs();
+                    ClassAsSimpleFormalizer_c rform = ClassAsSimpleFormalizer_c.getOneR_FORMOnR208(rsimp);
+                    if (rform != null) {
+                        rval[1] = rform.getTxt_phrs();
+                    }
+                }
+                return rval;
+            }
+
+            LinkedAssociation_c rassoc = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)element);
+            if ( rassoc != null ) {
+                ClassAsAssociatedOneSide_c raone = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(rassoc);
+                if (raone != null) {
+                    rval[0] = raone.getTxt_phrs();
+                }
+                ClassAsAssociatedOtherSide_c raoth = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(rassoc);
+                if (raoth != null) {
+                    rval[1] = raoth.getTxt_phrs();
+                }
+                return rval;
+            }
+
+            DerivedAssociation_c rcomp = DerivedAssociation_c.getOneR_COMPOnR206((Association_c)element);
+            if (rcomp != null) {
+                ClassAsDerivedOneSide_c rcone = ClassAsDerivedOneSide_c.getOneR_CONEOnR214(rcomp);
+                if (rcone != null) {
+                    rval[0] = rcone.getTxt_phrs();
+                }
+                ClassAsDerivedOtherSide_c rcoth = ClassAsDerivedOtherSide_c.getOneR_COTHOnR215(rcomp);
+                if (rcoth != null) {
+                    rval[1] = rcoth.getTxt_phrs();
+                }
+                return rval;
+            }
+        }
+        return rval;
+    }
+    
 	public static List<Class<?>> getClassesSupportingDescriptions() {
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 .select many objs from instances of O_OBJ

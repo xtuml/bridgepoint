@@ -134,6 +134,25 @@ public class Search_c {
 					((NonRootModelElement) uiElement).getInstanceKey(),
 					((NonRootModelElement) uiElement).getModelRoot().getId(),
 					ActionLanguageDescriptionUtil.getNameAttributeValue(element));
+			// Special case to add key letters as part of name search
+			if ( element instanceof ModelClass_c ) {
+				query.Createparticipant(uiElement.getClass().getName(),
+					((NonRootModelElement) uiElement).getInstanceKey(),
+					((NonRootModelElement) uiElement).getModelRoot().getId(),
+					ActionLanguageDescriptionUtil.getKeyLetterValue(element));
+			}
+			// Special case to add role phrases as part of name search
+			if ( element instanceof Association_c ) {
+			  String[] rolePhrases = ActionLanguageDescriptionUtil.getRolePhraseValues(element);
+			  for (String rolePhrase : rolePhrases) {
+				  if ( !rolePhrase.isEmpty() ) {
+					  query.Createparticipant(uiElement.getClass().getName(),
+							  ((NonRootModelElement) uiElement).getInstanceKey(),
+							  ((NonRootModelElement) uiElement).getModelRoot().getId(),
+							  rolePhrase);
+				  }
+			  }
+			}
 			IProgressMonitor progressMonitor = (IProgressMonitor) monitor;
 			if(progressMonitor.isCanceled()) {
 				return;
