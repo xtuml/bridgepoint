@@ -58,7 +58,6 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         String modelName = params.getProperty("model", "load_error");
         String singleFile = params.getProperty("SingleFileModel", "false");
         String enableIPR = params.getProperty("enableIPR", "false");
-        String importIntoWorkspace = params.getProperty("ImportIntoWorkspace", "true");
         String launchGettingStartedHelp = params.getProperty("LaunchGettingStartedHelp", "true");
         String readmePath = params.getProperty("readmePath", "");
         String exes = params.getProperty("exes", "");
@@ -68,18 +67,18 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                     "The SampleProjectGettingStartedAction could not determine the model requested.", null);
                return;
         } else {
-            setup(modelName, singleFile, enableIPR, importIntoWorkspace, launchGettingStartedHelp, readmePath, exes, dialect);
+            setup(modelName, singleFile, enableIPR, launchGettingStartedHelp, readmePath, exes, dialect);
         }
     }
 
-    private void setup(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace, String launchGettingStarted, String readmePath, String exes, String dialect) {
+    private void setup(String modelName, String singleFile, String enableIPR, String launchGettingStarted, String readmePath, String exes, String dialect) {
         // create project and all necessary parts
     	boolean setupSucceeded = false;
     	if ( modelName.contains(",") && singleFile.equals("zip") ) {
-            setupSucceeded = setupProjects(modelName.split(",")[0], Arrays.copyOfRange(modelName.split(","), 1, modelName.split(",").length), singleFile, enableIPR, enableImportIntoWorkspace);
+            setupSucceeded = setupProjects(modelName.split(",")[0], Arrays.copyOfRange(modelName.split(","), 1, modelName.split(",").length), singleFile, enableIPR);
     	}
     	else {
-            setupSucceeded = setupProject(modelName, singleFile, enableIPR, enableImportIntoWorkspace);
+            setupSucceeded = setupProject(modelName, singleFile, enableIPR );
     	}
         if ( setupSucceeded ) {
             // show the xtUML Modeling perspective if not shown
@@ -106,7 +105,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         }
     }
 
-    private boolean setupProject(String modelName, String singleFile, String enableIPR, String enableImportIntoWorkspace) {
+    private boolean setupProject(String modelName, String singleFile, String enableIPR) {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(modelName);
         boolean setupSucceeded = false;
         try {
@@ -157,18 +156,14 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                     setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, modelPath, false);
                 }
             } else {
-                if (singleFile.compareToIgnoreCase("false") != 0 && enableImportIntoWorkspace.equalsIgnoreCase("true")) {
+                if (singleFile.compareToIgnoreCase("false") != 0) {
                     modelName += "." + singleFile;
                 }
-                if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
-                    modelPath = resolvePath(IGettingStartedConstants.modelFolder
+                modelPath = resolvePath(IGettingStartedConstants.modelFolder
                         + "/" + modelName); //$NON-NLS-1$
-                } else {
-                    modelPath = singleFile;
-                }
 
                 if (!modelPath.isEmpty()) {
-                    setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
+                    setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
                 }
                }
 
@@ -192,7 +187,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
     }
 
     // used for multiple project models in zip archives
-    private boolean setupProjects(String archiveName, String[] modelNames, String singleFile, String enableIPR, String enableImportIntoWorkspace) {
+    private boolean setupProjects(String archiveName, String[] modelNames, String singleFile, String enableIPR) {
         boolean setupSucceeded = false;
         try {
             List<IProject> existingProjects = new ArrayList<>();
@@ -234,13 +229,9 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                         "Could not disable Auto Building", e1);
             }
 
-            String modelPath = "";
-            if (enableImportIntoWorkspace.equalsIgnoreCase("true")) {
-                modelPath = resolvePath(IGettingStartedConstants.modelFolder + "/" + archiveName + "." + singleFile);
-            }
-
+            String modelPath = resolvePath(IGettingStartedConstants.modelFolder + "/" + archiveName + "." + singleFile);
             if (!modelPath.isEmpty()) {
-                setupSucceeded = ProjectUtilities.importExistingProject(modelPath, enableImportIntoWorkspace.equalsIgnoreCase("true"));
+                setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
             }
 
         } catch (OperationCanceledException oce) {
