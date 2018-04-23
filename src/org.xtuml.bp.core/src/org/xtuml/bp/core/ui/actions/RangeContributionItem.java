@@ -50,7 +50,7 @@ public class RangeContributionItem extends ContributionItem {
 						foundReal = true;
 					}
 					// check for existing range
-					if(Range_c.getOneRANGEOnR57(udt) != null) {
+					if(Range_c.getOneS_RANGEOnR57(udt) != null) {
 						canClear = true;
 					}
 				}
@@ -67,22 +67,22 @@ public class RangeContributionItem extends ContributionItem {
 			// create root menu
 			Menu rangeMenu = createMenu("Range", menu, index);
 			// create the min item
-			createMenuItem(rangeMenu, "min"); //$NON-NLS-1$
+			createMenuItem(rangeMenu, "Min"); //$NON-NLS-1$
 			// create the max item
-			createMenuItem(rangeMenu, "max"); //$NON-NLS-1$
+			createMenuItem(rangeMenu, "Max"); //$NON-NLS-1$
 			// create clear item
 			if(canClear) {
-				createMenuItem(rangeMenu, "clear"); //$NON-NLS-1$
+				createMenuItem(rangeMenu, "Clear"); //$NON-NLS-1$
 			}
 		}
 	}
 
 	private void createMenuItem(Menu rangeMenu, String type) {
 		String itemName = "Minimum...";
-		if (type.equals("max")) { //$NON-NLS-1$
+		if (type.equals("Max")) { //$NON-NLS-1$
 			itemName = "Maximum...";
 		}
-		if (type.equals("clear")) { //$NON-NLS-1$
+		if (type.equals("Clear")) { //$NON-NLS-1$
 			itemName = "Clear Range";
 		}
 		MenuItem actionItem = new MenuItem(rangeMenu, SWT.RADIO, rangeMenu.getItemCount());

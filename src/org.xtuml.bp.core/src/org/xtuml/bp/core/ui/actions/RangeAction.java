@@ -41,7 +41,7 @@ public class RangeAction implements IActionDelegate {
 		}
 		final boolean finalIsReal = isReal;
 		// handle clear
-		if(type.equals("clear")) { //$NON-NLS-1$
+		if(type.equals("Clear")) { //$NON-NLS-1$
 			handleClear();
 			return;
 		}
@@ -50,7 +50,7 @@ public class RangeAction implements IActionDelegate {
 		String typeString = "types";
 		if(Selection.getInstance().getSelectedNonRootModelElements().length == 1) {
 			typeString = "type";
-			Range_c firstRange = Range_c.getOneRANGEOnR57(first);
+			Range_c firstRange = Range_c.getOneS_RANGEOnR57(first);
 			if(firstRange != null) {
 				String initialMin = String.valueOf(firstRange.getMin());
 				String initialMax = String.valueOf(firstRange.getMax());
@@ -58,9 +58,9 @@ public class RangeAction implements IActionDelegate {
 					initialMin = String.valueOf((int) firstRange.getMin());
 					initialMax = String.valueOf((int) firstRange.getMax());
 				}
-				if(type.equals("min")) { //$NON-NLS-1$
+				if(type.equals("Min")) { //$NON-NLS-1$
 					initialValue = initialMin;
-				} else if(type.equals("max")) { //$NON-NLS-1$
+				} else if(type.equals("Max")) { //$NON-NLS-1$
 					if(firstRange.getMax() != 0) {
 						initialValue = initialMax;
 					}
@@ -106,7 +106,7 @@ public class RangeAction implements IActionDelegate {
 				for (NonRootModelElement selected : selectedNonRootModelElements) {
 					// selection guaranteed to be UserDataType
 					UserDataType_c udt = (UserDataType_c) selected;
-					Range_c range = Range_c.getOneRANGEOnR57(udt);
+					Range_c range = Range_c.getOneS_RANGEOnR57(udt);
 					if (range == null) {
 						// create a range now
 						range = new Range_c(udt.getModelRoot());
@@ -114,7 +114,7 @@ public class RangeAction implements IActionDelegate {
 								.fireModelElementCreated(new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, range));
 						range.relateAcrossR57To(udt);
 					}
-					if (type.equals("min")) { //$NON-NLS-1$
+					if (type.equals("Min")) { //$NON-NLS-1$
 						range.setMin(value);
 					} else {
 						range.setMax(value);
@@ -136,7 +136,7 @@ public class RangeAction implements IActionDelegate {
 			for (NonRootModelElement selected : selectedNonRootModelElements) {
 				// selection guaranteed to be UserDataType
 				UserDataType_c udt = (UserDataType_c) selected;
-				Range_c range = Range_c.getOneRANGEOnR57(udt);
+				Range_c range = Range_c.getOneS_RANGEOnR57(udt);
 				if(range != null) {
 					range.unrelateAcrossR57From(udt);
 					range.delete();

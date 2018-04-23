@@ -42,15 +42,15 @@ This class has a conditional one to one relationship according to the
 analysis note [2.2] for [2.1].
 
 A range has minumum and maximum values.  These are added as attributes
-`Min` and `Max`.  The new attributes are typed as real to handle the
+`min` and `max`.  The new attributes are typed as real to handle the
 full minumum and maximum values.  The UI handles validation with type
-determination (integer versus float).
+determination (integer versus real).
 
 The same model change is made to both `ooaofooa` and `mcooa`.
 
 5.2 Update editor.  
 5.2.1 UI Range configuration  
-A new menu along with three sub menus are added. These are:
+A new menu along with three sub menus are added. These are:  
   * Range  
   * Range > Minimum...  
   * Range > Maximum...  
@@ -59,25 +59,24 @@ A new menu along with three sub menus are added. These are:
 The Range top level menu shows as long as the selection contians only UDTs
 that have a core type of integer, real or Enumeration Data Type.  The `Clear
 Range` menu item will show only as long as one of the selected User Data
-Types has an already associated Range.  The Range menu will not show when
+Type has an already associated Range.  The Range menu will not show when
 mixing integer or enumeration data type with real.  This is due to the fact
 that a real value can be invalid for an integer value.
 
-The `Minumum...` and `Maximum...` menu items open an input dialog.  This
+The `Minimum...` and `Maximum...` menu items open an input dialog.  This
 dialog assures that the input value is valid.  In the case of integer the
 string value is parsed.  If a `NumberFormatException` is thrown, a message
-is given indicating an invalid entry.  In the case of a float, the value
-is parsed and the given float is checked for NaN and infinite exceptions.
-The same message is given for the invalid float.
+is given indicating an invalid entry.  In the case of a real, the value
+is parsed and the given real (float) is checked to be a number (`NaN`) and
+infinite exceptions.  The same message is given for the invalid real.
 
 5.2.2 Add range data to compare and persistence.  
 Three new entries are added to `ooaofooa_hierarchy.pei.sql` to cover
 external attributes for the UDT class.  An external attribute is used
-to display an attribute from another class under the one associated.
-In this case the Min and Max values from the Range class associated
+to display an attribute from another class under the one associated,
+in this case the min and max values from the Range class associated
 with the User Data Type.  This change allows the range values to show
-in compare.  Note, like `Visibilty` these are not available in the
-properties view.
+in compare.  Note, these are not available in the properties view.
 
 The `file_io.pei` and `stream.pei` data is modified to add a new child
 to User Data Type, Range.
@@ -87,6 +86,7 @@ to User Data Type, Range.
 In Verifier, Runtime Value is a key class used to store and move information
 in the runtime instances of an executing model.  `R3307` links a Runtime Value
 to a Data Type (`S_DT`).  
+
 5.4 Analyze and document enforcement in model compilers.  
 5.4.1 R820  
 In MC-3020, Value (`V_VAL`) is the key class dealing with the dynamics of
@@ -108,6 +108,7 @@ is an example where the checking must occur.
 When two values are combined with an operator, a new value is produced.  The
 new value type is discovered across R820.
 5.4.1.3 Actual Parameters  
+
 5.5 Implement test cases.  
 
 ### 6. Implementation Comments
@@ -127,7 +128,7 @@ will use to design and perform the tests. Here is an example reference to the Do
 
 ### 8. User Documentation
 
-Describe the end user documentation that was added for this change. 
+[add something to UI documentation to explain how to constrain a type.]
 
 ### 9. Code Changes
 
@@ -141,3 +142,14 @@ Branch:  5005_range
 
 ### End
 
+
+<pre>
+TODO:
++ Change model to have keyletters S_RANGE to be consistent with existing model.
++ Change Range attributes from min and max to Min and Max.
++ Use role phrases from mcooa version (thus fixing misspelling).
+[keep] Revert change to MC-Java/referential_attribute_util.inc.
+[keep] Revert change to bp.core/arc/create_object_inspector.inc.
+Change mcooa to use R57.
+Switch from real to string and perform string-to-real in the java.
+</pre>

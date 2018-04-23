@@ -4,7 +4,7 @@ INSERT INTO O_OBJ
 	VALUES ("78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
 	'Range',
 	38,
-	'Range',
+	'S_RANGE',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
@@ -17,10 +17,10 @@ INSERT INTO O_ATTR
 	VALUES ("67cd2f59-3300-4f1f-8b5e-226c23be3070",
 	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
 	"fd48f1f1-57b8-4b70-9894-9ca53b23aee0",
-	'min',
+	'Min',
 	'Full Name: Minimum',
 	'',
-	'min',
+	'Min',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
@@ -35,10 +35,10 @@ INSERT INTO O_ATTR
 	VALUES ("05b12f2b-692e-430b-87fe-1f5804e5a4f4",
 	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
 	"67cd2f59-3300-4f1f-8b5e-226c23be3070",
-	'max',
+	'Max',
 	'Full Name: Maximum',
 	'',
-	'max',
+	'Max',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000003",
 	'',
@@ -58,7 +58,7 @@ INSERT INTO O_REF
 	'',
 	'User Data Type',
 	'DT_ID',
-	'R57.''contrains value of''');
+	'R57.''spans''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
 	"c0d16656-463a-4e53-8468-0853dedd3a5b",
