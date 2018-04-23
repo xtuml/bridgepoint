@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.search.ui.text.AbstractTextSearchViewPage;
@@ -48,6 +49,7 @@ import org.xtuml.bp.core.SearchParticipant_c;
 import org.xtuml.bp.core.SearchResult_c;
 import org.xtuml.bp.core.SearchableElement_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.search.results.ModelMatch;
 import org.xtuml.bp.search.results.ModelSearchResult;
 import org.xtuml.bp.ui.search.providers.DecoratingModelSearchLabelProvider;
@@ -206,6 +208,17 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					editor.selectAndReveal(currentOffset, currentLength);
 				}
 			}
+		}
+	}
+
+	// This function is for unit test support 
+	public void displayMatch(Match match) throws PartInitException {
+		if(match instanceof ModelMatch) {
+			Object element = match.getElement();
+			Selection.getInstance().setSelection(
+				new StructuredSelection(element));
+			OpenEvent oe = new OpenEvent(getViewer(), Selection.getInstance().getStructuredSelection());
+			handleOpen(oe);
 		}
 	}
 
