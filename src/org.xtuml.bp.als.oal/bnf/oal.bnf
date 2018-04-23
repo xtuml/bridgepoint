@@ -369,9 +369,26 @@ invocation_expr
   ;
 scoped_access
    :
+    (
+    scoped_model
+    TOK_DOUBLECOLON!
+    scoped_package
+    )?
     scoped_data_type
     TOK_DOUBLECOLON!
     scoped_member
+  ;
+scoped_model!
+  :
+    scoped_member
+  ;
+scoped_package!
+  :
+    scoped_member
+    ( 
+    TOK_DOUBLECOLON!
+    scoped_package
+    )+
   ;
 debug_operand
   :
