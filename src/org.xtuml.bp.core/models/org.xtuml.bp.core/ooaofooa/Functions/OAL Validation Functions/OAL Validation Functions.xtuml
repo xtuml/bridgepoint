@@ -11414,88 +11414,124 @@ INSERT INTO S_SYNC
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
+select any edt from instances of S_EDT where (selected.DT_ID == GD::NULL_UNIQUE_ID());
+select any csp from instances of CNST_CSP
+                      where (selected.Constant_Spec_ID == GD::NULL_UNIQUE_ID());
 isInGenericPackage = body.associateWithContainer();
 if isInGenericPackage
-  select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
-  select one component related by containingElem->C_C[R8001];
-  select one package related by containingElem->EP_PKG[R8001];
+  // if our upper rule is a package id or component id, only check its children
+  select any scopedPackage from instances of EP_PKG
+                          where (selected.Package_ID == param.a5_upper_rule_id);
+  select any scopedComponent from instances of C_C
+                                  where (selected.Id == param.a5_upper_rule_id);
+  if(not_empty scopedPackage)
+    // NOTE: UI will guarantee unique element names, but in case they exist
+    // just use the first found
+    select any dt related by scopedPackage->PE_PE[R8000]->S_DT[R8001]
+                                         where (selected.Name == param.a3_text);
+    select one edt related by dt->S_EDT[R17];
+    if(empty edt)
+      // try the CNST_CSP
+      select any csp related by scopedPackage->PE_PE[R8000]->CNST_CSP[R8001]
+                            where (selected.InformalGroupName == param.a3_text);
+    end if;
+  elif(not_empty scopedComponent)
+    // NOTE: UI will guarantee unique element names, but in case they exist
+    // just use the first found
+    select any udt related by scopedComponent->PE_PE[R8003]
+                                                      ->S_DT[R8001]->S_UDT[R17];
+    if(not_empty udt)
+      baseId = udt.getCoreType();
+      select any pe from instances of PE_PE
+                                          where (selected.Element_ID == baseId);
+      if(not_empty pe)
+        select one edt related by pe->S_DT[R8001]->S_EDT[R17];
+      end if;
+    end if;
+  else
+    // otherwise search for the closest visible element by
+    // name
+    select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
+    select one component related by containingElem->C_C[R8001];
+    select one package related by containingElem->EP_PKG[R8001];
 
-  // Check for Enumeration match for token
-  if not_empty component
-    component.collectVisibleElementsForName(name:param.a3_text,
+    // Check for Enumeration match for token
+    if not_empty component
+      component.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::DATATYPE,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
                                                           collectGlobally:true);
-  else
-    package.collectVisibleElementsForName(name:param.a3_text,
+    else
+      package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::DATATYPE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
                                                           collectGlobally:true);
-  end if;
-  select any resultSet related by component->PE_CRS[R8007] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::DATATYPE; 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty package
-    select any pkgResultSet related by package->PE_SRS[R8005] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::DATATYPE; 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many edts related by results->S_DT[R8001]->S_EDT[R17];
-  select any edt related by results->S_DT[R8001]->S_EDT[R17];
-  for each otherEdt in edts
-    edt = otherEdt;
-    break;
-  end for;
-  select many udts related by results->S_DT[R8001]->S_UDT[R17];
-  select any udt related by results->S_DT[R8001]->S_UDT[R17];
-  for each otherUdt in udts
-    udt = otherUdt;
-    break;
-  end for;
-  if(not_empty udt)
-    baseId = udt.getCoreType();
-    select any pe from instances of PE_PE where (selected.Element_ID == baseId);
-    if(not_empty pe)
-      select one edt related by pe->S_DT[R8001]->S_EDT[R17];
     end if;
-  end if;
+    select any resultSet related by component->PE_CRS[R8007] where
+                                  selected.Name == param.a3_text and 
+                                selected.Type == ElementTypeConstants::DATATYPE; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where
+                                  selected.Name == param.a3_text and 
+                                selected.Type == ElementTypeConstants::DATATYPE; 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many edts related by results->S_DT[R8001]->S_EDT[R17];
+    select any edt related by results->S_DT[R8001]->S_EDT[R17];
+    for each otherEdt in edts
+      edt = otherEdt;
+      break;
+    end for;
+    select many udts related by results->S_DT[R8001]->S_UDT[R17];
+    select any udt related by results->S_DT[R8001]->S_UDT[R17];
+    for each otherUdt in udts
+      udt = otherUdt;
+      break;
+    end for;
+    if(not_empty udt)
+      baseId = udt.getCoreType();
+      select any pe from instances of PE_PE where (selected.Element_ID == baseId);
+      if(not_empty pe)
+        select one edt related by pe->S_DT[R8001]->S_EDT[R17];
+      end if;
+    end if;
 
-  // Check for a Constant Specification match for token
-  if not_empty component
-    component.collectVisibleElementsForName(name:param.a3_text,
+    // Check for a Constant Specification match for token
+    if not_empty component
+      component.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CONSTANT,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
                                                           collectGlobally:true);
-  else
-    package.collectVisibleElementsForName(name:param.a3_text,
+    else
+      package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CONSTANT, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
                                                           collectGlobally:true);
-  end if;
-  select any resultSet related by component->PE_CRS[R8007] where
+    end if;
+    select any resultSet related by component->PE_CRS[R8007] where
                                   selected.Name == param.a3_text and 
                                 selected.Type == ElementTypeConstants::CONSTANT; 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty package
-    select any pkgResultSet related by package->PE_SRS[R8005] where
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where
                                   selected.Name == param.a3_text and 
                                 selected.Type == ElementTypeConstants::CONSTANT; 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many csps related by results->CNST_CSP[R8001];
+    select any csp related by results->CNST_CSP[R8001];
+    // just in case the architecture does not return the first
+    // in a list for any
+    for each otherCsp in csps
+      csp = otherCsp;
+      break;
+    end for;
   end if;
-  select many csps related by results->CNST_CSP[R8001];
-  select any csp related by results->CNST_CSP[R8001];
-  // just in case the architecture does not return the first
-  // in a list for any
-  for each otherCsp in csps
-    csp = otherCsp;
-    break;
-  end for;
   // give preference to EDTs
   if(not_empty edt)
 	// store the textual position of the data type name 
@@ -11519,11 +11555,11 @@ else
     select any sys from instances of S_SYS where selected.Name == cur_sys_name;
       select many dt related by sys->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001] where
                                                  selected.Name == param.a3_text;
-  select many edt related by dt->S_EDT[R17];
-  if ( empty edt )
+  select many edts related by dt->S_EDT[R17];
+  if ( empty edts )
     ERR::reportParseError( msg: "Cannot find enumeration data type ->%s<-",
           token: param.a1_rule_token );
-  elif ( cardinality edt > 1 )
+  elif ( cardinality edts > 1 )
     ERR::reportParseError( msg: "More than one enumeration data type named ->%s<-",
           token: param.a1_rule_token );
   else
@@ -11863,7 +11899,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b1_scoped_data_type1_id',
+	'b3_scoped_model1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -11872,11 +11908,29 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("68ea48f3-1c25-4545-addc-5ee623349c02",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b2_scoped_member2_id',
+	'b4_scoped_package1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5751a7f3-9adb-4b7c-b96a-a130f590499d",
+	"c72f1739-7267-480c-917d-bcca081eb867",
+	'b1_scoped_data_type1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"68ea48f3-1c25-4545-addc-5ee623349c02",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d1e89994-a085-43a6-aa49-1f836aea3133",
+	"c72f1739-7267-480c-917d-bcca081eb867",
+	'b2_scoped_member2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5751a7f3-9adb-4b7c-b96a-a130f590499d",
 	'');
 INSERT INTO PE_PE
 	VALUES ("c72f1739-7267-480c-917d-bcca081eb867",
@@ -14126,7 +14180,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("9e9cc4b1-62fb-4ef9-8576-b96041e3330a",
 	"00000000-0000-0000-0000-000000000000",
-	'Invocation_parameters_loop4_start',
+	'Invocation_parameters_loop5_start',
 	'ParserValidateFunction: TRUE',
 	'return GD::NULL_UNIQUE_ID();
 
@@ -14209,7 +14263,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("8a396c8e-c2f0-40ec-83b9-423d4e995aa9",
 	"00000000-0000-0000-0000-000000000000",
-	'Invocation_parameters_loop4_end',
+	'Invocation_parameters_loop5_end',
 	'ParserValidateFunction: TRUE',
 	'select any val from instances of V_VAL where selected.Value_ID == param.a2_upper_ruleid_name;
 
@@ -14655,7 +14709,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("81410c7b-cbd1-4e52-8282-e6a1a571a8c5",
 	"00000000-0000-0000-0000-000000000000",
-	'Instance_chain_loop5_start',
+	'Instance_chain_loop6_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -14805,7 +14859,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("a9eca515-aa0c-4b2f-a78e-ca531fe1dbb1",
 	"00000000-0000-0000-0000-000000000000",
-	'Instance_chain_loop5_end',
+	'Instance_chain_loop6_end',
 	'ParserValidateFunction: TRUE',
 	'select any right_obj from instances of O_OBJ 
     where ( selected.Obj_ID == param.b1_object_keyletters1_id );
@@ -16079,7 +16133,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("365c7fbb-670d-43ec-938d-2cef4f791b17",
 	"00000000-0000-0000-0000-000000000000",
-	'Supp_data_loop6_start',
+	'Supp_data_loop7_start',
 	'ParserValidateFunction: TRUE',
 	'return GD::NULL_UNIQUE_ID();
 
@@ -16231,7 +16285,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("357be310-9b88-4762-8911-c389be37902d",
 	"00000000-0000-0000-0000-000000000000",
-	'Supp_data_loop6_end',
+	'Supp_data_loop7_end',
 	'ParserValidateFunction: TRUE',
 	'select any stmt from instances of ACT_SMT 
     where selected.Statement_ID == param.a2_upper_ruleid_name;
@@ -18364,7 +18418,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("82893656-bb24-4a5c-95d5-b7db0b419d3e",
 	"00000000-0000-0000-0000-000000000000",
-	'Sub_expr_loop7_start',
+	'Sub_expr_loop8_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -18516,7 +18570,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("2dbfcb65-6af1-427a-8db9-2d0385ea4db6",
 	"00000000-0000-0000-0000-000000000000",
-	'Sub_expr_loop7_end',
+	'Sub_expr_loop8_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b2_conjunction2_id != GD::NULL_UNIQUE_ID() )
   op_id = ::binary_operator_create( a1_text: "or", a2_dt_name: "boolean" );
@@ -19084,7 +19138,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("c668e69b-fee3-4353-8d2f-16f642f37938",
 	"00000000-0000-0000-0000-000000000000",
-	'Conjunction_loop8_start',
+	'Conjunction_loop9_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -19236,7 +19290,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("54b52080-73c9-4946-9889-a52205172a81",
 	"00000000-0000-0000-0000-000000000000",
-	'Conjunction_loop8_end',
+	'Conjunction_loop9_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b2_relational_expr2_id != GD::NULL_UNIQUE_ID() )
   op_id = ::binary_operator_create( a1_text: "and", a2_dt_name: "boolean" );
@@ -20370,7 +20424,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("0aa995fd-e355-418c-ad91-93959f314cbc",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_loop9_start',
+	'Addition_loop10_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -20692,7 +20746,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("17cf6cf1-84dc-47c8-adef-17de17deab18",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_loop9_end',
+	'Addition_loop10_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b2_plus_or_minus2_id != GD::NULL_UNIQUE_ID() )
   lhs_id = param.b1_multiplication1_id;
@@ -21449,7 +21503,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("a7e7f159-7d5a-4c04-a085-48c27e33bb5f",
 	"00000000-0000-0000-0000-000000000000",
-	'Multiplication_loop10_start',
+	'Multiplication_loop11_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -21770,7 +21824,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("08078702-1f8f-42f7-800c-fa65d6810558",
 	"00000000-0000-0000-0000-000000000000",
-	'Multiplication_loop10_end',
+	'Multiplication_loop11_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b3_mult_op3_id != GD::NULL_UNIQUE_ID() )
   lhs_id = param.b2_sign_expr2_id;
@@ -25880,7 +25934,7 @@ else
   else
     select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
-    // This code is a close copy of what is in Member_access_loop11_end.
+    // This code is a close copy of what is in Member_access_loop12_end.
     // Need to look and see if this can be refactored.
       cur_sys_name = ::getSystemName();
       select any sys from instances of S_SYS where selected.Name == cur_sys_name;
@@ -26230,9 +26284,9 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("685ae89b-077f-4185-8b75-01b8bcb60a14",
 	"00000000-0000-0000-0000-000000000000",
-	'Member_access_loop11_start',
+	'Member_access_loop12_start',
 	'ParserValidateFunction: TRUE',
-	'// ::Member_access_loop11_start()
+	'// ::Member_access_loop12_start()
 return param.a3_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -26274,7 +26328,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("9a2a02ea-bdb3-4aba-baf6-13fbe024f335",
 	"00000000-0000-0000-0000-000000000000",
-	'Member_access_loop11_end',
+	'Member_access_loop12_end',
 	'ParserValidateFunction: TRUE',
 	'// Member_access_loop_11_end()
 select any rootVal from instances of V_VAL where
@@ -26295,7 +26349,7 @@ else
 
   if empty instRefDt
     USER::logError(msg: "Internal Error in OAL Validation Function " +
-                 "Member_access_loop11_end().  Variable <instRefDt> is empty.",path:"PathNotProvided");
+                 "Member_access_loop12_end().  Variable <instRefDt> is empty.",path:"PathNotProvided");
   end if;
   name = rootVal.Text;
   var_id = ::get_var_in_scope( name: name, rule_token: param.a1_rule_token );
@@ -27242,7 +27296,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("f8b30c6c-acc6-47f0-9946-263b84b45291",
 	"00000000-0000-0000-0000-000000000000",
-	'Array_refs_loop12_start',
+	'Array_refs_loop13_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a3_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -27285,7 +27339,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("b86215f7-ed42-4245-a5dc-e75ce2d1362e",
 	"00000000-0000-0000-0000-000000000000",
-	'Array_refs_loop12_end',
+	'Array_refs_loop13_end',
 	'ParserValidateFunction: TRUE',
 	'rootVal_ID = ::get_value_chain_end(start_value_ID:param.a3_outer_loop_id);
 select any rootVal from instances of V_VAL where
@@ -36740,7 +36794,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("8ee2a91d-b745-48bd-8052-63e0b614f655",
 	"00000000-0000-0000-0000-000000000000",
-	'Partial_block_loop13_end',
+	'Partial_block_loop14_end',
 	'ParserValidateFunction: TRUE',
 	'return param.a3_ruleid_name;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -36801,7 +36855,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("04386ef2-ceef-46e4-a91c-f380c30beba9",
 	"00000000-0000-0000-0000-000000000000",
-	'Partial_block_loop13_start',
+	'Partial_block_loop14_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -38669,6 +38723,190 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("a96b2b06-5987-494a-885f-845f03e07a29",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("119a0835-47a4-4955-a0e8-a01e01170301",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_package_validate',
+	'ParserValidateFunction: TRUE',
+	'// look for a system with the given id
+select any system from instances of S_SYS
+                              where (selected.Sys_ID == param.a5_upper_rule_id);
+if(not_empty system)
+  // look for a direct package with the given name
+  select any package related by system->EP_PKG[R1401.''contains'']
+                                         where (selected.Name == param.a3_text);
+  if(not_empty package)
+    return package.Package_ID;
+  end if;
+  ERR::reportParseError( msg: 
+    "Cannot find package ->%s<- under system " + 
+     system.Name +" ->" + param.a3_text +"<-",
+     token: param.a1_rule_token );  
+end if;
+// look for a package under package
+select any package from instances of EP_PKG
+                          where (selected.Package_ID == param.a5_upper_rule_id);
+if(not_empty package)
+  select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subPackage)
+    return subPackage.Package_ID;
+  end if;
+  // look for a sub component
+  select any subComponent related by package->PE_PE[R8000]->C_C[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subComponent)
+    return subComponent.Id;
+  end if;
+end if;
+// look for a component under package
+select any component from instances of C_C
+                                  where (selected.Id == param.a5_upper_rule_id);
+if(not_empty component)
+  select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subPackage)
+    return subPackage.Package_ID;
+  end if;
+  // look for a sub component
+  select any subComponent related by component->PE_PE[R8003]->C_C[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subComponent)
+    return subComponent.Id;
+  end if;
+end if;
+// do not report a parse error here, allow the succeeding validations
+// to do so, for instance the next text could reference a data type
+// under package 
+return param.a6_current_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("a2ac1404-da06-46df-b2d8-5b4be149edf8",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f8e1fb4b-de6d-4a8c-9807-28b2b269621a",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a2ac1404-da06-46df-b2d8-5b4be149edf8",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3d0cb8d1-be32-4d50-bef2-83fa41a6a161",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f8e1fb4b-de6d-4a8c-9807-28b2b269621a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c8f28b15-30d8-4eb3-8300-c2f854ce531b",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3d0cb8d1-be32-4d50-bef2-83fa41a6a161",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9402993c-02e0-4fe5-be55-484a96408c20",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c8f28b15-30d8-4eb3-8300-c2f854ce531b",
+	'');
+INSERT INTO PE_PE
+	VALUES ("119a0835-47a4-4955-a0e8-a01e01170301",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a0455638-f2c1-4f32-a5b1-52884da1bac4",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_model_validate',
+	'ParserValidateFunction: TRUE',
+	'select any system from instances of S_SYS where (selected.Name == param.a3_text);
+if(not_empty system)
+  return system.Sys_ID;
+end if;
+// look for a package by name as we support package as a start
+select any package from instances of EP_PKG where (selected.Name == param.a3_text);
+if(not_empty package)
+  return package.Package_ID;
+end if;
+ERR::reportParseError( msg: 
+"Cannot find system or package for given name ->"+param.a3_text+"<-",
+    token: param.a1_rule_token );  
+return param.a6_current_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("56e5ff13-98b5-473f-ab24-3fc941f80287",
+	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1636857b-147c-48ca-85de-66281e0257af",
+	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"56e5ff13-98b5-473f-ab24-3fc941f80287",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("51a405bd-30f4-47a4-9cbc-cdf08d28cd72",
+	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1636857b-147c-48ca-85de-66281e0257af",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0b33f5b4-5074-4a18-96d5-e1e9fedb6230",
+	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"51a405bd-30f4-47a4-9cbc-cdf08d28cd72",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5aa55f11-020e-4052-9697-e7da16b9ecff",
+	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"0b33f5b4-5074-4a18-96d5-e1e9fedb6230",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a0455638-f2c1-4f32-a5b1-52884da1bac4",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
