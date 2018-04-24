@@ -150,6 +150,7 @@ TODO:
 + Use role phrases from mcooa version (thus fixing misspelling).
 [keep] Revert change to MC-Java/referential_attribute_util.inc.
 [keep] Revert change to bp.core/arc/create_object_inspector.inc.
-Change mcooa to use R57.
-Switch from real to string and perform string-to-real in the java.
++ Change mcooa to use R57.
++ Switch from real to string and perform string-to-real in the java.
+Update mc schema.
 </pre>
