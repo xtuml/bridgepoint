@@ -38734,7 +38734,7 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE',
 	'// look for a system with the given id
 select any system from instances of S_SYS
-                              where (selected.Sys_ID == param.a5_upper_rule_id);
+                              where (selected.Sys_ID == param.a6_current_rule_id);
 if(not_empty system)
   // look for a direct package with the given name
   select any package related by system->EP_PKG[R1401.''contains'']
@@ -38749,7 +38749,7 @@ if(not_empty system)
 end if;
 // look for a package under package
 select any package from instances of EP_PKG
-                          where (selected.Package_ID == param.a5_upper_rule_id);
+                          where (selected.Package_ID == param.a4_rule_ref_id);
 if(not_empty package)
   select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
                                          where (selected.Name == param.a3_text);
@@ -38765,7 +38765,7 @@ if(not_empty package)
 end if;
 // look for a component under package
 select any component from instances of C_C
-                                  where (selected.Id == param.a5_upper_rule_id);
+                                  where (selected.Id == param.a4_rule_ref_id);
 if(not_empty component)
   select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
                                          where (selected.Name == param.a3_text);
