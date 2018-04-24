@@ -11785,7 +11785,7 @@ INSERT INTO S_SYNC
 	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
 	'select any enum from instances of S_ENUM 
-    where (selected.Enum_ID == param.b2_scoped_member2_id );
+    where (selected.Enum_ID == param.b4_scoped_member1_id );
 if(empty enum)
   // if the enumerator was not found
   // check the system level
@@ -11793,7 +11793,7 @@ if(empty enum)
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
-    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_scoped_member2_id);
+    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b4_scoped_member1_id);
 end if;
 
 if ( not_empty enum )
@@ -11822,7 +11822,7 @@ if ( not_empty enum )
 end if;
 
 select any const from instances of CNST_SYC
-    where (selected.Const_ID == param.b2_scoped_member2_id );
+    where (selected.Const_ID == param.b4_scoped_member1_id );
 if(empty const)
   // if the constant was not found
   // check the system level
@@ -11830,7 +11830,7 @@ if(empty const)
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any const related by system->G_EIS[R9100]->PE_PE[R9100]->CNST_CSP[R8001]->
-    CNST_SYC[R1504] where (selected.Const_ID == param.b2_scoped_member2_id);
+    CNST_SYC[R1504] where (selected.Const_ID == param.b4_scoped_member1_id);
 end if;
 
 if ( not_empty const )
@@ -11899,7 +11899,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b3_scoped_model1_id',
+	'b1_scoped_model1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -11908,7 +11908,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("68ea48f3-1c25-4545-addc-5ee623349c02",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b4_scoped_package1_id',
+	'b2_scoped_package1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -11917,7 +11917,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("5751a7f3-9adb-4b7c-b96a-a130f590499d",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b1_scoped_data_type1_id',
+	'b3_scoped_data_type1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -11926,7 +11926,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("d1e89994-a085-43a6-aa49-1f836aea3133",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b2_scoped_member2_id',
+	'b4_scoped_member1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
