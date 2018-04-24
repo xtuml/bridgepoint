@@ -69,7 +69,7 @@ to set dialect specific workspace preferences.
 
 5.1 Update `SampleProjectGettingStartedAction` with several enhancements:  
 5.1.1 Allow zip archives with multiple projects.  
-5.1.2 Specify executable files to set execute permissions on after import.  
+5.1.2 Specify files on which to set execute permissions after import.  
 5.1.3 Add ability to specify the path to a `README` file other than the default.  
 5.1.4 Add mechanism for setting dialect specific workspace preferences.  
 5.2 Remove `SAC_OOA` and `SAC_PROC` models. These older MASL example models are
@@ -86,14 +86,32 @@ None.
 
 7.1 Existing unit tests shall pass.
 
+7.1.1 GPS Watch welcome plugin tests
+
 Some work had to be done to fix the existing GPS Watch unit tests. For the most
 part, things were only changed to account for the new model being split into
 multiple projects.
 
-One test was removed. This test had to do with importing an
-existing project in place without importing into the workspace. This use case is
+7.1.2 `testProjectCreationNoImportIntoworkspace`
+
+One test was removed from the welcome plugin. This test had to do with
+importing an existing project in place without importing into the workspace and
+was a regression test for issue #9556 ([[2.3]](#2.3)). This use case is
 actually not accessible from the welcome plugin, so it was removed (it probably
-did not belong in the welcome plugin tests to begin with).
+did not belong in the welcome plugin tests to begin with). The test has been
+moved to the io.mdl.test plugin in a test class called `ImportExistingTests`.
+
+As part of the #9556 pull request where this test was introduced, extra
+instrumentation was added to the welcome pluign which facilitated the test.
+This has been removed since it is now dead code without the test. It is also
+generally considered bad practice to add features to the application plugins
+for the sole purpose of test.
+
+7.1.3 Other test updates
+
+There were four OAL parse tests which used the GPS Watch model as a test model.
+These had to be updated to refer to the new model. They were also cleaned up
+and formatted (removed tabs, Windows styled EOLs, etc).
 
 No additional unit tests were added for the MASL model.
 
@@ -133,15 +151,15 @@ Branch: 10202_new_gps
 
 <pre>
 
- doc-bridgepoint/notes/10202_update_gps_welcome/10202_update_gps_welcome_int.md                          |  146 +++++++++++++++++++
+ doc-bridgepoint/notes/10202_update_gps_welcome/10202_update_gps_welcome_int.md                          |  182 ++++++++++++++++++++++++
  doc-bridgepoint/notes/10202_update_gps_welcome/dialog.png                                               |  Bin 0 -> 106590 bytes
  src/org.xtuml.bp.welcome/introContent.xml                                                               |   20 ++-
  src/org.xtuml.bp.welcome/models/GPS_Watch_MASL.zip                                                      |  Bin 0 -> 27077691 bytes
  src/org.xtuml.bp.welcome/models/{GPS Watch.zip => GPS_Watch_OAL.zip}                                    |  Bin 2765650 -> 2368010 bytes
  src/org.xtuml.bp.welcome/models/SAC_OOA.xtuml                                                           | 1467 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  src/org.xtuml.bp.welcome/models/SAC_PROC.xtuml                                                          |  238 -------------------------------
- src/org.xtuml.bp.welcome/src/org/xtuml/bp/welcome/gettingstarted/SampleProjectGettingStartedAction.java |  431 +++++++++++++++++++++++++++++++++++++++----------------
- 8 files changed, 463 insertions(+), 1839 deletions(-)
+ src/org.xtuml.bp.welcome/src/org/xtuml/bp/welcome/gettingstarted/SampleProjectGettingStartedAction.java |  424 ++++++++++++++++++++++++++++++++++++++----------------
+ 8 files changed, 491 insertions(+), 1840 deletions(-)
 
 </pre>
 
@@ -150,8 +168,12 @@ Branch: 10202_new_gps
 
 <pre>
 
- src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTestGPS.java | 648 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------------------------------------------------------------------------------------------------
- 1 file changed, 254 insertions(+), 394 deletions(-)
+  src/org.xtuml.bp.als.oal.test/src/org/xtuml/bp/als/oal/test/TestAllowInterfaceNameInICMsg_Generics.java | 255 +++++++++++++++++++++++++++++++++++---------------------------------------
+ src/org.xtuml.bp.io.mdl.test/src/IOMdlGlobalsTestSuiteGenerics.java                                     |   2 +
+ src/org.xtuml.bp.io.mdl.test/src/org/xtuml/bp/io/mdl/test/ImportExistingTests.java                      | 133 +++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.test/src/org/xtuml/bp/test/common/TestingUtilities.java                                |   8 ++-
+ src/org.xtuml.bp.welcome.test/src/org/xtuml/bp/welcome/test/WelcomePageTestGPS.java                     | 648 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------------------------------------------------------------------------------------
+ 5 files changed, 513 insertions(+), 533 deletions(-)
 
 </pre>
 
