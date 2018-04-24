@@ -52,18 +52,12 @@ public class RangeAction implements IActionDelegate {
 			typeString = "type";
 			Range_c firstRange = Range_c.getOneS_RANGEOnR57(first);
 			if(firstRange != null) {
-				String initialMin = String.valueOf(firstRange.getMin());
-				String initialMax = String.valueOf(firstRange.getMax());
-				if(!isReal) {
-					initialMin = String.valueOf((int) firstRange.getMin());
-					initialMax = String.valueOf((int) firstRange.getMax());
-				}
+				String initialMin = firstRange.getMin();
+				String initialMax = firstRange.getMax();
 				if(type.equals("Min")) { //$NON-NLS-1$
 					initialValue = initialMin;
 				} else if(type.equals("Max")) { //$NON-NLS-1$
-					if(firstRange.getMax() != 0) {
-						initialValue = initialMax;
-					}
+					initialValue = initialMax;
 				}
 			}
 		}
@@ -97,7 +91,7 @@ public class RangeAction implements IActionDelegate {
 					}
 				});
 		if (okPressed & !UIUtil.inputDialogResult.equals(initialValue)) {
-			float value = Float.valueOf(UIUtil.inputDialogResult);
+			String value = UIUtil.inputDialogResult;
 			try {
 				Transaction transaction = TransactionManager.getSingleton().startTransaction("Set range",
 						new ModelElement[] { Ooaofooa.getDefaultInstance() });
@@ -122,14 +116,14 @@ public class RangeAction implements IActionDelegate {
 				}
 				TransactionManager.getSingleton().endTransaction(transaction);
 			} catch (TransactionException e) {
-				CorePlugin.logError("Unable to start set cardinality transaction.", e);
+				CorePlugin.logError("Unable to start Set range transaction.", e);
 			}
 		}
 	}
 
 	private void handleClear() {
 		try {
-			Transaction transaction = TransactionManager.getSingleton().startTransaction("Set range",
+			Transaction transaction = TransactionManager.getSingleton().startTransaction("Clear range",
 					new ModelElement[] { Ooaofooa.getDefaultInstance() });
 			NonRootModelElement[] selectedNonRootModelElements = Selection.getInstance()
 					.getSelectedNonRootModelElements();
@@ -144,7 +138,7 @@ public class RangeAction implements IActionDelegate {
 			}
 			TransactionManager.getSingleton().endTransaction(transaction);
 		} catch (TransactionException e) {
-			CorePlugin.logError("Unable to start set cardinality transaction.", e);
+			CorePlugin.logError("Unable to start Clear range transaction.", e);
 		}		
 	}
 
