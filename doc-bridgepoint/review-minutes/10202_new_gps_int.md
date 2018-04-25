@@ -13,20 +13,20 @@ Present:  Bob, Keith, Levi, Cort
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   BM   3        Mention branching strategy for models so people
+x- 01  min   BM   3        Mention branching strategy for models so people
                            know where to find the source models.
-_- 02  min   SKB  4.3      Clarify that this is only supplied by bp.welcome.
-_- 03  min   BM   5.2      "from the welcome plugin" appended to first sentence.
-_- 04  min   SKB           Raise issue to consider updating or eliminating MASL
+x- 02  min   SKB  4.3      Clarify that this is only supplied by bp.welcome.
+x- 03  min   BM   5.2      "from the welcome plugin" appended to first sentence.
+x- 04  min   SKB           Raise issue to consider updating or eliminating MASL
                            template projects in the welcome plugin.
-_- 05  min   BM            Raise issue called "MASL mode".
-_- 06  min   LPS  7.1.2    Fix reference.
-_- 07  min   LPS  7.1.2    "pluign"
-_- 08  min   BM   7.2      Automate.
-_- 09  min   BM   7.2      Enhance testing for appearance and non-appearance
+x- 05  min   BM            Raise issue called "MASL mode".
+x- 06  min   LPS  7.1.2    Fix reference.
+x- 07  min   LPS  7.1.2    "pluign"
+x- 08  min   BM   7.2      Automate.
+x- 09  min   BM   7.2      Enhance testing for appearance and non-appearance
                            of the dialogue.
-_- 10  min   SKB  code     Delete CVS tags.
-_- 11  min   SKB  code     View/Name/Constants on 72 and 77 (2 files).
+x- 10  min   SKB  code     Delete CVS tags.
+x- 11  min   SKB  code     View/Name/Constants on 72 and 77 (2 files).
 
 </pre>
    

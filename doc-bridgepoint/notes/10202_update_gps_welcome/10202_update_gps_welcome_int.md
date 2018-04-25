@@ -20,6 +20,7 @@ BridgePoint welcome plugin quick start.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #10202 Update welcome plugin with OAL and MASL versions of the GPS Watch model](https://support.onefact.net/issues/10202)  
 <a id="2.2"></a>2.2 [Service Pro SR #10054 GPS Watch model to MASL](https://support.onefact.net/issues/10054)  
+<a id="2.3"></a>2.3 [BridgePoint DEI #9556 Saab- 11 : Import of an existing xtUML project fails to show the model until ME is closed and reopened](https://support.onefact.net/issues/9556)  
 
 ### 3. Background
 
@@ -29,6 +30,12 @@ It has long been known that a good, rich reference model using MASL was needed
 for educational purposes and to provide more testing exposure of the MASL
 capabilities of BridgePoint. With this work, the new model will be readily
 available to all BridgePoint users.
+
+The OAL version of the model is committed in the models repository at
+`applications/gps/GPS` in the `master` branch.  The MASL version of the model
+is committed in the models repository at `applications/gps/GPS` in the
+`gps_masl` branch. Both versions will be packaged to be importable from the
+welcome plugin.
 
 3.2 Dialect specific workspace preferences
 
@@ -64,6 +71,8 @@ model.
 welcome plugin.  
 4.3 Upon import of an OAL or MASL model, the user shall be provided a mechanism
 to set dialect specific workspace preferences.  
+4.3.1 This mechanism shall be limited to importing quick start models from the
+welcome plugin and shall not extend to other import paths.  
 
 ### 5. Work Required
 
@@ -72,9 +81,10 @@ to set dialect specific workspace preferences.
 5.1.2 Specify files on which to set execute permissions after import.  
 5.1.3 Add ability to specify the path to a `README` file other than the default.  
 5.1.4 Add mechanism for setting dialect specific workspace preferences.  
-5.2 Remove `SAC_OOA` and `SAC_PROC` models. These older MASL example models are
-not well maintained and they do not execute. Since we now have a superior
-example model, there is no reason to keep them in the welcome plugin.  
+5.2 Remove `SAC_OOA` and `SAC_PROC` models from the welcome plugin. These older
+MASL example models are not well maintained and they do not execute. Since we
+now have a superior example model, there is no reason to keep them in the
+welcome plugin.  
 5.3 Update `introContent.xml` with links to the new GPS models for OAL and MASL
 and remove links to the SAC models.  
 
@@ -102,7 +112,7 @@ did not belong in the welcome plugin tests to begin with). The test has been
 moved to the io.mdl.test plugin in a test class called `ImportExistingTests`.
 
 As part of the #9556 pull request where this test was introduced, extra
-instrumentation was added to the welcome pluign which facilitated the test.
+instrumentation was added to the welcome plugin which facilitated the test.
 This has been removed since it is now dead code without the test. It is also
 generally considered bad practice to add features to the application plugins
 for the sole purpose of test.
