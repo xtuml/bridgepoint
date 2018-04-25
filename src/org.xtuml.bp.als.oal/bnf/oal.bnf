@@ -371,7 +371,6 @@ scoped_access
    :
     (
     scoped_model
-    TOK_DOUBLECOLON!
     scoped_package
     )?
     scoped_data_type
@@ -384,7 +383,6 @@ scoped_model!
   ;
 scoped_package!
   :
-    scoped_member
     ( 
     TOK_DOUBLECOLON!
     scoped_package
