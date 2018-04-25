@@ -370,23 +370,22 @@ invocation_expr
 scoped_access
    :
     (
-    scoped_model
-    scoped_package
+    scoped_path
     )?
     scoped_data_type
     TOK_DOUBLECOLON!
     scoped_member
   ;
-scoped_model!
-  :
-    scoped_member
-  ;
-scoped_package!
+scoped_path!
   :
     ( 
-    TOK_DOUBLECOLON!
-    scoped_package
+    scoped_path_segment!
     )+
+  ;
+scoped_path_segment!
+  :
+    general_name
+    TOK_DOUBLECOLON!
   ;
 debug_operand
   :
@@ -939,7 +938,6 @@ rval
     ( identifier TOK_DOUBLECOLON invocation_function TOK_LPAREN )=>
     invocation_expr
   |
-    ( scoped_data_type TOK_DOUBLECOLON )=>
     scoped_access
   |
     member_access[false]
