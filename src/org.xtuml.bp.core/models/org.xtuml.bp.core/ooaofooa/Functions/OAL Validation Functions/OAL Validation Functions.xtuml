@@ -11785,15 +11785,15 @@ INSERT INTO S_SYNC
 	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
 	'select any enum from instances of S_ENUM 
-    where (selected.Enum_ID == param.b4_scoped_member1_id );
+    where (selected.Enum_ID == param.b3_scoped_member1_id );
 if(empty enum)
   // if the enumerator was not found
-  // check the system level
+  // check the system level \
   sysName = ::getSystemName();
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
-    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b4_scoped_member1_id);
+    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b3_scoped_member1_id);
 end if;
 
 if ( not_empty enum )
@@ -11822,7 +11822,7 @@ if ( not_empty enum )
 end if;
 
 select any const from instances of CNST_SYC
-    where (selected.Const_ID == param.b4_scoped_member1_id );
+    where (selected.Const_ID == param.b3_scoped_member1_id );
 if(empty const)
   // if the constant was not found
   // check the system level
@@ -11830,7 +11830,7 @@ if(empty const)
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any const related by system->G_EIS[R9100]->PE_PE[R9100]->CNST_CSP[R8001]->
-    CNST_SYC[R1504] where (selected.Const_ID == param.b4_scoped_member1_id);
+    CNST_SYC[R1504] where (selected.Const_ID == param.b3_scoped_member1_id);
 end if;
 
 if ( not_empty const )
@@ -11899,34 +11899,25 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b1_scoped_model1_id',
+	'b1_scoped_path1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"8fb98390-9c0e-4cf4-a42c-714f2f26ed71",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("68ea48f3-1c25-4545-addc-5ee623349c02",
+	VALUES ("5751a7f3-9adb-4b7c-b96a-a130f590499d",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b2_scoped_package1_id',
+	'b2_scoped_data_type1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("5751a7f3-9adb-4b7c-b96a-a130f590499d",
-	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b3_scoped_data_type1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"68ea48f3-1c25-4545-addc-5ee623349c02",
-	'');
-INSERT INTO S_SPARM
 	VALUES ("d1e89994-a085-43a6-aa49-1f836aea3133",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b4_scoped_member1_id',
+	'b3_scoped_member1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -36433,8 +36424,8 @@ if ( not_empty act )
 
   // get the EDT and/or constant specification
   dt_text = "";
-  select any s_edt from instances of S_EDT where ( selected.DT_ID == param.b1_scoped_data_type1_id );
-  select any cnst_csp from instances of CNST_CSP where ( selected.Constant_Spec_ID == param.b1_scoped_data_type1_id );
+  select any s_edt from instances of S_EDT where ( selected.DT_ID == param.b2_scoped_data_type1_id );
+  select any cnst_csp from instances of CNST_CSP where ( selected.Constant_Spec_ID == param.b2_scoped_data_type1_id );
   if ( not_empty s_edt )
     select one s_dt related by s_edt->S_DT[R17];
     dt_text = s_dt.Name;
@@ -36527,7 +36518,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("34a9d257-93a7-4144-a7a6-2cffaf6c7192",
 	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b1_scoped_data_type1_id',
+	'b1_scoped_path1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -36536,11 +36527,20 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("1a4e4d5e-9c67-4f74-af57-6281b0260b48",
 	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b2_scoped_member2_id',
+	'b2_scoped_data_type1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"34a9d257-93a7-4144-a7a6-2cffaf6c7192",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("515f0495-7a02-4ebd-9fc0-52ea70ae1e56",
+	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
+	'b3_scoped_member1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1a4e4d5e-9c67-4f74-af57-6281b0260b48",
 	'');
 INSERT INTO PE_PE
 	VALUES ("d7f06498-1cce-4897-9d4b-eeb018165b8e",
@@ -38730,9 +38730,12 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("119a0835-47a4-4955-a0e8-a01e01170301",
 	"00000000-0000-0000-0000-000000000000",
-	'Scoped_package_validate',
+	'Scoped_path_validate',
 	'ParserValidateFunction: TRUE',
-	'// look for a system with the given id
+	'// The scoped_path rule allows segments that represent either S_SYS, EP_PKG, or C_C
+
+
+// if the current rule represents S_SYS then we expect a package at this point.
 select any system from instances of S_SYS
                               where (selected.Sys_ID == param.a6_current_rule_id);
 if(not_empty system)
@@ -38747,9 +38750,11 @@ if(not_empty system)
      system.Name +" ->" + param.a3_text +"<-",
      token: param.a1_rule_token );  
 end if;
-// look for a package under package
+
+// if the current rule represents a package then we need to look for a nested package
+// or a component
 select any package from instances of EP_PKG
-                          where (selected.Package_ID == param.a4_rule_ref_id);
+                          where (selected.Package_ID == param.a6_current_rule_id);
 if(not_empty package)
   select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
                                          where (selected.Name == param.a3_text);
@@ -38763,9 +38768,11 @@ if(not_empty package)
     return subComponent.Id;
   end if;
 end if;
-// look for a component under package
+
+// if the current rule represents a component then we need to look for either a nested 
+// component, or a package
 select any component from instances of C_C
-                                  where (selected.Id == param.a4_rule_ref_id);
+                                  where (selected.Id == param.a6_current_rule_id);
 if(not_empty component)
   select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
                                          where (selected.Name == param.a3_text);
@@ -38779,9 +38786,24 @@ if(not_empty component)
     return subComponent.Id;
   end if;
 end if;
+
+
+// look to see if this is the S_SYS starting point
+select any system from instances of S_SYS where (selected.Name == param.a3_text);
+if(not_empty system)
+  return system.Sys_ID;
+end if;
+
+// look for a package by name as we do support package as a start
+select any package from instances of EP_PKG where (selected.Name == param.a3_text);
+if(not_empty package)
+  return package.Package_ID;
+end if;
+
 // do not report a parse error here, allow the succeeding validations
-// to do so, for instance the next text could reference a data type
-// under package 
+// to do so, for instance the next text could reference a datatype member
+// where no path is given.
+
 return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -38834,79 +38856,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("119a0835-47a4-4955-a0e8-a01e01170301",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("a0455638-f2c1-4f32-a5b1-52884da1bac4",
-	"00000000-0000-0000-0000-000000000000",
-	'Scoped_model_validate',
-	'ParserValidateFunction: TRUE',
-	'select any system from instances of S_SYS where (selected.Name == param.a3_text);
-if(not_empty system)
-  return system.Sys_ID;
-end if;
-// look for a package by name as we support package as a start
-select any package from instances of EP_PKG where (selected.Name == param.a3_text);
-if(not_empty package)
-  return package.Package_ID;
-end if;
-ERR::reportParseError( msg: 
-"Cannot find system or package for given name ->"+param.a3_text+"<-",
-    token: param.a1_rule_token );  
-return param.a6_current_rule_id;',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("56e5ff13-98b5-473f-ab24-3fc941f80287",
-	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("1636857b-147c-48ca-85de-66281e0257af",
-	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
-	'a3_text',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"56e5ff13-98b5-473f-ab24-3fc941f80287",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("51a405bd-30f4-47a4-9cbc-cdf08d28cd72",
-	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
-	'a4_rule_ref_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"1636857b-147c-48ca-85de-66281e0257af",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("0b33f5b4-5074-4a18-96d5-e1e9fedb6230",
-	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
-	'a5_upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"51a405bd-30f4-47a4-9cbc-cdf08d28cd72",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("5aa55f11-020e-4052-9697-e7da16b9ecff",
-	"a0455638-f2c1-4f32-a5b1-52884da1bac4",
-	'a6_current_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"0b33f5b4-5074-4a18-96d5-e1e9fedb6230",
-	'');
-INSERT INTO PE_PE
-	VALUES ("a0455638-f2c1-4f32-a5b1-52884da1bac4",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
