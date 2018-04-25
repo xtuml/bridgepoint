@@ -2,11 +2,7 @@ package org.xtuml.bp.welcome.gettingstarted;
 
 //====================================================================
 //
-//    File: $RCSfile: SampleProjectGettingStartedAction.java,v $
-//    Version: $Revision: 1.9 $
-//    Modified: $Date: 2013/06/12 13:09:36 $
-//
-//    (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+//    File: SampleProjectGettingStartedAction.java
 //
 //====================================================================
 //
