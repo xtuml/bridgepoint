@@ -42,13 +42,32 @@ This class has a conditional one to one relationship according to the
 analysis note [2.2] for [2.1].
 
 A range has minumum and maximum values.  These are added as attributes
-`min` and `max`.  The new attributes are typed as real to handle the
+`Min` and `Max`.  The new attributes are typed as string to handle the
 full minumum and maximum values.  The UI handles validation with type
 determination (integer versus real).
 
 The same model change is made to both `ooaofooa` and `mcooa`.
 
-5.2 Update editor.  
+5.1.2 Model Compiler Tools  
+The `mcooa` change affects other model compiler tools.  This includes
+escher (`mcmc`) and `integrity`.  The action language in the integrity
+model is regenerated, pasted in, the referential integrity checker is
+itself regenerated and compiled.  `mcmc` is rebuilt according to the
+instructions in the `escher` gen folder.
+
+5.1.3 `xtumlmc_schema.sql`  
+The schema for the model compilers needs to have the new class (Range)
+and association.  The instructions for regenerating the schema are found
+in `escher/gen/HOWTO Create MC-3020 HEAD branch.txt`.  This is regenerated.  
+
+5.1.4 `maslin` UDT  
+`m2x` involves a hand-edited file in the `gen` folder of the `maslin`
+project.  `masl2xtuml_S_UDT_class.c` is modified to updated the identifiers
+of data types during the import process.  This hand-edited file needs to be
+refreshed because of the association across R57 to the new Range (`S_RANGE`)
+class.
+
+5.2 Update the editor.  
 5.2.1 UI Range configuration  
 A new menu along with three sub menus are added. These are:  
   * Range  
@@ -68,13 +87,13 @@ dialog assures that the input value is valid.  In the case of integer the
 string value is parsed.  If a `NumberFormatException` is thrown, a message
 is given indicating an invalid entry.  In the case of a real, the value
 is parsed and the given real (float) is checked to be a number (`NaN`) and
-infinite exceptions.  The same message is given for the invalid real.
+for infinite exceptions.  The same message is given for the invalid real.
 
 5.2.2 Add range data to compare and persistence.  
 Three new entries are added to `ooaofooa_hierarchy.pei.sql` to cover
 external attributes for the UDT class.  An external attribute is used
 to display an attribute from another class under the one associated,
-in this case the min and max values from the Range class associated
+in this case the Min and Max values from the Range class associated
 with the User Data Type.  This change allows the range values to show
 in compare.  Note, these are not available in the properties view.
 
@@ -102,7 +121,7 @@ operator ('=').  The left-hand value (lval) receives the right-hand value
 5.4.1.1.1 hmmm  
 Research where this is necessary.  Depending upon type compatiblity,
 this may be superfluous.  In some situations the rhs has already been checked
-and is therefore O.K. to be applied to the lhs.  Immediate data assignement
+and is therefore O.K. to be applied to the lhs.  Immediate data assignment
 is an example where the checking must occur.  
 5.4.1.2 Binary Operation  
 When two values are combined with an operator, a new value is produced.  The
@@ -113,10 +132,16 @@ new value type is discovered across R820.
 
 ### 6. Implementation Comments
 
-### 7. Unit Test
+6.1 Data Type User Documentation  
+Documentation for Data Types existed in the native HTML format as
+produced by a previous generation WYSIWYG tool (probably MSWord).
+This entire section was converted to markdown before adding the new
+information documenting UDT ranges.  `pandoc` was used to convert the
+markdown source, and the `github-pandoc.css` stylesheet was
+applied (found several directories above in the documentation
+folder hierarchy).
 
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests. Here is an example reference to the Document References section [[2.1]](#2.1)
+### 7. Unit Test
 
 7.1 Item 1  
 7.1.1 Example sub-item
@@ -128,7 +153,10 @@ will use to design and perform the tests. Here is an example reference to the Do
 
 ### 8. User Documentation
 
-[add something to UI documentation to explain how to constrain a type.]
+8.1 Help Update  
+The Help documentation was updated.  The section changed was
+BridgePoint UML Suite Help --> Reference --> User Interface -->
+xtUML Modeling Perspective --> Model Elements --> Data Types.
 
 ### 9. Code Changes
 
@@ -137,6 +165,9 @@ Fork/Repository:  cortlandstarrett/bridgepoint
 Branch:  5005_range
 
 Fork/Repository:  cortlandstarrett/mc
+Branch:  5005_range
+
+Fork/Repository:  cortlandstarrett/models
 Branch:  5005_range
 </pre>
 
@@ -153,4 +184,6 @@ TODO:
 + Change mcooa to use R57.
 + Switch from real to string and perform string-to-real in the java.
 Update mc schema.
+Update MM welcome project.
+Rebuild mcmc, integrity.
 </pre>
