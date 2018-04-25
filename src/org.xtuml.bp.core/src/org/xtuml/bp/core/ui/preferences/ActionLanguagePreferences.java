@@ -1,13 +1,5 @@
 package org.xtuml.bp.core.ui.preferences;
 //========================================================================
-//
-//File:      $RCSfile: ActionLanguagePreferences.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2012/08/27 19:20:00 $
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -40,11 +32,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesModel;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.ui.ICoreHelpContextIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 

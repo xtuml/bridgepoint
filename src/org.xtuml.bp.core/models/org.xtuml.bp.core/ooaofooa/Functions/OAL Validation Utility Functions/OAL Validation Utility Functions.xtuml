@@ -90,27 +90,47 @@ ParserUtilityFunction: TRUE
               ERR::reportParseError( msg: "Cannot find Binary Operator subtype",
                    token: param.a6_rule_token );
             else
-              op_dt_id =  ::data_types_compatible( dt1:lhs_val_dt.DT_ID, dt2: rhs_val_dt.DT_ID,
-                   op: bin.Operator );
-              if (  op_dt_id == GD::NULL_UNIQUE_ID() )
+              // for set operations, instance reference types must be published
+              if ( ( bin.Operator == "+" or bin.Operator == "-" or bin.Operator == "&" or bin.Operator == "|" or bin.Operator == "^" ) and
+                   ( ::has_substring( p1_base:lhs_val_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
+                     ::has_substring( p1_base:lhs_val_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) or
+                     ::has_substring( p1_base:rhs_val_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
+                     ::has_substring( p1_base:rhs_val_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) ) )
                 // must clear garbage before reporting error, reportParseError wont return
                 comp_val.dispose();
                 lhs_val.dispose();
                 rhs_val.dispose();
-
-                ERR::reportParseError( msg: "Incompatible operands for " + param.a4_op_type,
-                  token: param.a6_rule_token );
+                ERR::reportParseError( msg:"Must publish instance reference types to use set operator " + bin.Operator, token: param.a6_rule_token );
               else
-                relate bin to lhs_val across R802;
-                relate bin to rhs_val across R803;
-                if ( param.a5_set_dt )
-                  if ( op_dt_id == lhs_val_dt.DT_ID )
-                    relate comp_val to lhs_val_dt across R820;
-                  else
-                    relate comp_val to rhs_val_dt across R820;
+                op_dt_id =  ::data_types_compatible( dt1:lhs_val_dt.DT_ID, dt2: rhs_val_dt.DT_ID,
+                     op: bin.Operator );
+                if (  op_dt_id == GD::NULL_UNIQUE_ID() )
+                  // must clear garbage before reporting error, reportParseError wont return
+                  comp_val.dispose();
+                  lhs_val.dispose();
+                  rhs_val.dispose();
+                  ERR::reportParseError( msg: "Incompatible operands for " + param.a4_op_type,
+                    token: param.a6_rule_token );
+                else
+                  relate bin to lhs_val across R802;
+                  relate bin to rhs_val across R803;
+                  comp_val.LineNumber = lhs_val.LineNumber;
+                  comp_val.StartPosition = lhs_val.StartPosition;
+                  comp_val.setEndPosition();
+                  if ( param.a5_set_dt )
+                    if ( op_dt_id == lhs_val_dt.DT_ID )
+                      relate comp_val to lhs_val_dt across R820;
+                    elif ( op_dt_id == rhs_val_dt.DT_ID )
+                      relate comp_val to rhs_val_dt across R820;
+                    else
+                      select any op_dt from instances of S_DT where ( selected.DT_ID == op_dt_id );
+                      if ( not_empty op_dt )
+                        relate comp_val to op_dt across R820;
+                      end if;
+                    end if;
                   end if;
+                  return bin.Value_ID;
                 end if;
-                return bin.Value_ID;
               end if;
             end if;
           end if;
@@ -308,28 +328,16 @@ if isInGenericPackage
    *  If both types are not IRDTs then they are incompatible, with
    *  one exception inst_ref<Object>
    */
-  if(dt1_is_ir and (not dt2_is_ir and not ::has_substring(p1_base: dt2_dt.Name,
-                                  p2_str: "inst_ref<Object>", p3_fromIndex: 0)))
-    return GD::NULL_UNIQUE_ID();
-  end if;
-
-  if(dt1_is_irs and (not dt2_is_irs and not ::has_substring(p1_base: dt2_dt.Name,
-                              p2_str: "inst_ref_set<Object>", p3_fromIndex: 0)))
+  if ( ( dt1_is_ir or dt1_is_irs ) and not ( dt2_is_ir or dt2_is_irs or ::has_substring( p1_base: dt2_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
+                                             ::has_substring( p1_base: dt2_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) ) )
     return GD::NULL_UNIQUE_ID();
   end if;
 
   /**
    *  Check the opposite, where dt1 is inst_ref<Object> and dt2 is IRDT
    */
-  if((not dt1_is_ir and not ::has_substring(p1_base: dt1_dt.Name,
-                                  p2_str: "inst_ref<Object>", p3_fromIndex: 0))
-                                  and dt2_is_ir)
-    return GD::NULL_UNIQUE_ID();                                  
-  end if;
-
-  if((not dt1_is_irs and not ::has_substring(p1_base: dt1_dt.Name,
-                                p2_str: "inst_ref_set<Object", p3_fromIndex: 0))
-                                and dt2_is_irs)
+  if ( ( dt2_is_ir or dt2_is_irs ) and not ( dt1_is_ir or dt1_is_irs or ::has_substring( p1_base: dt1_dt.Name, p2_str:"inst_ref<Object>", p3_fromIndex:0 ) or
+                                             ::has_substring( p1_base: dt1_dt.Name, p2_str:"inst_ref_set<Object>", p3_fromIndex:0 ) ) )
     return GD::NULL_UNIQUE_ID();
   end if;
 
@@ -357,7 +365,7 @@ if isInGenericPackage
 
   if ( areCompatible )
     // only check for disallowed operations, since they are fewer
-    if ( (not dt1_is_ir and not dt1_is_irs and dt1_dt.Name != "boolean") and
+    if ( (dt1_dt.Name != "boolean") and
         (param.op == "and" or param.op == "or")  )
       return GD::NULL_UNIQUE_ID();
     elif ( dt1_dt.Name == "boolean" and
@@ -378,8 +386,8 @@ if isInGenericPackage
          param.op == ">" or param.op == "<" or param.op == ">=" or param.op == "<=" ) )
       return GD::NULL_UNIQUE_ID();
     elif ( (dt1_is_ir or dt1_is_irs) and
-       ( param.op == "and" or param.op == "or" or param.op == "+"  or
-         param.op == "-" ) )
+       ( param.op == "&" or param.op == "|" or param.op == "+"  or
+         param.op == "-" or param.op == "^" ) )
       return_type = param.dt1;
       if ( dt1_is_ir )
         // The result of an operation on two inst_ref''s is an inst_ref_set.  So,
@@ -413,13 +421,15 @@ if isInGenericPackage
     //      <inst_ref>      &  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      +  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      -  <inst_ref_set>   <inst_ref_set>
+    //      <inst_ref>      ^  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref_set>  |  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  &  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  +  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  -  <inst_ref>       <inst_ref_set>
+    //      <inst_ref_set>  ^  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
-      if ( param.op != "and" and param.op != "or" and param.op != "+" and
-         param.op != "-" )
+      if ( param.op != "&" and param.op != "|" and param.op != "+" and
+         param.op != "-" and param.op != "^" )
         return GD::NULL_UNIQUE_ID();
       end if;
 
@@ -428,16 +438,7 @@ if isInGenericPackage
       select one irdt1_obj related by dt1_dt->S_IRDT[R17]->O_OBJ[R123];
       select one irdt2_obj related by dt2_dt->S_IRDT[R17]->O_OBJ[R123];
 
-      if empty irdt1_obj
-        USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
-        "data_types_compatible().  Variable <irdt1_obj> is empty.",path:"PathNotProvided");
-      end if;
-      if empty irdt2_obj
-        USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
-        "data_types_compatible().  Variable <irdt2_obj> is empty.",path:"PathNotProvided");
-      end if;
-
-      if ( irdt1_obj.Obj_ID != irdt2_obj.Obj_ID )
+      if ( not_empty irdt1_obj and not_empty irdt2_obj and irdt1_obj.Obj_ID != irdt2_obj.Obj_ID )
         return GD::NULL_UNIQUE_ID();
       end if;
 
@@ -654,8 +655,8 @@ else
          param.op == ">" or param.op == "<" or param.op == ">=" or param.op == "<=" ) )
       return GD::NULL_UNIQUE_ID();
     elif ( (dt1_is_ir or dt1_is_irs) and
-       ( param.op == "and" or param.op == "or" or param.op == "+"  or
-         param.op == "-" ) )
+       ( param.op == "&" or param.op == "|" or param.op == "+"  or
+         param.op == "-" or param.op == "^" ) )
       return_type = param.dt1;
       if ( dt1_is_ir )
         // The result of an operation on two inst_ref''s is an inst_ref_set.  So,
@@ -689,13 +690,15 @@ else
     //      <inst_ref>      &  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      +  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref>      -  <inst_ref_set>   <inst_ref_set>
+    //      <inst_ref>      ^  <inst_ref_set>   <inst_ref_set>
     //      <inst_ref_set>  |  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  &  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  +  <inst_ref>       <inst_ref_set>
     //      <inst_ref_set>  -  <inst_ref>       <inst_ref_set>
+    //      <inst_ref_set>  ^  <inst_ref>       <inst_ref_set>
     if ( dt1_is_ir or dt1_is_irs )
-      if ( param.op != "and" and param.op != "or" and param.op != "+" and
-         param.op != "-" )
+      if ( param.op != "&" and param.op != "|" and param.op != "+" and
+         param.op != "-" and param.op != "^" )
         return GD::NULL_UNIQUE_ID();
       end if;
 
@@ -704,16 +707,7 @@ else
       select one irdt1_obj related by dt1_dt->S_IRDT[R17]->O_OBJ[R123];
       select one irdt2_obj related by dt2_dt->S_IRDT[R17]->O_OBJ[R123];
 
-      if empty irdt1_obj
-        USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
-        "data_types_compatible().  Variable <irdt1_obj> is empty.",path:"PathNotProvided");
-      end if;
-      if empty irdt2_obj
-        USER::logError(msg: "Internal Error in OAL Validation Utility Function " +
-        "data_types_compatible().  Variable <irdt2_obj> is empty.",path:"PathNotProvided");
-      end if;
-
-      if ( irdt1_obj.Obj_ID != irdt2_obj.Obj_ID )
+      if ( not_empty irdt1_obj and not_empty irdt2_obj and irdt1_obj.Obj_ID != irdt2_obj.Obj_ID )
         return GD::NULL_UNIQUE_ID();
       end if;
 
@@ -863,110 +857,7 @@ if ( param.a2_dt_name != "" )
   end if;
 end if;
 relate val to bin across R801;
-return val.Value_ID;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-',
+return val.Value_ID;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',

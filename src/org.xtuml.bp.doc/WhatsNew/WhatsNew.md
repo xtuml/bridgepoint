@@ -1,13 +1,13 @@
-What's New in BridgePoint 6.11.0
+What's New in BridgePoint 6.13.0
 ========================
 
 Release Highlights
 -------
-* Engineering build 
+* Engineering Build
 
 -------------------------------------------------------------------------------
 
-Engineering build
+Engineering Build
 ------
-This is an engineering build.  It is a work in progress.
+This is an engineering build of BridgePoint.  It has undergone limited testing. 
 

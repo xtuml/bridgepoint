@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Custom Lexer Generator Fragment
 Bundle-SymbolicName: org.xtuml.bp.xtext.generator
-Bundle-Version: 6.11.0.qualifier
+Bundle-Version: 6.13.0.qualifier
 Bundle-Vendor: xtUML.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.google.guava,

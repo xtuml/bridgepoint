@@ -79,11 +79,24 @@ the License.
           <topic label="Sequence Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Sequence.htm"/>
           <topic label="Use Case Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/UseCase.htm"/>
         </topic>
-        <topic label="Preferences" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/Preferences.htm">
-          <topic label="Activity Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/ActivityEditor.htm"/>
-          <topic label="Diagram Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/DiagramEditor.htm"/>
-          <topic label="Diagram Text" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/DiagramText.htm"/>
-          <topic label="Content Assist" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/ContentAssist.html"/>
+        <topic label="Preferences" href="Reference/UserInterface/xtUMLModeling/Preferences/Preferences.html">
+          <topic label="xtUML" href="Reference/UserInterface/xtUMLModeling/Preferences/xtUML.html">
+            <topic label="Action Language" href="Reference/UserInterface/xtUMLModeling/Preferences/ActionLanguage.html">
+              <topic label="Content Assist" href="Reference/UserInterface/xtUMLModeling/Preferences/ContentAssist.html"/>
+            </topic>
+            <topic label="Activity Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/ActivityEditor.html"/>
+            <topic label="Diagram Editors" href="Reference/UserInterface/xtUMLModeling/Preferences/DiagramEditors.html"/>
+            <topic label="Message Direction" href="Reference/UserInterface/xtUMLModeling/Preferences/MessageDirection.html"/>
+            <topic label="Model Export" href="Reference/UserInterface/xtUMLModeling/Preferences/ModelExport.html"/>
+            <topic label="xtUML eXecute" href="Reference/UserInterface/xtUMLModeling/Preferences/xtUMLeXecute.html"/>
+            <topic label="xtUML Translate" href="Reference/UserInterface/xtUMLModeling/Preferences/xtUMLTranslate.html"/>
+          </topic>
+          <topic label="Colors and Fonts" href="Reference/UserInterface/xtUMLModeling/Preferences/ColorsAndFonts.html"/>
+          <topic label="Project Preferences" href="Reference/UserInterface/xtUMLModeling/Preferences/Preferences.html">
+            <topic label="Inter-project References" href="Reference/UserInterface/xtUMLModeling/Preferences/ProjIPR.html"/>
+            <topic label="Action Language" href="Reference/UserInterface/xtUMLModeling/Preferences/ProjActionLanguage.html"/>
+            <topic label="Dependencies" href="Reference/UserInterface/xtUMLModeling/Preferences/ProjDependencies.html"/>
+          </topic>
         </topic>
         <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedoMain.htm">
           <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedo.htm"/>
@@ -107,7 +120,7 @@ the License.
       <topic label="Class Manipulations" href="Reference/OAL/HTML/bpalref.book-5.htm"/>
       <topic label="Relationships" href="Reference/OAL/HTML/bpalref.book-6.htm"/>
       <topic label="Events" href="Reference/OAL/HTML/bpalref.book-7.htm"/>
-      <topic label="Expressions" href="Reference/OAL/HTML/bpalref.book-8.htm"/>
+      <topic label="Expressions" href="Reference/OAL/Expressions/Expressions.html"/>
       <topic label="Date and Time" href="Reference/OAL/HTML/bpalref.book-9.htm"/>
       <topic label="Operations, Bridges, and Functions" href="Reference/OAL/HTML/bpalref.book-10.htm"/>
       <topic label="Timers" href="Reference/OAL/HTML/bpalref.book-11.htm"/>

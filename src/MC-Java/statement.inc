@@ -176,6 +176,7 @@ else if ( ${test.buffer} )
     .select one irf related by lvalue->V_AVL[R801]->V_VAL[R807]->V_IRF[R801]
     .select one tvr related by lvalue->V_TVL[R801]
     .select one directirf related by lvalue->V_IRF[R801]
+    .select one directisr related by lvalue->V_ISR[R801]
     .if (not_empty irf)
       .select one inst_var related by irf->V_VAR[R808]
       .select one attr related by lvalue->V_AVL[R801]->O_ATTR[R806]
@@ -258,6 +259,13 @@ ${lvalue.buffer} = ${intCast1}${rvalue.buffer}${intCast2} ;
         .select any new_obj related by directirf->V_VAR[R808]->V_INT[R814]->O_OBJ[R818]
         .invoke cn = get_class_name( new_obj )
 ${cn.body} \
+      .end if
+${lvalue.buffer} = ${rvalue.buffer} ;
+    .elif (not_empty directisr)
+      .if (lvalue.isImplicit == 1)
+        .select any new_obj related by directisr->V_VAR[R809]->V_INS[R814]->O_OBJ[R819]
+        .invoke cn = get_class_name( new_obj )
+${cn.body}[] \
       .end if
 ${lvalue.buffer} = ${rvalue.buffer} ;
     .else
