@@ -1,13 +1,5 @@
 package org.xtuml.bp.ui.search.pages;
 //========================================================================
-//
-//File:      $RCSfile: ModelSearchPage.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:13:51 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -88,7 +80,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 	private boolean isCaseSensitive;
 	private CLabel statusLabel;
 	private Button isRegExCheckbox;
-	// private Button declarationButton;
+	private Button elementNameTextButton;
 	// private Button referencesButton;
 	private Button oalTextButton;
 	private Button descriptionTextButton;
@@ -96,7 +88,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 	private boolean isActionLanguageSearch;
 	private boolean isDescriptionSearch;
 	private boolean isReferencesSearch;
-	private boolean isDeclerationsSearch;
+	private boolean isElementNameSearch;
 	private List<ModelSearchInput> previousSearchInputData = new ArrayList<ModelSearchInput>();
 	private boolean firstTime = true;
 
@@ -108,6 +100,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 	private static final String STORE_HISTORY_SIZE = "HISTORY_SIZE"; //$NON-NLS-1$
 	private static final String STORE_SEARCH_DESCRIPTION = "DESCRIPTION_SEARCH"; // $NON-NLS-1$
 	private static final String STORE_SEARCH_ACTION_LANGUAGE = "ACTION_LANGUAGE_SEARCH"; // $NON-NLS-1$
+	private static final String STORE_SEARCH_ELEMENT_NAME = "ELEMENT_NAME_SEARCH"; // $NON-NLS-1$
 
 	private static final int HISTORY_SIZE = 12;
 
@@ -136,10 +129,28 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 
 	private void createLimitGroup(Composite configComposite) {
 		Group limitGroup = new Group(configComposite, SWT.SHADOW_ETCHED_IN);
-		limitGroup.setLayout(new GridLayout(2, true));
+		limitGroup.setLayout(new GridLayout(3, true));
 		limitGroup.setText("Limit To");
 		GridData limitGroupData = new GridData(SWT.FILL, SWT.FILL, true, true,
 				1, 1);
+		elementNameTextButton = new Button(limitGroup, SWT.CHECK);
+		elementNameTextButton.setText("Element Names");
+		elementNameTextButton.setSelection(isActionLanguageSearch);
+		elementNameTextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false,
+				true, 1, 1));
+		elementNameTextButton.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				isElementNameSearch = elementNameTextButton.getSelection();
+			}
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				isElementNameSearch = elementNameTextButton.getSelection();
+			}
+
+		});
 		oalTextButton = new Button(limitGroup, SWT.CHECK);
 		oalTextButton.setText("Action Language");
 		oalTextButton.setSelection(isActionLanguageSearch);
@@ -308,6 +319,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 		settings.put(STORE_IS_REG_EX_SEARCH, isRegExSearch);
 		settings.put(STORE_SEARCH_DESCRIPTION, isDescriptionSearch);
 		settings.put(STORE_SEARCH_ACTION_LANGUAGE, isActionLanguageSearch);
+		settings.put(STORE_SEARCH_ELEMENT_NAME, isElementNameSearch);
 
 		int historySize = Math
 				.min(previousSearchInputData.size(), HISTORY_SIZE);
@@ -331,6 +343,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 		isDescriptionSearch = settings.getBoolean(STORE_SEARCH_DESCRIPTION);
 		isActionLanguageSearch = settings
 				.getBoolean(STORE_SEARCH_ACTION_LANGUAGE);
+		isElementNameSearch = settings.getBoolean(STORE_SEARCH_ELEMENT_NAME);
 
 		try {
 			int historySize = settings.getInt(STORE_HISTORY_SIZE);
@@ -397,6 +410,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 		isRegExCheckbox.setSelection(input.isRegExSearch());
 		oalTextButton.setSelection(input.isOALSearch);
 		descriptionTextButton.setSelection(input.isDescriptionSearch);
+		elementNameTextButton.setSelection(input.isElementNameSearch);
 		pattern.setText(input.getPattern());
 		if (input.getWorkingSets() != null)
 			getContainer().setSelectedWorkingSets(input.getWorkingSets());
@@ -426,7 +440,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 		NonRootModelElement[] selectedElements = configureSelectionForInput(getContainer().getSelectedScope());
 		ModelSearchInput input = new ModelSearchInput(patternString,
 				isCaseSensitive, isRegExSearch, actionLanguage,
-				isDeclerationsSearch, isReferencesSearch, description,
+				isElementNameSearch, isReferencesSearch, description,
 				getContainer().getSelectedScope(), selectedElements,
 				getContainer().getSelectedWorkingSets());
 		ModelSearchInput remove = null;
