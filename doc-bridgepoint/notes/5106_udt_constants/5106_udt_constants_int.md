@@ -172,9 +172,64 @@ None.
 
 8.2 Model edit test  
 
+8.2.1 Launch BridgePoint in a new workspace. Import `test_udt_constants` from
+the models repository (`models/test/5106_udt_constants`).  
+8.2.2 Navigate to `test_udt_constants::lib::test::types::NewConstants`.  
+8.2.3 Right click `const1` > Set Type...  
+8.2.4 Verify that `udt1` is assignable. Select `udt1`.  
+8.2.5 Verify that the value for `const1` is set to empty string (default for
+type `string`).  
+8.2.6 Right click `const2` > Set Type...  
+8.2.7 Verify that `udt2` is assignable. Select `udt2`.  
+8.2.8 Verify that the value for `const2` is set to empty string (default for
+type `string`).  
+8.2.9 Right click `const3` > Set Type...  
+8.2.10 Verify that `enum1` is assignable. Select `enum1`.  
+8.2.11 Verify that the value for `const3` is set to "enum1::ONE".  
+8.2.12 Right click `const3` > Set Type...  
+8.2.13 Verify that `udt3` is not assignable.  
+8.2.14 Verify that `enum2` is not assignable. Dismiss the type chooser.  
+
+8.2.15 Right click `udt1` > Set Type...  
+8.2.16 Select `boolean`.  
+8.2.17 Verify that a downgrade dialog appears and that the following text is
+displayed:  
+```
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
+```
+8.2.18 Select OK.  
+8.2.19 Navigate to `NewConstants::const1`. Verify that the value has been set to
+`false` (default for type `boolean`).  
+8.2.20 Navigate to `NewConstants::const2`. Verify that the value has been set to
+`false` (default for type `boolean`).  
+8.2.21 Right click `udt1` > Set Type...  
+8.2.22 Select `component_ref`.  
+8.2.23 Verify that a downgrade dialog appears and that the following text is
+displayed:  
+```
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
+```
+8.2.24 Select OK.  
+8.2.25 Navigate to `NewConstants::const1`. Verify that the type has been set to
+integer and the value has been set to `0` (default for type `integer`).  
+8.2.26 Navigate to `NewConstants::const2`. Verify that the type has been set to
+integer and the value has been set to `0` (default for type `integer`).  
+
 8.3 Verifier test  
 
+Automated JUnit test
+TODO
+
 8.4 MC-3020 test  
+
+Import test model, build, run, compare with expected results
+TODO
 
 ### 9. User Documentation
 
@@ -193,6 +248,49 @@ Fork/Repository: leviathan747/mc
 Branch: 5106_udt_constants  
 
 <pre>
+
+ arc/q.val.translate.arc                               |  16 ++++++++++++++--
+ bin/mac/mcmc                                          | Bin 1569800 -> 1565704 bytes
+ bin/mcmc                                              | Bin 2408744 -> 2374008 bytes
+ bin/win/mcmc.exe                                      | Bin 1706557 -> 1963200 bytes
+ mcmc/arlan/o2.oal                                     |  16 ++++++++++++++--
+ model/escher/gen/ooaofooa.c                           |  49 +++++++++++++++++++++++++++++++++++++++----------
+ model/escher/gen/ooaofooa_c_orig                      | 118 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--------------------------------------------------------
+ model/escher/models/escher/mcmc/afunval/afunval.xtuml |  16 ++++++++++++++--
+ 8 files changed, 143 insertions(+), 72 deletions(-)
+
+</pre>
+
+Fork/Repository: leviathan747/bptest  
+Branch: 5106_udt_constants  
+
+<pre>
+
+</pre>
+
+Fork/Repository: leviathan747/models  
+Branch: 5106_udt_constants  
+
+<pre>
+
+ test/5106_udt_constants/.cproject                                                    | 126 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/.externalToolBuilders/Model Compiler.launch                  |  15 ++++++++
+ test/5106_udt_constants/.gitignore                                                   |   4 ++
+ test/5106_udt_constants/.launches/test_udt_constants.launch                          |  13 +++++++
+ test/5106_udt_constants/.project                                                     |  44 +++++++++++++++++++++
+ test/5106_udt_constants/gen/LOG_bridge.c                                             |  25 ++++++++++++
+ test/5106_udt_constants/gen/domain.mark                                              |   2 +
+ test/5106_udt_constants/gen/expected_results.txt                                     |   3 ++
+ test/5106_udt_constants/models/test_udt_constants/lib/lib.xtuml                      | 308 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/lib/test/classes/A/A.xtuml         | 107 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/lib/test/classes/classes.xtuml     |  81 +++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/lib/test/functions/functions.xtuml |  98 +++++++++++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/lib/test/test.xtuml                | 294 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/lib/test/types/types.xtuml         | 432 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/lib/testing/testing.xtuml          |  35 +++++++++++++++++
+ test/5106_udt_constants/models/test_udt_constants/test_udt_constants.xtuml           |  56 +++++++++++++++++++++++++++
+ test/5106_udt_constants/src/.gitignore                                               |   2 +
+ 17 files changed, 1645 insertions(+)
 
 </pre>
 
