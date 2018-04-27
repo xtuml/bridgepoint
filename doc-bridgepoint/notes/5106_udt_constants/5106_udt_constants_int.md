@@ -170,66 +170,77 @@ None.
 
 8.1 Existing unit tests shall pass  
 
-8.2 Model edit test  
+8.2 New JUnit tests
 
-8.2.1 Launch BridgePoint in a new workspace. Import `test_udt_constants` from
-the models repository (`models/test/5106_udt_constants`).  
-8.2.2 Navigate to `test_udt_constants::lib::test::types::NewConstants`.  
-8.2.3 Right click `const1` > Set Type...  
-8.2.4 Verify that `udt1` is assignable. Select `udt1`.  
-8.2.5 Verify that the value for `const1` is set to empty string (default for
-type `string`).  
-8.2.6 Right click `const2` > Set Type...  
-8.2.7 Verify that `udt2` is assignable. Select `udt2`.  
-8.2.8 Verify that the value for `const2` is set to empty string (default for
-type `string`).  
-8.2.9 Right click `const3` > Set Type...  
-8.2.10 Verify that `enum1` is assignable. Select `enum1`.  
-8.2.11 Verify that the value for `const3` is set to "enum1::ONE".  
-8.2.12 Right click `const3` > Set Type...  
-8.2.13 Verify that `udt3` is not assignable.  
-8.2.14 Verify that `enum2` is not assignable. Dismiss the type chooser.  
-
-8.2.15 Right click `udt1` > Set Type...  
-8.2.16 Select `boolean`.  
-8.2.17 Verify that a downgrade dialog appears and that the following text is
-displayed:  
-```
-test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
-test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
-test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
-test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
-```
-8.2.18 Select OK.  
-8.2.19 Navigate to `NewConstants::const1`. Verify that the value has been set to
-`false` (default for type `boolean`).  
-8.2.20 Navigate to `NewConstants::const2`. Verify that the value has been set to
-`false` (default for type `boolean`).  
-8.2.21 Right click `udt1` > Set Type...  
-8.2.22 Select `component_ref`.  
-8.2.23 Verify that a downgrade dialog appears and that the following text is
-displayed:  
-```
-test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
-test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
-test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
-test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
-```
-8.2.24 Select OK.  
-8.2.25 Navigate to `NewConstants::const1`. Verify that the type has been set to
-integer and the value has been set to `0` (default for type `integer`).  
-8.2.26 Navigate to `NewConstants::const2`. Verify that the type has been set to
-integer and the value has been set to `0` (default for type `integer`).  
-
-8.3 Verifier test  
-
-Automated JUnit test
 TODO
+
+8.3 Model edit test  
+
+8.3.1 Launch BridgePoint in a new workspace. Import `test_udt_constants` from
+the models repository (`models/test/5106_udt_constants`).  
+8.3.2 Navigate to `test_udt_constants::lib::test::types::NewConstants`.  
+8.3.3 Right click `const1` > Set Type...  
+8.3.4 Verify that `udt1` is assignable. Select `udt1`.  
+8.3.5 Verify that the value for `const1` is set to empty string (default for
+type `string`).  
+8.3.6 Right click `const2` > Set Type...  
+8.3.7 Verify that `udt2` is assignable. Select `udt2`.  
+8.3.8 Verify that the value for `const2` is set to empty string (default for
+type `string`).  
+8.3.9 Right click `const3` > Set Type...  
+8.3.10 Verify that `enum1` is assignable. Select `enum1`.  
+8.3.11 Verify that the value for `const3` is set to "enum1::ONE".  
+8.3.12 Right click `const3` > Set Type...  
+8.3.13 Verify that `udt3` is not assignable.  
+8.3.14 Verify that `enum2` is not assignable. Dismiss the type chooser.  
+
+8.3.15 Right click `udt1` > Set Type...  
+8.3.16 Select `boolean`.  
+8.3.17 Verify that a downgrade dialog appears and that the following text is
+displayed:  
+```
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
+```
+8.3.18 Select OK.  
+8.3.19 Navigate to `NewConstants::const1`. Verify that the value has been set to
+`false` (default for type `boolean`).  
+8.3.20 Navigate to `NewConstants::const2`. Verify that the value has been set to
+`false` (default for type `boolean`).  
+8.3.21 Right click `udt1` > Set Type...  
+8.3.22 Select `component_ref`.  
+8.3.23 Verify that a downgrade dialog appears and that the following text is
+displayed:  
+```
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
+```
+8.3.24 Select OK.  
+8.3.25 Navigate to `NewConstants::const1`. Verify that the type has been set to
+integer and the value has been set to `0` (default for type `integer`).  
+8.3.26 Navigate to `NewConstants::const2`. Verify that the type has been set to
+integer and the value has been set to `0` (default for type `integer`).  
 
 8.4 MC-3020 test  
 
-Import test model, build, run, compare with expected results
-TODO
+8.4.1 Switch to the C/C++ perspective.  
+8.4.2 Build the project by selecting `test_udt_constants` and clicking the
+hammer button (or right click > Build Project).  
+8.4.3 In a shell, navigate to the project root and execute:
+```
+./Debug/test_udt_constants
+```
+8.4.4 Verify the following output:
+```
+Passed
+Passed
+Passed
+```
+This can also be found at `gen/expected_results.txt`.  
 
 ### 9. User Documentation
 
