@@ -189,7 +189,7 @@ the range is the maximum legal value.
 
 - A context menu is available on numeric User Data Types eligible
 to be constrained with Range information.  The context menu has multiple
-levels ending with 3 capabilies:
+levels ending with 3 capabilities:
 
   1. Set the Minimum Range value.  
   2. Set the Maximum Range value.  
