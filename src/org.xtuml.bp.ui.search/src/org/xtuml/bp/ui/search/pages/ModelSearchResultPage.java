@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.search.ui.text.AbstractTextSearchViewPage;
@@ -37,16 +38,18 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
-
 import org.xtuml.bp.core.ActionLanguageSearchable_c;
 import org.xtuml.bp.core.ContentMatch_c;
 import org.xtuml.bp.core.DescriptionEngine_c;
 import org.xtuml.bp.core.Match_c;
+import org.xtuml.bp.core.NameMatch_c;
+import org.xtuml.bp.core.NamedSearchable_c;
 import org.xtuml.bp.core.SearchEngine_c;
 import org.xtuml.bp.core.SearchParticipant_c;
 import org.xtuml.bp.core.SearchResult_c;
 import org.xtuml.bp.core.SearchableElement_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.search.results.ModelMatch;
 import org.xtuml.bp.search.results.ModelSearchResult;
 import org.xtuml.bp.ui.search.providers.DecoratingModelSearchLabelProvider;
@@ -56,6 +59,7 @@ import org.xtuml.bp.ui.search.providers.ModelSearchTableContentProvider;
 import org.xtuml.bp.ui.text.IModelElementEditorInputFactory;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
+import org.xtuml.bp.ui.text.activity.OpenDeclarationAction;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 
 public class ModelSearchResultPage extends AbstractTextSearchViewPage {
@@ -135,14 +139,25 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 			}
 			if(selected instanceof Match_c) {
 				SearchResult_c result = SearchResult_c.getOneSR_SROnR9800((Match_c) selected);
-				DescriptionEngine_c engine = DescriptionEngine_c
-						.getOneSEN_DEOnR9501(SearchEngine_c
-								.getOneSEN_EOnR9503(result));
-				IEditorPart editor = handleOpen(ModelSearchResult.getElementForResult(result), engine != null, true);
+				
 				ContentMatch_c cm = ContentMatch_c.getOneSR_CMOnR9801((Match_c) selected);
-				if(cm != null && editor instanceof TextEditor) {
-					((TextEditor) editor).selectAndReveal(
-							cm.getStartposition(), cm.getMatchlength());
+				if (cm != null) {
+					DescriptionEngine_c engine = DescriptionEngine_c
+							.getOneSEN_DEOnR9501(SearchEngine_c.getOneSEN_EOnR9503(result));
+					IEditorPart editor = handleOpen(ModelSearchResult.getElementForResult(result), engine != null,
+							true);
+					if (editor instanceof TextEditor) {
+						((TextEditor) editor).selectAndReveal(cm.getStartposition(), cm.getMatchlength());
+					}
+				}			
+				
+				NameMatch_c nm = NameMatch_c.getOneSR_NMOnR9801((Match_c) selected);
+				if ( nm != null ) {
+					OpenDeclarationAction oda = new OpenDeclarationAction();
+					Object o = ModelSearchResult.getElementForResult(result);
+					if ( o instanceof NonRootModelElement ) {
+						oda.showElement((NonRootModelElement) o);
+					}
 				}
 				return;
 			}
@@ -154,16 +169,25 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					return;
 				} else {
 					boolean description = true;
+					boolean nameMatch = false;
 					for(int i = 0; i < matches.length; i++) {
 						if(matches[i] instanceof ModelMatch) {
 							ModelMatch modelMatch = (ModelMatch) matches[i];
 							if(modelMatch.getType() == ModelMatch.ACTION_LANGUAGE) {
 								description = false;
 								break;
+							} else if (modelMatch.getType() == ModelMatch.ELEMENT_NAME) {
+								nameMatch = true;
+								break;
 							}
 						}
 					}
-					handleOpen(selected, description, true);
+					if (nameMatch) {
+						OpenDeclarationAction oda = new OpenDeclarationAction();
+						oda.showElement((NonRootModelElement)selected);
+					} else {
+						handleOpen(selected, description, true);
+					}
 				}
 			}
 		}
@@ -184,6 +208,17 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					editor.selectAndReveal(currentOffset, currentLength);
 				}
 			}
+		}
+	}
+
+	// This function is for unit test support 
+	public void displayMatch(Match match) throws PartInitException {
+		if(match instanceof ModelMatch) {
+			Object element = match.getElement();
+			Selection.getInstance().setSelection(
+				new StructuredSelection(element));
+			OpenEvent oe = new OpenEvent(getViewer(), Selection.getInstance().getStructuredSelection());
+			handleOpen(oe);
 		}
 	}
 
@@ -231,15 +266,23 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 							.getOneSR_SROnR9800((Match_c) element));
 			Match[] matches = ((ModelSearchResult) getViewer().getInput())
 					.getMatches(elementForResult);
-			ContentMatch_c modelMatch = ContentMatch_c
-					.getOneSR_CMOnR9801((Match_c) element);
 			for (int i = 0; i < matches.length; i++) {
-				if (matches[i].getOffset() == modelMatch.getStartposition()
+				ContentMatch_c modelMatch = ContentMatch_c
+					.getOneSR_CMOnR9801((Match_c) element);
+				if (modelMatch != null && matches[i].getOffset() == modelMatch.getStartposition()
 						&& matches[i].getLength() == modelMatch
 								.getMatchlength()
 						&& getMatchType(modelMatch) == ((ModelMatch) matches[i])
 								.getType()) {
 					count++;
+				}
+				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
+				if (modelNameMatch != null) {
+					String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
+					String s2 = modelNameMatch.getName();
+					if ( s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
+						count++;
+					}
 				}
 			}
 			return count;
@@ -262,14 +305,22 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 					.getElementForResult(SearchResult_c
 							.getOneSR_SROnR9800((Match_c) element));
 			Match[] matches = ((ModelSearchResult) getViewer().getInput()).getMatches(elementForResult);
-			ContentMatch_c modelMatch = ContentMatch_c.getOneSR_CMOnR9801((Match_c) element);
 			for(int i = 0; i < matches.length; i++) {
-				if (matches[i].getOffset() == modelMatch.getStartposition()
+				ContentMatch_c modelMatch = ContentMatch_c.getOneSR_CMOnR9801((Match_c) element);
+				if (modelMatch != null && matches[i].getOffset() == modelMatch.getStartposition()
 						&& matches[i].getLength() == modelMatch
 								.getMatchlength()
 						&& getMatchType(modelMatch) == ((ModelMatch) matches[i])
 								.getType()) {
 					return new Match[] { matches[i] };
+				}
+				NameMatch_c modelNameMatch = NameMatch_c.getOneSR_NMOnR9801((Match_c) element);
+				if (modelNameMatch != null) {
+					String s1 = ((NonRootModelElement) matches[i].getElement()).getName();
+					String s2 = modelNameMatch.getName();
+					if ( s1.equals(s2) && getMatchType(modelNameMatch) == ((ModelMatch) matches[i]).getType()) {
+						return new Match[] { matches[i] };
+					}
 				}
 			}
 			return new Match[0];
@@ -318,4 +369,17 @@ public class ModelSearchResultPage extends AbstractTextSearchViewPage {
 		return type;
 	}
 	
+	private int getMatchType(NameMatch_c modelMatch) {
+		int type = -1;
+		NamedSearchable_c ns = NamedSearchable_c
+				.getOneSP_NSOnR9702(SearchableElement_c
+						.getOneSP_SEOnR9700(SearchParticipant_c
+								.getOneSP_SPOnR9802(SearchResult_c
+										.getOneSR_SROnR9800(Match_c
+												.getOneSR_MOnR9801(modelMatch)))));
+		if(ns != null) {
+			type = ModelMatch.ELEMENT_NAME;
+		}
+		return type;
+	}
 }

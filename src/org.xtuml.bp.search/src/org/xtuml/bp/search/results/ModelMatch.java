@@ -1,13 +1,5 @@
 package org.xtuml.bp.search.results;
 //========================================================================
-//
-//File:      $RCSfile: ModelMatch.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 23:14:29 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -29,6 +21,7 @@ public class ModelMatch extends Match {
 	
 	public static final int DESCRIPTION = 0;
 	public static final int ACTION_LANGUAGE = 1;
+	public static final int ELEMENT_NAME = 2;
 	
 	private int type = DESCRIPTION;
 	private Match_c modelMatch;

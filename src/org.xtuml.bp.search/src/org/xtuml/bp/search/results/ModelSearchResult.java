@@ -1,13 +1,5 @@
 package org.xtuml.bp.search.results;
 //========================================================================
-//
-//File:      $RCSfile: ModelSearchResult.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 23:14:29 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -32,12 +24,13 @@ import org.eclipse.search.ui.text.AbstractTextSearchResult;
 import org.eclipse.search.ui.text.IEditorMatchAdapter;
 import org.eclipse.search.ui.text.IFileMatchAdapter;
 import org.eclipse.search.ui.text.Match;
-
 import org.xtuml.bp.core.ActionLanguageSearchable_c;
 import org.xtuml.bp.core.ContentMatch_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Match_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.NameMatch_c;
+import org.xtuml.bp.core.NamedSearchable_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SearchParticipant_c;
 import org.xtuml.bp.core.SearchResult_c;
@@ -90,8 +83,8 @@ public class ModelSearchResult extends AbstractTextSearchResult {
 	}
 
 	public void initialize() {
-		// create a match for each ContentResult
 		for (SearchResult_c result : results) {
+		    // create a match for each ContentResult
 			ContentMatch_c[] matches = ContentMatch_c
 					.getManySR_CMsOnR9801(Match_c
 							.getManySR_MsOnR9800(result));
@@ -108,6 +101,23 @@ public class ModelSearchResult extends AbstractTextSearchResult {
 						matches[j].getStartposition(), matches[j]
 								.getMatchlength(), type, Match_c
 								.getOneSR_MOnR9801(matches[j]));
+				addMatch(match);
+			}
+			// Now look at name matches
+			NameMatch_c[] namematches = NameMatch_c
+					.getManySR_NMsOnR9801(Match_c
+							.getManySR_MsOnR9800(result));
+			for (int j = 0; j < namematches.length; j++) {
+				int type = -1;
+				NamedSearchable_c namedSearchable = NamedSearchable_c
+						.getOneSP_NSOnR9702(SearchableElement_c
+								.getOneSP_SEOnR9700(SearchParticipant_c
+										.getOneSP_SPOnR9802(result)));
+				if(namedSearchable != null) {
+					type = ModelMatch.ELEMENT_NAME;
+				}
+				ModelMatch match = new ModelMatch(getElementForResult(result),
+						0, 0, type, Match_c.getOneSR_MOnR9801(namematches[j]));
 				addMatch(match);
 			}
 		}
@@ -218,9 +228,22 @@ public class ModelSearchResult extends AbstractTextSearchResult {
 		if (actionLanguageSearchable != null) {
 			type = ModelMatch.ACTION_LANGUAGE;
 		}
-		ContentMatch_c cm = ContentMatch_c.getOneSR_CMOnR9801(match);
-		ModelMatch modelMatch = new ModelMatch(getElementForResult(result),
+		NamedSearchable_c namedSearchable = NamedSearchable_c
+				.getOneSP_NSOnR9702(SearchableElement_c
+						.getOneSP_SEOnR9700(SearchParticipant_c
+								.getOneSP_SPOnR9802(result)));
+		if(namedSearchable != null) {
+			type = ModelMatch.ELEMENT_NAME;
+		}
+		if ( type == ModelMatch.ELEMENT_NAME ) {
+			ModelMatch modelMatch = new ModelMatch(getElementForResult(result),
+				0, 0, type, match);
+			addMatch(modelMatch);
+		} else {
+			ContentMatch_c cm = ContentMatch_c.getOneSR_CMOnR9801(match);
+			ModelMatch modelMatch = new ModelMatch(getElementForResult(result),
 				cm.getStartposition(), cm.getMatchlength(), type, match);
-		addMatch(modelMatch);
+			addMatch(modelMatch);
+		}
 	}
 }
