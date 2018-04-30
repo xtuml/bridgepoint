@@ -78,9 +78,7 @@ A new menu along with three sub menus are added. These are:
 The Range top level menu shows as long as the selection contians only UDTs
 that have a core type of integer, real or Enumeration Data Type.  The `Clear
 Range` menu item will show only as long as one of the selected User Data
-Type has an already associated Range.  The Range menu will not show when
-mixing integer or enumeration data type with real.  This is due to the fact
-that a real value can be invalid for an integer value.
+Types has an already associated Range.
 
 The `Minimum...` and `Maximum...` menu items open an input dialog.  This
 dialog assures that the input value is valid.  In the case of integer the
@@ -100,33 +98,37 @@ in compare.  Note, these are not available in the properties view.
 The `file_io.pei` and `stream.pei` data is modified to add a new child
 to User Data Type, Range.
 
-5.3 Analyze and document enforcement in Verifier.  
-5.3.1 R3307  
+5.3 Update Metamodel Welcome Project  
+Since the metamodel is changed, the example project is updated to follow
+the changes in the OOA of OOA.
+
+5.4 Analyze and document enforcement in Verifier.  
+5.4.1 R3307  
 In Verifier, Runtime Value is a key class used to store and move information
 in the runtime instances of an executing model.  `R3307` links a Runtime Value
 to a Data Type (`S_DT`).  
 
-5.4 Analyze and document enforcement in model compilers.  
-5.4.1 R820  
+5.5 Analyze and document enforcement in model compilers.  
+5.5.1 R820  
 In MC-3020, Value (`V_VAL`) is the key class dealing with the dynamics of
 data in action bodies.  `R820` links Value to Data Type (`S_DT`) (and thus
 to User Data Type and Range).  Upon first analysis, it looks like R820 is
 traversed in 3 places representing the 3 places where range checking should
 be implemented.  
-5.4.1.1 Assignment Statement  
+5.5.1.1 Assignment Statement  
 A value moves from one value to another during an assignment.  A value moves
 from the right-hand side (rhs) to left-hand side (lhs) across the assignment
 operator ('=').  The left-hand value (lval) receives the right-hand value
 (rval).
-5.4.1.1.1 hmmm  
+5.5.1.1.1 hmmm  
 Research where this is necessary.  Depending upon type compatiblity,
 this may be superfluous.  In some situations the rhs has already been checked
 and is therefore O.K. to be applied to the lhs.  Immediate data assignment
 is an example where the checking must occur.  
-5.4.1.2 Binary Operation  
+5.5.1.2 Binary Operation  
 When two values are combined with an operator, a new value is produced.  The
 new value type is discovered across R820.
-5.4.1.3 Actual Parameters  
+5.5.1.3 Actual Parameters  
 
 5.5 Implement test cases.  
 
@@ -143,18 +145,123 @@ folder hierarchy).
 
 ### 7. Unit Test
 
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
+7.1 Existing unit test shall pass.
 
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+7.2 Setting and Clearing Ranges  
+7.2.1 Integer Ranges  
+<pre>
+_- Import the Example Application MicrowaveOven example model from
+   Help --> Welcome --> QuickStart  
+_- Navigate to the 'Datatypes' package.  
+_- Add User Data Type 'i'.  
+_R Be sure type of 'i' is integer.  
+7.2.1.1 Range Menu  
+_- Right-click on 'i' and navigate to Range  
+_R See Range --> Minimum... and Range --> Maximum...  
+_R Do NOT see Range --> Clear Range.  
+7.2.1.2 Setting Incorrect Integer Range Minimum  
+_- Right-click on 'i' and navigate to Range --> Minimum...  
+_R See empty input text box.  
+_- Set value in box to 0.1  
+_R See message that input is not valid.  
+_R See that OK button is not activated.  
+7.2.1.3 Setting Correct Integer Range Minimum  
+_- Set value in box to 0  
+_R See that OK button is activated.  
+_- Press OK.  
+7.2.1.4 Reading Existing Integer Range Minimum  
+_- Right-click on 'i' and navigate to Range --> Minimum...  
+_R See text box with value input from before (0).  
+7.2.1.5 Range Menu with Clear Range  
+_- Right-click on 'i' and navigate to Range  
+_R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
+7.2.1.6 Setting Incorrect Integer Range Maximum  
+_- Right-click on 'i' and navigate to Range --> Maximum...  
+_R See empty input text box.  
+_- Set value in box to 7.7  
+_R See message that input is not valid.  
+_R See that OK button is not activated.  
+7.2.1.7 Setting Correct Integer Range Maximum  
+_- Set value in box to 7  
+_R See that OK button is activated.  
+_- Press OK.  
+7.2.1.8 Reading Existing Integer Range Maximum  
+_- Right-click on 'i' and navigate to Range --> Maximum...  
+_R See text box with value input from before (7).  
+7.2.1.9 Clearing Integer Range  
+_- Right-click on 'i' and navigate to Range --> Clear Range  
+_R See Range --> Minimum... and Range --> Maximum...  
+_R Do NOT see Range --> Clear Range.  
+_- Right-click on 'i' and navigate to Range --> Minimum...  
+_R See empty input text box.  
+_- Right-click on 'i' and navigate to Range --> Maximum...  
+_R See empty input text box.  
+</pre>
+
+7.2.2 Real Ranges  
+This test is exactly the same as the above [7.2.1] test except that
+decimal numbers are allowed in the input text boxes.  
+<pre>
+_- Navigate to the 'Datatypes' package.  
+_- Add User Data Type 'r'.  
+_- Set Type of 'r' to 'real'.  
+7.2.2.1 Range Menu  
+_- Right-click on 'r' and navigate to Range  
+_R See Range --> Minimum... and Range --> Maximum...  
+_R Do NOT see Range --> Clear Range.  
+7.2.2.2 Setting Incorrect Real Range Minimum  
+_- Right-click on 'r' and navigate to Range --> Minimum...  
+_R See empty input text box.  
+_- Set value in box to 'abc'.  
+_R See message that input is not valid.  
+_R See that OK button is not activated.  
+7.2.2.3 Setting Correct Real Range Minimum  
+_- Set value in box to 2.7  
+_R See that OK button is activated.  
+_- Press OK.  
+7.2.2.4 Reading Existing Real Range Minimum  
+_- Right-click on 'r' and navigate to Range --> Minimum...  
+_R See text box with value input from before (2.7).  
+7.2.2.5 Range Menu with Clear Range  
+_- Right-click on 'r' and navigate to Range  
+_R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
+7.2.2.6 Setting Incorrect Real Range Maximum  
+_- Right-click on 'r' and navigate to Range --> Maximum...  
+_R See empty input text box.  
+_- Set value in box to "dog"  
+_R See message that input is not valid.  
+_R See that OK button is not activated.  
+7.2.2.7 Setting Correct Real Range Maximum  
+_- Set value in box to 3.14  
+_R See that OK button is activated.  
+_- Press OK.  
+7.2.2.8 Reading Existing Real Range Maximum  
+_- Right-click on 'r' and navigate to Range --> Maximum...  
+_R See text box with value input from before (3.14).  
+7.2.2.9 Clearing Real Range  
+_- Right-click on 'r' and navigate to Range --> Clear Range  
+_R See Range --> Minimum... and Range --> Maximum...  
+_R Do NOT see Range --> Clear Range.  
+_- Right-click on 'r' and navigate to Range --> Minimum...  
+_R See empty input text box.  
+_- Right-click on 'r' and navigate to Range --> Maximum...  
+_R See empty input text box.  
+</pre>
+
+7.2.3 Enumeration Ranges  
+Enumerations can have integer range constraints.  Therefore,
+this test is the same as the above [7.2.1] integer range test.  
+<pre>
+_- Add User Data Type 'e'.  
+_- Set Type of 'e' to 'tube_wattage'.  
+All subsequent steps are the same as [7.2.1]
+</pre>
+
 
 ### 8. User Documentation
 
 8.1 Help Update  
-The Help documentation was updated.  The section changed was
+The Help documentation is updated.  The section changed is
 BridgePoint UML Suite Help --> Reference --> User Interface -->
 xtUML Modeling Perspective --> Model Elements --> Data Types.
 
@@ -183,7 +290,8 @@ TODO:
 [keep] Revert change to bp.core/arc/create_object_inspector.inc.
 + Change mcooa to use R57.
 + Switch from real to string and perform string-to-real in the java.
-Update mc schema.
++ Update mc schema.
++ Regen integrity OAL.
++ Rebuild mcmc.
 Update MM welcome project.
-Rebuild mcmc, integrity.
 </pre>
