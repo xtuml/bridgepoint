@@ -257,7 +257,9 @@ This can also be found at `gen/expected_results.txt`.
 
 ### 9. User Documentation
 
-TODO
+The Help section `Reference > User Interface > xtUML Modeling Perspective >
+Model Elements > Data Types` has been updated to document the changes to the
+behavior of constants. It has also been converted to Markdown.
 
 ### 10. Code Changes
 
@@ -265,6 +267,15 @@ Fork/Repository: leviathan747/bridgepoint
 Branch: 5106_udt_constants  
 
 <pre>
+
+ doc-bridgepoint/notes/5106_udt_constants/5106_udt_constants_int.md                                                                | 338 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/Literal Symbolic Constant/Literal Symbolic Constant.xtuml       |  75 ++++++++++++++++++++++-----
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/Context Menu Entry Functions/Context Menu Entry Functions.xtuml |   7 ++-
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/TransactionManager.java                                                        |   9 ++--
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/ConstantValueInputValidator.java                                                   |   9 ++++
+ src/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm                                 | 459 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------------------------------------------------------------
+ src/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.md                                  | 209 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 796 insertions(+), 310 deletions(-)
 
 </pre>
 
