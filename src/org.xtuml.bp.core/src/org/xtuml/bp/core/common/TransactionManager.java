@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -81,7 +83,7 @@ public class TransactionManager {
 	private Action redoAction;
 	private Action undoAction;
 
-	private static ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
+	private static Set<String> affectedModelElementsNames = new HashSet<String>();
 	private Transaction lastTransaction;
 
 	private boolean ignoreResourceChanges = false;

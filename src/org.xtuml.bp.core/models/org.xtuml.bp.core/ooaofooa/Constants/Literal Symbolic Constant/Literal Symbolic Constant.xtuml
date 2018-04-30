@@ -359,6 +359,11 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one dt related by self->CNST_LFSC[R1503]->CNST_SYC[R1502]->S_DT[R1500];
+// downgrade check dependent constants first
+select many lscs related by dt->S_UDT[R18]->S_DT[R17]->CNST_SYC[R1500]->CNST_LFSC[R1502]->CNST_LSC[R1503];
+for each lsc in lscs
+  lsc.downgradeCheck();
+end for;
 Util::reportElementDowngraded(rto:dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"");
 if ( not self.canUseDataType( id:dt.DT_ID ) )
   select one syc related by self->CNST_LFSC[R1503]->CNST_SYC[R1502];

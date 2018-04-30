@@ -5324,14 +5324,11 @@ if(not_empty element)
     if(selectedDT != originalCoreDT)
       unrelate element from originalCoreDT across R18;
       relate element to selectedDT across R18;
-      // downgrade check on any constants that refer to this type or a type based on this type
+      // downgrade check on any constants that refer to this type
       select many lscs related by element->S_DT[R17]->CNST_SYC[R1500]->CNST_LFSC[R1502]->CNST_LSC[R1503];
-      while ( not_empty lscs )
-        for each lsc in lscs
-          lsc.downgradeCheck();
-        end for;
-        select many lscs related by lscs->CNST_LFSC[R1503]->CNST_SYC[R1502]->S_DT[R1500]->S_UDT[R18]->S_DT[R17]->CNST_SYC[R1500]->CNST_LFSC[R1502]->CNST_LSC[R1503];
-      end while;
+      for each lsc in lscs
+        lsc.downgradeCheck();
+      end for;
     end if;
   end if;
 end if;',

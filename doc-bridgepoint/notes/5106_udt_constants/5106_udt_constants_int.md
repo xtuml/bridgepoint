@@ -164,7 +164,18 @@ fixed but the algorithm remains the same as shown in 5.1.
 
 ### 7. Implementation Comments
 
-None.
+7.1 `TransactionManager` change
+
+During implementation, it was observed that sometimes downgrade warnings can be
+added to the downgrade warning twice if the bridge call
+`UTIL::reportElementDowngraded` is called twice with the same instances. The
+obvious way to solve the problem is to ensure that BridgePoint application code
+never invokes `reportElementDowngraded` twice with the same instances, however
+this method introduced unnecessary complexity in the code for this work. Another
+way is to modify the `affectedModelElementsNames` field in the
+`TransactionManager` class to be an instance of a Java `Set` instead of a
+`List`. This ensures that even if `reportElementDowngraded` is invoked twice,
+each message in the dialog will be unique.
 
 ### 8. Unit Test
 
@@ -199,10 +210,10 @@ type `string`).
 8.3.17 Verify that a downgrade dialog appears and that the following text is
 displayed:  
 ```
-test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
 test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
-test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
 test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
 ```
 8.3.18 Select OK.  
 8.3.19 Navigate to `NewConstants::const1`. Verify that the value has been set to
@@ -214,10 +225,10 @@ test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constan
 8.3.23 Verify that a downgrade dialog appears and that the following text is
 displayed:  
 ```
-test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
 test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::NewConstants::const1
-test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
 test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::NewConstants::const2
+test_udt_constants::lib::test::types::udt1  is associated with  test_udt_constants::lib::test::types::TestConstants::const1
+test_udt_constants::lib::test::types::udt2  is associated with  test_udt_constants::lib::test::types::TestConstants::const2
 ```
 8.3.24 Select OK.  
 8.3.25 Navigate to `NewConstants::const1`. Verify that the type has been set to
