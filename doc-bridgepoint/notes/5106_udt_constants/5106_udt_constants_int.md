@@ -183,7 +183,9 @@ each message in the dialog will be unique.
 
 8.2 New JUnit tests
 
-TODO
+One new JUnit test has been introduced in the verifier test suite to verify the
+behavior of UDT constants. The test automates the same action as the MC-3020
+test (see 8.4) in Verifier.
 
 8.3 Model edit test  
 
@@ -287,6 +289,10 @@ Fork/Repository: leviathan747/bptest
 Branch: 5106_udt_constants  
 
 <pre>
+
+ src/org.xtuml.bp.debug.ui.test/src/VerifierTestSuite2.java                      |   4 +++-
+ src/org.xtuml.bp.debug.ui.test/src/org/xtuml/bp/debug/test/UdtConstantTest.java | 208 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 211 insertions(+), 1 deletion(-)
 
 </pre>
 
