@@ -270,28 +270,40 @@ xtUML Modeling Perspective --> Model Elements --> Data Types.
 <pre>
 Fork/Repository:  cortlandstarrett/bridgepoint
 Branch:  5005_range
+ doc-bridgepoint/notes/5005_range/5005_range_int.md                                 |    297 +
+ doc-bridgepoint/process/Developer Getting Started Guide.md                         |      1 -
+ src/MC-Java/referential_attribute_util.inc                                         |      4 +-
+ src/org.xtuml.bp.core/arc/create_core_plugin.inc                                   |      8 +
+ src/org.xtuml.bp.core/arc/create_object_inspector.inc                              |      2 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Domain.xtuml        |    250 +-
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Range/Range.xtuml   |    124 +
+ src/org.xtuml.bp.core/sql/ooaofooa_hierarchy.pei.sql                               |      5 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeAction.java            |    150 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeContributionItem.java  |    123 +
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm   |    405 +-
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.md    |    237 +
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/range_cme1.png        |    Bin 0 -> 118577 bytes
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/range_cme3.png        |    Bin 0 -> 72061 bytes
+ src/org.xtuml.bp.io.mdl/sql/file_io.pei.sql                                        |      3 +-
+ src/org.xtuml.bp.io.mdl/sql/stream.pei.sql                                         |      3 +-
+ src/org.xtuml.bp.welcome/models/xtUML_Metamodel.xtuml                              | 560913 ++++++++++++++++++------------------
+ 17 files changed, 282090 insertions(+), 280435 deletions(-)
 
 Fork/Repository:  cortlandstarrett/mc
 Branch:  5005_range
+ bin/mac/mcmc                                               | Bin 1569800 -> 1570440 bytes
+ bin/mcmc                                                   | Bin 2408744 -> 2409384 bytes
+ bin/win/mcmc.exe                                           | Bin 1706557 -> 1707840 bytes
+ model/escher/gen/ooaofooa.c                                |   2 +
+ model/escher/gen/ooaofooa_c_orig                           |   2 +
+ model/integrity/models/integrity/integrity/integrity.xtuml |  34 ++++++++++
+ model/maslin/gen/masl2xtuml_S_UDT_class.c                  |  18 ++++++
+ model/mcooa/gen/ooa.txt                                    |  34 ++++++++++
+ model/mcooa/models/mcooa/ooaofooa/Domain/Domain.xtuml      | 216 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ model/mcooa/models/mcooa/ooaofooa/Domain/Range/Range.xtuml | 124 ++++++++++++++++++++++++++++++++++++
+ schema/sql/xtumlmc_schema.sql                              |   6 ++
+ 11 files changed, 430 insertions(+), 6 deletions(-)
 
-Fork/Repository:  cortlandstarrett/models
-Branch:  5005_range
 </pre>
 
 ### End
-
-
-<pre>
-TODO:
-+ Change model to have keyletters S_RANGE to be consistent with existing model.
-+ Change Range attributes from min and max to Min and Max.
-+ Use role phrases from mcooa version (thus fixing misspelling).
-[keep] Revert change to MC-Java/referential_attribute_util.inc.
-[keep] Revert change to bp.core/arc/create_object_inspector.inc.
-+ Change mcooa to use R57.
-+ Switch from real to string and perform string-to-real in the java.
-+ Update mc schema.
-+ Regen integrity OAL.
-+ Rebuild mcmc.
-Update MM welcome project.
-</pre>
