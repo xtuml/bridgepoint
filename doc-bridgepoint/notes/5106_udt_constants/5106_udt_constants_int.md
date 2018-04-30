@@ -295,23 +295,23 @@ Branch: 5106_udt_constants
 
 <pre>
 
- test/5106_udt_constants/.cproject                                                    | 126 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/.externalToolBuilders/Model Compiler.launch                  |  15 ++++++++
- test/5106_udt_constants/.gitignore                                                   |   4 ++
- test/5106_udt_constants/.launches/test_udt_constants.launch                          |  13 +++++++
- test/5106_udt_constants/.project                                                     |  44 +++++++++++++++++++++
- test/5106_udt_constants/gen/LOG_bridge.c                                             |  25 ++++++++++++
- test/5106_udt_constants/gen/domain.mark                                              |   2 +
- test/5106_udt_constants/gen/expected_results.txt                                     |   3 ++
- test/5106_udt_constants/models/test_udt_constants/lib/lib.xtuml                      | 308 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/lib/test/classes/A/A.xtuml         | 107 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/lib/test/classes/classes.xtuml     |  81 +++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/lib/test/functions/functions.xtuml |  98 +++++++++++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/lib/test/test.xtuml                | 294 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/lib/test/types/types.xtuml         | 432 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/lib/testing/testing.xtuml          |  35 +++++++++++++++++
- test/5106_udt_constants/models/test_udt_constants/test_udt_constants.xtuml           |  56 +++++++++++++++++++++++++++
- test/5106_udt_constants/src/.gitignore                                               |   2 +
+ test/test_udt_constants/.cproject                                                    | 126 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/.externalToolBuilders/Model Compiler.launch                  |  15 ++++++++
+ test/test_udt_constants/.gitignore                                                   |   4 ++
+ test/test_udt_constants/.launches/test_udt_constants.launch                          |  13 +++++++
+ test/test_udt_constants/.project                                                     |  44 +++++++++++++++++++++
+ test/test_udt_constants/gen/LOG_bridge.c                                             |  25 ++++++++++++
+ test/test_udt_constants/gen/domain.mark                                              |   2 +
+ test/test_udt_constants/gen/expected_results.txt                                     |   3 ++
+ test/test_udt_constants/models/test_udt_constants/lib/lib.xtuml                      | 308 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/lib/test/classes/A/A.xtuml         | 107 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/lib/test/classes/classes.xtuml     |  81 +++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/lib/test/functions/functions.xtuml |  98 +++++++++++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/lib/test/test.xtuml                | 294 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/lib/test/types/types.xtuml         | 432 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/lib/testing/testing.xtuml          |  35 +++++++++++++++++
+ test/test_udt_constants/models/test_udt_constants/test_udt_constants.xtuml           |  56 +++++++++++++++++++++++++++
+ test/test_udt_constants/src/.gitignore                                               |   2 +
  17 files changed, 1645 insertions(+)
 
 </pre>
