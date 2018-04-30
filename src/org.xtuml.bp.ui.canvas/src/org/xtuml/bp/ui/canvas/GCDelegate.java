@@ -33,6 +33,7 @@ package org.xtuml.bp.ui.canvas;
 //
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Drawable;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
@@ -259,5 +260,10 @@ public class GCDelegate {
 
         RGB rVal = new RGB(red, green, blue);
         return rVal;
+    }
+    
+    public Device getDevice() {
+    	if ( null != context ) return context.getDevice();
+    	else return null;
     }
 }

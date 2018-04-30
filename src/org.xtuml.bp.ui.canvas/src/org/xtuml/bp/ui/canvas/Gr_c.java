@@ -25,6 +25,7 @@ package org.xtuml.bp.ui.canvas;
 // External Entity.
 //
 import org.eclipse.jface.preference.JFacePreferences;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
@@ -58,6 +59,12 @@ public class Gr_c {
     Gr_c.lastY = value;
   }
   public static void Drawtext(final GCDelegate Context, final int Justified_to, final String Text, final int Text_style, final int X, final int Y) {
+    Font oldFont = Context.getFont();
+    if ( Style_c.Underlined == Text_style ) {
+      FontDescriptor underlineDescriptor = FontDescriptor.createFrom(oldFont).setStyle(SWT.UNDERLINE_SINGLE);
+      Font underlineFont = underlineDescriptor.createFont(Context.getDevice());
+      Context.setFont(underlineFont);
+    }
     String[] toPrint = Text.split("\n");  //$NON-NLS-1$
     int yOffset = 0;
     if (Justified_to == Justification_c.Center_in_X) {
@@ -82,7 +89,12 @@ public class Gr_c {
       }
     } else {
       Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
+      if ( Style_c.Underlined == Text_style ) {
+    	  Point extent = Context.textExtent( Text );
+    	  Context.drawLine( (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor) + extent.y, (int) (X * m_ZoomFactor) + extent.x, (int) (Y * m_ZoomFactor) + extent.y );
+      }
     }
+    Context.setFont(oldFont);
   } // End drawText
   public static void Drawrect(final GCDelegate Context, boolean filled, final int H, final int W, final int X, final int Y) {
     if (filled) {
