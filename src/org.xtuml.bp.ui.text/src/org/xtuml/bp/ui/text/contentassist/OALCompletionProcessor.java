@@ -202,8 +202,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         switch( type ) {
             case Proposaltypes_c.Attribute:
                 return CorePlugin.getImageFor( Attribute_c.class );
-            case Proposaltypes_c.Operation:
-                return CorePlugin.getImageFor( Operation_c.class );
+            case Proposaltypes_c.InstanceBasedOperation:
+                return CorePlugin.getImageFor( "Operation_cInstanceBased", false, null, true );
+            case Proposaltypes_c.ClassBasedOperation:
+                return CorePlugin.getImageFor( "Operation_cClassBased", false, null, true );
             case Proposaltypes_c.Association:
                 return CorePlugin.getImageFor( Association_c.class );
             case Proposaltypes_c.Variable:
