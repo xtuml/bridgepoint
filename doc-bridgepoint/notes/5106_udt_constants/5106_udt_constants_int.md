@@ -241,13 +241,14 @@ integer and the value has been set to `0` (default for type `integer`).
 8.4 MC-3020 test  
 
 8.4.1 Switch to the C/C++ perspective.  
-8.4.2 Build the project by selecting `test_udt_constants` and clicking the
+8.4.2 Reset the test model in the models repository.  
+8.4.3 Build the project by selecting `test_udt_constants` and clicking the
 hammer button (or right click > Build Project).  
-8.4.3 In a shell, navigate to the project root and execute:
+8.4.4 In a shell, navigate to the project root and execute:
 ```
 ./Debug/test_udt_constants
 ```
-8.4.4 Verify the following output:
+8.4.5 Verify the following output:
 ```
 Passed
 Passed
