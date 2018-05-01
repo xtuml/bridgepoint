@@ -60,11 +60,11 @@
 <p>Variables of this type support equality, inequality, comparison, and assignment operations: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>=</code></p>
 <h3 id="masltype">MASLtype</h3>
 <p>A primitive data type created in converted MASL models. This serves as the base type for MASL types and collections that do not directly map to an xtUML core type (e.g. integer). MASLtype is a UDT whose core type is string.</p>
-<h3 id="user-data-types">User Data Types</h3>
+<h2 id="user-data-types">User Data Types</h2>
 <p>A type based on another type. User data types (UDTs) may be based on virtually any existing type. User data types inherit all operators from the primitive type and are completely compatible and interchangeable with the base type. UDTs allow the modeler to give a more meaningful type name to a lower level type.</p>
-<h4 id="user-data-type-ranges">User Data Type Ranges</h4>
+<h3 id="user-data-type-ranges">User Data Type Ranges</h3>
 <p>Ranges are fundamental contraints that are used to limit the extent of values that may be represented by a model element defined with the constrained type. A range is composed of a minimum and a maximum value. Ranges are most often applied to numeric (real and integer including enumerations) types which is the case for this capability in BridgePoint.</p>
-<h5 id="udt-range-capabilities">UDT Range Capabilities</h5>
+<h4 id="udt-range-capabilities">UDT Range Capabilities</h4>
 <ul>
 <li>Range data is stored in the model and can be made available to downstream model compilation tool chains.<br />
 </li>

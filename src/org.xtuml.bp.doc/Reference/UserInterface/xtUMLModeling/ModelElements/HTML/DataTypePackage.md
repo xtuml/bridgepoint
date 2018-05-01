@@ -170,21 +170,21 @@ the base type for MASL types and collections that do not directly map to
 an xtUML core type (e.g. integer). MASLtype is a UDT whose core type is
 string.
 
-### User Data Types
+## User Data Types
 A type based on another type. User data types (UDTs) may be based on
 virtually any existing type.  User data types inherit all operators from
 the primitive type and are completely compatible and interchangeable
 with the base type.  UDTs allow the modeler to give a more meaningful
 type name to a lower level type.
 
-#### User Data Type Ranges
+### User Data Type Ranges
 Ranges are fundamental contraints that are used to limit the extent of
 values that may be represented by a model element defined with the
 constrained type.  A range is composed of a minimum and a maximum value.
 Ranges are most often applied to numeric (real and integer including
 enumerations) types which is the case for this capability in BridgePoint.
 
-##### UDT Range Capabilities
+#### UDT Range Capabilities
 
 - Range data is stored in the model and can be made available to downstream
 model compilation tool chains.  
