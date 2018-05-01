@@ -24,6 +24,8 @@ Quoted from the issue:
 
 <a id="2.1"></a>2.1 [5005](https://support.onefact.net/issues/5005) Ranges of data types  
 <a id="2.2"></a>2.2 [analysis note](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/5005_range/5005_range_ant.md) Ranges of data types  
+<a id="2.3"></a>2.3 [10220](https://support.onefact.net/issues/10220) Support UDTs based on EDTs in MC-3020  
+<a id="2.4"></a>2.4 [10221](https://support.onefact.net/issues/10221) Analyze UDT range enforcement.  
 
 ### 3. Background
 
@@ -103,34 +105,13 @@ Since the metamodel is changed, the example project is updated to follow
 the changes in the OOA of OOA.
 
 5.4 Analyze and document enforcement in Verifier.  
-5.4.1 R3307  
-In Verifier, Runtime Value is a key class used to store and move information
-in the runtime instances of an executing model.  `R3307` links a Runtime Value
-to a Data Type (`S_DT`).  
+See [2.4].
 
 5.5 Analyze and document enforcement in model compilers.  
-5.5.1 R820  
-In MC-3020, Value (`V_VAL`) is the key class dealing with the dynamics of
-data in action bodies.  `R820` links Value to Data Type (`S_DT`) (and thus
-to User Data Type and Range).  Upon first analysis, it looks like R820 is
-traversed in 3 places representing the 3 places where range checking should
-be implemented.  
-5.5.1.1 Assignment Statement  
-A value moves from one value to another during an assignment.  A value moves
-from the right-hand side (rhs) to left-hand side (lhs) across the assignment
-operator ('=').  The left-hand value (lval) receives the right-hand value
-(rval).
-5.5.1.1.1 hmmm  
-Research where this is necessary.  Depending upon type compatiblity,
-this may be superfluous.  In some situations the rhs has already been checked
-and is therefore O.K. to be applied to the lhs.  Immediate data assignment
-is an example where the checking must occur.  
-5.5.1.2 Binary Operation  
-When two values are combined with an operator, a new value is produced.  The
-new value type is discovered across R820.
-5.5.1.3 Actual Parameters  
+See [2.4].
 
 5.5 Implement test cases.  
+See unit test below.  
 
 ### 6. Implementation Comments
 
