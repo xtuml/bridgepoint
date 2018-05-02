@@ -369,18 +369,19 @@ invocation_expr
   ;
 scoped_access
    :
-    (
-    scoped_path
-    )?
-    scoped_data_type
-    TOK_DOUBLECOLON!
-    scoped_member
+   (
+        scoped_path
+        scoped_data_type
+        TOK_DOUBLECOLON!
+        scoped_member
+    )
   ;
 scoped_path!
   :
     ( 
-    scoped_path_segment!
-    )+
+      ( scoped_path_segment scoped_path_segment )=>
+        scoped_path_segment
+    )*
   ;
 scoped_path_segment!
   :
