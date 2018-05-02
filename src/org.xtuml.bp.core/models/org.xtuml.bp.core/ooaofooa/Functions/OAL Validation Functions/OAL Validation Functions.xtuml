@@ -11784,7 +11784,79 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
-	'return param.a4_rule_id;
+	'select any enum from instances of S_ENUM 
+    where ( selected.Enum_ID == param.b3_scoped_member1_id );
+    
+if(empty enum)
+  // if the enumerator was not found
+  // check the system level \
+  sysName = ::getSystemName();
+  select any system from instances of S_SYS where (selected.Name == sysName);
+
+    select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
+    S_EDT[R17]->S_ENUM[R27] where ( selected.Enum_ID == param.b3_scoped_member1_id ); 
+ end if;
+
+if ( not_empty enum )
+  create object instance len of V_LEN;
+  relate len to enum across R824;
+
+  create object instance val of V_VAL;
+  relate val to len  across R801;
+  current_scope = ::get_current_scope();
+  select any block from instances of ACT_BLK where
+                                             (selected.Block_ID == current_scope);
+  relate val to block across R826;
+
+  select one dt related by enum->S_EDT[R27]->S_DT[R17];
+  relate val to dt across R820;
+
+  val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+  val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
+  val.setEndPosition();
+
+  // store the textual position of the data type name
+  len.dataTypeNameLineNumber = block.currentDataTypeNameLineNumber;
+  len.dataTypeNameColumn = block.currentDataTypeNameColumn;
+
+  return val.Value_ID;
+end if;
+
+select any const from instances of CNST_SYC
+    where ( selected.Const_ID == param.b3_scoped_member1_id );
+
+if(empty const)
+  // if the constant was not found
+  // check the system level
+  sysName = ::getSystemName();
+  select any system from instances of S_SYS where (selected.Name == sysName);
+
+  select any const related by system->G_EIS[R9100]->PE_PE[R9100]->CNST_CSP[R8001]->
+    CNST_SYC[R1504] where ( selected.Const_ID == param.b3_scoped_member1_id );
+end if;
+
+if ( not_empty const )
+  create object instance scv of V_SCV;
+  relate scv to const across R850;
+
+  create object instance val of V_VAL;
+  relate val to scv across R801;
+  current_scope = ::get_current_scope();
+  select any block from instances of ACT_BLK where
+                                             (selected.Block_ID == current_scope);
+  relate val to block across R826;
+
+  select one dt related by const->S_DT[R1500];
+  relate val to dt across R820;
+
+  val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
+  val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
+  val.setEndPosition();
+
+  return val.Value_ID;
+end if;
+
+return GD::NULL_UNIQUE_ID();
 ',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -38664,7 +38736,6 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE',
 	'// The scoped_path rule allows segments that represent either S_SYS, EP_PKG, or C_C
 
-
 // if the current rule represents S_SYS then we expect a package at this point.
 select any system from instances of S_SYS
                               where (selected.Sys_ID == param.a6_current_rule_id); 
@@ -38730,6 +38801,10 @@ if(not_empty package)
   return package.Package_ID;
 end if;
 
+ERR::reportParseError( msg: 
+    "Cannot find path segment ->%s<- ",
+     token: param.a1_rule_token );  
+
 return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -38791,116 +38866,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_segment_validate',
 	'ParserValidateFunction: TRUE',
-	'return param.a6_current_rule_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-',
+	'return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -38952,310 +38918,6 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e0652d91-5ba7-4505-b3ab-a701b09f7095",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("2dad501b-e321-4218-b360-ca448d3b3385",
-	"00000000-0000-0000-0000-000000000000",
-	'Scoped_access_loop4_end',
-	'ParserValidateFunction: TRUE',
-	'select any enum from instances of S_ENUM 
-    where ( selected.Enum_ID == param.b3_scoped_member1_id );
-    
-if(empty enum)
-  // if the enumerator was not found
-  // check the system level \
-  sysName = ::getSystemName();
-  select any system from instances of S_SYS where (selected.Name == sysName);
-
-    select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
-    S_EDT[R17]->S_ENUM[R27] where ( selected.Enum_ID == param.b3_scoped_member1_id ); 
- end if;
-
-if ( not_empty enum )
-  create object instance len of V_LEN;
-  relate len to enum across R824;
-
-  create object instance val of V_VAL;
-  relate val to len  across R801;
-  current_scope = ::get_current_scope();
-  select any block from instances of ACT_BLK where
-                                             (selected.Block_ID == current_scope);
-  relate val to block across R826;
-
-  select one dt related by enum->S_EDT[R27]->S_DT[R17];
-  relate val to dt across R820;
-
-  val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-  val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
-  val.setEndPosition();
-
-  // store the textual position of the data type name
-  len.dataTypeNameLineNumber = block.currentDataTypeNameLineNumber;
-  len.dataTypeNameColumn = block.currentDataTypeNameColumn;
-
-  return val.Value_ID;
-end if;
-
-select any const from instances of CNST_SYC
-    where ( selected.Const_ID == param.b3_scoped_member1_id );
-
-if(empty const)
-  // if the constant was not found
-  // check the system level
-  sysName = ::getSystemName();
-  select any system from instances of S_SYS where (selected.Name == sysName);
-
-  select any const related by system->G_EIS[R9100]->PE_PE[R9100]->CNST_CSP[R8001]->
-    CNST_SYC[R1504] where ( selected.Const_ID == param.b3_scoped_member1_id );
-end if;
-
-if ( not_empty const )
-  create object instance scv of V_SCV;
-  relate scv to const across R850;
-
-  create object instance val of V_VAL;
-  relate val to scv across R801;
-  current_scope = ::get_current_scope();
-  select any block from instances of ACT_BLK where
-                                             (selected.Block_ID == current_scope);
-  relate val to block across R826;
-
-  select one dt related by const->S_DT[R1500];
-  relate val to dt across R820;
-
-  val.LineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-  val.StartPosition = ::getColumn(rule_token: param.a1_rule_token);
-  val.setEndPosition();
-
-  return val.Value_ID;
-end if;
-
-return GD::NULL_UNIQUE_ID();
-',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("60d90cd0-56e5-4cf8-9a56-438442f3a626",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("79875266-3719-4aee-907f-b237c309cfb5",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'a2_upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"60d90cd0-56e5-4cf8-9a56-438442f3a626",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("ccc0e5fe-425b-49d8-8a4f-38ce342142b1",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'a3_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"79875266-3719-4aee-907f-b237c309cfb5",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("9d8b1adb-de38-466a-8495-e00cdada1603",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'a4_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"ccc0e5fe-425b-49d8-8a4f-38ce342142b1",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("b464ead0-f1e8-45fc-9d0c-623102633777",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'b1_scoped_path1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"9d8b1adb-de38-466a-8495-e00cdada1603",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("173f2b13-1c28-4d83-9ef9-dd716644534a",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'b2_scoped_data_type1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"b464ead0-f1e8-45fc-9d0c-623102633777",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("d8ba417b-621e-4f56-9756-d728c6138b53",
-	"2dad501b-e321-4218-b360-ca448d3b3385",
-	'b3_scoped_member1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"173f2b13-1c28-4d83-9ef9-dd716644534a",
-	'');
-INSERT INTO PE_PE
-	VALUES ("2dad501b-e321-4218-b360-ca448d3b3385",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("75d6de23-fa20-47f7-b455-ec591bd78fa2",
-	"00000000-0000-0000-0000-000000000000",
-	'Scoped_access_loop4_start',
-	'ParserValidateFunction: TRUE',
-	'return param.a2_rule_begin_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("360d9445-ac47-4039-abbf-ae1ce3567c6f",
-	"75d6de23-fa20-47f7-b455-ec591bd78fa2",
-	'a1_upper_ruleid_name',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("39fd5ae9-3b38-4355-9278-e235fdb2082a",
-	"75d6de23-fa20-47f7-b455-ec591bd78fa2",
-	'a2_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"360d9445-ac47-4039-abbf-ae1ce3567c6f",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("699e3a0a-b9d4-489c-83d4-e980d5fe5ccc",
-	"75d6de23-fa20-47f7-b455-ec591bd78fa2",
-	'a3_current_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"39fd5ae9-3b38-4355-9278-e235fdb2082a",
-	'');
-INSERT INTO PE_PE
-	VALUES ("75d6de23-fa20-47f7-b455-ec591bd78fa2",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
