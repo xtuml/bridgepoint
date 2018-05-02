@@ -282,7 +282,13 @@ public class ${manager_name} {
     .invoke nfn_result = get_nav_func_name( class, sorting_relation, "one" )
     .assign primary_participant_function_name = "${nfn_result.body}$cr{node.SortingRelationPhrase}"
 		if(next.getClass() == ${class_name}.class) {
+    .if(node.SortingRelationNumber == 1505)
+    		return LiteralSymbolicConstant_c.getOneCNST_LSCOnR1503(LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1502(
+					SymbolicConstant_c.getManyCNST_SYCsOnR1505Succeeds(SymbolicConstant_c.getManyCNST_SYCsOnR1502(
+							LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1503((LiteralSymbolicConstant_c) next)))));
+    .else
 			return ${class_name}.${primary_participant_function_name}((${class_name}) next);
+	.end if
 		}
   .end if
 .end for
@@ -306,7 +312,13 @@ public class ${manager_name} {
     .invoke nfn_result = get_nav_func_name( class, sorting_relation, "one" )
     .assign other_participant_function_name = "${nfn_result.body}$cr{other_phrase}"
 		if(previous.getClass() == ${class_name}.class) {
+    .if(node.SortingRelationNumber == 1505)
+			return LiteralSymbolicConstant_c.getOneCNST_LSCOnR1503(LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1502(
+					SymbolicConstant_c.getManyCNST_SYCsOnR1505Precedes(SymbolicConstant_c.getManyCNST_SYCsOnR1502(
+							LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1503((LiteralSymbolicConstant_c) previous)))));
+    .else
 			return ${class_name}.${other_participant_function_name}((${class_name}) previous);
+	.end if
 		}
   .end if
 .end for
@@ -357,7 +369,10 @@ public class ${manager_name} {
 .//
 .select many tree_nodes from instances of T_TNS 
 .for each node in tree_nodes
-  .if(node.SortingRelationNumber >= 0)
+  .// TODO: remove the below work around for association 1505.  It is added as the infrastructure did
+  .// not support its situation and the class had to be hand crafted.  The SortingRelationNumber is required
+  .// for sorting elsewhere so it is not turned off in the pei data
+  .if((node.SortingRelationNumber >= 0) and (node.SortingRelationNumber != 1505))
     .select any model_class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
     .select any sorting_relation from instances of R_REL where (selected.Numb == node.SortingRelationNumber)
     .invoke result = create_type_sorter(model_class, sorting_relation, node.SortingRelationPhrase, sorter_dir, core_path, core_package_name, manager_name)

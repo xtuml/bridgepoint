@@ -7710,6 +7710,44 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("56f71ca3-bdb7-4ab8-8aab-bcd5509be669",
+	"00000000-0000-0000-0000-000000000000",
+	'CNST_LSC_MoveUp',
+	'ContextMenuFunction: TRUE',
+	'// UI: exclude item at top of list
+select any item from instances of CNST_LSC
+                                   where USER::selectOne(id:selected.Const_ID);
+item.moveUp();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("56f71ca3-bdb7-4ab8-8aab-bcd5509be669",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("af027b4a-d8f7-48f9-a1fc-78d4b18c9064",
+	"00000000-0000-0000-0000-000000000000",
+	'CNST_LSC_MoveDown',
+	'ContextMenuFunction: TRUE',
+	'// UI: exclude item at top of list
+select any item from instances of CNST_LSC
+                                   where USER::selectOne(id:selected.Const_ID);
+item.moveDown();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("af027b4a-d8f7-48f9-a1fc-78d4b18c9064",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,
