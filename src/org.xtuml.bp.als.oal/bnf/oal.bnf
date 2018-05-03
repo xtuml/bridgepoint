@@ -376,7 +376,7 @@ scoped_access
         scoped_member
     )
   ;
-scoped_path!
+scoped_path
   :
     ( 
       ( scoped_path_segment scoped_path_segment )=>
