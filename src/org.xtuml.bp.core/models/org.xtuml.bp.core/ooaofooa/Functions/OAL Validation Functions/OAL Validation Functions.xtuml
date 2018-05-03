@@ -38734,78 +38734,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_validate',
 	'ParserValidateFunction: TRUE',
-	'// The scoped_path rule allows segments that represent either S_SYS, EP_PKG, or C_C
-
-// if the current rule represents S_SYS then we expect a package at this point.
-select any system from instances of S_SYS
-                              where (selected.Sys_ID == param.a6_current_rule_id); 
-if(not_empty system)
-  // look for a direct package with the given name
-  select any package related by system->EP_PKG[R1401.''contains'']
-                                         where (selected.Name == param.a3_text);
-  if(not_empty package)
-    return package.Package_ID;
-  end if;
-  ERR::reportParseError( msg: 
-    "Cannot find package ->%s<- under system " + 
-     system.Name +" ->" + param.a3_text +"<-",
-     token: param.a1_rule_token );  
-end if;
-
-// if the current rule represents a package then we need to look for a nested package
-// or a component
-select any package from instances of EP_PKG
-                          where (selected.Package_ID == param.a6_current_rule_id);
-if(not_empty package)
-  select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subPackage)
-    return subPackage.Package_ID;
-  end if;
-  // look for a sub component
-  select any subComponent related by package->PE_PE[R8000]->C_C[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subComponent)
-    return subComponent.Id;
-  end if;
-end if;
-
-// if the current rule represents a component then we need to look for either a nested 
-// component, or a package
-select any component from instances of C_C
-                                  where (selected.Id == param.a6_current_rule_id);
-if(not_empty component)
-  select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subPackage)
-    return subPackage.Package_ID;
-  end if;
-  // look for a sub component
-  select any subComponent related by component->PE_PE[R8003]->C_C[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subComponent)
-    return subComponent.Id;
-  end if;
-end if;
-
-
-// look to see if this is the S_SYS starting point
-select any system from instances of S_SYS where (selected.Name == param.a3_text);
-if(not_empty system)
-  return system.Sys_ID;
-end if;
-
-// look for a package by name as we do support package as a start
-select any package from instances of EP_PKG where (selected.Name == param.a3_text);
-if(not_empty package)
-  return package.Package_ID;
-end if;
-
-ERR::reportParseError( msg: 
-    "Cannot find path segment ->%s<- ",
-     token: param.a1_rule_token );  
-
-return param.a6_current_rule_id;',
+	'return param.a6_current_rule_id;
+',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -38866,7 +38796,91 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_segment_validate',
 	'ParserValidateFunction: TRUE',
-	'return param.a6_current_rule_id;',
+	'// The scoped_path rule allows segments that represent either EP_PKG, C_C, or system. 
+
+// This rule currently requires that the user start a path-spec with a
+// sys name. What follows is then one or more package names.
+
+
+// 1. Use the current_rule_id to see is we previously had a match, if we did, 
+//    we start from there and search "down"
+
+// if the current rule represents S_SYS then we expect a package at this point.
+select any system from instances of S_SYS
+                              where (selected.Sys_ID == param.a6_current_rule_id); 
+if(not_empty system)
+  // look for a direct package with the given name
+  select any package related by system->EP_PKG[R1401.''contains'']
+                                         where (selected.Name == param.a3_text);
+  if(not_empty package)
+    return package.Package_ID;
+  end if;
+  ERR::reportParseError( msg: 
+    "Cannot find package ->" + param.a3_text + "<- under system " + 
+    system.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
+end if;
+
+// if the current rule represents a package then we need to look for a nested package
+// or a component
+select any package from instances of EP_PKG
+                          where (selected.Package_ID == param.a6_current_rule_id);
+if(not_empty package)
+  select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subPackage)
+    return subPackage.Package_ID;
+  end if;
+  // look for a sub component
+  select any subComponent related by package->PE_PE[R8000]->C_C[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subComponent)
+    return subComponent.Id;
+  end if;
+  ERR::reportParseError( msg: 
+    "Cannot find package or component ->" + param.a3_text + "<- under package " + 
+    package.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
+end if;
+
+// if the current rule represents a component then we need to look for either a nested 
+// component, or a package
+select any component from instances of C_C
+                                  where (selected.Id == param.a6_current_rule_id);
+if(not_empty component)
+  select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subPackage)
+    return subPackage.Package_ID;
+  end if;
+  // look for a sub component
+  select any subComponent related by component->PE_PE[R8003]->C_C[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subComponent)
+    return subComponent.Id;
+  end if;
+
+  ERR::reportParseError( msg: 
+    "Cannot find path segment ->" + param.a3_text + "<- under component " + 
+    component.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
+end if;
+
+
+
+//
+// 2.  Search for system by name
+//     If we get here and do not have a match then we expect this text string 
+
+
+// look to see if this is the S_SYS starting point
+select any system from instances of S_SYS where (selected.Name == param.a3_text);
+if(not_empty system)
+  return system.Sys_ID;
+end if;
+
+ERR::reportParseError( msg: 
+    "Cannot find system name ->" + param.a3_text + "<-  Token is: ->%s<- ",
+     token: param.a1_rule_token );  
+
+return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -38918,6 +38932,306 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_end',
+	'ParserValidateFunction: TRUE',
+	'return param.a4_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("f995d82a-5d65-4820-a86a-c6036cc823f2",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6d2f105d-42d7-4d85-b73d-93b29028ad8c",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f995d82a-5d65-4820-a86a-c6036cc823f2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b3f05acc-3202-4240-b67e-4acde3f36196",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6d2f105d-42d7-4d85-b73d-93b29028ad8c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5f839ccf-5a89-4389-bf3a-ef1fdd0612d7",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"b3f05acc-3202-4240-b67e-4acde3f36196",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("df9bb6ea-4cb6-49b1-a9bd-f800a3778a96",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'b1_scoped_path_segment1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5f839ccf-5a89-4389-bf3a-ef1fdd0612d7",
+	'');
+INSERT INTO PE_PE
+	VALUES ("5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("9d0c05e7-3685-407a-b3ce-c334767976b0",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_start',
+	'ParserValidateFunction: TRUE',
+	'return param.a1_ruleid_name;
+',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("94a4c751-2758-47ca-bc41-0eaea231226f",
+	"9d0c05e7-3685-407a-b3ce-c334767976b0",
+	'a1_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("9d0c05e7-3685-407a-b3ce-c334767976b0",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_loop4_start',
+	'ParserValidateFunction: TRUE',
+	'return param.a2_rule_begin_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("1217b1d9-8ed9-4df0-a877-3d401c0735aa",
+	"3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	'a1_upper_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a46da627-e724-4db0-a36e-949a939869cf",
+	"3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	'a2_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1217b1d9-8ed9-4df0-a877-3d401c0735aa",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("92ec6f70-749c-4644-a850-323371bd436c",
+	"3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	'a3_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a46da627-e724-4db0-a36e-949a939869cf",
+	'');
+INSERT INTO PE_PE
+	VALUES ("3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_loop4_end',
+	'ParserValidateFunction: TRUE',
+	'return param.a4_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("eb9ef3cd-fef6-4d65-9881-c49d364346e5",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("15d276cb-fad0-453c-a2aa-cf1ca9f4ab01",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"eb9ef3cd-fef6-4d65-9881-c49d364346e5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9e375c33-5eea-416d-ab47-865e5785f32d",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"15d276cb-fad0-453c-a2aa-cf1ca9f4ab01",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b58495d7-223d-431e-b7d4-3373689008d5",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9e375c33-5eea-416d-ab47-865e5785f32d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4efbb00f-7073-4d01-b190-93da85e2aaae",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'b1_scoped_path_segment1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"b58495d7-223d-431e-b7d4-3373689008d5",
+	'');
+INSERT INTO PE_PE
+	VALUES ("f342f9fa-0fc6-4f46-a831-c42c638b8132",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
