@@ -5330,10 +5330,31 @@ if(not_empty element)
         lsc.downgradeCheck();
       end for;
       // remove a range if it exists when the core type changes
+      // for integer to real and real to integer, keep the range,
+      // but perform a type conversion
       select one range related by element->S_RANGE[R57];
       if ( not_empty range )
-        unrelate element from range across R57;
-        delete object instance range;
+        select one sys related by element->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+        integer_id = sys.getCoreTypeId(name:"integer");
+        real_id = sys.getCoreTypeId(name:"real");
+        if ( originalCoreDT.DT_ID == integer_id and selectedDT.DT_ID == real_id )
+          if ( "" != range.Min )
+            range.Min = GD::real_to_string( value:GD::string_to_int( value:range.Min ) );
+          end if;
+          if ( "" != range.Max )
+            range.Max = GD::real_to_string( value:GD::string_to_int( value:range.Max ) );
+          end if;
+        elif ( originalCoreDT.DT_ID == real_id and selectedDT.DT_ID == integer_id )
+          if ( "" != range.Min )
+            range.Min = GD::int_to_string( value:GD::string_to_real( value:range.Min ) );
+          end if;
+          if ( "" != range.Max )
+            range.Max = GD::int_to_string( value:GD::string_to_real( value:range.Max ) );
+          end if;
+        else
+          unrelate element from range across R57;
+          delete object instance range;
+        end if;
       end if;
     end if;
   end if;
