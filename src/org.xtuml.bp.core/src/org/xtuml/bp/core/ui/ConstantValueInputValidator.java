@@ -10,6 +10,8 @@
 
 package org.xtuml.bp.core.ui;
 
+import java.util.UUID;
+
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -17,7 +19,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
+import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SymbolicConstant_c;
+import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.InputValueValidator;
 
 public class ConstantValueInputValidator implements ICellEditorValidator, IInputValidator {
@@ -55,6 +59,11 @@ public class ConstantValueInputValidator implements ICellEditorValidator, IInput
                         .getOneCNST_LFSCOnR1503(v_lsc));
 
         DataType_c v_dt = DataType_c.getOneS_DTOnR1500(v_symConst);
+        UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(v_dt);
+        if(udt != null) {
+        	UUID coreTypeId = udt.Getcoretype();
+        	v_dt = (DataType_c) Ooaofooa.getDefaultInstance().getInstanceList(DataType_c.class).getGlobal(coreTypeId);
+        }
         
         return InputValueValidator.isValid(v_dt, newValue);
     }

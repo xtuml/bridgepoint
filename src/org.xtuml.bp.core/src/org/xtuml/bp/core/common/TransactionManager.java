@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -81,7 +83,7 @@ public class TransactionManager {
 	private Action redoAction;
 	private Action undoAction;
 
-	private static ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
+	private static Set<String> affectedModelElementsNames = new HashSet<String>();
 	private Transaction lastTransaction;
 
 	private boolean ignoreResourceChanges = false;
@@ -349,8 +351,9 @@ public class TransactionManager {
 					"The requested change will affect associated model elements that refer to the " +
 					"items in this changeset.  If you proceed, datatype-related\nelements will be " +
 					"modified to refer to a core type.  Imported or reference elements will be deleted.  " +
-					"The affected elements are listed\nbelow.  " + 
-					"For more information see the BridgePoint UML Suite Help > Reference > User Interface > Downgrade Dialog ." +
+					"Constant values will be reset to their defaults.\n" +
+					"The affected elements are listed below.  " + 
+					"For more information see the BridgePoint UML Suite Help > Reference > User Interface > Downgrade Dialog." +
                     "\n\nDo you want to continue?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
