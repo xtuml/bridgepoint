@@ -580,7 +580,7 @@
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
       lib/*.java,
       common/OALPersistenceUtil.java, ui/editor/RoutingEditor.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
-      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
+      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java, ui/RangeValueInputValidator.java,
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
   	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java,

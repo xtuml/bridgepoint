@@ -53,7 +53,7 @@
 
   <property name="cvs_java_files" value="ActivityPropertyDescriptor.java,BooleanPropertyDescriptor.java,
               DescriptionPropertyDescriptor.java,EnumPropertyDescriptor.java,IntegerPropertyDescriptor.java,
-             ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,
+             ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,RangeValuePropertyDescriptor.java,
              BridgepointPropertySheetPage.java, BridgepointPropertySheetSorter.java,
               ModelElementNameValidator.java,DimensionsPropertyDescriptor.java,
               DimensionsValidator.java,TypeDefinitionPropertyDescriptor.java" />
