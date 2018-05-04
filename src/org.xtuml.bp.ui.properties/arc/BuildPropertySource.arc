@@ -339,6 +339,8 @@ super.toString\
                 m_propertyDescriptors[${attr_num_attr}] = new TypeDefinitionPropertyDescriptor("${name}", "${fullname}", m_inst);
           .elif ( (obj.Key_Lett == "CNST_LSC") and (attr.Name == "Value") )
                 m_propertyDescriptors[${attr_num_attr}] = new ConstantValuePropertyDescriptor("${name}", "${fullname}");
+          .elif ( (obj.Key_Lett == "S_RANGE") and ((attr.Name == "Min") or (attr.Name == "Max")) )
+                m_propertyDescriptors[${attr_num_attr}] = new RangeValuePropertyDescriptor("${name}", "${fullname}");
           .elif ( attr.Name == "Action_Semantics" )
                 m_propertyDescriptors[${attr_num_attr}] = new ActivityPropertyDescriptor("${name}", "${fullname}", m_inst);
           .elif ( (attr.Name == "Dimensions") or (attr.Name == "Return_Dimensions") )
