@@ -7,6 +7,18 @@ INSERT INTO O_OBJ
 	'S_RANGE',
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("0a06b61f-fc73-4498-9176-6f5255579c6d",
+	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db",
+	'get_name',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'return "[" + self.Min + "," + self.Max + "]";',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("67cd2f59-3300-4f1f-8b5e-226c23be3070",
 	"78ae8d0a-63dd-4b75-8a5f-54219b7a93db");

@@ -180,11 +180,11 @@ elif (param.at == Justification::Center)
   select one selfDt related by self->S_DT[R17];
   if ( not_empty coreDt and not_empty selfDt )
     select one range related by self->S_RANGE[R57];
-    rangeInterval = "";
     if ( not_empty range )
-      rangeInterval = " [" + range.Min + "," + range.Max + "]";
+      result = selfDt.Name + GD::newline() + "{ " + coreDt.Name + " " + range.get_name() + " }";
+    else
+      result = selfDt.Name + GD::newline() + "{ " + coreDt.Name + " }";
     end if;
-    result = selfDt.Name + GD::newline() + "{ " + coreDt.Name + rangeInterval + " }";
   else
     result = ::getOrphanedElementName();
   end if;
