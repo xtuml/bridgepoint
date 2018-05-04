@@ -46,7 +46,7 @@
 <p>The equality and inequality operators are available for instance reference mappings in OAL: <code>==</code>, <code>!=</code>. However, due to their implementation-specific nature, Verifier cannot use variables of this type in a meaningful way.</p>
 <p>The implementation of mappings and the markings used to realize them are provided by the BridgePoint Compiler. See the documentation for the marking MapDataTypeAsPointer in <code>&lt;project&gt;/gen/datatype.mark</code> for additional information.</p>
 <h3 id="component_ref">component_ref</h3>
-<p>A primitive data type representing a reference to a modeled component. The sender keyword in OAL is always of this type. This type may be used the same place other primitive data types are used. It is also valid in OAL as the target in a “send ... to <component_ref>” command when performing inter-component messaging. Class attributes, parameters, return values, and transients may all use this type.</p>
+<p>A primitive data type representing a reference to a modeled component. The sender keyword in OAL is always of this type. This type may be used the same place other primitive data types are used. It is also valid in OAL as the target in a “send ... to <code>&lt;component_ref&gt;</code>” command when performing inter-component messaging. Class attributes, parameters, return values, and transients may all use this type.</p>
 <p>Variables of this type support equality and inequality operations in Verifier: <code>==</code>, <code>!=</code></p>
 <p>Variables of this type are not yet supported in MC-3020.</p>
 <h3 id="date">date</h3>
@@ -63,13 +63,15 @@
 <h2 id="user-data-types">User Data Types</h2>
 <p>A type based on another type. User data types (UDTs) may be based on virtually any existing type. User data types inherit all operators from the primitive type and are completely compatible and interchangeable with the base type. UDTs allow the modeler to give a more meaningful type name to a lower level type.</p>
 <h3 id="user-data-type-ranges">User Data Type Ranges</h3>
-<p>Ranges are fundamental contraints that are used to limit the extent of values that may be represented by a model element defined with the constrained type. A range is composed of a minimum and a maximum value. Ranges are most often applied to numeric (real and integer including enumerations) types which is the case for this capability in BridgePoint.</p>
+<p>Ranges are contraints used to limit the extent of values that may be represented by a model element defined with the constrained type. A range is composed of a minimum and a maximum value. Ranges are most often applied to numeric (real and integer including enumerations) types which is the case for this capability in BridgePoint.</p>
 <h4 id="udt-range-capabilities">UDT Range Capabilities</h4>
 <ul>
 <li>Range data is stored in the model and can be made available to downstream model compilation tool chains.<br />
 </li>
 <li>A <strong>Minimum</strong> and a <strong>Maximum</strong> range setting are supported.<br />
-Note that minimum and maximum range settings are <em>inclusive</em>, meaning that the minimum value of the range is the lowest legal value to be taken by an element linked to the ranged type. The maximum value of the range is the maximum legal value.</li>
+Note that minimum and maximum range settings are <em>inclusive</em>, meaning that the minimum value of the range is the lowest legal value to be taken by an element linked to the ranged type. The maximum value of the range is the maximum legal value.<br />
+</li>
+<li>A <strong>Minimum</strong> setting, <strong>Maximum</strong> setting or <strong>both</strong> settings can be supplied to define the range for the User Data Type.</li>
 </ul>
 <div class="figure">
 <img src="range_cme1.png" alt="Range Context Menu" />
@@ -91,7 +93,7 @@ The 'Clear' menu item will show only when a Range has been established for the s
 <p class="caption">Range Maximum Setting</p>
 </div>
 <ul>
-<li>To view the range values for a selected User Data Type, simply navigate the context menu to the Minimum and Maximum values as when setting the values. This displays the existing value setting.</li>
+<li>To view the range values for a selected User Data Type, simply navigate the context menu to the Minimum and Maximum values as when setting the values. This displays the existing value setting. Range values also are displayed on the canvas and in the Properties view.</li>
 </ul>
 <h2 id="structured-data-types">Structured Data Types</h2>
 <p>A structured data type (SDT) is a collection of structure members of various types. Structure members are accessed via the “.” operator. SDTs may be used as return values, parameters, or class attributes. Automatic (transient) variables become SDTs when initialized to a return value or variable whose type is an SDT. Only the assignment operation is valid on the SDT itself. The individual structure members may be operated on according to the valid operations for their respective types.</p>

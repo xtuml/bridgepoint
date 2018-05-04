@@ -125,7 +125,7 @@ information.
 A primitive data type representing a reference to a modeled component. The
 sender keyword in OAL is always of this type.  This type may be used the same
 place other primitive data types are used.  It is also valid in OAL as the
-target in a “send ... to <component_ref>” command when performing
+target in a “send ... to `<component_ref>`” command when performing
 inter-component messaging.  Class attributes, parameters, return values, and
 transients may all use this type.
 
@@ -178,7 +178,7 @@ with the base type.  UDTs allow the modeler to give a more meaningful
 type name to a lower level type.
 
 ### User Data Type Ranges
-Ranges are fundamental contraints that are used to limit the extent of
+Ranges are contraints used to limit the extent of
 values that may be represented by a model element defined with the
 constrained type.  A range is composed of a minimum and a maximum value.
 Ranges are most often applied to numeric (real and integer including
@@ -193,6 +193,8 @@ Note that minimum and maximum range settings are _inclusive_, meaning
 that the minimum value of the range is the lowest legal value to be
 taken by an element linked to the ranged type.  The maximum value of
 the range is the maximum legal value.  
+- A **Minimum** setting, **Maximum** setting or **both** settings can be
+supplied to define the range for the User Data Type.
 
 ![Range Context Menu](range_cme1.png)
 
@@ -211,6 +213,7 @@ levels ending with 3 capabilities:
 - To view the range values for a selected User Data Type, simply
 navigate the context menu to the Minimum and Maximum values as
 when setting the values.  This displays the existing value setting.
+Range values also are displayed on the canvas and in the Properties view.
 
 ## Structured Data Types
 
