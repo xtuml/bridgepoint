@@ -5329,6 +5329,12 @@ if(not_empty element)
       for each lsc in lscs
         lsc.downgradeCheck();
       end for;
+      // remove a range if it exists when the core type changes
+      select one range related by element->S_RANGE[R57];
+      if ( not_empty range )
+        unrelate element from range across R57;
+        delete object instance range;
+      end if;
     end if;
   end if;
 end if;',
