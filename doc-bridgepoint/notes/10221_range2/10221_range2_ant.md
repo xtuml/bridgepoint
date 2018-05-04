@@ -65,12 +65,40 @@ d = a + ::f( rngi:a );  // Range needed on binary operation.
 5.1.2 Expression Parsing  
 The parser assigns the Data Type for the result of a binary operation.
 In the case of operations including both ranged and unranged operands,
-the parser must choose a result that is not ranged.  Also, when two ranged
-operands are combined, the result must be ranged.
+the parser must choose a result that is not ranged.
 
 To support enforcement of ranges in either Verifier or the model compilers,
 the parser must be doing correct type assignment.  This is a pre-requisite
 to correct behavior "down stream" in Verifier and MCs.
+
+Inspection of prebuilder output seems to indicate that these type
+assignements are not correct for expressions involving values based on
+types constrained with ranges.
+
+5.1.3 Asymmetric Ranges  
+A range provides for a minimum and a maximum value.  These values are
+stored in the metamodel as string data.  An empty minimum or empty maximum
+is a legal possiblity.  It is considered valid for a range to constrain
+only the minimum or only the maximum value linked to a type.  Therefore,
+enforcement shall deal with the possibility of checking values in only
+one "direction".
+
+5.1.4 Type Conversions  
+Rules need to be established for the combined of ranged and unranged
+type values.  The following scenarios need clear rules:  
+
+
+
+
+
+[CDS - pick up here]
+- immediate data does not change the type (range constraint)
+- adding ranged types results in ???
+
+
+
+
+
 
 #### 5.2 Analyze and document enforcement in model compilers.  
 
