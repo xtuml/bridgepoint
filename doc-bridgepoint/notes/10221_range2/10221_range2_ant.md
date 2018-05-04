@@ -40,144 +40,207 @@ See [2.2].
 
 ### 5. Analysis
 
-5.1 Examples to consider to stimulate thinking.  
+#### 5.1 Ground Common Between Model Compilers and Verifier  
+
+5.1.1 Examples to consider:  
 ```
+// assignment
 a = param.rngi;  // rngi has a range, so a inherits it implicitly.
 b = a;  // Value of a is not changing, check unnecessary.
 c = a;  // a does not need to be re-checked.
 d = a;  // a does not need to be re-re-checked.
 
+// unary and binary operations
 a = -a;  // Negation can take a out of range, check needed.
-b = a + 1;  // ranged value bop non-ranged value, check necessary.
-c = a + b;  // ranged value bop ranged value, check necessary.
+b = a + 1;  // ranged value bop non-ranged value, check necessary
+c = a + b;  // ranged value bop ranged value, check necessary
 
-a = ::f( rngi:a );  // No check is needed on actual parameter.
+// actual parameters
 a = ::f( rngi:7 );  // Check is needed on actual parameter.
+a = ::f( rngi:a );  // no check needed on actual parameter
 b = ::f( rngi: ::f ( rngi:a ) );  // No check needed!
 d = a + ::f( rngi:a );  // Range needed on binary operation.
 ```
 
-5.2 Analyze and document enforcement in model compilers.  
+5.1.2 Expression Parsing  
+The parser assigns the Data Type for the result of a binary operation.
+In the case of operations including both ranged and unranged operands,
+the parser must choose a result that is not ranged.  Also, when two ranged
+operands are combined, the result must be ranged.
 
-5.2.2 R820  
+To support enforcement of ranges in either Verifier or the model compilers,
+the parser must be doing correct type assignment.  This is a pre-requisite
+to correct behavior "down stream" in Verifier and MCs.
+
+#### 5.2 Analyze and document enforcement in model compilers.  
+
+5.2.1 R820  
 In MC-3020, Value (`V_VAL`) is the key class dealing with the dynamics of
 data in action bodies.  `R820` links Value to Data Type (`S_DT`) and thus
 to User Data Type and Range.  R820 is traversed in 3 places representing
-3 places where range checking should be implemented.  
+3 places where range checking should be implemented.  A fourth location
+similar to binary operations is unary operations.  These must also be
+considered for range checking.
 
-5.2.2.1 Assignment Statement  
+Note, that traversing `R820` does not automatically imply a requirement
+for range checking.  Other factors affect the need.  These factors include
+the types involved on "both sides" (destination and source) of the movement
+of the value.
+
+For example, in an assignment, when the right-hand side value (rval) is
+a variable of the same type (including range) as the left-hand side value
+(lval), then the need to check the range is obviated.  The rval already
+will be validly within range and thus so will the (new) lval.
+
+5.2.1.1 Assignment Statement  
 A value moves from one value to another during assignment.  A value
-moves from the right-hand side (rhs) to the left-hand side (lhs) across
-the assignment operator ('=').  The left-hand value (lval) receives the
-right-hand value (rval).  
+moves from the right-hand side value (rval) to the left-hand side value
+(lval) across the assignment operator ('=').  The lval receives the rval.  
 
 In the case of immediate data, constants and enumerators, a range check
 is always necessary before assignment.  There may exist situations where
 a variable is being assigned that has been previously constrained.  It may
-be possible to optimize out range checks in some of these situations.
+be possible to optimize out range checks in some of these situations.  As
+described above, type comparisons can be used to detertmine when range
+checking can be skipped.
 
-5.2.2.2 Binary Operation  
+5.2.1.2 Binary Operation  
 When two values are combined with an operator, a new value is produced.  The
 result value type is discovered across R820 as are the value types for the
 left-hand operand and the right-hand operation.  The parser will have
-determined the type for the result.  If the type is constrained with a range,
-the model compiler shall enforce it.
+determined the type for the result.  If the type is constrained with a range
+(which it should be), the model compiler shall enforce it.
 
-5.2.2.3 Actual Parameters  
+5.2.1.3 Numeric Unary Operations  
+A negation can put a range-constrained value out of range.  Therefore,
+range checking is required on negation.
+
+5.2.1.4 Actual Parameters  
 Actual parameters can be immediate or other values not strictly typed
-to match the types parameters defined on the function (or operation, etc).
+to match the typed parameters defined on the function (or operation, etc).
 The type of the actual parameter value is known, and the type expected
-as parameter to this invocation is also known.  When the type of the
+as parameter to the invocation is also known.  When the type of the
 actual parameter is not the same as the type expected on the signature
 of the invocable activity, range checking needs to be employed.
 
-5.2.3 Unary Operations  
-A negation can put a ranged value out of range.
-
-5.2.4 Enumeration User Data Type Support  
+5.2.2 Enumeration User Data Type Support  
 Presently, MC-3020 does not support Enumerations as the base for User Data
 Types.  This support would need to be added to support ranges on UDTs based
 from Enumeration Data Types.  An issue [2.3] is raised to track this.  
 
-5.2.5 Default Values  
+5.2.3 Default Values  
 When the type of a variable is constrained with a Range, this must affect
 the default initial value.  When the attribute of a class is typed with a
-type that includes a Range, the attribute should be initialized correctly
+type that includes a Range, the attribute must be initialized correctly
 upon creation of the instance.
 
-5.2.6 `range_check`  
-A function is required to be inserted when range checks are needed.  The
-function takes three (3) parameters:  value, Minimum, Maximum and returns
-the value.  This way the value can be read exactly once.  Reading the value
+5.2.4 `range_check` Function  
+A function is required to be inserted when range checks are needed in
+expressions.  Such a function takes three (3) parameters:  value, Minimum,
+Maximum and returns the value.  A function with this signature provides
+a means for the target value to be read exactly once.  Reading a value
 more than once may affect the behavior of the application when side effects
-from reading are present (as with invocations).
+from reading are present (as with some invocation values).
 
-5.2.7 User Callout  
+5.2.5 Exception Handling (User Callout)  
 When a range error is detected, control needs to be passed to the user.
 In MC-3020, the way this is done is with a "user callout" function.  These
 callout functions are invoked when an exception condition is detected.
 This gives users a "hook" into these exceptional conditions.  There
 already exist several user callout functions for exceptions such as
 running out of instance, event or timer elements, empty handle usage, etc.
-Two new callouts are to be introduced for integer and real value range
-errors.
+A new callout is to be introduced for range errors.
 
-5.2.8 Alternate Approaches  
-Consider adding Range minimum and maximum attributes to `TE_DT` and/or
-`TE_PAR`.  There may be ways to carry a counter that prevents re-checking
-the value for range.
-Perhaps `TE_VAL` has a range checking field.  This way, the
-range could be kept separate from the value and thus the range
-checking only applied when moving or changing to a new value.
+5.2.6 Alternate Approaches  
 
-I think that a `range_check` function (or macro) must exist
-to reduce touches to the value.
-For example, when the value is a function/operation/message/bridge return
-value, the invocation can happen once only.
+5.2.6.1 MC Metamodel Translation Extensions Extensions  
+Consideration may be given to adding Range minimum and maximum attributes
+to `TE_DT` and/or `TE_PAR`.  There may be ways to carry a counter that
+prevents re-checking the value for range.  Perhaps `TE_VAL` could have
+a range checking field.  This way, the range could be kept separate
+from the value and thus range checking only applied when moving or
+changing to a new value.
 
+5.2.6.2 Type System  
+An updated type system would make the work for range checking easier.
+A portion of what is needed involves understanding compatibility and
+convertability.  A hierarchical type system where ranged types are
+subtypes of their bases would simplify the task.
 
-Can we detect when a value is "calculated"?
-Can we detect when a value moves from a one type to another?
+5.2.6.3 Array Index Range  
+This work does not address index range checking which is a separate
+but similar topic.
 
-1) V_LIN, V_LRL, V_LEN moving into another value.
-Assignment is only part of the story.
-The nature of the LHS relative to the RHS is key.
-We need to detect when RHS is not the same as LHS.  This is a promotion check.
+#### 5.3 Analyze and document enforcement in Verifier.  
 
-For binary operation
+Execution and Translation are correlary to each other.  Most of what is
+true about one is true about the other.  The model compiler _translates_
+the model; Verifier _interprets_ the model.  The two tasks have many
+similarities.  The rules of Shlaer-Mellor are employed by both.
 
-An updated type system would make this work easier.
-
-This work does not address index range checking which is a separate but similar topic.
-
-5.3 Analyze and document enforcement in Verifier.  
+The analysis for Verifier will leverage the analysis of the model compiler.
+Where the model compiler needs to perform range checking when a translated
+value is moved from one expression element to another, similarly the Verifier
+needs to perform range checking in corresponding interpreted expression
+elements.
 
 5.3.1 R3307  
-In Verifier, Runtime Value is a key class used to store and move information
-in the runtime instances of an executing model.  `R3307` links a Runtime Value
-to a Data Type (`S_DT`).  
+In Verifier, Runtime Value (`RV_RVL`) is a key class used to store and move
+information in the runtime instances of an executing model.  `R3307` links
+a Runtime Value to a Data Type (`S_DT`).  This Data Type leads to the Range
+(`S_RANGE`) that may be linked to the constrained User Data Type.  
 
-5.3.2 Expression Parsing  
-The parser assigns the Data Type for the result of a binary operation.
-In the case of operations including both ranged and unranged operands,
-the parser must choose a result that is not ranged.  Also, when two ranged
-operands are combined, the result must be ranged.
+5.3.1.1 Assignment Statement
+Like in the model compiler, data moves from one value to another during
+assignment.  When moving unranged data from the right side of the assignment
+operator (`=`) to the left side, range checking shall be done.  It is also
+necessary to do range checking when both sides are ranged but ranged with
+different ranges.
+
+5.3.1.2 Binary Operation  
+In a binary operation three values are involved: left operand, right
+operand and result.  These three values potentially have different types.
+The parser will supply a correct type to the result value.  In all cases,
+the result of the operation must be checked to be within range.
+
+5.3.1.3 Numeric Unary Operations  
+During interpretation, the Verifier moves a runtime value from a single
+operand to a result operand.  Range checking must occur.
+
+5.3.1.4 Actual Parameters  
+Passing values in Verifier involves placing them into a stack frame before
+control is passed to the called function, operation, message or bridge.
+An actual parameter has a type, and the parameter in the signature of the
+invocable action body has a type.  As in translation, these two types need
+to be compared to determine if range checking is required.
+
+5.3.2 User Interface and Configuration  
+When range constraints are present on types and applied to data elements
+in a model, Verifier will enforce them.  This checking will be enabled by
+default with no option to disable it.
+
+5.3.3 Default Values  
+Just as in translation, when the attribute of a class is typed with a
+type that includes a Range, the attribute must be initialized correctly
+upon creation of the instance.
+
+5.3.4 `range_check` Function  
+For convenience, reuse and consistency, the strategy of using a
+`range_check` function will be used.  The function will centralize the
+check of the range and reporting of exceptions.  It will also return the
+checked value to be used in place in expressions.
+
+5.3.5 Exception Handling  
+When a range error is detected, the user needs to be informed.  A reporting
+mechanism based upon the existing instance population checks will be used.
 
 
 ### 6. Work Required
 
-6.1 Item 1  
-6.1.1 Example sub-item
-* Example List Element
+TBD.
 
 ### 7. Acceptance Test
 
-7.1 Item 1  
-7.1.1 Example sub-item
-* Example List Element
-
-7.2 Item 2  
-7.2.1 Example sub-item
-* Example List Element
+TBD.
 
 ### End
