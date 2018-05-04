@@ -153,6 +153,8 @@ _- Press OK.
 7.2.1.4 Reading Existing Integer Range Minimum  
 _- Right-click on 'i' and navigate to Range --> Minimum...  
 _R See text box with value input from before (0).  
+_R See value input from before (0) on UDT on canvas.  
+_R See value input from before (0) in Properties view.  
 7.2.1.5 Range Menu with Clear Range  
 _- Right-click on 'i' and navigate to Range  
 _R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
@@ -169,6 +171,8 @@ _- Press OK.
 7.2.1.8 Reading Existing Integer Range Maximum  
 _- Right-click on 'i' and navigate to Range --> Maximum...  
 _R See text box with value input from before (7).  
+_R See value input from before (7) on UDT on canvas.  
+_R See value input from before (7) in Properties view.  
 7.2.1.9 Clearing Integer Range  
 _- Right-click on 'i' and navigate to Range --> Clear Range  
 _R See Range --> Minimum... and Range --> Maximum...  
