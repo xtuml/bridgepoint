@@ -25,11 +25,13 @@ import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
@@ -46,6 +48,10 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.StateMachine_c;
+import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.VariableLocation_c;
 import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -102,30 +108,68 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 				declarationElement = (NonRootModelElement) bdy.Finddeclaration(offsetWithinLine,
 						startLine);
 			}
+			showElement(declarationElement, editor, doc);
+		} catch (BadLocationException e) {
+			TextPlugin.logError("Unable to locate line information for the text editor selection.", e);
+		}
+
+	}
+	
+	public void showElement(NonRootModelElement declarationElement) {
+		showElement(declarationElement, null, null);
+	}
+
+	public void showElement(NonRootModelElement declarationElement, ActivityEditor editor, IDocument doc) {
+		try {
 			if (declarationElement != null) {
-				if (declarationElement instanceof VariableLocation_c) {
+				if ((declarationElement instanceof VariableLocation_c) && (editor != null) && (doc != null)) {
 					VariableLocation_c location = (VariableLocation_c) declarationElement;
-				    lineOffset = doc.getLineOffset(location.getLinenumber() - 1);
+					int lineOffset = doc.getLineOffset(location.getLinenumber() - 1);
 					editor.selectAndReveal(lineOffset + location.getStartposition() - 1,
 							location.getEndposition() + 1 - location.getStartposition());
 				} else {
-					boolean showInME = shouldShowInME(declarationElement);
-					if (showInME) {
+					boolean showInMEOnly = shouldShowInMEOnly(declarationElement);
+					if (showInMEOnly) {
 						showInModelExplorer(declarationElement);
 					} else {
 						showInModelExplorer(declarationElement);
-						Package_c pkg = declarationElement.getFirstParentPackage();
-                        if ( null == pkg ) {
-                            pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
-                        }
-						IEditorPart editorPart = EditorUtil.openEditorForElement(pkg);
-                        NonRootModelElement selectionElement = declarationElement;
-                        if ( declarationElement instanceof Port_c ) {
-                              selectionElement = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
-                              if ( null == selectionElement ) {
-                                  selectionElement = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c)declarationElement));
-                              }
-                        }
+						IEditorPart editorPart = null;
+						if (declarationElement instanceof SystemModel_c) {
+							editorPart = EditorUtil.openEditorForElement(declarationElement);
+						} else if (declarationElement instanceof StateMachineState_c) {
+							StateMachine_c sm = StateMachine_c.getOneSM_SMOnR501((StateMachineState_c)declarationElement);
+							InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(sm);
+							if ( ism != null ) {
+								editorPart = EditorUtil.openEditorForElement(ism);
+							} else {
+								ClassStateMachine_c csm = ClassStateMachine_c.getOneSM_ASMOnR517(sm);
+								editorPart = EditorUtil.openEditorForElement(csm);
+							}
+						} else if (declarationElement instanceof Transition_c) {
+							StateMachine_c sm = StateMachine_c.getOneSM_SMOnR505((Transition_c)declarationElement);
+							InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(sm);
+							if ( ism != null ) {
+								editorPart = EditorUtil.openEditorForElement(ism);
+							} else {
+								ClassStateMachine_c csm = ClassStateMachine_c.getOneSM_ASMOnR517(sm);
+								editorPart = EditorUtil.openEditorForElement(csm);
+							}
+						} else {
+							Package_c pkg = declarationElement.getFirstParentPackage();
+							if (null == pkg) {
+								pkg = declarationElement.getFirstParentComponent().getFirstParentPackage();
+							}
+							editorPart = EditorUtil.openEditorForElement(pkg);
+						}
+						NonRootModelElement selectionElement = declarationElement;
+						if (declarationElement instanceof Port_c) {
+							selectionElement = Requirement_c.getOneC_ROnR4009(
+									InterfaceReference_c.getOneC_IROnR4016((Port_c) declarationElement));
+							if (null == selectionElement) {
+								selectionElement = Provision_c.getOneC_POnR4009(
+										InterfaceReference_c.getOneC_IROnR4016((Port_c) declarationElement));
+							}
+						}
 						editorPart.getSite().getSelectionProvider()
 								.setSelection(new StructuredSelection(selectionElement));
 						zoomToSelected(editorPart);
@@ -135,9 +179,8 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		} catch (BadLocationException | PartInitException e) {
 			TextPlugin.logError("Unable to locate line information for the text editor selection.", e);
 		}
-
 	}
-	
+
 	private void parseBody(NonRootModelElement modelElement, int offsetWithinLine, IDocument doc) {
 		// run a parse of this body
 		ParseRunnable parseRunner = new ParseRunnable(modelElement, doc.get());
@@ -235,7 +278,7 @@ public class OpenDeclarationAction implements IEditorActionDelegate {
 		}
 	}
 
-	private boolean shouldShowInME(NonRootModelElement declarationElement) {
+	private boolean shouldShowInMEOnly(NonRootModelElement declarationElement) {
 		if (declarationElement instanceof Function_c) {
 			return true;
 		}

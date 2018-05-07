@@ -23,6 +23,10 @@ end if;
 select one descriptionEngine related by self->SEN_DE[R9501];
 if(not_empty descriptionEngine)
   descriptionEngine.processQuery(queryId:param.queryId, monitor:param.monitor);
+end if;
+select one declarationEngine related by self->SEN_DCE[R9501];
+if(not_empty declarationEngine)
+  declarationEngine.processQuery(queryId:param.queryId, monitor:param.monitor);
 end if;',
 	1,
 	'',

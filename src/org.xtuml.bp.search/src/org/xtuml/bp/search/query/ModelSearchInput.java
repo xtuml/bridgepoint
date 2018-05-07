@@ -1,13 +1,5 @@
 package org.xtuml.bp.search.query;
 //========================================================================
-//
-//File:      $RCSfile: ModelSearchInput.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:14:21 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -40,7 +32,7 @@ public class ModelSearchInput {
 	private boolean isRegExSearch;
 	public boolean isOALSearch;
 	private boolean isReferencesSearch;
-	private boolean isDeclarationsSearch;
+	public boolean isElementNameSearch;
 	private int scope;
 	public boolean isDescriptionSearch;
 	private NonRootModelElement[] selected;
@@ -48,14 +40,14 @@ public class ModelSearchInput {
 
 	public ModelSearchInput(String pattern, boolean isCaseSensitive,
 			boolean isRegExSearch, boolean isOALSearch,
-			boolean isDeclerationsSearch, boolean isReferencesSearch,
+			boolean isElementNameSearch, boolean isReferencesSearch,
 			boolean isDescriptionSearch, int scope, NonRootModelElement[] selected,
 			IWorkingSet[] workingSets) {
 		this.pattern = pattern;
 		this.isCaseSensitive = isCaseSensitive;
 		this.isRegExSearch = isRegExSearch;
 		this.isOALSearch = isOALSearch;
-		this.isDeclarationsSearch = isDeclerationsSearch;
+		this.isElementNameSearch = isElementNameSearch;
 		this.isReferencesSearch = isReferencesSearch;
 		this.isDescriptionSearch = isDescriptionSearch;
 		this.scope = scope;
@@ -76,8 +68,8 @@ public class ModelSearchInput {
 	}
 
 	public boolean isOALSearch() {
-		if(!isOALSearch && !isDescriptionSearch) {
-			// return true as neither is selected, so there is no limitation
+		if(!isOALSearch && !isDescriptionSearch && !isElementNameSearch) {
+			// return true as none are selected, so there is no limitation
 			return true;
 		}
 		return isOALSearch;
@@ -87,13 +79,17 @@ public class ModelSearchInput {
 		return isReferencesSearch;
 	}
 
-	public boolean isDeclarationsSearch() {
-		return isDeclarationsSearch;
+	public boolean isElementNameSearch() {
+		if(!isOALSearch && !isDescriptionSearch && !isElementNameSearch) {
+			// return true as none are selected, so there is no limitation
+			return true;
+		}
+		return isElementNameSearch;
 	}
 
 	public boolean isDescriptionSearch() {
-		if(!isOALSearch && !isDescriptionSearch) {
-			// return true as neither is selected, so there is no limitation
+		if(!isOALSearch && !isDescriptionSearch && !isElementNameSearch) {
+			// return true as none are selected, so there is no limitation
 			return true;
 		}
 		return isDescriptionSearch;
@@ -121,7 +117,7 @@ public class ModelSearchInput {
 			if (test.getScope() == getScope()
 					&& test.isCaseSensitive() == isCaseSensitive()
 					&& test.isDescriptionSearch() == isDescriptionSearch()
-					&& test.isDeclarationsSearch() == isDeclarationsSearch()
+					&& test.isElementNameSearch() == isElementNameSearch()
 					&& test.isReferencesSearch() == isReferencesSearch()
 					&& test.isOALSearch() == isOALSearch()
 					&& test.getPattern().equals(getPattern())) {
@@ -139,6 +135,7 @@ public class ModelSearchInput {
 		settings.put("isRegExSearch", isRegExSearch); //$NON-NLS-1$
 		settings.put("descriptionSearch", isDescriptionSearch); // $NON-NLS-1$
 		settings.put("actionLanguageSearch", isOALSearch); // $NON-NLS-1$
+		settings.put("elementNameSearch", isElementNameSearch); // $NON-NLS-1$
 		settings.put("pattern", pattern); //$NON-NLS-1$
 		settings.put("scope", scope); //$NON-NLS-1$
 		if (workingSets != null) {
@@ -173,9 +170,10 @@ public class ModelSearchInput {
 		boolean descriptionSearch = settings.getBoolean("descriptionSearch"); // $NON-NLS-1$
 		boolean actionLanguageSearch = settings
 				.getBoolean("actionLanguageSearch"); // $NON-NLS-1$
+		boolean elementNameSearch = settings.getBoolean("elementNameSearch"); // $NON-NLS-1$
 
 		return new ModelSearchInput(pattern, caseSensitive, isRegExSearch,
-				actionLanguageSearch, false, false, descriptionSearch, scope,
+				actionLanguageSearch, elementNameSearch, false, descriptionSearch, scope,
 				new NonRootModelElement[0], workingSets);
 	}
 
