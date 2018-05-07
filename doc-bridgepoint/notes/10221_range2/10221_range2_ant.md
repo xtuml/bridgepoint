@@ -72,13 +72,13 @@ the parser must be doing correct type assignment.  This is a pre-requisite
 to correct behavior "down stream" in Verifier and MCs.
 
 Inspection of prebuilder output seems to indicate that these type
-assignements are not correct for expressions involving values based on
+assignments are not correct for expressions involving values based on
 types constrained with ranges.
 
 5.1.3 Asymmetric Ranges  
 A range provides for a minimum and a maximum value.  These values are
 stored in the metamodel as string data.  An empty minimum or empty maximum
-is a legal possiblity.  It is considered valid for a range to constrain
+is a legal possibility.  It is considered valid for a range to constrain
 only the minimum or only the maximum value linked to a type.  Therefore,
 enforcement shall deal with the possibility of checking values in only
 one "direction".
@@ -120,7 +120,7 @@ In the case of immediate data, constants and enumerators, a range check
 is always necessary before assignment.  There may exist situations where
 a variable is being assigned that has been previously constrained.  It may
 be possible to optimize out range checks in some of these situations.  As
-described above, type comparisons can be used to detertmine when range
+described above, type comparisons can be used to determine when range
 checking can be skipped.
 
 5.2.1.2 Binary Operation  
@@ -136,11 +136,11 @@ range checking is required on negation.
 
 5.2.1.4 Actual Parameters  
 Actual parameters can be immediate or other values not strictly typed
-to match the typed parameters defined on the function (or operation, etc).
+to match the typed parameters defined on the function (or operation, etc.).
 The type of the actual parameter value is known, and the type expected
 as parameter to the invocation is also known.  When the type of the
 actual parameter is not the same as the type expected on the signature
-of the invocable activity, range checking needs to be employed.
+of the callable activity, range checking needs to be employed.
 
 5.2.2 Enumeration User Data Type Support  
 Presently, MC-3020 does not support Enumerations as the base for User Data
@@ -192,7 +192,7 @@ changing to a new value.
 5.2.6.2 Type System  
 An updated type system would make the work for range checking easier.
 A portion of what is needed involves understanding compatibility and
-convertability.  A hierarchical type system where ranged types are
+convertibility.  A hierarchical type system where ranged types are
 subtypes of their bases would simplify the task.
 
 5.2.6.3 Array Index Range  
@@ -201,10 +201,10 @@ but similar topic.
 
 #### 5.3 Analyze and document enforcement in Verifier.  
 
-Execution and Translation are correlary to each other.  Most of what is
+Execution and Translation are corrolary to each other.  Most of what is
 true about one is true about the other.  The model compiler _translates_
-the model; Verifier _interprets_ the model.  The two tasks have many
-similarities.  The rules of Shlaer-Mellor are employed by both.
+the model; Verifier _interprets_ the model.  The two tasks are congruent;
+both deploy the rules of Shlaer-Mellor.
 
 The analysis for Verifier will leverage the analysis of the model compiler.
 Where the model compiler needs to perform range checking when a translated
@@ -239,7 +239,7 @@ operand to a result operand.  Range checking must occur.
 Passing values in Verifier involves placing them into a stack frame before
 control is passed to the called function, operation, message or bridge.
 An actual parameter has a type, and the parameter in the signature of the
-invocable action body has a type.  As in translation, these two types need
+callable action body has a type.  As in translation, these two types need
 to be compared to determine if range checking is required.
 
 5.3.2 User Interface and Configuration  
