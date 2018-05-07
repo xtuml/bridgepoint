@@ -8,7 +8,7 @@ INSERT INTO EP_PKG
 	'',
 	0);
 INSERT INTO GD_MD
-	VALUES ("5f621d58-9258-4b88-9d21-e26f427a617f",
+	VALUES ("00000000-0000-0000-0000-000000000000",
 	112,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	108,
@@ -26,13 +26,6 @@ INSERT INTO GD_MD
 	0,
 	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Functions::OAL Validation Functions');
-INSERT INTO DIM_DIA
-	VALUES ("5f621d58-9258-4b88-9d21-e26f427a617f",
-	'',
-	1.000000,
-	4000.000000,
-	3000.000000,
-	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_SYNC
 	VALUES ("a99a79fc-8395-453b-89ca-7225baa5e145",
 	"00000000-0000-0000-0000-000000000000",
@@ -11411,7 +11404,12 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_data_type_validate',
 	'ParserValidateFunction: TRUE',
-	'current_scope = ::get_current_scope();
+	'if (::scope_get_segment_count() > 0) 
+    ::scope_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
+	  current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
+  return param.a6_current_rule_id; 
+end if;
+current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
 select any edt from instances of S_EDT where (selected.DT_ID == GD::NULL_UNIQUE_ID());
@@ -11632,7 +11630,12 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_member_validate',
 	'ParserValidateFunction: TRUE',
-	'select any pe from instances of PE_PE where selected.Element_ID ==
+	'if (::scope_get_segment_count() > 0) 
+     ::scope_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
+	  current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
+  return param.a6_current_rule_id; 
+end if;
+select any pe from instances of PE_PE where selected.Element_ID ==
                                                        param.a6_current_rule_id;
 select one edt related by pe->S_DT[R8001]->S_EDT[R17];
 if(empty edt)
@@ -11784,7 +11787,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
-	'select any enum from instances of S_ENUM 
+	'
+select any enum from instances of S_ENUM 
     where ( selected.Enum_ID == param.b3_scoped_member1_id );
     
 if(empty enum)
@@ -24244,7 +24248,10 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_access_validate',
 	'ParserValidateFunction: TRUE',
-	'return param.a6_current_rule_id;
+	'if (::scope_get_segment_count() > 0) 
+  ::scope_validate();
+end if;
+return param.a6_current_rule_id;
 
 
 
@@ -38796,91 +38803,11 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_segment_validate',
 	'ParserValidateFunction: TRUE',
-	'// The scoped_path rule allows segments that represent either EP_PKG, C_C, or system. 
+	'::scope_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
+	current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
 
-// This rule currently requires that the user start a path-spec with a
-// sys name. What follows is then one or more package names.
-
-
-// 1. Use the current_rule_id to see is we previously had a match, if we did, 
-//    we start from there and search "down"
-
-// if the current rule represents S_SYS then we expect a package at this point.
-select any system from instances of S_SYS
-                              where (selected.Sys_ID == param.a6_current_rule_id); 
-if(not_empty system)
-  // look for a direct package with the given name
-  select any package related by system->EP_PKG[R1401.''contains'']
-                                         where (selected.Name == param.a3_text);
-  if(not_empty package)
-    return package.Package_ID;
-  end if;
-  ERR::reportParseError( msg: 
-    "Cannot find package ->" + param.a3_text + "<- under system " + 
-    system.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
-end if;
-
-// if the current rule represents a package then we need to look for a nested package
-// or a component
-select any package from instances of EP_PKG
-                          where (selected.Package_ID == param.a6_current_rule_id);
-if(not_empty package)
-  select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subPackage)
-    return subPackage.Package_ID;
-  end if;
-  // look for a sub component
-  select any subComponent related by package->PE_PE[R8000]->C_C[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subComponent)
-    return subComponent.Id;
-  end if;
-  ERR::reportParseError( msg: 
-    "Cannot find package or component ->" + param.a3_text + "<- under package " + 
-    package.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
-end if;
-
-// if the current rule represents a component then we need to look for either a nested 
-// component, or a package
-select any component from instances of C_C
-                                  where (selected.Id == param.a6_current_rule_id);
-if(not_empty component)
-  select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subPackage)
-    return subPackage.Package_ID;
-  end if;
-  // look for a sub component
-  select any subComponent related by component->PE_PE[R8003]->C_C[R8001]
-                                         where (selected.Name == param.a3_text);
-  if(not_empty subComponent)
-    return subComponent.Id;
-  end if;
-
-  ERR::reportParseError( msg: 
-    "Cannot find path segment ->" + param.a3_text + "<- under component " + 
-    component.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
-end if;
-
-
-
-//
-// 2.  Search for system by name
-//     If we get here and do not have a match then we expect this text string 
-
-
-// look to see if this is the S_SYS starting point
-select any system from instances of S_SYS where (selected.Name == param.a3_text);
-if(not_empty system)
-  return system.Sys_ID;
-end if;
-
-ERR::reportParseError( msg: 
-    "Cannot find system name ->" + param.a3_text + "<-  Token is: ->%s<- ",
-     token: param.a1_rule_token );  
-
-return param.a6_current_rule_id;',
+return param.a6_current_rule_id;
+',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -39002,7 +38929,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_start',
 	'ParserValidateFunction: TRUE',
-	'return param.a1_ruleid_name;
+	'::scope_reset();
+return param.a1_ruleid_name;
 ',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
