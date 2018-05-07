@@ -1,0 +1,543 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'OAL Validation Scoped Access',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("0733a1ee-cccb-4acf-827c-c5db97efa8f0",
+	112,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'org.xtuml.bp.core::ooaofooa::Functions::OAL Validation Scoped Access');
+INSERT INTO DIM_DIA
+	VALUES ("0733a1ee-cccb-4acf-827c-c5db97efa8f0",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_add_segment',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  SegmentInfo newSegment = new SegmentInfo(p_Token, p_Segment_name, p_Current_rule_id, p_Upper_rule_id);
+  Segments.add(newSegment);
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("ddcfd045-da12-469b-bddc-1e964220b436",
+	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	'token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	"00000000-0000-0000-0000-000000000000",
+	'Token',
+	'Each node in the syntax tree has a token associated with it.
+We define the type here so that we can pass this data to the 
+verification functions, which then pass it on to error reporting 
+function, if the verification fails.
+Bridge:ALS',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("9516f47d-d7a7-459b-a7e0-eb7be2aa9ccd",
+	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	'segment_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"ddcfd045-da12-469b-bddc-1e964220b436",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c71c8355-8e95-4696-8ab1-8a60c717dd83",
+	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	'current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9516f47d-d7a7-459b-a7e0-eb7be2aa9ccd",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ab74dade-047a-4044-ae80-a8cd01b54e70",
+	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	'upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c71c8355-8e95-4696-8ab1-8a60c717dd83",
+	'');
+INSERT INTO PE_PE
+	VALUES ("0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7ae93584-44d7-4d7a-bb84-c44f35acef74",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_get_current_rule_id',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return Segments.get(p_Index).current_rule;
+',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("78f1132e-af3b-40e7-96a9-07263a9e4ea0",
+	"7ae93584-44d7-4d7a-bb84-c44f35acef74",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("7ae93584-44d7-4d7a-bb84-c44f35acef74",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6160da96-d011-4445-a88b-d8096049f247",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_get_segment_count',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return Segments.size();',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("6160da96-d011-4445-a88b-d8096049f247",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("059b456d-4466-42d2-8aa9-6ebc3e279752",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_get_upper_rule_id',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return Segments.get(p_Index).upper_rule;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("2ef3daf5-1104-473c-adc1-c08c4aaa2760",
+	"059b456d-4466-42d2-8aa9-6ebc3e279752",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("059b456d-4466-42d2-8aa9-6ebc3e279752",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6335c095-e718-44ea-bfc0-772d33ebd7f4",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_get_segment_name',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return Segments.get(p_Index).segmentName;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("2737caec-e8d9-4b4d-b9b9-765138b3831a",
+	"6335c095-e718-44ea-bfc0-772d33ebd7f4",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("6335c095-e718-44ea-bfc0-772d33ebd7f4",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("032b4990-bac4-43a0-81a8-7a41b0c3d43d",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_get_token',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return Segments.get(p_Index).token;',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("d19895f2-6e42-46e9-88ff-80822caee342",
+	"032b4990-bac4-43a0-81a8-7a41b0c3d43d",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("032b4990-bac4-43a0-81a8-7a41b0c3d43d",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a5ad53b5-431f-48ef-8660-f6c84c7bdb9e",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_reset',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  Segments.clear();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("a5ad53b5-431f-48ef-8660-f6c84c7bdb9e",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_validate_path_segment',
+	'ParserValidateFunction: TRUE',
+	'// The scoped_path rule allows segments that represent either EP_PKG, C_C, or system. 
+
+// This rule currently requires that the user start a path-spec with a
+// sys name. What follows is then one or more package names.
+
+// 1. Use the current_rule_id to see is we previously had a match, if we did, 
+//    we start from there and search "down"
+
+// if the current rule represents S_SYS then we expect a package at this point.
+select any system from instances of S_SYS
+                              where (selected.Sys_ID == param.a6_current_rule_id); 
+if(not_empty system)
+  // look for a direct package with the given name
+  select any package related by system->EP_PKG[R1401.''contains'']
+                                         where (selected.Name == param.a3_text);
+  if(not_empty package)
+    return package.Package_ID;
+  end if;
+  ERR::reportParseError( msg: 
+    "Cannot find package ->" + param.a3_text + "<- under system " + 
+    system.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
+end if;
+
+// if the current rule represents a package then we need to look for a nested package
+// or a component
+select any package from instances of EP_PKG
+                          where (selected.Package_ID == param.a6_current_rule_id);
+if(not_empty package)
+  select any subPackage related by package->PE_PE[R8000]->EP_PKG[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subPackage)
+    return subPackage.Package_ID;
+  end if;
+  // look for a sub component
+  select any subComponent related by package->PE_PE[R8000]->C_C[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subComponent)
+    return subComponent.Id;
+  end if;
+  ERR::reportParseError( msg: 
+    "Cannot find package or component ->" + param.a3_text + "<- under package " + 
+    package.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
+end if;
+
+// if the current rule represents a component then we need to look for either a nested 
+// component, or a package
+select any component from instances of C_C
+                                  where (selected.Id == param.a6_current_rule_id);
+if(not_empty component)
+  select any subPackage related by component->PE_PE[R8003]->EP_PKG[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subPackage)
+    return subPackage.Package_ID;
+  end if;
+  // look for a sub component
+  select any subComponent related by component->PE_PE[R8003]->C_C[R8001]
+                                         where (selected.Name == param.a3_text);
+  if(not_empty subComponent)
+    return subComponent.Id;
+  end if;
+
+  ERR::reportParseError( msg: 
+    "Cannot find path segment ->" + param.a3_text + "<- under component " + 
+    component.Name + " Token is: ->%s" + "<-", token: param.a1_rule_token );
+end if;
+
+
+
+//
+// 2.  Search for system by name
+//     If we get here and do not have a match then we expect this text string 
+
+
+// look to see if this is the S_SYS starting point
+select any system from instances of S_SYS where (selected.Name == param.a3_text);
+if(not_empty system)
+  return system.Sys_ID;
+end if;
+
+ERR::reportParseError( msg: 
+    "Cannot find system name ->" + param.a3_text + "<-  Token is: ->%s<- ",
+     token: param.a1_rule_token );  
+
+return param.a6_current_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("2c05c414-9c3c-4354-8721-2043831f5dce",
+	"fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("477dfff7-66d8-44bf-b440-bcbf292642b9",
+	"fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"2c05c414-9c3c-4354-8721-2043831f5dce",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ec9bafe4-6957-458f-a314-7884331bd369",
+	"fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"477dfff7-66d8-44bf-b440-bcbf292642b9",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a0962b84-3e0d-490d-a361-413172c18719",
+	"fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ec9bafe4-6957-458f-a314-7884331bd369",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("961b6042-7aeb-4ede-9911-d679ba6b0d11",
+	"fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a0962b84-3e0d-490d-a361-413172c18719",
+	'');
+INSERT INTO PE_PE
+	VALUES ("fa28fc58-a06a-44ca-96a1-672932c64ae2",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("961f539b-53ed-40b8-ac50-0c44a261af2d",
+	"00000000-0000-0000-0000-000000000000",
+	'scope_validate',
+	'ParserValidateFunction: TRUE',
+	'//TODO: Validate the full path_spec
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("961f539b-53ed-40b8-ac50-0c44a261af2d",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Functions',
+	'',
+	0,
+	'../Functions.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../../org.xtuml.bp.core.xtuml');
