@@ -25,6 +25,7 @@ import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -34,6 +35,7 @@ import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
@@ -41,6 +43,7 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProposalList_c;
@@ -246,6 +249,12 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( "InterfaceOperation_cClientServer", false, null, true );
             case Proposaltypes_c.OperationFromProvider:
                 return CorePlugin.getImageFor( "InterfaceOperation_cServerClient", false, null, true );
+            case Proposaltypes_c.SystemModel:
+                return CorePlugin.getImageFor( SystemModel_c.class );
+            case Proposaltypes_c.Package:
+                return CorePlugin.getImageFor( Package_c.class );
+            case Proposaltypes_c.Component:
+                return CorePlugin.getImageFor( Component_c.class );
             case Proposaltypes_c.Keyword:
                 return null;
             default:
