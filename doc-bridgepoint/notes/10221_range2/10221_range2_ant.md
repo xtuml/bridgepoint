@@ -32,7 +32,17 @@ Quoted from the issue:
 The reader should first be familiar with the analysis note [2.2] and
 implementation note [2.5] for issue 5005 [2.1].
 
-To scope issue 5005 [2.1], enforcement of range constraints
+To scope issue 5005 [2.1], enforcement of range constraints was deferred
+until after analysis had been performed.  Constraining types with ranges
+has been experimented and deployed in isolated situations in the xtUML
+Community.  This work has raised awareness of the depth and subtlety of
+the capability.  Varying strategies exist for range enforcement.  It is
+challenging to check ranges often enough but not too often.  It is easy
+to duplicate range checks.  Alternatives must be examined.
+
+This note provides an analysis of range enforcement in Verifier and model
+compilers.  The note identifies and recommends one enforcement strategy that
+is reasonable in the context of the architectures of Verifier and MC-3020.
 
 ### 4. Requirements
 
