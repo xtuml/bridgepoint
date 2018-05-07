@@ -72,18 +72,25 @@ b = ::f( rngi: ::f ( rngi:a ) );  // No check needed!
 d = a + ::f( rngi:a );  // Range needed on binary operation.
 ```
 
-5.1.2 Expression Parsing  
+5.1.2 Expression Parsing, Type Assignment and Conversions  
 The parser assigns the Data Type for the result of a binary operation.
 In the case of operations including both ranged and unranged operands,
-the parser must choose a result that is not ranged.
-
+the parser must assign a correct type to the result of the operation.
 To support enforcement of ranges in either Verifier or the model compilers,
-the parser must be doing correct type assignment.  This is a pre-requisite
-to correct behavior "down stream" in Verifier and MCs.
+the parser must be enhanced to provide correct type assignment in the presence
+of range-constrained types.  This is a pre-requisite to correct behavior
+"down stream" in Verifier and MCs.
 
-Inspection of prebuilder output seems to indicate that these type
+Inspection of current prebuilder output seems to indicate that these type
 assignments are not correct for expressions involving values based on
 types constrained with ranges.
+
+Rules must be established for the combination of ranged and unranged
+type values.  The OAL parser must be extended to correctly assign types
+when ranges are involved.  The following scenarios need clear rules:  
+- a ranged value combined through binary operation with a literal value  
+- combining two ranged values  
+- mixing ranged integers with ranged reals  
 
 5.1.3 Asymmetric Ranges  
 A range provides for a minimum and a maximum value.  These values are
@@ -93,15 +100,8 @@ only the minimum or only the maximum value linked to a type.  Therefore,
 enforcement shall deal with the possibility of checking values in only
 one "direction".
 
-5.1.4 Type Assignment and Conversions  
-Rules must be established for the combination of ranged and unranged
-type values.  The OAL parser must be extended to correctly assign types
-when ranges are involved.  The following scenarios need clear rules:  
-- ranged value combined through binary operation with literal value  
-- combining two ranged values  
-- mixing ranged integers with ranged reals  
 
-#### 5.2 Analyze and document enforcement in model compilers.  
+#### 5.2 Range Enforcement in MC-3020  
 
 5.2.1 R820  
 In MC-3020, Value (`V_VAL`) is the key class dealing with the dynamics of
@@ -209,7 +209,7 @@ subtypes of their bases would simplify the task.
 This work does not address index range checking which is a separate
 but similar topic.
 
-#### 5.3 Analyze and document enforcement in Verifier.  
+#### 5.3 Range Enforcement in Verifier  
 
 Execution and Translation are corrolary to each other.  Most of what is
 true about one is true about the other.  The model compiler _translates_
