@@ -83,22 +83,13 @@ only the minimum or only the maximum value linked to a type.  Therefore,
 enforcement shall deal with the possibility of checking values in only
 one "direction".
 
-5.1.4 Type Conversions  
-Rules need to be established for the combined of ranged and unranged
-type values.  The following scenarios need clear rules:  
-
-
-
-
-
-[CDS - pick up here]
-- immediate data does not change the type (range constraint)
-- adding ranged types results in ???
-
-
-
-
-
+5.1.4 Type Assignment and Conversions  
+Rules must be established for the combination of ranged and unranged
+type values.  The OAL parser must be extended to correctly assign types
+when ranges are involved.  The following scenarios need clear rules:  
+- ranged value combined through binary operation with literal value  
+- combining two ranged values  
+- mixing ranged integers with ranged reals  
 
 #### 5.2 Analyze and document enforcement in model compilers.  
 
@@ -156,6 +147,9 @@ Presently, MC-3020 does not support Enumerations as the base for User Data
 Types.  This support would need to be added to support ranges on UDTs based
 from Enumeration Data Types.  An issue [2.3] is raised to track this.  
 
+To support enumerators as range minimums and maximums, the values supplied
+in the user model needs to be converted to its code generation equivalent.
+
 5.2.3 Default Values  
 When the type of a variable is constrained with a Range, this must affect
 the default initial value.  When the attribute of a class is typed with a
@@ -169,6 +163,12 @@ Maximum and returns the value.  A function with this signature provides
 a means for the target value to be read exactly once.  Reading a value
 more than once may affect the behavior of the application when side effects
 from reading are present (as with some invocation values).
+
+Different signature `range_check` functions may be required for asymmetric
+ranges checking only Minimum or Maximum.  Different `range_check` functions
+may be needed for differently sized numeric types.  Casting may be required
+for the return value from the `range_check` function.  Consider generating
+a `range_check` function for each instance of Range in the application model.
 
 5.2.5 Exception Handling (User Callout)  
 When a range error is detected, control needs to be passed to the user.
@@ -244,8 +244,10 @@ to be compared to determine if range checking is required.
 
 5.3.2 User Interface and Configuration  
 When range constraints are present on types and applied to data elements
-in a model, Verifier will enforce them.  This checking will be enabled by
-default with no option to disable it.
+in a model, Verifier can enforce them.  Checking will be enabled by
+default.  A means to disable range checking must be supplied.  Consider
+accessing this setting in the same vicinity as instance population check
+configuration.
 
 5.3.3 Default Values  
 Just as in translation, when the attribute of a class is typed with a
@@ -265,7 +267,15 @@ mechanism based upon the existing instance population checks will be used.
 
 ### 6. Work Required
 
-TBD.
+6.1 Recommended Approach  
+It is recommended that range checking be performed as values move from
+storage location to storage location.  In the model compiler, this is
+from `Value (V_VAL)` to `Value (V_VAL)` and supported by type interrogation
+across `R820`.  In Verifier, this is `Runtime Value (RV_RVL)` to `Runtime
+Value (RV_RVL)` and supported by type interrogation across `R3307`.
+
+As a prerequisite, the parser must be enhanced in the area of type
+assignment for values constrained by ranges.
 
 ### 7. Acceptance Test
 
