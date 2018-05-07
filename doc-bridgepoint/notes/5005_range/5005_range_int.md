@@ -57,9 +57,9 @@ model is regenerated, pasted in, the referential integrity checker is
 itself regenerated and compiled.  `mcmc` is rebuilt according to the
 instructions in the `escher` gen folder.
 
-5.1.3 `xtumlmc_schema.sql`  
-The schema for the model compilers needs to have the new class (Range)
-and association.  The instructions for regenerating the schema are found
+5.1.3 `ooa_schema.sql` and `xtumlmc_schema.sql`  
+The schemata for MC-Java and the model compilers need to have the new class
+(Range) and association.  Instructions for regenerating the schema are found
 in `escher/gen/HOWTO Create MC-3020 HEAD branch.txt`.  This is regenerated.  
 
 5.1.4 `maslin` UDT  
@@ -239,7 +239,51 @@ this test is the same as the above [7.2.1] integer range test.
 <pre>
 _- Add User Data Type 'e'.  
 _- Set Type of 'e' to 'tube_wattage'.  
-All subsequent steps are the same as [7.2.1]
+7.2.3.1 Range Menu  
+_- Right-click on 'i' and navigate to Range  
+_R See Range --> Minimum... and Range --> Maximum...  
+_R Do NOT see Range --> Clear Range.  
+7.2.3.2 Setting Incorrect Enumeration Range Minimum  
+_- Right-click on 'e' and navigate to Range --> Minimum...  
+_R See empty input text box.  
+_- Set value in box to 0.1  
+_R See message that input is not valid.  
+_R See that OK button is not activated.  
+7.2.3.3 Setting Correct Enumeration Range Minimum  
+_- Set value in box to tube_wattage::low    
+_R See that OK button is activated.  
+_- Press OK.  
+7.2.3.4 Reading Existing Enumeration Range Minimum  
+_- Right-click on 'e' and navigate to Range --> Minimum...  
+_R See text box with value input from before (tube_wattage::low).  
+_R See value input from before (tube_wattage::low) on UDT on canvas.  
+_R See value input from before (tube_wattage::low) in Properties view.  
+7.2.3.5 Range Menu with Clear Range  
+_- Right-click on 'e' and navigate to Range  
+_R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
+7.2.3.6 Setting Incorrect Enumeration Range Maximum  
+_- Right-click on 'e' and navigate to Range --> Maximum...  
+_R See empty input text box.  
+_- Set value in box to 7.7  
+_R See message that input is not valid.  
+_R See that OK button is not activated.  
+7.2.3.7 Setting Correct Enumeration Range Maximum  
+_- Set value in box to tube_wattage::med_low  
+_R See that OK button is activated.  
+_- Press OK.  
+7.2.3.8 Reading Existing Enumeration Range Maximum  
+_- Right-click on 'e' and navigate to Range --> Maximum...  
+_R See text box with value input from before (tube_wattage::med_low).  
+_R See value input from before (tube_wattage::med_low) on UDT on canvas.  
+_R See value input from before (tube_wattage::med_low) in Properties view.  
+7.2.3.9 Clearing Enumeration Range  
+_- Right-click on 'e' and navigate to Range --> Clear Range  
+_R See Range --> Minimum... and Range --> Maximum...  
+_R Do NOT see Range --> Clear Range.  
+_- Right-click on 'e' and navigate to Range --> Minimum...  
+_R See empty input text box.  
+_- Right-click on 'e' and navigate to Range --> Maximum...  
+_R See empty input text box.  
 </pre>
 
 
@@ -255,39 +299,54 @@ xtUML Modeling Perspective --> Model Elements --> Data Types.
 <pre>
 Fork/Repository:  cortlandstarrett/bridgepoint
 Branch:  5005_range
- doc-bridgepoint/notes/5005_range/5005_range_int.md                                 |    297 +
+ doc-bridgepoint/notes/5005_range/5005_range_int.md                                 |    308 +
  doc-bridgepoint/process/Developer Getting Started Guide.md                         |      1 -
+ releng/org.xtuml.bp.mctools/pom.xml                                                |      4 +-
+ src/MC-Java/ooa_schema.sql                                                         |      6 +
  src/MC-Java/referential_attribute_util.inc                                         |      4 +-
  src/org.xtuml.bp.core/arc/create_core_plugin.inc                                   |      8 +
  src/org.xtuml.bp.core/arc/create_object_inspector.inc                              |      2 +-
+ src/org.xtuml.bp.core/generate.xml                                                 |      5 +-
+ src/org.xtuml.bp.core/icons/metadata/Range.gif                                     |    Bin 0 -> 336 bytes
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Domain.xtuml        |    250 +-
- src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Range/Range.xtuml   |    124 +
- src/org.xtuml.bp.core/sql/ooaofooa_hierarchy.pei.sql                               |      5 +
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeAction.java            |    150 +
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Range/Range.xtuml   |    136 +
+ .../models/org.xtuml.bp.core/ooaofooa/Domain/User Data Type/User Data Type.xtuml   |      7 +-
+ .../Functions/Context Menu Entry Functions/Context Menu Entry Functions.xtuml      |     27 +
+ src/org.xtuml.bp.core/sql/ooaofooa_hierarchy.pei.sql                               |      4 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/InputValueValidator.java        |     13 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/inspector/.gitignore                   |      1 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/RangeValueInputValidator.java       |     52 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeAction.java            |    114 +
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeContributionItem.java  |    123 +
- .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm   |    405 +-
- .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.md    |    237 +
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm   |    216 +-
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.md    |     84 +-
  .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/range_cme1.png        |    Bin 0 -> 118577 bytes
  .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/range_cme3.png        |    Bin 0 -> 72061 bytes
  src/org.xtuml.bp.io.mdl/sql/file_io.pei.sql                                        |      3 +-
  src/org.xtuml.bp.io.mdl/sql/stream.pei.sql                                         |      3 +-
+ src/org.xtuml.bp.ui.properties/arc/BuildPropertySource.arc                         |      2 +
+ src/org.xtuml.bp.ui.properties/generate.xml                                        |      2 +-
+ .../src/org/xtuml/bp/ui/properties/RangeValuePropertyDescriptor.java               |     70 +
  src/org.xtuml.bp.welcome/models/xtUML_Metamodel.xtuml                              | 560913 ++++++++++++++++++------------------
- 17 files changed, 282090 insertions(+), 280435 deletions(-)
+ 29 files changed, 282050 insertions(+), 280308 deletions(-)
 
 Fork/Repository:  cortlandstarrett/mc
 Branch:  5005_range
- bin/mac/mcmc                                               | Bin 1569800 -> 1570440 bytes
- bin/mcmc                                                   | Bin 2408744 -> 2409384 bytes
- bin/win/mcmc.exe                                           | Bin 1706557 -> 1707840 bytes
- model/escher/gen/ooaofooa.c                                |   2 +
- model/escher/gen/ooaofooa_c_orig                           |   2 +
+ arc/q.val.translate.arc                                    |  16 +----
+ bin/mac/mcmc                                               | Bin 1565704 -> 1570440 bytes
+ bin/mcmc                                                   | Bin 2374008 -> 2409384 bytes
+ bin/win/mcmc.exe                                           | Bin 1963200 -> 1707840 bytes
+ mcmc/arlan/o2.oal                                          |  16 +----
+ model/escher/gen/ooaofooa.c                                |  51 ++++-----------
+ model/escher/gen/ooaofooa_c_orig                           | 120 +++++++++++++++++------------------
+ model/escher/models/escher/mcmc/afunval/afunval.xtuml      |  16 +----
  model/integrity/models/integrity/integrity/integrity.xtuml |  34 ++++++++++
  model/maslin/gen/masl2xtuml_S_UDT_class.c                  |  18 ++++++
  model/mcooa/gen/ooa.txt                                    |  34 ++++++++++
  model/mcooa/models/mcooa/ooaofooa/Domain/Domain.xtuml      | 216 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
  model/mcooa/models/mcooa/ooaofooa/Domain/Range/Range.xtuml | 124 ++++++++++++++++++++++++++++++++++++
  schema/sql/xtumlmc_schema.sql                              |   6 ++
- 11 files changed, 430 insertions(+), 6 deletions(-)
+ 14 files changed, 502 insertions(+), 149 deletions(-)
 
 </pre>
 
