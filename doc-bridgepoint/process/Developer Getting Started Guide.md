@@ -28,7 +28,6 @@ Setup Instructions
     - https://github.com/xtuml/pt_antlr
     - https://github.com/xtuml/packaging
     - https://github.com/xtuml/models
-    - https://github.com/xtuml/packaging
     
   - [Download the latest BridgePoint Developer version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
   
