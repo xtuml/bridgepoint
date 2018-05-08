@@ -188,7 +188,7 @@ enumerations) types which is the case for this capability in BridgePoint.
 
 - Range data is stored in the model and can be made available to downstream
 model compilation tool chains.  
-- A **Minimum** and a **Maximum** range setting are supported.  
+- A **Minimum** and/or a **Maximum** range setting is supported.  
 Note that minimum and maximum range settings are _inclusive_, meaning
 that the minimum value of the range is the lowest legal value to be
 taken by an element linked to the ranged type.  The maximum value of
@@ -214,6 +214,11 @@ levels ending with 3 capabilities:
 navigate the context menu to the Minimum and Maximum values as
 when setting the values.  This displays the existing value setting.
 Range values also are displayed on the canvas and in the Properties view.
+
+- When changing the type of a User Data Type from integer to real or
+real to integer, the range minimum and maximum values are preserved
+but undergo type conversion.  When changing the type of a User Data
+Type to any other type, the range is deleted.
 
 ## Structured Data Types
 

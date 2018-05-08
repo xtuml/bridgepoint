@@ -23,14 +23,18 @@ Quoted from the issue:
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [5005](https://support.onefact.net/issues/5005) Ranges of data types  
-<a id="2.2"></a>2.2 [analysis note](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/5005_range/5005_range_ant.md) Ranges of data types  
+<a id="2.2"></a>2.2 [analysis note](5005_range_ant.md) Ranges of data types  
 <a id="2.3"></a>2.3 [10220](https://support.onefact.net/issues/10220) Support UDTs based on EDTs in MC-3020  
 <a id="2.4"></a>2.4 [10221](https://support.onefact.net/issues/10221) Analyze UDT range enforcement.  
 <a id="2.5"></a>2.5 [10230](https://support.onefact.net/issues/10230) Test UDT Range Editor  
+Note:  Only analysis and implementation notes for this issue.  
 
 ### 3. Background
 
 See [2.2].
+
+![Range Model](range2.png) Range and User Data Type
+
 
 ### 4. Requirements
 
@@ -44,7 +48,7 @@ A new class `Range (S_RANGE)` is added to the Domain package under ooaofooa.
 This class has a conditional one to one relationship according to the
 analysis note [2.2] for the issue [2.1].
 
-A range has minumum and maximum values.  These are added as attributes
+A range has minumum and/or maximum values.  These are added as attributes
 `Min` and `Max`.  The new attributes are typed as string to handle the
 full minumum and maximum values.  The UI handles validation with type
 determination (integer versus real).
@@ -84,22 +88,15 @@ Range` menu item will show only as long as one of the selected User Data
 Types has an already associated Range.
 
 The `Minimum...` and `Maximum...` menu items open an input dialog.  This
-dialog assures that the input value is valid.  In the case of integer the
-string value is parsed.  If a `NumberFormatException` is thrown, a message
-is given indicating an invalid entry.  In the case of a real, the value
-is parsed and the given real (float) is checked to be a number (`NaN`) and
-for infinite exceptions.  The same message is given for the invalid real.
+dialog assures that the input value is valid.  Validation of this field
+is done with the `InputValueValidator` class.  Messages are given when
+the input string is not valid.  The O.K. button is not enabled until a
+valid input value is supplied.
 
-5.2.2 Add range data to compare and persistence.  
-Three new entries are added to `ooaofooa_hierarchy.pei.sql` to cover
-external attributes for the UDT class.  An external attribute is used
-to display an attribute from another class under the one associated,
-in this case the Min and Max values from the Range class associated
-with the User Data Type.  This change allows the range values to show
-in compare.  Note, these are not available in the properties view.
-
-The `file_io.pei` and `stream.pei` data is modified to add a new child
-to User Data Type, Range.
+5.2.2 Add range data to compare and persistence.
+`T_TNS` and `T_TPS` are added so that Range shows up in the tree.
+The `file_io.pei` and `stream.pei` data is modified to add Range as
+a new child to User Data Type.
 
 5.3 Update Metamodel Welcome Project  
 Since the metamodel is changed, the example project is updated to follow

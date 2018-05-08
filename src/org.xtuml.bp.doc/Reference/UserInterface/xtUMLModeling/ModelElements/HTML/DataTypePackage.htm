@@ -68,7 +68,7 @@
 <ul>
 <li>Range data is stored in the model and can be made available to downstream model compilation tool chains.<br />
 </li>
-<li>A <strong>Minimum</strong> and a <strong>Maximum</strong> range setting are supported.<br />
+<li>A <strong>Minimum</strong> and/or a <strong>Maximum</strong> range setting is supported.<br />
 Note that minimum and maximum range settings are <em>inclusive</em>, meaning that the minimum value of the range is the lowest legal value to be taken by an element linked to the ranged type. The maximum value of the range is the maximum legal value.<br />
 </li>
 <li>A <strong>Minimum</strong> setting, <strong>Maximum</strong> setting or <strong>both</strong> settings can be supplied to define the range for the User Data Type.</li>
@@ -93,7 +93,8 @@ The 'Clear' menu item will show only when a Range has been established for the s
 <p class="caption">Range Maximum Setting</p>
 </div>
 <ul>
-<li>To view the range values for a selected User Data Type, simply navigate the context menu to the Minimum and Maximum values as when setting the values. This displays the existing value setting. Range values also are displayed on the canvas and in the Properties view.</li>
+<li><p>To view the range values for a selected User Data Type, simply navigate the context menu to the Minimum and Maximum values as when setting the values. This displays the existing value setting. Range values also are displayed on the canvas and in the Properties view.</p></li>
+<li><p>When changing the type of a User Data Type from integer to real or real to integer, the range minimum and maximum values are preserved but undergo type conversion. When changing the type of a User Data Type to any other type, the range is deleted.</p></li>
 </ul>
 <h2 id="structured-data-types">Structured Data Types</h2>
 <p>A structured data type (SDT) is a collection of structure members of various types. Structure members are accessed via the “.” operator. SDTs may be used as return values, parameters, or class attributes. Automatic (transient) variables become SDTs when initialized to a return value or variable whose type is an SDT. Only the assignment operation is valid on the SDT itself. The individual structure members may be operated on according to the valid operations for their respective types.</p>

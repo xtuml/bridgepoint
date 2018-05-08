@@ -28,9 +28,6 @@ public class RangeContributionItem extends ContributionItem {
 		boolean foundEdt = false;
 		NonRootModelElement[] selectedNonRootModelElements = Selection.getInstance().getSelectedNonRootModelElements();
 		for (NonRootModelElement selected : selectedNonRootModelElements) {
-			if (!(selected instanceof UserDataType_c)) {
-				validSelection = false;
-			}
 			if (selected instanceof UserDataType_c) {
 				UserDataType_c udt = (UserDataType_c) selected;
 				UUID coreTypeId = udt.Getcoretype();
@@ -54,13 +51,15 @@ public class RangeContributionItem extends ContributionItem {
 						canClear = true;
 					}
 				}
+			} else {
+				validSelection = false;
 			}
 		}
 		if(selectedNonRootModelElements.length == 0) {
 			return;
 		}
-		// do not allow mixing real and integer
-		if(foundInt && foundReal || foundReal && foundEdt) {
+		// do not allow mixing of real, integer or enumeration
+		if( (foundInt && foundReal) || (foundReal && foundEdt) || (foundEdt && foundInt) ) {
 			return;
 		}
 		if (validSelection) {
