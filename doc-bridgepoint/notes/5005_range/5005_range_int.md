@@ -26,6 +26,7 @@ Quoted from the issue:
 <a id="2.2"></a>2.2 [analysis note](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/5005_range/5005_range_ant.md) Ranges of data types  
 <a id="2.3"></a>2.3 [10220](https://support.onefact.net/issues/10220) Support UDTs based on EDTs in MC-3020  
 <a id="2.4"></a>2.4 [10221](https://support.onefact.net/issues/10221) Analyze UDT range enforcement.  
+<a id="2.5"></a>2.5 [10230](https://support.onefact.net/issues/10230) Test UDT Range Editor  
 
 ### 3. Background
 
@@ -41,7 +42,7 @@ See [2.2].
 5.1.1 Add Range Class  
 A new class `Range (S_RANGE)` is added to the Domain package under ooaofooa.
 This class has a conditional one to one relationship according to the
-analysis note [2.2] for [2.1].
+analysis note [2.2] for the issue [2.1].
 
 A range has minumum and maximum values.  These are added as attributes
 `Min` and `Max`.  The new attributes are typed as string to handle the
@@ -64,14 +65,14 @@ in `escher/gen/HOWTO Create MC-3020 HEAD branch.txt`.  This is regenerated.
 
 5.1.4 `maslin` UDT  
 `m2x` involves a hand-edited file in the `gen` folder of the `maslin`
-project.  `masl2xtuml_S_UDT_class.c` is modified to updated the identifiers
+project.  `masl2xtuml_S_UDT_class.c` is modified to update the identifiers
 of data types during the import process.  This hand-edited file needs to be
 refreshed because of the association across R57 to the new Range (`S_RANGE`)
 class.
 
 5.2 Update the editor.  
 5.2.1 UI Range configuration  
-A new menu along with three sub menus are added. These are:  
+A new menu with three entries is added.  These are:  
   * Range  
   * Range > Minimum...  
   * Range > Maximum...  
@@ -129,163 +130,7 @@ folder hierarchy).
 7.1 Existing unit test shall pass.
 
 7.2 Setting and Clearing Ranges  
-7.2.1 Integer Ranges  
-<pre>
-_- Import the Example Application MicrowaveOven example model from
-   Help --> Welcome --> QuickStart  
-_- Navigate to the 'Datatypes' package.  
-_- Add User Data Type 'i'.  
-_R Be sure type of 'i' is integer.  
-7.2.1.1 Range Menu  
-_- Right-click on 'i' and navigate to Range  
-_R See Range --> Minimum... and Range --> Maximum...  
-_R Do NOT see Range --> Clear Range.  
-7.2.1.2 Setting Incorrect Integer Range Minimum  
-_- Right-click on 'i' and navigate to Range --> Minimum...  
-_R See empty input text box.  
-_- Set value in box to 0.1  
-_R See message that input is not valid.  
-_R See that OK button is not activated.  
-7.2.1.3 Setting Correct Integer Range Minimum  
-_- Set value in box to 0  
-_R See that OK button is activated.  
-_- Press OK.  
-7.2.1.4 Reading Existing Integer Range Minimum  
-_- Right-click on 'i' and navigate to Range --> Minimum...  
-_R See text box with value input from before (0).  
-_R See value input from before (0) on UDT on canvas.  
-_R See value input from before (0) in Properties view.  
-7.2.1.5 Range Menu with Clear Range  
-_- Right-click on 'i' and navigate to Range  
-_R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
-7.2.1.6 Setting Incorrect Integer Range Maximum  
-_- Right-click on 'i' and navigate to Range --> Maximum...  
-_R See empty input text box.  
-_- Set value in box to 7.7  
-_R See message that input is not valid.  
-_R See that OK button is not activated.  
-7.2.1.7 Setting Correct Integer Range Maximum  
-_- Set value in box to 7  
-_R See that OK button is activated.  
-_- Press OK.  
-7.2.1.8 Reading Existing Integer Range Maximum  
-_- Right-click on 'i' and navigate to Range --> Maximum...  
-_R See text box with value input from before (7).  
-_R See value input from before (7) on UDT on canvas.  
-_R See value input from before (7) in Properties view.  
-7.2.1.9 Clearing Integer Range  
-_- Right-click on 'i' and navigate to Range --> Clear Range  
-_R See Range --> Minimum... and Range --> Maximum...  
-_R Do NOT see Range --> Clear Range.  
-_- Right-click on 'i' and navigate to Range --> Minimum...  
-_R See empty input text box.  
-_- Right-click on 'i' and navigate to Range --> Maximum...  
-_R See empty input text box.  
-</pre>
-
-7.2.2 Real Ranges  
-This test is exactly the same as the above [7.2.1] test except that
-decimal numbers are allowed in the input text boxes.  
-<pre>
-_- Navigate to the 'Datatypes' package.  
-_- Add User Data Type 'r'.  
-_- Set Type of 'r' to 'real'.  
-7.2.2.1 Range Menu  
-_- Right-click on 'r' and navigate to Range  
-_R See Range --> Minimum... and Range --> Maximum...  
-_R Do NOT see Range --> Clear Range.  
-7.2.2.2 Setting Incorrect Real Range Minimum  
-_- Right-click on 'r' and navigate to Range --> Minimum...  
-_R See empty input text box.  
-_- Set value in box to 'abc'.  
-_R See message that input is not valid.  
-_R See that OK button is not activated.  
-7.2.2.3 Setting Correct Real Range Minimum  
-_- Set value in box to 2.7  
-_R See that OK button is activated.  
-_- Press OK.  
-7.2.2.4 Reading Existing Real Range Minimum  
-_- Right-click on 'r' and navigate to Range --> Minimum...  
-_R See text box with value input from before (2.7).  
-7.2.2.5 Range Menu with Clear Range  
-_- Right-click on 'r' and navigate to Range  
-_R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
-7.2.2.6 Setting Incorrect Real Range Maximum  
-_- Right-click on 'r' and navigate to Range --> Maximum...  
-_R See empty input text box.  
-_- Set value in box to "dog"  
-_R See message that input is not valid.  
-_R See that OK button is not activated.  
-7.2.2.7 Setting Correct Real Range Maximum  
-_- Set value in box to 3.14  
-_R See that OK button is activated.  
-_- Press OK.  
-7.2.2.8 Reading Existing Real Range Maximum  
-_- Right-click on 'r' and navigate to Range --> Maximum...  
-_R See text box with value input from before (3.14).  
-7.2.2.9 Clearing Real Range  
-_- Right-click on 'r' and navigate to Range --> Clear Range  
-_R See Range --> Minimum... and Range --> Maximum...  
-_R Do NOT see Range --> Clear Range.  
-_- Right-click on 'r' and navigate to Range --> Minimum...  
-_R See empty input text box.  
-_- Right-click on 'r' and navigate to Range --> Maximum...  
-_R See empty input text box.  
-</pre>
-
-7.2.3 Enumeration Ranges  
-Enumerations can have integer range constraints.  Therefore,
-this test is the same as the above [7.2.1] integer range test.  
-<pre>
-_- Add User Data Type 'e'.  
-_- Set Type of 'e' to 'tube_wattage'.  
-7.2.3.1 Range Menu  
-_- Right-click on 'i' and navigate to Range  
-_R See Range --> Minimum... and Range --> Maximum...  
-_R Do NOT see Range --> Clear Range.  
-7.2.3.2 Setting Incorrect Enumeration Range Minimum  
-_- Right-click on 'e' and navigate to Range --> Minimum...  
-_R See empty input text box.  
-_- Set value in box to 0.1  
-_R See message that input is not valid.  
-_R See that OK button is not activated.  
-7.2.3.3 Setting Correct Enumeration Range Minimum  
-_- Set value in box to tube_wattage::low    
-_R See that OK button is activated.  
-_- Press OK.  
-7.2.3.4 Reading Existing Enumeration Range Minimum  
-_- Right-click on 'e' and navigate to Range --> Minimum...  
-_R See text box with value input from before (tube_wattage::low).  
-_R See value input from before (tube_wattage::low) on UDT on canvas.  
-_R See value input from before (tube_wattage::low) in Properties view.  
-7.2.3.5 Range Menu with Clear Range  
-_- Right-click on 'e' and navigate to Range  
-_R See Range --> Minimum... and Range --> Maximum... and Range --> Clear Range.  
-7.2.3.6 Setting Incorrect Enumeration Range Maximum  
-_- Right-click on 'e' and navigate to Range --> Maximum...  
-_R See empty input text box.  
-_- Set value in box to 7.7  
-_R See message that input is not valid.  
-_R See that OK button is not activated.  
-7.2.3.7 Setting Correct Enumeration Range Maximum  
-_- Set value in box to tube_wattage::med_low  
-_R See that OK button is activated.  
-_- Press OK.  
-7.2.3.8 Reading Existing Enumeration Range Maximum  
-_- Right-click on 'e' and navigate to Range --> Maximum...  
-_R See text box with value input from before (tube_wattage::med_low).  
-_R See value input from before (tube_wattage::med_low) on UDT on canvas.  
-_R See value input from before (tube_wattage::med_low) in Properties view.  
-7.2.3.9 Clearing Enumeration Range  
-_- Right-click on 'e' and navigate to Range --> Clear Range  
-_R See Range --> Minimum... and Range --> Maximum...  
-_R Do NOT see Range --> Clear Range.  
-_- Right-click on 'e' and navigate to Range --> Minimum...  
-_R See empty input text box.  
-_- Right-click on 'e' and navigate to Range --> Maximum...  
-_R See empty input text box.  
-</pre>
-
+Run the QA Manual test in [2.5].
 
 ### 8. User Documentation
 
