@@ -22,10 +22,10 @@ Quoted from the issue:
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [5005](https://support.onefact.net/issues/5005) Ranges of data types  
-<a id="2.2"></a>2.2 [analysis note](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/5005_range/5005_range_ant.md) Ranges of data types  
+<a id="2.2"></a>2.2 [analysis note](../5005_range/5005_range_ant.md) Ranges of data types  
 <a id="2.3"></a>2.3 [10220](https://support.onefact.net/issues/10220) Support UDTs based on EDTs in MC-3020  
 <a id="2.4"></a>2.4 [10221](https://support.onefact.net/issues/10221) Analyze UDT range enforcement.  
-<a id="2.5"></a>2.5 [implementation note](https://github.com/xtuml/bridgepoint/doc-bridgepoint/notes/5005_range/5005_range_int.md) Ranges of data types  
+<a id="2.5"></a>2.5 [implementation note](../5005_range/5005_range_int.md) Ranges of data types  
 <a id="2.6"></a>2.6 [Date and Darwen](http://www.thethirdmanifesto.com/) The Third Manifesto  
 
 ### 3. Background
