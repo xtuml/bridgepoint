@@ -86,7 +86,7 @@ INSERT INTO T_TNS VALUES (79, '', 'CL_IR',  '', 'Name', '', 'Imported Required I
 INSERT INTO T_TNS VALUES (80, '', 'SQ_COP', '', 'Label', '', 'Component Participants', false);
 INSERT INTO T_TNS VALUES (81, '', 'EP_PKG', '', 'Label', '', 'Packages', false);
 INSERT INTO T_TNS VALUES (82, '', 'CNST_CSP', '', 'Name', '', 'Constant Specifications', false);
-INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', false);
+INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', true);
 INSERT INTO T_TNS VALUES (85, '', 'CL_POR',  '', 'Name', '', 'Port Reference', false);
 INSERT INTO T_TNS VALUES (86, '', 'S_EXP', '', 'Name', '', 'Exceptions', false);
 
