@@ -9,7 +9,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ### 1. Abstract
 
-Quoted from the issue:  
+Quoted from the issue (5005 [2.1]):  
 >It would be very powerful to be able to define min and max values for
 >data types, of core integer and real types.  Initially it could be
 >enough only to add the data into the model and store them in the
@@ -66,7 +66,40 @@ types is desirable.
 
 ### 4. Requirements
 
-See [2.2].
+The following requirements come from [2.2].  Requirements 4.6 and 4.7
+precipitate this analysis note.
+
+4.1 Range data shall be stored in the metamodel.  
+4.2 A minimum setting shall be supported.  
+4.3 A maximum setting shall be supported.  
+Note that minimum and maximum range settings are `inclusive`, meaning
+that the minimum value of the range is the lowest legal value to be
+taken by an element linked to the ranged type.  The maximum value of
+the range is the maximum legal value.  
+4.4 Support ranges on User Defined Types (`S_UDT`).  
+4.5 The ability to establish ranges shall be supplied by the editor
+user interface.  
+4.6 Range constraints shall be analyzed in a note for Verifer.  
+4.7 Range constraints shall be analyzed in a note for MC-3020.  
+
+The following requirements serve as additional input to this analysis.
+These come from assumptions made by the analyst and are made explicit
+here for clarity.
+
+4.8 Range constraint enforcement shall be analyzed for the BridgePoint
+xtUML editor.  
+Changes to the editor may be required beyond those that simply allow the
+definition of a range.  In particular, the OAL parser must be analyzed.  
+4.9 Configuration of Range Enforcement  
+For each of Verifier and the model compilers, stategies and means of
+configuring range checking shall be identified.  Configuration must
+include enabling and disabling the run-time checks.  
+4.10 Detection of Range Violation  
+For each of Verifier and the model compilers, stategies and means of
+detecting range violations shall be identified.  
+4.11 Reporting of Range Violation  
+For each of Verifier and the model compilers, stategies and means of
+reporting range violations to the user shall be identified.  
 
 ### 5. Analysis
 
@@ -87,14 +120,14 @@ d = a;  // range check not necessary
 
 // unary and binary operations
 a = -a;  // Negation causes type promotion, check needed.
-b = a + 1;  // ranged value bop non-ranged value, check necessary
+b = a + 1;  // ranged value binary op non-ranged value, check necessary
 c = a + b;  // a and b promoted, result demoted, check necessary
 
 // actual parameters
-a = ::f( rngi:7 );  // Check is needed on actual parameter.
+a = ::f( rngi:7 );  // f returns rngi.  Check needed on actual parameter 7.
 a = ::f( rngi:a );  // no check needed on actual parameter
 b = ::f( rngi: ::f ( rngi:a ) );  // No check needed!
-d = a + ::f( rngi:a );  // Range needed on binary operation.
+d = a + ::f( rngi:a );  // Range needed on assignment.
 ```
 
 5.1.2 Expression Parsing, Type Assignment and Conversions  
@@ -123,7 +156,7 @@ are based on types at a higher level in the Data Type model hierarchy.
 This can be used in a general sense to manage type 'promotion' and
 'demotion'.  Type promotion involves converting a value from a more
 constrained type to a less constrained type higher in the type hierarchy.
-Type demotion is just the opposite and involves converting a value from a
+Type demotion is just the opposite and involves converting a value 
 to a more constrained type lower in the type hierarchy.
 
 In general, the type of a value is promoted when it is being combined with
@@ -132,8 +165,17 @@ when a value typed with a type higher in the model of Data Type is
 assigned to a value typed with a more constrained type.  Demotion is
 exactly where range checking needs to occur.
 
+Note that constrained types may or may not support combination using
+arithmetic operators.  Ranged types based from integer and real do not
+support arithmetic like their parent types do.  Thus, when two ranged
+types are combined in a binary operation, the types of the operands must
+first be promoted (at least logically), and the result is the promoted
+type (common parent in the type hierarchy).  This implies that two values
+linked to the same ranged type produce a result of a promoted type
+when combined with addition, subtraction, etc.
+
 5.1.3 Asymmetric Ranges  
-A range provides for a minimum and a maximum value.  These values are
+A range provides for a minimum and/or a maximum value.  These values are
 stored in the metamodel as string data.  An empty minimum or empty maximum
 is a legal possibility.  It is considered valid for a range to constrain
 only the minimum or only the maximum value linked to a type.  Therefore,
@@ -167,32 +209,35 @@ A value moves from one value to another during assignment.  A value
 moves from the right-hand side value (rval) to the left-hand side value
 (lval) across the assignment operator ('=').  The lval receives the rval.  
 
-In the case of immediate data, constants and enumerators, a range check is
+In the case of immediate data, constants, and enumerators, a range check is
 always necessary before assignment.  Literal values are typed with core
 native types very high in the hierarchy of the model of Data Type.  There
 may exist situations where a variable is being assigned that has been
-previously constrained.  As described above, type comparisons can be
-used to determine when range checking is not necessary.
+previously constrained.  As described above, type comparisons are used
+to determine when range checking is necessary.
 
 5.2.1.2 Binary Operation  
 When two values are combined with an operator, a new value is produced.  The
 result value type is discovered across R820 as are the value types for the
-left-hand operand and the right-hand operation.  The parser will have
+left-hand operand and the right-hand operand.  The parser will have
 determined the type for the result.  If the type is constrained with a
 range, the model compiler shall enforce it.
 
 5.2.1.3 Numeric Unary Operations  
 A negation of a ranged type value results in a type promotion.  This can
 put a range-constrained value out of range.  Therefore, range checking is
-required on negation of values typed with ranged UDTs.
+required on negation of values typed with ranged UDTs in the context of
+an assigment or parameter passing.
 
 5.2.1.4 Actual Parameters (`V_PAR`)  
+An actual parameter (instance of `V_PAR`) is logically similar to an assignment.
 Actual parameters can be immediate or other values not strictly typed to
 match the typed parameters defined on the function (or operation, message,
 event, etc.).  The type of the actual parameter value is known, and the
 type expected as parameter to the invocation is also known.  When the type
 of the actual parameter is not the same as the type expected on the
-signature of the callable activity, range checking needs to be employed.
+signature of the callable activity and when demotion is occuring, range
+checking needs to be employed.
 
 5.2.2 Enumeration User Data Type Support  
 Presently, MC-3020 does not support Enumerations as the base for User Data
@@ -203,10 +248,11 @@ To support enumerators as range minimums and maximums, the values supplied
 in the user model needs to be converted to its code generation equivalent.
 
 5.2.3 Default Values  
-When the type of a variable is constrained with a Range, this must affect
+When the type of a variable is constrained with a Range, this may affect
 the default initial value.  When the attribute of a class is typed with a
 type that includes a Range, the attribute must be initialized correctly
-upon creation of the instance.
+upon creation of the instance.  Clear rules about unitialized default
+values must be established for attributes linked to ranged types.
 
 5.2.4 `range_check` Function  
 A function is required to be inserted when range checks are needed in
@@ -222,7 +268,10 @@ functions may be needed for differently sized numeric types.  Casting may
 be required for the return value from the `range_check` function.
 A `range_check` function may be generated for each instance of Range in
 the application model and based on the requirement for demotion in the
-body of action language.
+body of action language.  Multiple different range checking functions for
+the same Range may be required if demotion occurs from different types.
+This would result in different types for the input parameter(s) to the
+`range_check` functions.
 
 5.2.5 Exception Handling (User Callout)  
 When a range error is detected, control needs to be passed to the user.
@@ -233,9 +282,13 @@ already exist several user callout functions for exceptions such as
 running out of instance, event or timer elements, empty handle usage, etc.
 A new callout is to be introduced for range errors.
 
-5.2.6 Alternate Approaches  
+5.2.6 Marking  
+Marks will be needed to enable and disable run-time range checking in the
+generated code.
 
-5.2.6.1 MC Metamodel Translation Extensions Extensions  
+5.2.7 Alternate Approaches  
+
+5.2.7.1 MC Metamodel Translation Extensions Extensions  
 Consideration may be given to adding Range minimum and maximum attributes
 to `TE_DT` and/or `TE_PAR`.  There may be ways to carry data that tracks
 checking the value for range.  Perhaps `TE_VAL` could have a range
@@ -243,13 +296,13 @@ checking field.  This way, the range could be kept separate from the value
 and thus range checking only applied when moving or changing to a new
 value.
 
-5.2.6.2 Type System  
+5.2.7.2 Type System  
 An updated type system would make the work for range checking easier.
 A portion of what is needed involves understanding compatibility and
 convertibility (for promotion and demotion).  A hierarchical type system
 where ranged types are subtypes of their bases would simplify the task.
 
-5.2.6.3 Array Index Range  
+5.2.7.3 Array Index Range  
 This work does not address index range checking which is a separate
 but similar topic.
 
@@ -272,7 +325,7 @@ information in the runtime instances of an executing model.  `R3307` links
 a Runtime Value to a Data Type (`S_DT`).  This Data Type leads to the Range
 (`S_RANGE`) that may be linked to the constrained User Data Type.  
 
-5.3.1.1 Assignment Statement
+5.3.1.1 Assignment Statement  
 Like in the model compiler, data moves from one value to another during
 assignment.  When moving unranged data from the right side of the assignment
 operator (`=`) to the left side, range checking shall be done.  It is also
@@ -286,23 +339,24 @@ The parser will supply a correct type to the result value.
 
 5.3.1.3 Numeric Unary Operations  
 During interpretation, the Verifier moves a runtime value from a single
-operand to a result operand.  Promotion and demotion are involved.  Range
-checking must occur.
+operand to a result.  Promotion occurs.  Demotion can occur in the context
+of assignment and parameter passing and precipitates the need for range
+checking.
 
 5.3.1.4 Actual Parameters  
 Passing values in Verifier involves placing them into a modeled stack
 frame before control is passed to the called function, operation, message,
 event or bridge.  An actual parameter has a type, and the parameter in the
 signature of the callable action body has a type.  As in translation,
-these two types need to be compared to determine if range checking is
-required.
+these two types need to be compared to determine if demotion occurs and
+thus range checking is required.
 
 5.3.2 User Interface and Configuration  
 When range constraints are present on types and applied to data elements
 in a model, Verifier can enforce them.  Checking will be enabled by
-default.  A means to disable range checking must be supplied.  Consider
-accessing this setting in the same vicinity as instance population check
-configuration.
+default.  A means to disable range checking must be supplied.  Consideration
+shall be given to accessing this setting in the same vicinity as instance
+population check configuration.
 
 5.3.3 Default Values  
 Just as in translation, when the attribute of a class is typed with a
@@ -323,17 +377,44 @@ mechanism based upon the existing instance population checks will be used.
 ### 6. Work Required
 
 6.1 Recommended Approach  
+
+
+6.1 Verifier  
 It is recommended that range checking be performed as values move from
-storage location to storage location.  In the model compiler, this is
-from `Value (V_VAL)` to `Value (V_VAL)` and supported by type interrogation
-across `R820`.  In Verifier, this is `Runtime Value (RV_RVL)` to `Runtime
-Value (RV_RVL)` and supported by type interrogation across `R3307`.
+storage location to storage location.  In Verifier, this is `Runtime Value
+(RV_RVL)` to `Runtime Value (RV_RVL)` and supported by type interrogation
+across `R3307`.
 
-As a prerequisite, the parser must be enhanced in the area of type
-assignment for values constrained by ranges.
+6.2 MC-3020  
+It is recommended that range checking be performed as values move from
+storage location to storage location.  In the model compiler, this is from
+`Value (V_VAL)` to `Value (V_VAL)` and supported by type interrogation
+across `R820`.
 
-### 7. Acceptance Test
+6.3 Editor  
+As a prerequisite to supporting range enforcement in execution, the parser
+must be enhanced in the area of type assignment for values constrained by
+ranges.  The type system must be considered, and type assignments made
+in light of promotion and demotion and factoring in supported arithmetic
+operators.
 
-TBD.
+6.9 Configuration of Range Enforcement  
+6.9.1 In the Verifier, it is recommended that the user interface provide
+switches for enabling and disabling range checking.  
+6.9.2 In MC-3020, marking should be supplied that enables and/or disables
+range enforcement capability.
+
+6.10 Detection of Range Violation  
+6.10.1 For the Verifier, the interpreter will be extended to conditionally
+check ranges when such checking is enabled.  
+6.10.2 For the model compilers, it is recommended that code be generated in
+line which calls range checking functions to detect range violation.  
+
+6.11 Reporting of Range Violation  
+6.11.1 For the Verifier, the interpreter will report range violations to
+the Console much the same way it reports instance check violations today.  
+6.11.2 For the model compilers, a user callout function should ve invoked
+when a range check violation occurs.  Reporting can be done with print
+statements or user code in the callout.  
 
 ### End
