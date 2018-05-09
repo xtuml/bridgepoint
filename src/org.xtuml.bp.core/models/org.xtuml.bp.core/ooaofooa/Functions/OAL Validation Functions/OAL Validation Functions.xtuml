@@ -11404,8 +11404,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_data_type_validate',
 	'ParserValidateFunction: TRUE',
-	'if (::scope_get_segment_count() > 0) 
-    ::scope_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
+	'if (::scopedsegment_size() > 0)
+    ::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
 	  current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
   return param.a6_current_rule_id; 
 end if;
@@ -11605,8 +11605,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_member_validate',
 	'ParserValidateFunction: TRUE',
-	'if (::scope_get_segment_count() > 0) 
-     ::scope_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
+	'if (::scopedsegment_size() > 0) 
+     ::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
 	  current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
   return param.a6_current_rule_id; 
 end if;
@@ -24220,8 +24220,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_access_validate',
 	'ParserValidateFunction: TRUE',
-	'if (::scope_get_segment_count() > 0) 
-  ::scope_validate();
+	'if (::scopedsegment_size() > 0) 
+  return ::scopedmatches_validate(); 
 end if;
 return param.a6_current_rule_id;
 
@@ -38775,7 +38775,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_segment_validate',
 	'ParserValidateFunction: TRUE',
-	'::scope_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
+	'::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
 	current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
 
 return param.a6_current_rule_id;
@@ -38901,7 +38901,8 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_start',
 	'ParserValidateFunction: TRUE',
-	'::scope_reset();
+	'::scopedsegment_reset();
+::scopedmatches_reset();
 return param.a1_ruleid_name;
 ',
 	"ba5eda7a-def5-0000-0000-000000000005",

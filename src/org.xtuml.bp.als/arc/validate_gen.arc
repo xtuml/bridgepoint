@@ -79,6 +79,7 @@
 package ${package.result}.${lang_name.result};
 
 import java.util.ArrayList;
+import java.util.List;
 
 import antlr.RecognitionException;
 import antlr.Token;
@@ -97,29 +98,46 @@ public class ${java_class} {
   private NonRootModelElement m_nrme = null;
   private boolean contentAssistEnabled;
 
-  private ArrayList<SegmentInfo> Segments = new ArrayList<SegmentInfo>();
+  private ArrayList<ScopedSegment> scopedSegments = new ArrayList<ScopedSegment>();
+  private ArrayList<ScopedMatch> scopedMatches = new ArrayList<ScopedMatch>();
 
-  class SegmentInfo {
-	Token token;
-	String segmentName;
-	java.util.UUID current_rule;
-	java.util.UUID upper_rule;
-		
-	/**
-	 * Prevent no-arg constructor
-	 */
-	private SegmentInfo() {			
-	}
-		
-	// Only used by the outer class
-	SegmentInfo(Token tok, String name, java.util.UUID currentRule, java.util.UUID upperRule) {
-		token = tok;
-		segmentName = name;
-		current_rule = currentRule;
-		upper_rule = upperRule;
-	}
+  class ScopedSegment {
+  	Token token;
+  	String segmentName;
+  	java.util.UUID current_rule;
+  	java.util.UUID upper_rule;
+  		
+  	/**
+  	 * Prevent no-arg constructor
+  	 */
+  	private ScopedSegment() {			
+  	}
+  		
+  	// Only used by the outer class
+  	ScopedSegment(Token tok, String name, java.util.UUID currentRule, java.util.UUID upperRule) {
+  		token = tok;
+  		segmentName = name;
+  		current_rule = currentRule;
+  		upper_rule = upperRule;
+  	}
   }
 
+  class ScopedMatch {
+    java.util.UUID matchID;
+    int elementType;
+      
+    /**
+     * Prevent no-arg constructor
+     */
+    private ScopedMatch() {     
+    }
+      
+    // Only used by the outer class
+    ScopedMatch(java.util.UUID pMatchID, int type) {
+      this.matchID = pMatchID;
+      this.elementType = type;
+    }
+  }
   
   public ${java_class}(NonRootModelElement nrme) {
     Self = this;
