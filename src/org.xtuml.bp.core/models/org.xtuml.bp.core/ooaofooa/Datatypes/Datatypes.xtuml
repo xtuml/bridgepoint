@@ -2076,6 +2076,12 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"f5362500-c998-4d73-a5e9-9782e9de872e");
+INSERT INTO S_ENUM
+	VALUES ("25e9da6e-b263-4b05-a8f2-8b865f634b73",
+	'ConstantSpecification',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"c84cdd88-8aac-479b-8222-774ad284a7d7");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

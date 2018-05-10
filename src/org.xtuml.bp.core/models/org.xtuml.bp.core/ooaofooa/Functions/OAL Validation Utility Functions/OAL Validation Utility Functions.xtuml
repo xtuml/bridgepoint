@@ -8918,6 +8918,52 @@ if ( not_empty act )
     new_item.needs_space = true;
     list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
+
+  // propose packages for qualifying types
+  if not_empty c_c
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  else
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  end if;
+  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty ep_pkg
+    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many ep_pkgs related by results->EP_PKG[R8001];
+  for each ep_pkg in ep_pkgs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Package;
+    new_item.display_text = ep_pkg.Name;
+    new_item.replacement_text = ep_pkg.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+  // propose components for qualifying types
+  if not_empty c_c
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  else
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  end if;
+  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::COMPONENT ); 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty ep_pkg
+    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::COMPONENT ); 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many c_cs related by results->C_C[R8001];
+  for each c_c in c_cs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Component;
+    new_item.display_text = c_c.Name;
+    new_item.replacement_text = c_c.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
   
   // get keyword proposals
   i = 0;

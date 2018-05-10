@@ -36378,158 +36378,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	"00000000-0000-0000-0000-000000000000",
-	'Scoped_access_tok_doublecolon_content_assist',
-	'ParserValidateFunction: TRUE',
-	'act_id = ::get_current_context();
-select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-if ( not_empty act )
-  line = ::getLineNumber( rule_token:param.a1_rule_token );
-  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-  select one list related by act->P_PL[R1603];
-  if ( not_empty list )
-    if ( ( list.line != line ) or ( list.col != col ) )
-      list.dispose();
-      create object instance list of P_PL;
-      list.line = line;
-      list.col = col;
-      relate list to act across R1603;
-    end if;
-  else
-    create object instance list of P_PL;
-    list.line = line;
-    list.col = col;
-    relate list to act across R1603;
-  end if;
-
-  // get the EDT and/or constant specification
-  dt_text = "";
-  select any s_edt from instances of S_EDT where ( selected.DT_ID == param.b2_scoped_data_type1_id );
-  select any cnst_csp from instances of CNST_CSP where ( selected.Constant_Spec_ID == param.b2_scoped_data_type1_id );
-  if ( not_empty s_edt )
-    select one s_dt related by s_edt->S_DT[R17];
-    dt_text = s_dt.Name;
-    in_generic_package = act.associateWithContainer();
-    select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
-    select one c_c related by containing_pe->C_C[R8001];
-    select one ep_pkg related by containing_pe->EP_PKG[R8001];
-    if not_empty c_c
-      c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-    else
-      ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-    end if;
-    select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CONSTANT ); 
-    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-    if not_empty ep_pkg
-      select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::CONSTANT ); 
-      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-    end if;
-    select any cnst_csp related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == s_dt.Name );
-  end if;
-  if ( not_empty cnst_csp )
-    dt_text = cnst_csp.InformalGroupName;
-  end if;
-  
-  // enumerator proposals
-  select many s_enums related by s_edt->S_ENUM[R27];
-  for each s_enum in s_enums
-    create object instance  new_item of P_P;
-    new_item.type = ProposalTypes::Enumerator;
-    new_item.display_text = s_enum.Name;
-    new_item.replacement_text = new_item.display_text;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    list.addProposal( Proposal_ID:new_item.Proposal_ID );
-  end for;
-  
-  // constant proposals
-  select many cnst_sycs related by cnst_csp->CNST_SYC[R1504];
-  for each cnst_syc in cnst_sycs
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Constant;
-    new_item.display_text = cnst_syc.Name;
-    new_item.replacement_text = cnst_syc.Name;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    list.addProposal( Proposal_ID:new_item.Proposal_ID );
-  end for;
-  
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("e2ea5db2-ed5c-4e88-9e95-9eca6ccb4f42",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("c911d0e1-706b-4280-9e1a-f3796acd6a51",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a2_upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"e2ea5db2-ed5c-4e88-9e95-9eca6ccb4f42",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("6b33f598-cc27-4b4a-b8e6-78e5184f96c6",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a3_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"c911d0e1-706b-4280-9e1a-f3796acd6a51",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("b7595a6b-2120-4f72-906f-cc731a4779b8",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a4_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"6b33f598-cc27-4b4a-b8e6-78e5184f96c6",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("1a4e4d5e-9c67-4f74-af57-6281b0260b48",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b1_scoped_path1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"b7595a6b-2120-4f72-906f-cc731a4779b8",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("515f0495-7a02-4ebd-9fc0-52ea70ae1e56",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b2_scoped_data_type1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"1a4e4d5e-9c67-4f74-af57-6281b0260b48",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("adeefd68-fbd6-450d-8861-783363558659",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b3_scoped_member1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"515f0495-7a02-4ebd-9fc0-52ea70ae1e56",
-	'');
-INSERT INTO PE_PE
-	VALUES ("d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("683f2729-f1f8-4acd-b28d-3e10d0f14b36",
 	"00000000-0000-0000-0000-000000000000",
 	'Rval_begin2_content_assist',
@@ -39058,39 +38906,124 @@ if ( not_empty act )
   // path segments cannot be validated until _after_ the next segment appears (which is
   // too late for content assist). Consequently, content assist has to do some work to
   // parse the next package based on token text _before_ the validation code does the work.
-  
-  // get the passed instance
-  select any root_s_sys from instances of S_SYS where selected.Sys_ID == param.a4_rule_id;
-  select any root_ep_pkg from instances of EP_PKG where selected.Package_ID == param.a4_rule_id;
-  select any root_c_c from instances of C_C where selected.Id == param.a4_rule_id;
+  // Practically, this means the scoped segment cache contains all but the last segment. The
+  // last segment is contained in the lookahead token text.
 
-  select any s_sys from instances of S_SYS where false;
-  select any ep_pkg from instances of EP_PKG where false;
-  select any c_c from instances of C_C where false;
+  // make sure that we have the containing C_C or EP_PKG instance for searching
+  in_generic_package = act.associateWithContainer();
+  select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
+  select one containing_c_c related by containing_pe->C_C[R8001];
+  select one containing_ep_pkg related by containing_pe->EP_PKG[R8001];
   
-  // get the next segment
-  token_text = ::getText( rule_token:param.a1_rule_token );
-  if ( not_empty root_s_sys )
-    select any ep_pkg related by root_s_sys->EP_PKG[R1401] where ( selected.Name == token_text );
-  elif ( not_empty root_ep_pkg )
-    select any c_c related by root_ep_pkg->PE_PE[R8000]->C_C[R8001] where ( selected.Name == token_text );
-    if ( empty c_c )
-      select any ep_pkg related by root_ep_pkg->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == token_text );
+  // initialize an empty set of matched elements
+  select many matched_elements from instances of PE_PE where false;
+  select many matched_systems from instances of S_SYS where false;  // system models are special because they are not a PE_PE
+  
+  i = 0;
+  while ( i <= ::scopedsegment_size() )
+
+    // get the current segment name
+    segment_name = "";
+    if ( i == ::scopedsegment_size() )
+      segment_name = ::getText( rule_token:param.a1_rule_token ); // for the last segment, we use the current lookahead token
+    else
+      segment_name = ::scopedsegment_get_segment_name( index:i );
     end if;
-  elif ( not_empty root_c_c )
-    select any ep_pkg related by root_c_c->PE_PE[R8003]->EP_PKG[R8001] where ( selected.Name == token_text );
-    if ( empty ep_pkg )
-      select any c_c related by root_c_c->PE_PE[R8003]->C_C[R8001] where ( selected.Name == token_text );
+    
+    if ( i == 0 ) // for the very first segment, we have to do a blind search
+
+      // seach for systems
+      // Using a trick here to search for visible system models by searching for visible packages
+      // and then navigating back to the system model instance set
+      if not_empty containing_c_c
+        containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      else
+        containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      end if;
+      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+      if not_empty containing_ep_pkg
+        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      end if;
+      select many matched_systems related by results->EP_PKG[R8001]->S_SYS[R1405] where ( selected.Name == segment_name );
+
+      // search for packages
+      if not_empty containing_c_c
+        containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      else
+        containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      end if;
+      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::PACKAGE ); 
+      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+      if not_empty containing_ep_pkg
+        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::PACKAGE ); 
+        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      end if;
+      matched_elements = matched_elements + results;
+
+      // search for components
+      if not_empty containing_c_c
+        containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::COMPONENT, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      else
+        containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      end if;
+      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::COMPONENT ); 
+      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+      if not_empty containing_ep_pkg
+        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::COMPONENT ); 
+        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      end if;
+      matched_elements = matched_elements + results;
+
+    else // for following segments, we have search down the containment chain
+      
+      // get the next level through containment relationships
+      select many c_c_to_c_cs related by matched_elements->C_C[R8001]->PE_PE[R8003]->C_C[R8001] where ( selected.Name == segment_name );
+      select many c_c_to_ep_pkgs related by matched_elements->C_C[R8001]->PE_PE[R8003]->EP_PKG[R8001] where ( selected.Name == segment_name );
+      select many ep_pkg_to_c_cs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->C_C[R8001] where ( selected.Name == segment_name );
+      select many ep_pkg_to_ep_pkgs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == segment_name );
+
+      // consolidate the results
+      all_c_cs = c_c_to_c_cs | ep_pkg_to_c_cs;
+      all_ep_pkgs = c_c_to_ep_pkgs | ep_pkg_to_ep_pkgs;
+      
+      select many all_s_edts from instances of S_DT where false;
+      select many all_cnst_csps from instances of CNST_CSP where false;
+      
+      if ( i == 1 ) // for the second segment, we must consider if we started at a system
+        select many s_sys_to_ep_pkgs related by matched_systems->EP_PKG[R1401] where ( selected.Name == segment_name );
+        all_ep_pkgs = all_ep_pkgs | s_sys_to_ep_pkgs;
+        select many matched_systems from instances of S_SYS where false;  // clear out matched systems after this to avoid false positives
+      end if;
+
+      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT or constant specification
+        select many c_c_to_s_edts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
+        select many ep_pkg_to_s_edts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
+        all_s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
+        all_cnst_csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
+      end if;
+      
+      // fill the matched elements set
+      select many c_c_pes related by all_c_cs->PE_PE[R8001];
+      select many ep_pkg_pes related by all_ep_pkgs->PE_PE[R8001];
+      select many s_edt_pes related by all_s_edts->PE_PE[R8001];
+      select many cnst_csp_pes related by all_cnst_csps->PE_PE[R8001];
+      matched_elements = c_c_pes | ep_pkg_pes | s_edt_pes | cnst_csp_pes;
+
     end if;
-  else
-    select any s_sys from instances of S_SYS where ( selected.Name == token_text );
-  end if;
+    
+    i = i + 1;
+
+  end while;
   
   // create component proposals
-  select many pkg_c_cs related by ep_pkg->PE_PE[R8000]->C_C[R8001];
-  select many comp_c_cs related by c_c->PE_PE[R8003]->C_C[R8001];
-  c_cs = pkg_c_cs | comp_c_cs;
-  for each proposal_c_c in c_cs
+  select many c_c_to_c_cs related by matched_elements->C_C[R8001]->PE_PE[R8003]->C_C[R8001];
+  select many ep_pkg_to_c_cs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->C_C[R8001];
+  proposal_c_cs = c_c_to_c_cs | ep_pkg_to_c_cs;
+  for each proposal_c_c in proposal_c_cs 
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Component;
     new_item.display_text = proposal_c_c.Name;
@@ -39101,15 +39034,67 @@ if ( not_empty act )
   end for;
 
   // create package proposals
-  select many sys_pkgs related by s_sys->EP_PKG[R1401];
-  select many pkg_pkgs related by ep_pkg->PE_PE[R8000]->EP_PKG[R8001];
-  select many comp_pkgs related by c_c->PE_PE[R8003]->EP_PKG[R8001];
-  pkgs = sys_pkgs | pkg_pkgs | comp_pkgs;
-  for each proposal_pkg in pkgs
+  select many c_c_to_ep_pkgs related by matched_elements->C_C[R8001]->PE_PE[R8003]->EP_PKG[R8001];
+  select many ep_pkg_to_ep_pkgs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->EP_PKG[R8001];
+  select many s_sys_to_ep_pkgs related by matched_systems->EP_PKG[R1401];
+  proposal_ep_pkgs = c_c_to_ep_pkgs | ep_pkg_to_ep_pkgs | s_sys_to_ep_pkgs;
+  for each proposal_pkg in proposal_ep_pkgs
     create object instance new_item of P_P;
     new_item.type = ProposalTypes::Package;
     new_item.display_text = proposal_pkg.Name;
     new_item.replacement_text = "::" + proposal_pkg.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // create EDT proposals
+  select many c_c_to_s_edts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
+  select many ep_pkg_to_s_edts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
+  proposal_s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
+  for each proposal_s_edt in proposal_s_edts
+    create object instance  new_item of P_P;
+    new_item.type = ProposalTypes::EDT;
+    new_item.display_text = proposal_s_edt.Name;
+    new_item.replacement_text = "::" + new_item.display_text + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+  // create constant specification proposals
+  select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001];
+  select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001];
+  proposal_cnst_csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
+  for each proposal_cnst_csp in proposal_cnst_csps
+    create object instance  new_item of P_P;
+    new_item.type = ProposalTypes::ConstantSpecification;
+    new_item.display_text = proposal_cnst_csp.InformalGroupName;
+    new_item.replacement_text = "::" + new_item.display_text + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // enumerator proposals
+  select many s_enums related by matched_elements->S_DT[R8001]->S_EDT[R17]->S_ENUM[R27];
+  for each s_enum in s_enums
+    create object instance  new_item of P_P;
+    new_item.type = ProposalTypes::Enumerator;
+    new_item.display_text = s_enum.Name;
+    new_item.replacement_text = "::" + new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // create constant proposals
+  select many cnst_sycs related by matched_elements->CNST_CSP[R8001]->CNST_SYC[R1504];
+  for each cnst_syc in cnst_sycs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Constant;
+    new_item.display_text = cnst_syc.Name;
+    new_item.replacement_text = "::" + cnst_syc.Name;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
     list.addProposal( Proposal_ID:new_item.Proposal_ID );

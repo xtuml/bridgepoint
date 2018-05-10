@@ -26,6 +26,7 @@ import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -255,6 +256,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( Package_c.class );
             case Proposaltypes_c.Component:
                 return CorePlugin.getImageFor( Component_c.class );
+            case Proposaltypes_c.ConstantSpecification:
+                return CorePlugin.getImageFor( ConstantSpecification_c.class );
             case Proposaltypes_c.Keyword:
                 return null;
             default:
