@@ -4555,6 +4555,46 @@ INSERT INTO DIM_DIA
 	722.000000,
 	842.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Packageable Element>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	0,
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'Packageable Element',
+	8000,
+	'PE_PE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Packageable Element/Packageable Element.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	1,
+	"61c0aa15-d896-4feb-9c48-5e3f1af4e670",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Packageable Element>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	1,
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO PE_PE
+	VALUES ("dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	1,
+	"61c0aa15-d896-4feb-9c48-5e3f1af4e670",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("bdadf54a-a2f0-4ba1-9637-3105dc588733");
 INSERT INTO R_REL
@@ -4619,14 +4659,6 @@ INSERT INTO R_OIR
 	"bdadf54a-a2f0-4ba1-9637-3105dc588733",
 	"2eb0c842-138a-4a9e-bf17-ca224ec7ed96",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	'Packageable Element',
-	8000,
-	'PE_PE',
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'./Packageable Element/Packageable Element.xtuml');
 INSERT INTO PE_PE
 	VALUES ("bdadf54a-a2f0-4ba1-9637-3105dc588733",
 	1,
