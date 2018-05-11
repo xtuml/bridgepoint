@@ -1,0 +1,88 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	'Instance Reference Data Type',
+	103,
+	'S_IRDT',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"81539ca8-c1fe-4de6-82fd-cde4909d8472",
+	"27b9215b-ff07-4192-9a1a-e0ef993e6480",
+	"b8efc5b7-e2dc-47e8-82af-fdcaca9a2be5",
+	"96f96c33-40a3-46a5-b717-5956b5e062b0",
+	"397d2a89-624a-45d2-b458-bdd1ca337d4e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R17');
+INSERT INTO R_RGO_PROXY
+	VALUES ("91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	"81539ca8-c1fe-4de6-82fd-cde4909d8472",
+	"27b9215b-ff07-4192-9a1a-e0ef993e6480",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"81539ca8-c1fe-4de6-82fd-cde4909d8472",
+	"b8efc5b7-e2dc-47e8-82af-fdcaca9a2be5",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("96f96c33-40a3-46a5-b717-5956b5e062b0",
+	"91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	1,
+	'DT_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	'../Data Type/Data Type.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("96f96c33-40a3-46a5-b717-5956b5e062b0",
+	"91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	"00000000-0000-0000-0000-000000000000",
+	'DT_ID',
+	'',
+	'',
+	'DT_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58");
+INSERT INTO O_OIDA
+	VALUES ("96f96c33-40a3-46a5-b717-5956b5e062b0",
+	"91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	0,
+	'DT_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58");
+INSERT INTO O_ID
+	VALUES (2,
+	"91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58");
+INSERT INTO PE_PE
+	VALUES ("91720f30-a7d4-4d4a-8f6c-c7b2e6b25b58",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
+	'BNF',
+	'',
+	1,
+	'../BNF.xtuml');

@@ -38908,117 +38908,34 @@ if ( not_empty act )
   // parse the next package based on token text _before_ the validation code does the work.
   // Practically, this means the scoped segment cache contains all but the last segment. The
   // last segment is contained in the lookahead token text.
-
-  // make sure that we have the containing C_C or EP_PKG instance for searching
-  in_generic_package = act.associateWithContainer();
-  select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
-  select one containing_c_c related by containing_pe->C_C[R8001];
-  select one containing_ep_pkg related by containing_pe->EP_PKG[R8001];
   
-  // initialize an empty set of matched elements
-  select many matched_elements from instances of PE_PE where false;
-  select many matched_systems from instances of S_SYS where false;  // system models are special because they are not a PE_PE
+  lookahead_text = ::getText( rule_token:param.a1_rule_token );
+  matched_elements = ::scopedmatches_collectScopedMatches_1( lookaheadText: lookahead_text );
   
-  i = 0;
-  while ( i <= ::scopedsegment_size() )
-
-    // get the current segment name
-    segment_name = "";
-    if ( i == ::scopedsegment_size() )
-      segment_name = ::getText( rule_token:param.a1_rule_token ); // for the last segment, we use the current lookahead token
+  // if there is only one segment, the match might be a system
+  select many matched_systems from instances of S_SYS where false;
+  if ( 0 == ::scopedsegment_size() )
+    // seach for systems
+    // Using a trick here to search for visible system models by searching for visible packages
+    // and then navigating back to the system model instance set
+    in_generic_package = act.associateWithContainer();
+    select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
+    select one containing_c_c related by containing_pe->C_C[R8001];
+    select one containing_ep_pkg related by containing_pe->EP_PKG[R8001];
+    if not_empty containing_c_c
+      containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
     else
-      segment_name = ::scopedsegment_get_segment_name( index:i );
+      containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
     end if;
-    
-    if ( i == 0 ) // for the very first segment, we have to do a blind search
-
-      // seach for systems
-      // Using a trick here to search for visible system models by searching for visible packages
-      // and then navigating back to the system model instance set
-      if not_empty containing_c_c
-        containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-      else
-        containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-      end if;
-      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
-      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-      if not_empty containing_ep_pkg
-        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
-        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-      end if;
-      select many matched_systems related by results->EP_PKG[R8001]->S_SYS[R1405] where ( selected.Name == segment_name );
-
-      // search for packages
-      if not_empty containing_c_c
-        containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-      else
-        containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-      end if;
-      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::PACKAGE ); 
-      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-      if not_empty containing_ep_pkg
-        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::PACKAGE ); 
-        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-      end if;
-      matched_elements = matched_elements + results;
-
-      // search for components
-      if not_empty containing_c_c
-        containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::COMPONENT, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-      else
-        containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-      end if;
-      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::COMPONENT ); 
-      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-      if not_empty containing_ep_pkg
-        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::COMPONENT ); 
-        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-      end if;
-      matched_elements = matched_elements + results;
-
-    else // for following segments, we have search down the containment chain
-      
-      // get the next level through containment relationships
-      select many c_c_to_c_cs related by matched_elements->C_C[R8001]->PE_PE[R8003]->C_C[R8001] where ( selected.Name == segment_name );
-      select many c_c_to_ep_pkgs related by matched_elements->C_C[R8001]->PE_PE[R8003]->EP_PKG[R8001] where ( selected.Name == segment_name );
-      select many ep_pkg_to_c_cs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->C_C[R8001] where ( selected.Name == segment_name );
-      select many ep_pkg_to_ep_pkgs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == segment_name );
-
-      // consolidate the results
-      all_c_cs = c_c_to_c_cs | ep_pkg_to_c_cs;
-      all_ep_pkgs = c_c_to_ep_pkgs | ep_pkg_to_ep_pkgs;
-      
-      select many all_s_edts from instances of S_DT where false;
-      select many all_cnst_csps from instances of CNST_CSP where false;
-      
-      if ( i == 1 ) // for the second segment, we must consider if we started at a system
-        select many s_sys_to_ep_pkgs related by matched_systems->EP_PKG[R1401] where ( selected.Name == segment_name );
-        all_ep_pkgs = all_ep_pkgs | s_sys_to_ep_pkgs;
-        select many matched_systems from instances of S_SYS where false;  // clear out matched systems after this to avoid false positives
-      end if;
-
-      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT or constant specification
-        select many c_c_to_s_edts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
-        select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
-        select many ep_pkg_to_s_edts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
-        select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
-        all_s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
-        all_cnst_csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
-      end if;
-      
-      // fill the matched elements set
-      select many c_c_pes related by all_c_cs->PE_PE[R8001];
-      select many ep_pkg_pes related by all_ep_pkgs->PE_PE[R8001];
-      select many s_edt_pes related by all_s_edts->PE_PE[R8001];
-      select many cnst_csp_pes related by all_cnst_csps->PE_PE[R8001];
-      matched_elements = c_c_pes | ep_pkg_pes | s_edt_pes | cnst_csp_pes;
-
+    select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty containing_ep_pkg
+      select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
     end if;
-    
-    i = i + 1;
+    select many matched_systems related by results->EP_PKG[R8001]->S_SYS[R1405] where ( selected.Name == lookahead_text );
+  end if;
 
-  end while;
-  
   // create component proposals
   select many c_c_to_c_cs related by matched_elements->C_C[R8001]->PE_PE[R8003]->C_C[R8001];
   select many ep_pkg_to_c_cs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->C_C[R8001];
