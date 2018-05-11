@@ -11404,12 +11404,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_data_type_validate',
 	'ParserValidateFunction: TRUE',
-	'if (::scopedsegment_size() > 0)
-    ::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
-	  current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
-  return param.a6_current_rule_id; 
-end if;
-current_scope = ::get_current_scope();
+	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
 containerFoundorCreated = body.associateWithContainer();
@@ -11417,33 +11412,80 @@ if containerFoundorCreated
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
+  
+  select many edts from instances of  S_EDT where false;
+  select many udts from instances of  S_UDT where false;
+  select many csps from instances of  CNST_CSP where false;
 
-  // Check for Enumeration match for token
-  if not_empty component
-    component.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::DATATYPE,
-                          originatingContainerID:component.Id,
-                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+  if ( 0 == ::scopedsegment_size() ) // reference is not scoped, must do blind search
+    // Check for Enumeration match for token
+    if not_empty component
+      component.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::DATATYPE,
+                            originatingContainerID:component.Id,
+                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    else
+      package.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::DATATYPE, descending:false,
+                             originatingContainerID:package.Package_ID,
+                                            delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    end if;
+    select any resultSet related by component->PE_CRS[R8007] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::DATATYPE; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::DATATYPE; 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many edts related by results->S_DT[R8001]->S_EDT[R17];
+    select many udts related by results->S_DT[R8001]->S_UDT[R17];
+
+    // Check for a Constant Specification match for token
+    if not_empty component
+      component.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::CONSTANT,
+                            originatingContainerID:component.Id,
+                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    else
+      package.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::CONSTANT, descending:false,
+                             originatingContainerID:package.Package_ID,
+                                            delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    end if;
+    select any resultSet related by component->PE_CRS[R8007] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::CONSTANT; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::CONSTANT; 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
   else
-    package.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::DATATYPE, descending:false,
-                           originatingContainerID:package.Package_ID,
-                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+    
+    // get containers that match the path
+    matched_containers = ::scopedmatches_collect( lookaheadText:"", validate:true );
+
+    select many c_c_to_s_dts related by matched_containers->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    select many ep_pkg_to_s_dts related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    s_dts = c_c_to_s_dts | ep_pkg_to_s_dts;
+    select many edts related by s_dts->S_EDT[R17];
+
+    select many c_c_to_cnst_csps related by matched_containers->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
+    select many ep_pkg_to_cnst_csps related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
+    csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
+    
   end if;
-  select any resultSet related by component->PE_CRS[R8007] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::DATATYPE; 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty package
-    select any pkgResultSet related by package->PE_SRS[R8005] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::DATATYPE; 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many edts related by results->S_DT[R8001]->S_EDT[R17];
-  select many udts related by results->S_DT[R8001]->S_UDT[R17];
+
   UDTCount = 0;
   for each udt in udts
     baseId = udt.getCoreType();
@@ -11455,34 +11497,10 @@ if containerFoundorCreated
       end if;
     end if;
   end for;
+
   EDTCount = cardinality edts;
   EDTCount = EDTCount + UDTCount;
 
-  // Check for a Constant Specification match for token
-  if not_empty component
-    component.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::CONSTANT,
-                          originatingContainerID:component.Id,
-                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
-  else
-    package.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::CONSTANT, descending:false,
-                           originatingContainerID:package.Package_ID,
-                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
-  end if;
-  select any resultSet related by component->PE_CRS[R8007] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::CONSTANT; 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty package
-    select any pkgResultSet related by package->PE_SRS[R8005] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::CONSTANT; 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
   CSPCount = cardinality csps;
   TOTALCount = CSPCount + EDTCount;
   if TOTALCount == 0
@@ -11605,12 +11623,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_member_validate',
 	'ParserValidateFunction: TRUE',
-	'if (::scopedsegment_size() > 0) 
-     ::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
-	  current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
-  return param.a6_current_rule_id; 
-end if;
-select any pe from instances of PE_PE where selected.Element_ID ==
+	'select any pe from instances of PE_PE where selected.Element_ID ==
                                                        param.a6_current_rule_id;
 select one edt related by pe->S_DT[R8001]->S_EDT[R17];
 if(empty edt)
@@ -24220,119 +24233,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_access_validate',
 	'ParserValidateFunction: TRUE',
-	'if (::scopedsegment_size() > 0) 
-  return ::scopedmatches_validate(); 
-end if;
-return param.a6_current_rule_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-',
+	'return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -38623,11 +38524,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_path_segment_validate',
 	'ParserValidateFunction: TRUE',
-	'::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text, 
-	current_rule_id:param.a6_current_rule_id, upper_rule_id:param.a5_upper_rule_id);
-
-return param.a6_current_rule_id;
-',
+	'return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -38750,7 +38647,6 @@ INSERT INTO S_SYNC
 	'Scoped_path_start',
 	'ParserValidateFunction: TRUE',
 	'::scopedsegment_reset();
-::scopedmatches_reset();
 return param.a1_ruleid_name;
 ',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -38910,7 +38806,7 @@ if ( not_empty act )
   // last segment is contained in the lookahead token text.
   
   lookahead_text = ::getText( rule_token:param.a1_rule_token );
-  matched_elements = ::scopedmatches_collectScopedMatches_1( lookaheadText: lookahead_text );
+  matched_elements = ::scopedmatches_collect( lookaheadText: lookahead_text, validate:false );
   
   // if there is only one segment, the match might be a system
   select many matched_systems from instances of S_SYS where false;
@@ -39069,6 +38965,154 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_name_validate',
+	'ParserValidateFunction: TRUE',
+	'::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text );
+return param.a6_current_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("7d974d44-a75a-4b24-9c95-539a7e14c71b",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("94b650cf-a376-4dfd-83f7-2690d198f1b2",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"7d974d44-a75a-4b24-9c95-539a7e14c71b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ff88cb15-6c82-4413-95fa-4521a690b473",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"94b650cf-a376-4dfd-83f7-2690d198f1b2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6db8f27c-15c6-4961-a03f-0d0f5012980b",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ff88cb15-6c82-4413-95fa-4521a690b473",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("22dde921-a866-4104-b719-10a76d24a94a",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6db8f27c-15c6-4961-a03f-0d0f5012980b",
+	'');
+INSERT INTO PE_PE
+	VALUES ("db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("822a20b6-f288-49e8-a135-95ed3589f2f8",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_start',
+	'ParserValidateFunction: TRUE',
+	'return param.a1_ruleid_name;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("8ad4ab4f-ebed-48c9-9741-7626666bfb1e",
+	"822a20b6-f288-49e8-a135-95ed3589f2f8",
+	'a1_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("822a20b6-f288-49e8-a135-95ed3589f2f8",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e2a98593-0290-4973-b7c6-f9b86c595613",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_end',
+	'ParserValidateFunction: TRUE',
+	'return param.a4_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("75a2de4a-768f-4b51-a81b-7ee00ee90cb2",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("72bc3ffc-45fa-4675-844c-e22da7a6cc8b",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"75a2de4a-768f-4b51-a81b-7ee00ee90cb2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("71367ee6-a542-40e4-8095-e91c71dd8b99",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"72bc3ffc-45fa-4675-844c-e22da7a6cc8b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8491b879-6972-4d74-8fcf-a86a3b72086e",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"71367ee6-a542-40e4-8095-e91c71dd8b99",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("da851d7d-765a-491a-99e0-edcd390bf0af",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'b1_scoped_path_segment_name1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"8491b879-6972-4d74-8fcf-a86a3b72086e",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e2a98593-0290-4973-b7c6-f9b86c595613",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",

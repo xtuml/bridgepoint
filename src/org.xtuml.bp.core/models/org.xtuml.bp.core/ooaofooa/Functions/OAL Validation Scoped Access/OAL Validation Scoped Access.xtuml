@@ -41,7 +41,7 @@ INSERT INTO S_SYNC
 ParserUtilityFunction: TRUE
 
 Translate: native',
-	'  ScopedSegment newSegment = new ScopedSegment(p_Token, p_Segment_name, p_Current_rule_id, p_Upper_rule_id);
+	'  ScopedSegment newSegment = new ScopedSegment(p_Token, p_Segment_name);
   scopedSegments.add(newSegment);
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -76,24 +76,6 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"ddcfd045-da12-469b-bddc-1e964220b436",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("c71c8355-8e95-4696-8ab1-8a60c717dd83",
-	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
-	'current_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"9516f47d-d7a7-459b-a7e0-eb7be2aa9ccd",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("ab74dade-047a-4044-ae80-a8cd01b54e70",
-	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
-	'upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"c71c8355-8e95-4696-8ab1-8a60c717dd83",
 	'');
 INSERT INTO PE_PE
 	VALUES ("0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
@@ -168,438 +150,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("961f539b-53ed-40b8-ac50-0c44a261af2d",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_validate',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE',
-	'
-// Display somebasic info about the cache
-::scope_tracelog( index:-1, message:"");
-
-numSegementsWithDataType = ::scopedsegment_size();
-numPathSegments = numSegementsWithDataType-2;
-
-select any currentPackage from instances of EP_PKG
-                          where (selected.Package_ID == GD::NULL_UNIQUE_ID());                          
-select any currentComponent from instances of C_C
-                          where (selected.Id == GD::NULL_UNIQUE_ID());
-                          
-                          
-// Check for the possibility that a system name was specified.
-//
-// If a path segment contains a system name, that system name will always be followed
-// by at least 1 Package name. 
-if (numPathSegments > 1)
- 
-  /// check for system. There would not be more than 1 system with the given name, so 
-  // here we just get "any"
-  tempSysName = ::scopedsegment_get_segment_name( index:0 );
-  select any system from instances of S_SYS
-                              where (selected.Name ==  tempSysName); 
-  if (not_empty system)
-     ::scope_tracelog( index:0, message:"Found a S_SYS for: " + 
-     						::scopedsegment_get_segment_name( index:0 ));
-     
-     if (numPathSegments > 1)
-       // Since we did find a s_sys, for this possible path we know that the next 
-       // piece of this scoped_path may be a package 
-       // again we can use an "any" because we know it will be a package, and we know 
-       // there will be only 1 with this name.     
-       tempPkgName = ::scopedsegment_get_segment_name( index:1);
-       select any currentPackage related by system->EP_PKG[R1401.''contains'']
-                                         where (selected.Name ==  tempPkgName);
-       if (not_empty currentPackage)
-         ::scope_tracelog( index:1, message:"Found a EP_PKG : " + 
-     						::scopedsegment_get_segment_name( index:1 ) + 
-     						"under S_SYS " + system.Name);
-         // find matches under this system-level package, if any exist
-         ::scopedmatches_collectScopedMatches( nextName: currentPackage.Name, nextSegmentIndex:1, 
-         					nextPkgID:currentPackage.Package_ID, nextComponentID: GD::NULL_UNIQUE_ID());         
-       else
-         ::scope_tracelog( index:1, message:"Unable to find a EP_PKG : " + 
-     						::scopedsegment_get_segment_name( index:1 ) + 
-     						"under S_SYS " + system.Name + ".  No viable alternative under S_SYS.");
-       end if;
-     end if;
-  end if;               
-end if;
-
-// Note that if there was a possible match of S_SYS, it was handled above, so at this point
-// we are looking at segment 0 as a package or a component, and we have to look everywhere.
-::scopedmatches_collectScopedMatches( nextName: ::scopedsegment_get_segment_name( index:0), nextSegmentIndex:-1, 
-         					nextPkgID:GD::NULL_UNIQUE_ID(), nextComponentID: GD::NULL_UNIQUE_ID());
-         					
-// Now determine the result         					
-if (::scopedmatches_size() == 1)
-   ::scope_tracelog( index:(numSegementsWithDataType -  1), message:"::scopedmatches_validate is returning a match. " );
-  return ::scopedmatches_getID(index:0);
-elif (::scopedmatches_size() > 1)
-  ERR::reportParseError( msg: "Duplicates were found. Add more detail to the path.",
-          token: ::scopedsegment_get_token( index:(numSegementsWithDataType -  1) ) );
-end if;
-
-ERR::reportParseError( msg: "Unable to find a matching enumeration or constant in the specified path->%s<-",
-          token: ::scopedsegment_get_token( index:(numSegementsWithDataType -  1) ) );
-return GD::NULL_UNIQUE_ID();',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	1,
-	'',
-	0);
-INSERT INTO PE_PE
-	VALUES ("961f539b-53ed-40b8-ac50-0c44a261af2d",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("7cf65602-4350-4725-a012-780f117dfa4c",
-	"00000000-0000-0000-0000-000000000000",
-	'scope_tracelog',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-',
-	'numSegementsWithDataType = ::scopedsegment_size();
-numPathSegments = numSegementsWithDataType-2;
-
-// Dump some general information about the scope cache
-if (param.index == -1)
-  USER::logInfo( msg:"Scope cache element count: " + GD::int_to_string( value:numSegementsWithDataType) ); 
-  
-  i = 0;
-  while i < numPathSegments
-    USER::logInfo( msg:"Path Segment: " + ::scopedsegment_get_segment_name( index:(i) ) ); 
-    i = i + 1;
-  end while;
-  USER::logInfo( msg:"TypeName: " + ::scopedsegment_get_segment_name( index:(numPathSegments) ) ); 
-  USER::logInfo( msg:"TypeValue: " + ::scopedsegment_get_segment_name( index:(numPathSegments+1) ) ); 
-else
-  if (param.index > (numSegementsWithDataType-1))
-    USER::logInfo( msg:"Error! Specified scope index is out of bounds. Index of Last Cache Element: " + 
-    	GD::int_to_string( value:(numSegementsWithDataType-1)) + " Index specified: " +  
-    	GD::int_to_string( value:param.index));     
-  else
-    USER::logInfo( msg: (param.message + " Index: " + GD::int_to_string( value:param.index))  );     
-  end if;
-end if;
-
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("23ee51d4-fe8b-4106-91d8-a0718d071dbf",
-	"7cf65602-4350-4725-a012-780f117dfa4c",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("0d1f7040-3879-44d3-8afe-cc527b98f57a",
-	"7cf65602-4350-4725-a012-780f117dfa4c",
-	'message',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"23ee51d4-fe8b-4106-91d8-a0718d071dbf",
-	'');
-INSERT INTO PE_PE
-	VALUES ("7cf65602-4350-4725-a012-780f117dfa4c",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("2a7c0a11-8d9d-4ada-9caa-56773fd561e6",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_collectScopedMatches',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE',
-	'numSegementsWithDataType = ::scopedsegment_size();
-numPathSegments = numSegementsWithDataType - 2;
-segmentIndex = param.nextSegmentIndex;
-
-
-select any nextPackage from instances of EP_PKG where (selected.Package_ID == param.nextPkgID);
-select any nextComponent from instances of C_C where (selected.Id == param.nextComponentID);
-
-current_scope = ::get_current_scope();
-select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
-select one body related by block->ACT_ACT[R612];
-containerFoundorCreated = body.associateWithContainer();
-select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
-
-if (segmentIndex < numPathSegments)
-  select many nextPackages from instances of EP_PKG where (selected.Package_ID == GD::NULL_UNIQUE_ID());
-  select many nextComponents from instances of C_C where (selected.Id == GD::NULL_UNIQUE_ID());
-  currentSegmentName = ::scopedsegment_get_segment_name( index:segmentIndex );
-  
-  if (not_empty nextPackage) 
-    select many nextPackages related by nextPackage->PE_PE[R8000]->EP_PKG[R8001]
-                          where (selected.Name == currentSegmentName);
-    select many nextComponents related by nextPackage->PE_PE[R8000]->C_C[R8001]
-                                         where (selected.Name == currentSegmentName);
-  elif (not_empty nextComponent) 
-    select many nextPackages related by nextComponent->PE_PE[R8003]->EP_PKG[R8001]
-                          where (selected.Name == currentSegmentName);
-    select many nextComponents related by nextComponent->PE_PE[R8003]->C_C[R8001]
-                                         where (selected.Name == currentSegmentName);
-  else
-    select many nextPackages from instances of EP_PKG 
-    				where (selected.Name == currentSegmentName);
-    select many nextComponents from instances of C_C 
-    				where (selected.Name == currentSegmentName);
-  end if;
-  
-  for each tempPkg in nextPackages   
-    hasVisibility = containingElem.isElementVisibleToSelf( type: ElementTypeConstants::PACKAGE, elementId: tempPkg.Package_ID );    
-    if (hasVisibility)
-      ::scopedmatches_collectScopedMatches( nextName:tempPkg.Name, 
-  					nextSegmentIndex: segmentIndex+1, 
-  					nextPkgID:tempPkg.Package_ID,
-  					nextComponentID: GD::NULL_UNIQUE_ID());
-    end if;
-  end for;
-  for each tempComponent in nextComponents
-    hasVisibility = containingElem.isElementVisibleToSelf( type: ElementTypeConstants::COMPONENT, elementId: tempComponent.Id );    
-    if (hasVisibility)
-      ::scopedmatches_collectScopedMatches( nextName:tempComponent.Name, 
-  					nextSegmentIndex: segmentIndex+1, 
-  					nextPkgID: GD::NULL_UNIQUE_ID(), 
-  					nextComponentID: tempComponent.Id);
-  	end if;
-  end for;
-  return;
-else
-  select any currentPackage from instances of EP_PKG where (selected.Package_ID == param.nextPkgID);
-  if (not_empty currentPackage)
-	
-	  typeName = ::scopedsegment_get_segment_name( index:(numPathSegments));
-      lastSegmentIndex = numPathSegments+1;
-	  lastSegmentName = ::scopedsegment_get_segment_name( index:lastSegmentIndex);
-	  select many udts related by currentPackage->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17];
-	  UDTCount = 0;
-	  for each udt in udts
-	    baseId = udt.getCoreType();
-	    select any pe from instances of PE_PE where (selected.Element_ID == baseId);
-	    if(not_empty pe)
-	      select one baseTypeEDT related by pe->S_DT[R8001]->S_EDT[R17];
-	      
-	      if(not_empty baseTypeEDT )
-	        // Find the ENUM under the EDT (if there is one for the given name)
-			select any enum related by baseTypeEDT->S_ENUM[R27] 
-				     where ( selected.Name ==  lastSegmentName);
-	
-			if (not_empty enum)		    
-	            // match found
-		        ::scope_tracelog( index:lastSegmentIndex, 
-	    					  message:
-	    						"UDT with base type EDT/ENUM Match Found! " + 
-	    						currentPackage.Label + "::" + 
-	     						lastSegmentName);
-	    	    ::scopedmatches_add(match_id:enum.Enum_ID, match_type:ElementTypeConstants::DATATYPE);
-	    	end if;    	
-	      end if;
-	    end if;
-	  end for;
-	  
-	  select any edt related by currentPackage->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17];
-	  if (not_empty edt)
-	    // Find the ENUM under the EDT (if there is one for the given name)
-		  select any enum related by edt->S_ENUM[R27] 
-				where ( selected.Name == lastSegmentName );
-	
-		  if (not_empty enum)
-	      ::scope_tracelog( index:lastSegmentIndex, 
-	    					message:
-	    						"EDT/ENUM Match Found! " + 
-	    						currentPackage.Label + "::" + 
-	     						lastSegmentName);
-	      ::scopedmatches_add(match_id:enum.Enum_ID, match_type:ElementTypeConstants::DATATYPE);
-	    end if;
-	  end if;
-	  
-	  select any constDT related by currentPackage->PE_PE[R8000]->CNST_CSP[R8001]
-	  			where (selected.InformalGroupName == typeName );
-	  if (not_empty constDT)
-	    
-		select any const related by constDT->CNST_SYC[R1504] 
-			  where ( selected.Name == lastSegmentName );
-	    if (not_empty const)
-	      ::scope_tracelog( index:lastSegmentIndex, 
-	    					message:
-	    						"Constant Match Found! " + 
-	    						currentPackage.Label + "::" + 
-	     						lastSegmentName);
-	      ::scopedmatches_add(match_id:const.Constant_Spec_ID, match_type:ElementTypeConstants::CONSTANT); 
-	    end if;
-	  end if;
-	end if;
-end if;
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("45d48a06-bb93-44f3-a1fb-970b8b2e4878",
-	"2a7c0a11-8d9d-4ada-9caa-56773fd561e6",
-	'nextName',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("501a452a-817f-46ee-833b-967be9547744",
-	"2a7c0a11-8d9d-4ada-9caa-56773fd561e6",
-	'nextSegmentIndex',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"45d48a06-bb93-44f3-a1fb-970b8b2e4878",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("f49bcfd4-7342-4e49-8fb2-e7e760e9491d",
-	"2a7c0a11-8d9d-4ada-9caa-56773fd561e6",
-	'nextPkgID',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"501a452a-817f-46ee-833b-967be9547744",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("cb5240be-aa5b-4042-b05c-0ce43094a778",
-	"2a7c0a11-8d9d-4ada-9caa-56773fd561e6",
-	'nextComponentID',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"f49bcfd4-7342-4e49-8fb2-e7e760e9491d",
-	'');
-INSERT INTO PE_PE
-	VALUES ("2a7c0a11-8d9d-4ada-9caa-56773fd561e6",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("0dea8456-6bd8-4d86-aa82-e36f0ca4d162",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_reset',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-
-Translate: native',
-	'  scopedMatches.clear();',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	0,
-	'',
-	0);
-INSERT INTO PE_PE
-	VALUES ("0dea8456-6bd8-4d86-aa82-e36f0ca4d162",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("35ed3a53-8172-49a5-8219-3c6e518b4067",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_getID',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-
-Translate: native',
-	'  return scopedMatches.get(p_Index).matchID;
-',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("28aeadd2-584b-4d77-8ca1-b4df10f87d5c",
-	"35ed3a53-8172-49a5-8219-3c6e518b4067",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("35ed3a53-8172-49a5-8219-3c6e518b4067",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("bab5867c-485c-4aef-94fd-4c23a75f456e",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_size',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-
-Translate: native',
-	'  return scopedMatches.size();',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	0);
-INSERT INTO PE_PE
-	VALUES ("bab5867c-485c-4aef-94fd-4c23a75f456e",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
-	VALUES ("5a0b55f1-7f1f-41a3-9a1d-5d153be992d5",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_add',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-
-Translate: native',
-	'  ScopedMatch newMatch = new ScopedMatch(p_Match_id, p_Match_type);
-  scopedMatches.add(newMatch);
-',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	0,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("2e1830da-fc77-4477-b55d-e22ffaae8c5c",
-	"5a0b55f1-7f1f-41a3-9a1d-5d153be992d5",
-	'match_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("39ba7b03-7ef7-4e6b-b200-e6fbe646b7f1",
-	"5a0b55f1-7f1f-41a3-9a1d-5d153be992d5",
-	'match_type',
-	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
-	0,
-	'',
-	"2e1830da-fc77-4477-b55d-e22ffaae8c5c",
-	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("9a52ac80-0dbf-4444-99ce-efd27902d8db",
-	"00000000-0000-0000-0000-000000000000",
-	'ElementTypeConstants',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO PE_PE
-	VALUES ("5a0b55f1-7f1f-41a3-9a1d-5d153be992d5",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("032b4990-bac4-43a0-81a8-7a41b0c3d43d",
 	"00000000-0000-0000-0000-000000000000",
 	'scopedsegment_get_token',
@@ -628,38 +178,9 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("3f5efb46-4caa-4259-8eee-b67035df4338",
-	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_getType',
-	'ParserValidateFunction: TRUE
-ParserUtilityFunction: TRUE
-
-Translate: native',
-	'  return scopedMatches.get(p_Index).elementType;
-',
-	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
-	0,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("f0abe373-fad9-4533-a505-230f7baa0b35",
-	"3f5efb46-4caa-4259-8eee-b67035df4338",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO PE_PE
-	VALUES ("3f5efb46-4caa-4259-8eee-b67035df4338",
-	1,
-	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("c8204cc8-59a7-44a6-a59d-f002a00dd417",
 	"00000000-0000-0000-0000-000000000000",
-	'scopedmatches_collectScopedMatches_1',
+	'scopedmatches_collect',
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE',
 	'act_id = ::get_current_context();
@@ -721,7 +242,7 @@ if ( not_empty act )
         select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::PACKAGE ); 
         select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
       end if;
-      matched_elements = matched_elements + results;
+      matched_elements = matched_elements | results;
 
       // search for components
       if not_empty containing_c_c
@@ -735,7 +256,7 @@ if ( not_empty act )
         select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::COMPONENT ); 
         select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
       end if;
-      matched_elements = matched_elements + results;
+      matched_elements = matched_elements | results;
 
     else // for following segments, we have search down the containment chain
       
@@ -803,6 +324,13 @@ if ( not_empty act )
 
     end if;
     
+    if ( param.validate and empty matched_elements )
+      if ( i < ::scopedsegment_size() )
+        ERR::reportParseError( msg: "Could not find package or component ->%s<- in scoped path.", token: ::scopedsegment_get_token( index:i ) );
+      end if;
+      return matched_elements;
+    end if;
+    
     i = i + 1;
 
   end while;
@@ -822,6 +350,15 @@ INSERT INTO S_SPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4d598bb5-8047-49b6-b9a2-c28a0f45bc46",
+	"c8204cc8-59a7-44a6-a59d-f002a00dd417",
+	'validate',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"98ad845b-9988-4692-a4c4-1b5428bec101",
 	'');
 INSERT INTO PE_PE
 	VALUES ("c8204cc8-59a7-44a6-a59d-f002a00dd417",

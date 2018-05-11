@@ -99,13 +99,10 @@ public class ${java_class} {
   private boolean contentAssistEnabled;
 
   private ArrayList<ScopedSegment> scopedSegments = new ArrayList<ScopedSegment>();
-  private ArrayList<ScopedMatch> scopedMatches = new ArrayList<ScopedMatch>();
 
   class ScopedSegment {
   	Token token;
   	String segmentName;
-  	java.util.UUID current_rule;
-  	java.util.UUID upper_rule;
   		
   	/**
   	 * Prevent no-arg constructor
@@ -114,31 +111,13 @@ public class ${java_class} {
   	}
   		
   	// Only used by the outer class
-  	ScopedSegment(Token tok, String name, java.util.UUID currentRule, java.util.UUID upperRule) {
+  	ScopedSegment(Token tok, String name) {
+      this();
   		token = tok;
   		segmentName = name;
-  		current_rule = currentRule;
-  		upper_rule = upperRule;
   	}
   }
 
-  class ScopedMatch {
-    java.util.UUID matchID;
-    int elementType;
-      
-    /**
-     * Prevent no-arg constructor
-     */
-    private ScopedMatch() {     
-    }
-      
-    // Only used by the outer class
-    ScopedMatch(java.util.UUID pMatchID, int type) {
-      this.matchID = pMatchID;
-      this.elementType = type;
-    }
-  }
-  
   public ${java_class}(NonRootModelElement nrme) {
     Self = this;
     m_nrme = nrme;
