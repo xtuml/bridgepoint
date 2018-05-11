@@ -141,13 +141,10 @@ xtUML Modeling Perspective --> Model Elements --> Data Types.
 <pre>
 Fork/Repository:  cortlandstarrett/bridgepoint
 Branch:  5005_range
- doc-bridgepoint/notes/5005_range/5005_range_int.md                                 |    308 +
- doc-bridgepoint/process/Developer Getting Started Guide.md                         |      1 -
- releng/org.xtuml.bp.mctools/pom.xml                                                |      4 +-
+ doc-bridgepoint/notes/5005_range/5005_range_int.md                                 |    195 +
+ doc-bridgepoint/review-minutes/5005_range_int_rvm.md                               |     41 +
  src/MC-Java/ooa_schema.sql                                                         |      6 +
- src/MC-Java/referential_attribute_util.inc                                         |      4 +-
  src/org.xtuml.bp.core/arc/create_core_plugin.inc                                   |      8 +
- src/org.xtuml.bp.core/arc/create_object_inspector.inc                              |      2 +-
  src/org.xtuml.bp.core/generate.xml                                                 |      5 +-
  src/org.xtuml.bp.core/icons/metadata/Range.gif                                     |    Bin 0 -> 336 bytes
  src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Domain.xtuml        |    250 +-
@@ -159,9 +156,18 @@ Branch:  5005_range
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/inspector/.gitignore                   |      1 +
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/RangeValueInputValidator.java       |     52 +
  src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeAction.java            |    114 +
- src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeContributionItem.java  |    123 +
- .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm   |    216 +-
- .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.md    |     84 +-
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/actions/RangeContributionItem.java  |    122 +
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Activity.htm          |      0
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Communication.htm     |      0
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm   |    217 +-
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.md    |     89 +-
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DomainPackage.htm     |      0
+ .../UserInterface/xtUMLModeling/ModelElements/HTML/ExternalEntityPackage.htm       |      0
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/FunctionPackage.htm   |      0
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ModelElements.htm     |      0
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Sequence.htm          |      0
+ .../UserInterface/xtUMLModeling/ModelElements/HTML/StateMachinePackage.htm         |      0
+ .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/UseCase.htm           |      0
  .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/range_cme1.png        |    Bin 0 -> 118577 bytes
  .../Reference/UserInterface/xtUMLModeling/ModelElements/HTML/range_cme3.png        |    Bin 0 -> 72061 bytes
  src/org.xtuml.bp.io.mdl/sql/file_io.pei.sql                                        |      3 +-
@@ -170,7 +176,7 @@ Branch:  5005_range
  src/org.xtuml.bp.ui.properties/generate.xml                                        |      2 +-
  .../src/org/xtuml/bp/ui/properties/RangeValuePropertyDescriptor.java               |     70 +
  src/org.xtuml.bp.welcome/models/xtUML_Metamodel.xtuml                              | 560913 ++++++++++++++++++------------------
- 29 files changed, 282050 insertions(+), 280308 deletions(-)
+ 35 files changed, 281978 insertions(+), 280302 deletions(-)
 
 Fork/Repository:  cortlandstarrett/mc
 Branch:  5005_range
@@ -189,6 +195,13 @@ Branch:  5005_range
  model/mcooa/models/mcooa/ooaofooa/Domain/Range/Range.xtuml | 124 ++++++++++++++++++++++++++++++++++++
  schema/sql/xtumlmc_schema.sql                              |   6 ++
  14 files changed, 502 insertions(+), 149 deletions(-)
+
+Fork/Repository:  cortlandstarrett/bptest
+Branch:  5005_range
+ src/org.xtuml.bp.core.test/arc/create_context_menu_tests.arc                       |    8 +-
+ src/org.xtuml.bp.ui.properties.test/arc/create_view_test.arc                       | 1223 +++++++++++++++++++-------------------
+ .../models/org.xtuml.bp.ui.properties.test/testProp/Datatypes/Datatypes.xtuml      |   21 +-
+ 3 files changed, 633 insertions(+), 619 deletions(-)
 
 </pre>
 
