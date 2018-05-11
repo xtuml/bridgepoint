@@ -1,16 +1,16 @@
 # Data Types
 
-Data types fall into the following categories:
-* Primitive types
-* User data types
-* Structured data types
-* Enumerations
-* Constant specifications
+Data types fall into the following categories:  
+* Primitive types  
+* User data types  
+* Structured data types  
+* Enumerations  
+* Constant specifications  
 
 ## Primitive types
 
-Primitive types are built-in and provided by BridgePoint.  You cannot add to, or
-remove from the set of primitive types.  The primitive types are:
+Primitive (native) types are built-in and provided by BridgePoint.  You cannot
+add to or remove from the set of primitive types.  The primitive types are:
 
 ### void
 
@@ -125,7 +125,7 @@ information.
 A primitive data type representing a reference to a modeled component. The
 sender keyword in OAL is always of this type.  This type may be used the same
 place other primitive data types are used.  It is also valid in OAL as the
-target in a “send ... to <component_ref>” command when performing
+target in a “send ... to `<component_ref>`” command when performing
 inter-component messaging.  Class attributes, parameters, return values, and
 transients may all use this type.
 
@@ -156,24 +156,71 @@ Variables of this type support equality, inequality, and assignment operations:
 
 ### timestamp
 
-A primitive data type representing a specific xtUML time. Variables created via
-a “TIM::current_clock” statement are of this type. timestamps may be stored in
-class attributes, passed as parameters and return values.
+A primitive data type representing a specific xtUML time. Variables
+created via a `TIM::current_clock` statement are of this type.
+timestamps may be stored in class attributes, passed as parameters and
+return values.
 
-Variables of this type support equality, inequality, comparison, and assignment
-operations: `==`, `!=`, `>`, `<`, `>=`, `<=`, `=`
+Variables of this type support equality, inequality, comparison, and
+assignment operations: `==`, `!=`, `>`, `<`, `>=`, `<=`, `=`
 
-## User data types
+### MASLtype
+A primitive data type created in converted MASL models. This serves as
+the base type for MASL types and collections that do not directly map to
+an xtUML core type (e.g. integer). MASLtype is a UDT whose core type is
+string.
 
-A type based on one of the primitive data types. User data types (UDTs) may be
-based on the following primitive types: `boolean`, `integer`, `real`, `string`,
-`unique_id`, `inst<Mapping>`, and `inst_ref<Mapping>`.  User data types inherit
-all operators from the primitive type and are completely compatible and
-interchangeable with their primitive type.  UDTs allow the modeler to give a
-more meaningful type name to a core type.  In some programming languages, this
-feature is known as a “typedef”.
+## User Data Types
+A type based on another type. User data types (UDTs) may be based on
+virtually any existing type.  User data types inherit all operators from
+the primitive type and are completely compatible and interchangeable
+with the base type.  UDTs allow the modeler to give a more meaningful
+type name to a lower level type.
 
-## Structured data types
+### User Data Type Ranges
+Ranges are contraints used to limit the extent of
+values that may be represented by a model element defined with the
+constrained type.  A range is composed of a minimum and a maximum value.
+Ranges are most often applied to numeric (real and integer including
+enumerations) types which is the case for this capability in BridgePoint.
+
+#### UDT Range Capabilities
+
+- Range data is stored in the model and can be made available to downstream
+model compilation tool chains.  
+- A **Minimum** and/or a **Maximum** range setting is supported.  
+Note that minimum and maximum range settings are _inclusive_, meaning
+that the minimum value of the range is the lowest legal value to be
+taken by an element linked to the ranged type.  The maximum value of
+the range is the maximum legal value.  
+- A **Minimum** setting, **Maximum** setting or **both** settings can be
+supplied to define the range for the User Data Type.
+
+![Range Context Menu](range_cme1.png)
+
+- A context menu is available on numeric User Data Types eligible
+to be constrained with Range information.  The context menu has multiple
+levels ending with 3 capabilities:
+
+  1. Set the Minimum Range value.  
+  2. Set the Maximum Range value.  
+  3. Clear the Range values (eliminating the Range altogether).  
+     The 'Clear' menu item will show only when a Range has been
+     established for the selected User Data Type.
+
+![Range Maximum Setting](range_cme3.png)
+
+- To view the range values for a selected User Data Type, simply
+navigate the context menu to the Minimum and Maximum values as
+when setting the values.  This displays the existing value setting.
+Range values also are displayed on the canvas and in the Properties view.
+
+- When changing the type of a User Data Type from integer to real or
+real to integer, the range minimum and maximum values are preserved
+but undergo type conversion.  When changing the type of a User Data
+Type to any other type, the range is deleted.
+
+## Structured Data Types
 
 A structured data type (SDT) is a collection of structure members of various
 types. Structure members are accessed via the “.” operator.  SDTs may be used as
