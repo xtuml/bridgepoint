@@ -1,11 +1,11 @@
 # Data Types
 
-Data types fall into the following categories:
-* Primitive types
-* User data types
-* Structured data types
-* Enumerations
-* Constant specifications
+Data types fall into the following categories:  
+* Primitive types  
+* User data types  
+* Structured data types  
+* Enumerations  
+* Constant specifications  
 
 ## Primitive types
 
