@@ -11475,10 +11475,15 @@ if containerFoundorCreated
     // get containers that match the path
     matched_containers = ::scopedmatches_collect( lookaheadText:"", validate:true );
 
-    select many c_c_to_s_dts related by matched_containers->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
-    select many ep_pkg_to_s_dts related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
-    s_dts = c_c_to_s_dts | ep_pkg_to_s_dts;
-    select many edts related by s_dts->S_EDT[R17];
+    select many c_c_to_s_edts related by matched_containers->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    select many ep_pkg_to_s_edts related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
+    select many edts related by s_edts->S_EDT[R17];
+
+    select many c_c_to_s_udts related by matched_containers->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    select many ep_pkg_to_s_udts related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    s_udts = c_c_to_s_udts | ep_pkg_to_s_udts;
+    select many udts related by s_udts->S_UDT[R17];
 
     select many c_c_to_cnst_csps related by matched_containers->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
     select many ep_pkg_to_cnst_csps related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
@@ -38875,6 +38880,25 @@ if ( not_empty act )
     list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
 
+  // create UDT proposals
+  select many c_c_to_s_udts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]->S_DT[R17];
+  select many ep_pkg_to_s_udts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]->S_DT[R17];
+  proposal_s_udts = c_c_to_s_udts | ep_pkg_to_s_udts;
+  for each proposal_s_udt in proposal_s_udts
+    select one udt related by proposal_s_udt->S_UDT[R17];
+    baseId = udt.getCoreType();
+    select any base_edt from instances of S_EDT where ( selected.DT_ID == baseId );
+    if ( not_empty base_edt )
+      create object instance  new_item of P_P;
+      new_item.type = ProposalTypes::UDT;
+      new_item.display_text = proposal_s_udt.Name;
+      new_item.replacement_text = "::" + new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = false;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
+    end if;
+  end for;
+
   // create constant specification proposals
   select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001];
   select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001];
@@ -38891,6 +38915,13 @@ if ( not_empty act )
   
   // enumerator proposals
   select many s_enums related by matched_elements->S_DT[R8001]->S_EDT[R17]->S_ENUM[R27];
+  select many s_udts related by matched_elements->S_DT[R8001]->S_UDT[R17];  // get enumerators from UDTs based on EDTs
+  for each s_udt in s_udts
+    baseId = s_udt.getCoreType();
+    select any base_edt from instances of S_EDT where ( selected.DT_ID == baseId );
+    select many udt_enums related by base_edt->S_ENUM[R27];
+    s_enums = s_enums | udt_enums;
+  end for;
   for each s_enum in s_enums
     create object instance  new_item of P_P;
     new_item.type = ProposalTypes::Enumerator;

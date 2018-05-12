@@ -258,6 +258,48 @@ if ( not_empty act )
       end if;
       matched_elements = matched_elements | results;
 
+      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT, UDT, or constant specification
+
+        // search for EDTs and UDTs
+        if not_empty containing_c_c
+          containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::DATATYPE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        else
+          containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        end if;
+        select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::DATATYPE ); 
+        select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+        if not_empty containing_ep_pkg
+          select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::DATATYPE ); 
+          select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+        end if;
+        select many edts related by results->S_DT[R8001]->S_EDT[R17]->S_DT[R17]->PE_PE[R8001];
+        select many udts related by results->S_DT[R8001]->S_UDT[R17];
+        matched_elements = matched_elements | edts;
+        for each udt in udts
+          baseId = udt.getCoreType();
+          select any base_edt from instances of S_EDT where (selected.DT_ID == baseId);
+          if ( not_empty base_edt )
+            select one edt_udt related by udt->S_DT[R17]->PE_PE[R8001];
+            matched_elements = matched_elements | edt_udt;
+          end if;
+        end for;
+
+        // search for constant specifications
+        if not_empty containing_c_c
+          containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::CONSTANT, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        else
+          containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::CONSTANT, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        end if;
+        select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::CONSTANT ); 
+        select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+        if not_empty containing_ep_pkg
+          select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::CONSTANT ); 
+          select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+        end if;
+        matched_elements = matched_elements | results;
+
+      end if;
+
     else // for following segments, we have search down the containment chain
       
       // get the next level through containment relationships
@@ -270,7 +312,7 @@ if ( not_empty act )
       all_c_cs = c_c_to_c_cs | ep_pkg_to_c_cs;
       all_ep_pkgs = c_c_to_ep_pkgs | ep_pkg_to_ep_pkgs;
       
-      select many all_s_edts from instances of S_DT where false;
+      select many all_s_dts from instances of S_DT where false;
       select many all_cnst_csps from instances of CNST_CSP where false;
       
       if ( i == 1 ) // for the second segment, we must consider if we started at a system
@@ -279,12 +321,24 @@ if ( not_empty act )
         select many matched_systems from instances of S_SYS where false;  // clear out matched systems after this to avoid false positives
       end if;
 
-      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT or constant specification
+      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT, UDT, or constant specification
         select many c_c_to_s_edts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many c_c_to_s_udts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
         select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
         select many ep_pkg_to_s_edts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many ep_pkg_to_s_udts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
         select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
-        all_s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
+        all_s_udts = c_c_to_s_udts | ep_pkg_to_s_udts;
+        select many edt_udts from instances of S_DT where false;
+        for each s_dt in all_s_udts 
+          select one udt related by s_dt->S_UDT[R17];
+          baseId = udt.getCoreType();
+          select any base_edt from instances of S_EDT where (selected.DT_ID == baseId);
+          if ( not_empty base_edt )
+            edt_udts = edt_udts | s_dt;
+          end if;
+        end for;
+        all_s_dts = c_c_to_s_edts | ep_pkg_to_s_edts | edt_udts;
         all_cnst_csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
       end if;
       
@@ -302,10 +356,10 @@ if ( not_empty act )
           visible_ep_pkgs = visible_ep_pkgs | selected_ep_pkg;
         end if;
       end for;
-      select many visible_s_edts from instances of S_DT where false;
-      for each selected_s_edt in all_s_edts
-        if ( containing_pe.isElementVisibleToSelf( type:ElementTypeConstants::DATATYPE, elementId:selected_s_edt.DT_ID ) );
-          visible_s_edts = visible_s_edts | selected_s_edt;
+      select many visible_s_dts from instances of S_DT where false;
+      for each selected_s_dt in all_s_dts
+        if ( containing_pe.isElementVisibleToSelf( type:ElementTypeConstants::DATATYPE, elementId:selected_s_dt.DT_ID ) );
+          visible_s_dts = visible_s_dts | selected_s_dt;
         end if;
       end for;
       select many visible_cnst_csps from instances of CNST_CSP where false;
@@ -318,9 +372,9 @@ if ( not_empty act )
       // fill the matched elements set
       select many c_c_pes related by visible_c_cs->PE_PE[R8001];
       select many ep_pkg_pes related by visible_ep_pkgs->PE_PE[R8001];
-      select many s_edt_pes related by visible_s_edts->PE_PE[R8001];
+      select many s_dt_pes related by visible_s_dts->PE_PE[R8001];
       select many cnst_csp_pes related by visible_cnst_csps->PE_PE[R8001];
-      matched_elements = c_c_pes | ep_pkg_pes | s_edt_pes | cnst_csp_pes;
+      matched_elements = c_c_pes | ep_pkg_pes | s_dt_pes | cnst_csp_pes;
 
     end if;
     

@@ -4924,6 +4924,46 @@ INSERT INTO PE_PE
 	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("155b36da-e77c-47a0-b662-a5c01da249af",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Enumerator>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("155b36da-e77c-47a0-b662-a5c01da249af",
+	0,
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'Enumerator',
+	15,
+	'S_ENUM',
+	'Enumerators are constants that have meaning to the analyst.  An enumeration data type (S_EDT) defines zero or more enumerators.  For example, Red, Blue, and Green are enumerators of the enumeration Color.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Enumerator/Enumerator.xtuml');
+INSERT INTO PE_PE
+	VALUES ("155b36da-e77c-47a0-b662-a5c01da249af",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("cfc75074-9ba1-4b1a-bc0b-65729e8b1128",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Enumerator>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("cfc75074-9ba1-4b1a-bc0b-65729e8b1128",
+	1,
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO PE_PE
+	VALUES ("cfc75074-9ba1-4b1a-bc0b-65729e8b1128",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("f60d4f17-bd84-467d-a247-30314897dfad");
 INSERT INTO R_REL
@@ -5850,14 +5890,6 @@ INSERT INTO R_OIR
 	"dcec37d4-614c-4e58-9807-a244d4c45fb1",
 	"d2718895-33d4-43d4-9d71-b8e9668aa633",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
-	'Enumerator',
-	15,
-	'S_ENUM',
-	'Enumerators are constants that have meaning to the analyst.  An enumeration data type (S_EDT) defines zero or more enumerators.  For example, Red, Blue, and Green are enumerators of the enumeration Color.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Enumerator/Enumerator.xtuml');
 INSERT INTO PE_PE
 	VALUES ("dcec37d4-614c-4e58-9807-a244d4c45fb1",
 	1,

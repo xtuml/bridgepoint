@@ -8865,6 +8865,23 @@ if ( not_empty act )
     list.addProposal( Proposal_ID:new_item.Proposal_ID );
   end for;
   
+  // get UDT proposals
+  select many s_udts related by results->S_DT[R8001]->S_UDT[R17]->S_DT[R17];
+  for each s_udt in s_udts
+    select one udt related by s_udt->S_UDT[R17];
+    baseId = udt.getCoreType();
+    select any base_edt from instances of S_EDT where ( selected.DT_ID == baseId );
+    if ( not_empty base_edt )
+      create object instance  new_item of P_P;
+      new_item.type = ProposalTypes::UDT;
+      new_item.display_text = s_udt.Name;
+      new_item.replacement_text = new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
+    end if;
+  end for;
+  
   // get constant proposals
   if not_empty c_c
     c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );

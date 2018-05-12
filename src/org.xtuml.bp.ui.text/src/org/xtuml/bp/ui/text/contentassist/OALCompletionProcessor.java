@@ -62,6 +62,7 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.TransitionActionBody_c;
+import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -236,6 +237,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( Bridge_c.class );
             case Proposaltypes_c.EDT:
                 return CorePlugin.getImageFor( EnumerationDataType_c.class );
+            case Proposaltypes_c.UDT:
+                return CorePlugin.getImageFor( UserDataType_c.class );
             case Proposaltypes_c.Enumerator:
                 return CorePlugin.getImageFor( Enumerator_c.class );
             case Proposaltypes_c.Constant:
