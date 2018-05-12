@@ -41,6 +41,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Region;
+import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
@@ -79,6 +80,10 @@ public class GCDelegate {
     public void drawText(String string, int i, int j, boolean b) {
         context.drawText(string, i, j, b);
     }
+
+	public void drawTextLayout(String string, int i, int j, boolean b, TextStyle style) {
+		context.drawText(string, i, j, b);
+	}
 
     public void fillRectangle(int i, int j, int k, int l) {
         if (bpPrefs.disableGradients == true) {

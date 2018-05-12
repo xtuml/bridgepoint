@@ -35,6 +35,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
@@ -59,14 +60,9 @@ public class Gr_c {
     Gr_c.lastY = value;
   }
   public static void Drawtext(final GCDelegate Context, final int Justified_to, final String Text, final int Text_style, final int X, final int Y) {
-    Font oldFont = Context.getFont();
     // TODO #4859 there needs to be a case here to handle all of our supported text styles found in
     // the Style EDT
-    if ( Style_c.Underlined == Text_style ) {
-      FontDescriptor underlineDescriptor = FontDescriptor.createFrom(oldFont).setStyle(SWT.UNDERLINE_SINGLE);
-      Font underlineFont = underlineDescriptor.createFont(Context.getDevice());
-      Context.setFont(underlineFont);
-    }
+	// Current cases should be changed to use the TextLayout/TextStyle ala UNDERLINED below.
     String[] toPrint = Text.split("\n");  //$NON-NLS-1$
     int yOffset = 0;
     if (Justified_to == Justification_c.Center_in_X) {
@@ -90,15 +86,17 @@ public class Gr_c {
         yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
       }
     } else {
-      Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
-      // TODO #4859 this section should be duplicated to all of the places in this method
-      // where 'drawText' is invoked (with arguments replaced appropriately).
       if ( Style_c.Underlined == Text_style ) {
-    	  Point extent = Context.textExtent( Text );
-    	  Context.drawLine( (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor) + extent.y, (int) (X * m_ZoomFactor) + extent.x, (int) (Y * m_ZoomFactor) + extent.y );
+        final TextStyle style = new TextStyle();
+        style.font = Context.getFont();
+        style.underline = true;
+        Context.drawTextLayout(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), false, style);
+      }
+      else
+      {
+        Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
       }
     }
-    Context.setFont(oldFont);
   } // End drawText
   public static void Drawrect(final GCDelegate Context, boolean filled, final int H, final int W, final int X, final int Y) {
     if (filled) {
