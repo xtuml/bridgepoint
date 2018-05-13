@@ -107,7 +107,7 @@ assist).
 ### 7. Acceptance Test
 
 7.1 A manual test shall be defined in which the visual differentiation of
-operations in model explorer and on the canvas shall be tested.
+operations in model explorer and on the canvas shall be tested.  
 7.2 If manual underline drawing is used, the test must encompass using different
 zoom factors.
 
