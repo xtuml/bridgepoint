@@ -45,7 +45,16 @@ operations in model explorer.
 6.4 A new approach for underline is needed, due to scaling issues with the line graphic.  
 
 ### 7. Unit Test  
-7.1 Run the manual test suite for this issue [2.3](#2.3).  
+7.1 Test will be a manual test as described for this issue in the [analysis note](#2.3).  
+7.2 The GPS Watch will be used to test this functionality.  
+7.3 Expand the HeartRateMonitor in Model Explorer and open the class diagram.  
+7.4 Observe that the initialize operation in both classes is fully underlined.  
+7.5 Change zoom to 125% and 75% and observe that the text stays fully underlined.  
+7.6 Expand HeartRateMonitor in Model Explorer and observe that it has the class-based icon.  
+7.7 Select the initialize operation, and change the Instance Based field in the Properties view to Instance Based.  
+7.8 Observe that the icon in Model Explorer changes to the instance-based icon and that the operation is no longer underlined on the canvas.  
+7.9 Close BridgePoint and reopen. The icon should still be instance-based and the operation is still not underlined.  
+7.10 Change the Instance Based property back to Class Based. Observe that the icon is changed to the class-based icon and the operation is fully underlined.  
 
 ### 8. User Documentation  
 8.1 Model editor user documentation is to be updated to reflect the meaning of an underlined operation and the new iconography.  
