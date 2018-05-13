@@ -19,6 +19,7 @@ UML standard notation.
 <a id="2.1"></a>2.1 [Service Pro SR #4859](https://support.onefact.net/issues/4859) Headline issue  
 <a id="2.2"></a>2.2 [BridgePoint DEI #10227](https://support.onefact.net/issues/10227)  
 <a id="2.3"></a>2.3 [Analysis note](../4859_class_ops/4859_class_ops_ant.md)  
+<a id="2.4"></a>2.4 [Design note](10227_class_ops_dnt.md)  
 
 ### 3. Background
 
@@ -85,5 +86,6 @@ Changed the Drawtext method to call the new drawTextLayout method for underline 
       }
     }
 
+9.4 Changed the ClassBasedOperation.gif file in bridgepoint/src/org.xtuml.bp.core/icons/metadata per the [design note](#2.4).  
 
 ### End
