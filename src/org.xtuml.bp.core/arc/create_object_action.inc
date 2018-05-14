@@ -136,6 +136,8 @@ public class ${action_name} implements IObjectActionDelegate {
         action.setImageDescriptor(CorePlugin.getImageDescriptorFor("NewOperation", false)); 
       .elif(class_name.body == "InterfaceSignal_c")
         action.setImageDescriptor(CorePlugin.getImageDescriptorFor("NewSignal", false)); 
+      .elif(class_name.body == "Operation_c")
+        action.setImageDescriptor(CorePlugin.getImageDescriptorFor("Operation_cInstanceBased", false)); 
       .else       
         action.setImageDescriptor(CorePlugin.getImageDescriptorFor("${class_name.body}", false));
       .end if 

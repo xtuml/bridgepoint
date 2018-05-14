@@ -103,4 +103,8 @@ Changed the Drawtext method to call the new drawTextLayout method for underline 
 (color and shape) to its instance based counterpart. The red superscript "S"
 remains as the indicator for class based.
 
+10.2 A small change was needed in `create_object_action.inc` and
+`aooaofooa_hierarchy.pei.sql` to assure that the correct new icon was used in
+model compare and CME menus.
+
 ### End

@@ -26,7 +26,7 @@ INSERT INTO T_TNS VALUES (1,  'System.gif',                     'S_SYS',   '', '
 INSERT INTO T_TNS VALUES (6,  'Class.gif',                      'O_OBJ',   '', 'Name', '',                 'Class', 						-1, '');
 INSERT INTO T_TNS VALUES (3,  'Function.gif',                   'S_SYNC',  '', 'Name', '',                 'Function', 					-1, '');
 INSERT INTO T_TNS VALUES (4,  'FunctionParameter.gif',          'S_SPARM', '', 'Name', '',                 'Function Parameter',        54, 'succeeds');
-INSERT INTO T_TNS VALUES (7,  'Operation.gif',                  'O_TFR',   '', 'Name', '',                 'Operation',                 125, 'succeeds');
+INSERT INTO T_TNS VALUES (7,  'InstanceBasedOperation.gif',                  'O_TFR',   '', 'Name', '',                 'Operation',                 125, 'succeeds');
 INSERT INTO T_TNS VALUES (8,  'OperationParameter.gif',         'O_TPARM', '', 'Name', '',                 'Operation Parameter',       124, 'succeeds');
 INSERT INTO T_TNS VALUES (10, 'InstanceStateChart.gif',         'SM_ISM',  'Instance State Chart', '', '', 'Instance State Chart', 		-1, '');
 INSERT INTO T_TNS VALUES (15, 'ClassStateChart.gif',            'SM_ASM',  'Class State Chart', '', '',    'Class State Chart', 			-1, '');
@@ -138,11 +138,11 @@ INSERT INTO T_TNS VALUES (310, 'Attribute.gif',                      'MSG_ISM', 
 INSERT INTO T_TNS VALUES (311, 'Attribute.gif',                      'MSG_IAM',  '', '','',                 'Informal Message', 						-1, '');
 INSERT INTO T_TNS VALUES (312, 'Function.gif',                      'MSG_F',  '', '','',                 'Formal Function', 						-1, '');
 INSERT INTO T_TNS VALUES (313, 'Bridge.gif',                         'MSG_B',  '', '','',                 'Formal Bridge Operation', 						-1, '');
-INSERT INTO T_TNS VALUES (314, 'Operation.gif',                    'MSG_O',  '', '','',                 'Formal Operation', 						-1, '');
+INSERT INTO T_TNS VALUES (314, 'InstanceBasedOperation.gif',                    'MSG_O',  '', '','',                 'Formal Operation', 						-1, '');
 INSERT INTO T_TNS VALUES (315, 'InterfaceOperation.gif',       'MSG_IOP',  '', '','',                 'Formal Interface Operation', 						-1, '');
 INSERT INTO T_TNS VALUES (316, 'Event.gif',                          'MSG_E',  '', '','',                 'Formal Event', 						-1, '');
 INSERT INTO T_TNS VALUES (317, 'InterfaceSignal.gif',            'MSG_SIG',  '', '','',                 'Formal Signal', 						-1, '');
-INSERT INTO T_TNS VALUES (318, 'Operation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
+INSERT INTO T_TNS VALUES (318, 'InstanceBasedOperation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
 INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '','',                 'Creation Transitions', 						-1, '');
 INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name', '',                 'Port Reference',                        -1, '');
 INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Exception', -1, '');
