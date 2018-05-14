@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: OALEditorConfiguration.java,v $
-//Version:   $Revision: 1.8 $
-//Modified:  $Date: 2013/01/10 23:20:54 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -22,6 +14,8 @@
 
 package org.xtuml.bp.ui.text.editor.oal;
 
+import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
+import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -110,5 +104,32 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 	    }
 	    else return null;
 	}
+
+	
+	// TODO - Should these overrides be in EditorConfiguration rather than here?
+	@Override
+	public int getTabWidth(ISourceViewer sourceViewer) 
+	{
+		// TODO - SKB, change to read a setting from the activity editor pref page
+		return 4;
+	}
+	
+	@Override
+	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer,
+            String contentType)
+	{
+	    IAutoEditStrategy strategy= (IDocument.DEFAULT_CONTENT_TYPE.equals(contentType)
+	            ? new OALAutoEditStrategy() : new DefaultIndentLineAutoEditStrategy());
+	    return new IAutoEditStrategy[] { strategy };
+	}
+	
+	@Override
+	public String[] getIndentPrefixes(ISourceViewer sourceViewer,
+            String contentType)
+	{
+		String[] prefixes = super.getIndentPrefixesForTab(getTabWidth(sourceViewer));
+		return  prefixes;
+	}
+	
 
 }
