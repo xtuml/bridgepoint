@@ -97,4 +97,10 @@ Changed the Drawtext method to call the new drawTextLayout method for underline 
 
 9.4 Changed the ClassBasedOperation.gif file in bridgepoint/src/org.xtuml.bp.core/icons/metadata per the [design note](#2.4).  
 
+### 10. Implementation comments
+
+10.1 The icon for class based operations was further tweaked to be more similar
+(color and shape) to its instance based counterpart. The red superscript "S"
+remains as the indicator for class based.
+
 ### End
