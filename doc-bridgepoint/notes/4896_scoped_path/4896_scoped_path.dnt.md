@@ -149,18 +149,31 @@ For this work, validate_gen.arc shall be modified and a new class and array intr
 6.3.1.1.2 ooaofooa/Functions/OAL Validation Scoped Access  
 
 Given the new archetectural mechanism put in place to cache path segments, a mechanism to interact with the path segments from OAL is needed. Note that such parser-related utility functions are , by convention, kept in the package OAL Validation Utility Functions in BridgePoint. This is simply convention, and it was observed during design that there would be quite a few new utility operations introduced in support of this scoped-path "cache". A new package was therfore introduced as a sibling to OAL Vaidation Utility Functions. The new package shall be named: OAL Validation Scoped Access.  The following operations shall be introduced in this new package:  
-scopedmatches_reset  
-scopedmatches_add_segment  
-scopedmatches_collect  
-scopedmatches_size  
-scopedmatches_get_segment  
-scopedmatches_get_token  
+
+  * ```void scopedmatches_reset()```  
+This is used to reset the path cache. This is called as the first statement in Scoped_path_start(), and is placed in this location because this is only called when a scoped_path is being parsed.
+  * ```void scopedmatches_add_segment(Token, String)```  
+This is used to add a new path segment to the cache. This is called during Scoped_path_segment_name_validate() a segment has been parsed. The Token parameter is the parser Token that represents the segment being parseed. This Token is used for error reporting. The name is the text string of the segment name and it is used during validation.
+
+  * ```inst_ref_set<Packageable Element> scopedmatches_collect(String lookaheadText, boolean validate)```  
+This operation collects all possible matches. From OAL implmentation point of view, this routine is by far the most significant function introduced. This function is called in Scoped_data_type_validate() in the case where a scoped_path has been parsed (scopedmatches_size() is greater than 0), as well as by content assist (Scoped_path_lookahead_content_assist()). The "validate" parameter is true for when called for validatation and false when called for context assist. The lookaheadText parameter is empty when called for validation, and is used as the next string to collect a set of instance for in the context assit call. The return value here is a set of elements that are the possible matches for the current path context. There was significant code change fallout in the decision to implement this routine interitively instead of recursively. See Design comment 7.1 for more information about this function and its implementation. 
+  * ```int scopedmatches_size()```  
+Return the number of scoped_path segments in the cache.
+  * ```String scopedmatches_get_segment(int index)```  
+Returns the path segment string assocaited with the given index.
+  * ```Token scopedmatches_get_token (int index)```  
+Returns the path segment Token assocaited with the given index.
+
 
 
 ### 7. Design Comments
 
-None  
+7.1 Implemenation of the "match collection" in OAL Validation Scoped Access::scopedmatches_collect()  
 
+This function iteratively collects all possible visible options that 
+inst_ref_set<Packageable Element>  
+TODO:
+   
 ### 8. User Documentation
 
 The existing documenation shall be modified to update places that describe this behavior as an error and to describe the 
