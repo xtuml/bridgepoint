@@ -36,8 +36,10 @@
       value="**/OAL*Validation*Functions.xtuml" />
   <property name="oal_utility_input"
       value="**/OAL*Validation*Utility*Functions.xtuml" />
+  <property name="oal_validation_scoped"
+      value="**/OAL*Validation*Scoped*Access.xtuml" />
 
-  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}" />
+  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}, ${oal_validation_scoped}" />
 
   <target name="sql.depends" >
     <echo >Plugins home: ${plugins-home}</echo>

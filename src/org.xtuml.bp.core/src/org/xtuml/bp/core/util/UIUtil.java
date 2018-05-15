@@ -48,7 +48,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -65,10 +64,18 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.osgi.framework.Bundle;
-
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.LeafSymbolicConstant_c;
+import org.xtuml.bp.core.LiteralSymbolicConstant_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.StructuredDataType_c;
+import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -693,6 +700,13 @@ public class UIUtil
 	    	// must validate with the OS
 	    	if(element instanceof NonRootModelElement) {
 	    		NonRootModelElement nrme = (NonRootModelElement) element;
+	    		// check EDT, SDT, UDT and LSC
+	    		// if another exists within the same package
+	    		// do not allow
+	    		boolean conflicting = checkTypeConflicts(nrme, name);
+	    		if(conflicting) {
+	    			return "Found conflicting data type: " + name;
+	    		}
 	    		if(PersistenceManager.getHierarchyMetaData().isComponentRoot(nrme)) {
                     IStatus validateName = RenameAction.validateName(nrme, name, IResource.FILE);
                     if(!validateName.isOK()) {
@@ -707,6 +721,89 @@ public class UIUtil
 		return result;
 	}
 	
+	public static boolean checkTypeConflicts(NonRootModelElement nrme, String name) {
+		if (nrme instanceof UserDataType_c) {
+			Package_c parentPackage = Package_c.getOneEP_PKGOnR8000(
+					PackageableElement_c.getManyPE_PEsOnR8001(DataType_c.getOneS_DTOnR17((UserDataType_c) nrme))); 
+			UserDataType_c other = UserDataType_c.getOneS_UDTOnR17(
+					DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPackage)),
+					new ClassQueryInterface_c() {
+
+						@Override
+						public boolean evaluate(Object candidate) {
+							UserDataType_c udt = (UserDataType_c) candidate;
+							if(candidate != nrme) {
+								return udt.getName().equals(name);
+							}
+							return false;
+						}
+					});
+			if (other != null) {
+				return true;
+			}
+		} else if (nrme instanceof EnumerationDataType_c) {
+			Package_c parentPackage = Package_c.getOneEP_PKGOnR8000(
+					PackageableElement_c.getManyPE_PEsOnR8001(DataType_c.getOneS_DTOnR17((EnumerationDataType_c) nrme))); 
+			EnumerationDataType_c other = EnumerationDataType_c.getOneS_EDTOnR17(
+					DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPackage)),
+					new ClassQueryInterface_c() {
+
+						@Override
+						public boolean evaluate(Object candidate) {
+							EnumerationDataType_c edt = (EnumerationDataType_c) candidate;
+							if(candidate != nrme) {
+								return edt.getName().equals(name);
+							}
+							return false;
+						}
+					});
+			if (other != null) {
+				return true;
+			}
+		} else if (nrme instanceof StructuredDataType_c) {
+			Package_c parentPackage = Package_c.getOneEP_PKGOnR8000(
+					PackageableElement_c.getManyPE_PEsOnR8001(DataType_c.getOneS_DTOnR17((StructuredDataType_c) nrme))); 
+			StructuredDataType_c other = StructuredDataType_c.getOneS_SDTOnR17(
+					DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPackage)),
+					new ClassQueryInterface_c() {
+
+						@Override
+						public boolean evaluate(Object candidate) {
+							StructuredDataType_c sdt = (StructuredDataType_c) candidate;
+							if(candidate != nrme) {
+								return sdt.getName().equals(name);
+							}
+							return false;
+						}
+					});
+			if (other != null) {
+				return true;
+			}
+		} else if (nrme instanceof LiteralSymbolicConstant_c) {
+			Package_c parentPackage = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
+					.getManyPE_PEsOnR8001(DataType_c.getManyS_DTsOnR1500(SymbolicConstant_c.getManyCNST_SYCsOnR1502(
+							LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1503((LiteralSymbolicConstant_c) nrme)))));
+			LiteralSymbolicConstant_c other = LiteralSymbolicConstant_c.getOneCNST_LSCOnR1503(
+					LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1502(SymbolicConstant_c.getManyCNST_SYCsOnR1500(
+							DataType_c.getOneS_DTOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPackage)))),
+					new ClassQueryInterface_c() {
+
+						@Override
+						public boolean evaluate(Object candidate) {
+							LiteralSymbolicConstant_c lsc = (LiteralSymbolicConstant_c) candidate;
+							if(candidate != nrme) {
+								return lsc.getName().equals(name);
+							}
+							return false;
+						}
+					});
+			if (other != null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	static class NameInputValidator implements IInputValidator {
 
 		private ModelElement element;
