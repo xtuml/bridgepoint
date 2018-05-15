@@ -60,9 +60,14 @@ public class Gr_c {
     Gr_c.lastY = value;
   }
   public static void Drawtext(final GCDelegate Context, final int Justified_to, final String Text, final int Text_style, final int X, final int Y) {
-    // TODO #4859 there needs to be a case here to handle all of our supported text styles found in
-    // the Style EDT
-	// Current cases should be changed to use the TextLayout/TextStyle ala UNDERLINED below.
+    // TODO: Current cases should be changed to use the TextLayout/TextStyle 
+    // ala UNDERLINED below.
+    if ( Style_c.Underlined == Text_style ) {
+      final TextStyle style = new TextStyle();
+      style.font = Context.getFont();
+      style.underline = true;
+      Context.drawTextLayout(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), false, style);
+    }
     String[] toPrint = Text.split("\n");  //$NON-NLS-1$
     int yOffset = 0;
     if (Justified_to == Justification_c.Center_in_X) {
@@ -86,16 +91,7 @@ public class Gr_c {
         yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
       }
     } else {
-      if ( Style_c.Underlined == Text_style ) {
-        final TextStyle style = new TextStyle();
-        style.font = Context.getFont();
-        style.underline = true;
-        Context.drawTextLayout(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), false, style);
-      }
-      else
-      {
-        Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
-      }
+      Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
     }
   } // End drawText
   public static void Drawrect(final GCDelegate Context, boolean filled, final int H, final int W, final int X, final int Y) {
