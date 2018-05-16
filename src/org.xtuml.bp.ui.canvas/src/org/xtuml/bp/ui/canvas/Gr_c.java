@@ -25,7 +25,6 @@ package org.xtuml.bp.ui.canvas;
 // External Entity.
 //
 import org.eclipse.jface.preference.JFacePreferences;
-import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
@@ -60,38 +59,39 @@ public class Gr_c {
     Gr_c.lastY = value;
   }
   public static void Drawtext(final GCDelegate Context, final int Justified_to, final String Text, final int Text_style, final int X, final int Y) {
-    // TODO: Current cases should be changed to use the TextLayout/TextStyle 
-    // ala UNDERLINED below.
+    // This function can currently only handle Underlined or Justified text, but
+	// not both. Underlined text currently will always be left aligned. 
     if ( Style_c.Underlined == Text_style ) {
       final TextStyle style = new TextStyle();
       style.font = Context.getFont();
       style.underline = true;
       Context.drawTextLayout(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), false, style);
-    }
-    String[] toPrint = Text.split("\n");  //$NON-NLS-1$
-    int yOffset = 0;
-    if (Justified_to == Justification_c.Center_in_X) {
-      for (int i = 0; i < toPrint.length; i++) {
-        int width = Scale(Context.textExtent(toPrint[i]).x);
-        Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
-        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
-      }
-    } else if (Justified_to == Justification_c.Center) {
-      // Start by Centering the text block in the y axis
-      yOffset = -Scale(Context.textExtent(Text).y) / 2;
-      for (int i = 0; i < toPrint.length; i++) {
-        int width = Scale(Context.textExtent(toPrint[i]).x);
-        Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
-        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
-      }
-    } else if (Justified_to == Justification_c.Right) {
-      for (int i = 0; i < toPrint.length; i++) {
-        int width = Scale(Context.textExtent(toPrint[i]).x);
-        Context.drawText(toPrint[i], (int) ((X - width) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
-        yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
-      }
     } else {
-      Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
+      String[] toPrint = Text.split("\n");  //$NON-NLS-1$
+      int yOffset = 0;
+      if (Justified_to == Justification_c.Center_in_X) {
+        for (int i = 0; i < toPrint.length; i++) {
+          int width = Scale(Context.textExtent(toPrint[i]).x);
+          Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
+          yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
+        }
+      } else if (Justified_to == Justification_c.Center) {
+        // Start by Centering the text block in the y axis
+        yOffset = -Scale(Context.textExtent(Text).y) / 2;
+        for (int i = 0; i < toPrint.length; i++) {
+          int width = Scale(Context.textExtent(toPrint[i]).x);
+          Context.drawText(toPrint[i], (int) ((X - (width / 2)) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
+          yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
+        }
+      } else if (Justified_to == Justification_c.Right) {
+        for (int i = 0; i < toPrint.length; i++) {
+          int width = Scale(Context.textExtent(toPrint[i]).x);
+          Context.drawText(toPrint[i], (int) ((X - width) * m_ZoomFactor), (int) ((Y + yOffset) * m_ZoomFactor), true);
+          yOffset = yOffset + Scale(Context.textExtent(toPrint[i]).y);
+        }
+      } else {
+        Context.drawText(Text, (int) (X * m_ZoomFactor), (int) (Y * m_ZoomFactor), true);
+      }
     }
   } // End drawText
   public static void Drawrect(final GCDelegate Context, boolean filled, final int H, final int W, final int X, final int Y) {
