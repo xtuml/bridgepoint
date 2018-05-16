@@ -14,10 +14,13 @@
 
 package org.xtuml.bp.ui.text.editor.oal;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 
 public class OALAutoEditStrategy implements IAutoEditStrategy {
 
@@ -79,10 +82,12 @@ public class OALAutoEditStrategy implements IAutoEditStrategy {
             int end = start + document.getLineLength(line) - 1;
             String text = document.get(start,end-start);
             text = text.replaceAll("\\s", "");
-            if ( text.matches("^(?i)(if|for|while)\\(.*")) {
-                boolean spacesForTabs = true; // TODO - read from prefs
+            if ( text.matches("^(?i)(if|elif|while)\\(.*") || text.matches("^(?i)(else|foreach).*") ) {
+                IPreferenceStore store = EditorsUI.getPreferenceStore();
+                boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+                int tabWidth = store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH);
+
                 if ( spacesForTabs ) {
-                   int tabWidth = 4; // TODO - read from prefs
                    String indent = "";
                    for (int i=0; i<tabWidth; ++i) {
                        indent = indent.concat(" ");

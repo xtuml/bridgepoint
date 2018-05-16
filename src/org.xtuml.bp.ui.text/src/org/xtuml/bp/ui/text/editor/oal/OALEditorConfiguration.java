@@ -14,6 +14,7 @@
 
 package org.xtuml.bp.ui.text.editor.oal;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
@@ -27,6 +28,8 @@ import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.ui.text.contentassist.OALCompletionProcessor;
 import org.xtuml.bp.ui.text.contentassist.OALProposalSorter;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
@@ -110,8 +113,9 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 	@Override
 	public int getTabWidth(ISourceViewer sourceViewer) 
 	{
-		// TODO - SKB, change to read a setting from the activity editor pref page
-		return 4;
+	    IPreferenceStore store = EditorsUI.getPreferenceStore();
+	    int tabWidth = store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH);
+		return tabWidth;
 	}
 	
 	@Override

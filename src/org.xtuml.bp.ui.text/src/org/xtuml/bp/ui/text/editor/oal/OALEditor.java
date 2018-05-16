@@ -16,8 +16,11 @@
 package org.xtuml.bp.ui.text.editor.oal;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
@@ -98,7 +101,9 @@ public class OALEditor extends AbstractModelElementTextEditor {
     
 	@Override
 	protected boolean isTabsToSpacesConversionEnabled()
-	{
-		return true;  // TODO - SKB, change to read a setting from the activity editor preference page
+	{ 
+	    IPreferenceStore store = EditorsUI.getPreferenceStore(); 
+	    boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		return spacesForTabs;
 	}
 }
