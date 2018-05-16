@@ -55,12 +55,9 @@ create object instance query of SQU_Q;
 create object instance declarationQuery of SQU_D;
 relate query to declarationQuery across R9600;
 // create an engine to process this query, note
-// there is only one for all of the types associated
-select any declarationEngine from instances of SEN_DCE;
-if(empty declarationEngine)
-  create object instance declarationEngine of SEN_DCE;
-end if;
-select one engine related by declarationEngine->SEN_E[R9501];
+create object instance declarationEngine of SEN_DCE;
+create object instance engine of SEN_E;
+relate engine to declarationEngine across R9501;
 relate query to engine across R9500;
 query.pattern = param.pattern;
 query.regEx = param.regEx;
@@ -185,7 +182,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
-	'// create a declaration query
+	'// create an action language query
 create object instance query of SQU_Q;
 create object instance actionLanguageQuery of SQU_A;
 relate query to actionLanguageQuery across R9600;
@@ -246,7 +243,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
-	'// create a declaration query
+	'// create a description query
 create object instance query of SQU_Q;
 create object instance descriptionQuery of SQU_DE;
 relate query to descriptionQuery across R9600;
@@ -316,6 +313,10 @@ end if;
 select one descriptionQuery related by self->SQU_DE[R9600];
 if(not_empty descriptionQuery)
   descriptionQuery.configureParticipants(monitor:param.monitor);
+end if;
+select one declarationQuery related by self->SQU_D[R9600];
+if(not_empty declarationQuery)
+  declarationQuery.configureParticipants(monitor:param.monitor);
 end if;',
 	1,
 	'',
@@ -382,6 +383,12 @@ end if;
 select one descriptionQuery related by self->SQU_DE[R9600];
 if(not_empty descriptionQuery)
   descriptionQuery.createParticipant(modelRootId:param.modelRootId,
+                           elementId:param.elementId, className:param.className,
+                                         searchableValue:param.searchableValue);
+end if;
+select one declarationQuery related by self->SQU_D[R9600];
+if(not_empty declarationQuery)
+  declarationQuery.createParticipant(modelRootId:param.modelRootId,
                            elementId:param.elementId, className:param.className,
                                          searchableValue:param.searchableValue);
 end if;',

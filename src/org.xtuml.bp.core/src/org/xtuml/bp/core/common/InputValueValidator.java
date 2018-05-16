@@ -30,6 +30,19 @@ public class InputValueValidator {
      * Validate the input against the underlying type.
      */
     public static String isValid(DataType_c dt, String newValue) {
+    	return isValid( dt, newValue, false );
+    }
+
+    /*
+     * Validate the input against the underlying type.
+     */
+    public static String isValid(DataType_c dt, String newValue, boolean alwaysAllowBlank) {
+        if ( null == dt || null == newValue ) return "Invalid input values.";
+
+        if ( "".equals( newValue ) && alwaysAllowBlank ) {
+            return null; // no error because empty string is always allowed
+        }
+
         String dtName = dt.Getcoredatatypename();
 
         if (!dtName.equals("string") && newValue.contains(" ")) {

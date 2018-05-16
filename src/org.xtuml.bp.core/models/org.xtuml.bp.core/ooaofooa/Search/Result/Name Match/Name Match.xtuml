@@ -17,12 +17,12 @@ INSERT INTO O_ATTR
 	VALUES ("c3156441-4d91-46c5-9af2-1bd5b1e0a1f3",
 	"e029b16e-a49c-4c02-9610-2db8e124b32f",
 	"fdcad8a2-0482-41f1-ad44-2931d315e424",
-	'Unnamed Attribute',
+	'name',
 	'',
 	'',
-	'Unnamed Attribute',
+	'name',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
