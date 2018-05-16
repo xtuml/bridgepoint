@@ -17,7 +17,7 @@ that allows types with the same name to exist without this error.
 #
 ### 2. Document References
 
-<a id="2.1"></a>2.1 [BridgePoint DEI #4896](https://support.onefact.net/issues/4896)   
+<a id="2.1"></a>2.1 Issues [#4896](https://support.onefact.net/issues/4896) and [#10177](https://support.onefact.net/issues/4896)  
 <a id="2.2"></a>2.2 [This issue's analysis](4896_scoped_enum.ant.md)  
 
 
@@ -25,7 +25,7 @@ that allows types with the same name to exist without this error.
 
 See the [background in the analysis note](4896_scoped_enum.ant.md).
 
-## 4. Requirements
+### 4. Requirements
 
 See the [analysis note](4896_scoped_enum.ant.md).
 
@@ -35,7 +35,7 @@ See the [analysis note](4896_scoped_enum.ant.md).
 
 ### 6. Design
 
-The work required section of [this issue's analysis note](4896_scoped_enum.ant.md) described a proposed grammar change to satisfy the requirements of this issue. Design started with that grammar. However, discussion and and test during this design phase led to a more flexible grammar. The grammer described in the analysis requires the user to type a full-path specification (including system name). Discussion and test led to the desire to allow a "partial path" solution. This "partial path" solution would allow a user to specify only as much path as is neccessary to disambiguate a conflict. This has the addtional benefit of not requiring a system name to always be present. 
+The work required section of [this issue's analysis note](4896_scoped_enum.ant.md) described a proposed grammar change to satisfy the requirements of this issue. Design started with that grammar. However, discussion and test during this design phase led to a more flexible grammar. The grammar described in the analysis requires the user to type a full-path specification (including system name). Discussion and test led to the desire to allow a "partial path" solution. This "partial path" solution would allow a user to specify only as much path as is neccessary to disambiguate a conflict. This has the addtional benefit of not requiring a system name to always be present. 
 
 6.1 Here is the grammar before any change was made for this issue:  
 ```
@@ -78,8 +78,8 @@ scoped_package!
 ```
 
 
-6.3 Following is the grammar that implements partial-path matching. This is the grammer that shall be used.  
-The predicate in the scoped_path rule below deserves a bit of explanation here. The difference between a scoped_access that does NOT contain a scoped path and a scoped_access that DOES contain a path is that fact that a scoped_path contains 2 (or more) "general_name doublecolon"s in a row. This lookahead is what allows the grammar to distinguish a scoped_access WITH path from a scoped_ access witout a path.  
+6.3 Following is the grammar that implements partial-path matching. This is the grammar that shall be used.  
+The predicate in the scoped_path rule below deserves a bit of explanation here. The difference between a scoped_access that does NOT contain a scoped path and a scoped_access that DOES contain a path is that fact that a scoped_path contains 2 (or more) "general_name doublecolon"s in a row. This lookahead is what allows the grammar to distinguish a scoped_access WITH path from a scoped_ access without a path.  
 
 ```
 scoped_access
@@ -103,6 +103,10 @@ scoped_path_segment
     scoped_path_segment_name
     TOK_DOUBLECOLON!
   ;
+scoped_path_segment_name!
+  :
+    general_name
+  ;
 ```
 
 6.3.1 Partial path grammar implementation  
@@ -118,12 +122,12 @@ To allow the parse of a scoped_access rule to happen before validation two main 
 
 6.3.1.1.1 Oal_validate.java::ScopedSegment
 
-Implementation for parser rule validation and instance creation is performed by functions (S_SYNC) that are implemented in OAL. The BridgePoint architecture allows a BridgePoint developer to mark S_SYNCs  that contain these parser implementation functions. The mark, which is handled by MC-Java, is placed in the description field of a package that contains these operations is:  
+Implementation for parser rule validation and instance creation is performed by functions (S_SYNC) that are implemented in OAL. The BridgePoint architecture allows a BridgePoint developer to mark S_SYNCs  that contain these parser implementation functions. The mark, which is handled by MC-Java, is placed in the description field of a S_SYNC that shall be part of the generated Oal_validation class:  
 ParserValidateFunction: TRUE
 
 When a S_SYNC is marked as "ParserValidateFunction: TRUE" (or ParserUtilityFunction: TRUE) the generated code is output to a file: bp.als.oal/src/org/xtuml/bp/als/oal/Oal_validate.java. This Oal_validate.java file is initially created from an archetype, bp.als/arc/validate_gen.arc.  
 
-For this work, validate_gen.arc shall be modified and a new class and array introduced to allow the parsed scoped segments to be changed. Following is the class and array that shall be introduced:
+For this work, validate_gen.arc shall be modified and a new class and array introduced to allow the parsed scoped segments to be cached. Following is the class and array that shall be introduced:
 
 
 ```
@@ -150,21 +154,22 @@ For this work, validate_gen.arc shall be modified and a new class and array intr
 
 6.3.1.1.2 ooaofooa/Functions/OAL Validation Scoped Access  
 
-Given the new archetectural mechanism put in place to cache path segments, a mechanism to interact with the path segments from OAL is needed. Note that such parser-related utility functions are , by convention, kept in the package OAL Validation Utility Functions in BridgePoint. This is simply convention, and it was observed during design that there would be quite a few new utility operations introduced in support of this scoped-path "cache". A new package was therfore introduced as a sibling to OAL Vaidation Utility Functions. The new package shall be named: OAL Validation Scoped Access.  The following operations shall be introduced in this new package:  
+Given the new architectural mechanism put in place to cache path segments, a mechanism to interact with the path segments from OAL is needed. Note that such parser-related utility functions are, by convention, kept in the package OAL Validation Utility Functions in the Ooaofooa metamodel. This is simply convention, and it was observed during design that there would be quite a few new utility operations introduced in support of this scoped-path "cache". A new package was therefore introduced as a sibling to OAL Vaidation Utility Functions. The new package shall be named: OAL Validation Scoped Access.  The following operations shall be introduced in this new package:  
 
   * ```void scopedsegment_reset()```  
 This is used to reset the path cache. This is called as the first statement in Scoped_path_start(), and is placed in this location because this is only called when a scoped_path is being parsed.
   * ```void scopedsegment_add_segment(Token, String)```  
-This is used to add a new path segment to the cache. This is called during Scoped_path_segment_name_validate() a segment has been parsed. The Token parameter is the parser Token that represents the segment being parseed. This Token is used for error reporting. The name is the text string of the segment name and it is used during validation.
+This is used to add a new path segment to the cache. This is called during Scoped_path_segment_name_validate() after segment has been parsed. The Token parameter is the parser Token that represents the segment being parsed. This Token is used for error reporting. The name is the text string of the segment name and it is used during validation.
 
   * ```inst_ref_set<Packageable Element> scopedmatches_collect(String lookaheadText, boolean validate)```  
-This operation collects all possible matches. From OAL implmentation point of view, this routine is by far the most significant function introduced. This function is called in Scoped_data_type_validate() in the case where a scoped_path has been parsed (scopedsegment_size() is greater than 0), as well as by content assist (Scoped_path_lookahead_content_assist()). The "validate" parameter is true for when called for validatation and false when called for context assist. The lookaheadText parameter is empty when called for validation, and is used as the next string to collect a set of instance for in the context assist call. The return value here is a set of elements that are the possible matches for the current path context. There was significant code change fallout in the decision to implement this routine interitively instead of recursively. See Design comment 7.1 for more information about this function and its implementation. 
+This operation collects all possible matches. From OAL implmentation point of view, this routine is by far the most significant function introduced. This function is called in Scoped_data_type_validate() in the case where a scoped_path has been parsed (scopedsegment_size() is greater than 0), as well as by content assist (Scoped_path_lookahead_content_assist()). The "validate" parameter is true for when called for validatation and false when called for content assist. The lookaheadText parameter is empty when called for validation, and is used as the next string to collect a set of instance for in the content assist call. The return value here is a set of elements that are the possible matches for the current path context. There was significant code change fallout in the decision to implement this routine iteratively
+instead of recursively. See Design comment 7.1 for more information about this function and its implementation. 
   * ```int scopedsegment_size()```  
 Return the number of scoped_path segments in the cache.
   * ```String scopedsegment_get_segment_name(int index)```  
-Returns the path segment string assocaited with the given index.
+Returns the path segment string associated with the given index.
   * ```Token scopedsegment_get_token (int index)```  
-Returns the path segment Token assocaited with the given index.
+Returns the path segment Token associated with the given index.
 
 6.4 Content assist
 
@@ -177,11 +182,11 @@ Four new proposal types were added: Component, Package, SystemModel and UDT. The
 
 7.1 ```inst_ref_set<Packageable Element> scopedmatches_collect(String lookaheadText, boolean validate)```  
 
-This operation implements the partial-path matching for both validation and content assist. During design, implementations of this functionality were performed in both interitive and recursive forms. The recursive form collected matches in another structure class and array introduced to Oal_validate.java (with a interface similar to the Oal_validate.java::ScopedSegment class described above.  
+This operation implements the partial-path matching for both validation and content assist. During design, implementations of this functionality were performed in both iterative and recursive forms. The recursive form collected matches in another  class and array that was introduced to Oal_validate.java (with a interface similar to the Oal_validate.java::ScopedSegment class described above.  
 
-The interitive form reused a code-pattern used in the previous implementation of Scoped_data_type_validate() (and other places in BridgePoint) that took advantage of the BridgePoint architecture's search facility that uses {C_C | PE_PE | EP_PKG}.collectVisibleElementsForName.  
+The iterative form reused a code-pattern used in the previous implementation of Scoped_data_type_validate() (and other places in BridgePoint) that took advantage of the BridgePoint architecture's search facility that uses {C_C | PE_PE | EP_PKG}.collectVisibleElementsForName.  
 
-The interitive solution was simpler and was thus the appraoch taken. With this approach a decision was made to abandon the extra collection that the recursive implementation has used to store matches in favor of allowing the matching routine to return a set of matches. This again greatly simplied the solution but required some "architectural" changes. MC-Java was updated to support returning a value of an instance reference set type. Additionally, the implementation made use of the newly added set union operation. This operation requires the instance reference types of classes involved in the expression to be published (see section 5.3 in [this design note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/5007_set_operations/5007_set_operations_dnt.md)).
+The iterative solution was simpler and was thus the appraoch taken. With this approach a decision was made to abandon the extra collection that the recursive implementation has used to store matches in favor of allowing the matching routine to return a set of matches. This again greatly simplied the solution but required some "architectural" changes. MC-Java was updated to support returning a value of an instance reference set type. Additionally, the implementation made use of the newly added set union operation. This operation requires the instance reference types of classes involved in the expression to be published (see section 5.3 in [this design note](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/5007_set_operations/5007_set_operations_dnt.md)).
 
 7.2 UDT content assist proposals
 
@@ -190,16 +195,17 @@ In the original implementation of content assist, UDTs (User Data Types) were no
    
 ### 8. User Documentation
 
-The existing documenation shall be modified to update places that describe this behavior as an error and to describe the 
+The existing documentation shall be modified to update places that describe this behavior as an error and to describe the 
 new behavior.  
 
 ### 9. Unit Test
 
-9.1 Assure that duplicate-named enumeration data types may exist in separate packages in a model.  
-9.2 Assure that duplicate-named constant data types may exist in separate packages in a model.  
-9.3 Assure that duplicate-named structured data types may exist in separate packages in a model.  
-9.4 Assure that duplicate-named user data types may exist in separate packages in a model.  Note 
+9.1 For each of the folloing cases assure that OAL can access duplicate-named enumertions and constant specifications by utilizing a path specification. 
+9.1.1 Assure that duplicate-named enumeration data types may exist in separate packages in a model.  
+9.1.2 Assure that duplicate-named constant specification may exist in separate packages in a model.  
+9.1.3 Assure that duplicate-named user data types may exist in separate packages in a model.  Note 
 that this is already allowed in the tool today. However, it is simply added here for completeness.  
-9.5 Test backwards compatibility to assure that existing models do not have parse errors unless duplicates are present.  
+9.1.4 Test backwards compatibility to assure that existing models do not have parse errors unless duplicates are present. 
+9.2 Repeat 9.1 with duplicate names that occur only when IPRs are enabled.
 
 ### End
