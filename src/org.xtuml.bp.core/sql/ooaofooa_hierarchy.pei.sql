@@ -146,6 +146,7 @@ INSERT INTO T_TNS VALUES (318, 'Operation.gif',            'MSG_IA',  '', '','',
 INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '','',                 'Creation Transitions', 						-1, '');
 INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name', '',                 'Port Reference',                        -1, '');
 INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Exception', -1, '');
+INSERT INTO T_TNS VALUES (384, 'Range.gif', 'S_RANGE', '', '', '', 'Range', -1, '');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
@@ -183,6 +184,7 @@ INSERT INTO T_TPS VALUES (41, 16, 305, '->O_BATTR[R106]->O_NBATTR[R107]', '', fa
 INSERT INTO T_TPS VALUES (42, 16, 34, '->O_RATTR[R106]->O_REF[R108]', '', false);
 INSERT INTO T_TPS VALUES (43, 75, 17, '->S_DT[R17]', '', false);
 INSERT INTO T_TPS VALUES (44, 74, 17, '->S_DT[R17]', '', false);
+INSERT INTO T_TPS VALUES (402,74, 384, '->S_RANGE[R57]', '', false);
 INSERT INTO T_TPS VALUES (45, 77, 17, '->S_DT[R17]', '', false);
 INSERT INTO T_TPS VALUES (46, 27, 28, '->S_BRG[R19]', '', false);
 INSERT INTO T_TPS VALUES (50, 28, 17, '->S_DT[R20]', 'Return Type', true);
@@ -426,3 +428,5 @@ INSERT INTO T_EDL VALUES (6, 297, 'PE_PE', '->PE_PE[R8001]');
 INSERT INTO T_EA VALUES (6, 'Visibility');
 INSERT INTO T_EDL VALUES (7, 6, 'PE_PE', '->PE_PE[R8001]');
 INSERT INTO T_EA VALUES (7, 'Visibility');
+
+
