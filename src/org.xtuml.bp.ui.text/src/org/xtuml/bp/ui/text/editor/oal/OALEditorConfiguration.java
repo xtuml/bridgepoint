@@ -108,8 +108,6 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 	    else return null;
 	}
 
-	
-	// TODO - Should these overrides be in EditorConfiguration rather than here?
 	@Override
 	public int getTabWidth(ISourceViewer sourceViewer) 
 	{

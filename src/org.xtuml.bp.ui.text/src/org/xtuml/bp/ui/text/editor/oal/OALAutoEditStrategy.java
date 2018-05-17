@@ -21,22 +21,12 @@ import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.xtuml.bp.core.CorePlugin;
 
 public class OALAutoEditStrategy implements IAutoEditStrategy {
 
     public void customizeDocumentCommand(IDocument document, DocumentCommand command) {
         try {
-            /* TODO - old example
-            if (command.text.equals("{")) {
-                int line = document.getLineOfOffset(command.offset);
-                String indent = getIndentOfLine(document, line);
-                String prevIndent = getIndentOfLine(document, line-1);
-                // TODO - maybe when we see a newline is when we should look at 
-                // the current line and see if it is a block construct (if/for/etc)
-                // and if it is then do the auto-indent... and perhaps add the closing "end xxx"
-                command.text = "{" + "\r\n" + prevIndent + indent + "}";
-                configureCommand(command);
-            } */
             if (command.text.equals(System.lineSeparator())) {
                 int line = document.getLineOfOffset(command.offset);
                 String curIndent = getIndentOfLine(document, line);
@@ -44,14 +34,8 @@ public class OALAutoEditStrategy implements IAutoEditStrategy {
                 command.text = System.lineSeparator() + curIndent + nextIndent;
             }
         } catch (BadLocationException ble) {
-            // TODO - what to do? Log, fail, nothing?
+            CorePlugin.logError("Invalid edit location exception caught.", ble);
         }
-    }
-
-    private void configureCommand(DocumentCommand command) {
-        // puts the caret between both the quotes
-        command.caretOffset = command.offset + 1;
-        command.shiftsCaret = false;
     }
 
     public static int findEndOfWhiteSpace(IDocument document, int offset, int end) throws BadLocationException {
