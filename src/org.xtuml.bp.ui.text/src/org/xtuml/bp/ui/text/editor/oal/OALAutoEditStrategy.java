@@ -65,8 +65,7 @@ public class OALAutoEditStrategy implements IAutoEditStrategy {
             int start = document.getLineOffset(line);
             int end = start + document.getLineLength(line) - 1;
             String text = document.get(start,end-start);
-            text = text.replaceAll("\\s", "");
-            if ( text.matches("^(?i)(if|elif|while)\\(.*") || text.matches("^(?i)(else|foreach).*") ) {
+            if ( text.matches("^\\s*(?i)(if|elif|while)\\s*\\(?.*") || text.matches("^\\s*(?i)(else|for\\s+each\\s+).*") ) {
                 IPreferenceStore store = EditorsUI.getPreferenceStore();
                 boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
                 int tabWidth = store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH);
