@@ -29,6 +29,7 @@
       </programArgsLin>
       <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
       -Dbridgepoint.GenerateFunctionsFromList=disabled
+      -Xss4m
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
