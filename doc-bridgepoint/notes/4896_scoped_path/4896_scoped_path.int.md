@@ -95,7 +95,59 @@ Branch: 4896_dataytype_path_scoping_pathspec
 
 <pre>
 
- Put the file list here 
+doc-bridgepoint/notes/4896_scoped_enum/4896_component_search.png
+doc-bridgepoint/notes/4896_scoped_enum/4896_error.png
+doc-bridgepoint/notes/4896_scoped_enum/4896_package_search.png
+doc-bridgepoint/notes/4896_scoped_enum/4896_scoped_enum.dnt.md
+doc-bridgepoint/notes/4896_scoped_path/4896_component_search.png
+doc-bridgepoint/notes/4896_scoped_path/4896_error.png
+doc-bridgepoint/notes/4896_scoped_path/4896_package_search.png
+doc-bridgepoint/notes/4896_scoped_path/4896_scoped_enum.ant.md
+doc-bridgepoint/notes/4896_scoped_path/4896_scoped_path.dnt.md
+doc-bridgepoint/notes/4896_scoped_path/4896_scoped_path.int.md
+doc-bridgepoint/notes/4896_scoped_path/data_type_chooser_iprs_enabled.png
+doc-bridgepoint/notes/4896_scoped_path/temp.txt
+doc-bridgepoint/review-minutes/4896_scoped_path/4896_scoped_constants_ant.rvm.md
+doc-bridgepoint/review-minutes/4896_scoped_path/4896_scoped_path.dnt.rvm.md
+
+MC-Java/do_type.inc
+
+org.xtuml.bp.als/arc/validate_gen.arc
+org.xtuml.bp.als/models/org.xtuml.bp.als/grammar/BNF/BNF.xtuml
+org.xtuml.bp.als/models/org.xtuml.bp.als/grammar/BNF/
+    Instance Reference Data Type/Instance Reference Data Type.xtuml
+
+org.xtuml.bp.als.oal/bnf/oal.bnf
+
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/Constants.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/
+    Constant Specification/Constant Specification.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Datatypes/Datatypes.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Domain.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Enumerator/
+    Enumerator.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Element Packaging/
+    Element Packaging.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/External Entities/
+    External Entities.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/Functions.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/
+    OAL Validation Functions/OAL Validation Functions.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/
+    OAL Validation Scoped Access/OAL Validation Scoped Access.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/
+    OAL Validation Utility Functions/OAL Validation Utility Functions.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Packageable Element/
+    Packageable Element.xtuml
+org.xtuml.bp.core/generate.properties
+org.xtuml.bp.core/generate.xml
+
+org.xtuml.bp.ui.text/src/org/xtuml/bp/ui/text/contentassist/
+    OALCompletionProcessor.java
+org.xtuml.bp.ui.text/src/org/xtuml/bp/ui/text/contentassist/
+    OALProposalSorter.java
+
 
 </pre>
 
