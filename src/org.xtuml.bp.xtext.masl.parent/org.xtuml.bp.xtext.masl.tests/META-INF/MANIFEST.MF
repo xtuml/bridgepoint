@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MASL Xtext tests
 Bundle-Vendor: xtUML.org
-Bundle-Version: 6.13.0.qualifier
+Bundle-Version: 6.14.0.qualifier
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.xtext.masl,
