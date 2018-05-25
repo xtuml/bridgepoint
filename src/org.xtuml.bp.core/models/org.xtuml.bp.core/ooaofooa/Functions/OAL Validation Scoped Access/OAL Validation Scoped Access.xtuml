@@ -378,9 +378,9 @@ if ( not_empty act )
 
     end if;
     
-    if ( param.validate and empty matched_elements )
+    if ( param.validate and empty matched_elements and empty matched_systems )
       if ( i < ::scopedsegment_size() )
-        ERR::reportParseError( msg: "Could not find package or component ->%s<- in scoped path.", token: ::scopedsegment_get_token( index:i ) );
+        ERR::reportParseError( msg: "Could not find package, component or system model ->%s<- in scoped path.", token: ::scopedsegment_get_token( index:i ) );
       end if;
       return matched_elements;
     end if;
