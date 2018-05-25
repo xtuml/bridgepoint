@@ -12,13 +12,66 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-6.14.0">What's New in BridgePoint 6.14.0</h1>
+<h1 id="whats-new-in-bridgepoint-6.14">What's New in BridgePoint 6.14</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
-<li>Engineering Build</li>
+<li>Methodology Additions<br />
+</li>
+<li>User Interface</li>
+<li>Model Compiler</li>
+<li>MASL Support</li>
 </ul>
 <hr />
-<h2 id="engineering-build">Engineering Build</h2>
-<p>This is an engineering build of BridgePoint. It has undergone limited testing.</p>
+<h2 id="methodology-additions">Methodology Additions</h2>
+<h4 id="ranges-of-data-types">Ranges of Data Types</h4>
+<p>BridgePoint now supports setting range minimum and maximum values on data types. The range<br />
+data is stored in an instance of <code>S_RANGE</code> that is associated with the type. Either value<br />
+may be left unspecified. The modeler may also clear the range data, which will dis-associate<br />
+and delete the <code>S_RANGE</code> instance.</p>
+<p>Range enforcement is not yet implemented in BridgePoint Verifier or model compilers.</p>
+<p><img src="range_cme.png" alt="range cme" /></p>
+<h4 id="constant-based-on-user-data-type">Constant based on user data type</h4>
+<p>In prior versions of the tool constants were only allowed to be typed with core<br />
+types <code>boolean</code>, <code>integer</code>, <code>real</code>, and <code>string</code>.</p>
+<p>In this version constants may now be typed with these core types or User Defined Types based<br />
+on <code>boolean</code>, <code>integer</code>, <code>real</code>, <code>string</code> or an enumerated data type. UDTs based on UDTs that<br />
+resolve back to one of the supported types may also be used.</p>
+<h2 id="user-interface-enhancements">User Interface Enhancements</h2>
+<h4 id="scoped-data-types-in-oal">Scoped data types in OAL</h4>
+<p>BridgePoint OAL can now refer to types via scoped paths. This allows modelers to have types<br />
+with the same name at various levels of the model and to disambiguate which one they are<br />
+referring to.</p>
+<p>xtUML visibility rules apply. Users are only required to specify as much path as is necessary<br />
+to resolve conflicts. This means that fully scoped paths are not required.</p>
+<p><img src="scoped_type_path.png" alt="scoped types" /></p>
+<h4 id="search-of-xtuml-structural-elements">Search of xtUML structural elements</h4>
+<p>xtUML search is extended to look for model elements by name. This is in addition to the<br />
+existing support for searching Descriptions and Action Language.</p>
+<p>Opening (double-clicking) individual search results will open the declaration of the<br />
+model element.</p>
+<p><img src="name_search.png" alt="name search" /></p>
+<h4 id="element-ordering-in-constant-specifications">Element ordering in constant specifications</h4>
+<p>BridgePoint is fixed to consistently display constants inside a constant specification with<br />
+a user-defined order. Constants may now be moved up and down in the order. Model Explorer<br />
+and the canvas both use the ordering.</p>
+<h4 id="updated-gps-watch-example-model">Updated GPS Watch example model</h4>
+<p>The GPS Watch example model available via <code>Help &gt; Welcome &gt; Quick Start</code> is now available<br />
+in both OAL and MASL forms. The same structural model is used in both examples, with different<br />
+action languages used to perform the processing.</p>
+<p>BridgePoint will set the necessary application preferences for the type of model selected.</p>
+<h2 id="model-compiler-enhancements">Model Compiler Enhancements</h2>
+<ul>
+<li>BridgePoint now includes version 2 of the generator based on pyrsl/pyxtuml.</li>
+<li>Bug fix for invalid C code for associative traversals</li>
+<li>Bug fix for instance already related when using interpret-based mc3020</li>
+</ul>
+<h2 id="masl-support">MASL Support</h2>
+<ul>
+<li>Bug fix for tool lockup</li>
+<li>Enhancement for UDT usage in MASL Projects</li>
+<li>Improved error reporting by MASL tools</li>
+<li>MASL compiler fixes and cleanup</li>
+<li>MASL testing enhancements</li>
+</ul>
 </body>
 </html>
