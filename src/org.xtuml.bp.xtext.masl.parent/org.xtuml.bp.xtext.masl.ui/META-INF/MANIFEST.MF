@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MASL Xtext Editor
 Bundle-Vendor: xtUML.org
-Bundle-Version: 6.13.0.qualifier
+Bundle-Version: 6.15.0.qualifier
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.xtext.masl;visibility:=reexport,
