@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.14.0
+Release 6.15.0
 
 License
 -------
@@ -49,35 +49,7 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[10261](https://support.onefact.net/issues/10261) |  Update SAC_PROC test model
-[10259](https://support.onefact.net/issues/10259) |  GPS Watch README issues
-[10250](https://support.onefact.net/issues/10250) |  v6.14 Release Prep
-[10222](https://support.onefact.net/issues/10222) |  User's guide for testrunner
-[10221](https://support.onefact.net/issues/10221) |  Analyze UDT range enforcement.
-[10216](https://support.onefact.net/issues/10216) |  add Einstein's Riddle to xtuml/models
-[10209](https://support.onefact.net/issues/10209) |  MC-3020 produces invalid C code for associative traversals
-[10208](https://support.onefact.net/issues/10208) |  Update pyrsl from v2.0.0b1 to v2.0.0
-[10204](https://support.onefact.net/issues/10204) |  update mc3020 to pyrsl 2
-[10202](https://support.onefact.net/issues/10202) |  Update welcome plugin with OAL and MASL versions of the GPS Watch model
-[10199](https://support.onefact.net/issues/10199) |  masl_round_trip restart testing
-[10196](https://support.onefact.net/issues/10196) |  Improve error reporting in the x2m plugin
-[10184](https://support.onefact.net/issues/10184) |  Show file name with MASL formatter errors
-[10183](https://support.onefact.net/issues/10183) |  Cannot use UDTs in terminators for MASL projects
-[10177](https://support.onefact.net/issues/10177) |  Not possible to specify datatypes with the same name at different levels.
-[10176](https://support.onefact.net/issues/10176) |  Ranges of Data Types
-[10175](https://support.onefact.net/issues/10175) |  Constant based on user data type
-[10174](https://support.onefact.net/issues/10174) |  Search of xtUML structural elements
-[10173](https://support.onefact.net/issues/10173) |  Hand craft code handling with the MASL compiler
-[10172](https://support.onefact.net/issues/10172) |  Header is not visible when using types from another domain
-[10171](https://support.onefact.net/issues/10171) |  Deprecate 'function' keyword
-[10170](https://support.onefact.net/issues/10170) |  MASL compiler generates a copyright notice
-[10169](https://support.onefact.net/issues/10169) |  MASL compiler issues
-[10168](https://support.onefact.net/issues/10168) |  Increment version to 6.13.0
-[10166](https://support.onefact.net/issues/10166) |  MASL calculator updates
-[10161](https://support.onefact.net/issues/10161) |  Tool Locked Up While Exporting Domain
-[10153](https://support.onefact.net/issues/10153) |  StackOverflowError (Model Explorer view won't load)
-[10116](https://support.onefact.net/issues/10116) |  instance is already related when using interpret-based mc3020
-[9050](https://support.onefact.net/issues/9050) |   Element order is inconsistent between ME and canvas for constants
+[10265](https://support.onefact.net/issues/10265) |  Bump version to 6.15  
     
     
 Known Issues and Feature Requests
