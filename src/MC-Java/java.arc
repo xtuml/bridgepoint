@@ -413,6 +413,27 @@ p_${an.body}\
 .//
 .//====================================================================
 .//
+.function get_unique_id_attr_id
+  .param inst_ref_set attributes  .// O_ATTR
+  .assign attr_Attr_ID = 0
+  .for each attribute in attributes
+    .invoke aip = attr_is_persistent(attribute)
+    .if ( aip.result )
+       .invoke ibaaui = is_base_attribute_a_unique_id(attribute)
+       .if (ibaaui.is_unique_id)
+         .invoke iuia = is_uniqueid_id_attr(attribute)
+         .if (iuia.result)
+           .if(attr_Attr_ID == 0)
+             .assign attr_Attr_ID = attribute.Attr_ID
+           .end if
+         .end if
+       .end if
+    .end if
+  .end for
+.end function
+.//
+.//====================================================================
+.//
   .function get_referential_var_name_of_rgo
      .param inst_ref oref
         .//
@@ -1900,7 +1921,7 @@ ${blck.body}
               .end if
               .select many tmp_oref_set related by referential->O_REF[R108]
               .assign oref_cnt = cardinality tmp_oref_set
-              .if ((empty dbattr) and ((empty referential) or (oref_cnt == 1)))
+              .if (empty dbattr)
                 .// if the current attribute is of the type
                 .// unique_id then we make this set method
                 .// private
@@ -1944,6 +1965,11 @@ ${blck.body}
                 .invoke result = is_base_attribute_a_unique_id(attribute)
                 .if(result.is_unique_id)
    ${an1.body} = IdAssigner.preprocessUUID(newValue);
+                  .select many o_attrs related by attribute->O_OBJ[R102]->O_ATTR[R102]
+                  .invoke unique_id_attr = get_unique_id_attr_id( o_attrs )
+                  .if ( unique_id_attr.Attr_ID == attribute.Attr_ID )
+   setUniqueId(${an1.body});
+                  .end if
                 .else
    ${an1.body} = newValue ;
                 .end if

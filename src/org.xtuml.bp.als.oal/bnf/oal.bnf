@@ -369,9 +369,24 @@ invocation_expr
   ;
 scoped_access
    :
-    scoped_data_type
+   (
+        scoped_path
+        scoped_data_type
+        TOK_DOUBLECOLON!
+        scoped_member
+    )
+  ;
+scoped_path
+  :
+    ( 
+      ( scoped_path_segment scoped_path_segment )=>
+        scoped_path_segment
+    )*
+  ;
+scoped_path_segment
+  :
+    scoped_path_segment_name
     TOK_DOUBLECOLON!
-    scoped_member
   ;
 debug_operand
   :
@@ -564,6 +579,10 @@ scoped_data_type!
     general_name
   ;
 scoped_member!
+  :
+    general_name
+  ;
+scoped_path_segment_name!
   :
     general_name
   ;
@@ -810,7 +829,7 @@ addition
   :
     multiplication
     (
-      plus_or_minus
+      additive_operator
       multiplication
     )*
   ;
@@ -924,7 +943,6 @@ rval
     ( identifier TOK_DOUBLECOLON invocation_function TOK_LPAREN )=>
     invocation_expr
   |
-    ( scoped_data_type TOK_DOUBLECOLON )=>
     scoped_access
   |
     member_access[false]
@@ -968,6 +986,14 @@ comparison_operator!
   |
     TOK_GE
   ;
+additive_operator!
+  :
+    TOK_PLUS
+  |
+    TOK_MINUS
+  |
+    TOK_PIPE
+  ;
 plus_or_minus!
   :
     TOK_PLUS
@@ -981,6 +1007,10 @@ mult_op!
     TOK_DIV
   |
     TOK_MOD
+  |
+    TOK_AMP
+  |
+    TOK_CARET
   ;
 partial_block[boolean isRoot]
   :

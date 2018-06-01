@@ -26,44 +26,22 @@ options {
     public CoreImport m_ci = null;
 }
 
-attributeCodeBlock returns [String s = ""]:
-            s=codeBlock
-            ( "end attribute;\n"
-            | "end attribute;"
-            )
-            ;
-
-serviceCodeBlock returns [String s = ""]:
-            s=codeBlock
-            ( "end service;\n"
-            | "end service;"
-            )
-            ;
-
-stateCodeBlock returns [String s = ""]:
-            s=codeBlock
-            ( "end state;\n"
-            | "end state;"
-            )
-            ;
-
-transitionCodeBlock returns [String s = ""]:
-            s=codeBlock
-            ( "end transition;\n"
-            | "end transition;"
-            )
-            ;
-
 codeBlock returns [String s = ""]:
             "\n"
-            ( ln:LINE   { s += ln.getText(); }
+            ( ln1:LINE1 { s += ln1.getText(); }
+            | ln2:LINE2 { s += ln2.getText(); }
+            | ln3:LINE3 { s += ln3.getText(); }
+            | ln4:LINE4 { s += ln4.getText(); }
+            | ln5:LINE5 { s += ln5.getText(); }
+            | ln6:LINE6 { s += ln6.getText(); }
             | "\n"      { s += "\n"; }
             )*
+            ACTIVITYEND
             ;
 
 class BodyLexer extends Lexer;
 options {
-    k=1;
+    k=3;
 }
 {
     public BodyLexer( LexerSharedInputState is, CoreImport ci ) {
@@ -82,5 +60,12 @@ options {
     private CoreImport m_ci = null;
 }
 
-LINE        : '\n'{newline();} | ( (~( '\n' ))+ ('\n'{newline();})? );
+ACTIVITYEND : "//! ACTIVITY END. DO NOT EDIT THIS LINE." ('\r')? '\n' { newline(); };
+
+LINE1       : '\n'{newline();};
+LINE2       : ~('/'|'\n') (~('\n'))* ('\n'{newline();})?;
+LINE3       : '/' ('\n'{newline();})?;
+LINE4       : '/' ~('/'|'\n') (~('\n'))* ('\n'{newline();})?;
+LINE5       : "//" ('\n'{newline();})?;
+LINE6       : "//" ~('!'|'\n') (~('\n'))* ('\n'{newline();})?;
 

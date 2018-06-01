@@ -2,9 +2,12 @@ package org.xtuml.bp.ui.text.contentassist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.contentassist.ContentAssistEvent;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.ICompletionListener;
@@ -22,6 +25,8 @@ import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -31,6 +36,7 @@ import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
@@ -38,6 +44,7 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProposalList_c;
@@ -55,6 +62,7 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.TransitionActionBody_c;
+import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -65,6 +73,8 @@ import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private static final ICompletionProposal[] NO_PROPOSALS = {};
+    private static final Pattern SLCOMMENT = Pattern.compile( "\\/\\/.*$", Pattern.MULTILINE );
+    private static final Pattern MLCOMMENT = Pattern.compile( "\\/\\*[\\s\\S]*\\*\\/", Pattern.MULTILINE );
 
     private OALEditor editor;
     private boolean isAutoTriggered;
@@ -107,6 +117,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
 
     public ICompletionProposal[] computeCompletionProposals( IDocument document, NonRootModelElement element, int position ) {
+        if ( isInsideComment( document, position ) ) return NO_PROPOSALS;
+
         // parse from the closest parsed statement
         parseActivityPartial( document, element, position );
         Body_c body = getBody( element );
@@ -225,6 +237,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( Bridge_c.class );
             case Proposaltypes_c.EDT:
                 return CorePlugin.getImageFor( EnumerationDataType_c.class );
+            case Proposaltypes_c.UDT:
+                return CorePlugin.getImageFor( UserDataType_c.class );
             case Proposaltypes_c.Enumerator:
                 return CorePlugin.getImageFor( Enumerator_c.class );
             case Proposaltypes_c.Constant:
@@ -239,6 +253,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( "InterfaceOperation_cClientServer", false, null, true );
             case Proposaltypes_c.OperationFromProvider:
                 return CorePlugin.getImageFor( "InterfaceOperation_cServerClient", false, null, true );
+            case Proposaltypes_c.SystemModel:
+                return CorePlugin.getImageFor( SystemModel_c.class );
+            case Proposaltypes_c.Package:
+                return CorePlugin.getImageFor( Package_c.class );
+            case Proposaltypes_c.Component:
+                return CorePlugin.getImageFor( Component_c.class );
+            case Proposaltypes_c.ConstantSpecification:
+                return CorePlugin.getImageFor( ConstantSpecification_c.class );
             case Proposaltypes_c.Keyword:
                 return null;
             default:
@@ -342,10 +364,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
     
     private String trimWhitespaceAndComments( String input ) {
-        String blockCommentPattern = "\\/\\*[\\s\\S]*\\/\\*";
-        String lineCommentPattern = "\\/\\/[ \\t\\n\\x0B\\f\\r\\S]*\\n";
-        String whitespaceAndCommentPattern = "(" + blockCommentPattern + "|" + lineCommentPattern + "|\\s)*";
-        return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z" ).matcher( input ).replaceAll( "" );
+        String whitespaceAndCommentPattern = "(" + SLCOMMENT.pattern() + "|" + MLCOMMENT.pattern() + "|\\s)*";
+        return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z", SLCOMMENT.flags() | MLCOMMENT.flags() ).matcher( input ).replaceAll( "" );
     }
     
     public void setUp() {
@@ -369,6 +389,28 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         setDefaultTriggerChars();
         setNeedsParse( true );
         setInSession( false );
+    }
+    
+    private List<IRegion> getAllComments( IDocument document ) {
+        List<IRegion> comments = new ArrayList<>();
+        Matcher slmatcher = SLCOMMENT.matcher( document.get() );
+        while ( slmatcher.find() ) {
+            // single line comments get one extra length to account for the line break character
+            comments.add( new Region( slmatcher.start(), slmatcher.end()-slmatcher.start() + 1 ) );
+        }
+        Matcher mlmatcher = MLCOMMENT.matcher( document.get() );
+        while ( mlmatcher.find() ) {
+            comments.add( new Region( mlmatcher.start(), mlmatcher.end()-mlmatcher.start() ) );
+        }
+        return comments;
+    }
+    
+    private boolean isInsideComment( IDocument document, int position ) {
+        List<IRegion> comments = getAllComments( document );
+        for ( IRegion comment : comments ) {
+            if ( position > comment.getOffset() && position < comment.getOffset() + comment.getLength() ) return true;
+        }
+        return false;
     }
 
 }

@@ -41,7 +41,6 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
-import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.c.source.ExportBuilder;
 
 public class Generator extends Task {
@@ -213,7 +212,7 @@ public class Generator extends Task {
                                     break;
                                 }
                             } catch (Throwable e) {
-                            	RuntimeException err = new RuntimeException(e.getMessage());
+                            	RuntimeException err = new RuntimeException(e);
                                 throw err;
                             } 
                             curStep++;
@@ -223,19 +222,8 @@ public class Generator extends Task {
 
                 openOutput(destPath);
             } catch (Throwable e) {
-                String errMsg = e.getMessage();
-                if ( (errMsg == null) || errMsg.isEmpty() ) {
-                    Throwable cause = e.getCause();
-                    if ( cause != null ) {
-                        errMsg = cause.getMessage();
-                    } 
-                    
-                    if ((cause == null) || (errMsg == null)) {
-                        errMsg = "";
-                    }
-                }
-                logMsg("Error.  MASL export failed: " + errMsg);
-                CorePlugin.logError("Error.  MASL export failed: " + errMsg, e);
+                logMsg("Error. MASL export failed. See error log for more detail.");
+                CorePlugin.logError("Error. MASL export failed.", e);
                 failed = true;
             } finally {
                 if (failed) {
@@ -243,12 +231,8 @@ public class Generator extends Task {
                         cleanup(destPath);
                         project.refreshLocal(IResource.DEPTH_INFINITE, null);
                     } catch (CoreException ce) {
-                        String errMsg = ce.getMessage();
-                        if ( (errMsg == null) || errMsg.isEmpty() ) {
-                            errMsg = "CoreException";
-                        }
-                        logMsg("Error.  MASL export failed during cleanup: " + errMsg);
-                        CorePlugin.logError("Error.  MASL export failed during cleanup: " + errMsg, ce);
+                        logMsg("Error. MASL export failed during cleanup. See error log for more detail");
+                        CorePlugin.logError("Error. MASL export failed during cleanup.", ce);
                     }
                 } else {
                     logMsg("MASL export finished successfully.");

@@ -75,7 +75,8 @@ INSERT INTO EO VALUES ( '14.1.3.1.3', '14.1.3.1.3.1', '',    'Property Parameter
 INSERT INTO EO VALUES ( '14.1.3.1.3.1', '', '',     'Dimensions', 4017, 'many', 'first' );
 
 INSERT INTO EO VALUES ( '1.5.3.1.1',	'',             '1.5.3.1.2', 'Core Data Type', 17, 'one', 'first' );
-INSERT INTO EO VALUES ( '1.5.3.1.2', 	'',             '1.5.3.1.3', 'User Data Type', 17, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.5.3.1.2', 	'1.5.3.1.2.1',             '1.5.3.1.3', 'User Data Type', 17, 'one', 'first' );
+INSERT INTO EO VALUES ( '1.5.3.1.2.1', 	'',             '', 'Range', 57, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.3', 	'1.5.3.1.3.1', 	'1.5.3.1.4',          'Enumeration Data Type', 17, 'one', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.3.1', 	'',             '',          'Enumerator', 27, 'many', 'first' );
 INSERT INTO EO VALUES ( '1.5.3.1.4', 	'1.5.3.1.4.1',  '1.5.3.1.5', 'Structured Data Type', 17, 'one', 'first' );
@@ -395,9 +396,9 @@ INSERT INTO AEP VALUES ( '3.7', '3.5',		'->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEV
 INSERT INTO AEP VALUES ( '3.7', '3.3',		'->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_EVT[R525]->SM_EVTDI[R532]', 'many', true, false, false, true);
 
 -- export required poly info
-INSERT INTO AEP VALUES ( '3.7', '2.1',		'->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]', 'one', true, true, false);
+INSERT INTO AEP VALUES ( '3.7', '2.1',		'->SM_NSTXN[R507]->SM_SEME[R504]->SM_SEVT[R503]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]', 'one', true, true, false, false, 'Doesnotcontaintransition(inst.getTrans_id())');
 INSERT INTO AEP VALUES ( '2.2', '2.1',		'->O_OBJ[R101]', 'one', true, true, false);
-INSERT INTO AEP VALUES ( '2.1', '2.1',    '->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]', 'many', true, true, false);
+INSERT INTO AEP VALUES ( '2.1', '2.1',    '->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]', 'many', true, true, false, false, 'getObj_id().equals(inst.getObj_id()) == false');
 
 -- export data items with event
 INSERT INTO AEP VALUES ( '3.5', '3.3',		'->SM_EVTDI[R532]', 'many', true, false, false);

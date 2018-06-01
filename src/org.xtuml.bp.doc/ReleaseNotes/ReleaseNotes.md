@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.6.1
+Release 6.15.0
 
 License
 -------
@@ -13,35 +13,31 @@ System Requirements
   
 | Category              | Requirement                          |
 |-----------------------|--------------------------------------|
-| Operating System      | Windows 7/8/10, Linux variants, MacOS|
+| Operating System      | Linux, MacOS, Windows                |
 | *Eclipse              | Version 4.5                          |
 | *Java Virtual Machine | Version 8 or later                   |
 
-*(supplied by installer)
+*(supplied by installer, except JVM not supplied on MacOS)
     
 
 General Notes
 ------
-* A summary of the release highlights and new functionality is available on the 
-[What's New](../WhatsNew/WhatsNew.html) page.  
+* A summary of the release highlights and new functionality is available on the [What's New](../WhatsNew/WhatsNew.html) page.  
   
-* __IMPORTANT__: BridgePoint is completely open source software. 
-Please see [xtUML.org](http://xtuml.org) and [onefact.net](http://onefact.net) 
+* __IMPORTANT__: BridgePoint is completely open source software. Please see [xtUML.org](http://xtuml.org) and [onefact.net](http://onefact.net) 
 for ongoing development and support of BridgePoint.  
   
-* BridgePoint ships as a zip file, similar to standard eclipse packages. Users 
-who wish to create desktop shortcuts to start BridgePoint should set the 
-shortcut to start ```<install dir>/bridgepoint```.  
+* BridgePoint ships as a zip file, similar to standard eclipse packages. Users who wish to 
+create desktop shortcuts to start BridgePoint should set the shortcut to start `<install dir>/bridgepoint`.  
 
-* BridgePoint supports two different action languages: OAL and MASL.  The default
-is set via workspace preferences at xtUML > Action Language > Default Action Language Dialect.
-In this release the default is set to OAL.       
+* BridgePoint supports two different action languages: OAL and MASL.  The default is set via workspace 
+preferences at `xtUML > Action Language > Default Action Language Dialect`. The default is set to OAL.       
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.6 is compatible with workspaces and projects created with prior 
-versions back to BridgePoint 5.0.  However, after opening the model in this version
-a modeler will not be able to open the model in a prior version.   
+BridgePoint 6.14 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to 
+open the model in a prior version.   
 
 Changelog / Roadmap
 ------
@@ -53,16 +49,12 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[9829](https://support.onefact.net/issues/9829) |  Update version to 6.6.1
-
+[10265](https://support.onefact.net/issues/10265) |  Bump version to 6.15  
+    
+    
 Known Issues and Feature Requests
 ------
 The BridgePoint support system is hosted at [http://support.onefact.net](http://support.onefact.net). Please check here for known issues and to 
-submit bug reports and requests for new features. This issue tracker contains [all open bugs and feature requests](https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=7&v%5Bstatus_id%5D%5B%5D=2&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=fixed_version&c%5B%5D=due_date&group_by=&t%5B%5D=). The 
-following list contains specific items of note:  
+submit bug reports and requests for new features. This issue tracker contains [all open bugs and feature requests](https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=7&v%5Bstatus_id%5D%5B%5D=2&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=fixed_version&c%5B%5D=due_date&group_by=&t%5B%5D=).  
 
-| Issue |  Subject and Notes |
-|-------|-----------------------------------------------------------------|
-[9575](https://support.onefact.net/issues/9575) | Interface message parameter attributes not editable from properties view  
-[9773](https://support.onefact.net/issues/9773) | Parse errors in DeterministicBehaviorTestModel.  An older test model now shows parse errors indicating unsynchronized references after load. There have been no similar field reports loading existing models. Users should watch out for similar behavior and file a report if one is found.   
   

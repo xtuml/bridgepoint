@@ -57,7 +57,6 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
-                    <include>gen_erate.pyz</include>
                     <include>mcmc</include>
                     <include>m2x</include>
                     <include>masl</include>
@@ -92,7 +91,6 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
-                    <include>gen_erate.pyz</include>
                     <include>MASLParser.jar</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
@@ -132,7 +130,6 @@
                 <resource>
                   <directory>../../../mc/bin/win</directory>
                   <includes>
-                    <include>gen_erate.exe</include>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
                     <include>CLI.bat</include>
@@ -171,9 +168,9 @@
             </configuration>
           </execution>
           
-          <!--download the antlr jar file-->
+          <!--download the antlr jar file and pyrsl-->
           <execution>
-            <id>download-antlr</id>
+            <id>download-antlr-pyrsl</id>
             <phase>validate</phase>
             <configuration>
               <target>
@@ -182,6 +179,13 @@
                 <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" 
                       tofile="${basedir}/mac.all/tools/mc/bin/antlr-3.5.2-complete.jar"
                       overwrite="true" />             
+                <get src="https://github.com/xtuml/pyrsl/releases/download/v2.0.1/gen_erate.pyz" 
+                     dest="${basedir}/linux.all/tools/mc/bin/gen_erate.pyz" />
+                <copy file="${basedir}/linux.all/tools/mc/bin/gen_erate.pyz" 
+                      tofile="${basedir}/mac.all/tools/mc/bin/gen_erate.pyz"
+                      overwrite="true" />             
+                <get src="https://github.com/xtuml/pyrsl/releases/download/v2.0.1/gen_erate.exe" 
+                     dest="${basedir}/win.all/tools/mc/bin/gen_erate.exe" />
               </target>
             </configuration>
             <goals>

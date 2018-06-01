@@ -86,7 +86,7 @@ INSERT INTO T_TNS VALUES (79, '', 'CL_IR',  '', 'Name', '', 'Imported Required I
 INSERT INTO T_TNS VALUES (80, '', 'SQ_COP', '', 'Label', '', 'Component Participants', false);
 INSERT INTO T_TNS VALUES (81, '', 'EP_PKG', '', 'Label', '', 'Packages', false);
 INSERT INTO T_TNS VALUES (82, '', 'CNST_CSP', '', 'Name', '', 'Constant Specifications', false);
-INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', false);
+INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', true);
 INSERT INTO T_TNS VALUES (85, '', 'CL_POR',  '', 'Name', '', 'Port Reference', false);
 INSERT INTO T_TNS VALUES (86, '', 'S_EXP', '', 'Name', '', 'Exceptions', false);
 
@@ -184,7 +184,7 @@ INSERT INTO T_TPS VALUES (6, 25,    '->SM_ISM[R518]');
 INSERT INTO T_TPS VALUES (25, 11,   '->SM_SM[R517]->SM_STATE[R501]');
 INSERT INTO T_TPS VALUES (25, 12,   '->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_LEVT[R526]->SM_SEVT[R526]->SM_EVT[R525]');
 INSERT INTO T_TPS VALUES (25, 27,   '->SM_SM[R517]->SM_EVT[R502]->SM_PEVT[R525]->SM_EVT[R525]');
-INSERT INTO T_TPS VALUES (25, 13,   '->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_NLEVT[R526]');
+INSERT INTO T_TPS VALUES (25, 13,   '->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_NLEVT[R526]', '', 'Hasnonlocalpoly()');
 INSERT INTO T_TPS VALUES (12, 29,   '->SM_SUPDT[R520]->SM_SDI[R522]');
 INSERT INTO T_TPS VALUES (6, 15,    '->SM_ASM[R519]');
 INSERT INTO T_TPS VALUES (15, 11,   '->SM_SM[R517]->SM_STATE[R501]');

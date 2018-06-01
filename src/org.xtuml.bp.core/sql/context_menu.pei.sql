@@ -144,6 +144,8 @@ INSERT INTO CME VALUES ('',  'Set as Derived Attribute','O_ATTR',   '',         
 INSERT INTO CME VALUES ('',     'Set as Base Attribute','O_ATTR',   '',                      false );
 INSERT INTO CME VALUES ('',       'Move Up',            'O_ATTR',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Move Down',          'O_ATTR',   '',                      false, '' );
+INSERT INTO CME VALUES ('',       'Move Up',            'CNST_LSC',   '',                      false, '' );
+INSERT INTO CME VALUES ('',       'Move Down',          'CNST_LSC',   '',                      false, '' );
 INSERT INTO CME VALUES ('',       'Combine With',       'O_ATTR',   '',                      false, 'Select attribute to combine with this one' );
 INSERT INTO CME VALUES ('Referential',       'Split',              'O_ATTR',   '',           false, 'Select reference to split from this one' );
 INSERT INTO CME VALUES ('Base And Ref',       'Split',              'O_ATTR',   '',            false, '' );
@@ -289,7 +291,7 @@ INSERT INTO CME VALUES ('',          'Make Public',      'CNST_CSP',   '',      
 INSERT INTO CME VALUES ('',          'Make Protected',   'CNST_CSP',   '',                   false, '' );
 INSERT INTO CME VALUES ('',          'Make Private',     'CNST_CSP',   '',                   false, '' );
 
--- Generic package interaction formalization CME definitions
+-- Generic package interaction formalization CME definitions 
 INSERT INTO CME VALUES ('Generic Package',      'Formalize',    'SQ_COP','',  false, 'Choose the component that this instance should represent' , '1', false, '', true, true, 'component');
 INSERT INTO CME VALUES ('Generic Package',      'Formalize',    'SQ_CIP','',  false, 'Choose the class that this instance should represent' , '1', false, '', true, true, 'class');
 INSERT INTO CME VALUES ('Generic Package',      'Formalize',    'SQ_CP', '',  false, 'Choose the class to import'  , '1', false, '', true, true, 'class');
@@ -341,6 +343,8 @@ INSERT INTO CME VALUES ('', 'Set To Provider',                         'C_IO', '
 INSERT INTO CME VALUES ('', 'Set From Provider',                         'C_IO', '',                 false );
 INSERT INTO CME VALUES ('Delete', '',                         'S_EXP',    '',              true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_EXP',   '',              true );
+INSERT INTO CME VALUES ('',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '*', false, '', true, false, 'interface');
+
 --
 INSERT INTO MEF VALUES ('New',	  'Package',                  'C_C',   'new', 'package' );
 INSERT INTO MEF VALUES ('New',    'Component',         		  'C_C',   'new', 'component' );
@@ -357,6 +361,8 @@ INSERT INTO MEF VALUES ('',       'Set as Derived Attribute', 'O_ATTR', 'subtype
 INSERT INTO MEF VALUES ('',       'Set as Base Attribute', 'O_ATTR', 'subtype', 'O_DBATTR');
 INSERT INTO MEF VALUES ('',       'Move Up',       'O_ATTR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('',       'Move Down',     'O_ATTR',    'can', 'move down' );
+INSERT INTO MEF VALUES ('',       'Move Up',       'CNST_LSC',    'can', 'move up' );
+INSERT INTO MEF VALUES ('',       'Move Down',     'CNST_LSC',    'can', 'move down' );
 INSERT INTO MEF VALUES ('',       'Combine With',  'O_ATTR',    'can', 'combine' );
 INSERT INTO MEF VALUES ('Referential',       'Split',         'O_ATTR',    'can', 'split ref' );
 INSERT INTO MEF VALUES ('Base And Ref',       'Split',         'O_ATTR',    'can', 'split base' );
@@ -441,7 +447,7 @@ INSERT INTO MEF VALUES ('',       'Make Public',   'CNST_CSP',     'can', 'make 
 INSERT INTO MEF VALUES ('',       'Make Protected','CNST_CSP',     'can', 'make protected' );
 INSERT INTO MEF VALUES ('',       'Make Private',  'CNST_CSP',     'can', 'make private' );
 
--- Interaction element filtering
+-- Interaction element filtering 
 
 -- Formalize interaction participants
 INSERT INTO MEF VALUES ('Generic Package',      'Formalize',  'SQ_CIP',    'can', 'formClass generic pkg' );
@@ -490,3 +496,4 @@ INSERT INTO MEF VALUES ('',    'Set To Provider',  'C_AS',    'can', 'setToProvi
 INSERT INTO MEF VALUES ('',    'Set From Provider',  'C_AS',    'can', 'setFromProvider' );
 INSERT INTO MEF VALUES ('',    'Set To Provider',  'C_IO',    'can', 'setToProvider' );
 INSERT INTO MEF VALUES ('',    'Set From Provider',  'C_IO',    'can', 'setFromProvider' );
+

@@ -5324,6 +5324,38 @@ if(not_empty element)
     if(selectedDT != originalCoreDT)
       unrelate element from originalCoreDT across R18;
       relate element to selectedDT across R18;
+      // downgrade check on any constants that refer to this type
+      select many lscs related by element->S_DT[R17]->CNST_SYC[R1500]->CNST_LFSC[R1502]->CNST_LSC[R1503];
+      for each lsc in lscs
+        lsc.downgradeCheck();
+      end for;
+      // remove a range if it exists when the core type changes
+      // for integer to real and real to integer, keep the range,
+      // but perform a type conversion
+      select one range related by element->S_RANGE[R57];
+      if ( not_empty range )
+        select one sys related by element->S_DT[R17]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+        integer_id = sys.getCoreTypeId(name:"integer");
+        real_id = sys.getCoreTypeId(name:"real");
+        if ( originalCoreDT.DT_ID == integer_id and selectedDT.DT_ID == real_id )
+          if ( "" != range.Min )
+            range.Min = GD::real_to_string( value:GD::string_to_int( value:range.Min ) );
+          end if;
+          if ( "" != range.Max )
+            range.Max = GD::real_to_string( value:GD::string_to_int( value:range.Max ) );
+          end if;
+        elif ( originalCoreDT.DT_ID == real_id and selectedDT.DT_ID == integer_id )
+          if ( "" != range.Min )
+            range.Min = GD::int_to_string( value:GD::string_to_real( value:range.Min ) );
+          end if;
+          if ( "" != range.Max )
+            range.Max = GD::int_to_string( value:GD::string_to_real( value:range.Max ) );
+          end if;
+        else
+          unrelate element from range across R57;
+          delete object instance range;
+        end if;
+      end if;
     end if;
   end if;
 end if;',
@@ -5467,7 +5499,7 @@ if(not_empty element)
     relate syc to selectedDT across R1500;
 
     // Set the value to the default for this type
-    element.updateValueToDefault(typeName:selectedDT.Name);
+    element.updateValueToDefault(type_id:selectedDT.DT_ID);
   end if;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -7679,6 +7711,71 @@ o_attr.split_base_and_ref();
 	0);
 INSERT INTO PE_PE
 	VALUES ("c636b7b4-2f10-4876-89d8-2dfa5951225a",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("025f26e4-b688-489f-b800-58d7079fab21",
+	"00000000-0000-0000-0000-000000000000",
+	'S_SYNC_PublishToInterface',
+	'',
+	'// User has selected the function(s) to publish from ME
+select any element from instances of S_SYNC  where USER::selectOne(id:selected.Sync_ID);
+select any existingInterface related by element->PE_PE[R8001]->
+            EP_PKG[R8001]->S_SYS[R1405]->EP_PKG[R1405.''contains'']->
+            PE_PE[R8000.''contains'']->C_I[R8001] where USER::selectExisting(id:selected.Id); 
+if(not_empty element)
+  select any selectedInterface from instances of C_I
+                                          where USER::selectOne(id:selected.Id);
+  if(not_empty selectedInterface)
+      selectedInterface.publishOperationFromFunction(syncID:element.Sync_ID); 
+  end if;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("025f26e4-b688-489f-b800-58d7079fab21",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("56f71ca3-bdb7-4ab8-8aab-bcd5509be669",
+	"00000000-0000-0000-0000-000000000000",
+	'CNST_LSC_MoveUp',
+	'ContextMenuFunction: TRUE',
+	'// UI: exclude item at top of list
+select any item from instances of CNST_LSC
+                                   where USER::selectOne(id:selected.Const_ID);
+item.moveUp();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("56f71ca3-bdb7-4ab8-8aab-bcd5509be669",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("af027b4a-d8f7-48f9-a1fc-78d4b18c9064",
+	"00000000-0000-0000-0000-000000000000",
+	'CNST_LSC_MoveDown',
+	'ContextMenuFunction: TRUE',
+	'// UI: exclude item at top of list
+select any item from instances of CNST_LSC
+                                   where USER::selectOne(id:selected.Const_ID);
+item.moveDown();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("af027b4a-d8f7-48f9-a1fc-78d4b18c9064",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",

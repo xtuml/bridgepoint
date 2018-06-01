@@ -1,297 +1,112 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-	<title>Data Type Package</title>
-	<meta name="generator" content="LibreOffice 5.1.4.2 (Linux)"/>
-	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-07-21T16:04:17.334956040"/>
-	<meta name="created" content="00:00:00">
-	<meta name="changed" content="2016-07-21T16:00:42.835453099">
-	<style type="text/css">
-		p { margin-left: 0.1in; margin-right: 0.1in; margin-top: 0.1in; margin-bottom: 0.1in; font-family: "Times New Roman", serif; font-size: 10pt }
-		h2 { color: #000080; font-family: "Arial", sans-serif; font-size: 12pt; line-height: 0.22in }
-		h3 { margin-bottom: 0.03in; color: #000080; font-family: "Arial", sans-serif; font-size: 11pt }
-		h4 { margin-left: 0.1in; margin-right: 0.1in; margin-top: 0.1in; margin-bottom: 0.03in; color: #0176b9; font-family: "Arial", sans-serif; font-size: 11pt }
-		a:visited { color: #0176b9 }
-	</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../../../github-pandoc.css" type="text/css" />
 </head>
-<body lang="en-US" vlink="#0176b9" bgcolor="#ffffff" dir="ltr">
-<h2>Data Types</h2>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Data
-types fall into the following categories:</font></p>
-<p style="margin-left: 0.6in"><font face="Symbol">·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span><font face="Arial, sans-serif">Primitive types </font>
-</p>
-<p style="margin-left: 0.6in"><font face="Symbol">·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span><font face="Arial, sans-serif">User data types</font></p>
-<p style="margin-left: 0.6in"><font face="Symbol">·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span><font face="Arial, sans-serif">Structured data types</font></p>
-<p style="margin-left: 0.6in"><font face="Symbol">·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span><font face="Arial, sans-serif">Enumerations</font></p>
-<p style="margin-left: 0.6in"><font face="Symbol">·</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span><font face="Arial, sans-serif">Constant specifications</font></p>
-<h3>Primitive types</h3>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Primitive
-types are built-in and provided by BridgePoint.&nbsp; You cannot add
-to, or remove from the set of primitive types.&nbsp; The primitive
-types are:</font></p>
-<h4>void</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing emptiness or nothingness.</font></p>
-<h4>boolean</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">An
-enumeration whose only allowable values are </font><font size="2" style="font-size: 11pt">true</font>
-<font face="Arial, sans-serif">and </font><font size="2" style="font-size: 11pt">false</font><font face="Arial, sans-serif">.
-This type is a core data type that supports the following operators:
-</font><font size="2" style="font-size: 11pt">and</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">or</font><font face="Arial, sans-serif">,
-and </font><font size="2" style="font-size: 11pt">not</font><font face="Arial, sans-serif">.</font></p>
-<h4>integer</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type whose literal values represent whole numbers,
-i.e., 1, 2, 3, and so on. The integer</font> <font face="Arial, sans-serif">type
-supports the following arithmetic operations: +, -, *, /, %, unary
-operations: +, -, and comparison operations: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.</font></p>
-<h4>real</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type whose literal values represent real numbers,
-i.e., those that can contain a fractional part as in: 1.0, 2.4,
-3.14159, and so on. The real</font> <font face="Arial, sans-serif">type
-supports the following arithmetic operations: </font><font size="2" style="font-size: 11pt">+</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">-</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">*</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">/</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">%</font><font face="Arial, sans-serif">,
-unary operations: </font><font size="2" style="font-size: 11pt">+</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">-</font><font face="Arial, sans-serif">,
-and comparison operations: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.</font></p>
-<h4>string</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type used to define a sequence of characters. A
-literal string is always enclosed in a set of double quotes, for
-example </font>“<font face="Arial, sans-serif">abcdefg”. String
-types support concatenation (</font><font size="2" style="font-size: 11pt">+</font>
-<font face="Arial, sans-serif">operator) and the following lexical
-comparisons: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.</font></p>
-<h4>unique_id</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type that provides an arbitrary value generated by the
-system and guaranteed to be unique across all instances of the same
-class. Modelers should use an arbitrary identifier (aka unique_id)
-when using natural identifying attributes is either not possible or
-cumbersome. Only equality (</font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">)
-and inequality (</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">)
-operators are supported.</font></p>
-<h4>state&lt;State_Model&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type used internally by xtUML to keep track of the
-current state of classes with state diagrams.&nbsp; Variables of this
-type cannot be manipulated or assigned by the user.</font></p>
-<h4>same_as&lt;Base_Attribute&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type used internally by xtUML to make sure association
-referential attributes use the same type on both sides of the
-association.&nbsp; Variables of this type cannot be manipulated or
-assigned by the user.</font></p>
-<h4>inst_ref&lt;Object&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing a reference to a modeled class.
-Variables created via a “</font><font size="2" style="font-size: 11pt">create
-object instance</font>”<font face="Arial, sans-serif">, ”</font><font size="2" style="font-size: 11pt">select
-one</font>“ <font face="Arial, sans-serif">or “</font><font size="2" style="font-size: 11pt">select
-any</font>” <font face="Arial, sans-serif">statement are of this
-type.&nbsp; Class attributes</font> <font face="Arial, sans-serif">are
-accessed via the “</font><font size="2" style="font-size: 11pt">.</font>”
-<font face="Arial, sans-serif">operator.</font></p>
-<h4>inst_ref_set&lt;Object&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing a collection of references to a
-modeled class. Variables created via a ”</font><font size="2" style="font-size: 11pt">select
-many</font>” <font face="Arial, sans-serif">statement are of this
-type.&nbsp; Each element in the collection is of type
-</font><font size="2" style="font-size: 11pt">inst_ref&lt;Object&gt;</font><font face="Arial, sans-serif">.</font></p>
-<h4>inst&lt;Event&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing a reference to a modeled event.
-Variables created via a “</font><font size="2" style="font-size: 11pt">create
-event instance</font>” <font face="Arial, sans-serif">statement are
-of this type.</font></p>
-<h4>inst&lt;Mapping&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type from which a user-defined type can be derived, an
-instance mapping is used when an xtUML model requires access to a
-data structure in another xtUML model or legacy code. Although there
-are no hard and set rules for when to use an instance mapping over an
-instance reference mapping, the decision usually revolves around the
-operations supported. </font>
-</p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Instance
-mappings are commonly used when manipulating the data structure as a
-whole.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">All
-comparison operations are available for instance mappings in OAL: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&lt;=</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">&gt;=</font><font face="Arial, sans-serif">.&nbsp;
-However, due to their implementation-specific nature, Verifier cannot
-use variables of this type in a meaningful way.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">The
-implementation of mappings and the markings used to realize them are
-provided by the BridgePoint Compiler.&nbsp; See the documentation for
-the marking </font><font size="2" style="font-size: 11pt">MapDataTypeAsPointer</font>
-<font face="Arial, sans-serif">in </font><font size="2" style="font-size: 11pt">&lt;project&gt;/gen/datatype.mark</font>
-<font face="Arial, sans-serif">for additional information.</font></p>
-<h4>inst_ref&lt;Mapping&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type from which a user-defined type is derived, an
-instance reference mapping is used when an xtUML model requires
-access to a data structure in another xtUML model or legacy code.
-Although there are no hard and set rules for when to use an instance
-reference mapping over an instance mapping, the decision usually
-revolves around the operations supported. </font>
-</p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Instance
-reference mappings are commonly used when manipulating the data
-structure by reference.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">The
-equality and inequality operators are available for instance
-reference mappings in OAL: </font><font size="2" style="font-size: 11pt">==</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">!=</font><font face="Arial, sans-serif">.&nbsp;
-However, due to their implementation-specific nature, Verifier cannot
-use variables of this type in a meaningful way.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">The
-implementation of mappings and the markings used to realize them are
-provided by the BridgePoint Compiler.&nbsp; See the documentation for
-the marking </font><font size="2" style="font-size: 11pt">MapDataTypeAsPointer</font>
-<font face="Arial, sans-serif">in </font><font size="2" style="font-size: 11pt">&lt;project&gt;/gen/datatype.mark</font>
-<font face="Arial, sans-serif">for additional information.</font></p>
-<h4>component_ref</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing a reference to a modeled component.
-The </font><font size="2" style="font-size: 11pt">sender</font>
-<font face="Arial, sans-serif">keyword in OAL is always of this
-type.&nbsp; This type may be used the same place other primitive data
-types are used.&nbsp; It is also valid in OAL as the target in a
-“</font><font size="2" style="font-size: 11pt">send … to
-&lt;component_ref&gt;</font>” <font face="Arial, sans-serif">command
-when performing inter-component messaging.&nbsp; Class attributes,
-parameters, return values, and transients may all use this type.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
-of this type support equality and inequality operations in Verifier:
-==, !=</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
-of this type are not yet supported in MC-3020.</font></p>
-<h4>date</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing an xtUML date. Variables created via
-a “</font><font size="2" style="font-size: 11pt">TIM::create_date</font>”
-<font face="Arial, sans-serif">or “</font><font size="2" style="font-size: 11pt">TIM::current_date</font>”
-<font face="Arial, sans-serif">statement are of this type. </font><font size="2" style="font-size: 11pt">date</font><font face="Arial, sans-serif">s
-may be stored in class attributes, passed as parameters and return
-values, and manipulated via </font><font size="2" style="font-size: 11pt">TIM</font>
-<font face="Arial, sans-serif">bridge operations.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
-of this type support equality, inequality, comparison, and assignment
-operations: ==, !=, &gt;, &lt;, &gt;=, &lt;=, =</font></p>
-<h4>inst_ref&lt;Timer&gt;</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing a reference to a xtUML timer.
-Variables created via a “</font><font size="2" style="font-size: 11pt">TIM::timer_start</font>”
-<font face="Arial, sans-serif">or “</font><font size="2" style="font-size: 11pt">TIM::timer_start_recurring</font>”
-<font face="Arial, sans-serif">statement are of this type. Timer
-references may be stored in class attributes, passed as parameters
-and return values, and manipulated via </font><font size="2" style="font-size: 11pt">TIM</font>
-<font face="Arial, sans-serif">bridge operations.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
-of this type support equality, inequality, and assignment operations:
-==, !=, =</font></p>
-<h4>timestamp</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type representing a specific xtUML time. Variables
-created via a “</font><font size="2" style="font-size: 11pt">TIM::current_clock</font>”
-<font face="Arial, sans-serif">statement are of this type. </font><font size="2" style="font-size: 11pt">timestamp</font><font face="Arial, sans-serif">s
-may be stored in class attributes, passed as parameters and return
-values.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
-of this type support equality, inequality, comparison, and assignment
-operations: ==, !=, &gt;, &lt;, &gt;=, &lt;=, =</font></p>
-<h4>MASLtype</h4>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-primitive data type created in converted MASL models. This serves as
-the base type for MASL types and collections that do not directly map
-to an xtUML core type (e.g. integer).  MASLtype is a UDT whose core
-type is string.</font></p>
-<h3>User data types</h3>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A type
-based on one of the primitive data types. User data types (UDTs) may
-be based on the following primitive types: </font><font size="2" style="font-size: 11pt">boolean</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">integer</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">real</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">string</font><font face="Arial, sans-serif">,
-</font><font size="2" style="font-size: 11pt">unique</font><font face="Arial, sans-serif">_id,
-</font><font size="2" style="font-size: 11pt">inst&lt;Mapping&gt;,</font>
-<font face="Arial, sans-serif">and </font><font size="2" style="font-size: 11pt">inst_ref&lt;Mapping&gt;.</font>&nbsp;
-<font face="Arial, sans-serif">User data types inherit all operators
-from the primitive type and are completely compatible and
-interchangeable with their primitive type.&nbsp; UDTs allow the
-modeler to give a more meaningful type name to a core type.&nbsp; In
-some programming languages, this feature is known as a “typedef”.
-</font>
-</p>
-<h3>Structured data types</h3>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A
-structured data type (SDT) is a collection of structure members of
-various types. Structure members are accessed via the “</font><font size="2" style="font-size: 11pt">.</font>”
-<font face="Arial, sans-serif">operator.&nbsp; SDTs may be used as
-return values, parameters, or class attributes. Automatic (transient)
-variables become SDTs when initialized to a return value or variable
-whose type is an SDT.&nbsp; Only the assignment operation is valid on
-the SDT itself.&nbsp; The individual structure members may be
-operated on according to the valid operations for their respective
-types.</font></p>
-<h3>Enumerations</h3>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">A data
-type that can take on one of a list of uniquely named values
-(enumerators) at any one time.&nbsp; Variables of the enumeration
-type may only be assigned one of the corresponding enumerators as a
-value.&nbsp; Enumerators are accessed in OAL using </font><font size="2" style="font-size: 11pt">&lt;enumeration
-name&gt;::&lt;enumerator name&gt;</font> <font face="Arial, sans-serif">with
-full scoping to avoid name conflicts with transients, constants,
-class attributes, etc.</font></p>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Variables
-of an enumeration type support equality, inequality, and assignment
-operations: ==, !=, =</font></p>
-<h3>Constant specifications</h3>
-<p style="line-height: 0.22in"><font face="Arial, sans-serif">Constant
-specifications are groupings of related constants.&nbsp; Constant
-specifications may be named or unnamed.&nbsp; The name, if any
-exists, has no semantic use or meaning in OAL.&nbsp; Constant
-specifications are composed of zero to many Constants.&nbsp; A
-constant has a name, type, and value.&nbsp; The type is restricted to
-</font><font size="2" style="font-size: 11pt">integer, real, boolean,
-</font><font face="Arial, sans-serif">or</font> <font size="2" style="font-size: 11pt">string</font><font face="Arial, sans-serif">.&nbsp;
-The value is restricted to meaningful data based on the chosen type.&nbsp;
-Integer constant values may be specified in either decimal,
-hexadecimal (beginning with </font><font size="2" style="font-size: 11pt">0x</font><font face="Arial, sans-serif">),
-or binary (beginning with </font><font size="2" style="font-size: 11pt">0b</font><font face="Arial, sans-serif">).</font></p>
-<p style="margin-left: 0in; margin-right: 0in; line-height: 0.22in">&nbsp;</p>
+<body>
+<h1 id="data-types">Data Types</h1>
+<p>Data types fall into the following categories:<br />
+* Primitive types<br />
+* User data types<br />
+* Structured data types<br />
+* Enumerations<br />
+* Constant specifications</p>
+<h2 id="primitive-types">Primitive types</h2>
+<p>Primitive (native) types are built-in and provided by BridgePoint. You cannot add to or remove from the set of primitive types. The primitive types are:</p>
+<h3 id="void">void</h3>
+<p>A primitive data type representing emptiness or nothingness.</p>
+<h3 id="boolean">boolean</h3>
+<p>An enumeration whose only allowable values are true and false. This type is a core data type that supports the following operators: and, or, and not.</p>
+<h3 id="integer">integer</h3>
+<p>A primitive data type whose literal values represent whole numbers, i.e., 1, 2, 3, and so on. The integer type supports the following arithmetic operations: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, unary operations: <code>+</code>, <code>-</code>, and comparison operations: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</p>
+<h3 id="real">real</h3>
+<p>A primitive data type whose literal values represent real numbers, i.e., those that can contain a fractional part as in: 1.0, 2.4, 3.14159, and so on. The real type supports the following arithmetic operations: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, unary operations: <code>+</code>, <code>-</code>, and comparison operations: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</p>
+<h3 id="string">string</h3>
+<p>A primitive data type used to define a sequence of characters. A literal string is always enclosed in a set of double quotes, for example “abcdefg”. String types support concatenation (+ operator) and the following lexical comparisons: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</p>
+<h3 id="unique_id">unique_id</h3>
+<p>A primitive data type that provides an arbitrary value generated by the system and guaranteed to be unique across all instances of the same class. Modelers should use an arbitrary identifier (aka unique_id) when using natural identifying attributes is either not possible or cumbersome. Only equality (<code>==</code>) and inequality (<code>!=</code>) operators are supported.</p>
+<h3 id="statestate_model">state&lt;State_Model&gt;</h3>
+<p>A primitive data type used internally by xtUML to keep track of the current state of classes with state diagrams. Variables of this type cannot be manipulated or assigned by the user.</p>
+<h3 id="same_asbase_attribute">same_as&lt;Base_Attribute&gt;</h3>
+<p>A primitive data type used internally by xtUML to make sure association referential attributes use the same type on both sides of the association. Variables of this type cannot be manipulated or assigned by the user.</p>
+<h3 id="inst_refobject">inst_ref&lt;Object&gt;</h3>
+<p>A primitive data type representing a reference to a modeled class. Variables created via a “create object instance”, ”select one“ or “select any” statement are of this type. Class attributes are accessed via the “.” operator.</p>
+<h3 id="inst_ref_setobject">inst_ref_set&lt;Object&gt;</h3>
+<p>A primitive data type representing a collection of references to a modeled class. Variables created via a ”select many” statement are of this type. Each element in the collection is of type <code>inst_ref&lt;Object&gt;</code>.</p>
+<h3 id="instevent">inst&lt;Event&gt;</h3>
+<p>A primitive data type representing a reference to a modeled event. Variables created via a “create event instance” statement are of this type.</p>
+<h3 id="instmapping">inst&lt;Mapping&gt;</h3>
+<p>A primitive data type from which a user-defined type can be derived, an instance mapping is used when an xtUML model requires access to a data structure in another xtUML model or legacy code. Although there are no hard and set rules for when to use an instance mapping over an instance reference mapping, the decision usually revolves around the operations supported.</p>
+<p>Instance mappings are commonly used when manipulating the data structure as a whole.</p>
+<p>All comparison operations are available for instance mappings in OAL: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. However, due to their implementation-specific nature, Verifier cannot use variables of this type in a meaningful way.</p>
+<p>The implementation of mappings and the markings used to realize them are provided by the BridgePoint Compiler. See the documentation for the marking MapDataTypeAsPointer in <code>&lt;project&gt;/gen/datatype.mark</code> for additional information.</p>
+<h3 id="inst_refmapping">inst_ref&lt;Mapping&gt;</h3>
+<p>A primitive data type from which a user-defined type is derived, an instance reference mapping is used when an xtUML model requires access to a data structure in another xtUML model or legacy code. Although there are no hard and set rules for when to use an instance reference mapping over an instance mapping, the decision usually revolves around the operations supported.</p>
+<p>Instance reference mappings are commonly used when manipulating the data structure by reference.</p>
+<p>The equality and inequality operators are available for instance reference mappings in OAL: <code>==</code>, <code>!=</code>. However, due to their implementation-specific nature, Verifier cannot use variables of this type in a meaningful way.</p>
+<p>The implementation of mappings and the markings used to realize them are provided by the BridgePoint Compiler. See the documentation for the marking MapDataTypeAsPointer in <code>&lt;project&gt;/gen/datatype.mark</code> for additional information.</p>
+<h3 id="component_ref">component_ref</h3>
+<p>A primitive data type representing a reference to a modeled component. The sender keyword in OAL is always of this type. This type may be used the same place other primitive data types are used. It is also valid in OAL as the target in a “send ... to <code>&lt;component_ref&gt;</code>” command when performing inter-component messaging. Class attributes, parameters, return values, and transients may all use this type.</p>
+<p>Variables of this type support equality and inequality operations in Verifier: <code>==</code>, <code>!=</code></p>
+<p>Variables of this type are not yet supported in MC-3020.</p>
+<h3 id="date">date</h3>
+<p>A primitive data type representing an xtUML date. Variables created via a “TIM::create_date” or “TIM::current_date” statement are of this type. dates may be stored in class attributes, passed as parameters and return values, and manipulated via TIM bridge operations.</p>
+<p>Variables of this type support equality, inequality, comparison, and assignment operations: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>=</code></p>
+<h3 id="inst_reftimer">inst_ref&lt;Timer&gt;</h3>
+<p>A primitive data type representing a reference to a xtUML timer. Variables created via a “TIM::timer_start” or “TIM::timer_start_recurring” statement are of this type. Timer references may be stored in class attributes, passed as parameters and return values, and manipulated via TIM bridge operations.</p>
+<p>Variables of this type support equality, inequality, and assignment operations: <code>==</code>, <code>!=</code>, <code>=</code></p>
+<h3 id="timestamp">timestamp</h3>
+<p>A primitive data type representing a specific xtUML time. Variables created via a <code>TIM::current_clock</code> statement are of this type. timestamps may be stored in class attributes, passed as parameters and return values.</p>
+<p>Variables of this type support equality, inequality, comparison, and assignment operations: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>=</code></p>
+<h3 id="masltype">MASLtype</h3>
+<p>A primitive data type created in converted MASL models. This serves as the base type for MASL types and collections that do not directly map to an xtUML core type (e.g. integer). MASLtype is a UDT whose core type is string.</p>
+<h2 id="user-data-types">User Data Types</h2>
+<p>A type based on another type. User data types (UDTs) may be based on virtually any existing type. User data types inherit all operators from the primitive type and are completely compatible and interchangeable with the base type. UDTs allow the modeler to give a more meaningful type name to a lower level type.</p>
+<h3 id="user-data-type-ranges">User Data Type Ranges</h3>
+<p>Ranges are contraints used to limit the extent of values that may be represented by a model element defined with the constrained type. A range is composed of a minimum and a maximum value. Ranges are most often applied to numeric (real and integer including enumerations) types which is the case for this capability in BridgePoint.</p>
+<h4 id="udt-range-capabilities">UDT Range Capabilities</h4>
+<ul>
+<li>Range data is stored in the model and can be made available to downstream model compilation tool chains.<br />
+</li>
+<li>A <strong>Minimum</strong> and/or a <strong>Maximum</strong> range setting is supported.<br />
+Note that minimum and maximum range settings are <em>inclusive</em>, meaning that the minimum value of the range is the lowest legal value to be taken by an element linked to the ranged type. The maximum value of the range is the maximum legal value.<br />
+</li>
+<li>A <strong>Minimum</strong> setting, <strong>Maximum</strong> setting or <strong>both</strong> settings can be supplied to define the range for the User Data Type.</li>
+</ul>
+<div class="figure">
+<img src="range_cme1.png" alt="Range Context Menu" />
+<p class="caption">Range Context Menu</p>
+</div>
+<ul>
+<li>A context menu is available on numeric User Data Types eligible to be constrained with Range information. The context menu has multiple levels ending with 3 capabilities:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Set the Minimum Range value.<br />
+</li>
+<li>Set the Maximum Range value.<br />
+</li>
+<li>Clear the Range values (eliminating the Range altogether).<br />
+The 'Clear' menu item will show only when a Range has been established for the selected User Data Type.</li>
+</ol>
+<div class="figure">
+<img src="range_cme3.png" alt="Range Maximum Setting" />
+<p class="caption">Range Maximum Setting</p>
+</div>
+<ul>
+<li><p>To view the range values for a selected User Data Type, simply navigate the context menu to the Minimum and Maximum values as when setting the values. This displays the existing value setting. Range values also are displayed on the canvas and in the Properties view.</p></li>
+<li><p>When changing the type of a User Data Type from integer to real or real to integer, the range minimum and maximum values are preserved but undergo type conversion. When changing the type of a User Data Type to any other type, the range is deleted.</p></li>
+</ul>
+<h2 id="structured-data-types">Structured Data Types</h2>
+<p>A structured data type (SDT) is a collection of structure members of various types. Structure members are accessed via the “.” operator. SDTs may be used as return values, parameters, or class attributes. Automatic (transient) variables become SDTs when initialized to a return value or variable whose type is an SDT. Only the assignment operation is valid on the SDT itself. The individual structure members may be operated on according to the valid operations for their respective types.</p>
+<h2 id="enumerations">Enumerations</h2>
+<p>A data type that can take on one of a list of uniquely named values (enumerators) at any one time. Variables of the enumeration type may only be assigned one of the corresponding enumerators as a value. Enumerators are accessed in OAL using <code>&lt;enumeration name&gt;::&lt;enumerator name&gt;</code> with full scoping to avoid name conflicts with transients, constants, class attributes, etc.</p>
+<p>Variables of an enumeration type support equality, inequality, and assignment operations: <code>==</code>, <code>!=</code>, <code>=</code></p>
+<h2 id="constant-specifications">Constant specifications</h2>
+<p>Constant specifications are groupings of related constants. Constant specifications may be named or unnamed. The name, if any exists, may be used to qualify constant references in OAL in the case where there exist multiple constants with the same name. Constant specifications are composed of zero to many Constants. A constant has a name, type, and value. The type is restricted to primitive types integer, real, boolean, or string and enumerated types. The type may also be a UDT which is based on one of the types listed above or another UDT which is based on one of the types listed above. The value is restricted to meaningful data based on the chosen type. Integer constant values may be specified in either decimal, hexadecimal (beginning with 0x), or binary (beginning with 0b).</p>
 </body>
 </html>

@@ -66,6 +66,12 @@ import org.xtuml.bp.ui.explorer.ExplorerPlugin;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.xtuml.bp.core.*;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
+.select any parentNode related by tree_node->T_TPS[R1000] where ( "" != selected.WhereClause )
+.select any childNode related by tree_node->T_TPS[R1001] where ( "" != selected.WhereClause )
+.if ( ( not_empty parentNode ) or ( not_empty childNode ) )
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
+.end if
 
 import org.xtuml.bp.ui.explorer.*;
   .select many child_specs related by tree_node->T_TPS[R1000]
@@ -167,7 +173,7 @@ ${rel_nav.body}\
     .select one child related by spec->T_TNS[R1001]
     .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
     .assign varName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
-    .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "many", "arg", "${varName}")
+    .invoke rel_nav = generate_backward_rel_chain_nav_with_query(tree_node.Key_Lett, spec.ParentChildRelChain, "many", "arg", "${varName}", true, spec.WhereClause )
 ${rel_nav.body}\
     .if ( not child.Sorted )
       .assign alpha_sort = false
@@ -210,7 +216,7 @@ ${rel_nav.body}\
     .end if
     for (int i = 0 ; i < ${varName}.length ; i++) {
     .if(child.occursInMultipleLocations)
-      result[count] = new MultipleOccurrenceElement(${varName}[i]);
+      result[count] = MultipleOccurrenceElement.getElement(${varName}[i], arg );
     .else
       result[count] = ${varName}[i];
     .end if
@@ -230,7 +236,7 @@ ${rel_nav.body}\
     .select one child related by spec->T_TNS[R1001]
     .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
     .assign varName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
-    .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "many", "arg", "${varName}")
+    .invoke rel_nav = generate_backward_rel_chain_nav_with_query(tree_node.Key_Lett, spec.ParentChildRelChain, "many", "arg", "${varName}", true, spec.WhereClause)
          ${rel_nav.body}
          if (${varName}.length > 0) return true;  
   .end for

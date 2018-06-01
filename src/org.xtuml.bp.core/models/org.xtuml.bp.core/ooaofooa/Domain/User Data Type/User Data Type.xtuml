@@ -179,7 +179,12 @@ elif (param.at == Justification::Center)
   select one coreDt related by self->S_DT[R18];
   select one selfDt related by self->S_DT[R17];
   if ( not_empty coreDt and not_empty selfDt )
-    result = selfDt.Name + GD::newline() + "{ " + coreDt.Name + " }";
+    select one range related by self->S_RANGE[R57];
+    if ( not_empty range )
+      result = selfDt.Name + GD::newline() + "{ " + coreDt.Name + " " + range.get_name() + " }";
+    else
+      result = selfDt.Name + GD::newline() + "{ " + coreDt.Name + " }";
+    end if;
   else
     result = ::getOrphanedElementName();
   end if;

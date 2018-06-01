@@ -213,21 +213,22 @@ INSERT INTO O_TFR
 // with the same name
 select one edt related by self->S_EDT[R27];
 select one dt related by edt->S_DT[R17];
-select one package related by dt->PE_PE[R8001]->EP_PKG[R8000];
-select one component related by dt->PE_PE[R8001]->C_C[R8003];
-if(not empty component)
-  pkgId = component.getPackageId();
-  select any package from instances of EP_PKG
-                                           where (selected.Package_ID == pkgId);
-end if;
-select one system related by package->S_SYS[R1405];
-sys_id = GD::NULL_UNIQUE_ID();
-if(not_empty system)
-  sys_id = system.Sys_ID;
-end if;
 select many enumerators related by edt->S_ENUM[R27];
 for each enumerator in enumerators
   if(enumerator != self and enumerator.Name == self.Name)
+   select one package related by dt->PE_PE[R8001]->EP_PKG[R8000];
+    select one component related by dt->PE_PE[R8001]->C_C[R8003];
+    if(not empty component)
+      pkgId = component.getPackageId();
+      select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+    end if;
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+
     MI_IM::createIssue(sys_id:sys_id, description:
        "Found another enumerator under the same enumeration data type with a" +
                                                           " matching name.",

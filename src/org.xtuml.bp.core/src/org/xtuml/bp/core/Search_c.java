@@ -1,13 +1,5 @@
 package org.xtuml.bp.core;
 //========================================================================
-//
-//File:      $RCSfile: Search_c.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 22:54:14 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -50,6 +42,7 @@ public class Search_c {
 	private static Matcher matcher;
 	private static Set<NonRootModelElement> descriptionElementsInScope = new HashSet<NonRootModelElement>();
 	private static Set<NonRootModelElement> actionLanguageElementsInScope = new HashSet<NonRootModelElement>();
+	private static Set<NonRootModelElement> declarationElementsInScope = new HashSet<NonRootModelElement>();
 
 	public static UUID Locatecontentresults(final String p_Contents,
 			boolean isCaseSensitive, final String p_Pattern) {
@@ -77,6 +70,31 @@ public class Search_c {
 		return Gd_c.Null_unique_id();
 	} // End locateContentResults
 
+	public static UUID Locatenameresults(final String p_Contents,
+			boolean isCaseSensitive, final String p_Pattern) {
+		int regexOptions = Pattern.MULTILINE;
+		if (!isCaseSensitive) {
+			regexOptions |= Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;
+		}
+		if (matcher == null) {
+			Document document = new Document(p_Contents);
+			DocumentCharSequence sequence = new DocumentCharSequence(document);
+			Pattern pattern = Pattern.compile(p_Pattern, regexOptions);
+			matcher = pattern.matcher(sequence);
+		}
+		if (matcher.find()) {
+			int start = matcher.start();
+			int end = matcher.end();
+			if (end != start) {
+				NameMatchResult_c nmr = new NameMatchResult_c(Ooaofooa
+						.getDefaultInstance());
+				nmr.setName(p_Contents);
+				return nmr.getId();
+			}
+		}
+		return Gd_c.Null_unique_id();
+	} // End locateNameResults
+
 	public static void Gatherparticipants(Object monitor, final UUID id) {
 		Query_c query = Query_c.QueryInstance(Ooaofooa.getDefaultInstance(),
 				new ClassQueryInterface_c() {
@@ -95,8 +113,53 @@ public class Search_c {
 		if (dq != null) {
 			gatherDescriptionParticipants(query, monitor);
 		}
+		DeclarationQuery_c decq = DeclarationQuery_c.getOneSQU_DOnR9600(query);
+		if (decq != null) {
+			gatherDeclarationParticipants(query, monitor);
+		}
 	}
 
+	/**
+	 * Locate all elements that have searchable name, which are within the
+	 * configured scope. Create the necessary Participant element for each.
+	 * 
+	 * @param query
+	 * @param monitor 
+	 */
+	private static void gatherDeclarationParticipants(Query_c query, Object monitor) {
+		for(NonRootModelElement element : declarationElementsInScope) {
+			Object uiElement = getUIInstance(element);
+			// now create the necessary participant
+			query.Createparticipant(uiElement.getClass().getName(),
+					((NonRootModelElement) uiElement).getInstanceKey(),
+					((NonRootModelElement) uiElement).getModelRoot().getId(),
+					ActionLanguageDescriptionUtil.getNameAttributeValue(element));
+			// Special case to add key letters as part of name search
+			if ( element instanceof ModelClass_c ) {
+				query.Createparticipant(uiElement.getClass().getName(),
+					((NonRootModelElement) uiElement).getInstanceKey(),
+					((NonRootModelElement) uiElement).getModelRoot().getId(),
+					ActionLanguageDescriptionUtil.getKeyLetterValue(element));
+			}
+			// Special case to add role phrases as part of name search
+			if ( element instanceof Association_c ) {
+			  String[] rolePhrases = ActionLanguageDescriptionUtil.getRolePhraseValues(element);
+			  for (String rolePhrase : rolePhrases) {
+				  if ( !rolePhrase.isEmpty() ) {
+					  query.Createparticipant(uiElement.getClass().getName(),
+							  ((NonRootModelElement) uiElement).getInstanceKey(),
+							  ((NonRootModelElement) uiElement).getModelRoot().getId(),
+							  rolePhrase);
+				  }
+			  }
+			}
+			IProgressMonitor progressMonitor = (IProgressMonitor) monitor;
+			if(progressMonitor.isCanceled()) {
+				return;
+			}
+		}
+	}
+	
 	/**
 	 * Locate all elements that have a Descrip attribute, which are within the
 	 * configured scope. Create the necessary Participant element for each.
@@ -248,6 +311,7 @@ public class Search_c {
 		// clear previous element set
 		actionLanguageElementsInScope.clear();
 		descriptionElementsInScope.clear();
+		declarationElementsInScope.clear();
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		if (scope == Searchscope_c.Universe) {
 			try {
@@ -281,6 +345,20 @@ public class Search_c {
 							}
 						}
 					}
+					classes = ActionLanguageDescriptionUtil
+							.getClassesSupportingName();
+					for (Class<?> clazz : classes) {
+						Object[] elements = instances[i].getInstanceList(clazz)
+								.toArray();
+						for (int j = 0; j < elements.length; j++) {
+							declarationElementsInScope
+									.add((NonRootModelElement) elements[j]);
+							if (progressMonitor.isCanceled()) {
+								// user cancelled, return
+								return;
+							}
+						}
+					}
 				}
 			} catch (CoreException e1) {
 				CorePlugin.logError("Unable to load workspace for search.", e1);
@@ -294,6 +372,13 @@ public class Search_c {
 			selected = gatherChildrenForSelected(selected, progressMonitor);
 			for (int i = 0; i < selected.length; i++) {
 				Object originalInstance = selected[i];
+				if (ActionLanguageDescriptionUtil
+						.hasSearchableName(originalInstance.getClass())) {
+					declarationElementsInScope
+							.add((NonRootModelElement) originalInstance);
+				}
+				
+				// special handling for action language and descriptions
 				originalInstance = getAttributeHolder(originalInstance, false);
 				if (ActionLanguageDescriptionUtil
 						.hasActionLanguageAttribute(originalInstance.getClass())) {
@@ -305,6 +390,7 @@ public class Search_c {
 					descriptionElementsInScope
 							.add((NonRootModelElement) originalInstance);
 				}
+
 				progressMonitor.worked(1);
 				if (progressMonitor.isCanceled()) {
 					// user cancelled, return

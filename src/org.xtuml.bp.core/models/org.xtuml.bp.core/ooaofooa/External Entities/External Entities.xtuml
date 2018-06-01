@@ -2725,6 +2725,40 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("3d6790b6-eb0b-4fa0-be3f-35c8979c722b",
+	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
+	'numFunctionsSelected',
+	'Return a count of the number of S_SYNC instances in the selection that have the given name.
+
+Import:org.xtuml.bp.core.ui.Selection; import java.util.Iterator
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'        int numSelected = 0;
+        Iterator iter = Selection.getInstance().getStructuredSelection().iterator();
+        while (iter.hasNext()) {
+            Object obj = iter.next();
+            if (obj instanceof Function_c) {
+                if (((Function_c)obj).getName().equals(p_Functionname)) {
+                    numSelected++;
+                }
+            }
+        }
+        return numSelected;
+',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("83cc7ac3-ad20-4072-a86c-82d708977497",
+	"3d6790b6-eb0b-4fa0-be3f-35c8979c722b",
+	'functionName',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
 	1,
@@ -3524,6 +3558,44 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"40275a35-1743-4a8a-815e-019069f145d5",
+	'');
+INSERT INTO S_BRG
+	VALUES ("9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	"4dbc824e-7f35-4e67-b275-79632eac75cc",
+	'locateNameResults',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("d64d6dc9-5e4c-46aa-9e10-3c2730d03e9c",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'pattern',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c9d3c31e-5b74-4656-9010-e533b17f4e0a",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'contents',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"d64d6dc9-5e4c-46aa-9e10-3c2730d03e9c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7de8afce-ffa0-4a7b-8f9c-8210ed003e33",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'isCaseSensitive',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"c9d3c31e-5b74-4656-9010-e533b17f4e0a",
 	'');
 INSERT INTO PE_PE
 	VALUES ("4dbc824e-7f35-4e67-b275-79632eac75cc",

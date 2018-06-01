@@ -1,5 +1,7 @@
+//! ACTIVITY BEGIN. 'd422cf2f-5eac-4355-81d3-a7fe619733db' DO NOT EDIT THIS LINE.
 public service MASLTemplate::public_service_1 ( val : in ex_type ) is
 begin
   null;
 end service;
+//! ACTIVITY END. DO NOT EDIT THIS LINE.
 

@@ -1,13 +1,5 @@
 package org.xtuml.bp.search.query;
 //========================================================================
-//
-//File:      $RCSfile: ModelSearchQuery.java,v $
-//Version:   $Revision: 1.9 $
-//Modified:  $Date: 2013/01/10 23:14:21 $
-//
-//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -80,6 +72,21 @@ public class ModelSearchQuery implements ISearchQuery, IModelMatchListener {
 		}
 		if (input.isDescriptionSearch()) {
 			final UUID queryId = Query_c.Createdescriptionquery(Ooaofooa
+					.getDefaultInstance(), input.isCaseSensitive(),
+					getPattern(), input.isRegExSearch(), input.getModelScope());
+			Query_c query = Query_c.QueryInstance(
+					Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
+
+						@Override
+						public boolean evaluate(Object candidate) {
+							return ((Query_c) candidate).getId()
+									.equals(queryId);
+						}
+					});
+			queries.add(query);
+		}
+		if (input.isElementNameSearch()) {
+			final UUID queryId = Query_c.Createdeclarationquery(Ooaofooa
 					.getDefaultInstance(), input.isCaseSensitive(),
 					getPattern(), input.isRegExSearch(), input.getModelScope());
 			Query_c query = Query_c.QueryInstance(

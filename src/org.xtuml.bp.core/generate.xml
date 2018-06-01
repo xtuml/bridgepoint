@@ -18,9 +18,9 @@
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
-          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties, format_java">
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties, format_java">
   </target>
-  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, properties">
+  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
@@ -36,8 +36,10 @@
       value="**/OAL*Validation*Functions.xtuml" />
   <property name="oal_utility_input"
       value="**/OAL*Validation*Utility*Functions.xtuml" />
+  <property name="oal_validation_scoped"
+      value="**/OAL*Validation*Scoped*Access.xtuml" />
 
-  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}" />
+  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}, ${oal_validation_scoped}" />
 
   <target name="sql.depends" >
     <echo >Plugins home: ${plugins-home}</echo>
@@ -480,6 +482,33 @@
        <echotimestamp />
    </target>
 
+   <property name="grau.output" value="src/org/xtuml/bp/core/util/CoreReferentialAttributeUtil.java" />
+
+   <target name="generate_referential_attribute_util.depends" depends="sql" >
+       <uptodate property="referential_attribute_util.buildNotNeeded" targetfile="${grau.output}">
+         <srcfiles dir = "${mcj_path}" includes = "referential_attribute_util.inc" />
+         <srcfiles dir = "arc" includes = "generate_referential_attribute_util.arc" />
+         <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
+       </uptodate>
+   </target>
+
+   <target name="generate_referential_attribute_util" unless="referential_attribute_util.buildNotNeeded" depends="generate_referential_attribute_util.depends" >
+       <echo >Generating ${grau.output} ...</echo>
+       <echotimestamp />
+       <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+         <arg line="xtumlmc_gen_erate -nopersist
+            -import ${mcj_path}/ooa_schema.sql
+            -import sql/ooaofooa.sql
+            -arch arc/generate_referential_attribute_util.arc" />
+       </exec>        
+       <echotimestamp />
+   </target>
+
+
+
    <property name="grtou.output" value="src/org/xtuml/bp/core/util/RTOUtil.java" />
 
    <target name="generate_rto_util.depends" >
@@ -543,6 +572,7 @@
     ui/preferences/ActionLanguagePreferences.java, ui/preferences/ContentAssistPreferences.java, ui/preferences/BridgePointProjectPreferences.java,
    ui/preferences/BridgePointProjectReferencesPreferenceNode.java, ui/preferences/BridgePointProjectReferencesPreferences.java,
    ui/preferences/BridgePointProjectActionLanguagePreferenceNode.java,  ui/preferences/BridgePointProjectActionLanguagePreferences.java,
+   ui/preferences/BridgePointProjectDependenciesPreferenceNode.java,  ui/preferences/BridgePointProjectDependenciesPreferences.java,
    ui/preferences/EmptySynchronousMessageParsePreferenceButtons.java,
    sorter/AlphaSorter.java,sorter/BaseTypeSpecificSorter.java, ui/GenericPackageAssignEventOnSM_TXNWizardPage1.java,
     inspector/IModelInspectorRegistry.java,inspector/BaseModelClassInspector.java,
@@ -552,11 +582,12 @@
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
       lib/*.java,
       common/OALPersistenceUtil.java, ui/editor/RoutingEditor.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
-      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
+      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java, ui/RangeValueInputValidator.java,
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
   	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java,
-	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java" />
+	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java,
+  ui/actions/RangeAction.java, ui/actions/RangeContributionItem.java" />
 
   <target name="format_java.depends" >
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">
@@ -674,6 +705,7 @@
       <fileset dir="src/org/xtuml/bp/core/util" includes="ActionLanguageDescriptionUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/util" includes="GlobalsUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/util" includes="SupertypeSubtypeUtil.java" />
+      <fileset dir="src/org/xtuml/bp/core/util" includes="CoreReferentialAttributeUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/util" includes="RTOUtil.java" />
       <fileset dir="src/org/xtuml/bp/core/common" includes="BPQuickFix.java" />
         <fileset dir="src/org/xtuml/bp/core"
