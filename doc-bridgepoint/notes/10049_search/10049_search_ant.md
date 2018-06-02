@@ -38,7 +38,7 @@ this shrinkage of scope occurred.
 ### 4. Requirements
 
 4.1  This feature shall be implemented as an extension to the existing xtUML Search
-  capability.
+  capability.  
 4.2  xtUML Search shall support locating a structural element by matching the
   user input against the structural element's name.     
 4.2.1  A list of metamodel elements that the tool will support finding by name shall 

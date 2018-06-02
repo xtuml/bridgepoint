@@ -36,8 +36,10 @@
       value="**/OAL*Validation*Functions.xtuml" />
   <property name="oal_utility_input"
       value="**/OAL*Validation*Utility*Functions.xtuml" />
+  <property name="oal_validation_scoped"
+      value="**/OAL*Validation*Scoped*Access.xtuml" />
 
-  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}" />
+  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}, ${oal_validation_scoped}" />
 
   <target name="sql.depends" >
     <echo >Plugins home: ${plugins-home}</echo>
@@ -580,11 +582,12 @@
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
       lib/*.java,
       common/OALPersistenceUtil.java, ui/editor/RoutingEditor.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
-      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
+      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java, ui/RangeValueInputValidator.java,
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
   	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java,
-	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java" />
+	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java,
+  ui/actions/RangeAction.java, ui/actions/RangeContributionItem.java" />
 
   <target name="format_java.depends" >
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">

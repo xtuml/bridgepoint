@@ -22,21 +22,22 @@ package org.xtuml.bp.ui.search.providers;
 //======================================================================== 
 //
 import org.eclipse.jface.viewers.BaseLabelProvider;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.StyledString;
-import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.search.ui.text.AbstractTextSearchResult;
 import org.eclipse.search.ui.text.Match;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-
 import org.xtuml.bp.core.ActionLanguageSearchable_c;
 import org.xtuml.bp.core.ContentMatch_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DescriptionEngine_c;
 import org.xtuml.bp.core.DescriptionSearchable_c;
 import org.xtuml.bp.core.Match_c;
+import org.xtuml.bp.core.NameMatch_c;
+import org.xtuml.bp.core.NamedSearchable_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SearchEngine_c;
 import org.xtuml.bp.core.SearchParticipant_c;
@@ -163,6 +164,7 @@ public class ModelSearchLabelProvider extends BaseLabelProvider implements ILabe
 
 	private StyledString getMatchLabel(Match_c element) {
 		ContentMatch_c cm = ContentMatch_c.getOneSR_CMOnR9801(element);
+		NameMatch_c nm = NameMatch_c.getOneSR_NMOnR9801(element);
 		if(cm != null) {
 			String content = getContentFor(cm);
 			int[] lineData = calculateLineNumber(content, cm.getStartposition());
@@ -188,6 +190,12 @@ public class ModelSearchLabelProvider extends BaseLabelProvider implements ILabe
 			}
 			return string;
 		}
+		if (nm != null) {
+			String content = getContentFor(nm);
+			StyledString string = new StyledString("", StyledString.QUALIFIER_STYLER);
+			string.append(content);
+			return string;
+		}
 		return new StyledString(getText(element));
 	}
 	
@@ -207,6 +215,21 @@ public class ModelSearchLabelProvider extends BaseLabelProvider implements ILabe
 				.getOneSP_DSOnR9702(element);
 		if (ds != null) {
 			content = ds.getSearchablevalue();
+		}
+		return content;
+	}
+
+	private String getContentFor(NameMatch_c nm) {
+		SearchableElement_c element = SearchableElement_c
+				.getOneSP_SEOnR9700(SearchParticipant_c
+						.getOneSP_SPOnR9802(SearchResult_c
+								.getOneSR_SROnR9800(Match_c
+										.getOneSR_MOnR9801(nm))));
+		String content = "";
+		NamedSearchable_c ns = NamedSearchable_c
+				.getOneSP_NSOnR9702(element);
+		if (ns != null) {
+			content = ns.getSearchablevalue();
 		}
 		return content;
 	}
