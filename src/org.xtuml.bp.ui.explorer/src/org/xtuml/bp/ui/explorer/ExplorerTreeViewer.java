@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ExplorerTreeViewer.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/01/10 23:15:43 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -27,7 +19,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
