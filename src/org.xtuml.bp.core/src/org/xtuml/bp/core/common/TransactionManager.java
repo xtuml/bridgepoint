@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: TransactionManager.java,v $
-//Version:   $Revision: 1.43 $
-//Modified:  $Date: 2013/06/12 13:08:25 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -79,7 +71,7 @@ public class TransactionManager {
 
 	private static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
 
-	ListenerList transactionListeners = new ListenerList();
+	ListenerList transactionListeners = new ListenerList(ListenerList.IDENTITY);
 	private Action redoAction;
 	private Action undoAction;
 
@@ -92,7 +84,7 @@ public class TransactionManager {
 
 	public boolean ignoreResourceChangesMarker;
 
-	private ListenerList transactionListenersAtEnd = new ListenerList();
+	private ListenerList transactionListenersAtEnd = new ListenerList(ListenerList.IDENTITY);
 
 	public static final String FAMILY_TRANSACTION = "Transaction Jobs"; //$NON-NLS-1$
 	public static final int FORWARD_DIRECTION = 1;

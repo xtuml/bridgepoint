@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: SyntaxHighlightingPreferences.java,v $
-//Version:   $Revision: 1.12 $
-//Modified:  $Date: 2013/01/10 23:20:46 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -30,8 +22,8 @@ import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.source.ISharedTextColors;
-import org.eclipse.jface.util.Assert;
-import org.eclipse.jface.util.ListenerList;
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -64,7 +56,7 @@ public class SyntaxHighlightingPreferences implements IPreferenceModel {
 	protected boolean isSystemColor = true;
 	protected RGB backgroundRGB;
 	
-	ListenerList listeners = new ListenerList();
+	ListenerList listeners = new ListenerList(ListenerList.IDENTITY);
 
 
 	public SyntaxHighlightingPreferences(ISharedTextColors aSharedColors) {

@@ -1,12 +1,4 @@
 // ========================================================================
-//
-// File:      $RCSfile: DanglingReferenceDecorator.java,v $
-// Version:   $Revision: 1.11 $
-// Modified:  $Date: 2013/01/10 23:15:56 $
-//
-// (c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-// ========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License.  You may obtain a copy
 // of the License at
@@ -28,8 +20,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.util.ListenerList;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
@@ -45,7 +37,7 @@ public class DanglingReferenceDecorator implements ILightweightLabelDecorator {
     private static final ImageDescriptor ERROR = CorePlugin
             .getImageDescriptor("error_co.gif");
 
-    private static ListenerList listeners = new ListenerList();
+    private static ListenerList listeners = new ListenerList(ListenerList.IDENTITY);
 
     private static DanglingReferenceDecorator defaultInst = null;
 
