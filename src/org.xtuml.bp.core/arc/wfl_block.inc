@@ -1,13 +1,5 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: wfl_block.inc,v $
-.// Version:   $Revision: 1.14.90.1 $
-.// Modified:  $Date: 2013/07/19 12:25:14 $
-.//
-.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
-.//
-.//====================================================================
-.//
 .// This function creates a workflow.
 .//
 .//====================================================================
@@ -45,7 +37,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .// be used.  It is conditioned upon further processing.  create_step is
   .// called a second time when it is known to be needed.
   .if ( "0" == id )
-    .assign attr_id = "${info.unique_num}"
+    .assign attr_id = "${blk.Block_Id}"
   .else
     .assign attr_id = id
     .create object instance w_step of W_STEP
