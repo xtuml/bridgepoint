@@ -208,6 +208,22 @@
              description="Create the generation database"
              unless="create_gen.buildNotNeeded" >
        <echo >Generating all.  This replaces the targets that use the intermediate gen_oal.gen file ...</echo>
+      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CORE_ARC_DIR" value="../org.xtuml.bp.core/arc"/>
+        <env key="IO_CORE_ARC_DIR" value="${iocore_path}/arc"/>
+        <arg line="xtumlmc_gen_erate -qim -nopersist
+
+          -import ${iocore_path}/sql/${schema}
+          -import ${mcj_path}/ooa_schema.sql
+          -import ${core_path}/sql/${sql.output}
+          -import ${canvas_path}/sql/ooaofgraphics.sql
+          -import sql/${class2table.output}
+          -import sql/stream.pei.sql
+
+          -arch arc/gen_stream_export.arc" />
+      </exec>
      <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
@@ -226,7 +242,6 @@
          -arch arc/gen_xtuml_import_java.arc
          -arch arc/gen_stream_import.arc
          -arch arc/gen_export_java.arc
-       	 -arch arc/gen_stream_export.arc
          -arch arc/gen_xtuml_export_java.arc
        	 -arch arc/gen_uuid_convert_util.arc
        	 -arch arc/create_persistence_meta_data.arc
