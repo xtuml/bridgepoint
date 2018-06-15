@@ -8859,6 +8859,12 @@ if ( not_empty act )
     create object instance  new_item of P_P;
     new_item.type = ProposalTypes::EDT;
     new_item.display_text = s_edt.Name;
+    select many dup_edts related by results->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.DT_ID != s_edt.DT_ID and selected.Name == s_edt.Name );
+    select many dup_edt_pes related by dup_edts->PE_PE[R8001];
+    if ( not_empty dup_edt_pes )
+      select one s_edt_pe related by s_edt->PE_PE[R8001];
+      new_item.display_text = ::get_scoped_path_for_element( element:s_edt_pe, duplicate_elements:dup_edt_pes ) + new_item.display_text;
+    end if;
     new_item.replacement_text = new_item.display_text + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
@@ -8875,6 +8881,12 @@ if ( not_empty act )
       create object instance  new_item of P_P;
       new_item.type = ProposalTypes::UDT;
       new_item.display_text = s_udt.Name;
+      select many dup_udts related by results->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.DT_ID != s_udt.DT_ID and selected.Name == s_udt.Name );
+      select many dup_udt_pes related by dup_udts->PE_PE[R8001];
+      if ( not_empty dup_udt_pes )
+        select one s_udt_pe related by s_udt->PE_PE[R8001];
+        new_item.display_text = ::get_scoped_path_for_element( element:s_udt_pe, duplicate_elements:dup_udt_pes ) + new_item.display_text;
+      end if;
       new_item.replacement_text = new_item.display_text + "::";
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
@@ -8905,6 +8917,14 @@ if ( not_empty act )
     new_item.replacement_text = cnst_syc.Name;
     if ( not_empty dup_cnst_syc )
       new_item.replacement_text = cnst_csp.InformalGroupName + "::" + new_item.replacement_text;
+      select many dup_csps related by results->CNST_CSP[R8001] where ( selected.Constant_Spec_ID != cnst_csp.Constant_Spec_ID and selected.InformalGroupName == cnst_csp.InformalGroupName );
+      select many dup_csp_pes related by dup_csps->PE_PE[R8001];
+      if ( not_empty dup_csp_pes )
+        select one cnst_csp_pe related by cnst_csp->PE_PE[R8001];
+        scoped_path = ::get_scoped_path_for_element( element:cnst_csp_pe, duplicate_elements:dup_csp_pes );
+        new_item.display_text = cnst_syc.Name + " - " + scoped_path + cnst_csp.InformalGroupName;
+        new_item.replacement_text = scoped_path + new_item.replacement_text;
+      end if;
     end if;
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
@@ -10096,6 +10116,105 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e8d7c226-5901-4a54-9719-d935909ec74f",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
+	"00000000-0000-0000-0000-000000000000",
+	'get_scoped_path_for_element',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+',
+	'path = "";
+element = param.element;
+duplicate_elements = param.duplicate_elements;
+
+select any sys from instances of S_SYS where false;
+
+qualified = false;
+while not qualified
+  // get the parent element
+  select any parent_element from instances of PE_PE where false;
+  parent_name = "";
+  select one parent_package related by element->EP_PKG[R8000];
+  if ( not_empty parent_package )
+    parent_name = parent_package.Name;
+    select one parent_element related by parent_package->PE_PE[R8001];
+    select one sys related by parent_package->S_SYS[R1401];
+  else
+    select one parent_component related by element->C_C[R8003];
+    if ( not_empty parent_component )
+      parent_name = parent_component.Name;
+      select one parent_element related by parent_component->PE_PE[R8001];
+    end if;
+  end if;
+  
+  if ( empty parent_element )
+    break; // if there is no parent element we have reached the system level
+  end if;  
+  element = parent_element;
+    
+  // get any parents of the other elements that still match the name
+  select many parent_packages related by duplicate_elements->EP_PKG[R8000] where ( selected.Name == parent_name );
+  select many parent_package_elements related by parent_packages->PE_PE[R8001];
+  select many parent_components related by duplicate_elements->C_C[R8003] where ( selected.Name == parent_name );
+  select many parent_component_elements related by parent_components->PE_PE[R8001];
+  duplicate_elements = parent_package_elements | parent_component_elements;
+  
+  if ( empty duplicate_elements )
+    qualified = true; // if there are no parents of the duplicate set that match the name, we have gone far enough
+  end if;
+  
+  // prepend the path with this segment
+  path = parent_name + "::" + path;
+
+end while;
+
+if not qualified // if the loop was broken before the path was fully qualified, but add the system name
+  path = sys.Name + "::" + path;
+end if;
+
+return path;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("2bc1e44e-c7a0-4c6b-b8b6-994b43ee89c4",
+	"5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
+	'element',
+	"ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Packageable Element>',
+	'',
+	'',
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("ad873ddd-438a-4fe7-b3b9-81e029c9f644",
+	"5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
+	'duplicate_elements',
+	"dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	0,
+	'',
+	"2bc1e44e-c7a0-4c6b-b8b6-994b43ee89c4",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Packageable Element>',
+	'',
+	'',
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO PE_PE
+	VALUES ("5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
