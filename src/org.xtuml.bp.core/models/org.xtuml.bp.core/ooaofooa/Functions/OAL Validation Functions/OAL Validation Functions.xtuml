@@ -11469,7 +11469,7 @@ if containerFoundorCreated
                                   selected.Type == ElementTypeConstants::CONSTANT; 
       select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
     end if;
-    select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
+    select many csps related by results->CNST_CSP[R8001];
   else
     
     // get containers that match the path
@@ -11681,9 +11681,9 @@ if ( empty csp )
                                 selected.Type == ElementTypeConstants::CONSTANT; 
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
-  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == csp_name );
+  select many csps related by results->CNST_CSP[R8001];
   if ( ( cardinality csps ) == 1 )
-    select any csp related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == csp_name );
+    select any csp related by results->CNST_CSP[R8001];
   end if;
 end if;
 

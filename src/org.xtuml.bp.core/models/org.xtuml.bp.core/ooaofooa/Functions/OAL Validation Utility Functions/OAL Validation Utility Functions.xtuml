@@ -7299,25 +7299,25 @@ if (isInGenericPackage)
    select one component related by containingElem->C_C[R8001];
    select one package related by containingElem->EP_PKG[R8001];
     if not_empty component
-    component.collectVisibleElementsForName(name:param.a1_name,
+    component.collectVisibleElementsForName(name:"",
          type:ElementTypeConstants::CONSTANT,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
                                                          collectGlobally:true);
     else
-    package.collectVisibleElementsForName(name:param.a1_name,
+    package.collectVisibleElementsForName(name:"",
          type:ElementTypeConstants::CONSTANT, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
                                                          collectGlobally:true); 
     end if;
   select any resultSet related by component->PE_CRS[R8007] where
-                                    selected.Name == param.a1_name and 
+                                    selected.Name == "" and 
                                    selected.Type == ElementTypeConstants::CONSTANT; 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
     if not_empty package
       select any pkgResultSet related by package->PE_SRS[R8005] where
-                                     selected.Name == param.a1_name and 
+                                     selected.Name == "" and 
                                    selected.Type == ElementTypeConstants::CONSTANT; 
       select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
     end if;
