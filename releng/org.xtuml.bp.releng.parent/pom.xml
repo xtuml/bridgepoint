@@ -18,14 +18,14 @@
 
 	<repositories>
 		<repository>
-			<id>mars</id>
+			<id>oxygen</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/mars/</url>
+			<url>http://download.eclipse.org/releases/oxygen/</url>
 		</repository>
 		<repository>
-			<id>mars-update</id>
+			<id>oxygen-update</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.5/</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.7/</url>
 		</repository>
 		<repository>
 			<id>antlr</id>
