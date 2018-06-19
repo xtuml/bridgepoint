@@ -38837,7 +38837,7 @@ if ( not_empty act )
     select many matched_systems related by results->EP_PKG[R8001]->S_SYS[R1405] where ( selected.Name == lookahead_text );
     
     // If there is only 1 segment, we need to consider that this may not
-    // be a scoped path, but rather a Class Based Operation, Interface message,
+    // be a scoped path, but rather a Class Based Operations, Interface message,
     // or bridge
     ::Invocation_tok_doublecolon_content_assist(
         a1_rule_token:param.a1_rule_token,
@@ -38849,11 +38849,10 @@ if ( not_empty act )
         b3_invocation_parameters3_id: param.b1_scoped_path_segment1_id);
     select many proposals related by list->P_P[R1601];
     for each proposal in proposals
-      // Need to add "::" for these items (if any were found)
+      // Need to add "::" for these items, if any were found.  
       proposal.replacement_text = "::" + proposal.replacement_text;
       proposal.cursor_position = proposal.cursor_position + 2;
     end for;
-
   end if;
 
   // create component proposals
@@ -38961,7 +38960,7 @@ if ( not_empty act )
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = false;
     list.addProposal( Proposal_ID:new_item.Proposal_ID );
-  end for;  
+  end for;
 
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
