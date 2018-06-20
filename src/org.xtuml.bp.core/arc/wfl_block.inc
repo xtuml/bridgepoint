@@ -13,10 +13,12 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 '${cme.Specialism}', '${cme.Label}');\
   .create object instance w_wof of W_WOF
   .assign w_wof.Name = name
-  .assign w_wof.Sync_ID = s_sync.Sync_ID
-  .assign w_wof.Key_Lett = cme.Key_Lett
-  .assign w_wof.Specialism = cme.Specialism
-  .assign w_wof.Label = cme.Label
+  .//.assign w_wof.Sync_ID = s_sync.Sync_ID
+  .//.assign w_wof.Key_Lett = cme.Key_Lett
+  .//.assign w_wof.Specialism = cme.Specialism
+  .//.assign w_wof.Label = cme.Label
+  .relate w_wof to s_sync across R2001
+  .relate w_wof to cme across R2012
 .end function
 .//====================================================================
 .//
@@ -42,11 +44,18 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
     .assign attr_id = id
     .create object instance w_step of W_STEP
     .assign w_step.Step_ID = attr_id
-    .assign w_step.Workflow_Name = wfl.name
-    .assign w_step.Block_ID = blk.Block_Id
-    .assign w_step.Parent_Step_ID = parent_id
-    .assign w_step.Previous_Step_ID = prev_id
+    .//.assign w_step.Workflow_Name = wfl.name
+    .//.assign w_step.Block_ID = blk.Block_Id
+    .//.assign w_step.Parent_Step_ID = parent_id
+    .//.assign w_step.Previous_Step_ID = prev_id
     .assign w_step.buffer = ""
+    .select any w_wof from instances of W_WOF where ( selected.Name == "${wfl.name}" )
+    .relate w_step to w_wof across R2005
+	.select any w_step_parent from instances of W_STEP where ( selected.Step_ID == "${parent_id}" )
+    .relate w_step to w_step_parent across R2007.'contains'
+	.select any w_step_previous from instances of W_STEP where ( selected.Step_ID == "${prev_id}" )
+    .relate w_step to w_step_previous across R2008.'precedes'
+    .relate w_step to blk across R2006
   .end if
 .end function
 .//====================================================================
@@ -78,6 +87,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .param inst_ref blck
   .//
   .assign wfl = step.wfl
+  .select any w_wfl from instances of W_WOF where ( selected.Name == "${wfl.name}" )
   .select many statements related by blck->ACT_SMT[R602]
   .select many else_statements  related by blck->ACT_SMT[R602]->ACT_E[R603]->ACT_SMT[R603]
   .select many elif_statements  related by blck->ACT_SMT[R602]->ACT_EL[R603]->ACT_SMT[R603]
@@ -90,10 +100,10 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
     .end if
   .end for
   .assign statement = last_statement
-  .select one prev_stmt related by last_statement->ACT_SMT[R661.'succeeds']
+  .select one prev_stmt related by last_statement->ACT_SMT[R661.'precedes']
   .while (not_empty prev_stmt)
     .assign statement = prev_stmt
-    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'succeeds']
+    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'precedes']
   .end while
   .assign prev_step_id = "0"
   .assign srw_stmt_num = 0
@@ -115,20 +125,26 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
           .create object instance w_cti of W_CTI
           .assign w_cti.Name = var.Name
-          .assign w_cti.Workflow_Name = wfl.name
-          .assign w_cti.Statement_ID = "${statement.Statement_Id}"
-          .assign w_cti.Key_Lett = clazz.Key_Lett
+          .//.assign w_cti.Workflow_Name = wfl.name
+          .//.assign w_cti.Statement_ID = "${statement.Statement_Id}"
+          .//.assign w_cti.Key_Lett = clazz.Key_Lett
           .assign w_cti.Type = fiw_stmt.cardinality
+		  .relate w_cti to w_wfl across R2003
+		  .relate w_cti to statement across R2004
+		  .relate w_cti to clazz across R2002
         .elif (not_empty inst_set)
           .select one var related by inst_set->V_VAR[R814]
           .select one clazz related by inst_set->O_OBJ[R819]
 INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
           .create object instance w_cti of W_CTI
           .assign w_cti.Name = var.Name
-          .assign w_cti.Workflow_Name = wfl.name
-          .assign w_cti.Statement_ID = "${statement.Statement_Id}"
-          .assign w_cti.Key_Lett = clazz.Key_Lett
+          .//.assign w_cti.Workflow_Name = wfl.name
+          .//.assign w_cti.Statement_ID = "${statement.Statement_Id}"
+          .//.assign w_cti.Key_Lett = clazz.Key_Lett
           .assign w_cti.Type = fiw_stmt.cardinality
+		  .relate w_cti to w_wfl across R2003
+		  .relate w_cti to statement across R2004
+		  .relate w_cti to clazz across R2002
         .else
           .print "ERROR: From instances where statement does not specify instance reference or set . . . . internal generation error"
         .end if
@@ -155,10 +171,13 @@ INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_I
 INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', 'one');
           .create object instance w_cti of W_CTI
           .assign w_cti.Name = result.Name
-          .assign w_cti.Workflow_Name = wfl.name
-          .assign w_cti.Statement_ID = "${statement.Statement_Id}"
-          .assign w_cti.Key_Lett = clazz.Key_Lett
+          .//.assign w_cti.Workflow_Name = wfl.name
+          .//.assign w_cti.Statement_ID = "${statement.Statement_Id}"
+          .//.assign w_cti.Key_Lett = clazz.Key_Lett
           .assign w_cti.Type = "one"
+		  .relate w_cti to w_wfl across R2003
+		  .relate w_cti to statement across R2004
+          .relate w_cti to clazz across R2002
         .else
           .assign srw_stmt_num = srw_stmt_num + 1
           .select one result related by srw_stmt->ACT_SEL[R664]->V_VAR[R638]
@@ -172,9 +191,9 @@ INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
           .create object instance w_fld of W_FLD
           .assign w_fld.Name = "USER_" + result.Name
           .assign w_fld.Instance_Handle = result.Name
-          .assign w_fld.Statement_ID = "${statement.Statement_Id}"
-          .assign w_fld.Key_Lett = clazz.Key_Lett
-          .assign w_fld.Step_ID = step.id
+          .//.assign w_fld.Statement_ID = "${statement.Statement_Id}"
+          .//.assign w_fld.Key_Lett = clazz.Key_Lett
+          .//.assign w_fld.Step_ID = step.id
           .assign w_fld.Cardinality = sel_stmt.cardinality
           .assign w_fld.buffer = ""
           .if (hubi.Method_Name == "selectOne")
@@ -186,6 +205,9 @@ INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
           .elif (hubi.Method_Name == "selectMany")
 'List', '');
             .assign w_fld.Type = "List"
+            .relate w_fld to step across R2009
+			.relate w_fld to statement across R2010
+			.relate w_fld to clazz across R2011
           .else
 '${hubi.Method_Name}', '');
             .assign w_fld.Type = hubi.Method_Name
@@ -201,9 +223,12 @@ INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
           .if ( label != "" )
 INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
             .create object instance w_cfl of W_CFL
-            .assign w_cfl.Name = "USER_" + result.Name
-            .assign w_cfl.Step_ID = step.id
+            .//.assign w_cfl.Name = "USER_" + result.Name
+            .//.assign w_cfl.Step_ID = step.id
             .assign w_cfl.Label = label
+            .assign name = "USER_" + result.Name
+			.select any w_fld from instances of W_FLD where ((selected.Name == "${name}") and (selected.Step_ID == "${step.id}"))
+			.relate w_cfl to w_fld across R2014
           .end if
         .end if
       .else
@@ -225,9 +250,9 @@ INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${tran
         .create object instance w_fld of W_FLD
         .assign w_fld.Name = "USER_" + transient_asgn.Target_Variable_Name
         .assign w_fld.Instance_Handle = transient_asgn.Target_Variable_Name
-        .assign w_fld.Statement_ID = "${transient_asgn.Statement_Id}"
-        .assign w_fld.Key_Lett = ""
-        .assign w_fld.Step_ID = step.id
+        .//.assign w_fld.Statement_ID = "${transient_asgn.Statement_Id}"
+        .//.assign w_fld.Key_Lett = ""
+        .//.assign w_fld.Step_ID = step.id
         .assign w_fld.Cardinality = ""
         .assign w_fld.buffer = ""
         .if ((hubi.Method_Name == "getString") OR (hubi.Method_Name == "getStringDef"))
@@ -239,6 +264,8 @@ INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${tran
         .else
 '', '${hubi.Method_Name}', '');
           .assign w_fld.Type = hubi.Method_Name
+          .relate w_fld to step across R2009
+		  .relate w_fld to trasient_asgn across R2010
         .end if
       .end if
     .end if
@@ -292,7 +319,7 @@ ${inner_blck.body}\
 ${inner_blck.body}\
       .end if
     .end if
-    .select one next_statement related by statement->ACT_SMT[R661.'precedes']
+    .select one next_statement related by statement->ACT_SMT[R661.'succeeds']
     .assign statement = next_statement
   .end while
 .end function

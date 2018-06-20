@@ -50,10 +50,10 @@ ${step.buffer}
     .end if
   .end for
   .assign statement = last_statement
-  .select one prev_stmt related by last_statement->ACT_SMT[R661.'succeeds']
+  .select one prev_stmt related by last_statement->ACT_SMT[R661.'precedes']
   .while (not_empty prev_stmt)
     .assign statement = prev_stmt
-    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'succeeds']
+    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'precedes']
   .end while
   .while (not_empty statement)
     .// For the workflow, we are only interested in executing the passive statements
@@ -143,7 +143,7 @@ ${inner_blck.body}
 ${else_stmt.buffer2}
       .end if
     .end if
-    .select one next_statement related by statement->ACT_SMT[R661.'precedes']
+    .select one next_statement related by statement->ACT_SMT[R661.'succeeds']
     .assign statement = next_statement
   .end while
 .end function

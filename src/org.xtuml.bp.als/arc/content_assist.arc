@@ -104,7 +104,7 @@ ${result.body}
         .assign attr_generated = result.generated
       .end if
     .end if
-    .select one node related by node->N[R7.'precedes']
+    .select one node related by node->N[R7.'succeeds']
   .end while
 .end function
 .//---------------------------------------

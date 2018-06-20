@@ -348,7 +348,7 @@
   .param Inst_ref elif_stmt
   .select one next_stmt related by elif_stmt->ACT_SMT[R603]
   .while (not_empty next_stmt)
-    .select one next_stmt related by next_stmt->ACT_SMT[R661.'succeeds']
+    .select one next_stmt related by next_stmt->ACT_SMT[R661.'precedes']
     .select one if_stmt related by next_stmt->ACT_IF[R603]
     .if(not_empty if_stmt)
       .assign elif_stmt.If_Statement_Id = if_stmt.Statement_ID
@@ -370,7 +370,7 @@
   .param Inst_ref else_stmt
   .select one next_stmt related by else_stmt->ACT_SMT[R603]
   .while (not_empty next_stmt)
-    .select one next_stmt related by next_stmt->ACT_SMT[R661.'succeeds']
+    .select one next_stmt related by next_stmt->ACT_SMT[R661.'precedes']
     .select one if_stmt related by next_stmt->ACT_IF[R603]
     .if(not_empty if_stmt)
       .assign else_stmt.If_Statement_Id = if_stmt.Statement_ID

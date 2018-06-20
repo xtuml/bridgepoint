@@ -276,7 +276,7 @@
       .end if
     .end if
     .//
-    .select one col related by col->C[R6.'precedes']
+    .select one col related by col->C[R6.'succeeds']
     .if ( not_empty col )
       .// if code we're currently outputting is for BP 6.1 connector-texts, we
       .// don't need to output the enclosed delimeter, since the code
@@ -839,7 +839,7 @@ throws IOException
       if (m_export_graphics && !writeAsProxies && !forceWriteAsProxy) export_${gd.modelName}(inst, pm, false, ${isPersistableParamValue});
           .end if
         .end if .//  .if (process1 or process2)
-        .select one child related by child->EO[R2.'precedes']
+        .select one child related by child->EO[R2.'succeeds']
 
       .end while
       .if ( eo.writePosition == "last" )

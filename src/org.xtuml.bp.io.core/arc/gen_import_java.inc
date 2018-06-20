@@ -335,7 +335,7 @@
            null\
         .end if
       .end if
-      .select one nextCol related by col->C[R6.'precedes'];
+      .select one nextCol related by col->C[R6.'succeeds'];
       .select many ec_set related by col->EC[R9]
       .for each ec in ec_set
 , ${post_string}
@@ -345,7 +345,7 @@
 , ${post_string}
       .end if
       .assign attr_col_num = attr_col_num + 1
-      .select one col related by col->C[R6.'precedes'];
+      .select one col related by col->C[R6.'succeeds'];
     .end while
 .end function
 .//

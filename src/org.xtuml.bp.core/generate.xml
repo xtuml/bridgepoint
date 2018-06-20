@@ -166,6 +166,7 @@
   </target>
   <target name="java1" if="itemsfoundin1" unless="java.buildNotNeeded" >
     <echo >Generating java files 1...</echo>
+  	<!-- TODO - SKB
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -178,9 +179,11 @@
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
+    -->
   </target>
   <target name="java2" if="itemsfoundin2" unless="java.buildNotNeeded" >
     <echo >Generating java files 2...</echo>
+  	<!-- TODO - SKB
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -193,9 +196,11 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
+    -->
   </target>
   <target name="java3" if="itemsfoundin3" unless="java.buildNotNeeded" >
     <echo >Generating java files 3...</echo>
+  	<!-- TODO - SKB
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -208,9 +213,11 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
+    -->
   </target>
   <target name="java4" if="itemsfoundin4" unless="java.buildNotNeeded" >
     <echo >Generating java files 4...</echo>
+  	<!-- TODO - SKB
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -223,6 +230,7 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
+    -->
   </target>
 
   <property name="cme_actions.input" value="context_menu.pei.sql" />
@@ -366,6 +374,7 @@
           unless="inspector.java.buildNotNeeded" >
     <echo >Generating ${inspector.java.output} ...</echo>
     <echotimestamp />
+  	<!-- TODO SKB
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
@@ -380,6 +389,7 @@
       -arch arc/create_metadata_elements_sorters.arc
       -arch arc/create_dependson.arc" />
     </exec>
+    -->
     <echotimestamp />
 
     <delete file="____file.txt" />
@@ -438,6 +448,7 @@
    <target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
        <echo >Generating ${cell_modifier.output} ...</echo>
        <echotimestamp />
+   	<!-- TODO SKB
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
            <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
@@ -449,6 +460,7 @@
          -import sql/ooaofooa_hierarchy.pei.sql
          -arch arc/generate_cell_modifiers.arc" />
        </exec>
+       -->
        <echotimestamp />
 
        <delete file="____file.txt" />

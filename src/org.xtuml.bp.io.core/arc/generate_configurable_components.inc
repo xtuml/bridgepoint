@@ -55,7 +55,7 @@ ${more_eos.body}\
 	        .end if
         .end if
         .if (traverse_sibling)		 
-			.select one sibling related by eo->EO[R2.'precedes']
+			.select one sibling related by eo->EO[R2.'succeeds']
 			.if (not_empty sibling)
 		 		.if (not sibling.componentRoot)
 		    		.assign attr_children_list = attr_children_list | sibling
@@ -123,7 +123,7 @@ ${eos_list.body}
 .select many eos from instances of EO
 .for each eo in eos
 	.select any top related by eo->EO[R1.'is_parent_of']
-    .select any pre_sibling related by eo->EO[R2.'precedes']
+    .select any pre_sibling related by eo->EO[R2.'succeeds']
     .select any suc_sibling related by eo->EO[R2.'follows']
     .//Check if the instance found is not already been checked, this is true in case of nested configurable
     .//components, in this case the 'writePostion' attribute is set to none in the PEI file

@@ -270,10 +270,10 @@ public class ${wizard_class_name} extends Wizard
       .select any next_step related by step->W_STEP[R2007.'contained_by']
       .if (empty next_step)
         .// 2. the next sibling, if any
-        .select any next_step related by step->W_STEP[R2008.'succeeds']
+        .select any next_step related by step->W_STEP[R2008.'precedes']
         .if (empty next_step)
           .// 3. the parents next sibling, if any
-          .select any next_step related by step->W_STEP[R2007.'contains']->W_STEP[R2008.'succeeds']
+          .select any next_step related by step->W_STEP[R2007.'contains']->W_STEP[R2008.'precedes']
         .end if
       .end if
       .if (not_empty next_step)

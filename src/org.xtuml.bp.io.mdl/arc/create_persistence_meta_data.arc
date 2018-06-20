@@ -45,7 +45,7 @@
           .assign attr_found = true
         .end if
         .if(not attr_found)
-          .select one next_child related by first_child->EO[R2.'precedes']
+          .select one next_child related by first_child->EO[R2.'succeeds']
           .while(not_empty next_child)
             .if(next_child == child_eo)
               .assign attr_path = attr_path | next_child
@@ -59,7 +59,7 @@
                 .break while
               .end if            
             .end if
-            .select one next_child related by next_child->EO[R2.'precedes']
+            .select one next_child related by next_child->EO[R2.'succeeds']
           .end while
         .end if
       .end if
@@ -78,7 +78,7 @@
         .assign attr_path_from_parent = attr_path_from_parent | recursive.path_from_parent
         .assign attr_children = attr_children | recursive.children
       .end if
-      .select one next_child related by first_child->EO[R2.'precedes']
+      .select one next_child related by first_child->EO[R2.'succeeds']
       .while(not_empty next_child)
         .if(not next_child.componentRoot)
           .assign attr_children = attr_children | next_child
@@ -86,7 +86,7 @@
           .assign attr_path_from_parent = attr_path_from_parent | recursive.path_from_parent
           .assign attr_children = attr_children | recursive.children
         .end if
-        .select one next_child related by next_child->EO[R2.'precedes']
+        .select one next_child related by next_child->EO[R2.'succeeds']
       .end while
     .end if
 .end function
@@ -147,12 +147,12 @@
         .if((child.ComponentRoot) or (child.WritePosition!="none"))
         .assign attr_children = attr_children | child
         .end if
-        .select one sibling related by child->EO[R2.'precedes']
+        .select one sibling related by child->EO[R2.'succeeds']
         .while(not_empty sibling)
            .if((sibling.ComponentRoot) or (sibling.WritePosition!="none"))
             .assign attr_children = attr_children | sibling
            .end if 
-            .select one sibling related by sibling->EO[R2.'precedes']
+            .select one sibling related by sibling->EO[R2.'succeeds']
         .end while
     .end if
 .end function
@@ -310,7 +310,7 @@ ${nav.body}
   .invoke result = do_search_root_components_in_children(eo)
   .assign attr_roots =attr_roots | result.roots
 	
-  .select one child related by eo->EO[R2.'precedes']
+  .select one child related by eo->EO[R2.'succeeds']
   .while(not_empty child)
     .if (child.componentRoot == true)
       .assign attr_roots =attr_roots | child
@@ -319,7 +319,7 @@ ${nav.body}
       .assign attr_roots = attr_roots | result.roots
     .end if
    
-   	.select one childsibling related by child->EO[R2.'precedes']
+   	.select one childsibling related by child->EO[R2.'succeeds']
 	.assign child = childsibling 
   .end while		
 .end function

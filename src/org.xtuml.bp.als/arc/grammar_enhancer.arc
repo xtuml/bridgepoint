@@ -37,7 +37,7 @@ ${s}\
 .function is_next_sibling_bang
   .param inst_ref node
   .//-------
-  .select any next_node related by node->N[R7.'precedes']
+  .select any next_node related by node->N[R7.'succeeds']
   .invoke result = is_node_bang(next_node)
   .assign attr_rc = result.rc
 .end function
@@ -153,7 +153,7 @@ ${s}\
     .assign arg_string = ""
     .if ( not_empty arg_node )
       .if ( arg_node.token_name == "BANG" )
-        .select one next_child_node related by first_child_node->N[R7.'precedes']
+        .select one next_child_node related by first_child_node->N[R7.'succeeds']
         .select one arg_node related by next_child_node->LN[R1]->T[R3]
       .end if
       .if ( arg_node.token_name == "ARG_ACTION" )
@@ -199,7 +199,7 @@ ${s}\
 .function get_rel_phrase_varname
   .param inst_ref node   .// inst_ref<N>
   .assign attr_var_name = ""
-  .select one next_node related by node->N[R7.'precedes']
+  .select one next_node related by node->N[R7.'succeeds']
   .select one nln related by next_node->NLN[R1]
   .select many child_nodes related by nln->N[R5]
   .for each child in child_nodes
@@ -337,7 +337,7 @@ ${s}\
           .assign node.in_options_sequence = true
           .assign node.validation_required = false
           .assign node.label_required = false
-          .select one next_node related by node->N[R7.'precedes']
+          .select one next_node related by node->N[R7.'succeeds']
           .if (not_empty next_node)
             .select one next_term related by next_node->LN[R1]->T[R3]
             .if (not_empty next_term)
@@ -370,7 +370,7 @@ ${s}\
           .assign node.label_required = false
         .end if
       .end if
-      .select one node related by node->N[R7.'precedes']
+      .select one node related by node->N[R7.'succeeds']
     .end while
   .end for
 .end function
@@ -403,12 +403,12 @@ ${s}\
                 .assign node.label_dcl_emitted = true
               .end if
             .end if
-            .select one node related by node->N[R7.'precedes']
+            .select one node related by node->N[R7.'succeeds']
           .end while
         .end if
       .end for
     .end if
-    .select one rule_node related by rule_node->N[R7.'precedes']
+    .select one rule_node related by rule_node->N[R7.'succeeds']
   .end while
 .end function
 .//===============================================
@@ -660,11 +660,11 @@ ${s}}
 .function last_in_loop
   .param inst_ref node
   .assign attr_is_last = false
-  .select one next_node related by node->N[R7.'precedes']
+  .select one next_node related by node->N[R7.'succeeds']
   .select one next_term related by next_node->LN[R1]->T[R3]
   .assign is_bang = false
   .if ( not_empty next_term )
-    .select one next_next related by next_node->N[R7.'precedes']
+    .select one next_next related by next_node->N[R7.'succeeds']
     .if ( ( "BANG" == next_term.token_name ) and ( empty next_next ) )
       .assign is_bang = true
     .end if
@@ -680,11 +680,11 @@ ${s}}
 .function last_in_rule
   .param inst_ref node
   .assign attr_is_last = false
-  .select one next_node related by node->N[R7.'precedes']
+  .select one next_node related by node->N[R7.'succeeds']
   .select one next_term related by next_node->LN[R1]->T[R3]
   .assign is_bang = false
   .if ( not_empty next_term )
-    .select one next_next related by next_node->N[R7.'precedes']
+    .select one next_next related by next_node->N[R7.'succeeds']
     .if ( ( "BANG" == next_term.token_name ) and ( empty next_next ) )
       .assign is_bang = true
     .end if
@@ -718,7 +718,7 @@ ${s}}
   .assign emit_node = false
   .select one t related by node->LN[R1]->T[R3]
   .select one rr related by node->LN[R1]->RR[R3]
-  .select one next_term related by node->N[R7.'precedes']->LN[R1]->T[R3]
+  .select one next_term related by node->N[R7.'succeeds']->LN[R1]->T[R3]
   .if ( not_empty t )
     .if ( ( "STRING_LITERAL" == t.token_name ) or ( "TOKEN_REF" == t.token_name ) )
       .assign emit_node = true
@@ -1319,7 +1319,7 @@ ${s}}
     .elif ( result.rule_label != "" )
       .assign loop_id_name = result.rule_label
     .end if
-    .select one next_child_node related by child_node->N[R7.'precedes']
+    .select one next_child_node related by child_node->N[R7.'succeeds']
     .select one arg_node related by next_child_node->LN[R1]->T[R3]
     .assign arg_string = ""
     .if ( not_empty arg_node )
@@ -1416,7 +1416,7 @@ ${result.body}\
 ${child_node.pre_attach}${child_node.value}${child_node.post_attach}\
       .end if
     .end if
-    .select one child_node related by child_node->N[R7.'precedes']
+    .select one child_node related by child_node->N[R7.'succeeds']
   .end while
   .//---------------------------------------------
   .// see if we are ending an EBNF phrase.
@@ -1429,10 +1429,10 @@ ${child_node.pre_attach}${child_node.value}${child_node.post_attach}\
       .if ((e.decoration == "*") OR (e.decoration == "+"))
         .// emit the leaf node content assist action here after the end action
         .select any child_node related by nln->N[R5]
-        .select one next_node related by child_node->N[R7.'precedes']
+        .select one next_node related by child_node->N[R7.'succeeds']
         .while ( not_empty next_node )
           .assign child_node = next_node
-          .select one next_node related by child_node->N[R7.'precedes']
+          .select one next_node related by child_node->N[R7.'succeeds']
         .end while
         .invoke result = emit_leaf_node_content_assist_action( child_node, "${s}${so}" )
         .invoke post_attach_prepend(outer_node, result.body)
@@ -1534,7 +1534,7 @@ ${sep}${r.rule_name}\
       .// NLN
       .// non-leaf node found in root. forget it
     .end if
-    .select one node related by node->N[R7.'precedes']
+    .select one node related by node->N[R7.'succeeds']
   .end while
 .end function
 .//===============================================
@@ -1574,10 +1574,10 @@ ${contents.body}\
 ${result.body}
   .// emit the leaf node content assist action here after the end action
   .select any child_node related by p->N[R5]
-  .select one next_node related by child_node->N[R7.'precedes']
+  .select one next_node related by child_node->N[R7.'succeeds']
   .while ( not_empty next_node )
     .assign child_node = next_node
-    .select one next_node related by child_node->N[R7.'precedes']
+    .select one next_node related by child_node->N[R7.'succeeds']
   .end while
   .select one t related by child_node->LN[R1]->T[R3]
   .invoke result = emit_leaf_node_content_assist_action( child_node, "    " )

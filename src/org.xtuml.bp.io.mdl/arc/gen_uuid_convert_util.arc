@@ -38,12 +38,12 @@
         .if(child.WritePosition!="none")
         .assign attr_children = attr_children | child
         .end if
-        .select one sibling related by child->EO[R2.'precedes']
+        .select one sibling related by child->EO[R2.'succeeds']
         .while(not_empty sibling)
            .if(sibling.WritePosition!="none")
             .assign attr_children = attr_children | sibling
            .end if 
-            .select one sibling related by sibling->EO[R2.'precedes']
+            .select one sibling related by sibling->EO[R2.'succeeds']
         .end while
     .end if
 .end function

@@ -716,10 +716,10 @@ ${param_delimiter}${intCast1}${value.buffer}${intCast2}\
   .//
   .select any first_link related by sel_inst_rel->ACT_LNK[R637]
   .assign last_link = first_link
-  .select one next_link related by first_link->ACT_LNK[R604.'succeeds']
+  .select one next_link related by first_link->ACT_LNK[R604.'precedes']
   .while (not_empty next_link)
     .assign last_link = next_link
-    .select one next_link related by next_link->ACT_LNK[R604.'succeeds']
+    .select one next_link related by next_link->ACT_LNK[R604.'precedes']
   .end while
   .assign attr_last_link = last_link
 .end function
@@ -798,7 +798,7 @@ ${param_delimiter}${intCast1}${value.buffer}${intCast2}\
 		.end if
 	  .end if
     .end if
-  .select one curr_link related by curr_link->ACT_LNK[R604.'precedes']
+  .select one curr_link related by curr_link->ACT_LNK[R604.'succeeds']
   .end while
 .end function
 .// --------------------------------------------------------------------
