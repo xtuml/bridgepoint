@@ -49,11 +49,11 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
     .//.assign w_step.Parent_Step_ID = parent_id
     .//.assign w_step.Previous_Step_ID = prev_id
     .assign w_step.buffer = ""
-    .select any w_wof from instances of W_WOF where ( selected.Name == "${wfl.name}" )
+    .select any w_wof from instances of W_WOF where ( "${selected.Name}" == "${wfl.name}" )
     .relate w_step to w_wof across R2005
-	.select any w_step_parent from instances of W_STEP where ( selected.Step_ID == "${parent_id}" )
+	.select any w_step_parent from instances of W_STEP where ( "${selected.Step_ID}" == "${parent_id}" )
     .relate w_step to w_step_parent across R2007.'contains'
-	.select any w_step_previous from instances of W_STEP where ( selected.Step_ID == "${prev_id}" )
+	.select any w_step_previous from instances of W_STEP where ( "${selected.Step_ID}" == "${prev_id}" )
     .relate w_step to w_step_previous across R2008.'precedes'
     .relate w_step to blk across R2006
   .end if
@@ -87,7 +87,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .param inst_ref blck
   .//
   .assign wfl = step.wfl
-  .select any w_wfl from instances of W_WOF where ( selected.Name == "${wfl.name}" )
+  .select any w_wfl from instances of W_WOF where ( "${selected.Name}" == "${wfl.name}" )
   .select many statements related by blck->ACT_SMT[R602]
   .select many else_statements  related by blck->ACT_SMT[R602]->ACT_E[R603]->ACT_SMT[R603]
   .select many elif_statements  related by blck->ACT_SMT[R602]->ACT_EL[R603]->ACT_SMT[R603]
@@ -227,7 +227,7 @@ INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
             .//.assign w_cfl.Step_ID = step.id
             .assign w_cfl.Label = label
             .assign name = "USER_" + result.Name
-			.select any w_fld from instances of W_FLD where ((selected.Name == "${name}") and (selected.Step_ID == "${step.id}"))
+			.select any w_fld from instances of W_FLD where (("${selected.Name}" == "${name}") and ("${selected.Step_ID}" == "${step.id}"))
 			.relate w_cfl to w_fld across R2014
           .end if
         .end if

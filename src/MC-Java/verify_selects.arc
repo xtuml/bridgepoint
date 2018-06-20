@@ -77,7 +77,7 @@
     .if(not_empty dom)
       .assign function.Dom_ID = dom.Dom_ID
     .end if
-    .select any action from instances of ACT_ACT where (selected.Action_Id == "${function.Sync_ID}")
+    .select any action from instances of ACT_ACT where ("${selected.Action_Id}" == "${function.Sync_ID}")
     .if(not_empty action)
       .select many processed_variables from instances of V_VAR where (selected.Variable_Name == "")
       .select one outer_blk related by action->ACT_BLK[R666]

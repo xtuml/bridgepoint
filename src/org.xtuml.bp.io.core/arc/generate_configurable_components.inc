@@ -343,7 +343,7 @@ ${child_list.body}
 .function is_configurable_element
 		.param inst_ref table
 		.assign attr_result = false	
-		.select many eos from instances of EO where (selected.Name == "${table.Name}")
+		.select many eos from instances of EO where ("${selected.Name}" == "${table.Name}")
 		.for each eo in eos 
 			 .if (eo.componentRoot == true)
 			    .assign attr_result = true	
