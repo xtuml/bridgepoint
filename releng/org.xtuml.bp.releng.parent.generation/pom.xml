@@ -27,7 +27,5 @@
 		<module>../../src/org.xtuml.bp.ui.properties</module>
 		<module>../../src/org.xtuml.bp.ui.session</module>
 		<module>../../src/org.xtuml.bp.ui.text</module>
-
-		<module>../../src/org.xtuml.bp.xtext.masl.parent</module>
 	</modules>
 </project>
