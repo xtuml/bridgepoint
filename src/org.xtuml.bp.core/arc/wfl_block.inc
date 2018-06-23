@@ -13,6 +13,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 '${cme.Specialism}', '${cme.Label}');\
   .create object instance w_wof of W_WOF
   .assign w_wof.Name = name
+  .// TODO SKB - remove these commented lines later and elsewhere in this function
   .//.assign w_wof.Sync_ID = s_sync.Sync_ID
   .//.assign w_wof.Key_Lett = cme.Key_Lett
   .//.assign w_wof.Specialism = cme.Specialism
@@ -34,6 +35,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .//
   .assign attr_wfl = wfl
   .assign attr_id = ""
+  .select any attr_w_step from instances of W_STEP where (false)
   .// This may look a bit bizarre.  The first time create_step is called,
   .// it simply returns a new ID.  This is because the step may or may not
   .// be used.  It is conditioned upon further processing.  create_step is
@@ -56,6 +58,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 	.select any w_step_previous from instances of W_STEP where ( "${selected.Step_ID}" == "${prev_id}" )
     .relate w_step to w_step_previous across R2008.'precedes'
     .relate w_step to blk across R2006
+	.assign attr_w_step = w_step
   .end if
 .end function
 .//====================================================================
@@ -87,6 +90,7 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .param inst_ref blck
   .//
   .assign wfl = step.wfl
+  .assign w_step = step.w_step
   .select any w_wfl from instances of W_WOF where ( "${selected.Name}" == "${wfl.name}" )
   .select many statements related by blck->ACT_SMT[R602]
   .select many else_statements  related by blck->ACT_SMT[R602]->ACT_E[R603]->ACT_SMT[R603]
@@ -185,6 +189,7 @@ INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statemen
           .invoke llic = get_last_link_in_chain(sel_stmt)
           .assign last_link = llic.last_link
           .select one clazz related by last_link->O_OBJ[R678]
+.print "1-INSERT INTO W_FLD VALUES (USER_${result.Name}, ${result.Name}, ${statement.Statement_Id}, ${clazz.Key_Lett}, ${step.id}, ${sel_stmt.cardinality}...)"
 INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
 '${statement.Statement_Id}', '${clazz.Key_Lett}', '${step.id}', \
 '${sel_stmt.cardinality}', \
@@ -205,13 +210,13 @@ INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
           .elif (hubi.Method_Name == "selectMany")
 'List', '');
             .assign w_fld.Type = "List"
-            .relate w_fld to step across R2009
-			.relate w_fld to statement across R2010
-			.relate w_fld to clazz across R2011
           .else
 '${hubi.Method_Name}', '');
             .assign w_fld.Type = hubi.Method_Name
           .end if
+          .relate w_fld to w_step across R2009
+          .relate w_fld to statement across R2010
+          .relate w_fld to clazz across R2011
           .select one function related by blck->ACT_ACT[R601]->ACT_FNB[R698]->S_SYNC[R695]
           .// only support two custom labels
           .assign label = ""
@@ -245,6 +250,7 @@ INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
         .// the user. So instead of normal processing, we create a dialog field
         .// here.
         .select one transient_asgn related by statement->ACT_AT[R603]
+.print "2-INSERT INTO W_FLD VALUES (USER_${transient_asgn.Target_Variable_Name}, ${transient_asgn.Target_Variable_Name}, ${transient_asgn.Statement_Id}, '', ${step.id}, ...)"
 INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${transient_asgn.Target_Variable_Name}', \
 '${transient_asgn.Statement_Id}', '', '${step.id}', \
         .create object instance w_fld of W_FLD
@@ -264,9 +270,9 @@ INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${tran
         .else
 '', '${hubi.Method_Name}', '');
           .assign w_fld.Type = hubi.Method_Name
-          .relate w_fld to step across R2009
-		  .relate w_fld to trasient_asgn across R2010
         .end if
+        .relate w_fld to w_step across R2009
+        .relate w_fld to trasient_asgn across R2010
       .end if
     .end if
     .select any for_blk related by statement->ACT_FOR[R603]->ACT_BLK[R605]

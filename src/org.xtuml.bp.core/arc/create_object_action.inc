@@ -34,18 +34,33 @@
   .//
   .invoke result = get_action_class_name(cme)
   .assign action_name = "${result.body}"
+.print "SKB - processing ${action_name}"
   .assign attr_result = action_name  
   .select one class related by cme->O_OBJ[R2000]
   .invoke cn = get_class_name(class)
   .assign has_wizard = false
   .invoke fn = get_func_name(cme)
+.print "SKB -   function name is ${fn.body}"
   .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
   .if (not_empty function)
     .select one wfl related by function->W_WOF[R2001]
     .if (not_empty wfl)
+      .select any w_step from instances of W_STEP where ( "${selected.Workflow_Name}" == "${wfl.Name}")
+.if (not_empty w_step)
+.print "SKB -   step is not empty (${w_step.Step_ID}, ${w_step.Workflow_Name})"
+  .if ( "${w_step.Workflow_Name}" == "MSG_SM_BridgeOperationFormalize")
+	  .select many w_fields from instances of W_FLD
+	  .for each w_field in w_fields
+	    .print "SKB - W_FLD (${w_field.Name}, ${w_field.Instance_Handle}, ${w_field.Statement_ID}, ${w_field.Key_Lett}, ${w_field.Step_ID}, ${w_field.Cardinality}, ${w_field.Type}, ${w_field.buffer})"
+	  .end for
+  .end if
+.end if
       .select any field related by wfl->W_STEP[R2005]->W_FLD[R2009]
       .if ( not_empty field )
+.print "SKB -   field is not empty, has a wizard"
         .assign has_wizard = true
+	  .else
+.print "SKB -   field is empty, no wizard"
       .end if
     .end if
   .end if

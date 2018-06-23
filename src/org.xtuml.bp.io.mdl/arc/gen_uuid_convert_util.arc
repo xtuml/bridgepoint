@@ -53,7 +53,7 @@
     .param string child_var
 .//     
     .assign parent_picked = true
-    .select any parent_element from instances of EO where ( selected.Id == "-1" )
+    .select any parent_element from instances of EO where ( "${selected.Id}" == "-1" )
     .assign child_element = parent_element
     .// 
     .for each element in path

@@ -59,8 +59,8 @@
   .end if
 
   .if(attr_result == false)
-    .select any loc_eo from instances of EO where (( selected.Name == loc_obj.Name ) and ( selected.WritePosition != "none" ))
-    .select any tar_eo from instances of EO where (( selected.Name == tar_obj.Name ) and ( selected.writePosition != "none" ))
+    .select any loc_eo from instances of EO where (( "${selected.Name}" == "${loc_obj.Name}" ) and ( "${selected.WritePosition}" != "none" ))
+    .select any tar_eo from instances of EO where (( "${selected.Name}" == "${tar_obj.Name}" ) and ( "${selected.writePosition}" != "none" ))
   
     .//if any one of tar and loc obj is not persistable, need not to generate lazy loading code
     .if((not_empty loc_eo) and (not_empty tar_eo) )
