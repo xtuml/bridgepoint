@@ -440,6 +440,15 @@ if ( not_empty ep_pkg )
         return;
       end if;
     end for;
+    select many pr_tsvcs related by ep_pkg->PE_PE[R8000.''contains'']->PR_PROC[R8001]->PR_TERM[R1650]->PR_TSVC[R1651];
+    for each pr_tsvc in pr_tsvcs
+      if ( param.id == pr_tsvc.Svc_ID )//or pr_tsvc.getSignature(flavor:1) == signature )
+        pr_tsvc.Action_Semantics_internal = body;
+        pr_tsvc.Dialect = dialect;
+        IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"PR_TSVC", dialect:param.dialect );
+        return;
+      end if;
+    end for;
     IMPORT_ERR::reportError( PMC:param.PMC, message:"Function parsed with signature: " + signature + " not found in package " + ep_pkg.Name, line_num:param.start_line, dialect:dialect );
   end if;
 end if;',

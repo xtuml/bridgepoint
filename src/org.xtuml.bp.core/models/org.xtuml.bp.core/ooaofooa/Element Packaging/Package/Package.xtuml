@@ -6771,6 +6771,96 @@ return isAccessible and isAssignable;',
 	'',
 	"cacea0fc-4740-4230-8242-d728c337d0ff",
 	0);
+INSERT INTO O_TFR
+	VALUES ("e846e3fb-e27b-42e6-8515-70189fcbe83b",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newProc',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'create object instance proc of PR_PROC;
+// create Packageable Element supertype and hook up to this package.
+create object instance pe of PE_PE;
+relate proc to pe across R8001;
+relate pe to self across R8000;
+pe.type = ElementTypeConstants::PROC;
+pe.initialize();
+proc.Name = "Unnamed Proc";',
+	1,
+	'',
+	"5f9fbbeb-fd01-4db5-be48-01bee4e480e4",
+	0);
+INSERT INTO O_TFR
+	VALUES ("3e9e956f-6ead-4717-9bbb-55e44faf593e",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getProcCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many elems related by self->PE_PE[R8000]->PR_PROC[R8001];
+return cardinality elems;',
+	1,
+	'',
+	"e846e3fb-e27b-42e6-8515-70189fcbe83b",
+	0);
+INSERT INTO O_TFR
+	VALUES ("73fecd43-8422-4350-99fc-91bf77c78f0e",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getProcId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many elems related by self->PE_PE[R8000]->PR_PROC[R8001];
+// We''re preincrementing the index
+count = -1;
+for each elem in elems
+  count = count + 1;
+  if(count == param.index)
+    return elem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"3e9e956f-6ead-4717-9bbb-55e44faf593e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("fa542b0d-0288-4996-8582-d2fa3e31a22e",
+	"73fecd43-8422-4350-99fc-91bf77c78f0e",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e42c84d5-a4b6-43e1-b44e-d6ff5a13b769",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'pasteProc',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any proc from instances of PR_PROC where (selected.Proc_ID == param.id);
+if(not_empty proc)
+  select one pe related by proc->PE_PE[R8001];
+  relate self to pe across R8000;
+  proc.Name = ::getUniqueInitialNameInParent(instance:proc.convertToInstance(), 
+    name:proc.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"73fecd43-8422-4350-99fc-91bf77c78f0e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("8e300863-d341-4d53-bbe2-7fcf3badc701",
+	"e42c84d5-a4b6-43e1-b44e-d6ff5a13b769",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");

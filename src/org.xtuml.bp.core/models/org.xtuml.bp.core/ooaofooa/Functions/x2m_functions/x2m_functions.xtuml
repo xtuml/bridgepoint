@@ -1090,6 +1090,9 @@ if ( null != inst ) {
 		else if ( inst instanceof RequiredSignal_c ) {
 			smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), ((RequiredSignal_c)inst).getId() );
 		}
+		else if ( inst instanceof TerminatorService_c ) {
+			smasl = Ooaofooa.Pr_tsvc2routine( inst.getModelRoot(), ((TerminatorService_c)inst).getSvc_id() );
+	    }
 		if ( !smasl.equals("") ) {
 			SmaslScanner sc = new SmaslScanner( smasl );
 			String[] values;
@@ -1360,6 +1363,113 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("6a038f77-beb4-4c4e-b8f1-9f7fafc220a6",
+	1,
+	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e650bff3-6e27-486b-b703-b80a4847e740",
+	"00000000-0000-0000-0000-000000000000",
+	'PR_TSVC2routine',
+	'',
+	'// adapted from maslout function2routine
+
+smasl = "";
+
+select any pr_tsvc from instances of PR_TSVC where ( selected.Svc_ID == param.pr_tsvc );
+if ( not_empty pr_tsvc )
+
+  visibility = "";
+
+  visibility = "public";
+  select one term related by pr_tsvc->PR_TERM[R1651];
+	
+  // Get the first parameter.
+  // TODO
+  /*
+  select any s_sparm related by pr_tsvc->S_SPARM[R24];
+  first_s_sparm = s_sparm;
+  while ( not_empty s_sparm )
+	first_s_sparm = s_sparm;
+	select one s_sparm related by s_sparm->S_SPARM[R54.''succeeds''];
+  end while;
+  */
+	
+  // populate
+  smasl = smasl + "routine," + term.Domain_Name + "," + term.Terminator_Name + "," + visibility + "," + pr_tsvc.Name + ",,,,\n";
+  
+  // populate parameters
+  // TODO
+  /*
+  s_sparm = first_s_sparm;
+  s_parm_count = 0;
+  while ( not_empty s_sparm )
+    direction = "";
+    if ( 0 == s_sparm.By_Ref )
+      direction = "in";
+    else
+      direction = "out";
+    end if;
+	smasl = smasl + "parameter," + s_sparm.Name + "," + direction + ",,,,,,\n";
+    select one s_dt related by s_sparm->S_DT[R26];
+    s_dt_id = GD::NULL_UNIQUE_ID();
+    if ( not_empty s_dt )
+      s_dt_id = s_dt.DT_ID;
+    end if;
+    c_c_id = GD::NULL_UNIQUE_ID();
+    if ( not_empty c_c )
+      c_c_id = c_c.Id;
+    end if;
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
+    s_parm_count = s_parm_count + 1;
+  end while;
+  while ( s_parm_count > 0 )
+	smasl = smasl + "parameter,,,,,,,,\n";
+    s_parm_count = s_parm_count - 1;
+  end while;
+  */
+
+  // find return type if exists
+  // TODO
+  /*
+  select one s_dt related by pr_tsvc->S_DT[R25];
+  s_dt_id = GD::NULL_UNIQUE_ID();
+  if ( not_empty s_dt )
+    s_dt_id = s_dt.DT_ID;
+  end if;
+  c_c_id = GD::NULL_UNIQUE_ID();
+  if ( not_empty c_c )
+    c_c_id = c_c.Id;
+  end if;
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+  */
+	
+  // Populate the action langauge body.
+  smasl = smasl + "codeblock," + URL::encode(string:pr_tsvc.Action_Semantics_internal) + ",,,,,,,\n";
+	
+  // end tag
+  smasl = smasl + "routine,,,,,,,,\n";
+	
+end if;
+
+return smasl;
+',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("56a6bbd9-052c-4b46-89d6-0145f48e2320",
+	"e650bff3-6e27-486b-b703-b80a4847e740",
+	'pr_tsvc',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e650bff3-6e27-486b-b703-b80a4847e740",
 	1,
 	"0eec87ca-63af-4b65-8769-1c99e84ebf64",
 	"00000000-0000-0000-0000-000000000000",

@@ -7780,6 +7780,114 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("83aab91b-2255-44c4-b00a-8ba161aa4bf7",
+	"00000000-0000-0000-0000-000000000000",
+	'PR_PROC_Delete',
+	'ContextMenuFunction: TRUE
+',
+	'select many procs from instances of PR_PROC where USER::selectOne(id:selected.Proc_ID);
+for each proc in procs
+  proc.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("83aab91b-2255-44c4-b00a-8ba161aa4bf7",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e19ebe7c-84a6-4464-af1b-da1260d131a8",
+	"00000000-0000-0000-0000-000000000000",
+	'PR_PROC_Rename',
+	'ContextMenuFunction: TRUE
+',
+	'select any proc from instances of PR_PROC where USER::selectOne(id:selected.Proc_ID);
+proc.Name = param.new_name;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("33ed6d23-45eb-4b99-9924-e0861c0c2fd0",
+	"e19ebe7c-84a6-4464-af1b-da1260d131a8",
+	'new_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e19ebe7c-84a6-4464-af1b-da1260d131a8",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e3ff3168-2ae3-4b68-bf71-17c971b0067c",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKG_ComponentsProc',
+	'ContextMenuFunction: TRUE
+',
+	'select any pkg from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
+pkg.newProc();
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("e3ff3168-2ae3-4b68-bf71-17c971b0067c",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("23ed5b53-2c15-4aa6-86a4-47994f7aef24",
+	"00000000-0000-0000-0000-000000000000",
+	'PR_PROC_ImportTerminatorsFromFile',
+	'',
+	'select any element from instances of PR_PROC where USER::selectOne(id:selected.Proc_ID);
+if not_empty element
+  element.importTerminatorFromFile();
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("23ed5b53-2c15-4aa6-86a4-47994f7aef24",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3c01e6fe-7803-4550-9000-16c3168f289e",
+	"00000000-0000-0000-0000-000000000000",
+	'PR_PROC_ImportTerminatorsFromComponent',
+	'',
+	'select any element from instances of PR_PROC where USER::selectOne(id:selected.Proc_ID);
+if not_empty element
+  select any selectedComponent from instances of C_C where USER::selectOne(id:selected.Id);
+  if not_empty selectedComponent
+    element.importTerminatorFromComponent( c_c: selectedComponent );
+  end if;
+end if;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("3c01e6fe-7803-4550-9000-16c3168f289e",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,

@@ -6,6 +6,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.Proc_c;
 import org.xtuml.bp.x2m.generator.Generator;
 
 public class ExportProjectAction implements IObjectActionDelegate {
@@ -20,6 +21,9 @@ public class ExportProjectAction implements IObjectActionDelegate {
 	public void run(IAction action) {
 	    if (curSel instanceof Package_c) {
 	        Generator.exportProject((Package_c)curSel);
+	    }
+	    else if (curSel instanceof Proc_c) {
+	        Generator.exportProject((Proc_c)curSel);
 	    }
 	}
 

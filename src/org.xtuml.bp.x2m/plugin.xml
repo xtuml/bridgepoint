@@ -57,5 +57,21 @@
            </not>
          </visibility>
       </objectContribution>
+      <objectContribution
+            id="org.xtuml.bp.x2m.contribution4"
+            objectClass="org.xtuml.bp.core.Proc_c">
+         <action
+               class="org.xtuml.bp.x2m.actions.ExportProjectAction"
+               enablesFor="1"
+               id="org.xtuml.bp.x2m.ExportProjectAction"
+               label="Export MASL Project"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+           <not>
+             <systemProperty name="bridgepoint.ExportMASLProject" value="disabled"/>
+           </not>
+         </visibility>
+      </objectContribution>
    </extension>
 </plugin>

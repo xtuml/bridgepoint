@@ -38,8 +38,12 @@ INSERT INTO EO VALUES ( '24.10.16',  '1.7.4.1.1', '24.10.17',  'Function', 8001,
 INSERT INTO EO VALUES ( '24.10.17',  '6.2.8.1', '24.10.18',  'Use Case Association', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.18',  '',        '24.10.19',  'Satisfaction', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.10.19',  '12.4.9.1.1', '24.10.20',       'Delegation', 8001, 'one', 'first', false );
-INSERT INTO EO VALUES ( '24.10.20',  '', '',                       'Exception', 8001, 'one', 'first', true );
+INSERT INTO EO VALUES ( '24.10.20',  '', '24.10.21',               'Exception', 8001, 'one', 'first', true );
+INSERT INTO EO VALUES ( '24.10.21',  '24.10.21.1', '',                       'Proc', 8001, 'one', 'first', false );
 INSERT INTO EO VALUES ( '24.11',  '', '',  'Package Reference', 1402, 'one', 'first', false, false, 'refers to', false, false, ''  );
+
+INSERT INTO EO VALUES ( '24.10.21.1', '24.10.21.1.1', '', 'Terminator', 1650, 'many', 'first', false );
+INSERT INTO EO VALUES ( '24.10.21.1.1', '', '', 'Terminator Service', 1651, 'many', 'first', false );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             

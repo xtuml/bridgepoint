@@ -1,0 +1,474 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'Proc',
+	1650,
+	'PR_PROC',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("471c4fb2-ef47-4a71-a3b1-ba782dda718c",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TFR
+	VALUES ("18863fe4-fb2e-40a6-94fe-c3471587406d",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'get_compartment_text',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«proc»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+  select one pe related by self->PE_PE[R8001];
+  if not_empty pe
+    result = pe.getVisibilityAdornment() + result;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"471c4fb2-ef47-4a71-a3b1-ba782dda718c",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("66dbdf08-36d9-4b2e-ae68-501c56310f08",
+	"18863fe4-fb2e-40a6-94fe-c3471587406d",
+	'comp_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"7c836578-499f-49cd-a2c5-9b21471c1be0",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("422e069b-56a3-4646-98c9-c1ed344bc615",
+	"18863fe4-fb2e-40a6-94fe-c3471587406d",
+	'ent_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"66dbdf08-36d9-4b2e-ae68-501c56310f08",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7c836578-499f-49cd-a2c5-9b21471c1be0",
+	"18863fe4-fb2e-40a6-94fe-c3471587406d",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"00000000-0000-0000-0000-000000000000",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6bbda389-4cbe-4836-b763-400ab7bb2bad",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'get_compartments',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'return 1;',
+	1,
+	'',
+	"18863fe4-fb2e-40a6-94fe-c3471587406d",
+	0);
+INSERT INTO O_TFR
+	VALUES ("3495ff63-6780-41ed-b0db-804a5559230b",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'get_entries',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'return 1;',
+	1,
+	'',
+	"6bbda389-4cbe-4836-b763-400ab7bb2bad",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("2ec13eb1-f1ec-4c81-8f28-eaea4462c986",
+	"3495ff63-6780-41ed-b0db-804a5559230b",
+	'comp_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("578b4470-64cc-44fc-b63d-1c4cc1a1adef",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'get_ooa_id',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'return self.Proc_ID;',
+	1,
+	'',
+	"3495ff63-6780-41ed-b0db-804a5559230b",
+	0);
+INSERT INTO O_TFR
+	VALUES ("8bfa8120-0ed6-4fb0-b698-91c3ae4f04eb",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Box;',
+	1,
+	'',
+	"578b4470-64cc-44fc-b63d-1c4cc1a1adef",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"00000000-0000-0000-0000-000000000000",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b38d46aa-6551-4875-9bb4-5890954207af",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"8bfa8120-0ed6-4fb0-b698-91c3ae4f04eb",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("35e8920e-f4ac-4f82-a862-623b2729581b",
+	"b38d46aa-6551-4875-9bb4-5890954207af",
+	'comp_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"ce9cfe5c-5bc2-46ca-a473-63fd661e8795",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("962ca0e2-9bc3-46bb-883d-4bbdef6a2cb8",
+	"b38d46aa-6551-4875-9bb4-5890954207af",
+	'ent_num',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"35e8920e-f4ac-4f82-a862-623b2729581b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ce9cfe5c-5bc2-46ca-a473-63fd661e8795",
+	"b38d46aa-6551-4875-9bb4-5890954207af",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a09ac033-b2aa-4100-a567-107e93212b25",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"b38d46aa-6551-4875-9bb4-5890954207af",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b96cf728-832e-421f-88a1-2df5896534a4",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	1,
+	'',
+	"a09ac033-b2aa-4100-a567-107e93212b25",
+	0);
+INSERT INTO O_TFR
+	VALUES ("ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'importTerminatorFromComponent',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'c_c = param.c_c;',
+	1,
+	'',
+	"b96cf728-832e-421f-88a1-2df5896534a4",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("0bb74a1e-d184-4285-a855-2cfc98c4c64d",
+	"ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
+	'c_c',
+	"493bbbec-fd81-4863-a436-77e6f08bd55a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("493bbbec-fd81-4863-a436-77e6f08bd55a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Component>',
+	'',
+	'',
+	'../../Component/Component.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8b7fd211-8a05-43af-8f67-df50a51297b5",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'importTerminatorFromFile',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// domain Tracking is
+//   terminator HR is
+//     public service registerListener ();       
+//     public service unregisterListener ();       
+//   end terminator;
+//   terminator LOC is
+//     public service getDistance ( result: out real, 
+//                                  toLong: in real,                
+//                                  toLat: in real,                 
+//                                  fromLong: in real,              
+//                                  fromLat: in real );             
+//     public service getLocation ( longitude: out real,
+//                                  latitude: out real );           
+//     public service registerListener ();       
+//     public service unregisterListener ();       
+//   end terminator;        
+//   terminator UI is       
+//     public service setData ( value: in real,
+//                              unit: in Tracking::Unit );       
+//     public service setIndicator ( indicator: in Tracking::Indicator );       
+//     public service setTime ( time: in integer );       
+//   end terminator;
+// end domain;
+
+
+create object instance term of PR_TERM;
+term.Domain_Name = "Tracking";
+term.Terminator_Name = "HR";
+relate term to self across R1650;
+create object instance svc of PR_TSVC;
+svc.Name = "registerListener";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance svc of PR_TSVC;
+svc.Name = "unregisterListener";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+
+create object instance term of PR_TERM;
+term.Domain_Name = "Tracking";
+term.Terminator_Name = "LOC";
+relate term to self across R1650;
+create object instance svc of PR_TSVC;
+svc.Name = "getDistance";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance svc of PR_TSVC;
+svc.Name = "getLocation";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance svc of PR_TSVC;
+svc.Name = "registerListener";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance svc of PR_TSVC;
+svc.Name = "unregisterListener";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance term of PR_TERM;
+
+term.Domain_Name = "Tracking";
+term.Terminator_Name = "UI";
+relate term to self across R1650;
+create object instance svc of PR_TSVC;
+svc.Name = "setData";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance svc of PR_TSVC;
+svc.Name = "setIndicator";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;
+create object instance svc of PR_TSVC;
+svc.Name = "setTime";
+svc.Descrip = "";
+svc.Action_Semantics_internal = "begin\n  null;\nend service;";
+svc.Suc_Pars = ParseStatus::parseInitial;
+svc.Dialect = ActionDialect::masl;
+relate svc to term across R1651;',
+	1,
+	'',
+	"ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
+	0);
+INSERT INTO O_REF
+	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"442d1a7e-1715-447c-81f6-83b1fd714830",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	"054ca112-9677-4b33-acbe-afb0ecf50bfd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"442d1a7e-1715-447c-81f6-83b1fd714830",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"00000000-0000-0000-0000-000000000000",
+	'Proc_ID',
+	'',
+	'',
+	'Proc_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("de497efa-e347-4a06-b4b9-10f7b9ac1b72",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_BATTR
+	VALUES ("de497efa-e347-4a06-b4b9-10f7b9ac1b72",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_ATTR
+	VALUES ("de497efa-e347-4a06-b4b9-10f7b9ac1b72",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	'Name',
+	'Full Name:Proc Name',
+	'',
+	'Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b08fd23c-3b7b-4e5c-a981-9996acfa3055",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_BATTR
+	VALUES ("b08fd23c-3b7b-4e5c-a981-9996acfa3055",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_ATTR
+	VALUES ("b08fd23c-3b7b-4e5c-a981-9996acfa3055",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"de497efa-e347-4a06-b4b9-10f7b9ac1b72",
+	'Descrip',
+	'Full Name:Proc Description',
+	'',
+	'Descrip',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_OIDA
+	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	0,
+	'Proc_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_ID
+	VALUES (2,
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO PE_PE
+	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
+	1,
+	"de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Proc',
+	'',
+	0,
+	'../Proc.xtuml');

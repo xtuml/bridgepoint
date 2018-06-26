@@ -89,6 +89,9 @@ INSERT INTO T_TNS VALUES (82, '', 'CNST_CSP', '', 'Name', '', 'Constant Specific
 INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', true);
 INSERT INTO T_TNS VALUES (85, '', 'CL_POR',  '', 'Name', '', 'Port Reference', false);
 INSERT INTO T_TNS VALUES (86, '', 'S_EXP', '', 'Name', '', 'Exceptions', false);
+INSERT INTO T_TNS VALUES (87, '', 'PR_PROC', '', 'Name', '', 'Procs', false);
+INSERT INTO T_TNS VALUES (88, '', 'PR_TERM', '', 'Name', '', 'Terminators', false);
+INSERT INTO T_TNS VALUES (89, '', 'PR_TSVC', '', 'Name', '', 'Terminator Services', false);
 
 INSERT INTO T_TPS VALUES (1, 81, '->EP_PKG[R1401]');
 INSERT INTO T_TPS VALUES (81,28,    '->PE_PE[R8000]->S_DT[R8001]->S_CDT[R17]');
@@ -214,3 +217,6 @@ INSERT INTO T_TPS VALUES (78,72, '->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009]->SPR_
 INSERT INTO T_TPS VALUES (79,69, '->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009]->SPR_REP[R4500]->SPR_RO[R4502]');
 INSERT INTO T_TPS VALUES (79,71, '->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009]->SPR_REP[R4500]->SPR_RS[R4502]');
 INSERT INTO T_TPS VALUES (81,86, '->PE_PE[R8000]->S_EXP[R8001]');
+INSERT INTO T_TPS VALUES (81,87, '->PE_PE[R8000]->PR_PROC[R8001]');
+INSERT INTO T_TPS VALUES (87,88, '->PR_TERM[R1650]');
+INSERT INTO T_TPS VALUES (88,89, '->PR_TSVC[R1651]');

@@ -641,6 +641,21 @@
             </color>
          </symbol>
          <symbol
+               class="org.xtuml.bp.core.Proc_c"
+               createMethod="Newproc"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Proc"
+               icon="newproc.gif"
+               name="Proc"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
                class="org.xtuml.bp.core.CoreDataType_c"
                defaultHeight="150"
                defaultWidth="200"
@@ -2503,6 +2518,7 @@
             <validSymbol name="Provided Interface" 		tool_category="Components"/>
             <validSymbol name="Required Interface" 		tool_category="Components"/>
             <validSymbol name="Interface" 				tool_category="Components"/>
+            <validSymbol name="Proc" 			        tool_category="Components"/>
             <validSymbol name="Accept Event Action" 	tool_category="Activity"/>
             <validSymbol name="Accept Time Event Action" tool_category="Activity"/>
             <validSymbol name="Action" 					tool_category="Activity"/>
@@ -2627,6 +2643,11 @@
                Bridge_NumElements="Getexceptioncount"
                Bridge_GetElementID="Getexceptionid"
                class="org.xtuml.bp.core.Exception_c" />   
+            <autoReconcile
+               targetSymbol="Proc"
+               Bridge_NumElements="Getproccount"
+               Bridge_GetElementID="Getprocid"
+               class="org.xtuml.bp.core.Proc_c" />   
             <autoReconcile
                targetSymbol="External Entity"
                Bridge_NumElements="Geteecount"

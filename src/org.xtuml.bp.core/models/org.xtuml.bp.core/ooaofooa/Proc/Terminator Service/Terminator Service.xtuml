@@ -1,0 +1,387 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'Terminator Service',
+	1652,
+	'PR_TSVC',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getSignature',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'/**
+ *  Return a string representation of this functions signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  2 = signature with labels for content assist
+ *  3 = signature without parameters for content assist
+ *  named signature = return_type function(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = return_type function(param1_type, param2_type, param3_type)
+ */
+ 
+signature = "";
+
+if ( 2 != param.flavor and 3 != param.flavor )
+  // Get return type
+  // TODO
+  /*
+  select one returntype related by self->S_DT[R25];
+  signature = signature + returntype.Name + " ";
+  */
+  signature = signature + "void ";
+end if;
+ 
+// Get name
+signature = signature + self.Name;
+
+// Get parameters
+
+if ( 1 == param.flavor )
+
+  // Get the first parameter.
+  // TODO
+  /*
+  select any parameter related by self->S_SPARM[R24];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->S_SPARM[R54.''succeeds''];
+  end while;
+
+  if( not_empty first_param )
+	signature = signature + "(";
+  end if;
+  separator = "";
+  parameter = first_param;
+  while ( not_empty parameter )
+	select one type related by parameter->S_DT[R26];
+	signature = signature + separator + type.Name;
+	separator = ", ";
+	select one parameter related by parameter->S_SPARM[R54.''precedes''];
+  end while;
+  if( not_empty first_param )
+	signature = signature + ")";
+  end if;
+  */
+
+elif ( 0 == param.flavor )
+
+  // get the parameters in sorted order
+  // TODO
+  /*
+  separator = "";
+  select many parameters related by self->S_SPARM[R24];
+  num_params = cardinality parameters; 
+  if ( num_params > 0 )
+	signature = signature + "(";
+  end if;
+
+  // the following time complexity is n^2
+  count = 0;
+  select any last_param from instances of S_SPARM where false;
+  select any curr_param from instances of S_SPARM where false;
+  while ( count < num_params )
+    for each parameter in parameters
+      if ( ( empty curr_param and empty last_param )
+           or ( empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name )
+           or ( not_empty curr_param and empty last_param and parameter.Name < curr_param.Name )
+           or ( not_empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name and parameter.Name < curr_param.Name ) )
+        curr_param = parameter;
+      end if;
+    end for;
+    
+    select one type related by curr_param->S_DT[R26];
+    signature = signature + separator + curr_param.Name + ":" + type.Name;
+    separator = ", ";
+
+    last_param = curr_param;
+    select any curr_param from instances of S_SPARM where false;
+    count = count + 1;
+  end while;
+
+  if ( num_params > 0 )
+	signature = signature + ")";
+  end if;
+  */
+  
+elif ( 2 == param.flavor )
+
+  // Get the first parameter.
+  // TODO
+  /*
+  select any parameter related by self->S_SPARM[R24];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->S_SPARM[R54.''succeeds''];
+  end while;
+
+  signature = signature + "(";
+  separator = " ";
+  parameter = first_param;
+  while ( not_empty parameter )
+    signature = signature + separator + parameter.Name + ":";
+	separator = ", ";
+	select one parameter related by parameter->S_SPARM[R54.''precedes''];
+  end while;
+  if( not_empty first_param )
+    signature = signature + " ";
+  end if;
+  signature = signature + ")";
+  */
+
+elif ( 3 == param.flavor )
+
+  signature = signature + "()";
+  
+end if;
+
+return signature;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("4b6b1b55-e3d1-4e6d-bc59-aee7b083dea4",
+	"4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"00000000-0000-0000-0000-000000000000",
+	'Svc_ID',
+	'',
+	'',
+	'Svc_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
+	"910a3a7e-c1f1-44db-acde-9bfab3e084da",
+	"85be6b12-61ca-40e8-837e-f37000e9d372",
+	"b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	"76b68f7d-2b0d-4bdd-98f6-8bee6fe1fb1b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminator',
+	'Term_ID',
+	'R1651');
+INSERT INTO R_RGO_PROXY
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
+	"910a3a7e-c1f1-44db-acde-9bfab3e084da",
+	'../Proc.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
+	"85be6b12-61ca-40e8-837e-f37000e9d372",
+	'../Proc.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	1,
+	'Term_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'../Terminator/Terminator.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	'Term_ID',
+	'',
+	'',
+	'Term_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	'Name',
+	'Full Name: Terminator Service Name',
+	'',
+	'Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("68bac2da-c03a-4d0d-a618-2c210b84391a",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("68bac2da-c03a-4d0d-a618-2c210b84391a",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("68bac2da-c03a-4d0d-a618-2c210b84391a",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	'Descrip',
+	'Full Name: Terminator Service Description
+Description: A textual description of this terminator service.',
+	'',
+	'Descrip',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a7344bad-3a62-486e-9a28-8d0c3285a506",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("a7344bad-3a62-486e-9a28-8d0c3285a506",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("a7344bad-3a62-486e-9a28-8d0c3285a506",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	'Action_Semantics_internal',
+	'User_Visible:false',
+	'',
+	'Action_Semantics_internal',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9c4950be-cc44-4b42-9347-4b821b1f563b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("9c4950be-cc44-4b42-9347-4b821b1f563b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("9c4950be-cc44-4b42-9347-4b821b1f563b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"a7344bad-3a62-486e-9a28-8d0c3285a506",
+	'Suc_Pars',
+	'Full Name: Successful Parse Indicator
+Description: Indicates the status of the parse for the action specification in the attribute Action_Semantics
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+',
+	'',
+	'Suc_Pars',
+	0,
+	"33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	"00000000-0000-0000-0000-000000000000",
+	'ParseStatus',
+	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"9c4950be-cc44-4b42-9347-4b821b1f563b",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'self.Action_Semantics = self.Action_Semantics_internal;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"68bac2da-c03a-4d0d-a618-2c210b84391a",
+	'Action_Semantics',
+	'Full Name: Action Semantics Field
+Description: Action Semantics for the operation action
+Persistent:false',
+	'',
+	'Action_Semantics',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_OIDA
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	0,
+	'Svc_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ID
+	VALUES (2,
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO PE_PE
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	1,
+	"de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Proc',
+	'',
+	0,
+	'../Proc.xtuml');
