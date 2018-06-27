@@ -27,6 +27,8 @@ appears.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #10280](https://support.onefact.net/issues/10280) OAL completion contains invalid suggestions for constants  
 <a id="2.2"></a>2.2 [BridgePoint DEI #9566](https://support.onefact.net/issues/9566) Saab- 19 : Constant group item visibility  
+<a id="2.3"></a>2.3 [BridgePoint DEI #4896](https://support.onefact.net/issues/4896) Not possible to specify datatypes with the same name at different levels.  
+<a id="2.4"></a>2.4 [BridgePoint DEI #10262](https://support.onefact.net/issues/10262) Manual test for scoped path.  
 
 ### 3. Background
 
@@ -109,11 +111,77 @@ string.
 
 ### 6. Implementation Comments
 
-None.
+6.1 OAL Content Assist Test Unit Test Suite  
+
+During the test phase for this work failures of this test suite were examined. 
+These failures were introduced with issue [[2.3]](#2.3). The full investigation was put 
+off during the promotion of [[2.3]](#2.3) because, at the time, it was believed this was
+a test-only problem. Investigation revealed that there was a content-assist specific
+problem that these unit test failures were showing. This test suite generates over 10K
+tests. There were 100 failures.  The following will be used to help describe the 
+100 failures that were seen:  
+
+```
+Where:
+  L=Location
+  P=possibility
+  S=Scope
+  
+S1. Outer block
+S2. Within If
+
+L37=37. 6.2.22 After <identifier>"::"
+
+P31=31. 6.2.2.2 Class Based Operations
+P48. 6.2.5.2.1 Interface messages
+P54. 6.2.20.2 Constants
+P55. 6.2.22.2 Enumerators
+P57. 6.2.22.1 bridges
+
+Activity_Homes(AH)
+01. 5.1.1 State Action Body
+02. 5.1.1 Derived Attribute Body
+03. 5.1.1 Function Body
+04. 5.1.1 Operation Body
+05. 5.1.1 Bridge Body
+06. 5.1.1 Provided Operation Body
+07. 5.1.1 Provided Signal Body
+08. 5.1.1 Required Operation Body
+09. 5.1.1 Required Signal Body
+10. 5.1.1 Transition Action Body
+
+Results:
+1. doesExist      "An expected element was not present in the auto complete list"
+2. doesNotExist   "An element was found in the auto complete list when it should not have been present"
+```
+
+The issue is that the grammar change to [[2.3]](#2.3) caused difficulty for the grammar to distinguish
+between a scoped-path and a meta-model element that uses "::" but is not involved in a scoped-path. These
+elements are:
+```
+Class Based Operations
+Interface messages
+Constants
+Enumerators
+Bridges
+```
+
+Issue [[2.3]](#2.3) was focused on Enumerators and Constants, and those worked fine, but the others were
+not being listed as possibilities in content assist.  
+
+To resolve this, a call to the existing OAL Validation function, Invocation_tok_double_colon_content_assist, 
+was added to Scoped_path_lookahead_content_assist at the point where we have no scoped path elements yet. OAL
+added then looks to see if any possibilities were found, and if they were, "::" is prepended to that 
+possibility name. Finally, the unit test operation als/oal/test/completion/OalAutoComplete.java::getPossibilities()
+was modified for location "L37" (specific to the possibilities called out above) to add "::" to the possibily so the
+possibility matches the actual result for these cases.
+
+
 
 ### 7. Unit Test
 
-TODO
+7.1 Existing OAL Autocomplete unit tests pass  
+7.2 Manual test for this issue and its test model shall be updated to exercise the headline issue.  
 
 ### 8. User Documentation
 
@@ -124,9 +192,10 @@ None.
 Fork/Repository: leviathan747/bridgepoint  
 Branch: 10280_scoped_content_assist  
 
-<pre>
+Fork/Repository: rmulvey/bptest  
+Branch: 10280_scoped_content_assist  
 
-</pre>
+Fork/Repository: rmulvey/models  
 
 ### End
 
