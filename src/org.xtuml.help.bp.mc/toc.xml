@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE toc PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<toc label="BridgePoint Model Compiler™ - User's Guide" topic="index.html">
+<toc label="BridgePoint Model Compiler - User Guide" topic="index.html">
   <topic label="Users Guide" href="ch01.html">
     <topic label="Purpose and Intended Audience" href="ch01.html#UsersGuide-Purpose-section">
-      <topic label="Purpose of the Users Guide" href="ch01.html#idm387791769072"></topic>
-      <topic label="Intended Audience" href="ch01.html#idm387791764640"></topic>
+      <topic label="Purpose of the Users Guide" href="ch01.html#idm269944123968"></topic>
+      <topic label="Intended Audience" href="ch01.html#idm269944119440"></topic>
     </topic>
     <topic label="Using the Guide" href="ch01s02.html">
-      <topic label="Guide Organization" href="ch01s02.html#idm387791747024"></topic>
-      <topic label="Additional Information" href="ch01s02.html#idm387791724528"></topic>
+      <topic label="Guide Organization" href="ch01s02.html#idm269944101856"></topic>
+      <topic label="Additional Information" href="ch01s02.html#idm269944077792"></topic>
     </topic>
   </topic>
   <topic label="Features and Components" href="ch02.html">
-    <topic label="Features" href="ch02.html#idm387791655616">
-      <topic label="MC-3020 Binary and Source Versions" href="ch02.html#idm387791654720"></topic>
-      <topic label="Multi-Pass Corroborative Translation" href="ch02.html#idm387791652272"></topic>
-      <topic label="Multi-Tasking/Threading" href="ch02.html#idm387791648768"></topic>
-      <topic label="Prioritization" href="ch02.html#idm387791646416"></topic>
-      <topic label="Multi-Component Support" href="ch02.html#idm387791644192"></topic>
-      <topic label="Persistence" href="ch02.html#idm387791642784"></topic>
-      <topic label="Metrics and Reporting" href="ch02.html#idm387791641392"></topic>
-      <topic label="Bridge/Operation Skeleton Generation" href="ch02.html#idm387791638976"></topic>
-      <topic label="``Call Outs'' for User Code" href="ch02.html#idm387791636784"></topic>
-      <topic label="UDT Precision and Pointer Types" href="ch02.html#idm387791634144"></topic>
-      <topic label="Attribute Bit Fields" href="ch02.html#idm387791632064"></topic>
-      <topic label="Selection Optimization" href="ch02.html#idm387791630320"></topic>
-      <topic label="Interrupt Handler Bridging" href="ch02.html#idm387791628624"></topic>
-      <topic label="User Defined Archetypes" href="ch02.html#idm387791626256"></topic>
-      <topic label="ANSI C Purity and Simplicity" href="ch02.html#idm387791624352"></topic>
-      <topic label="Preexisting Instances Defined in Data" href="ch02.html#idm387791621904"></topic>
-      <topic label="Target Code Inside Action Language" href="ch02.html#idm387791619904"></topic>
-      <topic label="Dynamic Memory Allocation (Or Not)" href="ch02.html#idm387791608544"></topic>
-      <topic label="XMI Export" href="ch02.html#idm387791606048"></topic>
+    <topic label="Features" href="ch02.html#idm269943992896">
+      <topic label="MC-3020 Binary and Source Versions" href="ch02.html#idm269943992000"></topic>
+      <topic label="Multi-Pass Corroborative Translation" href="ch02.html#idm269943989776"></topic>
+      <topic label="Multi-Tasking/Threading" href="ch02.html#idm269943986336"></topic>
+      <topic label="Prioritization" href="ch02.html#idm269943984224"></topic>
+      <topic label="Multi-Component Support" href="ch02.html#idm269943982192"></topic>
+      <topic label="Persistence" href="ch02.html#idm269943980784"></topic>
+      <topic label="Metrics and Reporting" href="ch02.html#idm269943979392"></topic>
+      <topic label="Bridge/Operation Skeleton Generation" href="ch02.html#idm269943976976"></topic>
+      <topic label="``Call Outs'' for User Code" href="ch02.html#idm269943974784"></topic>
+      <topic label="UDT Precision and Pointer Types" href="ch02.html#idm269943972256"></topic>
+      <topic label="Attribute Bit Fields" href="ch02.html#idm269943970176"></topic>
+      <topic label="Selection Optimization" href="ch02.html#idm269943968432"></topic>
+      <topic label="Interrupt Handler Bridging" href="ch02.html#idm269943966864"></topic>
+      <topic label="User Defined Archetypes" href="ch02.html#idm269943964496"></topic>
+      <topic label="ANSI C Purity and Simplicity" href="ch02.html#idm269943962592"></topic>
+      <topic label="Preexisting Instances Defined in Data" href="ch02.html#idm269943960400"></topic>
+      <topic label="Target Code Inside Action Language" href="ch02.html#idm269943958400"></topic>
+      <topic label="Dynamic Memory Allocation (Or Not)" href="ch02.html#idm269943948320"></topic>
+      <topic label="XMI Export" href="ch02.html#idm269943945952"></topic>
     </topic>
     <topic label="Components" href="ch02s02.html">
-      <topic label="Classes" href="ch02s02.html#idm387791593088">
-        <topic label="Creation" href="ch02s02.html#idm387791591024"></topic>
-        <topic label="Deletion" href="ch02s02.html#idm387791590128"></topic>
-        <topic label="Selection" href="ch02s02.html#idm387791588240"></topic>
-        <topic label="Attributes" href="ch02s02.html#idm387791584960"></topic>
+      <topic label="Classes" href="ch02s02.html#idm269943933744">
+        <topic label="Creation" href="ch02s02.html#idm269943931680"></topic>
+        <topic label="Deletion" href="ch02s02.html#idm269943930784"></topic>
+        <topic label="Selection" href="ch02s02.html#idm269943928896"></topic>
+        <topic label="Attributes" href="ch02s02.html#idm269943925744"></topic>
       </topic>
-      <topic label="Associations" href="ch02s02.html#idm387791582208"></topic>
-      <topic label="State Models" href="ch02s02.html#idm387791580416">
-        <topic label="Actions" href="ch02s02.html#idm387791578736"></topic>
-        <topic label="Events" href="ch02s02.html#idm387791576704"></topic>
-        <topic label="Creation Events" href="ch02s02.html#idm387791574720"></topic>
-        <topic label="Final States" href="ch02s02.html#idm387791572928"></topic>
+      <topic label="Associations" href="ch02s02.html#idm269943922992"></topic>
+      <topic label="State Models" href="ch02s02.html#idm269943921200">
+        <topic label="Actions" href="ch02s02.html#idm269943919520"></topic>
+        <topic label="Events" href="ch02s02.html#idm269943917488"></topic>
+        <topic label="Creation Events" href="ch02s02.html#idm269943915504"></topic>
+        <topic label="Final States" href="ch02s02.html#idm269943913712"></topic>
       </topic>
-      <topic label="Bridges and Operations" href="ch02s02.html#idm387791571472"></topic>
-      <topic label="Miscellaneous" href="ch02s02.html#idm387791568848">
-        <topic label="Initialization" href="ch02s02.html#idm387791567824"></topic>
-        <topic label="Style Dials" href="ch02s02.html#idm387791566400"></topic>
-        <topic label="Metrics" href="ch02s02.html#idm387791564592"></topic>
+      <topic label="Bridges and Operations" href="ch02s02.html#idm269943912256"></topic>
+      <topic label="Miscellaneous" href="ch02s02.html#idm269943909632">
+        <topic label="Initialization" href="ch02s02.html#idm269943908608"></topic>
+        <topic label="Style Dials" href="ch02s02.html#idm269943907184"></topic>
+        <topic label="Metrics" href="ch02s02.html#idm269943905376"></topic>
       </topic>
     </topic>
     <topic label="Restrictions and Limitations" href="ch02s03.html"></topic>
   </topic>
   <topic label="Eclipse Integration" href="ch03.html">
-    <topic label="MC-3020 GUI" href="ch03.html#idm387791458096"></topic>
+    <topic label="MC-3020 GUI" href="ch03.html#idm269943802688"></topic>
     <topic label="Project Files and Folders" href="ch03s02.html">
-      <topic label="Marking Files" href="ch03s02.html#idm387791451984"></topic>
-      <topic label="Source Files and Output" href="ch03s02.html#idm387791444352"></topic>
+      <topic label="Marking Files" href="ch03s02.html#idm269943796880"></topic>
+      <topic label="Source Files and Output" href="ch03s02.html#idm269943790848"></topic>
     </topic>
     <topic label="Replacing Generated Source Code" href="ch03s03.html"></topic>
     <topic label="Adding User Source and Libraries" href="ch03s04.html"></topic>
@@ -70,14 +70,14 @@
   <topic label="Marking" href="ch04.html">
     <topic label="How MC-3020 Provides for Marking" href="ch04.html#Marking-How-section"></topic>
     <topic label="Bridge Marking" href="ch04s02.html">
-      <topic label="Marking a Bridge Safe for Interrupt Invocation" href="ch04s02.html#idm387791362928"></topic>
-      <topic label="Enabling/Disabling Interrupts" href="ch04s02.html#idm387791342240"></topic>
-      <topic label="Bit Fields" href="ch04s02.html#idm387791338016"></topic>
-      <topic label="Fixing Class Extents" href="ch04s02.html#idm387791334112"></topic>
+      <topic label="Marking a Bridge Safe for Interrupt Invocation" href="ch04s02.html#idm269943717664"></topic>
+      <topic label="Enabling/Disabling Interrupts" href="ch04s02.html#idm269943698496"></topic>
+      <topic label="Bit Fields" href="ch04s02.html#idm269943694752"></topic>
+      <topic label="Fixing Class Extents" href="ch04s02.html#idm269943690848"></topic>
     </topic>
     <topic label="Specifying Data Types, Precision and Enumerators" href="ch04s03.html">
-      <topic label="Tagging Precision" href="ch04s03.html#idm387791324752"></topic>
-      <topic label="Mapping Pointer Types" href="ch04s03.html#idm387791299376"></topic>
+      <topic label="Tagging Precision" href="ch04s03.html#idm269943682416"></topic>
+      <topic label="Mapping Pointer Types" href="ch04s03.html#idm269943659776"></topic>
       <topic label="Specifying Uninitialized Enumerators" href="ch04s03.html#SpecifyingUnitialized-section"></topic>
       <topic label="Specifying Values for Enumerators" href="ch04s03.html#SpecifyingEnumValues-section"></topic>
     </topic>
@@ -85,16 +85,16 @@
       <topic label="Specifying a System Build Configuration" href="ch04s04.html#Marking-SystemConfigurationPackage-section"></topic>
       <topic label="Enabling Multi-Tasking" href="ch04s04.html#Marking-EnablingTasking-section"></topic>
       <topic label="Establishing Multi-Task Priority" href="ch04s04.html#Marking-TaskPriority-section"></topic>
-      <topic label="Maximum String Size" href="ch04s04.html#idm387791212432"></topic>
-      <topic label="Controlling Collection Sizes" href="ch04s04.html#idm387791204080"></topic>
-      <topic label="Managing Selection Collections" href="ch04s04.html#idm387791196160"></topic>
-      <topic label="Changing the Flavor of Collections" href="ch04s04.html#idm387791188608"></topic>
-      <topic label="Limiting/Extending Event Queues" href="ch04s04.html#idm387791180672"></topic>
-      <topic label="Limiting/Extending NonSelf Queue" href="ch04s04.html#idm387791173072"></topic>
-      <topic label="Timer Queue" href="ch04s04.html#idm387791166064"></topic>
-      <topic label="Simulated Time" href="ch04s04.html#idm387791158720"></topic>
-      <topic label="Interleaved Bridges" href="ch04s04.html#idm387791151808"></topic>
-      <topic label="Interleaved Bridge Data" href="ch04s04.html#idm387791144048"></topic>
+      <topic label="Maximum String Size" href="ch04s04.html#idm269943580096"></topic>
+      <topic label="Controlling Collection Sizes" href="ch04s04.html#idm269943572720"></topic>
+      <topic label="Managing Selection Collections" href="ch04s04.html#idm269943565520"></topic>
+      <topic label="Changing the Flavor of Collections" href="ch04s04.html#idm269943558688"></topic>
+      <topic label="Limiting/Extending Event Queues" href="ch04s04.html#idm269943551472"></topic>
+      <topic label="Limiting/Extending NonSelf Queue" href="ch04s04.html#idm269943544592"></topic>
+      <topic label="Timer Queue" href="ch04s04.html#idm269943538304"></topic>
+      <topic label="Simulated Time" href="ch04s04.html#idm269943531696"></topic>
+      <topic label="Interleaved Bridges" href="ch04s04.html#idm269945572032"></topic>
+      <topic label="Interleaved Bridge Data" href="ch04s04.html#idm269945565088"></topic>
       <topic label="Marking Persistence Cache Queue Depth" href="ch04s04.html#PeristenceCacheDepth-section"></topic>
       <topic label="Marking Dynamic Memory Allocation On" href="ch04s04.html#DynamicMemoryAllocation-section"></topic>
       <topic label="Marking State Save" href="ch04s04.html#MarkingStateSave-section"></topic>
@@ -107,179 +107,179 @@
       </topic>
     </topic>
     <topic label="Component (Domain) Specializations" href="ch04s05.html">
-      <topic label="Identifying Initialization Functions" href="ch04s05.html#idm387791012976"></topic>
-      <topic label="Identifying Initialization Objects" href="ch04s05.html#idm387791000768"></topic>
-      <topic label="Excluding Classes" href="ch04s05.html#idm387790997808"></topic>
-      <topic label="Excluding Subsystems" href="ch04s05.html#idm387790987504"></topic>
-      <topic label="Disabling Function Translation" href="ch04s05.html#idm387790977920"></topic>
-      <topic label="State Transition Trace" href="ch04s05.html#idm387790967568"></topic>
-      <topic label="Action Language Trace" href="ch04s05.html#idm387790960176"></topic>
-      <topic label="Empty Handle Usage" href="ch04s05.html#idm387790953232"></topic>
-      <topic label="Disabling First Pass Optimizations" href="ch04s05.html#idm387790944080"></topic>
-      <topic label="Miscellaneous Domain Marking" href="ch04s05.html#idm387790934288"></topic>
+      <topic label="Identifying Initialization Functions" href="ch04s05.html#idm269945452512"></topic>
+      <topic label="Identifying Initialization Objects" href="ch04s05.html#idm269945441728"></topic>
+      <topic label="Excluding Classes" href="ch04s05.html#idm269945439280"></topic>
+      <topic label="Excluding Subsystems" href="ch04s05.html#idm269945430400"></topic>
+      <topic label="Disabling Function Translation" href="ch04s05.html#idm269945422048"></topic>
+      <topic label="State Transition Trace" href="ch04s05.html#idm269945413168"></topic>
+      <topic label="Action Language Trace" href="ch04s05.html#idm269945406688"></topic>
+      <topic label="Empty Handle Usage" href="ch04s05.html#idm269945400672"></topic>
+      <topic label="Disabling First Pass Optimizations" href="ch04s05.html#idm269945392576"></topic>
+      <topic label="Miscellaneous Domain Marking" href="ch04s05.html#idm269945383952"></topic>
     </topic>
     <topic label="Class Specializations" href="ch04s06.html">
       <topic label="Mapping Classes to Tasks/Threads" href="ch04s06.html#Marking-MappingClassesToTasks-section"></topic>
-      <topic label="Extent Sizes" href="ch04s06.html#idm387789847472"></topic>
-      <topic label="Default Extent Size" href="ch04s06.html#idm387789834640"></topic>
-      <topic label="Enabling Preexisting Instances" href="ch04s06.html#idm387789827360"></topic>
-      <topic label="Identifying Static Instance Populations" href="ch04s06.html#idm387789815152"></topic>
-      <topic label="Identifying Read Only Instance Populations" href="ch04s06.html#idm387789803120"></topic>
+      <topic label="Extent Sizes" href="ch04s06.html#idm269945364576"></topic>
+      <topic label="Default Extent Size" href="ch04s06.html#idm269945353280"></topic>
+      <topic label="Enabling Preexisting Instances" href="ch04s06.html#idm269945346944"></topic>
+      <topic label="Identifying Static Instance Populations" href="ch04s06.html#idm269945336256"></topic>
+      <topic label="Identifying Read Only Instance Populations" href="ch04s06.html#idm269945325632"></topic>
       <topic label="Marking Persistence" href="ch04s06.html#markingpersistence-section"></topic>
-      <topic label="Translating Operation and Bridge AL" href="ch04s06.html#idm387789774288"></topic>
-      <topic label="Marking Class Tracing" href="ch04s06.html#idm387789759248"></topic>
+      <topic label="Translating Operation and Bridge AL" href="ch04s06.html#idm269945301136"></topic>
+      <topic label="Marking Class Tracing" href="ch04s06.html#idm269945287920"></topic>
     </topic>
     <topic label="Event Prioritization" href="ch04s07.html">
-      <topic label="Priority Events" href="ch04s07.html#idm387789741600"></topic>
+      <topic label="Priority Events" href="ch04s07.html#idm269945272832"></topic>
       <topic label="MC-3020 Extent Prediction and Marking" href="ch04s07.html#Containoids-section"></topic>
     </topic>
   </topic>
   <topic label="Enumerated Types" href="ch05.html">
-    <topic label="Overview of Enumeration Support" href="ch05.html#idm387789107632"></topic>
+    <topic label="Overview of Enumeration Support" href="ch05.html#idm269945149072"></topic>
     <topic label="Specifying Enumerations" href="ch05s02.html">
-      <topic label="Specifying a Discrete Value for Enumerators" href="ch05s02.html#idm387789103728">
-        <topic label="Value Keyword" href="ch05s02.html#idm387789102592"></topic>
-        <topic label="Marking" href="ch05s02.html#idm387789097792"></topic>
+      <topic label="Specifying a Discrete Value for Enumerators" href="ch05s02.html#idm269945145040">
+        <topic label="Value Keyword" href="ch05s02.html#idm269945144016"></topic>
+        <topic label="Marking" href="ch05s02.html#idm269945139696"></topic>
       </topic>
-      <topic label="Accessing an Enumeration from a Non-Modeled Domain" href="ch05s02.html#idm387789094752">
-        <topic label="Enumeration Header File Name" href="ch05s02.html#idm387789093392"></topic>
-        <topic label="Access to an Enumeration" href="ch05s02.html#idm387789089648"></topic>
+      <topic label="Accessing an Enumeration from a Non-Modeled Domain" href="ch05s02.html#idm269945137264">
+        <topic label="Enumeration Header File Name" href="ch05s02.html#idm269945135904"></topic>
+        <topic label="Access to an Enumeration" href="ch05s02.html#idm269945132896"></topic>
       </topic>
     </topic>
     <topic label="Using an Enumeration" href="ch05s03.html">
-      <topic label="Legal Uses of an Enumeration" href="ch05s03.html#idm387789084144"></topic>
+      <topic label="Legal Uses of an Enumeration" href="ch05s03.html#idm269945128000"></topic>
     </topic>
   </topic>
   <topic label="Interface Call-outs" href="ch06.html">
-    <topic label="Using Callouts" href="ch06.html#idm387789039728">
-      <topic label="Callout Routines Provided" href="ch06.html#idm387789030944">
-        <topic label="User Initialization" href="ch06.html#idm387789028608"></topic>
-        <topic label="User Pre-xtUML Initialization" href="ch06.html#idm387789023008"></topic>
-        <topic label="User Post-xtUML Initialization" href="ch06.html#idm387789018208"></topic>
-        <topic label="User Background Processing" href="ch06.html#idm387789013184"></topic>
-        <topic label="User Pre-Shutdown Processing" href="ch06.html#idm387789008192"></topic>
-        <topic label="User Post-Shutdown Processing" href="ch06.html#idm387789003008"></topic>
-        <topic label="User Event ``Can't Happen'' Processing" href="ch06.html#idm387788998048"></topic>
-        <topic label="User Event with No Instance Processing" href="ch06.html#idm387788986256"></topic>
-        <topic label="User Event Free List Empty" href="ch06.html#idm387788976384"></topic>
-        <topic label="User Empty Handle Detection" href="ch06.html#idm387788971376"></topic>
-        <topic label="User Object Pool Empty Handling" href="ch06.html#idm387788964896"></topic>
-        <topic label="Empty Node List Handling" href="ch06.html#idm387788958384"></topic>
-        <topic label="Overflow of Interleaved Bridge Invocations" href="ch06.html#idm387788952848"></topic>
-        <topic label="Empty Event Queue Callouts" href="ch06.html#idm387788947664"></topic>
+    <topic label="Using Callouts" href="ch06.html#idm269942974784">
+      <topic label="Callout Routines Provided" href="ch06.html#idm269942967520">
+        <topic label="User Initialization" href="ch06.html#idm269942965552"></topic>
+        <topic label="User Pre-xtUML Initialization" href="ch06.html#idm269942960736"></topic>
+        <topic label="User Post-xtUML Initialization" href="ch06.html#idm269942956416"></topic>
+        <topic label="User Background Processing" href="ch06.html#idm269942952048"></topic>
+        <topic label="User Pre-Shutdown Processing" href="ch06.html#idm269942947696"></topic>
+        <topic label="User Post-Shutdown Processing" href="ch06.html#idm269942943072"></topic>
+        <topic label="User Event ``Can't Happen'' Processing" href="ch06.html#idm269942938752"></topic>
+        <topic label="User Event with No Instance Processing" href="ch06.html#idm269942928368"></topic>
+        <topic label="User Event Free List Empty" href="ch06.html#idm269942919472"></topic>
+        <topic label="User Empty Handle Detection" href="ch06.html#idm269942915056"></topic>
+        <topic label="User Object Pool Empty Handling" href="ch06.html#idm269942909664"></topic>
+        <topic label="Empty Node List Handling" href="ch06.html#idm269942904304"></topic>
+        <topic label="Overflow of Interleaved Bridge Invocations" href="ch06.html#idm269942899312"></topic>
+        <topic label="Empty Event Queue Callouts" href="ch06.html#idm269942894480"></topic>
       </topic>
     </topic>
   </topic>
   <topic label="Command Line Translation and Build" href="ch07.html">
-    <topic label="xtumlmc_build:  Command Line Build Automation" href="ch07.html#idm387788835136">
-      <topic label="Utility" href="ch07.html#idm387788833760"></topic>
-      <topic label="Usage" href="ch07.html#idm387788804656"></topic>
+    <topic label="xtumlmc_build:  Command Line Build Automation" href="ch07.html#idm269942801056">
+      <topic label="Utility" href="ch07.html#idm269942799728"></topic>
+      <topic label="Usage" href="ch07.html#idm269942790288"></topic>
     </topic>
     <topic label="Sample/Example Timer (TIM)" href="ch07s02.html"></topic>
   </topic>
   <topic label="Initialization and Preexisting Instances" href="ch08.html">
     <topic label="Initialization Overview" href="ch08.html#Initialization-chapter-Overview-section">
-      <topic label="Preexisting Instances" href="ch08.html#idm387788680064"></topic>
-      <topic label="Terminology" href="ch08.html#idm387788676144"></topic>
-      <topic label="Constructs Supported" href="ch08.html#idm387788661344"></topic>
+      <topic label="Preexisting Instances" href="ch08.html#idm269942691696"></topic>
+      <topic label="Terminology" href="ch08.html#idm269942688000"></topic>
+      <topic label="Constructs Supported" href="ch08.html#idm269942673360"></topic>
     </topic>
     <topic label="Dynamic Initialization" href="ch08s02.html">
-      <topic label="Dynamic Init Process" href="ch08s02.html#idm387788652080"></topic>
-      <topic label="Pros and Cons of Dynamic Init" href="ch08s02.html#idm387788646784"></topic>
-      <topic label="Initialization Functions" href="ch08s02.html#idm387788633472"></topic>
-      <topic label="Rules for Creating Initialization Functions" href="ch08s02.html#idm387788630464"></topic>
-      <topic label="Example of Dynamic Initialization" href="ch08s02.html#idm387788624976"></topic>
-      <topic label="Multi-Domain Dynamic Initialization" href="ch08s02.html#idm387788612544"></topic>
-      <topic label="Multi-Domain Init Sequencing" href="ch08s02.html#idm387788609392"></topic>
-      <topic label="Initialization in Simulation" href="ch08s02.html#idm387788606672"></topic>
+      <topic label="Dynamic Init Process" href="ch08s02.html#idm269942664224"></topic>
+      <topic label="Pros and Cons of Dynamic Init" href="ch08s02.html#idm269942659664"></topic>
+      <topic label="Initialization Functions" href="ch08s02.html#idm269942646304"></topic>
+      <topic label="Rules for Creating Initialization Functions" href="ch08s02.html#idm269942643296"></topic>
+      <topic label="Example of Dynamic Initialization" href="ch08s02.html#idm269942638768"></topic>
+      <topic label="Multi-Domain Dynamic Initialization" href="ch08s02.html#idm269942627920"></topic>
+      <topic label="Multi-Domain Init Sequencing" href="ch08s02.html#idm269942625232"></topic>
+      <topic label="Initialization in Simulation" href="ch08s02.html#idm269942622768"></topic>
     </topic>
   </topic>
   <topic label="MC-3020 Collections" href="ch09.html">
-    <topic label="MC-3020 Collections" href="ch09.html#idm387788525312">
-      <topic label="Containers" href="ch09.html#idm387788523184"></topic>
-      <topic label="Sets" href="ch09.html#idm387788517856"></topic>
-      <topic label="Set Symmetry" href="ch09.html#idm387788508528"></topic>
-      <topic label="Singly Linked Lists" href="ch09.html#idm387788505024"></topic>
-      <topic label="Doubly Linked Lists" href="ch09.html#idm387788498384"></topic>
-      <topic label="Performance Considerations" href="ch09.html#idm387788484464"></topic>
-      <topic label="Merged Containers" href="ch09.html#idm387788483440"></topic>
+    <topic label="MC-3020 Collections" href="ch09.html#idm269942545328">
+      <topic label="Containers" href="ch09.html#idm269942543200"></topic>
+      <topic label="Sets" href="ch09.html#idm269942537872"></topic>
+      <topic label="Set Symmetry" href="ch09.html#idm269942530704"></topic>
+      <topic label="Singly Linked Lists" href="ch09.html#idm269942527200"></topic>
+      <topic label="Doubly Linked Lists" href="ch09.html#idm269942520768"></topic>
+      <topic label="Performance Considerations" href="ch09.html#idm269942507632"></topic>
+      <topic label="Merged Containers" href="ch09.html#idm269942506608"></topic>
     </topic>
   </topic>
   <topic label="Persistence" href="ch10.html">
-    <topic label="Introduction" href="ch10.html#idm387788423056"></topic>
+    <topic label="Introduction" href="ch10.html#idm269942449584"></topic>
     <topic label="High-Level Requirements" href="ch10s02.html">
-      <topic label="Non-volatile Storage Technology" href="ch10s02.html#idm387788420080"></topic>
-      <topic label="Granularity" href="ch10s02.html#idm387788418800"></topic>
-      <topic label="Balance" href="ch10s02.html#idm387788415472"></topic>
+      <topic label="Non-volatile Storage Technology" href="ch10s02.html#idm269942446000"></topic>
+      <topic label="Granularity" href="ch10s02.html#idm269942444720"></topic>
+      <topic label="Balance" href="ch10s02.html#idm269942441840"></topic>
     </topic>
     <topic label="Operational Overview" href="ch10s03.html">
-      <topic label="General Scenario" href="ch10s03.html#idm387788412688"></topic>
-      <topic label="Manual and Automatic Commit" href="ch10s03.html#idm387788402096"></topic>
+      <topic label="General Scenario" href="ch10s03.html#idm269942438608"></topic>
+      <topic label="Manual and Automatic Commit" href="ch10s03.html#idm269942429472"></topic>
     </topic>
     <topic label="Assumptions" href="ch10s04.html"></topic>
     <topic label="Limitations" href="ch10s05.html"></topic>
     <topic label="Persistence Marking Options" href="ch10s06.html"></topic>
     <topic label="Analysis" href="ch10s07.html">
-      <topic label="Persist Domain Data Analysis" href="ch10s07.html#idm387788382320"></topic>
-      <topic label="PERSIST Domain Functions" href="ch10s07.html#idm387788377920"></topic>
-      <topic label="Non-volatile Storage Domain Data Analysis" href="ch10s07.html#idm387788367616"></topic>
-      <topic label="Non-volatile Storage Domain Functions" href="ch10s07.html#idm387788362944"></topic>
+      <topic label="Persist Domain Data Analysis" href="ch10s07.html#idm269942410768"></topic>
+      <topic label="PERSIST Domain Functions" href="ch10s07.html#idm269942406544"></topic>
+      <topic label="Non-volatile Storage Domain Data Analysis" href="ch10s07.html#idm269942397936"></topic>
+      <topic label="Non-volatile Storage Domain Functions" href="ch10s07.html#idm269942393488"></topic>
     </topic>
     <topic label="Persistence Design" href="ch10s08.html">
-      <topic label="Class-Based Create/Delete/Init" href="ch10s08.html#idm387788281072"></topic>
-      <topic label="Centralized Create/Delete/Init" href="ch10s08.html#idm387788275360"></topic>
-      <topic label="Implications to Persistence Support" href="ch10s08.html#idm387788262672"></topic>
-      <topic label="Implementation" href="ch10s08.html#idm387788257824"></topic>
-      <topic label="Effects" href="ch10s08.html#idm387788252880"></topic>
-      <topic label="Cost Modeling" href="ch10s08.html#idm387788250000">
-        <topic label="Data Memory Cost" href="ch10s08.html#idm387788248720"></topic>
-        <topic label="Instruction Store (Code Space) Cost" href="ch10s08.html#idm387788242848"></topic>
-        <topic label="Cost in Speed" href="ch10s08.html#idm387788240544"></topic>
-        <topic label="Non-volatile Memory Cost" href="ch10s08.html#idm387788239200"></topic>
+      <topic label="Class-Based Create/Delete/Init" href="ch10s08.html#idm269942327488"></topic>
+      <topic label="Centralized Create/Delete/Init" href="ch10s08.html#idm269942321648"></topic>
+      <topic label="Implications to Persistence Support" href="ch10s08.html#idm269942309040"></topic>
+      <topic label="Implementation" href="ch10s08.html#idm269942304192"></topic>
+      <topic label="Effects" href="ch10s08.html#idm269942299712"></topic>
+      <topic label="Cost Modeling" href="ch10s08.html#idm269942296960">
+        <topic label="Data Memory Cost" href="ch10s08.html#idm269942295664"></topic>
+        <topic label="Instruction Store (Code Space) Cost" href="ch10s08.html#idm269942290176"></topic>
+        <topic label="Cost in Speed" href="ch10s08.html#idm269942287872"></topic>
+        <topic label="Non-volatile Memory Cost" href="ch10s08.html#idm269942286528"></topic>
       </topic>
     </topic>
   </topic>
   <topic label="Tasking/Threading" href="ch11.html">
-    <topic label="Introduction" href="ch11.html#idm387788055664"></topic>
+    <topic label="Introduction" href="ch11.html#idm269942123376"></topic>
     <topic label="Marking for Tasking" href="ch11s02.html"></topic>
     <topic label="Prioritization" href="ch11s03.html">
       <topic label="Priority in the&#10;    Generated Code" href="ch11s03.html#Tasking-PriorityGeneration-section"></topic>
       <topic label="Mapping to Tasks" href="ch11s03.html#Tasking-Mapping-section"></topic>
-      <topic label="How Many Tasks?" href="ch11s03.html#idm387788031808"></topic>
-      <topic label="Data Access Issues" href="ch11s03.html#idm387788028800"></topic>
+      <topic label="How Many Tasks?" href="ch11s03.html#idm269942101056"></topic>
+      <topic label="Data Access Issues" href="ch11s03.html#idm269942098048"></topic>
     </topic>
     <topic label="Tasking/Threading in the Generated Code" href="ch11s04.html"></topic>
   </topic>
   <topic label="Modeling Guide " href="ch12.html">
-    <topic label="How To Draw a Supertype/Subtype Association" href="ch12.html#idm387787984128"></topic>
+    <topic label="How To Draw a Supertype/Subtype Association" href="ch12.html#idm269942056048"></topic>
   </topic>
   <topic label="Analysis Guide" href="apa.html">
-    <topic label="Restrictions and Limitations" href="apa.html#idm387787952944"></topic>
+    <topic label="Restrictions and Limitations" href="apa.html#idm269942025968"></topic>
   </topic>
   <topic label="Background" href="apb.html">
-    <topic label="Model Compilers (Software Architectures)" href="apb.html#idm387787953360">
-      <topic label="Shlaer-Mellor Development" href="apb.html#idm387787929424"></topic>
-      <topic label="Software Architecture Components" href="apb.html#idm387787926448">
-        <topic label="Mechanisms" href="apb.html#idm387787924608"></topic>
-        <topic label="Rule Files (a.k.a. archetypes, templates)" href="apb.html#idm387787916960"></topic>
-        <topic label="Marks" href="apb.html#idm387787915872"></topic>
+    <topic label="Model Compilers (Software Architectures)" href="apb.html#idm269942026384">
+      <topic label="Shlaer-Mellor Development" href="apb.html#idm269942003104"></topic>
+      <topic label="Software Architecture Components" href="apb.html#idm269942000000">
+        <topic label="Mechanisms" href="apb.html#idm269941998976"></topic>
+        <topic label="Rule Files (a.k.a. archetypes, templates)" href="apb.html#idm269941991360"></topic>
+        <topic label="Marks" href="apb.html#idm269941990272"></topic>
       </topic>
-      <topic label="Additional Components" href="apb.html#idm387787911248"></topic>
-      <topic label="Model Compiler Analogy" href="apb.html#idm387787907968"></topic>
+      <topic label="Additional Components" href="apb.html#idm269941985648"></topic>
+      <topic label="Model Compiler Analogy" href="apb.html#idm269941982368"></topic>
     </topic>
     <topic label="Components" href="apbs02.html">
-      <topic label="Mechanisms" href="apbs02.html#idm387787898224"></topic>
-      <topic label="Archetypes" href="apbs02.html#idm387787895536"></topic>
-      <topic label="Marks" href="apbs02.html#idm387787892656"></topic>
-      <topic label="Build Tools" href="apbs02.html#idm387787886416"></topic>
-      <topic label="Capabilities" href="apbs02.html#idm387787885008"></topic>
+      <topic label="Mechanisms" href="apbs02.html#idm269941973056"></topic>
+      <topic label="Archetypes" href="apbs02.html#idm269941954128"></topic>
+      <topic label="Marks" href="apbs02.html#idm269941951248"></topic>
+      <topic label="Build Tools" href="apbs02.html#idm269941945008"></topic>
+      <topic label="Capabilities" href="apbs02.html#idm269941943600"></topic>
     </topic>
   </topic>
   <topic label="PEI Test Case Setup" href="apc.html">
-    <topic label="PEI Test Case Initialization Function Listing" href="apc.html#idm387787834320"></topic>
+    <topic label="PEI Test Case Initialization Function Listing" href="apc.html#idm269941894016"></topic>
   </topic>
   <topic label="Revision Controlling the Model" href="apd.html">
-    <topic label="Key Files and Directories" href="apd.html#idm387787820576"></topic>
+    <topic label="Key Files and Directories" href="apd.html#idm269941881296"></topic>
   </topic>
   <topic label="Legal Notice" href="ape.html"></topic>
 </toc>
