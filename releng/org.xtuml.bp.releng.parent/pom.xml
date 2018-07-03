@@ -10,7 +10,7 @@
 
 	<properties>
 		<tycho-version>0.25.0</tycho-version>
-		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
+		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.10.1.v20170504-0840</ant-home-path>
 		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
         <bp_test_path>../../../bptest</bp_test_path>
