@@ -13,11 +13,6 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 '${cme.Specialism}', '${cme.Label}');\
   .create object instance w_wof of W_WOF
   .assign w_wof.Name = name
-  .// TODO SKB - remove these commented lines later and elsewhere in this function
-  .//.assign w_wof.Sync_ID = s_sync.Sync_ID
-  .//.assign w_wof.Key_Lett = cme.Key_Lett
-  .//.assign w_wof.Specialism = cme.Specialism
-  .//.assign w_wof.Label = cme.Label
   .relate w_wof to s_sync across R2001
   .relate w_wof to cme across R2012
 .end function
@@ -37,20 +32,24 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
   .assign attr_id = ""
   .select any attr_w_step from instances of W_STEP where (false)
   .// This may look a bit bizarre.  The first time create_step is called,
-  .// it simply returns a new ID.  This is because the step may or may not
-  .// be used.  It is conditioned upon further processing.  create_step is
-  .// called a second time when it is known to be needed.
+  .// it simply returns a new ID and creates a partially set up W_STEP.  This
+  .// is because the step may or may not be used.  It is conditioned upon
+  .// further processing.  create_step is called a second time and the W_STEP
+  .// is fully configured when it is known to be needed.
   .if ( "0" == id )
     .assign attr_id = "${blk.Block_Id}"
-  .else
-    .assign attr_id = id
     .create object instance w_step of W_STEP
     .assign w_step.Step_ID = attr_id
-    .//.assign w_step.Workflow_Name = wfl.name
-    .//.assign w_step.Block_ID = blk.Block_Id
-    .//.assign w_step.Parent_Step_ID = parent_id
-    .//.assign w_step.Previous_Step_ID = prev_id
     .assign w_step.buffer = ""
+	.assign attr_w_step = w_step
+  .else
+    .assign attr_id = id
+    .select any w_step from instances of W_STEP where ( "${selected.Step_ID}" == "${id}")
+    .if (empty w_step)
+      .create object instance w_step of W_STEP
+      .assign w_step.Step_ID = attr_id
+      .assign w_step.buffer = ""
+    .end if
     .select any w_wof from instances of W_WOF where ( "${selected.Name}" == "${wfl.name}" )
     .relate w_step to w_wof across R2005
 	.select any w_step_parent from instances of W_STEP where ( "${selected.Step_ID}" == "${parent_id}" )
@@ -129,9 +128,6 @@ INSERT INTO W_WOF VALUES ( '${name}', ${s_sync.Sync_ID}, '${cme.Key_Lett}', \
 INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
           .create object instance w_cti of W_CTI
           .assign w_cti.Name = var.Name
-          .//.assign w_cti.Workflow_Name = wfl.name
-          .//.assign w_cti.Statement_ID = "${statement.Statement_Id}"
-          .//.assign w_cti.Key_Lett = clazz.Key_Lett
           .assign w_cti.Type = fiw_stmt.cardinality
 		  .relate w_cti to w_wfl across R2003
 		  .relate w_cti to statement across R2004
@@ -142,9 +138,6 @@ INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_I
 INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
           .create object instance w_cti of W_CTI
           .assign w_cti.Name = var.Name
-          .//.assign w_cti.Workflow_Name = wfl.name
-          .//.assign w_cti.Statement_ID = "${statement.Statement_Id}"
-          .//.assign w_cti.Key_Lett = clazz.Key_Lett
           .assign w_cti.Type = fiw_stmt.cardinality
 		  .relate w_cti to w_wfl across R2003
 		  .relate w_cti to statement across R2004
@@ -175,9 +168,6 @@ INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_I
 INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', 'one');
           .create object instance w_cti of W_CTI
           .assign w_cti.Name = result.Name
-          .//.assign w_cti.Workflow_Name = wfl.name
-          .//.assign w_cti.Statement_ID = "${statement.Statement_Id}"
-          .//.assign w_cti.Key_Lett = clazz.Key_Lett
           .assign w_cti.Type = "one"
 		  .relate w_cti to w_wfl across R2003
 		  .relate w_cti to statement across R2004
@@ -189,16 +179,12 @@ INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statemen
           .invoke llic = get_last_link_in_chain(sel_stmt)
           .assign last_link = llic.last_link
           .select one clazz related by last_link->O_OBJ[R678]
-.print "1-INSERT INTO W_FLD VALUES (USER_${result.Name}, ${result.Name}, ${statement.Statement_Id}, ${clazz.Key_Lett}, ${step.id}, ${sel_stmt.cardinality}...)"
 INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
 '${statement.Statement_Id}', '${clazz.Key_Lett}', '${step.id}', \
 '${sel_stmt.cardinality}', \
           .create object instance w_fld of W_FLD
           .assign w_fld.Name = "USER_" + result.Name
           .assign w_fld.Instance_Handle = result.Name
-          .//.assign w_fld.Statement_ID = "${statement.Statement_Id}"
-          .//.assign w_fld.Key_Lett = clazz.Key_Lett
-          .//.assign w_fld.Step_ID = step.id
           .assign w_fld.Cardinality = sel_stmt.cardinality
           .assign w_fld.buffer = ""
           .if (hubi.Method_Name == "selectOne")
@@ -228,8 +214,6 @@ INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
           .if ( label != "" )
 INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
             .create object instance w_cfl of W_CFL
-            .//.assign w_cfl.Name = "USER_" + result.Name
-            .//.assign w_cfl.Step_ID = step.id
             .assign w_cfl.Label = label
             .assign name = "USER_" + result.Name
 			.select any w_fld from instances of W_FLD where (("${selected.Name}" == "${name}") and ("${selected.Step_ID}" == "${step.id}"))
@@ -250,15 +234,11 @@ INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
         .// the user. So instead of normal processing, we create a dialog field
         .// here.
         .select one transient_asgn related by statement->ACT_AT[R603]
-.print "2-INSERT INTO W_FLD VALUES (USER_${transient_asgn.Target_Variable_Name}, ${transient_asgn.Target_Variable_Name}, ${transient_asgn.Statement_Id}, '', ${step.id}, ...)"
 INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${transient_asgn.Target_Variable_Name}', \
 '${transient_asgn.Statement_Id}', '', '${step.id}', \
         .create object instance w_fld of W_FLD
         .assign w_fld.Name = "USER_" + transient_asgn.Target_Variable_Name
         .assign w_fld.Instance_Handle = transient_asgn.Target_Variable_Name
-        .//.assign w_fld.Statement_ID = "${transient_asgn.Statement_Id}"
-        .//.assign w_fld.Key_Lett = ""
-        .//.assign w_fld.Step_ID = step.id
         .assign w_fld.Cardinality = ""
         .assign w_fld.buffer = ""
         .if ((hubi.Method_Name == "getString") OR (hubi.Method_Name == "getStringDef"))
