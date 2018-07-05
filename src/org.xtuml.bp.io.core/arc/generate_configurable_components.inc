@@ -41,7 +41,7 @@
 	.if (not_empty eo)
 		.if(eo.componentRoot != true)
 ${indent}|_${eo.Name}
-			.select one child related by eo->EO[R1.'is_first_child_of']	
+			.select one child related by eo->EO[R1.'is_parent_of']
 			.if (not_empty child)
 				.if(not child.componentRoot)
 					.assign attr_children_list = attr_children_list | child
@@ -55,7 +55,7 @@ ${more_eos.body}\
 	        .end if
         .end if
         .if (traverse_sibling)		 
-			.select one sibling related by eo->EO[R2.'succeeds']
+			.select one sibling related by eo->EO[R2.'follows']
 			.if (not_empty sibling)
 		 		.if (not sibling.componentRoot)
 		    		.assign attr_children_list = attr_children_list | sibling
@@ -122,9 +122,9 @@ ${eos_list.body}
 .function populate_cross_links
 .select many eos from instances of EO
 .for each eo in eos
-	.select any top related by eo->EO[R1.'is_parent_of']
-    .select any pre_sibling related by eo->EO[R2.'succeeds']
-    .select any suc_sibling related by eo->EO[R2.'follows']
+	.select any top related by eo->EO[R1.'is_first_child_of']
+    .select any pre_sibling related by eo->EO[R2.'follows']
+    .select any suc_sibling related by eo->EO[R2.'precedes']
     .//Check if the instance found is not already been checked, this is true in case of nested configurable
     .//components, in this case the 'writePostion' attribute is set to none in the PEI file
     .if (((eo.componentRoot) or ((empty top) and ( (empty pre_sibling)and (empty suc_sibling))) ) and (eo.writePosition != "none"))
@@ -201,16 +201,16 @@ ${child_list.body}
   .//	
 	.//First see if the given eo has a direct parent
 	.assign attr_has_parent = false
-	.select many attr_parent_eos related by eo->EO[R1.'is_parent_of']
+	.select many attr_parent_eos related by eo->EO[R1.'is_first_child_of']
   .//Get the first sibling 				
-	.select any pre_sibling related by eo->EO[R2.'follows']
+	.select any pre_sibling related by eo->EO[R2.'precedes']
 	.if (not_empty pre_sibling)
 	 	.assign first_sibling = pre_sibling
 		.while (not_empty pre_sibling)
 		  .assign first_sibling = pre_sibling
-		  .select any pre_sibling related by first_sibling->EO[R2.'follows']
+		  .select any pre_sibling related by first_sibling->EO[R2.'precedes']
 	  .end while
-	  .select many parent_eos related by first_sibling->EO[R1.'is_parent_of']
+	  .select many parent_eos related by first_sibling->EO[R1.'is_first_child_of']
     .assign attr_parent_eos = attr_parent_eos | parent_eos
 	.end if
 	

@@ -47,7 +47,7 @@
       .break while
     .end if
     .assign x = x - 1
-    .select one last_tcol related by last_tcol->C[R6.'follows']
+    .select one last_tcol related by last_tcol->C[R6.'precedes']
   .end while
   .assign attr_result = x
 .end function
@@ -63,7 +63,7 @@
     .select any col related by table->C[R5] where (selected.nextName == "")
     .for each col in col_set
         .// if this column doesn't follow any other
-        .select one follows related by col->C[R6.'follows'];
+        .select one follows related by col->C[R6.'precedes'];
         .if (empty follows)
             .// it is the starting column in the order, and
             .// the one we should start with
@@ -335,7 +335,7 @@
            null\
         .end if
       .end if
-      .select one nextCol related by col->C[R6.'succeeds'];
+      .select one nextCol related by col->C[R6.'follows'];
       .select many ec_set related by col->EC[R9]
       .for each ec in ec_set
 , ${post_string}
@@ -345,7 +345,7 @@
 , ${post_string}
       .end if
       .assign attr_col_num = attr_col_num + 1
-      .select one col related by col->C[R6.'succeeds'];
+      .select one col related by col->C[R6.'follows'];
     .end while
 .end function
 .//

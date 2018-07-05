@@ -33,17 +33,17 @@
     .select many eos from instances of EO
     .assign attr_children = eos - eos
     .//
-    .select one child related by eo->EO[R1.'is_first_child_of']	
+    .select one child related by eo->EO[R1.'is_parent_of']	
     .if(not_empty child)
         .if(child.WritePosition!="none")
         .assign attr_children = attr_children | child
         .end if
-        .select one sibling related by child->EO[R2.'succeeds']
+        .select one sibling related by child->EO[R2.'follows']
         .while(not_empty sibling)
            .if(sibling.WritePosition!="none")
             .assign attr_children = attr_children | sibling
            .end if 
-            .select one sibling related by sibling->EO[R2.'succeeds']
+            .select one sibling related by sibling->EO[R2.'follows']
         .end while
     .end if
 .end function
