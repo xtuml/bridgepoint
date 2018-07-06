@@ -579,3 +579,40 @@ INSERT INTO PE_PE
 	"59a06907-12d2-4941-aaf6-428b564e9e54",
 	"00000000-0000-0000-0000-000000000000",
 	5);
+INSERT INTO S_EE
+	VALUES ("b406d07e-4ed7-4a32-9b84-db5ba27f4625",
+	'State Save',
+	'',
+	'SS',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'State Save',
+	1);
+INSERT INTO S_BRG
+	VALUES ("8f801067-722e-45cf-abb6-ffe6cb8de50e",
+	"b406d07e-4ed7-4a32-9b84-db5ba27f4625",
+	'trigger',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES ("f24314b7-3caf-4965-aec0-79fa837f7823",
+	"b406d07e-4ed7-4a32-9b84-db5ba27f4625",
+	'access',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("b406d07e-4ed7-4a32-9b84-db5ba27f4625",
+	1,
+	"59a06907-12d2-4941-aaf6-428b564e9e54",
+	"00000000-0000-0000-0000-000000000000",
+	5);
