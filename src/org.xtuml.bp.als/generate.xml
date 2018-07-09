@@ -79,11 +79,12 @@
           description="Generate the Grammar file"
           unless="grammar.buildNotNeeded" >
     <echo >Generating ${antlr.output} ...</echo>
-    <java dir="." fork="true" classpath="lib/antlr.jar" classname="antlr.Tool" >
+  	<echo >  NOTE: This file has termporarily been changed to be hand-edited. See https://support.onefact.net/issues/10322 </echo>
+    <!-- <java dir="." fork="true" classpath="lib/antlr.jar" classname="antlr.Tool" >
       <arg value="-nocodegen" />
       <arg value="-sql=${antlr.output}" />
       <arg value="../org.xtuml.bp.als.oal/bnf/oal.bnf" />
-    </java>
+    </java> -->
   </target>
 
   <property name="ooaofooa_input" value="sql/ooaofooa.sql" />
@@ -309,7 +310,8 @@
         description="Remove the Grammar file" >
 
    <echo>Removing generated sql file: ${antlr.output} ...</echo>
-   <delete file="${antlr.output}" />
+   <echo >  NOTE: NOT actually removed. This file has termporarily been changed to be hand-edited. See https://support.onefact.net/issues/10322 </echo>
+   <!-- <delete file="${antlr.output}" /> -->
 
   </target>
 
