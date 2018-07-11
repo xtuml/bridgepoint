@@ -180,7 +180,7 @@ if param.type == self.type
     end if;
   elif param.type == ElementTypeConstants::CONSTANT
     select one cnst related by self->CNST_CSP[R8001];
-    if not_empty cnst
+    if not_empty cnst and (param.name == "" or cnst.InformalGroupName == param.name)
       visible = true;
     end if;    
   elif param.type == ElementTypeConstants::CLASS
