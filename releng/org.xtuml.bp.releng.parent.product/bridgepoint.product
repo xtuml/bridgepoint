@@ -63,6 +63,7 @@
       <feature id="org.xtuml.bp.MinGW"/>
       <feature id="org.xtuml.bp.docgen"/>
       <feature id="org.xtuml.bp.mctools"/>
+      <feature id="org.xtuml.bp.xtext.masl.feature"/>
       <feature id="org.eclipse.cdt"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.help"/>
