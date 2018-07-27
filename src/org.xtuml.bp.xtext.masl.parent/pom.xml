@@ -14,7 +14,7 @@
 
 	<properties>
 		<tycho-version>0.25.0</tycho-version>
-		<xtextVersion>2.9.2</xtextVersion>
+		<xtextVersion> 2.13.0</xtextVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -85,7 +85,7 @@
 				<plugin>
 					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
-					<version>${xtextVersion}</version>
+					<version>2.9.2</version>
 					<executions>
 						<execution>
 							<goals>
