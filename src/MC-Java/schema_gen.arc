@@ -59,7 +59,7 @@ CREATE TABLE $_{ih_obj.Key_Lett} (
     .select any ih_attr from instances of O_ATTR where (false)
 	.select many ih_attrs related by ih_obj->O_ATTR[R102]
 	.for each ih_attr in ih_attrs
-		.select one prevAttr related by ih_attr->O_ATTR[R103.'precedes'];
+		.select one prevAttr related by ih_attr->O_ATTR[R103.'succeeds'];
 		.if (empty prevAttr) 
 			.break for
 		.end if
@@ -125,7 +125,7 @@ CREATE TABLE $_{ih_obj.Key_Lett} (
      .end if   .//  trans_attr 
 		.//
 		.// proceed to the next attribute of the object
-		.select one ih_attr related by ih_attr->O_ATTR[R103.'succeeds']
+		.select one ih_attr related by ih_attr->O_ATTR[R103.'precedes']
    .end while
    .if (ih_obj.Key_Lett == "S_BPARM")
 ,

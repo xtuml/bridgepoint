@@ -12,8 +12,7 @@
 
   <target name="nb_all"
           description="Generate all code for this project (nightly build)"
-          depends="create_gen,plugin_xml,modeladapter_java,editorinputfactories_java,
-          literal_rule, delete_gen">
+          depends="gen_all,literal_rule,delete_gen">
   </target>
 
   <property name="core_sql_dir" value="../org.xtuml.bp.core/sql" />
@@ -49,35 +48,39 @@
 	  </target>
 		
 		<target name="create_gen.absolute" if="absolute.present">
-			<delete file="sql/db.gen" />
 			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-			      <arg line="xtumlmc_gen_erate -f db.gen
+			      <arg line="xtumlmc_gen_erate -qim -nopersist
 			        -import ${mcj_path}/ooa_schema.sql
 			        -import ../${core_sql_dir}/ooaofooa.sql
 			        -import clr_schema.sql
-			        -import clr_pei.sql" />
+			        -import clr_pei.sql      
+			      	-arch ../arc/create_plugin_xml.arc" />
 			</exec>
+			<!-- Need to touch the output file for the case where the input data
+			     changed, but the output didn't -->
+			<touch file="../${plugin_xml.output}" />
 		</target>
 	
 		<target name="create_gen.relative" if="relative.present">
-			<delete file="sql/db.gen" />
 			<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
 			      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-			      <arg line="xtumlmc_gen_erate -f db.gen
+			      <arg line="xtumlmc_gen_erate -qim -nopersist
 			        -import ../${mcj_path}/ooa_schema.sql
 			        -import ../${core_sql_dir}/ooaofooa.sql
 			        -import clr_schema.sql
-			        -import clr_pei.sql" />
+			        -import clr_pei.sql      
+			      	-arch ../arc/create_plugin_xml.arc" />
 			</exec>
+			<!-- Need to touch the output file for the case where the input data
+			     changed, but the output didn't -->
+			<touch file="../${plugin_xml.output}" />
 		</target>
 
   <target name="delete_gen"
           description="Delete the generation database" >
-  <delete file="sql/db.gen" />
-  <delete file="bnfDb.gen"/>
-  <delete file="____file.txt" />
-  <delete file="____actn.arc" />
+    <delete file="____file.txt" />
+    <delete file="____actn.arc" />
     <delete file="key_lett.txt" />
     <delete file="rel_chain.txt" />
     <delete file="rel_num.txt" />
@@ -95,21 +98,6 @@
     </uptodate>
   </target>
 
-  <target name="plugin_xml"
-          depends="create_gen"
-          description="Generate the text plugin.xml file"
-          unless="plugin_xml.buildNotNeeded" >
-    <echo >Generating plugin.xml ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-   <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -f sql/db.gen
-      -arch arc/create_plugin_xml.arc" />
-  </exec>
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${plugin_xml.output}" />
-  </target>
-
   <property name="modeladapter_java.output" value="ModelAdapter.java" />
 
   <target name="modeladapter_java.depends" >
@@ -121,22 +109,6 @@
         <srcfiles dir = "sql" includes = "clr_pei.sql"/>
         <srcfiles dir = "${mcj_path}" includes = "arch_utils.arc"/>
     </uptodate>
-  </target>
-
-  <target name="modeladapter_java"
-          depends="modeladapter_java.depends,create_gen"
-          description="Generate the ModelAdapter.java file"
-          unless="modeladapter_java.buildNotNeeded" >
-    <echo >Generating ModelAdapter.java ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -f sql/db.gen
-      -arch arc/create_modeladapter_java.arc" />
-  </exec>
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${src_path}/${modeladapter_java.output}" />
   </target>
 
   <property name="activity_editorinput_factory_java.output" value="activity/ActivityEditorInputFactory.java" />
@@ -159,23 +131,6 @@
 
   <property name="chain_util_path" value="../org.xtuml.bp.core"/>
 
-  <target name="editorinputfactories_java"
-          depends="create_gen,editorinputfactories_java.depends"
-          description="Generate the Activity, Description, and TypeDefinition EditorInput java files"
-          unless="editorinputfactories_java.buildNotNeeded" >
-    <echo >Activity, Description, and TypeDefinition EditorInputFactory java files ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
-        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
-        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
-        <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -f sql/db.gen
-      -arch arc/create_editorinput_factories_java.arc" />
-  </exec>
-  <!-- Need to touch the output file for the case where the input data
-       changed, but the output didn't -->
-  <touch file="${src_path}/${activity_editorinput_factory_java.output}" />
-  </target>
-
   <!-- Syntax Highlighting  -->
   <property name="als.dir" value="../org.xtuml.bp.als/sql" />
   <property name="literalrule_java.output" value="OALKeywords.java" />
@@ -192,13 +147,36 @@
   <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${als.dir}/grammar_schema.sql
       -import ${als.dir}/oal_grammar.sql
       -arch arc/OALKeywords_gen.arc" />
   </exec>
   </target>
 
+  <target name="gen_all"
+      depends="create_gen"
+	  description="Generate for all archetypes"
+	  unless="create_gen.buildNotNeeded" >
+    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+	  <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+      <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+	  <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	  <arg line="xtumlmc_gen_erate -qim -nopersist
+	       	
+             -import ${mcj_path}/ooa_schema.sql
+	       	 -import ${core_sql_dir}/ooaofooa.sql
+	       	 -import sql/clr_schema.sql
+             -import sql/clr_pei.sql  
+
+	       	 -arch arc/create_modeladapter_java.arc
+             -arch arc/create_editorinput_factories_java.arc" />
+	</exec>
+	<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+	<touch file="${src_path}/${modeladapter_java.output}" />
+    <touch file="${src_path}/${activity_editorinput_factory_java.output}" />
+  </target>   
 
   <target name="format_java" description="Format the generated java source" >
     <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >

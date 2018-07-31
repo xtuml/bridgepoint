@@ -77,7 +77,7 @@
     .if(not_empty dom)
       .assign function.Dom_ID = dom.Dom_ID
     .end if
-    .select any action from instances of ACT_ACT where (selected.Action_Id == "${function.Sync_ID}")
+    .select any action from instances of ACT_ACT where ("${selected.Action_Id}" == "${function.Sync_ID}")
     .if(not_empty action)
       .select many processed_variables from instances of V_VAR where (selected.Variable_Name == "")
       .select one outer_blk related by action->ACT_BLK[R666]
@@ -348,7 +348,7 @@
   .param Inst_ref elif_stmt
   .select one next_stmt related by elif_stmt->ACT_SMT[R603]
   .while (not_empty next_stmt)
-    .select one next_stmt related by next_stmt->ACT_SMT[R661.'succeeds']
+    .select one next_stmt related by next_stmt->ACT_SMT[R661.'precedes']
     .select one if_stmt related by next_stmt->ACT_IF[R603]
     .if(not_empty if_stmt)
       .assign elif_stmt.If_Statement_Id = if_stmt.Statement_ID
@@ -370,7 +370,7 @@
   .param Inst_ref else_stmt
   .select one next_stmt related by else_stmt->ACT_SMT[R603]
   .while (not_empty next_stmt)
-    .select one next_stmt related by next_stmt->ACT_SMT[R661.'succeeds']
+    .select one next_stmt related by next_stmt->ACT_SMT[R661.'precedes']
     .select one if_stmt related by next_stmt->ACT_IF[R603]
     .if(not_empty if_stmt)
       .assign else_stmt.If_Statement_Id = if_stmt.Statement_ID
