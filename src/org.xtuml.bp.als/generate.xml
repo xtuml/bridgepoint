@@ -79,11 +79,12 @@
           description="Generate the Grammar file"
           unless="grammar.buildNotNeeded" >
     <echo >Generating ${antlr.output} ...</echo>
-    <java dir="." fork="true" classpath="lib/antlr.jar" classname="antlr.Tool" >
+  	<echo >  NOTE: This file has termporarily been changed to be hand-edited. See https://support.onefact.net/issues/10322 </echo>
+    <!-- <java dir="." fork="true" classpath="lib/antlr.jar" classname="antlr.Tool" >
       <arg value="-nocodegen" />
       <arg value="-sql=${antlr.output}" />
       <arg value="../org.xtuml.bp.als.oal/bnf/oal.bnf" />
-    </java>
+    </java> -->
   </target>
 
   <property name="ooaofooa_input" value="sql/ooaofooa.sql" />
@@ -105,7 +106,7 @@
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${ooaofooa_input}
       -arch arc/ooa_functions.arc"/>
@@ -131,7 +132,7 @@
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import sql/grammar_schema.sql
       -import ${antlr.output}
       -import ${ooa_functions_output}
@@ -162,7 +163,7 @@
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import sql/grammar_schema.sql
       -import ${antlr.output}
       -import sql/udt.sql
@@ -210,7 +211,7 @@
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
     <env key="PTC_MCC_ROOT" value="ooaofooa" />
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${ooaofooa_input}
       -arch ${mcj_path}/verify_selects.arc
@@ -309,7 +310,8 @@
         description="Remove the Grammar file" >
 
    <echo>Removing generated sql file: ${antlr.output} ...</echo>
-   <delete file="${antlr.output}" />
+   <echo >  NOTE: NOT actually removed. This file has termporarily been changed to be hand-edited. See https://support.onefact.net/issues/10322 </echo>
+   <!-- <delete file="${antlr.output}" /> -->
 
   </target>
 

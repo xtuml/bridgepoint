@@ -84,7 +84,7 @@
             .assign firstContextItemName = context_item.Name
       ${cn.body} v_${context_item.Name} = (${cn.body})context;
           .elif(not_last context_items)
-            .select any statement from instances of ACT_SMT where ("${selected.Statement_Id}" == context_item.Statement_ID)
+            .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${context_item.Statement_ID}")
             .select any srw_stmt related by statement->ACT_SEL[R603]->ACT_SRW[R664]
             .select one srw_val related by srw_stmt->V_VAL[R611]
             .invoke hubi = has_user_bridge_invocation( srw_val )

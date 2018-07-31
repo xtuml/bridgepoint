@@ -1,6 +1,6 @@
 oal_functions.sql
 oal_validate.bpi.sql
-oal_grammar.sql
+# See https://support.onefact.net/issues/10322 - oal_grammar.sql
 grammar_model.sql
 grammar_schema.sql
 oal_utilities.sql

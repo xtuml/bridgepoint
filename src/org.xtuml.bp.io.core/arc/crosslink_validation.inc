@@ -28,7 +28,7 @@
   .param string from_Key_Lett
   .assign attr_found = FALSE
 .//  
-  .select one prev_link related by link->ACT_LNK[R604.'succeeds']
+  .select one prev_link related by link->ACT_LNK[R604.'precedes']
   .if(not_empty prev_link) 
   	.if(prev_link.Target_Obj_KL == from_Key_Lett)
 		.assign attr_found = TRUE

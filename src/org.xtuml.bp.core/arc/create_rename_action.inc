@@ -293,7 +293,7 @@ public class ${action_name} extends Action {
       .invoke cn = get_class_name(class)
       .invoke fn = get_func_name(menu_entry)
   private static boolean ${fn.body}(IStructuredSelection  selection, String p_New_name) {
-      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
       .if (not_empty function)
         .if ( class.AdapterName == "IProject" )
     ${cn.body} element = (${cn.body}) selection.iterator().next();
