@@ -29,6 +29,13 @@
   <property name="graphics.model" value="sql/ooaofgraphics.sql" />
 
   <target name="class2table.depends" >
+    <!--Build required OOA of Graphics-->
+    <ant antfile="${mcj_path}/../org.xtuml.bp.ui.canvas/generate.xml" target="sql" useNativeBasedir="true">
+       <property name="sql.input" value="models/org.xtuml.bp.ui.canvas/ooaofgraphics" />
+       <property name="sql.output" value="ooaofgraphics.sql" />
+       <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+    </ant>
+    <!--Now check dependencies are up to date-->
     <uptodate property="class2table.buildNotNeeded" targetfile="sql/${class2table.output}">
        <srcfiles dir = "${core_path}"        includes = "${class2table.input}"/>
        <srcfiles dir = "${canvas_path}"      includes = "${graphics.model}" />
