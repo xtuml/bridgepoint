@@ -173,11 +173,11 @@ ${rel_nav.body}\
       .assign alpha_sort = false
       .select any child_class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
       .//
-      .select one attr related by child_class->O_ATTR[R102] where ( selected.Name == "Name" )
+      .select any attr related by child_class->O_ATTR[R102] where ( selected.Name == "Name" )
       .if ( not_empty attr )
         .assign alpha_sort = true
       .else
-        .select one op related by child_class->O_TFR[R115] where ( selected.Name == "get_name" )
+        .select any op related by child_class->O_TFR[R115] where ( selected.Name == "get_name" )
         .if ( not_empty op )
           .assign alpha_sort = true
         .end if

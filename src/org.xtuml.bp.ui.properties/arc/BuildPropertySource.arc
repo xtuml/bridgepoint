@@ -66,12 +66,12 @@ $r{node.CategoryName}${class.Key_Lett}PropertySource\
 .function get_class_name_accessor
   .param inst_ref class   .// O_OBJ
   .param string inst_var
-  .select one attr related by class->O_ATTR[R102] where ( selected.Name == "Name" )
+  .select any attr related by class->O_ATTR[R102] where ( selected.Name == "Name" )
   .if ( not_empty attr )
     .invoke gaa = get_attribute_accessor(attr)
 ${inst_var}.${gaa.body}\
   .else
-    .select one op related by class->O_TFR[R115] where ( selected.Name == "get_name" )
+    .select any op related by class->O_TFR[R115] where ( selected.Name == "get_name" )
     .if ( not_empty op )
 ${inst_var}.Get_name\
     .else
@@ -349,7 +349,7 @@ super.toString\
             .// not meant to be renamed (the "Datatypes" package for example)
             .if ( attr.Name == "Name" )
               .select one obj related by attr->O_OBJ[R102]
-              .select one op related by obj->O_TFR[R115] where (selected.Name == "canRename" )
+              .select any op related by obj->O_TFR[R115] where (selected.Name == "canRename" )
               .if ( not_empty op )
                 if (m_inst.Canrename()) {
                     m_propertyDescriptors[${attr_num_attr}] = new TextPropertyDescriptor("${name}", "${fullname}");
