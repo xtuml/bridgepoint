@@ -69,6 +69,15 @@ Fork/Repository: __keithbrown/bridgepoint__
 Branch: __10338_pyrsl_update__   
 
 <pre>
+doc-bridgepoint/notes/10338_pyrsl_update_int.md                 |     83 +
+src/MC-Java/arch_utils.inc                                      |      6 +-
+src/MC-Java/java.arc                                            |      4 +-
+src/MC-Java/referential_attribute_util.inc                      |      2 +-
+src/MC-Java/schema_gen.arc                                      |      2 +-
+src/org.xtuml.bp.io.mdl/generate.xml                            |      7 +
+src/org.xtuml.bp.ui.explorer/arc/create_adapters.inc            |      4 +-
+src/org.xtuml.bp.ui.properties/arc/BuildPropertySource.arc      |      6 +-
+src/org.xtuml.bp.ui.tree/arc/create_generic_adapters.inc        |      4 +-
 
 </pre>
 
