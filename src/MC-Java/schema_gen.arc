@@ -263,7 +263,7 @@ CREATE ROP REF_ID R$_{rel_inst.Numb} FROM 1C 	$_{l_obj.Key_Lett} 	( \
 				.if ( com )
  , \
 				.end if
-				.select one o_ref_in  related by o_r_inst -> O_REF[R111] where ( selected.Obj_ID == l_side.Obj_ID )
+				.select any o_ref_in  related by o_r_inst -> O_REF[R111] where ( selected.Obj_ID == l_side.Obj_ID )
 				.select one att related by o_ref_in -> O_RATTR[R108] -> O_ATTR[R106]
 $_{att.Name}\
 				.assign com = true

@@ -681,7 +681,7 @@ import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.util.PersistenceUtil;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.xtuml.bp.core.ui.marker.UmlProblem;
-          .select one filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
+          .select any filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
           .if ( not_empty filterOp )
 import org.eclipse.ui.IActionFilter;
           .end if
@@ -2066,7 +2066,7 @@ ${blck.body}
 ${gsm.body}\
         .end if 
 
-        .select one filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
+        .select any filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
         .if (package.is_eclipse_plugin)
   public Object getAdapter(Class adapter) {
     Object superAdapter = super.getAdapter(adapter);
