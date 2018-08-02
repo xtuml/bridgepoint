@@ -8,7 +8,6 @@
 	</parent>
 	<artifactId>org.xtuml.bp.xtext.masl.ui</artifactId>
 	<packaging>eclipse-plugin</packaging>
-
 	<build>
 		<plugins>
 			<plugin>
