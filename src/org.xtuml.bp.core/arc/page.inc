@@ -159,7 +159,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     init();
   }
   
-  .select one outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
+  .select any outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
   .select many context_items related by wfl->W_CTI[R2003]
   .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   private void init() {
