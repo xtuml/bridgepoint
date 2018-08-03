@@ -218,7 +218,7 @@
     .select any function from instances of S_SYNC where (selected.Sync_Id == wfl.Sync_Id)
     .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
     .if (not_empty action)
-      .select one outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
+      .select any outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
       .if (not_empty outer_block)
         // Ensure that actions take place between Verifier Activity executions
 		Ooaofooa.beginSaveOperation();
