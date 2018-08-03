@@ -77,11 +77,6 @@
 							</requirement>
 							<requirement>
 								<type>eclipse-feature</type>
-								<id>org.antlr.ui</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-feature</type>
 								<id>org.eclipse.xtext.sdk</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
