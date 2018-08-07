@@ -329,16 +329,23 @@
 
    <target name="clean_all"
         description="Clean entire project"
-        depends="clean_classes,clean_java,clean_sql,clean_schema" >
+        depends="clean_classes,clean_java,clean_sql,clean_schema, clean_inspector" >
       <echo>Done cleaning for ${ant.project.name}</echo>
    </target>
 
    <target name="clean_sql"
     description="Remove the generated file: ${sql.output}">
-      <echo>Removing generated sql file: ${sql.output} ...</echo>
+      <echo>Removing generated sql files: ${sql.output} ...</echo>
       <delete file="sql/${sql.output}" />
    </target>
 
+  <target name="clean_inspector"
+   description="Remove the generated inspector files.">
+     <echo>Removing generated sql inspector files: {inspector.sql.output}   ${inspector.schema.output}</echo>
+     <delete file="sql/${inspector.sql.output}" />
+     <delete file="sql/${inspector.schema.output}" />
+  </target>
+	
    <target name="clean_schema" description="Remove the Ooa of graphics database schema file" >
 
       <echo>Removing the generated schema file: ${schema.output} ...</echo>
