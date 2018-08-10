@@ -167,10 +167,6 @@ INSERT INTO O_TFR
       end if;
     end if;
   end if;
-elif(param.name == "new")
-  if(param.value == "package")
-    return true;
-  end if;  
 elif (param.name == "has")
   if (param.value == "realized components")
     return self.hasRealizedComponents();

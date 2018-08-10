@@ -68,14 +68,6 @@ INSERT INTO O_TFR
 select any ir related by self->C_RID[R4013]->C_IR[R4013];
 select one packageableElem related by ir->C_PO[R4016]->C_C[R4010]->PE_PE[R8001];
 
-if(param.name == "can")
-  if(param.value == "formalize spec pkg")
-      return false;
-  end if;
-  if(param.value == "formalize generic pkg")
-      return false;
-  end if;
-end if;
 select one provision related by ir->C_P[R4009];
 if(not_empty provision)
   return provision.actionFilter(name:param.name, value:param.value);
