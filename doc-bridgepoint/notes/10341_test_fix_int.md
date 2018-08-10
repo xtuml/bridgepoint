@@ -15,8 +15,8 @@ This note describes work performed to clean up test cases.
 ### 2. Document References
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #10341](https://support.onefact.net/issues/10341) Headline issue   
-<a id="2.2"></a>2.2 [BridgePoint DEI #xxx2](https://support.onefact.net/issues/9481) Build BridgePoint with new generator    
-<a id="2.3"></a>2.3 [BridgePoint DEI #xxx3](https://support.onefact.net/issues/xxx3) TODO: Add description here.  
+<a id="2.2"></a>2.2 [BridgePoint DEI #9481](https://support.onefact.net/issues/9481) Build BridgePoint with new generator    
+<a id="2.3"></a>2.3 [BridgePoint DEI #9716](https://support.onefact.net/issues/9716) BridgePoint hangs on CME activation (deadlock)    
 
 ### 3. Background
 
@@ -123,11 +123,12 @@ INSERT INTO MEF VALUES ('Communication Function',    'Formalize',  'MSG_SM',    
 
 ### 6. Implementation Comments
 
-None.  
+6.1  While performing manual testing I ran into a CME deadlock consistently.  I added the 
+test case to [2.3].    
 
 ### 7. Unit Test
 
-7.1  Run unit tests locally and on the server and verify success.    
+7.1  Run unit tests locally and on the server and verify error/failure numbers decreased from 6e/6f    
 
 ### 8. User Documentation
 
@@ -139,14 +140,23 @@ Fork/Repository: __keithbrown/bridgepoint__
 Branch: __10341_test_fix__
 
 <pre>
+doc-bridgepoint/notes/10341_test_fix_int.md
 
+doc-bridgepoint/notes/10341_test_fix_int.md
+src/org.xtuml.bp.core/arc/cme_names.inc
+src/org.xtuml.bp.core/arc/create_core_plugin.inc
+models/org.xtuml.bp.core/context_menu/Context Menu/Context Menu Entry/Context Menu Entry.xtuml
+models/org.xtuml.bp.core/ooaofooa/Component/Component/Component.xtuml
+models/org.xtuml.bp.core/ooaofooa/Component/Delegation/Delegation.xtuml
+src/org.xtuml/bp.core/sql/context_menu.pei.sql
 </pre>
 
 Fork/Repository: __keithbrown/bptest__ 
 Branch: __10341_test_fix__
 
 <pre>
-
+src/org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/CanRenameCanDeleteTestGenerics.java
+src/org.xtuml.bp.ui.canvas.test/src/org/xtuml/bp/ui/canvas/test/CanvasCopyPasteTests.java
 </pre>
 
 ### End
