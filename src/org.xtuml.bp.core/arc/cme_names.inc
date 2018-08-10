@@ -1,10 +1,6 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: cme_names.inc,v $
-.// Version:   $Revision: 1.10 $
-.// Modified:  $Date: 2013/01/10 22:54:04 $
-.//
-.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+.// File:      cme_names.inc
 .//
 .//====================================================================
 .//
@@ -15,22 +11,38 @@
 .//
 .function get_func_name
   .param inst_ref cme
+  .if ("${cme.Specialism}" == "--")
+$U_{cme.Key_Lett}_$Cr{cme.Label}\
+  .else
 $U_{cme.Key_Lett}_$Cr{cme.Specialism}$Cr{cme.Label}\
+  .end if
 .end function
 .//
 .function get_action_class_name
   .param inst_ref cme
+  .if ("${cme.Specialism}" == "--")
+$Cr{cme.Label}On$U_{cme.Key_Lett}Action\
+  .else
 $Cr{cme.Specialism}$Cr{cme.Label}On$U_{cme.Key_Lett}Action\
+  .end if
 .end function
 .//
 .function get_wizard_class_name
   .param inst_ref wfl
+  .if ("${wfl.Specialism}" == "--")
+$Cr{wfl.Label}On$U_{wfl.Key_Lett}Wizard\
+  .else
 $Cr{wfl.Specialism}$Cr{wfl.Label}On$U_{wfl.Key_Lett}Wizard\
+  .end if
 .end function
 .//
 .function get_page_name
   .param inst_ref wfl
+  .if ("${wfl.Specialism}" == "--")
+$Cr{wfl.Label}On$U_{wfl.Key_Lett}WizardPage\
+  .else
 $Cr{wfl.Specialism}$Cr{wfl.Label}On$U_{wfl.Key_Lett}WizardPage\
+  .end if
 .end function
 .//
 .function get_label
