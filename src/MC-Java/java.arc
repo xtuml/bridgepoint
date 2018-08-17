@@ -117,10 +117,10 @@
   .param inst_ref any_attribute   .// O_ATTR
   .//
   .assign attr_first_attribute = any_attribute
-  .select one prior_attribute related by attr_first_attribute->O_ATTR[R103.'precedes']
+  .select one prior_attribute related by attr_first_attribute->O_ATTR[R103.'succeeds']
   .while ( not_empty prior_attribute )
     .assign attr_first_attribute = prior_attribute
-    .select one prior_attribute related by attr_first_attribute->O_ATTR[R103.'precedes']
+    .select one prior_attribute related by attr_first_attribute->O_ATTR[R103.'succeeds']
   .end while
 .end function
 .//
@@ -366,7 +366,7 @@ ${blck.body}
 p_${an.body}\
     .end if
     .assign first_time = false
-    .select one attribute related by attribute->O_ATTR[R103.'succeeds']
+    .select one attribute related by attribute->O_ATTR[R103.'precedes']
   .end while
 .end function
 .//
@@ -681,7 +681,7 @@ import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.util.PersistenceUtil;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.xtuml.bp.core.ui.marker.UmlProblem;
-          .select one filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
+          .select any filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
           .if ( not_empty filterOp )
 import org.eclipse.ui.IActionFilter;
           .end if
@@ -865,14 +865,14 @@ ${cfca_nt.body}
   public ${class_name}(ModelRoot modelRoot)
   {
     super(modelRoot);
-        .assign unique_id = ""
+        .assign unique_id_str = ""
         .for each attribute in attributes
           .select one type related by attribute->S_DT[R114]
           .invoke an = get_attribute_name ( attribute )
           .invoke iuia = is_uniqueid_id_attr(attribute)
           .if (iuia.result)
-            .if(unique_id == "")
-              .assign unique_id = an.body
+            .if(unique_id_str == "")
+              .assign unique_id_str = an.body
             .end if;
      ${an.body} = idAssigner.createUUID();
           .end if
@@ -901,8 +901,8 @@ ${cfca_nt.body}
      ${an.body} = ${en.body}.${default.name};
           .end if
         .end for
-        .if(unique_id != "")
-    setUniqueId(${unique_id});
+        .if(unique_id_str != "")
+    setUniqueId(${unique_id_str});
         .end if
         .if(key_result.found_key)
     Object [] key = ${key_result.key};
@@ -2066,7 +2066,7 @@ ${blck.body}
 ${gsm.body}\
         .end if 
 
-        .select one filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
+        .select any filterOp related by object->O_TFR[R115] where (selected.Name == "actionFilter")
         .if (package.is_eclipse_plugin)
   public Object getAdapter(Class adapter) {
     Object superAdapter = super.getAdapter(adapter);

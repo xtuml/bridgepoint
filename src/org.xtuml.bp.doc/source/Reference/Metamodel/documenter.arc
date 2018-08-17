@@ -59,7 +59,7 @@
         .select any base_attr related by attr->O_RATTR[R106]->O_BATTR[R113]->O_ATTR[R106]
         .select any base_obj related by base_attr->O_OBJ[R102]
         .// if already in D_CROSS, don't add again
-        .select any cross from instances of D_CROSS where ( selected.ID == "${base_obj.Name}.${base_attr.Name}" )
+        .select any cross from instances of D_CROSS where ( "${selected.ID}" == "${base_obj.Name}.${base_attr.Name}" )
         .if ( empty cross )
           .select one base_ss related by base_obj->S_SS[R2]
           .assign base_ss_name="$_{base_ss.Name}"
@@ -201,7 +201,7 @@ ${id_attr.Name}\
   .for each attr in attrs
 <h4>
     .// only gen cross-ref if identified as used as cross-reference
-    .select any cross from instances of D_CROSS where ( selected.ID == "${object.Name}.${attr.Name}" )
+    .select any cross from instances of D_CROSS where ( "${selected.ID}" == "${object.Name}.${attr.Name}" )
     .if ( not_empty cross )
 <a name="${cross.Text}">
     .end if
@@ -271,7 +271,7 @@ Attribute Type: Referential Attribute
       .select any rel related by attr->O_RATTR[R106]->O_REF[R108]->R_RGO[R111]->R_OIR[R203]->R_REL[R201]
 <p style="margin-left: 40px;">
 <a name="a_${info.unique_num}"></a>
-      .select any cross from instances of D_CROSS where ( selected.ID == "${base_obj.Name}.${base_attr.Name}" )
+      .select any cross from instances of D_CROSS where ( "${selected.ID}" == "${base_obj.Name}.${base_attr.Name}" )
       .if ( not_empty cross )
 Refers to: <a href="${cross.Target}">${base_obj.Name}.${base_attr.Name} (R${rel.Numb})</a>
       .else

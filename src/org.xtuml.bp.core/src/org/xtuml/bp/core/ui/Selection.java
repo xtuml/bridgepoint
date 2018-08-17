@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: Selection.java,v $
-//Version:   $Revision: 1.20 $
-//Modified:  $Date: 2012/06/21 02:38:40 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -29,7 +21,7 @@ import java.util.Vector;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.util.ListenerList;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -61,7 +53,7 @@ public class Selection implements ISelectionProvider
      * Those objects wishing to be informed about changes to the selection
      * recorded by this object.
      */
-    private ListenerList selectionChangedListeners = new ListenerList(3);
+    private ListenerList selectionChangedListeners = new ListenerList(ListenerList.IDENTITY);
     
     /**
      * For unit tests: If focus is lost due to user interaction during test

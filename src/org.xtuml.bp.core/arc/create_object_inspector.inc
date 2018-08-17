@@ -116,11 +116,11 @@ ${rel_nav.body} \
   .// We need to return a set of instances for each item that is specified
   .// as a child of the element represented by this adapter.
   .//
-  .select many child_specs related by tree_node->T_TPS[R1000] where (selected.Prev_TPS_ID == 0)
+  .select many child_specs related by tree_node->T_TPS[R1000] where (not selected.Prev_TPS_ID)
   .select any first_spec related by tree_node->T_TPS[R1000] where (selected.Prev_TPS_ID == -1)
   .while(not_empty first_spec)
     .assign child_specs = child_specs | first_spec
-    .select one first_spec related by first_spec->T_TPS[R1003.'succeeds']
+    .select one first_spec related by first_spec->T_TPS[R1003.'precedes']
   .end while
   .assign specCount = 0
   .for each spec in child_specs
@@ -298,7 +298,7 @@ ${rel_nav.body}\
     ${model_element_class_name} attrSet[] = new ${model_element_class_name}[${num_of_attr}];
   .assign original_attr_count = 0
   .for each attr in attrs
-    .select one prevAttr related by attr->O_ATTR[R103.'precedes']
+    .select one prevAttr related by attr->O_ATTR[R103.'succeeds']
     .if (empty prevAttr)
         .while (not_empty attr)
             .select one dt related by attr->S_DT[R114]
@@ -318,7 +318,7 @@ ${rel_nav.body}\
                 .end if
                 .assign original_attr_count = original_attr_count + 1
             .end if
-            .select one nextAttr related by attr->O_ATTR[R103.'succeeds']
+            .select one nextAttr related by attr->O_ATTR[R103.'precedes']
             .assign attr = nextAttr
         .end while
         .break for

@@ -536,7 +536,7 @@ $r{p_class.Name}ActionFilter\
 			.end if
 			.if (not_empty oper)
 				.// detm the parameter's type through it's associated operation-parameter
-				.select one operParam related by oper->O_TPARM[R117] where (selected.Name == parameter.Name)
+				.select any operParam related by oper->O_TPARM[R117] where (selected.Name == parameter.Name)
 				.select one paramDataType related by operParam->S_DT[R118]
 			.// otherwise
 			.else 
@@ -547,7 +547,7 @@ $r{p_class.Name}ActionFilter\
 				.end if
 				.if (not_empty bridge)
 					.// detm the parameter's type through it's associated bridge-parameter
-					.select one bridgeParam related by bridge->S_BPARM[R21] where (selected.Name == parameter.Name)
+					.select any bridgeParam related by bridge->S_BPARM[R21] where (selected.Name == parameter.Name)
 					.select one paramDataType related by bridgeParam->S_DT[R22]
 				.// otherwise
 				.else
@@ -558,7 +558,7 @@ $r{p_class.Name}ActionFilter\
 					.end if
 					.if (not_empty func)
 						.// detm the parameter's type through it's associated function-parameter
-						.select one funcParam related by func->S_SPARM[R24] where (selected.Name == parameter.Name)
+						.select any funcParam related by func->S_SPARM[R24] where (selected.Name == parameter.Name)
 						.select one paramDataType related by funcParam->S_DT[R26]
 					.end if
 				.end if
@@ -716,10 +716,10 @@ ${param_delimiter}${intCast1}${value.buffer}${intCast2}\
   .//
   .select any first_link related by sel_inst_rel->ACT_LNK[R637]
   .assign last_link = first_link
-  .select one next_link related by first_link->ACT_LNK[R604.'succeeds']
+  .select one next_link related by first_link->ACT_LNK[R604.'precedes']
   .while (not_empty next_link)
     .assign last_link = next_link
-    .select one next_link related by next_link->ACT_LNK[R604.'succeeds']
+    .select one next_link related by next_link->ACT_LNK[R604.'precedes']
   .end while
   .assign attr_last_link = last_link
 .end function
@@ -798,7 +798,7 @@ ${param_delimiter}${intCast1}${value.buffer}${intCast2}\
 		.end if
 	  .end if
     .end if
-  .select one curr_link related by curr_link->ACT_LNK[R604.'precedes']
+  .select one curr_link related by curr_link->ACT_LNK[R604.'succeeds']
   .end while
 .end function
 .// --------------------------------------------------------------------

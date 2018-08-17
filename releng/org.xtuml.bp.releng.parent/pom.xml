@@ -9,8 +9,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.25.0</tycho-version>
-		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
+		<tycho-version>1.0.0</tycho-version>
+		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.10.1.v20170504-0840</ant-home-path>
 		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
         <bp_test_path>../../../bptest</bp_test_path>
@@ -18,14 +18,14 @@
 
 	<repositories>
 		<repository>
-			<id>mars</id>
+			<id>oxygen</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/mars/</url>
+			<url>http://download.eclipse.org/releases/oxygen/</url>
 		</repository>
 		<repository>
-			<id>mars-update</id>
+			<id>oxygen-update</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.5/</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.7/</url>
 		</repository>
 		<repository>
 			<id>antlr</id>
