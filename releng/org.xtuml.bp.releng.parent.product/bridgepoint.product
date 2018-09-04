@@ -24,9 +24,6 @@
    </configIni>
 
    <launcherArgs>
-      <programArgsLin>--launcher.GTK_version
-2
-      </programArgsLin>
       <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
       -Dbridgepoint.GenerateFunctionsFromList=disabled
       -Xss4m
