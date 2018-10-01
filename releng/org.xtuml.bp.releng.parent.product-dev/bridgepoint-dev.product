@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="BridgePoint Dev" uid="org.xtuml.bp-dev.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.13.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="BridgePoint Dev" uid="org.xtuml.bp-dev.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.15.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <license>
      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
@@ -24,10 +24,8 @@
    </configIni>
 
    <launcherArgs>
-      <programArgsLin>--launcher.GTK_version
-2
-      </programArgsLin>
       <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true
+      -Xss4m
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -64,7 +62,6 @@
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.help"/>
       <feature id="org.eclipse.egit"/>
-      <feature id="org.antlr.ui"/>
       <feature id="org.eclipse.jdt"/>
       <feature id="org.eclipse.xtext.sdk"/>
       <feature id="org.eclipse.pde"/>

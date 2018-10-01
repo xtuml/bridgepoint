@@ -59,8 +59,8 @@
   .end if
 
   .if(attr_result == false)
-    .select any loc_eo from instances of EO where (( selected.Name == loc_obj.Name ) and ( selected.WritePosition != "none" ))
-    .select any tar_eo from instances of EO where (( selected.Name == tar_obj.Name ) and ( selected.writePosition != "none" ))
+    .select any loc_eo from instances of EO where (( "${selected.Name}" == "${loc_obj.Name}" ) and ( "${selected.WritePosition}" != "none" ))
+    .select any tar_eo from instances of EO where (( "${selected.Name}" == "${tar_obj.Name}" ) and ( "${selected.writePosition}" != "none" ))
   
     .//if any one of tar and loc obj is not persistable, need not to generate lazy loading code
     .if((not_empty loc_eo) and (not_empty tar_eo) )
@@ -90,17 +90,17 @@
 	
 	.if(not_empty attr_parent_eo)  
 	 .while((not_empty attr_parent_eo) and (attr_parent_eo.ComponentRoot==False))
-       .select many parent_eos related by attr_parent_eo->EO[R1.'is_parent_of']  where (selected.writePosition!="none")
+       .select many parent_eos related by attr_parent_eo->EO[R1.'is_first_child_of']  where (selected.writePosition!="none")
           .if(empty parent_eos)
 	    	.//Get the first sibling 				
-	        .select any pre_sibling related by attr_parent_eo->EO[R2.'follows']
+	        .select any pre_sibling related by attr_parent_eo->EO[R2.'precedes']
 	        .if (not_empty pre_sibling)    
 	    	  .assign first_sibling = pre_sibling
 		      .while (not_empty pre_sibling)
 		    	.assign first_sibling = pre_sibling
-		    	.select any pre_sibling related by first_sibling->EO[R2.'follows']
+		    	.select any pre_sibling related by first_sibling->EO[R2.'precedes']
 	    	  .end while
-	    	  .select many parent_eos related by first_sibling->EO[R1.'is_parent_of'] where (selected.writePosition!="none")
+	    	  .select many parent_eos related by first_sibling->EO[R1.'is_first_child_of'] where (selected.writePosition!="none")
             .end if
           .end if
           .if(not_empty parent_eos)

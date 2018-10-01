@@ -23,9 +23,13 @@ entry. For example, a value of ''Rename'' adds code to allow the user to
 provide the new value in an in-place edit box and a value of ''New'' places
 the menu entry under a combined ''New'' submenu.
 
-Initially, valid values are ''Rename'', ''New'' and ''Delete''. No enumeration is
+Initially, valid values were ''Rename'', ''New'' and ''Delete''. No enumeration is
 used to allow new specialisms to be added without requiring a change to
-the model.',
+the model.
+
+With the move to pyrsl2, referential attributes are not allowed to be empty.  Thus issue
+#10341 changed the empty string for "Specialism" to be "--".  This value is special cased
+in the archetypes to mean the same thing empty string previously did.',
 	'',
 	'Specialism',
 	0,

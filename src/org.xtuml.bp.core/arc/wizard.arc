@@ -1,11 +1,3 @@
-.//====================================================================
-.//
-.// File:      $RCSfile: wizard.arc,v $
-.// Version:   $Revision: 1.12 $
-.// Modified:  $Date: 2013/05/12 00:16:21 $
-.//
-.// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-.//
 .//=======================================================================
 .// Licensed under the Apache License, Version 2.0 (the "License"); you may not
 .// use this file except in compliance with the License.  You may obtain a copy
@@ -44,7 +36,7 @@
     .invoke wizard_name = get_wizard_class_name(wfl)
     .invoke result =  skip_class_generation(wizard_name.body)
     .if (result.skip)
-  	  	.// skipping the generation becasue this file is version controlled
+  	  	.// skipping the generation because this file is version controlled
   	.else
     	.invoke wizard = create_wizard(wfl)
 ${wizard.body}
@@ -56,7 +48,7 @@ ${wizard.body}
       .assign page_class_name = gpcn.name
       .invoke result =  skip_class_generation(page_class_name)
   	  .if (result.skip)
-  	  	.// skipping the generation becasue this file is version controlled
+  	  	.// skipping the generation because this file is version controlled
   	  .else
          .invoke page = create_page(wfl, step)
 ${page.body}

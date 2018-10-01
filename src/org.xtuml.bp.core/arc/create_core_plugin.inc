@@ -130,7 +130,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
                  .end if
                .end if
                .if(menu_entry.UsesSelectionDialog)
-                    .if (menu_entry.Specialism == "Generic Package")
+                    .if ((menu_entry.Specialism == "Generic Package") or (menu_entry.Specialism == "--"))
                        label="${menu_entry.Label}..."
                        .// We don't allow hiding generated wizard invocations.  So we don't set propertyKey here.
                     .else
@@ -352,6 +352,14 @@ This file is the plugin manifest for the BridgePoint core plugin.
 				<dynamic
 					class="org.xtuml.bp.core.ui.actions.AssociationCardinalityContributionItem"
 							id="org.xtuml.bp.core.ui.actions.cardinality.dynamic">
+				</dynamic>
+				<menu
+					id="org.xtuml.bp.core.ui.actions.range"
+							label="Range">
+				</menu>
+				<dynamic
+					class="org.xtuml.bp.core.ui.actions.RangeContributionItem"
+							id="org.xtuml.bp.core.ui.actions.range.dynamic">
 				</dynamic>
 			</menuContribution>
 	</extension>

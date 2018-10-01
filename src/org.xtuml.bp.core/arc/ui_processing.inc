@@ -36,10 +36,10 @@
     .end if
   .end for
   .assign statement = last_statement
-  .select one prev_stmt related by last_statement->ACT_SMT[R661.'succeeds']
+  .select one prev_stmt related by last_statement->ACT_SMT[R661.'precedes']
   .while (not_empty prev_stmt)
     .assign statement = prev_stmt
-    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'succeeds']
+    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'precedes']
   .end while
   .while (not_empty statement)
     .// NOTE: UNLIKE Tiny Java Core . . . . . 
@@ -47,8 +47,8 @@
     .// items, defined for them because these items will already have been 
     .// supplied either by cached UI field data or by UI context information
     .// respectively.
-    .select any context_item from instances of W_CTI where (selected.Statement_ID == "${statement.Statement_Id}")
-    .select any field from instances of W_FLD where (selected.Statement_ID == "${statement.Statement_Id}")
+    .select any context_item from instances of W_CTI where ("${selected.Statement_ID}" == "${statement.Statement_ID}")
+    .select any field from instances of W_FLD where ("${selected.Statement_ID}" == "${statement.Statement_ID}")
     .if ((empty context_item) AND (empty field))
 ${statement.buffer}
       .if (usesTransactions)
@@ -97,7 +97,7 @@ ${inner_blck.body}
 ${else_stmt.buffer2}
       .end if
     .end if
-    .select one next_statement related by statement->ACT_SMT[R661.'precedes']
+    .select one next_statement related by statement->ACT_SMT[R661.'succeeds']
     .assign statement = next_statement
   .end while
 .end function

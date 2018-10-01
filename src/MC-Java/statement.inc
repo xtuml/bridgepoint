@@ -771,7 +771,7 @@ ${cn.body} \
 v_${var.Name} = ${cn.body}.${nfn.body}${func_suffix}(\
   .end if
   .assign link_count = 1
-  .select one link related by last_link->ACT_LNK[R604.'precedes']
+  .select one link related by last_link->ACT_LNK[R604.'succeeds']
   .while (not_empty link)
     .select any lnk_obj related by link->O_OBJ[R678]
     .invoke lcn = get_class_name( lnk_obj )
@@ -787,7 +787,7 @@ ${lcn.body}.${nfn.body}${func_suffix}(\
 ${lcn.body}.${nfn.body}${func_suffix}(\
       .end if
     .assign link_count = link_count + 1
-    .select one next_link related by link->ACT_LNK[R604.'precedes']
+    .select one next_link related by link->ACT_LNK[R604.'succeeds']
     .assign link = next_link
   .end while
   .assign start_var_name = ""

@@ -37,7 +37,7 @@
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         <env key="CORE_COLOR_DIR" value="${core_color_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
       -import ${core_sql_dir}/ooaofooa.sql
@@ -53,7 +53,7 @@
 
   <property name="cvs_java_files" value="ActivityPropertyDescriptor.java,BooleanPropertyDescriptor.java,
               DescriptionPropertyDescriptor.java,EnumPropertyDescriptor.java,IntegerPropertyDescriptor.java,
-             ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,
+             ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,RangeValuePropertyDescriptor.java,
              BridgepointPropertySheetPage.java, BridgepointPropertySheetSorter.java,
               ModelElementNameValidator.java,DimensionsPropertyDescriptor.java,
               DimensionsValidator.java,TypeDefinitionPropertyDescriptor.java" />

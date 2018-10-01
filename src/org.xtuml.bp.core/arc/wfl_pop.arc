@@ -1,12 +1,4 @@
 .//=====================================================================
-.// 
-.// File:      $RCSfile: wfl_pop.arc,v $
-.// Version:   $Revision: 1.13.90.1 $
-.// Modified:  $Date: 2013/07/19 12:25:14 $
-.//
-.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
-.//
-.//=====================================================================
 .//
 .// This archetype creates workflow instances based on the interactions
 .// with the USER External Entity found in the action language for each
@@ -29,6 +21,9 @@
 .include "${arc_dir}/cme_names.inc"
 .//
 .select many cmes from instances of CME
+.// The following index starts at 1 because create_step() has a special case for 0. It is prefixed
+.// with "cme" because it is in the global scope.
+.assign cme_unique_num = 1
 .for each cme in cmes
   .invoke fn = get_func_name(cme)
   .select any function from instances of S_SYNC where (selected.Name == fn.body)
@@ -41,7 +36,8 @@
       .if (not_empty action)
         .select any outer_blk related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
         .if (not_empty outer_blk)
-          .invoke step = create_step(wkfl, outer_blk, "0", "0", "${info.unique_num}")
+          .invoke step = create_step(wkfl, outer_blk, "0", "0", "${cme_unique_num}")
+          .assign cme_unique_num = cme_unique_num + 1
           .invoke result = wfl_pop_blck_xlate(step, outer_blk)
           .if (result.body == "")
             .print "WARNING: Empty body for function ${function.Name}"

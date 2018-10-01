@@ -36,8 +36,10 @@
       value="**/OAL*Validation*Functions.xtuml" />
   <property name="oal_utility_input"
       value="**/OAL*Validation*Utility*Functions.xtuml" />
+  <property name="oal_validation_scoped"
+      value="**/OAL*Validation*Scoped*Access.xtuml" />
 
-  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}" />
+  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}, ${oal_validation_scoped}" />
 
   <target name="sql.depends" >
     <echo >Plugins home: ${plugins-home}</echo>
@@ -278,7 +280,7 @@
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
     <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
     <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -d 0 -import sql/ooaofooa-4.sql
       -arch ${mcj_path}/verify_selects.arc
@@ -368,7 +370,7 @@
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa.sql
@@ -407,7 +409,7 @@
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-    <arg line="xtumlmc_gen_erate -nopersist
+    <arg line="xtumlmc_gen_erate -qim -nopersist
       -import ${mcj_path}/ooa_schema.sql
       -import ../org.xtuml.bp.core/sql/ooaofooa_hierarchy_schema.sql
       -import ../org.xtuml.bp.core/sql/ooaofooa.sql
@@ -440,7 +442,7 @@
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
            <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-       <arg line="xtumlmc_gen_erate -nopersist
+       <arg line="xtumlmc_gen_erate -qim -nopersist
          -import ${mcj_path}/ooa_schema.sql
          -import sql/ooaofooa_hierarchy_schema.sql
          -import sql/ooaofooa.sql
@@ -472,7 +474,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_supertype_subtype_util.arc" />
@@ -497,7 +499,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_referential_attribute_util.arc" />
@@ -523,7 +525,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/generate_rto_util.arc" />
@@ -547,7 +549,7 @@
        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
            <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/ooa_schema.sql
             -import sql/ooaofooa.sql
             -arch arc/action_language_description_util.arc" />
@@ -580,11 +582,12 @@
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
       lib/*.java,
       common/OALPersistenceUtil.java, ui/editor/RoutingEditor.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
-      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
+      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java, ui/RangeValueInputValidator.java,
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
   	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java,
-	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java" />
+	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java,
+  ui/actions/RangeAction.java, ui/actions/RangeContributionItem.java" />
 
   <target name="format_java.depends" >
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">

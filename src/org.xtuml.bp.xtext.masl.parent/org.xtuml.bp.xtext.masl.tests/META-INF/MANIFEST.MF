@@ -2,16 +2,18 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MASL Xtext tests
 Bundle-Vendor: xtUML.org
-Bundle-Version: 6.13.0.qualifier
+Bundle-Version: 6.15.0.qualifier
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.xtext.masl,
  org.junit;bundle-version="4.7.0",
  org.eclipse.xtext.junit4,
  org.eclipse.xtext.xbase.junit,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.xtuml.bp.xtext.masl.tests
+Export-Package: org.xtuml.bp.xtext.masl.tests;x-internal=true
 Import-Package: org.hamcrest.core,
  org.junit;version="4.5.0",
  org.junit.runners.model;version="4.5.0",

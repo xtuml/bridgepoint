@@ -7299,25 +7299,25 @@ if (isInGenericPackage)
    select one component related by containingElem->C_C[R8001];
    select one package related by containingElem->EP_PKG[R8001];
     if not_empty component
-    component.collectVisibleElementsForName(name:param.a1_name,
+    component.collectVisibleElementsForName(name:"",
          type:ElementTypeConstants::CONSTANT,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
                                                          collectGlobally:true);
     else
-    package.collectVisibleElementsForName(name:param.a1_name,
+    package.collectVisibleElementsForName(name:"",
          type:ElementTypeConstants::CONSTANT, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
                                                          collectGlobally:true); 
     end if;
   select any resultSet related by component->PE_CRS[R8007] where
-                                    selected.Name == param.a1_name and 
+                                    selected.Name == "" and 
                                    selected.Type == ElementTypeConstants::CONSTANT; 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
     if not_empty package
       select any pkgResultSet related by package->PE_SRS[R8005] where
-                                     selected.Name == param.a1_name and 
+                                     selected.Name == "" and 
                                    selected.Type == ElementTypeConstants::CONSTANT; 
       select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
     end if;
@@ -8859,10 +8859,39 @@ if ( not_empty act )
     create object instance  new_item of P_P;
     new_item.type = ProposalTypes::EDT;
     new_item.display_text = s_edt.Name;
+    select many dup_edts related by results->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.DT_ID != s_edt.DT_ID and selected.Name == s_edt.Name );
+    select many dup_edt_pes related by dup_edts->PE_PE[R8001];
+    if ( not_empty dup_edt_pes )
+      select one s_edt_pe related by s_edt->PE_PE[R8001];
+      new_item.display_text = ::get_scoped_path_for_element( element:s_edt_pe, duplicate_elements:dup_edt_pes ) + new_item.display_text;
+    end if;
     new_item.replacement_text = new_item.display_text + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
     list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // get UDT proposals
+  select many s_udts related by results->S_DT[R8001]->S_UDT[R17]->S_DT[R17];
+  for each s_udt in s_udts
+    select one udt related by s_udt->S_UDT[R17];
+    baseId = udt.getCoreType();
+    select any base_edt from instances of S_EDT where ( selected.DT_ID == baseId );
+    if ( not_empty base_edt )
+      create object instance  new_item of P_P;
+      new_item.type = ProposalTypes::UDT;
+      new_item.display_text = s_udt.Name;
+      select many dup_udts related by results->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.DT_ID != s_udt.DT_ID and selected.Name == s_udt.Name );
+      select many dup_udt_pes related by dup_udts->PE_PE[R8001];
+      if ( not_empty dup_udt_pes )
+        select one s_udt_pe related by s_udt->PE_PE[R8001];
+        new_item.display_text = ::get_scoped_path_for_element( element:s_udt_pe, duplicate_elements:dup_udt_pes ) + new_item.display_text;
+      end if;
+      new_item.replacement_text = new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = true;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
+    end if;
   end for;
   
   // get constant proposals
@@ -8888,7 +8917,86 @@ if ( not_empty act )
     new_item.replacement_text = cnst_syc.Name;
     if ( not_empty dup_cnst_syc )
       new_item.replacement_text = cnst_csp.InformalGroupName + "::" + new_item.replacement_text;
+      select many dup_csps related by results->CNST_CSP[R8001] where ( selected.Constant_Spec_ID != cnst_csp.Constant_Spec_ID and selected.InformalGroupName == cnst_csp.InformalGroupName );
+      select many dup_csp_pes related by dup_csps->PE_PE[R8001];
+      if ( not_empty dup_csp_pes )
+        select one cnst_csp_pe related by cnst_csp->PE_PE[R8001];
+        scoped_path = ::get_scoped_path_for_element( element:cnst_csp_pe, duplicate_elements:dup_csp_pes );
+        new_item.display_text = cnst_syc.Name + " - " + scoped_path + cnst_csp.InformalGroupName;
+        new_item.replacement_text = scoped_path + new_item.replacement_text;
+      end if;
     end if;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // propose system models for qualifying types
+  // Using a trick here to search for visible system models by searching for visible packages
+  // and then navigating back to the system model instance set
+  if not_empty c_c
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  else
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  end if;
+  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty ep_pkg
+    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many s_syss related by results->EP_PKG[R8001]->S_SYS[R1405];
+  for each s_sys in s_syss
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::SystemModel;
+    new_item.display_text = s_sys.Name;
+    new_item.replacement_text = s_sys.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+  // propose packages for qualifying types
+  if not_empty c_c
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  else
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  end if;
+  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty ep_pkg
+    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many ep_pkgs related by results->EP_PKG[R8001];
+  for each ep_pkg in ep_pkgs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Package;
+    new_item.display_text = ep_pkg.Name;
+    new_item.replacement_text = ep_pkg.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = true;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+  // propose components for qualifying types
+  if not_empty c_c
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  else
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+  end if;
+  select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::COMPONENT ); 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty ep_pkg
+    select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::COMPONENT ); 
+    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select many c_cs related by results->C_C[R8001];
+  for each c_c in c_cs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Component;
+    new_item.display_text = c_c.Name;
+    new_item.replacement_text = c_c.Name + "::";
     new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
     new_item.needs_space = true;
     list.addProposal( Proposal_ID:new_item.Proposal_ID );
@@ -10012,6 +10120,105 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e8d7c226-5901-4a54-9719-d935909ec74f",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
+	"00000000-0000-0000-0000-000000000000",
+	'get_scoped_path_for_element',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+',
+	'path = "";
+element = param.element;
+duplicate_elements = param.duplicate_elements;
+
+select any sys from instances of S_SYS where false;
+
+qualified = false;
+while not qualified
+  // get the parent element
+  select any parent_element from instances of PE_PE where false;
+  parent_name = "";
+  select one parent_package related by element->EP_PKG[R8000];
+  if ( not_empty parent_package )
+    parent_name = parent_package.Name;
+    select one parent_element related by parent_package->PE_PE[R8001];
+    select one sys related by parent_package->S_SYS[R1401];
+  else
+    select one parent_component related by element->C_C[R8003];
+    if ( not_empty parent_component )
+      parent_name = parent_component.Name;
+      select one parent_element related by parent_component->PE_PE[R8001];
+    end if;
+  end if;
+  
+  if ( empty parent_element )
+    break; // if there is no parent element we have reached the system level
+  end if;  
+  element = parent_element;
+    
+  // get any parents of the other elements that still match the name
+  select many parent_packages related by duplicate_elements->EP_PKG[R8000] where ( selected.Name == parent_name );
+  select many parent_package_elements related by parent_packages->PE_PE[R8001];
+  select many parent_components related by duplicate_elements->C_C[R8003] where ( selected.Name == parent_name );
+  select many parent_component_elements related by parent_components->PE_PE[R8001];
+  duplicate_elements = parent_package_elements | parent_component_elements;
+  
+  if ( empty duplicate_elements )
+    qualified = true; // if there are no parents of the duplicate set that match the name, we have gone far enough
+  end if;
+  
+  // prepend the path with this segment
+  path = parent_name + "::" + path;
+
+end while;
+
+if not qualified // if the loop was broken before the path was fully qualified, but add the system name
+  path = sys.Name + "::" + path;
+end if;
+
+return path;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("2bc1e44e-c7a0-4c6b-b8b6-994b43ee89c4",
+	"5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
+	'element',
+	"ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae1e8216-a08e-44a9-9d63-5d0b2a33d33a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Packageable Element>',
+	'',
+	'',
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("ad873ddd-438a-4fe7-b3b9-81e029c9f644",
+	"5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
+	'duplicate_elements',
+	"dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	0,
+	'',
+	"2bc1e44e-c7a0-4c6b-b8b6-994b43ee89c4",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Packageable Element>',
+	'',
+	'',
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO PE_PE
+	VALUES ("5d3241e1-55d0-48f6-a18f-5fa18a8ceefa",
 	1,
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",

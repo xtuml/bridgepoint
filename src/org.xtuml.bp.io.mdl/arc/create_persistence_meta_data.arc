@@ -33,7 +33,7 @@
     .select many attr_path from instances of EO where (selected.Name == "")
     .if(isRoot or ((parent_eo.writePosition != "none" ) and (not parent_eo.componentRoot)))
       .assign attr_path = parent_eo | attr_path
-      .select one first_child related by parent_eo->EO[R1.'is_first_child_of']
+      .select one first_child related by parent_eo->EO[R1.'is_parent_of']
       .if(first_child == child_eo)
         .assign attr_found = true
         .assign attr_path = attr_path | child_eo
@@ -45,7 +45,7 @@
           .assign attr_found = true
         .end if
         .if(not attr_found)
-          .select one next_child related by first_child->EO[R2.'precedes']
+          .select one next_child related by first_child->EO[R2.'follows']
           .while(not_empty next_child)
             .if(next_child == child_eo)
               .assign attr_path = attr_path | next_child
@@ -59,7 +59,7 @@
                 .break while
               .end if            
             .end if
-            .select one next_child related by next_child->EO[R2.'precedes']
+            .select one next_child related by next_child->EO[R2.'follows']
           .end while
         .end if
       .end if
@@ -70,7 +70,7 @@
     .select many attr_path_from_parent from instances of EO where (selected.Name == "")
     .assign attr_path_from_parent = attr_path_from_parent | parent
     .select many attr_children from instances of EO where (selected.Name == "")
-    .select any first_child related by parent->EO[R1.'is_first_child_of']
+    .select any first_child related by parent->EO[R1.'is_parent_of']
     .if(not_empty first_child)
       .if(not first_child.componentRoot)
         .assign attr_children = attr_children | first_child
@@ -78,7 +78,7 @@
         .assign attr_path_from_parent = attr_path_from_parent | recursive.path_from_parent
         .assign attr_children = attr_children | recursive.children
       .end if
-      .select one next_child related by first_child->EO[R2.'precedes']
+      .select one next_child related by first_child->EO[R2.'follows']
       .while(not_empty next_child)
         .if(not next_child.componentRoot)
           .assign attr_children = attr_children | next_child
@@ -86,7 +86,7 @@
           .assign attr_path_from_parent = attr_path_from_parent | recursive.path_from_parent
           .assign attr_children = attr_children | recursive.children
         .end if
-        .select one next_child related by next_child->EO[R2.'precedes']
+        .select one next_child related by next_child->EO[R2.'follows']
       .end while
     .end if
 .end function
@@ -142,17 +142,17 @@
     .select many eos from instances of EO
     .assign attr_children = eos - eos
     .//
-    .select one child related by eo->EO[R1.'is_first_child_of']	
+    .select one child related by eo->EO[R1.'is_parent_of']	
     .if(not_empty child)
         .if((child.ComponentRoot) or (child.WritePosition!="none"))
         .assign attr_children = attr_children | child
         .end if
-        .select one sibling related by child->EO[R2.'precedes']
+        .select one sibling related by child->EO[R2.'follows']
         .while(not_empty sibling)
            .if((sibling.ComponentRoot) or (sibling.WritePosition!="none"))
             .assign attr_children = attr_children | sibling
            .end if 
-            .select one sibling related by sibling->EO[R2.'precedes']
+            .select one sibling related by sibling->EO[R2.'follows']
         .end while
     .end if
 .end function
@@ -289,7 +289,7 @@ ${nav.body}
   .param inst_ref eo
   .select many attr_roots from instances of EO
   .assign attr_roots = attr_roots - attr_roots		
-  .select one child related by eo->EO[R1.'is_first_child_of']
+  .select one child related by eo->EO[R1.'is_parent_of']
   .if(not_empty child)
     .if (child.componentRoot == true)
       .assign attr_roots = attr_roots | child
@@ -310,7 +310,7 @@ ${nav.body}
   .invoke result = do_search_root_components_in_children(eo)
   .assign attr_roots =attr_roots | result.roots
 	
-  .select one child related by eo->EO[R2.'precedes']
+  .select one child related by eo->EO[R2.'follows']
   .while(not_empty child)
     .if (child.componentRoot == true)
       .assign attr_roots =attr_roots | child
@@ -319,7 +319,7 @@ ${nav.body}
       .assign attr_roots = attr_roots | result.roots
     .end if
    
-   	.select one childsibling related by child->EO[R2.'precedes']
+   	.select one childsibling related by child->EO[R2.'follows']
 	.assign child = childsibling 
   .end while		
 .end function
@@ -334,15 +334,15 @@ ${nav.body}
       attr_parent = child_eo;
       attr_found_path = true;
     .else
-      .select many parent_eos related by child_eo->EO[R1.'is_parent_of']
-      .select one next_child related by child_eo->EO[R2.'follows']
+      .select many parent_eos related by child_eo->EO[R1.'is_first_child_of']
+      .select one next_child related by child_eo->EO[R2.'precedes']
       .while(empty parent_eos)
         .if(empty next_child)
           .break while
         .end if
-        .select many parent_eos related by next_child->EO[R1.'is_parent_of']
+        .select many parent_eos related by next_child->EO[R1.'is_first_child_of']
         .if(empty parent_eos)
-          .select one next_child related by next_child->EO[R2.'follows']
+          .select one next_child related by next_child->EO[R2.'precedes']
         .end if
       .end while
       .assign result = false;

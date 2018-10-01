@@ -2053,17 +2053,47 @@ INSERT INTO S_ENUM
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"005bac48-12e0-492e-ac8e-68300297071c");
 INSERT INTO S_ENUM
-	VALUES ("1766b0e6-12dc-47d9-b8aa-031dc956614c",
-	'ClassBasedOperation',
+	VALUES ("c9c73de6-9379-4523-a187-d49fcea94311",
+	'Package',
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
-	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
+	"02e7e5b5-81da-469d-abe9-67a300978aa6");
+INSERT INTO S_ENUM
+	VALUES ("f5362500-c998-4d73-a5e9-9782e9de872e",
+	'Component',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"c9c73de6-9379-4523-a187-d49fcea94311");
+INSERT INTO S_ENUM
+	VALUES ("c84cdd88-8aac-479b-8222-774ad284a7d7",
+	'SystemModel',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f5362500-c998-4d73-a5e9-9782e9de872e");
+INSERT INTO S_ENUM
+	VALUES ("25e9da6e-b263-4b05-a8f2-8b865f634b73",
+	'ConstantSpecification',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"c84cdd88-8aac-479b-8222-774ad284a7d7");
+INSERT INTO S_ENUM
+	VALUES ("2e23c1e1-b6a9-45d3-b52c-3a748f37ff3a",
+	'UDT',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"25e9da6e-b263-4b05-a8f2-8b865f634b73");
 INSERT INTO S_ENUM
 	VALUES ("f8a47e22-a22c-4e81-bb25-085b5287dffc",
 	'InstanceBasedOperation',
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
-	"b394d63f-6e25-4029-9ecd-652b8aa7593a");
+	"2e23c1e1-b6a9-45d3-b52c-3a748f37ff3a");
+INSERT INTO S_ENUM
+	VALUES ("1766b0e6-12dc-47d9-b8aa-031dc956614c",
+	'ClassBasedOperation',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

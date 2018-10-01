@@ -101,7 +101,7 @@ public class ${action_name} implements IObjectActionDelegate {
 		// do nothing
   }
   public static void ${fn.body}(IStructuredSelection selection) {
-      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
       .if (not_empty function)
         .invoke result = function_body(function)
 ${result.body}

@@ -153,7 +153,7 @@ class MaslAutoBuilder extends Job implements IPropertyChangeListener, IResourceC
 				// building may close the tree, but we are still inside an
 				// operation so open it
 				if(workspace.getElementTree().isImmutable()) workspace.newWorkingTree()
-				workspace.endOperation(rule, false, new SubProgressMonitor(monitor, 99))
+				workspace.endOperation(rule, false)
 			}
 		} finally {
 			monitor.done()
