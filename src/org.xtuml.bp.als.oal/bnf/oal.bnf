@@ -369,9 +369,24 @@ invocation_expr
   ;
 scoped_access
    :
-    scoped_data_type
+   (
+        scoped_path
+        scoped_data_type
+        TOK_DOUBLECOLON!
+        scoped_member
+    )
+  ;
+scoped_path
+  :
+    ( 
+      ( scoped_path_segment scoped_path_segment )=>
+        scoped_path_segment
+    )*
+  ;
+scoped_path_segment
+  :
+    scoped_path_segment_name
     TOK_DOUBLECOLON!
-    scoped_member
   ;
 debug_operand
   :
@@ -564,6 +579,10 @@ scoped_data_type!
     general_name
   ;
 scoped_member!
+  :
+    general_name
+  ;
+scoped_path_segment_name!
   :
     general_name
   ;
@@ -924,7 +943,6 @@ rval
     ( identifier TOK_DOUBLECOLON invocation_function TOK_LPAREN )=>
     invocation_expr
   |
-    ( scoped_data_type TOK_DOUBLECOLON )=>
     scoped_access
   |
     member_access[false]

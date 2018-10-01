@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.13.0
+Release 6.15.0
 
 License
 -------
@@ -35,7 +35,7 @@ preferences at `xtUML > Action Language > Default Action Language Dialect`. The 
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.13 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 6.14 is compatible with workspaces and projects created with prior versions back to 
 BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to 
 open the model in a prior version.   
 
@@ -49,8 +49,9 @@ Closed Issues
  
 | Issue |  Subject |
 |-------|-----------------------------------------------------------------|
-[10168](https://support.onefact.net/issues/10168) | Increment version to 6.13.0   
-
+[10265](https://support.onefact.net/issues/10265) |  Bump version to 6.15  
+    
+    
 Known Issues and Feature Requests
 ------
 The BridgePoint support system is hosted at [http://support.onefact.net](http://support.onefact.net). Please check here for known issues and to 

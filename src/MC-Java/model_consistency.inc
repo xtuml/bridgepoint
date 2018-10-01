@@ -1,14 +1,3 @@
-.//====================================================================
-.//
-.// File:      $RCSfile: model_consistency.inc,v $
-.// Version:   $Revision: 1.19 $
-.// Modified:  $Date: 2013/01/10 23:16:42 $
-.//
-.// (c) Copyright 2005-2014 Mentor Graphics Corporation  All rights reserved.
-.//
-.//====================================================================
-.//
-.//====================================================================
 .//
 .// This archetype generates the methods used to provide model
 .// consistency checks
@@ -44,6 +33,8 @@
   .param Inst_Ref object
   .param String dom_name
   .param frag_ref package
+  .assign local_unique_num = 0
+  .assign cls_unique_num = 0
   public static void checkClassConsistency (ModelRoot modelRoot) {
   .if ( package.is_eclipse_plugin )
     Ooaofooa.log.println(
@@ -92,11 +83,13 @@ ${gd_ge_error.body}
       .end if
       .select many IDs related by object->O_ID[R104]
       .for each ID in IDs
-        .assign obarraynum = "${info.unique_num}"
+        .assign obarraynum = "${local_unique_num}"
+        .assign local_unique_num = local_unique_num + 1
         .select many id_attrs related by ID->O_OIDA[R105]->O_ATTR[R105]
         .if (not_empty id_attrs)
           .assign is_referring = false
-          .invoke class_body = create_test_class(object, id_attrs, is_referring)
+          .invoke class_body = create_test_class(object, id_attrs, is_referring, cls_unique_num)
+          .assign cls_unique_num = cls_unique_num + 1
           .invoke string_params = create_test_class_print_params(id_attrs)
           .invoke id_test_select = create_test_class_select(object, class_body, class_body, obarraynum, package.application_root_class)
           .assign zero_error_message = " Cardinality of an identifier is zero. "
@@ -126,9 +119,11 @@ ${id_test_gt_one.body}
             .if (not_empty ref_attrs)
               .// determine if we need a selector, e.g. it is unconditional or the multiplicity is one
               .if ((participant.Cond == 0) or (participant.Mult == 0))
-                .assign oparraynum = "${info.unique_num}"
+                .assign oparraynum = "${local_unique_num}"
+                .assign local_unique_num = local_unique_num + 1
                 .assign is_referring = true
-                .invoke op_class_body = create_test_class(part_obj, ref_attrs, is_referring)
+                .invoke op_class_body = create_test_class(part_obj, ref_attrs, is_referring, cls_unique_num)
+                .assign cls_unique_num = cls_unique_num + 1
                 .invoke string_params = create_test_class_print_params(ref_attrs)
                 .invoke op_test_select = create_test_class_select(part_obj, op_class_body, op_class_body, oparraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of a participant is 0. "
@@ -173,9 +168,11 @@ ${id_test_gt_one.body}
             .if (not_empty on_attrs)
               .// determine if we need a selector, e.g. it is unconditional or the multiplicity is one
               .if ( (one_assoc.Cond == 0 ) or (one_assoc.Mult == 0))
-                .assign onarraynum = "${info.unique_num}"
+                .assign onarraynum = "${local_unique_num}"
+                .assign local_unique_num = local_unique_num + 1
                 .assign is_referring = true
-                .invoke on_class_body = create_test_class(aone_obj, on_attrs, is_referring)
+                .invoke on_class_body = create_test_class(aone_obj, on_attrs, is_referring, cls_unique_num)
+                .assign cls_unique_num = cls_unique_num + 1
                 .invoke on_test_select = create_test_class_select(aone_obj, on_class_body, on_class_body, onarraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of unconditional one side of link is equal to zero. "
                 .invoke id_test_zero = create_test_class_test(object, onarraynum, "zero", zero_error_message, "", "array", package)
@@ -215,9 +212,11 @@ ${id_test_gt_one.body}
             .if (not_empty ot_attrs)
               .// determine if we need a selector, e.g. it is unconditional or the multiplicity is one
               .if ((oth_assoc.Cond == 0 ) or (oth_assoc.Mult == 0))
-                .assign otarraynum = "${info.unique_num}"
+                .assign otarraynum = "${local_unique_num}"
+                .assign local_unique_num = local_unique_num + 1
                 .assign is_referring = true
-                .invoke ot_class_body = create_test_class(aoth_obj, ot_attrs, is_referring)
+                .invoke ot_class_body = create_test_class(aoth_obj, ot_attrs, is_referring, cls_unique_num)
+                .assign cls_unique_num = cls_unique_num + 1
                 .invoke ot_test_select = create_test_class_select(aoth_obj, ot_class_body, ot_class_body, otarraynum, package.application_root_class)
                 .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of unconditional other side of link is equal to zero. "
                 .invoke id_test_zero = create_test_class_test(object, otarraynum, "zero", zero_error_message, "", "array", package)
@@ -256,9 +255,11 @@ ${id_test_gt_one.body}
           .select one supt_obj related by subt->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->O_ID[R109]->O_OBJ[R104]
           .if (not_empty supt_obj) 
             .if (not_empty ref_attrs)
-              .assign starraynum = "${info.unique_num}"
+              .assign starraynum = "${local_unique_num}"
+              .assign local_unique_num = local_unique_num + 1
               .assign is_referring = true
-              .invoke st_class_body = create_test_class(supt_obj, ref_attrs, is_referring)
+              .invoke st_class_body = create_test_class(supt_obj, ref_attrs, is_referring, cls_unique_num)
+              .assign cls_unique_num = cls_unique_num + 1
               .invoke st_test_select = create_test_class_select(supt_obj, st_class_body, st_class_body, starraynum, package.application_root_class)
               .assign ne_one_error_message = " Association: ${rel.Numb}: Cardinality of a supertype is not equal to 1. "
               .invoke id_test_ne_one = create_test_class_test(object, starraynum, "not_equal_one", ne_one_error_message, "", "array", package)
@@ -303,9 +304,11 @@ ${id_test_ne_one.body}
             .if (not_empty part_attrs)
               .// determine if we need a selector, e.g. it is unconditional or the multiplicity is one
               .if ((formalizer.Cond == 0) or (formalizer.Mult == 0))
-                .assign ptarraynum = "${info.unique_num}"
+                .assign ptarraynum = "${local_unique_num}"
+                .assign local_unique_num = local_unique_num + 1
                 .assign is_referring = false
-                .invoke part_class_body = create_test_class(ref_attr_obj, part_attrs, is_referring)
+                .invoke part_class_body = create_test_class(ref_attr_obj, part_attrs, is_referring, cls_unique_num)
+				.assign cls_unique_num = cls_unique_num + 1
                 .invoke param_body = create_test_class_parameters(part_attrs, false)
                 .invoke string_params = create_test_class_print_params(part_attrs)
                 .invoke pt_test_select = create_test_class_select(ref_attr_obj, part_class_body, param_body, ptarraynum, package.application_root_class)
@@ -345,15 +348,18 @@ ${id_test_gt_one.body}
           .if (other_assoc.Cond == 0 )
             .if ((object.Key_Lett != "R_RTO") and (object.Key_Lett != "R_RGO"))  .// R_RTO and R_RGO are conditional on if the association is formalized
               .assign is_referring = false
-              .invoke link_class_body = create_test_class(link_ref_attr_obj, lnk_ref_attrs, is_referring)
+              .invoke link_class_body = create_test_class(link_ref_attr_obj, lnk_ref_attrs, is_referring, cls_unique_num)
+              .assign cls_unique_num = cls_unique_num + 1
               .assign is_referring = false
-              .invoke link_class_body = create_test_class(link_ref_attr_obj, lnk_ref_attrs, is_referring)
+              .invoke link_class_body = create_test_class(link_ref_attr_obj, lnk_ref_attrs, is_referring, cls_unique_num)
+              .assign cls_unique_num = cls_unique_num + 1
               .assign relNumb = 0;
               .if (not_empty rel)
                 .assign relNumb = rel.Numb
               .end if
               .invoke param_body = create_test_class_parameters(lnk_ref_attrs, false)
-              .assign cl_lnk_arraynum = "${info.unique_num}"
+              .assign cl_lnk_arraynum = "${local_unique_num}"
+              .assign local_unique_num = local_unique_num + 1
               .invoke lk_test_select = create_test_class_select(link_ref_attr_obj, link_class_body, param_body, cl_lnk_arraynum, package.application_root_class)
               .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of a link is equal to zero. "
               .invoke id_test_zero = create_test_class_test(object, cl_lnk_arraynum, "zero", zero_error_message, "", "array", package)
@@ -381,13 +387,15 @@ ${id_test_ne_one.body}
           .if (one_assoc.Cond == 0)
             .if ((object.Key_Lett != "R_RTO") and (object.Key_Lett != "R_RGO")) .// R_RTO and R_RGO are conditional on if the association is formalized
               .assign is_referring = false
-              .invoke link_class_body = create_test_class(link_ref_attr_obj, lnk_ref_attrs, is_referring)
+              .invoke link_class_body = create_test_class(link_ref_attr_obj, lnk_ref_attrs, is_referring, cls_unique_num)
+              .assign cls_unique_num = cls_unique_num + 1
               .assign relNumb = 0;
               .if (not_empty rel)
                 .assign relNumb = rel.Numb
               .end if
               .invoke param_body = create_test_class_parameters(lnk_ref_attrs, false)
-              .assign cl_lnk_arraynum = "${info.unique_num}"
+              .assign cl_lnk_arraynum = "${local_unique_num}"
+              .assign local_unique_num = local_unique_num + 1
               .invoke lk_test_select = create_test_class_select(link_ref_attr_obj, link_class_body, param_body, cl_lnk_arraynum, package.application_root_class)
               .assign zero_error_message = " Association: ${rel.Numb}: Cardinality of a link is equal to zero. "
               .invoke id_test_zero = create_test_class_test(object, cl_lnk_arraynum, "zero", zero_error_message, "", "array", package)
@@ -407,7 +415,8 @@ ${id_test_ne_one.body}
           // Supertype: rel.Numb = ${rel.Numb}
           .end if .// not empty rel
           .select many cl_as_subts related by supt->R_SUBSUP[R212]->R_SUB[R213]
-          .assign subcounter = "${info.unique_num}"
+          .assign subcounter = "${local_unique_num}"
+          .assign local_unique_num = local_unique_num + 1
     int objs${subcounter} = 0;
           .for each cl_as_subt in cl_as_subts
             .select many ref_attrs related by cl_as_subt->R_RGO[R205]->O_REF[R111]->O_RATTR[R108]->O_ATTR[R106]
@@ -415,9 +424,11 @@ ${id_test_ne_one.body}
             // Subtype Object: ${ref_attr_obj.Name}
             .if (not_empty ref_attrs)
               .assign is_referring = false
-              .invoke part_class_body = create_test_class(ref_attr_obj, ref_attrs, is_referring)
+              .invoke part_class_body = create_test_class(ref_attr_obj, ref_attrs, is_referring, cls_unique_num)
+			  .assign cls_unique_num = cls_unique_num + 1
               .invoke param_body = create_test_class_parameters(ref_attrs, false)
-              .assign subtarraynum = "${info.unique_num}"
+              .assign subtarraynum = "${local_unique_num}"
+              .assign local_unique_num = local_unique_num + 1
               .invoke st_test_select = create_test_class_select(ref_attr_obj, part_class_body, param_body, subtarraynum, package.application_root_class)
 ${part_class_body.body}
 ${st_test_select.body} 

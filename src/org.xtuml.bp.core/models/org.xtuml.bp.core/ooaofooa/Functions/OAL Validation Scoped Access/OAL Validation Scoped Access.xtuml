@@ -1,0 +1,448 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'OAL Validation Scoped Access',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("0733a1ee-cccb-4acf-827c-c5db97efa8f0",
+	112,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'org.xtuml.bp.core::ooaofooa::Functions::OAL Validation Scoped Access');
+INSERT INTO DIM_DIA
+	VALUES ("0733a1ee-cccb-4acf-827c-c5db97efa8f0",
+	'',
+	1.000000,
+	0.000000,
+	0.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	"00000000-0000-0000-0000-000000000000",
+	'scopedsegment_add_segment',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  ScopedSegment newSegment = new ScopedSegment(p_Token, p_Segment_name);
+  scopedSegments.add(newSegment);
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("ddcfd045-da12-469b-bddc-1e964220b436",
+	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	'token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	"00000000-0000-0000-0000-000000000000",
+	'Token',
+	'Each node in the syntax tree has a token associated with it.
+We define the type here so that we can pass this data to the 
+verification functions, which then pass it on to error reporting 
+function, if the verification fails.
+Bridge:ALS',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("9516f47d-d7a7-459b-a7e0-eb7be2aa9ccd",
+	"0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	'segment_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"ddcfd045-da12-469b-bddc-1e964220b436",
+	'');
+INSERT INTO PE_PE
+	VALUES ("0b1fea47-8742-44c1-9d0d-b71e7fd4e793",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6160da96-d011-4445-a88b-d8096049f247",
+	"00000000-0000-0000-0000-000000000000",
+	'scopedsegment_size',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return scopedSegments.size();',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("6160da96-d011-4445-a88b-d8096049f247",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6335c095-e718-44ea-bfc0-772d33ebd7f4",
+	"00000000-0000-0000-0000-000000000000",
+	'scopedsegment_get_segment_name',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return scopedSegments.get(p_Index).segmentName;',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("2737caec-e8d9-4b4d-b9b9-765138b3831a",
+	"6335c095-e718-44ea-bfc0-772d33ebd7f4",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("6335c095-e718-44ea-bfc0-772d33ebd7f4",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a5ad53b5-431f-48ef-8660-f6c84c7bdb9e",
+	"00000000-0000-0000-0000-000000000000",
+	'scopedsegment_reset',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  scopedSegments.clear();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("a5ad53b5-431f-48ef-8660-f6c84c7bdb9e",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("032b4990-bac4-43a0-81a8-7a41b0c3d43d",
+	"00000000-0000-0000-0000-000000000000",
+	'scopedsegment_get_token',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native',
+	'  return scopedSegments.get(p_Index).token;',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("d19895f2-6e42-46e9-88ff-80822caee342",
+	"032b4990-bac4-43a0-81a8-7a41b0c3d43d",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("032b4990-bac4-43a0-81a8-7a41b0c3d43d",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("c8204cc8-59a7-44a6-a59d-f002a00dd417",
+	"00000000-0000-0000-0000-000000000000",
+	'scopedmatches_collect',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+select many matched_elements from instances of PE_PE where false; // initialize an empty set of matched elements
+if ( not_empty act )
+
+  // make sure that we have the containing C_C or EP_PKG instance for searching
+  in_generic_package = act.associateWithContainer();
+  select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
+  select one containing_c_c related by containing_pe->C_C[R8001];
+  select one containing_ep_pkg related by containing_pe->EP_PKG[R8001];
+  
+  select many matched_systems from instances of S_SYS where false;  // system models are special because they are not a PE_PE
+  
+  iteration_count = ::scopedsegment_size();
+  if ( "" != param.lookaheadText )
+    iteration_count = iteration_count + 1;  // if this is used for lookahead, we need one extra loop
+  end if;
+  
+  i = 0;
+  while ( i < iteration_count )
+
+    // get the current segment name
+    segment_name = "";
+    if ( i == ::scopedsegment_size() )
+      segment_name = param.lookaheadText; // for the last segment, we use the current lookahead token
+    else
+      segment_name = ::scopedsegment_get_segment_name( index:i );
+    end if;
+    
+    if ( i == 0 ) // for the very first segment, we have to do a blind search
+
+      // seach for systems
+      // Using a trick here to search for visible system models by searching for visible packages
+      // and then navigating back to the system model instance set
+      if not_empty containing_c_c
+        containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      else
+        containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      end if;
+      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+      if not_empty containing_ep_pkg
+        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      end if;
+      select many matched_systems related by results->EP_PKG[R8001]->S_SYS[R1405] where ( selected.Name == segment_name );
+
+      // search for packages
+      if not_empty containing_c_c
+        containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      else
+        containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      end if;
+      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::PACKAGE ); 
+      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+      if not_empty containing_ep_pkg
+        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::PACKAGE ); 
+        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      end if;
+      matched_elements = matched_elements | results;
+
+      // search for components
+      if not_empty containing_c_c
+        containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::COMPONENT, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      else
+        containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      end if;
+      select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::COMPONENT ); 
+      select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+      if not_empty containing_ep_pkg
+        select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::COMPONENT ); 
+        select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+      end if;
+      matched_elements = matched_elements | results;
+
+      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT, UDT, or constant specification
+
+        // search for EDTs and UDTs
+        if not_empty containing_c_c
+          containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::DATATYPE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        else
+          containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        end if;
+        select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::DATATYPE ); 
+        select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+        if not_empty containing_ep_pkg
+          select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::DATATYPE ); 
+          select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+        end if;
+        select many edts related by results->S_DT[R8001]->S_EDT[R17]->S_DT[R17]->PE_PE[R8001];
+        select many udts related by results->S_DT[R8001]->S_UDT[R17];
+        matched_elements = matched_elements | edts;
+        for each udt in udts
+          baseId = udt.getCoreType();
+          select any base_edt from instances of S_EDT where (selected.DT_ID == baseId);
+          if ( not_empty base_edt )
+            select one edt_udt related by udt->S_DT[R17]->PE_PE[R8001];
+            matched_elements = matched_elements | edt_udt;
+          end if;
+        end for;
+
+        // search for constant specifications
+        if not_empty containing_c_c
+          containing_c_c.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::CONSTANT, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        else
+          containing_ep_pkg.collectVisibleElementsForName( name:segment_name, type:ElementTypeConstants::CONSTANT, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+        end if;
+        select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == segment_name and  selected.Type == ElementTypeConstants::CONSTANT ); 
+        select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+        if not_empty containing_ep_pkg
+          select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == segment_name and selected.Type == ElementTypeConstants::CONSTANT ); 
+          select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+        end if;
+        matched_elements = matched_elements | results;
+
+      end if;
+
+    else // for following segments, we have search down the containment chain
+      
+      // get the next level through containment relationships
+      select many c_c_to_c_cs related by matched_elements->C_C[R8001]->PE_PE[R8003]->C_C[R8001] where ( selected.Name == segment_name );
+      select many c_c_to_ep_pkgs related by matched_elements->C_C[R8001]->PE_PE[R8003]->EP_PKG[R8001] where ( selected.Name == segment_name );
+      select many ep_pkg_to_c_cs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->C_C[R8001] where ( selected.Name == segment_name );
+      select many ep_pkg_to_ep_pkgs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == segment_name );
+
+      // consolidate the results
+      all_c_cs = c_c_to_c_cs | ep_pkg_to_c_cs;
+      all_ep_pkgs = c_c_to_ep_pkgs | ep_pkg_to_ep_pkgs;
+      
+      select many all_s_dts from instances of S_DT where false;
+      select many all_cnst_csps from instances of CNST_CSP where false;
+      
+      if ( i == 1 ) // for the second segment, we must consider if we started at a system
+        select many s_sys_to_ep_pkgs related by matched_systems->EP_PKG[R1401] where ( selected.Name == segment_name );
+        all_ep_pkgs = all_ep_pkgs | s_sys_to_ep_pkgs;
+        select many matched_systems from instances of S_SYS where false;  // clear out matched systems after this to avoid false positives
+      end if;
+
+      if ( i == ::scopedsegment_size() ) // for the last segment, it is possible we are matching an EDT, UDT, or constant specification
+        select many c_c_to_s_edts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many c_c_to_s_udts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
+        select many ep_pkg_to_s_edts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many ep_pkg_to_s_udts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == segment_name );
+        select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == segment_name );
+        all_s_udts = c_c_to_s_udts | ep_pkg_to_s_udts;
+        select many edt_udts from instances of S_DT where false;
+        for each s_dt in all_s_udts 
+          select one udt related by s_dt->S_UDT[R17];
+          baseId = udt.getCoreType();
+          select any base_edt from instances of S_EDT where (selected.DT_ID == baseId);
+          if ( not_empty base_edt )
+            edt_udts = edt_udts | s_dt;
+          end if;
+        end for;
+        all_s_dts = c_c_to_s_edts | ep_pkg_to_s_edts | edt_udts;
+        all_cnst_csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
+      end if;
+      
+      // filter non-visible elements. This would be better to do in the where clauses, however MC-Java cannot
+      // handle ''selected'' being passed as a parameter to a function or operation
+      select many visible_c_cs from instances of C_C where false;
+      for each selected_c_c in all_c_cs
+        if ( containing_pe.isElementVisibleToSelf( type:ElementTypeConstants::COMPONENT, elementId:selected_c_c.Id ) );
+          visible_c_cs = visible_c_cs | selected_c_c;
+        end if;
+      end for;
+      select many visible_ep_pkgs from instances of EP_PKG where false;
+      for each selected_ep_pkg in all_ep_pkgs
+        if ( containing_pe.isElementVisibleToSelf( type:ElementTypeConstants::PACKAGE, elementId:selected_ep_pkg.Package_ID ) );
+          visible_ep_pkgs = visible_ep_pkgs | selected_ep_pkg;
+        end if;
+      end for;
+      select many visible_s_dts from instances of S_DT where false;
+      for each selected_s_dt in all_s_dts
+        if ( containing_pe.isElementVisibleToSelf( type:ElementTypeConstants::DATATYPE, elementId:selected_s_dt.DT_ID ) );
+          visible_s_dts = visible_s_dts | selected_s_dt;
+        end if;
+      end for;
+      select many visible_cnst_csps from instances of CNST_CSP where false;
+      for each selected_cnst_csp in all_cnst_csps
+        if ( containing_pe.isElementVisibleToSelf( type:ElementTypeConstants::CONSTANT, elementId:selected_cnst_csp.Constant_Spec_ID ) );
+          visible_cnst_csps = visible_cnst_csps | selected_cnst_csp;
+        end if;
+      end for;
+      
+      // fill the matched elements set
+      select many c_c_pes related by visible_c_cs->PE_PE[R8001];
+      select many ep_pkg_pes related by visible_ep_pkgs->PE_PE[R8001];
+      select many s_dt_pes related by visible_s_dts->PE_PE[R8001];
+      select many cnst_csp_pes related by visible_cnst_csps->PE_PE[R8001];
+      matched_elements = c_c_pes | ep_pkg_pes | s_dt_pes | cnst_csp_pes;
+
+    end if;
+    
+    if ( param.validate and empty matched_elements and empty matched_systems )
+      if ( i < ::scopedsegment_size() )
+        ERR::reportParseError( msg: "Could not find package, component or system model ->%s<- in scoped path.", token: ::scopedsegment_get_token( index:i ) );
+      end if;
+      return matched_elements;
+    end if;
+    
+    i = i + 1;
+
+  end while;
+  
+end if;
+
+return matched_elements;',
+	"dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("98ad845b-9988-4692-a4c4-1b5428bec101",
+	"c8204cc8-59a7-44a6-a59d-f002a00dd417",
+	'lookaheadText',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4d598bb5-8047-49b6-b9a2-c28a0f45bc46",
+	"c8204cc8-59a7-44a6-a59d-f002a00dd417",
+	'validate',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"98ad845b-9988-4692-a4c4-1b5428bec101",
+	'');
+INSERT INTO PE_PE
+	VALUES ("c8204cc8-59a7-44a6-a59d-f002a00dd417",
+	1,
+	"0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_DT_PROXY
+	VALUES ("dddf53b9-ca79-4d4e-b2b6-2bcfe63d0b5d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Packageable Element>',
+	'',
+	'',
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO PE_PE
+	VALUES ("0afbb3b8-6fb2-4610-a00c-b103b65dad48",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Functions',
+	'',
+	0,
+	'../Functions.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'org.xtuml.bp.core',
+	1,
+	'../../../org.xtuml.bp.core.xtuml');

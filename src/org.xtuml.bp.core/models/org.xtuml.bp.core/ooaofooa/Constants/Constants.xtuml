@@ -975,6 +975,47 @@ INSERT INTO DIM_DIA
 	4004.000000,
 	2866.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("e807fdfd-95fd-48ca-aef5-1da0c1cddbb2",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Constant Specification>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("e807fdfd-95fd-48ca-aef5-1da0c1cddbb2",
+	0,
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	'Constant Specification',
+	1500,
+	'CNST_CSP',
+	'A grouping of constants. The name is informal and does not imply any scoping.
+It is used by the parser to locate the constant.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Constant Specification/Constant Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("e807fdfd-95fd-48ca-aef5-1da0c1cddbb2",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("504d7943-a2da-43a7-84d9-f5d8ff11a769",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Constant Specification>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("504d7943-a2da-43a7-84d9-f5d8ff11a769",
+	1,
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe");
+INSERT INTO PE_PE
+	VALUES ("504d7943-a2da-43a7-84d9-f5d8ff11a769",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("38d89904-4aed-4378-b8a0-f9d6c8af4da2");
 INSERT INTO R_REL
@@ -1226,15 +1267,6 @@ INSERT INTO R_OIR
 	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
 	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	'Constant Specification',
-	1500,
-	'CNST_CSP',
-	'A grouping of constants. The name is informal and does not imply any scoping.
-It is used by the parser to locate the constant.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Constant Specification/Constant Specification.xtuml');
 INSERT INTO R_FORM
 	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
 	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",

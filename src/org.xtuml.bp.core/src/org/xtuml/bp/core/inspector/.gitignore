@@ -142,3 +142,4 @@ PropertyDependsOn.java
 PackageTreeDifferenceSlot.java
 MessageArgumentTreeDifferenceSlot.java
 /CreationTransitionInspector.java
+RangeInspector.java

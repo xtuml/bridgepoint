@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: ModelRoot.java,v $
-//Version:   $Revision: 1.46 $
-//Modified:  $Date: 2013/05/10 13:26:31 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -36,7 +28,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.util.ListenerList;
+import org.eclipse.core.runtime.ListenerList;
 
 import org.xtuml.bp.core.ArrayValue_c;
 import org.xtuml.bp.core.ComponentReferenceValue_c;
@@ -170,7 +162,7 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     protected static int enabledEventsMask = Modeleventnotification_c.MASK_ALL_EVENTS;
     protected static int enabledDeltaMask = Modeleventnotification_c.MASK_ALL_DELTAS;
     
-    private ListenerList modelChangedListeners = new ListenerList(3);
+    private ListenerList modelChangedListeners = new ListenerList(ListenerList.IDENTITY);
     private int instantListenerCount = 0;
     private int batchListenerCount= 0;
 

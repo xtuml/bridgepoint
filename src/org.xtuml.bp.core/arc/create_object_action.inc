@@ -39,7 +39,7 @@
   .invoke cn = get_class_name(class)
   .assign has_wizard = false
   .invoke fn = get_func_name(cme)
-  .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+  .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
   .if (not_empty function)
     .select one wfl related by function->W_WOF[R2001]
     .if (not_empty wfl)
@@ -148,7 +148,7 @@ public class ${action_name} implements IObjectActionDelegate {
   private void \
   .end if
 ${fn.body}(IStructuredSelection selection) {
-      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
       .if (not_empty function)
         .invoke result = function_body(function)
 ${result.body}

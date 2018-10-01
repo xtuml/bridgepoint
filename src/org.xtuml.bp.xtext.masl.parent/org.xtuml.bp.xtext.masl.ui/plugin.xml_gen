@@ -58,20 +58,20 @@
 			<and>
 				<reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
 				<with variable="activeEditor">
-					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-						value="org.xtuml.bp.xtext.masl.MASL" 
+					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
+						value="org.xtuml.bp.xtext.masl.MASL"
 						forcePluginActivation="true"/>
-				</with>		
+				</with>
 			</and>
 		</definition>
 		<definition id="org.xtuml.bp.xtext.masl.MASL.XtextEditor.opened">
 			<and>
 				<reference definitionId="isXtextEditorActive"/>
 				<with variable="activeEditor">
-					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-						value="org.xtuml.bp.xtext.masl.MASL" 
+					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
+						value="org.xtuml.bp.xtext.masl.MASL"
 						forcePluginActivation="true"/>
-				</with>		
+				</with>
 			</and>
 		</definition>
 	</extension>
@@ -150,16 +150,16 @@
 					definitionId="org.xtuml.bp.xtext.masl.MASL.Editor.opened">
 				</reference>
 			</visibleWhen>
-		</command>  
+		</command>
 		</menuContribution>
 		<!-- copy qualified name -->
 		<menuContribution locationURI="popup:#TextEditorContext?after=copy">
-			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName" 
+			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
 				style="push" tooltip="Copy Qualified Name">
 				<visibleWhen checkEnabled="false">
 					<reference definitionId="org.xtuml.bp.xtext.masl.MASL.Editor.opened" />
 				</visibleWhen>
-			</command>  
+			</command>
 		</menuContribution>
 		<menuContribution locationURI="menu:edit?after=copy">
 			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
@@ -167,10 +167,10 @@
 				<visibleWhen checkEnabled="false">
 					<reference definitionId="org.xtuml.bp.xtext.masl.MASL.Editor.opened" />
 				</visibleWhen>
-			</command>  
+			</command>
 		</menuContribution>
 		<menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
-			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName" 
+			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName"
 				style="push" tooltip="Copy Qualified Name">
 				<visibleWhen checkEnabled="false">
 					<and>
@@ -213,10 +213,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="mod">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="mod">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -226,10 +226,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="tr">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="tr">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -239,10 +239,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="ext">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="ext">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -252,10 +252,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="scn">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="scn">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -265,10 +265,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="al">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="al">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -278,10 +278,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="int">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="int">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -291,10 +291,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="svc">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="svc">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -304,10 +304,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="prj">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="prj">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -317,10 +317,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="fn">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="fn">
+		</resourceServiceProvider>
 	</extension>
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -330,10 +330,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="masl">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="masl">
+		</resourceServiceProvider>
 	</extension>
 	<!-- marker definitions for org.xtuml.bp.xtext.masl.MASL -->
 	<extension
@@ -440,31 +440,31 @@
 	</extension>
 	<!-- quickfix marker resolution generator for org.xtuml.bp.xtext.masl.MASL -->
 	<extension
-	        point="org.eclipse.ui.ide.markerResolution">
-	    <markerResolutionGenerator
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-	        markerType="org.xtuml.bp.xtext.masl.ui.masl.check.fast">
-	        <attribute
-	            name="FIXABLE_KEY"
-	            value="true">
-	        </attribute>
-	    </markerResolutionGenerator>
-	    <markerResolutionGenerator
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-	        markerType="org.xtuml.bp.xtext.masl.ui.masl.check.normal">
-	        <attribute
-	            name="FIXABLE_KEY"
-	            value="true">
-	        </attribute>
-	    </markerResolutionGenerator>
-	    <markerResolutionGenerator
-	        class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-	        markerType="org.xtuml.bp.xtext.masl.ui.masl.check.expensive">
-	        <attribute
-	            name="FIXABLE_KEY"
-	            value="true">
-	        </attribute>
-	    </markerResolutionGenerator>
+			point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="org.xtuml.bp.xtext.masl.ui.masl.check.fast">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+		<markerResolutionGenerator
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="org.xtuml.bp.xtext.masl.ui.masl.check.normal">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+		<markerResolutionGenerator
+			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="org.xtuml.bp.xtext.masl.ui.masl.check.expensive">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
 	</extension>
 	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">

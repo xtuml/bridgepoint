@@ -3343,6 +3343,53 @@ INSERT INTO DIM_DIA
 	5277.000000,
 	2893.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("493bbbec-fd81-4863-a436-77e6f08bd55a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Component>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("493bbbec-fd81-4863-a436-77e6f08bd55a",
+	0,
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
+	'Component',
+	4000,
+	'C_C',
+	'A component defines the content of a system.  Its associations with other
+components are defined through interfaces that are either provided or required
+by the component.
+
+A Component is related to an Interface through two different link classes,
+Requirement and Provision.  The links are setup when either the Provision or
+Requirement is formalized against an interface that is defined in an Interface
+Diagram',
+	"00000000-0000-0000-0000-000000000000",
+	'./Component/Component.xtuml');
+INSERT INTO PE_PE
+	VALUES ("493bbbec-fd81-4863-a436-77e6f08bd55a",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("fe930652-6e0d-4b8a-a33d-04745f5970dd",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Component>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("fe930652-6e0d-4b8a-a33d-04745f5970dd",
+	1,
+	"2786d973-1537-44a1-81d6-3ddbd2377865");
+INSERT INTO PE_PE
+	VALUES ("fe930652-6e0d-4b8a-a33d-04745f5970dd",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_ASSOC
 	VALUES ("cd49017d-0826-453a-a772-f28b879e2ac7");
 INSERT INTO R_REL
@@ -4133,21 +4180,6 @@ INSERT INTO R_OIR
 	"a4db6cf8-9fcb-4373-8f42-e5006723a074",
 	"b1bd10e0-edbd-41e1-84eb-47251cfc1d77",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
-	'Component',
-	4000,
-	'C_C',
-	'A component defines the content of a system.  Its associations with other
-components are defined through interfaces that are either provided or required
-by the component.
-
-A Component is related to an Interface through two different link classes,
-Requirement and Provision.  The links are setup when either the Provision or
-Requirement is formalized against an interface that is defined in an Interface
-Diagram',
-	"00000000-0000-0000-0000-000000000000",
-	'./Component/Component.xtuml');
 INSERT INTO R_FORM
 	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
 	"a4db6cf8-9fcb-4373-8f42-e5006723a074",

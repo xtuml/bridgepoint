@@ -1,14 +1,5 @@
 package org.xtuml.bp.ui.text;
-//====================================================================
-//
-// File:      $RCSfile: DocumentProvider.java,v $
-// Version:   $Revision: 1.27 $
-// Modified:  $Date: 2013/05/10 13:25:24 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-//
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +15,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
-import org.eclipse.jface.text.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationModel;

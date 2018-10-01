@@ -62,12 +62,12 @@
   .//
   .// find the first column to output
   .//
-  .select any col related by table->C[R5] where ( selected.nextName == "" )
+  .select any col related by table->C[R5] where ( not selected.nextName )
   .select many col_set related by table->C[R5]
   .assign x = (cardinality col_set) - 1
   .while ( x > 0 )
     .assign x = x - 1
-    .select one col related by col->C[R6.'follows']
+    .select one col related by col->C[R6.'precedes']
   .end while
   .//
   .assign nf_output = false
@@ -276,7 +276,7 @@
       .end if
     .end if
     .//
-    .select one col related by col->C[R6.'precedes']
+    .select one col related by col->C[R6.'follows']
     .if ( not_empty col )
       .// if code we're currently outputting is for BP 6.1 connector-texts, we
       .// don't need to output the enclosed delimeter, since the code
@@ -739,7 +739,7 @@ throws IOException
       .if ( isOALRootResult.isOALRoot )
         .assign isPersistableParamValue = "false"
       .end if
-      .select one child related by eo->EO[R1.'is_first_child_of']
+      .select one child related by eo->EO[R1.'is_parent_of']
       .while ( not_empty child )
         .invoke ch_fOcc=  firstOccurrence(child)
         .assign exp_child=((ch_fOcc.firstOccurrence) or (child.componentRoot==True))
@@ -839,7 +839,7 @@ throws IOException
       if (m_export_graphics && !writeAsProxies && !forceWriteAsProxy) export_${gd.modelName}(inst, pm, false, ${isPersistableParamValue});
           .end if
         .end if .//  .if (process1 or process2)
-        .select one child related by child->EO[R2.'precedes']
+        .select one child related by child->EO[R2.'follows']
 
       .end while
       .if ( eo.writePosition == "last" )

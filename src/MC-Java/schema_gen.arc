@@ -59,7 +59,7 @@ CREATE TABLE $_{ih_obj.Key_Lett} (
     .select any ih_attr from instances of O_ATTR where (false)
 	.select many ih_attrs related by ih_obj->O_ATTR[R102]
 	.for each ih_attr in ih_attrs
-		.select one prevAttr related by ih_attr->O_ATTR[R103.'precedes'];
+		.select one prevAttr related by ih_attr->O_ATTR[R103.'succeeds'];
 		.if (empty prevAttr) 
 			.break for
 		.end if
@@ -125,7 +125,7 @@ CREATE TABLE $_{ih_obj.Key_Lett} (
      .end if   .//  trans_attr 
 		.//
 		.// proceed to the next attribute of the object
-		.select one ih_attr related by ih_attr->O_ATTR[R103.'succeeds']
+		.select one ih_attr related by ih_attr->O_ATTR[R103.'precedes']
    .end while
    .if (ih_obj.Key_Lett == "S_BPARM")
 ,
@@ -263,7 +263,7 @@ CREATE ROP REF_ID R$_{rel_inst.Numb} FROM 1C 	$_{l_obj.Key_Lett} 	( \
 				.if ( com )
  , \
 				.end if
-				.select one o_ref_in  related by o_r_inst -> O_REF[R111] where ( selected.Obj_ID == l_side.Obj_ID )
+				.select any o_ref_in  related by o_r_inst -> O_REF[R111] where ( selected.Obj_ID == l_side.Obj_ID )
 				.select one att related by o_ref_in -> O_RATTR[R108] -> O_ATTR[R106]
 $_{att.Name}\
 				.assign com = true

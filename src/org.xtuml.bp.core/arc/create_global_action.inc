@@ -199,7 +199,7 @@ public class ${action_name} extends Action {
       .invoke cn = get_class_name(class)
       .invoke fn = get_func_name(menu_entry)
   private void ${fn.body}(IStructuredSelection selection) {
-	      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+	      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
 	      .if (not_empty function)
             .if ( "${function.Descrip:Translate}" == "native" )
               .print "${function.Name} written as native code"
