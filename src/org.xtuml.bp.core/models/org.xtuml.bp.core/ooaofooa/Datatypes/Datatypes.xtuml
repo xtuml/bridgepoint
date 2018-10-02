@@ -1921,17 +1921,11 @@ INSERT INTO S_ENUM
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_ENUM
-	VALUES ("f8a47e22-a22c-4e81-bb25-085b5287dffc",
-	'Operation',
-	'',
-	"e4d0c00f-e251-4008-89cf-ec182a00397b",
-	"b394d63f-6e25-4029-9ecd-652b8aa7593a");
-INSERT INTO S_ENUM
 	VALUES ("ac2883fd-b99d-4cdd-a9d6-0be3cda9de85",
 	'Association',
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
-	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
+	"1766b0e6-12dc-47d9-b8aa-031dc956614c");
 INSERT INTO S_ENUM
 	VALUES ("5bd6d81f-bf2d-445e-aa85-dc1666c28b5b",
 	'Keyword',
@@ -2088,6 +2082,18 @@ INSERT INTO S_ENUM
 	'',
 	"e4d0c00f-e251-4008-89cf-ec182a00397b",
 	"25e9da6e-b263-4b05-a8f2-8b865f634b73");
+INSERT INTO S_ENUM
+	VALUES ("f8a47e22-a22c-4e81-bb25-085b5287dffc",
+	'InstanceBasedOperation',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"2e23c1e1-b6a9-45d3-b52c-3a748f37ff3a");
+INSERT INTO S_ENUM
+	VALUES ("1766b0e6-12dc-47d9-b8aa-031dc956614c",
+	'ClassBasedOperation',
+	'',
+	"e4d0c00f-e251-4008-89cf-ec182a00397b",
+	"f8a47e22-a22c-4e81-bb25-085b5287dffc");
 INSERT INTO PE_PE
 	VALUES ("e4d0c00f-e251-4008-89cf-ec182a00397b",
 	1,

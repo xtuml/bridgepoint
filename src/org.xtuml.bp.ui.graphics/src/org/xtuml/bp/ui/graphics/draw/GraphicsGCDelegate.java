@@ -37,6 +37,8 @@ import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
 
 import org.xtuml.bp.ui.canvas.GCDelegate;
@@ -151,6 +153,15 @@ public class GraphicsGCDelegate extends GCDelegate {
 	@Override
 	public void drawText(String string, int i, int j, boolean b) {
 		fGraphics.drawText(string, i, j);
+	}
+	
+	@Override
+	public void drawTextLayout(String string, int x, int y, boolean b, TextStyle style) {
+		final TextLayout layout = new TextLayout(this.getDevice());
+		layout.setText(string);
+		layout.setStyle(style, 0, string.length());
+		fGraphics.drawTextLayout(layout, x, y);
+		layout.dispose();
 	}
 
 	@Override
