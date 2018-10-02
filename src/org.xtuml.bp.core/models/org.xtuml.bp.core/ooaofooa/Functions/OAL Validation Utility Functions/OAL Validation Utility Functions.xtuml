@@ -9504,7 +9504,11 @@ if ( not_empty act and not_empty block )
                                                              ( param.a3_instance_ops and selected.Instance_Based == Scope::Instance ) );
     for each o_tfr in o_tfrs
       create object instance new_item of P_P;
-      new_item.type = ProposalTypes::Operation;
+      if ( param.a3_instance_ops )
+        new_item.type = ProposalTypes::InstanceBasedOperation;
+      else
+        new_item.type = ProposalTypes::ClassBasedOperation;
+      end if;
       if ( "labels" == PREF::getString( name:"bridgepoint_prefs_content_assist_invocation_format" ) )
         new_item.replacement_text = o_tfr.getSignature( flavor:2 );
         new_item.cursor_position = Util::indexOf( haystack:new_item.replacement_text, needle:":" ) + 1;

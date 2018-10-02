@@ -33,6 +33,7 @@ package org.xtuml.bp.ui.canvas;
 //
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Drawable;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
@@ -40,6 +41,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Region;
+import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
@@ -78,6 +80,10 @@ public class GCDelegate {
     public void drawText(String string, int i, int j, boolean b) {
         context.drawText(string, i, j, b);
     }
+
+	public void drawTextLayout(String string, int i, int j, boolean b, TextStyle style) {
+		context.drawText(string, i, j, b);
+	}
 
     public void fillRectangle(int i, int j, int k, int l) {
         if (bpPrefs.disableGradients == true) {
@@ -259,5 +265,10 @@ public class GCDelegate {
 
         RGB rVal = new RGB(red, green, blue);
         return rVal;
+    }
+    
+    public Device getDevice() {
+    	if ( null != context ) return context.getDevice();
+    	else return null;
     }
 }
