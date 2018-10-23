@@ -281,8 +281,8 @@ Bridge:GD',
 if (param.comp_num == 3)
   if (param.at == Justification::Left)
     cursor = 1;
-    select many ops related by self->O_TFR[R115];
-    for each op in ops
+    select any op related by self->O_TFR[R115] where (selected.Previous_Tfr_ID == GD::NULL_UNIQUE_ID());
+    while (not_empty op)
       if (cursor == param.ent_num)
         if (op.Instance_Based == Scope::Instance)
           return Style::None;
@@ -291,7 +291,8 @@ if (param.comp_num == 3)
         end if;
       end if;
       cursor = cursor + 1;
-    end for;
+      select one op related by op->O_TFR[R125.''precedes''];
+    end while;
   end if;
 end if;
 return Style::None;',

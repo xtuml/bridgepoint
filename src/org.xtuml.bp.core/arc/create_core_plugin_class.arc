@@ -618,6 +618,13 @@ public class CorePlugin extends AbstractUIPlugin {
     // else if(objectName.equals("RequiredSignal_cBiDirectional")) {
     // descriptor = getImageDescriptor("metadata/InOutSignal.gif");
     // }
+    .elif (class_name.body == "Operation_c")
+    else if (objectName.equals("Operation_cClassBased")) {
+    	descriptor = getImageDescriptor("metadata/ClassBasedOperation.gif");
+    }
+    else if (objectName.equals("Operation_cInstanceBased")) {
+    	descriptor = getImageDescriptor("metadata/InstanceBasedOperation.gif");
+    }
     .else
       .if (first tree_nodes)
             if (objectName.equals("${class_name.body}")) {
@@ -716,6 +723,12 @@ public class CorePlugin extends AbstractUIPlugin {
       //if (dir == Ifdirectiontype_c.BiDirectional) {
       //  name += "BiDirectional";
       //}
+      if (object instanceof Operation_c && ((Operation_c)object).getInstance_based() == Scope_c.Class ) {
+        name += "ClassBased";
+      }
+      if (object instanceof Operation_c && ((Operation_c)object).getInstance_based() == Scope_c.Instance ) {
+        name += "InstanceBased";
+      }
       return name;
     } 
     
