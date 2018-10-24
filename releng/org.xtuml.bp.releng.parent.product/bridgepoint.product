@@ -3,23 +3,6 @@
 
 <product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.15.0.qualifier" useFeatures="true" includeLaunchers="true">
 
-   <license>
-     <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-     <text>
-          Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not 
-          use this file except in compliance with the License.  You may obtain a copy 
-          of the License at
- 
-          http://www.apache.org/licenses/LICENSE-2.0
-
-          Unless required by applicable law or agreed to in writing, software 
-          distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT 
-          WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-          License for the specific language governing permissions and limitations under
-          the License.
-     </text>
-   </license>
-
    <configIni use="default">
    </configIni>
 
@@ -40,16 +23,37 @@
       startupMessageRect="7,252,445,20"
       startupForegroundColor="000000" />
    <launcher name="bridgepoint">
-      <solaris/>
       <win useIco="false">
-         <bmp/>
+         <bmp
+            winSmallHigh="/org.xtuml.bp.pkg/icons/green-bp_16x16_32bit.bmp"
+            winSmallLow="/org.xtuml.bp.pkg/icons/green-bp_16x16_8bit.bmp"
+            winMediumHigh="/org.xtuml.bp.pkg/icons/green-bp_32x32_32bit.bmp"
+            winMediumLow="/org.xtuml.bp.pkg/icons/green-bp_32x32_8bit.bmp"
+            winLargeHigh="/org.xtuml.bp.pkg/icons/green-bp_48x48_32bit.bmp"
+            winLargeLow="/org.xtuml.bp.pkg/icons/green-bp_48x48_8bit.bmp"
+            winExtraLargeHigh="/org.xtuml.bp.pkg/icons/green-bp_256x256_32bit.bmp"/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
 
+   <license>
+        <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        <text>
+   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not 
+          use this file except in compliance with the License.  You may obtain a copy 
+          of the License at
+ 
+          http://www.apache.org/licenses/LICENSE-2.0
+
+          Unless required by applicable law or agreed to in writing, software 
+          distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT 
+          WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+          License for the specific language governing permissions and limitations under
+          the License.
+         </text>
+   </license>
 
    <plugins>
    </plugins>
