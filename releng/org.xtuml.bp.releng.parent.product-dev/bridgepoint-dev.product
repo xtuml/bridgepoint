@@ -3,6 +3,7 @@
 
 <product name="BridgePoint Dev" uid="org.xtuml.bp-dev.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.15.0.qualifier" useFeatures="true" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -14,7 +15,7 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
+   <windowImages i16="/org.xtuml.bp.pkg/icons/green-bp.gif" i32="/org.xtuml.bp.pkg/icons/green-bp-dbl.gif" i48="/org.xtuml.bp.pkg/icons/green-bp_48x48.gif" i64="/org.xtuml.bp.pkg/icons/green-bp_64x64.gif" i128="/org.xtuml.bp.pkg/icons/green-bp_128x128.gif" i256="/org.xtuml.bp.pkg/icons/green-bp_256x256.gif"/>
 
    <splash
       location="org.xtuml.bp.pkg"
@@ -33,6 +34,7 @@
             winExtraLargeHigh="/org.xtuml.bp.pkg/icons/green-bp_256x256_32bit.bmp"/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>
@@ -84,8 +86,8 @@
    </configurations>
 
    <repositories>
-      <repository location="http://download.eclipse.org/releases/mars/" enabled="false" />
       <repository location="http://download.eclipse.org/technology/m2e/releases" enabled="false" />
+      <repository location="http://download.eclipse.org/releases/oxygen/" enabled="true" />
    </repositories>
 
    <preferencesInfo>
