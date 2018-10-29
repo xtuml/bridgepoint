@@ -6774,18 +6774,18 @@ return isAccessible and isAssignable;',
 INSERT INTO O_TFR
 	VALUES ("e846e3fb-e27b-42e6-8515-70189fcbe83b",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'newProc',
+	'newDeployment',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'create object instance proc of PR_PROC;
+	'create object instance deployment of D_DEPL;
 // create Packageable Element supertype and hook up to this package.
 create object instance pe of PE_PE;
-relate proc to pe across R8001;
+relate deployment to pe across R8001;
 relate pe to self across R8000;
-pe.type = ElementTypeConstants::PROC;
+pe.type = ElementTypeConstants::DEPL;
 pe.initialize();
-proc.Name = "Unnamed Proc";',
+deployment.Name = "Unnamed Deployment";',
 	1,
 	'',
 	"5f9fbbeb-fd01-4db5-be48-01bee4e480e4",
@@ -6793,11 +6793,11 @@ proc.Name = "Unnamed Proc";',
 INSERT INTO O_TFR
 	VALUES ("3e9e956f-6ead-4717-9bbb-55e44faf593e",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getProcCount',
+	'getDeploymentCount',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many elems related by self->PE_PE[R8000]->PR_PROC[R8001];
+	'select many elems related by self->PE_PE[R8000]->D_DEPL[R8001];
 return cardinality elems;',
 	1,
 	'',
@@ -6806,12 +6806,12 @@ return cardinality elems;',
 INSERT INTO O_TFR
 	VALUES ("73fecd43-8422-4350-99fc-91bf77c78f0e",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'getProcId',
+	'getDeploymentId',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many elems related by self->PE_PE[R8000]->PR_PROC[R8001];
+select many elems related by self->PE_PE[R8000]->D_DEPL[R8001];
 // We''re preincrementing the index
 count = -1;
 for each elem in elems
@@ -6837,16 +6837,16 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("e42c84d5-a4b6-43e1-b44e-d6ff5a13b769",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
-	'pasteProc',
+	'pasteDeployment',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select any proc from instances of PR_PROC where (selected.Proc_ID == param.id);
-if(not_empty proc)
-  select one pe related by proc->PE_PE[R8001];
+	'select any deployment from instances of D_DEPL where (selected.Deployment_ID == param.id);
+if(not_empty deployment)
+  select one pe related by deployment->PE_PE[R8001];
   relate self to pe across R8000;
-  proc.Name = ::getUniqueInitialNameInParent(instance:proc.convertToInstance(), 
-    name:proc.Name, parent:self.convertToInstance());
+  deployment.Name = ::getUniqueInitialNameInParent(instance:deployment.convertToInstance(), 
+    name:deployment.Name, parent:self.convertToInstance());
 end if;',
 	1,
 	'',

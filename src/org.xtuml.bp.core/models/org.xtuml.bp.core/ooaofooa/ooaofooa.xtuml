@@ -853,7 +853,7 @@ INSERT INTO GD_GE
 	"de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
 	108,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Proc');
+	'org.xtuml.bp.core::ooaofooa::Deployment');
 INSERT INTO GD_SHP
 	VALUES ("882140f1-69d2-4dbf-9f58-51f31efc0b3a");
 INSERT INTO GD_NCS

@@ -4,7 +4,7 @@ INSERT INTO O_OBJ
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	'Terminator',
 	1651,
-	'PR_TERM',
+	'D_TERM',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
@@ -20,21 +20,21 @@ INSERT INTO O_REF
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	'',
-	'Proc',
-	'Proc_ID',
+	'Deployment',
+	'Deployment_ID',
 	'R1650');
 INSERT INTO R_RGO_PROXY
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
 	"9459a396-4c2f-4715-acb4-d335a9b326f7",
-	'../Proc.xtuml');
+	'../Deployment.xtuml');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	0,
 	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
 	"66dd162e-8f9f-40d1-a9d1-465466c6d7be",
-	'../Proc.xtuml');
+	'../Deployment.xtuml');
 INSERT INTO O_RATTR
 	VALUES ("de9f13f4-d9c8-4ac3-98ac-25eeabfa3065",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
@@ -50,10 +50,10 @@ INSERT INTO O_ATTR
 	VALUES ("de9f13f4-d9c8-4ac3-98ac-25eeabfa3065",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
-	'Proc_ID',
+	'Deployment_ID',
 	'',
 	'',
-	'Proc_ID',
+	'Deployment_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
@@ -177,7 +177,7 @@ INSERT INTO EP_PKG_PROXY
 	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
 	"00000000-0000-0000-0000-000000000000",
 	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'Proc',
+	'Deployment',
 	'',
 	0,
-	'../Proc.xtuml');
+	'../Deployment.xtuml');

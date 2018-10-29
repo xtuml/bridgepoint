@@ -4,7 +4,7 @@ INSERT INTO EP_PKG
 	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
 	"00000000-0000-0000-0000-000000000000",
 	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'Proc',
+	'Deployment',
 	'',
 	0);
 INSERT INTO GD_MD
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'4.1.17',
-	'org.xtuml.bp.core::ooaofooa::Proc');
+	'org.xtuml.bp.core::ooaofooa::Deployment');
 INSERT INTO GD_GE
 	VALUES ("9ce18d64-ad27-446c-9e1f-764d0f8820f8",
 	"59b15af3-fb18-46fc-9f6b-da3d417a23df",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Proc::Proc');
+	'org.xtuml.bp.core::ooaofooa::Deployment::Deployment');
 INSERT INTO GD_SHP
 	VALUES ("9ce18d64-ad27-446c-9e1f-764d0f8820f8");
 INSERT INTO GD_NCS
@@ -61,7 +61,7 @@ INSERT INTO GD_GE
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Proc::Terminator');
+	'org.xtuml.bp.core::ooaofooa::Deployment::Terminator');
 INSERT INTO GD_SHP
 	VALUES ("82558cbf-7a3c-4f9f-b05f-a47cd93c8edf");
 INSERT INTO GD_NCS
@@ -95,7 +95,7 @@ INSERT INTO GD_GE
 	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Proc::R1650');
+	'org.xtuml.bp.core::ooaofooa::Deployment::R1650');
 INSERT INTO GD_CON
 	VALUES ("9b9687f1-e694-43b1-9ff1-8423b9c2f521",
 	"00000000-0000-0000-0000-000000000000");
@@ -195,7 +195,7 @@ INSERT INTO GD_GE
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
 	21,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Proc::Terminator Service');
+	'org.xtuml.bp.core::ooaofooa::Deployment::Terminator Service');
 INSERT INTO GD_SHP
 	VALUES ("7c204b17-87b9-478b-bc4e-9d30f369889a");
 INSERT INTO GD_NCS
@@ -224,7 +224,7 @@ INSERT INTO GD_GE
 	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
 	24,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Proc::R1651');
+	'org.xtuml.bp.core::ooaofooa::Deployment::R1651');
 INSERT INTO GD_CON
 	VALUES ("4a6e7ef5-e6bf-4c7f-a3d8-5bb7320a8ee7",
 	"00000000-0000-0000-0000-000000000000");
@@ -349,8 +349,8 @@ INSERT INTO O_OIDA_PROXY
 	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	0,
-	'Proc_ID',
-	'./Proc/Proc.xtuml');
+	'Deployment_ID',
+	'./Deployment/Deployment.xtuml');
 INSERT INTO R_RTO
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
@@ -359,7 +359,7 @@ INSERT INTO R_RTO
 INSERT INTO O_ID_PROXY
 	VALUES (0,
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'./Proc/Proc.xtuml');
+	'./Deployment/Deployment.xtuml');
 INSERT INTO R_OIR
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
@@ -367,12 +367,12 @@ INSERT INTO R_OIR
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_OBJ_PROXY
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'Proc',
+	'Deployment',
 	1650,
-	'PR_PROC',
+	'D_DEPL',
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'./Proc/Proc.xtuml');
+	'./Deployment/Deployment.xtuml');
 INSERT INTO R_FORM
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
@@ -393,7 +393,7 @@ INSERT INTO O_OBJ_PROXY
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	'Terminator',
 	1651,
-	'PR_TERM',
+	'D_TERM',
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'./Terminator/Terminator.xtuml');
@@ -463,7 +463,7 @@ INSERT INTO O_OBJ_PROXY
 	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
 	'Terminator Service',
 	1652,
-	'PR_TSVC',
+	'D_TSVC',
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'./Terminator Service/Terminator Service.xtuml');

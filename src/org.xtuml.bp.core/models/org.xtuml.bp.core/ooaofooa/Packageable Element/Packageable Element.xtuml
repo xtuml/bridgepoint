@@ -4577,7 +4577,7 @@ INSERT INTO GD_GE
 	"4f0a5d33-2277-465f-ad6e-264947314816",
 	23,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Packageable Element::Proc');
+	'org.xtuml.bp.core::ooaofooa::Packageable Element::Deployment');
 INSERT INTO GD_SHP
 	VALUES ("7cd2b659-914a-4e23-8190-aa289ac830b7");
 INSERT INTO GD_NCS
@@ -4621,7 +4621,7 @@ INSERT INTO GD_GE
 	"442d1a7e-1715-447c-81f6-83b1fd714830",
 	35,
 	0,
-	'org.xtuml.bp.core::ooaofooa::Packageable Element::R8001::Proc');
+	'org.xtuml.bp.core::ooaofooa::Packageable Element::R8001::Deployment');
 INSERT INTO GD_CON
 	VALUES ("ed074eb4-38e4-4215-b343-2a2bcf2e6126",
 	"00000000-0000-0000-0000-000000000000");
@@ -5328,12 +5328,12 @@ INSERT INTO R_OIR
 	"4f0a5d33-2277-465f-ad6e-264947314816");
 INSERT INTO O_OBJ_PROXY
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'Proc',
+	'Deployment',
 	1650,
-	'PR_PROC',
+	'D_DEPL',
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	'../Proc/Proc/Proc.xtuml');
+	'../Deployment/Deployment/Deployment.xtuml');
 INSERT INTO PE_PE
 	VALUES ("08087bed-f0b1-4c84-b515-8662480ac484",
 	1,
@@ -6133,8 +6133,8 @@ INSERT INTO O_IOBJ
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	0,
 	"00000000-0000-0000-0000-000000000000",
-	'Proc',
-	'PR_PROC');
+	'Deployment',
+	'D_DEPL');
 INSERT INTO PE_PE
 	VALUES ("4f0a5d33-2277-465f-ad6e-264947314816",
 	1,

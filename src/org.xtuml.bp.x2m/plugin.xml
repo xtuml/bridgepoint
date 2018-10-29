@@ -59,7 +59,7 @@
       </objectContribution>
       <objectContribution
             id="org.xtuml.bp.x2m.contribution4"
-            objectClass="org.xtuml.bp.core.Proc_c">
+            objectClass="org.xtuml.bp.core.Deployment_c">
          <action
                class="org.xtuml.bp.x2m.actions.ExportProjectAction"
                enablesFor="1"

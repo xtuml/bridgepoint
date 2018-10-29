@@ -2,9 +2,9 @@
 
 INSERT INTO O_OBJ
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'Proc',
+	'Deployment',
 	1650,
-	'PR_PROC',
+	'D_DEPL',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
@@ -28,7 +28,7 @@ INSERT INTO O_TFR
 	1,
 	'result = "";
 if (param.at == Justification::Center_in_X)
-  result = "«proc»";
+  result = "«deployment»";
 elif (param.at == Justification::Center)
   result = self.Name;
   select one pe related by self->PE_PE[R8001];
@@ -117,7 +117,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'return self.Proc_ID;',
+	'return self.Deployment_ID;',
 	1,
 	'',
 	"3495ff63-6780-41ed-b0db-804a5559230b",
@@ -276,18 +276,18 @@ INSERT INTO O_TFR
 // end domain;
 
 
-create object instance term of PR_TERM;
+create object instance term of D_TERM;
 term.Domain_Name = "Tracking";
 term.Terminator_Name = "HR";
 relate term to self across R1650;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "registerListener";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "unregisterListener";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
@@ -295,58 +295,58 @@ svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
 
-create object instance term of PR_TERM;
+create object instance term of D_TERM;
 term.Domain_Name = "Tracking";
 term.Terminator_Name = "LOC";
 relate term to self across R1650;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "getDistance";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "getLocation";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "registerListener";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "unregisterListener";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance term of PR_TERM;
+create object instance term of D_TERM;
 
 term.Domain_Name = "Tracking";
 term.Terminator_Name = "UI";
 relate term to self across R1650;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "setData";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "setIndicator";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
 svc.Suc_Pars = ParseStatus::parseInitial;
 svc.Dialect = ActionDialect::masl;
 relate svc to term across R1651;
-create object instance svc of PR_TSVC;
+create object instance svc of D_TSVC;
 svc.Name = "setTime";
 svc.Descrip = "";
 svc.Action_Semantics_internal = "begin\n  null;\nend service;";
@@ -400,10 +400,10 @@ INSERT INTO O_ATTR
 	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"00000000-0000-0000-0000-000000000000",
-	'Proc_ID',
+	'Deployment_ID',
 	'',
 	'',
-	'Proc_ID',
+	'Deployment_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
@@ -419,7 +419,7 @@ INSERT INTO O_ATTR
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"354dbb09-a550-4f40-9bd6-0510c6669b8e",
 	'Name',
-	'Full Name:Proc Name',
+	'Full Name:Deployment Name',
 	'',
 	'Name',
 	0,
@@ -437,7 +437,7 @@ INSERT INTO O_ATTR
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"de497efa-e347-4a06-b4b9-10f7b9ac1b72",
 	'Descrip',
-	'Full Name:Proc Description',
+	'Full Name:Deployment Description',
 	'',
 	'Descrip',
 	0,
@@ -451,7 +451,7 @@ INSERT INTO O_OIDA
 	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
 	0,
-	'Proc_ID');
+	'Deployment_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"591815c2-2b96-4e7d-9d76-435b98b2b555");
@@ -468,7 +468,7 @@ INSERT INTO EP_PKG_PROXY
 	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
 	"00000000-0000-0000-0000-000000000000",
 	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'Proc',
+	'Deployment',
 	'',
 	0,
-	'../Proc.xtuml');
+	'../Deployment.xtuml');

@@ -124,10 +124,10 @@ if not_empty exp
   unrelate exp from self across R8001;
   exp.dispose();
 end if;
-select one proc related by self->PR_PROC[R8001];
-if not_empty proc
-  unrelate proc from self across R8001;
-  proc.dispose();
+select one deployment related by self->D_DEPL[R8001];
+if not_empty deployment
+  unrelate deployment from self across R8001;
+  deployment.dispose();
 end if;
 select one sat related by self->C_SF[R8001];
 if not_empty sat

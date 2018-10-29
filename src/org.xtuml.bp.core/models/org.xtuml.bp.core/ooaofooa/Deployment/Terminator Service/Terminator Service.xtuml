@@ -4,7 +4,7 @@ INSERT INTO O_OBJ
 	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
 	'Terminator Service',
 	1652,
-	'PR_TSVC',
+	'D_TSVC',
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
@@ -195,14 +195,14 @@ INSERT INTO R_RGO_PROXY
 	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
 	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
 	"910a3a7e-c1f1-44db-acde-9bfab3e084da",
-	'../Proc.xtuml');
+	'../Deployment.xtuml');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	0,
 	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
 	"85be6b12-61ca-40e8-837e-f37000e9d372",
-	'../Proc.xtuml');
+	'../Deployment.xtuml');
 INSERT INTO O_RATTR
 	VALUES ("b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
@@ -381,7 +381,7 @@ INSERT INTO EP_PKG_PROXY
 	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
 	"00000000-0000-0000-0000-000000000000",
 	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'Proc',
+	'Deployment',
 	'',
 	0,
-	'../Proc.xtuml');
+	'../Deployment.xtuml');

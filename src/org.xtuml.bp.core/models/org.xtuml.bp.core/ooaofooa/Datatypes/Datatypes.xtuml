@@ -1739,7 +1739,7 @@ INSERT INTO S_ENUM
 	"2bf45bf0-de0a-423e-875a-50a79159d9a9");
 INSERT INTO S_ENUM
 	VALUES ("244e654b-1f64-4547-a85d-7a386fd2328c",
-	'PROC',
+	'DEPL',
 	'Value:25',
 	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
 	"01a4370a-bcae-4d8e-95bb-f0094eb17ee7");

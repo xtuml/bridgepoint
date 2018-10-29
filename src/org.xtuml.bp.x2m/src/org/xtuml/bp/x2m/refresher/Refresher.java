@@ -21,7 +21,7 @@ import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Proc_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -66,10 +66,10 @@ public class Refresher extends Task {
 			if ( compRefs.length > 0) {
 				exportProject(pkg);
 			} else {
-				// select many procs related by pkg->PE_PE[R8000]->PR_PROC[R8001]
-				Proc_c[] procs = Proc_c.getManyPR_PROCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
-				for (Proc_c proc : procs) {
-					exportProject(proc);
+				// select many deployments related by pkg->PE_PE[R8000]->D_DEPL[R8001]
+				Deployment_c[] deployments = Deployment_c.getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
+				for (Deployment_c deployment : deployments) {
+					exportProject(deployment);
 				}
 
 				// select many comps related by pkg->PE_PE[R8000]->C_C[R8001]
@@ -98,17 +98,17 @@ public class Refresher extends Task {
         exportMASL(sys, MASL_PROJECT, names, null);
     }
 
-    public static void exportProject(Proc_c proc) {
+    public static void exportProject(Deployment_c deployment) {
         if (self == null) {
             self = new Refresher();
         }
 
         // get the package name
         String[] names = new String[1];
-        names[0] = proc.getName();
+        names[0] = deployment.getName();
 
         // get the system
-        SystemModel_c sys = (SystemModel_c)proc.getRoot();
+        SystemModel_c sys = (SystemModel_c)deployment.getRoot();
         
         // export the project
         exportMASL(sys, MASL_PROJECT, names, null);

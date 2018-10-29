@@ -92,7 +92,7 @@ import org.xtuml.bp.core.ObjectNode_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
-import org.xtuml.bp.core.Proc_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
@@ -1506,13 +1506,13 @@ public class Cl_c {
 	                    new Satisfaction_Query_c());
             }
             return result;
-        } else if (Ooa_type == Ooatype_c.Proc) {
-            Object result = modelRoot.getInstanceList(Proc_c.class).get(
+        } else if (Ooa_type == Ooatype_c.Deployment) {
+            Object result = modelRoot.getInstanceList(Deployment_c.class).get(
                     Ooa_id);
             if (result == null) {
-	            class Proc_Query_c implements ClassQueryInterface_c {
+	            class Deployment_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
-	                    if (((Proc_c) candidate).Get_ooa_id().equals(
+	                    if (((Deployment_c) candidate).Get_ooa_id().equals(
 	                            Ooa_id)) {
 	                        return true;
 	                    }
@@ -1521,8 +1521,8 @@ public class Cl_c {
 	                }
 	            }
 	
-	            result = Proc_c.ProcInstance(modelRoot,
-	                    new Proc_Query_c());
+	            result = Deployment_c.DeploymentInstance(modelRoot,
+	                    new Deployment_Query_c());
             }
             return result;
         } else {

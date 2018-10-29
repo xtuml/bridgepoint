@@ -143,6 +143,6 @@ PackageTreeDifferenceSlot.java
 MessageArgumentTreeDifferenceSlot.java
 /CreationTransitionInspector.java
 RangeInspector.java
-ProcInspector.java
+DeploymentInspector.java
 TerminatorInspector.java
 TerminatorServiceInspector.java

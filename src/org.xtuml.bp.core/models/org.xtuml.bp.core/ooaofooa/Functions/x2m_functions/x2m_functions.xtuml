@@ -1091,7 +1091,7 @@ if ( null != inst ) {
 			smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), ((RequiredSignal_c)inst).getId() );
 		}
 		else if ( inst instanceof TerminatorService_c ) {
-			smasl = Ooaofooa.Pr_tsvc2routine( inst.getModelRoot(), ((TerminatorService_c)inst).getSvc_id() );
+			smasl = Ooaofooa.D_tsvc2routine( inst.getModelRoot(), ((TerminatorService_c)inst).getSvc_id() );
 	    }
 		if ( !smasl.equals("") ) {
 			SmaslScanner sc = new SmaslScanner( smasl );
@@ -1370,19 +1370,19 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("e650bff3-6e27-486b-b703-b80a4847e740",
 	"00000000-0000-0000-0000-000000000000",
-	'PR_TSVC2routine',
+	'D_TSVC2routine',
 	'',
 	'// adapted from maslout function2routine
 
 smasl = "";
 
-select any pr_tsvc from instances of PR_TSVC where ( selected.Svc_ID == param.pr_tsvc );
+select any pr_tsvc from instances of D_TSVC where ( selected.Svc_ID == param.pr_tsvc );
 if ( not_empty pr_tsvc )
 
   visibility = "";
 
   visibility = "public";
-  select one term related by pr_tsvc->PR_TERM[R1651];
+  select one term related by pr_tsvc->D_TERM[R1651];
 	
   // Get the first parameter.
   // TODO

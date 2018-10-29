@@ -641,13 +641,13 @@
             </color>
          </symbol>
          <symbol
-               class="org.xtuml.bp.core.Proc_c"
-               createMethod="Newproc"
+               class="org.xtuml.bp.core.Deployment_c"
+               createMethod="Newdeployment"
                defaultHeight="150"
                defaultWidth="200"
-               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Proc"
-               icon="newproc.gif"
-               name="Proc"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Deployment"
+               icon="newdeployment.gif"
+               name="Deployment"
                symbolType="shape">
             <color
                   b="255"
@@ -2518,7 +2518,7 @@
             <validSymbol name="Provided Interface" 		tool_category="Components"/>
             <validSymbol name="Required Interface" 		tool_category="Components"/>
             <validSymbol name="Interface" 				tool_category="Components"/>
-            <validSymbol name="Proc" 			        tool_category="Components"/>
+            <validSymbol name="Deployment" 			        tool_category="Components"/>
             <validSymbol name="Accept Event Action" 	tool_category="Activity"/>
             <validSymbol name="Accept Time Event Action" tool_category="Activity"/>
             <validSymbol name="Action" 					tool_category="Activity"/>
@@ -2644,10 +2644,10 @@
                Bridge_GetElementID="Getexceptionid"
                class="org.xtuml.bp.core.Exception_c" />   
             <autoReconcile
-               targetSymbol="Proc"
-               Bridge_NumElements="Getproccount"
-               Bridge_GetElementID="Getprocid"
-               class="org.xtuml.bp.core.Proc_c" />   
+               targetSymbol="Deployment"
+               Bridge_NumElements="Getdeploymentcount"
+               Bridge_GetElementID="Getdeploymentid"
+               class="org.xtuml.bp.core.Deployment_c" />   
             <autoReconcile
                targetSymbol="External Entity"
                Bridge_NumElements="Geteecount"
