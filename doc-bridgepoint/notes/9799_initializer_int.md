@@ -21,8 +21,9 @@ issue is raised to analyze and fix the bug.
 
 ### 2. Document References
 
-<a id="2.1"></a>2.1 [BridgePoint DEI #9799](https://support.onefact.net/issues/9799) Can't set initializer function
-<a id="2.2"></a>2.2 [BridgePoint DEI #10519](https://support.onefact.net/issues/10519) Duplicate issue
+<a id="2.1"></a>2.1 [BridgePoint DEI #9799](https://support.onefact.net/issues/9799) Can't set initializer function  
+<a id="2.2"></a>2.2 [BridgePoint DEI #10519](https://support.onefact.net/issues/10519) Duplicate issue  
+<a id="2.3"></a>2.3 [BridgePoint DEI #10526](https://support.onefact.net/issues/10526)  
 
 ### 3. Background
 
@@ -49,7 +50,8 @@ Watch example model. In the UI component reference in the "GPS_Watch" project,
 the link between the UI port reference and the port in the component definition
 is broken. The resulting behavior is that the port appears to have no name. The
 links to the messages are maintained, so at the moment it does not affect the
-execution behavior, but it should be cleaned up.
+execution behavior, but it should be cleaned up. An issue has been raised for 
+this: [[2.3]](#2.3).
 
 ### 7. Unit Test
 
