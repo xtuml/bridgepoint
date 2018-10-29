@@ -16,7 +16,7 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="/org.xtuml.bp.pkg/icons/green-bp.gif" i32="/org.xtuml.bp.pkg/icons/green-bp-dbl.gif" i48="/org.xtuml.bp.pkg/icons/green-bp_48x48.gif" i64="/org.xtuml.bp.pkg/icons/green-bp_64x64.gif" i128="/org.xtuml.bp.pkg/icons/green-bp_128x128.gif" i256="/org.xtuml.bp.pkg/icons/green-bp_256x256.gif"/>
+   <windowImages i16="icons/green-bp.gif" i32="icons/green-bp-dbl.gif" i48="icons/green-bp_48x48.gif" i64="icons/green-bp_64x64.gif" i128="icons/green-bp_128x128.gif" i256="icons/green-bp_256x256.gif"/>
 
    <splash
       location="org.xtuml.bp.pkg"
@@ -26,13 +26,13 @@
    <launcher name="bridgepoint">
       <win useIco="false">
          <bmp
-            winSmallHigh="/org.xtuml.bp.pkg/icons/green-bp_16x16_32bit.bmp"
-            winSmallLow="/org.xtuml.bp.pkg/icons/green-bp_16x16_8bit.bmp"
-            winMediumHigh="/org.xtuml.bp.pkg/icons/green-bp_32x32_32bit.bmp"
-            winMediumLow="/org.xtuml.bp.pkg/icons/green-bp_32x32_8bit.bmp"
-            winLargeHigh="/org.xtuml.bp.pkg/icons/green-bp_48x48_32bit.bmp"
-            winLargeLow="/org.xtuml.bp.pkg/icons/green-bp_48x48_8bit.bmp"
-            winExtraLargeHigh="/org.xtuml.bp.pkg/icons/green-bp_256x256_32bit.bmp"/>
+            winSmallHigh="icons/green-bp_16x16_32bit.bmp"
+            winSmallLow="icons/green-bp_16x16_8bit.bmp"
+            winMediumHigh="icons/green-bp_32x32_32bit.bmp"
+            winMediumLow="icons/green-bp_32x32_8bit.bmp"
+            winLargeHigh="icons/green-bp_48x48_32bit.bmp"
+            winLargeLow="icons/green-bp_48x48_8bit.bmp"
+            winExtraLargeHigh="icons/green-bp_256x256_32bit.bmp"/>
       </win>
    </launcher>
 
