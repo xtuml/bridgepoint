@@ -357,6 +357,36 @@ relate svc to term across R1651;',
 	'',
 	"ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
 	0);
+INSERT INTO O_TFR
+	VALUES ("f3d7f2b4-8bf6-4646-bb6a-9638d0777e59",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'canAssignToComp',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return true;',
+	1,
+	'',
+	"8b7fd211-8a05-43af-8f67-df50a51297b5",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("5661b88b-6a73-41c6-bfdd-be373bcd1b5f",
+	"f3d7f2b4-8bf6-4646-bb6a-9638d0777e59",
+	'Id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'The id of the C_C instance to test.');
+INSERT INTO O_TPARM
+	VALUES ("196ce0b2-0b63-4b80-9d12-619a9f90c060",
+	"f3d7f2b4-8bf6-4646-bb6a-9638d0777e59",
+	'checkExistingType',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"5661b88b-6a73-41c6-bfdd-be373bcd1b5f",
+	'');
 INSERT INTO O_REF
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

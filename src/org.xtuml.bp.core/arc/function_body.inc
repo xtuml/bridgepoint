@@ -390,6 +390,8 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
     .assign attr_result = "Component_c.getOneC_COnR4010(Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(v_element)))"
   .elif (kl == "C_DG")
 	.assign attr_result = "Component_c.getOneC_COnR4010(Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4013(InterfaceReferenceInDelegation_c.getOneC_RIDOnR4013(v_element))))"
+  .elif (kl == "D_DEPL")
+    .assign attr_result = "v_element"
   .end if
 .end function
 .function get_from_pe_traversal
