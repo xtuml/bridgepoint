@@ -16,7 +16,7 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="icons/green-bp.gif" i32="icons/green-bp-dbl.gif" i48="icons/green-bp_48x48.gif" i64="icons/green-bp_64x64.gif" i128="icons/green-bp_128x128.gif" i256="icons/green-bp_256x256.gif"/>
+   <windowImages i16="icons/green-bp.iconset/icon_16x16.png" i32="icons/green-bp.iconset/icon_32x32.png" i48="icons/green-bp.iconset/icon_48x48.png" i64="icons/green-bp.iconset/icon_64x64.png" i128="icons/green-bp.iconset/icon_128x128.png" i256="icons/green-bp.iconset/icon_256x256.png"/>
 
    <splash
       location="org.xtuml.bp.pkg"
@@ -24,6 +24,8 @@
       startupMessageRect="7,252,445,20"
       startupForegroundColor="000000" />
    <launcher name="bridgepoint">
+      <linux icon="icons/icon.xpm"/>
+      <macosx icon="icons/green-bp.icns"/>
       <win useIco="false">
          <bmp
             winSmallHigh="icons/green-bp_16x16_32bit.bmp"
