@@ -7,6 +7,163 @@ INSERT INTO O_OBJ
 	'D_TERM',
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("621d8420-0973-4366-a91b-149daf8c91e8",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'updateFromPort',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'c_po = param.c_po;
+select one c_c related by c_po->C_C[R4010];
+select any c_r related by c_po->C_IR[R4016]->C_R[R4009];
+
+// update the terminator
+self.Domain_Name = c_c.Name;
+self.Terminator_Name = c_po.Name;
+self.Descrip = "";
+if ( not_empty c_r )
+  self.Descrip = c_r.Descrip;
+end if;
+
+// check if any services need to be removed
+select many existing_services related by self->D_TSVC[R1651];
+for each existing_service in existing_services
+  select any c_ep related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003] where ( selected.Name == existing_service.Name );
+  if ( empty c_ep )
+    unrelate existing_service from self across R1651;
+    existing_service.dispose();
+  end if;
+end for;
+
+// for each message, create or update a terminator service
+select any empty_spr_ro from instances of SPR_RO where false;
+select any empty_spr_rs from instances of SPR_RS where false;
+select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
+for each spr_ro in spr_ros
+  select any existing_service related by self->D_TSVC[R1651] where ( selected.Name == spr_ro.Name );
+  if ( empty existing_service )
+    self.newServiceFromRequiredOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs );
+  else
+    existing_service.updateFromRequiredOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs );
+  end if;
+end for;
+select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
+for each spr_rs in spr_rss
+  select any existing_service related by self->D_TSVC[R1651] where ( selected.Name == spr_rs.Name );
+  if ( empty existing_service )
+    self.newServiceFromRequiredOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs );
+  else
+    existing_service.updateFromRequiredOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs );
+  end if;
+end for;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("a7be0514-20dd-4366-bb19-5ba83d15290d",
+	"621d8420-0973-4366-a91b-149daf8c91e8",
+	'c_po',
+	"60534880-b545-4f4c-9846-93e40f1e0d1d",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("60534880-b545-4f4c-9846-93e40f1e0d1d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Port>',
+	'',
+	'',
+	'../../Component/Component.xtuml');
+INSERT INTO O_TFR
+	VALUES ("996e8c32-1085-4101-860b-2c660c0f9198",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'newServiceFromRequiredOperationOrSignal',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'spr_ro = param.spr_ro;
+spr_rs = param.spr_rs;
+
+select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
+if ( empty c_ep )
+  select one c_ep related by spr_rs->SPR_REP[R4502]->C_EP[R4500];
+end if;
+
+// create new service
+create object instance service of D_TSVC;
+relate service to self across R1651;
+service.Name = c_ep.Name;
+
+// populate details from message implementation
+if ( not_empty spr_ro )
+  service.Descrip = spr_ro.Descrip;
+  service.Action_Semantics_internal = spr_ro.Action_Semantics_internal;
+  service.Suc_Pars = spr_ro.Suc_Pars;
+  service.Dialect = spr_ro.Dialect;
+elif ( not_empty spr_rs )
+  service.Descrip = spr_rs.Descrip;
+  service.Action_Semantics_internal = spr_rs.Action_Semantics_internal;
+  service.Suc_Pars = spr_rs.Suc_Pars;
+  service.Dialect = spr_rs.Dialect;
+else
+  USER::logError( msg:"No message instance passed to creation operation", path:"" );
+end if;',
+	1,
+	'',
+	"621d8420-0973-4366-a91b-149daf8c91e8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_ro',
+	"92776846-85ef-4067-ba50-1decd204b1d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("92776846-85ef-4067-ba50-1decd204b1d8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Required Operation>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("3341d7a4-36fa-4cb9-be9f-b2227c25a817",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_rs',
+	"4299235e-fac4-4b13-afe1-9e82353ed442",
+	0,
+	'',
+	"49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4299235e-fac4-4b13-afe1-9e82353ed442",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Required Signal>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many services related by self->D_TSVC[R1651];
+for each service in services
+  unrelate service from self across R1651;
+  service.dispose();
+end for;
+delete object instance self;',
+	1,
+	'',
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	0);
 INSERT INTO O_REF
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",

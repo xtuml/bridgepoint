@@ -14,7 +14,12 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'',
+	'select many terminators related by self->D_TERM[R1650];
+for each terminator in terminators
+  unrelate terminator from self across R1650;
+  terminator.dispose();
+end for;
+delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -223,7 +228,18 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'c_c = param.c_c;',
+	'c_c = param.c_c;
+
+// for each required port in the component, either update an existing terminator or create a new one
+select many target_ports related by c_c->C_PO[R4010]->C_IR[R4016]->C_R[R4009]->C_IR[R4009]->C_PO[R4016];
+for each target_port in target_ports
+  select any existing_terminator related by self->D_TERM[R1650] where ( selected.Domain_Name == c_c.Name and selected.Terminator_Name == target_port.Name );
+  if ( not_empty existing_terminator )
+    existing_terminator.updateFromPort( c_po:target_port );
+  else
+    self.newTerminatorFromPort( c_po:target_port );
+  end if;
+end for;',
 	1,
 	'',
 	"b96cf728-832e-421f-88a1-2df5896534a4",
@@ -251,112 +267,20 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// domain Tracking is
-//   terminator HR is
-//     public service registerListener ();       
-//     public service unregisterListener ();       
-//   end terminator;
-//   terminator LOC is
-//     public service getDistance ( result: out real, 
-//                                  toLong: in real,                
-//                                  toLat: in real,                 
-//                                  fromLong: in real,              
-//                                  fromLat: in real );             
-//     public service getLocation ( longitude: out real,
-//                                  latitude: out real );           
-//     public service registerListener ();       
-//     public service unregisterListener ();       
-//   end terminator;        
-//   terminator UI is       
-//     public service setData ( value: in real,
-//                              unit: in Tracking::Unit );       
-//     public service setIndicator ( indicator: in Tracking::Indicator );       
-//     public service setTime ( time: in integer );       
-//   end terminator;
-// end domain;
-
-
-create object instance term of D_TERM;
-term.Domain_Name = "Tracking";
-term.Terminator_Name = "HR";
-relate term to self across R1650;
-create object instance svc of D_TSVC;
-svc.Name = "registerListener";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance svc of D_TSVC;
-svc.Name = "unregisterListener";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-
-create object instance term of D_TERM;
-term.Domain_Name = "Tracking";
-term.Terminator_Name = "LOC";
-relate term to self across R1650;
-create object instance svc of D_TSVC;
-svc.Name = "getDistance";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance svc of D_TSVC;
-svc.Name = "getLocation";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance svc of D_TSVC;
-svc.Name = "registerListener";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance svc of D_TSVC;
-svc.Name = "unregisterListener";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance term of D_TERM;
-
-term.Domain_Name = "Tracking";
-term.Terminator_Name = "UI";
-relate term to self across R1650;
-create object instance svc of D_TSVC;
-svc.Name = "setData";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance svc of D_TSVC;
-svc.Name = "setIndicator";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;
-create object instance svc of D_TSVC;
-svc.Name = "setTime";
-svc.Descrip = "";
-svc.Action_Semantics_internal = "begin\n  null;\nend service;";
-svc.Suc_Pars = ParseStatus::parseInitial;
-svc.Dialect = ActionDialect::masl;
-relate svc to term across R1651;',
+	'filename = param.filename;',
 	1,
 	'',
 	"ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
 	0);
+INSERT INTO O_TPARM
+	VALUES ("402a6935-35c5-46c6-a83b-1d4d35a1544d",
+	"8b7fd211-8a05-43af-8f67-df50a51297b5",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_TFR
 	VALUES ("f3d7f2b4-8bf6-4646-bb6a-9638d0777e59",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
@@ -387,6 +311,58 @@ INSERT INTO O_TPARM
 	'',
 	"5661b88b-6a73-41c6-bfdd-be373bcd1b5f",
 	'');
+INSERT INTO O_TFR
+	VALUES ("66da6496-4b92-4f85-b29b-2a22739c0458",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'newTerminatorFromPort',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'c_po = param.c_po;
+select one c_c related by c_po->C_C[R4010];
+select any c_r related by c_po->C_IR[R4016]->C_R[R4009];
+
+// create the terminator
+create object instance term of D_TERM;
+relate term to self across R1650;
+term.Domain_Name = c_c.Name;
+term.Terminator_Name = c_po.Name;
+term.Descrip = "";
+if ( not_empty c_r )
+  term.Descrip = c_r.Descrip;
+end if;
+
+// for each message, create a terminator service
+select any empty_spr_ro from instances of SPR_RO where false;
+select any empty_spr_rs from instances of SPR_RS where false;
+select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
+for each spr_ro in spr_ros
+  term.newServiceFromRequiredOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs );
+end for;
+select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
+for each spr_rs in spr_rss
+  term.newServiceFromRequiredOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs );
+end for;',
+	1,
+	'',
+	"f3d7f2b4-8bf6-4646-bb6a-9638d0777e59",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("65d5a373-32d4-4f80-8d23-01348494d574",
+	"66da6496-4b92-4f85-b29b-2a22739c0458",
+	'c_po',
+	"60534880-b545-4f4c-9846-93e40f1e0d1d",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("60534880-b545-4f4c-9846-93e40f1e0d1d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Port>',
+	'',
+	'',
+	'../../Component/Component.xtuml');
 INSERT INTO O_REF
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

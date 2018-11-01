@@ -7853,7 +7853,8 @@ INSERT INTO S_SYNC
 	'',
 	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
 if not_empty element
-  element.importTerminatorFromFile();
+  filename = Util::getFile();
+  element.importTerminatorFromFile(filename:filename);
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

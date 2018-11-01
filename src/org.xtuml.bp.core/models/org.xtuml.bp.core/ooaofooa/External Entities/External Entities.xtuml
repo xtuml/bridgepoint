@@ -2658,6 +2658,20 @@ INSERT INTO S_BPARM
 	'',
 	"50343eaf-4139-4aea-89ce-6162253869d2",
 	'');
+INSERT INTO S_BRG
+	VALUES ("b02e4008-da5e-4df5-bd63-dd6b74c41bb9",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'getFile',
+	'Import:org.eclipse.swt.widgets.FileDialog; import org.eclipse.ui.PlatformUI
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'FileDialog dialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+dialog.setText("Select file...");
+return dialog.open();',
+	0,
+	'',
+	0);
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
