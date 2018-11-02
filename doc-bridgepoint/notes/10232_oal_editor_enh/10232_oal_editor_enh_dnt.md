@@ -19,7 +19,7 @@ A simple, user-requested canvas update is also addressed.
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #10232](https://support.onefact.net/issues/10232) Headline issue.    
 <a id="2.2"></a>2.2 [BridgePoint DEI #10279](https://support.onefact.net/issues/10279) Change range separator from "," to ".."    
-<a id="2.3"></a>2.3 [BridgePoint SR #4995](https://support.onefact.net/issues/4995) Put support for action language auto-indent/auto-format in place in editors		
+<a id="2.3"></a>2.3 [BridgePoint SR #4995](https://support.onefact.net/issues/4995) Put support for action language auto-indent/auto-format in place in editors  
 <a id="2.4"></a>2.4 [BridgePoint SR #5038](https://support.onefact.net/issues/5038) Tab-width setting "Insert spaces for tabs" ignores "Displayed tab width"-setting and always inserts four spaces regardless of setting.  	
 <a id="2.5"></a>2.5 [Create a commercial-quality Eclipse IDE, Part 2: The user interface](https://www.ibm.com/developerworks/opensource/tutorials/os-ecl-commplgin2/os-ecl-commplgin2-pdf.pdf)   
 <a id="2.6"></a>2.6 [List of Preference Page IDs](http://grepcode.com/file/repository.grepcode.com/java/eclipse.org/4.2/org.eclipse.ui/editors/3.8.0/plugin.xml?av=f)  
