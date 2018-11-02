@@ -149,7 +149,8 @@ INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Except
 INSERT INTO T_TNS VALUES (384, 'Range.gif', 'S_RANGE', '', '', '', 'Range', -1, '');
 INSERT INTO T_TNS VALUES (385, 'Deployment.gif', 'D_DEPL', '', 'Name', '', 'Deployment', -1, '');
 INSERT INTO T_TNS VALUES (386, 'ExternalEntity.gif', 'D_TERM', '', 'Name', '', 'Terminator', -1, '');
-INSERT INTO T_TNS VALUES (387, 'Bridge.gif', 'D_TSVC', '', 'Name', '', 'Terminator', -1, '');
+INSERT INTO T_TNS VALUES (387, 'Bridge.gif', 'D_TSVC', '', 'Name', '', 'Terminator Service', -1, '');
+INSERT INTO T_TNS VALUES (388, 'BridgeParameter.gif', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameter', -1, '');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
@@ -409,6 +410,8 @@ INSERT INTO T_TPS VALUES (381, 297, 383, '->PE_PE[R8000]->S_EXP[R8001]', '', fal
 INSERT INTO T_TPS VALUES (382, 297, 385, '->PE_PE[R8000]->D_DEPL[R8001]', '', false);
 INSERT INTO T_TPS VALUES (601, 385, 386, '->D_TERM[R1650]', '', false);
 INSERT INTO T_TPS VALUES (602, 386, 387, '->D_TSVC[R1651]', '', false);
+INSERT INTO T_TPS VALUES (603, 387, 388, '->D_TSPARM[R1652]', '', false);
+INSERT INTO T_TPS VALUES (604, 388,  17, '->S_DT[R1653]', 'Type', true);
 
 -- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures

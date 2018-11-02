@@ -110,7 +110,19 @@ elif ( not_empty spr_rs )
   service.Dialect = spr_rs.Dialect;
 else
   USER::logError( msg:"No message instance passed to creation operation", path:"" );
-end if;',
+end if;
+
+// create parameters
+select any c_pp related by c_ep->C_PP[R4006];
+select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
+while ( not_empty prev_c_pp )
+  c_pp = prev_c_pp;
+  select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
+end while;
+while ( not_empty c_pp )
+  service.newServiceParameterFromPropertyParameter( c_pp:c_pp );
+  select one c_pp related by c_pp->C_PP[R4021.''precedes''];
+end while;',
 	1,
 	'',
 	"621d8420-0973-4366-a91b-149daf8c91e8",

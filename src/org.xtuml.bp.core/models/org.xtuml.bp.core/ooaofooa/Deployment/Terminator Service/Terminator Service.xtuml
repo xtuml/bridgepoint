@@ -164,8 +164,13 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'',
-	3,
+	'select many service_params related by self->D_TSPARM[R1652];
+for each service_param in service_params
+  unrelate service_param from self across R1652;
+  service_param.dispose();
+end for;
+delete object instance self;',
+	1,
 	'',
 	"4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
 	0);
@@ -237,6 +242,83 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1bde8527-d786-4434-be87-62643a4f9cff",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getPath',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one terminator related by self->D_TERM[R1651];
+select one deployment related by terminator->D_DEPL[R1650];
+select one packageableElem related by deployment->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+result="";
+  if (not_empty package)
+    result=package.getPath(path:deployment.Name + "::" + terminator.Name + "::" + self.Name);
+  else
+    result=component.getPath(path:deployment.Name + "::" + terminator.Name + "::" + self.Name, includeSelf:true);
+  end if;
+return result;',
+	1,
+	'',
+	"e7583f0f-7a5d-488d-a229-275c03c83998",
+	0);
+INSERT INTO O_TFR
+	VALUES ("6b2a0206-bed5-4069-81ed-749529fad60e",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'newServiceParameterFromPropertyParameter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'c_pp = param.c_pp;
+
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
+end if;
+parameter.Name = c_pp.Name;
+parameter.By_Ref = c_pp.By_Ref;
+parameter.Dimensions = c_pp.Dimensions;
+parameter.Descrip = c_pp.Descrip;
+
+// link data type
+select one s_dt related by c_pp->S_DT[R4007];
+relate s_dt to parameter across R1653;
+
+// resolve dimensions
+parameter.parseDimensions();',
+	1,
+	'',
+	"1bde8527-d786-4434-be87-62643a4f9cff",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("08896123-2c41-4248-b7f1-e914b966af3a",
+	"6b2a0206-bed5-4069-81ed-749529fad60e",
+	'c_pp',
+	"14ba955b-ae85-45c4-b8b9-735d54850c34",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("14ba955b-ae85-45c4-b8b9-735d54850c34",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Property Parameter>',
+	'',
+	'',
+	'../../Component/Component.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");

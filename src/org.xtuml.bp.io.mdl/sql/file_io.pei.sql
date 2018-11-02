@@ -49,7 +49,9 @@ INSERT INTO EO VALUES ( '23.29.1',    '', '', 'Packageable Element', 8001, 'one'
 INSERT INTO EO VALUES ( '23.31.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '23.30.1', '23.30.1.1', '23.30.2', 'Terminator', 1650, 'many', 'first', false );
-INSERT INTO EO VALUES ( '23.30.1.1', '', '', 'Terminator Service', 1651, 'many', 'first', false );
+INSERT INTO EO VALUES ( '23.30.1.1', '23.30.1.1.1', '', 'Terminator Service', 1651, 'many', 'first', false );
+INSERT INTO EO VALUES ( '23.30.1.1.1', '23.30.1.1.1.1', '', 'Terminator Service Parameter', 1652, 'many', 'first', false );
+INSERT INTO EO VALUES ( '23.30.1.1.1.1', '', '', 'Dimensions', 1655, 'many', 'first' );
 INSERT INTO EO VALUES ( '23.30.2', '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );

@@ -146,3 +146,4 @@ RangeInspector.java
 DeploymentInspector.java
 TerminatorInspector.java
 TerminatorServiceInspector.java
+TerminatorServiceParameterInspector.java

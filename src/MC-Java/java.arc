@@ -695,6 +695,9 @@ import org.eclipse.ui.IContributorResourceAdapter;
         .if ("${pkg.Descrip:Import}" != "")
 import ${pkg.Descrip:Import};
         .end if
+        .if ("${object.Descrip:Import}" != "")
+import ${object.Descrip:Import};
+        .end if
         .if (package.is_eclipse_plugin)
 import org.xtuml.bp.core.common.*;      
         .else
