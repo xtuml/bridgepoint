@@ -14,7 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
-	'return "[" + self.Min + "," + self.Max + "]";',
+	'return "[" + self.Min + ".." + self.Max + "]";',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
