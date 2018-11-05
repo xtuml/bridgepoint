@@ -25,6 +25,7 @@ A simple, user-requested canvas update is also addressed.
 <a id="2.6"></a>2.6 [List of Preference Page IDs](http://grepcode.com/file/repository.grepcode.com/java/eclipse.org/4.2/org.eclipse.ui/editors/3.8.0/plugin.xml?av=f)  
 <a id="2.7"></a>2.7 [BridgePoint DEI #10345](https://support.onefact.net/issues/10345) Update unit tests to account for move to eclipse oxygen   
 <a id="2.8"></a>2.8 [BridgePoint DEI #10527](https://support.onefact.net/issues/10527) Test auto-indent    
+<a id="2.9"></a>2.9 [SRS_SAAB_Sortie-2](https://docs.google.com/document/d/11k8433quu1mXWicvWtbVRn0hfEvbt8bRQGxyE2GTR0s/edit#heading=h.qtczt4yvcn0) - One Fact Private document   
 
 ### 3. Background
 
@@ -41,18 +42,23 @@ uses `.`.  We shall change the range separator to use `..` instead (e.g. `[0..11
  
 ### 4. Requirements
 
-4.1 OAL editor shall properly honor the tab-width preference.   
-4.1.1  When tabs are specified to be used, tabs shall follow the width specified in the preference  
-4.1.2  When spaces are specified to be used, the correct number of spaces shall be inserted to match the tab width  
-     
-4.2 Ranges shall be displayed on the canvas with `..` instead of `,`  
+The requirements shown here are copied from the SRS [2.9] for convenience of the reader.  
 
-4.3 OAL editor shall automatically indent the next line when the user hits enter at the end of a line that
-contains an `if`, `elif`, `else`, `while`, or `for each` statement.  
-4.3.1 This automatic indentation shall follow the rules in 4.1.  
+| Req #   | Requirement |  
+|---------|----------|
+| 4995-1  | The OAL editor shall automatically indent newly inserted lines at the same indentation level by duplicating the indentation of the previous line. |
+| 4995-2  | When the user inserts a new line and the previous line begins with one of the following OAL statements (case insensitive), an additional level of indentation to the previous line shall be automatically inserted: `if`, `elif`, `else`, `for each`, `while` |
+| 4995-3  | When preference settings are configured to use tabs the OAL editor shall render all tabs using the size of the tab width specified in the preferences.|
+| 4995-4  | Changes to tab width shall not affect existing indentation where spaces were used instead of tabs. |
+| 5038-1  | The OAL editor shall honor the tab width preference setting when the user performs manual indentation and tab characters are in use.  Each indent will result in a single tab of the configured width being inserted into the editor. |
+| 5038-2  | The OAL editor shall honor the tab width preference setting when the user performs manual indentation and is configured to use spaces instead of tabs. Each indent will result in the configured tab width number of spaces being inserted into the editor. |
+| 5038-3  | When performing automatic indentation, the OAL editor shall duplicate the indentation of the previous line. If the previous line contains a special control statement that triggers additional indentation, the additional indent will use the configured preferences for tab width and spaces or tabs. |
+| 10279-1 | Change the separator character used to show range values from “,” to “..”. |
+
 
 ### 5. Analysis
-5.1 All settings appear to work just fine in text editor   
+5.1 All settings appear to work just fine in the current generic text editor 
+inside eclipse.     
 
 5.2 Existing OAL editor  
 5.2.1 Auto indent does not work after creating if() statement   
@@ -86,6 +92,12 @@ getTabWidth(ISourceViewer sourceViewer)
 getAutoEditStrategies(...)
 getIndentPrefixesForTab(int tabWidth)
 ```  
+>  NOTE: Similar to other eclipse code editors, the automatic indentation we provide
+>  is only applied on lines directly following one of the keywords called out in the requirements.
+>  Once we are inside one of these blocks, any line after the first follows the indentation 
+>  of the previous line.  Thus, if a block already contains some lines, the existing indent is
+>  reused when adding additional lines after the first.  If a new first line is created, our
+>  automatic indentation is applied.  
 
 5.5.2 Text Editor preferences settings:  
 ```java
@@ -101,6 +113,9 @@ int tabWidth = store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITO
 6.1.2  The strategy class methods shall leverage the text editor tab preferences and 
 implement functionality to determine when automatic indentation is needed and what the indent
 depth should be.  
+6.1.3  Our implementation uses simple pattern matching rather than the complexity and "weight" 
+of a full parser.  Therefore, we do not handle complex cases such as writing an `if` statement with
+body and `end if` all on a single line.   
 
 6.2 Update `OALEditorConfiguration.java` to handle the overrides called out in 5.5.1  
 
@@ -121,77 +136,9 @@ problems and re-enable the unit tests.
 None      
 
 ### 9. Unit Test
-__NOTE: 9.1 to 9.3 is captured in reusable manual test [2.8]__  
+9.1 Run the reusable manual test [2.8]    
 
-9.1 Test Preferences Link     
-* Open the BridgePoint Preferences
-* Navigate to xtUML > Activity Editor
-* Click on the "Text Editors" link
-* __R__ Text Editors preference page opens
-* Set the Displayed Tab Width to 4
-* Set "Insert Spaces for Tabs" to off (unchecked)
-
-9.2 Test auto-indent with tab   
-* Create the MicrowaveOven sample model
-* Navigate to `MicrowaveOven > components > MicrowaveOven > Functions`
-* Add a new function named testTabs
-* Enter the following OAL by hand (do not copy paste). Verify that lines
-are automatically indented after creating new conditional or loop blocks  
-
-```java
-a = 1;
-
-if ( a == 1 )
-    a = 0;
-    b = 2;
-elif ( a == 2 )
-    c = 0;
-else
-    b = 1;
-end if;
-
-select many doors from instances of MO_D;
-for each door in doors
-    a = 1;
-    if ( a == 1 )
-        c = 0;
-    end if;
-end for;
-
-while ( a != 0 )
-    a = a - 1;
-end while;
-```
-* Use your arrow keys to navigate around the OAL and verify the indentation 
-is performed with tabs and not spaces  
-
-9.2.1  Change width and add the following lines, verify new width is honored
-* Open Text Editor preferences
-* Set the Displayed tab width to 2
-* Create a new function named `testTabs2`
-* Re-enter the OAL from 9.2 and verify the new tab width is used
-* Use your arrow keys to navigate around the OAL and verify the indentation 
-is performed with tabs and not spaces
-
-9.3 Test auto-indent with spaces   
-* Open Text Editor preferences
-* Set the Displayed tab width to 4
-* Turn on (check) the "Insert Spaces for Tabs" option
-* Create a new function named `testSpaces`
-* Re-enter the OAL from 9.2 and verify the new tab width is used
-* Use your arrow keys to navigate around the OAL and verify the indentation 
-is performed with spaces and not tabs
-  
-9.3.1  Change width and add the following lines, verify new width is honored
-* Open Text Editor preferences
-* Set the Displayed tab width to 2
-* Turn on (check) the "Insert Spaces for Tabs" option
-* Create a new function named `testSpaces2`
-* Re-enter the OAL from 9.2 and verify the new tab width is used
-* Use your arrow keys to navigate around the OAL and verify the indentation 
-is performed with spaces and not tabs
-
-9.4 Test range separator   
+9.2 Test range separator   
 * Open the `MicrowaveOven > components > MicrowaveOven > Datatypes` package
 * Add a new User Data Type named rangetest
 * Use the context menu "Range" on `rangetest` to set a minimum and maximum value

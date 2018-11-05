@@ -38,7 +38,7 @@ public class OALAutoEditStrategy implements IAutoEditStrategy {
         }
     }
 
-    public static int findEndOfWhiteSpace(IDocument document, int offset, int end) throws BadLocationException {
+    public static int findEndOfIndent(IDocument document, int offset, int end) throws BadLocationException {
         while (offset < end) {
             char c = document.getChar(offset);
             if (c != ' ' & c != '\t') {
@@ -53,7 +53,7 @@ public class OALAutoEditStrategy implements IAutoEditStrategy {
         if (line > -1) {
             int start = document.getLineOffset(line);
             int end = start + document.getLineLength(line) - 1;
-            int whiteend = findEndOfWhiteSpace(document, start, end);
+            int whiteend = findEndOfIndent(document, start, end);
             return document.get(start, whiteend - start);
         } else {
             return "";
@@ -65,6 +65,10 @@ public class OALAutoEditStrategy implements IAutoEditStrategy {
             int start = document.getLineOffset(line);
             int end = start + document.getLineLength(line) - 1;
             String text = document.get(start,end-start);
+            // The following regex implements our pattern matching where we look for the required
+            // keywords.  We look for if, elif, or while followed by an optionally parenthesized 
+            // condition and we also look for else and for each while handling the user adding some
+            // extra spaces in the keyword.
             if ( text.matches("^\\s*(?i)(if|elif|while)\\s*\\(?.*") || text.matches("^\\s*(?i)(else|for\\s+each\\s+).*") ) {
                 IPreferenceStore store = EditorsUI.getPreferenceStore();
                 boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
