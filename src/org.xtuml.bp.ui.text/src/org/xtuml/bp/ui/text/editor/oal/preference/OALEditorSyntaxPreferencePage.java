@@ -1,12 +1,4 @@
 //========================================================================
-//
-// File:      $RCSfile: OALEditorSyntaxPreferencePage.java,v $
-// Version:   $Revision: 1.10 $
-// Modified:  $Date: 2013/01/10 23:21:04 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License.  You may obtain a copy
 // of the License at
@@ -47,21 +39,20 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
-
-import org.xtuml.bp.ui.text.OALEditorPlugin;
-import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
-import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences.TokenTypeInfo;
-import org.xtuml.bp.ui.text.editor.oal.OALEditorConfiguration;
-import org.xtuml.bp.ui.text.editor.oal.OALDocumentProvider;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.xtuml.bp.ui.preference.BaseModelEditor;
 import org.xtuml.bp.ui.preference.BasePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModel.IChangeListener;
+import org.xtuml.bp.ui.text.OALEditorPlugin;
+import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
+import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences.TokenTypeInfo;
+import org.xtuml.bp.ui.text.editor.oal.OALAutoEditStrategy;
+import org.xtuml.bp.ui.text.editor.oal.OALDocumentProvider;
+import org.xtuml.bp.ui.text.editor.oal.OALEditorConfiguration;
 
-/**
- * @author babar
- */
 public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
 
     //	background widgets
@@ -126,6 +117,18 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
         Composite uiContainer = new Canvas(parent, SWT.NULL);
         uiContainer.setLayout(new GridLayout());
 
+        Link tePrefLink= new Link(uiContainer, SWT.NONE);
+        tePrefLink.setText("Additional settings available in <a>Text Editors</a> preference page."); //$NON-NLS-1$
+        tePrefLink.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e) {
+                PreferencesUtil.createPreferenceDialogOn(getShell(), "org.eclipse.ui.preferencePages.GeneralTextEditor", null, "selectCategory:org.eclipse.ui.preferencePages.Editors"); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        });
+        GridData gdLink = new GridData(SWT.FILL, SWT.BEGINNING, true, false);
+        gdLink.widthHint= 150; // only expand further if anyone else requires it
+        gdLink.horizontalSpan= 2;
+        tePrefLink.setLayoutData(gdLink);
+        
         Composite colorParent = new Canvas(uiContainer, SWT.NULL);
 
         GridLayout paneLayout = new GridLayout();
@@ -173,8 +176,7 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
         gd.horizontalSpan = 2;
         label.setLayoutData(gd);
 
-        // 2) The color list and its slection event listener
-
+        // 2) The color list and its selection event listener
         syntaxForegroundList = new List(colorParent, SWT.BORDER);
         //syntaxForegroundList.setItems(syntaxMembers);
 
@@ -185,7 +187,7 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
         gd = new GridData();
         buttonArea.setLayoutData(gd);
 
-        // Setup buttons ... following few lines are a strange code of hadnling the layout stuff
+        // Setup buttons ... following few lines are a strange code of handling the layout stuff
         RowLayout buttonLayout = new RowLayout();
         buttonLayout.type = SWT.VERTICAL;
         buttonArea.setLayout(buttonLayout);
@@ -245,6 +247,7 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
         Font font = JFaceResources.getFont("org.eclipse.jdt.ui.editors.textfont");
         viewer.getTextWidget().setFont(font);
         viewer.getTextWidget().setBackground(clonedPreferences.getBackgroundColor());
+        viewer.setTabsToSpacesConverter(new OALAutoEditStrategy());
         viewer.setEditable(false);
 
         String content = loadPreviewContentFromFile("OALPreviewCode.txt");
@@ -355,7 +358,7 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
         boldCheckButton.setSelection(info.isBold());
     }
     
-//  common methods for maintain UI State **********************************END
+    //  common methods for maintain UI State **********************************END
 
     protected SyntaxHighlightingPreferences getClonedPreferences() {
         return (SyntaxHighlightingPreferences) clonedModel;
