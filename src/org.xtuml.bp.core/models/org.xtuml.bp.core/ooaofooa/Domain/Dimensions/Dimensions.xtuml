@@ -847,7 +847,7 @@ INSERT INTO O_REF
 	0,
 	'',
 	'Terminator Service Parameter',
-	'TParm_ID',
+	'TSParm_ID',
 	'R1655');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
@@ -867,7 +867,7 @@ INSERT INTO O_RATTR
 	"7efb0ce0-bc02-4717-aa43-d04eb5b44c27",
 	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
 	1,
-	'TParm_ID');
+	'TSParm_ID');
 INSERT INTO O_BATTR_PROXY
 	VALUES ("7efb0ce0-bc02-4717-aa43-d04eb5b44c27",
 	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
@@ -876,12 +876,63 @@ INSERT INTO O_ATTR
 	VALUES ("998c5e87-a2fa-4609-aea5-59b82d579867",
 	"a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"db1e3833-fc45-4e2f-8336-3e74add4e7f9",
-	'TParm_ID',
+	'TSParm_ID',
 	'',
 	'',
 	'TParm_ID',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000002",
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	0,
+	"20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"374e46fd-ff1a-4604-92fe-3a79dc530bbd",
+	"3f7a521c-d28c-4938-9b56-7351db362298",
+	"43aca777-a459-4d6b-b206-ddca52f3cffb",
+	"21063e3e-d885-4583-963b-9dfbe7089f30",
+	"548e7a38-7eff-47fa-b55a-d2bafb558c0c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminator Service',
+	'Svc_ID',
+	'R1657');
+INSERT INTO R_RGO_PROXY
+	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
+	"374e46fd-ff1a-4604-92fe-3a79dc530bbd",
+	"3f7a521c-d28c-4938-9b56-7351db362298",
+	'../../Deployment/Deployment.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	0,
+	"374e46fd-ff1a-4604-92fe-3a79dc530bbd",
+	"43aca777-a459-4d6b-b206-ddca52f3cffb",
+	'../../Deployment/Deployment.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("21063e3e-d885-4583-963b-9dfbe7089f30",
+	"a7f780df-4372-4b70-9a50-96986c96c2dd",
+	"20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	1,
+	'Svc_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'../../Deployment/Terminator Service/Terminator Service.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("21063e3e-d885-4583-963b-9dfbe7089f30",
+	"a7f780df-4372-4b70-9a50-96986c96c2dd",
+	"998c5e87-a2fa-4609-aea5-59b82d579867",
+	'Svc_ID',
+	'',
+	'',
+	'Svc_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID

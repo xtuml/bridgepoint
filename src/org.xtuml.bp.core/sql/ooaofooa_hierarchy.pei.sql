@@ -410,8 +410,9 @@ INSERT INTO T_TPS VALUES (381, 297, 383, '->PE_PE[R8000]->S_EXP[R8001]', '', fal
 INSERT INTO T_TPS VALUES (382, 297, 385, '->PE_PE[R8000]->D_DEPL[R8001]', '', false);
 INSERT INTO T_TPS VALUES (601, 385, 386, '->D_TERM[R1650]', '', false);
 INSERT INTO T_TPS VALUES (602, 386, 387, '->D_TSVC[R1651]', '', false);
-INSERT INTO T_TPS VALUES (603, 387, 388, '->D_TSPARM[R1652]', '', false);
-INSERT INTO T_TPS VALUES (604, 388,  17, '->S_DT[R1653]', 'Type', true);
+INSERT INTO T_TPS VALUES (603, 387,  17, '->S_DT[R1656]', 'Type', false);
+INSERT INTO T_TPS VALUES (604, 387, 388, '->D_TSPARM[R1652]', '', false);
+INSERT INTO T_TPS VALUES (605, 388,  17, '->S_DT[R1653]', 'Type', false);
 
 -- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures

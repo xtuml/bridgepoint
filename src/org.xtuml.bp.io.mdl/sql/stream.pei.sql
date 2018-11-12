@@ -44,8 +44,9 @@ INSERT INTO EO VALUES ( '24.11',  '', '',  'Package Reference', 1402, 'one', 'fi
 
 INSERT INTO EO VALUES ( '24.10.21.1', '24.10.21.1.1', '', 'Terminator', 1650, 'many', 'first', false );
 INSERT INTO EO VALUES ( '24.10.21.1.1', '24.10.21.1.1.1', '', 'Terminator Service', 1651, 'many', 'first', false );
-INSERT INTO EO VALUES ( '24.10.21.1.1.1', '24.10.21.1.1.1.1', '', 'Terminator Service Parameter', 1652, 'many', 'first', false );
+INSERT INTO EO VALUES ( '24.10.21.1.1.1', '24.10.21.1.1.1.1', '24.10.21.1.1.2', 'Terminator Service Parameter', 1652, 'many', 'first', false );
 INSERT INTO EO VALUES ( '24.10.21.1.1.1.1', '', '', 'Dimensions', 1655, 'many', 'first' );
+INSERT INTO EO VALUES ( '24.10.21.1.1.2', '', '', 'Dimensions', 1657, 'many', 'first' );
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
