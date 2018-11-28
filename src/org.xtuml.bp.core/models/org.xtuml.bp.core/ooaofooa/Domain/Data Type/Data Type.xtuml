@@ -469,6 +469,10 @@ elif(param.elementType == "ExternalEntityDataItem")
   return "integer";
 elif(param.elementType == "ExternalEntityEventDataItem")
   return "integer";
+elif(param.elementType == "TerminatorService")
+  return "void";
+elif(param.elementType == "TerminatorServiceParameter")
+  return "integer";
 end if;
 return "";',
 	1,

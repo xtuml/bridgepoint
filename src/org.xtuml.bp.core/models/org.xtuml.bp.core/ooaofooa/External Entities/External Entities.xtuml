@@ -2672,6 +2672,63 @@ return dialog.open();',
 	0,
 	'',
 	0);
+INSERT INTO S_BRG
+	VALUES ("48024caf-bcdb-4146-8107-1be70690f23f",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'parseMASLFile',
+	'Parses a single MASL file specified by the input filename and produces an array of
+SMASL lines. The line at the specified index is returned. If the index is out of bounds,
+empty string is returned.
+
+Note that this pattern is not optimal because it requires the file to be reparsed every
+time a line is requested, but it is due to the shortcomings of the type system and
+MC-Java
+
+Import:java.io.IOException; import java.lang.ProcessBuilder.Redirect; import java.util.Scanner
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'try {
+	final String javaExe = System.getProperty("java.home") + "/bin/java";
+    final String toolsDir = System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin/";
+    final String parserJar = toolsDir + "MASLParser.jar";
+    final String antlrJar = toolsDir + "antlr-3.5.2-complete.jar";
+    final String classpath = String.join(":", new String[] {parserJar, antlrJar});
+	Process proc = new ProcessBuilder().redirectOutput(Redirect.PIPE).command(javaExe, "-cp", classpath, "MaslImportParser", "-f", "target", p_Filename).start();
+	Scanner sc = new Scanner(proc.getInputStream());
+	for ( int i = 0; sc.hasNextLine() && i <= p_Index; i++ ) {
+		String line = sc.nextLine();
+		if ( i == p_Index ) {
+			sc.close();
+			return line;
+		}
+	}
+	sc.close();
+} catch (IOException e) { 
+	e.printStackTrace();
+}
+return "";',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("c83b82e7-f986-4401-96b1-c3a402098bec",
+	"48024caf-bcdb-4146-8107-1be70690f23f",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("9f5f58e7-40f5-4647-8e8c-f2a5172295a9",
+	"48024caf-bcdb-4146-8107-1be70690f23f",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"c83b82e7-f986-4401-96b1-c3a402098bec",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,

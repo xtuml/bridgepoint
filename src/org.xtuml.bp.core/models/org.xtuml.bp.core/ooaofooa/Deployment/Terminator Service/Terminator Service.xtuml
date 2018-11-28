@@ -336,7 +336,7 @@ return false;
 ',
 	1,
 	'',
-	"6b2a0206-bed5-4069-81ed-749529fad60e",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
 	0);
 INSERT INTO O_TFR
 	VALUES ("479c5167-4028-41fc-b68b-1ab4da321eea",
@@ -709,6 +709,113 @@ if (dims.size() > 0) {
 	'',
 	"cc2b58c8-d9a7-44fc-9a34-31ffe194e517",
 	0);
+INSERT INTO O_TFR
+	VALUES ("1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'newServiceParameterFromSMASL',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'param_name = param.param_name;
+param_direction = param.param_direction;
+filename = param.filename;
+i = param.index;
+
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
+end if;
+parameter.Name = param_name;
+if ( "in" == param_direction )
+  parameter.By_Ref = 0;
+else
+  parameter.By_Ref = 1;
+end if;
+parameter.Dimensions = "";
+parameter.Descrip = "";
+
+// set parameter type
+smasl = Util::parseMASLFile( filename:filename, index:i );
+while ( "" != smasl )
+  element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
+  the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
+  if ( "typeref" == element )
+    type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    select any dt from instances of S_DT where false;
+    select one package related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->EP_PKG[R8000];
+    select one comp related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->C_C[R8003];
+    if not_empty package
+      package.collectVisibleElementsForName(name:type_name, type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:package.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
+      select any resultSet related by package->PE_SRS[R8005] where selected.Name == type_name and selected.Type == ElementTypeConstants::DATATYPE; 
+      select any dt related by resultSet->PE_VIS[R8006]->PE_PE[R8002]->S_DT[R8001];
+    else
+      comp.collectVisibleElementsForName(name:type_name, type:ElementTypeConstants::DATATYPE, originatingContainerID:comp.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
+      select any resultSet related by comp->PE_CRS[R8007] where selected.Name == type_name and selected.Type == ElementTypeConstants::DATATYPE; 
+      select any dt related by resultSet->PE_CVS[R8008]->PE_PE[R8004]->S_DT[R8001];
+    end if;
+    if ( not_empty dt )
+      relate dt to parameter across R1653;
+    end if;
+  elif ( "parameter" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+    return i;
+  else
+    // ignore line
+  end if;
+  i = i + 1;
+  smasl = Util::parseMASLFile( filename:filename, index:i );
+end while;
+
+return i;',
+	1,
+	'',
+	"6b2a0206-bed5-4069-81ed-749529fad60e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("94bdcb9c-012c-43e6-9432-cbf04c6078d7",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'param_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c2bb2104-15c9-4c57-b4df-9c51fa68cd64",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'param_direction',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"94bdcb9c-012c-43e6-9432-cbf04c6078d7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9be0feb5-b569-4e5a-ba2b-bc32ea72d736",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"c2bb2104-15c9-4c57-b4df-9c51fa68cd64",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("782a0e1a-ad79-4a81-9b69-a0cb044c5a38",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"9be0feb5-b569-4e5a-ba2b-bc32ea72d736",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");

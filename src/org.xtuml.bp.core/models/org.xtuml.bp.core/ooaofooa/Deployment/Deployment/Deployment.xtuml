@@ -267,7 +267,29 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'filename = param.filename;',
+	'filename = param.filename;
+
+domain_name = "";
+
+i = 0;
+smasl = Util::parseMASLFile( filename:filename, index:i );
+while ( "" != smasl )
+  element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
+  the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
+  if ( "domain" == element )
+    domain_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+  elif ( "terminator" == element )
+    term_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    if ( "" != term_name and "" != domain_name )
+      // TODO check if the terminator already exists
+      i = self.newTerminatorFromSMASL( term_name:term_name, domain_name:domain_name, filename:filename, index:i+1 );
+    end if;
+  else
+    // ignore line
+  end if;
+  i = i + 1;
+  smasl = Util::parseMASLFile( filename:filename, index:i );
+end while;',
 	1,
 	'',
 	"ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
@@ -363,6 +385,86 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Component/Component.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a4ba5553-980c-493a-aefe-e0196b1312d2",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'newTerminatorFromSMASL',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'term_name = param.term_name;
+domain_name = param.domain_name;
+filename = param.filename;
+i = param.index;
+
+// create the terminator
+create object instance term of D_TERM;
+relate term to self across R1650;
+term.Domain_Name = domain_name;
+term.Terminator_Name = term_name;
+term.Descrip = "";
+
+// for each message, create a terminator service
+smasl = Util::parseMASLFile( filename:filename, index:i );
+while ( "" != smasl )
+  element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
+  the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
+  if ( "routine" == element )
+    service_name = Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:0 );
+    if ( "" != service_name )
+      // TODO check if the terminator service already exists
+      i = term.newServiceFromSMASL( service_name:service_name, filename:filename, index:i+1 );
+    end if;
+  elif ( "terminator" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+    return i;
+  else
+    // ignore line
+  end if;
+  i = i + 1;
+  smasl = Util::parseMASLFile( filename:filename, index:i );
+end while;
+
+return i;',
+	1,
+	'',
+	"66da6496-4b92-4f85-b29b-2a22739c0458",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("6ba0efd9-08d2-44ac-b9a7-c271cf021985",
+	"a4ba5553-980c-493a-aefe-e0196b1312d2",
+	'term_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("712a86fc-67aa-4b1e-bc7d-14052164b2c3",
+	"a4ba5553-980c-493a-aefe-e0196b1312d2",
+	'domain_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6ba0efd9-08d2-44ac-b9a7-c271cf021985",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("26b800cd-d28d-4b74-b963-c4dd37331f5c",
+	"a4ba5553-980c-493a-aefe-e0196b1312d2",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"66c0a499-8b83-4915-9af9-3cc28db02c7f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("66c0a499-8b83-4915-9af9-3cc28db02c7f",
+	"a4ba5553-980c-493a-aefe-e0196b1312d2",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"712a86fc-67aa-4b1e-bc7d-14052164b2c3",
+	'');
 INSERT INTO O_REF
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
