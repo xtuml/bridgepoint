@@ -52,10 +52,13 @@ if ( not_empty s_sync )
   // find parent component if it exists
   select any c_c from instances of C_C where false;
   select one pe_pe related by s_sync->PE_PE[R8001];
+  domain_pkg = GD::NULL_UNIQUE_ID();
   while ( not_empty pe_pe )
     select one c_c related by pe_pe->C_C[R8003];
     if ( not_empty c_c )
       c_c_name = c_c.Name; 
+      select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+      domain_pkg = ep_pkg.Package_ID;
     end if;
     select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
   end while;
@@ -102,11 +105,7 @@ if ( not_empty s_sync )
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
     select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
     s_parm_count = s_parm_count + 1;
   end while;
@@ -121,11 +120,7 @@ if ( not_empty s_sync )
   if ( not_empty s_dt )
     s_dt_id = s_dt.DT_ID;
   end if;
-  c_c_id = GD::NULL_UNIQUE_ID();
-  if ( not_empty c_c )
-    c_c_id = c_c.Id;
-  end if;
-  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
 	
   // Populate the action langauge body.
   smasl = smasl + "codeblock," + URL::encode(string:s_sync.Action_Semantics_internal) + ",,,,,,,\n";
@@ -177,10 +172,13 @@ if ( not_empty o_tfr )
   // find parent component if it exists
   select one pe_pe related by o_obj->PE_PE[R8001];
   select any c_c from instances of C_C where false;
+  domain_pkg = GD::NULL_UNIQUE_ID();
   while ( not_empty pe_pe )
     select one c_c related by pe_pe->C_C[R8003];
     if ( not_empty c_c )
       c_c_name = c_c.Name; 
+      select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+      domain_pkg = ep_pkg.Package_ID;
     end if;
     select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
   end while;
@@ -215,11 +213,7 @@ if ( not_empty o_tfr )
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
     select one o_tparm related by o_tparm->O_TPARM[R124.''precedes''];
     o_tparm_count = o_tparm_count + 1;
   end while;
@@ -234,11 +228,7 @@ if ( not_empty o_tfr )
   if ( not_empty s_dt )
     s_dt_id = s_dt.DT_ID;
   end if;
-  c_c_id = GD::NULL_UNIQUE_ID();
-  if ( not_empty c_c )
-    c_c_id = c_c.Id;
-  end if;
-  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
   
   // Populate the action langauge body.
   smasl = smasl + "codeblock," + URL::encode(string:o_tfr.Action_Semantics_internal) + ",,,,,,,\n";
@@ -297,10 +287,13 @@ if ( not_empty sm_state and not_empty sm_act )
   // find parent component if it exists
   select one pe_pe related by o_obj->PE_PE[R8001];
   select any c_c from instances of C_C where false;
+  domain_pkg = GD::NULL_UNIQUE_ID();
   while ( not_empty pe_pe )
     select one c_c related by pe_pe->C_C[R8003];
     if ( not_empty c_c )
       c_c_name = c_c.Name; 
+      select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+      domain_pkg = ep_pkg.Package_ID;
     end if;
     select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
   end while;
@@ -367,11 +360,7 @@ if ( not_empty sm_state and not_empty sm_act )
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
     select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''precedes''];
     sm_evtdi_count = sm_evtdi_count + 1;
   end while;
@@ -489,8 +478,11 @@ if ( not_empty c_ep and not_empty c_po )
   c_c_name = "";
 
   select one c_c related by c_po->C_C[R4010];
+  domain_pkg = GD::NULL_UNIQUE_ID();
   if ( not_empty c_c )
 	c_c_name = c_c.Name;
+    select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+    domain_pkg = ep_pkg.Package_ID;
   end if;
   
   dom_name = c_c_name;
@@ -534,11 +526,7 @@ if ( not_empty c_ep and not_empty c_po )
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
     select one c_pp related by c_pp->C_PP[R4021.''precedes''];
     c_pp_count = c_pp_count + 1;
   end while;
@@ -552,11 +540,7 @@ if ( not_empty c_ep and not_empty c_po )
   if ( not_empty s_dt )
     s_dt_id = s_dt.DT_ID;
   end if;
-  c_c_id = GD::NULL_UNIQUE_ID();
-  if ( not_empty c_c )
-    c_c_id = c_c.Id;
-  end if;
-  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
   
   // Populate the action langauge body.
   select any spr_pep related by c_po->C_IR[R4016]->C_P[R4009]->SPR_PEP[R4501] where ( selected.ExecutableProperty_Id == c_ep.Id );
@@ -637,10 +621,13 @@ if ( not_empty o_dbattr )
   // find parent component if it exists
   select one pe_pe related by o_obj->PE_PE[R8001];
   select any c_c from instances of C_C where false;
+  domain_pkg = GD::NULL_UNIQUE_ID();
   while ( not_empty pe_pe )
     select one c_c related by pe_pe->C_C[R8003];
     if ( not_empty c_c )
       c_c_name = c_c.Name; 
+      select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+      domain_pkg = ep_pkg.Package_ID;
     end if;
     select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
   end while;
@@ -653,11 +640,7 @@ if ( not_empty o_dbattr )
   if ( not_empty s_dt )
     s_dt_id = s_dt.DT_ID;
   end if;
-  c_c_id = GD::NULL_UNIQUE_ID();
-  if ( not_empty c_c )
-    c_c_id = c_c.Id;
-  end if;
-  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
   
   // Populate the action langauge body.
   smasl = smasl + "codeblock," + URL::encode(string:o_dbattr.Action_Semantics_internal) + ",,,,,,,\n";
@@ -709,10 +692,13 @@ if ( not_empty s_brg )
   // find parent component if it exists
   select one pe_pe related by s_ee->PE_PE[R8001];
   select any c_c from instances of C_C where false;
+  domain_pkg = GD::NULL_UNIQUE_ID();
   while ( not_empty pe_pe )
     select one c_c related by pe_pe->C_C[R8003];
     if ( not_empty c_c )
       c_c_name = c_c.Name; 
+      select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+      domain_pkg = ep_pkg.Package_ID;
     end if;
     select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
   end while;
@@ -744,11 +730,7 @@ if ( not_empty s_brg )
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
     select one s_bparm related by s_bparm->S_BPARM[R55.''precedes''];
     s_parm_count = s_parm_count + 1;
   end while;
@@ -763,11 +745,7 @@ if ( not_empty s_brg )
   if ( not_empty s_dt )
     s_dt_id = s_dt.DT_ID;
   end if;
-  c_c_id = GD::NULL_UNIQUE_ID();
-  if ( not_empty c_c )
-    c_c_id = c_c.Id;
-  end if;
-  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
 	
   // Populate the action langauge body.
   smasl = smasl + "codeblock," + URL::encode(string:s_brg.Action_Semantics_internal) + ",,,,,,,\n";
@@ -888,10 +866,13 @@ if ( not_empty sm_txn and not_empty sm_act )
   // find parent component if it exists
   select one pe_pe related by o_obj->PE_PE[R8001];
   select any c_c from instances of C_C where false;
+  domain_pkg = GD::NULL_UNIQUE_ID();
   while ( not_empty pe_pe )
     select one c_c related by pe_pe->C_C[R8003];
     if ( not_empty c_c )
       c_c_name = c_c.Name; 
+      select one ep_pkg related by c_c->PE_PE[R8001]->EP_PKG[R8000];
+      domain_pkg = ep_pkg.Package_ID;
     end if;
     select one pe_pe related by pe_pe->EP_PKG[R8000]->PE_PE[R8001];
   end while;
@@ -951,11 +932,7 @@ if ( not_empty sm_txn and not_empty sm_act )
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg );
     select one sm_evtdi related by sm_evtdi->SM_EVTDI[R533.''precedes''];
     sm_evtdi_count = sm_evtdi_count + 1;
   end while;
@@ -1266,7 +1243,7 @@ INSERT INTO S_SYNC
 	'',
 	'// adapted from maslout type2typeref
 select any s_dt from instances of S_DT where ( selected.DT_ID == param.s_dt );
-select any containing_c_c from instances of C_C where ( selected.Id == param.containing_c_c );
+select any domain_ep_pkg from instances of EP_PKG where ( selected.Package_ID == param.domain_pkg );
 typeref = "";
 if ( not_empty s_dt )     
    // Do not send a void typeref.  No typeref equals void in MASL. 
@@ -1285,7 +1262,6 @@ if ( not_empty s_dt )
         // check if this type is defined in the same domain
         // Do this by traversing up from the type to see if ever we hit the domain package (containing the domain component).
         select one dt_ep_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
-        select one domain_ep_pkg related by containing_c_c->PE_PE[R8001]->EP_PKG[R8000];
         same_domain = false;
         while ( not_empty dt_ep_pkg )
           if ( dt_ep_pkg == domain_ep_pkg )
@@ -1355,7 +1331,7 @@ INSERT INTO S_SPARM
 INSERT INTO S_SPARM
 	VALUES ("6b84cbd1-c80c-4c52-a82b-a06efc9a1cd9",
 	"6a038f77-beb4-4c4e-b8f1-9f7fafc220a6",
-	'containing_c_c',
+	'domain_pkg',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
@@ -1376,77 +1352,62 @@ INSERT INTO S_SYNC
 
 smasl = "";
 
-select any pr_tsvc from instances of D_TSVC where ( selected.Svc_ID == param.pr_tsvc );
-if ( not_empty pr_tsvc )
+select any d_tsvc from instances of D_TSVC where ( selected.Svc_ID == param.d_tsvc );
+if ( not_empty d_tsvc )
+
+  select one domain_pkg related by d_tsvc->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->EP_PKG[R8000];
 
   visibility = "";
 
   visibility = "public";
-  select one term related by pr_tsvc->D_TERM[R1651];
+  select one term related by d_tsvc->D_TERM[R1651];
 	
   // Get the first parameter.
-  // TODO
-  /*
-  select any s_sparm related by pr_tsvc->S_SPARM[R24];
-  first_s_sparm = s_sparm;
-  while ( not_empty s_sparm )
-	first_s_sparm = s_sparm;
-	select one s_sparm related by s_sparm->S_SPARM[R54.''succeeds''];
+  select any d_tsparm related by d_tsvc->D_TSPARM[R1652];
+  first_d_tsparm = d_tsparm;
+  while ( not_empty d_tsparm )
+	first_d_tsparm = d_tsparm;
+	select one d_tsparm related by d_tsparm->D_TSPARM[R1654.''succeeds''];
   end while;
-  */
 	
   // populate
-  smasl = smasl + "routine," + term.Domain_Name + "," + term.Terminator_Name + "," + visibility + "," + pr_tsvc.Name + ",,,,\n";
+  smasl = smasl + "routine," + term.Domain_Name + "," + term.Terminator_Name + "," + visibility + "," + d_tsvc.Name + ",,,,\n";
   
   // populate parameters
-  // TODO
-  /*
-  s_sparm = first_s_sparm;
+  d_tsparm = first_d_tsparm;
   s_parm_count = 0;
-  while ( not_empty s_sparm )
+  while ( not_empty d_tsparm )
     direction = "";
-    if ( 0 == s_sparm.By_Ref )
+    if ( 0 == d_tsparm.By_Ref )
       direction = "in";
     else
       direction = "out";
     end if;
-	smasl = smasl + "parameter," + s_sparm.Name + "," + direction + ",,,,,,\n";
-    select one s_dt related by s_sparm->S_DT[R26];
+	smasl = smasl + "parameter," + d_tsparm.Name + "," + direction + ",,,,,,\n";
+    select one s_dt related by d_tsparm->S_DT[R1653];
     s_dt_id = GD::NULL_UNIQUE_ID();
     if ( not_empty s_dt )
       s_dt_id = s_dt.DT_ID;
     end if;
-    c_c_id = GD::NULL_UNIQUE_ID();
-    if ( not_empty c_c )
-      c_c_id = c_c.Id;
-    end if;
-    smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
-    select one s_sparm related by s_sparm->S_SPARM[R54.''precedes''];
+    smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg.Package_ID );
+    select one d_tsparm related by d_tsparm->D_TSPARM[R1654.''precedes''];
     s_parm_count = s_parm_count + 1;
   end while;
   while ( s_parm_count > 0 )
 	smasl = smasl + "parameter,,,,,,,,\n";
     s_parm_count = s_parm_count - 1;
   end while;
-  */
 
   // find return type if exists
-  // TODO
-  /*
-  select one s_dt related by pr_tsvc->S_DT[R25];
+  select one s_dt related by d_tsvc->S_DT[R1656];
   s_dt_id = GD::NULL_UNIQUE_ID();
   if ( not_empty s_dt )
     s_dt_id = s_dt.DT_ID;
   end if;
-  c_c_id = GD::NULL_UNIQUE_ID();
-  if ( not_empty c_c )
-    c_c_id = c_c.Id;
-  end if;
-  smasl = smasl + ::type2typeref( s_dt:s_dt_id, containing_c_c:c_c_id );
-  */
+  smasl = smasl + ::type2typeref( s_dt:s_dt_id, domain_pkg:domain_pkg.Package_ID );
 	
   // Populate the action langauge body.
-  smasl = smasl + "codeblock," + URL::encode(string:pr_tsvc.Action_Semantics_internal) + ",,,,,,,\n";
+  smasl = smasl + "codeblock," + URL::encode(string:d_tsvc.Action_Semantics_internal) + ",,,,,,,\n";
 	
   // end tag
   smasl = smasl + "routine,,,,,,,,\n";
@@ -1462,7 +1423,7 @@ return smasl;
 INSERT INTO S_SPARM
 	VALUES ("56a6bbd9-052c-4b46-89d6-0145f48e2320",
 	"e650bff3-6e27-486b-b703-b80a4847e740",
-	'pr_tsvc',
+	'd_tsvc',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
