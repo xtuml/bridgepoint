@@ -387,7 +387,8 @@ INSERT INTO O_ATTR
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"796e666e-041e-493a-a6c5-ad223315d337",
 	'Domain_Name',
-	'Full Name:Domain Name',
+	'Full Name:Domain Name
+readonly:true',
 	'',
 	'Domain_Name',
 	0,
@@ -405,7 +406,8 @@ INSERT INTO O_ATTR
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"4ad3e468-a96e-46d2-b0b2-ed5aa4f0b449",
 	'Terminator_Name',
-	'Full Name:Terminator Name',
+	'Full Name:Terminator Name
+readonly:true',
 	'',
 	'Terminator_Name',
 	0,

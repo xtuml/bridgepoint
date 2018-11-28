@@ -567,7 +567,8 @@ INSERT INTO O_ATTR
 	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
 	"c86e47d8-6c70-435e-a2d4-929a96e3359a",
 	'Name',
-	'Full Name: Parameter Name',
+	'Full Name: Parameter Name
+readonly:true',
 	'',
 	'Name',
 	0,
@@ -587,6 +588,7 @@ INSERT INTO O_ATTR
 	'By_Ref',
 	'Full Name: By Reference Indicator
 Description: Indicates whether or not this parameter is passed by reference
+readonly:true
 Data Domain: 0 = passed by value, 1 = passed by reference
 enum0: By Value
 enum1: By Reference
@@ -608,7 +610,8 @@ INSERT INTO O_ATTR
 	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
 	"2e89befe-9ef3-4cb2-aafa-5c8b8d511014",
 	'Dimensions',
-	'Full Name: Array Dimensions',
+	'Full Name: Array Dimensions
+readonly:true',
 	'',
 	'Dimensions',
 	0,

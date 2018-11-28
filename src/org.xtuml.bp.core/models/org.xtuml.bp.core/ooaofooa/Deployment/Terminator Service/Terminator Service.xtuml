@@ -896,7 +896,8 @@ INSERT INTO O_ATTR
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
 	"b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
 	'Name',
-	'Full Name: Terminator Service Name',
+	'Full Name: Terminator Service Name
+readonly:true',
 	'',
 	'Name',
 	0,
@@ -1028,7 +1029,7 @@ INSERT INTO O_ATTR
 	"9c4950be-cc44-4b42-9347-4b821b1f563b",
 	'Return_Dimensions',
 	'Full Name: Return Array Dimensions
-DynamicReadOnly:isVoid',
+readonly:true',
 	'',
 	'Return_Dimensions',
 	0,
