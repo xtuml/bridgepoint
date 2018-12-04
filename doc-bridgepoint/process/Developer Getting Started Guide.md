@@ -35,9 +35,6 @@ Setup Instructions
     - You may unzip wherever you like, a suggestion is:  ```~/xtuml/```
       - On MacOS, you must now run the additional step: ```cp ~/xtuml/BridgePoint.app/Contents/MacOS/bridgepoint ~/xtuml/BridgePoint.app/Contents/Eclipse```
 
-  - [Download the special version of generator](https://s3.amazonaws.com/xtuml-releases/development-environment/gen_erate.pyz.0.5.0)  
-    - Replace generator in the installation with this downloaded version: `mv ~/Downloads/gen_erate.pyz.0.5.0 ~/xtuml/BridgePoint.app/Contents/Eclipse/tools/mc/bin/gen_erate.pyz`  
-    
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __ALL__  
       - [Maven](https://maven.apache.org/install.html)    
