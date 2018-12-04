@@ -294,11 +294,21 @@ public class Selection implements ISelectionProvider
     public Object adaptElement(Object element) {
     	if(element == null)
     		return null;
-    	Object adapter = Platform.getAdapterManager().getAdapter(element, NonRootModelElement.class);
+    	
+    	Object adapter = null;
+    	try {
+    		adapter = Platform.getAdapterManager().getAdapter(element, NonRootModelElement.class);
+    	} catch (Exception exp) {
+    		// 'can't adapt the element.
+    	}
     	if(adapter != null)
     		return adapter;
     	if(element instanceof IAdaptable) {
-    		adapter = ((IAdaptable) element).getAdapter(NonRootModelElement.class);
+    		try {
+    			adapter = ((IAdaptable) element).getAdapter(NonRootModelElement.class);
+    		} catch (Exception exp) {
+        		// 'can't adapt the element.    			
+    		}
     		if(adapter != null) {
     			return adapter;
     		}
