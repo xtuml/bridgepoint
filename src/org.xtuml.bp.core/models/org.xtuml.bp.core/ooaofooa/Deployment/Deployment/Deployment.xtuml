@@ -14,11 +14,20 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select many terminators related by self->D_TERM[R1650];
+	'select one pe related by self->PE_PE[R8001];
+if(not_empty pe)
+  // PE_PE.dispose() will call back into this function at which time the
+  // rest of the activity will execute.
+  pe.dispose();
+  return;
+end if;
+
+select many terminators related by self->D_TERM[R1650];
 for each terminator in terminators
   unrelate terminator from self across R1650;
   terminator.dispose();
 end for;
+
 delete object instance self;',
 	1,
 	'',

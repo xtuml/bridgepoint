@@ -169,6 +169,21 @@ for each service_param in service_params
   unrelate service_param from self across R1652;
   service_param.dispose();
 end for;
+
+select one dt related by self->S_DT[R1656];
+unrelate self from dt across R1656;
+
+select many dims related by self->S_DIM[R1657];
+for each dim in dims
+  unrelate self from dim across R1657;
+  delete object instance dim;
+end for;
+
+select one terminator related by self->D_TERM[R1651];
+if (not_empty terminator)
+  unrelate self from terminator across R1651;
+end if;
+
 delete object instance self;',
 	1,
 	'',

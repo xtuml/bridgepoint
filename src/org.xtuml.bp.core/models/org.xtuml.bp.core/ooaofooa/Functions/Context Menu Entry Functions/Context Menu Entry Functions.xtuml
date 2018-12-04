@@ -7889,6 +7889,25 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("12ba918c-d6bd-4152-8451-5ed2430e5084",
+	"00000000-0000-0000-0000-000000000000",
+	'D_TERM_Delete',
+	'',
+	'select many terminators from instances of D_TERM where USER::selectOne(id:selected.Term_ID);
+for each terminator in terminators
+  terminator.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("12ba918c-d6bd-4152-8451-5ed2430e5084",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,

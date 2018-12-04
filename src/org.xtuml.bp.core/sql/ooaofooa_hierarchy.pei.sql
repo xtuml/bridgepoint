@@ -148,9 +148,9 @@ INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name
 INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Exception', -1, '');
 INSERT INTO T_TNS VALUES (384, 'Range.gif', 'S_RANGE', '', '', '', 'Range', -1, '');
 INSERT INTO T_TNS VALUES (385, 'Deployment.gif', 'D_DEPL', '', 'Name', '', 'Deployment', -1, '');
-INSERT INTO T_TNS VALUES (386, 'ExternalEntity.gif', 'D_TERM', '', 'Name', '', 'Terminator', -1, '');
-INSERT INTO T_TNS VALUES (387, 'Bridge.gif', 'D_TSVC', '', 'Name', '', 'Terminator Service', -1, '');
-INSERT INTO T_TNS VALUES (388, 'BridgeParameter.gif', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameter', -1, '');
+INSERT INTO T_TNS VALUES (386, 'Terminator.gif', 'D_TERM', '', 'Name', '', 'Terminator', -1, '');
+INSERT INTO T_TNS VALUES (387, 'TerminatorService.gif', 'D_TSVC', '', 'Name', '', 'Terminator Service', -1, '');
+INSERT INTO T_TNS VALUES (388, 'TerminatorServiceParameter.gif', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameter', -1, '');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);

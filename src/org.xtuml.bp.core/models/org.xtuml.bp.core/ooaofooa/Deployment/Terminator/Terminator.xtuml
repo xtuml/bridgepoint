@@ -184,6 +184,12 @@ for each service in services
   unrelate service from self across R1651;
   service.dispose();
 end for;
+
+select one deployment related by self->D_DEPL[R1650];
+if (not_empty deployment)
+  unrelate self from deployment across R1650;
+end if;
+
 delete object instance self;',
 	1,
 	'',

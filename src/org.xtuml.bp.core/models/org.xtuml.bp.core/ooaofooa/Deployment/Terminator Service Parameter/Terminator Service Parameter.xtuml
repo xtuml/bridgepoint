@@ -162,6 +162,11 @@ for each dim in dims
   delete object instance dim;
 end for;
 
+select one service related by self->D_TSVC[R1652];
+if (not_empty service)
+  unrelate self from service across R1652;
+end if;
+
 delete object instance self;',
 	1,
 	'',
