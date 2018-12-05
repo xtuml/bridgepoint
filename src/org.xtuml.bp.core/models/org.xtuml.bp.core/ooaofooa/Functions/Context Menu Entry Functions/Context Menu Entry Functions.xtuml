@@ -7853,8 +7853,12 @@ INSERT INTO S_SYNC
 	'',
 	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
 if not_empty element
-  filename = Util::getFile();
-  element.importTerminatorFromFile(filename:filename);
+  file_selection = Util::selectFiles( ext:"int" );
+  filename = Util::getNextString( string_iterator:file_selection );
+  while ( "" != filename )
+    element.importTerminatorFromFile(filename:filename);
+    filename = Util::getNextString( string_iterator:file_selection );
+  end while;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

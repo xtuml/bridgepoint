@@ -310,7 +310,9 @@ parameter.Descrip = c_pp.Descrip;
 
 // link data type
 select one s_dt related by c_pp->S_DT[R4007];
-relate s_dt to parameter across R1653;
+select one depl related by self->D_TERM[R1651]->D_DEPL[R1650];
+type_ref = depl.addTypeReference( s_dt:s_dt );
+relate type_ref to parameter across R1653;
 
 // resolve dimensions
 parameter.parseDimensions();',
@@ -729,12 +731,11 @@ INSERT INTO O_TFR
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
 	'newServiceParameterFromSMASL',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000002",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'param_name = param.param_name;
 param_direction = param.param_direction;
-filename = param.filename;
-i = param.index;
+smasl_iterator = param.smasl_iterator;
 
 // get last parameter
 select any last_parameter related by self->D_TSPARM[R1652];
@@ -760,37 +761,37 @@ parameter.Dimensions = "";
 parameter.Descrip = "";
 
 // set parameter type
-smasl = Util::parseMASLFile( filename:filename, index:i );
+smasl = Util::getNextString( string_iterator:smasl_iterator );
 while ( "" != smasl )
   element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
   the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
   if ( "typeref" == element )
     type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
-    select any dt from instances of S_DT where false;
-    select one package related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->EP_PKG[R8000];
-    select one comp related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->C_C[R8003];
-    if not_empty package
-      package.collectVisibleElementsForName(name:type_name, type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:package.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
-      select any resultSet related by package->PE_SRS[R8005] where selected.Name == type_name and selected.Type == ElementTypeConstants::DATATYPE; 
-      select any dt related by resultSet->PE_VIS[R8006]->PE_PE[R8002]->S_DT[R8001];
+    select one term related by self->D_TERM[R1651];
+    select one depl related by term->D_DEPL[R1650];
+    select one parent_package related by depl->PE_PE[R8001]->EP_PKG[R8000];
+    select any shared_package related by parent_package->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == "Shared" );
+    select any type_ref related by shared_package->PE_PE[R8000]->S_DT[R8001] where ( selected.Name == term.Domain_Name + "::" + type_name );
+    if ( not_empty type_ref )
+      relate type_ref to parameter across R1653;
     else
-      comp.collectVisibleElementsForName(name:type_name, type:ElementTypeConstants::DATATYPE, originatingContainerID:comp.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
-      select any resultSet related by comp->PE_CRS[R8007] where selected.Name == type_name and selected.Type == ElementTypeConstants::DATATYPE; 
-      select any dt related by resultSet->PE_CVS[R8008]->PE_PE[R8004]->S_DT[R8001];
-    end if;
-    if ( not_empty dt )
-      relate dt to parameter across R1653;
+      type_ref = depl.createTypeReference( type_name:type_name );
+      relate type_ref to parameter across R1653;
     end if;
   elif ( "parameter" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
-    return i;
+    return;
+  elif ( "parameter" == element )
+    param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    param_direction = Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:0 );
+    if ( "" != param_name )
+      // TODO check if the terminator service parameter already exists
+      self.newServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
+    end if;
   else
     // ignore line
   end if;
-  i = i + 1;
-  smasl = Util::parseMASLFile( filename:filename, index:i );
-end while;
-
-return i;',
+  smasl = Util::getNextString( string_iterator:smasl_iterator );
+end while;',
 	1,
 	'',
 	"6b2a0206-bed5-4069-81ed-749529fad60e",
@@ -814,22 +815,13 @@ INSERT INTO O_TPARM
 	"94bdcb9c-012c-43e6-9432-cbf04c6078d7",
 	'');
 INSERT INTO O_TPARM
-	VALUES ("9be0feb5-b569-4e5a-ba2b-bc32ea72d736",
+	VALUES ("2f498ae1-5dd7-4335-b8c1-0af23c652cab",
 	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
-	'filename',
-	"ba5eda7a-def5-0000-0000-000000000004",
+	'smasl_iterator',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	0,
 	'',
 	"c2bb2104-15c9-4c57-b4df-9c51fa68cd64",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("782a0e1a-ad79-4a81-9b69-a0cb044c5a38",
-	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
-	'index',
-	"ba5eda7a-def5-0000-0000-000000000002",
-	0,
-	'',
-	"9be0feb5-b569-4e5a-ba2b-bc32ea72d736",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
