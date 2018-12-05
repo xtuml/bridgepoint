@@ -2761,6 +2761,82 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("141008e5-c4d7-4242-ab44-2886d13b5a4a",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'addDependency',
+	'Import:org.eclipse.core.resources.IProject
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'IProject project = (IProject)p_S_sys.getAdapter(IProject.class);
+CorePlugin.getDefaultDependencyProvider().addDependency(project, p_Dependency);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("5243558f-a2d1-447a-b1fa-ae344dbda785",
+	"141008e5-c4d7-4242-ab44-2886d13b5a4a",
+	's_sys',
+	"87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<System Model>',
+	'',
+	'',
+	'../Domain/Domain.xtuml');
+INSERT INTO S_BPARM
+	VALUES ("c9016add-fb9b-4e65-8a96-33bbda8d4d36",
+	"141008e5-c4d7-4242-ab44-2886d13b5a4a",
+	'dependency',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"5243558f-a2d1-447a-b1fa-ae344dbda785",
+	'');
+INSERT INTO S_BRG
+	VALUES ("247657d0-4272-4036-9ccc-7b178f581e72",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'addDomainDependency',
+	'Import:org.eclipse.core.resources.IProject
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'IProject project = (IProject)p_S_sys.getAdapter(IProject.class);
+CorePlugin.getDefaultDependencyProvider().addDependency(project, p_Dependency);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("60b8b8f3-f998-4abe-876b-747d172f70ff",
+	"247657d0-4272-4036-9ccc-7b178f581e72",
+	's_sys',
+	"87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c7ca1a8b-0dbb-4c4b-aa44-f6ff2f1b94d8",
+	"247657d0-4272-4036-9ccc-7b178f581e72",
+	'dependency',
+	"493bbbec-fd81-4863-a436-77e6f08bd55a",
+	0,
+	'',
+	"60b8b8f3-f998-4abe-876b-747d172f70ff",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("493bbbec-fd81-4863-a436-77e6f08bd55a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Component>',
+	'',
+	'',
+	'../Component/Component.xtuml');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,

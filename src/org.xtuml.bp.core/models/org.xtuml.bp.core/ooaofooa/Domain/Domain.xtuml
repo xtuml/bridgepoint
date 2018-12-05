@@ -4964,6 +4964,48 @@ INSERT INTO PE_PE
 	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<System Model>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	0,
+	"5735d0f8-e286-4832-975e-04887e18a036");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5735d0f8-e286-4832-975e-04887e18a036",
+	'System Model',
+	18,
+	'S_SYS',
+	'A system is described by one or more models, each drawn from different subject matters. Each subject matter model is called a domain.
+-----------
+PEI:true',
+	"00000000-0000-0000-0000-000000000000",
+	'./System Model/System Model.xtuml');
+INSERT INTO PE_PE
+	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("7297439e-ff3a-45f0-b53e-fd048cd1a4ee",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<System Model>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("7297439e-ff3a-45f0-b53e-fd048cd1a4ee",
+	1,
+	"5735d0f8-e286-4832-975e-04887e18a036");
+INSERT INTO PE_PE
+	VALUES ("7297439e-ff3a-45f0-b53e-fd048cd1a4ee",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("f60d4f17-bd84-467d-a247-30314897dfad");
 INSERT INTO R_REL

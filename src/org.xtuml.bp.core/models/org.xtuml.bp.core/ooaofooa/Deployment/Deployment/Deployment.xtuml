@@ -248,7 +248,11 @@ for each target_port in target_ports
   else
     self.newTerminatorFromPort( c_po:target_port );
   end if;
-end for;',
+end for;
+
+// add dependency
+select one s_sys related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+Util::addDomainDependency( s_sys:s_sys, dependency:c_c );',
 	1,
 	'',
 	"b96cf728-832e-421f-88a1-2df5896534a4",
@@ -300,7 +304,11 @@ while ( "" != smasl )
     // ignore line
   end if;
   smasl = Util::getNextString( string_iterator:smasl_iterator );
-end while;',
+end while;
+
+// add dependency
+select one s_sys related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+Util::addDependency( s_sys:s_sys, dependency:filename );',
 	1,
 	'',
 	"ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
