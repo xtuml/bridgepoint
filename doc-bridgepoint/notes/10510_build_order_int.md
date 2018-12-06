@@ -158,7 +158,9 @@ for execution and run by the job scheduler when it deems appropriate.
 
 ### 6. Implementation Comments
 
-None.
+6.1  The BP application launch started causing a java crash on Keith's machine.  Adding the -nosplash argument
+fixed the problem.  The splash works fine on normal BP launches from the command line.  Updating this 
+setting in the test config.
 
 ### 7. Unit Test
 
