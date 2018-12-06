@@ -1,11 +1,3 @@
-//=====================================================================
-//
-//File:      $RCSfile: BridgePointCDTProjectWizard.java,v $
-//Version:   $Revision: 1.5 $
-//Modified:  $Date: 2013/01/10 23:20:10 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -32,9 +24,13 @@ import org.eclipse.cdt.core.settings.model.ICSourceEntry;
 import org.eclipse.cdt.managedbuilder.ui.wizards.ConvertToMakeWizard;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -54,7 +50,7 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
 		// No pages needed
 	}
 
-	public boolean performFinish(IProject project) {
+	public boolean performFinish(final IProject project) {
 	    // If the project has no MC export builder at this point, the user selected "None"
 	    // during MC selection.  If that's the case, skip adding CDT stuff.
 	    if ( -1 == BuilderManagement.findBuilder(project, ".*bp.+mc.*export_builder.*")) {
@@ -72,17 +68,43 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
         wizard.performFinish();
         dialog.close();
         boolean success = true;
+        
+		// We now have some work to do we don't want to run on the UI thread
+		// so here we schedule it as a workspace job.
+		WorkspaceJob job = new WorkspaceJob("Finish project mods for CDT") {
+
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+				configureForCDT(project);
+				return Status.OK_STATUS;
+			}
+		};
+		job.schedule();
+
+		return success;
+	}
+	
+
+	private void configureForCDT(IProject project) {
+	    // If the project has no MC export builder at this point, the user selected "None"
+	    // during MC selection.  If that's the case, skip adding CDT stuff.
+	    if ( -1 == BuilderManagement.findBuilder(project, ".*bp.+mc.*export_builder.*")) {
+	        return;
+	    }
+	    
         try {
           setSourceFolder(project);
         }
         catch (CoreException ce) {
           CorePlugin.logError("Problem setting project source folder", ce);
-          success = false;
+        }
+        catch (RuntimeException re) {
+          CorePlugin.logError("Problem setting project source folder (RuntimeException)", re);
         }
         // Reorder builders to put CDT at bottom
         BuilderManagement.makeBuilderLast(project, BuilderManagement.CDT_BUILDER_ID);
         BuilderManagement.makeBuilderLast(project, BuilderManagement.CDT_SCANNER_BUILDER_ID);
-		return success;
+		return;
 	}
 
 	/*
