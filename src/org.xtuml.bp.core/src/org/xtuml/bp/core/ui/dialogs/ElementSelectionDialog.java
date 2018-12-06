@@ -99,9 +99,7 @@ public class ElementSelectionDialog extends SelectionDialog {
 
 	@Override
 	public Object[] getResult() {
-		Object[] object = new Object[1];
-		object[0] = fFlatView.getSelection();
-		return object;
+		return fFlatView.getSelection();
 	}
 
 	protected IDialogSettings getDialogBoundsSettings() {

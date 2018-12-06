@@ -233,7 +233,7 @@ INSERT INTO O_TFR
 INSERT INTO O_TFR
 	VALUES ("ca247de4-26e7-4a40-8dc2-5b61df14a6c9",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'importTerminatorFromComponent',
+	'importFromComponent',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -242,13 +242,14 @@ INSERT INTO O_TFR
 // for each required port in the component, either update an existing terminator or create a new one
 select many target_ports related by c_c->C_PO[R4010]->C_IR[R4016]->C_R[R4009]->C_IR[R4009]->C_PO[R4016];
 for each target_port in target_ports
-  select any existing_terminator related by self->D_TERM[R1650] where ( selected.Domain_Name == c_c.Name and selected.Terminator_Name == target_port.Name );
-  if ( not_empty existing_terminator )
-    existing_terminator.updateFromPort( c_po:target_port );
-  else
-    self.newTerminatorFromPort( c_po:target_port );
-  end if;
+  self.createTerminatorFromPort( c_po:target_port );
 end for;
+
+// search for a provided port of the same name as the component for public services
+select any target_port related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_PO[R4016] where ( selected.Name == c_c.Name );
+if (not_empty target_port)
+  self.createTerminatorFromPort( c_po:target_port );
+end if;
 
 // add dependency
 select one s_sys related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
@@ -276,7 +277,7 @@ INSERT INTO S_DT_PROXY
 INSERT INTO O_TFR
 	VALUES ("8b7fd211-8a05-43af-8f67-df50a51297b5",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'importTerminatorFromFile',
+	'importFromFile',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -294,12 +295,25 @@ while ( "" != smasl )
   elif ( "terminator" == element )
     term_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     if ( "" != term_name and "" != domain_name )
-      // TODO check if the terminator already exists
-      self.newTerminatorFromSMASL( term_name:term_name, domain_name:domain_name, smasl_iterator:smasl_iterator );
+      self.createTerminatorFromSMASL( term_name:term_name, domain_name:domain_name, smasl_iterator:smasl_iterator );
     end if;
   elif ( "type" == element and not Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
     type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     type_ref = self.createTypeReference( type_name:domain_name + "::" + type_name );
+  elif ( "routine" == element )
+    service_name = Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:0 );
+    if ( "" != service_name )
+      select any domain_term related by self->D_TERM[R1650] where ( selected.Domain_Name == domain_name and selected.Terminator_Name == "" );
+      if ( empty domain_term )
+        create object instance domain_term of D_TERM;
+        relate domain_term to self across R1650;
+        domain_term.Domain_Name = domain_name;
+        domain_term.Terminator_Name = "";
+        domain_term.Descrip = "";
+        domain_term.Direction = IFDirectionType::ClientServer;
+      end if;
+      domain_term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
+    end if;
   else
     // ignore line
   end if;
@@ -355,35 +369,62 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("66da6496-4b92-4f85-b29b-2a22739c0458",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'newTerminatorFromPort',
+	'createTerminatorFromPort',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'c_po = param.c_po;
 select one c_c related by c_po->C_C[R4010];
 select any c_r related by c_po->C_IR[R4016]->C_R[R4009];
+select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
 
 // create the terminator
+select any term related by self->D_TERM[R1650] where ( selected.Domain_Name == c_c.Name and ( (not_empty c_r and selected.Terminator_Name == c_po.Name) or
+                                                                                              (not_empty c_p and selected.Terminator_Name == "") ) );
+if (empty term)
 create object instance term of D_TERM;
-relate term to self across R1650;
-term.Domain_Name = c_c.Name;
-term.Terminator_Name = c_po.Name;
-term.Descrip = "";
-if ( not_empty c_r )
-  term.Descrip = c_r.Descrip;
+  relate term to self across R1650;
+  term.Domain_Name = c_c.Name;
+  term.Terminator_Name = c_po.Name;
+  term.Descrip = "";
+  term.Direction = IFDirectionType::ServerClient;
 end if;
 
-// for each message, create a terminator service
 select any empty_spr_ro from instances of SPR_RO where false;
 select any empty_spr_rs from instances of SPR_RS where false;
-select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
-for each spr_ro in spr_ros
-  term.newServiceFromRequiredOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs );
-end for;
-select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
-for each spr_rs in spr_rss
-  term.newServiceFromRequiredOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs );
-end for;',
+select any empty_spr_po from instances of SPR_PO where false;
+select any empty_spr_ps from instances of SPR_PS where false;
+if (not_empty c_r)
+  if ( not_empty c_r )
+    term.Descrip = c_r.Descrip;
+  end if;
+
+  // for each message, create a terminator service
+  select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
+  for each spr_ro in spr_ros
+    term.createServiceFromOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps );
+  end for;
+  select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
+  for each spr_rs in spr_rss
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps );
+  end for;
+elif (not_empty c_p)
+  term.Terminator_Name = "";
+  if ( not_empty c_p )
+    term.Descrip = c_p.Descrip;
+  end if;
+  term.Direction = IFDirectionType::ClientServer;
+
+  // for each message, create a terminator service
+  select many spr_pos related by c_p->SPR_PEP[R4501]->SPR_PO[R4503];
+  for each spr_po in spr_pos
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:spr_po, spr_ps:empty_spr_ps );
+  end for;
+  select many spr_pss related by c_p->SPR_PEP[R4501]->SPR_PS[R4503];
+  for each spr_ps in spr_pss
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:spr_ps );
+  end for;
+end if;',
 	1,
 	'',
 	"f3d7f2b4-8bf6-4646-bb6a-9638d0777e59",
@@ -407,7 +448,7 @@ INSERT INTO S_DT_PROXY
 INSERT INTO O_TFR
 	VALUES ("a4ba5553-980c-493a-aefe-e0196b1312d2",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
-	'newTerminatorFromSMASL',
+	'createTerminatorFromSMASL',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -416,11 +457,15 @@ domain_name = param.domain_name;
 smasl_iterator = param.smasl_iterator;
 
 // create the terminator
-create object instance term of D_TERM;
-relate term to self across R1650;
-term.Domain_Name = domain_name;
-term.Terminator_Name = term_name;
-term.Descrip = "";
+select any term related by self->D_TERM[R1650] where ( selected.Domain_Name == domain_name and selected.Terminator_Name == term_name );
+if (empty term)
+  create object instance term of D_TERM;
+  relate term to self across R1650;
+  term.Domain_Name = domain_name;
+  term.Terminator_Name = term_name;
+  term.Descrip = "";
+  term.Direction = IFDirectionType::ServerClient;
+end if;
 
 // for each message, create a terminator service
 smasl = Util::getNextString( string_iterator:smasl_iterator );
@@ -430,8 +475,7 @@ while ( "" != smasl )
   if ( "routine" == element )
     service_name = Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:0 );
     if ( "" != service_name )
-      // TODO check if the terminator service already exists
-      term.newServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
+      term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
     end if;
   elif ( "terminator" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
     return;

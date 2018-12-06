@@ -17,4 +17,4 @@ GenericPackageFormalizeOnC_DGAction.java
 GenericPackageFormalizeOnC_PAction.java
 GenericPackageFormalizeOnC_RAction.java
 PublishToInterfaceOnS_SYNCAction.java
-ImportTerminatorsFromComponentOnD_DEPLAction.java
+ImportFromComponentOnD_DEPLAction.java

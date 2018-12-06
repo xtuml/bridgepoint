@@ -30,11 +30,8 @@ signature = "";
 
 if ( 2 != param.flavor and 3 != param.flavor )
   // Get return type
-  // TODO
-  /*
-  select one returntype related by self->S_DT[R25];
+  select one returntype related by self->S_DT[R1656];
   signature = signature + returntype.Name + " ";
-  */
   signature = signature + "void ";
 end if;
  
@@ -46,13 +43,11 @@ signature = signature + self.Name;
 if ( 1 == param.flavor )
 
   // Get the first parameter.
-  // TODO
-  /*
-  select any parameter related by self->S_SPARM[R24];
+  select any parameter related by self->D_TSPARM[R1652];
   first_param = parameter;
   while ( not_empty parameter )
 	first_param = parameter;
-	select one parameter related by parameter->S_SPARM[R54.''succeeds''];
+	select one parameter related by parameter->D_TSPARM[R1654.''succeeds''];
   end while;
 
   if( not_empty first_param )
@@ -61,23 +56,20 @@ if ( 1 == param.flavor )
   separator = "";
   parameter = first_param;
   while ( not_empty parameter )
-	select one type related by parameter->S_DT[R26];
+	select one type related by parameter->S_DT[R1653];
 	signature = signature + separator + type.Name;
 	separator = ", ";
-	select one parameter related by parameter->S_SPARM[R54.''precedes''];
+	select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
   end while;
   if( not_empty first_param )
 	signature = signature + ")";
   end if;
-  */
 
 elif ( 0 == param.flavor )
 
   // get the parameters in sorted order
-  // TODO
-  /*
   separator = "";
-  select many parameters related by self->S_SPARM[R24];
+  select many parameters related by self->D_TSPARM[R1652];
   num_params = cardinality parameters; 
   if ( num_params > 0 )
 	signature = signature + "(";
@@ -85,8 +77,8 @@ elif ( 0 == param.flavor )
 
   // the following time complexity is n^2
   count = 0;
-  select any last_param from instances of S_SPARM where false;
-  select any curr_param from instances of S_SPARM where false;
+  select any last_param from instances of D_TSPARM where false;
+  select any curr_param from instances of D_TSPARM where false;
   while ( count < num_params )
     for each parameter in parameters
       if ( ( empty curr_param and empty last_param )
@@ -97,30 +89,27 @@ elif ( 0 == param.flavor )
       end if;
     end for;
     
-    select one type related by curr_param->S_DT[R26];
+    select one type related by curr_param->S_DT[R1653];
     signature = signature + separator + curr_param.Name + ":" + type.Name;
     separator = ", ";
 
     last_param = curr_param;
-    select any curr_param from instances of S_SPARM where false;
+    select any curr_param from instances of D_TSPARM where false;
     count = count + 1;
   end while;
 
   if ( num_params > 0 )
 	signature = signature + ")";
   end if;
-  */
   
 elif ( 2 == param.flavor )
 
   // Get the first parameter.
-  // TODO
-  /*
-  select any parameter related by self->S_SPARM[R24];
+  select any parameter related by self->D_TSPARM[R1652];
   first_param = parameter;
   while ( not_empty parameter )
 	first_param = parameter;
-	select one parameter related by parameter->S_SPARM[R54.''succeeds''];
+	select one parameter related by parameter->D_TSPARM[R1654.''succeeds''];
   end while;
 
   signature = signature + "(";
@@ -129,13 +118,12 @@ elif ( 2 == param.flavor )
   while ( not_empty parameter )
     signature = signature + separator + parameter.Name + ":";
 	separator = ", ";
-	select one parameter related by parameter->S_SPARM[R54.''precedes''];
+	select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
   end while;
   if( not_empty first_param )
     signature = signature + " ";
   end if;
   signature = signature + ")";
-  */
 
 elif ( 3 == param.flavor )
 
@@ -190,74 +178,6 @@ delete object instance self;',
 	"4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
 	0);
 INSERT INTO O_TFR
-	VALUES ("e7583f0f-7a5d-488d-a229-275c03c83998",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576",
-	'updateFromRequiredOperationOrSignal',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'spr_ro = param.spr_ro;
-spr_rs = param.spr_rs;
-
-select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
-if ( empty c_ep )
-  select one c_ep related by spr_rs->SPR_REP[R4502]->C_EP[R4500];
-end if;
-
-// update service
-self.Name = c_ep.Name;
-
-// populate details from message implementation
-if ( not_empty spr_ro )
-  self.Descrip = spr_ro.Descrip;
-  self.Action_Semantics_internal = spr_ro.Action_Semantics_internal;
-  self.Suc_Pars = spr_ro.Suc_Pars;
-  self.Dialect = spr_ro.Dialect;
-elif ( not_empty spr_rs )
-  self.Descrip = spr_rs.Descrip;
-  self.Action_Semantics_internal = spr_rs.Action_Semantics_internal;
-  self.Suc_Pars = spr_rs.Suc_Pars;
-  self.Dialect = spr_rs.Dialect;
-else
-  USER::logError( msg:"No message instance passed to creation operation", path:"" );
-end if;',
-	1,
-	'',
-	"9524261a-9215-4a3c-b524-cb85848a6de0",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("b671103b-05b1-4958-8e54-1deae7539879",
-	"e7583f0f-7a5d-488d-a229-275c03c83998",
-	'spr_ro',
-	"92776846-85ef-4067-ba50-1decd204b1d8",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("92776846-85ef-4067-ba50-1decd204b1d8",
-	"00000000-0000-0000-0000-000000000000",
-	'inst_ref<Required Operation>',
-	'',
-	'',
-	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
-INSERT INTO O_TPARM
-	VALUES ("26a489e0-a1f9-4a30-aef8-535cdc78df92",
-	"e7583f0f-7a5d-488d-a229-275c03c83998",
-	'spr_rs',
-	"4299235e-fac4-4b13-afe1-9e82353ed442",
-	0,
-	'',
-	"b671103b-05b1-4958-8e54-1deae7539879",
-	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("4299235e-fac4-4b13-afe1-9e82353ed442",
-	"00000000-0000-0000-0000-000000000000",
-	'inst_ref<Required Signal>',
-	'',
-	'',
-	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
-INSERT INTO O_TFR
 	VALUES ("1bde8527-d786-4434-be87-62643a4f9cff",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
 	'getPath',
@@ -278,40 +198,47 @@ result="";
 return result;',
 	1,
 	'',
-	"e7583f0f-7a5d-488d-a229-275c03c83998",
+	"9524261a-9215-4a3c-b524-cb85848a6de0",
 	0);
 INSERT INTO O_TFR
 	VALUES ("6b2a0206-bed5-4069-81ed-749529fad60e",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
-	'newServiceParameterFromPropertyParameter',
+	'createServiceParameterFromPropertyParameter',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'c_pp = param.c_pp;
 
-// get last parameter
-select any last_parameter related by self->D_TSPARM[R1652];
-select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-while ( not_empty next_parameter )
-  last_parameter = next_parameter;
+select any parameter related by self->D_TSPARM[R1652] where ( selected.Name == c_pp.Name );
+if (empty parameter)
+  // get last parameter
+  select any last_parameter related by self->D_TSPARM[R1652];
   select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-end while;
+  while ( not_empty next_parameter )
+    last_parameter = next_parameter;
+    select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+  end while;
 
-// create new parameter
-create object instance parameter of D_TSPARM;
-relate parameter to self across R1652;
-if ( not_empty last_parameter )
-  relate parameter to last_parameter across R1654.''succeeds'';
+  // create new parameter
+  create object instance parameter of D_TSPARM;
+  relate parameter to self across R1652;
+  if ( not_empty last_parameter )
+    relate parameter to last_parameter across R1654.''succeeds'';
+  end if;
+  parameter.Name = c_pp.Name;
+  parameter.By_Ref = c_pp.By_Ref;
+  parameter.Dimensions = c_pp.Dimensions;
+  parameter.Descrip = c_pp.Descrip;
 end if;
-parameter.Name = c_pp.Name;
-parameter.By_Ref = c_pp.By_Ref;
-parameter.Dimensions = c_pp.Dimensions;
-parameter.Descrip = c_pp.Descrip;
 
 // link data type
 select one s_dt related by c_pp->S_DT[R4007];
 select one depl related by self->D_TERM[R1651]->D_DEPL[R1650];
 type_ref = depl.addTypeReference( s_dt:s_dt );
+select one existing_type related by parameter->S_DT[R1653];
+if (not_empty existing_type)
+  unrelate existing_type from parameter across R1653;
+end if;
 relate type_ref to parameter across R1653;
 
 // resolve dimensions
@@ -729,7 +656,7 @@ if (dims.size() > 0) {
 INSERT INTO O_TFR
 	VALUES ("1cc860ea-81a1-43c5-b2bc-0c478632b8db",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
-	'newServiceParameterFromSMASL',
+	'createServiceParameterFromSMASL',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -737,28 +664,31 @@ INSERT INTO O_TFR
 param_direction = param.param_direction;
 smasl_iterator = param.smasl_iterator;
 
-// get last parameter
-select any last_parameter related by self->D_TSPARM[R1652];
-select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-while ( not_empty next_parameter )
-  last_parameter = next_parameter;
+select any parameter related by self->D_TSPARM[R1652] where ( selected.Name == param_name );
+if (empty parameter)
+  // get last parameter
+  select any last_parameter related by self->D_TSPARM[R1652];
   select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-end while;
+  while ( not_empty next_parameter )
+    last_parameter = next_parameter;
+    select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+  end while;
 
-// create new parameter
-create object instance parameter of D_TSPARM;
-relate parameter to self across R1652;
-if ( not_empty last_parameter )
-  relate parameter to last_parameter across R1654.''succeeds'';
+  // create new parameter
+  create object instance parameter of D_TSPARM;
+  relate parameter to self across R1652;
+  if ( not_empty last_parameter )
+    relate parameter to last_parameter across R1654.''succeeds'';
+  end if;
+  parameter.Name = param_name;
+  if ( "in" == param_direction )
+    parameter.By_Ref = 0;
+  else
+    parameter.By_Ref = 1;
+  end if;
+  parameter.Dimensions = "";
+  parameter.Descrip = "";
 end if;
-parameter.Name = param_name;
-if ( "in" == param_direction )
-  parameter.By_Ref = 0;
-else
-  parameter.By_Ref = 1;
-end if;
-parameter.Dimensions = "";
-parameter.Descrip = "";
 
 // set parameter type
 smasl = Util::getNextString( string_iterator:smasl_iterator );
@@ -772,20 +702,26 @@ while ( "" != smasl )
     select one parent_package related by depl->PE_PE[R8001]->EP_PKG[R8000];
     select any shared_package related by parent_package->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == "Shared" );
     select any type_ref related by shared_package->PE_PE[R8000]->S_DT[R8001] where ( selected.Name == term.Domain_Name + "::" + type_name );
-    if ( not_empty type_ref )
-      relate type_ref to parameter across R1653;
-    else
-      type_ref = depl.createTypeReference( type_name:type_name );
-      relate type_ref to parameter across R1653;
+    if (empty type_ref)
+      select one s_sys related by parent_package->S_SYS[R1405];
+      dt_id = s_sys.getCoreTypeId(name:type_name);
+      select any type_ref from instances of S_DT where ( selected.DT_ID == dt_id );
+      if (empty type_ref)
+        type_ref = depl.createTypeReference( type_name:type_name );
+      end if;
     end if;
+    select one existing_type related by parameter->S_DT[R1653];
+    if (not_empty existing_type)
+      unrelate existing_type from parameter across R1653;
+    end if;
+    relate type_ref to parameter across R1653;
   elif ( "parameter" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
     return;
   elif ( "parameter" == element )
     param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     param_direction = Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:0 );
     if ( "" != param_name )
-      // TODO check if the terminator service parameter already exists
-      self.newServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
+      self.createServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
     end if;
   else
     // ignore line

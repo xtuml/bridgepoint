@@ -7849,14 +7849,14 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("23ed5b53-2c15-4aa6-86a4-47994f7aef24",
 	"00000000-0000-0000-0000-000000000000",
-	'D_DEPL_ImportTerminatorsFromFile',
+	'D_DEPL_ImportFromFile',
 	'',
 	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
 if not_empty element
   file_selection = Util::selectFiles( ext:"int" );
   filename = Util::getNextString( string_iterator:file_selection );
   while ( "" != filename )
-    element.importTerminatorFromFile(filename:filename);
+    element.importFromFile(filename:filename);
     filename = Util::getNextString( string_iterator:file_selection );
   end while;
 end if;',
@@ -7873,14 +7873,14 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("3c01e6fe-7803-4550-9000-16c3168f289e",
 	"00000000-0000-0000-0000-000000000000",
-	'D_DEPL_ImportTerminatorsFromComponent',
+	'D_DEPL_ImportFromComponent',
 	'',
 	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
 if not_empty element
-  select any selectedComponent from instances of C_C where USER::selectOne(id:selected.Id);
-  if not_empty selectedComponent
-    element.importTerminatorFromComponent( c_c: selectedComponent );
-  end if;
+  select many selectedComponents from instances of C_C where USER::selectMany(id:selected.Id);
+  for each selectedComponent in selectedComponents
+    element.importFromComponent( c_c: selectedComponent );
+  end for;
 end if;
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",

@@ -348,8 +348,8 @@ INSERT INTO CME VALUES ('Delete', '',                         'D_DEPL',    '',  
 INSERT INTO CME VALUES ('Rename', '',                         'D_DEPL',   '',              true );
 INSERT INTO CME VALUES ('Delete', '',                         'D_TERM',    '',              true );
 INSERT INTO CME VALUES ('--',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '*', false, '', true, false, 'interface');
-INSERT INTO CME VALUES ('', 'Import terminators from file', 'D_DEPL', '', false );
-INSERT INTO CME VALUES ('', 'Import terminators from component', 'D_DEPL', 'C_C', false, 'Select a component', '1', false, '', true, false, 'component' );
+INSERT INTO CME VALUES ('', 'Import from file', 'D_DEPL', '', false );
+INSERT INTO CME VALUES ('', 'Import from component', 'D_DEPL', 'C_C', false, 'Select a component', '1', false, '', true, false, 'component' );
 
 --
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_P',    'can', 'dissatisfy' );

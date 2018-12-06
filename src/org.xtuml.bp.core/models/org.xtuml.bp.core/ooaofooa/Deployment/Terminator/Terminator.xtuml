@@ -8,95 +8,43 @@ INSERT INTO O_OBJ
 	'',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
-	VALUES ("621d8420-0973-4366-a91b-149daf8c91e8",
-	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
-	'updateFromPort',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'c_po = param.c_po;
-select one c_c related by c_po->C_C[R4010];
-select any c_r related by c_po->C_IR[R4016]->C_R[R4009];
-
-// update the terminator
-self.Domain_Name = c_c.Name;
-self.Terminator_Name = c_po.Name;
-self.Descrip = "";
-if ( not_empty c_r )
-  self.Descrip = c_r.Descrip;
-end if;
-
-// check if any services need to be removed
-select many existing_services related by self->D_TSVC[R1651];
-for each existing_service in existing_services
-  select any c_ep related by c_po->C_IR[R4016]->C_I[R4012]->C_EP[R4003] where ( selected.Name == existing_service.Name );
-  if ( empty c_ep )
-    unrelate existing_service from self across R1651;
-    existing_service.dispose();
-  end if;
-end for;
-
-// for each message, create or update a terminator service
-select any empty_spr_ro from instances of SPR_RO where false;
-select any empty_spr_rs from instances of SPR_RS where false;
-select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
-for each spr_ro in spr_ros
-  select any existing_service related by self->D_TSVC[R1651] where ( selected.Name == spr_ro.Name );
-  if ( empty existing_service )
-    self.newServiceFromRequiredOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs );
-  else
-    existing_service.updateFromRequiredOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs );
-  end if;
-end for;
-select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
-for each spr_rs in spr_rss
-  select any existing_service related by self->D_TSVC[R1651] where ( selected.Name == spr_rs.Name );
-  if ( empty existing_service )
-    self.newServiceFromRequiredOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs );
-  else
-    existing_service.updateFromRequiredOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs );
-  end if;
-end for;',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("a7be0514-20dd-4366-bb19-5ba83d15290d",
-	"621d8420-0973-4366-a91b-149daf8c91e8",
-	'c_po',
-	"60534880-b545-4f4c-9846-93e40f1e0d1d",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("60534880-b545-4f4c-9846-93e40f1e0d1d",
-	"00000000-0000-0000-0000-000000000000",
-	'inst_ref<Port>',
-	'',
-	'',
-	'../../Component/Component.xtuml');
-INSERT INTO O_TFR
 	VALUES ("996e8c32-1085-4101-860b-2c660c0f9198",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
-	'newServiceFromRequiredOperationOrSignal',
+	'createServiceFromOperationOrSignal',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'spr_ro = param.spr_ro;
 spr_rs = param.spr_rs;
+spr_po = param.spr_po;
+spr_ps = param.spr_ps;
 
 select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
 if ( empty c_ep )
   select one c_ep related by spr_rs->SPR_REP[R4502]->C_EP[R4500];
+  if (empty c_ep)
+    select one c_ep related by spr_po->SPR_PEP[R4503]->C_EP[R4501];
+    if (empty c_ep)
+      select one c_ep related by spr_ps->SPR_PEP[R4503]->C_EP[R4501];
+    end if;
+  end if;
 end if;
 
-// create new service
-create object instance service of D_TSVC;
-relate service to self across R1651;
-service.Name = c_ep.Name;
-service.Return_Dimensions = "";
+// create create service
+select any service from instances of D_TSVC where false;
+select many existing_services related by self->D_TSVC[R1651];
+for each existing_service in existing_services
+  if (existing_service.getSignature(flavor:1) == c_ep.getSignature(flavor:1))
+    service = existing_service;
+    break;
+  end if;
+end for;
+if (empty service)
+  create object instance service of D_TSVC;
+  relate service to self across R1651;
+  service.Name = c_ep.Name;
+  service.Return_Dimensions = "";
+end if;
 
 // populate details from message implementation
 if ( not_empty spr_ro )
@@ -109,6 +57,16 @@ elif ( not_empty spr_rs )
   service.Action_Semantics_internal = spr_rs.Action_Semantics_internal;
   service.Suc_Pars = spr_rs.Suc_Pars;
   service.Dialect = spr_rs.Dialect;
+elif ( not_empty spr_po )
+  service.Descrip = spr_po.Descrip;
+  service.Action_Semantics_internal = spr_po.Action_Semantics_internal;
+  service.Suc_Pars = spr_po.Suc_Pars;
+  service.Dialect = spr_po.Dialect;
+elif ( not_empty spr_ps )
+  service.Descrip = spr_ps.Descrip;
+  service.Action_Semantics_internal = spr_ps.Action_Semantics_internal;
+  service.Suc_Pars = spr_ps.Suc_Pars;
+  service.Dialect = spr_ps.Dialect;
 else
   USER::logError( msg:"No message instance passed to creation operation", path:"" );
 end if;
@@ -121,7 +79,7 @@ while ( not_empty prev_c_pp )
   select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
 end while;
 while ( not_empty c_pp )
-  service.newServiceParameterFromPropertyParameter( c_pp:c_pp );
+  service.createServiceParameterFromPropertyParameter( c_pp:c_pp );
   select one c_pp related by c_pp->C_PP[R4021.''precedes''];
 end while;
 
@@ -132,6 +90,10 @@ if ( not_empty c_io )
   select one s_dt related by c_io->S_DT[R4008];
   select one depl related by self->D_DEPL[R1650];
   type_ref = depl.addTypeReference( s_dt:s_dt );
+  select one existing_type related by service->S_DT[R1656];
+  if (not_empty existing_type)
+    unrelate existing_type from service across R1656;
+  end if;
   relate type_ref to service across R1656;
   service.Return_Dimensions = c_io.Return_Dimensions;
 end if;
@@ -140,7 +102,7 @@ end if;
 service.parseReturn_Dimensions();',
 	1,
 	'',
-	"621d8420-0973-4366-a91b-149daf8c91e8",
+	"00000000-0000-0000-0000-000000000000",
 	0);
 INSERT INTO O_TPARM
 	VALUES ("49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
@@ -174,6 +136,38 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("68d0aac6-397f-4264-b6bb-3ccfee3e957b",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_po',
+	"6a167139-6a62-442a-8d11-c1e910577fd6",
+	0,
+	'',
+	"3341d7a4-36fa-4cb9-be9f-b2227c25a817",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6a167139-6a62-442a-8d11-c1e910577fd6",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Provided Operation>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("7b889c5b-9600-4ec1-9731-df2f7c91f86c",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_ps',
+	"7db58cc8-220b-47ac-b7a6-84cf87e63663",
+	0,
+	'',
+	"68d0aac6-397f-4264-b6bb-3ccfee3e957b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7db58cc8-220b-47ac-b7a6-84cf87e63663",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Provided Signal>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
@@ -200,7 +194,7 @@ delete object instance self;',
 INSERT INTO O_TFR
 	VALUES ("c2c0d204-b5de-4fba-80ed-b774506d0ccd",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
-	'newServiceFromSMASL',
+	'createServiceFromSMASL',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -231,8 +225,7 @@ while ( "" != smasl )
     param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     param_direction = Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:0 );
     if ( "" != param_name )
-      // TODO check if the terminator service parameter already exists
-      service.newServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
+      service.createServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
     end if;
   elif ( "typeref" == element )
     type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
@@ -240,13 +233,28 @@ while ( "" != smasl )
     select one parent_package related by depl->PE_PE[R8001]->EP_PKG[R8000];
     select any shared_package related by parent_package->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == "Shared" );
     select any type_ref related by shared_package->PE_PE[R8000]->S_DT[R8001] where ( selected.Name == self.Domain_Name + "::" + type_name );
-    if ( not_empty type_ref )
-      relate type_ref to service across R1656;
-    else
-      type_ref = depl.createTypeReference( type_name:type_name );
-      relate type_ref to service across R1656;
+    if (empty type_ref)
+      select one s_sys related by parent_package->S_SYS[R1405];
+      dt_id = s_sys.getCoreTypeId(name:type_name);
+      select any type_ref from instances of S_DT where ( selected.DT_ID == dt_id );
+      if (empty type_ref)
+        type_ref = depl.createTypeReference( type_name:type_name );
+      end if;
     end if;
+    select one existing_type related by service->S_DT[R1656];
+    if (not_empty existing_type)
+      unrelate existing_type from service across R1656;
+    end if;
+    relate type_ref to service across R1656;
   elif ( "routine" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+    // check if this service was a duplicate
+    select many other_services related by self->D_TSVC[R1651] where ( selected.Svc_ID != service.Svc_ID );
+    for each other_service in other_services
+      if (other_service.getSignature(flavor:1) == service.getSignature(flavor:1))
+        service.dispose();
+        break;
+      end if;
+    end for;
     return;
   else
     // ignore line
@@ -354,7 +362,11 @@ INSERT INTO O_ATTR
 INSERT INTO O_DBATTR
 	VALUES ("3fd758ee-7d03-421f-89a0-fd3c1169b70a",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
-	'self.Name = self.Domain_Name + "::" + self.Terminator_Name;',
+	'if ("" != self.Terminator_Name)
+  self.Name = self.Domain_Name + "::" + self.Terminator_Name;
+else
+  self.Name = self.Domain_Name;
+end if;',
 	1,
 	0);
 INSERT INTO O_BATTR
@@ -430,6 +442,40 @@ Description: A textual description of this terminator service.',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"cae15c21-bc75-4e81-836a-78f4968f0246",
+	'Direction',
+	'User_Visible:false',
+	'',
+	'Direction',
+	0,
+	"814a8f6f-2c12-497b-b693-a86916fdedf7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("814a8f6f-2c12-497b-b693-a86916fdedf7",
+	"00000000-0000-0000-0000-000000000000",
+	'IFDirectionType',
+	'BridgePoint allows the user to specify communication direction of individual 
+elements in an interface as opposed to on the interface as a whole (which is 
+what UML does).  For example, in UML when an interface is specified as being 
+provided, all that interface''s operations are one way (from server to 
+client).  Likewise, when a interface is specified as being required, all the 
+operations are one way (from client to server).  In reality, interfaces are 
+not often like this. There is a mixture of client to server and server to 
+client in one interface.     This enum is used at the operation/signal level 
+to determine if it is to be used for client to server or server to client 
+communication.',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");

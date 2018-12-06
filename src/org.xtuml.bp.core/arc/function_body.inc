@@ -45,7 +45,7 @@
       .select many context_items related by wfl->W_CTI[R2003]
       .select any context_item from instances of W_CTI where (false)
       .for each context_item in context_items
-        .if (context_item.Type == "many")
+        .if ((first context_items) and (context_item.Type == "many"))
           .assign iteration_req = true
           .// a set of values must be placed in a new array for processing
           .select one class related by context_item->O_OBJ[R2002]
@@ -164,7 +164,11 @@
       dialog.setTitle("${cme.Label} Selection");
       int result = dialog.open();
       if(result == Window.OK) {
+        .if ("many" == context_item.Type)
+					${selectedElementType}[] v_${context_item.Name} = Arrays.copyOf(dialog.getResult(), dialog.getResult().length, ${selectedElementType}[].class);
+        .else
 					${selectedElementType} v_${context_item.Name} = (${selectedElementType}) dialog.getResult()[0];
+        .end if
 					if(v_${context_item.Name} != null) {
       .else
         .// this assumes that there's only one context item for the workflow
