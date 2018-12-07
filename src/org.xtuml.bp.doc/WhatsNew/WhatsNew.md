@@ -13,16 +13,18 @@ Infrastructure
 ------
 #### Move to Eclipse Oxygen 
 
-BridgePoint now runs on Eclipse Oxygen.  Prior versions ran on Eclipse Mars.  The user 
-experience is not dramatically different, but the update of course includes new features
-and fixes from the Eclipse foundation.  Please see the article [Eclipse Oxygen - New and Noteworthy](https://www.eclipse.org/eclipse/news/4.7/) 
-for more information.  
+BridgePoint now runs on Eclipse Oxygen.  Prior versions ran on Eclipse Mars.  The user experience is 
+not dramatically different, but the update of course includes new features and fixes from the Eclipse 
+foundation.  Please see the article [Eclipse Oxygen - New and Noteworthy](https://www.eclipse.org/eclipse/news/4.7/) for more information.  
+
+This update includes an update to Eclipse EGit 4.9.  See the [EGit - New and Noteworthy](https://wiki.eclipse.org/EGit/New_and_Noteworthy)
+for details about updates to this tool.  
 
 #### Completed migration to generator 2.0
 
-BridgePoint model compilers have incrementally moved to the python-based generator 2.0 over the previous
-releases.  This release completes the migration with updates to the Java model compiler used to build
-BridgePoint itself.  
+BridgePoint model compilers have incrementally moved to the python-based generator 2.0 (pyrsl) over the 
+previous releases.  This release completes the migration with updates to the Java model compiler used to 
+build BridgePoint itself.  
 
 With this change there is no longer a requirement to downgrade generator to build BridgePoint. This improves
 the experience for BridgePoint developers and keeps full self-hosted development and build in place.  
