@@ -59,14 +59,14 @@ elif ( not_empty spr_rs )
   service.Dialect = spr_rs.Dialect;
 elif ( not_empty spr_po )
   service.Descrip = spr_po.Descrip;
-  service.Action_Semantics_internal = spr_po.Action_Semantics_internal;
+  service.Action_Semantics_internal = "";
   service.Suc_Pars = spr_po.Suc_Pars;
-  service.Dialect = spr_po.Dialect;
+  service.Dialect = ActionDialect::none;
 elif ( not_empty spr_ps )
   service.Descrip = spr_ps.Descrip;
-  service.Action_Semantics_internal = spr_ps.Action_Semantics_internal;
+  service.Action_Semantics_internal = "";
   service.Suc_Pars = spr_ps.Suc_Pars;
-  service.Dialect = spr_ps.Dialect;
+  service.Dialect = ActionDialect::none;
 else
   USER::logError( msg:"No message instance passed to creation operation", path:"" );
 end if;
@@ -209,10 +209,14 @@ service.Name = service_name;
 service.Descrip = "";
 service.Action_Semantics_internal = "";
 service.setToDefaultDataType();
-service.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
-if ( service.Dialect == ActionDialect::masl )
-  // new MASL activities get initialized with the "null" statement
-  service.Action_Semantics_internal = "begin\n  null;\nend service;";
+if (self.Provider)
+  service.Dialect = ActionDialect::none;
+else
+  service.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+  if ( service.Dialect == ActionDialect::masl )
+    // new MASL activities get initialized with the "null" statement
+    service.Action_Semantics_internal = "begin\n  null;\nend service;";
+  end if;
 end if;
 service.Suc_Pars = ParseStatus::parseInitial;
 
@@ -452,30 +456,14 @@ INSERT INTO O_ATTR
 	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"cae15c21-bc75-4e81-836a-78f4968f0246",
-	'Direction',
+	'Provider',
 	'User_Visible:false',
 	'',
-	'Direction',
+	'Provider',
 	0,
-	"814a8f6f-2c12-497b-b693-a86916fdedf7",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("814a8f6f-2c12-497b-b693-a86916fdedf7",
-	"00000000-0000-0000-0000-000000000000",
-	'IFDirectionType',
-	'BridgePoint allows the user to specify communication direction of individual 
-elements in an interface as opposed to on the interface as a whole (which is 
-what UML does).  For example, in UML when an interface is specified as being 
-provided, all that interface''s operations are one way (from server to 
-client).  Likewise, when a interface is specified as being required, all the 
-operations are one way (from client to server).  In reality, interfaces are 
-not often like this. There is a mixture of client to server and server to 
-client in one interface.     This enum is used at the operation/signal level 
-to determine if it is to be used for client to server or server to client 
-communication.',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");

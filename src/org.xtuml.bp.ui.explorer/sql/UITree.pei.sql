@@ -90,7 +90,7 @@ INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->C
 INSERT INTO T_TNS VALUES (85, '', 'CL_POR',  '', 'Name', '', 'Port Reference', false);
 INSERT INTO T_TNS VALUES (86, '', 'S_EXP', '', 'Name', '', 'Exceptions', false);
 INSERT INTO T_TNS VALUES (87, '', 'D_DEPL', '', 'Name', '', 'Deployments', false);
-INSERT INTO T_TNS VALUES (88, '', 'D_TERM', '', 'Name', '', 'Terminators', false);
+INSERT INTO T_TNS VALUES (88, '', 'D_TERM', '', 'Name', '', 'Terminators', true);
 INSERT INTO T_TNS VALUES (89, '', 'D_TSVC', '', 'Name', '', 'Terminator Services', false);
 INSERT INTO T_TNS VALUES (90, '', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameters', false);
 

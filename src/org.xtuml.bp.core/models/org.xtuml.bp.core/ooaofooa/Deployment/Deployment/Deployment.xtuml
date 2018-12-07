@@ -310,7 +310,7 @@ while ( "" != smasl )
         domain_term.Domain_Name = domain_name;
         domain_term.Terminator_Name = "";
         domain_term.Descrip = "";
-        domain_term.Direction = IFDirectionType::ClientServer;
+        domain_term.Provider = true;
       end if;
       domain_term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
     end if;
@@ -387,7 +387,7 @@ create object instance term of D_TERM;
   term.Domain_Name = c_c.Name;
   term.Terminator_Name = c_po.Name;
   term.Descrip = "";
-  term.Direction = IFDirectionType::ServerClient;
+  term.Provider = false;
 end if;
 
 select any empty_spr_ro from instances of SPR_RO where false;
@@ -413,7 +413,7 @@ elif (not_empty c_p)
   if ( not_empty c_p )
     term.Descrip = c_p.Descrip;
   end if;
-  term.Direction = IFDirectionType::ClientServer;
+  term.Provider = true;
 
   // for each message, create a terminator service
   select many spr_pos related by c_p->SPR_PEP[R4501]->SPR_PO[R4503];
@@ -464,7 +464,7 @@ if (empty term)
   term.Domain_Name = domain_name;
   term.Terminator_Name = term_name;
   term.Descrip = "";
-  term.Direction = IFDirectionType::ServerClient;
+  term.Provider = false;
 end if;
 
 // for each message, create a terminator service
