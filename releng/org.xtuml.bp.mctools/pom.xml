@@ -60,9 +60,12 @@
                     <include>mcmc</include>
                     <include>m2x</include>
                     <include>masl</include>
+                    <include>wasl</include>
                     <include>masl2xtuml</include>
                     <include>masldiff</include>
+                    <include>antlr.jar</include>
                     <include>MASLParser.jar</include>
+                    <include>WASLParser.jar</include>
                     <include>x2m</include>
                     <include>xtuml2masl</include>
                     <include>xtumlmc_build</include>
@@ -91,7 +94,9 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
+                    <include>antlr.jar</include>
                     <include>MASLParser.jar</include>
+                    <include>WASLParser.jar</include>
                     <include>xtumlmc_build</include>
                     <include>CLI.sh</include>
                     <include>launch-cli.py</include>
@@ -109,6 +114,7 @@
                     <include>mcmc</include>
                     <include>m2x</include>
                     <include>masl</include>
+                    <include>wasl</include>
                     <include>x2m</include>
                     <include>integrity</include>
                   </includes>
@@ -128,21 +134,26 @@
               <outputDirectory>${basedir}/win.all/tools/mc/bin</outputDirectory>
               <resources>          
                 <resource>
+                  <directory>../../../mc/bin</directory>
+                  <includes>
+                    <include>antlr.jar</include>
+                    <include>WASLParser.jar</include>
+                    <include>wasl_round_trip</include>
+                    <include>wasldiff</include>
+                    <include>wasl2xtuml</include>
+                    <include>xtuml2wasl</include>
+                  </includes>
+                </resource>
+                <resource>
                   <directory>../../../mc/bin/win</directory>
                   <includes>
                     <include>mcmc.exe</include>
                     <include>xtumlmc_build.exe</include>
                     <include>xtumlmc_build.pl</include>
-                    <include>xtuml2wasl</include>
                     <include>CLI.bat</include>
                     <include>m2x.exe</include>
                     <include>masl.exe</include>
                     <include>wasl.exe</include>
-                    <include>wasl2xtuml</include>
-                    <include>wasldiff</include>
-                    <include>wasl_round_trip</include>
-                    <include>WASLParser.jar</include>
-                    <include>antlr.jar</include>
                     <include>x2m.exe</include>
                     <include>integrity.exe</include>
                   </includes>
