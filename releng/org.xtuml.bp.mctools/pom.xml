@@ -150,7 +150,6 @@
                     <include>masl_round_trip</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
-                    <include>wasl2xtuml</include>
                     <include>wasl_round_trip</include>
                     <include>wasldiff</include>
                     <include>WASLParser.jar</include>
@@ -168,6 +167,7 @@
                     <include>masl.exe</include>
                     <include>mcmc.exe</include>
                     <include>wasl.exe</include>
+                    <include>wasl2xtuml</include>
                     <include>x2m.exe</include>
                     <include>xtumlmc_build.exe</include>
                     <include>xtumlmc_build.pl</include>
