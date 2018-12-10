@@ -78,6 +78,20 @@ plugin.
          </or>
       </enablement>
    </decorator>
+   <decorator
+         class="org.xtuml.bp.ui.explorer.decorators.StaleServiceDecorator"
+         id="org.xtuml.bp.ui.explorer.staleServiceDecorator"
+         label="BridgePoint Stale Service Decorator"
+         lightweight="true"
+         state="true">
+      <enablement>
+         <or>
+            <objectClass
+                  name="org.xtuml.bp.core.TerminatorService_c">
+            </objectClass>
+         </or>
+      </enablement>
+   </decorator>
    </extension>
 
 </plugin>

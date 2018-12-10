@@ -2,12 +2,12 @@ package org.xtuml.bp.core.sorter;
 
 import java.util.Arrays;
 
-import org.xtuml.bp.core.Terminator_c;
+import org.xtuml.bp.core.TerminatorService_c;
 
-public class Terminator_cSorter extends BaseTypeSpecificSorter {
+public class TerminatorService_cSorter extends BaseTypeSpecificSorter {
 
-    public Terminator_cSorter() {
-        super(Terminator_c.class);
+    public TerminatorService_cSorter() {
+        super(TerminatorService_c.class);
     }
 
     public void sort(Object[] elements) {
@@ -16,10 +16,10 @@ public class Terminator_cSorter extends BaseTypeSpecificSorter {
             return;
         }
         Arrays.sort(elements, (a, b) -> {
-        	if ( ((Terminator_c)a).getProvider() && !((Terminator_c)b).getProvider() ) {
+        	if ( ((TerminatorService_c)b).getIs_stale() && !((TerminatorService_c)a).getIs_stale() ) {
         		return -1;
         	}
-        	else if ( ((Terminator_c)b).getProvider() && !((Terminator_c)a).getProvider() ) {
+        	else if ( ((TerminatorService_c)a).getIs_stale() && !((TerminatorService_c)b).getIs_stale() ) {
         		return 1;
         	}
         	else {

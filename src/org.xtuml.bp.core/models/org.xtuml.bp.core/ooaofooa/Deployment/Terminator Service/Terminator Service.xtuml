@@ -209,27 +209,24 @@ INSERT INTO O_TFR
 	1,
 	'c_pp = param.c_pp;
 
-select any parameter related by self->D_TSPARM[R1652] where ( selected.Name == c_pp.Name );
-if (empty parameter)
-  // get last parameter
-  select any last_parameter related by self->D_TSPARM[R1652];
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
   select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-  while ( not_empty next_parameter )
-    last_parameter = next_parameter;
-    select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-  end while;
+end while;
 
-  // create new parameter
-  create object instance parameter of D_TSPARM;
-  relate parameter to self across R1652;
-  if ( not_empty last_parameter )
-    relate parameter to last_parameter across R1654.''succeeds'';
-  end if;
-  parameter.Name = c_pp.Name;
-  parameter.By_Ref = c_pp.By_Ref;
-  parameter.Dimensions = c_pp.Dimensions;
-  parameter.Descrip = c_pp.Descrip;
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
 end if;
+parameter.Name = c_pp.Name;
+parameter.By_Ref = c_pp.By_Ref;
+parameter.Dimensions = c_pp.Dimensions;
+parameter.Descrip = c_pp.Descrip;
 
 // link data type
 select one s_dt related by c_pp->S_DT[R4007];
@@ -664,31 +661,28 @@ INSERT INTO O_TFR
 param_direction = param.param_direction;
 smasl_iterator = param.smasl_iterator;
 
-select any parameter related by self->D_TSPARM[R1652] where ( selected.Name == param_name );
-if (empty parameter)
-  // get last parameter
-  select any last_parameter related by self->D_TSPARM[R1652];
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
   select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-  while ( not_empty next_parameter )
-    last_parameter = next_parameter;
-    select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
-  end while;
+end while;
 
-  // create new parameter
-  create object instance parameter of D_TSPARM;
-  relate parameter to self across R1652;
-  if ( not_empty last_parameter )
-    relate parameter to last_parameter across R1654.''succeeds'';
-  end if;
-  parameter.Name = param_name;
-  if ( "in" == param_direction )
-    parameter.By_Ref = 0;
-  else
-    parameter.By_Ref = 1;
-  end if;
-  parameter.Dimensions = "";
-  parameter.Descrip = "";
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
 end if;
+parameter.Name = param_name;
+if ( "in" == param_direction )
+  parameter.By_Ref = 0;
+else
+  parameter.By_Ref = 1;
+end if;
+parameter.Dimensions = "";
+parameter.Descrip = "";
 
 // set parameter type
 smasl = Util::getNextString( string_iterator:smasl_iterator );
@@ -715,7 +709,7 @@ while ( "" != smasl )
       unrelate existing_type from parameter across R1653;
     end if;
     relate type_ref to parameter across R1653;
-  elif ( "parameter" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+  elif ( "parameter" == element and ",,,,,,," == the_rest )
     return;
   elif ( "parameter" == element )
     param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
@@ -759,6 +753,108 @@ INSERT INTO O_TPARM
 	'',
 	"c2bb2104-15c9-4c57-b4df-9c51fa68cd64",
 	'');
+INSERT INTO O_TFR
+	VALUES ("843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'mergeWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'd_tsvc = param.d_tsvc;
+
+// update attribute values
+self.Name = d_tsvc.Name;
+self.Descrip = self.Descrip + d_tsvc.Descrip;
+// do not replace action semantics
+if (self.Return_Dimensions != d_tsvc.Return_Dimensions)
+  self.Return_Dimensions = d_tsvc.Return_Dimensions;
+  self.resizeReturn_Dimensions(dimension:0, elementCount:0, numDimensions:0);
+  self.parseReturn_Dimensions();
+end if;
+
+// update return type
+select one s_dt related by self->S_DT[R1656];
+select one new_dt related by d_tsvc->S_DT[R1656];
+if (s_dt.DT_ID != new_dt.DT_ID)
+  unrelate s_dt from self across R1656;
+  relate new_dt to self across R1656;
+end if;
+
+// get first parameter
+select any parameter related by self->D_TSPARM[R1652];
+select one prev_parameter related by parameter->D_TSPARM[R1654.''succeeds''];
+while ( not_empty prev_parameter )
+  parameter = prev_parameter;
+  select one prev_parameter related by parameter->D_TSPARM[R1654.''succeeds''];
+end while;
+
+// get first new parameter
+select any new_parameter related by d_tsvc->D_TSPARM[R1652];
+select one prev_parameter related by new_parameter->D_TSPARM[R1654.''succeeds''];
+while ( not_empty prev_parameter )
+  new_parameter = prev_parameter;
+  select one prev_parameter related by new_parameter->D_TSPARM[R1654.''succeeds''];
+end while;
+
+while (not_empty parameter)
+  if (not_empty new_parameter)
+    if (parameter.Name == new_parameter.Name)
+      // merge if the names match
+      parameter.mergeWith(d_tsparm:new_parameter);
+      select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
+    else
+      // otherwise insert before
+      select one second_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+      if (not_empty second_new_parameter)
+        unrelate new_parameter from second_new_parameter across R1654.''precedes'';
+      end if;
+      unrelate new_parameter from d_tsvc across R1652;
+      relate new_parameter to self across R1652;
+      relate new_parameter to parameter across R1654.''precedes'';
+    end if;
+    select one new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+  else
+    // if there are no more new parameters to compare with, dispose the old parameters
+    select one next_parameter related by parameter->D_TSPARM[R1654.''precedes''];
+    parameter.dispose();
+    parameter = next_parameter;
+  end if;
+end while;
+
+// dispose the merged service
+d_tsvc.dispose();',
+	1,
+	'',
+	"f0a20d4b-9dd2-4e18-9d6f-53b82dd4a18b",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d6f7b3ec-cf23-4626-b782-61793f7e5534",
+	"843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	'd_tsvc',
+	"527c14da-da73-48e3-8f6c-540a679f9b87",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("527c14da-da73-48e3-8f6c-540a679f9b87",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Terminator Service>',
+	'',
+	'',
+	'../Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("65edb051-6280-40f4-96bc-c7e41e1e74b9",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'isSynchronized',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return not self.Is_Stale;',
+	1,
+	'',
+	"843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");
@@ -1028,6 +1124,24 @@ INSERT INTO O_ATTR
 	'DT_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dfe24000-1823-476d-bf63-748428ea419f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("dfe24000-1823-476d-bf63-748428ea419f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("dfe24000-1823-476d-bf63-748428ea419f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	'Is_Stale',
+	'User_Visible:false',
+	'',
+	'Is_Stale',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_ID

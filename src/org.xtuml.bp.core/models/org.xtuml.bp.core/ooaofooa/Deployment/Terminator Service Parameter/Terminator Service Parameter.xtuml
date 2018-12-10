@@ -492,6 +492,52 @@ if (dims.size() > 0) {
 	'',
 	"8661af32-b6d9-4eb6-a0b6-07ba0ad4d42b",
 	0);
+INSERT INTO O_TFR
+	VALUES ("52294c37-49c2-4f5b-9510-25e59a087cd7",
+	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
+	'mergeWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'd_tsparm = param.d_tsparm;
+
+// update attribute values
+self.Name = d_tsparm.Name;
+self.By_Ref = d_tsparm.By_Ref;
+if (self.Dimensions != d_tsparm.Dimensions)
+  self.Dimensions = d_tsparm.Dimensions;
+  self.resizeDimensions(dimension:0, elementCount:0, numDimensions:0);
+  self.parseDimensions();
+end if;
+self.Descrip = self.Descrip + d_tsparm.Descrip;
+
+// update type
+select one s_dt related by self->S_DT[R1653];
+select one new_dt related by d_tsparm->S_DT[R1653];
+if (s_dt.DT_ID != new_dt.DT_ID)
+  unrelate s_dt from self across R1653;
+  relate new_dt to self across R1653;
+end if;',
+	1,
+	'',
+	"6b20f3bf-5c00-4011-8054-370ef2efff79",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("ccdd7b8b-6a61-4930-beba-35a936cb7fee",
+	"52294c37-49c2-4f5b-9510-25e59a087cd7",
+	'd_tsparm',
+	"d12755f4-c48b-48a4-9035-2d7970574cc3",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("d12755f4-c48b-48a4-9035-2d7970574cc3",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Terminator Service Parameter>',
+	'',
+	'',
+	'../Deployment.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("7efb0ce0-bc02-4717-aa43-d04eb5b44c27",
 	"fb13e85f-efdd-41ac-a673-35781d9be2c4");

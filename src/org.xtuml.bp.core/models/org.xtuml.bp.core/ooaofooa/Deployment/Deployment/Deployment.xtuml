@@ -285,33 +285,38 @@ INSERT INTO O_TFR
 
 domain_name = "";
 
+select any existing_domain_term from instances of D_TERM where false;
+select any domain_term from instances of D_TERM where false;
+
 smasl_iterator = Util::parseMASLFile( filename:filename );
 smasl = Util::getNextString( string_iterator:smasl_iterator );
 while ( "" != smasl )
   element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
   the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
-  if ( "domain" == element )
+  if ( "domain" == element and ",,,,,,," == the_rest )
+    if (not_empty existing_domain_term)
+      existing_domain_term.mergeWith(d_term:domain_term);
+    end if;
+  elif ( "domain" == element )
     domain_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    select any existing_domain_term related by self->D_TERM[R1650] where ( selected.Domain_Name == domain_name and selected.Terminator_Name == "" );
+    create object instance domain_term of D_TERM;
+    relate domain_term to self across R1650;
+    domain_term.Domain_Name = domain_name;
+    domain_term.Terminator_Name = "";
+    domain_term.Descrip = "";
+    domain_term.Provider = true;
   elif ( "terminator" == element )
     term_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     if ( "" != term_name and "" != domain_name )
       self.createTerminatorFromSMASL( term_name:term_name, domain_name:domain_name, smasl_iterator:smasl_iterator );
     end if;
-  elif ( "type" == element and not Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+  elif ( "type" == element and not (",,,,,,," == the_rest) )
     type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     type_ref = self.createTypeReference( type_name:domain_name + "::" + type_name );
   elif ( "routine" == element )
     service_name = Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:0 );
     if ( "" != service_name )
-      select any domain_term related by self->D_TERM[R1650] where ( selected.Domain_Name == domain_name and selected.Terminator_Name == "" );
-      if ( empty domain_term )
-        create object instance domain_term of D_TERM;
-        relate domain_term to self across R1650;
-        domain_term.Domain_Name = domain_name;
-        domain_term.Terminator_Name = "";
-        domain_term.Descrip = "";
-        domain_term.Provider = true;
-      end if;
       domain_term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
     end if;
   else
@@ -378,17 +383,16 @@ select one c_c related by c_po->C_C[R4010];
 select any c_r related by c_po->C_IR[R4016]->C_R[R4009];
 select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
 
+select any existing_term related by self->D_TERM[R1650] where ( selected.Domain_Name == c_c.Name and ( (not_empty c_r and selected.Terminator_Name == c_po.Name) or
+                                                                                                       (not_empty c_p and selected.Terminator_Name == "") ) );
+
 // create the terminator
-select any term related by self->D_TERM[R1650] where ( selected.Domain_Name == c_c.Name and ( (not_empty c_r and selected.Terminator_Name == c_po.Name) or
-                                                                                              (not_empty c_p and selected.Terminator_Name == "") ) );
-if (empty term)
 create object instance term of D_TERM;
-  relate term to self across R1650;
-  term.Domain_Name = c_c.Name;
-  term.Terminator_Name = c_po.Name;
-  term.Descrip = "";
-  term.Provider = false;
-end if;
+relate term to self across R1650;
+term.Domain_Name = c_c.Name;
+term.Terminator_Name = c_po.Name;
+term.Descrip = "";
+term.Provider = false;
 
 select any empty_spr_ro from instances of SPR_RO where false;
 select any empty_spr_rs from instances of SPR_RS where false;
@@ -424,6 +428,11 @@ elif (not_empty c_p)
   for each spr_ps in spr_pss
     term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:spr_ps );
   end for;
+end if;
+
+// merge with existing terminator
+if (not_empty existing_term)
+  existing_term.mergeWith( d_term:term );
 end if;',
 	1,
 	'',
@@ -456,16 +465,15 @@ INSERT INTO O_TFR
 domain_name = param.domain_name;
 smasl_iterator = param.smasl_iterator;
 
+select any existing_term related by self->D_TERM[R1650] where ( selected.Domain_Name == domain_name and selected.Terminator_Name == term_name );
+
 // create the terminator
-select any term related by self->D_TERM[R1650] where ( selected.Domain_Name == domain_name and selected.Terminator_Name == term_name );
-if (empty term)
-  create object instance term of D_TERM;
-  relate term to self across R1650;
-  term.Domain_Name = domain_name;
-  term.Terminator_Name = term_name;
-  term.Descrip = "";
-  term.Provider = false;
-end if;
+create object instance term of D_TERM;
+relate term to self across R1650;
+term.Domain_Name = domain_name;
+term.Terminator_Name = term_name;
+term.Descrip = "";
+term.Provider = false;
 
 // for each message, create a terminator service
 smasl = Util::getNextString( string_iterator:smasl_iterator );
@@ -477,13 +485,18 @@ while ( "" != smasl )
     if ( "" != service_name )
       term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
     end if;
-  elif ( "terminator" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+  elif ( "terminator" == element and ",,,,,,," == the_rest )
     return;
   else
     // ignore line
   end if;
   smasl = Util::getNextString( string_iterator:smasl_iterator );
-end while;',
+end while;
+
+// merge with existing terminator
+if (not_empty existing_term)
+  existing_term.mergeWith( d_term:term );
+end if;',
 	1,
 	'',
 	"66da6496-4b92-4f85-b29b-2a22739c0458",

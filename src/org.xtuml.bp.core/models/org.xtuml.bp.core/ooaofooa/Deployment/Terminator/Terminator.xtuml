@@ -31,20 +31,11 @@ if ( empty c_ep )
 end if;
 
 // create create service
-select any service from instances of D_TSVC where false;
-select many existing_services related by self->D_TSVC[R1651];
-for each existing_service in existing_services
-  if (existing_service.getSignature(flavor:1) == c_ep.getSignature(flavor:1))
-    service = existing_service;
-    break;
-  end if;
-end for;
-if (empty service)
-  create object instance service of D_TSVC;
-  relate service to self across R1651;
-  service.Name = c_ep.Name;
-  service.Return_Dimensions = "";
-end if;
+create object instance service of D_TSVC;
+relate service to self across R1651;
+service.Name = c_ep.Name;
+service.Return_Dimensions = "";
+service.Is_Stale = false;
 
 // populate details from message implementation
 if ( not_empty spr_ro )
@@ -205,6 +196,7 @@ smasl_iterator = param.smasl_iterator;
 create object instance service of D_TSVC;
 relate service to self across R1651;
 service.Name = service_name;
+service.Is_Stale = false;
 
 service.Descrip = "";
 service.Action_Semantics_internal = "";
@@ -250,7 +242,7 @@ while ( "" != smasl )
       unrelate existing_type from service across R1656;
     end if;
     relate type_ref to service across R1656;
-  elif ( "routine" == element and Util::stringContains( haystack:the_rest, needle:",,,,,,," ) )
+  elif ( "routine" == element and ",,,,,,," == the_rest )
     // check if this service was a duplicate
     select many other_services related by self->D_TSVC[R1651] where ( selected.Svc_ID != service.Svc_ID );
     for each other_service in other_services
@@ -294,6 +286,97 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'mergeWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'd_term = param.d_term;
+
+// update description
+self.Descrip = self.Descrip + d_term.Descrip;
+
+// try to merge services
+select many services related by self->D_TSVC[R1651];
+for each service in services
+
+  // find a service in the new terminator with the same signature
+  signature = service.getSignature(flavor:1);
+  select any new_service from instances of D_TSVC where false;
+  select many new_services related by d_term->D_TSVC[R1651];
+  for each cand_service in new_services
+    if (cand_service.getSignature(flavor:1) == signature)
+      new_service = cand_service;
+      break;
+    end if;
+  end for;
+  if (not_empty new_service)
+    service.mergeWith(d_tsvc:new_service);
+  else
+    // find a service with the same name (if there are no other overloaded services)
+    select any sibling_service related by self->D_TSVC[R1651] where ( selected.Name == service.Name and selected.Svc_ID != service.Svc_ID );
+    select many new_services related by d_term->D_TSVC[R1651] where ( selected.Name == service.Name );
+    if (empty sibling_service and cardinality new_services == 1)
+      for each new_service in new_services
+        service.mergeWith(d_tsvc:new_service);
+        break;
+      end for;
+    else
+      // mark this service as stale, but do not delete
+      service.Is_Stale = true;
+    end if;
+  end if;
+
+end for;
+
+// copy over any leftover services
+select many new_services related by d_term->D_TSVC[R1651];
+for each new_service in new_services
+  unrelate new_service from d_term across R1651;
+  relate new_service to self across R1651;
+end for;
+
+// dispose the merged terminator
+d_term.dispose();',
+	1,
+	'',
+	"3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("c6047b81-a776-4034-b9e2-249342987116",
+	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	'd_term',
+	"874ea64a-b4ce-4146-900c-e720c93634f2",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("874ea64a-b4ce-4146-900c-e720c93634f2",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Terminator>',
+	'',
+	'',
+	'../Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'deleteStaleServices',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many services related by self->D_TSVC[R1651];
+for each service in services
+  if (service.Is_Stale)
+    service.dispose();
+  end if;
+end for;',
+	1,
+	'',
+	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	0);
 INSERT INTO O_REF
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
