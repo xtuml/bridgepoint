@@ -12,13 +12,81 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="whats-new-in-bridgepoint-6.15">What's New in BridgePoint 6.15</h1>
+<h1 id="whats-new-in-bridgepoint-6.16">What's New in BridgePoint 6.16</h1>
 <h2 id="release-highlights">Release Highlights</h2>
 <ul>
-<li>Engineering build</li>
+<li>Infrastructure</li>
+<li>User Interface</li>
+<li>Model Compiler</li>
 </ul>
 <hr />
-<h2 id="engineering-build">Engineering build</h2>
-<p>This is an engineering build. See <a href="http://support.onefact.net" class="uri">http://support.onefact.net</a> for issue tracking.</p>
+<h2 id="infrastructure">Infrastructure</h2>
+<h4 id="move-to-eclipse-oxygen">Move to Eclipse Oxygen</h4>
+<p>BridgePoint now runs on Eclipse Oxygen. Prior versions ran on Eclipse Mars. The user experience is<br />
+not dramatically different, but the update of course includes new features and fixes from the Eclipse<br />
+foundation. Please see the article <a href="https://www.eclipse.org/eclipse/news/4.7/">Eclipse Oxygen - New and Noteworthy</a> for more information.</p>
+<p>This update includes an update to Eclipse EGit 4.9. See the <a href="https://wiki.eclipse.org/EGit/New_and_Noteworthy">EGit - New and Noteworthy</a><br />
+for details about updates to this tool.</p>
+<h4 id="completed-migration-to-generator-2.0">Completed migration to generator 2.0</h4>
+<p>BridgePoint model compilers have incrementally moved to the python-based generator 2.0 (pyrsl) over the<br />
+previous releases. This release completes the migration with updates to the Java model compiler used to<br />
+build BridgePoint itself.</p>
+<p>With this change there is no longer a requirement to downgrade generator to build BridgePoint. This improves<br />
+the experience for BridgePoint developers and keeps full self-hosted development and build in place.</p>
+<h2 id="user-interface">User Interface</h2>
+<h4 id="visual-cues-and-improvements">Visual cues and improvements</h4>
+<p>Two enhancements have been made to the xtUML Editor based on user requests. First, class-based operations<br />
+are now shown with an underline on the class diagram. Instance-based operations are shown without underlining.</p>
+<p><img src="cbo.png" alt="cbo" /></p>
+<p>Second, the separator for ranges on UDTs is changed from <code>,</code> to <code>..</code>.</p>
+<p><img src="range.png" alt="range" /></p>
+<h4 id="oal-editor-automatic-indentation">OAL editor automatic indentation</h4>
+<p>The OAL editor now performs automatic indentation of the next line when the user creates<br />
+a conditional block or a loop. Specifically, an additional level of indentation to the current line<br />
+is automatically inserted when the user hits &quot;enter/return&quot; at the end of a line that contains<br />
+<code>if</code>, <code>elif</code>, <code>else</code>, <code>for each</code>, or <code>while</code>.</p>
+<p>All indentation (automatic or manual) is fixed to properly indent with spaces or tabs using the<br />
+user-specified settings for tab width and &quot;Insert spaces for tabs&quot;. These settings are configured<br />
+in the BridgePoint preferences at <code>General &gt; Editors &gt; Text Editors</code>.</p>
+<h4 id="other-ui-enhancements-and-fixes">Other UI enhancements and fixes</h4>
+<ul>
+<li>Fix to xtUML eXecute Application launch configurations to allow an initializer interface message to run at startup<br />
+</li>
+<li>Fix OAL completion suggestions for constants</li>
+</ul>
+<h2 id="model-compiler">Model Compiler</h2>
+<h4 id="mc-3020-enhancements">MC-3020 enhancements</h4>
+<p><strong>State Save</strong> - A state save contains encoded information representing the current_state of each<br />
+running state machine in the model as well as the sequences of events on the event queues. A marking<br />
+is supplied to enable and configure the state save feature. State Save is accessed in application<br />
+models via an External Entity with bridges to trigger state save and read previously saved state.</p>
+<p><strong>Simulated Time</strong> - Simulated Time in MC-3020 implements a form of discrete event simulation. In simulated<br />
+time mode, no external clock is read. The application runs as fast as the architecture allows. The time<br />
+base is derived from timers used to cause functional delays in the production application.</p>
+<p><strong>Class-specific Tracing</strong> - Functionality is added in MC-3020 for classes to trace state machine state<br />
+transitions and to trace individual action language statements. A mechanism is provided to enable or disable<br />
+this tracing functionality on a class by class basis. A marking is supplied to identify which classes are<br />
+included in or excluded from tracing.</p>
+<p><strong>Persistence</strong> - Add the ability to persist instance data so that it survives across power cycles<br />
+(down and up). The instances that are present when power is removed are automatically restored when<br />
+power returns. Links between persistent instances are also saved and restored to and from non-volatile<br />
+storage (NVS).</p>
+<p><strong>Keyed Timers</strong> - Keyed timers have been an undocumented feature for several years. This work makes<br />
+keyed timers the default implementation generated by the model compilers. Keyed timers prevent the<br />
+accidental reuse of an expired timer and prevent one part of the application from canceling a timer<br />
+started by another part of the application. It does this by assigning a unique access key. The access<br />
+key is carried by the owner (who started the timer) and is passed in to gain access to the timer methods.</p>
+<h4 id="other-mc-enhancements-and-fixes">Other MC enhancements and fixes</h4>
+<ul>
+<li>Updates for referential attribute processing for reflexive associations<br />
+</li>
+<li>Use mcmc.exe on Windows<br />
+</li>
+<li>Tag interface messages as safe for interrupts.<br />
+</li>
+<li>Fix batch relate to handle string instance identifiers<br />
+</li>
+<li>Updates for polymorphic event handling when sent to self within subtype</li>
+</ul>
 </body>
 </html>
