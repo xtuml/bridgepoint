@@ -154,7 +154,6 @@
                     <include>wasldiff</include>
                     <include>WASLParser.jar</include>
                     <include>xtuml2masl</include>
-                    <include>xtuml2wasl</include>
                     <include>xtumlmc_build</include>
                   </includes>
                 </resource>
@@ -169,6 +168,7 @@
                     <include>wasl.exe</include>
                     <include>wasl2xtuml</include>
                     <include>x2m.exe</include>
+                    <include>xtuml2wasl</include>
                     <include>xtumlmc_build.exe</include>
                     <include>xtumlmc_build.pl</include>
                   </includes>
@@ -213,6 +213,9 @@
                 <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" 
                       tofile="${basedir}/mac.all/tools/mc/bin/antlr-3.5.2-complete.jar"
                       overwrite="true" />             
+                <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar"
+                      tofile="${basedir}/win.all/tools/mc/bin/antlr-3.5.2-complete.jar"
+                      overwrite="true" />
                 <get src="https://github.com/xtuml/pyrsl/releases/download/v2.1.0/gen_erate.pyz" 
                      dest="${basedir}/linux.all/tools/mc/bin/gen_erate.pyz" />
                 <copy file="${basedir}/linux.all/tools/mc/bin/gen_erate.pyz" 
