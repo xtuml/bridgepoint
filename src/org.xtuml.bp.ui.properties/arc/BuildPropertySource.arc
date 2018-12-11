@@ -696,17 +696,7 @@ readonly);
                 new PropertyDescriptor(
                     "$r{child.categoryName}$r{spec.NameOnly}." + String.valueOf(i),
         .if ( spec.NameOnly != "" )
-          .if ( spec.NameOnly == "Specialized Component" )
-            .// TODO - SKB - this special case was put in to accomodate a change in ooaofooa_heirarchy.pei.sql
-            .// that added multiple traversal paths from component to child component (SP and GP).  Once 
-            .// specialized packages are removed, this special case can be removed as well and just leave the
-            .// else portion of this block.  The following comment is a flag to allow us to catch this block when
-            .// SPs are removed.
-            .// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-                    "Component");
-          .else
                     "${spec.NameOnly}");
-          .end if
         .else
                     "${child_class.Name}");
         .end if

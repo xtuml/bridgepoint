@@ -1,15 +1,7 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: gen_import_java.inc,v $
-.// Version:   $Revision: 1.111 $
-.// Modified:  $Date: 2013/06/12 13:08:05 $
-.//
-.// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-.//
-.//====================================================================
-.//
 .// Generate the Java code that validates/translates data from BP SQL
-.// into a format that Tiger uses.
+.// into a format that BridgePoint uses.
 .//
 .//====================================================================
 .//
@@ -606,10 +598,6 @@ public class ${class_name} extends CoreImport
             .for each ce in configurableElements
                 .// each ce is an eo
                 .select one table related by ce->EI[R3]->T[R4]
-.// TODO: BOB debug
-.if (empty table)
-.print "ERROR! T is null on ce->EI[R3]->R[R4]. ce.Name: ${ce.Name}"
-.end if                
                 .assign className  = "$Cr{table.Name}"
                 if(actualContent.equals("${className}"))
                 {

@@ -13,7 +13,6 @@ public class ExportProjectAction implements IObjectActionDelegate {
 	private Object curSel = null;
 	@Override
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		// Auto-generated method stub
 	}
 
 	@Override

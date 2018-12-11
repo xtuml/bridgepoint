@@ -329,29 +329,10 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 					isPackage = true;
 
 					if (getModel().getRepresents() instanceof Component_c) {
-						Component_c self = (Component_c) getModel()
-								.getRepresents();
 
-						// If this component is under a EP_PKG then we do NOT
-						// want to allow specialized packages to be created in
-						// it.
-						//
-						//
-						// If the component is NOT under a EP_PKG then we do
-						// allow
-						// specialized packages, but we do NOT allow an eP_PKG
-						// to be
-						// created in the component.
-						Package_c pkg = Package_c
-								.getOneEP_PKGOnR8000(PackageableElement_c
-										.getOnePE_PEOnR8001(self));
-						Component_c comp = Component_c
-								.getOneC_COnR8003(PackageableElement_c
-										.getOnePE_PEOnR8001(self));
-						boolean isInGenericPackage = ((pkg != null) || (comp != null));
 						int toolType = tool.getOoa_type();
-						if (isInGenericPackage) {
-							switch (toolType) {
+
+						switch (toolType) {
 							case Ooatype_c.Sequence:
 							case Ooatype_c.Communication:
 							case Ooatype_c.UseCaseDiagram:
@@ -359,20 +340,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 								continue;
 							default:
 								break;
-							}
-						} else {
-							switch (toolType) {
-							case Ooatype_c.Package:
-								continue;
-							case Ooatype_c.Interface:
-								continue;
-							case Ooatype_c.UserDataType:
-								continue;
-							default:
-								break;
-							}
 						}
-
 					}
 				}
 				String category = elem.getToolcategory();

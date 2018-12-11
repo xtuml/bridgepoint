@@ -25,9 +25,7 @@ public class ModelCompilerTemplateWizard extends NewPluginTemplateWizard {
     
     public boolean performFinish(final IProject project, IPluginModelBase model,
 			IProgressMonitor monitor) {
-// TODO FIXME: Before this plugin is made public this warning must be removed.
-    	MessageDialog.openWarning(null,"Warning","This functionality is currently for internal use only.\n"
-    			                                +"Note that docgen will not work on this new plugin until\n"
+    	MessageDialog.openWarning(null,"Warning","Note that docgen will not work on this new plugin until\n"
     											+"CQ issue dts0100845396 is addressed.  Until then, any new\n"
     											+"MC plugins must be manually added to\n" 
     											+"bp/docgen/generator/Generator.java::createDocumentation()");
