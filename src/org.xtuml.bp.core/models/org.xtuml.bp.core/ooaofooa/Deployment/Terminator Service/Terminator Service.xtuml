@@ -710,7 +710,7 @@ while ( "" != smasl )
     end if;
     relate type_ref to parameter across R1653;
   elif ( "parameter" == element and ",,,,,,," == the_rest )
-    return;
+    break;
   elif ( "parameter" == element )
     param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     param_direction = Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:0 );

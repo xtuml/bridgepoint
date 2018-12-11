@@ -486,7 +486,7 @@ while ( "" != smasl )
       term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
     end if;
   elif ( "terminator" == element and ",,,,,,," == the_rest )
-    return;
+    break;
   else
     // ignore line
   end if;

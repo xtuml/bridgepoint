@@ -251,7 +251,7 @@ while ( "" != smasl )
         break;
       end if;
     end for;
-    return;
+    break;
   else
     // ignore line
   end if;
