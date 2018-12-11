@@ -14,3 +14,4 @@ PropertyParameter_cSorter.java
 StateMachineEventDataItem_cSorter.java
 StructureMember_cSorter.java
 MetadataSortingManager.java
+TerminatorServiceParameter_cSorter.java

@@ -92,7 +92,7 @@ INSERT INTO T_TNS VALUES (86, '', 'S_EXP', '', 'Name', '', 'Exceptions', false);
 INSERT INTO T_TNS VALUES (87, '', 'D_DEPL', '', 'Name', '', 'Deployments', false);
 INSERT INTO T_TNS VALUES (88, '', 'D_TERM', '', 'Name', '', 'Terminators', true);
 INSERT INTO T_TNS VALUES (89, '', 'D_TSVC', '', 'Name', '', 'Terminator Services', true);
-INSERT INTO T_TNS VALUES (90, '', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameters', false);
+INSERT INTO T_TNS VALUES (90, '', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameters', true);
 
 INSERT INTO T_TPS VALUES (1, 81, '->EP_PKG[R1401]');
 INSERT INTO T_TPS VALUES (81,28,    '->PE_PE[R8000]->S_DT[R8001]->S_CDT[R17]');

@@ -87,7 +87,7 @@ plugin.
       <enablement>
          <or>
             <objectClass
-                  name="org.xtuml.bp.core.TerminatorService_c">
+                  name="org.xtuml.bp.core.common.NonRootModelElement">
             </objectClass>
          </or>
       </enablement>

@@ -796,29 +796,50 @@ while ( not_empty prev_parameter )
   select one prev_parameter related by new_parameter->D_TSPARM[R1654.''succeeds''];
 end while;
 
+// check each new paramater against old parameters
 while (not_empty parameter)
   if (not_empty new_parameter)
+    select one next_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
     if (parameter.Name == new_parameter.Name)
       // merge if the names match
       parameter.mergeWith(d_tsparm:new_parameter);
       select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
     else
       // otherwise insert before
-      select one second_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
-      if (not_empty second_new_parameter)
-        unrelate new_parameter from second_new_parameter across R1654.''precedes'';
+      select one next_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+      if (not_empty next_new_parameter)
+        unrelate new_parameter from next_new_parameter across R1654.''precedes'';
       end if;
       unrelate new_parameter from d_tsvc across R1652;
       relate new_parameter to self across R1652;
       relate new_parameter to parameter across R1654.''precedes'';
     end if;
-    select one new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+    new_parameter = next_new_parameter;
   else
     // if there are no more new parameters to compare with, dispose the old parameters
     select one next_parameter related by parameter->D_TSPARM[R1654.''precedes''];
     parameter.dispose();
     parameter = next_parameter;
   end if;
+end while;
+
+// add the left over new parameters at the end
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+while (not_empty new_parameter)
+  select one next_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+  if (not_empty next_new_parameter)
+    unrelate new_parameter from next_new_parameter across R1654.''precedes'';
+  end if;
+  unrelate new_parameter from d_tsvc across R1652;
+  relate new_parameter to self across R1652;
+  relate new_parameter to last_parameter across R1654.''succeeds'';
+  last_parameter = new_parameter;
+  new_parameter = next_new_parameter;
 end while;
 
 // dispose the merged service
@@ -843,18 +864,6 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../Deployment.xtuml');
-INSERT INTO O_TFR
-	VALUES ("65edb051-6280-40f4-96bc-c7e41e1e74b9",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576",
-	'isSynchronized',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'return not self.Is_Stale;',
-	1,
-	'',
-	"843baf72-80a4-43ef-9ac2-47234c1e77b6",
-	0);
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");
