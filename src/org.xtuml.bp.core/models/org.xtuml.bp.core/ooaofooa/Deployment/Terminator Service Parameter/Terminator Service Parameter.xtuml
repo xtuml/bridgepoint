@@ -8,45 +8,6 @@ INSERT INTO O_OBJ
 	'Import: java.util.Vector; import org.xtuml.bp.core.util.DimensionsUtil',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
-	VALUES ("93de6c1e-3a25-4a22-8677-b933a362706f",
-	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
-	'actionFilter',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'if (param.name == "can" )
-  if ( param.value == "move up" )
-    select one prev_param related by self->D_TSPARM[R1654.''succeeds''];
-    return not_empty prev_param;
-  elif ( param.value == "move down" )
-    select one next_param related by self->D_TSPARM[R1654.''precedes''];
-    return not_empty next_param;
-  end if;
-end if;
-return false;',
-	1,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	0);
-INSERT INTO O_TPARM
-	VALUES ("bf32619e-863c-452e-9788-6aba3d6a419c",
-	"93de6c1e-3a25-4a22-8677-b933a362706f",
-	'name',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO O_TPARM
-	VALUES ("bdeab684-c540-4927-89fd-7ce27a441b9d",
-	"93de6c1e-3a25-4a22-8677-b933a362706f",
-	'value',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"bf32619e-863c-452e-9788-6aba3d6a419c",
-	'');
-INSERT INTO O_TFR
 	VALUES ("5d301725-e7f2-409a-b5ce-3d3c5bbfa865",
 	"fb13e85f-efdd-41ac-a673-35781d9be2c4",
 	'canReferToDataType',
@@ -66,7 +27,7 @@ return false;
 ',
 	1,
 	'',
-	"93de6c1e-3a25-4a22-8677-b933a362706f",
+	"00000000-0000-0000-0000-000000000000",
 	0);
 INSERT INTO O_TFR
 	VALUES ("c4ea5e20-2746-4cf8-a276-d423b29d6da7",

@@ -377,6 +377,42 @@ end for;',
 	'',
 	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
 	0);
+INSERT INTO O_TFR
+	VALUES ("166a18b7-5f21-4b62-861c-339f953259b7",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'actionFilter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'if (param.name == "can" )
+  if ( param.value == "delete stale services" )
+  	select any stale_service related by self->D_TSVC[R1651] where ( selected.Is_Stale );
+  	return not_empty stale_service;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
+	"166a18b7-5f21-4b62-861c-339f953259b7",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f20f9fb5-2442-4b4c-9bb3-c96634dd17c9",
+	"166a18b7-5f21-4b62-861c-339f953259b7",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
+	'');
 INSERT INTO O_REF
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",

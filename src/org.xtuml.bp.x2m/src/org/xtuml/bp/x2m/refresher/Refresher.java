@@ -20,8 +20,8 @@ import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Deployment_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -48,39 +48,42 @@ public class Refresher extends Task {
     public Refresher() {
     }
     
-	public static void exportSystem(SystemModel_c sys) {
-		if (self == null) {
-			self = new Refresher();
-		}
+    public static void exportSystem(SystemModel_c sys) {
+        if (self == null) {
+            self = new Refresher();
+        }
 
-		// select many topLevelPkgs related by sys->EP_PKG[R1401]
-		Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(sys);
+        // select many topLevelPkgs related by sys->EP_PKG[R1401]
+        Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(sys);
 
-		for (Package_c pkg : topLevelPkgs) {
-			// select many compRefs related by pkg->PE_PE[R8000]->CL_IC[R8001]
-			ComponentReference_c[] compRefs = ComponentReference_c.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
+        for (Package_c pkg : topLevelPkgs) {
+            // look for deployments first
+            // select many deployments related by pkg->PE_PE[R8000]->D_DEPL[R8001]
+            Deployment_c[] deployments = Deployment_c.getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
+            for (Deployment_c deployment : deployments) {
+                exportProject(deployment);
+            }
+            // if there are no deployments, search for old style projects, then domains
+            if ( deployments.length <= 0) {
+                // select many compRefs related by pkg->PE_PE[R8000]->CL_IC[R8001]
+                ComponentReference_c[] compRefs = ComponentReference_c.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
 
-			// If the package contains component references treat it as a MASL project.  If it
-			// does not contain any component references, look for components and treat them as
-			// MASL domains.
-			if ( compRefs.length > 0) {
-				exportProject(pkg);
-			} else {
-				// select many deployments related by pkg->PE_PE[R8000]->D_DEPL[R8001]
-				Deployment_c[] deployments = Deployment_c.getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
-				for (Deployment_c deployment : deployments) {
-					exportProject(deployment);
-				}
+                // If the package contains component references treat it as a MASL project.  If it
+                // does not contain any component references, look for components and treat them as
+                // MASL domains.
+                if ( compRefs.length > 0) {
+                    exportProject(pkg);
+                } else {
+                    // select many comps related by pkg->PE_PE[R8000]->C_C[R8001]
+                    Component_c[] comps = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
 
-				// select many comps related by pkg->PE_PE[R8000]->C_C[R8001]
-				Component_c[] comps = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
-
-				for (Component_c comp : comps) {
-					exportDomain(comp);
-				}
-			}
-		}
-	}
+                    for (Component_c comp : comps) {
+                        exportDomain(comp);
+                    }
+                }
+            }
+        }
+    }
     
     public static void exportProject(Package_c pack) {
         if (self == null) {
@@ -95,7 +98,7 @@ public class Refresher extends Task {
         SystemModel_c sys = (SystemModel_c)pack.getRoot();
         
         // export the project
-        exportMASL(sys, MASL_PROJECT, names, null);
+        exportMASL(sys, MASL_PROJECT, names, pack.getPersistableComponent().getFile().getRawLocation().removeLastSegments(2));
     }
 
     public static void exportProject(Deployment_c deployment) {
@@ -111,16 +114,15 @@ public class Refresher extends Task {
         SystemModel_c sys = (SystemModel_c)deployment.getRoot();
         
         // export the project
-        exportMASL(sys, MASL_PROJECT, names, null);
+        exportMASL(sys, MASL_PROJECT, names, deployment.getPersistableComponent().getFile().getRawLocation().removeLastSegments(2));
     }
 
     public static void exportDomain(Package_c pack) {
         if (self == null) {
             self = new Refresher();
         }
-        
-        // get the component names
-        ArrayList<String> names = new ArrayList<String>();
+
+        // find all components
         if ( pack != null ) {
             ModelInspector inspector = new ModelInspector();
             IModelClassInspector elementInspector = inspector.getInspector(pack.getClass());
@@ -128,19 +130,11 @@ public class Refresher extends Task {
             for ( ObjectElement el : elements ) {
                 Object val = el.getValue();
                 if ( val instanceof Component_c ) {
-                    names.add( ((Component_c)val).getName() );
+                    exportDomain((Component_c)val);
                 }
             }
         }
 
-        String[] names_array = new String[names.size()];
-        names_array = names.toArray(names_array);
-
-        // get the system
-        SystemModel_c sys = (SystemModel_c)pack.getRoot();
-
-        // export the domain
-        exportMASL(sys, MASL_DOMAIN, names_array, pack);
     }
 
     public static void exportDomain(Component_c comp) {
@@ -155,18 +149,15 @@ public class Refresher extends Task {
         // get the system
         SystemModel_c sys = (SystemModel_c)comp.getRoot();
         
-        // get the parent package
-        Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(comp));
-        
         // export the domain
-        exportMASL(sys, MASL_DOMAIN, names, pkg);
+        exportMASL(sys, MASL_DOMAIN, names, comp.getPersistableComponent().getFile().getRawLocation().removeLastSegments(2));
     }
  
     /*
      * The flow of this function is: 
      * - Run the xtuml2masl utility
      */
-    private static void exportMASL(final SystemModel_c sys, final int export_type, final String[] names, Package_c parentPkg) {
+    private static void exportMASL(final SystemModel_c sys, final int export_type, final String[] names, IPath path) {
 
         final IProject project = org.xtuml.bp.io.image.generator.Generator.getProject(sys);
         
@@ -174,39 +165,33 @@ public class Refresher extends Task {
         
         if ( project != null ) {
             final String projPath = project.getLocation().toOSString();
-            IPath path;
-            if ( export_type == MASL_PROJECT ) {
-              path = new Path(projPath + File.separator + MASL_DIR + File.separator + sys.getName() + File.separator);
-            } else {
-              path = new Path(projPath + File.separator + MASL_DIR + File.separator + sys.getName() + File.separator + parentPkg.getName() + File.separator);
-            }
             final IPath path2 = new Path(projPath + File.separator + CODE_GEN_DIR);
             final String destPath = path.toOSString();
             final String codeGenPath = path2.toOSString();
 
             try {
                 // Next proceed with actually running xtuml2masl on the model
-            	Thread refreshThread = new Thread(new Runnable() {
-					@Override
-					public void run() {
+                Thread refreshThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-						if (!path.toFile().exists()) {
-							path.toFile().mkdir();
-						}
-						try {
-							PersistableModelComponent pmc = sys.getPersistableComponent();
-							pmc.loadComponentAndChildren(new NullProgressMonitor());
-							ExportBuilder eb = new ExportBuilder();
-							new File(codeGenPath).mkdirs();
-							eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
-							runExport(project, projPath, destPath, export_type, names);
-							project.refreshLocal(IResource.DEPTH_INFINITE, null);
-						} catch (Throwable e) {
-							RuntimeException err = new RuntimeException(e.getMessage());
-							throw err;
-						}
-					}
-            	});
+                        if (!path.toFile().exists()) {
+                            path.toFile().mkdir();
+                        }
+                        try {
+                            PersistableModelComponent pmc = sys.getPersistableComponent();
+                            pmc.loadComponentAndChildren(new NullProgressMonitor());
+                            ExportBuilder eb = new ExportBuilder();
+                            new File(codeGenPath).mkdirs();
+                            eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
+                            runExport(project, projPath, destPath, export_type, names);
+                            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+                        } catch (Throwable e) {
+                            RuntimeException err = new RuntimeException(e.getMessage());
+                            throw err;
+                        }
+                    }
+                });
                 refreshThread.start();
             } catch (Throwable e) {
                 String errMsg = e.getMessage();

@@ -350,9 +350,10 @@ INSERT INTO CME VALUES ('Delete', '',                         'D_TERM',    '',  
 INSERT INTO CME VALUES ('--',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '*', false, '', true, false, 'interface');
 INSERT INTO CME VALUES ('', 'Import from file', 'D_DEPL', '', false );
 INSERT INTO CME VALUES ('', 'Import from component', 'D_DEPL', 'C_C', false, 'Select a component', '1', false, '', true, false, 'component' );
-INSERT INTO CME VALUES ('', 'Delete stale services', 'D_TERM', '', false );
+INSERT INTO CME VALUES ('--', 'Delete stale services', 'D_TERM', '', false );
 
 --
+INSERT INTO MEF VALUES ('--', 'Delete stale services', 'D_TERM', 'can', 'delete stale services' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_P',    'can', 'dissatisfy' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_R',    'can', 'dissatisfy' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'CL_IP',    'can', 'dissatisfy' );
