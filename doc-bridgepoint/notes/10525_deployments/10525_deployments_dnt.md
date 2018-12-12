@@ -20,6 +20,7 @@ bridging in a way that is more natural to modelers using MASL.
 <a id="2.4"></a>2.4 [#8544 Exceptions implementation note](../8544_exception_ui_int.md)  
 <a id="2.5"></a>2.5 [#9958 Publish to interface implementation note](../9958_publish_interface/9958_publish_interface.int.md)  
 <a id="2.6"></a>2.6 [#8277 Serial MASL specification](https://github.com/xtuml/mc/blob/master/doc/notes/8073_masl_parser/8277_serial_masl_spec.md)  
+<a id="2.7"></a>2.7 [BridgePoint SR #10320](https://support.onefact.net/issues/10320) Project Primus Documentation  
 
 ### 3. Background
 
@@ -60,7 +61,7 @@ MASL flow by this project
 
 ### 5. Analysis
 
-In order to fulfill the implementaiton requirements, 3 logical chunks must be
+In order to fulfill the implementation requirements, 3 logical chunks must be
 completed:
 
 5.1 Adding a new packageable element
@@ -77,7 +78,7 @@ can be used as a reference when completing this part.
 
 The process of importing terminator definitions must be realized. For import
 from existing component definitions, OAL routines must be defined to read
-exisitng meta-model instances of "Port", "Requriment", "Provided Signal",
+existing meta-model instances of "Port", "Requirement", "Provided Signal",
 "Provided Operation", etc and create new instances with the same names, types,
 etc.
 
@@ -86,7 +87,7 @@ format first. The MASL import parser which converts MASL text to a string of
 serial MASL [2.6] can be reused for this purpose.
 
 A difficulty facing this feature and the concept of "refreshing" existing
-terminators is how to gracefully updated existing elements without deleting
+terminators is how to gracefully update existing elements without deleting
 everything and starting from scratch. In [2.5], a similar feature was added to
 create interface definitions from a set of domain functions. The logic and
 lessons learned there shall be reused for this issue.
@@ -140,10 +141,10 @@ for future work.
 
 Required terminators represent the terminators of a domain. They are named with
 the name of the domain followed by `::` followed by the name of the terminator
-itself as in: `Tracking::UI`. Services on required terminators are automatically
-assigned the dialect of the source service or the workspace default dialect when
-necessary. Required services may be marked to be excluded from generation by
-setting the dialect to "None"
+itself as in: `Tracking::UI` and appear blue in the model explorer. Services on
+required terminators are automatically assigned the dialect of the source
+service or the workspace default dialect when necessary. Required services may
+be marked to be excluded from generation by setting the dialect to "None"
 
 6.2 Importing terminators into deployments
 
@@ -175,14 +176,14 @@ file.
 
 6.2.2.1 File browsing
 
-Two new bridges in the `Utilities` EE were created to support file
-browsing. `selectFiles` takes a string parameter `ext` and returns an object of
-type `instance` (mapped to `Object` in Java). When invoked, a file browser is
-brought up to the user. After the user selects one or more files and confirms or
-cancels, the bridge returns an object which is an iterator (instance
+Two new bridges in the `Utilities` EE were created to support file browsing.
+`selectFiles` takes a string parameter `ext` and returns an object of type
+`instance` (mapped to `Object` in Java). When invoked, a file browser is
+brought up to the user. After the user selects one or more files and confirms
+or cancels, the bridge returns an object which is an iterator (instance
 `java.util.Iterator`) over the pathnames of the selected files. If `ext` is not
-an empty string, it is used to filter only files of the given extension. Another
-bridge `getNextString` has been implemented which takes an parameter
+an empty string, it is used to filter only files of the given extension.
+Another bridge `getNextString` has been implemented which takes a parameter
 `string_iterator` and returns a string. If the input iterator has a "next"
 string, it is returned, otherwise empty string is returned. These two bridges
 can be used in a pattern like the following to print out the pathnames of all
@@ -234,8 +235,8 @@ of the domain as in `UI::GoalCriteria".
 
 The import mechanism searches for these types in a package called "Shared"
 adjacent to the deployment itself. If they are not found, they are created.
-`MASLtype` is expected to be in a pacakge called "types" at the top level of the
-model and is created if it is not found in that location.
+`MASLtype` is expected to be in a package called "types" at the top level of
+the model and is created if it is not found in that location.
 
 6.2.4 Xtext MASL dependencies
 
@@ -267,10 +268,10 @@ have been updated to support these bridges.
 6.3 Refreshing terminators from source material
 
 Refreshing model elements is a very difficult problem. Since the signature of a
-service is is identifying key, it can be difficult to identify which service
+service is the identifying key, it can be difficult to identify which service
 must be updated if the signature changes. The approach of this design is
-conservative, trying to make good decisions when safe while not losing any data.
-The algorithm is presented as follows in pseudocode:
+conservative, trying to make good decisions when safe while not losing any
+data. The algorithm is presented as follows in pseudocode:
 
 ```
 A new terminator is created from source material.
@@ -327,10 +328,10 @@ language.
 
 6.3.1 Stale services
 
-In order to prevent action langauge from ever being wrongfully deleted, the
+In order to prevent action language from ever being wrongfully deleted, the
 merge/refresh algorithm never deletes services but rather marks them as "stale"
 if it thinks they may need to be removed. In the case of stale service being
-created, the modeler must determine whether the serivce should be deleted or
+created, the modeler must determine whether the service should be deleted or
 whether the action language must be copied to the new version of the service.
 Once the action language is copied, the stale service should be deleted.
 
@@ -364,17 +365,40 @@ the only way supported by convert/import.
 The following is a "checklist" of the steps necessary to fully deprecate the
 "project package" way of doing system modeling:
 
-TODO
+6.5.1 Phase 1: Fully support deployments
 
+6.5.1.1 Implement deployments in `m2x`. Make deployments the default element
+produced for system models.  
+6.5.1.2 Assure that MASL round trip tests still pass.  
+
+6.5.2 Phase 2: Deprecate old style system modeling (for MASL)
+
+6.5.2.1 Remove references to the old way of doing system modeling from any MASL
+documentation.  
+6.5.2.2 Search and destroy all old style MASL system models in example models
+(e.g. GPS Watch) and test models. Replace with deployments.  
+
+6.5.3 Phase 3: Remove support for old style system modeling (for MASL)
+
+6.5.3.1 Remove support for converting old style MASL system models from
+`m2x`.  
+6.5.3.2 Remove support for exporting old style MASL system models from `x2m`.  
+6.5.3.3 Remove any related support code from BridgePoint.  
 
 ### 7. Design Comments
 
-  - add Is_Stale (check model)
 x fix refresher
+- update schemas
+- consider automatically deleting stale services in some cases
 
 TODO
 
 ### 8. User Documentation
+
+8.1 Documentation for this work will be incorporated into the documentation
+provided as part of issue #10320 [[2.7]](#2.7).
+
+### 9. Unit Test
 
 TODO
 
