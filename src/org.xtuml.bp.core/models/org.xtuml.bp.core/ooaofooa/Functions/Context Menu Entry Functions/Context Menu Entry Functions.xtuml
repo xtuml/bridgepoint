@@ -7853,7 +7853,7 @@ INSERT INTO S_SYNC
 	'',
 	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
 if not_empty element
-  file_selection = Util::selectFiles( ext:"int" );
+  file_selection = Util::selectFiles( ext:"int,mod" );
   filename = Util::getNextString( string_iterator:file_selection );
   while ( "" != filename )
     element.importFromFile(filename:filename);

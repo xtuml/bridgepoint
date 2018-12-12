@@ -2743,11 +2743,11 @@ Translate:native',
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'FileDialog dialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.MULTI);
 dialog.setText("Select files...");
-if (null != p_Ext && !"".equals(p_Ext)) {
-    dialog.setFilterExtensions(new String[]{p_Ext});
+if (null != p_Ext && !"".equals(p_Ext.trim())) {
+    dialog.setFilterExtensions(p_Ext.trim().split(","));
 }
 dialog.open();
-while(Display.getCurrent().readAndDispatch()); // https://bugs.eclipse.org/bugs/show_bug.cgi?id=527306
+while (Display.getCurrent().readAndDispatch()); // https://bugs.eclipse.org/bugs/show_bug.cgi?id=527306
 return Arrays.asList(dialog.getFileNames()).stream().map((fileName) -> new File(new File(dialog.getFilterPath()), fileName).getAbsolutePath()).iterator();',
 	0,
 	'',
