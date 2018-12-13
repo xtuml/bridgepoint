@@ -7,14 +7,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -23,14 +17,17 @@ import org.xtuml.bp.core.ElseifStmt_c;
 import org.xtuml.bp.core.ForStmt_c;
 import org.xtuml.bp.core.IfStmt_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.WhileStmt_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.DocumentUtil;
 
-import org.xtuml.bp.core.Pref_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
 
 public class PartialParseRunnable extends ParseRunnable {
 

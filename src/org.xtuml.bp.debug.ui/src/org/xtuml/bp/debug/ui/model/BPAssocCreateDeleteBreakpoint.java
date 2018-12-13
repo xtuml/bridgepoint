@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile$
-//Version:   $Revision$
-//Modified:  $Date$
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -23,12 +15,9 @@
 package org.xtuml.bp.debug.ui.model;
 
 import org.eclipse.core.resources.IMarkerDelta;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.debug.ui.BPDebugUIPlugin;
-import org.xtuml.bp.debug.ui.ModelElementLocation;
 
 public class BPAssocCreateDeleteBreakpoint extends BPBreakpoint {
 	
