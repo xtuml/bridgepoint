@@ -1,18 +1,7 @@
-//====================================================================
-//
-// File:      $RCSfile: DocGenTask.java,v $
-// Version:   $Revision: 1.5 $
-// Modified:  $Date: 2013/01/10 23:43:42 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 package org.xtuml.bp.docgen.ant.tasks;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-
-import org.xtuml.bp.core.EclipseOoaofooa;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.InstanceList;
