@@ -315,8 +315,9 @@ while ( "" != smasl )
     type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
     type_ref = self.createTypeReference( type_name:domain_name + "::" + type_name );
   elif ( "routine" == element )
+    visibility = Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:0 );
     service_name = Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:1 ), delimiter:",", i:0 );
-    if ( "" != service_name )
+    if ( "" != service_name and "public" == visibility )
       domain_term.createServiceFromSMASL( service_name:service_name, smasl_iterator:smasl_iterator );
     end if;
   else
