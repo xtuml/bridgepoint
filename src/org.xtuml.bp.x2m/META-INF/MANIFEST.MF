@@ -26,3 +26,4 @@ Require-Bundle: org.xtuml.bp.core,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Eclipse-BundleShape: jar
+Automatic-Module-Name: org.xtuml.bp.x2m

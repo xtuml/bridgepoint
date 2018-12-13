@@ -22,3 +22,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.c.source
 Bundle-ClassPath: c.jar
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.mc.c.source

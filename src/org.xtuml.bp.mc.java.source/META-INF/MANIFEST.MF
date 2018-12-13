@@ -24,3 +24,4 @@ Export-Package: org.xtuml.bp.mc.java.source
 Bundle-ClassPath: mcjava.jar
 Import-Package: org.xtuml.bp.utilities.ui
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.mc.java.source
