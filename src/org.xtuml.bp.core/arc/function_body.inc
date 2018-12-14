@@ -161,7 +161,7 @@
 				false, null);
 		.end if
       dialog.setBlockOnOpen(true);
-      dialog.setTitle("${cme.Label} Selection");
+      dialog.setTitle("$C{cme.Label} Selection");
       int result = dialog.open();
       if(result == Window.OK) {
         .if ("many" == context_item.Type)
