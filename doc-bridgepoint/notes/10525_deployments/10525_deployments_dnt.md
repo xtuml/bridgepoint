@@ -396,6 +396,13 @@ x fix refresher
 
 - mention that dependencies is not a requirement
 
+- comments on code generation changes
+  - wfl pop
+  - plugin generation
+  - delete action
+  - IPR dialog
+  - more?
+
 TODO
 
 ### 8. User Documentation

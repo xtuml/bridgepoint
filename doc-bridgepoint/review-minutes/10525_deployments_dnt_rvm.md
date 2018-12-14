@@ -50,6 +50,7 @@ Notes from running the tool
   * I wonder if we should automatically turn on IPRs for the project when the user creates a deployment?  Or at least pop a dialog and ask if IPRs should be turned on when "Import from component" is run.
   * The title of the dialog is "Import from component Selection".  This is odd.
   - Consensus here is to pop a dialog any time a chooser will be empty to suggest turning on IPRs
+    - FIXED
   
 * The import from file appears to only support ".int" but the requirements say ".mod" should be supported as well.
   - FIXED
