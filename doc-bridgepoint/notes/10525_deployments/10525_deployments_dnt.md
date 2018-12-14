@@ -128,7 +128,8 @@ In the model of deployments, a user may edit:
 Everything else is not editable directly by the user, but must be edited in the
 source (port message in a domain or `.int` or `.mod` file). Furthermore,
 terminator services and terminator service parameters may not be deleted by the
-user. Terminators and deployments may be deleted.
+user. Terminators and deployments may be deleted. Stale services may be deleted
+(see section 6.3.1).
 
 6.1.2 Provided and required terminators
 
@@ -336,8 +337,9 @@ Once the action language is copied, the stale service should be deleted.
 
 Stale services will be clearly marked by the yellow triangular warning glyph. A
 CME is provided on the terminator element to delete all stale services by right
-clicking and selecting "Delete stale services". This CME is not available if the
-terminator has no stale services.
+clicking and selecting "Delete stale services". This CME is not available if
+the terminator has no stale services. Stale services may also be deleted by
+selecting the service itself and using the "Delete" CME.
 
 This feature and how it should be used will be documented in the BridgePoint
 documentation.
@@ -389,35 +391,159 @@ documentation.
 
 ### 7. Design Comments
 
-x fix refresher
-- update schemas
-- consider automatically deleting stale services in some cases
-- reading mod file, ignore private services
+7.1 MASL refresher
 
-- mention that dependencies is not a requirement
+The MASL refresher had to be updated slightly to support deployments. While in
+the area, the logic used to determine the output path was updated to use the
+persistable model component file as a reference location which is slightly more
+consistent than depending on the package structure pattern.
 
-- comments on code generation changes
-  - wfl pop
-  - plugin generation
-  - delete action
-  - IPR dialog
-  - more?
+7.2 Automatically delete stale services
 
-TODO
+During design, there was a consideration to delete stale services automatically
+when the action body and the description field are empty. Additionally a
+preference could be supplied such that they are always deleted (and revision
+control is relied upon to prevent data loss). This design decided against these
+measures in an attempt to prevent the tool from doing anything "without
+permission" from the user.
+
+7.3 Automatic dependency maintenance
+
+Section 6.2.4 describes the design for automatically adding dependencies for
+imported provided terminators. This is not a part of the project requirements,
+however it was observed to have a high value to cost ratio, so it has been
+included. This feature allows a modeler to very quickly and easily begin writing
+actions. Because this is not a project requirement, effort will not be spent
+adding new tests.
+
+7.4 Archetype changes
+
+Several archetypes used to generate BridgePoint were changed as part of this
+work.
+
+7.4.1 `java.arc`
+
+Changed so Java imports can be declared in a class description field
+
+7.4.2 `chooser_elements_provider.inc`, `create_selection_dialog_action.inc`
+
+IPR check added if the element chooser has no elements. If IPRs are not enabled
+and the chooser is empty, show a dialog asking the user if IPRs should be
+enabled. If "Yes", enable IPRs and attempt to populate the list again.
+
+7.4.3 `create_core_plugin.inc`
+
+Changed to allow "..." to be added to any CME label via the "extraEntryText"
+field.
+
+7.4.4 `create_core_plugin_class.arc`
+
+Changed to special case "Terminator" and "Terminator Service" so different
+icons are used for provided/required terminators and services.
+
+7.4.5 `create_global_action.inc`
+
+Fixed a bug in the delete action generation. The "canDeleteAction" method
+inspects the current selection and returns a boolean value of whether or not the
+selection may be deleted. Currently for a multiple element selection, only the
+last element in the selection is checked for deletability. This wrongfully
+allows some elements to be deleted if they are selected in a group with other
+elements that may be deleted. The archetype was changed to do a logical "and" of
+the boolean results of each element in the selection. This way if any element
+may not be deleted, the whole selection may not be deleted.
+
+7.4.6 `function_body.inc`
+
+Changed to allow multiple selections in element chooser dialog.
+
+7.4.7 `wfl_block.inc`
+
+Removed block which references presumably deprecated model element. See the
+following conversation from the xtUML Community chat:
+
+> Levi Starrett: did we used to have a metamodel element with the key letters
+> ACT_AT? perhaps "assign transient" or something  
+>
+> Keith Brown: I don't know but maybe could check old versions of the
+> xtumlmc_schema.sql file in the mc repo.  
+>
+> Cort Starrett: ACT_AI  
+>
+> Levi: the code i'm looking at is from a very long time ago. I think
+> it has been there since before 1F which makes it difficult to find accurate
+> stuff from before then  
+> Levi: yes, i think it is similar to act_ai but not act_ai  
+>
+> Cort: I just did.  ACT_AT was not in there (for 10 years).  
+>
+> Levi: was it not there ever?  
+>
+> Cort: I have a schema from March 2006.  
+> Cort: Note that the 3020 schema did not have the action language in it that
+> far back.  
+>
+> Levi: hmm this is really interesting  
+>
+> Cort: The key letters seem somehow familiar.  
+>
+> Levi: what it looks like from the code i'm viewing is that either 1) ACT_AI
+> used to be ACT_AT and was renamed at some point or 2) ACT_AT and ACT_AI were
+> two different flavors of assignment. not sure which  
+> Levi: either way, this particular codepath has not been exercised in many many
+> years otherwise we would have hit this issue sooner  
+> Levi: pyrsl is complaining that there is not link from ACT_SMT->ACT_AT[R603]  
+> Levi: in this case, i think it is safe to remove this block  
 
 ### 8. User Documentation
 
 8.1 Documentation for this work will be incorporated into the documentation
 provided as part of issue #10320 [[2.7]](#2.7).
 
-8.2 Things to be added/changed
-- This is a metamodel change.  Update the welcome metamodel project
-- palette and context menu doc
+8.2 The welcome project shall be changed to reflect the changes in the
+metamodel.
+
+8.3 Palette and context menu documentation shall be updated along with MASL
+documentation.
 
 ### 9. Unit Test
 
-TODO
+9.1 Existing (passing) unit tests shall pass.  
 
-Update GPS Watch example to use deployments, demonstrate that it still works
+9.2 Model edit test suites shall be updated to include Deployments.  
+9.2.1 Some of these are generated automatically (e.g. Copy/Paste tests). In
+these cases it will be verified that coverage is added for Deployments.  
+
+9.3 Import from component definition unit test:  
+9.3.1 A component may be imported into a deployment. All terminators, types, and
+other elements are imported correctly.  
+9.3.2 The deployment still works as expected when the source component is
+removed from the workspace.  
+9.3.3 Multiple components may be selected simultaneously in the chooser.  
+9.3.4 If IPRs are disabled, a dialog appears asking if the user would like to
+enable them.  
+
+9.4 Import from file unit tests:  
+9.4.1 A `.int` file may be imported into a deployment. All terminators, types,
+and other elements are imported correctly.  
+9.4.2 A `.mod` file may be imported into a deployment. All terminators, types,
+and other elements are imported correctly.  
+9.4.3 Multiple files may be selected simultaneously in the chooser.  
+
+9.5 Terminator update unit tests:  
+9.5.1 Several unit tests will be added to test updating terminators with various
+changes applied. These will be clearly documented in the tests.  
+
+9.6 Edit test (manual test):  
+9.6.1 The items in the 6.1.1 list shall be editable.  
+9.6.2 All other items shall not be editable.  
+
+9.7 Export unit tests:  
+9.7.1 A deployment may be exported to MASL.  
+9.7.2 Services marked with the "None" dialect shall be excluded from export.  
+
+9.8 GPS Watch test (manual test):  
+9.8.1 The GPS Watch project will be changed to use deployments.  
+9.8.2 The GPS Watch project shall generate MASL which compiles and runs as
+expected.  
 
 ### End
