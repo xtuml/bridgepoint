@@ -118,7 +118,10 @@ This file is the plugin manifest for the BridgePoint core plugin.
                .if(menu_entry.extraEntryText != "")
                  .if(not menu_entry.UsesSelectionDialog)
                label="${menu_entry.Label}${menu_entry.extraEntryText}"
-                   .assign propertyKey = "$r{menu_entry.Label}$r{menu_entry.extraEntryText}"
+                   .assign propertyKey = "$r{menu_entry.Label}"
+                   .if ("..." != menu_entry.extraEntryText)
+                     .assign propertyKey = "${propertyKey}$r{menu_entry.extraEntryText}"
+                   .end if
                    .if ( "${propertyKey}" == "Formalize(NoTargetSelected)" )
                      .assign propertyKey = "nokey"
                    .end if

@@ -349,5 +349,5 @@ SplitOnO_ATTRAction.java
 SplitOnO_ATTRWizard.java
 SplitOnO_ATTRWizardPage1.java
 ComponentsDeploymentOnEP_PKGAction.java
-ImportFromFileOnD_DEPLAction.java
+ImportTerminatorsFromFileOnD_DEPLAction.java
 DeleteStaleServicesOnD_TERMAction.java

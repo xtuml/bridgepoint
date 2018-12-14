@@ -21,6 +21,7 @@ bridging in a way that is more natural to modelers using MASL.
 <a id="2.5"></a>2.5 [#9958 Publish to interface implementation note](../9958_publish_interface/9958_publish_interface.int.md)  
 <a id="2.6"></a>2.6 [#8277 Serial MASL specification](https://github.com/xtuml/mc/blob/master/doc/notes/8073_masl_parser/8277_serial_masl_spec.md)  
 <a id="2.7"></a>2.7 [BridgePoint SR #10320](https://support.onefact.net/issues/10320) Project Primus Documentation  
+<a id="2.8"></a>2.8 [BridgePoint SR #11363](https://support.onefact.net/issues/11363) parse WASL project and render deployment  
 
 ### 3. Background
 
@@ -144,7 +145,7 @@ the name of the domain followed by `::` followed by the name of the terminator
 itself as in: `Tracking::UI` and appear blue in the model explorer. Services on
 required terminators are automatically assigned the dialect of the source
 service or the workspace default dialect when necessary. Required services may
-be marked to be excluded from generation by setting the dialect to "None"
+be marked to be excluded from generation by setting the dialect to "None".
 
 6.2 Importing terminators into deployments
 
@@ -165,9 +166,7 @@ the deployment where the name of the component is the domain name and the name
 of the port is the terminator name. If the component has a provided port with
 the same name as the component, the messages on this port are mapped to the
 provided terminator for that domain. If there are no such provided ports, no
-provided terminator is created. If there are many, one is chosen arbitrarily.
-Note that it is a model integrity violation to have multiple ports in a
-component with the same name.
+provided terminator is created.
 
 6.2.2 Importing from MASL
 
@@ -352,8 +351,8 @@ no analog in a `.prj` file.
 
 6.5 MASL convert/import
 
-Although convert and import of MASL to xtUML is not necessarily required for
-this work, other former iUML users may need it in the future.
+Although convert and import of MASL projects to xtUML deployments is not
+required for this work, other former iUML users may need it in the future.
 
 Also, it is desirable for deployments to become the default way of doing system
 modeling for MASL users. If this happens it would be a good thing to deprecate
@@ -385,6 +384,9 @@ documentation.
 6.5.3.2 Remove support for exporting old style MASL system models from `x2m`.  
 6.5.3.3 Remove any related support code from BridgePoint.  
 
+"Phase 1" at least is required for [[2.8]](#2.8). Consider also completing
+"phase 2" and "phase 3" at the same time as part of that work.
+
 ### 7. Design Comments
 
 x fix refresher
@@ -401,8 +403,14 @@ TODO
 8.1 Documentation for this work will be incorporated into the documentation
 provided as part of issue #10320 [[2.7]](#2.7).
 
+8.2 Things to be added/changed
+- This is a metamodel change.  Update the welcome metamodel project
+- palette and context menu doc
+
 ### 9. Unit Test
 
 TODO
+
+Update GPS Watch example to use deployments, demonstrate that it still works
 
 ### End
