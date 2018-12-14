@@ -1,14 +1,4 @@
 package org.xtuml.bp.welcome.cheatsheets.library;
-//====================================================================
-//
-//File: $RCSfile: DrawModelElement.java,v $
-//Version: $Revision: 1.5 $
-//Modified: $Date: 2013/01/10 23:32:09 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
@@ -17,15 +7,11 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
-import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;

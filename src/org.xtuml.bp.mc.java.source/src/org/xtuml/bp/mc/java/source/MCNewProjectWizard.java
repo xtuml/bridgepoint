@@ -1,23 +1,8 @@
-//========================================================================
-//
-// File: SwitchProjectModelCompilerAction.java
-//
-// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
-// This document contains information proprietary and confidential to
-// Mentor Graphics Corp. and is not for external distribution.
-//======================================================================== 
-//
-//
-
 package org.xtuml.bp.mc.java.source;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.IWorkbenchWizard;
-
 import org.xtuml.bp.mc.AbstractNewProjectWizard;
-import org.xtuml.bp.mc.MCBuilderArgumentHandler;
 
 /**
  * This is the class that implements the org.xtuml.bp.core.model-compilers

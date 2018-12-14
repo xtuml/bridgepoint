@@ -1,27 +1,12 @@
-//========================================================================
-//
-// File: SwitchProjectModelCompilerWizard.java
-//
-// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
-// This document contains information proprietary and confidential to
-// Mentor Graphics Corp. and is not for external distribution.
-//======================================================================== 
-//
-//
 package org.xtuml.bp.mc.tools;
 
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardContainer;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ui.DelegatingWizard;
 import org.xtuml.bp.core.ui.WizardDelegateChooserPage;

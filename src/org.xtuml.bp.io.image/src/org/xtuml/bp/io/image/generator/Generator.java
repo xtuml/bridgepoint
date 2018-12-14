@@ -20,6 +20,7 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
+import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -29,8 +30,6 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
@@ -41,7 +40,6 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.image.Activator;
-import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -125,9 +123,8 @@ public class Generator extends Task {
 				// make sure that all graphical represents are setup
 				CanvasPlugin.setGraphicalRepresents(ptCanvas);
 				
-				String prefFont = PlatformUI.getWorkbench()
-						.getPreferenceStore().getString(
-								"org.xtuml.bp.canvas.font"); //$NON-NLS-1$
+				String prefFont =  JFacePreferences.getPreferenceStore().getString(
+						"org.xtuml.bp.canvas.font");//$NON-NLS-1$
 				prefFont = prefFont.substring(0, prefFont.indexOf(';'));
 				FontData prefFontData = new FontData(prefFont);
 				Font displayFont = new Font(Display.getDefault(), prefFontData);

@@ -1,6 +1,5 @@
 package org.xtuml.bp.mc;
 
-import java.io.File;
 import java.util.Map;
 import java.util.Properties;
 
@@ -8,8 +7,6 @@ import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.utilities.build.BuilderManagement;
 
@@ -90,11 +87,6 @@ public class MCBuilderArgumentHandler {
 				AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
 				homedir + xbuild_path);
 
-		String projPath = m_project.getLocation().toOSString();
-        IPath outputPath = new Path(projPath + File.separator
-                + AbstractActivator.GEN_FOLDER_NAME + File.separator
-                + codeGenFolder + File.separator);		
-		
 	    //refresh directory to pick up new files
         try {
             if (m_project != null) {

@@ -1,12 +1,7 @@
-//========================================================================
-//
-//File:      RCSfile: Activator.java,v 
 package org.xtuml.bp.mc.c.source;
 
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
 import org.xtuml.bp.mc.AbstractActivator;
 
 public class Activator extends AbstractActivator implements IStartup {

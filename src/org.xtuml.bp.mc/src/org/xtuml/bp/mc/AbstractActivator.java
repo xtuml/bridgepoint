@@ -7,26 +7,14 @@ import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.util.Properties;
 
-import org.eclipse.cdt.managedbuilder.ui.wizards.ConvertToMakeWizard;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.Bundle;
-
-import org.xtuml.bp.core.Ooaofooa;
 
 /**
  * The plugin class for the Resource Programming Plugin. Instantiated by the
@@ -70,17 +58,22 @@ public abstract class AbstractActivator extends Plugin {
 
 	public void copyFile(String inputFile, String outputFile)
 			throws IOException {
-		FileChannel srcChannel = new FileInputStream(inputFile).getChannel();
+		FileInputStream fis = new FileInputStream(inputFile);
+		FileOutputStream fos = new FileOutputStream(outputFile);
+		
+		FileChannel srcChannel = fis.getChannel();
 
 		// Create channel on the destination
-		FileChannel dstChannel = new FileOutputStream(outputFile).getChannel();
+		FileChannel dstChannel = fos.getChannel();
 
 		// Copy file contents from source to destination
 		dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
 
-		// Close the channels
+		// Close the channels and streams
 		srcChannel.close();
 		dstChannel.close();
+		fis.close();
+		fos.close();
 	}
 
 	public Properties readProperties(String propFilePath) {
@@ -98,7 +91,7 @@ public abstract class AbstractActivator extends Plugin {
 		URL url = bundle.getEntry(entry);
 		URL resolvedURL = null;
 		try {
-			resolvedURL = Platform.resolve(url);
+			resolvedURL = FileLocator.resolve(url);
 		} catch (IOException e) {
 			logError("Unable to resolve URL for entry: " + entry, e); //$NON-NLS-1$
 		}
