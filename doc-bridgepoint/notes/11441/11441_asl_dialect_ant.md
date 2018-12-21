@@ -23,13 +23,22 @@ new ASL dialect in BridgePoint.
 
 ### 4. Requirements
 
-4.1 Item 1  
-4.2 Item 2  
+4.1 Support ASL action language stored and editable in activity bodies inside an xtUML model.     
 
 ### 5. Analysis
 
+5.1  BridgePoint models currently store action bodies as either OAL (the default) or MASL.  OAL is
+persisted in `Action_semantics` fields on action instances (e.g. `S_SYNC` or 'O_TFR').  For MASL the
+action bodies are persisted in separate `*.masl` files that are siblings to the corresponding `*.xtuml`
+files that contain the instances.  The MASL Snippet editor reads and writes MASL activities from/to 
+the appropriate `*.masl` file.   
+5.1.1  ASL shall be stored like OAL inside `*.xtuml` files.  
 
-### 6. Work Required
+5.2  ASL shall be supported as a valid "dialect".  The action body dialect is stored in the `Dialect`
+attribute on ever action instance as a sibling attribute to the `Action_semantics` field.  This dialect
+attribute is ready by both action language of metamodel actions and by hand-craft Java and
+archetypes.  The following places use or manipulate the dialect and must be updated to support
+ASL as well as OAL and MASL.  
 
 - Preferences : "Default Action Language"
     - UI and INI setting handling
@@ -79,6 +88,10 @@ do this for ASL or not?
   - NO.  Will work like OAL.
     
 - How to handle "Publish to interface" for ASL... like MASL, or not? (10139)
+  - YES.  ASL will work like MASL
+  
+### 6. Work Required
+
 
 
 ### 7. Acceptance Test
