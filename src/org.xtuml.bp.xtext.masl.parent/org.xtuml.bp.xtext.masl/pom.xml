@@ -51,16 +51,6 @@
 						<artifactId>org.eclipse.xtext.xbase</artifactId>
 						<version>${xtextVersion}</version>
 					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.core</artifactId>
-						<version>3.12.2</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-						<version>1.2.100</version>
-					</dependency>
 				</dependencies>
 			</plugin>
 			<plugin>
