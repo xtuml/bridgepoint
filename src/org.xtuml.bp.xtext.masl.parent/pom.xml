@@ -86,14 +86,9 @@
 					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtextVersion}</version>
+					<!-- Workaround for https://github.com/eclipse/xtext/issues/1231 -->
+					<!-- Remove with upgrade to Xtext 2.15 -->
 					<dependencies>
-						<dependency>
-							<groupId>org.eclipse.platform</groupId>
-							<artifactId>org.eclipse.equinox.common</artifactId>
-							<version>3.10.0</version>
-						</dependency>
-						<!-- Workaround for https://github.com/eclipse/xtext/issues/1231 -->
-						<!-- Remove with upgrade to Xtext 2.15 -->
 						<dependency>
 							<groupId>org.eclipse.jdt</groupId>
 							<artifactId>org.eclipse.jdt.core</artifactId>
@@ -114,7 +109,7 @@
 							<artifactId>org.eclipse.emf.codegen</artifactId>
 							<version>2.11.0</version>
 						</dependency>
-					</dependencies>
+					</dependencies>				
 					<executions>
 						<execution>
 							<goals>
