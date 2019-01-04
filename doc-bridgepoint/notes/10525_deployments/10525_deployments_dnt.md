@@ -527,7 +527,6 @@ enable them.
 and other elements are imported correctly.  
 9.4.2 A `.mod` file may be imported into a deployment. All terminators, types,
 and other elements are imported correctly.  
-9.4.3 Multiple files may be selected simultaneously in the chooser.  
 
 9.5 Terminator update unit tests:  
 9.5.1 Several unit tests will be added to test updating terminators with various
