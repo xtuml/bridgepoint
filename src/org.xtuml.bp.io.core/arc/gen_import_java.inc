@@ -280,6 +280,11 @@
       .elif((table.Key_lett == "S_UDT") and (col.Name == "Definition"))
           (parms.size() > ${attr_col_num} && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})).trim() : ""\
           .assign special_case = true
+      .elif (table.Key_Lett == "S_DIM")
+        .if ((col.Name == "TSParm_ID") or (col.Name == "Svc_ID"))
+          (parms.size() > ${attr_col_num} ? IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):IdAssigner.NULL_UUID)
+          .assign special_case = true
+        .end if
 	  .end if
 	  .// Dialect attribute introduced
 	  .assign dialectAdded = false;
