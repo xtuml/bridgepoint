@@ -724,7 +724,7 @@ public class PersistableModelComponent implements Comparable {
     	}
     	
     	// The parent load just above may have caused this child PMC to be loaded.  So check before continuing.
-    	if (isLoaded()) { return; }
+    	if (!reload && isLoaded()) { return; }
     	
         int oldStatus = status;
       try {
