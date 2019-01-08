@@ -145,7 +145,7 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     public synchronized InstanceList getInstanceList(Class type)
     {
     	InstanceList list = instanceListMap.get(type);
-        if(list == null){
+        if(list == null || list.isEmpty()){
         	if (isRuntime(type)) {
         	  // Allocate a Verifier runtime optimized instance extent
               list = new RuntimeInstanceList(this, type);
