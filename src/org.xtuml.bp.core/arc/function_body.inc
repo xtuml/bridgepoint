@@ -167,7 +167,7 @@
         .if ("many" == context_item.Type)
 					${selectedElementType}[] v_${context_item.Name} = Arrays.copyOf(dialog.getResult(), dialog.getResult().length, ${selectedElementType}[].class);
         .else
-					${selectedElementType} v_${context_item.Name} = (${selectedElementType}) dialog.getResult()[0];
+					${selectedElementType} v_${context_item.Name} = dialog.getResult().length > 0 ? (${selectedElementType}) dialog.getResult()[0] : null;
         .end if
 					if(v_${context_item.Name} != null) {
       .else
