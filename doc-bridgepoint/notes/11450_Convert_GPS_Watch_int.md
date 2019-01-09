@@ -7,10 +7,7 @@ This work is licensed under the Creative Commons CC0 License
 # Convert GPS Watch to Use Deployments
 ### xtUML Project Implementation Note
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well. __If you are using markdown formatting, don't forget to put 2 
-spaces at the end of lines where you want a hard break.__
+
 
 ### 1. Abstract
 
@@ -26,11 +23,7 @@ Give the full path to reference a file.
 
 ### 3. Background
 
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document. Here is an example reference to the Document References section [[2.1]](#2.1)
-
-![My Image](myimage.jpg)
+None
 
 ### 4. Requirements
 
