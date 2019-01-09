@@ -33,12 +33,12 @@ None
 
 ### 5. Work Required
 
-5.1 Import the projects GPS_Watch, Location, Tracking, hearRateMonitor, UI, and LOG from the models repository.
-5.2 Delete the GPS_Watch package within the GPS_Watch project.
-5.3 Create a new package called GPS_Watch.
-5.4 Create a new deployment inside that package called GPS_Watch.
-5.5 Import terminators from component.
-5.6 In a second workspace, open the Example Application - GPS Watch (MASL) under Quick Start.
+5.1 Import the projects GPS_Watch, Location, Tracking, hearRateMonitor, UI, and LOG from the models repository.  
+5.2 Delete the GPS_Watch package within the GPS_Watch project.  
+5.3 Create a new package called GPS_Watch.  
+5.4 Create a new deployment inside that package called GPS_Watch.  
+5.5 Import terminators from component.  
+5.6 In a second workspace, open the Example Application - GPS Watch (MASL) under Quick Start.  
 
 
 
