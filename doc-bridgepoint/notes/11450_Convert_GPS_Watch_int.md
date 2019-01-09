@@ -33,19 +33,14 @@ None
 
 ### 5. Work Required
 
-Elaborate on each point of the Work Required section of the design note and
-describe how you implemented each step.  
-If there is no design note, this section, breaks out the consequential work 
-(as a numbered list) needed to meet the requirements specified in the 
-Requirements section. Here is an example reference to the Document References section [[2.1]](#2.1)
+5.1 Import the projects GPS_Watch, Location, Tracking, hearRateMonitor, UI, and LOG from the models repository.
+5.2 Delete the GPS_Watch package within the GPS_Watch project.
+5.3 Create a new package called GPS_Watch.
+5.4 Create a new deployment inside that package called GPS_Watch.
+5.5 Import terminators from component.
+5.6 In a second workspace, open the Example Application - GPS Watch (MASL) under Quick Start.
 
-5.1 Item 1  
-5.1.1 Example sub-item
-* Example List Element
 
-5.2 Item 2  
-5.2.1 Example sub-item
-* Example List Element
 
 ### 6. Implementation Comments
 
