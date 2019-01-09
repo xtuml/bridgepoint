@@ -27,9 +27,10 @@ None
 
 ### 4. Requirements
 
-4.1 Convert the GPS Watch example to use deployments.  
-4.2 Generate code and prove that the application still runs.  
-4.3 Update the welcome plugin.   
+4.1 The GPS Watch example shall be converted to use deployments.  
+4.2 Code shall be generated.  
+4.2.1 Prove that the application still runs.  
+4.3 The welcome plugin shall be updated.    
 
 
 ### 5. Work Required
