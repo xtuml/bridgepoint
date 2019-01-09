@@ -245,10 +245,19 @@ for each target_port in target_ports
   self.createTerminatorFromPort( c_po:target_port );
 end for;
 
-// search for a provided port of the same name as the component for public services
-select any target_port related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_PO[R4016] where ( selected.Name == c_c.Name );
-if (not_empty target_port)
-  self.createTerminatorFromPort( c_po:target_port );
+select many target_ports related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_PO[R4016];
+if (cardinality target_ports == 1)
+  // if there is exactly one provided port, this is the provided terminator
+  for each target_port in target_ports
+    self.createTerminatorFromPort( c_po:target_port );
+    break;
+  end for;
+elif (cardinality target_ports > 1)
+  // search for a provided port of the same name as the component for public services
+  select any target_port related by c_c->C_PO[R4010]->C_IR[R4016]->C_P[R4009]->C_IR[R4009]->C_PO[R4016] where ( selected.Name == c_c.Name );
+  if (not_empty target_port)
+    self.createTerminatorFromPort( c_po:target_port );
+  end if;
 end if;
 
 // add dependency
