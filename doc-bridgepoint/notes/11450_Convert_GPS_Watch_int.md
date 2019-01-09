@@ -27,19 +27,10 @@ None
 
 ### 4. Requirements
 
-This section is only required if there is no preceding design note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may refer to it.  Each requirement should be as short 
-and simple as possible and must be clearly defined. Here is an example reference to the Document References section [[2.1]](#2.1)
+4.1 Convert the GPS Watch example to use deployments.
+4.2 Generate code and prove that the application still runs. 
+4.3 Update the welcome plugin. 
 
-4.1 Item 1  
-4.1.1 Example sub-item
-* Example List Element
-  * Example Sub list item
-
-4.2 Item 2  
-4.2.1 Example sub-item
-* Example List Element
 
 ### 5. Work Required
 
