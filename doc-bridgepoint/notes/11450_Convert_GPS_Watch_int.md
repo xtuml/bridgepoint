@@ -4,7 +4,7 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Convert GPS Watch to Use Deployments
 ### xtUML Project Implementation Note
 
 Note: Each section has a description that states the purpose of that section.
@@ -14,8 +14,7 @@ spaces at the end of lines where you want a hard break.__
 
 ### 1. Abstract
 
-In this section, give a summary of the design that this note aims to
-describe.
+The welcome plugin must be updated so that the GPS Watch example now uses deployments in order to make the modeling more easily understandable. 
 
 ### 2. Document References
 
