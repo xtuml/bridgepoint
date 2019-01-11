@@ -37,7 +37,7 @@ None
 5.2 Delete the GPS_Watch package within the GPS_Watch project.   
 5.3 Create a new deployment called GPS_Watch within a new package called GPS_Watch.  
 5.4 Import terminators from component.  
-5.4.1 Note: a couple bugs were found at this point. See comments 8 and 9 on issue #10525 [2.2]
+5.4.1 Note: a couple bugs were found at this point. See comments 8 and 9 on issue #10525 [2.2].  
 5.5 Copy the messages in Example Application - GPS Watch (MASL) under Quick Start to the respective messages in the new deployment.  
 5.6 Export to MASL and run configurations.  
 5.7 Package the MASL version of the models.  
