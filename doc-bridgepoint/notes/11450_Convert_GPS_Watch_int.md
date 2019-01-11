@@ -17,8 +17,8 @@ The welcome plugin must be updated so that the GPS Watch example now uses deploy
 
 <a id="2.1"></a>2.1 [BridgePoint DEI #11450](https://support.onefact.net/issues/11450) This is the main issue.  
 <a id="2.2"></a>2.2 [BridgePoint DEI #10525](https://support.onefact.net/issues/10525) This is the issue that implemented deployments.  
-<a id="2.3"></a>2.3 [#10525 Design Note](https://github.com/leviathan747/bridgepoint/blob/10525_deployments/doc-bridgepoint/notes/10525_deployments/10525_deployments_dnt.md) This is the design note for deployments. 
-<a id="2.4"></a>2.4 [BridgePoint SR #10320] Project Primus Documentation
+<a id="2.3"></a>2.3 [#10525 Design Note](https://github.com/leviathan747/bridgepoint/blob/10525_deployments/doc-bridgepoint/notes/10525_deployments/10525_deployments_dnt.md) This is the design note for deployments.  
+<a id="2.4"></a>2.4 [BridgePoint SR #10320](https://support.onefact.net/issues/10320) Project Primus Documentation
 ### 3. Background
 
 None  
