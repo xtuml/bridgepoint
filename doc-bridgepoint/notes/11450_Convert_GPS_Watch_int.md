@@ -41,7 +41,7 @@ None
 5.5 Copy the messages in Example Application - GPS Watch (MASL) under Quick Start to the respective messages in the new deployment.  
 5.6 Export to MASL and run configurations.  
 5.7 Package the MASL version of the models.  
-
+5.8 Copy the file into the BridgePoint repository and commit.  
 
 ### 6. Implementation Comments
 
