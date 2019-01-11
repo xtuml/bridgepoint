@@ -33,7 +33,7 @@ None
 
 ### 5. Work Required
 
-5.1 Import the projects GPS_Watch, Location, Tracking, hearRateMonitor, UI, and LOG from the models repository.  
+5.1 Import the projects GPS_Watch, Location, Tracking, HeartRateMonitor, UI, and LOG from the models repository.  
 5.2 Delete the GPS_Watch package within the GPS_Watch project.   
 5.3 Create a new deployment called GPS_Watch within a new package called GPS_Watch.  
 5.4 Import terminators from component.  
