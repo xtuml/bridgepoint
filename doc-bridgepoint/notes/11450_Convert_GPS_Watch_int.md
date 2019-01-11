@@ -60,12 +60,40 @@ None
 
 ### 9. Code Changes  
 
-Fork/Repository: < enter your fork and repo name name >
-Branch: < enter your branch name here >
+Fork/Repository: ellyhume/bridgepoint  
+Branch: 11450_convert_GPS
 
 <pre>
 
- Put the file list here 
+ doc-bridgepoint/notes/11450_Convert_GPS_Watch_int.md                  | 101 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.welcome/models/GPS_Watch_MASL.zip                    | Bin 27112121 -> 27070372 bytes
+ 2 files changed, 103 insertions(+), 2 deletions(-)
+
+</pre>
+
+Fork/Repository: ellyhume/models  
+Branch: gps_masl
+
+<pre>
+
+ applications/gps/GPS/GPS_Watch/.dependencies                                        |    7 +-
+ applications/gps/GPS/GPS_Watch/.settings/language.settings.xml                      |   14 +
+ applications/gps/GPS/GPS_Watch/masl/GPS_Watch/GPS_Watch.prj                         |   12 +-
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch.xtuml                     |   72 +++--
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch/GPS_Watch.masl            |  173 ++++++++++
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch/GPS_Watch.prj             |    8 +-
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch/GPS_Watch.xtuml           | 3655 ++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch/GPS_Watch/GPS_Watch.masl  |  173 ----------
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch/GPS_Watch/GPS_Watch.xtuml | 1822 -------------------------------------------------------------------------------------------------------
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/GPS_Watch/Shared/Shared.xtuml       |  389 ++++++++++++++++++++++
+ applications/gps/GPS/GPS_Watch/models/GPS_Watch/types/types.xtuml                   |   87 +++++
+ applications/gps/GPS/HeartRateMonitor/.settings/language.settings.xml               |   14 +
+ applications/gps/GPS/Location/.settings/language.settings.xml                       |   14 +
+ applications/gps/GPS/Tracking/.settings/language.settings.xml                       |   14 +
+ applications/gps/GPS/UI/.cproject                                                   |    3 +-
+ applications/gps/GPS/UI/.settings/language.settings.xml                             |   14 +
+ masl/EEs/LOG/.settings/language.settings.xml                                        |   14 +
+ 17 files changed, 1673 insertions(+), 4812 deletions(-)
 
 </pre>
 
