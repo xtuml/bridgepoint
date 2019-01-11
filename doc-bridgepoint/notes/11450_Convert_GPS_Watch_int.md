@@ -57,7 +57,7 @@ None
 ### 8. User Documentation
 
 8.1 Documentation for this work will be incorporated into the documentation provided as part of issue #10320 [2.4].  
-8.2 The welcome project shall be changed to reflect the changes in the metamodel. 
+8.2 The welcome project shall be changed to reflect the changes in the metamodel.   
 8.3 Palette and context menu documentation shall be updated along with MASL documentation.  
 
 ### 9. Code Changes  
