@@ -61,12 +61,12 @@ public class PropertyViewListener implements ITransactionListener {
 						if (d2 == null) {
 							d2 = Ooaofooa.m_display;
 						}
-						if (d2 != null) {
+						if (d2 != null ) {
 							// always run async to prevent infinite loops
 							// when the update comes from the property view
 							d2.asyncExec(new Runnable() {
 								public void run() {
-									if (!psp.getControl().isDisposed())
+									if (psp != null && psp.getControl() != null && !psp.getControl().isDisposed())
 										psp.refresh();
 								}
 							});
