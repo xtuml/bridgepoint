@@ -16,6 +16,7 @@ See [[2.2]](#2.2)
 <a id="2.1"></a>2.1 [BridgePoint DEI #10525](https://support.onefact.net/issues/10525) Implement deployments  
 <a id="2.2"></a>2.2 [#10525 design note](10525_deployments_dnt.md)  
 <a id="2.3"></a>2.3 [BridgePoint SR #10320](https://support.onefact.net/issues/10320) Project Primus Documentation  
+<a id="2.4"></a>2.4 [BridgePoint SR #11473](https://support.onefact.net/issues/11473) Complete testing for deployments  
 
 ### 3. Background
 
@@ -45,7 +46,31 @@ more sense.
 
 ### 6. Implementation Comments
 
-None.
+6.1 Test failures were observed in the properties view test suite. An entire
+suite was failing because of an index out of bounds in a static initializer.
+The solution was to update the array which contained the labels for the action
+dialects in the file
+`org.xtuml.bp.ui.properties.test/src/org/xtuml/bp/ui/properties/test/EnumRangeTest.java`
+
+6.2 A problem was found in testing related to the change to make the element
+chooser support multi-select. This problem was patched.
+
+6.3 During manual testing, a bug was found where a provided port was not
+imported from a component if the provided port did not exactly match the
+component name. This was specified in the original design, however the GPS
+Watch application required the logic to be a little looser. The degin was
+changed such that a provided port is always imported as a provided terminator
+if there is exactly one provided port in the component. If there is more than
+one provided port, one of them must match the component name.
+
+6.4 During testing it was observed that the code which filters files by
+extension in the `FileDialog` was filtering out all regular files when run on
+Linux. The issue was resolved and tested.
+
+6.5 During test from the server, tests do not have access to the `tools/mc/bin`
+directory in the Eclipse home. These tools are required for exporting MASL and
+for importing using the MASL parser. Special code was introduced in the test
+implementation to make sure these tools are accessible to the test methods.
 
 ### 7. Unit Test
 
@@ -55,6 +80,25 @@ org.xtuml.bp.core.test test suite.
 7.2 The file selection dialog could not be tested directly with a JUnit test
 because it used a system dialog. Instead, a helper class was created to allow
 the file selection action to be run with a file passed in as an argument.
+
+7.3 During test of #10525, issues with running the tests on the build server
+caused delays. [[2.4]](#2.4) is raised to follow up with those remaining
+issues. Issue #10525 will be promoted with the unit tests disabled on the
+server build.
+
+7.4 Manual acceptance test procedure
+
+To run the unit test suite manually:
+
+7.4.1 Download and install the 10525 engineering build (developer version).  
+7.4.2 Check out the 10525 promotion branches in both the `bridgepoint` and
+`bptest` repositories.  
+7.4.3 Build BridgePoint.  
+7.4.4 In "Run Configurations" select "Core Test - Consistency" (or the OSX
+version if this test is run on MacOS).  
+7.4.5 In the "Test Class" section type
+"org.xtuml.bp.core.test.deployments.DeploymentTestFull". Click run.  
+7.4.6 Verify that the tests run with no errors.  
 
 ### 8. User Documentation
 
