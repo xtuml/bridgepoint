@@ -72,6 +72,10 @@ directory in the Eclipse home. These tools are required for exporting MASL and
 for importing using the MASL parser. Special code was introduced in the test
 implementation to make sure these tools are accessible to the test methods.
 
+6.6 A user reported a bug that had to do with updating terminator definitions
+(see [[2.1]](#2.1) comment 12). The issue has been resolved and a test case was
+added.
+
 ### 7. Unit Test
 
 7.1 The tests outlined in section 9 of [[2.2]](#2.2) were implemented as part of the
