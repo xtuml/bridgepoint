@@ -812,6 +812,11 @@ while (not_empty parameter)
       end if;
       unrelate new_parameter from d_tsvc across R1652;
       relate new_parameter to self across R1652;
+      select one prev_param related by parameter->D_TSPARM[R1654.''succeeds''];
+      if (not_empty prev_param)
+        unrelate prev_param from parameter across R1654.''precedes'';
+        relate prev_param to new_parameter across R1654.''precedes'';
+      end if;
       relate new_parameter to parameter across R1654.''precedes'';
     end if;
     new_parameter = next_new_parameter;
