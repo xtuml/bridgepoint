@@ -45,7 +45,7 @@
       .select many context_items related by wfl->W_CTI[R2003]
       .select any context_item from instances of W_CTI where (false)
       .for each context_item in context_items
-        .if (context_item.Type == "many")
+        .if ((first context_items) and (context_item.Type == "many"))
           .assign iteration_req = true
           .// a set of values must be placed in a new array for processing
           .select one class related by context_item->O_OBJ[R2002]
@@ -161,10 +161,14 @@
 				false, null);
 		.end if
       dialog.setBlockOnOpen(true);
-      dialog.setTitle("${cme.Label} Selection");
+      dialog.setTitle("$C{cme.Label} Selection");
       int result = dialog.open();
       if(result == Window.OK) {
-					${selectedElementType} v_${context_item.Name} = (${selectedElementType}) dialog.getResult()[0];
+        .if ("many" == context_item.Type)
+					${selectedElementType}[] v_${context_item.Name} = Arrays.copyOf(dialog.getResult(), dialog.getResult().length, ${selectedElementType}[].class);
+        .else
+					${selectedElementType} v_${context_item.Name} = dialog.getResult().length > 0 ? (${selectedElementType}) dialog.getResult()[0] : null;
+        .end if
 					if(v_${context_item.Name} != null) {
       .else
         .// this assumes that there's only one context item for the workflow
@@ -390,6 +394,8 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
     .assign attr_result = "Component_c.getOneC_COnR4010(Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(v_element)))"
   .elif (kl == "C_DG")
 	.assign attr_result = "Component_c.getOneC_COnR4010(Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4013(InterfaceReferenceInDelegation_c.getOneC_RIDOnR4013(v_element))))"
+  .elif (kl == "D_DEPL")
+    .assign attr_result = "v_element"
   .end if
 .end function
 .function get_from_pe_traversal

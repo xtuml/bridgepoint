@@ -210,6 +210,7 @@ INSERT INTO CME VALUES ('Classes',  	'Class',        	    'EP_PKG',    'O_OBJ', 
 INSERT INTO CME VALUES ('Components',   'Interface',  			'EP_PKG',    'C_I',   	        false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->C_I[R8001]');
 INSERT INTO CME VALUES ('Components',   'Component Reference',  'EP_PKG',    'CL_IC',   	    false);
 INSERT INTO CME VALUES ('Components',   'Component', 			'EP_PKG',    'C_C',             false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->C_C[R8001]');
+INSERT INTO CME VALUES ('Components',   'Deployment',           'EP_PKG',    'D_DEPL',         false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->D_DEPL[R8001]');
 INSERT INTO CME VALUES ('External',     'External Entity',      'EP_PKG',    'S_EE',            false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->S_EE[R8001]');
 INSERT INTO CME VALUES ('Interaction',  'Class', 	              'EP_PKG',    'SQ_CP',         false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->SQ_P[R8001]->SQ_CP[R930]');
 INSERT INTO CME VALUES ('Interaction',  'Package Participant',    'EP_PKG',    'SQ_PP',         false, '', '', false, '', false, false, '' ,'->PE_PE[R8000]->SQ_P[R8001]->SQ_PP[R930]');
@@ -343,9 +344,17 @@ INSERT INTO CME VALUES ('--', 'Set To Provider',                         'C_IO',
 INSERT INTO CME VALUES ('--', 'Set From Provider',                         'C_IO', '',                 false );
 INSERT INTO CME VALUES ('Delete', '',                         'S_EXP',    '',              true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_EXP',   '',              true );
+INSERT INTO CME VALUES ('Delete', '',                         'D_DEPL',    '',              true );
+INSERT INTO CME VALUES ('Rename', '',                         'D_DEPL',   '',              true );
+INSERT INTO CME VALUES ('Delete', '',                         'D_TERM',    '',              true );
 INSERT INTO CME VALUES ('--',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '*', false, '', true, false, 'interface');
+INSERT INTO CME VALUES ('--', 'Import terminators from file', 'D_DEPL', '', false, '', '', false, '...');
+INSERT INTO CME VALUES ('--', 'Import terminators from component', 'D_DEPL', 'C_C', false, 'Select a component', '1', false, '', true, false, 'component' );
+INSERT INTO CME VALUES ('--', 'Delete stale services', 'D_TERM', '', false );
+INSERT INTO CME VALUES ('Delete', '', 'D_TSVC', '', true );
 
 --
+INSERT INTO MEF VALUES ('--', 'Delete stale services', 'D_TERM', 'can', 'delete stale services');
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_P',    'can', 'dissatisfy' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_R',    'can', 'dissatisfy' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'CL_IP',    'can', 'dissatisfy' );
