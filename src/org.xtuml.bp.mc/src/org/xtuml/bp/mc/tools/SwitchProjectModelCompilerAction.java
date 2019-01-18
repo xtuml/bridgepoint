@@ -1,31 +1,14 @@
-//========================================================================
-//
-// File: SwitchProjectModelCompilerAction.java
-//
-// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
-// This document contains information proprietary and confidential to
-// Mentor Graphics Corp. and is not for external distribution.
-//======================================================================== 
-//
-//
-
 package org.xtuml.bp.mc.tools;
 
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.XtUMLNature;
 
 
 public class SwitchProjectModelCompilerAction implements IActionDelegate {
