@@ -99,7 +99,9 @@ deprecated and thus replaced in BP code with calls like `PrecisionPoint.preciseX
  
 ### 6. Implementation Comments
 
-None.  
+6.1  The operation Body::associationWithContainer() return value is used in several places to set a 
+transient `isInGenericPackage` flag.  The cleanup of this flag and usage did not seem perfectly straightforward
+so I chose not to make any changes in this area.  
 
 ### 7. Unit Test
 
