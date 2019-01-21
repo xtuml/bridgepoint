@@ -13,12 +13,10 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.io.core,
  org.xtuml.bp.mc,
  org.eclipse.debug.ui,
- org.eclipse.ui.ide,
- org.eclipse.cdt.core,
- org.eclipse.cdt.ui,
- org.eclipse.cdt.managedbuilder.ui
+ org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.masl
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.mc.masl
+Import-Package: org.xtuml.bp.utilities.build
