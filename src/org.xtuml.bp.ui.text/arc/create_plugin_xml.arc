@@ -298,6 +298,19 @@ This file is the plugin manifest for the BridgePoint core plugin.
                id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction8">
          </action>
       </objectContribution>
+      <objectContribution
+            objectClass="org.xtuml.bp.core.TerminatorService_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution9">
+         <action
+               label="MASL Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/edit_oal.gif"
+               class="org.xtuml.bp.ui.text.masl.ShowMASLAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.masl.ShowMASLEditorAction9">
+         </action>
+      </objectContribution>
    </extension>
    <extension
          id="org.xtuml.bp.ui.text.editors"

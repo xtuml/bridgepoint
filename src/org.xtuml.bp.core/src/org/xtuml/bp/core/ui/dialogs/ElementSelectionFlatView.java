@@ -27,7 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,7 +68,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -111,7 +112,7 @@ public class ElementSelectionFlatView extends Composite {
 
 	private NonRootModelElement[] fElements;
 
-	private Object fSelectedElement;
+	private Set<Object> fSelectedElements;
 
 	private ElementSelectionDialog fDialog;
 
@@ -177,6 +178,7 @@ public class ElementSelectionFlatView extends Composite {
 		super(parent, style);
 		fSorter.setIgnoreCase(true);
 		fElements = elements;
+        fSelectedElements = new HashSet<>();
 		fSorter.sort(fElements);
 		fLoneSelection = loneSelection;
 		fInitialFilterText = initialFilter;
@@ -300,7 +302,7 @@ public class ElementSelectionFlatView extends Composite {
 					UUID id = IDConvertor.getInstance().getId(element);
 					if (id.toString().equals(cachedElement)) {
 						fTable.select(i);
-						fSelectedElement = items[i].getData();
+						fSelectedElements.add(items[i].getData());
 						break;
 					}
 				}
@@ -436,11 +438,10 @@ public class ElementSelectionFlatView extends Composite {
 		fTable.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
-				if (fTable.getSelection().length == 0) {
-					fSelectedElement = null;
-				} else {
-					fSelectedElement = e.item.getData();
-				}
+			    fSelectedElements.clear();
+			    for (TableItem item : fTable.getSelection()) {
+			    	fSelectedElements.add(item.getData());
+			    }
 				updateOKStatus();
 			}
 
@@ -495,7 +496,7 @@ public class ElementSelectionFlatView extends Composite {
 	protected void updateOKStatus() {
 		if (fDialog.getOkButton() == null)
 			return;
-		if (fSelectedElement == null) {
+		if (fSelectedElements.isEmpty()) {
 			fDialog.getOkButton().setEnabled(false);
 		} else {
 			fDialog.getOkButton().setEnabled(true);
@@ -897,12 +898,13 @@ public class ElementSelectionFlatView extends Composite {
 				// if only one element set it as
 				// selected
 				fTable.select(0);
-				fSelectedElement = fTable.getItem(0).getData();
+				fSelectedElements.clear();
+				fSelectedElements.add(fTable.getItem(0).getData());
 				elementSelected = true;
 			}
 			if (!elementSelected) {
 				fTable.deselectAll();
-				fSelectedElement = null;
+				fSelectedElements.clear();
 			}
 			fTable.setRedraw(true);
 		}
@@ -1036,9 +1038,9 @@ public class ElementSelectionFlatView extends Composite {
 	public void store(IDialogSettings settings) {
 		// store the last search text, and selection if one
 		// was made
-		if (fSelectedElement != null) {
+		if (!fSelectedElements.isEmpty()) {
 			UUID id = IDConvertor.getInstance().getId(
-					(NonRootModelElement) fSelectedElement);
+					(NonRootModelElement) fSelectedElements.iterator().next());
 			settings.put(CACHED_ELEMENT_SELECTION, id.toString());
 		}
 		settings.put(CACHED_SEARCH_PATTERN, fCurrentFilterText);
@@ -1051,8 +1053,8 @@ public class ElementSelectionFlatView extends Composite {
 		return fTable;
 	}
 
-	public Object getSelection() {
-		return fSelectedElement;
+	public Object[] getSelection() {
+		return fSelectedElements.toArray();
 	}
 
 }
