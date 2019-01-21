@@ -147,6 +147,10 @@ INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '',
 INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name', '',                 'Port Reference',                        -1, '');
 INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Exception', -1, '');
 INSERT INTO T_TNS VALUES (384, 'Range.gif', 'S_RANGE', '', '', '', 'Range', -1, '');
+INSERT INTO T_TNS VALUES (385, 'Deployment.gif', 'D_DEPL', '', 'Name', '', 'Deployment', -1, '');
+INSERT INTO T_TNS VALUES (386, 'Terminator.gif', 'D_TERM', '', 'Name', '', 'Terminator', -1, '');
+INSERT INTO T_TNS VALUES (387, 'TerminatorService.gif', 'D_TSVC', '', 'Name', '', 'Terminator Service', -1, '');
+INSERT INTO T_TNS VALUES (388, 'TerminatorServiceParameter.gif', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameter', 1654, 'succeeds');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
@@ -403,6 +407,12 @@ INSERT INTO T_TPS VALUES (378, 125, 126, '->PE_PE[R8003]->CL_IC[R8001]', '', fal
 INSERT INTO T_TPS VALUES (379, 125, 130, '->PE_PE[R8003]->C_I[R8001]', '', false);
 INSERT INTO T_TPS VALUES (380, 125, 74,  '->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]', '', false);
 INSERT INTO T_TPS VALUES (381, 297, 383, '->PE_PE[R8000]->S_EXP[R8001]', '', false);
+INSERT INTO T_TPS VALUES (382, 297, 385, '->PE_PE[R8000]->D_DEPL[R8001]', '', false);
+INSERT INTO T_TPS VALUES (601, 385, 386, '->D_TERM[R1650]', '', false);
+INSERT INTO T_TPS VALUES (602, 386, 387, '->D_TSVC[R1651]', '', false);
+INSERT INTO T_TPS VALUES (603, 387,  17, '->S_DT[R1656]', 'Type', false);
+INSERT INTO T_TPS VALUES (604, 387, 388, '->D_TSPARM[R1652]', '', false);
+INSERT INTO T_TPS VALUES (605, 388,  17, '->S_DT[R1653]', 'Type', false);
 
 -- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures
