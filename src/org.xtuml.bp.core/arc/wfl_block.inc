@@ -224,37 +224,6 @@ INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
         .print "${statement.buffer}"
       .end if .// if hubi.result
     .end if
-    .select one at_stmt related by statement->ACT_AI[R603]
-    .if ( not_empty at_stmt )
-      .select one at_val related by at_stmt->V_VAL[R609]
-      .invoke hubi = has_user_bridge_invocation( at_val )
-      .if (hubi.result)
-        .// We DON'T want to emit standard architecture code for 'USER::bridge call'
-        .// statements, because these items are the subject of GUI navigations by
-        .// the user. So instead of normal processing, we create a dialog field
-        .// here.
-        .select one transient_asgn related by statement->ACT_AT[R603]
-INSERT INTO W_FLD VALUES ('USER_${transient_asgn.Target_Variable_Name}', '${transient_asgn.Target_Variable_Name}', \
-'${transient_asgn.Statement_Id}', '', '${step.id}', \
-        .create object instance w_fld of W_FLD
-        .assign w_fld.Name = "USER_" + transient_asgn.Target_Variable_Name
-        .assign w_fld.Instance_Handle = transient_asgn.Target_Variable_Name
-        .assign w_fld.Cardinality = ""
-        .assign w_fld.buffer = ""
-        .if ((hubi.Method_Name == "getString") OR (hubi.Method_Name == "getStringDef"))
-'', 'Text', '');
-          .assign w_fld.Type = "Text"
-        .elif (hubi.Method_Name == "getMLString")
-'', 'MLText', '');
-          .assign w_fld.Type = "MLText"
-        .else
-'', '${hubi.Method_Name}', '');
-          .assign w_fld.Type = hubi.Method_Name
-        .end if
-        .relate w_fld to w_step across R2009
-        .relate w_fld to trasient_asgn across R2010
-      .end if
-    .end if
     .select any for_blk related by statement->ACT_FOR[R603]->ACT_BLK[R605]
     .if (not_empty for_blk)
       .invoke new_step = create_step(step.wfl, for_blk, step.id, prev_step_id, "0")

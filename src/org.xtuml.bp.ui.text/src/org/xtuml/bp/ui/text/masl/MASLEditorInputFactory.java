@@ -40,6 +40,7 @@ public class MASLEditorInputFactory extends AbstractModelElementEditorInputFacto
 			supportedList.add("org.xtuml.bp.core.Function_c"); //$NON-NLS-1$
 			supportedList.add("org.xtuml.bp.core.Operation_c"); //$NON-NLS-1$
 			supportedList.add("org.xtuml.bp.core.StateMachineState_c"); //$NON-NLS-1$
+			supportedList.add("org.xtuml.bp.core.TerminatorService_c"); //$NON-NLS-1$
 		}
 		return supportedList;
 	}

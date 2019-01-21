@@ -1,0 +1,1200 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'Terminator Service',
+	1652,
+	'D_TSVC',
+	'Import: java.util.Vector; import org.xtuml.bp.core.util.DimensionsUtil',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getSignature',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'/**
+ *  Return a string representation of this functions signature
+ *  with the specified flavor
+ *  0 = named parameters
+ *  1 = positional parameters
+ *  2 = signature with labels for content assist
+ *  3 = signature without parameters for content assist
+ *  named signature = return_type function(param1:type, param2:type, param3:type)
+ *  parameters for the named flavor are sorted alphanumerically
+ *  positional signature = return_type function(param1_type, param2_type, param3_type)
+ */
+ 
+signature = "";
+
+if ( 2 != param.flavor and 3 != param.flavor )
+  // Get return type
+  select one returntype related by self->S_DT[R1656];
+  signature = signature + returntype.Name + " ";
+  signature = signature + "void ";
+end if;
+ 
+// Get name
+signature = signature + self.Name;
+
+// Get parameters
+
+if ( 1 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->D_TSPARM[R1652];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->D_TSPARM[R1654.''succeeds''];
+  end while;
+
+  if( not_empty first_param )
+	signature = signature + "(";
+  end if;
+  separator = "";
+  parameter = first_param;
+  while ( not_empty parameter )
+	select one type related by parameter->S_DT[R1653];
+	signature = signature + separator + type.Name;
+	separator = ", ";
+	select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
+  end while;
+  if( not_empty first_param )
+	signature = signature + ")";
+  end if;
+
+elif ( 0 == param.flavor )
+
+  // get the parameters in sorted order
+  separator = "";
+  select many parameters related by self->D_TSPARM[R1652];
+  num_params = cardinality parameters; 
+  if ( num_params > 0 )
+	signature = signature + "(";
+  end if;
+
+  // the following time complexity is n^2
+  count = 0;
+  select any last_param from instances of D_TSPARM where false;
+  select any curr_param from instances of D_TSPARM where false;
+  while ( count < num_params )
+    for each parameter in parameters
+      if ( ( empty curr_param and empty last_param )
+           or ( empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name )
+           or ( not_empty curr_param and empty last_param and parameter.Name < curr_param.Name )
+           or ( not_empty curr_param and not_empty last_param and parameter != last_param and parameter.Name >= last_param.Name and parameter.Name < curr_param.Name ) )
+        curr_param = parameter;
+      end if;
+    end for;
+    
+    select one type related by curr_param->S_DT[R1653];
+    signature = signature + separator + curr_param.Name + ":" + type.Name;
+    separator = ", ";
+
+    last_param = curr_param;
+    select any curr_param from instances of D_TSPARM where false;
+    count = count + 1;
+  end while;
+
+  if ( num_params > 0 )
+	signature = signature + ")";
+  end if;
+  
+elif ( 2 == param.flavor )
+
+  // Get the first parameter.
+  select any parameter related by self->D_TSPARM[R1652];
+  first_param = parameter;
+  while ( not_empty parameter )
+	first_param = parameter;
+	select one parameter related by parameter->D_TSPARM[R1654.''succeeds''];
+  end while;
+
+  signature = signature + "(";
+  separator = " ";
+  parameter = first_param;
+  while ( not_empty parameter )
+    signature = signature + separator + parameter.Name + ":";
+	separator = ", ";
+	select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
+  end while;
+  if( not_empty first_param )
+    signature = signature + " ";
+  end if;
+  signature = signature + ")";
+
+elif ( 3 == param.flavor )
+
+  signature = signature + "()";
+  
+end if;
+
+return signature;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("4b6b1b55-e3d1-4e6d-bc59-aee7b083dea4",
+	"4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
+	'flavor',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9524261a-9215-4a3c-b524-cb85848a6de0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many service_params related by self->D_TSPARM[R1652];
+for each service_param in service_params
+  unrelate service_param from self across R1652;
+  service_param.dispose();
+end for;
+
+select one dt related by self->S_DT[R1656];
+unrelate self from dt across R1656;
+
+select many dims related by self->S_DIM[R1657];
+for each dim in dims
+  unrelate self from dim across R1657;
+  delete object instance dim;
+end for;
+
+select one terminator related by self->D_TERM[R1651];
+if (not_empty terminator)
+  unrelate self from terminator across R1651;
+end if;
+
+delete object instance self;',
+	1,
+	'',
+	"4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
+	0);
+INSERT INTO O_TFR
+	VALUES ("1bde8527-d786-4434-be87-62643a4f9cff",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getPath',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one terminator related by self->D_TERM[R1651];
+select one deployment related by terminator->D_DEPL[R1650];
+select one packageableElem related by deployment->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+result="";
+  if (not_empty package)
+    result=package.getPath(path:deployment.Name + "::" + terminator.Name + "::" + self.Name);
+  else
+    result=component.getPath(path:deployment.Name + "::" + terminator.Name + "::" + self.Name, includeSelf:true);
+  end if;
+return result;',
+	1,
+	'',
+	"9524261a-9215-4a3c-b524-cb85848a6de0",
+	0);
+INSERT INTO O_TFR
+	VALUES ("6b2a0206-bed5-4069-81ed-749529fad60e",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'createServiceParameterFromPropertyParameter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'c_pp = param.c_pp;
+
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
+end if;
+parameter.Name = c_pp.Name;
+parameter.By_Ref = c_pp.By_Ref;
+parameter.Dimensions = c_pp.Dimensions;
+parameter.Descrip = c_pp.Descrip;
+
+// link data type
+select one s_dt related by c_pp->S_DT[R4007];
+select one depl related by self->D_TERM[R1651]->D_DEPL[R1650];
+type_ref = depl.addTypeReference( s_dt:s_dt );
+select one existing_type related by parameter->S_DT[R1653];
+if (not_empty existing_type)
+  unrelate existing_type from parameter across R1653;
+end if;
+relate type_ref to parameter across R1653;
+
+// resolve dimensions
+parameter.parseDimensions();',
+	1,
+	'',
+	"1bde8527-d786-4434-be87-62643a4f9cff",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("08896123-2c41-4248-b7f1-e914b966af3a",
+	"6b2a0206-bed5-4069-81ed-749529fad60e",
+	'c_pp',
+	"14ba955b-ae85-45c4-b8b9-735d54850c34",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("14ba955b-ae85-45c4-b8b9-735d54850c34",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Property Parameter>',
+	'',
+	'',
+	'../../Component/Component.xtuml');
+INSERT INTO O_TFR
+	VALUES ("fed8e95f-1c10-450d-8240-4db17f14d865",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'canReferToDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'// select the dt
+select one dt related by self->S_DT[R1656];
+if(not_empty dt)
+  select one packageableElem related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001];
+    return packageableElem.canReferToDataType(dtID:dt.DT_ID, dtName: dt.Name);
+end if;
+return false;
+',
+	1,
+	'',
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	0);
+INSERT INTO O_TFR
+	VALUES ("479c5167-4028-41fc-b68b-1ab4da321eea",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"fed8e95f-1c10-450d-8240-4db17f14d865",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("14c4956e-3eae-436a-ab8b-2eadc298d07f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getReturnDimensionsCnt',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many dims related by self->S_DIM[R1657];
+dimensions = cardinality dims;
+return dimensions;
+',
+	1,
+	'',
+	"479c5167-4028-41fc-b68b-1ab4da321eea",
+	0);
+INSERT INTO O_TFR
+	VALUES ("ec7addcc-d324-4dd7-a08e-ad6f3c1f3b43",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'get_ooa_id',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'return self.Svc_ID;',
+	1,
+	'',
+	"14c4956e-3eae-436a-ab8b-2eadc298d07f",
+	0);
+INSERT INTO O_TFR
+	VALUES ("108ffc97-0484-4244-a5b3-9f03be64ed44",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'isAllowedReturnType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'// Function.isAllowedReturnType()
+select one packageableElem related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001];
+
+  if self.getReturnDimensionsCnt() != 0 and param.typeName == "void"
+    return false;
+  else
+    return packageableElem.isAllowedType(isReturnType:true,
+                                                       typeName:param.typeName);
+  end if;
+',
+	1,
+	'',
+	"ec7addcc-d324-4dd7-a08e-ad6f3c1f3b43",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("94e08efd-c52d-4697-beac-1e39c1de1dc4",
+	"108ffc97-0484-4244-a5b3-9f03be64ed44",
+	'typeName',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b524f496-d6d7-42cf-91ac-75206bcec545",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'isReferringToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one dt related by self->S_DT[R1656];
+elementType = Util::getSimpleClassName(element:self.convertToInstance());
+if(dt.Name == S_DT::getDefaultDataTypeName(elementType:elementType))
+  return true;
+end if;
+return false;
+',
+	1,
+	'',
+	"108ffc97-0484-4244-a5b3-9f03be64ed44",
+	0);
+INSERT INTO O_TFR
+	VALUES ("8595a6b5-ee2b-48e2-9abd-389d3cb30192",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'isVoid',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one dt related by self->S_DT[R1656];
+return dt.Name == "void";',
+	1,
+	'',
+	"b524f496-d6d7-42cf-91ac-75206bcec545",
+	0);
+INSERT INTO O_TFR
+	VALUES ("783b5fa0-622c-4edd-a216-6fa95605de66",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'resizeReturn_Dimensions',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// If the number of dimensions has increased then add dimensions
+while (param.numDimensions > self.getReturnDimensionsCnt())
+  create object instance dim of S_DIM;
+  dim.dimensionCount = self.getReturnDimensionsCnt();
+  relate dim to self across R1657;
+end while;
+
+// If the number of dimensions has decreased then remove dimensions
+while (param.numDimensions < self.getReturnDimensionsCnt())
+  select any dim related by self->S_DIM[R1657] where (selected.dimensionCount == (self.getReturnDimensionsCnt()-1));
+  unrelate dim from self across R1657;
+  delete object instance dim;
+end while;
+
+// Update the specific dimension that was passed-in if its elementCount has 
+// changed.
+if (param.numDimensions > 0) 
+  select any dim related by self->S_DIM[R1657] where (selected.dimensionCount == param.dimension);
+  if (dim.elementCount != param.elementCount)
+    dim.elementCount = param.elementCount;
+  end if;
+end if;
+',
+	1,
+	'',
+	"8595a6b5-ee2b-48e2-9abd-389d3cb30192",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d3c812fe-af58-4026-88ef-86456102b16f",
+	"783b5fa0-622c-4edd-a216-6fa95605de66",
+	'dimension',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("25af5e42-6629-46fe-bab7-0a4e696664a6",
+	"783b5fa0-622c-4edd-a216-6fa95605de66",
+	'elementCount',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"d3c812fe-af58-4026-88ef-86456102b16f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4c20f22d-038a-4e93-a0a6-aeb8fe7cf998",
+	"783b5fa0-622c-4edd-a216-6fa95605de66",
+	'numDimensions',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"25af5e42-6629-46fe-bab7-0a4e696664a6",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6cd3f6c2-f6c8-4b05-b4fb-0f4d8755f7a3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'resolveDatatype',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one dtProxy related by self->S_DT[R1656];
+if(not_empty dtProxy and not Util::isProxy(element:self.convertToInstance()))
+  name = dtProxy.Name;
+  unrelate dtProxy from self across R1656;
+  
+  select one packageableElem related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+
+    id = packageableElem.resolveDataTypeRelativeToSelf(default_name:"void",
+                                                            expected_name:name);                                                          
+    select any resolvedDt related by package->PE_VIS[R8002]->
+                         PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == id;
+    if (empty resolvedDt)
+      select any resolvedDt related by component->PE_CVS[R8004]->
+                       PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == id;
+    end if;	
+    if not_empty resolvedDt
+      relate resolvedDt to self across R1656;
+    end if;
+end if;',
+	1,
+	'',
+	"783b5fa0-622c-4edd-a216-6fa95605de66",
+	0);
+INSERT INTO O_TFR
+	VALUES ("8351ab37-8295-4e1f-9619-d650b927a837",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getContainingComponentId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'  select one package related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->EP_PKG[R8000];
+  select one component related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->C_C[R8003];
+  if not_empty package
+    return package.getContainingComponentId();
+  end if;
+  if not_empty component
+    return component.Id;
+  end if;
+  USER::logError(msg:"Function has no parent in Function.getContainingComponentId()",path:self.getPath());
+  return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"6cd3f6c2-f6c8-4b05-b4fb-0f4d8755f7a3",
+	0);
+INSERT INTO O_TFR
+	VALUES ("3ccfbe1c-d2f5-4b09-a422-440348e98c98",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'canUseDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'// Function.canUseDataType()
+select one packageableElem related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+
+  // Find the previously created visibility list
+  select any resultSet related by package->PE_SRS[R8005] where
+        selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
+  select any dt related by resultSet->PE_VIS[R8006]->
+                     PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == param.id;
+  if not_empty component
+    // Find the previously created visibility list
+    select any compResultSet related by component->PE_CRS[R8007] where
+        selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
+    select any dt related by compResultSet->PE_CVS[R8008]->
+                     PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == param.id;
+  end if;
+  if(not_empty dt)
+    if(self.isAllowedReturnType(typeName:dt.Name))
+      return true;
+    end if;
+  end if;
+  return false;
+',
+	1,
+	'',
+	"8351ab37-8295-4e1f-9619-d650b927a837",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("6d074281-0076-42e4-b2e0-2a4e0c5bcfe5",
+	"3ccfbe1c-d2f5-4b09-a422-440348e98c98",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1cef9569-6751-4a54-b623-10a3bb926a65",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'getContainerId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'// Function.getContainerId()
+select one component related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->C_C[R8003];
+if not_empty component
+  return component.Id;
+else
+  select one package related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->EP_PKG[R8000];
+  if not_empty package
+    return package.Package_ID;
+  end if;
+end if;
+return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"3ccfbe1c-d2f5-4b09-a422-440348e98c98",
+	0);
+INSERT INTO O_TFR
+	VALUES ("c7b0bf34-80f9-4b5f-a864-a399ec60a7e7",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'setToDefaultDataType',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'elementType = Util::getSimpleClassName(element:self.convertToInstance());
+defaultTypeName = S_DT::getDefaultDataTypeName(elementType:elementType);
+
+select one system related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if not_empty system
+  // Unhook from the current data type (if any)
+  select one currentDt related by self->S_DT[R1656];
+  if ( not_empty currentDt )
+    unrelate self from currentDt across R1656;
+  end if;
+  // Now connect to the default type
+  dt_id = system.getCoreTypeId(name:defaultTypeName);
+  select any pe from instances of PE_PE where selected.Element_ID == dt_id;
+  select one defaultDt related by pe->S_DT[R8001]; 
+  relate self to defaultDt across R1656;
+else
+  // this is an error, if the system is not
+  // found we cannot find the core type
+  USER::logError(msg:"Unable to locate system root for data type: " + defaultTypeName,path:"");
+end if;
+',
+	1,
+	'',
+	"1cef9569-6751-4a54-b623-10a3bb926a65",
+	0);
+INSERT INTO O_TFR
+	VALUES ("cc2b58c8-d9a7-44fc-9a34-31ffe194e517",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'downgradeCheck',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'isVisible = self.canReferToDataType();
+if ( not isVisible )
+  select one s_dt related by self->S_DT[R1656];
+  Util::reportElementDowngraded(rto:s_dt.convertToInstance(), rgoDowngraded:self.convertToInstance(), relationship:"R1656");
+  self.setToDefaultDataType();
+end if;
+
+// Check service parameters
+select many d_tsparms related by self->D_TSPARM[R1652];
+for each d_tsparm in d_tsparms
+  d_tsparm.downgradeCheck();
+end for;',
+	1,
+	'',
+	"c7b0bf34-80f9-4b5f-a864-a399ec60a7e7",
+	0);
+INSERT INTO O_TFR
+	VALUES ("f0a20d4b-9dd2-4e18-9d6f-53b82dd4a18b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'parseReturn_Dimensions',
+	'A utility operation to update the dimension instances
+from the current dimension string.
+
+Translate: native',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'Vector dims = DimensionsUtil.getDimensionsData(this.getReturn_dimensions(), this);
+if (dims.size() > 0) {          
+    for (int i = 0; i < dims.size(); i++) {
+        int numElements = ((Integer)dims.get(i)).intValue();
+        this.Resizereturn_dimensions(i, numElements, dims.size());
+    }
+} else {
+    this.Resizereturn_dimensions(0, 0, 0);
+}',
+	0,
+	'',
+	"cc2b58c8-d9a7-44fc-9a34-31ffe194e517",
+	0);
+INSERT INTO O_TFR
+	VALUES ("1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'createServiceParameterFromSMASL',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'param_name = param.param_name;
+param_direction = param.param_direction;
+smasl_iterator = param.smasl_iterator;
+
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
+end if;
+parameter.Name = param_name;
+if ( "in" == param_direction )
+  parameter.By_Ref = 0;
+else
+  parameter.By_Ref = 1;
+end if;
+parameter.Dimensions = "";
+parameter.Descrip = "";
+
+// set parameter type
+smasl = Util::getNextString( string_iterator:smasl_iterator );
+while ( "" != smasl )
+  element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
+  the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
+  if ( "typeref" == element )
+    type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    select one term related by self->D_TERM[R1651];
+    select one depl related by term->D_DEPL[R1650];
+    select one parent_package related by depl->PE_PE[R8001]->EP_PKG[R8000];
+    select any shared_package related by parent_package->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == "Shared" );
+    select any type_ref related by shared_package->PE_PE[R8000]->S_DT[R8001] where ( selected.Name == term.Domain_Name + "::" + type_name );
+    if (empty type_ref)
+      select one s_sys related by parent_package->S_SYS[R1405];
+      dt_id = s_sys.getCoreTypeId(name:type_name);
+      select any type_ref from instances of S_DT where ( selected.DT_ID == dt_id );
+      if (empty type_ref)
+        type_ref = depl.createTypeReference( type_name:type_name );
+      end if;
+    end if;
+    select one existing_type related by parameter->S_DT[R1653];
+    if (not_empty existing_type)
+      unrelate existing_type from parameter across R1653;
+    end if;
+    relate type_ref to parameter across R1653;
+  elif ( "parameter" == element and ",,,,,,," == the_rest )
+    break;
+  elif ( "parameter" == element )
+    param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    param_direction = Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:0 );
+    if ( "" != param_name )
+      self.createServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
+    end if;
+  else
+    // ignore line
+  end if;
+  smasl = Util::getNextString( string_iterator:smasl_iterator );
+end while;',
+	1,
+	'',
+	"6b2a0206-bed5-4069-81ed-749529fad60e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("94bdcb9c-012c-43e6-9432-cbf04c6078d7",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'param_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c2bb2104-15c9-4c57-b4df-9c51fa68cd64",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'param_direction',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"94bdcb9c-012c-43e6-9432-cbf04c6078d7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2f498ae1-5dd7-4335-b8c1-0af23c652cab",
+	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	'smasl_iterator',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"c2bb2104-15c9-4c57-b4df-9c51fa68cd64",
+	'');
+INSERT INTO O_TFR
+	VALUES ("843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'mergeWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'd_tsvc = param.d_tsvc;
+
+// update attribute values
+self.Name = d_tsvc.Name;
+self.Descrip = self.Descrip + d_tsvc.Descrip;
+// do not replace action semantics
+if (self.Return_Dimensions != d_tsvc.Return_Dimensions)
+  self.Return_Dimensions = d_tsvc.Return_Dimensions;
+  self.resizeReturn_Dimensions(dimension:0, elementCount:0, numDimensions:0);
+  self.parseReturn_Dimensions();
+end if;
+
+// update return type
+select one s_dt related by self->S_DT[R1656];
+select one new_dt related by d_tsvc->S_DT[R1656];
+if (s_dt.DT_ID != new_dt.DT_ID)
+  unrelate s_dt from self across R1656;
+  relate new_dt to self across R1656;
+end if;
+
+// get first parameter
+select any parameter related by self->D_TSPARM[R1652];
+select one prev_parameter related by parameter->D_TSPARM[R1654.''succeeds''];
+while ( not_empty prev_parameter )
+  parameter = prev_parameter;
+  select one prev_parameter related by parameter->D_TSPARM[R1654.''succeeds''];
+end while;
+
+// get first new parameter
+select any new_parameter related by d_tsvc->D_TSPARM[R1652];
+select one prev_parameter related by new_parameter->D_TSPARM[R1654.''succeeds''];
+while ( not_empty prev_parameter )
+  new_parameter = prev_parameter;
+  select one prev_parameter related by new_parameter->D_TSPARM[R1654.''succeeds''];
+end while;
+
+// check each new paramater against old parameters
+while (not_empty parameter)
+  if (not_empty new_parameter)
+    select one next_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+    if (parameter.Name == new_parameter.Name)
+      // merge if the names match
+      parameter.mergeWith(d_tsparm:new_parameter);
+      select one parameter related by parameter->D_TSPARM[R1654.''precedes''];
+    else
+      // otherwise insert before
+      select one next_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+      if (not_empty next_new_parameter)
+        unrelate new_parameter from next_new_parameter across R1654.''precedes'';
+      end if;
+      unrelate new_parameter from d_tsvc across R1652;
+      relate new_parameter to self across R1652;
+      select one prev_param related by parameter->D_TSPARM[R1654.''succeeds''];
+      if (not_empty prev_param)
+        unrelate prev_param from parameter across R1654.''precedes'';
+        relate prev_param to new_parameter across R1654.''precedes'';
+      end if;
+      relate new_parameter to parameter across R1654.''precedes'';
+    end if;
+    new_parameter = next_new_parameter;
+  else
+    // if there are no more new parameters to compare with, dispose the old parameters
+    select one next_parameter related by parameter->D_TSPARM[R1654.''precedes''];
+    parameter.dispose();
+    parameter = next_parameter;
+  end if;
+end while;
+
+// add the left over new parameters at the end
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+while (not_empty new_parameter)
+  select one next_new_parameter related by new_parameter->D_TSPARM[R1654.''precedes''];
+  if (not_empty next_new_parameter)
+    unrelate new_parameter from next_new_parameter across R1654.''precedes'';
+  end if;
+  unrelate new_parameter from d_tsvc across R1652;
+  relate new_parameter to self across R1652;
+  relate new_parameter to last_parameter across R1654.''succeeds'';
+  last_parameter = new_parameter;
+  new_parameter = next_new_parameter;
+end while;
+
+// dispose the merged service
+d_tsvc.dispose();',
+	1,
+	'',
+	"f0a20d4b-9dd2-4e18-9d6f-53b82dd4a18b",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d6f7b3ec-cf23-4626-b782-61793f7e5534",
+	"843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	'd_tsvc',
+	"527c14da-da73-48e3-8f6c-540a679f9b87",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("527c14da-da73-48e3-8f6c-540a679f9b87",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Terminator Service>',
+	'',
+	'',
+	'../Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d8f69a4b-4c87-4d1b-af88-f0057321babb",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'canDelete',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'return self.Is_Stale;',
+	1,
+	'',
+	"843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	0);
+INSERT INTO O_NBATTR
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"00000000-0000-0000-0000-000000000000",
+	'Svc_ID',
+	'',
+	'',
+	'Svc_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
+	"910a3a7e-c1f1-44db-acde-9bfab3e084da",
+	"85be6b12-61ca-40e8-837e-f37000e9d372",
+	"b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	"76b68f7d-2b0d-4bdd-98f6-8bee6fe1fb1b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminator',
+	'Term_ID',
+	'R1651');
+INSERT INTO R_RGO_PROXY
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
+	"910a3a7e-c1f1-44db-acde-9bfab3e084da",
+	'../Deployment.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	"d7cd38c1-56dd-495b-9035-3a0c7b25a804",
+	"85be6b12-61ca-40e8-837e-f37000e9d372",
+	'../Deployment.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	1,
+	'Term_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'../Terminator/Terminator.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	'Term_ID',
+	'',
+	'',
+	'Term_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"b5b2b2c4-5a7b-4d84-bd9e-7112055c4f18",
+	'Name',
+	'Full Name: Terminator Service Name
+readonly:true',
+	'',
+	'Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("68bac2da-c03a-4d0d-a618-2c210b84391a",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("68bac2da-c03a-4d0d-a618-2c210b84391a",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("68bac2da-c03a-4d0d-a618-2c210b84391a",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"1ae1c21d-f4bb-4702-bc7d-bdd9c044c3b0",
+	'Descrip',
+	'Full Name: Terminator Service Description
+Description: A textual description of this terminator service.',
+	'',
+	'Descrip',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a7344bad-3a62-486e-9a28-8d0c3285a506",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("a7344bad-3a62-486e-9a28-8d0c3285a506",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("a7344bad-3a62-486e-9a28-8d0c3285a506",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	'Action_Semantics_internal',
+	'User_Visible:false',
+	'',
+	'Action_Semantics_internal',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9c4950be-cc44-4b42-9347-4b821b1f563b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("9c4950be-cc44-4b42-9347-4b821b1f563b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("9c4950be-cc44-4b42-9347-4b821b1f563b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"12adfc74-a11e-46e7-afbe-868adc88a54e",
+	'Suc_Pars',
+	'Full Name: Successful Parse Indicator
+Description: Indicates the status of the parse for the action specification in the attribute Action_Semantics
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+',
+	'',
+	'Suc_Pars',
+	0,
+	"33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	"00000000-0000-0000-0000-000000000000",
+	'ParseStatus',
+	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"e6d05ec0-af05-4e5f-bdee-6b5be47648b8",
+	'Dialect',
+	'Full Name: Action Dialect',
+	'',
+	'Dialect',
+	0,
+	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
+	"00000000-0000-0000-0000-000000000000",
+	'ActionDialect',
+	'Enumerator for available action dialects',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'self.Action_Semantics = self.Action_Semantics_internal;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("765b61fa-7644-40c9-be3d-3d940e6b95e0",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"68bac2da-c03a-4d0d-a618-2c210b84391a",
+	'Action_Semantics',
+	'Full Name: Action Semantics Field
+Description: Action Semantics for the operation action
+Persistent:false',
+	'',
+	'Action_Semantics',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e6d05ec0-af05-4e5f-bdee-6b5be47648b8",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("e6d05ec0-af05-4e5f-bdee-6b5be47648b8",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("e6d05ec0-af05-4e5f-bdee-6b5be47648b8",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"9c4950be-cc44-4b42-9347-4b821b1f563b",
+	'Return_Dimensions',
+	'Full Name: Return Array Dimensions
+readonly:true',
+	'',
+	'Return_Dimensions',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"7db7f376-22b1-4163-906d-3c62f192efd7",
+	"6d69b41e-fb7f-423c-beb1-4b7cdbd681df",
+	"fa482033-3619-4507-8f95-d11ddfb2b292",
+	"12adfc74-a11e-46e7-afbe-868adc88a54e",
+	"a1ace09d-7a13-4ac6-8743-dc3c21a39909",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R1656');
+INSERT INTO R_RGO_PROXY
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"7db7f376-22b1-4163-906d-3c62f192efd7",
+	"6d69b41e-fb7f-423c-beb1-4b7cdbd681df",
+	'../Deployment.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"7db7f376-22b1-4163-906d-3c62f192efd7",
+	"fa482033-3619-4507-8f95-d11ddfb2b292",
+	'../Deployment.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("12adfc74-a11e-46e7-afbe-868adc88a54e",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("12adfc74-a11e-46e7-afbe-868adc88a54e",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"a7344bad-3a62-486e-9a28-8d0c3285a506",
+	'DT_ID',
+	'',
+	'',
+	'DT_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dfe24000-1823-476d-bf63-748428ea419f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("dfe24000-1823-476d-bf63-748428ea419f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("dfe24000-1823-476d-bf63-748428ea419f",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"6951f0f4-4c62-4e09-a78d-dcfd4d4b5428",
+	'Is_Stale',
+	'User_Visible:false',
+	'',
+	'Is_Stale',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_OIDA
+	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	0,
+	'Svc_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ID
+	VALUES (2,
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO PE_PE
+	VALUES ("04ce6ea5-f98b-4779-91c0-2417b128e576",
+	1,
+	"de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Deployment',
+	'',
+	0,
+	'../Deployment.xtuml');

@@ -36,6 +36,7 @@ import org.eclipse.ui.ide.IDE;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
@@ -78,6 +79,22 @@ public class Generator extends Task {
 
         // get the system
         SystemModel_c sys = (SystemModel_c)pack.getRoot();
+        
+        // export the project
+        exportMASL(sys, MASL_PROJECT, names);
+    }
+
+    public static void exportProject(Deployment_c deployment) {
+        if (self == null) {
+            self = new Generator();
+        }
+
+        // get the package name
+        String[] names = new String[1];
+        names[0] = deployment.getName();
+
+        // get the system
+        SystemModel_c sys = (SystemModel_c)deployment.getRoot();
         
         // export the project
         exportMASL(sys, MASL_PROJECT, names);

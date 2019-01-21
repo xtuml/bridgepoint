@@ -428,8 +428,9 @@ super.toString\
   .for each attr in attrs
     .invoke ssa = show_simple_attr( attr )
     .if ( ssa.result )
+      .assign readonly = "$l{attr.Descrip:readonly}"
       .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]
-      .if ( empty dbattr )
+      .if ( ( empty dbattr ) and ( "true" != readonly ) )
         .assign aa = "set$cr{attr.Name}"
         ${else_stmt}if (id.equals("${attr.Name}"))
         {
