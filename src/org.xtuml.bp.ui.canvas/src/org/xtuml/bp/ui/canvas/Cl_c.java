@@ -92,6 +92,7 @@ import org.xtuml.bp.core.ObjectNode_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
@@ -1503,6 +1504,25 @@ public class Cl_c {
 	
 	            result = Satisfaction_c.SatisfactionInstance(modelRoot,
 	                    new Satisfaction_Query_c());
+            }
+            return result;
+        } else if (Ooa_type == Ooatype_c.Deployment) {
+            Object result = modelRoot.getInstanceList(Deployment_c.class).get(
+                    Ooa_id);
+            if (result == null) {
+	            class Deployment_Query_c implements ClassQueryInterface_c {
+	                public boolean evaluate(Object candidate) {
+	                    if (((Deployment_c) candidate).Get_ooa_id().equals(
+	                            Ooa_id)) {
+	                        return true;
+	                    }
+	
+	                    return false;
+	                }
+	            }
+	
+	            result = Deployment_c.DeploymentInstance(modelRoot,
+	                    new Deployment_Query_c());
             }
             return result;
         } else {

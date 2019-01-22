@@ -160,7 +160,28 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 			}
 		}
 	  .end if
-	return elementList.toArray(new ${cn.body}[elementList.size()]);
-  } // end getElements(${contextClName.body}) 
+    .assign type_to_choose = "item"
+    .if ("" != cme.TypeToChoose)
+      .assign type_to_choose = cme.TypeToChoose
+    .end if
+        Preferences projectPrefs = new ProjectScope((IProject) sys.getAdapter(IProject.class)).getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+        boolean iprsEnabled = projectPrefs.getBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
+                false);
+        if (!iprsEnabled && elementList.isEmpty()) {
+            boolean enableIprs = MessageDialog.openQuestion(
+                    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Enable IPRs?",
+                    "No ${type_to_choose}s found in visibility. Enable inter-project model references and try again?");
+            if (enableIprs) {
+                try {
+                    projectPrefs.putBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
+                    projectPrefs.flush();
+                } catch (BackingStoreException e) {
+                    CorePlugin.logError("Failed to set IPR preference.", e);
+                }
+                return getElements(v_element);
+            }
+        }
+        return elementList.toArray(new ${cn.body}[elementList.size()]);
+    } // end getElements(${contextClName.body}) 
 	.end if
 .end function

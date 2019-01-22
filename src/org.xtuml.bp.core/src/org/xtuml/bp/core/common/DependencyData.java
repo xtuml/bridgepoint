@@ -1,13 +1,16 @@
 package org.xtuml.bp.core.common;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
@@ -19,13 +22,14 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 
 public class DependencyData implements IDependencyProvider {
 
     private static final String DEPENDENCY_FILE = ".dependencies";
-    private static final String PATH_SEPARATOR = "/";
 
     private static DependencyData defaultInstance = null;
 
@@ -71,6 +75,31 @@ public class DependencyData implements IDependencyProvider {
             }
         }
     }
+
+	
+	/**
+	 * @param project Project handle for which to get dependencies
+	 * @param dependency A string dependency to add to the dependencies
+	 * Add a single dependency
+	 */
+	@Override
+	public void addDependency(IProject project, String dependency) {
+		Set<String> deps = new HashSet<>(getRawDependencies(project));
+		deps.add(dependency);
+		setDependencies(project, deps.toArray(new String[0]));
+	}
+
+	/**
+	 * @param project Project handle for which to get dependencies
+	 * @param dependency A domain to add to the dependencies
+	 * Add a dependency to a domain in the workspace. This adds a dependency
+	 * on the generated ".int" file in the "models" directory of the project.
+	 */
+	@Override
+	public void addDependency(IProject project, Component_c dependency) {
+		IPath intFileLocation = dependency.getPersistableComponent().getFile().getFullPath().removeLastSegments(1).append(dependency.getName()).addFileExtension("int");
+		addDependency(project, "WORKSPACE_LOC" + intFileLocation.toString());
+	}
 
     /**
      * @param project Project handle for which to check dependency version
@@ -122,7 +151,7 @@ public class DependencyData implements IDependencyProvider {
         Scanner inFile = new Scanner("");
         
         try {
-            inFile = new Scanner(new FileReader(project.getLocation().toString() + PATH_SEPARATOR + DEPENDENCY_FILE));
+            inFile = new Scanner(new FileReader(project.getLocation().toString() + File.separator + DEPENDENCY_FILE));
             inFile.useDelimiter("\\r|\\n");
         } catch (FileNotFoundException fnfe) {
             // Don't throw an error.  User may never have created the file yet.
@@ -161,7 +190,7 @@ public class DependencyData implements IDependencyProvider {
                 populateDependencies(project, dependencyList, commentList);
             }
             
-            FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + PATH_SEPARATOR + DEPENDENCY_FILE);
+            FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + File.separator + DEPENDENCY_FILE);
             PrintStream stream = new PrintStream(fout);
             
             // Persist the new dependencies

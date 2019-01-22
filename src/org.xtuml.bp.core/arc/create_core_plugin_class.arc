@@ -625,6 +625,20 @@ public class CorePlugin extends AbstractUIPlugin {
     else if (objectName.equals("Operation_cInstanceBased")) {
     	descriptor = getImageDescriptor("metadata/InstanceBasedOperation.gif");
     }
+    .elif (class_name.body == "TerminatorService_c")
+    else if (objectName.equals("TerminatorService_cProvided")) {
+    	descriptor = getImageDescriptor("metadata/ProvidedTerminatorService.gif");
+    }
+    else if (objectName.equals("TerminatorService_cRequired")) {
+    	descriptor = getImageDescriptor("metadata/TerminatorService.gif");
+    }
+    .elif (class_name.body == "Terminator_c")
+    else if (objectName.equals("Terminator_cProvided")) {
+    	descriptor = getImageDescriptor("metadata/ProvidedTerminator.gif");
+    }
+    else if (objectName.equals("Terminator_cRequired")) {
+    	descriptor = getImageDescriptor("metadata/Terminator.gif");
+    }
     .else
       .if (first tree_nodes)
             if (objectName.equals("${class_name.body}")) {
@@ -728,6 +742,18 @@ public class CorePlugin extends AbstractUIPlugin {
       }
       if (object instanceof Operation_c && ((Operation_c)object).getInstance_based() == Scope_c.Instance ) {
         name += "InstanceBased";
+      }
+      if (object instanceof TerminatorService_c && Terminator_c.getOneD_TERMOnR1651((TerminatorService_c)object).getProvider() ) {
+        name += "Provided";
+      }
+      if (object instanceof TerminatorService_c && !(Terminator_c.getOneD_TERMOnR1651((TerminatorService_c)object).getProvider()) ) {
+        name += "Required";
+      }
+      if (object instanceof Terminator_c && ((Terminator_c)object).getProvider() ) {
+        name += "Provided";
+      }
+      if (object instanceof Terminator_c && !(((Terminator_c)object).getProvider()) ) {
+        name += "Required";
       }
       return name;
     } 
