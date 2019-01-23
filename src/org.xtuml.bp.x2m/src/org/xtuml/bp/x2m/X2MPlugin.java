@@ -13,7 +13,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.xtuml.bp.x2m.refresher.MASLEditorPartListener;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -75,30 +74,6 @@ public class X2MPlugin extends AbstractUIPlugin implements IStartup {
     }
     
     public void earlyStartup() {
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		workbench.getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-				IWorkbenchPage page = null;
-				if (window != null) {
-					page = window.getActivePage();
-				}
-
-				if (page == null) {
-					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-					for (int i = 0; i < windows.length; i++) {
-						if (windows[i] != null) {
-							window = windows[i];
-							page = windows[i].getActivePage();
-							if (page != null)
-								page.addPartListener((IPartListener2) new MASLEditorPartListener());
-						}
-					}
-				} else {
-					page.addPartListener((IPartListener2) new MASLEditorPartListener());
-				}
-			}
-		});
 
     }
     

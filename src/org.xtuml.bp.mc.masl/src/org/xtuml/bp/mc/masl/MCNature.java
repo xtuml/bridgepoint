@@ -12,7 +12,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractNature;
-import org.xtuml.bp.utilities.build.BuilderManagement;
 
 public class MCNature extends AbstractNature {
     // The shared instance
@@ -23,14 +22,8 @@ public class MCNature extends AbstractNature {
      */
     public static final String MC_NATURE_ID = "org.xtuml.bp.mc.masl.MCNature"; //NON-NLS-1
 
-    /**
-     * identifier of this nature in plugin.xml - (concatenate
-     * pluginid.exportbuilderid)
-     */
-    public static final String EXPORT_BUILDER_ID = "org.xtuml.bp.mc.masl.export_builder"; //NON-NLS-1
-
     public MCNature() {
-        super(Activator.getDefault(), EXPORT_BUILDER_ID);
+        super(Activator.getDefault(), MaslExportBuilder.BUILDER_ID);
         singleton = this;
     }
 
@@ -52,21 +45,11 @@ public class MCNature extends AbstractNature {
     }
 
     private void configureBuilders() throws CoreException {
-        // Get project description and then the associated build commands
         IProjectDescription desc = getProject().getDescription();
         List<ICommand> commands = new ArrayList<>(Arrays.asList(desc.getBuildSpec()));
-        
-        // add builder to project
         ICommand command = desc.newCommand();
         command.setBuilderName(MaslExportBuilder.BUILDER_ID);
         commands.add(0, command);
-
-        // Determine if pre-builder already associated
-        if (BuilderManagement.hasBuilder(getProject(), EXPORT_BUILDER_ID) == -1) {
-            command = desc.newCommand();
-            command.setBuilderName(EXPORT_BUILDER_ID);
-            commands.add(0, command);
-        }
         desc.setBuildSpec(commands.toArray(new ICommand[0]));
         getProject().setDescription(desc, null);
     }
