@@ -95,12 +95,52 @@ to stop populating the map:
 
 ### 6. Implementation Comments
 
-None.  
+6.1  With the changes in place, the function shown in the Background section
+now looks like:  
+```java
+    private void createR_RGO(Ooaofooa modelRoot, String table, Vector parms, Vector rawParms, int numParms,
+            IProgressMonitor pm) {
+        ReferringClassInAssoc_c newInst = null;
+        if (table.equalsIgnoreCase("R_RGO")) { //$NON-NLS-1$
+            newInst = ReferringClassInAssoc_c.resolveInstance(modelRoot,
+                    IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+                    IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+                    IdAssigner.createUUIDFromString((String) parms.elementAt(2)));
+            pm.worked(1);
+            metadata.setComponentOfME(newInst, m_component);
+            loadedInstances.add(newInst);
+        } else if (table.equalsIgnoreCase("R_RGO_PROXY")) //$NON-NLS-1$
+        {
+            String path = (String) parms.lastElement();
+            newInst = ReferringClassInAssoc_c.createProxy(modelRoot,
+                    IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
+                    IdAssigner.createUUIDFromString((String) parms.elementAt(1)),
+                    IdAssigner.createUUIDFromString((String) parms.elementAt(2)), removeTics(path), projRelPath);
+            if (newInst.isProxy()) {
+                loadedInstances.add(newInst);
+                pm.worked(1);
+            }
+        }
+    }
+```  
 
 ### 7. Unit Test
 
 7.1  Diff code in affected plugins and make sure all file changes are expected.  
+  Diff must be done by visual inspection because there is inconsistent ordering of output
+  in the generated files.  
+  
 7.2  Run all unit tests on server and verify results are similar to a recent nightly build with test.  
+The server branch build had 6 more test failures than the most recent nightly build.  These were analyzed 
+and none deemed induced by the changes in this work.  Results of running Junit tests for latest nightly 
+build (server), this branch (server), and this branch (local).  Only suites with differences are shown.  
+
+| Test suite  | Nightly (server) | Branch (server) | Branch (local) | Comment | 
+|-------------|------------------|-----------------|----------------|---------|
+|search.test  | 0e/3f            | 0e/5f           | 0e/1f          | There is a UI dialog timing issue in this test that makes it inconsistent. |
+|io.mdl.test.pkgcm| 0e/3f        | 0e/4f           | 0e/0f |  | 
+|io.mdl.test  | 0e/4f            | 0e/5f           |  | The one extra failing test is identified as `testProjectCreationNoImportIntoworkspace` and I was able to run it successfully locally among several tries.  So there is a timing issue in there. |  
+|model.compare.test| 7e/13f      | 7e/15f          |  18e/57f| This suite is known to have issues.  On server, two more tests run in branch than nightly build. Local test has lots of issues.|
 
 ### 8. User Documentation
 
