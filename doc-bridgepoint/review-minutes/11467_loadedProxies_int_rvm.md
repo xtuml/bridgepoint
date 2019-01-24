@@ -4,20 +4,20 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Title goes here
+# Pointless loadProxies map created during import? 
 ### xtUML Project Review Minutes
 
-Reviewed:  
-Present:  
+Reviewed: https://github.com/keithbrown/bridgepoint/blob/11467_loadedProxies/doc-bridgepoint/notes/11467_loadedProxies_int.md  bfa3bc6  
+Present: KB, LS, CS, BM 
 
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   xxx  xxx      xxx
-_- 02  min   xxx  xxx      xxx
-_- 03  min   xxx  xxx      xxx
-_- 04  min   xxx  xxx      xxx
-_- 05  min   xxx  xxx      xxx
+_- 01  min    
+_- 02  min   
+_- 03  min   
+_- 04  min   
+_- 05  min   
 
 </pre>
    
