@@ -430,7 +430,6 @@ public class ${class_name} extends CoreImport
     private boolean IPR_WindowSelection = false;
     private boolean initialCheck = false;
     private List<NonRootModelElement> loadedInstances = new Vector<NonRootModelElement>();
-    private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();
     private List<NonRootModelElement> loadedGraphicsInstances = new Vector<NonRootModelElement>();
     .if(multilevel)
     private PersistableModelComponent m_component;
