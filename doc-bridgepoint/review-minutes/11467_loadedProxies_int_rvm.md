@@ -13,16 +13,11 @@ Present: KB, LS, CS, BM
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min    
-_- 02  min   
-_- 03  min   
-_- 04  min   
-_- 05  min   
+none
 
 </pre>
    
 No major observations, a re-review is not required.
-(or... Major observations were recorded, a re-review is required.)
 
 
 End
