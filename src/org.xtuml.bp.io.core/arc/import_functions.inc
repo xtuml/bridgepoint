@@ -276,10 +276,7 @@ ${setSize.body}
         if (newInst.isProxy()) {
           loadedInstances.add(newInst);
 		  pm.worked(1);
-        } else {
-          loadedProxies.add(newInst);
         }
-        // newInst component is set during createProxy()
       }
     .end if
   }
