@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.ProcessBuilder.Redirect;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -24,14 +21,12 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.mc.AbstractExportBuilder;
+import org.xtuml.bp.x2m.Xtuml2Masl;
 
 public class MaslExportBuilder extends AbstractExportBuilder {
 
     public static final String BUILDER_ID = "org.xtuml.bp.mc.masl.masl_builder";
 
-    private static final String X2M_DIR = "/tools/mc/bin/";
-    private static final String X2M_CMD = "xtuml2masl";
-    private static final String X2M_EXE = "xtumlmc_build";
     private static final String MASL_DIR = "/masl/";
     private static final String LOGFILE = "export.log";
 
@@ -191,70 +186,17 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     private void runExport(IProject project, String projPath, String workingDir, int type, String[] names,
             boolean skipFormat, boolean skipActionLanguage)
             throws IOException, RuntimeException, CoreException, InterruptedException {
-        // Call xtuml2masl
-        String homedir = System.getProperty("eclipse.home.location"); //$NON-NLS-1$
-        homedir = homedir.replaceFirst("file:", ""); //$NON-NLS-1$
-        String bin_dir = homedir + X2M_DIR;
-        String app = bin_dir + X2M_EXE;
-        String directive;
-        if (MASL_PROJECT == type)
-            directive = "-p";
-        else if (MASL_DOMAIN == type)
-            directive = "-d";
-        else
-            return;
-
-        // build the process
-        ArrayList<String> cmd = new ArrayList<String>();
-        cmd.add(app);
-        cmd.add(X2M_CMD);
-        cmd.add("-i");
-        cmd.add(projPath);
-        for (String name : names) {
-            cmd.add(directive);
-            cmd.add(name);
+        Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(workingDir).setEclipseBuild(true).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage);
+        if (MASL_PROJECT == type) {
+            exporter = exporter.setIsDomain(false);
         }
-        cmd.add("-o");
-        cmd.add(workingDir);
-        cmd.add("-e"); // running within eclipse
-        if (skipFormat)
-            cmd.add("-xf"); // skip the formatter
-        if (skipActionLanguage)
-            cmd.add("-xl"); // skip the action language output
-        ProcessBuilder pb = new ProcessBuilder(cmd);
-
-        logfile.println(cmd);
-
-        // set up the environment
-        Map<String, String> env = pb.environment();
-        env.put("MASL_BIN_DIR", bin_dir);
-
-        // set change working dir
-        pb.directory(new File(bin_dir));
-
-        // configure output and error
-        pb = pb.redirectOutput(Redirect.PIPE).redirectError(Redirect.PIPE);
-
-        // start the process
-        Process process = pb.start();
-
-        Process proc = pb.start();
-        Scanner sc = new Scanner(proc.getInputStream());
-        while (sc.hasNextLine()) {
-            logfile.println(sc.nextLine());
-        }
-        sc.close();
-        sc = new Scanner(proc.getErrorStream());
-        while (sc.hasNextLine()) {
-            logfile.println(sc.nextLine());
-        }
-        sc.close();
-        int exitVal = process.exitValue();
-
-        if (exitVal == -1) {
-            RuntimeException re = new RuntimeException("xtuml2masl subprocess failed:");
-            throw re;
-        }
+        PrintStream oldOut = System.out;
+        PrintStream oldErr = System.err;
+        System.setOut(logfile);
+        System.setErr(logfile);
+        exporter.xtuml2masl();
+        System.setOut(oldOut);
+        System.setErr(oldErr);
     }
 
 }
