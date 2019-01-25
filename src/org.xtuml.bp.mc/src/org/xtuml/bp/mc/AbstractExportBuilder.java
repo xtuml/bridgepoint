@@ -97,11 +97,11 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     // direct request by the user for a build or because auto building
     // is turned on.
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, monitor);
+        preBuild(kind, true, monitor);
         return null;
     }
 
-    protected void preBuild(int kind, IProgressMonitor monitor) throws CoreException {
+    protected void preBuild(int kind, boolean parseOnExport, IProgressMonitor monitor) throws CoreException {
         boolean exportNeeded = readyBuildArea(monitor);
         if (m_nature != null) {
             MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(getProject(), m_activator, m_nature);
@@ -113,7 +113,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         //getProject().build(kind, monitor);
         if (exportNeeded) {
             PersistenceManager.getDefaultInstance();
-            exportModel(monitor);
+            exportModel(parseOnExport, monitor);
             getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
         }
     }
@@ -242,7 +242,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     }
 
     // The starting point for the model export chain
-    protected void exportModel(final IProgressMonitor monitor) throws CoreException {
+    protected void exportModel(final boolean parseOnExport, final IProgressMonitor monitor) throws CoreException {
         m_exportedSystems.clear();
         IPath path = getCodeGenFolderPath();
         String destPath = path.toOSString();
@@ -256,7 +256,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
                 });
 
         m_exportedSystems.add(system);
-        exportSystem(system, destPath, monitor, false, "");
+        exportSystem(system, destPath, monitor, false, "", parseOnExport);
     }
 
     public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir, final IProgressMonitor monitor)
