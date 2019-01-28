@@ -30,4 +30,17 @@
   <extension point="org.eclipse.ui.startup">
     <startup class="org.xtuml.bp.mc.masl.Activator"/>
   </extension>
+  <extension
+       point="org.eclipse.ui.propertyPages">
+    <page
+          name="MASL Exporter"
+          class="org.xtuml.bp.mc.masl.preferences.MaslExporterPreferencePage"
+          id="org.xtuml.bp.mc.masl.preferences.MaslExporterPreferencePage">
+       <enabledWhen>
+       <adapt type="org.eclipse.core.resources.IProject">
+            <test property="org.eclipse.core.resources.projectNature" value="org.xtuml.bp.mc.masl.MCNature"/>
+       </adapt>
+       </enabledWhen>
+    </page>
+  </extension>
 </plugin>

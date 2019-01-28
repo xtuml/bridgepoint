@@ -19,5 +19,6 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.masl
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.mc.masl
-Import-Package: org.xtuml.bp.utilities.build,
+Import-Package: org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.utilities.build,
  org.xtuml.bp.x2m
