@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -84,7 +83,7 @@ public class Xtuml2Masl {
         cleanseCmd.add("GD_");
         cleanseCmd.add("DIM_");
         System.out.println(cleanseCmd);
-        Process cleanseProcess = new ProcessBuilder().command(cleanseCmd).redirectOutput(Redirect.INHERIT).redirectError(Redirect.INHERIT).start();
+        Process cleanseProcess = new ProcessBuilder().command(cleanseCmd).start();
         waitForProcess(cleanseProcess, "cleanse");
 
         // build x2m process
@@ -102,7 +101,7 @@ public class Xtuml2Masl {
         }
         x2mCmd.add(name);
         System.out.println(x2mCmd);
-        Process x2mProcess = new ProcessBuilder().command(x2mCmd).redirectError(Redirect.INHERIT).start();
+        Process x2mProcess = new ProcessBuilder().command(x2mCmd).start();
 
         // build masl process
         List<String> maslCmd = new ArrayList<>();
@@ -124,7 +123,7 @@ public class Xtuml2Masl {
         maslCmd.add("-o");
         maslCmd.add(outDir);
         System.out.println(maslCmd);
-        Process maslProcess = new ProcessBuilder().command(maslCmd).redirectError(Redirect.INHERIT).start();
+        Process maslProcess = new ProcessBuilder().command(maslCmd).start();
 
         // pipe inputs and outputs together
         FileInputStream inputFile = new FileInputStream(
@@ -133,9 +132,13 @@ public class Xtuml2Masl {
         FileOutputStream x2mOutputFile = new FileOutputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_OUTPUT);
         connectStreams(true, x2mProcess.getInputStream(), x2mOutputFile, maslProcess.getOutputStream());
+        connectStreams(false, x2mProcess.getErrorStream(), System.out);
+        x2mProcess.getErrorStream().close();
         FileOutputStream maslOutputFile = new FileOutputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + MASL_OUTPUT);
         connectStreams(false, maslProcess.getInputStream(), maslOutputFile, System.out);
+        connectStreams(false, maslProcess.getErrorStream(), System.out);
+        maslProcess.getErrorStream().close();
         maslProcess.getInputStream().close();
         maslOutputFile.close();
 
@@ -170,8 +173,11 @@ public class Xtuml2Masl {
                     formatCmd.add("-o");
                     formatCmd.add(tempLocation.getAbsolutePath());
                     System.out.println(formatCmd);
-                    Process formatProcess = new ProcessBuilder().command(formatCmd).redirectOutput(Redirect.INHERIT).redirectError(Redirect.INHERIT)
-                            .start();
+                    Process formatProcess = new ProcessBuilder().command(formatCmd).start();
+                    connectStreams(false, formatProcess.getInputStream(), System.out);
+                    connectStreams(false, formatProcess.getErrorStream(), System.out);
+                    formatProcess.getErrorStream().close();
+                    formatProcess.getInputStream().close();
                     int exitValue = waitForProcess(formatProcess, "format", false);
                     if (0 == exitValue) {
                         // delete original location

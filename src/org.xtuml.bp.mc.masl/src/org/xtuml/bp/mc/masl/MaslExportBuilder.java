@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -24,19 +25,20 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.mc.AbstractExportBuilder;
+import org.xtuml.bp.mc.masl.preferences.MaslExporterPreferences;
 import org.xtuml.bp.x2m.Xtuml2Masl;
 
 public class MaslExportBuilder extends AbstractExportBuilder {
 
     public static final String BUILDER_ID = "org.xtuml.bp.mc.masl.masl_builder";
 
-    private static final String MASL_DIR = "/masl/";
     private static final String LOGFILE = "export.log";
 
     private static final int MASL_PROJECT = 1;
     private static final int MASL_DOMAIN = 2;
 
     private PrintStream logfile;
+    private Path outputDirectory;
 
     public MaslExportBuilder() {
         super(Activator.getDefault(), MCNature.getDefault());
@@ -47,7 +49,11 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         preBuild(kind, false, monitor);
         final String projPath = getProject().getLocation().toOSString();
-        File outFile = new File(projPath + File.separator + MASL_DIR + File.separator + LOGFILE);
+        outputDirectory = new Path(new MaslExporterPreferences(getProject()).getOutputDestination());
+        if (!outputDirectory.isAbsolute()) {
+            outputDirectory = new Path(projPath + File.separator + outputDirectory.toOSString());
+        }
+        File outFile = new File(outputDirectory.toOSString() + File.separator + LOGFILE);
         if (null != outFile.getParentFile() && !outFile.getParentFile().exists()) {
             outFile.getParentFile().mkdirs();
         }
@@ -126,13 +132,31 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     }
 
     private void exportSystem(boolean refreshBuild) {
-        for (NonRootModelElement element : getDefaultBuildElements(getProject())) {
-            if (element instanceof Deployment_c) {
-                exportProject((Deployment_c) element, refreshBuild);
-            } else if (element instanceof Component_c) {
-                exportDomain((Component_c) element, refreshBuild);
-            } else if (element instanceof Package_c) {
-                exportProject((Package_c) element, refreshBuild);
+        MaslExporterPreferences prefs = new MaslExporterPreferences(getProject());
+        if (prefs.isAutoSelectElements()) {
+            for (NonRootModelElement element : getDefaultBuildElements(getProject())) {
+                if (element instanceof Deployment_c) {
+                    exportProject((Deployment_c) element, refreshBuild);
+                } else if (element instanceof Component_c) {
+                    exportDomain((Component_c) element, refreshBuild);
+                } else if (element instanceof Package_c) {
+                    exportProject((Package_c) element, refreshBuild);
+                }
+            }
+        } else {
+            SystemModel_c s_sys = getSystem();
+            for (UUID id : prefs.getSelectedBuildElements()) {
+                Component_c comp = (Component_c) s_sys.getModelRoot().getInstanceList(Component_c.class)
+                        .getGlobal(s_sys, id);
+                if (null != comp) {
+                    exportDomain(comp, refreshBuild);
+                } else {
+                    Deployment_c depl = (Deployment_c) s_sys.getModelRoot().getInstanceList(Deployment_c.class)
+                            .getGlobal(s_sys, id);
+                    if (null != depl) {
+                        exportProject(depl, refreshBuild);
+                    }
+                }
             }
         }
     }
@@ -189,7 +213,7 @@ public class MaslExportBuilder extends AbstractExportBuilder {
             if (refreshBuild) {
                 path = outputPath;
             } else {
-                path = new Path(projPath + File.separator + MASL_DIR);
+                path = outputDirectory;
             }
             final String destPath = path.toOSString();
 
@@ -197,7 +221,10 @@ public class MaslExportBuilder extends AbstractExportBuilder {
                 path.toFile().mkdir();
             }
             try {
-                runExport(project, projPath, destPath, export_type, names, refreshBuild, refreshBuild);
+                MaslExporterPreferences prefs = new MaslExporterPreferences(getProject());
+                boolean skipFormat = refreshBuild || !prefs.isFormatOutput();
+                boolean skipActionLanguage = refreshBuild || !prefs.isEmitActivities();
+                runExport(project, projPath, destPath, export_type, names, skipFormat, skipActionLanguage);
                 project.refreshLocal(IResource.DEPTH_INFINITE, null);
             } catch (IOException | RuntimeException | CoreException | InterruptedException e) {
                 CorePlugin.logError("Error.  MASL export failed: " + e.getMessage(), e);
@@ -217,12 +244,11 @@ public class MaslExportBuilder extends AbstractExportBuilder {
         }
     }
 
-    private void runExport(IProject project, String projPath, String workingDir, int type, String[] names,
+    private void runExport(IProject project, String projPath, String outDir, int type, String[] names,
             boolean skipFormat, boolean skipActionLanguage)
             throws IOException, RuntimeException, CoreException, InterruptedException {
-        Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0])
-                .setOutputDirectory(workingDir).setEclipseBuild(true).setSkipFormat(skipFormat)
-                .setSkipActionLanguage(skipActionLanguage);
+        Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(outDir)
+                .setEclipseBuild(true).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage);
         if (MASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }
@@ -233,6 +259,11 @@ public class MaslExportBuilder extends AbstractExportBuilder {
         exporter.xtuml2masl();
         System.setOut(oldOut);
         System.setErr(oldErr);
+    }
+
+    private SystemModel_c getSystem() {
+        return SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
+                (selected) -> ((SystemModel_c) selected).getName().equals(getProject().getName()));
     }
 
 }
