@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -20,6 +22,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.x2m.Xtuml2Masl;
 
@@ -53,31 +56,49 @@ public class MaslExportBuilder extends AbstractExportBuilder {
         } catch (FileNotFoundException e) {
             logfile = System.out;
         }
-        SystemModel_c sys = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
-                (selected) -> ((SystemModel_c) selected).getName().equals(getProject().getName()));
         if (null != args && "true".equals(args.get("refreshBuild"))) {
-            if (null != sys) {
-                exportSystem(sys, true);
-            }
+            exportSystem(true);
         } else {
-            if (null != sys) {
-                exportSystem(sys, false);
-            }
+            exportSystem(false);
         }
         return null;
     }
 
-    private void exportSystem(SystemModel_c sys, boolean refreshBuild) {
-        // select many topLevelPkgs related by sys->EP_PKG[R1401]
-        Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(sys);
+    public static List<NonRootModelElement> getPossibleBuildElements(IProject project) {
+        SystemModel_c s_sys = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
+                (selected) -> ((SystemModel_c) selected).getName().equals(project.getName()));
+        if (null != s_sys) {
+            List<NonRootModelElement> elements = new ArrayList<>();
+            Component_c[] comps = Component_c.getManyC_CsOnR8001(
+                    PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(s_sys)));
+            for (Component_c comp : comps) {
+                elements.add(comp);
+            }
+            Deployment_c[] depls = Deployment_c.getManyD_DEPLsOnR8001(
+                    PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(s_sys)));
+            for (Deployment_c depl : depls) {
+                elements.add(depl);
+            }
+            return elements;
+        } else {
+            return null;
+        }
 
+    }
+
+    public static List<NonRootModelElement> getDefaultBuildElements(IProject project) {
+        List<NonRootModelElement> defaultElements = new ArrayList<>();
+        // select many topLevelPkgs related by sys->EP_PKG[R1401]
+        SystemModel_c s_sys = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
+                (selected) -> ((SystemModel_c) selected).getName().equals(project.getName()));
+        Package_c[] topLevelPkgs = Package_c.getManyEP_PKGsOnR1401(s_sys);
         for (Package_c pkg : topLevelPkgs) {
             // look for deployments first
             // select many deployments related by pkg->PE_PE[R8000]->D_DEPL[R8001]
             Deployment_c[] deployments = Deployment_c
                     .getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
             for (Deployment_c deployment : deployments) {
-                exportProject(deployment, refreshBuild);
+                defaultElements.add(deployment);
             }
             // if there are no deployments, search for old style projects, then domains
             if (deployments.length <= 0) {
@@ -89,16 +110,29 @@ public class MaslExportBuilder extends AbstractExportBuilder {
                 // references, look for components and treat them as MASL
                 // domains.
                 if (compRefs.length > 0) {
-                    exportProject(pkg, refreshBuild);
+                    defaultElements.add(pkg);
                 } else {
                     // select many comps related by pkg->PE_PE[R8000]->C_C[R8001]
                     Component_c[] comps = Component_c
                             .getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
 
                     for (Component_c comp : comps) {
-                        exportDomain(comp, refreshBuild);
+                        defaultElements.add(comp);
                     }
                 }
+            }
+        }
+        return defaultElements;
+    }
+
+    private void exportSystem(boolean refreshBuild) {
+        for (NonRootModelElement element : getDefaultBuildElements(getProject())) {
+            if (element instanceof Deployment_c) {
+                exportProject((Deployment_c) element, refreshBuild);
+            } else if (element instanceof Component_c) {
+                exportDomain((Component_c) element, refreshBuild);
+            } else if (element instanceof Package_c) {
+                exportProject((Package_c) element, refreshBuild);
             }
         }
     }
@@ -186,7 +220,9 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     private void runExport(IProject project, String projPath, String workingDir, int type, String[] names,
             boolean skipFormat, boolean skipActionLanguage)
             throws IOException, RuntimeException, CoreException, InterruptedException {
-        Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(workingDir).setEclipseBuild(true).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage);
+        Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0])
+                .setOutputDirectory(workingDir).setEclipseBuild(true).setSkipFormat(skipFormat)
+                .setSkipActionLanguage(skipActionLanguage);
         if (MASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }
