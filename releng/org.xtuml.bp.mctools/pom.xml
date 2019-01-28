@@ -152,7 +152,6 @@
                     <include>wasldiff</include>
                     <include>WASLParser.jar</include>
                     <include>xtuml2masl</include>
-                    <include>xtumlmc_build</include>
                   </includes>
                 </resource>
                 <resource>
