@@ -54,8 +54,6 @@ public class MCNature extends AbstractNature {
         getProject().setDescription(desc, null);
     }
 
-
-
     /**
      * Returns the shared instance. Creates if it has not yet been created
      * 

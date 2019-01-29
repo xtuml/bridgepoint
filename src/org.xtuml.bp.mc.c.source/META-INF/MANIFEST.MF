@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: C Model Compiler (Source)
 Bundle-SymbolicName: org.xtuml.bp.mc.c.source; singleton:=true
 Bundle-Version: 6.17.0.qualifier
-Bundle-Activator: org.xtuml.bp.mc.c.source.Activator
+Bundle-Activator: org.xtuml.bp.mc.mc3020.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -16,9 +16,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.cdt.core,
  org.eclipse.cdt.ui,
- org.eclipse.cdt.managedbuilder.ui
+ org.eclipse.cdt.managedbuilder.ui,
+ org.eclipse.ui.console
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Export-Package: org.xtuml.bp.mc.c.source
+Export-Package: org.xtuml.bp.mc.mc3020
 Bundle-ClassPath: c.jar
 Eclipse-BundleShape: dir

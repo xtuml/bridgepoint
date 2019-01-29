@@ -1,4 +1,4 @@
-package org.xtuml.bp.mc.c.source;
+package org.xtuml.bp.mc.mc3020;
 
 import org.eclipse.ui.IStartup;
 import org.osgi.framework.BundleContext;
@@ -6,7 +6,7 @@ import org.xtuml.bp.mc.AbstractActivator;
 
 public class Activator extends AbstractActivator implements IStartup {
 
-    public static final String PLUGIN_ID = "org.xtuml.bp.mc.c.source";
+    public static final String PLUGIN_ID = "org.xtuml.bp.mc.mc3020";
 
     // The shared instance
     private static Activator singleton = null;
@@ -60,7 +60,6 @@ public class Activator extends AbstractActivator implements IStartup {
 
     @Override
     public void earlyStartup() {
-        singleton.earlyStartup();
     }
 
 }

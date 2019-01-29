@@ -244,6 +244,7 @@ public abstract class AbstractNature implements IProjectNature {
                 }
             }
         }
+        /*
         IPath srcLaunchFolder = getLauchSpecFolder();
         // add builder specification file to builder folder
         IPath srcLaunchFile = new Path(srcLaunchFolder + MC_LAUNCH_ID);
@@ -266,6 +267,7 @@ public abstract class AbstractNature implements IProjectNature {
                 }
             }
         }
+        */
 
         // Add the Builder to the project
         addBuilderToBuildSpec(project, builderID);
@@ -303,31 +305,6 @@ public abstract class AbstractNature implements IProjectNature {
         IProjectDescription desc = project.getDescription();
         ICommand[] commands = desc.getBuildSpec();
 
-        // Determine if MC code gen builder already associated
-        // Add builder if not already in project
-        if (BuilderManagement.hasBuilder(project, MC_LAUNCH_ID) == -1) {
-            ICommand custCommand = desc.newCommand();
-            custCommand.setBuilderName(BuilderManagement.CUST_BUILDER_ID);
-            // Create map with arguments specific to builder in project here
-            // custCommand.setArguments(Map args);
-            final Map<String, String> buildsetting;
-            buildsetting = new HashMap<String, String>();
-            buildsetting.put("LaunchConfigHandle", "<project>/" + EXTERNALTOOLBUILDER_FOLDER + "/" + MC_LAUNCH_ID); //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-
-            custCommand.setArguments(buildsetting);
-
-            ICommand[] newCommands = new ICommand[commands.length + 1];
-
-            // Add it before other builders.
-            System.arraycopy(commands, 0, newCommands, 1, commands.length);
-
-            newCommands[0] = custCommand;
-            desc.setBuildSpec(newCommands);
-            project.setDescription(desc, null);
-
-        }
-
-        // Determine if MC-3020 pre-gen (export) builder already associated
         if (BuilderManagement.hasBuilder(project, builderID) == -1) {
             commands = desc.getBuildSpec();
 
