@@ -117,6 +117,7 @@ bridgepoint.CommunicationLine
 bridgepoint.Constant
 bridgepoint.ConstantSpecification
 bridgepoint.DecisionMergeNode
+bridgepoint.Deployment
 bridgepoint.EnumerationDataType
 bridgepoint.Enumerator
 bridgepoint.Event
