@@ -1032,12 +1032,12 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
    * Dispose of the Explorer widget
    */ 
   public void dispose() {
-    super.dispose();
     Ooaofooa.removeModelChangeListenerFromAll(m_modelChangeListener);
 	TransactionManager.getSingleton().removeTransactionListener(m_transactionListener);
     selection.removeSelectionChangedListener(m_selChangedListener);
 		getSite().getPage().removePartListener(m_partListener);
 	getTreeViewer().removePostSelectionChangedListener(m_postSelectionChangedListener);
+    super.dispose();
   }
   /**
    * Initialize the Label provider to link it into the chain 

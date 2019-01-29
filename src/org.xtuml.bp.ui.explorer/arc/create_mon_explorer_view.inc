@@ -689,10 +689,10 @@ public class ${viewer_name} extends ViewPart {
    * Dispose of the Explorer widget
    */ 
   public void dispose() {
-    super.dispose();
     Ooaofooa.removeModelChangeListenerFromAll(m_modelChangeListener);
 	TransactionManager.getSingleton().removeTransactionListener(m_transactionListener);
     selection.removeSelectionChangedListener(m_selChangedListener);
+    super.dispose();
   }
   /**
    * Initialize the Label provider to link it into the chain 
