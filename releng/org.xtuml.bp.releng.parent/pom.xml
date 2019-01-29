@@ -53,6 +53,7 @@
 		<module>../../src/org.xtuml.bp.io.image</module>
 		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.bp.mc</module>
+		<module>../../src/org.xtuml.bp.mc.masl</module>
 		<module>../../src/org.xtuml.bp.mc.c.source</module>
 		<module>../../src/org.xtuml.bp.mc.cpp.source</module>
 		<module>../../src/org.xtuml.bp.mc.java.source</module>
