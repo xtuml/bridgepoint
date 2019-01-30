@@ -27,6 +27,8 @@ public class Xtuml2Masl {
     public static final String X2M_EXE = "x2m";
     public static final String MASL_EXE = "masl";
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
+    public static final String CLEANSE_OUTPUT = "z.xtuml";
+    public static final String X2M_INPUT = "a.xtuml";
     public static final String X2M_OUTPUT = "x2m_output.txt";
     public static final String MASL_OUTPUT = "masl_output.txt";
 
@@ -80,6 +82,25 @@ public class Xtuml2Masl {
             waitForProcess(prebuildProcess, "prebuild", false);
         }
 
+        // cleanse pre-builder output
+        Path projectPath = new File(projectLocation).toPath();
+        String projectName = projectPath.getName(projectPath.getNameCount() - 1).toString();
+        File sqlFile = new File(
+                projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
+        File cleanseFile = new File(
+                projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + CLEANSE_OUTPUT);
+        Files.copy(sqlFile.toPath(), cleanseFile.toPath());
+        List<String> cleanseCmd = new ArrayList<>();
+        cleanseCmd.add(toolsFolder() + File.separator + XTUMLMC_BUILD_EXE);
+        cleanseCmd.add("xtumlmc_cleanse_for_BridgePoint");
+        cleanseCmd.add(projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + CLEANSE_OUTPUT);
+        cleanseCmd.add(projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_INPUT);
+        cleanseCmd.add("GD_");
+        cleanseCmd.add("DIM_");
+        System.out.println(cleanseCmd);
+        Process cleanseProcess = new ProcessBuilder().command(cleanseCmd).start();
+        waitForProcess(cleanseProcess, "cleanse");
+
         // build x2m process
         List<String> x2mCmd = new ArrayList<>();
         x2mCmd.add(toolsFolder() + File.separator + X2M_EXE);
@@ -120,10 +141,8 @@ public class Xtuml2Masl {
         Process maslProcess = new ProcessBuilder().command(maslCmd).start();
 
         // pipe inputs and outputs together
-        Path projectPath = new File(projectLocation).toPath();
-        String projectName = projectPath.getName(projectPath.getNameCount() - 1).toString();
         FileInputStream inputFile = new FileInputStream(
-                projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
+                projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_INPUT);
         connectStreams(true, inputFile, x2mProcess.getOutputStream());
         FileOutputStream x2mOutputFile = new FileOutputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_OUTPUT);
@@ -190,6 +209,10 @@ public class Xtuml2Masl {
                 }
             }
         }
+
+        // clean up temporary files
+        new File(projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + CLEANSE_OUTPUT).delete();
+        new File(projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_INPUT).delete();
 
         System.out.println("Done.");
     }
