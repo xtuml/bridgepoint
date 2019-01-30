@@ -21,9 +21,9 @@ import java.util.stream.Stream;
 
 public class Xtuml2Masl {
 
-    public static final int KILL_TIMEOUT = 2000;
+    private static final int KILL_TIMEOUT = 2000;
 
-    public static final String XTUMLMC_BUILD_EXE = "xtumlmc_build";
+    public static final String CLI_EXE = "CLI.sh";
     public static final String X2M_EXE = "x2m";
     public static final String MASL_EXE = "masl";
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
@@ -62,7 +62,22 @@ public class Xtuml2Masl {
 
         // run pre-builder if executing outside eclipse
         if (!eclipse) {
-            // TODO execute pre-build
+            // build prebuild process
+            List<String> prebuildCmd = new ArrayList<>();
+            prebuildCmd.add(toolsFolder() + File.separator + CLI_EXE);
+            prebuildCmd.add("Build");
+            prebuildCmd.add("-prebuildOnly");
+            prebuildCmd.add("-doNotParse");
+            prebuildCmd.add("-project");
+            Path projectPath = new File(projectLocation).toPath();
+            prebuildCmd.add(projectPath.getName(projectPath.getNameCount() - 1).toString());
+            System.out.println(prebuildCmd);
+            Process prebuildProcess = new ProcessBuilder().command(prebuildCmd).start();
+            connectStreams(false, prebuildProcess.getInputStream(), System.out);
+            connectStreams(false, prebuildProcess.getErrorStream(), System.out);
+            prebuildProcess.getErrorStream().close();
+            prebuildProcess.getInputStream().close();
+            waitForProcess(prebuildProcess, "prebuild", false);
         }
 
         // build x2m process
@@ -266,11 +281,87 @@ public class Xtuml2Masl {
     }
 
     private static String toolsFolder() {
-        return System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin";
+        String toolsFolder = "";
+        if (null != System.getProperty("eclipse.home.location")) {
+            toolsFolder = System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin";
+        }
+        if (new File(toolsFolder).exists()) {
+            return toolsFolder;
+        }
+        else {
+            return System.getenv("MASL_BIN_DIR");
+        }
+    }
+
+    private static void printUsage() {
+        System.err.println(
+                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -d <domain component> [-o <output directory>]\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -p <project package> [-o <output directory>]");
+    }
+
+    private static class BuildElement {
+
+        public boolean isDomain;
+        public String name;
+
+        public BuildElement(boolean isDomain, String name) {
+            this.isDomain = isDomain;
+            this.name = name;
+        }
     }
 
     public static void main(String[] args) {
-        // TODO handle command line arguments to run export
+
+        boolean validate = false;
+        boolean skipFormatter = false;
+        boolean skipActionLanguage = false;
+        String outDir = "";
+        List<String> inputs = new ArrayList<>();
+        List<BuildElement> buildElements = new ArrayList<>();
+
+        // parse arguments
+        String directive = "";
+        for (String arg : args) {
+            if (("-v".equals(arg) || "-V".equals(arg)) && !validate) { // if we encounter a validate flag, set the
+                                                                       // validation
+                validate = true;
+                directive = ""; // encountering a validation flag resets the directive because
+            } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
+                skipFormatter = true;
+                directive = "";
+            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg)) { // set the
+                                                                                                       // directive
+                directive = arg;
+            } else if ("-xl".equals(arg) && !skipActionLanguage) { // if we encounter flag indicating skip output of
+                                                                   // MASL activities
+                skipActionLanguage = true;
+                directive = "";
+            } else if ("-i".equals(directive)) { // add an input
+                inputs.add(arg);
+            } else if ("-p".equals(directive)) { // add a project name
+                buildElements.add(new BuildElement(false, arg));
+            } else if ("-d".equals(directive)) { // add a domain name
+                buildElements.add(new BuildElement(true, arg));
+            } else if ("-o".equals(directive) && "".equals(outDir)) { // only can set the output directory once
+                outDir = arg;
+            } else {
+                printUsage();
+                System.exit(1);
+            }
+        }
+
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setEclipseBuild(false).setSkipFormat(skipFormatter)
+                .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
+        for (int i = 0; i < inputs.size(); i++) {
+            exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
+                    .setIsDomain(buildElements.get(i).isDomain);
+            try {
+                exporter.xtuml2masl();
+            } catch (IOException | RuntimeException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+
     }
 
 }

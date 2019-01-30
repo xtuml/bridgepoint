@@ -8,5 +8,5 @@ Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.x2m
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Eclipse-BundleShape: jar
+Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.x2m
