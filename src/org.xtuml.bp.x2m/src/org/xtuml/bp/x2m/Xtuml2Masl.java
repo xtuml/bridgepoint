@@ -177,47 +177,45 @@ public class Xtuml2Masl {
             final String formatClasspath = Stream.of(new File(toolsFolder()).list())
                     .filter((fileName) -> fileName.endsWith("jar"))
                     .map((fileName) -> toolsFolder() + File.separator + fileName).collect(Collectors.joining(":"));
-            for (String child : outDirFile.list()) {
-                File childFile = new File(outDirFile, child);
-                if (childFile.exists() && childFile.isDirectory()) {
+            File childFile = new File(outDirFile, projectName);
+            if (childFile.exists() && childFile.isDirectory()) {
 
-                    // create a temporary location for formatted MASL
-                    File tempLocation = new File(childFile.toString() + ".formatted");
-                    if (!tempLocation.exists()) {
-                        tempLocation.mkdirs();
-                    }
-
-                    // build format process
-                    List<String> formatCmd = new ArrayList<>();
-                    formatCmd.add(System.getProperty("java.home") + "/bin/java");
-                    formatCmd.add("-cp");
-                    formatCmd.add(formatClasspath);
-                    formatCmd.add("MaslFormatter");
-                    formatCmd.add("-r");
-                    formatCmd.add("-i");
-                    formatCmd.add(childFile.getAbsolutePath());
-                    formatCmd.add("-o");
-                    formatCmd.add(tempLocation.getAbsolutePath());
-                    System.out.println(formatCmd);
-                    Process formatProcess = new ProcessBuilder().command(formatCmd).start();
-                    connectStreams(false, formatProcess.getInputStream(), System.out);
-                    connectStreams(false, formatProcess.getErrorStream(), System.out);
-                    formatProcess.getErrorStream().close();
-                    formatProcess.getInputStream().close();
-                    int exitValue = waitForProcess(formatProcess, "format", false);
-                    if (0 == exitValue) {
-                        // delete original location
-                        Files.walk(childFile.toPath()).sorted(Comparator.reverseOrder()).map(Path::toFile)
-                                .forEach(File::delete);
-                        // move temp location to original location
-                        Files.move(tempLocation.toPath(), childFile.toPath());
-                    } else {
-                        // delete temp location
-                        Files.walk(tempLocation.toPath()).sorted(Comparator.reverseOrder()).map(Path::toFile)
-                                .forEach(File::delete);
-                    }
-
+                // create a temporary location for formatted MASL
+                File tempLocation = new File(childFile.toString() + ".formatted");
+                if (!tempLocation.exists()) {
+                    tempLocation.mkdirs();
                 }
+
+                // build format process
+                List<String> formatCmd = new ArrayList<>();
+                formatCmd.add(System.getProperty("java.home") + "/bin/java");
+                formatCmd.add("-cp");
+                formatCmd.add(formatClasspath);
+                formatCmd.add("MaslFormatter");
+                formatCmd.add("-r");
+                formatCmd.add("-i");
+                formatCmd.add(childFile.getAbsolutePath());
+                formatCmd.add("-o");
+                formatCmd.add(tempLocation.getAbsolutePath());
+                System.out.println(formatCmd);
+                Process formatProcess = new ProcessBuilder().command(formatCmd).start();
+                connectStreams(false, formatProcess.getInputStream(), System.out);
+                connectStreams(false, formatProcess.getErrorStream(), System.out);
+                formatProcess.getErrorStream().close();
+                formatProcess.getInputStream().close();
+                int exitValue = waitForProcess(formatProcess, "format", false);
+                if (0 == exitValue) {
+                    // delete original location
+                    Files.walk(childFile.toPath()).sorted(Comparator.reverseOrder()).map(Path::toFile)
+                            .forEach(File::delete);
+                    // move temp location to original location
+                    Files.move(tempLocation.toPath(), childFile.toPath());
+                } else {
+                    // delete temp location
+                    Files.walk(tempLocation.toPath()).sorted(Comparator.reverseOrder()).map(Path::toFile)
+                            .forEach(File::delete);
+                }
+
             }
         }
 
