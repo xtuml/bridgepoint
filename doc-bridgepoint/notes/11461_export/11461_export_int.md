@@ -21,6 +21,7 @@ increased by packaging the exporter as a project builder.
 <a id="2.4"></a>2.4 [BridgePoint SR #10320](https://support.onefact.net/issues/10320) Project Primus Documentation  
 <a id="2.5"></a>2.5 [BridgePoint DEI #11491](https://support.onefact.net/issues/11491) Refresh model compilers  
 <a id="2.6"></a>2.6 [BridgePoint DEI #10525](https://support.onefact.net/issues/10525) Implement deployments  
+<a id="2.7"></a>2.7 [BridgePoint DEI #11493](https://support.onefact.net/issues/11493) Manual test issue  
 
 ### 3. Background
 
@@ -71,7 +72,7 @@ compiler. The `plugin.xml` file was set up to extend the model compilers
 extension point and add the MASL exporter to the list of available model
 compilers.
 
-5.1.1 Extends `AbstractExportBuilder`
+5.1.1 Extend `AbstractExportBuilder`
 
 A new `IncrementalProjectBuilder` was implemented to extend
 `AbstractExportBuilder`. This builder handles the MASL export. Most of the code
@@ -115,7 +116,7 @@ file is only created if the user chooses options other than the defaults. It is
 expected that these properties will be left with defaults most of the time, so
 it was desirable to not create that file unless necessary.
 
-5.1.3 update build order link in to maven build
+5.1.3 Update build order/link into maven build
 
 Work was done to integrate this new plugin into the maven build and assure that
 it is built and packaged in the correct order.
@@ -138,6 +139,10 @@ The xtuml2masl flow implementation was removed from the `xtumlmc_build` Perl
 script. The `xtuml2masl` bash script was updated to invoke the Java application
 packaged in the x2m plugin.
 
+5.4 Remove MASL Export CMES
+
+The old "Export MASL Domain" and "Export MASL Project" CMEs have been removed.
+
 ### 6. Implementation Comments
 
 6.1 This pull request includes several code clean up items such as replacing
@@ -148,10 +153,14 @@ tabs with spaces, removing copyright headers and such.
 
 6.3 This work lays the groundwork for issue #11491 [[2.5]](#2.5). Some of that
 work was going to be done in this work, but it was decided to defer it because
+it is too high risk so close to a release.
 
 6.4 Since `xtumlmc_build` was changed, technically, the Windows version would
 need to be repackaged.  However, since the change only removes functionality,
 there is no need to perform this repackage at this time.
+
+6.5 The MASL exporter is selectable from the "Set Model Compiler" wizard as
+well as at project creation.
 
 ### 7. Unit Test
 
@@ -159,46 +168,7 @@ there is no need to perform this repackage at this time.
 
 7.2 Manual test procedure
 
-7.2.1 Launch BridgePoint in a fresh workspace.  
-7.2.2 Import the MASL version of the GPS Watch example model.  
-7.2.3 Right click in Model Explorer and select "New > xtUML Model".  
-7.2.4 Enter "test" for the name and select "Next".  
-7.2.5 Verify that "MASL Exporter" is in the list of available model compilers.
-Click "Cancel".  
-7.2.7 Select the "Tracking" project. Go to the "Project" menu and click
-"Properties".  
-7.2.8 Verify that "MASL Exporter" is _not_ an available page listed in the
-project properties. Click "Cancel".  
-7.2.9 Right click on the "Tracking" project. Select "BridgePoint Utilities > Set
-Model Compiler".  
-7.2.10 Select "MASL Exporter" and click "Finish".
-7.2.11 Open the "Navigator" view. In the "Tracking" project, delete the "masl"
-directory.  
-7.2.12 Select the "Tracking" project. Go to the "Project" menu and click "Build
-Project". If you have not set up the MASL compiler or are running this test on
-MacOS, you will see errors (this is OK).  
-7.2.13 In the "Navigator" view, verify that MASL is emitted into the
-"masl/Tracking" folder under the "Tracking" project. Verify that the output is
-well formatted and that activity definition files were also produced.  
-7.2.14 Once again, select the "Tracking" project and open the project properties
-pane.  
-7.2.15 Verify that "MASL Exporter" is now an available page listed in the
-project properties.  
-7.2.16 On the "MASL Exporter" page, uncheck "Format output MASL", uncheck "Emit
-activity definition files", and enter "test_folder/" for "Output destination".
-Click "Apply and Close".  
-7.2.17 Delete the "masl" folder in the "Tracking" project and select "Project >
-Build Project" again.  
-7.2.18 Verify that a new folder "test_folder" has appeared under the "Tracking"
-project.  
-7.2.19 Verify that inside "test_folder/Tracking" only the files "Tracking.mod"
-and "Tracking.int" are present. Verify that the contents are unformatted.  
-7.2.20 In the "MASL Exporter" page of the project properties, uncheck
-"Automatically select elements to build" and uncheck the "Tracking" component in
-the selection box. Click "Apply and Close".  
-7.2.21 Delete the "test_folder" folder and rebuild the project.  
-7.2.22 Verify that "test_folder" reappeared and that it contains file
-"export.log" but nothing else.  
+See [[2.7]](#2.7)
 
 ### 8. User Documentation
 
