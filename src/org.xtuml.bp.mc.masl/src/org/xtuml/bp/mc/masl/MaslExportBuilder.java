@@ -200,9 +200,6 @@ public class MaslExportBuilder extends AbstractExportBuilder {
                 comp.getPersistableComponent().getFile().getRawLocation().removeLastSegments(2));
     }
 
-    /*
-     * The flow of this function is: - Run the xtuml2masl utility
-     */
     private void exportMASL(final SystemModel_c sys, final int export_type, final String[] names, boolean refreshBuild,
             IPath outputPath) {
         final IProject project = getProject();
