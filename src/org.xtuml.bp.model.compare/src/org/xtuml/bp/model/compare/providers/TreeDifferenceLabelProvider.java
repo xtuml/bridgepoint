@@ -77,7 +77,7 @@ public class TreeDifferenceLabelProvider implements ILabelProvider {
 					.getRepresentedMissingElement();
 		}
 		int kind = difference.getKind();
-		if ((Boolean) configuration.getProperty("LEFT_IS_LOCAL")) {
+		if (((configuration.getProperty("LEFT_IS_LOCAL") != null)) && ((Boolean) configuration.getProperty("LEFT_IS_LOCAL"))) {
 			switch (kind & Differencer.DIRECTION_MASK) {
 			case Differencer.LEFT:
 				kind= (kind &~ Differencer.LEFT) | Differencer.RIGHT;
