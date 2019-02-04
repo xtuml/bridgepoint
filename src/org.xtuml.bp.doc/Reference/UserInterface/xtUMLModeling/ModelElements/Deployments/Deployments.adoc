@@ -1,5 +1,5 @@
 =  Deployments
-
+:icons: font
 :sectnums:
 
 == Introduction
@@ -14,24 +14,27 @@ other components to use.  This process of connecting components together is call
 
 BridgePoint xtUML provides two mechanisms to accomplish this domain bridging. OAL 
 users have historically used the direct and graphical wiring together of interfaces 
-on component references. This approach does not use deployments as described here.
+on component references. That approach does not use deployments as described here.
 
 Deployments were added to accomplish bridging in a way that is more natural to modelers 
-using MASL. This approach does not rely on graphical interconnections and eliminates 
-the need for all component references to remain in the workspace in order to create 
-projects that exclusively exist to connect domains together.
+using MASL. Deployments reference domain components by name rather than by
+direct reference and graphical interconnections. This allows deployments to be edited 
+without requiring all associated domain projects to be in the workspace at the same 
+time.  Deployments are therefore separated and independent from the domain sources.
+Component reference wiring, on the other hand, _does_ require the associated domain 
+projects to be present in the workspace.
 
-The choice of which method to use is based on the user's needs and support in the model
-compiler the user is running to translate their model. The remainder of this document 
-focuses on the creation and use of deployments themselves.  Readers are encouraged 
-to also see the documentation link:../../../SystemModeling/HTML/SystemModeling.htm[System-Level Modeling with Components] 
+The choice of which method to use is based on the needs of the user and choice of 
+model compiler the user is running to translate their model. The remainder of 
+this document focuses on the creation and use of deployments themselves.  Readers 
+are encouraged to read the documentation link:../../../SystemModeling/HTML/SystemModeling.htm[System-Level Modeling with Components] 
 and link:../../../../MASL/MASLConversionGuide/MASLConversionGuide.html[MASL Modeling and Conversion Guide].
 
 == Creating Deployments
 
 image:new_deployment_palette.png[Palette, width=46%,role=right] 
 Deployments are created like other model elements, via the Palette or via the context
-menu on canvas or Model Explorer.  Both options operate identically, neither method 
+menu on canvas or Model Explorer.  Both options operate identically; neither method 
 of creation is better than the other.
 
 image:new_deployment_cme.png[canvas CME, width=54%]
@@ -43,7 +46,7 @@ and in the Model Explorer.
 image:ME_and_canvas.png[ME and canvas, width=40%] 
 
 Unlike packages and components, deployments offer no additional visualization on
-the canvas.  The internals of components are accessed and manipulated via the Model 
+the canvas.  The internals of deployments are accessed and manipulated via the Model 
 Explorer view.
 
 == Editing Deployments
@@ -55,14 +58,15 @@ between the deployment and its source, but also ensure that the deployment stays
 reasonably in sync with the source, deployments are designed so that very few
 things are editable manually by the user.
 
-In the model of deployments, a user may edit:
+In the model of a deployment, a user may edit:
 
 * The name of the deployment
 * Description fields on deployments, terminators, terminator services, and
   terminator service parameters
-* Action semantics of terminator services
+* Action semantics (action language) of terminator services
 * Parse indicator of terminator services
 * Dialect of terminator services
+* Implementation scope of terminator services
 
 Everything else is not editable directly by the user, but must be edited in the
 source (port message in a domain or `.int` or `.mod` file). Furthermore,
@@ -72,7 +76,8 @@ user. Terminators and deployments may be deleted. Stale services may also be del
 
 === Provided and required terminators
 
-image:types_and_terminators.png[ME showing types and terminators,250,role=right]
+image::types_and_terminators.png[ME showing types and terminators,250,role=right]
+
 Two different types of terminators are supported by deployments. Provided
 terminators represent all of the public services (inbound API) of a particular 
 domain. These are named with the same name as the domain and appear brown in the 
@@ -87,7 +92,32 @@ Services on required terminators are automatically assigned the dialect of the
 source service or the workspace default dialect when necessary. Required services 
 may be marked to be excluded from generation by setting the dialect to "None".
 
-IMPORTANT: (TODO - address updated export controls via terminator service property).
+=== Implementation Scope 
+
+In MASL modeling, users require the ability to specify that a terminator service in 
+a deployment is implemented in native code. In this case, a declaration in the `.prj` 
+file is necessary, but a `.tr` definition file should not be produced. Alternatively,
+to indicate the domain implementation is used, a terminator service may be excluded 
+from output entirely. In this case, no declaration is created in the `.prj` and no 
+definition in a `.tr` are produced.
+
+The property "Implementation Scope" is used to control where the implementation of
+a terminator service comes from. The available choices are "Domain" and "Deployment". 
+
+image::impl_scope.png[Implementation Scope attribute,width=589,align=center]
+
+[options="header"]
+|===
+| Implementation Scope | Dialect | MASL Export behavior                              
+| Domain               | Any     | No declaration in `.prj`. No corresponding `.tr` definition file created.
+| Deployment           | None    | Declaration in `.prj`. No corresponding `.tr` definition file created. 
+| Deployment           | MASL    | Declaration in `.prj`. Corresponding `.tr` definition file created. 
+|===
+
+When importing terminator definitions into a deployment, the import process sets the 
+Implementation Scope attribute of terminator services that are created. The default 
+value is "Domain". This attribute is not modified when a re-import/refresh of a terminator 
+is performed.
 
 == Importing terminators into deployments
 
