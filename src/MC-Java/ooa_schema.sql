@@ -572,7 +572,8 @@ CREATE TABLE D_TSVC (
     Suc_Pars INTEGER,
     Return_Dimensions STRING,
     Dialect INTEGER,
-    Is_Stale BOOLEAN );
+    Is_Stale BOOLEAN,
+    Implementation_Scope INTEGER );
 CREATE TABLE EP_PKG (
     Package_ID UNIQUE_ID,
     Sys_ID UNIQUE_ID,
