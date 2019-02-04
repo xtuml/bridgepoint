@@ -41,13 +41,16 @@ This enumerated type has two enumerators "Deployment" and "Domain".
 5.2.2 A new attribute "Implementation_Scope" was added to the "Terminator
 Service" class typed with the new type "ImplementationScope".  
 5.2.3 Code was added in the terminator import process to set this attribute on
-creation of terminator services. The default value is "Domain". This attribute
-is not modified when a re-import/refresh of a terminator is performed.  
+creation of terminator services. The default value is "Domain" (Note that we
+are not using the "DefaultValue" field int the model, but the code sets the
+value on creation of the instance). This attribute is not modified when a
+re-import/refresh of a terminator is performed.  
 
 5.3 `x2m` update
 
 5.3.1 During terminator service export, if the implementation scope of a
-terminator service in a deployment is "Domain", it is skipped entirely.  
+terminator service in a deployment is "Domain", it is skipped entirely (no
+declaration in the `.prj` file and no terminator definition file).  
 5.3.2 A check is wrapped around the action language export such that an action
 language definition is only emitted if the dialect is "MASL". If the dialect is
 "None", no activity definition file will be produced.  
@@ -58,7 +61,8 @@ language definition is only emitted if the dialect is "MASL". If the dialect is
 updated. Instead of having two different filters `*.int` and `*.mod`, a single
 filter `*.int;*.mod` is used. This causes the file selection dialog to allow
 users to select `.int` and `.mod` files simultaneously without the need to
-change the selection filter in the drop down menu.
+change the selection filter in the drop down menu. This change is for the
+"Import terminators from file..." menu option.
 
 6.2 This change affects the persistence format of instances related to
 deployments. Because of this, the existing GPS Watch example will not load
@@ -69,7 +73,7 @@ under issue #10320 [[2.5]](#2.5).
 
 ### 7. Unit Test
 
-Acceptance test has been raised as a manual test. See [[2.6]](#2.6).
+7.1 Acceptance test has been raised as a manual test. See [[2.6]](#2.6).
 
 ### 8. User Documentation
 
