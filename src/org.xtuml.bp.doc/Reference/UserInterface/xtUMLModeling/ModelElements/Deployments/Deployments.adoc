@@ -1,6 +1,7 @@
 =  Deployments
 :icons: font
 :sectnums:
+:toc:
 
 == Introduction
 
@@ -30,33 +31,37 @@ this document focuses on the creation and use of deployments themselves.  Reader
 are encouraged to read the documentation link:../../../SystemModeling/HTML/SystemModeling.htm[System-Level Modeling with Components] 
 and link:../../../../MASL/MASLConversionGuide/MASLConversionGuide.html[MASL Modeling and Conversion Guide].
 
-== Creating Deployments
+== Creating deployments
 
-image:new_deployment_palette.png[Palette, width=46%,role=right] 
-Deployments are created like other model elements, via the Palette or via the context
-menu on canvas or Model Explorer.  Both options operate identically; neither method 
-of creation is better than the other.
+.Deployment via Palette
+image::new_deployment_palette.png[Palette, width=46%,role=right] 
 
-image:new_deployment_cme.png[canvas CME, width=54%]
+Deployments are created like other model elements, via the Palette (Figure 1) or via 
+the context menu on canvas or Model Explorer (Figure 2).  Both options operate identically; 
+neither method of creation is better than the other.
 
-When creating a deployment, it is recommended to create a new xtUML project to hold 
-only the deployment. Once the deployment is created, it will display on the canvas 
-and in the Model Explorer.  
+.Deployment via "New" menu
+image::new_deployment_cme.png[canvas CME, width=54%]
 
-image:ME_and_canvas.png[ME and canvas, width=40%] 
+Once the deployment is created, it will display on the canvas and in the Model Explorer
+(Figure 3). When creating a deployment, it is recommended to create a new xtUML project 
+to hold only the deployment.   
+
+.Deployment graphic on canvas and in Model Explorer
+image::ME_and_canvas.png[ME and canvas, width=40%] 
 
 Unlike packages and components, deployments offer no additional visualization on
-the canvas.  The internals of deployments are accessed and manipulated via the Model 
+the canvas.  The details of deployments are accessed and manipulated via the Model 
 Explorer view.
 
-== Editing Deployments
+== Editing deployments
 
 As mentioned previously, deployments are designed to maintain a separation and 
 independence from the domain sources. At the same time, deployments provide the
 ability to be refreshed from the domain sources. To preserve this loose coupling 
 between the deployment and its source, but also ensure that the deployment stays
 reasonably in sync with the source, deployments are designed so that very few
-things are editable manually by the user.
+things are editable by the user.
 
 In the model of a deployment, a user may edit:
 
@@ -76,43 +81,45 @@ user. Terminators and deployments may be deleted. Stale services may also be del
 
 === Provided and required terminators
 
+.Terminators in Model Explorer
 image::types_and_terminators.png[ME showing types and terminators,250,role=right]
 
-Two different types of terminators are supported by deployments. Provided
+Two different types of terminators are supported by deployments (Figure 4). Provided
 terminators represent all of the public services (inbound API) of a particular 
 domain. These are named with the same name as the domain and appear brown in the 
-model explorer. Services on provided terminators are automatically assigned the
-"None" dialect. For MASL users, the dialect should always be "None" for provided
-services. 
+Model Explorer view. Services on provided terminators are automatically assigned the 
+"None" dialect. For MASL users, the dialect should always be "None" for provided services. 
 
 Required terminators represent the terminators (outbound API) of a domain. They 
 are named with the name of the domain followed by `::` followed by the name of the 
 terminator itself as in: `Tracking::UI` and appear blue in the model explorer. 
 Services on required terminators are automatically assigned the dialect of the 
-source service or the workspace default dialect when necessary. Required services 
-may be marked to be excluded from generation by setting the dialect to "None".
+source service or the workspace default dialect when necessary. 
 
-=== Implementation Scope 
+=== Implementation scope 
 
 In MASL modeling, users require the ability to specify that a terminator service in 
 a deployment is implemented in native code. In this case, a declaration in the `.prj` 
 file is necessary, but a `.tr` definition file should not be produced. Alternatively,
 to indicate the domain implementation is used, a terminator service may be excluded 
 from output entirely. In this case, no declaration is created in the `.prj` and no 
-definition in a `.tr` are produced.
+definition in a `.tr` are produced. Table 1 lists effects of the various combinations
+of the Implementation Scope and Dialect properties of terminator services. 
 
-The property "Implementation Scope" is used to control where the implementation of
-a terminator service comes from. The available choices are "Domain" and "Deployment". 
-
-image::impl_scope.png[Implementation Scope attribute,width=589,align=center]
-
+.Implementation scope effect on MASL export
 [options="header"]
 |===
-| Implementation Scope | Dialect | MASL Export behavior                              
+| Implementation Scope | Dialect | MASL Export Behavior                              
 | Domain               | Any     | No declaration in `.prj`. No corresponding `.tr` definition file created.
 | Deployment           | None    | Declaration in `.prj`. No corresponding `.tr` definition file created. 
 | Deployment           | MASL    | Declaration in `.prj`. Corresponding `.tr` definition file created. 
 |===
+
+The property "Implementation Scope" (Figure 5) is used to control where the implementation of
+a terminator service comes from. The available choices are "Domain" and "Deployment". 
+
+.Setting Implementation Scope in Properties view
+image::impl_scope.png[Implementation Scope attribute,width=700]
 
 When importing terminator definitions into a deployment, the import process sets the 
 Implementation Scope attribute of terminator services that are created. The default 
@@ -123,35 +130,44 @@ is performed.
 
 Terminators may be imported in one of two ways: by referring to an existing
 domain component or by parsing a MASL model file (`.int` or `.mod`). The context 
-menu of deployments provides access to both options:
+menu of deployments provides access to both options (Figure 6).
 
+.Importing terminators via context menu tools
 image::import_terminators_cme.png[alt=Import terminators CMEs,width=50%]
 
 === Importing from a component
 
 The `Import terminators from component...` context menu entry (CME) allows the user 
 to import terminator definitions from an existing domain component. The standard 
-BridgePoint element chooser shows components that are visible to the deployment. 
+BridgePoint element chooser (Figure 7) shows components that are visible to the deployment. 
 Multiple components may be selected within the chooser.
 
+.Importing Terminators from components
 image::import_from_component_dialog.png[alt=Import terminators from component dialog,width=50%]
 
 Once a component or components are selected to import, the action iterates over
 the ports of the component. Required ports are mapped to required terminators in
 the deployment where the name of the component is the domain name and the name
-of the port is the terminator name. If the component has a provided port with
-the same name as the component, the messages on this port are mapped to the
-provided terminator for that domain. If there are no such provided ports, no
+of the port is the terminator name. 
+
+Provided ports are analyzed next. If the component has a single provided port or
+if there are multiple provided ports but one exists with the same name as the component, 
+the messages on this port are mapped to the provided terminator for that domain. If 
+there are multiple provided ports but none has the same name as the component, no 
 provided terminator is created.
 
-NOTE: The xtUML Project containing the deployment may need inter-project references
+[NOTE]
+====
+The xtUML Project containing the deployment may need inter-project references
 (IPRs) to be turned on in order to see components in other xtUML Projects.  A dialog 
-is shown to prompt the user to turn on IPRs when no components are found. 
+(Figure 8) is shown to prompt the user to turn on IPRs when no components are found. 
 
-image::enable_iprs_dialog.png[alt=Enable IPRs dialog,width=60%]
+.Prompt to enable IPRs
+image::enable_iprs_dialog.png[alt=Enable IPRs dialog,width=70%]
+====
 
-After importing from a component, the projects containing the domain components do 
-not need to remain in the workspace.
+After importing from a component, the projects containing the domain components need 
+not remain in the workspace. 
 
 === Importing from MASL
 
@@ -225,7 +241,7 @@ The GPS Watch (MASL) example application included with BridgePoint shows deploym
 in action and was used for the screenshots shown in this document.  To import this
 example into your workspace select *Help > Welcome > Quick Start > Example Application - GPS Watch (MASL)*.
 
-The deployment is found in the `GPS_Watch` project. The other project define the 
+The deployment is found in the `GPS_Watch` project. The other projects define the 
 domain components that are connected via the bridging defined inside the deployment. 
 
 
