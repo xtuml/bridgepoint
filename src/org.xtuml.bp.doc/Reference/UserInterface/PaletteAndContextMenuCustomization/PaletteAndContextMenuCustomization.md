@@ -59,9 +59,6 @@ bridgepoint.CombineWith
 bridgepoint.CreateChangeSet
 bridgepoint.CreateDocumentation
 bridgepoint.Disconnect
-bridgepoint.ExportMASLDomain
-bridgepoint.ExportMASLDomains
-bridgepoint.ExportMASLProject
 bridgepoint.Formalize
 bridgepoint.GenerateFunctionsFromList
 bridgepoint.IgnoreEvent
