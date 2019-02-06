@@ -28,33 +28,33 @@ public class StaleServiceDecorator implements ILightweightLabelDecorator {
         if (element instanceof TerminatorService_c) {
             return ((TerminatorService_c) element).getIs_stale();
         } else if (element instanceof SystemModel_c) {
-            for (Package_c pkg : Package_c.getManyEP_PKGsOnR1401((SystemModel_c) element)) {
+            for (Package_c pkg : Package_c.getManyEP_PKGsOnR1401((SystemModel_c) element, null, false)) {
                 if (isStale(pkg)) {
                     return true;
                 }
             }
             return false;
         } else if (element instanceof Package_c) {
-            for (PackageableElement_c pe : PackageableElement_c.getManyPE_PEsOnR8000((Package_c) element)) {
-                Package_c subpkg = Package_c.getOneEP_PKGOnR8001(pe);
+            for (PackageableElement_c pe : PackageableElement_c.getManyPE_PEsOnR8000((Package_c) element, null, false)) {
+                Package_c subpkg = Package_c.getOneEP_PKGOnR8001(pe, false);
                 if (isStale(subpkg)) {
                     return true;
                 }
-                Deployment_c depl = Deployment_c.getOneD_DEPLOnR8001(pe);
+                Deployment_c depl = Deployment_c.getOneD_DEPLOnR8001(pe, false);
                 if (isStale(depl)) {
                     return true;
                 }
             }
             return false;
         } else if (element instanceof Deployment_c) {
-            for (Terminator_c term : Terminator_c.getManyD_TERMsOnR1650((Deployment_c) element)) {
+            for (Terminator_c term : Terminator_c.getManyD_TERMsOnR1650((Deployment_c) element, null, false)) {
                 if (isStale(term)) {
                     return true;
                 }
             }
             return false;
         } else if (element instanceof TerminatorService_c) {
-            for (TerminatorService_c svc : TerminatorService_c.getManyD_TSVCsOnR1651((Terminator_c) element)) {
+            for (TerminatorService_c svc : TerminatorService_c.getManyD_TSVCsOnR1651((Terminator_c) element, null, false)) {
                 if (isStale(svc)) {
                     return true;
                 }
