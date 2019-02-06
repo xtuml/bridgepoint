@@ -20,8 +20,8 @@
 <li><a href="#_configuring_the_workspace_for_masl_modeling">3. Configuring the Workspace for MASL Modeling</a>
 <ul class="sectlevel2">
 <li><a href="#_setting_the_default_action_language">3.1. Setting the Default Action Language</a></li>
-<li><a href="#_enable_restricted_identifier_naming">3.2. Enable Restricted Identifier Naming</a></li>
-<li><a href="#_allow_concrete_polymorphic_events">3.3. Allow Concrete Polymorphic Events</a></li>
+<li><a href="#_enabling_restricted_identifier_naming">3.2. Enabling Restricted Identifier Naming</a></li>
+<li><a href="#_allowing_concrete_polymorphic_events">3.3. Allowing Concrete Polymorphic Events</a></li>
 </ul>
 </li>
 <li><a href="#_the_masl_xtuml_modeling_idiom">4. The MASL-xtUML Modeling Idiom</a>
@@ -29,9 +29,10 @@
 <li><a href="#_maintaining_masl_bridging_flexibility_inside_xtuml">4.1. Maintaining MASL Bridging Flexibility Inside xtUML</a></li>
 <li><a href="#_packaging_rules_for_masl_compatibility">4.2. Packaging Rules for MASL Compatibility</a></li>
 <li><a href="#_managing_types">4.3. Managing Types</a></li>
+<li><a href="#_polymorphic_events">4.4. Polymorphic Events</a></li>
 </ul>
 </li>
-<li><a href="#_special_masl_constructs_in_xtuml">5. Special MASL constructs in xtUML</a>
+<li><a href="#_special_masl_constructs_in_xtuml">5. Special MASL Constructs in xtUML</a>
 <ul class="sectlevel2">
 <li><a href="#_deferred_operations">5.1. Deferred Operations</a></li>
 <li><a href="#_accessing_service_domains">5.2. Accessing Service Domains</a></li>
@@ -46,6 +47,7 @@
 <li><a href="#_masl_editor_extensions">6.4. MASL Editor Extensions</a></li>
 </ul>
 </li>
+<li><a href="#_tutorial">7. Tutorial</a></li>
 </ul>
 </div>
 </div>
@@ -55,9 +57,9 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>BridgePoint xtUML is designed to support the executable, translatable UML (xtUML) approach
-to the Shlaer-Mellor methodology for Model-Driven Architecture (MDA). However, xtUML is not
+to the Shlaer-Mellor Method for Model-Driven Architecture (MDA). However, xtUML is not
 the only language to have its roots in this MDA approach. MASL  is another dialect that has
-evolved from the Shlaer-Mellor methodology and developed a community of users. Now this
+evolved from the Shlaer-Mellor Method and developed a community of users. Now this
 common ancestry offers modelers in either community the potential to move models between
 the two dialects.</p>
 </div>
@@ -101,19 +103,19 @@ unless otherwise clarified below.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>domain component</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An xtUML component representing a MASL Domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An xtUML component representing a MASL domain</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>domain package</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An xtUML package containing everything associated with a particular MASL Domain, including the domain component for the domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An xtUML package containing everything associated with a particular MASL domain, including the domain component for the domain</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>deployment</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Model element used to define the bridge mappings for MASL Projects (Procs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Model element used to define the bridge mappings for MASL projects (Procs)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>shared type</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A type used outside a MASL Domain, including one used within two or more MASL Domains as well as any used on terminator services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A type used outside a MASL domain, including one used within two or more MASL domains as well as any used on terminator services</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>eclipse view</strong></p></td>
@@ -202,9 +204,9 @@ the installation. Change the settings to the values shown below.</p>
 <p>If the settings are not applied in the installation, the settings may be applied all
 at once to the current workspace by importing the GPS Watch MASL example via
 <strong>Help &gt; Welcome &gt; Quick Start &gt; GPS Watch (MASL)</strong>.  A dialog prompts to the user to
-enable the settings (Figure 1).</p>
+enable the settings (<a href="#wksp_setting">Figure 1</a>).</p>
 </div>
-<div class="imageblock">
+<div id="wksp_setting" class="imageblock">
 <div class="content">
 <img src="images/masl_config_helper.png" alt="Applying MASL Workspace Settings" width="75%">
 </div>
@@ -227,13 +229,13 @@ enable the settings (Figure 1).</p>
 <dt class="hdlist1">In the current workspace via the UI</dt>
 <dd>
 <p>MASL modelers need to set the default action language for the workspace to be
-<code>MASL</code> instead of <code>OAL</code> using the Default Action Language preferences (Figure 2).
+<code>MASL</code> instead of <code>OAL</code> using the Default Action Language preferences (<a href="#al_pref">Figure 2</a>).
 The preference is located under <strong>Window &gt; Preferences &gt; xtUML</strong>, and after selecting
 the button next to desired editor, <strong>&lt;click&gt; OK</strong> to close the window.</p>
 </dd>
 </dl>
 </div>
-<div class="imageblock">
+<div id="al_pref" class="imageblock">
 <div class="content">
 <img src="images/al_pref.png" alt="xtUML Action Language Preferences" width="444">
 </div>
@@ -241,7 +243,7 @@ the button next to desired editor, <strong>&lt;click&gt; OK</strong> to close th
 </div>
 </div>
 <div class="sect2">
-<h3 id="_enable_restricted_identifier_naming">3.2. Enable Restricted Identifier Naming</h3>
+<h3 id="_enabling_restricted_identifier_naming">3.2. Enabling Restricted Identifier Naming</h3>
 <div class="paragraph">
 <p>This preference restricts element names to follow the BNF rule:
 <code>( Letter | '_' )( Letter | Digit | '_' )*;</code></p>
@@ -249,6 +251,20 @@ the button next to desired editor, <strong>&lt;click&gt; OK</strong> to close th
 <div class="paragraph">
 <p>Identifiers may only contain letters, numbers, and underscores. Spaces,
 hyphens, and other characters are not allowed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+User data types names are not restricted by this setting. Relaxing the rule
+for UDTs allows the modeler to create special data types like <code>sequence of integer</code>
+and type references like <code>Tracking::GoalSpan</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="dlist">
 <dl>
@@ -264,11 +280,11 @@ hyphens, and other characters are not allowed.</p>
 <dl>
 <dt class="hdlist1">In the current workspace via the UI</dt>
 <dd>
-<p>The preference is located under <strong>Window &gt; Preferences &gt; xtUML</strong> (Figure 3).</p>
+<p>The preference is located under <strong>Window &gt; Preferences &gt; xtUML</strong> (<a href="#xtuml_pref">Figure 3</a>).</p>
 </dd>
 </dl>
 </div>
-<div class="imageblock">
+<div id="xtuml_pref" class="imageblock">
 <div class="content">
 <img src="images/restricted_names.png" alt="xtUML Preferences" width="75%">
 </div>
@@ -276,7 +292,7 @@ hyphens, and other characters are not allowed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_allow_concrete_polymorphic_events">3.3. Allow Concrete Polymorphic Events</h3>
+<h3 id="_allowing_concrete_polymorphic_events">3.3. Allowing Concrete Polymorphic Events</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">For all workspaces via the installation INI file</dt>
@@ -302,7 +318,7 @@ hyphens, and other characters are not allowed.</p>
 <h2 id="_the_masl_xtuml_modeling_idiom">4. The MASL-xtUML Modeling Idiom</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To ensure that MASL models and their usage of bridging MASL Project deployments are
+<p>To ensure that MASL models and their usage of bridging MASL project deployments are
 accurately represented in xtUML, a set of recommendations and restrictions must be followed.
 Collectively these form the MASL-xtUML modeling idiom and are the foundation for model
 representation and error-free MASL export with BridgePoint xtUML.</p>
@@ -315,7 +331,7 @@ here. However, each language has been extended differently, leading to some mapp
 are less obvious. These differences are explained in the sections below.</p>
 </div>
 <div class="paragraph">
-<p>The idiom addresses three areas of concern:</p>
+<p>The idiom addresses four areas of concern:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -328,6 +344,9 @@ are less obvious. These differences are explained in the sections below.</p>
 <li>
 <p>Type mapping</p>
 </li>
+<li>
+<p>Polymorphic events</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
@@ -338,15 +357,15 @@ exported back to textual MASL for processing by downstream tools.</p>
 <div class="sect2">
 <h3 id="_maintaining_masl_bridging_flexibility_inside_xtuml">4.1. Maintaining MASL Bridging Flexibility Inside xtUML</h3>
 <div class="paragraph">
-<p>Systems are typically constructed by connecting multiple MASL Domains (xtUML components)
-using some form of bridging technology. Where MASL employs terminators and public domain services,
+<p>Systems are typically constructed by connecting multiple MASL domains (xtUML components)
+using some form of bridging notation. Where MASL employs terminators and public domain services,
 xtUML uses interfaces consisting of interface operations and ports.</p>
 </div>
 <div class="sect3">
 <h4 id="_using_deployments_to_connect_domains">4.1.1. Using Deployments to Connect Domains</h4>
 <div class="paragraph">
 <p>In xtUML, a special model element named "Deployment" is used to define inter-domain
-bridging in a manner that is familiar to modelers with experience creating MASL Procs (Projects)
+bridging in a manner that is familiar to modelers with experience creating MASL Procs (projects)
 in other methodologies. <a href="../../UserInterface/xtUMLModeling/ModelElements/Deployments/Deployments.html">Deployments
 are described in detail in the reference documentation</a>.</p>
 </div>
@@ -355,24 +374,24 @@ are described in detail in the reference documentation</a>.</p>
 can communicate. For example, a domain may use a subset of the services surfaced by
 another domain, and it may choose to refer to those services using names that are
 different than the domain providing them. Additionally, a forking bridge allows a domain to
-view as a single service two or more services provided by any number of MASL Domains.</p>
+view as a single service two or more services provided by any number of MASL domains.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_domain_services">4.1.2. Domain Services</h4>
 <div class="paragraph">
-<p>Each component representing a MASL Domain sprouts a single provided interface containing an
-interface operation for each public service surfaced by the MASL Domain as declared in the
-MASL Domain interface file. This provided interface covers all incoming interface
+<p>Each component representing a MASL domain sprouts a single provided interface containing an
+interface operation for each public service surfaced by the MASL domain as declared in the
+MASL domain interface file. This provided interface covers all incoming interface
 operations for the domain component.</p>
 </div>
 <div class="paragraph">
-<p>MASL Domain services are modeled in BridgePoint as a function inside
+<p>MASL domain services are modeled in BridgePoint as a function inside
 a component and a matching operation in a provided interface on the component boundary. See
-<code>clear()</code> and <code>key()</code> of the calc domain in Figure 4. By convention, the port name and this
-provided interface are renamed by the modeler to match the component (MASL Domain) name.</p>
+<code>clear()</code> and <code>key()</code> of the calc domain in <a href="#masl_svc">Figure 4</a>. By convention, the port name and this
+provided interface are renamed by the modeler to match the component (MASL domain) name.</p>
 </div>
-<div class="imageblock">
+<div id="masl_svc" class="imageblock">
 <div class="content">
 <img src="images/function_terminator.png" alt="MASL Functions and Terminators" width="75%">
 </div>
@@ -408,7 +427,7 @@ See the "disp" terminator and the <code>error()</code> and <code>result()</code>
 </td>
 <td class="content">
 The dialect property of the domain services and terminator services are important.
-For a MASL Domain, all provided operations should have dialect "None" and required
+For a MASL domain, all provided operations should have dialect "None" and required
 operations (i.e. terminator services) should have dialect "MASL". The xtUML function inside
 the component that implements the domain service has dialect "MASL".
 </td>
@@ -424,13 +443,13 @@ the component that implements the domain service has dialect "MASL".
 <div class="paragraph">
 <p>Under xtUML, model elements defined within one component have no knowledge or visibility of
 model elements (including types) defined within another component. This is different from
-MASL where public types defined within a MASL Domain can be accessed by other MASL Domains
+MASL where public types defined within a MASL domain can be accessed by other MASL domains
 using a qualified name of the form <code>otherDomainName::someType</code>. The xtUML visibility
 rules also affect interface messages (domain and terminator services).</p>
 </div>
 <div class="paragraph">
-<p>The MASL-to-xtUML conversion process packages a MASL Domain as a xtUML component.
-Thus, the types defined within that MASL Domain become invisible to other components
+<p>The MASL-to-xtUML conversion process packages a MASL domain as an xtUML component.
+Thus, the types defined within that MASL domain become invisible to other components
 of the system.  To deal with these differences in scoping, packaging rules in the
 organization of the model are needed to maintain system-wide visibility.</p>
 </div>
@@ -439,26 +458,26 @@ organization of the model are needed to maintain system-wide visibility.</p>
 <h4 id="_packaging_requirements">4.2.2. Packaging Requirements</h4>
 <div class="paragraph">
 <p>All interface declarations and shared types, including types used on terminator services,
-must be packaged outside the component (MASL Domain)  definitions.</p>
+must be packaged outside the component (MASL domain)  definitions.</p>
 </div>
-<div class="imageblock right">
+<div id="shared_type" class="imageblock right">
 <div class="content">
 <img src="images/domain_setup.png" alt="MASL Project Layout" width="254">
 </div>
 <div class="title">Figure 5. Shared Types and Interfaces</div>
 </div>
 <div class="paragraph">
-<p>Each MASL Domain implemented as an xtUML model contains a top-level package.  This
+<p>Each MASL domain implemented as an xtUML model contains a top-level package.  This
 package typically has the same name as the domain component inside. This
 package contains:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>a single component definition representing the MASL Domain</p>
+<p>a single component definition representing the MASL domain</p>
 </li>
 <li>
-<p>shared types and interface definitions associated with the MASL Domain in a package named "Shared"</p>
+<p>shared types and interface definitions associated with the MASL domain in a package named "Shared"</p>
 </li>
 </ul>
 </div>
@@ -473,9 +492,9 @@ enable IPRs and thus will gain access to the components, interfaces, and types s
 by the domain projects in the workspace. IPRs should remain off for domain projects.</p>
 </div>
 <div class="paragraph">
-<p>A typical xtUML project using this approach is illustrated in Figure 5. Note that all
+<p>A typical xtUML project using this approach is illustrated in <a href="#shared_type">Figure 5</a>. Note that all
 shared types defined in the domain are contained within the <code>Shared</code> package associated
-with that domain and not inside the component representing the MASL Domain.</p>
+with that domain and not inside the component representing the MASL domain.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -495,8 +514,9 @@ and rename their models as they see fit, so long as these two conditions are met
 <p>All elements shared among components are defined outside the components that refer to them</p>
 </li>
 <li>
-<p>All elements associated with a MASL Domain reside within the domain package for that
-MASL Domain (i.e. are underneath the package that contains the domain component)</p>
+<p>All elements associated with a MASL domain reside within the domain package for that
+MASL domain (i.e. are underneath the package that contains the domain component) or are inside
+the domain component itself</p>
 </li>
 </ol>
 </div>
@@ -514,10 +534,10 @@ MASL Domain (i.e. are underneath the package that contains the domain component)
 </div>
 <div class="paragraph">
 <p>Types that a domain intends to keep private from the outside world should be created in a
-package underneath the component.</p>
+package underneath (within) the component.</p>
 </div>
 <div class="paragraph">
-<p>When this idiom for packaging is used, the MASL export facility produces a MASL Domain
+<p>When this idiom for packaging is used, the MASL export facility produces a MASL domain
 interface file (<code>&lt;domain&gt;.int</code>) that includes the shared types, domain services, and
 terminators of the domain.</p>
 </div>
@@ -539,7 +559,7 @@ to put these created MASL types in the top-level <code>types</code> package of t
 MASL types created by the user generally have their core type set to be the UDT
 named <code>MASLtype</code>, which exists or is created by the modeler in a top level package
 named <code>types</code>. The core type of <code>MASLtype</code> must be <code>string</code>. The core type of a UDT is
-manipulated in the Properties view (Figure 5) or via <strong>&lt;RMB&gt; &gt; Set Type&#8230;&#8203;</strong>.
+manipulated in the Properties view (<a href="#masl_sdt">Figure 7</a>) or via <strong>&lt;RMB&gt; &gt; Set Type&#8230;&#8203;</strong>.
 </td>
 </tr>
 </table>
@@ -661,14 +681,19 @@ will create custom types in the xtUML model.</p>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_structures_and_enumerations">Structures and Enumerations</h5>
+<h5 id="_enumerations">Enumerations</h5>
 <div class="paragraph">
-<p>Structured and enumeration data types in the MASL-xtUML modeling idiom are special.
-These MASL types are defined in a textual form and do not use the "Structured Data Type"
-or "Enumeration Data Type" elements that are built into BridgePoint xtUML.</p>
+<p>Enumeration data types in the MASL-xtUML modeling idiom are special. These may be
+created either with the built-in "Enumeration Data Type (EDT)" model element or are
+defined in a textual MASL form. The MASL exporter creates legal MASL for both forms.</p>
 </div>
 <div class="paragraph">
-<p>To create a structured or enumeration data type in MASL:</p>
+<p>The recommended practice is to use the built-in EDT model element. These are created
+just like all other model elements using the Palette or the <strong>New &gt; Types</strong> context menu.
+The enumerator values are added via the context menu.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, to create a textual MASL definition for an enumeration data type:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -683,21 +708,49 @@ or "Enumeration Data Type" elements that are built into BridgePoint xtUML.</p>
 Data Type Definition editor</p>
 </li>
 <li>
-<p>Write MASL to define the type. Examples are shown in Figure 6 and 7.</p>
+<p>Write MASL to define the type. An examples is shown in <a href="#masl_enum">Figure 6</a>.</p>
 </li>
 </ol>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/masl_structure.png" alt="MASL Structured Data Type" width="75%">
-</div>
-<div class="title">Figure 6. MASL Structured Data Type</div>
-</div>
-<div class="imageblock">
+<div id="masl_enum" class="imageblock">
 <div class="content">
 <img src="images/masl_enum.png" alt="MASL Enumeration Data Type" width="75%">
 </div>
-<div class="title">Figure 7. MASL Enumeration Data Type</div>
+<div class="title">Figure 6. MASL Enumeration Data Type</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_structures">Structures</h5>
+<div class="paragraph">
+<p>Structured data types in the MASL-xtUML modeling idiom are also special. These MASL
+types are defined exclusively in a textual form and do not use the "Structured Data Type"
+element that is built into BridgePoint xtUML.</p>
+</div>
+<div class="paragraph">
+<p>To create a structured data type for use in a MASL model:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new User Data Type in the desired package and name it appropriately</p>
+</li>
+<li>
+<p>Set the Core Type property of the new UDT to <code>MASLtype</code></p>
+</li>
+<li>
+<p>&lt;dbl-click&gt; on the new type or use the <code>&#8230;&#8203;</code> button in the Properties view to open the
+Data Type Definition editor</p>
+</li>
+<li>
+<p>Write MASL to define the type. An example is shown in <a href="#masl_sdt">Figure 7</a>.</p>
+</li>
+</ol>
+</div>
+<div id="masl_sdt" class="imageblock">
+<div class="content">
+<img src="images/masl_structure.png" alt="MASL Structured Data Type" width="75%">
+</div>
+<div class="title">Figure 7. MASL Structured Data Type</div>
 </div>
 </div>
 </div>
@@ -714,15 +767,15 @@ model elements or variable declarations inside MASL activities.</p>
 <div class="paragraph">
 <p>Type references must be used to add constraints to types, use collection types, or instance
 types. To use these types, create a new public User Data Type type and enter the full
-type reference as the type name. Then use the Properties view (Figure 8) or <strong>&lt;RMB&gt; &gt; Set Type&#8230;&#8203;</strong>
-to set the core type of the new UDT to <code>MASLtype</code>.</p>
+type reference as the type name. Then use the Properties view (<a href="#conf_type_ref">Figure 8</a>) or
+<strong>&lt;RMB&gt; &gt; Set Type&#8230;&#8203;</strong> to set the core type of the new UDT to <code>MASLtype</code>.</p>
 </div>
 <div class="paragraph">
 <p>For example, the modeler can create a new UDT and name it <code>sequence of integer</code>.  Model
 elements, such as parameters or class attributes, may be set to this new type and used
 in MASL action language inside the model.</p>
 </div>
-<div class="imageblock">
+<div id="conf_type_ref" class="imageblock">
 <div class="content">
 <img src="images/typerefs.png" alt="Configuring Type References in Properties" width="75%">
 </div>
@@ -758,7 +811,7 @@ a sequence constraint.
 a dependency to the <code>&lt;other domain&gt;.int</code> file into the local project&#8217;s
 <a href="../../UserInterface/xtUMLModeling/Preferences/ProjDependencies.html">Dependencies project preferences</a>.</p>
 </div>
-<div class="imageblock right">
+<div id="depl_shared_type" class="imageblock right">
 <div class="content">
 <img src="images/gps_typerefs.png" alt="Type References in GPS_Watch" width="226">
 </div>
@@ -766,7 +819,7 @@ a dependency to the <code>&lt;other domain&gt;.int</code> file into the local pr
 </div>
 <div class="paragraph">
 <p>To access shared types from other domains in the structural part of the model, the modeler
-must create a type reference in the local xtUML project.  This action is completed by
+must create a type reference in the local xtUML project (<a href="#depl_shared_type">Figure 9</a>).  This action is completed by
 creating a new UDT in the current project with a special name that references the
 domain where the type actually lives (e.g. <code>OtherDom::someType</code>).  It is recommended
 that these type reference UDTs be created inside the <code>Shared</code> package that is a sibling
@@ -779,10 +832,29 @@ is a user data type whose core type is set to <code>MASLtype</code>.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_polymorphic_events">4.4. Polymorphic Events</h3>
+<div class="paragraph">
+<p>In the MASL idiom events in a subtype/supertype hierarchy take a "concrete polymorphic"
+rather than an "abstract polymorphic" semantic.  In the concreate semantic, polymorphic
+events must be processed at each level of the class hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>Each state machine up and down the generalization must explicitly assign the polymorphic
+event to a transition or establish the event as <code>Event Ignored</code> or as <code>Can&#8217;t Happen</code>.
+The default value is <code>Can&#8217;t Happen</code>. To select the desired behavior for an event sent
+to a state, open the state machine canvas then select the <code>State Event Matrix</code> tab
+at the bottom of the canvas. The desired behavior may now be selected from the dropdown
+list associated with each cell of the matrix.</p>
+</div>
+<div class="paragraph">
+<p>Polymorphic events are shown in Model Explorer in the form <code>&lt;event name&gt;::&lt;supertype name&gt;</code>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_special_masl_constructs_in_xtuml">5. Special MASL constructs in xtUML</h2>
+<h2 id="_special_masl_constructs_in_xtuml">5. Special MASL Constructs in xtUML</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_deferred_operations">5.1. Deferred Operations</h3>
@@ -848,25 +920,25 @@ describes the process of marking a MASL model in full detail.</p>
 <div class="sect2">
 <h3 id="_masl_model_conversion">6.1. MASL Model Conversion</h3>
 <div class="paragraph">
-<p>The conversion of MASL Domains into MASL-infused xtUML models is
+<p>The conversion of MASL domains into MASL-infused xtUML models is
 performed by the tool <code>masl2xtuml</code> and is invoked from the command line. The conversion
-command <code>masl2xtuml</code>  has the following syntax for MASL Domains:</p>
+command <code>masl2xtuml</code>  has the following syntax for MASL domains:</p>
 </div>
 <div class="paragraph">
 <p><code>masl2xtuml -d &lt;directory path&gt; -o &lt;directory path&gt;</code></p>
 </div>
 <div class="paragraph">
 <p>where <code>&lt;directory path&gt;</code> is any relative or absolute directory path, <code>-d</code> identifies
-the MASL Domain and <code>-o</code> identifies the destination directory where the xtUML model
+the MASL domain and <code>-o</code> identifies the destination directory where the xtUML model
 file is written to. A complete <a href="../masl2xtuml/masl2xtuml.html">reference is included in the MASL documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The MASL Domains are processed one at a time in any order. All conversion
+<p>The MASL domains are processed one at a time in any order. All conversion
 can be performed sequentially or each conversion can be followed by a BridgePoint model
 import.</p>
 </div>
 <div class="paragraph">
-<p>Note that MASL Domain models can be converted and imported into the workspace in any
+<p>Note that MASL domain models can be converted and imported into the workspace in any
 order.</p>
 </div>
 </div>
@@ -878,13 +950,13 @@ xtUML.</p>
 </div>
 <div class="paragraph">
 <p>As described earlier, the MASL-xtUML idiom organizes the BridgePoint workspace based on
-projects, and an xtUML project is needed for each MASL Domain and MASL Project.</p>
+projects, and an xtUML project is needed for each MASL domain and MASL project.</p>
 </div>
 <div class="paragraph">
 <p>It is important to recall that the MASL-xtUML idiom requires system-wide scope for some
 model elements and this is facilitated in BridgePoint using Inter-Project References.
 This feature is only used for xtUML projects that hold deployments. xtUML projects
-that contain MASL Domains do not use IPRs.</p>
+that contain MASL domains do not use IPRs.</p>
 </div>
 <div class="sect3">
 <h4 id="_bridgepoint_model_import_from_the_xtuml_modeling_perspective">6.2.1. BridgePoint Model Import from the xtUML Modeling Perspective</h4>
@@ -897,7 +969,7 @@ steps:</p>
 <li>
 <p>Create an xtUML project using <strong>File &gt; New &gt; xtUML Project</strong>. This command will ask for
 a name which must be unique among all projects in the workspace. A descriptive name that
-includes a connection to the original MASL Domain is suggested. Choose "MASL Exporter"
+includes a connection to the original MASL domain is suggested. Choose "MASL Exporter"
 on the model compiler selection page.</p>
 </li>
 <li>
@@ -942,19 +1014,19 @@ as the model compiler to use.</p>
 <p>At any point during the modeling process the user may select <strong>Project &gt; Build Project</strong>.
 This action will cause the model to be translated from xtUML to MASL.  The output is
 placed in a folder underneath the project on disk.  The default name of the folder is
-<code>masl/</code>, but it may be configured in the MASL Exporter properties (Figure 10).  To
+<code>masl/</code>, but it may be configured in the MASL Exporter properties (<a href="#masl_exp_prop">Figure 10</a>).  To
 access these properties, select the project in Model Explorer, then use the menu
 <strong>Project &gt; Properties</strong>.  Open the "Navigator"
 view or switch to the "C/C++" perspective to use a file browser inside the tool.</p>
 </div>
-<div class="imageblock">
+<div id="masl_exp_prop" class="imageblock">
 <div class="content">
 <img src="images/masl_exporter_properties.png" alt="MASL Exporter Properties" width="500">
 </div>
 <div class="title">Figure 10. MASL Exporter Properties</div>
 </div>
 <div class="paragraph">
-<p>If a xtUML project already exists that is not configured to use this MASL Exporter,
+<p>If an xtUML project already exists that is not configured to use this MASL Exporter,
 a tool is available to convert the project to use it.  To access this tool, select
 the xtUML project in Model Explorer, then <strong>&lt;RMB&gt; &gt; BridgePoint Utilities &gt; Set Model
 Compiler</strong> and choose MASL Exporter from the list.</p>
@@ -1006,19 +1078,18 @@ when using <strong>&lt;RMB&gt; &gt; Open With &gt; MASL Editor</strong>.</p>
 <div class="sect3">
 <h4 id="_inter_project_references_and_masl">6.4.1. Inter-Project References and MASL</h4>
 <div class="paragraph">
-<p>The MASL-xtUML idiom uses Inter-Project References (IPRs) to provide system-wide scope to
-some model elements. IPRs are a mechanism for xtUML model elements defined in one xtUML
-project to be used in another xtUML project. For the access to be allowed the referring
-project must have IPRs enabled.</p>
+<p>IPRs are a mechanism for xtUML model elements defined in one xtUML project to be used
+in another xtUML project. For the access to be allowed, the referring project must have
+IPRs enabled.</p>
 </div>
 <div class="paragraph">
 <p>To check if IPRs are enabled for a particular xtUML project, select that project in the
 Model Explorer View and then select <strong>&lt;RMB&gt; &gt; Project Preferences</strong>. This will open a
-popup window (Figure 11).  Selecting <code>Inter-project References</code> will show the setting
+popup window (<a href="#proj_pref">Figure 11</a>).  Selecting <code>Inter-project References</code> will show the setting
 "Allow inter-project model references". The use of IPRs is enabled if the checkbox is
 marked.</p>
 </div>
-<div class="imageblock">
+<div id="proj_pref" class="imageblock">
 <div class="content">
 <img src="images/image01.png" alt="xtUML Project Preferences" width="50%">
 </div>
@@ -1026,21 +1097,51 @@ marked.</p>
 </div>
 <div class="paragraph">
 <p>For the models based on the MASL-xtUML idiom, all xtUML projects containing a MASL
-Domain component must have this checkbox <strong>unchecked</strong>.</p>
+domain component must have this checkbox <strong>unchecked</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Those xtUML projects containing a Deployment must have this checkbox <strong>checked</strong>.
-The tool provides a user-assistance feature for these projects that contain Deployments.
-It will prompt the user and automatically turn on IPRs for the project when performing
-<code>Import terminators from component&#8230;&#8203;</code> on a Deployment with IPRs turned off.</p>
+<p>Those xtUML projects containing a Deployment must have this checkbox <strong>checked</strong> to
+use the <code>Import terminators from component&#8230;&#8203;</code> feature.  The tool provides a user-assistance
+feature for these projects that contain Deployments. It will prompt the user and
+automatically turn on IPRs for the project when performing <code>Import terminators from component&#8230;&#8203;</code>
+on a Deployment with IPRs turned off.</p>
+</div>
+<div class="paragraph">
+<p>Project that contain deployments do not need to have IPRs turned on in order to use
+the <code>Import terminators from file&#8230;&#8203;</code> feature.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tutorial">7. Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <a href="./GPS_Watch_tutorial.html">GPS Watch MASL Workflow Tutorial</a> is available to
+walk through the MASL workflow step by step.  The tutorial covers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Converting a MASL model to an xtUML model</p>
+</li>
+<li>
+<p>Importing the converted xtUML model into BridgePoint</p>
+</li>
+<li>
+<p>Editing MASL action language inside BridgePoint</p>
+</li>
+<li>
+<p>Translating the MASL-infused xtUML model to textual MASL</p>
+</li>
+</ul>
 </div>
 <hr>
 <div class="paragraph">
 <p>This work is licensed under the Creative Commons CC0 License</p>
 </div>
 <hr>
-</div>
-</div>
 </div>
 </div>
 </div>
