@@ -13,12 +13,14 @@
 </head>
 <body>
 <h1 id="masl2xtuml">masl2xtuml</h1>
-<p>This command line tool converts a MASL domain or MASL project into an equivalent xtuml project<br />
+<p>This command line tool converts a MASL Domain into an equivalent xtUML project<br />
 based on parameter settings.</p>
 <h2 id="syntax">Syntax</h2>
 <h3 id="domain-conversion">Domain Conversion</h3>
 <pre><code>masl2xtuml -d &lt;domain source directory(s) ...&gt; [-o &lt;output directory&gt;]</code></pre>
-<h3 id="package-conversion">Package Conversion</h3>
+<h3 id="procproject-conversion">Proc/Project Conversion</h3>
+<p>This feature is deprecated and no longer supported. Users are encouraged to model<br />
+with Deployments inside the BridgePoint xtUML Editor.</p>
 <pre><code>masl2xtuml -p &lt;project source directory(s) ...&gt; [-o &lt;output directory&gt;]</code></pre>
 <table style="width:88%;">
 <colgroup>
@@ -38,7 +40,7 @@ based on parameter settings.</p>
 </tr>
 <tr class="even">
 <td>-p &lt;project source directory&gt;</td>
-<td>Specify any relative or absolute directory path to a MASL project</td>
+<td><em>deprecated</em></td>
 </tr>
 <tr class="odd">
 <td>-o &lt;output directory&gt;</td>

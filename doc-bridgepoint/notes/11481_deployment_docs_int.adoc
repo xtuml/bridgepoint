@@ -1,0 +1,142 @@
+= Document Deployments 
+
+xtUML Project Implementation Note
+
+:sectnums:
+
+== Abstract
+
+This note describes the work performed to document deployments and update the MASL
+guide.
+
+== Introduction and Background
+
+Deployments were added as part of issue Project Primus <<dr-3>>. This necessitated
+new documentation for deployments <<dr-1>> as well as updates to existing documentation 
+that referred to the old way of modeling MASL projects <<dr-2>>.
+
+We took the opportunity to address other historical issues related to the MASL
+documentation <<dr-4>><<dr-5>>.
+
+== Requirements
+
+. Document Deployments
+. Update the MASL Modeling and Conversion Guide
+. Update the Palette and Context Menu Customization document
+. Update the BridgePoint Context Menu Tools document
+
+== Work Required
+
+=== Document Deployments
+A new document is added that describes Deployments and their usage.  This document 
+is in the help under _BridgePoint UML Suite Help > Reference > User Interface > xtUML Modeling > Model Elements_.
+
+=== MASL Modeling and Conversion Guide
+The _MASL Modeling and Conversion Guide_ is out of date and required major rework.
+
+* Create anew using AsciiDoc.  Leverage content from the Markdown version. 
+* Update to remove content about MASL projects and replace it with deployments.
+* Address concerns raised in <<dr-2>><<dr-4>><<dr-5>>
+
+=== Palette and Context Menu Customization document
+In Palette and context menu customization document, add `Deployment` to the 
+list of model elements that can be disabled and not shown on the user interface.  
+
+=== BridgePoint Context Menu Tools document
+
+* Update to remove references to `Export MASL...` context menu actions.  
+* Add description for `Delete Stale Services`.
+* Add explanations for `Import terminators from component...` and `Import terminators from file...`
+ 
+=== GPS Watch walkthrough
+This work breaks the GPS watch walkthrough of the MASL Modeling Guide (as an appendix) and
+adds it as a stand alone document.  It is linked to from the modeling guide instead.
+
+Additionally, this document is updated for the change to deployments.
+
+=== `masl2xtuml` man page
+Update to note that MASL project conversion is deprecated.  Users will now model
+with deployments inside the tool.
+
+=== Stylesheet
+
+The development team decided we like the asciidoc default stylesheet better than
+the github stylesheet we use currently.  This new stylesheet is added and used for the 
+new documentation.  It is not yet used as a replacement for all docs that currently 
+use the github stylesheet.
+
+The README is updated with information about how to run `asciidoctor` to incorporate
+this stylesheet when converting to HTML.
+
+== Implementation Comments
+
+* The AsciiDoc version is added to the implementation note template in the `bridgepoint`
+repository.
+* Asciidoctor.js Live Preview chrome extension is a useful tool for viewing rendered documentation
+in the browser
+
+== Unit Test
+
+. Review the updated documentation with the development team.
+
+== Code Changes
+
+- fork/repository: *keithbrown/bridgepoint*  
+- branch: *11481_deployment_docs* 
+
+```
+ src/org.xtuml.bp.doc/README.md                     |   14 +-
+ .../MASLConversionGuide/GPS_Watch_tutorial.adoc    |  152 ++
+ .../MASLConversionGuide/GPS_Watch_tutorial.html    |  312 ++++
+ .../MASLConversionGuide/MASLConversionGuide.adoc   |  624 ++++++++
+ .../MASLConversionGuide/MASLConversionGuide.html   | 1630 +++++++++++++-------
+ .../MASLConversionGuide/MASLConversionGuide.md     |  575 -------
+ .../MASL/MASLConversionGuide/images/al_pref.png    |  Bin 0 -> 96803 bytes
+ .../MASLConversionGuide/images/domain_setup.png    |  Bin 0 -> 118649 bytes
+ .../MASLConversionGuide/images/gps_typerefs.png    |  Bin 0 -> 101695 bytes
+ .../MASL/MASLConversionGuide/images/image00.png    |  Bin 34313 -> 0 bytes
+ .../MASL/MASLConversionGuide/images/image01.png    |  Bin 21284 -> 75163 bytes
+ .../MASL/MASLConversionGuide/images/image02.png    |  Bin 80377 -> 0 bytes
+ .../MASL/MASLConversionGuide/images/image03.png    |  Bin 18133 -> 0 bytes
+ .../MASL/MASLConversionGuide/images/image04.png    |  Bin 9482 -> 0 bytes
+ .../images/masl_config_helper.png                  |  Bin 0 -> 98537 bytes
+ .../MASL/MASLConversionGuide/images/masl_enum.png  |  Bin 0 -> 216724 bytes
+ .../images/masl_exporter_properties.png            |  Bin 0 -> 201796 bytes
+ .../MASLConversionGuide/images/masl_structure.png  |  Bin 0 -> 225952 bytes
+ .../images/restricted_names.png                    |  Bin 0 -> 405940 bytes
+ .../MASL/MASLConversionGuide/images/typerefs.png   |  Bin 0 -> 132167 bytes
+ .../Reference/MASL/masl2xtuml/masl2xtuml.html      |    8 +-
+ .../Reference/MASL/masl2xtuml/masl2xtuml.md        |    9 +-
+ .../BridgePointContextMenuTools.html               |   42 +-
+ .../BridgePointContextMenuTools.md                 |    5 +-
+ .../PaletteAndContextMenuCustomization.html        |    4 +-
+ .../PaletteAndContextMenuCustomization.md          |    4 +-
+ .../ModelElements/Deployments/Deployments.adoc     |  252 +++
+ .../ModelElements/Deployments/Deployments.html     |  431 ++++++
+ .../ModelElements/Deployments/ME_and_canvas.png    |  Bin 0 -> 98407 bytes
+ .../Deployments/enable_iprs_dialog.png             |  Bin 0 -> 130805 bytes
+ .../ModelElements/Deployments/impl_scope.png       |  Bin 0 -> 120215 bytes
+ .../Deployments/import_from_component_dialog.png   |  Bin 0 -> 72907 bytes
+ .../Deployments/import_terminators_cme.png         |  Bin 0 -> 150982 bytes
+ .../Deployments/new_deployment_cme.png             |  Bin 0 -> 418360 bytes
+ .../Deployments/new_deployment_palette.png         |  Bin 0 -> 113004 bytes
+ .../Deployments/types_and_terminators.png          |  Bin 0 -> 203943 bytes
+ .../ModelElements/HTML/ModelElements.htm           |    8 +-
+ src/org.xtuml.bp.doc/asciidoctor-default.css       |  427 +++++
+ src/org.xtuml.bp.doc/topics_Reference.xml          |    7 +-
+ utilities/build/build_configuration.sh             |    2 +- 
+```
+
+== Document References
+
+. [[dr-1]] link:https://support.onefact.net/issues/11481[Deployments documentation]
+. [[dr-2]] link:https://support.onefact.net/issues/10251[MASL workflow documentation]
+. [[dr-3]] link:https://support.onefact.net/issues/10370[MASL deployments]
+. [[dr-4]] link:https://support.onefact.net/issues/8463[Topics missing from user documentation]
+. [[dr-5]] link:https://support.onefact.net/issues/9022[Fix IPR usage described in MASL Conversion Guide]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

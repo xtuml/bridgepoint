@@ -590,7 +590,7 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 ',
 	'select any ee from instances of S_EE where USER::selectOne(id:selected.EE_ID);
-ee.Name = param.new_name;',
+ee.rename(new_name: param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
