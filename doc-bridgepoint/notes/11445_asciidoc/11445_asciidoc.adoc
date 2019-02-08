@@ -1,6 +1,6 @@
-:sectnums:
-
 = We Like AsciiDoc
+
+:sectnums:
 
 == Introduction and Background
 
