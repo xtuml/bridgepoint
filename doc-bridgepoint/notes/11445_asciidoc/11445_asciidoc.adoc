@@ -18,7 +18,21 @@ criteria.  As development proceeds, a "design note" and "implementation
 note" follow.  The analysis and design notes are reviewed in meetings
 with minutes taken (again, a document in plain ascii text format).
 
-image::plaintext.png[Plain Text Documentation,width=80%]
+```
+= We Like AsciiDoc
+
+== Introduction and Background
+
+The BridgePoint development team has used plain ascii text as the primary
+medium for design documentation since the beginning (more than 20 years now).
+Alternate considerations included Microsoft Word, DocBook XML and a desktop
+publishing system called FrameMaker.
+
+The BridgePoint engineering process prescribes "notes" to be authored at
+various stages of development.  The "analysis note" is first except when
+```
+*Example of AsciiDoc Source for This Document*
+
 
 == Why Plain Text Documentation?
 
@@ -28,7 +42,6 @@ Before using our present git repositories we used RCS, CVS and Subversion.
 We branch for features and bug fixes, commit early and often and protect
 the 'master' branch jealously.
 
-https://github.com/xtuml/bridgepoint/network[BridgePoint git Repository Network Graph]
 
 We view design documentation as an artifact of "source code".  We version
 control it so that we can track every change and link those changes to
@@ -36,6 +49,9 @@ specific developers and to specific requirements.
 
 Non- plain text documentation is not so easily version controlled, "diff'd"
 and merged.  GUI WYSIWYGs are unwieldy compared to Vi, Emacs and the like.
+
+image::githubgraph.png[xtuml/bridgepoint Repository GitHub Network Graph]
+https://github.com/xtuml/bridgepoint/network[BridgePoint git Repository Network Graph]
 
 == Enter Markdown
 
