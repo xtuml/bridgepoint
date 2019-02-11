@@ -53,7 +53,7 @@ public class StaleServiceDecorator implements ILightweightLabelDecorator {
                 }
             }
             return false;
-        } else if (element instanceof TerminatorService_c) {
+        } else if (element instanceof Terminator_c) {
             for (TerminatorService_c svc : TerminatorService_c.getManyD_TSVCsOnR1651((Terminator_c) element, null, false)) {
                 if (isStale(svc)) {
                     return true;
