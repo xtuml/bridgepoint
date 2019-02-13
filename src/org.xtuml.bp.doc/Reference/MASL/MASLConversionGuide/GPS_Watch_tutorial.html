@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<title>GPS Watch MASL Workflow Tutorial</title>
+<link rel="stylesheet" href="./../../../asciidoctor-default.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>GPS Watch MASL Workflow Tutorial</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To demonstrate the MASL extensions of BridgePoint xtUML, a GPS Watch example application
+is used. This model represents an exercise watch that records location, heart rate,
+and elapsed time as the wearer performs a physical activity. The model is composed
+of four domain components: a heart rate monitor, a location component, a tracking
+component and a user interface. The domains are connected together with a Deployment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A MASL version of the GPS Watch that is already converted to xtUML and ready to
+import is available via <strong>Help &gt; Welcome &gt; Quick Start &gt; GPS Watch (MASL)</strong>.  Using this
+allows you to skip down to section 6 and bypass the conversion and import lessons of
+this example.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_a_local_copy_of_the_masl_model">2. Create a local copy of the MASL model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This model is located in the public GitHub repository at
+<a href="https://github.com/xtuml/models/tree/master/masl">https://github.com/xtuml/models/tree/master/masl</a>.
+The local copy we will use as the starting point in this tutorial is produced from a ZIP
+file image of this repository.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To produce that ZIP file image, click on the Download ZIP button on the root of the
+repository webpage at <a href="https://github.com/xtuml/models">https://github.com/xtuml/models</a>.
+Shortly after clicking on the button, a download will automatically start.</p>
+</li>
+<li>
+<p>Open a file browser and create a folder named <code>Tutorial</code> in your home directory</p>
+</li>
+<li>
+<p>With the same file browser navigate to the folder Downloads where the <code>models-master.zip</code>
+file should reside.</p>
+</li>
+<li>
+<p>Extract the contents of models-master.zip to <code>~/Tutorial/</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_convert_the_masl_model_to_xtuml">3. Convert the MASL model to xtUML</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy the contents of <code>~/Tutorial/model-master/masl/gps/</code> to <code>~/Tutorial/MASLsrc</code></p>
+</li>
+<li>
+<p>Open a terminal window and navigate to the directory <code>~/Tutorial/MASLsrc</code>. In this
+directory you will find the subdirectories GPSWatch, HeartRateMonitor, Location, Tracking
+and UI.</p>
+</li>
+<li>
+<p>To convert each MASL Domain to an equivalent xtUML model the <code>masl2xtuml</code>
+tool is used. Each of the subdirectories may be converted individually, in any order, using
+this tool and the converted projects placed in <code>~/Tutorial/xtUMLprj</code>.</p>
+</li>
+<li>
+<p>The command to convert HeartRateMonitor is <code>&lt;installation&gt;/tools/mc/bin/masl2xtuml -d ./HeartRateMonitor -o ../xtUMLprj</code></p>
+</li>
+<li>
+<p>Repeat step 4 for the other MASL Domains in the directory: Location, Tracking, and UI</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At the conclusion, the xtUMLprj directory will contain four subdirectories with names
+matching the four MASL Domain subdirectories under <code>~/Tutorial/MASLsrc</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_launch_bridgepoint_xtuml">4. Launch BridgePoint xtUML</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BridgePoint requires special settings to work optimally with MASL projects.  These
+settings may be configured inside the installation and therefore will be applied to
+all new workspaces. This is the recommended approach for MASL modelers.  Alternatively,
+the settings may be applied in the UI and only affect the current workspace.  Please see
+the <a href="./MASLConversionGuide.html#_configuring_the_workspace_for_masl_modeling">MASL Modeling Guide - Configuring the Workspace for MASL</a>
+document for details about these required setup steps.</p>
+</div>
+<div class="paragraph">
+<p>After configuring the installation for MASL modeling, launch BridgePoint xtUML and
+select or create an eclipse workspace to hold the modeling projects.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To launch BridgePoint xtUML, execute the <code>&lt;BridgePoint Home&gt;/bridgepoint</code> and during the
+startup of BridgePoint xtUML a workspace selection pop up window will appear.</p>
+</li>
+<li>
+<p>In this window, either type the path to the desired workspace directory or <strong>&lt;click&gt;</strong>
+on Browse and navigate to the desired folder.</p>
+</li>
+<li>
+<p>Once entered, <strong>&lt;click&gt; OK</strong>.</p>
+</li>
+<li>
+<p>BridgePoint will then open on the Welcome page. To open the xtUML Modeling perspective,
+<strong>&lt;click&gt;</strong> on the workbench icon. The Model Explorer view should be empty at this
+point.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_xtuml_projects">5. Create xtUML projects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Having converted and produced the individual xtUML models, they are ready to be assembled
+into xtUML projects inside BridgePoint.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an empty xtUML project using <strong>File &gt; New &gt; xtUML Project</strong> and give it the name
+HeartRateMonitor.  <strong>&lt;click&gt; Next</strong>. On the model compiler selection page choose “MASL
+Exporter”. <strong>&lt;click&gt; Finish</strong>.</p>
+</li>
+<li>
+<p>Import the converted xtUML model using <strong>File &gt; Import</strong> and select xtUML Model under
+the xtUML folder. Once selected, <strong>&lt;click&gt; Next</strong>.</p>
+</li>
+<li>
+<p>Browse to the folder <code>~/Tutorial/xtUMLprj/HeartRateMonitor</code> and check mark HeartRateMonitor
+for the destination.</p>
+</li>
+<li>
+<p>Repeat steps 1 Through 3 for Location, Tracking and UI models.</p>
+</li>
+<li>
+<p>The final step is to create a deployment to connect the domains.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create an empty xtUML project using <strong>File &gt; New &gt; xtUML Project</strong> and give it the name
+GPSWatch.  <strong>&lt;click&gt; Next</strong>. On the model compiler selection page choose “MASL Exporter”. <strong>&lt;click&gt; Finish</strong>.</p>
+</li>
+<li>
+<p>Create a new package inside this project named GPSWatch. Open the package by <strong>&lt;dbl-click&gt;</strong>-ing it.</p>
+</li>
+<li>
+<p>In the Palette view, open the Components tray and select Deployment</p>
+</li>
+<li>
+<p>Click on the canvas.  A deployment is placed.  Name it GPSWatch.</p>
+</li>
+<li>
+<p>Select the deployment then <strong>&lt;RMB&gt; &gt; Import terminators from component&#8230;&#8203;</strong>. Select Yes to turn on
+inter-project references.</p>
+</li>
+<li>
+<p>In the dialog, multi-select all the domains (UI, HeartRateMonitor, Location, and Tracking) and click OK.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_navigating_through_the_xtuml_model">6. Navigating through the xtUML model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the model now populated inside the workspace, the various views and editors of
+BridgePoint can be used to visualize, modify and export the model. Navigating around the
+model can be performed from inside the Model Explorer view. Diagram editors and MASL
+activity editors are both accessible from Model Explorer.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expand the tree from the project folder down through the model packages by clicking the
+triangle next to the right of the package or model element symbol.</p>
+</li>
+<li>
+<p>Repeat until the desired element is revealed in the tree.</p>
+</li>
+<li>
+<p>To open the model element in a BridgePoint editor, hover over element and then <strong>&lt;dbl-click&gt;</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The Navigator view may be used to traverse the actual project contents on disk, including
+any exported MASL files.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modify_masl">7. Modify MASL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As mentioned previously, when a model contains MASL-infused xtUML model elements, the
+<strong>&lt;dbl-click&gt;</strong> behavior is based on the default action language preference selection
+and the given dialect for an activity.</p>
+</div>
+<div class="paragraph">
+<p>In the tutorial model, the Tracking domain contains MASL-infused model elements and MASL
+code will be added to the stopped state within the WorkoutTimer state machine.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inside Model Explorer, expand the tree from the Tracking project folder down through the
+tracking packages and WorkoutTimer class to the "stopped" state of the Instance State
+Machine</p>
+</li>
+<li>
+<p>To open the MASL activity editor, hover over the stopped state inside Model Explorer.
+Next <strong>&lt;dbl-click&gt;</strong> or use <strong>&lt;RMB&gt; &gt; Open With &gt; MASL Editor</strong></p>
+</li>
+<li>
+<p>In the MASL editor, add the following code on the first line following <code>begin</code></p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    console &lt;&lt; "Forced activity on workstation. " &lt;&lt; endl &lt;&lt; flush;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Save the changes and close the editor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exporting_the_masl_infused_xtuml_model_to_masl_domains_and_a_masl_project">8. Exporting the MASL-infused xtUML model to MASL Domains and a MASL Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The conversion of xtUML projects into a MASL Domain or MASL Project is performed
+with BridgePoint&#8217;s build chain tooling.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Begin with the xtUML project HeartRateMonitor.  Click on the project in Model Explorer.</p>
+</li>
+<li>
+<p>Next, in the application menu, select <strong>Project &gt; Build Project</strong></p>
+</li>
+<li>
+<p>Activity is shown in the Console view that may be checked for errors. A <code>masl/</code>
+directory is created inside the project that contains the produced MASL files along
+with the export log. The contents of the <code>masl/</code> directory are visible in the Navigator view.</p>
+</li>
+<li>
+<p>Repeat steps 1-3 for xtUML projects UI, Location, and Tracking.</p>
+</li>
+<li>
+<p>The final conversion is for the GPSWatch project.  The same process to build the
+project is followed.  However, deployment translation into MASL will produce a
+MASL Project rather than a MASL Domain.</p>
+</li>
+<li>
+<p>This MASL output is now ready to pass to the MASL model compiler.</p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p>This work is licensed under the Creative Commons CC0 License</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+</div>
+</div>
+</body>
+</html>

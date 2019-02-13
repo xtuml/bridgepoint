@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<title>Deployments</title>
+<link rel="stylesheet" href="./../../../../../asciidoctor-default.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Deployments</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_creating_deployments">2. Creating deployments</a></li>
+<li><a href="#_editing_deployments">3. Editing deployments</a>
+<ul class="sectlevel2">
+<li><a href="#_provided_and_required_terminators">3.1. Provided and required terminators</a></li>
+<li><a href="#_implementation_scope">3.2. Implementation scope</a></li>
+</ul>
+</li>
+<li><a href="#_importing_terminators_into_deployments">4. Importing terminators into deployments</a>
+<ul class="sectlevel2">
+<li><a href="#_importing_from_a_component">4.1. Importing from a component</a></li>
+<li><a href="#_importing_from_masl">4.2. Importing from MASL</a></li>
+<li><a href="#_type_references">4.3. Type references</a></li>
+<li><a href="#_xtext_masl_dependencies">4.4. Xtext MASL dependencies</a></li>
+</ul>
+</li>
+<li><a href="#_refreshing_terminators_from_source_material">5. Refreshing terminators from source material</a>
+<ul class="sectlevel2">
+<li><a href="#stale_services">5.1. Stale services</a></li>
+</ul>
+</li>
+<li><a href="#_example">6. Example</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In an xtUML model, components (also known as "domains") define a cohesive block of
+functionality whose internal behavior may be defined by classes and state machines
+or realized code in a target language.  Components communicate with one another
+via interfaces that define messages that the component uses to access behavior from
+other components or to declare behavior that the component itself provides for
+other components to use.  This process of connecting components together is called
+"wiring" or "bridging".</p>
+</div>
+<div class="paragraph">
+<p>BridgePoint xtUML provides two mechanisms to accomplish this domain bridging. OAL
+users have historically used the direct and graphical wiring together of interfaces
+on component references. That approach does not use deployments as described here.</p>
+</div>
+<div class="paragraph">
+<p>Deployments were added to accomplish bridging in a way that is more natural to modelers
+using MASL. Deployments reference domain components by name rather than by
+direct reference and graphical interconnections. This allows deployments to be edited
+without requiring all associated domain projects to be in the workspace at the same
+time.  Deployments are therefore separated and independent from the domain sources.
+Component reference wiring, on the other hand, <em>does</em> require the associated domain
+projects to be present in the workspace.</p>
+</div>
+<div class="paragraph">
+<p>The choice of which method to use is based on the needs of the user and choice of
+model compiler the user is running to translate their model. The remainder of
+this document focuses on the creation and use of deployments themselves.  Readers
+are encouraged to read the documentation <a href="../../../SystemModeling/HTML/SystemModeling.htm">System-Level Modeling with Components</a>
+and <a href="../../../../MASL/MASLConversionGuide/MASLConversionGuide.html">MASL Modeling and Conversion Guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_deployments">2. Creating deployments</h2>
+<div class="sectionbody">
+<div class="imageblock right">
+<div class="content">
+<img src="new_deployment_palette.png" alt="Palette" width="46%">
+</div>
+<div class="title">Figure 1. Deployment via Palette</div>
+</div>
+<div class="paragraph">
+<p>Deployments are created like other model elements, via the Palette (Figure 1) or via
+the context menu on canvas or Model Explorer (Figure 2).  Both options operate identically;
+neither method of creation is better than the other.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="new_deployment_cme.png" alt="canvas CME" width="54%">
+</div>
+<div class="title">Figure 2. Deployment via "New" menu</div>
+</div>
+<div class="paragraph">
+<p>Once the deployment is created, it will display on the canvas and in the Model Explorer
+(Figure 3). When creating a deployment, it is recommended to create a new xtUML project
+to hold only the deployment.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="ME_and_canvas.png" alt="ME and canvas" width="40%">
+</div>
+<div class="title">Figure 3. Deployment graphic on canvas and in Model Explorer</div>
+</div>
+<div class="paragraph">
+<p>Unlike packages and components, deployments offer no additional visualization on
+the canvas.  The details of deployments are accessed and manipulated via the Model
+Explorer view.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_editing_deployments">3. Editing deployments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As mentioned previously, deployments are designed to maintain a separation and
+independence from the domain sources. At the same time, deployments provide the
+ability to be refreshed from the domain sources. To preserve this loose coupling
+between the deployment and its source, but also ensure that the deployment stays
+reasonably in sync with the source, deployments are designed so that very few
+things are editable by the user.</p>
+</div>
+<div class="paragraph">
+<p>In the model of a deployment, a user may edit:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The name of the deployment</p>
+</li>
+<li>
+<p>Description fields on deployments, terminators, terminator services, and
+terminator service parameters</p>
+</li>
+<li>
+<p>Action semantics (action language) of terminator services</p>
+</li>
+<li>
+<p>Parse indicator of terminator services</p>
+</li>
+<li>
+<p>Dialect of terminator services</p>
+</li>
+<li>
+<p>Implementation scope of terminator services</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Everything else is not editable directly by the user, but must be edited in the
+source (port message in a domain or <code>.int</code> or <code>.mod</code> file). Furthermore,
+terminator services and terminator service parameters may not be deleted by the
+user. Terminators and deployments may be deleted. Stale services may also be deleted
+(see <a href="#stale_services">Stale services</a>).</p>
+</div>
+<div class="sect2">
+<h3 id="_provided_and_required_terminators">3.1. Provided and required terminators</h3>
+<div class="imageblock right">
+<div class="content">
+<img src="types_and_terminators.png" alt="ME showing types and terminators" width="250">
+</div>
+<div class="title">Figure 4. Terminators in Model Explorer</div>
+</div>
+<div class="paragraph">
+<p>Two different types of terminators are supported by deployments (Figure 4). Provided
+terminators represent all of the public services (inbound API) of a particular
+domain. These are named with the same name as the domain and appear brown in the
+Model Explorer view. Services on provided terminators are automatically assigned the
+"None" dialect. For MASL users, the dialect should always be "None" for provided services.</p>
+</div>
+<div class="paragraph">
+<p>Required terminators represent the terminators (outbound API) of a domain. They
+are named with the name of the domain followed by <code>::</code> followed by the name of the
+terminator itself as in: <code>Tracking::UI</code> and appear blue in the model explorer.
+Services on required terminators are automatically assigned the dialect of the
+source service or the workspace default dialect when necessary.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementation_scope">3.2. Implementation scope</h3>
+<div class="paragraph">
+<p>In MASL modeling, users require the ability to specify that a terminator service in
+a deployment is implemented in native code. In this case, a declaration in the <code>.prj</code>
+file is necessary, but a <code>.tr</code> definition file should not be produced. Alternatively,
+to indicate the domain implementation is used, a terminator service may be excluded
+from output entirely. In this case, no declaration is created in the <code>.prj</code> and no
+definition in a <code>.tr</code> are produced. Table 1 lists effects of the various combinations
+of the Implementation Scope and Dialect properties of terminator services.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Implementation scope effect on MASL export</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Implementation Scope</th>
+<th class="tableblock halign-left valign-top">Dialect</th>
+<th class="tableblock halign-left valign-top">MASL Export Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No declaration in <code>.prj</code>. No corresponding <code>.tr</code> definition file created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declaration in <code>.prj</code>. No corresponding <code>.tr</code> definition file created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declaration in <code>.prj</code>. Corresponding <code>.tr</code> definition file created.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The property "Implementation Scope" (Figure 5) is used to control where the implementation of
+a terminator service comes from. The available choices are "Domain" and "Deployment".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="impl_scope.png" alt="Implementation Scope attribute" width="700">
+</div>
+<div class="title">Figure 5. Setting Implementation Scope in Properties view</div>
+</div>
+<div class="paragraph">
+<p>When importing terminator definitions into a deployment, the import process sets the
+Implementation Scope attribute of terminator services that are created. The default
+value is "Domain". This attribute is not modified when a re-import/refresh of a terminator
+is performed.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_importing_terminators_into_deployments">4. Importing terminators into deployments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Terminators may be imported in one of two ways: by referring to an existing
+domain component or by parsing a MASL model file (<code>.int</code> or <code>.mod</code>). The context
+menu of deployments provides access to both options (Figure 6).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="import_terminators_cme.png" alt="Import terminators CMEs" width="50%">
+</div>
+<div class="title">Figure 6. Importing terminators via context menu tools</div>
+</div>
+<div class="sect2">
+<h3 id="_importing_from_a_component">4.1. Importing from a component</h3>
+<div class="paragraph">
+<p>The <code>Import terminators from component&#8230;&#8203;</code> context menu entry (CME) allows the user
+to import terminator definitions from an existing domain component. The standard
+BridgePoint element chooser (Figure 7) shows components that are visible to the deployment.
+Multiple components may be selected within the chooser.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="import_from_component_dialog.png" alt="Import terminators from component dialog" width="50%">
+</div>
+<div class="title">Figure 7. Importing Terminators from components</div>
+</div>
+<div class="paragraph">
+<p>Once a component or components are selected to import, the action iterates over
+the ports of the component. Required ports are mapped to required terminators in
+the deployment where the name of the component is the domain name and the name
+of the port is the terminator name.</p>
+</div>
+<div class="paragraph">
+<p>Provided ports are analyzed next. If the component has a single provided port or
+if there are multiple provided ports but one exists with the same name as the component,
+the messages on this port are mapped to the provided terminator for that domain. If
+there are multiple provided ports but none has the same name as the component, no
+provided terminator is created.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The xtUML Project containing the deployment may need inter-project references
+(IPRs) to be turned on in order to see components in other xtUML Projects.  A dialog
+(Figure 8) is shown to prompt the user to turn on IPRs when no components are found.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="enable_iprs_dialog.png" alt="Enable IPRs dialog" width="70%">
+</div>
+<div class="title">Figure 8. Prompt to enable IPRs</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>After importing from a component, the projects containing the domain components need
+not remain in the workspace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_importing_from_masl">4.2. Importing from MASL</h3>
+<div class="paragraph">
+<p>The <code>Import terminators from file&#8230;&#8203;</code> CME allows the user to import terminator definitions
+from a file. A file browser is shown.  Multiple <code>.int</code> or <code>.mod</code> files may
+be selected at once.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_type_references">4.3. Type references</h3>
+<div class="paragraph">
+<p>Terminator services and service parameters may refer to types which are not
+xtUML core types. In order to maintain loose coupling between the source and the
+deployment itself, new types must be created if they are not found within the
+deployment project. The standard way type references are created for MASL is by
+creating a new xtUML user data type and setting its core type to be <code>MASLtype</code>. Public
+domain types referenced by project terminators must be qualified with the name
+of the domain as in <code>UI::GoalCriteria</code>.</p>
+</div>
+<div class="paragraph">
+<p>The import mechanism searches for these types in a package called "Shared"
+adjacent to the deployment itself. If they are not found, they are created.
+<code>MASLtype</code> is expected to be in a package called "types" at the top level of
+the model and is created if it is not found in that location.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xtext_masl_dependencies">4.4. Xtext MASL dependencies</h3>
+<div class="paragraph">
+<p>Dependencies on domain services and types can be defined in the <code>.dependencies</code>
+file or by using the Dependencies editor from the "Project Preferences" CME. These
+dependencies are used by the Xtext MASL editor to allow references to external
+elements to be resolved in MASL action language. As a convenience feature, these
+dependencies are automatically added to the <code>.dependencies</code> file when a provided
+terminator is imported. With this automatic process, a modeler can immediately
+start making invocations to provided terminator services from action language
+once they are imported.</p>
+</div>
+<div class="paragraph">
+<p>For terminators imported from a MASL file, an absolute path reference to the
+selected file is added to the <code>.dependencies</code> file.</p>
+</div>
+<div class="paragraph">
+<p>For terminators imported from a component, a dependency on a file named
+<code>&lt;Component_Name&gt;.int</code> adjacent to the component source (<code>.xtuml</code>) file is added
+to the <code>.dependencies</code> file. This new dependency uses the <code>WORKSPACE_LOC</code>
+substitution variable, so it is not an absolute filesystem path. This location
+is the location where the <code>.int</code> file for the referenced domain will be
+generated by the MASL refresher.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_refreshing_terminators_from_source_material">5. Refreshing terminators from source material</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Terminators inside a deployment are refreshed when a user re-imports from a
+component or domain interface file. Since the signature of a service is the
+identifying key, it can be difficult to identify which service must be updated if
+the signature changes. The approach of BridgePoint is conservative, trying to make
+good decisions when safe while avoiding any loss of data.</p>
+</div>
+<div class="sect2">
+<h3 id="stale_services">5.1. Stale services</h3>
+<div class="paragraph">
+<p>In order to prevent action language from ever being wrongfully deleted, the
+merge/refresh algorithm never deletes services but rather marks them as "stale"
+if it thinks they may need to be removed. In the case of stale service being
+created, the modeler must determine whether the service should be deleted or
+whether the action language must be copied to the new version of the service.
+Once the action language is copied, the stale service should be deleted.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Stale services will be clearly marked by the yellow triangular warning glyph. A
+CME is provided on the terminator element to delete all stale services by right
+clicking and selecting "Delete stale services". This CME is not available if
+the terminator has no stale services. Stale services may also be deleted by
+selecting the service itself and using the "Delete" CME.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example">6. Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The GPS Watch (MASL) example application included with BridgePoint shows deployments
+in action and was used for the screenshots shown in this document.  To import this
+example into your workspace select <strong>Help &gt; Welcome &gt; Quick Start &gt; Example Application - GPS Watch (MASL)</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The deployment is found in the <code>GPS_Watch</code> project. The other projects define the
+domain components that are connected via the bridging defined inside the deployment.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>This work is licensed under the Creative Commons CC0 License</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+</div>
+</div>
+</body>
+</html>

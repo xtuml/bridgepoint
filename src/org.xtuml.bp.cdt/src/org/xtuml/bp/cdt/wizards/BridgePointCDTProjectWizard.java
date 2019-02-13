@@ -56,6 +56,9 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
 	    if ( -1 == BuilderManagement.findBuilder(project, ".*bp.+mc.*export_builder.*")) {
 	        return true;
 	    }
+	    if ( -1 != BuilderManagement.findBuilder(project, ".*bp.+mc.*masl_builder.*")) {
+	        return true;
+	    }
 	    
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         ConvertToMakeWizard wizard = new ConvertToMakeWizard();
@@ -89,6 +92,9 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
 	    // If the project has no MC export builder at this point, the user selected "None"
 	    // during MC selection.  If that's the case, skip adding CDT stuff.
 	    if ( -1 == BuilderManagement.findBuilder(project, ".*bp.+mc.*export_builder.*")) {
+	        return;
+	    }
+	    if ( -1 != BuilderManagement.findBuilder(project, ".*bp.+mc.*masl_builder.*")) {
 	        return;
 	    }
 	    

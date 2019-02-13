@@ -25,3 +25,4 @@ Import-Package: org.eclipse.core.resources
 Export-Package: org.xtuml.bp.mc
 Bundle-ClassPath: mc.jar
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.mc

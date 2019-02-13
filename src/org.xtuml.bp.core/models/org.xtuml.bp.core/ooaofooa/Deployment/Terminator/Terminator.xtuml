@@ -36,6 +36,7 @@ relate service to self across R1651;
 service.Name = c_ep.Name;
 service.Return_Dimensions = "";
 service.Is_Stale = false;
+service.Implementation_Scope = ImplementationScope::Domain;
 
 // populate details from message implementation
 if ( not_empty spr_ro )
@@ -211,6 +212,7 @@ else
   end if;
 end if;
 service.Suc_Pars = ParseStatus::parseInitial;
+service.Implementation_Scope = ImplementationScope::Domain;
 
 // create parameters and return type
 smasl = Util::getNextString( string_iterator:smasl_iterator );
