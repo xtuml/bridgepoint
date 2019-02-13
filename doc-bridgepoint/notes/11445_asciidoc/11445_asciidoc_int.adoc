@@ -68,29 +68,35 @@ N/A
 - branch:  11445_asciidoc
 
 ----
- doc-bridgepoint/notes/11445_asciidoc/11445_asciidoc_int.adoc |  94 ++++++++++++++++++++++++++++++++++++++++++++++++
- doc-bridgepoint/notes/11445_asciidoc/WeLikeAsciiDoc.adoc     | 115 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- doc-bridgepoint/notes/11445_asciidoc/asciidoc.png            | Bin 0 -> 27677 bytes
- doc-bridgepoint/notes/11445_asciidoc/asciidoctor.png         | Bin 0 -> 278167 bytes
- doc-bridgepoint/notes/11445_asciidoc/githubgraph.png         | Bin 0 -> 133081 bytes
- doc-bridgepoint/process/templates/README.adoc                |  11 ++++++
- doc-bridgepoint/process/templates/ant_template.adoc          |  88 +++++++++++++++++++++++++++++++++++++++++++++
- doc-bridgepoint/process/templates/dnt_template.adoc          | 114 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- doc-bridgepoint/process/templates/int_template.adoc          | 119 ++++++++++++++++++++++++++++++++-----------------------------
- doc-bridgepoint/process/templates/rvm_template.adoc          |  22 ++++++++++++
- 10 files changed, 506 insertions(+), 57 deletions(-)
+ doc-bridgepoint/notes/11445_asciidoc/11445_asciidoc_int.adoc             | 108 ++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/11445_asciidoc/WeLikeAsciiDoc.adoc                 | 115 +++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/11445_asciidoc/asciidoc.png                        | Bin 0 -> 27677 bytes
+ doc-bridgepoint/notes/11445_asciidoc/asciidoctor.png                     | Bin 0 -> 278167 bytes
+ doc-bridgepoint/notes/11445_asciidoc/githubgraph.png                     | Bin 0 -> 133081 bytes
+ doc-bridgepoint/process/templates/README.adoc                            |  11 +++++
+ doc-bridgepoint/process/templates/ant_template.adoc                      |  88 +++++++++++++++++++++++++++++++++
+ doc-bridgepoint/process/templates/ant_template.md                        |  90 ---------------------------------
+ doc-bridgepoint/process/templates/{dnt_template.md => dnt_template.adoc} | 131 +++++++++++++++++++++++--------------------------
+ doc-bridgepoint/process/templates/int_template.adoc                      | 119 +++++++++++++++++++++++---------------------
+ doc-bridgepoint/process/templates/int_template.md                        | 122 ---------------------------------------------
+ doc-bridgepoint/process/templates/rvm_template.adoc                      |  22 +++++++++
+ doc-bridgepoint/process/templates/rvm_template.md                        |  29 -----------
+ 13 files changed, 468 insertions(+), 367 deletions(-)
 ----
 
 - fork/repository:  cortlandstarrett/mc
 - branch:  11445_asciidoc
 
 ----
- doc/process/templates/README.adoc       |  11 ++++++++
- doc/process/templates/ant_template.adoc |  88 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- doc/process/templates/dnt_template.adoc | 114 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- doc/process/templates/int_template.adoc | 119 +++++++++++++++++++++++++++++++++++++++++++---------------------------------------
- doc/process/templates/rvm_template.adoc |  22 +++++++++++++++
- 5 files changed, 297 insertions(+), 57 deletions(-)
+ doc/process/templates/README.adoc                            |  11 ++++++
+ doc/process/templates/ant_template.adoc                      |  88 +++++++++++++++++++++++++++++++++++++++++
+ doc/process/templates/ant_template.md                        |  90 ------------------------------------------
+ doc/process/templates/{dnt_template.md => dnt_template.adoc} | 131 +++++++++++++++++++++++++++++--------------------------------
+ doc/process/templates/int_template.adoc                      | 119 ++++++++++++++++++++++++++++---------------------------
+ doc/process/templates/int_template.md                        | 122 --------------------------------------------------------
+ doc/process/templates/rvm_template.adoc                      |  22 +++++++++++
+ doc/process/templates/rvm_template.md                        |  29 --------------
+ 8 files changed, 245 insertions(+), 367 deletions(-)
 ----
 
 == 9 Document References
