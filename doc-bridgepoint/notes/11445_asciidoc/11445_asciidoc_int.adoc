@@ -1,0 +1,105 @@
+= AsciiDoc Templates
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Use AsciiDoc markdown rather than GitHub-Flavored Markdown for the BridgePoint
+engineering note templates.
+
+== 2 Introduction and Background
+
+The BridgePoint development team has used plain ascii text as the primary
+medium for design documentation since the beginning (more than 20 years now).
+Alternate considerations included Microsoft Word, DocBook XML and a desktop
+publishing system called FrameMaker.
+
+The BridgePoint engineering process prescribes "notes" to be authored at
+various stages of development.  The "analysis note" is first except when
+preceded by a user-supplied requirements document.  The analysis note has
+a section which lists the _Requirements_ followed by _Analysis_ commentary
+followed by a section outlining the _Work Required_ and _Acceptance Test_
+criteria.  As development proceeds, a "design note" and "implementation
+note" follow.  The analysis and design notes are reviewed in meetings
+with minutes taken (again, a document in plain ascii text format).
+
+See document reference <<dr-2,We Like AsciiDoc>> for more background.
+
+== 3 Requirements
+
+=== 3.1 Supply templates for ant, dnt, int.
+=== 3.2 Supply template for rvm (review minutes).
+=== 3.3 Move the document references to the bottom.
+=== 3.4 Move the license statement to the very bottom.
+
+== 4 Work Required
+
+For each of the `.md` templates, make one that works with AsciiDoc.
+Reduce or enhance the amount of example syntax to taste.
+
+== 5 Implementation Comments
+
+=== 5.1 We Like AsciiDoc
+In preparation for this work, I wrote an article titled
+_We Like AsciiDoc_ (see <<dr-2,We Like AsciiDoc>>) and posted
+it to the xtUML social media channels.
+
+== 6 Unit Test
+
+=== 6.1 ascii text inspection
+. Open each file with vi.
+. Be happy with readability and examples.
+
+=== 6.2 local rendering
+. Open each file within a web browser with `asciidoctor.js` present.
+. Be happy with readability and examples.
+
+=== 6.3 GitHub remote rendering
+. Open each file within a web browser on GitHub.
+. Be happy with readability and examples.
+
+== 7 User Documentation
+
+N/A
+
+== 8 Code Changes
+
+- fork/repository:  cortlandstarrett/bridgepoint
+- branch:  11445_asciidoc
+
+----
+ doc-bridgepoint/notes/11445_asciidoc/11445_asciidoc_int.adoc |  94 ++++++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/11445_asciidoc/WeLikeAsciiDoc.adoc     | 115 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/notes/11445_asciidoc/asciidoc.png            | Bin 0 -> 27677 bytes
+ doc-bridgepoint/notes/11445_asciidoc/asciidoctor.png         | Bin 0 -> 278167 bytes
+ doc-bridgepoint/notes/11445_asciidoc/githubgraph.png         | Bin 0 -> 133081 bytes
+ doc-bridgepoint/process/templates/README.adoc                |  11 ++++++
+ doc-bridgepoint/process/templates/ant_template.adoc          |  88 +++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/process/templates/dnt_template.adoc          | 114 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc-bridgepoint/process/templates/int_template.adoc          | 119 ++++++++++++++++++++++++++++++++-----------------------------
+ doc-bridgepoint/process/templates/rvm_template.adoc          |  22 ++++++++++++
+ 10 files changed, 506 insertions(+), 57 deletions(-)
+----
+
+- fork/repository:  cortlandstarrett/mc
+- branch:  11445_asciidoc
+
+----
+ doc/process/templates/README.adoc       |  11 ++++++++
+ doc/process/templates/ant_template.adoc |  88 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc/process/templates/dnt_template.adoc | 114 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ doc/process/templates/int_template.adoc | 119 +++++++++++++++++++++++++++++++++++++++++++---------------------------------------
+ doc/process/templates/rvm_template.adoc |  22 +++++++++++++++
+ 5 files changed, 297 insertions(+), 57 deletions(-)
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11445[11445 - Add asciidoc templates to process folders.]
+. [[dr-2]] link:WeLikeAsciiDoc.adoc[We Like AsciiDoc]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

@@ -18,7 +18,7 @@ criteria.  As development proceeds, a "design note" and "implementation
 note" follow.  The analysis and design notes are reviewed in meetings
 with minutes taken (again, a document in plain ascii text format).
 
-```
+----
 = We Like AsciiDoc
 
 == Introduction and Background
@@ -30,7 +30,8 @@ publishing system called FrameMaker.
 
 The BridgePoint engineering process prescribes "notes" to be authored at
 various stages of development.  The "analysis note" is first except when
-```
+----
+
 *Example of AsciiDoc Source for This Document*
 
 
