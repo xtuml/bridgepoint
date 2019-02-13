@@ -11,17 +11,20 @@ note as well.
 In this section, give a summary of the design that this note aims to
 describe.
 
+TIP:  This document is marked down with http://asciidoc.org/[AsciiDoc].
+You can get tips from the
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
+
 == 2 Introduction and Background
 
 In this section, outline the important points relating to this issue/bug that
 the reader would need to know in order to understand the rest of this
 document. Here is an example reference to a document reference <<dr-3>>.
 Here is an example with named text <<dr-3,SMASL Specification>>.
-Here we refer to the image below, <<Model-Explorer>>.
+Here we refer to the image below, <<caption text under image>>.
 
-[[Model-Explorer]]
+.caption text under image
 image::localimage.png[image description alternate text,width=25%]
-caption text under image
 
 == 3 Requirements
 
@@ -66,6 +69,15 @@ modification, enumerate the changes to the design in this section.
 If there was no preceding design note, then this section documents
 any deviations from the implementation as presented at the
 pre-implementation engineering review.
+
+.Recommended Type Mapping
+[options="header"]
+|===
+| MASL type  | xtUML type recommendation
+| boolean    | Use native `boolean`
+| byte       | Create UDT with core type `integer`
+| character  | Create UDT with core type `integer`
+|===
 
 === 5.1 Item 1
 
