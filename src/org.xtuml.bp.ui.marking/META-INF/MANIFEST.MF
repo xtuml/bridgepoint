@@ -8,7 +8,8 @@ Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources;bundle-version="3.10.1",
- org.xtuml.bp.core
+ org.xtuml.bp.core,
+ org.xtuml.bp.utilities
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-BundleShape: jar

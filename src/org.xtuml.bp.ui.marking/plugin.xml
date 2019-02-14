@@ -3,11 +3,11 @@
 <plugin>
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
-            adaptable="true"
             id="org.xtuml.bp.ui.marking.projectContribution"
-            objectClass="org.eclipse.core.resources.IProject">
+            objectClass="org.xtuml.bp.core.SystemModel_c">
          <action
                class="org.xtuml.bp.ui.marking.LaunchMarkingEditorAction"
+               enablesFor="1"
                id="org.xtuml.bp.ui.marking.LaunchMarkingEdAction"
                label="Manage Project Markings"
                menubarPath="org.xtuml.bp.ui.context-internal">
