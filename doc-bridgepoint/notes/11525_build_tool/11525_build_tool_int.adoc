@@ -1,0 +1,160 @@
+= Make Building Projects Easier 
+
+xtUML Project Implementation Note
+
+
+== 1 Abstract
+
+This note describes the work performed to add a toolbar button and context menu 
+entry to build a project from the xtUML Modeling perspective.
+
+== 2 Introduction and Background
+
+The xtUML Modeling perspective is where BridgePoint modelers spend the majority of
+their time.  Currently, the user must select a project in Model Explorer view and 
+then use the application `Project > Build Project` menu. Alternatively the user can
+switch to the C/C++ perspective to use the context menu to build the project.
+
+Users have indicated it would be nice if it was easier to build a project from the 
+xtUML Modeling perspective (see <<dr-1>> and <<dr-2>>). The current method is functional but not intuitive.  With 
+the recent change to the MASL export to use build rather than an explicit export CME, 
+this enhancement has been thrown into focus.
+  
+The CDT and JDT support launching "Build Project" from the context menu as well as 
+the application toolbar.
+
+== 3 Requirements
+
+3.1 BridgePoint shall provide a mechanism to build a project from the context menu 
+in Model Explorer view.
+
+3.2 BridgePoint shall provide a mechanism to build a project via toolbar button.
+
+
+== 4 Work Required
+
+=== 4.1 Build Project
+
+==== 4.1.1 Handler
+Handlers are API eclipse calls to perform actions initiated via menus and buttons. 
+This work adds `org.xtuml.bp.mc.commands.BuildProjectHandler`.  This class has an 
+execute function that iterates through the selected elements and performs project-level 
+builds.
+
+If we encounter an element in the selection group that is not a top-level
+system element, we find the system/project to which it belongs and call 
+build on that project. Since there may be multiple items selected under a single
+project we keep track of which projects have been built and only build the project 
+once.
+
+==== 4.1.2 Toolbar contribution
+Add a button to the application toolbar that corresponds to "Build Project". This
+button simply activates the handler.  We re-use the build icon image:./hammer.png["hammer"] 
+directly from the CDT plugin.
+
+==== 4.1.3 Context Menu contribution 
+Add a context menu entry "Build Project" that activates the handler.
+
+.Build Project CME
+image::build_project_in_xtUML_perspective_small.png[width=25%]
+
+=== 4.2 `ProjectUtilities.java`
+
+==== 4.2.1 `getProject()` 
+The `ProjectUtilities.java` has functions to get a `SystemModel_c` instance using 
+a project name.  For this work we needed the opposite functionality.  Given a 
+`SystemModel_c` or `NonRootModelElement` instance, get the `IProject` handle for 
+the containing project. This functionality is added.
+
+==== 4.2.2 `performBuild()`
+Moved `performBuild(IProject, BUILD_TYPE)` from `bp.cli.BuildExecutor.java` into 
+`ProjectUtilities.java` and call it from `BuildExecutor` and from the new `BuildHandler`.
+
+== 5 Implementation Comments
+
+5.1 Fixed name of flag to disable "Create Documentation" to match the camel-case style 
+other flags use and the documentation specifies.
+
+5.2 Fixed error message going to console for "Check Referential Integrity" and 
+"Set Model Compiler" when context menu activated in Navigator view. The error messages
+look like this:
+----
+!ENTRY org.eclipse.ui 4 4 2019-02-14 10:03:55.131
+!MESSAGE Plug-in 'org.xtuml.bp.integrity' contributed an invalid Menu Extension 
+(Path: 'org.xtuml.bp.utilities' is invalid): org.xtuml.bp.integrity.checkReferentialIntegrityAction
+
+!ENTRY org.eclipse.ui 4 4 2019-02-14 10:03:55.132
+!MESSAGE Plug-in 'org.xtuml.bp.mc' contributed an invalid Menu Extension 
+(Path: 'org.xtuml.bp.utilities' is invalid): org.xtuml.bp.mc.tools.SwitchProjectMCAction
+----
+
+5.3 Changed "Manage Project Markings" context menu entry configuration so that it 
+does not show up in the context menu in Navigator.  It now only appears near the 
+other BridgePoint tools in the context menu of Model Explorer.
+
+5.4 Tweaked MASL console output for readability. Note the examples that follow
+have artificially truncated lines to make it easier to understand the change's visible
+effect on the output.  
+
+Changed from:
+----
+Initializing MASL export...
+[/Users/kbrown/xtuml/m6170.2019-02-07-1628/BridgePoint.app/Contents/Eclipse//tools/mc/bin/x2m...
+[/Users/kbrown/xtuml/m6170.2019-02-07-1628/BridgePoint.app/Contents/Eclipse//tools/mc/bin/masl...
+103 ___ info ___ Loading marking data.
+103 ___ info ___ Starting domain.
+104 ___ info ___ Done.
+[/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/bin/java, -cp, /Users/...
+Done.
+Initializing MASL export...
+[/Users/kbrown/xtuml/m6170.2019-02-07-1628/BridgePoint.app/Contents/Eclipse//tools/mc/bin/x2m...
+...
+----
+to
+----
+=====================================================================================================
+Exporting MASL for HeartRateMonitor...
+[/Users/kbrown/xtuml/m6170.2019-02-07-1628/BridgePoint.app/Contents/Eclipse//tools/mc/bin/x2m...
+[/Users/kbrown/xtuml/m6170.2019-02-07-1628/BridgePoint.app/Contents/Eclipse//tools/mc/bin/masl...
+103 ___ info ___ Loading marking data.
+103 ___ info ___ Starting domain.
+104 ___ info ___ Done.
+[/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/bin/java, -cp, /Users/...
+Done.
+
+=====================================================================================================
+Exporting MASL for Location...
+[/Users/kbrown/xtuml/m6170.2019-02-07-1628/BridgePoint.app/Contents/Eclipse//tools/mc/bin/x2m...
+...
+----
+
+
+== 6 Unit Test
+
+TODO 
+
+== 7 User Documentation
+
+TODO - need to update the context menu tools doc.  Other docs?
+
+Describe the end user documentation that was added for this change.
+
+== 8 Code Changes
+
+- fork/repository: *keithbrown/bridgepoint* 
+- branch:  *11525_build_tool*
+
+----
+ TODO - Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11525[DEI 11525 - Make building projects easier] 
+. [[dr-2]] https://support.onefact.net/issues/11512[SR 11512 - Make projects building easier]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
