@@ -323,6 +323,23 @@ public class ProjectUtilities {
         allowJobCompletion();
     }
 
+	/*
+	 * Start the build of this project
+	 */
+	public static void performBuild(final IProject project, final int buildType) {
+		// run the build
+		Runnable r = new Runnable() {
+			public void run() {
+				try {
+					project.build(buildType, null);
+				} catch (Exception e) {
+					CorePlugin.logError("Failed to build " + project.getName() + ".\n" + e.getMessage(), e); //$NON-NLS-2$
+				}
+			}
+		};
+		r.run();
+	}
+	
     public static IProject getProject(final Object o) {
     	IProject p = null;
     	if ( o instanceof SystemModel_c ) {
