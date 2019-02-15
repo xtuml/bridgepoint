@@ -31,6 +31,16 @@
                         icon="platform:/plugin/org.eclipse.cdt.ui/icons/elcl16/build_exec.png"
                         label="Build Project"
                         style="push">
+                            <visibleWhen> 
+                              <or>
+                                <with variable="activeWorkbenchWindow.activePerspective"> 
+                                    <equals value="org.xtuml.bp.core.perspective"/> 
+                                </with> 
+                                <with variable="activePartId"> 
+                                    <equals value="org.xtuml.bp.ui.explorer.ExplorerView"/> 
+                                </with> 
+                              </or>
+                            </visibleWhen>
                     </command>
                 </toolbar>
             </menuContribution>
