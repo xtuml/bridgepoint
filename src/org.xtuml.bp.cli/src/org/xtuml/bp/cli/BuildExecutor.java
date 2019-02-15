@@ -25,7 +25,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.mc.c.source.ExportBuilder;
+import org.xtuml.bp.mc.cpp.source.ExportBuilder;
 
 public class BuildExecutor implements Executor {
 
