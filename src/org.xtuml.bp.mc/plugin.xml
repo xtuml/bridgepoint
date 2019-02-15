@@ -20,14 +20,6 @@
       </objectContribution>
    </extension>
    <extension
-         point="org.eclipse.ui.commands">
-      <command
-            defaultHandler="org.xtuml.bp.mc.commands.BuildProjectHandler"
-            id="org.xtuml.bp.mc.commands.BuildProject"
-            name="Build Project">
-      </command>
-   </extension>
-   <extension
         point="org.eclipse.ui.menus">
             <menuContribution
                 locationURI="toolbar:org.eclipse.ui.main.toolbar">
@@ -35,7 +27,7 @@
                     id="org.xtuml.bp.mc.commands.toolbar.toolbar1">
                     <command 
                         id="org.xtuml.bp.mc.toolbars.BuildProjectCommand"
-                        commandId="org.xtuml.bp.mc.commands.BuildProject"
+                        commandId="org.eclipse.ui.project.buildProject"
                         icon="platform:/plugin/org.eclipse.cdt.ui/icons/elcl16/build_exec.png"
                         label="Build Project"
                         style="push">
@@ -50,7 +42,7 @@
                  </separator>
                 <command 
                     id="org.xtuml.bp.mc.popup.BuildProjectCommand"
-                    commandId="org.xtuml.bp.mc.commands.BuildProject"
+                    commandId="org.eclipse.ui.project.buildProject"
                     icon="platform:/plugin/org.eclipse.cdt.ui/icons/elcl16/build_exec.png"
                     label="Build Project"
                     style="push">

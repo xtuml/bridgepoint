@@ -20,12 +20,12 @@ import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.mc.c.source.ExportBuilder;
-import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
 public class BuildExecutor implements Executor {
 
@@ -84,7 +84,7 @@ public class BuildExecutor implements Executor {
 				IProject project = projects[i];
 				if (cleanBuild) {
 					System.out.println("Performing a clean build of project: " + project.getName());
-					ProjectUtilities.performBuild(project, IncrementalProjectBuilder.CLEAN_BUILD);
+					performBuild(project, IncrementalProjectBuilder.CLEAN_BUILD);
 					waitForBuildToFinish(project);
 				}
 
@@ -102,7 +102,7 @@ public class BuildExecutor implements Executor {
 					}
 					prebuildOnly(project);
 				} else {
-					ProjectUtilities.performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
+					performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
 				}
 				if (debug) {
 					System.out.println("Build was launched.  Waiting for build to finish for: " + project.getName());
@@ -135,6 +135,24 @@ public class BuildExecutor implements Executor {
 		}
 	}
 	
+	/**
+	 * Start the build of this project
+	 */
+	private void performBuild(final IProject project, final int buildType) {
+		// run the build
+		Runnable r = new Runnable() {
+			public void run() {
+				try {
+					project.build(buildType, null);
+				} catch (Exception e) {
+					CorePlugin
+							.logError(
+									"Failed to build " + project.getName() + ".\n" + e.getMessage(), e); //$NON-NLS-2$
+				}
+			}
+		};
+		r.run();
+	}
 
 	/**
 	 * Wait for the build complete.

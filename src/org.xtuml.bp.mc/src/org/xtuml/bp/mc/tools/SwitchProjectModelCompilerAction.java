@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.utilities.ui.ProjectUtilities;
+import org.xtuml.bp.core.SystemModel_c;
 
 
 public class SwitchProjectModelCompilerAction implements IActionDelegate {
@@ -21,7 +21,7 @@ public class SwitchProjectModelCompilerAction implements IActionDelegate {
         
         // UI guarantees only IProjects are selected
         for (Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
-			IProject project = ProjectUtilities.getProject(iterator.next());
+			IProject project = (IProject) ((SystemModel_c)iterator.next()).getAdapter(IProject.class);
             switchMC(project);
         }
     }

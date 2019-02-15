@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -56,7 +57,6 @@ import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
-import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.IModelImport;
@@ -321,38 +321,6 @@ public class ProjectUtilities {
         }
 
         allowJobCompletion();
-    }
-
-	/*
-	 * Start the build of this project
-	 */
-	public static void performBuild(final IProject project, final int buildType) {
-		// run the build
-		Runnable r = new Runnable() {
-			public void run() {
-				try {
-					project.build(buildType, null);
-				} catch (Exception e) {
-					CorePlugin.logError("Failed to build " + project.getName() + ".\n" + e.getMessage(), e); //$NON-NLS-2$
-				}
-			}
-		};
-		r.run();
-	}
-	
-    public static IProject getProject(final Object o) {
-    	IProject p = null;
-    	if ( o instanceof SystemModel_c ) {
-    		p = getProject(((SystemModel_c) o).getName());
-    	} else if ( o instanceof NonRootModelElement ) {
-    		NonRootModelElement nrme = (NonRootModelElement) o;
-    		String name = Ooaofooa.getProjectNameFromModelRootId(nrme.getModelRoot().getId());
-    		p = getProject(name);
-    	}
-    	return p;
-    }
-    public static IProject getProject(final String projectName) {
-    	return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
     }
 
     /**
