@@ -98,7 +98,9 @@ The xtuml2masl "man page" is changed in the MASL Reference section of Help.
 ----
 
 - fork/repository:  cortlandstarrett/models
-- branch:  11503_coverage
+- branch:  11503_coverage2
+
+NOTE:  The models branch name is different from the others!
 
 ----
  masl/test/regression_test | 10 ++++++----
