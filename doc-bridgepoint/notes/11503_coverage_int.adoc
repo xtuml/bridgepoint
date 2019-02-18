@@ -1,0 +1,120 @@
+= Coverage Option
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+The MASL code generator (`masl`) has the capability to emit model coverage
+statistics.  This note documents work to wwitch this capability behind an
+option accessible from the masl, xtuml2masl and masl_round_trip command lines.
+
+== 2 Introduction and Background
+
+In issue <<dr-2,10052>>, coverage was added to masl to measure one aspect of
+the effectiveness of the masl_round_trip test suite.  Coverage was enabled
+by default and emitted to stdout on all model conversions.
+
+As part of the work implementing deployments, <<dr-3,10525>>, a builder
+strategy was implemented that exposed the coverage information in the console.
+The information was deemed distracting and an unrequested change.  Temporarily,
+the coverage output feature was suppressed.  Plugins and calling scripts
+are enhanced to take advantage of a flag that enables coverage output.
+
+== 3 Requirements
+
+=== 3.1 Add coverage '-c' switch to `masl`.
+
+=== 3.2 Add coverage '-c' switch to `xtuml2masl`.
+
+=== 3.3 Add coverage '-c' switch to `masl_round_trip`.
+
+=== 3.4 `regression_test`
+Add coverage '-c' switch to invocations of masl_round_trip inside the
+regression_test automation script.
+
+=== 3.5 Default the coverage feature to _off_ (not enabled).
+
+== 4 Work Required
+
+=== 4.1 masl
+Command line options are implemented in `masl/gen/sys_user_co.c`.
+The -c flag is added here.
+
+=== 4.2 xtuml2masl
+No work is required directly on the xtuml2masl script since all command
+line options are passed through to the java x2m.Xtuml2Masl plugin.  The
+plugin needs to be modified to pass the option to the invocation of `masl`.
+
+=== 4.3 masl_round_trip
+Edit the script to pass through the '-c' flag to the `xtuml2masl` script.
+
+=== 4.4 regression_test
+Add '-c' to the invocation of `masl_round_trip` in this script.
+
+=== 4.5 default
+Unless the '-c' switch is present, coverage output will not be produced.
+
+== 5 Implementation Comments
+
+none
+
+== 6 Unit Test
+
+=== 6.1 masl_round_trip
+
+. Run masl_round_trip using the regression_test script.
+. *See* coverage statistics reported in the output.
+
+=== 6.2 masl_round_trip
+
+. Edit the regression_test script removing the '-c' flag from the
+  masl_round_trip invocations (2 places).
+. Run masl_round_trip using the regression_test script.
+. *Do not see* coverage statistics reported in the output.
+
+== 7 User Documentation
+
+The xtuml2masl "man page" is changed in the MASL Reference section of Help.
+
+== 8 Code Changes
+
+- fork/repository:  cortlandstarrett/bridgepoint
+- branch:  11503_coverage
+
+----
+ doc-bridgepoint/notes/11503_coverage_int.adoc                  | 116 ++++++++++++++++++++++++++++++++++++++++++
+ src/org.xtuml.bp.doc/Reference/MASL/xtuml2masl/xtuml2masl.html |  26 ++++++++------
+ src/org.xtuml.bp.doc/Reference/MASL/xtuml2masl/xtuml2masl.md   |  11 +++---
+ src/org.xtuml.bp.x2m/src/org/xtuml/bp/x2m/Xtuml2Masl.java      |  16 ++++++++-
+ 4 files changed, 152 insertions(+), 17 deletions(-)
+----
+
+- fork/repository:  cortlandstarrett/mc
+- branch:  11503_coverage
+
+----
+ bin/masl_round_trip | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+----
+
+- fork/repository:  cortlandstarrett/models
+- branch:  11503_coverage2
+
+NOTE:  The models branch name is different from the others!
+
+----
+ masl/test/regression_test | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11503[11503 - Place coverage output behind an option for masl.]
+. [[dr-2]] https://support.onefact.net/issues/10052[10052 - Create coverage tool.]
+. [[dr-3]] https://support.onefact.net/issues/10525[10525 - Implement deployments.]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
