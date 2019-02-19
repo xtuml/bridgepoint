@@ -26,10 +26,13 @@ the application toolbar.
 == 3 Requirements
 
 3.1 BridgePoint shall provide a mechanism to build a project from the context menu 
-in Model Explorer view.
+in Model Explorer view in xtUML Modeling perspective.
 
-3.2 BridgePoint shall provide a mechanism to build a project via toolbar button.
+3.2 BridgePoint shall provide a mechanism to build a project via toolbar button in 
+xtUML Modeling perspective.
 
+3.3 The mechanism implemented in 3.1 and 3.2 shall leverage the build infrastructure 
+provided by eclipse.
 
 == 4 Work Required
 
@@ -51,6 +54,14 @@ the toolbar button.
 .Build Project CME
 image::build_project_in_xtUML_perspective_small.png[width=25%]
 
+==== 4.1.3 Launching builds
+This implementation intentionally made the design choice to allow elements underneath
+a top level project to have "Build Project" CME and toolbar enabled.  That is, the user
+is not required to first select a top level project to initiate a build.  
+
+==== 4.1.4 Pre-builder
+This implementation intentionally forces pre-builder to run unconditionally any time
+a MASL export (via build) is initiated.
 
 == 5 Implementation Comments
 

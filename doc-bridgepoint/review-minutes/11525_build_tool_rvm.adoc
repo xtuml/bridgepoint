@@ -6,10 +6,10 @@ xtUML Project Review Minutes
  Present:  Keith, Levi, Bob, Cort
 
  -- Num Type  Who  Section  Comment
- _- 01  min   Levi 3        Specify xtUML Modeling perspective in the requirements.
- _- 02  min   Bob  3        Make a 3rd requirement to leverage Eclipse infrastructure.
- _- 03  min   Levi 5        lots of discusion on being able to build from below top
- _- 04  min   Levi 5        Let us document that Prebuilder will be unconditional.
+ x- 01  min   Levi 3        Specify xtUML Modeling perspective in the requirements.
+ x- 02  min   Bob  3        Make a 3rd requirement to leverage Eclipse infrastructure.
+ x- 03  min   Levi 5        lots of discusion on being able to build from below top
+ x- 04  min   Levi 5        Let us document that Prebuilder will be unconditional.
 
  No major observations, a re-review is not required.
 
