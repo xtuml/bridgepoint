@@ -1,19 +1,17 @@
-= Title goes here
+= Make Building Projects Easier
 
 xtUML Project Review Minutes
 
- Reviewed:  
- Present:  
+ Reviewed:  11525_build_tool/11525_build_tool_int.adoc hash(cdbcff5)
+ Present:  Keith, Levi, Bob, Cort
 
  -- Num Type  Who  Section  Comment
- _- 01  min   xxx  xxx      xxx
- _- 02  min   xxx  xxx      xxx
- _- 03  min   xxx  xxx      xxx
- _- 04  min   xxx  xxx      xxx
- _- 05  min   xxx  xxx      xxx
+ _- 01  min   Levi 3        Specify xtUML Modeling perspective in the requirements.
+ _- 02  min   Bob  3        Make a 3rd requirement to leverage Eclipse infrastructure.
+ _- 03  min   Levi 5        lots of discusion on being able to build from below top
+ _- 04  min   Levi 5        Let us document that Prebuilder will be unconditional.
 
  No major observations, a re-review is not required.
- (or... Major observations were recorded, a re-review is required.)
 
 ---
 
