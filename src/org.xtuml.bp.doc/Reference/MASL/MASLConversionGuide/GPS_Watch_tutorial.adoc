@@ -134,7 +134,7 @@ The conversion of xtUML projects into a MASL Domain or MASL Project is performed
 with BridgePoint's build chain tooling.
 
 . Begin with the xtUML project HeartRateMonitor.  Click on the project in Model Explorer. 
-. Next, in the application menu, select *Project > Build Project*  
+. Next, in the application menu, select *<RMB> > Build Project*  
 . Activity is shown in the Console view that may be checked for errors. A `masl/` 
   directory is created inside the project that contains the produced MASL files along 
   with the export log. The contents of the `masl/` directory are visible in the Navigator view.   

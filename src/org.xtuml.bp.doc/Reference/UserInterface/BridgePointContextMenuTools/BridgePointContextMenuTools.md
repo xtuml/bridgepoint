@@ -52,6 +52,7 @@ These menu entries appear on only the context menu of Model Explorer.
 |-------------------------|--------------------------------------|
 | Add Built-in External Entities | Adds the Logging, Time, and Architecture external entities to the selected package. |
 | Add to Identifier...    | Opens dialog to add the selected attribute to a class identifier. |
+| Build Project           | Runs the project's build chain as defined via the enabled project builders. |
 | Cant Happen in State... | Opens dialog to specify a state the event should be treated as can't happen in. |
 | Combine With...         | Opens dialog that allows the user to combine one referential attribute with another valid attribute. |
 | Ignore in State...      | Opens dialog to specify a state the event should be ignored in. | 

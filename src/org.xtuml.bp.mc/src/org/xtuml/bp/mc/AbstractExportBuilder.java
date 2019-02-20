@@ -97,11 +97,11 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     // direct request by the user for a build or because auto building
     // is turned on.
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, true, monitor);
+        preBuild(kind, true, false, monitor);
         return null;
     }
 
-    protected void preBuild(int kind, boolean parseOnExport, IProgressMonitor monitor) throws CoreException {
+    protected void preBuild(int kind, boolean parseOnExport, boolean forceRebuild, IProgressMonitor monitor) throws CoreException {
         boolean exportNeeded = readyBuildArea(monitor);
         if (m_nature != null) {
             MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(getProject(), m_activator, m_nature);
@@ -111,7 +111,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         // run to refresh before starting. This picks up changes we may have
         // made to the external tool builder launch file.
         //getProject().build(kind, monitor);
-        if (exportNeeded) {
+        if (exportNeeded || forceRebuild) {
             PersistenceManager.getDefaultInstance();
             exportModel(parseOnExport, monitor);
             getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
