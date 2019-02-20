@@ -53,7 +53,6 @@ public class Activator extends AbstractActivator implements IStartup {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		singleton.setLog( getLog() );
-		singleton.setBundle( getBundle() );
 	}
 
 	/*
