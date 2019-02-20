@@ -43,7 +43,6 @@
 	<modules>
 		<module>../../src/org.xtuml.bp.als</module>
 		<module>../../src/org.xtuml.bp.als.oal</module>
-		<module>../../src/org.xtuml.bp.cdt</module>
 		<module>../../src/org.xtuml.bp.cli</module>
 		<module>../../src/org.xtuml.bp.debug.ui</module>
 		<module>../../src/org.xtuml.bp.doc</module>
@@ -56,7 +55,6 @@
 		<module>../../src/org.xtuml.bp.mc.masl</module>
 		<module>../../src/org.xtuml.bp.mc.c.source</module>
 		<module>../../src/org.xtuml.bp.mc.java.source</module>
-		<module>../../src/org.xtuml.bp.mc.template</module>
 		<module>../../src/org.xtuml.bp.pkg</module>
 		<module>../../src/org.xtuml.bp.pkg-feature</module>
 		<module>../../src/org.xtuml.bp.search</module>

@@ -38,13 +38,6 @@ the License.
          version="0.0.0"/>
 
    <plugin
-         id="org.xtuml.bp.cdt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.xtuml.bp.cli"
          download-size="0"
          install-size="0"
@@ -134,13 +127,6 @@ the License.
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.xtuml.bp.mc.template"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.xtuml.bp.model.compare"

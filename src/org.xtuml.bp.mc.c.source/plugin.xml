@@ -2,30 +2,30 @@
 <?eclipse version="3.4"?>
 <plugin>
   <extension
-       id="org.xtuml.bp.mc.mc3020.MCNature"
+       id="org.xtuml.bp.mc.mc3020nature"
        name="model compiler nature"
        point="org.eclipse.core.resources.natures">
     <runtime>
-      <run class="org.xtuml.bp.mc.mc3020.MCNature"></run>
+      <run class="org.xtuml.bp.mc.mc3020.Mc3020Nature"></run>
     </runtime>
-    <builder id="org.xtuml.bp.mc.mc3020.c_builder"></builder>
+    <builder id="org.xtuml.bp.mc.mc3020.mc3020_builder"></builder>
   </extension>
   <extension point="org.eclipse.ui.ide.projectNatureImages">
     <image icon="platform:/plugin/org.xtuml.bp.core/icons/xtuml-nature.gif"
-           natureId="org.xtuml.bp.mc.mc3020.MCNature"
+           natureId="org.xtuml.bp.mc.mc3020nature"
            id="org.xtuml.resoures.natureimage">
     </image>
   </extension>
   <extension
-        id="org.xtuml.bp.mc.mc3020.c_builder"
-        name="C Model Compiler (Source)"
+        id="org.xtuml.bp.mc.mc3020.mc3020_builder"
+        name="MC-3020 (C Model Compiler)"
         point="org.eclipse.core.resources.builders">
     <builder>
       <run class="org.xtuml.bp.mc.mc3020.Mc3020CSourceBuilder" />
     </builder>
   </extension>
   <extension point="org.xtuml.bp.core.model-compilers">
-    <model-compiler name="C Model Compiler (Source)" class="org.xtuml.bp.mc.mc3020.MCNewProjectWizard"></model-compiler>
+    <model-compiler name="MC-3020 (C Model Compiler)" class="org.xtuml.bp.mc.mc3020.MCNewProjectWizard"></model-compiler>
   </extension>
   <extension point="org.eclipse.ui.startup">
     <startup class="org.xtuml.bp.mc.mc3020.Activator"/>

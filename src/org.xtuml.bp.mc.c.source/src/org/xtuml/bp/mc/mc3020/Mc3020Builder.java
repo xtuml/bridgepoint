@@ -31,9 +31,9 @@ import org.eclipse.ui.console.MessageConsole;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.mc.AbstractExportBuilder;
 
-public class Mc3020CSourceBuilder extends AbstractExportBuilder {
+public class Mc3020Builder extends AbstractExportBuilder {
 
-    public static final String BUILDER_ID = "org.xtuml.bp.mc.mc3020.c_builder";
+    public static final String BUILDER_ID = "org.xtuml.bp.mc.mc3020.mc3020_builder";
     public static final String CONSOLE_NAME = "MC-3020 Build Console";
 
     public static final String XTUMLMC_BUILD_EXE = "xtumlmc_build";
@@ -43,10 +43,10 @@ public class Mc3020CSourceBuilder extends AbstractExportBuilder {
     private PrintStream consoleErr;
 
     // The shared instance
-    private static Mc3020CSourceBuilder singleton;
+    private static Mc3020Builder singleton;
 
-    public Mc3020CSourceBuilder() {
-        super(Activator.getDefault(), MCNature.getDefault());
+    public Mc3020Builder() {
+        super(Activator.getDefault(), Mc3020Nature.getDefault());
     }
 
     @Override
@@ -172,11 +172,11 @@ public class Mc3020CSourceBuilder extends AbstractExportBuilder {
      * 
      * @return the shared instance
      */
-    public static Mc3020CSourceBuilder getDefault() {
-        if (Mc3020CSourceBuilder.singleton == null) {
-            Mc3020CSourceBuilder.singleton = new Mc3020CSourceBuilder();
+    public static Mc3020Builder getDefault() {
+        if (Mc3020Builder.singleton == null) {
+            Mc3020Builder.singleton = new Mc3020Builder();
         }
-        return Mc3020CSourceBuilder.singleton;
+        return Mc3020Builder.singleton;
     }
 
 }

@@ -3,17 +3,17 @@ package org.xtuml.bp.mc.mc3020;
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.mc.AbstractNature;
 
-public class MCNature extends AbstractNature {
+public class Mc3020Nature extends AbstractNature {
     // The shared instance
-    private static MCNature singleton;
+    private static Mc3020Nature singleton;
 
     /**
      * identifier of this nature in plugin.xml - (concatenate pluginid.natureid)
      */
-    public static final String MC_NATURE_ID = "org.xtuml.bp.mc.mc3020.MCNature"; // NON-NLS-1
+    public static final String MC_NATURE_ID = "org.xtuml.bp.mc.mc3020nature"; // NON-NLS-1
 
-    public MCNature() {
-        super(Activator.getDefault(), Mc3020CSourceBuilder.BUILDER_ID);
+    public Mc3020Nature() {
+        super(Activator.getDefault(), Mc3020Builder.BUILDER_ID);
         singleton = this;
     }
 
@@ -22,11 +22,11 @@ public class MCNature extends AbstractNature {
      * 
      * @return the shared instance
      */
-    public static MCNature getDefault() {
-        if (MCNature.singleton == null) {
-            MCNature.singleton = new MCNature();
+    public static Mc3020Nature getDefault() {
+        if (Mc3020Nature.singleton == null) {
+            Mc3020Nature.singleton = new Mc3020Nature();
         }
-        return MCNature.singleton;
+        return Mc3020Nature.singleton;
     }
 
     @Override
