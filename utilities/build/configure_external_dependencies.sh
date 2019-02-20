@@ -228,7 +228,7 @@ antlr_lib=antlr.jar
 bp_als=${bp_src_dir}/org.xtuml.bp.als
 bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
 mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
-mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java.source
+mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java
 mc3020_help=${bp_src_dir}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries

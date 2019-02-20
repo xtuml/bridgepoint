@@ -123,7 +123,7 @@ the License.
          version="0.0.0"/>
 
    <plugin
-         id="org.xtuml.bp.mc.java.source"
+         id="org.xtuml.bp.mc.java"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

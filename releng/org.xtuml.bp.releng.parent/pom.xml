@@ -54,7 +54,7 @@
 		<module>../../src/org.xtuml.bp.mc</module>
 		<module>../../src/org.xtuml.bp.mc.masl</module>
 		<module>../../src/org.xtuml.bp.mc.c.source</module>
-		<module>../../src/org.xtuml.bp.mc.java.source</module>
+		<module>../../src/org.xtuml.bp.mc.java</module>
 		<module>../../src/org.xtuml.bp.pkg</module>
 		<module>../../src/org.xtuml.bp.pkg-feature</module>
 		<module>../../src/org.xtuml.bp.search</module>

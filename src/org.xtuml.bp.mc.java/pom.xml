@@ -9,7 +9,7 @@
     <relativePath>../../releng/org.xtuml.bp.releng.parent/</relativePath>
   </parent>
   <groupId>org.xtuml.bp</groupId>
-  <artifactId>org.xtuml.bp.mc.java.source</artifactId>
+  <artifactId>org.xtuml.bp.mc.java</artifactId>
   <version>6.17.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 	<build>

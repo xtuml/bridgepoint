@@ -17,7 +17,7 @@ public class McJavaNature extends AbstractNature {
      * identifier of this nature in plugin.xml - (concatenate
      * pluginid.exportbuilderid)
      */
-    public static final String EXPORT_BUILDER_ID = "org.xtuml.bp.mc.java.source.export_builder"; // NON-NLS-1
+    public static final String EXPORT_BUILDER_ID = "org.xtuml.bp.mc.java.mcjava_builder"; // NON-NLS-1
 
     public McJavaNature() {
         super(Activator.getDefault(), EXPORT_BUILDER_ID);

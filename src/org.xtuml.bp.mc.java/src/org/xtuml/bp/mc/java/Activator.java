@@ -6,7 +6,7 @@ import org.xtuml.bp.mc.AbstractActivator;
 
 public class Activator extends AbstractActivator implements IStartup {
 
-    public static final String PLUGIN_ID = "org.xtuml.bp.mc.java.source";
+    public static final String PLUGIN_ID = "org.xtuml.bp.mc.java";
 
     // The shared instance
     private static Activator singleton = null;
