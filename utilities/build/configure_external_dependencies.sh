@@ -228,8 +228,6 @@ antlr_lib=antlr.jar
 bp_als=${bp_src_dir}/org.xtuml.bp.als
 bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
 mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
-mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
-mccpp_src=${bp_src_dir}/org.xtuml.bp.mc.cpp.source
 mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java.source
 mc3020_help=${bp_src_dir}/org.xtuml.help.bp.mc
 

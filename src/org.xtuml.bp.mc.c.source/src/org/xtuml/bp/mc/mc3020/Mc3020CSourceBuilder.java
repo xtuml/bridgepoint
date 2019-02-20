@@ -65,7 +65,7 @@ public class Mc3020CSourceBuilder extends AbstractExportBuilder {
             mcCmd.add(toolsFolder() + File.separator + XTUMLMC_BUILD_EXE);
             mcCmd.add("-home");
             mcCmd.add(System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/");
-            mcCmd.add("-l3s");
+            mcCmd.add("-l3s"); // "-l2s" "-lSCs"
             mcCmd.add("-e");
             mcCmd.add("-d");
             mcCmd.add("code_generation");

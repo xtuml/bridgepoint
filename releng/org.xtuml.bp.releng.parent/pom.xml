@@ -55,10 +55,7 @@
 		<module>../../src/org.xtuml.bp.mc</module>
 		<module>../../src/org.xtuml.bp.mc.masl</module>
 		<module>../../src/org.xtuml.bp.mc.c.source</module>
-		<module>../../src/org.xtuml.bp.mc.cpp.source</module>
 		<module>../../src/org.xtuml.bp.mc.java.source</module>
-		<module>../../src/org.xtuml.bp.mc.none</module>
-		<module>../../src/org.xtuml.bp.mc.systemc.source</module>
 		<module>../../src/org.xtuml.bp.mc.template</module>
 		<module>../../src/org.xtuml.bp.pkg</module>
 		<module>../../src/org.xtuml.bp.pkg-feature</module>
