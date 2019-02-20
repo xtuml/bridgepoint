@@ -19,8 +19,8 @@ of the model compiler. The name ``mark'' comes from the visualization of using<b
 a highlighter pen to mark each element that has a particular property.</p>
 <p>The MASL model compiler takes this input in the form of <code>pragma</code> statements<br />
 associated with application model element. The marks created using this marking<br />
-editor are output as <code>pragma</code>s when the modeler runs the <code>Export MASL</code><br />
-tool.</p>
+editor are output as <code>pragma</code>s when the modeler runs the <code>Build Project</code><br />
+tool to export MASL.</p>
 <p>The marking editor provides a user interface for the MASL marking process. It<br />
 uses selection fields to minimize the possibility of user-induced typing errors<br />
 in the marking process.</p>
@@ -241,7 +241,7 @@ components::MicrowaveOven::Microwave Oven::Oven,bar,Model Class,barov</code></pr
 means that if the modeler moves, deletes, or renames an element, he or she must either<br />
 remark the new element in this file and delete the old element, or edit the new<br />
 path data into this file by hand on the old entries. Marks that do not match<br />
-any instances in the model are simply ignored by the <code>Export MASL</code> process and<br />
+any instances in the model are simply ignored by the MASL export process and<br />
 are not passed downstream. Therefore, they do not hurt anything if left in place.<br />
 The export process will provide warnings for unused marks.</li>
 </ul>

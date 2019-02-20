@@ -123,6 +123,16 @@ Exporting MASL for Location...
 ...
 ----
 
+5.5 Test update
+The `UIConfigurationTests` in `SystemModelTestSuite` check that context menu entries
+can be successfully disabled via system property.  A test here relied on the "Export MASL..."
+CMEs.  These are no longer available.  The test is changed to use "Make Private" and 
+"Make Protected" as CMEs to test disabling.
+
+5.6  Marking Editor documentation
+This was referring to the "Export MASL ..." context menu entries.  The docs are updated
+so they do not refer to these CMEs anymore and refer to "Build Project" or just the MASL
+export generically.
 
 == 6 Unit Test
 
