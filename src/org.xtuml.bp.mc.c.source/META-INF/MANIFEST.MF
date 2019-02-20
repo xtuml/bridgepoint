@@ -23,3 +23,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.mc3020
 Bundle-ClassPath: c.jar
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.mc.c.source

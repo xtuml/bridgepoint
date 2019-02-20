@@ -148,9 +148,6 @@ public class Generator extends Task {
                     nature = org.xtuml.bp.mc.systemc.source.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.systemc.source.Activator.getDefault();
                 }
-                org.xtuml.bp.mc.MCBuilderArgumentHandler argHandlerAbstract = new org.xtuml.bp.mc.MCBuilderArgumentHandler(
-                        project, activator, nature);
-                argHandlerAbstract.setArguments(nature.getBuilderID());                
 
                 // Next proceed with actually running docgen on the model
                 IWorkbenchPage page = PlatformUI.getWorkbench()

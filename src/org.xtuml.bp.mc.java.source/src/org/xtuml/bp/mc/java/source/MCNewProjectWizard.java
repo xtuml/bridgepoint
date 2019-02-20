@@ -15,9 +15,7 @@ package org.xtuml.bp.mc.java.source;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.IWorkbenchWizard;
-
 import org.xtuml.bp.mc.AbstractNewProjectWizard;
-import org.xtuml.bp.mc.MCBuilderArgumentHandler;
 
 /**
  * This is the class that implements the org.xtuml.bp.core.model-compilers
