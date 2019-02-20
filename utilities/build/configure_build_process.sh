@@ -126,7 +126,7 @@ user_supplied_files=${git_repo_root}/packaging/build/extra_files
 git_workspace_setup="${git_bp}/doc-bridgepoint/process/development-workspace-setup"
 install_project="installer"
 utilities_project="utilities"
-mc_project="org.xtuml.bp.mc.c.source"
+mc_project="org.xtuml.bp.mc.mc3020"
 mcjava_project="org.xtuml.bp.mc.java"
 eclipse_ver="4.5"
 

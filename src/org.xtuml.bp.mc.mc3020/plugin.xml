@@ -21,7 +21,7 @@
         name="MC-3020 Builder"
         point="org.eclipse.core.resources.builders">
     <builder>
-      <run class="org.xtuml.bp.mc.mc3020.Mc3020CSourceBuilder" />
+      <run class="org.xtuml.bp.mc.mc3020.Mc3020Builder" />
     </builder>
   </extension>
   <extension point="org.xtuml.bp.core.model-compilers">

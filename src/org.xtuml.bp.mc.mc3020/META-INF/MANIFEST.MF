@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: C Model Compiler (Source)
-Bundle-SymbolicName: org.xtuml.bp.mc.c.source; singleton:=true
+Bundle-SymbolicName: org.xtuml.bp.mc.mc3020;singleton:=true
 Bundle-Version: 6.17.0.qualifier
 Bundle-Activator: org.xtuml.bp.mc.mc3020.Activator
 Bundle-Vendor: xtUML.org
@@ -23,4 +23,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.mc3020
 Bundle-ClassPath: c.jar
 Eclipse-BundleShape: dir
-Automatic-Module-Name: org.xtuml.bp.mc.c.source
+Automatic-Module-Name: org.xtuml.bp.mc.mc3020

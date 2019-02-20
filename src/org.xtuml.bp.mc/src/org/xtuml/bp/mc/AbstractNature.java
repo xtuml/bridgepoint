@@ -30,20 +30,6 @@ import org.xtuml.bp.utilities.build.BuilderManagement;
  * the project description.
  */
 public abstract class AbstractNature implements IProjectNature {
-    /** ID of BridgePoint Model Compilers **/
-    public static final String C_SOURCE_MC_ID = "org.xtuml.bp.mc.c.source";
-    public static final String C_BINARY_MC_ID = "org.xtuml.bp.mc.c.binary";
-    public static final String SYSTEMC_SOURCE_MC_ID = "org.xtuml.bp.mc.systemc.source";
-    public static final String CPP_SOURCE_MC_ID = "org.xtuml.bp.mc.cpp.source";
-
-    public static final String C_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.c.source";
-    public static final String C_BINARY_MC_ID_OLD = "com.mentor.nucleus.bp.mc.c.binary";
-    public static final String SYSTEMC_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.systemc.source";
-    public static final String CPP_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.cpp.source";
-
-    public static final String MC_LAUNCH_ID = "Model Compiler.launch"; //$NON-NLS-1$
-
-    public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
 
     public static final String MC_ROOT_DIR = "tools/mc";
 
@@ -56,11 +42,6 @@ public abstract class AbstractNature implements IProjectNature {
     // This file is used to identify the fact that the SystemC model compiler is
     // present
     public static final String SystemC_Archetype = "t.sysc_main.c"; //$NON-NLS-1$
-
-    public static String LAUNCH_ATTR_TOOL_LOCATION = "org.eclipse.ui.externaltools.ATTR_LOCATION"; //$NON-NLS-1$
-    public static String LAUNCH_ATTR_TOOL_ARGS = "org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS"; //$NON-NLS-1$
-
-    public static String BUILD_SETTINGS_FILE = "build_settings/build_setting.properties";
 
     /** To hold associated project reference */
     private IProject project;

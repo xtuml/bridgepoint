@@ -39,11 +39,11 @@ ECLIPSE_VER="4.5"
 OS="windows"
 BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_e${ECLIPSE_VER}"
 DOCGEN_EXE="docgen.exe"
-MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/docgen.exe"
+MCMC_EXE="org.xtuml.bp.mc.mc3020_${BP_VERSION}/mc3020/bin/docgen.exe"
 if [ "${OS_ARG,,}" = "linux" ] || [ "${OS_ARG,,}" = "osx" ]; then
   OS="linux"
   BP_BASE_DIR="${STAGING_PATH}/${PRODUCT_NAME}_for_Linux_e${ECLIPSE_VER}"
-  MCMC_EXE="org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin/docgen"
+  MCMC_EXE="org.xtuml.bp.mc.mc3020_${BP_VERSION}/mc3020/bin/docgen"
   DOCGEN_EXE="docgen"
 fi
 
@@ -81,7 +81,7 @@ echo "INFO: Done."
 echo "INFO: Configuring correct mc build tools for ${OS}."
 cd "${PRODUCT_NAME}/eclipse/plugins"
 if [ "${OS}" = "linux" ]; then
-      mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
+      mcplugin="./org.xtuml.bp.mc.mc3020_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
@@ -93,11 +93,11 @@ if [ "${OS}" = "linux" ]; then
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 
-      mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
+      mcplugin="./org.xtuml.bp.mc.systemmc3020_${BP_VERSION}/mc3020/bin"
       tr -d '\r' < ${mcplugin}/xtumlmc_build > ${mcplugin}/xtumlmc_build.exe
       cp -f ${mcplugin}/xtumlmc_build.exe ${mcplugin}/xtumlmc_build
 else
-      mcplugin="./org.xtuml.bp.mc.c.source_${BP_VERSION}/mc3020/bin"
+      mcplugin="./org.xtuml.bp.mc.mc3020_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 
       mcplugin="./org.xtuml.bp.mc.cpp.source_${BP_VERSION}/mc3020/bin"
@@ -106,7 +106,7 @@ else
       mcplugin="./org.xtuml.bp.mc.java.source_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 
-      mcplugin="./org.xtuml.bp.mc.systemc.source_${BP_VERSION}/mc3020/bin"
+      mcplugin="./org.xtuml.bp.mc.systemmc3020_${BP_VERSION}/mc3020/bin"
       mv -f ${mcplugin}/xtumlmc_build.exe.win ${mcplugin}/xtumlmc_build.exe
 fi
 echo "INFO: Done."
