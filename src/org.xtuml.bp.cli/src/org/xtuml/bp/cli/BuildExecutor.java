@@ -271,7 +271,7 @@ public class BuildExecutor implements Executor {
          ICommand[] commands = description.getBuildSpec();
          ICommand exportBuilderCommand = null;
          for (ICommand iCommand : commands) {
-			if (iCommand.getBuilderName().equals(org.xtuml.bp.mc.java.source.MCNature.EXPORT_BUILDER_ID)){
+			if (iCommand.getBuilderName().equals(org.xtuml.bp.mc.java.McJavaNature.EXPORT_BUILDER_ID)){
 				exportBuilderCommand= iCommand;
 				break;
 			}
@@ -281,7 +281,7 @@ public class BuildExecutor implements Executor {
 		if (exportBuilderCommand != null) {
 
 			Map<String, String> arguments = exportBuilderCommand.getArguments();
-			org.xtuml.bp.mc.java.source.ExportBuilder jeb = new org.xtuml.bp.mc.java.source.ExportBuilder();
+			org.xtuml.bp.mc.java.McJavaBuilder jeb = new org.xtuml.bp.mc.java.McJavaBuilder();
 			jeb.setArgs(arguments);
 			jeb.setProject(project);
 
