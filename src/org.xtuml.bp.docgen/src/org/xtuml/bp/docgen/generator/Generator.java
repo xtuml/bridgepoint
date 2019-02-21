@@ -326,8 +326,7 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
         // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-        String app = AbstractNature.getLaunchAttribute(project, 
-                    org.xtuml.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
+        String app = "";
         String args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
         String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
         String middlefile = "z.xtuml";  //$NON-NLS-1$
