@@ -25,7 +25,6 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.mc.cpp.source.ExportBuilder;
 
 public class BuildExecutor implements Executor {
 
@@ -293,6 +292,7 @@ public class BuildExecutor implements Executor {
 
 		}else{
 			
+		    /*
 			ExportBuilder eb = new ExportBuilder();
 
 			IPath destPath = eb.getCodeGenFolderPath(project);
@@ -300,6 +300,7 @@ public class BuildExecutor implements Executor {
 				destPath.toFile().mkdirs();
 			}
 			eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
+			*/
 		}
 	}
 	

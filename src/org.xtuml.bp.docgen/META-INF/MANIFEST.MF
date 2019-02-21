@@ -22,8 +22,6 @@ Require-Bundle: org.xtuml.bp.core,
  org.eclipse.ant.core,
  org.xtuml.bp.mc,
  org.xtuml.bp.mc.mc3020,
- org.xtuml.bp.mc.cpp.source,
- org.xtuml.bp.mc.systemc.source,
  org.xtuml.bp.io.image,
  org.eclipse.ui.console,
  org.eclipse.core.filesystem

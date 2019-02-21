@@ -46,7 +46,6 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractNature;
-import org.xtuml.bp.mc.cpp.source.ExportBuilder;
 
 public class Generator extends Task {
     
@@ -193,8 +192,10 @@ public class Generator extends Task {
                                     break;
                                 case 3:
                                     monitor.subTask("Gathering model information");
+                                    /*
                                     ExportBuilder eb = new ExportBuilder();
                                     exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor());
+                                    */
                                     monitor.worked(1);
                                     break;
                                 case 4:
