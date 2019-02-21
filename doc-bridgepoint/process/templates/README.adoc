@@ -1,0 +1,11 @@
+= Document Templates
+
+Copy a template file from here when creating a new engineering note.
+There are templates here for Analysis Note, Design Note and Implementation
+Note among others.
+
+Most of these templates should not be changed here.  Simply copy the versions
+from the xtuml/bridgepoint repository.  The copies here are for convenience
+to those who have not forked the xtuml/bridgepoint repository.  If you note
+changes you would like, raise an issue or change the version over in the other
+repository.

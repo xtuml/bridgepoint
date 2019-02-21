@@ -531,7 +531,8 @@ during project creation.  When a new xtUML Project is created a wizard guides th
 model creation process.  After giving the project a name, the user must select "MASL Exporter" 
 as the model compiler to use.
 
-At any point during the modeling process the user may select *Project > Build Project*.
+At any point during the modeling process the user may select *<RMB> > Build Project* 
+(or the hammer button in the toolbar).
 This action will cause the model to be translated from xtUML to MASL.  The output is
 placed in a folder underneath the project on disk.  The default name of the folder is
 `masl/`, but it may be configured in the MASL Exporter properties (<<masl_exp_prop>>).  To

@@ -1,0 +1,99 @@
+= Title goes here
+
+xtUML Project Analysis Note
+
+NOTE:  Each section has a description that states the purpose of that section.
+Delete these section descriptions before checking in your note.  Delete this
+note as well.
+
+== 1 Abstract
+
+In this section, give a summary of the design that this note aims to
+describe.
+
+TIP:  This document is marked down with http://asciidoc.org/[AsciiDoc].
+You can get tips from the
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
+
+== 2 Introduction and Background
+
+In this section, outline the important points relating to this issue/bug that
+the reader would need to know in order to understand the rest of this
+document.  Here is an example reference to a document reference <<dr-3>>.
+Here is an example with named text <<dr-3,SMASL Specification>>.
+Here we refer to the image below, <<caption text under image>>.
+
+.caption text under image
+image::localimage.png[image description alternate text,width=25%]
+
+== 3 Requirements
+
+This section describes the requirements that need to be satisfied.  If there
+is an SRS, this section may simply refer to it.  Each requirement should be as
+short and simple as possible and must be clearly defined.
+
+ Here is some text that
+ is not formatted and line-wrapped.  Do this by simply prepending
+ a blank to the beginning of each line.
+
+Here we reference a section heading below, like <<3.2.1 Example sub-item>>.
+
+=== 3.1 Item
+==== 3.1.1 Example sub-item
+Paragraphs can start here.
+
+* Example Bulleted List Element
+  - Example Sub list item with example named document reference <<dr-2,Analyze Options for Migration>>
+
+=== 3.2 Item
+==== 3.2.1 Example sub-item
+
+1. First Example Numbered List Element
+2. Second
+  a. enumerated sub first
+  b. enumerated sub second
+3. third
+
+== 4 Analysis
+
+This section is only required if there is no preceding analysis note. If present
+it sets out a brief analysis of the problem to be resolved by this design note.
+
+
+== 5 Work Required
+
+In this section, break out the consequential work (as a numbered list) needed
+to meet the requirements specified in the Requirements section.
+
+=== 5.1 Item
+
+.Recommended Type Mapping
+[options="header"]
+|===
+| MASL type  | xtUML type recommendation
+| boolean    | Use native `boolean`
+| byte       | Create UDT with core type `integer`
+| character  | Create UDT with core type `integer`
+|===
+
+== 6 Acceptance Test
+
+In this section, list the tests that need to be performed in order to
+verify that all the requirements are satisfied.
+
+
+
+== 7 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/NNNNN[NNNNN - headline]
+. [[dr-2]] ...
+. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
