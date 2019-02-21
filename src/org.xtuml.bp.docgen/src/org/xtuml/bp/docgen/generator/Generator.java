@@ -129,24 +129,6 @@ public class Generator extends Task {
             	final String BIN_C_MC_NATURE_ID = "org.xtuml.bp.mc.c.binary.MCNature"; //NON-NLS-1
             	final String BIN_C_MC_NATURE_ID_OLD = "com.mentor.nucleus.bp.mc.c.binary.MCNature"; //NON-NLS-1
 
-                if ( project.hasNature(BIN_C_MC_NATURE_ID) || project.hasNature(BIN_C_MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.mc3020.Mc3020Nature.getDefault();
-                    activator = org.xtuml.bp.mc.mc3020.Activator.getDefault();
-                }
-                /*
-                else if ( project.hasNature(org.xtuml.bp.mc.mc3020.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.mc3020.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.mc3020.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.mc3020.Activator.getDefault();
-                }
-                */
-                else if ( project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.cpp.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.cpp.source.Activator.getDefault();
-                }
-                else if ( project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID_OLD) ) {
-                    nature = org.xtuml.bp.mc.systemc.source.MCNature.getDefault();
-                    activator = org.xtuml.bp.mc.systemc.source.Activator.getDefault();
-                }
 
                 // Next proceed with actually running docgen on the model
                 IWorkbenchPage page = PlatformUI.getWorkbench()
