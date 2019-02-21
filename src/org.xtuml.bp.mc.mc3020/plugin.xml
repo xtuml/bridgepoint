@@ -30,4 +30,17 @@
   <extension point="org.eclipse.ui.startup">
     <startup class="org.xtuml.bp.mc.mc3020.Activator"/>
   </extension>
+  <extension
+       point="org.eclipse.ui.propertyPages">
+    <page
+         name="MC-3020"
+         class="org.xtuml.bp.mc.mc3020.preferences.Mc3020PreferencePage"
+         id="org.xtuml.bp.mc.mc3020.preferences.Mc3020PreferencePage">
+      <enabledWhen>
+        <adapt type="org.eclipse.core.resources.IProject">
+          <test property="org.eclipse.core.resources.projectNature" value="org.xtuml.bp.mc.mc3020nature"/>
+        </adapt>
+      </enabledWhen>
+    </page>
+  </extension>
 </plugin>
