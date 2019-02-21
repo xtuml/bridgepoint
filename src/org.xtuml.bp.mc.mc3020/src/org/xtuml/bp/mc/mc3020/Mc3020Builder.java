@@ -30,6 +30,7 @@ import org.eclipse.ui.console.IOConsoleOutputStream;
 import org.eclipse.ui.console.MessageConsole;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.mc.AbstractExportBuilder;
+import org.xtuml.bp.mc.mc3020.preferences.Mc3020Preferences;
 
 public class Mc3020Builder extends AbstractExportBuilder {
 
@@ -57,7 +58,10 @@ public class Mc3020Builder extends AbstractExportBuilder {
     }
 
     private void runMc3020(IProgressMonitor monitor) {
+        Mc3020Preferences prefs = new Mc3020Preferences(getProject());
         configureConsole();
+        consoleOut.println("\n=====================================================================================================");
+        consoleOut.println("Building project: " + getProject().getName() + "...");
         boolean failed = false;
         try {
             // build mc3020 process
@@ -65,7 +69,7 @@ public class Mc3020Builder extends AbstractExportBuilder {
             mcCmd.add(toolsFolder() + File.separator + XTUMLMC_BUILD_EXE);
             mcCmd.add("-home");
             mcCmd.add(System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/");
-            mcCmd.add("-l3s"); // "-l2s" "-lSCs"
+            mcCmd.add(prefs.getMc3020Flavor());
             mcCmd.add("-e");
             mcCmd.add("-d");
             mcCmd.add("code_generation");
