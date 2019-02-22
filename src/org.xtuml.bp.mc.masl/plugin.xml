@@ -2,11 +2,11 @@
 <?eclipse version="3.4"?>
 <plugin>
   <extension
-       id="MCNature"
+       id="org.xtuml.bp.mc.masl.MCNature"
        name="model compiler nature"
        point="org.eclipse.core.resources.natures">
     <runtime>
-      <run class="org.xtuml.bp.mc.masl.MCNature"></run>
+      <run class="org.xtuml.bp.mc.masl.MaslExportNature"></run>
     </runtime>
     <builder id="org.xtuml.bp.mc.masl.masl_builder"></builder>
   </extension>
@@ -27,8 +27,8 @@
   <extension point="org.xtuml.bp.core.model-compilers">
     <model-compiler
       name="MASL Exporter"
-      wizard-class="org.xtuml.bp.mc.masl.MCNewProjectWizard"
-      nature-class="org.xtuml.bp.mc.masl.MCNature">
+      wizard-class="org.xtuml.bp.mc.masl.MaslExportSetupWizard"
+      nature-class="org.xtuml.bp.mc.masl.MaslExportNature">
     </model-compiler>
   </extension>
   <extension point="org.eclipse.ui.startup">

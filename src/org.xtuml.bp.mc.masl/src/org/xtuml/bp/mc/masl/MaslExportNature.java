@@ -13,9 +13,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractNature;
 
-public class MCNature extends AbstractNature {
+public class MaslExportNature extends AbstractNature {
     // The shared instance
-    private static MCNature singleton;
+    private static MaslExportNature singleton;
 
     /**
      * identifier of this nature in plugin.xml - (concatenate pluginid.natureid)
@@ -23,7 +23,7 @@ public class MCNature extends AbstractNature {
     public static final String MC_NATURE_ID = "org.xtuml.bp.mc.masl.MCNature"; //NON-NLS-1
     public static final String BUILDER_ID = "org.xtuml.bp.mc.masl.masl_builder";
 
-    public MCNature() {
+    public MaslExportNature() {
         super(Activator.getDefault(), BUILDER_ID);
         singleton = this;
     }
@@ -60,11 +60,11 @@ public class MCNature extends AbstractNature {
      * 
      * @return the shared instance
      */
-    public static MCNature getDefault() {
-        if (MCNature.singleton == null) {
-            MCNature.singleton = new MCNature();
+    public static MaslExportNature getDefault() {
+        if (MaslExportNature.singleton == null) {
+            MaslExportNature.singleton = new MaslExportNature();
         }
-        return MCNature.singleton;
+        return MaslExportNature.singleton;
     }
 
     @Override

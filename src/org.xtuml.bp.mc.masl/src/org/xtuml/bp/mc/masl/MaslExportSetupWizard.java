@@ -12,9 +12,9 @@ import org.xtuml.bp.core.CorePlugin;
  * extension point.
  * 
  */
-public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
+public class MaslExportSetupWizard extends Wizard implements IWorkbenchWizard {
 
-    public MCNewProjectWizard() {
+    public MaslExportSetupWizard() {
         super();
     }
 
@@ -29,7 +29,7 @@ public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
      *         in the New Project Wizard.
      */
     public static IWorkbenchWizard getWizard(Object arguments) {
-        return new MCNewProjectWizard();
+        return new MaslExportSetupWizard();
     }
 
     /**
@@ -37,7 +37,7 @@ public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
      * 
      */
     public boolean performFinish(IProject project) {
-        MCNature nature = MCNature.getDefault();
+        MaslExportNature nature = MaslExportNature.getDefault();
         // The call to remove natures was added to support the Model Compiler
         // "Switcher" utility. In the New Project Wizard this does nothing
         // (because there are no natures to remove)

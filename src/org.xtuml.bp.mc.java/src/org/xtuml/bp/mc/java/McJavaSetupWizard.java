@@ -12,9 +12,9 @@ import org.xtuml.bp.core.CorePlugin;
  * extension point.
  * 
  */
-public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
+public class McJavaSetupWizard extends Wizard implements IWorkbenchWizard {
 
-    public MCNewProjectWizard() {
+    public McJavaSetupWizard() {
         super();
     }
 
@@ -29,7 +29,7 @@ public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
      *         in the New Project Wizard.
      */
     public static IWorkbenchWizard getWizard(Object arguments) {
-        return new MCNewProjectWizard();
+        return new McJavaSetupWizard();
     }
 
     /**

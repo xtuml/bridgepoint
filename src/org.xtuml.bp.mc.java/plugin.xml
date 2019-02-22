@@ -29,7 +29,7 @@
   <extension point="org.xtuml.bp.core.model-compilers">
     <model-compiler
       name="MC-Java"
-      wizard-class="org.xtuml.bp.mc.java.MCNewProjectWizard"
+      wizard-class="org.xtuml.bp.mc.java.McJavaSetupWizard"
       nature-class="org.xtuml.bp.mc.java.McJavaNature">
     </model-compiler>
   </extension>
