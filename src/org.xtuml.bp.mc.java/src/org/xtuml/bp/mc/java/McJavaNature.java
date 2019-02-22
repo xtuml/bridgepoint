@@ -17,10 +17,10 @@ public class McJavaNature extends AbstractNature {
      * identifier of this nature in plugin.xml - (concatenate
      * pluginid.exportbuilderid)
      */
-    public static final String EXPORT_BUILDER_ID = "org.xtuml.bp.mc.java.mcjava_builder"; // NON-NLS-1
+    public static final String BUILDER_ID = "org.xtuml.bp.mc.java.mcjava_builder"; // NON-NLS-1
 
     public McJavaNature() {
-        super(Activator.getDefault(), EXPORT_BUILDER_ID);
+        super(Activator.getDefault(), BUILDER_ID);
         singleton = this;
     }
 
@@ -44,6 +44,11 @@ public class McJavaNature extends AbstractNature {
     @Override
     public boolean addNature(IProject project) {
         return addNature(project, MC_NATURE_ID);
+    }
+
+    @Override
+    public boolean removeNature(IProject project) {
+        return removeNature(project, MC_NATURE_ID);
     }
 
 }

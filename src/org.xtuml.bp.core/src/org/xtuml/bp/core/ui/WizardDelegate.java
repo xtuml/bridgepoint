@@ -330,19 +330,16 @@ public class WizardDelegate implements IWizard {
     }
 
     private Class<?> getDelegateProvider(String extensionName, String delegateName) {
-        IExtensionRegistry reg = Platform.getExtensionRegistry();
-        IExtensionPoint extPt = reg.getExtensionPoint(extensionName);
+        IExtensionPoint extPt = Platform.getExtensionRegistry().getExtensionPoint(extensionName);
         if (extPt != null) {
-            IExtension[] exts = extPt.getExtensions();
-            for (int i = 0; i < exts.length; i++) {
-                IConfigurationElement[] elems = exts[i].getConfigurationElements();
-                for (int j = 0; j < elems.length; j++) {
-                    String foundDelegateName = elems[j].getAttribute("name"); //$NON-NLS-1$
+            for (IExtension extension : extPt.getExtensions()) {
+                for (IConfigurationElement element : extension.getConfigurationElements()) {
+                    String foundDelegateName = element.getAttribute("name"); //$NON-NLS-1$
                     if (delegateName == null || delegateName.equals("")//$NON-NLS-1$
                             || (foundDelegateName != null && foundDelegateName.equals(delegateName))) {
-                        String className = elems[j].getAttribute("class"); //$NON-NLS-1$
+                        String className = element.getAttribute("wizard-class"); //$NON-NLS-1$
                         if (className != null) {
-                            String bundleID = exts[i].getNamespaceIdentifier();
+                            String bundleID = extension.getNamespaceIdentifier();
                             Bundle bundle = Platform.getBundle(bundleID);
                             if (bundle != null) {
                                 try {

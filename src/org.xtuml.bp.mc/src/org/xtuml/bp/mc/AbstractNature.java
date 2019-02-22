@@ -116,29 +116,6 @@ public abstract class AbstractNature implements IProjectNature {
         return hasNature;
     }
 
-    public void removeAllMCNatures(IProject project) {
-        try {
-            // First remove the old MC nature. We also do some housekeeping here
-            // to remove the old (deprecated) XMI Nature if it still exists on the project.
-            IProjectDescription description = project.getDescription();
-            String[] natures = description.getNatureIds();
-            int curIndex = 0;
-            for (; curIndex < natures.length; ++curIndex) {
-                if (natures[curIndex].matches(".*bp.+mc.*MC.*Nature")) {
-                    removeNature(project, natures[curIndex]);
-                }
-            }
-
-            // Next remove the prior builders for pre-builder and the MC itself
-            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*export_builder.*");
-            BuilderManagement.findAndRemoveBuilder(project, ".*externalToolBuilders.*Model Compiler.+launch.*");
-        } catch (CoreException ce) {
-            abstractActivator.logError("Could not read project description data for  " + project.getName() + "project.",
-                    ce);
-        }
-        return;
-    }
-
     /**
      * Customizes the project by adding a nature and builder. Note that this gets
      * called by the Eclipse framework when a nature is added. In our case this
@@ -235,7 +212,15 @@ public abstract class AbstractNature implements IProjectNature {
         }
     }
 
+    private void removeBuilderFromBuildSpec(IProject project, String builderID) throws CoreException {
+        if (BuilderManagement.hasBuilder(project, builderID) != -1) {
+            BuilderManagement.removeBuilder(project, builderID);
+        }
+    }
+
     public void deconfigure() throws CoreException {
+        // remove the builder from the project
+        removeBuilderFromBuildSpec(project, builderID);
     }
 
     /**
@@ -354,5 +339,7 @@ public abstract class AbstractNature implements IProjectNature {
      * IProjectDescription.setNatureIds() is made in this function.
      */
     public abstract boolean addNature(IProject project);
+    
+    public abstract boolean removeNature(IProject project);
 
 }

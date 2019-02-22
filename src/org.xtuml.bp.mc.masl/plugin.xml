@@ -25,7 +25,11 @@
     </builder>
   </extension>
   <extension point="org.xtuml.bp.core.model-compilers">
-    <model-compiler name="MASL Exporter" class="org.xtuml.bp.mc.masl.MCNewProjectWizard"></model-compiler>
+    <model-compiler
+      name="MASL Exporter"
+      wizard-class="org.xtuml.bp.mc.masl.MCNewProjectWizard"
+      nature-class="org.xtuml.bp.mc.masl.MCNature">
+    </model-compiler>
   </extension>
   <extension point="org.eclipse.ui.startup">
     <startup class="org.xtuml.bp.mc.masl.Activator"/>

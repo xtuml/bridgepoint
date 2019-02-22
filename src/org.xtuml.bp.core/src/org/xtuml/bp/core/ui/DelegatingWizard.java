@@ -6,10 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -243,16 +240,11 @@ public abstract class DelegatingWizard extends Wizard implements INewWizard {
      * Returns the list of available model compilers
      */
     public String[] getChoices() {
-        IExtensionRegistry reg = Platform.getExtensionRegistry();
-        IExtensionPoint extPt = reg.getExtensionPoint(getExtensionPoint());
+        IExtensionPoint extPt = Platform.getExtensionRegistry().getExtensionPoint(getExtensionPoint());
         if (extPt != null) {
-            IExtension[] exts = extPt.getExtensions();
-            String[] result = new String[exts.length];
-            for (int i = 0; i < exts.length; i++) {
-                IConfigurationElement[] elems = exts[i].getConfigurationElements();
-                result[i] = elems[0].getAttribute("name"); //$NON-NLS-1$
-            }
-            return result;
+            return Stream.of(extPt.getExtensions())
+                    .map(extension -> extension.getConfigurationElements()[0].getAttribute("name")).sorted()
+                    .collect(Collectors.toList()).toArray(new String[0]);
         } else {
             return new String[0];
         }

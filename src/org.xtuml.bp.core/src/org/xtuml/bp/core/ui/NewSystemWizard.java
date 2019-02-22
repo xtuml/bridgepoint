@@ -60,14 +60,11 @@ public class NewSystemWizard extends DelegatingWizard {
         setNeedsProgressMonitor(true);
         m_creationPage = creationPage;
         String[] mcis = getChoices();
-        if (mcis.length > 1) {
+        if (mcis.length > 0) {
             addPage(new WizardDelegateChooserPage("newxtUMLModelCompilerChooser",
-                    "Multiple xtUML Model Compilers found",
-                    "Select the model compiler to use with this xtUML project",
+                    "xtUML Model Compilers",
+                    "Select model compilers to use with this xtUML project",
                     "Available xtUML model compilers:"));
-        } else if (mcis.length == 1) {
-            clearDelegates();
-            addDelegate(mcis[0]);
         }
     }
 

@@ -41,7 +41,6 @@ import org.xtuml.bp.x2m.Xtuml2Masl;
 
 public class MaslExportBuilder extends AbstractExportBuilder {
 
-    public static final String BUILDER_ID = "org.xtuml.bp.mc.masl.masl_builder";
     public static final String CONSOLE_NAME = "MASL Export Console";
 
     private static final String LOGFILE = "export.log";

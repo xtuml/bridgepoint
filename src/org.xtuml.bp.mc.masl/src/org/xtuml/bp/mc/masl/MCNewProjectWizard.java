@@ -41,7 +41,6 @@ public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
         // The call to remove natures was added to support the Model Compiler
         // "Switcher" utility. In the New Project Wizard this does nothing
         // (because there are no natures to remove)
-        nature.removeAllMCNatures(project);
         if (!nature.addNature(project)) {
             return false;
         }

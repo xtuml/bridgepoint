@@ -30,7 +30,7 @@ public class WizardDelegateChooserPage extends WizardPage {
         setTitle(title);
         setMessage(message);
         m_labelText = labelText;
-        setPageComplete(false);
+        setPageComplete(true);
     }
 
     public void createControl(Composite parent) {
@@ -77,16 +77,14 @@ public class WizardDelegateChooserPage extends WizardPage {
         }
         availableModelCompilersList.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent evt) {
-                setPageComplete(false);
+                orig_wizard.clearDelegates();
                 String[] selections = ((List) evt.getSource()).getSelection();
-                for (int i = 0; i < selections.length; i++) {
-                    String selection = selections[i];
+                for (String selection : selections) {
                     if (selection != null) {
-                        for (int j = 0; j < orig_wizard.getChoices().length; j++) {
-                            if (orig_wizard.getChoices()[j].equals(selection)) {
-                                WizardDelegate delegate = orig_wizard.addDelegate(orig_wizard.getChoices()[j]);
+                        for (String choice : orig_wizard.getChoices()) {
+                            if (choice.equals(selection)) {
+                                WizardDelegate delegate = orig_wizard.addDelegate(choice);
                                 delegate.addPages();
-                                setPageComplete(true);
                             }
                         }
                     }

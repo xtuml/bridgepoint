@@ -34,7 +34,6 @@ import org.xtuml.bp.mc.mc3020.preferences.Mc3020Preferences;
 
 public class Mc3020Builder extends AbstractExportBuilder {
 
-    public static final String BUILDER_ID = "org.xtuml.bp.mc.mc3020.mc3020_builder";
     public static final String CONSOLE_NAME = "MC-3020 Build Console";
 
     public static final String XTUMLMC_BUILD_EXE = "xtumlmc_build";

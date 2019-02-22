@@ -25,7 +25,11 @@
     </builder>
   </extension>
   <extension point="org.xtuml.bp.core.model-compilers">
-    <model-compiler name="MC-3020 (C Model Compiler)" class="org.xtuml.bp.mc.mc3020.MCNewProjectWizard"></model-compiler>
+    <model-compiler
+      name="MC-3020 (C Model Compiler)"
+      wizard-class="org.xtuml.bp.mc.mc3020.MCNewProjectWizard"
+      nature-class="org.xtuml.bp.mc.mc3020.Mc3020Nature">
+    </model-compiler>
   </extension>
   <extension point="org.eclipse.ui.startup">
     <startup class="org.xtuml.bp.mc.mc3020.Activator"/>

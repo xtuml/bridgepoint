@@ -47,7 +47,7 @@ public class MASLEditorPartListener implements IPartListener2 {
             if (nrme instanceof SystemModel_c) {
                 IProject project = (IProject) ((SystemModel_c) nrme).getAdapter(IProject.class);
                 try {
-                    project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, MaslExportBuilder.BUILDER_ID,
+                    project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, MCNature.BUILDER_ID,
                             new SingleEntryStringMap("refreshBuild", "true"), new NullProgressMonitor());
                 } catch (CoreException e) {
                     CorePlugin.logError("Failed running MASL refresher: ", e);

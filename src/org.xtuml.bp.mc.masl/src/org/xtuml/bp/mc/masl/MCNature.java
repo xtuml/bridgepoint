@@ -21,9 +21,10 @@ public class MCNature extends AbstractNature {
      * identifier of this nature in plugin.xml - (concatenate pluginid.natureid)
      */
     public static final String MC_NATURE_ID = "org.xtuml.bp.mc.masl.MCNature"; //NON-NLS-1
+    public static final String BUILDER_ID = "org.xtuml.bp.mc.masl.masl_builder";
 
     public MCNature() {
-        super(Activator.getDefault(), MaslExportBuilder.BUILDER_ID);
+        super(Activator.getDefault(), BUILDER_ID);
         singleton = this;
     }
 
@@ -48,7 +49,7 @@ public class MCNature extends AbstractNature {
         IProjectDescription desc = getProject().getDescription();
         List<ICommand> commands = new ArrayList<>(Arrays.asList(desc.getBuildSpec()));
         ICommand command = desc.newCommand();
-        command.setBuilderName(MaslExportBuilder.BUILDER_ID);
+        command.setBuilderName(BUILDER_ID);
         commands.add(0, command);
         desc.setBuildSpec(commands.toArray(new ICommand[0]));
         getProject().setDescription(desc, null);
@@ -74,6 +75,11 @@ public class MCNature extends AbstractNature {
     @Override
     public boolean addNature(IProject project) {
         return addNature(project, MC_NATURE_ID);
+    }
+
+    @Override
+    public boolean removeNature(IProject project) {
+        return removeNature(project, MC_NATURE_ID);
     }
 
 }

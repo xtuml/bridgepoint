@@ -10,10 +10,11 @@ public class Mc3020Nature extends AbstractNature {
     /**
      * identifier of this nature in plugin.xml - (concatenate pluginid.natureid)
      */
+    public static final String BUILDER_ID = "org.xtuml.bp.mc.mc3020.mc3020_builder";
     public static final String MC_NATURE_ID = "org.xtuml.bp.mc.mc3020nature"; // NON-NLS-1
 
     public Mc3020Nature() {
-        super(Activator.getDefault(), Mc3020Builder.BUILDER_ID);
+        super(Activator.getDefault(), BUILDER_ID);
         singleton = this;
     }
 
@@ -37,6 +38,11 @@ public class Mc3020Nature extends AbstractNature {
     @Override
     public boolean addNature(IProject project) {
         return addNature(project, MC_NATURE_ID);
+    }
+
+    @Override
+    public boolean removeNature(IProject project) {
+        return removeNature(project, MC_NATURE_ID);
     }
 
 }

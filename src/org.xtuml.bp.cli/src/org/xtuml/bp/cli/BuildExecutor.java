@@ -270,7 +270,7 @@ public class BuildExecutor implements Executor {
          ICommand[] commands = description.getBuildSpec();
          ICommand exportBuilderCommand = null;
          for (ICommand iCommand : commands) {
-			if (iCommand.getBuilderName().equals(org.xtuml.bp.mc.java.McJavaNature.EXPORT_BUILDER_ID)){
+			if (iCommand.getBuilderName().equals(org.xtuml.bp.mc.java.McJavaNature.BUILDER_ID)){
 				exportBuilderCommand= iCommand;
 				break;
 			}
