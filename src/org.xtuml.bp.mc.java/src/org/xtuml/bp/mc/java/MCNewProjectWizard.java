@@ -1,28 +1,18 @@
-//========================================================================
-//
-// File: SwitchProjectModelCompilerAction.java
-//
-// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
-// This document contains information proprietary and confidential to
-// Mentor Graphics Corp. and is not for external distribution.
-//======================================================================== 
-//
-//
-
 package org.xtuml.bp.mc.java;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
-import org.xtuml.bp.mc.AbstractNewProjectWizard;
+import org.xtuml.bp.core.CorePlugin;
 
 /**
  * This is the class that implements the org.xtuml.bp.core.model-compilers
  * extension point.
  * 
  */
-public class MCNewProjectWizard extends AbstractNewProjectWizard {
+public class MCNewProjectWizard extends Wizard implements IWorkbenchWizard {
 
     public MCNewProjectWizard() {
         super();
@@ -39,17 +29,13 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
      *         in the New Project Wizard.
      */
     public static IWorkbenchWizard getWizard(Object arguments) {
-
-        MCNewProjectWizard npw = new MCNewProjectWizard();
-
-        return npw;
+        return new MCNewProjectWizard();
     }
 
     /**
      * This is where we add the xtUML nature
      * 
      */
-    @Override
     public boolean performFinish(IProject project) {
         McJavaNature nature = McJavaNature.getDefault();
         // The call to remove natures was added to support the Model Compiler
@@ -59,6 +45,21 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
         if (!nature.addNature(project)) {
             return false;
         }
-        return super.performFinish(project);
+        return true;
     }
+
+    @Override
+    public boolean performFinish() {
+        //
+        // Since this is a delegate wizard, only the performFinish(IProject)
+        // variant of this method should be called. This version does nothing.
+        //
+        CorePlugin.logError("MCNewProjectWizard.performFinish called illegally.", null);
+        return false;
+    }
+
+    @Override
+    public void init(IWorkbench workbench, IStructuredSelection selection) {
+    }
+
 }

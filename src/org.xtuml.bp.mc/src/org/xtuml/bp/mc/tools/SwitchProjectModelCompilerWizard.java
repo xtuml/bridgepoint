@@ -22,14 +22,11 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
     SwitchProjectModelCompilerWizard(IProject project) {
         currentProject = project;
         setNeedsProgressMonitor(true);
-        String[] mcis = null;
-        if (getDelegatingWizard() != null) {
-            mcis = getDelegatingWizard().getChoices();
-            if (mcis.length >= 1) {
-                addPage(new WizardDelegateChooserPage("switchxtUMLModelCompilerChooser", "Set Model Compiler",
-                        "Select the model compiler to use with this (" + project.getName() + ") xtUML project",
-                        "Available xtUML model compilers:"));
-            }
+        String[] mcis = getChoices();
+        if (mcis.length >= 1) {
+            addPage(new WizardDelegateChooserPage("switchxtUMLModelCompilerChooser", "Set Model Compiler",
+                    "Select the model compiler to use with this (" + project.getName() + ") xtUML project",
+                    "Available xtUML model compilers:"));
         }
     }
 
