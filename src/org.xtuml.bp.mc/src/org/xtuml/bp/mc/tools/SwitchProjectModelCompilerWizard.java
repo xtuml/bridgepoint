@@ -2,6 +2,8 @@ package org.xtuml.bp.mc.tools;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -33,7 +35,7 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
         if (mcis.length > 0) {
             addPage(new WizardDelegateChooserPage("switchxtUMLModelCompilerChooser", "Set Model Compiler",
                     "Select the model compilers to use with this (" + project.getName() + ") xtUML project",
-                    "Available xtUML model compilers:"));
+                    "Available xtUML model compilers:", getEnabledMCs()));
         }
     }
 
@@ -115,5 +117,40 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
         }
         return super.performFinish(currentProject);
     }
+
+    private String[] getEnabledMCs() {
+        List<String> enabledMCs = new ArrayList<>();
+        // remove all model compiler natures and builders
+        IExtensionPoint extPt = Platform.getExtensionRegistry().getExtensionPoint(getExtensionPoint());
+        if (extPt != null) {
+            for (IExtension extension : extPt.getExtensions()) {
+                for (IConfigurationElement element : extension.getConfigurationElements()) {
+                    String className = element.getAttribute("nature-class"); //$NON-NLS-1$
+                    if (className != null) {
+                        Bundle bundle = Platform.getBundle(extension.getNamespaceIdentifier());
+                        if (bundle != null) {
+                            try {
+                                Class<?> natureClass = bundle.loadClass(className);
+                                Method getDefaultMethod = natureClass.getMethod("getDefault");
+                                AbstractNature nature = (AbstractNature) getDefaultMethod.invoke(null);
+                                if (null != nature && nature.hasNature(currentProject)) {
+                                    enabledMCs.add(element.getAttribute("name")); //$NON-NLS-1$
+                                }
+                            } catch (Throwable e) {
+                                CorePlugin.logError("Unable to identify enabled model compiler:", e);
+                            }
+                        } else {
+                            CorePlugin.logError("Bundle not found for client package", null);
+                        }
+                    } else {
+                        CorePlugin.logError("Class name attribute not supplied in model compiler declaration", null);
+                    }
+                }
+            }
+        }
+        return enabledMCs.toArray(new String[0]);
+    }
+
+
 
 }
