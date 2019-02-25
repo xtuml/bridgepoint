@@ -1141,6 +1141,13 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			}
 				return comp.getFile();
 			}
+    else if (adapter == org.eclipse.core.resources.IResource.class) {
+        PersistableModelComponent comp = getPersistableComponent(false);
+        if ( comp != null )
+        {
+            return comp.getFile().getParent();
+        }
+    }
 		return null;
 	}
 

@@ -64,7 +64,7 @@ public class MaslExportBuilder extends AbstractExportBuilder {
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, false, monitor);
+        preBuild(kind, false, true, monitor);
         final String projPath = getProject().getLocation().toOSString();
         outputDirectory = new Path(new MaslExporterPreferences(getProject()).getOutputDestination());
         if (!outputDirectory.isAbsolute()) {

@@ -3,11 +3,11 @@
 <plugin>
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
-            adaptable="true"
             id="org.xtuml.bp.utilities.updateBuilder.projectContribution"
-            objectClass="org.eclipse.core.resources.IProject">
+            objectClass="org.xtuml.bp.core.SystemModel_c">
          <action
                class="org.xtuml.bp.mc.tools.SwitchProjectModelCompilerAction"
+               enablesFor="1"
                id="org.xtuml.bp.mc.tools.SwitchProjectMCAction"
                label="Set Model Compiler"
                menubarPath="org.xtuml.bp.utilities/org.xtuml.bp.utilities.separator">
@@ -19,4 +19,44 @@
          </visibility>
       </objectContribution>
    </extension>
+   <extension
+        point="org.eclipse.ui.menus">
+            <menuContribution
+                locationURI="toolbar:org.eclipse.ui.main.toolbar">
+                <toolbar
+                    id="org.xtuml.bp.mc.commands.toolbar.toolbar1">
+                    <command 
+                        id="org.xtuml.bp.mc.toolbars.BuildProjectCommand"
+                        commandId="org.eclipse.ui.project.buildProject"
+                        icon="platform:/plugin/org.eclipse.cdt.ui/icons/elcl16/build_exec.png"
+                        label="Build Project"
+                        style="push">
+                            <visibleWhen> 
+                              <or>
+                                <with variable="activeWorkbenchWindow.activePerspective"> 
+                                    <equals value="org.xtuml.bp.core.perspective"/> 
+                                </with> 
+                                <with variable="activePartId"> 
+                                    <equals value="org.xtuml.bp.ui.explorer.ExplorerView"/> 
+                                </with> 
+                              </or>
+                            </visibleWhen>
+                    </command>
+                </toolbar>
+            </menuContribution>
+            <menuContribution
+                locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
+                 <separator 
+                    name="org.xtuml.bp.mc.popupmenu.separator"
+                    visible="true">
+                 </separator>
+                <command 
+                    id="org.xtuml.bp.mc.popup.BuildProjectCommand"
+                    commandId="org.eclipse.ui.project.buildProject"
+                    icon="platform:/plugin/org.eclipse.cdt.ui/icons/elcl16/build_exec.png"
+                    label="Build Project"
+                    style="push">
+                 </command>
+            </menuContribution>
+    </extension>
 </plugin>
