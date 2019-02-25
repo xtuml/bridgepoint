@@ -122,11 +122,6 @@ public class WizardDelegateChooserPage extends WizardPage {
             }
         }
         availableModelCompilersViewer.setInput(availableModelCompilersList);
-        for (String option : orig_wizard.getChoices()) {
-            if (Stream.of(enabledModelCompilers).anyMatch(candidate -> candidate.equals(option))) {
-                availableModelCompilersViewer.setChecked(option, true);
-            }
-        }
         availableModelCompilersViewer.getTree().addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent evt) {
                 orig_wizard.clearDelegates();
@@ -187,6 +182,16 @@ public class WizardDelegateChooserPage extends WizardPage {
             }
         });
         setButtonLayoutData(deselectAllButton);
+
+        // add existing enabled model compilers
+        orig_wizard.clearDelegates();
+        for (String option : orig_wizard.getChoices()) {
+            if (Stream.of(enabledModelCompilers).anyMatch(candidate -> candidate.equals(option))) {
+                availableModelCompilersViewer.setChecked(option, true);
+                WizardDelegate delegate = orig_wizard.addDelegate(option);
+                delegate.addPages();
+            }
+        }
 
         setControl(composite);
     }
