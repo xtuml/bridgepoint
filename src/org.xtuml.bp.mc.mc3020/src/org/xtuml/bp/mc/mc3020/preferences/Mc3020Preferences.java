@@ -30,8 +30,17 @@ public class Mc3020Preferences {
         loadPreferences();
     }
 
+    public Mc3020Preferences() {
+        internalPrefs = null;
+        restoreDefaults();
+    }
+
     public String getMc3020Flavor() {
         return mc3020Flavor;
+    }
+    
+    public static String getDefaultMc3020Flavor() {
+        return MC3020_FLAVOR_DEFAULT;
     }
 
     public void setMc3020Flavor(String mc3020Flavor) {
@@ -43,23 +52,27 @@ public class Mc3020Preferences {
     }
 
     public void loadPreferences() {
-        String mc3020Flavor = internalPrefs.get(MC3020_FLAVOR_KEY, "None");
-        if ("None".equals(mc3020Flavor)) {
-            this.mc3020Flavor = MC3020_FLAVOR_DEFAULT;
-        } else {
-            this.mc3020Flavor = mc3020Flavor;
+        if (null != internalPrefs) {
+            String mc3020Flavor = internalPrefs.get(MC3020_FLAVOR_KEY, "None");
+            if ("None".equals(mc3020Flavor)) {
+                this.mc3020Flavor = MC3020_FLAVOR_DEFAULT;
+            } else {
+                this.mc3020Flavor = mc3020Flavor;
+            }
         }
     }
 
     public void savePreferences() {
-        try {
-            internalPrefs.clear();
-            if (!mc3020Flavor.equals(MC3020_FLAVOR_DEFAULT)) {
-                internalPrefs.put(MC3020_FLAVOR_KEY, mc3020Flavor);
+        if (null != internalPrefs) {
+            try {
+                internalPrefs.clear();
+                if (!mc3020Flavor.equals(MC3020_FLAVOR_DEFAULT)) {
+                    internalPrefs.put(MC3020_FLAVOR_KEY, mc3020Flavor);
+                }
+                internalPrefs.flush();
+            } catch (BackingStoreException e) {
+                CorePlugin.logError("Could not save MASL exporter preferences", e);
             }
-            internalPrefs.flush();
-        } catch (BackingStoreException e) {
-            CorePlugin.logError("Could not save MASL exporter preferences", e);
         }
     }
 

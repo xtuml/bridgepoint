@@ -1,7 +1,9 @@
 package org.xtuml.bp.mc.mc3020;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.xtuml.bp.mc.AbstractNature;
+import org.xtuml.bp.mc.mc3020.preferences.Mc3020Preferences;
 
 public class Mc3020Nature extends AbstractNature {
     // The shared instance
@@ -28,6 +30,15 @@ public class Mc3020Nature extends AbstractNature {
             Mc3020Nature.singleton = new Mc3020Nature();
         }
         return Mc3020Nature.singleton;
+    }
+
+    @Override
+    public void deconfigure() throws CoreException {
+        // Restore default preferences. This effectively removes the settings file.
+        Mc3020Preferences prefs = new Mc3020Preferences(getProject());
+        prefs.restoreDefaults();
+        prefs.savePreferences();
+        super.deconfigure();
     }
 
     @Override

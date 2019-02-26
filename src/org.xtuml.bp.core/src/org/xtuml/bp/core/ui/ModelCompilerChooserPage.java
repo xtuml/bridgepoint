@@ -18,14 +18,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.IWorkbenchWizard;
 
-public class WizardDelegateChooserPage extends WizardPage {
+public class ModelCompilerChooserPage extends WizardPage {
 
     private List<String> availableModelCompilersList;
     private CheckboxTreeViewer availableModelCompilersViewer = null;
     private Label availableModelCompilersLabel = null;
-    private DelegatingWizard orig_wizard = null;
+    private DelegatingWizard origWizard = null;
     private String m_labelText = null;
     private String[] enabledModelCompilers;
 
@@ -35,11 +34,11 @@ public class WizardDelegateChooserPage extends WizardPage {
      * @param pageName
      *            the name of this page
      */
-    public WizardDelegateChooserPage(String pageName, String title, String message, String labelText) {
+    public ModelCompilerChooserPage(String pageName, String title, String message, String labelText) {
         this(pageName, title, message, labelText, new String[0]);
     }
 
-    public WizardDelegateChooserPage(String pageName, String title, String message, String labelText,
+    public ModelCompilerChooserPage(String pageName, String title, String message, String labelText,
             String[] enabledModelCompilers) {
         super(pageName);
         setTitle(title);
@@ -104,39 +103,26 @@ public class WizardDelegateChooserPage extends WizardPage {
                 return null;
             }
         });
-        for (String option : orig_wizard.getChoices()) {
-            if (orig_wizard instanceof DelegatingWizard) {
-                // Force the delegate to be instantiated now. This allows
-                // us to filter the list of options presented by having the
-                // delegate have its getWizard operation return null.
-                // We do this, for example, to filter unlicensed products
-                // from the list of available Model Compiler choices.
-                orig_wizard.clearDelegates();
-                orig_wizard.addDelegate(option);
-                IWorkbenchWizard delegate = ((DelegatingWizard) orig_wizard).getDelegates().get(0);
-                if (delegate != null) {
-                    availableModelCompilersList.add(option);
-                }
-            } else {
-                availableModelCompilersList.add(option);
-            }
+        for (String option : origWizard.getChoices()) {
+            availableModelCompilersList.add(option);
         }
         availableModelCompilersViewer.setInput(availableModelCompilersList);
         availableModelCompilersViewer.getTree().addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent evt) {
-                orig_wizard.clearDelegates();
+                origWizard.clearEnabledWizards();
                 String[] selections = Stream.of(availableModelCompilersViewer.getCheckedElements())
                         .collect(Collectors.toList()).toArray(new String[0]);
                 for (String selection : selections) {
                     if (selection != null) {
-                        for (String choice : orig_wizard.getChoices()) {
+                        for (String choice : origWizard.getChoices()) {
                             if (choice.equals(selection)) {
-                                WizardDelegate delegate = orig_wizard.addDelegate(choice);
+                                IDelegateWizard delegate = origWizard.setDelegateWizardEnabled(choice, true);
                                 delegate.addPages();
                             }
                         }
                     }
                 }
+                origWizard.getContainer().updateButtons();
             };
 
             public void widgetDefaultSelected(SelectionEvent evt) {
@@ -157,9 +143,13 @@ public class WizardDelegateChooserPage extends WizardPage {
         selectAllButton.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent arg0) {
+                origWizard.clearEnabledWizards();
                 for (String element : availableModelCompilersList) {
                     availableModelCompilersViewer.setChecked(element, true);
+                    IDelegateWizard delegate = origWizard.setDelegateWizardEnabled(element, true);
+                    delegate.addPages();
                 }
+                origWizard.getContainer().updateButtons();
             }
 
             @Override
@@ -172,9 +162,11 @@ public class WizardDelegateChooserPage extends WizardPage {
         deselectAllButton.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent arg0) {
+                origWizard.clearEnabledWizards();
                 for (String element : availableModelCompilersList) {
                     availableModelCompilersViewer.setChecked(element, false);
                 }
+                origWizard.getContainer().updateButtons();
             }
 
             @Override
@@ -184,11 +176,11 @@ public class WizardDelegateChooserPage extends WizardPage {
         setButtonLayoutData(deselectAllButton);
 
         // add existing enabled model compilers
-        orig_wizard.clearDelegates();
-        for (String option : orig_wizard.getChoices()) {
+        origWizard.clearEnabledWizards();
+        for (String option : origWizard.getChoices()) {
             if (Stream.of(enabledModelCompilers).anyMatch(candidate -> candidate.equals(option))) {
                 availableModelCompilersViewer.setChecked(option, true);
-                WizardDelegate delegate = orig_wizard.addDelegate(option);
+                IDelegateWizard delegate = origWizard.setDelegateWizardEnabled(option, true);
                 delegate.addPages();
             }
         }
@@ -198,8 +190,8 @@ public class WizardDelegateChooserPage extends WizardPage {
 
     public void setWizard(IWizard wiz) {
         super.setWizard(wiz);
-        if (wiz instanceof DelegatingWizard && orig_wizard == null) {
-            orig_wizard = (DelegatingWizard) wiz;
+        if (wiz instanceof DelegatingWizard && origWizard == null) {
+            origWizard = (DelegatingWizard) wiz;
         }
 
     }
