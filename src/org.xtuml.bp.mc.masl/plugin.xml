@@ -20,7 +20,10 @@
         id="org.xtuml.bp.mc.masl.masl_builder"
         name="MASL Export Builder"
         point="org.eclipse.core.resources.builders">
-    <builder callOnEmptyDelta="true">
+    <builder
+        hasNature="true"
+        isConfigurable="true"
+        callOnEmptyDelta="true">
       <run class="org.xtuml.bp.mc.masl.MaslExportBuilder" />
     </builder>
   </extension>

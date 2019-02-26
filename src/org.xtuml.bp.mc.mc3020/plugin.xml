@@ -20,7 +20,9 @@
         id="org.xtuml.bp.mc.mc3020.mc3020_builder"
         name="MC-3020 Builder"
         point="org.eclipse.core.resources.builders">
-    <builder>
+    <builder
+        hasNature="true"
+        isConfigurable="true">
       <run class="org.xtuml.bp.mc.mc3020.Mc3020Builder" />
     </builder>
   </extension>
