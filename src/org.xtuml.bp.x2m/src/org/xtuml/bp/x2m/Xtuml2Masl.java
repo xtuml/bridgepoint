@@ -36,6 +36,7 @@ public class Xtuml2Masl {
     private boolean isDomain;
     private boolean validate;
     private boolean coverage;
+    private boolean wasl;
     private boolean eclipse;
     private boolean skipFormat;
     private boolean skipActionLanguage;
@@ -43,6 +44,7 @@ public class Xtuml2Masl {
     public Xtuml2Masl() {
         validate = false;
         coverage = false;
+        wasl = false;
         eclipse = false;
         outDir = ".";
         skipFormat = false;
@@ -108,6 +110,9 @@ public class Xtuml2Masl {
         }
         if (coverage) {
             maslCmd.add("-c");
+        }
+        if (wasl) {
+            maslCmd.add("-w");
         }
         if (skipActionLanguage) {
             maslCmd.add("-s");
@@ -229,6 +234,11 @@ public class Xtuml2Masl {
         return this;
     }
 
+    public Xtuml2Masl setWasl(boolean wasl) {
+        this.wasl = wasl;
+        return this;
+    }
+
     public Xtuml2Masl setEclipseBuild(boolean eclipse) {
         this.eclipse = eclipse;
         return this;
@@ -322,6 +332,7 @@ public class Xtuml2Masl {
 
         boolean validate = false;
         boolean coverage = false;
+        boolean wasl = false;
         boolean skipFormatter = false;
         boolean skipActionLanguage = false;
         String outDir = "";
@@ -337,6 +348,9 @@ public class Xtuml2Masl {
                 directive = ""; // encountering a validation flag resets the directive because
             } else if ("-c".equals(arg) && !coverage) { // produce coverage output
                 coverage = true;
+                directive = "";
+            } else if ("-w".equals(arg) && !wasl) { // turn on wasl switch for rendering
+                wasl = true;
                 directive = "";
             } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
                 skipFormatter = true;
@@ -362,7 +376,7 @@ public class Xtuml2Masl {
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setEclipseBuild(false).setSkipFormat(skipFormatter)
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setWasl(wasl).setEclipseBuild(false).setSkipFormat(skipFormatter)
                 .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
