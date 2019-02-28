@@ -32,11 +32,11 @@ public class Xtuml2Masl {
 
     private String projectLocation;
     private String outDir;
+    private String architecture;
     private String name;
     private boolean isDomain;
     private boolean validate;
     private boolean coverage;
-    private boolean wasl;
     private boolean eclipse;
     private boolean skipFormat;
     private boolean skipActionLanguage;
@@ -44,9 +44,9 @@ public class Xtuml2Masl {
     public Xtuml2Masl() {
         validate = false;
         coverage = false;
-        wasl = false;
         eclipse = false;
         outDir = ".";
+        architecture = "MASL";
         skipFormat = false;
         skipActionLanguage = false;
         projectLocation = "";
@@ -111,9 +111,6 @@ public class Xtuml2Masl {
         if (coverage) {
             maslCmd.add("-c");
         }
-        if (wasl) {
-            maslCmd.add("-w");
-        }
         if (skipActionLanguage) {
             maslCmd.add("-s");
         }
@@ -127,6 +124,8 @@ public class Xtuml2Masl {
         maslCmd.add(name);
         maslCmd.add("-o");
         maslCmd.add(outDir);
+        maslCmd.add("-a");
+        maslCmd.add(architecture);
         System.out.println(maslCmd);
         Process maslProcess = new ProcessBuilder().command(maslCmd).start();
 
@@ -214,6 +213,11 @@ public class Xtuml2Masl {
         return this;
     }
 
+    public Xtuml2Masl setArchitecture(String architecture) {
+        this.architecture = architecture;
+        return this;
+    }
+
     public Xtuml2Masl setName(String name) {
         this.name = name;
         return this;
@@ -231,11 +235,6 @@ public class Xtuml2Masl {
 
     public Xtuml2Masl setCoverage(boolean coverage) {
         this.coverage = coverage;
-        return this;
-    }
-
-    public Xtuml2Masl setWasl(boolean wasl) {
-        this.wasl = wasl;
         return this;
     }
 
@@ -314,7 +313,7 @@ public class Xtuml2Masl {
 
     private static void printUsage() {
         System.err.println(
-                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -d <domain component> [-o <output directory>]\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -p <project package> [-o <output directory>]");
+                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -d <domain component> [-o <output directory>] [-a <architecture>]\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -p <project package> [-o <output directory>] [-a <architecture>]");
     }
 
     private static class BuildElement {
@@ -332,10 +331,10 @@ public class Xtuml2Masl {
 
         boolean validate = false;
         boolean coverage = false;
-        boolean wasl = false;
         boolean skipFormatter = false;
         boolean skipActionLanguage = false;
         String outDir = "";
+        String architecture = "MASL"; // default to MASL
         List<String> inputs = new ArrayList<>();
         List<BuildElement> buildElements = new ArrayList<>();
 
@@ -348,9 +347,6 @@ public class Xtuml2Masl {
                 directive = ""; // encountering a validation flag resets the directive because
             } else if ("-c".equals(arg) && !coverage) { // produce coverage output
                 coverage = true;
-                directive = "";
-            } else if ("-w".equals(arg) && !wasl) { // turn on wasl switch for rendering
-                wasl = true;
                 directive = "";
             } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
                 skipFormatter = true;
@@ -370,14 +366,16 @@ public class Xtuml2Masl {
                 buildElements.add(new BuildElement(true, arg));
             } else if ("-o".equals(directive) && "".equals(outDir)) { // only can set the output directory once
                 outDir = arg;
+            } else if ("-a".equals(directive)) {
+                architecture = arg;
             } else {
                 printUsage();
                 System.exit(1);
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setWasl(wasl).setEclipseBuild(false).setSkipFormat(skipFormatter)
-                .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setEclipseBuild(false).setSkipFormat(skipFormatter)
+                .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir).setArchitecture(architecture);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
                     .setIsDomain(buildElements.get(i).isDomain);
