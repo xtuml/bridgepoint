@@ -351,7 +351,7 @@ public class Xtuml2Masl {
             } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
                 skipFormatter = true;
                 directive = "";
-            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg)) { // set the
+            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg) || "-a".equals(arg)) { // set the
                                                                                                        // directive
                 directive = arg;
             } else if ("-xl".equals(arg) && !skipActionLanguage) { // if we encounter flag indicating skip output of
