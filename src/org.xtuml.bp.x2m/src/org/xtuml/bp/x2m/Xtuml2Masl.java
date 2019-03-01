@@ -153,7 +153,7 @@ public class Xtuml2Masl {
             final String formatClasspath = Stream.of(new File(toolsFolder()).list())
                     .filter((fileName) -> fileName.endsWith("jar"))
                     .map((fileName) -> toolsFolder() + File.separator + fileName).collect(Collectors.joining(":"));
-            File childFile = new File(outDirFile, projectName);
+            File childFile = new File(outDirFile, name);
             if (childFile.exists() && childFile.isDirectory()) {
 
                 // create a temporary location for formatted MASL
