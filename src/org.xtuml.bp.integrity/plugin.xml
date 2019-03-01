@@ -3,9 +3,8 @@
 <plugin>
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
-            adaptable="true"
             id="org.xtuml.bp.integrity.contribution"
-            objectClass="org.eclipse.core.resources.IProject">
+            objectClass="org.xtuml.bp.core.SystemModel_c">
          <action
                class="org.xtuml.bp.integrity.actions.checkReferentialIntegrityAction"
                enablesFor="1"

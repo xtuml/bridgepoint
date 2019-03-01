@@ -26,8 +26,11 @@ These menu entries appear on the context menu of Model Explorer and the canvas.
 | Assign Component...   | Open dialog to select a component to assign the selected component reference to. |
 | BridgePoint Utilities &#9658; ... | Described in detail in a stand-alone section below. |
 | Cant Happen Event...  | Open dialog to specify an event to treat as can't happen in the selected state. |
+| Delete stale services | Remove out-of-date (stale) terminator services from a deployment terminator. |
 | Disconnect            | Breaks the satisfaction of connected interfaces or interface references. |
 | Ignore Event...       | Open dialog to specify an event to treat as ignored in the selected state. |
+| Import terminators from component... | Open a dialog to import terminators into a deployment from components in the workspace. |
+| Import terminators from file... | Open a dialog to import terminators into a deployment from MASL interface files on disk. |
 | Formalize... (Interface Reference) | Open dialog to formalize the selected interface reference to an interface definition. |
 | Make Public           | Changes the visibility of the selection to public. |
 | Make Private          | Changes the visibility of the selection to private. |
@@ -49,10 +52,9 @@ These menu entries appear on only the context menu of Model Explorer.
 |-------------------------|--------------------------------------|
 | Add Built-in External Entities | Adds the Logging, Time, and Architecture external entities to the selected package. |
 | Add to Identifier...    | Opens dialog to add the selected attribute to a class identifier. |
+| Build Project           | Runs the project's build chain as defined via the enabled project builders. |
 | Cant Happen in State... | Opens dialog to specify a state the event should be treated as can't happen in. |
 | Combine With...         | Opens dialog that allows the user to combine one referential attribute with another valid attribute. |
-| Export MASL Domain(s)   | Create textual MASL Domains for the component(s) in the selection. |
-| Export MASL Project     | Create a textual MASL Project for the component and component references in the selection. |
 | Ignore in State...      | Opens dialog to specify a state the event should be ignored in. | 
 | Launch Verifier         | Run the xtUML Model Debugging tool on the selection. |
 | Manage Project Markings | Opens a dialog to manage markings stored in `features.mark` and `application.mark`. | 

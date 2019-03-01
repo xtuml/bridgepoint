@@ -11,7 +11,6 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ui.DelegatingWizard;
 import org.xtuml.bp.core.ui.WizardDelegateChooserPage;
 
-
 public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
 
     private static final String MC_EXTENSION_POINT_NAME = "org.xtuml.bp.core.model-compilers";
@@ -19,37 +18,40 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
     // Flag that unit tests can use.
     private boolean createdByUnitTest = false;
     private IProject currentProject;
-    
+
     SwitchProjectModelCompilerWizard(IProject project) {
-        currentProject = project; 
+        currentProject = project;
         setNeedsProgressMonitor(true);
         String[] mcis = null;
         if (getDelegatingWizard() != null) {
             mcis = getDelegatingWizard().getChoices();
             if (mcis.length >= 1) {
-                addPage(new WizardDelegateChooserPage(
-                        "switchxtUMLModelCompilerChooser",
-                        "Set Model Compiler",
+                addPage(new WizardDelegateChooserPage("switchxtUMLModelCompilerChooser", "Set Model Compiler",
                         "Select the model compiler to use with this (" + project.getName() + ") xtUML project",
                         "Available xtUML model compilers:"));
-            } 
+            }
         }
     }
-    
+
     public String getExtensionPoint() {
         return MC_EXTENSION_POINT_NAME;
     }
+
     public void setIsCreatedByUnitTest() {
         createdByUnitTest = true;
     }
+
     private class myRunnable implements IRunnableWithProgress {
         public boolean result;
-        public void run(IProgressMonitor monitor)
-                throws InvocationTargetException, InterruptedException {
+
+        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
             result = performMCSwitch(monitor);
         }
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.wizard.IWizard#performFinish()
      */
     public boolean performFinish() {
@@ -59,7 +61,7 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
             if (container != null && !createdByUnitTest) {
                 container.run(false, false, op);
             } else {
-                //Unit test invoke it without setting container/progress monitor.
+                // Unit test invoke it without setting container/progress monitor.
                 return performMCSwitch(new NullProgressMonitor());
             }
         } catch (InvocationTargetException e) {
@@ -72,8 +74,10 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
 
         return op.result;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.wizard.IWizard#performFinish()
      */
     public boolean performMCSwitch(IProgressMonitor monitor) {

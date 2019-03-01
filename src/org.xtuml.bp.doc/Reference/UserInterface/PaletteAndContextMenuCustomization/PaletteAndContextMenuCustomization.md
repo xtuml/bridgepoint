@@ -59,9 +59,6 @@ bridgepoint.CombineWith
 bridgepoint.CreateChangeSet
 bridgepoint.CreateDocumentation
 bridgepoint.Disconnect
-bridgepoint.ExportMASLDomain
-bridgepoint.ExportMASLDomains
-bridgepoint.ExportMASLProject
 bridgepoint.Formalize
 bridgepoint.GenerateFunctionsFromList
 bridgepoint.IgnoreEvent
@@ -117,6 +114,7 @@ bridgepoint.CommunicationLine
 bridgepoint.Constant
 bridgepoint.ConstantSpecification
 bridgepoint.DecisionMergeNode
+bridgepoint.Deployment
 bridgepoint.EnumerationDataType
 bridgepoint.Enumerator
 bridgepoint.Event

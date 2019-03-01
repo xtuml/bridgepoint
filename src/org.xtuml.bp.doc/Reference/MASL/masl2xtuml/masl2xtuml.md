@@ -1,7 +1,7 @@
 masl2xtuml
 ===================
 
-This command line tool converts a MASL domain or MASL project into an equivalent xtuml project 
+This command line tool converts a MASL Domain into an equivalent xtUML project 
 based on parameter settings. 
 
 
@@ -12,7 +12,10 @@ Syntax
 masl2xtuml -d <domain source directory(s) ...> [-o <output directory>]
 ```
    
-### Package Conversion
+### Proc/Project Conversion
+This feature is deprecated and no longer supported.  Users are encouraged to model
+with Deployments inside the BridgePoint xtUML Editor.  
+
 ```
 masl2xtuml -p <project source directory(s) ...> [-o <output directory>]
 ```
@@ -20,7 +23,7 @@ masl2xtuml -p <project source directory(s) ...> [-o <output directory>]
 | Parameter             | Description                          |
 |-----------------------|--------------------------------------|
 | -d &lt;domain source directory&gt;| Specify any relative or absolute directory path to a MASL domain |
-| -p &lt;project source directory&gt;| Specify any relative or absolute directory path to a MASL project |
+| -p &lt;project source directory&gt;|  *deprecated* |
 | -o &lt;output directory&gt; | Optionally specify the target folder to write to |  
   
      

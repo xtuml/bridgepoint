@@ -51,7 +51,9 @@
 		<module>../../src/org.xtuml.bp.integrity</module>
 		<module>../../src/org.xtuml.bp.internal.tools</module>
 		<module>../../src/org.xtuml.bp.io.image</module>
+		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.bp.mc</module>
+		<module>../../src/org.xtuml.bp.mc.masl</module>
 		<module>../../src/org.xtuml.bp.mc.c.source</module>
 		<module>../../src/org.xtuml.bp.mc.cpp.source</module>
 		<module>../../src/org.xtuml.bp.mc.java.source</module>
@@ -68,7 +70,6 @@
 		<module>../../src/org.xtuml.bp.ui.marking</module> <!-- move to bp.releng.parent.generation/pom.xml if we wanted to generate this project -->
 		<module>../../src/org.xtuml.bp.utilities</module>
 		<module>../../src/org.xtuml.bp.welcome</module>
-		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.help.bp.mc</module>
 		<module>../org.xtuml.bp.releng.p2</module>
 		<module>../org.xtuml.bp.releng.parent.generation</module>
