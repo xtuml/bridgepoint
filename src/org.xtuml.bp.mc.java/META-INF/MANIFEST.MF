@@ -14,9 +14,6 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.mc,
  org.eclipse.debug.ui,
  org.eclipse.ui.ide,
- org.eclipse.cdt.core,
- org.eclipse.cdt.ui,
- org.eclipse.cdt.managedbuilder.ui,
  org.xtuml.bp.io.mdl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

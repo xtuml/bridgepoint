@@ -14,11 +14,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.io.mdl,
  org.xtuml.bp.utilities,
  org.eclipse.ui,
- org.eclipse.ui.ide,
- org.eclipse.cdt.core,
- org.eclipse.cdt.ui,
- org.eclipse.cdt.managedbuilder.ui,
- org.eclipse.ui.externaltools
+ org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.resources

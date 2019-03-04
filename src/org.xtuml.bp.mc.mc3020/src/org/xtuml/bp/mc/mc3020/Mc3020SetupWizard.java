@@ -13,6 +13,7 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.ui.IDelegateWizard;
 import org.xtuml.bp.mc.mc3020.preferences.Mc3020PreferenceControl;
 import org.xtuml.bp.mc.mc3020.preferences.Mc3020Preferences;
+import org.xtuml.bp.mc.mc3020.util.CDTUtil;
 
 public class Mc3020SetupWizard extends Wizard implements IWorkbenchWizard, IDelegateWizard {
 
@@ -77,9 +78,10 @@ public class Mc3020SetupWizard extends Wizard implements IWorkbenchWizard, IDele
         public void createControl(Composite parent) {
             Composite composite = (Composite) control.createControl(parent);
 
-            // TODO check if CDT is installed before creating this checkbox
-            convertToCProjectButton = new Button(composite, SWT.CHECK);
-            convertToCProjectButton.setText("Convert to C/C++ project (add CDT nature)");
+            if (CDTUtil.cdtIsEnabled()) {
+                convertToCProjectButton = new Button(composite, SWT.CHECK);
+                convertToCProjectButton.setText("Convert to C/C++ project (add CDT nature)");
+            }
 
             setControl(composite);
         }

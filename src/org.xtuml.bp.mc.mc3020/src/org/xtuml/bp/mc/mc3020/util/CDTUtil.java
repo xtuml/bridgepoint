@@ -1,5 +1,6 @@
-package org.xtuml.bp.mc.mc3020;
+package org.xtuml.bp.mc.mc3020.util;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,17 +10,12 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.cdt.core.CCorePlugin;
-import org.eclipse.cdt.core.model.CoreModel;
-import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
-import org.eclipse.cdt.core.settings.model.ICProjectDescription;
-import org.eclipse.cdt.core.settings.model.ICSourceEntry;
-import org.eclipse.cdt.core.settings.model.util.CDataUtil;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -37,20 +33,29 @@ public class CDTUtil {
     private static final String CDT_SCANNER_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder";
 
     private static final String CDT_CORE_BUNDLE_ID = "org.eclipse.cdt.core";
-    private static final String CDT_MANAGED_BUILDER_BUNDLE_ID = "org.eclipse.cdt.managedbuilder.core";
     private static final String CDT_CORE_PLUGIN_CLASS_NAME = "org.eclipse.cdt.core.CCorePlugin";
-    private static final String CDT_MANAGED_BUILDER_MANAGER_CLASS_NAME = "org.eclipse.cdt.managedbuilder.core.ManagedBuildManager";
+    private static final String CDT_CDATA_UTIL_CLASS_NAME = "org.eclipse.cdt.core.settings.model.util.CDataUtil";
+    private static final String CDT_C_SOURCE_ENTRY_CLASS_NAME = "org.eclipse.cdt.core.settings.model.ICSourceEntry";
+    private static final String CDT_CORE_MODEL_CLASS_NAME = "org.eclipse.cdt.core.model.CoreModel";
     private static final String CDT_GET_DEFAULT_METHOD = "getDefault";
 
     private static final String CONVERT_TO_MAKE_WIZARD_ID = "org.eclipse.cdt.ui.wizards.ConvertToMakeWizard";
     private static final String CONVERT_TO_C_FIELD = "convertToC";
     private static final String CONVERT_TO_CC_FIELD = "convertToCC";
 
+    private static final String GET_PROJECT_DESCRIPTION_METHOD = "getProjectDescription";
+    private static final String SET_PROJECT_DESCRIPTION_METHOD = "setProjectDescription";
+    private static final String GET_CONFIGURATIONS_METHOD = "getConfigurations";
+    private static final String SET_EXCLUDED_METHOD = "setExcluded";
+    private static final String GET_SOURCE_ENTRIES_METHOD = "getSourceEntries";
+    private static final String SET_SOURCE_ENTRIES_METHOD = "setSourceEntries";
+
     private static Bundle cdtCoreBundle = null;
-    private static Bundle cdtManagedBuilderCoreBundle = null;
     private static Class<?> cdtCorePluginClass = null;
-    private static Class<?> cdtManagerClass = null;
+    private static Class<?> cdtCDataUtilClass = null;
+    private static Class<?> cdtCoreModelClass = null;
     private static Object cdtCorePlugin = null;
+    private static Object cdtCoreModel = null;
 
     // convert a project to a C project and add the necessary builders
     public static void convertToCProject(IProject project, boolean cppProject) {
@@ -95,17 +100,33 @@ public class CDTUtil {
 
     // exclude a resource from the CDT build for all build configurations
     public static void excludeResourceFromBuild(IProject project, IFolder resource) {
-        ICProjectDescription projectDescription = CCorePlugin.getDefault().getProjectDescription(project);
-        ICConfigurationDescription[] configs = projectDescription.getConfigurations();
-        for (ICConfigurationDescription config : configs) {
-            try {
-                ICSourceEntry[] newEntries = CDataUtil.setExcluded(resource.getFullPath(), resource instanceof IFolder,
-                        true, config.getSourceEntries());
-                config.setSourceEntries(newEntries);
-                CoreModel.getDefault().setProjectDescription(project, projectDescription);
-            } catch (CoreException e) {
-                e.printStackTrace();
+        try {
+            initialize();
+            Method getProjectDescriptionMethod = cdtCorePluginClass.getMethod(GET_PROJECT_DESCRIPTION_METHOD,
+                    IProject.class);
+            Object projectDescription = getProjectDescriptionMethod.invoke(cdtCorePlugin, project);
+            Method getConfigurationsMethod = projectDescription.getClass().getMethod(GET_CONFIGURATIONS_METHOD);
+            Object[] configs = (Object[]) getConfigurationsMethod.invoke(projectDescription);
+            for (Object config : configs) {
+                Class<?> cSourceEntryArrayClass = Array
+                        .newInstance(cdtCoreBundle.loadClass(CDT_C_SOURCE_ENTRY_CLASS_NAME), 0).getClass();
+                Method setExcludedMethod = cdtCDataUtilClass.getMethod(SET_EXCLUDED_METHOD, IPath.class, boolean.class,
+                        boolean.class, cSourceEntryArrayClass);
+                Method getSourceEntriesMethod = config.getClass().getMethod(GET_SOURCE_ENTRIES_METHOD);
+                Object newEntries = setExcludedMethod.invoke(null, resource.getFullPath(), true, true,
+                        getSourceEntriesMethod.invoke(config));
+                Method setSourceEntriesMethod = config.getClass().getMethod(SET_SOURCE_ENTRIES_METHOD,
+                        cSourceEntryArrayClass);
+                setSourceEntriesMethod.invoke(config, newEntries);
+                Class<?> cProjectDescriptionClass = cdtCoreBundle
+                        .loadClass("org.eclipse.cdt.core.settings.model.ICProjectDescription");
+                Method setProjectDescriptionMethod = cdtCoreModelClass.getMethod(SET_PROJECT_DESCRIPTION_METHOD,
+                        IProject.class, cProjectDescriptionClass);
+                setProjectDescriptionMethod.invoke(cdtCoreModel, project, projectDescription);
             }
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NegativeArraySizeException | ClassNotFoundException e) {
+            CorePlugin.logError("Could not exclude folder from build: ", e);
         }
     }
 
@@ -139,6 +160,18 @@ public class CDTUtil {
             }
         }
     }
+    
+    // check if the CDT nature can be added
+    public static boolean cdtIsEnabled() {
+        try {
+            initialize();
+            return (null != cdtCoreBundle && Bundle.ACTIVE == cdtCoreBundle.getState());
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e) {
+            CorePlugin.logError("Could not initialize discover CDT: ", e);
+            return false;
+        }
+    }
 
     // initialize bundles and classes using reflection
     private static void initialize() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
@@ -146,16 +179,14 @@ public class CDTUtil {
         if (null == cdtCoreBundle) {
             cdtCoreBundle = Platform.getBundle(CDT_CORE_BUNDLE_ID);
         }
-        if (null == cdtManagedBuilderCoreBundle) {
-            cdtManagedBuilderCoreBundle = Platform.getBundle(CDT_MANAGED_BUILDER_BUNDLE_ID);
-        }
         if (null == cdtCorePluginClass) {
             cdtCorePluginClass = cdtCoreBundle != null ? cdtCoreBundle.loadClass(CDT_CORE_PLUGIN_CLASS_NAME) : null;
         }
-        if (null == cdtManagerClass) {
-            cdtManagerClass = cdtManagedBuilderCoreBundle != null
-                    ? cdtManagedBuilderCoreBundle.loadClass(CDT_MANAGED_BUILDER_MANAGER_CLASS_NAME)
-                    : null;
+        if (null == cdtCDataUtilClass) {
+            cdtCDataUtilClass = cdtCoreBundle != null ? cdtCoreBundle.loadClass(CDT_CDATA_UTIL_CLASS_NAME) : null;
+        }
+        if (null == cdtCoreModelClass) {
+            cdtCoreModelClass = cdtCoreBundle != null ? cdtCoreBundle.loadClass(CDT_CORE_MODEL_CLASS_NAME) : null;
         }
         if (null == cdtCorePlugin) {
             Method cdtPluginGetDefaultMethod = null != cdtCorePluginClass
@@ -163,8 +194,16 @@ public class CDTUtil {
                     : null;
             cdtCorePlugin = null != cdtPluginGetDefaultMethod ? cdtPluginGetDefaultMethod.invoke(null) : null;
         }
+        if (null == cdtCoreModel) {
+            Method cdtCoreModelGetDefaultMethod = null != cdtCoreModelClass
+                    ? cdtCoreModelClass.getMethod(CDT_GET_DEFAULT_METHOD)
+                    : null;
+            cdtCoreModel = null != cdtCoreModelGetDefaultMethod ? cdtCoreModelGetDefaultMethod.invoke(null) : null;
+        }
     }
 
+    // get all fields on an object including inaccessible fields and supertype
+    // fields
     private static List<Field> getAllFields(Object obj) {
         List<Field> fields = new ArrayList<>();
         Class<?> currentClass = obj.getClass();
