@@ -14,6 +14,7 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -86,10 +87,28 @@ public class DocgenBuilder extends AbstractExportBuilder {
         return null;
     }
 
+    @Override
+    protected void clean(IProgressMonitor monitor) {
+        // call superclass clean
+        super.clean(monitor);
+        // remove output directory
+        String projPath = getProject().getLocation().toOSString();
+        File outputDir = new File(projPath + File.separator + DOC_DIR);
+        if (outputDir.exists() && outputDir.isDirectory()) {
+            try {
+                Files.walk(outputDir.toPath()).sorted(Comparator.reverseOrder()).map(java.nio.file.Path::toFile)
+                        .forEach(File::delete);
+                getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+            } catch (IOException | CoreException e) {
+                CorePlugin.logError("Failed to delete output directory.", e);
+            }
+        }
+    }
+
     /*
-     * The flow of this function is: - Run the image generator - Run the Model
-     * Compiler pre-builder - Call the docgen exe - Store the doc.xml output in the
-     * specified output folder - Run xsltproc to convert doc.xml into doc.html
+     * The flow of this function is: - Run the image generator - Call the docgen exe
+     * - Store the doc.xml output in the specified output folder - Run xsltproc to
+     * convert doc.xml into doc.html
      */
     private void createDocumentation(final SystemModel_c sys, IProgressMonitor monitor) {
         configureConsole();
@@ -194,15 +213,8 @@ public class DocgenBuilder extends AbstractExportBuilder {
 
     private void runDocgen(String workingDir)
             throws IOException, RuntimeException, CoreException, InterruptedException {
-        File output = new File(workingDir + DOC_XML);
-        // clean the output if it exists
-        // TODO move to clean
-        if (output.exists()) {
-            output.delete();
-        }
-
         // create docgen process
-        String appdir = homedir + DOCGEN_DIR + DOCBOOK_DIR;
+        String appdir = homedir + DOCGEN_DIR;
         String app = DOCGEN_EXE;
         if (isWindows()) {
             app = app + EXEFILE;
@@ -225,13 +237,6 @@ public class DocgenBuilder extends AbstractExportBuilder {
 
     private void runXsltproc(String workingDir)
             throws IOException, RuntimeException, CoreException, InterruptedException {
-        // clean the output if it exists
-        // TODO move to clean
-        File output = new File(workingDir + "/" + DOC_HTML);
-        if (output.exists()) {
-            output.delete();
-        }
-
         // copy CSS files into place
         File docgenDir = new File(homedir + DOCGEN_DIR);
         if (docgenDir.exists() && docgenDir.isDirectory()) {
@@ -260,7 +265,7 @@ public class DocgenBuilder extends AbstractExportBuilder {
         Process xsltprocProcess = new ProcessBuilder(cmd).directory(new File(docbook_folder)).start();
 
         // pipe input and output together
-        connectStreams(true, xsltprocProcess.getInputStream(), new FileOutputStream(output));
+        connectStreams(true, xsltprocProcess.getInputStream(), new FileOutputStream(workingDir + "/" + DOC_HTML));
         connectStreams(false, xsltprocProcess.getErrorStream(), consoleErr);
         xsltprocProcess.getErrorStream().close();
 
