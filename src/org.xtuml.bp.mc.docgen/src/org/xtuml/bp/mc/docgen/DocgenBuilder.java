@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -27,6 +28,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -36,11 +39,12 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.part.FileEditorInput;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.io.image.generator.Generator;
 import org.xtuml.bp.mc.AbstractExportBuilder;
+import org.xtuml.bp.mc.docgen.preferences.DocgenPreferences;
 
 public class DocgenBuilder extends AbstractExportBuilder {
 
@@ -53,7 +57,6 @@ public class DocgenBuilder extends AbstractExportBuilder {
     private static final String DOCBOOK_DIR = "docbook/";
     private static final String XSLTPROC_EXE = "xsltproc";
     private static final String XHTMLFILES = DOCGEN_DIR + "docbook/docbook-xsl-1.75.1/xhtml/";
-    private static final String DOC_DIR = "doc/";
     private static final String DOC_HTML = "doc.html";
     private static final String DOC_XML = "doc.xml";
     private static final String DOCGEN_XSL = "docgen.xsl";
@@ -79,11 +82,7 @@ public class DocgenBuilder extends AbstractExportBuilder {
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         preBuild(kind, false, false, monitor);
-        SystemModel_c s_sys = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
-                (selected) -> ((SystemModel_c) selected).getName().equals(getProject().getName()));
-        if (null != s_sys) {
-            createDocumentation(s_sys, monitor);
-        }
+        createDocumentation(monitor);
         return null;
     }
 
@@ -91,13 +90,12 @@ public class DocgenBuilder extends AbstractExportBuilder {
     protected void clean(IProgressMonitor monitor) {
         // call superclass clean
         super.clean(monitor);
-        // remove output directory
-        String projPath = getProject().getLocation().toOSString();
-        File outputDir = new File(projPath + File.separator + DOC_DIR);
-        if (outputDir.exists() && outputDir.isDirectory()) {
+        IPath outputDir = new Path(new DocgenPreferences(getProject()).getOutputDestination());
+        File outputDirFile = getProject().getFile(outputDir).getLocation().toFile();
+        if (outputDirFile.exists() && outputDirFile.isDirectory()) {
             try {
-                Files.walk(outputDir.toPath()).sorted(Comparator.reverseOrder()).map(java.nio.file.Path::toFile)
-                        .forEach(File::delete);
+                Files.walk(outputDirFile.toPath()).sorted(Comparator.reverseOrder())
+                        .map(java.nio.file.Path::toFile).forEach(File::delete);
                 getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
             } catch (IOException | CoreException e) {
                 CorePlugin.logError("Failed to delete output directory.", e);
@@ -110,23 +108,22 @@ public class DocgenBuilder extends AbstractExportBuilder {
      * - Store the doc.xml output in the specified output folder - Run xsltproc to
      * convert doc.xml into doc.html
      */
-    private void createDocumentation(final SystemModel_c sys, IProgressMonitor monitor) {
+    private void createDocumentation(IProgressMonitor monitor) {
         configureConsole();
         consoleOut.println(
                 "\n=====================================================================================================");
         consoleOut.println("Generating documentation for project: " + getProject().getName() + "...");
         boolean failed = false;
         if ((getProject() != null)) {
-            String projPath = getProject().getLocation().toOSString();
-            final IPath path = new Path(projPath + File.separator + DOC_DIR);
-            final String destPath = path.toOSString();
+            DocgenPreferences prefs = new DocgenPreferences(getProject());
+            IPath outputPath = new Path(prefs.getOutputDestination());
+            if (!outputPath.toFile().exists()) {
+                outputPath.toFile().mkdirs();
+            }
+            final String destPath = getProject().getLocation().append(outputPath).toOSString();
             int steps = 4;
             int curStep = 1;
-            List<SystemModel_c> exportedSystems = new ArrayList<SystemModel_c>();
             monitor.beginTask("Document Generation", steps);
-            if (!path.toFile().exists()) {
-                path.toFile().mkdir();
-            }
             while (curStep <= steps) {
                 /*
                  * if (monitor.isCanceled()) { InterruptedException ie = new
@@ -136,10 +133,8 @@ public class DocgenBuilder extends AbstractExportBuilder {
                     switch (curStep) {
                     case 1:
                         monitor.subTask("Generating images");
-                        Generator.genAll(sys, getProject());
-                        // Now generate the images for the referred-to systems
-                        for (SystemModel_c exportedSystem : exportedSystems) {
-                            Generator.genAll(exportedSystem, getProject());
+                        for (SystemModel_c exportedSystem : getExportedSystems()) {
+                            Generator.genAll(exportedSystem, getProject(), outputPath);
                         }
                         configureIcons(destPath);
                         monitor.worked(1);
@@ -161,7 +156,7 @@ public class DocgenBuilder extends AbstractExportBuilder {
                         break;
                     }
                     curStep++;
-                } catch (RuntimeException | CoreException | IOException | InterruptedException e) {
+                } catch (CoreException | IOException | InterruptedException e) {
                     consoleErr.printf("Error. Document generation failed: %s\n", e);
                     CorePlugin.logError("Error. Document generation failed: ", e);
                     failed = true;
@@ -177,6 +172,11 @@ public class DocgenBuilder extends AbstractExportBuilder {
                 }
             } else {
                 consoleOut.println("Document generation finished successfully.");
+            }
+            // open the output
+            if (prefs.isOpenOutput()) {
+                IFile output = getProject().getFile(outputPath.append(DOC_HTML));
+                openOutput(output);
             }
             monitor.done();
         }
@@ -273,8 +273,22 @@ public class DocgenBuilder extends AbstractExportBuilder {
         waitForProcess(xsltprocProcess, "xsltproc");
     }
 
-    private static boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().contains("windows");
+    private void openOutput(IFile output) {
+        if (output.exists()) {
+            Display.getDefault().asyncExec(() -> {
+                // Open the generated documentation
+                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+                IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(output.getName());
+                try {
+                    page.openEditor(new FileEditorInput(output), desc.getId());
+                } catch (PartInitException e) {
+                    CorePlugin.logError("Could not open docgen output.", e);
+                }
+            });
+        }
+        else {
+            CorePlugin.logError("Output file does not exist: " + output.getLocation().toString(), null);
+        }
     }
 
     private MessageConsole findConsole(String name) {
@@ -305,6 +319,10 @@ public class DocgenBuilder extends AbstractExportBuilder {
                 CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
             }
         });
+    }
+
+    private static boolean isWindows() {
+        return System.getProperty("os.name").toLowerCase().contains("windows");
     }
 
     private static void connectStreams(boolean close, InputStream in, OutputStream... outs) {

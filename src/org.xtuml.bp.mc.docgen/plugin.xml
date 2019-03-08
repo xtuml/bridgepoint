@@ -33,4 +33,17 @@
       nature-class="org.xtuml.bp.mc.docgen.DocgenNature">
     </model-compiler>
   </extension>
+  <extension
+       point="org.eclipse.ui.propertyPages">
+    <page
+         name="Docgen"
+         class="org.xtuml.bp.mc.docgen.preferences.DocgenPreferencePage"
+         id="org.xtuml.bp.mc.docgen.preferences.DocgenPreferencePage">
+      <enabledWhen>
+      <adapt type="org.eclipse.core.resources.IProject">
+           <test property="org.eclipse.core.resources.projectNature" value="org.xtuml.bp.mc.docgennature"/>
+      </adapt>
+      </enabledWhen>
+    </page>
+  </extension>
 </plugin>

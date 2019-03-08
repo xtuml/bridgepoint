@@ -372,6 +372,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     public File getPrebuilderOutputFile() {
         return m_outputFile;
     }
+    
+    public List<SystemModel_c> getExportedSystems() {
+        return m_exportedSystems;
+    }
 
     public void setProject(IProject project) {
         this.project = project;
