@@ -577,7 +577,7 @@
    sorter/AlphaSorter.java,sorter/BaseTypeSpecificSorter.java,sorter/Terminator_cSorter.java,sorter/TerminatorService_cSorter.java, ui/GenericPackageAssignEventOnSM_TXNWizardPage1.java,
     inspector/IModelInspectorRegistry.java,inspector/BaseModelClassInspector.java,
     util/*.java, ui/ICoreHelpContextIds.java, ui/WizardDelegate.java, ui/DelegatingWizard.java,
-    ui/WizardDelegateChooserPage.java, ui/ConvertModel2UUIDAction.java,
+    ui/ModelCompilerChooserPage.java, ui/IDelegateWizard.java, ui/ConvertModel2UUIDAction.java,
       ui/ExecuteAction.java, ui/MonitorAction.java, ui/MonitorOffAction.java,
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
       lib/*.java,
