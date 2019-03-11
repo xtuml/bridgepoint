@@ -28,8 +28,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.io.core,
  org.xtuml.bp.io.mdl,
  org.eclipse.team.ui,
- org.xtuml.bp.mc,
- org.xtuml.bp.mc.java,
  org.apache.commons.io;bundle-version="2.2.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.xtuml.bp.cli
