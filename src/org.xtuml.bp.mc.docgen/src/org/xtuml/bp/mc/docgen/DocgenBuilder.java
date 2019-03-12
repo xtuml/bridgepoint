@@ -81,7 +81,7 @@ public class DocgenBuilder extends AbstractExportBuilder {
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, false, false, monitor);
+        preBuild(kind, false, true, monitor);
         createDocumentation(monitor);
         return null;
     }

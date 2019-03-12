@@ -51,7 +51,7 @@ public class Mc3020Builder extends AbstractExportBuilder {
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, true, false, monitor);
+        preBuild(kind, true, true, monitor);
         runMc3020(monitor);
         return null;
     }
