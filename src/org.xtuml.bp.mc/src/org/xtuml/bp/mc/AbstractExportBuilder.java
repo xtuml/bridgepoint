@@ -51,8 +51,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     private List<SystemModel_c> m_exportedSystems;
     private IProject project = null;
 
-    protected AbstractExportBuilder(AbstractActivator activator, AbstractNature nature) {
-        super();
+    protected AbstractExportBuilder() {
         m_elements = new ArrayList<NonRootModelElement>();
         m_exportedSystems = new ArrayList<SystemModel_c>();
         m_outputFolder = "code_generation";

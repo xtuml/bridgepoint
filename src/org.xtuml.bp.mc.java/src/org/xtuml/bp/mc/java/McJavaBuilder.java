@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
@@ -33,7 +32,6 @@ import org.xtuml.bp.io.core.CoreExport;
 import org.xtuml.bp.io.mdl.ExportModelStream;
 import org.xtuml.bp.mc.AbstractActivator;
 import org.xtuml.bp.mc.AbstractExportBuilder;
-import org.xtuml.bp.mc.AbstractNature;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
 public class McJavaBuilder extends AbstractExportBuilder {
@@ -52,13 +50,6 @@ public class McJavaBuilder extends AbstractExportBuilder {
     private List<String> m_parseOnly = new ArrayList<String>();
 
     public McJavaBuilder() {
-        super(Activator.getDefault(), McJavaNature.getDefault());
-        m_elements = new ArrayList<NonRootModelElement>();
-        m_exportedSystems = new ArrayList<SystemModel_c>();
-    }
-
-    protected McJavaBuilder(AbstractActivator activator, AbstractNature nature) {
-        super(activator, nature);
         m_elements = new ArrayList<NonRootModelElement>();
         m_exportedSystems = new ArrayList<SystemModel_c>();
     }

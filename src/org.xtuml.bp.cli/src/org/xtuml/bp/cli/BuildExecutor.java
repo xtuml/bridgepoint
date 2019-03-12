@@ -3,17 +3,18 @@ package org.xtuml.bp.cli;
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
-import org.eclipse.cdt.ui.CUIPlugin;
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.mc.AbstractNature;
 
 public class BuildExecutor implements Executor {
 
@@ -45,9 +46,6 @@ public class BuildExecutor implements Executor {
      */
     protected void performCLIBuild() {
         // configure allowed console output
-        int originalConsoleLines = 0;
-        CUIPlugin.getDefault().getPreferenceStore().getInt("buildConsoleLines"); //$NON-NLS-1$
-        CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", Integer.MAX_VALUE); //$NON-NLS-1$
         try {
             IProject[] projects = null;
             if (projectName.equals("")) {
@@ -81,7 +79,19 @@ public class BuildExecutor implements Executor {
                     orginalConfig = setSelectedBuildConfiguration(project);
                 }
                 System.out.println("Performing the build of project: " + project.getName());
+                IProjectDescription projectDescription = project.getDescription();
+                ICommand[] buildSpec = null != projectDescription ? projectDescription.getBuildSpec() : new ICommand[0];
+                if (prebuilderOnly && null != projectDescription) {
+                    ICommand preBuilder = projectDescription.newCommand();
+                    preBuilder.setBuilderName(AbstractNature.PRE_BUILDER_ID);
+                    projectDescription.setBuildSpec(new ICommand[]{preBuilder});
+                    project.setDescription(projectDescription, null);
+                }
                 performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
+                if (prebuilderOnly && null != projectDescription) {
+                    projectDescription.setBuildSpec(buildSpec);
+                    project.setDescription(projectDescription, null);
+                }
                 if (debug) {
                     System.out.println("Build was launched.  Waiting for build to finish for: " + project.getName());
                 }
@@ -96,15 +106,9 @@ public class BuildExecutor implements Executor {
                     }
                     restoreBuildConfiguration(project, orginalConfig);
                 }
-                // insert any data from the CDT console
-                IDocument consoleDocument = CUIPlugin.getDefault().getConsoleManager().getConsoleDocument(project);
-                String documentContents = consoleDocument.get();
-                System.out.write(documentContents.getBytes());
             }
         } catch (Exception e) {
             BPCLIPreferences.logError(e.getMessage(), e);
-        } finally {
-            CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", originalConsoleLines); //$NON-NLS-1$
         }
     }
 

@@ -57,7 +57,6 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     private Path outputDirectory;
 
     public MaslExportBuilder() {
-        super(Activator.getDefault(), MaslExportNature.getDefault());
         logfile = System.out;
     }
 

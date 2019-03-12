@@ -75,14 +75,24 @@ public class DocgenBuilder extends AbstractExportBuilder {
     private static DocgenBuilder singleton;
 
     public DocgenBuilder() {
-        super(Activator.getDefault(), DocgenNature.getDefault());
         homedir = System.getProperty("eclipse.home.location").replaceFirst("file:", "");
     }
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, false, true, monitor);
-        createDocumentation(monitor);
+        configureConsole();
+        if (PlatformUI.isWorkbenchRunning()) {
+            consoleOut.println(
+                    "\n=====================================================================================================");
+            consoleOut.println("Generating documentation for project: " + getProject().getName() + "...");
+            preBuild(kind, false, true, monitor);
+            createDocumentation(monitor);
+        }
+        else {
+            consoleOut.println(
+                    "\n=====================================================================================================");
+            consoleOut.println("Document generation disabled for headless build of: " + getProject().getName() + "...");
+        }
         return null;
     }
 
@@ -109,10 +119,6 @@ public class DocgenBuilder extends AbstractExportBuilder {
      * convert doc.xml into doc.html
      */
     private void createDocumentation(IProgressMonitor monitor) {
-        configureConsole();
-        consoleOut.println(
-                "\n=====================================================================================================");
-        consoleOut.println("Generating documentation for project: " + getProject().getName() + "...");
         boolean failed = false;
         if ((getProject() != null)) {
             DocgenPreferences prefs = new DocgenPreferences(getProject());
@@ -306,19 +312,24 @@ public class DocgenBuilder extends AbstractExportBuilder {
 
     private void configureConsole() {
         // prepare the console
-        consoleOut = new PrintStream(findConsole(CONSOLE_NAME).newOutputStream());
-        IOConsoleOutputStream errStream = findConsole(CONSOLE_NAME).newOutputStream();
-        consoleErr = new PrintStream(errStream);
-        Display.getDefault().asyncExec(() -> {
-            errStream.setColor(new Color(Display.getDefault(), 255, 0, 0));
-            try {
-                IConsoleView view = (IConsoleView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                        .showView(IConsoleConstants.ID_CONSOLE_VIEW);
-                view.display(findConsole(CONSOLE_NAME));
-            } catch (PartInitException e) {
-                CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
-            }
-        });
+        if (PlatformUI.isWorkbenchRunning()) {
+            consoleOut = new PrintStream(findConsole(CONSOLE_NAME).newOutputStream());
+            IOConsoleOutputStream errStream = findConsole(CONSOLE_NAME).newOutputStream();
+            consoleErr = new PrintStream(errStream);
+            Display.getDefault().asyncExec(() -> {
+                errStream.setColor(new Color(Display.getDefault(), 255, 0, 0));
+                try {
+                    IConsoleView view = (IConsoleView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                            .showView(IConsoleConstants.ID_CONSOLE_VIEW);
+                    view.display(findConsole(CONSOLE_NAME));
+                } catch (PartInitException e) {
+                    CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
+                }
+            });
+        } else {
+            consoleOut = System.out;
+            consoleErr = System.err;
+        }
     }
 
     private static boolean isWindows() {

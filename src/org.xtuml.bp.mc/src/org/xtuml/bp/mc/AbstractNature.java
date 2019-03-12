@@ -39,6 +39,8 @@ public abstract class AbstractNature implements IProjectNature {
     public static final String ARCHETYPE_FOLDER_NAME = "arc"; //$NON-NLS-1$
     public static final String SPECIALIZED_ARCHETYPE_FOLDER_NAME = "specialized"; //$NON-NLS-1$
 
+    public static final String PRE_BUILDER_ID = "org.xtuml.bp.mc.pre_builder";
+
     // This file is used to identify the fact that the SystemC model compiler is
     // present
     public static final String SystemC_Archetype = "t.sysc_main.c"; //$NON-NLS-1$

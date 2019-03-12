@@ -45,10 +45,6 @@ public class Mc3020Builder extends AbstractExportBuilder {
     // The shared instance
     private static Mc3020Builder singleton;
 
-    public Mc3020Builder() {
-        super(Activator.getDefault(), Mc3020Nature.getDefault());
-    }
-
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         preBuild(kind, true, true, monitor);
@@ -154,19 +150,24 @@ public class Mc3020Builder extends AbstractExportBuilder {
     
     private void configureConsole() {
          // prepare the console
-        consoleOut = new PrintStream(findConsole(CONSOLE_NAME).newOutputStream());
-        IOConsoleOutputStream errStream = findConsole(CONSOLE_NAME).newOutputStream();
-        consoleErr = new PrintStream(errStream);
-        Display.getDefault().asyncExec(() -> {
-            errStream.setColor(new Color(Display.getDefault(), 255, 0, 0));
-            try {
-                IConsoleView view = (IConsoleView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                        .showView(IConsoleConstants.ID_CONSOLE_VIEW);
-                view.display(findConsole(CONSOLE_NAME));
-            } catch (PartInitException e) {
-                CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
-            }
-        });
+        if (PlatformUI.isWorkbenchRunning()) {
+            consoleOut = new PrintStream(findConsole(CONSOLE_NAME).newOutputStream());
+            IOConsoleOutputStream errStream = findConsole(CONSOLE_NAME).newOutputStream();
+            consoleErr = new PrintStream(errStream);
+            Display.getDefault().asyncExec(() -> {
+                errStream.setColor(new Color(Display.getDefault(), 255, 0, 0));
+                try {
+                    IConsoleView view = (IConsoleView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                            .showView(IConsoleConstants.ID_CONSOLE_VIEW);
+                    view.display(findConsole(CONSOLE_NAME));
+                } catch (PartInitException e) {
+                    CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
+                }
+            });
+        } else {
+            consoleOut = System.out;
+            consoleErr = System.err;
+        }
         
     }
 
