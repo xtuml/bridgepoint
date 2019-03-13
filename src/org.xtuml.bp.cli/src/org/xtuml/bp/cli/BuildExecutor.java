@@ -1,5 +1,8 @@
 package org.xtuml.bp.cli;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
@@ -84,6 +87,11 @@ public class BuildExecutor implements Executor {
                 if (prebuilderOnly && null != projectDescription) {
                     ICommand preBuilder = projectDescription.newCommand();
                     preBuilder.setBuilderName(AbstractNature.PRE_BUILDER_ID);
+                    if (doNotParse) {
+                        Map<String, String> args = new HashMap<>(1);
+                        args.put("doNotParse", Boolean.toString(doNotParse));
+                        preBuilder.setArguments(args);
+                    }
                     projectDescription.setBuildSpec(new ICommand[]{preBuilder});
                     project.setDescription(projectDescription, null);
                 }
