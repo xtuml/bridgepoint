@@ -1,14 +1,7 @@
 package org.xtuml.bp.mc.mc3020;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,33 +10,27 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleConstants;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.IConsoleView;
-import org.eclipse.ui.console.IOConsoleOutputStream;
-import org.eclipse.ui.console.MessageConsole;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.mc.mc3020.preferences.Mc3020Preferences;
+import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
+import org.xtuml.bp.mc.utilities.ProcessUtil;
 
 public class Mc3020Builder extends AbstractExportBuilder {
 
-    public static final String CONSOLE_NAME = "MC-3020 Build Console";
+    private static final String CONSOLE_NAME = "MC-3020 Build Console";
 
     public static final String XTUMLMC_BUILD_EXE = "xtumlmc_build";
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
 
-    private PrintStream consoleOut;
-    private PrintStream consoleErr;
+    private ModelCompilerConsoleManager console;
 
     // The shared instance
     private static Mc3020Builder singleton;
+
+    public Mc3020Builder() {
+        console = new ModelCompilerConsoleManager();
+    }
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
@@ -54,9 +41,10 @@ public class Mc3020Builder extends AbstractExportBuilder {
 
     private void runMc3020(IProgressMonitor monitor) {
         Mc3020Preferences prefs = new Mc3020Preferences(getProject());
-        configureConsole();
-        consoleOut.println("\n=====================================================================================================");
-        consoleOut.println("Building project: " + getProject().getName() + "...");
+        console.configureConsole(CONSOLE_NAME);
+        console.out.println(
+                "\n=====================================================================================================");
+        console.out.println("Building project: " + getProject().getName() + "...");
         boolean failed = false;
         try {
             // build mc3020 process
@@ -72,9 +60,9 @@ public class Mc3020Builder extends AbstractExportBuilder {
             mcCmd.add("../../src");
             Process mcProcess = new ProcessBuilder().command(mcCmd)
                     .directory(new File(getProject().getLocation().toFile(), "/gen")).start();
-            connectStreams(mcProcess.getInputStream(), consoleOut);
-            connectStreams(mcProcess.getErrorStream(), consoleErr);
-            waitForProcess(mcProcess, "xtumlmc_build");
+            ProcessUtil.connectStreams(false, mcProcess.getInputStream(), console.out);
+            ProcessUtil.connectStreams(false, mcProcess.getErrorStream(), console.err);
+            ProcessUtil.waitForProcess(mcProcess, "xtumlmc_build");
             getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
         } catch (IOException | RuntimeException | CoreException e) {
             CorePlugin.logError("Error. MC-3020 build failed: " + e.getMessage(), e);
@@ -96,79 +84,6 @@ public class Mc3020Builder extends AbstractExportBuilder {
 
     private static String toolsFolder() {
         return System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin";
-    }
-
-    private static int waitForProcess(Process process, String name) throws RuntimeException {
-        return waitForProcess(process, name, true);
-    }
-
-    private static int waitForProcess(Process process, String name, boolean throwError) throws RuntimeException {
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            /* do nothing */}
-        if (process.exitValue() != 0 && throwError) {
-            throw new RuntimeException(name + " subprocess failed: " + process.exitValue());
-        }
-        return process.exitValue();
-    }
-
-    private static void connectStreams(InputStream in, OutputStream... outs) {
-        new Thread(() -> {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            List<BufferedWriter> bufferedWriters = new ArrayList<>();
-            for (OutputStream out : outs) {
-                bufferedWriters.add(new BufferedWriter(new OutputStreamWriter(out)));
-            }
-            String lineToPipe;
-            try {
-                while ((lineToPipe = bufferedReader.readLine()) != null) {
-                    for (BufferedWriter bufferedWriter : bufferedWriters) {
-                        bufferedWriter.write(lineToPipe + '\n');
-                        bufferedWriter.flush();
-                    }
-                }
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
-    private MessageConsole findConsole(String name) {
-        ConsolePlugin plugin = ConsolePlugin.getDefault();
-        IConsoleManager conMan = plugin.getConsoleManager();
-        IConsole[] existing = conMan.getConsoles();
-        for (int i = 0; i < existing.length; i++)
-            if (name.equals(existing[i].getName()))
-                return (MessageConsole) existing[i];
-        // no console found, so create a new one
-        MessageConsole myConsole = new MessageConsole(name, CorePlugin.getImageDescriptor("green-bp.gif"));
-        conMan.addConsoles(new IConsole[] { myConsole });
-        return myConsole;
-    }
-    
-    private void configureConsole() {
-         // prepare the console
-        if (PlatformUI.isWorkbenchRunning()) {
-            consoleOut = new PrintStream(findConsole(CONSOLE_NAME).newOutputStream());
-            IOConsoleOutputStream errStream = findConsole(CONSOLE_NAME).newOutputStream();
-            consoleErr = new PrintStream(errStream);
-            Display.getDefault().asyncExec(() -> {
-                errStream.setColor(new Color(Display.getDefault(), 255, 0, 0));
-                try {
-                    IConsoleView view = (IConsoleView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                            .showView(IConsoleConstants.ID_CONSOLE_VIEW);
-                    view.display(findConsole(CONSOLE_NAME));
-                } catch (PartInitException e) {
-                    CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
-                }
-            });
-        } else {
-            consoleOut = System.out;
-            consoleErr = System.err;
-        }
-        
     }
 
     /**
