@@ -41,7 +41,8 @@
     <page
          name="MC-3020"
          class="org.xtuml.bp.mc.mc3020.preferences.Mc3020PreferencePage"
-         id="org.xtuml.bp.mc.mc3020.preferences.Mc3020PreferencePage">
+         id="org.xtuml.bp.mc.mc3020.preferences.Mc3020PreferencePage"
+         category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
       <enabledWhen>
         <adapt type="org.eclipse.core.resources.IProject">
           <test property="org.eclipse.core.resources.projectNature" value="org.xtuml.bp.mc.mc3020nature"/>
