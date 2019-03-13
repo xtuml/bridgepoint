@@ -114,9 +114,11 @@ public class DocgenBuilder extends AbstractExportBuilder {
     }
 
     /*
-     * The flow of this function is: - Run the image generator - Call the docgen exe
-     * - Store the doc.xml output in the specified output folder - Run xsltproc to
-     * convert doc.xml into doc.html
+     * The flow of this function is:
+     * - Run the image generator 
+     * - Call the docgen exe
+     * - Store the doc.xml output in the specified output folder
+     * - Run xsltproc to convert doc.xml into doc.html
      */
     private void createDocumentation(IProgressMonitor monitor) {
         boolean failed = false;
@@ -131,10 +133,6 @@ public class DocgenBuilder extends AbstractExportBuilder {
             int curStep = 1;
             monitor.beginTask("Document Generation", steps);
             while (curStep <= steps) {
-                /*
-                 * if (monitor.isCanceled()) { InterruptedException ie = new
-                 * InterruptedException("User cancelled the operation"); // throw ie; }
-                 */
                 try {
                     switch (curStep) {
                     case 1:
@@ -143,21 +141,25 @@ public class DocgenBuilder extends AbstractExportBuilder {
                             Generator.genAll(exportedSystem, getProject(), outputPath);
                         }
                         configureIcons(destPath);
+                        Thread.sleep(5);
                         monitor.worked(1);
                         break;
                     case 2:
                         monitor.subTask("Processing model");
                         runDocgen(destPath);
+                        Thread.sleep(5);
                         monitor.worked(1);
                         break;
                     case 3:
                         monitor.subTask("Generating display data");
                         runXsltproc(destPath);
+                        Thread.sleep(5);
                         monitor.worked(1);
                         break;
                     case 4:
                         monitor.subTask("Refreshing");
                         getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+                        Thread.sleep(5);
                         monitor.worked(1);
                         break;
                     }
