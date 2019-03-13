@@ -41,7 +41,7 @@
         </command>
       </toolbar>
     </menuContribution>
-    <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
+    <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.core.ProjectPropertiesCommand">
       <separator 
         name="org.xtuml.bp.mc.popupmenu.separator"
         visible="true">

@@ -365,6 +365,18 @@ This file is the plugin manifest for the BridgePoint core plugin.
 							id="org.xtuml.bp.core.ui.actions.range.dynamic">
 				</dynamic>
 			</menuContribution>
+    <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
+      <separator 
+        name="org.xtuml.bp.core.properties.separator"
+        visible="true">
+      </separator>
+      <command 
+        id="org.xtuml.bp.core.ProjectPropertiesCommand"
+        commandId="org.eclipse.ui.file.properties"
+        label="Properties"
+        style="push">
+      </command>
+    </menuContribution>
 	</extension>
    <extension
          point="org.eclipse.ui.newWizards">
