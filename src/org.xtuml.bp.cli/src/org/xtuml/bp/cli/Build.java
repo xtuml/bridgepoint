@@ -37,6 +37,7 @@ import org.xtuml.bp.cli.BPCLIPreferences.CommandLineOption;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.mc.AbstractNature;
+import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
 
 public class Build implements IApplication, Executor {
 
@@ -77,12 +78,7 @@ public class Build implements IApplication, Executor {
             ErrorDialog.AUTOMATED_MODE = true; // This should be what the --launcher.suppressErrors
                                                // command-line option does. Setting it here also.
 
-            // Set the console environment so build output is echo'd to stdout
-            if (System.getProperty("org.eclipse.cdt.core.console") == null) {
-                System.setProperty("org.eclipse.cdt.core.console", "org.eclipse.cdt.core.systemConsole");
-            }
-
-            // perform build
+           // perform build
             performCLIBuild(monitor);
         }
 
@@ -106,7 +102,13 @@ public class Build implements IApplication, Executor {
      * Perform the CLI build
      */
     private void performCLIBuild(IProgressMonitor monitor) {
-        // configure allowed console output
+        // Set the console environment for CDT so build output is echo'd to stdout
+        if (System.getProperty("org.eclipse.cdt.core.console") == null) {
+            System.setProperty("org.eclipse.cdt.core.console", "org.eclipse.cdt.core.systemConsole");
+        }
+
+        // Set the console environment for model compilers so build output is echo'd to stdout
+        ModelCompilerConsoleManager.setCLIBuild(true);
         try {
             IProject[] projects = null;
             if (projectName.isEmpty()) {

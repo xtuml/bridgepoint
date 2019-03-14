@@ -17,6 +17,8 @@ import org.xtuml.bp.core.CorePlugin;
 
 public class ModelCompilerConsoleManager {
 
+    private static boolean isCLIBuild = false;
+
     public PrintStream out;
     public PrintStream err;
     
@@ -27,7 +29,7 @@ public class ModelCompilerConsoleManager {
 
     public void configureConsole(String consoleName) {
         // prepare the console
-        if (PlatformUI.isWorkbenchRunning()) {
+        if (PlatformUI.isWorkbenchRunning() && !isCLIBuild) {
             out = new PrintStream(findConsole(consoleName).newOutputStream());
             IOConsoleOutputStream errStream = findConsole(consoleName).newOutputStream();
             err = new PrintStream(errStream);
@@ -58,6 +60,10 @@ public class ModelCompilerConsoleManager {
         MessageConsole myConsole = new MessageConsole(name, CorePlugin.getImageDescriptor("green-bp.gif"));
         conMan.addConsoles(new IConsole[] { myConsole });
         return myConsole;
+    }
+
+    public static void setCLIBuild(boolean value) {
+        isCLIBuild = value;
     }
 
 }
