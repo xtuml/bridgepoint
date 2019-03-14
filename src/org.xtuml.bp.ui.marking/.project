@@ -6,15 +6,6 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.xtuml.bp.mc.java.source.export_builder</name>
-			<arguments>
-				<dictionary>
-					<key>RootPackageName</key>
-					<value>ooaofmarking</value>
-				</dictionary>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
 			<triggers>auto,full,incremental,</triggers>
 			<arguments>
