@@ -62,13 +62,13 @@ public class Build implements IApplication, Executor {
 
     public Build(BPCLIPreferences cmdLine) {
         this();
-        this.cmdLine = cmdLine;
+        setCommandLine(cmdLine);
     }
 
     @Override
     public Object start(IApplicationContext context) throws Exception {
         CommandLineOption[] cmdLineOptions = getCommandLineOptions();
-        cmdLine = new BPCLIPreferences(context, cmdLineOptions);
+        setCommandLine(new BPCLIPreferences(context, cmdLineOptions));
         IProgressMonitor monitor = new PrintingProgressMonitor();
         if (cmdLine.getBooleanValue("-help")) {
             cmdLine.usage("Build");
@@ -266,6 +266,16 @@ public class Build implements IApplication, Executor {
         }
 
         info.setDefaultConfiguration(originalConfig);
+    }
+    
+    private void setCommandLine(BPCLIPreferences cmdLine) {
+        this.cmdLine = cmdLine;
+        debug = cmdLine.getBooleanValue("-debugCLI");       
+        projectName = cmdLine.getStringValue("-project");
+        buildConfigString = cmdLine.getStringValue("-buildConfig");
+        prebuilderOnly = cmdLine.getBooleanValue("-prebuildOnly");
+        cleanBuild = cmdLine.getBooleanValue("-cleanCLI");
+        doNotParse = cmdLine.getBooleanValue("-doNotParse");
     }
 
     public static CommandLineOption[] getCommandLineOptions() {
