@@ -26,6 +26,9 @@
       <run class="org.xtuml.bp.mc.java.McJavaBuilder"></run>
     </builder>
   </extension>
+  <!-- Removing MC-Java from the list of available model compilers. This does
+       not remove it from being a valid builder, but it should not be shown to
+       users. Consider adding it back for developer builds of BridgePoint.
   <extension point="org.xtuml.bp.core.model-compilers">
     <model-compiler
       name="MC-Java"
@@ -33,4 +36,5 @@
       nature-class="org.xtuml.bp.mc.java.McJavaNature">
     </model-compiler>
   </extension>
+  -->
 </plugin>
