@@ -4,10 +4,10 @@ xtUML Project Analysis Note
 
 == 1 Abstract
 
-User had a lot of pain because he renamed a signal and lost marks associated
-with it because the mark is tied to the name and signature.  BP just silently
-got rid of the associated marks So his stuff just stopped working and he didn’t
-know why
+"A user had a lot of pain because he renamed a signal and lost marks associated
+with it, because the mark is tied to the name and signature.  BP just silently
+got rid of the associated marks. So his stuff just stopped working and he didn’t
+know why."
 
 This comes from a Nov 17, 2018 discussion between One Fact and users about
 high-priority items.
@@ -16,11 +16,11 @@ high-priority items.
 
 Project marks are associated with instances through the instance type and the
 instance path key. For most elements, this is the fully qualified path of the
-element including all of the package/component names to the element's location
-and the element's name delimited by double colon (`::`). For activities, the
-path key is defined by the element's signature and not its name. This is done to
-support marking overloaded functions for MASL. Because of this, even the simple
-act of adding a parameter causes the path key to be incorrect, breaking
+element including all of the package/component names to the element location
+and the name of the element delimited by double colon (`::`). For activities, the
+path key is defined by the element signature and not just the name. This is done to
+support marking overloaded functions. Because of this, even the simple
+act of adding a parameter causes the path key to be incorrect, breaking the
 downstream flow.
 
 == 3 Requirements
@@ -31,7 +31,7 @@ downstream flow.
 
 4.1 MASL rename refactor
 
-The MASL refactor mechanism was analyzed as part of this work because it
+The MASL refactor mechanism was analyzed as part of this work, because it
 performs a similar function to the behavior we are trying to achieve. With the
 MASL refactor mechanism, registered listeners are invoked when an element is
 renamed. The listeners are passed a model instance reference, an old name, and a
@@ -49,7 +49,7 @@ listeners" which are notified when transactions are started, finished, or
 cancelled. Attached to transactions is information about the elements being
 modified and a list of "model deltas" which represent the changes that have been
 made to the model. Transaction listeners are registered with the transaction
-manager in the "org.xtuml.bp.core" plugin.
+manager in the 'org.xtuml.bp.core' plugin.
 
 4.3 Loading and persisting marks
 
@@ -63,12 +63,12 @@ new marks or update existing marks and then persisted to disk.
 
 5.1 Introduce a new transaction listener to the marking plugin
 
-A new transaction listener could be introduced in the "org.xtuml.bp.ui.marking"
+A new transaction listener could be introduced in the 'org.xtuml.bp.ui.marking'
 plugin. This listener would be registered on startup. When a new transaction is
 started, the listener would load the marking data from disk (or ensure that it
 is up to date in memory). Along with the data from the marking files, a
-reference to the actual modeled instance would be held in the in memory
-structure. When a transaction is finished, the in memory reference to the
+reference to the actual modeled instance would be held in the in-memory
+structure. When a transaction is finished, the in-memory reference to the
 markable element would be used to update the path key and the marks would be
 persisted if any of the path keys were changed.
 
