@@ -147,8 +147,9 @@ public class Build implements IApplication, Executor {
                 }
                 System.out.println("Performing the build of project: " + project.getName());
                 IProjectDescription projectDescription = project.getDescription();
+                boolean isMcJava = projectDescription.hasNature("org.xtuml.bp.mc.java.mcjavanature");
                 ICommand[] buildSpec = null != projectDescription ? projectDescription.getBuildSpec() : new ICommand[0];
-                if (prebuilderOnly && null != projectDescription) {
+                if (!isMcJava && prebuilderOnly && null != projectDescription) {
                     ICommand preBuilder = projectDescription.newCommand();
                     preBuilder.setBuilderName(AbstractNature.PRE_BUILDER_ID);
                     if (doNotParse) {
@@ -160,7 +161,7 @@ public class Build implements IApplication, Executor {
                     project.setDescription(projectDescription, monitor);
                 }
                 performBuild(project, IncrementalProjectBuilder.FULL_BUILD, monitor);
-                if (prebuilderOnly && null != projectDescription) {
+                if (!isMcJava && prebuilderOnly && null != projectDescription) {
                     projectDescription.setBuildSpec(buildSpec);
                     project.setDescription(projectDescription, monitor);
                 }
