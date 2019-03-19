@@ -67,6 +67,10 @@ public class Build implements IApplication, Executor {
 
     @Override
     public Object start(IApplicationContext context) throws Exception {
+    	// cancel running jobs
+    	while (!Job.getJobManager().isIdle()) {
+    		Job.getJobManager().currentJob().cancel();
+    	}
         CommandLineOption[] cmdLineOptions = getCommandLineOptions();
         setCommandLine(new BPCLIPreferences(context, cmdLineOptions));
         IProgressMonitor monitor = new PrintingProgressMonitor();
