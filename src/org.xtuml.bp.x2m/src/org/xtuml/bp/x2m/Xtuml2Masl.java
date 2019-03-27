@@ -23,7 +23,6 @@ public class Xtuml2Masl {
 
     private static final int KILL_TIMEOUT = 2000;
 
-    public static final String CLI_EXE = "CLI.sh";
     public static final String X2M_EXE = "x2m";
     public static final String MASL_EXE = "masl";
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
@@ -43,7 +42,7 @@ public class Xtuml2Masl {
     public Xtuml2Masl() {
         validate = false;
         coverage = false;
-        eclipse = false;
+        eclipse = true;
         outDir = ".";
         skipFormat = false;
         skipActionLanguage = false;
