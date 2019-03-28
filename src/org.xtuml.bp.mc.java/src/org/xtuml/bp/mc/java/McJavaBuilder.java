@@ -15,6 +15,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -71,7 +72,17 @@ public class McJavaBuilder extends AbstractExportBuilder {
     // is turned on.
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         setArgs(args);
-        return super.build(kind, args, monitor);
+        IPath destPath = getCodeGenFolderPath(getProject());
+        if (!destPath.toFile().exists()) {
+            destPath.toFile().mkdir();
+        }
+        SystemModel_c sys = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
+            public boolean evaluate(Object candidate) {
+                return ((SystemModel_c) candidate).getName().equals(getProject().getName());
+            }
+        });
+        exportSystem(sys, destPath.toOSString(), monitor, false, "", false);
+        return new IProject[0];
     }
 
     /**

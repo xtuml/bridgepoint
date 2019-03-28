@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
@@ -40,6 +41,9 @@ import org.xtuml.bp.mc.AbstractNature;
 import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
 
 public class Build implements IApplication, Executor {
+    
+    private static final String MC_JAVA_NATURE = "org.xtuml.bp.mc.java.mcjavanature";
+    private static final String MC_JAVA_BUILDER = "org.xtuml.bp.mc.java.mcjava_builder";
 
     private BPCLIPreferences cmdLine;
 
@@ -67,13 +71,13 @@ public class Build implements IApplication, Executor {
 
     @Override
     public Object start(IApplicationContext context) throws Exception {
-    	// cancel running jobs
-    	while (!Job.getJobManager().isIdle()) {
-    		Job.getJobManager().currentJob().cancel();
-    	}
+        // cancel running jobs
+        while (!Job.getJobManager().isIdle()) {
+            Job.getJobManager().currentJob().cancel();
+        }
         CommandLineOption[] cmdLineOptions = getCommandLineOptions();
         setCommandLine(new BPCLIPreferences(context, cmdLineOptions));
-        IProgressMonitor monitor = new PrintingProgressMonitor();
+        IProgressMonitor monitor = new NullProgressMonitor();
         if (cmdLine.getBooleanValue("-help")) {
             cmdLine.usage("Build");
         } else {
@@ -99,7 +103,7 @@ public class Build implements IApplication, Executor {
 
     @Override
     public void execute() {
-        performCLIBuild(new PrintingProgressMonitor());
+        performCLIBuild(new NullProgressMonitor());
     }
 
     /**
@@ -147,7 +151,7 @@ public class Build implements IApplication, Executor {
                 }
                 System.out.println("Performing the build of project: " + project.getName());
                 IProjectDescription projectDescription = project.getDescription();
-                boolean isMcJava = projectDescription.hasNature("org.xtuml.bp.mc.java.mcjavanature");
+                boolean isMcJava = projectDescription.hasNature(MC_JAVA_NATURE);
                 ICommand[] buildSpec = null != projectDescription ? projectDescription.getBuildSpec() : new ICommand[0];
                 if (!isMcJava && prebuilderOnly && null != projectDescription) {
                     ICommand preBuilder = projectDescription.newCommand();
@@ -160,7 +164,7 @@ public class Build implements IApplication, Executor {
                     projectDescription.setBuildSpec(new ICommand[] { preBuilder });
                     project.setDescription(projectDescription, monitor);
                 }
-                performBuild(project, IncrementalProjectBuilder.FULL_BUILD, monitor);
+                performBuild(project, IncrementalProjectBuilder.FULL_BUILD, monitor, isMcJava);
                 if (!isMcJava && prebuilderOnly && null != projectDescription) {
                     projectDescription.setBuildSpec(buildSpec);
                     project.setDescription(projectDescription, monitor);
@@ -189,11 +193,27 @@ public class Build implements IApplication, Executor {
      * Start the build of this project
      */
     private void performBuild(final IProject project, final int buildType, final IProgressMonitor monitor) {
+        performBuild(project, buildType, monitor, false);
+    }
+
+    private void performBuild(final IProject project, final int buildType, final IProgressMonitor monitor, boolean isMcJava) {
         // run the build
         Runnable r = new Runnable() {
             public void run() {
                 try {
-                    project.build(buildType, monitor);
+                    if (isMcJava) {
+                        Map<String,String> args = null;
+                        ICommand[] commands = project.getDescription().getBuildSpec();
+                        for (ICommand command : commands) {
+                            if (MC_JAVA_BUILDER.equals(command.getBuilderName())) {
+                                args = command.getArguments();
+                                break;
+                            }
+                        }
+                        project.build(buildType, MC_JAVA_BUILDER, args, monitor);
+                    } else {
+                        project.build(buildType, monitor);
+                    }
                 } catch (Exception e) {
                     CorePlugin.logError("Failed to build " + project.getName() + ".\n" + e.getMessage(), e); //$NON-NLS-2$
                 }
