@@ -29,6 +29,7 @@ public class Xtuml2Masl {
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
     public static final String X2M_OUTPUT = "x2m_output.txt";
     public static final String MASL_OUTPUT = "masl_output.txt";
+    public static final String GLOBALS_XTUML = "../schema/Globals.xtuml";
 
     private String projectLocation;
     private String outDir;
@@ -99,6 +100,9 @@ public class Xtuml2Masl {
             x2mCmd.add("-p");
         }
         x2mCmd.add(name);
+        if (!prebuild) {
+            x2mCmd.add(" < " + toolsFolder() + File.separator + GLOBALS_XTUML);
+        }
         System.out.println(x2mCmd);
         Process x2mProcess = new ProcessBuilder().command(x2mCmd).start();
 
