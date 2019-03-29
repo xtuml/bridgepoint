@@ -36,6 +36,7 @@ public class Xtuml2Masl {
     private boolean isDomain;
     private boolean validate;
     private boolean coverage;
+    private boolean prebuild;
     private boolean eclipse;
     private boolean skipFormat;
     private boolean skipActionLanguage;
@@ -43,7 +44,8 @@ public class Xtuml2Masl {
     public Xtuml2Masl() {
         validate = false;
         coverage = false;
-        eclipse = true;
+        prebuild = false;
+        eclipse = false;
         outDir = ".";
         skipFormat = false;
         skipActionLanguage = false;
@@ -63,8 +65,8 @@ public class Xtuml2Masl {
             outDirFile.mkdirs();
         }
 
-        // run pre-builder if executing outside eclipse
-        if (!eclipse) {
+        // run pre-builder if executing outside eclipse on a project project
+        if (!eclipse && prebuild) {
             // build prebuild process
             List<String> prebuildCmd = new ArrayList<>();
             prebuildCmd.add(toolsFolder() + File.separator + CLI_EXE);
@@ -229,6 +231,11 @@ public class Xtuml2Masl {
         return this;
     }
 
+    public Xtuml2Masl setPrebuild(boolean prebuild) {
+        this.prebuild = prebuild;
+        return this;
+    }
+
     public Xtuml2Masl setEclipseBuild(boolean eclipse) {
         this.eclipse = eclipse;
         return this;
@@ -322,6 +329,7 @@ public class Xtuml2Masl {
 
         boolean validate = false;
         boolean coverage = false;
+        boolean prebuild = false;
         boolean skipFormatter = false;
         boolean skipActionLanguage = false;
         String outDir = "";
@@ -337,6 +345,9 @@ public class Xtuml2Masl {
                 directive = ""; // encountering a validation flag resets the directive because
             } else if ("-c".equals(arg) && !coverage) { // produce coverage output
                 coverage = true;
+                directive = "";
+            } else if ("-P".equals(arg) && !prebuild) { // Run the prebuilder.
+                prebuild = true;
                 directive = "";
             } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
                 skipFormatter = true;
@@ -362,7 +373,7 @@ public class Xtuml2Masl {
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setEclipseBuild(false).setSkipFormat(skipFormatter)
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setEclipseBuild(false).setSkipFormat(skipFormatter)
                 .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
