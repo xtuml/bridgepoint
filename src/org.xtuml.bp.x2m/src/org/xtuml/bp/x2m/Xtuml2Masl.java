@@ -100,9 +100,6 @@ public class Xtuml2Masl {
             x2mCmd.add("-p");
         }
         x2mCmd.add(name);
-        if (!prebuild) {
-            x2mCmd.add(" < " + toolsFolder() + File.separator + GLOBALS_XTUML);
-        }
         System.out.println(x2mCmd);
         Process x2mProcess = new ProcessBuilder().command(x2mCmd).start();
 
@@ -134,8 +131,13 @@ public class Xtuml2Masl {
         // pipe inputs and outputs together
         Path projectPath = new File(projectLocation).toPath();
         String projectName = projectPath.getName(projectPath.getNameCount() - 1).toString();
-        FileInputStream inputFile = new FileInputStream(
+        FileInputStream inputFile;
+        if (prebuild) {
+            inputFile = new FileInputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
+        } else {
+            inputFile = new FileInputStream(toolsFolder() + GLOBALS_XTUML);
+        }
         connectStreams(true, inputFile, x2mProcess.getOutputStream());
         FileOutputStream x2mOutputFile = new FileOutputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_OUTPUT);
