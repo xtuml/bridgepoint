@@ -65,6 +65,11 @@ public class Xtuml2Masl {
         if (!outDirFile.exists()) {
             outDirFile.mkdirs();
         }
+        // create the gen/code_generation directory if it does not exist
+        File genDirFile = new File(projectLocation + File.separator + CODE_GEN_FOLDER);
+        if (!genDirFile.exists()) {
+            genDirFile.mkdirs();
+        }
 
         // run pre-builder if executing outside eclipse on a project project
         if (!eclipse && prebuild) {
@@ -136,6 +141,7 @@ public class Xtuml2Masl {
             inputFile = new FileInputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
         } else {
+            // if no prebuilder, load the native types
             inputFile = new FileInputStream(toolsFolder() + GLOBALS_XTUML);
         }
         connectStreams(true, inputFile, x2mProcess.getOutputStream());
