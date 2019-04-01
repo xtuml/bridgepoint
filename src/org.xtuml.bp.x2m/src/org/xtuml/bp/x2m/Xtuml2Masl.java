@@ -38,7 +38,6 @@ public class Xtuml2Masl {
     private boolean validate;
     private boolean coverage;
     private boolean prebuild;
-    private boolean eclipse;
     private boolean skipFormat;
     private boolean skipActionLanguage;
 
@@ -46,7 +45,6 @@ public class Xtuml2Masl {
         validate = false;
         coverage = false;
         prebuild = false;
-        eclipse = false;
         outDir = ".";
         skipFormat = false;
         skipActionLanguage = false;
@@ -72,7 +70,7 @@ public class Xtuml2Masl {
         }
 
         // run pre-builder if executing outside eclipse on a project project
-        if (!eclipse && prebuild) {
+        if (prebuild) {
             // build prebuild process
             List<String> prebuildCmd = new ArrayList<>();
             prebuildCmd.add(toolsFolder() + File.separator + CLI_EXE);
@@ -248,11 +246,6 @@ public class Xtuml2Masl {
         return this;
     }
 
-    public Xtuml2Masl setEclipseBuild(boolean eclipse) {
-        this.eclipse = eclipse;
-        return this;
-    }
-
     public Xtuml2Masl setSkipFormat(boolean skipFormat) {
         this.skipFormat = skipFormat;
         return this;
@@ -385,7 +378,7 @@ public class Xtuml2Masl {
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setEclipseBuild(false).setSkipFormat(skipFormatter)
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
                 .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
