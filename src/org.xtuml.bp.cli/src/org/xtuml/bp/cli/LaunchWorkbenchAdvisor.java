@@ -213,7 +213,7 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                 String[] context = cmd.replaceFirst("Build", "").trim().split(" ");
                 try {
                     BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Build.getCommandLineOptions());
-                    executor = new Build(cmdLine);
+                    executor = new BuildExecutor(cmdLine);
                 }
                 catch ( BPCLIException e ) {
                     BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);
