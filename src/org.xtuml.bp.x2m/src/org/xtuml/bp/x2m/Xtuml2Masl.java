@@ -103,6 +103,9 @@ public class Xtuml2Masl {
             x2mCmd.add("-p");
         }
         x2mCmd.add(name);
+        if (prebuild) {
+            x2mCmd.add("-P");
+        }
         System.out.println(x2mCmd);
         Process x2mProcess = new ProcessBuilder().command(x2mCmd).start();
 
@@ -140,7 +143,7 @@ public class Xtuml2Masl {
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
         } else {
             // if no prebuilder, load the native types
-            inputFile = new FileInputStream(toolsFolder() + GLOBALS_XTUML);
+            inputFile = new FileInputStream(toolsFolder() + File.separator + GLOBALS_XTUML);
         }
         connectStreams(true, inputFile, x2mProcess.getOutputStream());
         FileOutputStream x2mOutputFile = new FileOutputStream(
