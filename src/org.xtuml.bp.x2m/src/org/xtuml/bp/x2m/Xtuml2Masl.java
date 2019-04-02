@@ -39,7 +39,6 @@ public class Xtuml2Masl {
     private boolean validate;
     private boolean coverage;
     private boolean prebuild;
-    private boolean eclipse;
     private boolean skipFormat;
     private boolean skipActionLanguage;
 
@@ -47,7 +46,6 @@ public class Xtuml2Masl {
         validate = false;
         coverage = false;
         prebuild = false;
-        eclipse = false;
         outDir = ".";
         architecture = "MASL";
         skipFormat = false;
@@ -74,7 +72,7 @@ public class Xtuml2Masl {
         }
 
         // run pre-builder if executing outside eclipse on a project project
-        if (!eclipse && prebuild) {
+        if (prebuild) {
             // build prebuild process
             List<String> prebuildCmd = new ArrayList<>();
             prebuildCmd.add(toolsFolder() + File.separator + CLI_EXE);
@@ -107,6 +105,9 @@ public class Xtuml2Masl {
             x2mCmd.add("-p");
         }
         x2mCmd.add(name);
+        if (prebuild) {
+            x2mCmd.add("-P");
+        }
         System.out.println(x2mCmd);
         Process x2mProcess = new ProcessBuilder().command(x2mCmd).start();
 
@@ -146,7 +147,7 @@ public class Xtuml2Masl {
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
         } else {
             // if no prebuilder, load the native types
-            inputFile = new FileInputStream(toolsFolder() + GLOBALS_XTUML);
+            inputFile = new FileInputStream(toolsFolder() + File.separator + GLOBALS_XTUML);
         }
         connectStreams(true, inputFile, x2mProcess.getOutputStream());
         FileOutputStream x2mOutputFile = new FileOutputStream(
@@ -254,11 +255,6 @@ public class Xtuml2Masl {
 
     public Xtuml2Masl setPrebuild(boolean prebuild) {
         this.prebuild = prebuild;
-        return this;
-    }
-
-    public Xtuml2Masl setEclipseBuild(boolean eclipse) {
-        this.eclipse = eclipse;
         return this;
     }
 
@@ -397,7 +393,7 @@ public class Xtuml2Masl {
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setEclipseBuild(false).setSkipFormat(skipFormatter)
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
                 .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
