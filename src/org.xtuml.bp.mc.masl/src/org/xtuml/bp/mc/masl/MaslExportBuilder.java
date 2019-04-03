@@ -64,7 +64,7 @@ public class MaslExportBuilder extends AbstractExportBuilder {
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        preBuild(kind, false, true, monitor);
+        //preBuild(kind, false, true, monitor);     Pre-build not necessary because x2m loads directories
         final String projPath = getProject().getLocation().toOSString();
         outputDirectory = new Path(new MaslExporterPreferences(getProject()).getOutputDestination());
         if (!outputDirectory.isAbsolute()) {
@@ -267,7 +267,7 @@ public class MaslExportBuilder extends AbstractExportBuilder {
             boolean skipFormat, boolean skipActionLanguage)
             throws IOException, RuntimeException, CoreException, InterruptedException {
         Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(outDir)
-                .setEclipseBuild(true).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage);
+                .setPrebuild(false).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage);
         if (MASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }
