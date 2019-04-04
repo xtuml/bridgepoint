@@ -228,6 +228,57 @@ lighter, and removes the requirement of a virtual frame buffer.
 
 A new model compiler template plugin could be introduced as mentioned above.
 
+5.2 Existing project migration
+
+With this version of BridgePoint, projects currently using a BridgePoint model
+compiler will need to be upgraded. Since this only affects Eclipse support
+files, the decision was made not to implement a migration tool or provide legacy
+support for older projects.
+
+5.2.1 Procedure
+
+Use the following procedure to update existing models. It is recommended that
+projects that are not in revision control be backed up before an upgrade is
+attempted. Some steps are marked "optional". The BridgePoint team recommends
+following these steps for a cleaner project environment, however they are not
+strictly necessary.
+
+. Assure BridgePoint is not running
+. In the project folder on disk:
+  .. Delete `.externalToolBuilders/`
+  .. Delete `Debug/` and `Release/` if they exist (optional)
+  .. Delete `gen/code_generation/` if it exists (optional)
+  .. Delete `src/` if it exists (optional)
+  .. Delete `.cproject` if it exists
+. In the `.project` file:
+  .. Delete the entire `<buildSpec>` section
+  .. In the `<natures>` section, delete all entries except
+     `<nature>org.xtuml.bp.core.xtumlnature</nature>`
+. Open BridgePoint
+. Use the "BridgePoint Utilities > Set Model Compilers" menu to choose the model
+  compilers you wish to be enabled. For MC-3020 projects, use this wizard to
+  enable the CDT if desired.
+. If other builders were used in your project, restore them from your backup
+  files
+
+5.2.2 BridgePoint development projects
+
+The BridgePoint plugin projects which use MC-Java have been updated to use the
+new nature and builder identifiers introduced by this work. Therefore,
+BridgePoint must be built with this version of BridgePoint or later. The build
+server will need to be updated once this work is promoted. <<dr-3>> is raised to
+track this upgrade.
+
+The model compiler projects (MASL tools, docgen, mcmc, etc) have also been
+upgraded to be compatible with this version of BridgePoint. 
+
+The `MicrowaveOven` and `GPS_Watch` projects included with BridgePoint in the
+welcome plugin will no longer build. <<dr-4>> is raised to track the upgrade of
+those projects.
+
+Other projects in the `models` repository will need to be upgraded, however this
+can be done at a later time as needed.
+
 == 6 Unit Test
 
 6.1 Current unit test suite shall pass.
@@ -577,6 +628,8 @@ description has been updated
 
 . [[dr-1]] https://support.onefact.net/issues/11491[11491 - Clean up model compiler projects]
 . [[dr-2]] https://support.onefact.net/issues/10345[10345 - update unit tests as needed to account for the move to Eclipse Oxygen]
+. [[dr-3]] https://support.onefact.net/issues/10636[10636 - Update build server with new host version of BP]
+. [[dr-4]] https://support.onefact.net/issues/10637[10637 - Upgrade welcome plugin projects]
 
 ---
 
