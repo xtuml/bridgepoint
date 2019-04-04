@@ -1,4 +1,4 @@
-= Title goes here
+= Clean up model compiler projects
 
 xtUML Project Implementation Note
 
@@ -239,7 +239,22 @@ repaired.
 
 == 7 User Documentation
 
-TODO
+7.1 Project preferences
+
+References to the project preferences menu item in the documentation have been
+updated to correctly refer to the "Properties" menu.  Changes were made in the
+"Preferences" documentation, the "MASL Modeling and Conversion Guide" page, and
+the "BridgePoint Context Menu Tools" page.
+
+7.2 CME menus
+
+In addition to the project preferences the following changes have been made to
+the "BridgePoint Context Menu Tools" page.
+
+7.2.1 Create Documenatation has been removed
+
+7.2.2 Set Model Compiler has been changed to "Set Model Compilers" and the
+description has been updated
 
 == 8 Code Changes
 
