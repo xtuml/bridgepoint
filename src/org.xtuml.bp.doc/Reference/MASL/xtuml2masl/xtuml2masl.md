@@ -34,7 +34,6 @@ Notes
 ------------
 * The tool is located in the subdirectory ```<BridgePoint Home>/tools/mc/bin```
 * Output defaults to the current directory
-* ```WORKSPACE``` variable in your shell environment must be set to the path to your eclipse workspace
 * Progress and error messages are reported to stderr
 * Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage
   
