@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension
+      id="mcjavanature"
+      name="model compiler nature"
+      point="org.eclipse.core.resources.natures">
+    <runtime>
+      <run class="org.xtuml.bp.mc.java.McJavaNature"></run>
+    </runtime>
+    <builder id="org.xtuml.bp.mc.java.mcjava_builder"></builder>
+  </extension>
+  <extension
+      point="org.eclipse.ui.ide.projectNatureImages">
+    <image
+      icon="../org.xtuml.bp.core/icons/xtuml-nature.gif"
+      natureId="org.xtuml.bp.mc.java.mcjavanature"
+      id="org.xtuml.resoures.natureimage">
+    </image>
+  </extension>
+  <extension
+      id="org.xtuml.bp.mc.java.mcjava_builder"
+      name="MC-Java Builder"
+      point="org.eclipse.core.resources.builders">
+    <builder>
+      <run class="org.xtuml.bp.mc.java.McJavaBuilder"></run>
+    </builder>
+  </extension>
+  <!-- Removing MC-Java from the list of available model compilers. This does
+       not remove it from being a valid builder, but it should not be shown to
+       users. Consider adding it back for developer builds of BridgePoint.
+  <extension point="org.xtuml.bp.core.model-compilers">
+    <model-compiler
+      name="MC-Java"
+      wizard-class="org.xtuml.bp.mc.java.McJavaSetupWizard"
+      nature-class="org.xtuml.bp.mc.java.McJavaNature">
+    </model-compiler>
+  </extension>
+  -->
+</plugin>

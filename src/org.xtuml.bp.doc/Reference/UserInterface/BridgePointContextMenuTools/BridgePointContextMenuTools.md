@@ -61,7 +61,7 @@ These menu entries appear on only the context menu of Model Explorer.
 | Move Down               | Move the selected attribute or parameter down in the parent's containment list. |
 | Move Up                 | Move the selected attribute or parameter up in the parent's containment list. |
 | Parse All Activities    | Parse the OAL action bodies in the selection and look for syntax issues. |
-| Project Preferences     | Opens a dialog to manipulate project-specific BridgePoint settings. |
+| Properties              | Opens a dialog to manipulate project-specific settings. |
 | Publish To Interface... | Opens a dialog that allows the user to choose an Interface to publish selected operations to. [1] |
 | Remove from Identifier... | Opens dialog to remove the selected attribute from being part of a class identifier. |
 | Set as Base Attribute   | Change the attribute from a mathematically-derived attribute to a base attribute. | 
@@ -135,12 +135,11 @@ __Figure 3__
 |-----------------------|--------------------------------------|
 | Check Model Integrity | Analyzes the in-memory model data to find problems. |
 | Check Referential Integrity | Runs a command line tool that performs deep analysis of referential integrity. |
-| Create Documentation  | Builds HTML documentation of the model using the model element descriptions and diagrams. |
 | Generate Functions From List... | For model compiler developers.  Imports a specially-formatted file and creates xtUML functions in the selected package. |
 | Load and Persist      | Traverses through all the underlying model data stored on disk, loads it, the writes it back out again. Validates cross-file references. |
 | Locate Orphaned Elements | Another model analysis tool.  Opens a dialog that lists all "orphaned" model elements. |
 | Reconcile Graphics    | Automatically creates graphical data for imported models that have none.   |
-| Set Model Compiler    | Allows the user to change the model compiler associated with a xtUML project. |
+| Set Model Compilers   | Allows the user to choose the model compilers associated with a xtUML project. |
 __Table 5__   
 
 

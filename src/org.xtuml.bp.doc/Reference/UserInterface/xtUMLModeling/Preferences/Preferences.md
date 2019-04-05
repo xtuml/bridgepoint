@@ -32,3 +32,5 @@ apply individually to each project.
 The project preferences are accessed via the Model Explorer context menu:
 
 ![Project Prefs](ProjectPreferencesCME.png)  
+
+Preferences for enabled model compilers can also be found here.

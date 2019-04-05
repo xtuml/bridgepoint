@@ -43,23 +43,18 @@
 	<modules>
 		<module>../../src/org.xtuml.bp.als</module>
 		<module>../../src/org.xtuml.bp.als.oal</module>
-		<module>../../src/org.xtuml.bp.cdt</module>
 		<module>../../src/org.xtuml.bp.cli</module>
 		<module>../../src/org.xtuml.bp.debug.ui</module>
 		<module>../../src/org.xtuml.bp.doc</module>
-		<module>../../src/org.xtuml.bp.docgen</module>
+		<module>../../src/org.xtuml.bp.mc.docgen</module>
 		<module>../../src/org.xtuml.bp.integrity</module>
 		<module>../../src/org.xtuml.bp.internal.tools</module>
 		<module>../../src/org.xtuml.bp.io.image</module>
 		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.bp.mc</module>
 		<module>../../src/org.xtuml.bp.mc.masl</module>
-		<module>../../src/org.xtuml.bp.mc.c.source</module>
-		<module>../../src/org.xtuml.bp.mc.cpp.source</module>
-		<module>../../src/org.xtuml.bp.mc.java.source</module>
-		<module>../../src/org.xtuml.bp.mc.none</module>
-		<module>../../src/org.xtuml.bp.mc.systemc.source</module>
-		<module>../../src/org.xtuml.bp.mc.template</module>
+		<module>../../src/org.xtuml.bp.mc.mc3020</module>
+		<module>../../src/org.xtuml.bp.mc.java</module>
 		<module>../../src/org.xtuml.bp.pkg</module>
 		<module>../../src/org.xtuml.bp.pkg-feature</module>
 		<module>../../src/org.xtuml.bp.search</module>
