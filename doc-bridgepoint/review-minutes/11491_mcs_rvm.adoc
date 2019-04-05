@@ -6,15 +6,15 @@ xtUML Project Review Minutes
  Present: Bob, Cort, Levi, Keith
 
  -- Num Type  Who  Section  Comment
- _- 01  min   Bob  4.1      Capture doc and feature info into Release Notes prep issue.
- _- 02  min   LPS  4.2      This is an existing mechanism and not new (delegating wizards).
- _- 03  min   Bob  4.5.1,2  Add references to 4.5.1 and 4.5.2 associated artifacts if found.
- _- 04  min   Bob  5.1      Raise or search issues for these.
- _- 05  min   CDS  5.2.1    Send email to C customers and make a FAQ and social media post.
+ x- 01  min   Bob  4.1      Capture doc and feature info into Release Notes prep issue.
+ x- 02  min   LPS  4.2      This is an existing mechanism and not new (delegating wizards).
+ x- 03  min   Bob  4.5.1,2  Add references to 4.5.1 and 4.5.2 associated artifacts if found.
+ x- 04  min   Bob  5.1      Raise or search issues for these.
+ x- 05  min   CDS  5.2.1    Send email to C customers and make a FAQ and social media post.
  _- 06  min   SKB  5.2.1    Explore automating this and point to the procedure.
- _- 07  min   SKB  5.2.2    dr-4 issue needs to be blocker for 6.18.
+ x- 07  min   SKB  5.2.2    dr-4 issue needs to be blocker for 6.18.
  _- 08  min   LPS  5.2.2    Update chat to tell people building BridgePoint about this stuff.
- _- 09  min   SKB           "BridgePoint provides its own CME" > "BridgePoint provided its own CME"
+ x- 09  min   SKB           "BridgePoint provides its own CME" > "BridgePoint provided its own CME"
 same sentence misspelled Eclispe
 
  No major observations, a re-review is not required.

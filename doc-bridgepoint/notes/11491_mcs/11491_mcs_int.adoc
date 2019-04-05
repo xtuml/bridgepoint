@@ -13,14 +13,17 @@ items handled as part of this work.
 
 The model compilers were first introduced as an external tool builder. An
 external tool builder is a flexible mechanism provided by Eclipse to execute
-programs outside eclipse during a build. Plugins
-were created to configure these builders on project creation and assure that
-they remain up to date. This design was made without a full understanding of the
-Eclipse build platform as there is no reason to use an external tool builder
-when the model compiler is itself shipped with the project. It creates messy
-files in the application directory in version control and does not provide much
-configuration flexibility. A custom builder provided by the model compiler
-plugin would be better.
+programs outside Eclipse during a build. Plugins were created to configure
+these builders on project creation and assure that they remain up to date. This
+design was made without a full understanding of the Eclipse build platform as
+there is no reason to use an external tool builder when the model compiler is
+itself shipped with the project. It creates messy files in the application
+directory in version control and does not provide much configuration
+flexibility. A custom builder provided by the model compiler plugin would be
+better.
+
+More information about the introduction of multiple model compilers in
+BridgePoint can be found at <<dr-5>>.
 
 Docgen is another model compiler provided by BridgePoint, however it was not
 implemented as a builder or external builder but through a context menu item.
@@ -145,12 +148,11 @@ image::docgen_prefs.png[docgen_prefs.png,width=75%]
 
 4.2 Delegating wizards
 
-A mechanism was implemented for creating new projects and setting model
-compilers called "delegating wizards." The idea is that model compiler plugins
-can dynamically contribute wizard pages to the new project wizard without
-re-building BridgePoint using an Eclipse extension point. This is very handy if
-users want to develop their own model compiler plugins and access them through
-the UI.
+A mechanism exists for creating new projects and setting model compilers called
+"delegating wizards." The idea is that model compiler plugins can dynamically
+contribute wizard pages to the new project wizard without re-building
+BridgePoint using an Eclipse extension point. This is very handy if users want
+to develop their own model compiler plugins and access them through the UI.
 
 Before now, exactly one model compiler must be assigned to each project. This work
 extended the delegating wizard framework such that zero to many model compilers
@@ -162,6 +164,8 @@ image::mcs.png[mcs.png,width=75%]
 
 Once one or more model compilers are selected, if they have additional
 configuration, those wizard pages are added to the new project wizard.
+
+Read more about delegating wizards at <<dr-5>>.
 
 4.3 Console management
 
@@ -176,7 +180,7 @@ to Eclipse standard out and standard error for CLI builds.
 
 Project preferences were moved to the "Properties" menu of a project. This is
 where most Eclipse tools handle project specific preferences but BridgePoint
-provides its own CME. With this change, BridgePoint is much more like other
+provided its own CME. With this change, BridgePoint is much more like other
 Eclispe based tools. The old project preferences CME was removed and the
 "Properties" CME was added for model explorer.
 
@@ -188,19 +192,22 @@ image::properties_cme.png[properties_cme.png,width=50%]
 
 Code was cleaned up where applicable.
 
-4.5.1 `org.xtuml.internal.test`
-
-The `org.xtuml.internal.test` plugin was removed. This test only had files which
-were used to test the old delegating wizard framework which has been updated.
-These tests are not run automatically and have not been run recently.
-
-4.5.2 `org.xtuml.bp.mc.template`
+4.5.1 `org.xtuml.bp.mc.template`
 
 The template model compiler plugin was removed. This provided a mechanism to
 quickly create new model compiler plugin projects. It is a good idea but it is
-not being used and I was not able to get it to work. It may be a future project
-to reintroduce something like the template plugin but for now it is simply
-removed.
+not being used and it currently does not work. It may be a future project to
+reintroduce something like the template plugin but for now it is simply
+removed. Read more about when this was introduced at <<dr-5>>.
+
+4.5.2 `org.xtuml.internal.test`
+
+The `org.xtuml.internal.test` plugin was removed. This test only had files
+which were used to test the old delegating wizard framework with respect to
+creating new model compiler plugins using the template plugin. The delegating
+wizard framework has been updated and the template plugin has been removed so
+these tests are deprecated. These tests are not run automatically and have not
+been run recently.
 
 4.5.3 BridgePoint CLI
 
@@ -216,17 +223,18 @@ changes were reverted.
 5.1.1 RSL builder
 
 A future enhancement that could be made is to implement a generic RSL model
-compiler. This would essentially just be an interface to `pyrsl`.
+compiler. This would essentially just be an interface to `pyrsl`. See <<dr-6>>.
 
 5.1.2 Purely headless CLI build
 
 As mentioned above, some work was done to make build purely headless. It ran
 into problems, but there is no real reason this cannot be done. It is faster,
-lighter, and removes the requirement of a virtual frame buffer.
+lighter, and removes the requirement of a virtual frame buffer. See <<dr-7>>.
 
 5.1.3 Template plugin
 
 A new model compiler template plugin could be introduced as mentioned above.
+See <<dr-8>>.
 
 5.2 Existing project migration
 
@@ -239,27 +247,16 @@ support for older projects.
 
 Use the following procedure to update existing models. It is recommended that
 projects that are not in revision control be backed up before an upgrade is
-attempted. Some steps are marked "optional". The BridgePoint team recommends
-following these steps for a cleaner project environment, however they are not
-strictly necessary.
+attempted.
 
-. Assure BridgePoint is not running
-. In the project folder on disk:
-  .. Delete `.externalToolBuilders/`
-  .. Delete `Debug/` and `Release/` if they exist (optional)
-  .. Delete `gen/code_generation/` if it exists (optional)
-  .. Delete `src/` if it exists (optional)
-  .. Delete `.cproject` if it exists
-. In the `.project` file:
-  .. Delete the entire `<buildSpec>` section
-  .. In the `<natures>` section, delete all entries except
-     `<nature>org.xtuml.bp.core.xtumlnature</nature>`
-. Open BridgePoint
-. Use the "BridgePoint Utilities > Set Model Compilers" menu to choose the model
-  compilers you wish to be enabled. For MC-3020 projects, use this wizard to
-  enable the CDT if desired.
-. If other builders were used in your project, restore them from your backup
-  files
+. Right click on the project and select "Properties"
+. In the "Builders" section, select "Missing builder
+  (org.xtuml.bp.mc.*.export_builder)" and click "Remove"
+. In the "Builders" section, select "Missing Compiler" and click "Remove"
+. Click "Apply and Close"
+. Right click on the project and select "BridgePoint Utilities > Set Model
+  Compilers"
+. Follow the wizard to enable your desired model compiler(s)
 
 5.2.2 BridgePoint development projects
 
@@ -334,8 +331,12 @@ description has been updated
 
 . [[dr-1]] https://support.onefact.net/issues/11491[11491 - Clean up model compiler projects]
 . [[dr-2]] https://support.onefact.net/issues/10345[10345 - update unit tests as needed to account for the move to Eclipse Oxygen]
-. [[dr-3]] https://support.onefact.net/issues/10636[10636 - Update build server with new host version of BP]
-. [[dr-4]] https://support.onefact.net/issues/10637[10637 - Upgrade welcome plugin projects]
+. [[dr-3]] https://support.onefact.net/issues/11636[11636 - Update build server with new host version of BP]
+. [[dr-4]] https://support.onefact.net/issues/11637[11637 - Upgrade welcome plugin projects]
+. [[dr-5]] https://github.com/xtuml/graveyard/tree/master/internal/Documentation_archive/20121102/technical/notes/dts0100782775[Documentation associated with the introduction of the model compilers]
+. [[dr-6]] https://support.onefact.net/issues/11638[11638 - Create a generic RSL model compiler]
+. [[dr-7]] https://support.onefact.net/issues/11640[11640 - Update CLI to run truely headless]
+. [[dr-8]] https://support.onefact.net/issues/11639[11639 - Reintroduce a model compiler template plugin]
 
 ---
 
