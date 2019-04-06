@@ -6,6 +6,15 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>org.xtuml.bp.mc.java.mcjava_builder</name>
+			<arguments>
+				<dictionary>
+					<key>RootPackageName</key>
+					<value>ooaofmarking</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
 			<triggers>auto,full,incremental,</triggers>
 			<arguments>
@@ -42,7 +51,8 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-        <nature>org.xtuml.bp.core.xtumlnature</nature>
+    <nature>org.xtuml.bp.core.xtumlnature</nature>
+		<nature>org.xtuml.bp.mc.java.mcjavanature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>

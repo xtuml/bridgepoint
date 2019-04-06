@@ -29,7 +29,6 @@
 		<module>${bp_test_path}/src/org.xtuml.bp.ui.properties.test</module>
 		<module>${bp_test_path}/src/org.xtuml.bp.ui.text.test</module>
 		<module>${bp_test_path}/src/org.xtuml.bp.welcome.test</module>
-		<module>${bp_test_path}/src/org.xtuml.internal.test</module>
 	</modules>
 
 
