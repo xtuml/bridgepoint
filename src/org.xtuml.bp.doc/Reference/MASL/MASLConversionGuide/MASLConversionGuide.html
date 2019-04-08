@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.7.1">
+<meta name="generator" content="Asciidoctor 1.5.8">
 <title>MASL Modeling and Conversion Guide</title>
 <link rel="stylesheet" href="./../../../asciidoctor-default.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -1037,12 +1037,9 @@ Compiler</strong> and choose MASL Exporter from the list.</p>
 <h4 id="_masl_export_from_the_command_line">6.3.2. MASL Export from the Command line</h4>
 <div class="paragraph">
 <p>To export xtUML models to MASL equivalent models without invoking the BridgePoint UI, the
-<code>xtuml2masl</code> tool is used. This tool makes use of the environment variable <code>WORKSPACE</code>
-which must be set to the directory path of the xtUML workspace holding the source xtUML
-project. It is recommended that all xtUML projects be contained in a single workspace,
-however this is not enforced by the export tool. If the complete xtUML model is contained
-across multiple BridgePoint workspaces then the <code>WORKSPACE</code> variable must be modified
-between <code>xtuml2masl</code> invocations.</p>
+<code>xtuml2masl</code> tool is used.
+It is recommended that all xtUML projects be contained in a single workspace,
+however this is not enforced by the export tool.</p>
 </div>
 <div class="paragraph">
 <p>To invoke the MASL export tool, the following syntax is used</p>
@@ -1085,8 +1082,8 @@ IPRs enabled.</p>
 </div>
 <div class="paragraph">
 <p>To check if IPRs are enabled for a particular xtUML project, select that project in the
-Model Explorer View and then select <strong>&lt;RMB&gt; &gt; Project Preferences</strong>. This will open a
-popup window (<a href="#proj_pref">Figure 11</a>).  Selecting <code>Inter-project References</code> will show the setting
+Model Explorer View and then select <strong>&lt;RMB&gt; &gt; Properties</strong>. This will open a
+popup window (<a href="#proj_pref">Figure 11</a>).  Selecting <code>xtUML Project &gt; Inter-project References</code> will show the setting
 "Allow inter-project model references". The use of IPRs is enabled if the checkbox is
 marked.</p>
 </div>
@@ -1094,7 +1091,7 @@ marked.</p>
 <div class="content">
 <img src="images/image01.png" alt="xtUML Project Preferences" width="50%">
 </div>
-<div class="title">Figure 11. Project Preferences</div>
+<div class="title">Figure 11. Properties</div>
 </div>
 <div class="paragraph">
 <p>For the models based on the MASL-xtUML idiom, all xtUML projects containing a MASL
