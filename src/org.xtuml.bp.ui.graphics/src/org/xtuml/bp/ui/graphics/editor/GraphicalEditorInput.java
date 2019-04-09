@@ -1,13 +1,5 @@
 package org.xtuml.bp.ui.graphics.editor;
 //=====================================================================
-//
-//File:      $RCSfile: GraphicalEditorInput.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:06:02 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -38,13 +30,11 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
-
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;

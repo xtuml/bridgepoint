@@ -31,12 +31,9 @@ import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.ComponentInstanceContainer_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
@@ -1225,7 +1222,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			  for (ComponentInstance_c candidate: candidates) {
 				for(ComponentInstance_c child: children) {
 					if (candidate == child) {
-						result = candidate;  // TODO need to check not already wired?
+						result = candidate;
 						break;
 					}
 				}
@@ -1286,7 +1283,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			  for (ComponentInstance_c candidate: candidates) {
 				for(ComponentInstance_c child: children) {
 					if (candidate == child) {
-						result = candidate;  // TODO need to check not already wired?
+						result = candidate;
 						break;
 					}
 				}

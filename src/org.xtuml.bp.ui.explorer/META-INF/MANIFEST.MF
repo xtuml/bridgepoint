@@ -25,3 +25,4 @@ Import-Package: org.xtuml.bp.ui.text.activity,
  org.xtuml.bp.ui.text.description,
  org.xtuml.bp.ui.text.masl
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.ui.explorer

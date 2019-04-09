@@ -1,28 +1,15 @@
 package org.xtuml.bp.welcome.cheatsheets.library;
-//====================================================================
-//
-//File: $RCSfile: AssignEvent.java,v $
-//Version: $Revision: 1.4 $
-//Modified: $Date: 2013/01/10 23:32:09 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.ui.GenericPackageAssignEventOnSM_TXNAction;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Model_c;
-import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.welcome.cheatsheets.utilities.CheatSheetsUIUtilities;
 import org.xtuml.bp.welcome.cheatsheets.utilities.CheatSheetsUtilities;

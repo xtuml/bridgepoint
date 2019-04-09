@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: GraphicalOutlinePage.java,v $
-//Version:   $Revision: 1.9 $
-//Modified:  $Date: 2013/01/10 23:06:21 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -73,8 +65,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.NewWizardMenu;
 import org.eclipse.ui.part.PageBook;
 import org.osgi.framework.Bundle;
-
-import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Operation_c;

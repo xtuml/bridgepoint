@@ -22,3 +22,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.utilities.build,
  org.xtuml.bp.utilities.load,
  org.xtuml.bp.utilities.ui
+Automatic-Module-Name: org.xtuml.bp.utilities

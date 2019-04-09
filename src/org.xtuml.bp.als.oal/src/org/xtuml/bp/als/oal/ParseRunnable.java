@@ -2,16 +2,14 @@ package org.xtuml.bp.als.oal;
 
 import java.io.StringReader;
 
-import org.eclipse.core.resources.IMarker;
-
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-import antlr.TokenStreamRecognitionException;
-
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.NonRootModelElement;
+
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRecognitionException;
 
 public class ParseRunnable implements Runnable {
 	protected String m_document;
@@ -43,12 +41,9 @@ public class ParseRunnable implements Runnable {
 		Ooaofooa modelRoot = (Ooaofooa) m_modelElement.getModelRoot();
 		OalLexer lexer = new OalLexer(new StringReader(m_document));
 		TextParser parser = new TextParser(modelRoot, lexer, m_contentAssistLine, m_contentAssistCol);
-		boolean parseCompleted = false;
-		boolean problemsFound = false;
 		try {
 			// Parse the input expression
 			parser.action(m_modelElement, false);
-			parseCompleted = true;
 		} catch (TokenStreamException e) {
 			Block_c.Clearcurrentscope(modelRoot, parser.m_oal_context.m_act_id);
 			if (e instanceof TokenStreamRecognitionException) {

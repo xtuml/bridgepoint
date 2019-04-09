@@ -1,11 +1,3 @@
-// ========================================================================
-//
-//File: $RCSfile: UpgradeUtil.java,v $
-//Version: $Revision: 1.3 $
-//Modified: $Date: 2013/05/14 17:29:07 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -24,7 +16,6 @@ package org.xtuml.bp.io.mdl.upgrade;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -38,7 +29,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Interface_c;
@@ -48,7 +38,6 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
-import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;

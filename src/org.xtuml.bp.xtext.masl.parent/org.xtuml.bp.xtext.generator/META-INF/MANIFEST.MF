@@ -15,4 +15,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.xtext,
  org.apache.log4j;bundle-version="1.2.15"
 Export-Package: org.xtuml.bp.xtext.generator
+Automatic-Module-Name: org.xtuml.bp.xtext.generator
 

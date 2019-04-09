@@ -20,3 +20,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.ui.search,
  org.xtuml.bp.ui.search.pages,
  org.xtuml.bp.ui.search.providers
+Automatic-Module-Name: org.xtuml.bp.ui.search
