@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: BPDebugModelPresentation.java,v $
-//Version:   $Revision: 1.13 $
-//Modified:  $Date: 2013/01/10 23:17:55 $
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -39,13 +31,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
-
 import org.xtuml.bp.core.Association_c;
+import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataItemValue_c;
-import org.xtuml.bp.core.ComponentReference_c;
-import org.xtuml.bp.core.LinkParticipation_c;
 import org.xtuml.bp.core.LocalReference_c;
 import org.xtuml.bp.core.LocalValue_c;
 import org.xtuml.bp.core.PendingEvent_c;

@@ -2,8 +2,6 @@ package org.xtuml.bp.io.image.ant.tasks;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-
-import org.xtuml.bp.core.EclipseOoaofooa;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.InstanceList;

@@ -1,13 +1,5 @@
 package org.xtuml.bp.ui.canvas;
 //=====================================================================
-//
-// File:      $RCSfile: ModelContentOutlinePage.java,v $
-// Version:   $Revision: 1.44 $
-// Modified:  $Date: 2013/01/10 23:19:00 $
-//
-// (c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -138,8 +130,6 @@ public class ModelContentOutlinePage extends ContentOutlinePage {
 	m_transactionListener = new ITransactionListener() {
 		@Override
 		public void transactionCancelled(Transaction transaction) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
@@ -149,8 +139,6 @@ public class ModelContentOutlinePage extends ContentOutlinePage {
 
 		@Override
 		public void transactionStarted(Transaction transaction) {
-			// TODO Auto-generated method stub
-
 		}
 	};
 	TransactionManager.getSingleton().addTransactionListener(m_transactionListener);

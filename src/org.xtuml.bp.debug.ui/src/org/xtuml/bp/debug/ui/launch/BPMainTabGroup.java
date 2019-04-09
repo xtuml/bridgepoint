@@ -1,14 +1,5 @@
 package org.xtuml.bp.debug.ui.launch;
 
-
-//====================================================================
-//
-//File:      $RCSfile: BPMainTabGroup.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/01/10 23:17:45 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
-//
 //====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -26,12 +17,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
-
 import org.xtuml.bp.debug.ui.BPDebugUIPlugin;
 
 

@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: EclipseOoaofooa.java,v $
-//Version:   $Revision: 1.32 $
-//Modified:  $Date: 2013/05/10 13:26:44 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -226,23 +218,19 @@ public class EclipseOoaofooa extends OoaofooaBase {
             return m_resourceFileForTests.removeLastSegments(1);
         }
         SystemModel_c parent = getRoot();
-        if (parent != null) {
-            IResource pr = (IResource) parent.getAdapter(IResource.class);
-            if (pr != null) {
-                if ( pr.getFullPath().segmentCount() == 1 )
-                {
-                    // this is for single file domains in test cases
-                    // TODO Remove when test cases are converted to multi-file
-                IPath loc = pr.getLocation();
-                return loc.append(MODELS_DIRNAME);
-            }
-                else
-                {
-                    IPath loc = pr.getLocation();
-                    return loc.removeLastSegments(1);
-        }
-            }
-        }
+		if (parent != null) {
+			IResource pr = (IResource) parent.getAdapter(IResource.class);
+			if (pr != null) {
+				if (pr.getFullPath().segmentCount() == 1) {
+					// this is for single file domains in test cases
+					IPath loc = pr.getLocation();
+					return loc.append(MODELS_DIRNAME);
+				} else {
+					IPath loc = pr.getLocation();
+					return loc.removeLastSegments(1);
+				}
+			}
+		}
         return null;
     }
 

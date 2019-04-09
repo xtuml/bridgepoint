@@ -1,9 +1,6 @@
 package org.xtuml.bp.model.compare;
 
-import java.util.List;
-
 import org.eclipse.jface.action.Action;
-
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ITransactionListener;
 import org.xtuml.bp.core.common.ModelRoot;

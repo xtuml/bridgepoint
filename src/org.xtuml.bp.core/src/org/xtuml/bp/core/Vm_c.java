@@ -28,14 +28,6 @@ import org.xtuml.bp.core.util.BPClassLoader;
 import org.xtuml.bp.core.util.OoaofooaUtil;
 
 //========================================================================
-//
-//File:      $RCSfile: Vm_c.java,v $
-//Version:   $Revision: 1.20 $
-//Modified:  $Date: 2013/01/10 22:54:14 $
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -413,7 +405,6 @@ public class Vm_c {
                     } catch (SecurityException e) {
                         e.printStackTrace();
                     } catch (NoSuchMethodException e) {
-                        // TODo Make this more graceful by logging in the console
                         e.printStackTrace();
                     }
                 }
