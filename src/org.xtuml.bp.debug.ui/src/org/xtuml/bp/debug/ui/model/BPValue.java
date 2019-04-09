@@ -50,7 +50,6 @@ public class BPValue extends BPDebugElement implements IValue {
 	}
 
 	public String getReferenceTypeName() throws DebugException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -297,7 +296,6 @@ public class BPValue extends BPDebugElement implements IValue {
 	}
 
 	public boolean isAllocated() throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

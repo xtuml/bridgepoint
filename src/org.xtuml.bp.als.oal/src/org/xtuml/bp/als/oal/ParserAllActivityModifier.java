@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: AllActivityModifier.java,v $
-//Version:   $Revision: 1.43 $
-//Modified:  $Date: 2013/01/10 23:20:48 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -22,20 +14,11 @@
 
 package org.xtuml.bp.als.oal;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.UUID;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
@@ -58,7 +41,6 @@ import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.MooreActionHome_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -100,7 +82,6 @@ public class ParserAllActivityModifier implements IAllActivityModifier {
 	private ModelRoot m_root = null;
 
 	private boolean parseAll = false;
-	private boolean setProvided = false;
 
 	private NonRootModelElement m_parent = null;
 	private PackageableElement_c m_pkgElem = null;

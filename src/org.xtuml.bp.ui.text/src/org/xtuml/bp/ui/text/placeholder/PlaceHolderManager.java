@@ -1,11 +1,3 @@
-// ========================================================================
-//
-//File: $RCSfile: PlaceHolderManager.java,v $
-//Version: $Revision: 1.22 $
-//Modified: $Date: 2013/05/10 13:25:23 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -60,7 +52,6 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChang
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;

@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: BPBreakpoint.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/05/12 00:16:37 $
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -24,7 +16,6 @@ package org.xtuml.bp.debug.ui.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -37,7 +28,6 @@ import org.eclipse.debug.core.model.Breakpoint;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.model.IWorkbenchAdapter;
-
 import org.xtuml.bp.core.Breakpoint_c;
 import org.xtuml.bp.core.Condition_c;
 import org.xtuml.bp.core.Gd_c;
@@ -48,8 +38,6 @@ import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
-import org.xtuml.bp.core.StateBreakpoint_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.debug.ui.IBPDebugUIPluginConstants;
 import org.xtuml.bp.debug.ui.ModelElementLocation;

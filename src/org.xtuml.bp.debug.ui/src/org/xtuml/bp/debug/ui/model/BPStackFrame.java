@@ -1,13 +1,5 @@
 package org.xtuml.bp.debug.ui.model;
 //====================================================================
-//
-// File:      $RCSfile: BPStackFrame.java,v $
-// Version:   $Revision: 1.19 $
-// Modified:  $Date: 2013/01/10 23:18:08 $
-//
-// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -288,12 +280,10 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
 	}
 
 	public IRegisterGroup[] getRegisterGroups() throws DebugException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public boolean hasRegisterGroups() throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -356,12 +346,10 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
 	}
 
 	public boolean canStepReturn() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean isStepping() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -438,8 +426,6 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
 	}
 
 	public void stepReturn() throws DebugException {
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean canResume() {

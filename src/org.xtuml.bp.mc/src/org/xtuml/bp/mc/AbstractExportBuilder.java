@@ -49,18 +49,12 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     private String m_outputFolder;
     private List<NonRootModelElement> m_elements;
     private List<SystemModel_c> m_exportedSystems;
-    private AbstractActivator m_activator = null;
-    private AbstractNature m_nature = null;
     private IProject project = null;
 
-    protected AbstractExportBuilder(AbstractActivator activator, AbstractNature nature) {
-        super();
+    protected AbstractExportBuilder() {
         m_elements = new ArrayList<NonRootModelElement>();
         m_exportedSystems = new ArrayList<SystemModel_c>();
-        m_outputFolder = AbstractProperties.getPropertyOrDefault(
-                activator.readProperties(AbstractNature.BUILD_SETTINGS_FILE), AbstractProperties.GENERATED_CODE_DEST);
-        m_activator = activator;
-        m_nature = nature;
+        m_outputFolder = "code_generation";
     }
 
     // The eclipse infrastructure calls this function prior to
@@ -103,10 +97,6 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 
     protected void preBuild(int kind, boolean parseOnExport, boolean forceRebuild, IProgressMonitor monitor) throws CoreException {
         boolean exportNeeded = readyBuildArea(monitor);
-        if (m_nature != null) {
-            MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(getProject(), m_activator, m_nature);
-            argHandler.setArguments(m_nature.getBuilderID());
-        }
         // Calling build again here just forces any builders that have not yet
         // run to refresh before starting. This picks up changes we may have
         // made to the external tool builder launch file.
@@ -375,6 +365,14 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
             throw new CoreException(status);
         }
 
+        return m_exportedSystems;
+    }
+    
+    public File getPrebuilderOutputFile() {
+        return m_outputFile;
+    }
+    
+    public List<SystemModel_c> getExportedSystems() {
         return m_exportedSystems;
     }
 

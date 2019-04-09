@@ -585,12 +585,12 @@ in another xtUML project. For the access to be allowed, the referring project mu
 IPRs enabled.  
     
 To check if IPRs are enabled for a particular xtUML project, select that project in the 
-Model Explorer View and then select *<RMB> > Project Preferences*. This will open a 
-popup window (<<proj_pref>>).  Selecting `Inter-project References` will show the setting 
+Model Explorer View and then select *<RMB> > Properties*. This will open a 
+popup window (<<proj_pref>>).  Selecting `xtUML Project > Inter-project References` will show the setting 
 "Allow inter-project model references". The use of IPRs is enabled if the checkbox is 
 marked.   
 
-.Project Preferences
+.Properties
 image::images/image01.png[xtUML Project Preferences,id="proj_pref",width=50%] 
 
 For the models based on the MASL-xtUML idiom, all xtUML projects containing a MASL 

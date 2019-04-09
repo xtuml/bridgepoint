@@ -15,4 +15,5 @@ Export-Package: org.xtuml.bp.xtext.masl.ide.contentassist.antlr,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer.jflex,
  org.xtuml.bp.xtext.masl.ide.highlighting
+Automatic-Module-Name: org.xtuml.bp.xtext.masl.ide
 

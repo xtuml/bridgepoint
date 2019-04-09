@@ -1,14 +1,6 @@
 package org.xtuml.bp.core.ui.marker;
 
 //========================================================================
-//
-//File:      $RCSfile: UmlProblem.java,v $
-//Version:   $Revision: 1.15 $
-//Modified:  $Date: 2012/01/23 21:28:28 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -150,7 +142,6 @@ public class UmlProblem {
      * 
      * @param file
      * @param markerIdInitial
-     *            TODO
      */
     public static void removeXtUMLProblems(IFile file) {
         if (file == null)

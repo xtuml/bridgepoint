@@ -1,0 +1,96 @@
+= Renaming signal causes marks to be lost
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+"A user had a lot of pain because he renamed a signal and lost marks associated
+with it, because the mark is tied to the name and signature.  BP just silently
+got rid of the associated marks. So his stuff just stopped working and he didn’t
+know why."
+
+This comes from a Nov 17, 2018 discussion between One Fact and users about
+high-priority items.
+
+== 2 Introduction and Background
+
+Project marks are associated with instances through the instance type and the
+instance path key. For most elements, this is the fully qualified path of the
+element including all of the package/component names to the element location
+and the name of the element delimited by double colon (`::`). For activities, the
+path key is defined by the element signature and not just the name. This is done to
+support marking overloaded functions. Because of this, even the simple
+act of adding a parameter causes the path key to be incorrect, breaking the
+downstream flow.
+
+== 3 Requirements
+
+=== 3.1 Element marks shall be updated when an edit causes the path key for the element to change.
+
+== 4 Analysis
+
+4.1 MASL rename refactor
+
+The MASL refactor mechanism was analyzed as part of this work, because it
+performs a similar function to the behavior we are trying to achieve. With the
+MASL refactor mechanism, registered listeners are invoked when an element is
+renamed. The listeners are passed a model instance reference, an old name, and a
+new name. This is a nice mechanism, however it is not enough for mark key
+updating because of two problems. First, the old and new names are not enough to
+update path keys since some elements may be identified by signature which is
+much more complex than just the name. Secondly, other operations besides rename
+can cause a path key to change (moving an element, adding an element, re-typing
+an element, etc).
+
+4.2 Transaction listeners
+
+The BridgePoint framework utilizes a mechanism of so called "transaction
+listeners" which are notified when transactions are started, finished, or
+cancelled. Attached to transactions is information about the elements being
+modified and a list of "model deltas" which represent the changes that have been
+made to the model. Transaction listeners are registered with the transaction
+manager in the 'org.xtuml.bp.core' plugin.
+
+4.3 Loading and persisting marks
+
+There is a model of marking, however it is not generated to code with MC-Java.
+Hand written code implements the marking editor dialog and the underlying data
+structures. When invoked, the dialog loads marking data from disk and populates
+the body of the dialog. When closed, the dialog information is used to create
+new marks or update existing marks and then persisted to disk.
+
+== 5 Work Required
+
+5.1 Introduce a new transaction listener to the marking plugin
+
+A new transaction listener could be introduced in the 'org.xtuml.bp.ui.marking'
+plugin. This listener would be registered on startup. When a new transaction is
+started, the listener would load the marking data from disk (or ensure that it
+is up to date in memory). Along with the data from the marking files, a
+reference to the actual modeled instance would be held in the in-memory
+structure. When a transaction is finished, the in-memory reference to the
+markable element would be used to update the path key and the marks would be
+persisted if any of the path keys were changed.
+
+5.2 Factor out some of the common behavior
+
+The `MarkingData` class would need to be modified to be a little more general
+purpose and to include a reference to `NonRootModelElement` instances in the
+`Mark` class. The `MarkingEditorDialog` class would need to be updated to handle
+the use case where the marks are already loaded in memory before the dialog is
+opened.
+
+== 6 Acceptance Test
+
+6.1 A set of test cases shall be defined in the design phase which adequately
+exercise the use cases which can cause the issue to arise.
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11555[#11555 - Renaming signal causes marks to be lost]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

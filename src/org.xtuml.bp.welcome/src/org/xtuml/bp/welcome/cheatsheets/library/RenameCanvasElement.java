@@ -1,25 +1,13 @@
 package org.xtuml.bp.welcome.cheatsheets.library;
-//====================================================================
-//
-//File: $RCSfile: RenameCanvasElement.java,v $
-//Version: $Revision: 1.5 $
-//Modified: $Date: 2013/01/10 23:32:09 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.ui.canvas.Cl_c;
-import org.xtuml.bp.welcome.cheatsheets.utilities.CheatSheetsUIUtilities;
 import org.xtuml.bp.welcome.cheatsheets.utilities.CheatSheetsUtilities;
 
 public class RenameCanvasElement extends Action implements ICheatSheetAction {

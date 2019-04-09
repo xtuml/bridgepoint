@@ -33,44 +33,30 @@ public class MASLPartListener implements IPartListener2
 
     @Override
     public void partActivated(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partBroughtToTop(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partDeactivated(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partOpened(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partHidden(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partVisible(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
     @Override
     public void partInputChanged(IWorkbenchPartReference partRef) {
-            // Auto-generated method stub
-            
     }
 
 }

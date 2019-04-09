@@ -1,14 +1,6 @@
 package org.xtuml.bp.debug.ui.model;
 
 //====================================================================
-//
-// File:      $RCSfile: BPThread.java,v $
-// Version:   $Revision: 1.41 $
-// Modified:  $Date: 2013/05/12 00:16:37 $
-//
-// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -44,7 +36,6 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.BlockInStackFrame_c;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
@@ -59,8 +50,6 @@ import org.xtuml.bp.core.Runstatetype_c;
 import org.xtuml.bp.core.SelfQueueEntry_c;
 import org.xtuml.bp.core.StackFrame_c;
 import org.xtuml.bp.core.Stack_c;
-import org.xtuml.bp.core.Statement_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Timer_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.IModelChangeListener;
@@ -205,8 +194,7 @@ public class BPThread extends BPDebugElement implements IThread {
 											fee.wait();
 										}
 									} catch (InterruptedException ie) {
-											// TODO log error, should not
-											// happen
+										DebugUIPlugin.log(ie);
 									}
 									finally {
 											ModelRoot.disableChangeNotification();
@@ -407,7 +395,6 @@ public class BPThread extends BPDebugElement implements IThread {
 	}
 
 	public int getPriority() throws DebugException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -418,7 +405,6 @@ public class BPThread extends BPDebugElement implements IThread {
 	}
 
 	public IBreakpoint[] getBreakpoints() {
-		// TODO Auto-generated method stub
 		return new IBreakpoint[0];
 	}
 
