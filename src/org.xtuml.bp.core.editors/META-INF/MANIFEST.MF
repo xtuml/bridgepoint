@@ -28,3 +28,4 @@ Export-Package: org.xtuml.bp.core.editors,
  org.xtuml.bp.core.editors.providers
 Bundle-ClassPath: editors.jar
 Bundle-Vendor: xtUML.org
+Automatic-Module-Name: org.xtuml.bp.core.editors

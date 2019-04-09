@@ -281,7 +281,6 @@ INSERT INTO O_TFR
                                                                 ->EP_PKG[R8000];
   end if;
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
   
   if(param.value == "addArg")
     return not self.isFormal;

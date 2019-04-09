@@ -20,3 +20,4 @@ Export-Package: org.xtuml.bp.search,
  org.xtuml.bp.search.adapters,
  org.xtuml.bp.search.query,
  org.xtuml.bp.search.results
+Automatic-Module-Name: org.xtuml.bp.search

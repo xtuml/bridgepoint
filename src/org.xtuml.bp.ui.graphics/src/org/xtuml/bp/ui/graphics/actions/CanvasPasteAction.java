@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: CanvasPasteAction.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/05/10 05:37:56 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -23,7 +15,6 @@
 package org.xtuml.bp.ui.graphics.actions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +33,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -149,7 +139,6 @@ public class CanvasPasteAction extends PasteAction {
 			return;
 		}
 		if (moveIsInProgress()) {
-			ArrayList<GraphicalElement_c> graphicalElementsToMove = new ArrayList<GraphicalElement_c>();
 			for (NonRootModelElement ooaElementMoved : ELEMENT_MOVE_SOURCE_SELECTION) {	
 				moveGraphicalElement(ooaElementMoved, destGD_MD);
 			}
@@ -186,7 +175,6 @@ public class CanvasPasteAction extends PasteAction {
 	 * @param destGD_MD
 	 */
 	private static void moveGraphicalElement(final NonRootModelElement ooaElementMoved, Model_c destGD_MD) {
-		Model_c srcModel = null;
 		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ooaElementMoved.getModelRoot().getId()));
 		Model_c[] systemModels = Model_c.ModelInstances(Ooaofgraphics.getDefaultInstance());
 		Model_c[] allModels = new Model_c[models.length + systemModels.length];

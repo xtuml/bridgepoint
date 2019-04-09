@@ -6491,8 +6491,7 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE
 ',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::array_length_validate
+	'// ::array_length_validate
 result = false;
 if (param.a1_name == "length" or param.a1_name == "Length") and param.a2_isArray
   select any curVal from instances of V_VAL where

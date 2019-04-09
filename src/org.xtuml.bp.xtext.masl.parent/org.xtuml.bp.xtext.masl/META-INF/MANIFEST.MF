@@ -48,3 +48,4 @@ Export-Package: org.xtuml.bp.xtext.masl,
  org.xtuml.bp.xtext.masl.typesystem,
  org.xtuml.bp.xtext.masl.validation
 Import-Package: org.apache.log4j
+Automatic-Module-Name: org.xtuml.bp.xtext.masl

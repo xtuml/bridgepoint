@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ShapeCreationCommand.java,v $
-//Version:   $Revision: 1.15 $
-//Modified:  $Date: 2013/01/17 03:29:39 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -93,8 +85,6 @@ public class ShapeCreationCommand extends Command implements IExecutionValidatio
 
 	@Override
 	public boolean executeWithValidation() {
-		// TODO Auto-generated method stub
-
 		// grid snap the bounds if necessary
 		ModelTool_c tool = (ModelTool_c) parent.getModelRoot().getInstanceList(
 				ModelTool_c.class).get(toolId.toString());
