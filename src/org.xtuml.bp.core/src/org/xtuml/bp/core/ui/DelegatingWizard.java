@@ -1,310 +1,175 @@
-//========================================================================
-//
-//File:      $RCSfile: DelegatingWizard.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2012/01/23 21:28:00 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//======================================================================== 
 package org.xtuml.bp.core.ui;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.INewWizard;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWizard;
-
+import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.CorePlugin;
 
-public abstract class DelegatingWizard extends Wizard implements INewWizard {
+public abstract class DelegatingWizard extends Wizard implements IWizard {
 
-  private WizardDelegate delegateWizard = new WizardDelegate(
-    getExtensionPoint(),
-    "");   //$NON-NLS-1$
+    private Map<String, IDelegateWizard> delegateWizards = new HashMap<>();
+    private Map<String, Boolean> wizardEnablements = new HashMap<>();
 
-  // Reference to the pages provided by this wizard
-  private IWorkbench m_workbench = null;
-  private IStructuredSelection m_selection = null;
-  
-  /* (non-Javadoc)
-   * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
-   */
-  public void init(IWorkbench workbench, IStructuredSelection selection) {
-    m_workbench = workbench;
-    m_selection = selection;
-  }
-  /*
-   * get the extension point this wizard should obtain its delegate from
-   */
-  public abstract String getExtensionPoint();
+    public DelegatingWizard() {
+        IExtensionPoint extPt = Platform.getExtensionRegistry().getExtensionPoint(getExtensionPoint());
+        if (extPt != null) {
+            for (IExtension extension : extPt.getExtensions()) {
+                for (IConfigurationElement element : extension.getConfigurationElements()) {
+                    String delegateName = element.getAttribute("name"); //$NON-NLS-1$
+                    String className = element.getAttribute("wizard-class"); //$NON-NLS-1$
+                    if (className != null) {
+                        String bundleID = extension.getNamespaceIdentifier();
+                        Bundle bundle = Platform.getBundle(bundleID);
+                        if (bundle != null) {
+                            try {
+                                Class<?> wizardClass = bundle.loadClass(className);
+                                IDelegateWizard wizard = (IDelegateWizard) wizardClass.newInstance();
+                                for (IWizardPage page : wizard.getPages()) {
+                                    page.setWizard(this);
+                                }
+                                delegateWizards.put(delegateName, wizard);
+                            } catch (Throwable e) {
+                                CorePlugin.logError("Unable to initialize Model Compiler:", e);
+                            }
+                        } else {
+                            CorePlugin.logError("Bundle not found for client package", null);
+                        }
+                    } else {
+                        CorePlugin.logError("Class name attribute not supplied in code builder declaration", null);
+                    }
+                }
+            }
+        }
+        clearEnabledWizards();
+    }
 
-  public void setDelegatingWizard(String extensionName, String delegateName) {
-    delegateWizard = new WizardDelegate(extensionName, delegateName);
-  }
+    public abstract String getExtensionPoint();
 
-  public WizardDelegate getDelegatingWizard() {
-    return delegateWizard;
-  }
-  public void addPages() {
-    super.addPages();
-    delegateWizard.addPages();
-  }
-  public boolean canFinish() {
-    boolean result = super.canFinish();
-    if (result) {
-      return delegateWizard.canFinish();
+    public String[] getChoices() {
+        return delegateWizards.keySet().stream().sorted().collect(Collectors.toList()).toArray(new String[0]);
     }
-    return result;
-  }
-  /**
-   * Returns the successor of the given page.
-   * <p>
-   * This method is typically called by a wizard page
-   * </p>
-   *
-   * @param page the page
-   * @return the next page, or <code>null</code> if none
-   */
-  public IWizardPage getNextPage(IWizardPage page) {
-    IWizardPage next = null;
-    if (isActive(page)) {
-      next = super.getNextPage(page);
-      if (next == null) {
-        //
-        // We are at the last page of this wizard
-        // start the next wizard at its first page.
-        //
-        next = delegateWizard.getStartingPage();
-      }
-    }
-    else {
-      next = delegateWizard.getNextPage(page);
-    }
-    if (next != null) {
-      next.setWizard(this);
-    }
-    return next;
-  }
-  /**
-   * Returns the wizard page with the given name belonging to this wizard.
-   *
-   * @param pageName the name of the wizard page
-   * @return the wizard page with the given name, or <code>null</code> if none
-   */
-  public IWizardPage getPage(String pageName) {
-    IWizardPage page = super.getPage(pageName);
-    if (page == null) {
-      page = delegateWizard.getPage(pageName);
-    }
-    if (page != null) {
-      page.setWizard(this);
-    }
-    return page;
-  }
-  /**
-   * Returns the number of pages in this wizard.
-   *
-   * @return the number of wizard pages
-   */
-  public int getPageCount() {
-    return super.getPageCount() + delegateWizard.getPageCount();
-  }
-  /**
-   * Returns all the pages in this wizard.
-   *
-   * @return a list of pages
-   */
-  public IWizardPage[] getPages() {
-    int size = super.getPages().length + delegateWizard.getPages().length;
-    IWizardPage[] result = new IWizardPage[size];
-    for (int i = 0; i < super.getPages().length; i++) {
-      result[i] = super.getPages()[i];
-    }
-    for (int i = 0; i < delegateWizard.getPages().length; i++) {
-      result[super.getPages().length + i] = delegateWizard.getPages()[i];
-    }
-    return result;
-  }
-  /**
-   * Returns the predecessor of the given page.
-   * <p>
-   * This method is typically called by a wizard page
-   * </p>
-   *
-   * @param page the page
-   * @return the previous page, or <code>null</code> if none
-   */
-  public IWizardPage getPreviousPage(IWizardPage page) {
-    IWizardPage prev = null;
-    if (isActive(page)) {
-      //
-      // This can result in a null page. The client
-      // wizard resolves this (see else clause below)
-      //
-      prev = super.getPreviousPage(page);
-    }
-    else {
-      prev = delegateWizard.getPreviousPage(page);
-      if (prev == null) {
-        //
-        // The delegate has no more pages in this direction,
-        // so start at the current wizards last page . . . 
-        //
-        prev = getLastPage();
-      }
-    }
-    if (prev != null) {
-      prev.setWizard(this);
-    }
-    return prev;
-  }
-  /**
-   * Returns the first page inserted into the wizard or its
-   * downstream delegate.
-   */
-  public IWizardPage getStartingPage() {
-    IWizardPage start = super.getStartingPage();
-    if (start == null) {
-      //
-      // The current wizard has no pages of its own,
-      // see if the delegate has any.
-      //
-      start = delegateWizard.getStartingPage();
-    }
-    if (start != null) {
-      start.setWizard(this);
-    }
-    return start;
-  }
-  /**
-   * Returns whether this wizard needs Previous and Next buttons.
-   * <p>
-   * The result of this method is typically used by the container.
-   * </p>
-   *
-   * @return <code>true</code> if Previous and Next buttons are required,
-   *   and <code>false</code> if none are needed
-   */
-  public boolean needsPreviousAndNextButtons() {
-      return super.needsPreviousAndNextButtons() ||
-        delegateWizard.needsPreviousAndNextButtons() ||
-        getPages().length > 1;
-  }
-  /**
-   * Returns whether this wizard needs a progress monitor.
-   * <p>
-   * The result of this method is typically used by the container.
-   * </p>
-   *
-   * @return <code>true</code> if a progress monitor is required,
-   *   and <code>false</code> if none is needed
-   */
-  public boolean needsProgressMonitor() {
-    boolean result = super.needsProgressMonitor();
-    return result || delegateWizard.needsProgressMonitor();
-  }
-  /* (non-Javadoc)
-   * @see org.eclipse.jface.wizard.IWizard#performFinish()
-   */
-  public boolean performFinish() {
-    //
-    // Since this is a delegating wizard, only the performFinish(IProject)
-    // variant of this method should be called. This version does nothing.
-    //
-    CorePlugin.logError(
-        "DelegatingWizard.performFinish called illegally.",
-        null);
-    return false;
-  }
-  public boolean performFinish(IProject newProject) {
-    return delegateWizard.performFinish(newProject);
-  }
-  /**
-   * Performs any actions appropriate in response to the user 
-   * having pressed the Cancel button, or refuse if canceling
-   * now is not permitted.
-   *
-   * @return <code>true</code> to indicate the cancel request
-   *   was accepted, and <code>false</code> to indicate
-   *   that the cancel request was refused
-   */
-  public boolean performCancel() {
-    boolean result = super.performCancel();
-    if (result) {
-      return delegateWizard.performCancel();
-    }
-    return result;
-  }
-  /*
-   * Returns the list of available model compilers
-   */
-  public String[] getChoices() {
-    return delegateWizard.getChoices();
-  }
 
-  /*
-   * Sets the selected delegate wizard
-   */
-  public void setDelegate(String Name) {
-    delegateWizard = new WizardDelegate(getExtensionPoint(), Name);
-    delegateWizard.init(m_workbench, m_selection);
-  }
-  /*
-   * Sets the selected delegate wizard with a required toolset
-   */
-  public void setDelegate(String Name, String toolset) {
-    delegateWizard = new WizardDelegate(getExtensionPoint(), Name, toolset);
-    delegateWizard.init(m_workbench, m_selection);
-  }
+    public IDelegateWizard setDelegateWizardEnabled(String choice, boolean enabled) {
+        wizardEnablements.put(choice, enabled);
+        return delegateWizards.get(choice);
+    }
 
-  /**
-   * This can be called right after setDelegate to see if the delegate was 
-   * set or not.
-   * 
-   * @return The delegate help by this wizard or null if there is not one.
-   */
-  public IWorkbenchWizard getDelegate() {
-	  return delegateWizard.getDelegate();
-  }
-  
-  /*
-   * Returns whether this wizard owns the currently active page.
-   * Note that this requires getNextPage and getPreviousPage to
-   * cache the current page.
-   */
-  private boolean isActive(IWizardPage current) {
-    IWizardPage page = super.getStartingPage();
-    while (page != null) {
-      if (page == current) {
+    public void clearEnabledWizards() {
+        wizardEnablements = new HashMap<>();
+        for (String choice : getChoices()) {
+            wizardEnablements.put(choice, false);
+        }
+    }
+
+    public Collection<IDelegateWizard> getDelegateWizards() {
+        return delegateWizards.values();
+    }
+
+    private List<IDelegateWizard> getEnabledWizards() {
+        return delegateWizards.entrySet().stream().filter(entry -> wizardEnablements.get(entry.getKey()))
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey())).map(entry -> entry.getValue())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public IWizardPage getNextPage(IWizardPage page) {
+        IWizardPage next = null;
+        IWizardPage[] pages = getPages();
+        for (int i = 0; i < pages.length; i++) {
+            if (i > 0 && pages[i - 1].equals(page)) {
+                next = pages[i];
+            }
+        }
+        return next;
+    }
+
+    @Override
+    public IWizardPage getPage(String name) {
+        for (IWizardPage page : getPages()) {
+            if (page.getName().equals(name)) {
+                return page;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int getPageCount() {
+        return getPages().length;
+    }
+
+    @Override
+    public IWizardPage[] getPages() {
+        return Stream
+                .concat(Stream.of(super.getPages()),
+                        getEnabledWizards().stream().flatMap(wizard -> Stream.of(wizard.getPages())))
+                .collect(Collectors.toList()).toArray(new IWizardPage[0]);
+    }
+
+    @Override
+    public IWizardPage getPreviousPage(IWizardPage page) {
+        IWizardPage prev = null;
+        IWizardPage[] pages = getPages();
+        for (int i = pages.length - 1; i >= 0; i--) {
+            if (i < pages.length - 1 && pages[i + 1].equals(page)) {
+                prev = pages[i];
+            }
+        }
+        return prev;
+    }
+
+    @Override
+    public IWizardPage getStartingPage() {
+        IWizardPage startingPage = super.getStartingPage();
+        if (null == startingPage && getEnabledWizards().size() > 0) {
+            startingPage = getEnabledWizards().iterator().next().getStartingPage();
+        }
+        return startingPage;
+    }
+
+    @Override
+    public boolean performFinish() {
+        boolean result = true;
+        for (IDelegateWizard wizard : getEnabledWizards()) {
+            result = result && wizard.performFinish();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean performCancel() {
+        boolean result = super.performCancel();
+        for (IDelegateWizard wizard : getEnabledWizards()) {
+            result = result && wizard.performCancel();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean canFinish() {
+        for (IWizardPage page : getPages()) {
+            if (!page.isPageComplete()) {
+                return false;
+            }
+        }
         return true;
-      }
-      page = super.getNextPage(page);
     }
-    return false;
-  }
-  /**
-   * Finds and returns the last page for this wizard.
-   */
-  private IWizardPage getLastPage() {
-    IWizardPage page = super.getStartingPage();
-    while (super.getNextPage(page) != null) {
-      page = super.getNextPage(page);
+    
+    @Override
+    public boolean needsPreviousAndNextButtons() {
+        return true; // Always return true because delegate wizards may add pages later
     }
-    return page;
-  }
+
 }

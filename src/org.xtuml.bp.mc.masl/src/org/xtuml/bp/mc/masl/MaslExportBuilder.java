@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import org.apache.commons.io.output.TeeOutputStream;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -15,17 +16,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleConstants;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.IConsoleView;
-import org.eclipse.ui.console.IOConsoleOutputStream;
-import org.eclipse.ui.console.MessageConsole;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -37,20 +27,19 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.mc.masl.preferences.MaslExporterPreferences;
+import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
 import org.xtuml.bp.x2m.Xtuml2Masl;
 
 public class MaslExportBuilder extends AbstractExportBuilder {
 
-    public static final String BUILDER_ID = "org.xtuml.bp.mc.masl.masl_builder";
-    public static final String CONSOLE_NAME = "MASL Export Console";
+    private static final String CONSOLE_NAME = "MASL Export Console";
 
     private static final String LOGFILE = "export.log";
 
     private static final int MASL_PROJECT = 1;
     private static final int MASL_DOMAIN = 2;
 
-    private PrintStream consoleOut;
-    private PrintStream consoleErr;
+    private ModelCompilerConsoleManager console;
     private PrintStream logfile;
     private PrintStream out;
     private PrintStream err;
@@ -58,8 +47,8 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     private Path outputDirectory;
 
     public MaslExportBuilder() {
-        super(Activator.getDefault(), MCNature.getDefault());
         logfile = System.out;
+        console = new ModelCompilerConsoleManager();
     }
 
     @Override
@@ -84,9 +73,9 @@ public class MaslExportBuilder extends AbstractExportBuilder {
             err = logfile;
             exportSystem(true);
         } else {
-            configureConsole();
-            out = new PrintStream(new TeeOutputStream(logfile, consoleOut));
-            err = new PrintStream(new TeeOutputStream(logfile, consoleErr));
+            console.configureConsole(CONSOLE_NAME);
+            out = new PrintStream(new TeeOutputStream(logfile, console.out));
+            err = new PrintStream(new TeeOutputStream(logfile, console.err));
             exportSystem(false);
         }
         return null;
@@ -283,36 +272,6 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     private SystemModel_c getSystem() {
         return SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
                 (selected) -> ((SystemModel_c) selected).getName().equals(getProject().getName()));
-    }
-
-    private MessageConsole findConsole(String name) {
-        ConsolePlugin plugin = ConsolePlugin.getDefault();
-        IConsoleManager conMan = plugin.getConsoleManager();
-        IConsole[] existing = conMan.getConsoles();
-        for (int i = 0; i < existing.length; i++)
-            if (name.equals(existing[i].getName()))
-                return (MessageConsole) existing[i];
-        // no console found, so create a new one
-        MessageConsole myConsole = new MessageConsole(name, CorePlugin.getImageDescriptor("green-bp.gif"));
-        conMan.addConsoles(new IConsole[] { myConsole });
-        return myConsole;
-    }
-
-    private void configureConsole() {
-        // prepare the console
-        consoleOut = new PrintStream(findConsole(CONSOLE_NAME).newOutputStream());
-        IOConsoleOutputStream errStream = findConsole(CONSOLE_NAME).newOutputStream();
-        consoleErr = new PrintStream(errStream);
-        Display.getDefault().asyncExec(() -> {
-            errStream.setColor(new Color(Display.getDefault(), 255, 0, 0));
-            try {
-                IConsoleView view = (IConsoleView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                        .showView(IConsoleConstants.ID_CONSOLE_VIEW);
-                view.display(findConsole(CONSOLE_NAME));
-            } catch (PartInitException e) {
-                CorePlugin.logError("Error. Could not allocate console for build: " + e.getMessage(), e);
-            }
-        });
     }
 
 }
