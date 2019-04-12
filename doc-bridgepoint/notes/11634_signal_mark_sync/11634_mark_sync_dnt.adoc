@@ -1,0 +1,67 @@
+= Keep marks in sync with changing model elements 
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+"A user had a lot of pain because he renamed a signal and lost marks associated
+with it, because the mark is tied to the name and signature.  BP just silently
+got rid of the associated marks. So his stuff just stopped working and he didn’t
+know why."
+
+This comes from a Nov 17, 2018 discussion between One Fact and users about
+high-priority items.
+
+== 2 Introduction and Background
+
+This work aims to make working with the marking editor easier by keeping
+model elements in sync with their marks when the model elements change (e.g. 
+name change, add parameter, etc).
+
+Additional background may be found in the analysis note <<dr-2>>.
+
+== 3 Requirements
+
+3.1 Element marks shall be updated when an edit causes the path key for the element to change.
+
+== 4 Analysis
+
+See <<dr-2>>.
+
+== 5 Design
+
+- Store pointer to NRME in marking data in memory
+- New transaction listener
+- Update `MarkingEditorDialog` to handle the case where the marks are already loaded in memory before the dialog is opened.
+
+- I there 1 MarkTransactionListener, or one for each SystemModel_c? I think the former based on the following:
+        TransactionListener listener = new TransactionListener();
+        getSystemModel().getTransactionManager().addTransactionListener(listener);
+  - How are they added to the system Models?  In ui.marking Activator (what if this activator runs before SystemModel_c's are loaded)?  
+    In constructor for SystemModel_c (this would create a bp.core dependency on ui.marking)?
+  
+=== 5.1 Item
+
+
+== 6 Design Comments
+
+None.
+
+== 7 User Documentation
+
+None. 
+
+== 8 Unit Test
+
+TODO
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11634[11634 - Keep marks in sync with changing model elements]
+. [[dr-2]] link:../11555_marking/11555_marking_ant.adoc[Marking enhancement analysis note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
