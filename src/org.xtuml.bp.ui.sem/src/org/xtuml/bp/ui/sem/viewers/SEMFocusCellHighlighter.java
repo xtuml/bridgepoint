@@ -66,9 +66,6 @@ public class SEMFocusCellHighlighter extends FocusCellOwnerDrawHighlighter {
 				cell.getColumnIndex()));
 		gc.setForeground(cell.getViewerRow().getForeground(
 				cell.getColumnIndex()));
-		gc.fillRectangle(cell.getBounds());
-		// This is a workaround for an SWT-Bug on WinXP bug 169517
-		gc.drawText(" ", cell.getBounds().x, cell.getBounds().y, false); //$NON-NLS-1$
 		event.detail &= ~SWT.SELECTED;
 	}
 }
