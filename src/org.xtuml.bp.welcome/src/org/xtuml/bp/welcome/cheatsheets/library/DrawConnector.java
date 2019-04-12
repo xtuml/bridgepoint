@@ -13,25 +13,16 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-
-import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.ui.canvas.Connector_c;
-import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
-import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
-import org.xtuml.bp.ui.canvas.Graphnode_c;
-import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooatype_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.Waypoint_c;
-
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
 import org.xtuml.bp.welcome.cheatsheets.utilities.CheatSheetsUIUtilities;

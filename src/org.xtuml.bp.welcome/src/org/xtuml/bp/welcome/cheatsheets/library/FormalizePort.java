@@ -1,22 +1,10 @@
 package org.xtuml.bp.welcome.cheatsheets.library;
-//====================================================================
-//
-//File: $RCSfile: FormalizePort.java,v $
-//Version: $Revision: 1.4 $
-//Modified: $Date: 2013/01/10 23:32:09 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-
 import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.Requirement_c;
-import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;

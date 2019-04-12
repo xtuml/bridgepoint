@@ -185,7 +185,6 @@ public class DocumentProvider extends OALDocumentProvider
 	}	
 
 	protected ISchedulingRule getSaveRule(Object element) {
-		UIJob test;
 		
 		if (element instanceof AbstractModelElementPropertyEditorInput) {
 			IResourceRuleFactory fResourceRuleFactory= ResourcesPlugin.getWorkspace().getRuleFactory();

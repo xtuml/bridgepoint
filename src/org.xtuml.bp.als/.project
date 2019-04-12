@@ -6,7 +6,7 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.xtuml.bp.mc.java.source.export_builder</name>
+			<name>org.xtuml.bp.mc.java.mcjava_builder</name>
 			<arguments>
 				<dictionary>
 					<key>ParseOnly</key>
@@ -45,5 +45,6 @@
 	</buildSpec>
 	<natures>
 		<nature>org.xtuml.bp.core.xtumlnature</nature>
+		<nature>org.xtuml.bp.mc.java.mcjavanature</nature>
 	</natures>
 </projectDescription>

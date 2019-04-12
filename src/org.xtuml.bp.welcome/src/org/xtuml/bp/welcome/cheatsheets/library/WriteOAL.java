@@ -1,27 +1,7 @@
 package org.xtuml.bp.welcome.cheatsheets.library;
-//====================================================================
-//
-//File: $RCSfile: WriteOAL.java,v $
-//Version: $Revision: 1.5 $
-//Modified: $Date: 2013/01/10 23:32:09 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
-import org.eclipse.core.internal.dtree.ObjectNotFoundException;
 import org.eclipse.jface.action.Action;
-
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-import org.eclipse.ui.internal.cheatsheets.data.CheatSheet;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -74,7 +54,7 @@ public class WriteOAL extends Action implements ICheatSheetAction {
 		}else if (element instanceof Bridge_c){
 			((Bridge_c)element).setAction_semantics_internal(OalCode);
 		}else if (element instanceof Operation_c){
-			// TODO :: Add implemention
+			((Operation_c)element).setAction_semantics_internal(OalCode);
 		}
 		CanvasUtilities.openActivityEditor(element);
 

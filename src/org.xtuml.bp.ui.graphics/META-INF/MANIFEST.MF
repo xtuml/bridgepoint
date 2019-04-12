@@ -31,3 +31,4 @@ Export-Package: org.xtuml.bp.ui.graphics.actions,
  org.xtuml.bp.ui.graphics.print,
  org.xtuml.bp.ui.graphics.providers,
  org.xtuml.bp.ui.graphics.tools
+Automatic-Module-Name: org.xtuml.bp.ui.graphics

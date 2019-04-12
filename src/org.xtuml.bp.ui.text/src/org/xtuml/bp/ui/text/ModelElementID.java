@@ -1,14 +1,4 @@
 package org.xtuml.bp.ui.text;
-//====================================================================
-//
-// File:      $RCSfile: ModelElementID.java,v $
-// Version:   $Revision: 1.17 $
-// Modified:  $Date: 2013/01/10 23:20:56 $
-//
-// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-//
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,10 +18,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.WorkbenchException;
-
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.ui.text.ModelAdapter.IModelElementAdapter;
 
 /**

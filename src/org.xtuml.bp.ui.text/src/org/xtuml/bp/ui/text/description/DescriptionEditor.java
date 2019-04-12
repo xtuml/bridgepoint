@@ -1,14 +1,4 @@
 package org.xtuml.bp.ui.text.description;
-//====================================================================
-//
-// File:      $RCSfile: DescriptionEditor.java,v $
-// Version:   $Revision: 1.25 $
-// Modified:  $Date: 2013/01/10 23:21:01 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-//
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -36,14 +26,12 @@ import org.eclipse.ui.internal.OverlayIcon;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.DefaultRangeIndicator;
 import org.eclipse.ui.texteditor.IDocumentProvider;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.NullEditorInput;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
-import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.DocumentProvider;
 import org.xtuml.bp.ui.text.EditorHover;

@@ -127,7 +127,7 @@ configure_mcsystemc_src()
     echo ""
     echo "Configuring mcsystemc_src for build."
 
-    # Copy in the "bp.mc.c.source/mc3020/" dir
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $mcsystemc_src
     cp -rfp $mcc_src/mc3020 .
 
@@ -155,7 +155,7 @@ configure_mccpp_src()
     echo ""
     echo "Configuring mccpp_src for build."
 
-    # Copy in the "bp.mc.c.source/mc3020/" dir
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $mccpp_src
     cp -rfp $mcc_src/mc3020 .
 
@@ -181,7 +181,7 @@ configure_java_src()
     echo ""
     echo "Configuring java_src for build."
 
-    # Copy in the "bp.mc.c.source/mc3020/" dir
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $mcjava_src
     cp -rfp $mcc_src/mc3020 .
     
@@ -227,10 +227,8 @@ pt_antlr_lib_dir=${git_repo_root}/pt_antlr/pt_antlr
 antlr_lib=antlr.jar
 bp_als=${bp_src_dir}/org.xtuml.bp.als
 bp_pkg=${bp_src_dir}/org.xtuml.bp.pkg
-mcc_src=${bp_src_dir}/org.xtuml.bp.mc.c.source
-mcsystemc_src=${bp_src_dir}/org.xtuml.bp.mc.systemc.source
-mccpp_src=${bp_src_dir}/org.xtuml.bp.mc.cpp.source
-mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java.source
+mcc_src=${bp_src_dir}/org.xtuml.bp.mc.mc3020
+mcjava_src=${bp_src_dir}/org.xtuml.bp.mc.java
 mc3020_help=${bp_src_dir}/org.xtuml.help.bp.mc
 
 get_user_supplied_binaries

@@ -13,28 +13,13 @@
 //=====================================================================
 package org.xtuml.bp.ui.canvas;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.UserDataType_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ITransactionListener;
-import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.ModelRoot;
-import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.RelationshipChangeModelDelta;
 import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.common.TransactionException;
-import org.xtuml.bp.core.common.TransactionManager;
 
 
 public class CanvasTransactionListener implements ITransactionListener {
