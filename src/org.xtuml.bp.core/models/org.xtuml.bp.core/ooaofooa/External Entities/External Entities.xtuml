@@ -553,6 +553,26 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("c11782ac-e29a-4dcd-98a6-2450d274373a",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getString',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return "";',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("fa1b1dd5-6451-49af-b485-291b0d85934c",
+	"c11782ac-e29a-4dcd-98a6-2450d274373a",
+	'prompt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("2f1f82f7-9389-4b32-8a37-2885d5c591fc",
 	1,

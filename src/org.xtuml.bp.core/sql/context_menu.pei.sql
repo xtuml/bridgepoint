@@ -353,6 +353,8 @@ INSERT INTO CME VALUES ('--', 'Import terminators from component', 'D_DEPL', 'C_
 INSERT INTO CME VALUES ('--', 'Delete stale services', 'D_TERM', '', false );
 INSERT INTO CME VALUES ('Delete', '', 'D_TSVC', '', true );
 
+INSERT INTO CME VALUES ('--', 'Create association', 'O_OBJ', '', false, 'Select a second class to create association with');
+
 --
 INSERT INTO MEF VALUES ('--', 'Delete stale services', 'D_TERM', 'can', 'delete stale services');
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_P',    'can', 'dissatisfy' );

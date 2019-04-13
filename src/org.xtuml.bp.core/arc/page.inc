@@ -316,11 +316,15 @@ ${result.body}
     .for each field in fields
       .select one cflx related by field->W_CFL[R2014]
       .if ( not_empty cflx )
-			.if (isLinkedPage.islinked)
+        .if ("Text" == field.Type)
+    $cr{field.Instance_Handle}Label.setText("${cflx.Label}");
+        .else
+          .if (isLinkedPage.islinked)
     $cr{field.Instance_Handle}Phrase.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
-			.else     
+          .else     
     $cr{field.Instance_Handle}Label.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
-    		.end if
+          .end if
+        .end if
       .end if
     .end for 
     addListeners();

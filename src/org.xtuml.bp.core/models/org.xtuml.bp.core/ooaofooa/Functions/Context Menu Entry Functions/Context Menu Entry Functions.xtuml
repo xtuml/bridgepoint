@@ -7951,6 +7951,26 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("fa7aaede-9569-4614-a9a2-6bbf6479e7b8",
+	"00000000-0000-0000-0000-000000000000",
+	'O_OBJ_CreateAssociation',
+	'ContextMenuFunction: TRUE
+',
+	'select any one_obj from instances of O_OBJ where USER::selectOne(id:selected.Obj_ID);
+select any other_obj related by one_obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001]
+  where USER::selectOne(id:selected.Obj_ID) and selected.Obj_ID != one_obj.Obj_ID;
+rel_num = USER::getString(prompt:"Enter the relationship number");',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("fa7aaede-9569-4614-a9a2-6bbf6479e7b8",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,
