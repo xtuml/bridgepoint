@@ -1,12 +1,4 @@
 package org.xtuml.bp.ui.sem.viewers;
-//=====================================================================
-//
-// File:      $RCSfile: SEMFocusCellHighlighter.java,v $
-// Version:   $Revision: 1.7 $
-// Modified:  $Date: 2013/01/10 23:43:56 $
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
-//
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -20,9 +12,6 @@ package org.xtuml.bp.ui.sem.viewers;
 // License for the specific language governing permissions and limitations under
 // the License.
 //======================================================================== 
-//
-// This class is responsible for providing the help ids for the
-// SessionExplorerPlugin plugin.
 //
 
 import org.eclipse.jface.viewers.ColumnViewer;
