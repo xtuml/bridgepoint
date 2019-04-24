@@ -275,31 +275,52 @@ ${inner_blck.body}\
       .end if
     .end if
     .select one act_ai related by statement->ACT_AI[R603]
-    .if (not_empty act_ai)
-      .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
-      .if (not_empty v_brv)
-        .select one s_brg related by v_brv->S_BRG[R828]
-        .select one s_ee related by s_brg->S_EE[R19]
-        .if (("getString" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
-          .// add a text box
-          .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
-          .create object instance w_fld of W_FLD
-          .assign w_fld.Name = "USER_" + result_var.Name
-          .assign w_fld.Instance_Handle = result_var.Name
-          .assign w_fld.Cardinality = ""
-          .assign w_fld.buffer = ""
-          .assign w_fld.Type = "Text"
-          .relate w_fld to w_step across R2009
-          .relate w_fld to statement across R2010
-          .select one function related by blck->ACT_ACT[R601]->ACT_FNB[R698]->S_SYNC[R695]
-          .// get label from string literal parameter
-          .select any v_lst related by v_brv->V_PAR[R810]->V_VAL[R800]->V_LST[R801]
-          .if (not_empty v_lst)
-            .create object instance w_cfl of W_CFL
-            .assign w_cfl.Label = v_lst.Value
-            .assign name = "USER_" + result_var.Name
-			      .relate w_cfl to w_fld across R2014
-          .end if
+    .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+    .if ((not_empty act_ai) and (not_empty v_brv))
+      .select one s_brg related by v_brv->S_BRG[R828]
+      .select one s_ee related by s_brg->S_EE[R19]
+      .if (("getText" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .// add a text box
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Text"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .select one function related by blck->ACT_ACT[R601]->ACT_FNB[R698]->S_SYNC[R695]
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
+        .end if
+      .elif (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .// TODO check that the parameter passed is a reference to a string array variable
+        .// add a combo box
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Combo"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .select one function related by blck->ACT_ACT[R601]->ACT_FNB[R698]->S_SYNC[R695]
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
         .end if
       .end if
     .end if

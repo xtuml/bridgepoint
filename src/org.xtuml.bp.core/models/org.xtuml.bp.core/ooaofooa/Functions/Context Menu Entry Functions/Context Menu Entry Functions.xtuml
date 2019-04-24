@@ -7960,7 +7960,17 @@ INSERT INTO S_SYNC
 	'select any one_obj from instances of O_OBJ where USER::selectOne(id:selected.Obj_ID);
 select any other_obj related by one_obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001]
   where USER::selectOne(id:selected.Obj_ID) and selected.Obj_ID != one_obj.Obj_ID;
-rel_num = USER::getString(prompt:"Enter the relationship number");',
+conditionalities[1] = "Unconditionally";
+conditionalities[0] = "Conditionally";
+multiplicities[1] = "Many";
+multiplicities[0] = "One";
+rel_num = USER::getText(default:"12", prompt:"Enter the relationship number");
+a_cond = USER::getDropdown(options:conditionalities, prompt:"");
+a_phrase = USER::getText(default:"", prompt:"");
+a_mult = USER::getDropdown(options:multiplicities, prompt:"");
+b_cond = USER::getDropdown(options:conditionalities, prompt:"");
+b_phrase = USER::getText(default:"", prompt:"Enter a phrase");
+b_mult = USER::getDropdown(options:multiplicities, prompt:"");',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',

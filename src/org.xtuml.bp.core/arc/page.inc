@@ -135,8 +135,13 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   String $cr{field.Instance_Handle} = null;
     .elif (field.Type == "Combo")
       .select one class related by field->O_OBJ[R2011]
+      .if (not_empty class)
   $cr{class.Name}_c $cr{field.Instance_Handle} = null;
   $cr{class.Name}_c [] $cr{field.Instance_Handle}Instances;
+      .else
+  String $cr{field.Instance_Handle} = null;
+  String[] $cr{field.Instance_Handle}Instances;
+      .end if
     .elif (field.Type == "List")
       .select one class related by field->O_OBJ[R2011]
   $cr{class.Name}_c [] $cr{field.Instance_Handle};
@@ -180,7 +185,11 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     String v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
       .elif (context_field.Type == "Combo")
         .select any class from instances of O_OBJ where (selected.Key_Lett == context_field.Key_Lett)
+        .if (not_empty class)
     $cr{class.Name}_c v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
+        .else
+    String v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
+        .end if
       .elif (context_field.Type == "List")
         .select any class from instances of O_OBJ where (selected.Key_Lett == context_field.Key_Lett)
     $cr{class.Name}_c [] v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
@@ -201,50 +210,75 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .assign field.buffer = "  //$cr{field.Instance_Handle}Text.setText(((${wizard_class_name})getWizard()).v_${field.Instance_Handle});"
     .end if
     .if ((field.Type == "Combo") OR (field.Type == "List"))
+      .assign load_ui = ""
       .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
       .select one sel_rel related by statement->ACT_SEL[R603]
-      .select one var related by sel_rel->V_VAR[R638]
-      .assign load_ui = ""
-      .if (sel_rel.is_implicit == 1)
-        .assign load_ui = "$cr{class.Name}_c         v_${var.Name}  = null ;\n"
-      .end if
-      .assign load_ui = load_ui + "int ${var.Name}InstCount;\n"
-      .assign load_ui = load_ui + "int ${var.Name}ResultCount = 0;\n"
-      .assign load_ui = load_ui + "for (${var.Name}InstCount = 0; ${var.Name}InstCount < v_${var.Name}Instances.length; ${var.Name}InstCount++) {\n"
-      .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${var.Name}Instances[${var.Name}InstCount] ;\n"
-      .select one sel_rel_where related by sel_rel->ACT_SRW[R664]
-      .select one where_clause related by sel_rel_where->V_VAL[R611]
-      .assign load_ui = load_ui + "  if (${where_clause.buffer})  {    ${field.Instance_Handle}ResultCount++;  }\n"
-      .assign load_ui = load_ui + "}\n"
-      .assign load_ui = load_ui + "this.$cr{field.Instance_Handle}Instances = new $cr{class.Name}_c[${field.Instance_Handle}ResultCount];\n"
-      .assign load_ui = load_ui + "${field.Instance_Handle}ResultCount = 0;\n"
-      .assign load_ui = load_ui + "for (${var.Name}InstCount = 0; ${var.Name}InstCount < v_${var.Name}Instances.length; ${var.Name}InstCount++)\n"
-      .assign load_ui = load_ui + "{\n"
-      .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${var.Name}Instances[${var.Name}InstCount] ;\n"
-      .assign load_ui = load_ui + "  if (${where_clause.buffer})  {\n"
-      .assign load_ui = load_ui + "    this.$cr{field.Instance_Handle}Instances[${field.Instance_Handle}ResultCount] = selected;\n"
-      .assign load_ui = load_ui + "    ${field.Instance_Handle}ResultCount++;\n"
-      .assign load_ui = load_ui + "  }\n"
-      .assign load_ui = load_ui + "}\n"
-      .assign load_ui = load_ui + "  $cr{field.Instance_Handle}Combo.removeAll();\n"
-      .assign load_ui = load_ui + "  for (${field.Instance_Handle}InstCount = 0; ${field.Instance_Handle}InstCount < ${field.Instance_Handle}ResultCount; ${field.Instance_Handle}InstCount++)\n"
-      .invoke ident = get_ui_identifier(class, "this.$cr{field.Instance_Handle}Instances[${field.Instance_Handle}InstCount]")
-      .if (((page_class_name == "SpecializedPackageIgnoreInStateOnSM_EVTWizardPage1") or (page_class_name == "SpecializedPackageCantHappenInStateOnSM_EVTWizardPage1")) or ((page_class_name == "GenericPackageIgnoreInStateOnSM_EVTWizardPage1") or (page_class_name == "GenericPackageCantHappenInStateOnSM_EVTWizardPage1")))
-      	.assign ident.body = "((StateMachineState_c) this.StateInstances[stateInstCount]).Getnamewithclass()"
-      .end if  	
-      .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(${ident.body});"
-      .if ( (cardinality steps) == 1 )
-        .// only select the default if there is only one step
-        .assign load_ui = load_ui + "  if ( ${field.Instance_Handle}ResultCount > 0 ) { \n"
-        .assign load_ui = load_ui + "      $cr{field.Instance_Handle}Combo.select(0);\n"
-        .assign load_ui = load_ui + "      updateSelected$cr{field.Instance_Handle}();\n  }\n"
+      .if (not_empty sel_rel)
+        .select one var related by sel_rel->V_VAR[R638]
+        .if (sel_rel.is_implicit == 1)
+          .assign load_ui = "$cr{class.Name}_c         v_${var.Name}  = null ;\n"
+        .end if
+        .assign load_ui = load_ui + "int ${var.Name}InstCount;\n"
+        .assign load_ui = load_ui + "int ${var.Name}ResultCount = 0;\n"
+        .assign load_ui = load_ui + "for (${var.Name}InstCount = 0; ${var.Name}InstCount < v_${var.Name}Instances.length; ${var.Name}InstCount++) {\n"
+        .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${var.Name}Instances[${var.Name}InstCount] ;\n"
+        .select one sel_rel_where related by sel_rel->ACT_SRW[R664]
+        .select one where_clause related by sel_rel_where->V_VAL[R611]
+        .assign load_ui = load_ui + "  if (${where_clause.buffer})  {    ${field.Instance_Handle}ResultCount++;  }\n"
+        .assign load_ui = load_ui + "}\n"
+        .assign load_ui = load_ui + "this.$cr{field.Instance_Handle}Instances = new $cr{class.Name}_c[${field.Instance_Handle}ResultCount];\n"
+        .assign load_ui = load_ui + "${field.Instance_Handle}ResultCount = 0;\n"
+        .assign load_ui = load_ui + "for (${var.Name}InstCount = 0; ${var.Name}InstCount < v_${var.Name}Instances.length; ${var.Name}InstCount++)\n"
+        .assign load_ui = load_ui + "{\n"
+        .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${var.Name}Instances[${var.Name}InstCount] ;\n"
+        .assign load_ui = load_ui + "  if (${where_clause.buffer})  {\n"
+        .assign load_ui = load_ui + "    this.$cr{field.Instance_Handle}Instances[${field.Instance_Handle}ResultCount] = selected;\n"
+        .assign load_ui = load_ui + "    ${field.Instance_Handle}ResultCount++;\n"
+        .assign load_ui = load_ui + "  }\n"
+        .assign load_ui = load_ui + "}\n"
+        .assign load_ui = load_ui + "  $cr{field.Instance_Handle}Combo.removeAll();\n"
+        .assign load_ui = load_ui + "  for (${field.Instance_Handle}InstCount = 0; ${field.Instance_Handle}InstCount < ${field.Instance_Handle}ResultCount; ${field.Instance_Handle}InstCount++)\n"
+        .invoke ident = get_ui_identifier(class, "this.$cr{field.Instance_Handle}Instances[${field.Instance_Handle}InstCount]")
+        .if (((page_class_name == "SpecializedPackageIgnoreInStateOnSM_EVTWizardPage1") or (page_class_name == "SpecializedPackageCantHappenInStateOnSM_EVTWizardPage1")) or ((page_class_name == "GenericPackageIgnoreInStateOnSM_EVTWizardPage1") or (page_class_name == "GenericPackageCantHappenInStateOnSM_EVTWizardPage1")))
+          .assign ident.body = "((StateMachineState_c) this.StateInstances[stateInstCount]).Getnamewithclass()"
+        .end if  	
+        .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(${ident.body});"
+        .if ( (cardinality steps) == 1 )
+          .// only select the default if there is only one step
+          .assign load_ui = load_ui + "  if ( ${field.Instance_Handle}ResultCount > 0 ) { \n"
+          .assign load_ui = load_ui + "      $cr{field.Instance_Handle}Combo.select(0);\n"
+          .assign load_ui = load_ui + "      updateSelected$cr{field.Instance_Handle}();\n  }\n"
+        .else
+          .// only select the default if there is only one step
+          .assign load_ui = load_ui + "  if ( ${field.Instance_Handle}ResultCount == 1 ) { \n"
+          .assign load_ui = load_ui + "      $cr{field.Instance_Handle}Combo.select(0);\n"
+          .assign load_ui = load_ui + "      updateSelected$cr{field.Instance_Handle}();\n  }\n"
+        .end if
+        .assign field.buffer = statement.buffer + load_ui
       .else
-        .// only select the default if there is only one step
-        .assign load_ui = load_ui + "  if ( ${field.Instance_Handle}ResultCount == 1 ) { \n"
-        .assign load_ui = load_ui + "      $cr{field.Instance_Handle}Combo.select(0);\n"
-        .assign load_ui = load_ui + "      updateSelected$cr{field.Instance_Handle}();\n  }\n"
+        .// USER::getDropdown
+        .select one act_ai related by statement->ACT_AI[R603]
+        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+        .if ((not_empty act_ai) and (not_empty v_brv))
+          .select one s_brg related by v_brv->S_BRG[R828]
+          .select one s_ee related by s_brg->S_EE[R19]
+          .if (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+            .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "options")
+            .select any v_val related by v_par->V_VAL[R800]
+            .assign load_ui = ""
+            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = ${v_val.buffer}.clone();\n"
+            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Combo.removeAll();\n"
+            .assign load_ui = load_ui + "for (String option : $cr{field.Instance_Handle}Instances) {\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(option);\n"
+            .assign load_ui = load_ui + "}\n"
+            .assign load_ui = load_ui + "if ($cr{field.Instance_Handle}Instances.length > 0) {\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.select(0);\n"
+            .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
+            .assign load_ui = load_ui + "}\n"
+            .assign field.buffer = "// ${statement.buffer}" + load_ui
+          .end if
+        .end if
       .end if
-      .assign field.buffer = statement.buffer + load_ui
     .end if
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).

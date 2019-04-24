@@ -162,9 +162,13 @@ public class ${wizard_class_name} extends Wizard
   .for each field in fields
     .if (field.type == "Combo")
       .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
+      .if (not_empty class)
       public $cr{class.Name}_c v_${field.Instance_Handle} = null;
-      .if (isLinkedPage.islinked)
+        .if (isLinkedPage.islinked)
       public String v_${field.Instance_Handle}Prefix = "";
+        .end if
+      .else
+      public String v_${field.Instance_Handle} = "";
       .end if
     .elif (field.type == "List")
       .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
