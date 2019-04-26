@@ -96,7 +96,7 @@ _to be specified in the design note_
 _to be specified in the design note_
 
 == 7 Document References
-. [[dr-1]] https://support.onefact.net/issues/11556[11556 - Automatically formalize and force user to setup referentials and role phrases at creation]
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
 
 ---
 
