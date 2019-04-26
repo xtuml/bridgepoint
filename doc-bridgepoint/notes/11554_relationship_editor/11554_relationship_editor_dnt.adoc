@@ -1,0 +1,101 @@
+= Relationship Editor
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+Want to automatically formalize relationships when they are drawn and force the
+user to set up referentials and role phrases at creation time.
+
+This issue originates from a November 17, 2018 discussion between users and
+the BridgePoint engineering team regarding high-priority work items.
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
+
+== 2 Introduction and Background
+
+Read <<dr-2>>
+
+== 3 Requirements
+
+See <<dr-2>> section 3
+
+== 4 Analysis
+
+See <<dr-2>> section 4
+
+== 5 Design
+
+5.1 Workflow generation changes
+
+5.1.1 New input elements
+
+5.1.1.1 Text entry
+
+- prompt
+- default value TODO
+
+5.1.1.2 Text options (dropdown)
+
+- prompt
+- array of options
+- default value is first array element
+
+5.1.1.3 Toggle option?
+
+- TODO
+
+5.1.2 Validation
+
+- TODO
+
+5.1.3 Layout and styling
+
+- TODO
+
+5.2 Association types
+
+5.2.1 Simple associations
+
+- line drawing?
+- CME?
+
+5.2.2 Linked associations
+
+- TODO
+
+5.2.3 Subsuper associations
+
+- TODO
+
+5.3 Editing existing associations
+
+- TODO
+
+5.4 Preferences
+
+- TODO
+
+== 6 Design Comments
+
+- MC-Java implementation of arrays
+  - only works with one dimensional arrays
+  - limited to parameters on bridges and transients
+
+== 7 User Documentation
+
+TODO
+
+== 8 Unit Test
+
+TODO
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
+. [[dr-2]] link:11554_relationship_editor_ant.adoc[Relationship editor analysis note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
