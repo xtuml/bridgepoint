@@ -353,10 +353,15 @@ ${result.body}
         .if ("Text" == field.Type)
     $cr{field.Instance_Handle}Label.setText("${cflx.Label}");
         .else
-          .if (isLinkedPage.islinked)
+          .select one obj related by field->O_OBJ[R2011]
+          .if (not_empty obj)
+            .if (isLinkedPage.islinked)
     $cr{field.Instance_Handle}Phrase.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
-          .else     
+            .else     
     $cr{field.Instance_Handle}Label.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
+            .end if
+          .else
+    $cr{field.Instance_Handle}Label.setText("${cflx.Label}");
           .end if
         .end if
       .end if

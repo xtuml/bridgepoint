@@ -6861,6 +6861,311 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("53184f52-196c-4187-91f9-32f7d933ec55",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'createAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'rel_num = param.rel_num;
+a_cond = param.a_cond;
+a_phrase = param.a_phrase;
+a_mult = param.a_mult;
+b_cond = param.b_cond;
+b_phrase = param.b_phrase;
+b_mult = param.b_mult;
+form_class = param.form_class;
+a_ident = param.a_ident;
+b_ident = param.b_ident;
+a_class = param.a_class;
+b_class = param.b_class;
+
+// create the association
+assoc = self.newAssociation2(from:a_class.Obj_ID, fromIsImported:false, to:b_class.Obj_ID, toIsImported:false);
+
+// set the number
+assoc.Numb = GD::string_to_int(value:rel_num);
+
+// set A parameters
+select any a_part related by assoc->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
+if (not_empty a_part)
+  if ("Unconditionally" == b_cond)
+    a_part.Cond = 0;
+  else
+    a_part.Cond = 1;
+  end if;
+  if ("One" == b_mult)
+    a_part.Mult = 0;
+  else
+    a_part.Mult = 1;
+  end if;
+  a_part.Txt_Phrs = b_phrase;
+end if;
+
+// set B parameters
+select any b_part related by assoc->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
+if (not_empty b_part)
+  if ("Unconditionally" == a_cond)
+    b_part.Cond = 0;
+  else
+    b_part.Cond = 1;
+  end if;
+  if ("One" == a_mult)
+    b_part.Mult = 0;
+  else
+    b_part.Mult = 1;
+  end if;
+  b_part.Txt_Phrs = a_phrase;
+end if;
+
+// formalize the association
+select one simp related by assoc->R_SIMP[R206];
+non_formalizer = a_part;
+identifier = a_ident;
+if ("Class A" == form_class)
+  non_formalizer = b_part;
+  identifier = b_ident;
+end if;
+simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);',
+	1,
+	'',
+	"e42c84d5-a4b6-43e1-b44e-d6ff5a13b769",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("fef96e91-bc7b-401d-a1ff-4c9ba65203ab",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'rel_num',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("03799509-b4c9-41f3-bd5a-e29552580b63",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'a_cond',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"fef96e91-bc7b-401d-a1ff-4c9ba65203ab",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8652e8ac-c6ed-4577-9f01-f6d710d9a1f9",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'a_phrase',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"03799509-b4c9-41f3-bd5a-e29552580b63",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("326f8ca2-baf2-48e9-a42e-917c2d598071",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'a_mult',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"8652e8ac-c6ed-4577-9f01-f6d710d9a1f9",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d06d229a-d62b-4b46-8876-d206a0eb4f65",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'b_cond',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"326f8ca2-baf2-48e9-a42e-917c2d598071",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e3d62429-9daa-43d8-addb-f49a019b9bef",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'b_phrase',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"d06d229a-d62b-4b46-8876-d206a0eb4f65",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b09bc5ee-9351-4336-b84f-2d0b3a6d139a",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'b_mult',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"e3d62429-9daa-43d8-addb-f49a019b9bef",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4ac49170-d193-4d9e-83e0-bf0b4eee4150",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'form_class',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"b09bc5ee-9351-4336-b84f-2d0b3a6d139a",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7caf0ad8-04aa-41bd-89dd-0e1afa5ea5ae",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'a_ident',
+	"eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	'',
+	"4ac49170-d193-4d9e-83e0-bf0b4eee4150",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Class Identifier>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("0a2c9abd-477c-488f-b42e-cc48f47a37ca",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'b_ident',
+	"eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	'',
+	"7caf0ad8-04aa-41bd-89dd-0e1afa5ea5ae",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("139f155c-fa4d-47a9-8dd4-5bb96a8319ba",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'a_class',
+	"fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	'',
+	"0a2c9abd-477c-488f-b42e-cc48f47a37ca",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Model Class>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("8f6f41dc-08dc-4653-86ff-c7ce62e301db",
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	'b_class',
+	"fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	'',
+	"139f155c-fa4d-47a9-8dd4-5bb96a8319ba",
+	'');
+INSERT INTO O_TFR
+	VALUES ("fb560e53-929f-43c2-8eb1-28a03fe68bca",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newAssociation2',
+	'',
+	"533708f6-d3af-4aea-aaa2-6b9813ba3da6",
+	1,
+	'// Package::newAssociation()
+
+select any assoc from instances of R_REL where false;
+  
+select any fromClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.from);
+select any fromIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.from);
+if (param.fromIsImported)
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+select any toClass related by self->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID == param.to);
+select any toIClass related by self->PE_PE[R8000]->O_IOBJ[R8001] where (selected.IObj_ID == param.to);
+if (param.toIsImported)
+  if (not_empty toIClass)
+    select one toClass related by toIClass->O_OBJ[R101];
+  end if;
+end if;
+//
+if (not_empty fromClass and not_empty toClass)
+  create object instance assoc of R_REL;
+  // create Packageable Element supertype and hook up to this package.
+  create object instance pe of PE_PE;
+  relate assoc to pe across R8001;
+  relate pe to self across R8000;
+  pe.type = ElementTypeConstants::ASSOCIATION;
+  pe.initialize();
+  assoc.initialize();
+  create object instance simp of R_SIMP;
+  relate simp to assoc across R206;
+  //
+  create object instance fromOIR of R_OIR;
+  relate fromClass to assoc across R201 using fromOIR;
+  create object instance fromRTO of R_RTO;
+  relate fromOIR to fromRTO across R203;
+  create object instance fromPART of R_PART;
+  relate fromPART to fromRTO across R204;
+  relate fromPART to simp across R207;
+  if (param.fromIsImported)
+    if (not_empty fromIClass)
+      relate fromOIR to fromIClass across R202;
+    end if;
+  end if;
+  //
+  create object instance toOIR of R_OIR;
+  relate toClass to assoc across R201 using toOIR;
+  create object instance toRTO of R_RTO;
+  relate toOIR to toRTO across R203;
+  create object instance toPART of R_PART;
+  relate toPART to toRTO across R204;
+  relate toPART to simp across R207;
+  if (param.toIsImported)
+    if (not_empty toIClass)
+      relate toOIR to toIClass across R202;
+    end if;
+  end if;
+end if;
+return assoc;',
+	1,
+	'',
+	"53184f52-196c-4187-91f9-32f7d933ec55",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("99beca55-c5cf-4cb8-8f9d-5961ac7d1886",
+	"fb560e53-929f-43c2-8eb1-28a03fe68bca",
+	'from',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a72064d1-be77-4ce0-b731-6f66926b38ec",
+	"fb560e53-929f-43c2-8eb1-28a03fe68bca",
+	'fromIsImported',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"99beca55-c5cf-4cb8-8f9d-5961ac7d1886",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e189c541-c914-4dda-bbcc-041581dfb2a5",
+	"fb560e53-929f-43c2-8eb1-28a03fe68bca",
+	'to',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a72064d1-be77-4ce0-b731-6f66926b38ec",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8d739304-047d-4687-85d9-f5a2625cde65",
+	"fb560e53-929f-43c2-8eb1-28a03fe68bca",
+	'toIsImported',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"e189c541-c914-4dda-bbcc-041581dfb2a5",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("533708f6-d3af-4aea-aaa2-6b9813ba3da6",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Association>',
+	'',
+	'',
+	'../../Association/Association.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
