@@ -7957,29 +7957,34 @@ INSERT INTO S_SYNC
 	'O_OBJ_CreateAssociation',
 	'ContextMenuFunction: TRUE
 ',
-	'select any a_class from instances of O_OBJ where USER::selectOne(id:selected.Obj_ID);
-select any b_class related by a_class->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001]
-  where USER::selectOne(id:selected.Obj_ID) and selected.Obj_ID != a_class.Obj_ID;
-if (not_empty b_class)
-  conditionalities[1] = "Unconditionally";
-  conditionalities[0] = "Conditionally";
-  multiplicities[1] = "Many";
-  multiplicities[0] = "One";
-  rel_num = USER::getText(default:"12", prompt:"Association Number");
-  a_cond = USER::getDropdown(options:conditionalities, prompt:"");
-  a_phrase = USER::getText(default:"", prompt:"");
-  a_mult = USER::getDropdown(options:multiplicities, prompt:"");
-  b_cond = USER::getDropdown(options:conditionalities, prompt:"");
-  b_phrase = USER::getText(default:"", prompt:"");
-  b_mult = USER::getDropdown(options:multiplicities, prompt:"");
-  formalizer[1] = "Class A";
-  formalizer[0] = "Class B";
-  form_class = USER::getDropdown(options:formalizer, prompt:"Formalised In");
-  select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-  select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-  select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
-  ep_pkg.createAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident, b_ident:b_ident, a_class:a_class, b_class:b_class );
-end if;',
+	'select many objs from instances of O_OBJ where USER::selectOne(id:selected.Obj_ID);
+select any a_class from instances of O_OBJ where false;
+select any b_class from instances of O_OBJ where false;
+for each obj in objs  // this set will always have exactly 2 element
+  if empty a_class
+    a_class = obj;
+  else
+    b_class = obj;
+  end if;
+end for;
+conditionalities[1] = "Unconditionally";
+conditionalities[0] = "Conditionally";
+multiplicities[1] = "Many";
+multiplicities[0] = "One";
+rel_num = USER::getText(default:"12", prompt:"Association Number");
+a_cond = USER::getDropdown(options:conditionalities, prompt:"");
+a_phrase = USER::getText(default:"", prompt:"");
+a_mult = USER::getDropdown(options:multiplicities, prompt:"");
+b_cond = USER::getDropdown(options:conditionalities, prompt:"");
+b_phrase = USER::getText(default:"", prompt:"");
+b_mult = USER::getDropdown(options:multiplicities, prompt:"");
+formalizer[1] = "Class A";
+formalizer[0] = "Class B";
+form_class = USER::getDropdown(options:formalizer, prompt:"Formalised In");
+select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
+ep_pkg.createAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident, b_ident:b_ident, a_class:a_class, b_class:b_class );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',

@@ -153,7 +153,9 @@ public class ${wizard_class_name} extends Wizard
     .if (context_item.Type == "any")
       public ${gcn.body} v_${context_item.Name} = null;
     .elif (context_item.Type == "many")
-      public ${gcn.body} [] v_${field.Name};
+      .select one cme related by wfl->CME[R2012]
+      public ${gcn.body}[] v_${context_item.Name} = new ${gcn.body}[${cme.requiredSelectionCount}];
+      public int $Cr{class.Name}count;
     .end if
   .end for
 
@@ -339,7 +341,11 @@ public class ${wizard_class_name} extends Wizard
 	public boolean performFinish() 
 	{
 		TransactionUtil.TransactionGroup transactionGroup = null;
+  .if (context_item.Type == "any")
 		ModelRoot modelRoot = v_${context_item.Name}.getModelRoot();
+  .elif (context_item.Type == "many")
+		ModelRoot modelRoot = v_${context_item.Name}[0].getModelRoot();
+  .end if
 		try {
    .invoke transaction_name = get_transaction_name(wfl, class_name)
 			transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots(

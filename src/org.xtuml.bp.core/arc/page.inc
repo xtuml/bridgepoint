@@ -202,7 +202,11 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     // cache for context
   .for each context_item in context_items
     .select any class from instances of O_OBJ where (selected.Key_Lett == context_item.Key_Lett)
+    .if (context_item.Type == "any")
     $cr{class.Name}_c v_${context_item.Name} = ((${wizard_class_name})getWizard()).v_${context_item.Name};
+    .elif (context_item.Type == "many")
+    $cr{class.Name}_c[] v_${context_item.Name} = ((${wizard_class_name})getWizard()).v_${context_item.Name};
+    .end if
   .end for
   .for each field in fields
     .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
