@@ -35,9 +35,19 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
-
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.Association_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Gd_c;
+import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.EditAssociationOnR_RELAction;
+import org.xtuml.bp.core.ui.EditAssociationOnR_RELWizard;
+import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -56,7 +66,7 @@ import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 import org.xtuml.bp.ui.graphics.requests.GraphicsConnectionCreateRequest;
 
-public class CreateConnectionCommand extends Command {
+public class CreateConnectionCommand extends Command implements IExecutionValidationCommand {
 
 	private CreateConnectionRequest fRequest;
 	private PolylineConnection fFeedback;
@@ -65,12 +75,17 @@ public class CreateConnectionCommand extends Command {
 
 	public CreateConnectionCommand(CreateConnectionRequest request,
 			PolylineConnection feedback) {
+	    super("Create Connector");
 		fRequest = request;
 		fFeedback = feedback;
 	}
 
 	@Override
 	public void execute() {
+	}
+
+	@Override
+	public boolean executeWithValidation() {
 		Command startCommand = fRequest.getStartCommand();
 		if (startCommand instanceof StartConnectionCommand) {
 			GraphicsConnectionCreateRequest gRequest = (GraphicsConnectionCreateRequest) fRequest;
@@ -147,7 +162,7 @@ public class CreateConnectionCommand extends Command {
 							conId.toString());
 			if (newGraphele == null)
 				// the connection was not allowed and therefore disposed
-				return;
+				return false;
 			// finalize the connector
 			Connector_c newCon = Connector_c
 					.getOneGD_CONOnR2(GraphicalElement_c
@@ -178,7 +193,26 @@ public class CreateConnectionCommand extends Command {
 			DiagramEditPart diagramPart = (DiagramEditPart) fRequest
 					.getSourceEditPart().getViewer().getContents();
 			diagramPart.resizeContainer();
+			// edit the association
+			Object newElement = GraphicalElement_c.getOneGD_GEOnR2(result).getRepresents();
+			if (newElement instanceof Association_c) {
+			    SimpleAssociation_c simp = SimpleAssociation_c.getOneR_SIMPOnR206((Association_c)newElement);
+			    if (null != simp) {
+			        Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
+			        EditAssociationOnR_RELAction editAction = new EditAssociationOnR_RELAction();
+			        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+                    WizardDialog wd = editAction.R_REL_EditAssociation(Selection.getInstance().getStructuredSelection());
+                    int result = wd.open();
+                    if (Window.CANCEL == result) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+			    }
+			}
 		}
+		return true;
 	}
 
 	private PointList getTargetPoints() {

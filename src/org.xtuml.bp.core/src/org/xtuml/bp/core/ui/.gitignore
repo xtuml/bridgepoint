@@ -351,8 +351,7 @@ SplitOnO_ATTRWizardPage1.java
 ComponentsDeploymentOnEP_PKGAction.java
 ImportTerminatorsFromFileOnD_DEPLAction.java
 DeleteStaleServicesOnD_TERMAction.java
-CreateAssociationOnO_OBJAction.java
-CreateAssociationOnO_OBJWizard.java
-CreateAssociationOnO_OBJWizardPage1.java
-CreateAssociationOnO_OBJWizardPage2.java
+EditAssociationOnR_RELAction.java
+EditAssociationOnR_RELWizard.java
+EditAssociationOnR_RELWizardPage1.java
 

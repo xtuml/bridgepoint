@@ -212,6 +212,23 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
     .if (field.Type == "Text")
       .assign field.buffer = "  //$cr{field.Instance_Handle}Text.setText(((${wizard_class_name})getWizard()).v_${field.Instance_Handle});"
+      .// USER::getText
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+      .select one act_ai related by statement->ACT_AI[R603]
+      .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+      .if ((not_empty act_ai) and (not_empty v_brv))
+        .select one s_brg related by v_brv->S_BRG[R828]
+        .select one s_ee related by s_brg->S_EE[R19]
+        .if (("getText" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+          .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "default")
+          .select any v_val related by v_par->V_VAL[R800]
+          .if (not_empty v_val)
+            .assign load_ui = "$cr{field.Instance_Handle}Text.setText(${v_val.buffer});\n"
+            .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
+            .assign field.buffer = "// ${statement.buffer}" + load_ui
+          .end if
+        .end if
+      .end if
     .end if
     .if ((field.Type == "Combo") OR (field.Type == "List"))
       .assign load_ui = ""

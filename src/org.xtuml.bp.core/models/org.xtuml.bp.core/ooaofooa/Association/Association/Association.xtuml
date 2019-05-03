@@ -451,6 +451,9 @@ INSERT INTO O_TFR
         return not_empty sup_oida;
       end if;
     end if;
+  elif (param.value == "simp" )
+    select one r_simp related by self->R_SIMP[R206];
+    return not_empty r_simp;
   end if;
 elif (param.name == "formalized" )
   if (param.value =="true" )
@@ -901,6 +904,196 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"2cfadbe5-9b95-43e2-8f80-9e2fd0c74de9",
+	'');
+INSERT INTO O_TFR
+	VALUES ("25e72586-4980-4217-b43b-c45aacc395cd",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'editSimpleAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'rel_num = param.rel_num;
+a_cond = param.a_cond;
+a_phrase = param.a_phrase;
+a_mult = param.a_mult;
+b_cond = param.b_cond;
+b_phrase = param.b_phrase;
+b_mult = param.b_mult;
+form_class = param.form_class;
+a_ident = param.a_ident;
+b_ident = param.b_ident;
+a_class = param.a_class;
+b_class = param.b_class;
+
+// set the number
+self.Numb = GD::string_to_int(value:rel_num);
+
+// set A parameters
+select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
+if (not_empty a_part)
+  if ("Unconditionally" == b_cond)
+    a_part.Cond = 0;
+  else
+    a_part.Cond = 1;
+  end if;
+  if ("One" == b_mult)
+    a_part.Mult = 0;
+  else
+    a_part.Mult = 1;
+  end if;
+  a_part.Txt_Phrs = b_phrase;
+end if;
+
+// set B parameters
+select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
+if (not_empty b_part)
+  if ("Unconditionally" == a_cond)
+    b_part.Cond = 0;
+  else
+    b_part.Cond = 1;
+  end if;
+  if ("One" == a_mult)
+    b_part.Mult = 0;
+  else
+    b_part.Mult = 1;
+  end if;
+  b_part.Txt_Phrs = a_phrase;
+end if;
+
+// formalize the association
+select one simp related by self->R_SIMP[R206];
+non_formalizer = a_part;
+identifier = a_ident;
+if ("Class A" == form_class)
+  non_formalizer = b_part;
+  identifier = b_ident;
+end if;
+simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);',
+	1,
+	'',
+	"e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("0cc3841f-8b79-490d-a49a-d2a7b9c66725",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'rel_num',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1f734bed-a939-4958-9838-17bb18fb826e",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_cond',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"0cc3841f-8b79-490d-a49a-d2a7b9c66725",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("cd726ab1-5840-46c8-bb2d-a10334f3d089",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_phrase',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"1f734bed-a939-4958-9838-17bb18fb826e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ed962779-0906-492d-8fc3-0eddcfeeb1a4",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_mult',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"cd726ab1-5840-46c8-bb2d-a10334f3d089",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8c0b50ed-679d-4206-a9d4-173131defadb",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_cond',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"ed962779-0906-492d-8fc3-0eddcfeeb1a4",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c1b603f0-871f-4daa-a0d7-6989c83ace7b",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_phrase',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"8c0b50ed-679d-4206-a9d4-173131defadb",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("67977b9d-9b4c-4eb2-9faa-92fc6c5103ea",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_mult',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"c1b603f0-871f-4daa-a0d7-6989c83ace7b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6b5d0124-17ae-4821-870a-b776d0c38336",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'form_class',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"67977b9d-9b4c-4eb2-9faa-92fc6c5103ea",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("59d417ca-c09f-417e-a591-aa6b29cbf984",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_ident',
+	"eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	'',
+	"6b5d0124-17ae-4821-870a-b776d0c38336",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Class Identifier>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4f0244c6-6545-4f5e-a196-37345690ff3a",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_ident',
+	"eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	'',
+	"59d417ca-c09f-417e-a591-aa6b29cbf984",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_class',
+	"fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	'',
+	"4f0244c6-6545-4f5e-a196-37345690ff3a",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Model Class>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("8f35344a-f241-4944-ac03-2f1d89376cb2",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_class',
+	"fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	'',
+	"da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",

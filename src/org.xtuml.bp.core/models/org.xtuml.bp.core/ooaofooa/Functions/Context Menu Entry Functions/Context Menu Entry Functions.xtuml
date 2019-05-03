@@ -7954,29 +7954,41 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("fa7aaede-9569-4614-a9a2-6bbf6479e7b8",
 	"00000000-0000-0000-0000-000000000000",
-	'O_OBJ_CreateAssociation',
+	'R_REL_EditAssociation',
 	'ContextMenuFunction: TRUE
 ',
-	'select many objs from instances of O_OBJ where USER::selectOne(id:selected.Obj_ID);
-select any a_class from instances of O_OBJ where false;
-select any b_class from instances of O_OBJ where false;
-for each obj in objs  // this set will always have exactly 2 element
-  if empty a_class
-    a_class = obj;
-  else
-    b_class = obj;
-  end if;
-end for;
+	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
+select any a_oir related by r_rel->R_OIR[R201];
+select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
+select one a_form related by a_oir->R_RGO[R203]->R_FORM[R205];
+select any b_oir related by r_rel->R_OIR[R201] where (selected.OIR_ID != a_oir.OIR_ID);
+select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
+select one b_form related by b_oir->R_RGO[R203]->R_FORM[R205];
+select one a_class related by a_oir->O_OBJ[R201];
+select one b_class related by b_oir->O_OBJ[R201];
 conditionalities[1] = "Unconditionally";
 conditionalities[0] = "Conditionally";
 multiplicities[1] = "Many";
 multiplicities[0] = "One";
-rel_num = USER::getText(default:"12", prompt:"Association Number");
+default_rel_num = GD::int_to_string(value:r_rel.Numb);
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
 a_cond = USER::getDropdown(options:conditionalities, prompt:"");
-a_phrase = USER::getText(default:"", prompt:"");
+default_a_phrase = "";
+if (not_empty b_part)
+  default_a_phrase = b_part.Txt_Phrs;
+else
+  default_a_phrase = b_form.Txt_Phrs;
+end if;
+a_phrase = USER::getText(default:default_a_phrase, prompt:"");
 a_mult = USER::getDropdown(options:multiplicities, prompt:"");
 b_cond = USER::getDropdown(options:conditionalities, prompt:"");
-b_phrase = USER::getText(default:"", prompt:"");
+default_b_phrase = "";
+if (not_empty a_part)
+  default_b_phrase = a_part.Txt_Phrs;
+else
+  default_b_phrase = a_form.Txt_Phrs;
+end if;
+b_phrase = USER::getText(default:default_b_phrase, prompt:"");
 b_mult = USER::getDropdown(options:multiplicities, prompt:"");
 formalizer[1] = "Class A";
 formalizer[0] = "Class B";
@@ -7984,7 +7996,7 @@ form_class = USER::getDropdown(options:formalizer, prompt:"Formalised In");
 select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
-ep_pkg.createAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident, b_ident:b_ident, a_class:a_class, b_class:b_class );',
+r_rel.editSimpleAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident, b_ident:b_ident, a_class:a_class, b_class:b_class );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',

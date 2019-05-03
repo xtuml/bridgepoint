@@ -67,6 +67,10 @@ See <<dr-2>> section 4
 
 - TODO
 
+5.2.4 Reflexive associations
+
+- TODO
+
 5.3 Editing existing associations
 
 - TODO
