@@ -333,40 +333,65 @@ ${result.body}
     .assign current_row = "row1"
 
     .for each field in fields
+      .assign field_row_num = "1"
+      .assign field_width = "1"
+      .assign field_height = "1"
+      .select one w_fmt related by field->W_FMT[R2015]
+      .if (not_empty w_fmt)
+        .assign field_row_num = w_fmt.row_num
+        .assign field_width = w_fmt.width
+        .assign field_height = w_fmt.height
+      .end if
+      .if (current_row != "row${field_row_num}")
+        .assign current_row = "row${field_row_num}"
+    Composite ${current_row} = new Composite(composite, SWT.NONE);
+    ${current_row}.setLayoutData(rowData);
+    ${current_row}.setLayout(rowLayout);
+      .end if
       .if (isLinkedPage.islinked)
     $cr{field.Instance_Handle}PrefixLabel = new Label (${current_row}, SWT.CENTER);
     $cr{field.Instance_Handle}PrefixLabel.setText("Prefix");    
-    $cr{field.Instance_Handle}PrefixLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+    $cr{field.Instance_Handle}PrefixLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     $cr{field.Instance_Handle}Prefix = new Text(${current_row}, SWT.BORDER);
-    $cr{field.Instance_Handle}Prefix.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+    $cr{field.Instance_Handle}Prefix.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     $cr{field.Instance_Handle}Prefix.addModifyListener(new ModifyListener() {
       public void modifyText(ModifyEvent arg0) {
         ((${wizard_class_name}) getWizard()).v_${field.Instance_Handle}Prefix = ${page_class_name}.this.$cr{field.Instance_Handle}Prefix.getText();
       }
     });
       .end if
+.select one cflx related by field->W_CFL[R2014]
 .if (field.Type == "Text")
+  .if (not_empty cflx)
     $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
     $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
+  .end if
     $cr{field.Instance_Handle}Text = new Text(${current_row}, SWT.BORDER);
-    $cr{field.Instance_Handle}Text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 12 - 1, 1));
+    $cr{field.Instance_Handle}Text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .elif (field.Type == "Combo")
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+      .select one s_brg related by statement->ACT_AI[R603]->V_VAL[R609]->V_BRV[R801]->S_BRG[R828]
+      .select one s_ee related by s_brg->S_EE[R19]
+      .if (((empty cflx) and (not_empty s_brg)) and (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett)))
+        .// do not create label
+      .else
     $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
-    $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+    $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
   .if (isLinkedPage.islinked)
       $cr{field.Instance_Handle}Label.setText("goes with identifier");            
     .else
       $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");            
     .end if
+      .end if
     $cr{field.Instance_Handle}Combo = new Combo(${current_row}, SWT.BORDER | SWT.READ_ONLY);
-    $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+    $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .elif (field.Type == "List")
   List $cr{field.Instance_Handle};
     .end if
     .if (isLinkedPage.islinked)
         $cr{field.Instance_Handle}Phrase = new Label (${current_row}, SWT.CENTER);
         $cr{field.Instance_Handle}Phrase.setText("");
-        $cr{field.Instance_Handle}Phrase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        $cr{field.Instance_Handle}Phrase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
       .end if
     .end for
 

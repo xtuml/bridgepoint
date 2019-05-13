@@ -274,6 +274,28 @@ ${inner_blck.body}\
 ${inner_blck.body}\
       .end if
     .end if
+    .select one act_brg related by statement->ACT_BRG[R603]
+    .select one s_brg related by act_brg->S_BRG[R674]
+    .select one s_ee related by s_brg->S_EE[R19]
+    .if ((not_empty s_brg) and (("setLayout" == s_brg.Name) and ("LAYOUT" == s_ee.Key_Lett)))
+      .// set layout data for field
+      .select any field_name_par related by act_brg->V_PAR[R628] where (selected.Name == "field_name")
+      .select any field_name_lst related by field_name_par->V_VAL[R800]->V_LST[R801]
+      .select any row_num_par related by act_brg->V_PAR[R628] where (selected.Name == "row_num")
+      .select any row_num_lst related by row_num_par->V_VAL[R800]->V_LST[R801]
+      .select any width_par related by act_brg->V_PAR[R628] where (selected.Name == "width")
+      .select any width_lst related by width_par->V_VAL[R800]->V_LST[R801]
+      .select any height_par related by act_brg->V_PAR[R628] where (selected.Name == "height")
+      .select any height_lst related by height_par->V_VAL[R800]->V_LST[R801]
+      .select any w_fld related by w_step->W_FLD[R2009] where (selected.Instance_Handle == field_name_lst.Value)
+      .if (not_empty w_fld)
+        .create object instance w_fmt of W_FMT
+        .assign w_fmt.row_num = row_num_lst.Value
+        .assign w_fmt.width = width_lst.Value
+        .assign w_fmt.height = height_lst.Value
+        .relate w_fmt to w_fld across R2015
+      .end if
+    .end if
     .select one act_ai related by statement->ACT_AI[R603]
     .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
     .if ((not_empty act_ai) and (not_empty v_brv))

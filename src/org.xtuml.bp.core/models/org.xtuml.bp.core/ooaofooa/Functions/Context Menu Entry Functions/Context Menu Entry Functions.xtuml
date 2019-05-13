@@ -7966,13 +7966,22 @@ select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
 select one b_form related by b_oir->R_RGO[R203]->R_FORM[R205];
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
+
 conditionalities[1] = "Unconditionally";
 conditionalities[0] = "Conditionally";
 multiplicities[1] = "Many";
 multiplicities[0] = "One";
+
+// Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
+LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"5", height:"1");
+
+// A to B conditionality
 a_cond = USER::getDropdown(options:conditionalities, prompt:"");
+LAYOUT::setLayout(field_name:"a_cond", row_num:"2", width:"1", height:"1");
+
+// A to B phrase
 default_a_phrase = "";
 if (not_empty b_part)
   default_a_phrase = b_part.Txt_Phrs;
@@ -7980,8 +7989,17 @@ else
   default_a_phrase = b_form.Txt_Phrs;
 end if;
 a_phrase = USER::getText(default:default_a_phrase, prompt:"");
+LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"3", height:"1");
+
+// A to B multiplicity
 a_mult = USER::getDropdown(options:multiplicities, prompt:"");
+LAYOUT::setLayout(field_name:"a_mult", row_num:"2", width:"1", height:"1");
+
+// B to A conditionality
 b_cond = USER::getDropdown(options:conditionalities, prompt:"");
+LAYOUT::setLayout(field_name:"b_cond", row_num:"3", width:"1", height:"1");
+
+// B to A phrase
 default_b_phrase = "";
 if (not_empty a_part)
   default_b_phrase = a_part.Txt_Phrs;
@@ -7989,12 +8007,27 @@ else
   default_b_phrase = a_form.Txt_Phrs;
 end if;
 b_phrase = USER::getText(default:default_b_phrase, prompt:"");
+LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"3", height:"1");
+
+// B to A multiplicity
 b_mult = USER::getDropdown(options:multiplicities, prompt:"");
-formalizer[1] = "Class A";
-formalizer[0] = "Class B";
-form_class = USER::getDropdown(options:formalizer, prompt:"Formalised In");
+LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
+
+// Formalizing class
+formalizer[1] = b_class.Name;
+formalizer[0] = a_class.Name;
+form_class = USER::getDropdown(options:formalizer, prompt:"Formalized In");
+LAYOUT::setLayout(field_name:"form_class", row_num:"4", width:"1", height:"1");
+
+// Identifier in A class
 select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"a_ident", row_num:"4", width:"1", height:"1");
+
+// Identifier in B class
 select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"b_ident", row_num:"4", width:"1", height:"1");
+
+// Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
 r_rel.editSimpleAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident, b_ident:b_ident, a_class:a_class, b_class:b_class );',
 	"ba5eda7a-def5-0000-0000-000000000000",
