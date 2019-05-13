@@ -20,29 +20,29 @@
 .function skip_class_generation
 .param string class_name
 .assign attr_skip = false
-	.if(class_name == "GenericPackageAssignEventOnSM_TXNWizardPage1" )
-	   .assign attr_skip = true
-	.elif (class_name  == "BinaryFormalizeOnR_RELWizard" )
-	   .assign attr_skip = true
-	.elif (class_name  == "BinaryFormalizeOnR_RELWizardPage1" )
-	   .assign attr_skip = true
-	.elif (class_name  == "BinaryFormalizeOnR_RELWizardPage2" )
-	   .assign attr_skip = true
-	.end if
+  .if(class_name == "GenericPackageAssignEventOnSM_TXNWizardPage1" )
+     .assign attr_skip = true
+  .elif (class_name  == "BinaryFormalizeOnR_RELWizard" )
+     .assign attr_skip = true
+  .elif (class_name  == "BinaryFormalizeOnR_RELWizardPage1" )
+     .assign attr_skip = true
+  .elif (class_name  == "BinaryFormalizeOnR_RELWizardPage2" )
+     .assign attr_skip = true
+  .end if
 .end function 
 //
 .function is_linked_association_wizard_page
 .param string class_name
 .assign attr_islinked = false
-	.if(class_name == "LinkedFormalizeOnR_RELWizardPage1" )
-	   .assign attr_islinked = true
-	.elif (class_name  == "LinkedFormalizeOnR_ASSRWizardPage1" )
-	   .assign attr_islinked = true
-	.elif (class_name  == "LinkedFormalizeOnR_RELWizard" )
-	   .assign attr_islinked = true
-	.elif (class_name  == "LinkedFormalizeOnR_ASSRWizard" )
-	   .assign attr_islinked = true
-	.end if
+  .if(class_name == "LinkedFormalizeOnR_RELWizardPage1" )
+     .assign attr_islinked = true
+  .elif (class_name  == "LinkedFormalizeOnR_ASSRWizardPage1" )
+     .assign attr_islinked = true
+  .elif (class_name  == "LinkedFormalizeOnR_RELWizard" )
+     .assign attr_islinked = true
+  .elif (class_name  == "LinkedFormalizeOnR_ASSRWizard" )
+     .assign attr_islinked = true
+  .end if
 .end function
 .//
 .function get_page_class_name
@@ -77,6 +77,7 @@ package org.xtuml.bp.core.ui;
 // (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 //
 //====================================================================
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -102,10 +103,10 @@ import java.util.List;
 public class ${page_class_name} extends PtWizardPage implements Listener
 {
   public static final String copyright = "(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.";
-	
+  
   IWorkbench workbench;
   IStructuredSelection selection;
-	
+  
   // widgets on this page (public for unit tests)
   .invoke isLinkedPage = is_linked_association_wizard_page(page_class_name)
   .select many fields related by step->W_FLD[R2009]
@@ -116,12 +117,12 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .elif (field.Type == "Combo")
   public Combo $cr{field.Instance_Handle}Combo;
   public Label $cr{field.Instance_Handle}Label;
-  	  .if (isLinkedPage.islinked)
+      .if (isLinkedPage.islinked)
   public String $cr{field.Instance_Handle}TextPhrase = "";
-  public Text $cr{field.Instance_Handle}Prefix;		
+  public Text $cr{field.Instance_Handle}Prefix;    
   public Label $cr{field.Instance_Handle}PrefixLabel;
   public Label $cr{field.Instance_Handle}Phrase;
-  	  .end if
+      .end if
     .elif (field.Type == "List")
   public List $cr{field.Instance_Handle}List;
     .end if
@@ -174,7 +175,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   
   public void onPageEntry() {
     Ooaofooa modelRoot = Selection.getModelRoot((StructuredSelection)
-    	((${wizard_class_name})getWizard()).getSelection());
+      ((${wizard_class_name})getWizard()).getSelection());
   .select many context_fields related by step->W_WOF[R2005]->W_STEP[R2005]->W_FLD[R2009]
   .assign context_fields = context_fields - fields
   .if (not_empty context_fields)
@@ -262,7 +263,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
         .invoke ident = get_ui_identifier(class, "this.$cr{field.Instance_Handle}Instances[${field.Instance_Handle}InstCount]")
         .if (((page_class_name == "SpecializedPackageIgnoreInStateOnSM_EVTWizardPage1") or (page_class_name == "SpecializedPackageCantHappenInStateOnSM_EVTWizardPage1")) or ((page_class_name == "GenericPackageIgnoreInStateOnSM_EVTWizardPage1") or (page_class_name == "GenericPackageCantHappenInStateOnSM_EVTWizardPage1")))
           .assign ident.body = "((StateMachineState_c) this.StateInstances[stateInstCount]).Getnamewithclass()"
-        .end if  	
+        .end if    
         .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(${ident.body});"
         .if ( (cardinality steps) == 1 )
           .// only select the default if there is only one step
@@ -306,67 +307,71 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   .end for
   .invoke result = wfl_blck_xlate(outer_block)
 ${result.body}
-		.if ((page_class_name == "LinkedFormalizeOnR_RELWizardPage1") or (page_class_name == "LinkedFormalizeOnR_ASSRWizardPage1"))
-  	  	ClassAsAssociatedOneSide_c v_one_side = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(v_a_rel);
-		ClassAsAssociatedOtherSide_c v_oth_side = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(v_a_rel);
-		if ( !v_one_side.getTxt_phrs().equals(""))
-			One_idTextPhrase = " for the '" + v_one_side.getTxt_phrs() + "' side";
-		if ( !v_oth_side.getTxt_phrs().equals(""))
-			Oth_idTextPhrase = " for the '" + v_oth_side.getTxt_phrs() + "' side";  
-		.end if
+    .if ((page_class_name == "LinkedFormalizeOnR_RELWizardPage1") or (page_class_name == "LinkedFormalizeOnR_ASSRWizardPage1"))
+        ClassAsAssociatedOneSide_c v_one_side = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(v_a_rel);
+    ClassAsAssociatedOtherSide_c v_oth_side = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(v_a_rel);
+    if ( !v_one_side.getTxt_phrs().equals(""))
+      One_idTextPhrase = " for the '" + v_one_side.getTxt_phrs() + "' side";
+    if ( !v_oth_side.getTxt_phrs().equals(""))
+      Oth_idTextPhrase = " for the '" + v_oth_side.getTxt_phrs() + "' side";  
+    .end if
   .invoke clear_workspace()
   }
   
   public void createControl(Composite parent) {
     // create the composite to hold the widgets   
-    GridData gd = null;
     Composite composite = new Composite(parent, SWT.NULL);
 
     // create the desired layout for this wizard page
-    GridLayout gl = new GridLayout();
-    int ncol = 5;
-    gl.numColumns = ncol;
-    composite.setLayout(gl);
+    composite.setLayout(GridLayoutFactory.fillDefaults().margins(20, 0).spacing(0, 0).create());
+    GridLayout rowLayout = GridLayoutFactory.fillDefaults().numColumns(6).margins(0, 10).equalWidth(true).create();
+    GridData rowData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+
+    Composite row1 = new Composite(composite, SWT.NONE);
+    row1.setLayoutData(rowData);
+    row1.setLayout(rowLayout);
+    .assign current_row = "row1"
 
     .for each field in fields
-    	.if (isLinkedPage.islinked)
-  	$cr{field.Instance_Handle}PrefixLabel = new Label (composite, SWT.NONE);
-  	$cr{field.Instance_Handle}PrefixLabel.setText("Prefix");		
-  	$cr{field.Instance_Handle}Prefix = new Text(composite, SWT.BORDER);
-  	$cr{field.Instance_Handle}Prefix.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-  	$cr{field.Instance_Handle}Prefix.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent arg0) {
-				((${wizard_class_name}) getWizard()).v_${field.Instance_Handle}Prefix = ${page_class_name}.this.$cr{field.Instance_Handle}Prefix.getText();
-			}
-		});
-    	.end if
+      .if (isLinkedPage.islinked)
+    $cr{field.Instance_Handle}PrefixLabel = new Label (${current_row}, SWT.CENTER);
+    $cr{field.Instance_Handle}PrefixLabel.setText("Prefix");    
+    $cr{field.Instance_Handle}PrefixLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+    $cr{field.Instance_Handle}Prefix = new Text(${current_row}, SWT.BORDER);
+    $cr{field.Instance_Handle}Prefix.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+    $cr{field.Instance_Handle}Prefix.addModifyListener(new ModifyListener() {
+      public void modifyText(ModifyEvent arg0) {
+        ((${wizard_class_name}) getWizard()).v_${field.Instance_Handle}Prefix = ${page_class_name}.this.$cr{field.Instance_Handle}Prefix.getText();
+      }
+    });
+      .end if
 .if (field.Type == "Text")
-    $cr{field.Instance_Handle}Label = new Label (composite, SWT.NONE);
+    $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
     $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
-    $cr{field.Instance_Handle}Text = new Text(composite, SWT.BORDER);
-    gd = new GridData(GridData.FILL_HORIZONTAL);
-    gd.horizontalSpan = ncol - 1;
-    $cr{field.Instance_Handle}Text.setLayoutData(gd);
+    $cr{field.Instance_Handle}Text = new Text(${current_row}, SWT.BORDER);
+    $cr{field.Instance_Handle}Text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 12 - 1, 1));
     .elif (field.Type == "Combo")
-    $cr{field.Instance_Handle}Label = new Label (composite, SWT.NONE);
-	.if (isLinkedPage.islinked)
-	    $cr{field.Instance_Handle}Label.setText("goes with identifier");						
+    $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
+    $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+  .if (isLinkedPage.islinked)
+      $cr{field.Instance_Handle}Label.setText("goes with identifier");            
     .else
-    	$cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");						
+      $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");            
     .end if
-    $cr{field.Instance_Handle}Combo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
-    $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    $cr{field.Instance_Handle}Combo = new Combo(${current_row}, SWT.BORDER | SWT.READ_ONLY);
+    $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
     .elif (field.Type == "List")
   List $cr{field.Instance_Handle};
     .end if
-		.if (isLinkedPage.islinked)
-    		$cr{field.Instance_Handle}Phrase = new Label (composite, SWT.NONE);
-    		$cr{field.Instance_Handle}Phrase.setText("");
-    	.end if
+    .if (isLinkedPage.islinked)
+        $cr{field.Instance_Handle}Phrase = new Label (${current_row}, SWT.CENTER);
+        $cr{field.Instance_Handle}Phrase.setText("");
+        $cr{field.Instance_Handle}Phrase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+      .end if
     .end for
 
     // set the composite as the control for this page
-    setControl(composite);		
+    setControl(composite);    
     onPageEntry();           // Initialize the ui widget contents
     .for each field in fields
       .select one cflx related by field->W_CFL[R2014]
@@ -399,8 +404,8 @@ ${result.body}
     $cr{field.Instance_Handle}Combo.addListener(SWT.Selection, this);
       .elif (field.type == "List")
     $cr{field.Instance_Handle}List.addListener(SWT.Selection, this);
-	  .end if
-	.end for
+    .end if
+  .end for
   }
 
     .for each field in fields
@@ -415,7 +420,7 @@ ${result.body}
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.$cr{field.Instance_Handle};
       .elif (field.type == "List")
       $cr{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}List.getSelectionIndex()];
-	  .end if
+    .end if
   }
     .end for
 
@@ -427,16 +432,16 @@ ${result.body}
       .if (field.type == "Text")
     if (event.widget == $cr{field.Instance_Handle}Text) {
         updateSelected$cr{field.Instance_Handle}();
-	}
+  }
       .elif (field.type == "Combo")
     if (event.widget == $cr{field.Instance_Handle}Combo) {
         updateSelected$cr{field.Instance_Handle}();
-	}
+  }
       .elif (field.type == "List")
     if (event.widget == $cr{field.Instance_Handle}List) {
         updateSelected$cr{field.Instance_Handle}();
-	}
-	  .end if
+  }
+    .end if
     .end for
     getWizard().getContainer().updateButtons();
   }
@@ -451,7 +456,7 @@ ${result.body}
   }
 
   public IWizardPage getNextPage()
-  {    		
+  {        
     .for each field in fields
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = $cr{field.Instance_Handle};
     .end for
