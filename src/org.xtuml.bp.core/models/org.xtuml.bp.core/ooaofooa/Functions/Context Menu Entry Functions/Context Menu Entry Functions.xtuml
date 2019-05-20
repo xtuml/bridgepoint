@@ -7975,7 +7975,11 @@ multiplicities[0] = "One";
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
-LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"5", height:"1");
+LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+
+// A label
+a_label1 = USER::getLabel(label:a_class.Name);
+LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
 
 // A to B conditionality
 a_cond = USER::getDropdown(options:conditionalities, prompt:"");
@@ -7989,11 +7993,19 @@ else
   default_a_phrase = b_form.Txt_Phrs;
 end if;
 a_phrase = USER::getText(default:default_a_phrase, prompt:"");
-LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"3", height:"1");
+LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 
 // A to B multiplicity
 a_mult = USER::getDropdown(options:multiplicities, prompt:"");
 LAYOUT::setLayout(field_name:"a_mult", row_num:"2", width:"1", height:"1");
+
+// B label
+b_label1 = USER::getLabel(label:b_class.Name);
+LAYOUT::setLayout(field_name:"b_label1", row_num:"2", width:"1", height:"1");
+
+// B label
+b_label2 = USER::getLabel(label:b_class.Name);
+LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
 
 // B to A conditionality
 b_cond = USER::getDropdown(options:conditionalities, prompt:"");
@@ -8007,11 +8019,15 @@ else
   default_b_phrase = a_form.Txt_Phrs;
 end if;
 b_phrase = USER::getText(default:default_b_phrase, prompt:"");
-LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"3", height:"1");
+LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
 
 // B to A multiplicity
 b_mult = USER::getDropdown(options:multiplicities, prompt:"");
 LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
+
+// A label
+a_label2 = USER::getLabel(label:a_class.Name);
+LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 
 // Formalizing class
 formalizer[1] = b_class.Name;

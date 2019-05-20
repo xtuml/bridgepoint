@@ -125,6 +125,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .end if
     .elif (field.Type == "List")
   public List $cr{field.Instance_Handle}List;
+    .elif (field.Type == "Label")
+  public Label $cr{field.Instance_Handle}Label;
     .end if
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).
@@ -302,6 +304,24 @@ public class ${page_class_name} extends PtWizardPage implements Listener
         .end if
       .end if
     .end if
+    .if (field.Type == "Label")
+      .// USER::getLabel
+      .assign load_ui = ""
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+      .select one act_ai related by statement->ACT_AI[R603]
+      .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+      .if ((not_empty act_ai) and (not_empty v_brv))
+        .select one s_brg related by v_brv->S_BRG[R828]
+        .select one s_ee related by s_brg->S_EE[R19]
+        .if (("getLabel" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+          .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "label")
+          .select any v_val related by v_par->V_VAL[R800]
+          .assign load_ui = ""
+          .assign load_ui = load_ui + "$cr{field.Instance_Handle}Label.setText(${v_val.buffer});\n"
+          .assign field.buffer = "// ${statement.buffer}" + load_ui
+        .end if
+      .end if
+    .end if
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).
   .end for
@@ -387,6 +407,10 @@ ${result.body}
     $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .elif (field.Type == "List")
   List $cr{field.Instance_Handle};
+    .elif (field.Type == "Label")
+      $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
+      $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
+      $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .end if
     .if (isLinkedPage.islinked)
         $cr{field.Instance_Handle}Phrase = new Label (${current_row}, SWT.CENTER);
@@ -475,7 +499,9 @@ ${result.body}
   {
     boolean isPageComplete = true;
   .for each field in fields
+    .if (field.type != "Label")
     if ($cr{field.Instance_Handle} == null) isPageComplete = false;
+    .end if
   .end for
     return isPageComplete;
   }
@@ -483,7 +509,9 @@ ${result.body}
   public IWizardPage getNextPage()
   {        
     .for each field in fields
+      .if (field.type != "Label")
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = $cr{field.Instance_Handle};
+      .end if
     .end for
     PtWizardPage page =  (PtWizardPage)getWizard().getNextPage(this);
     page.onPageEntry();
@@ -497,7 +525,9 @@ ${result.body}
   {
     if ((PtWizardPage)getWizard().getNextPage(this) == null) return false;
     .for each field in fields
+      .if (field.type != "Label")
     if ($cr{field.Instance_Handle} == null) return false;
+      .end if
     .end for
     return true;
   }
