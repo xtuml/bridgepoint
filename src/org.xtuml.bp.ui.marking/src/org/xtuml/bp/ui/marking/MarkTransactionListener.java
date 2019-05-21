@@ -12,15 +12,6 @@ import org.xtuml.bp.core.common.Transaction;
 
 public class MarkTransactionListener implements ITransactionListener {
 
-    public static void initialize(IProject[] projects){
-    	for (IProject project : projects) {
-    		if (XtUMLNature.hasNature(project)) {
-    			// Trigger the marking data for the project to load
-    			MarkingDataManager.getMarkingData(project);
-    		}
-    	}
-    }
-
     public void transactionStarted(Transaction transaction) {        
     }
     

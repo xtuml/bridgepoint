@@ -3,6 +3,7 @@ package org.xtuml.bp.ui.marking;
 import java.util.HashMap;
 
 import org.eclipse.core.resources.IProject;
+import org.xtuml.bp.core.XtUMLNature;
 
 public class MarkingDataManager {
 
@@ -11,6 +12,15 @@ public class MarkingDataManager {
 	
 	private MarkingDataManager() {
 	}
+
+    public static void initialize(IProject[] projects){
+    	for (IProject project : projects) {
+    		if (XtUMLNature.hasNature(project)) {
+    			// Trigger the marking data for the project to load
+    			getMarkingData(project);
+    		}
+    	}
+    }
 
 	public static MarkingData getMarkingData(IProject project) {
 		MarkingData md = projectMarkingData.get(project);

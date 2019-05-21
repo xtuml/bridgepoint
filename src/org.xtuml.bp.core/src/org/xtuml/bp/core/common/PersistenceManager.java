@@ -520,7 +520,7 @@ public class PersistenceManager {
         final String packageName = "org.xtuml.bp.ui.marking"; //$NON-NLS-1$
 		Bundle bundle = Platform.getBundle(packageName);
 		try {
-			Class<?> clazz = bundle.loadClass( packageName + "." + "MarkTransactionListener");//$NON-NLS-1$ //$NON-NLS-2$
+			Class<?> clazz = bundle.loadClass( packageName + "." + "MarkingDataManager");//$NON-NLS-1$ //$NON-NLS-2$
 			Method initMethod = clazz.getMethod("initialize", new Class[] {IProject[].class});//$NON-NLS-1$
 			initMethod.invoke(clazz, new Object[] {projects});
 		} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
