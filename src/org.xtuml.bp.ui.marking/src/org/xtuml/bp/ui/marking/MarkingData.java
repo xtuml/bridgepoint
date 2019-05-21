@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,6 +19,14 @@ import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.ModelRoot;
+import org.xtuml.bp.core.common.NonRootModelElement;
 
 public class MarkingData {
 
@@ -23,12 +35,14 @@ public class MarkingData {
 		public String feature_name;
 		public String path;
 		public String value;
+		public NonRootModelElement nrme;
 		
 		public Mark() {
 			markable_name = new String("");
 			feature_name = new String("");
 			path = new String("");
 			value = new String("");
+			nrme = null;
 		}
 	}
 	
@@ -156,7 +170,7 @@ public class MarkingData {
 	/**
 	 * Modify the user-specified value for an application mark
 	 *
-	 * @param modelElement string path of an instance in the application model deliminated by ::
+	 * @param modelElement string path of an instance in the application model delimited by ::
 	 * @param featureName string feature name
 	 * @param newValue string value to assign to the feature
 	 * @param elemType the xtUML model element type name
@@ -177,6 +191,7 @@ public class MarkingData {
 		mark.feature_name = featureName;
 		mark.path = modelElement;
 		mark.value = newValue;
+		mark.nrme = MarkingData.getNRMEForMark(modelElement, elemType, this.project);
 		markList.put(getCombinedRef(featureName, elemType), mark);
 	}
 
@@ -190,6 +205,63 @@ public class MarkingData {
 		return f+"###"+m;
 	}
 	
+	/**
+	 * Iterate through all the marks and update model path keys. 
+	 *
+	 * @return Flag indicating if the markings had to be updated or not 
+	 */
+	public boolean recalculatePathKeys() {
+		LinkedHashMap<String,Mark> newMarkList;
+		LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+		boolean marksUpdated = false;
+		
+		for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+			Set<Map.Entry<String, Mark>> featureEntrySet = elementEntry.getValue().entrySet();
+
+			// Run a path check on the first mark in the set.  If it's OK, then all the marks in this set
+			// are OK and we skip further processing.  If it's not OK, we must iterate through all the marks
+			// for this model element and update them.
+			Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next(); 
+			// Use the mark's nrme to get the updated path and see if it matches elementEntry.getKey()
+			String newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
+			String currentPath = elementEntry.getKey();
+			if ((newPath == null) || newPath.isEmpty()) {
+				// A container for the marked element must have been deleted, remove the mark
+				marksUpdated = true;
+				continue;
+			} else if ( newPath.equals(currentPath)) {
+				// This element's path is not affected, short circuit and copy across the whole 
+				// mark list to newMarkingsMap and move on
+				newMarkingsMap.put(newPath, elementEntry.getValue());
+				continue;
+			} else {
+				// This element's path _is_ changed, iterate through each mark and update the path 
+				// in the mark and store under the new path in the newMarkingsMap
+				marksUpdated = true;
+				newMarkList = new LinkedHashMap<String,Mark>();
+				newMarkingsMap.put(newPath, newMarkList);
+						
+				for ( Map.Entry<String, Mark> featureEntry : featureEntrySet) {
+					Mark origMark = featureEntry.getValue();
+					Mark mark = new Mark(); 
+					mark.markable_name = origMark.markable_name; 
+					mark.feature_name = origMark.feature_name; 
+					mark.path = newPath; 
+					mark.value = origMark.value; 
+					mark.nrme = origMark.nrme; 
+					newMarkList.put(featureEntry.getKey(), mark);
+				}
+			}
+		}
+		
+		// Use the newly updated map of markings
+		if (marksUpdated) {
+			markingsMap = newMarkingsMap;
+		}
+		
+		return marksUpdated;
+	}
+
 	/**
 	 * Write the modified application marking data to disk
 	 */
@@ -238,7 +310,7 @@ public class MarkingData {
 	 * of marks that avoids path collisions by using the element type to resolve
 	 * ambiguities.
 	 *
-	 * @param modelElement string path of an instance in the application model deliminated by ::
+	 * @param modelElement string path of an instance in the application model delimited by ::
 	 * @param elemType the xtUML model element type name
 	 * @return LinkedHashMap<String,ValueSet> ordered collection of feature/value pairs
 	 */
@@ -257,5 +329,111 @@ public class MarkingData {
 			}
 		}
 		return uniqueMarks;
+	}
+
+	/**
+	 * Returns an collection of marks for a given application model instance using 
+	 * a NonRootModelElement to find matches. 
+	 *
+	 * @param nrme A NonRootModelElement instance to match against 
+	 * @return LinkedHashMap<String,Mark> collection of feature/value pairs
+	 */
+	public LinkedHashMap<String,Mark> getMarks(NonRootModelElement nrme) {
+		LinkedHashMap<String,Mark> marks = new LinkedHashMap<String,Mark>();
+		
+		for (Map.Entry<String, LinkedHashMap<String,Mark>> entry : markingsMap.entrySet())
+		{
+			marks = entry.getValue();
+			for (Map.Entry<String, Mark> markEntry : marks.entrySet())
+			{
+				if ( markEntry.getValue().nrme == nrme ) {
+					return getMarks(markEntry.getKey(), markEntry.getValue().markable_name);
+				}
+			}
+		}
+		return null;
+	}
+
+	public static String getPathkey(NonRootModelElement inst, IProject project) {
+		String signature = new String("");
+		if (inst == null) { return ""; }
+		String pathkey = ((NonRootModelElement) inst).getPath();
+		
+		// If we're dealing with anything other than a package under the system and the path comes back as 
+		// just the element name, this means the instance is being deleted and does not currently have a 
+		// valid path.
+		if ( !(inst instanceof Package_c) ||
+				((inst instanceof Package_c) && ( SystemModel_c.getOneS_SYSOnR1401((Package_c)inst) == null))) {
+			if (pathkey.equals(inst.getName())) {
+				return "";
+			}
+		}
+
+		// If the instance requires a full signature, replace the last segment which
+		// is the name with the full signature
+		if (inst instanceof Function_c) {
+			signature = ((Function_c) inst).Getsignature(1);
+		} else if (inst instanceof Operation_c) {
+			signature = ((Operation_c) inst).Getsignature(1);
+		} else if (inst instanceof ExecutableProperty_c) {
+			signature = ((ExecutableProperty_c) inst).Getsignature(1);
+		}
+		
+		if (!signature.isEmpty()) {
+			signature = signature.replaceAll(", ", " ");
+			String[] pathPieces = pathkey.split("::");
+			String updatedPath = new String("");
+			for (int i=0; i<pathPieces.length-1; ++i) {
+				updatedPath = updatedPath.concat(pathPieces[i] + "::");
+			}
+			updatedPath = updatedPath.concat(signature);
+			pathkey = updatedPath;
+		}
+
+		pathkey = pathkey.replaceFirst(project.getName() + "::", "");
+		return pathkey;
+	}
+	
+	/*
+	 * Gather and return a collection of all the application model instances of a requested type
+	 * (i.e. OOA metamodel class like Attribute, Model Class, Function, etc) from all the model roots
+	 * in the given project.
+	 */
+	public static ArrayList<Object> getInstancesForType(String elementType, IProject project) {
+		ArrayList<Object> allInstances = new ArrayList<Object>();
+
+		try {
+			String ooaClassName = elementType.trim();
+			ooaClassName = ooaClassName.replaceAll(" ", "");
+			// Get the Class object for the metamodel class with the specified name
+			Class<?> clazz = Class.forName(CorePlugin.getDefault().getBundle().getSymbolicName() + "." + ooaClassName + "_c");
+
+			ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(project.getName());
+			// This Java reflection call helps invoke a method like this:
+			// ModelClass_c[] mcs = ModelClass_c.ModelClassInstances(modelRoot);
+			// So the loop here finds all instances of a given OOAofOOA class in
+			// a project.
+			Method instancesMethod = clazz.getMethod(ooaClassName + "Instances", ModelRoot.class);
+			for (ModelRoot modelroot : roots) {
+				Object[] instances = (Object[]) instancesMethod.invoke(null, modelroot);
+				Collections.addAll(allInstances, instances);
+			}
+		} catch (ClassNotFoundException | NoSuchMethodException | NullPointerException | SecurityException |
+				IllegalAccessException | IllegalArgumentException | InvocationTargetException | 
+				ExceptionInInitializerError e) {
+			CorePlugin.logError(e.toString(), e);
+		}
+		return allInstances;
+	}
+	
+	public static NonRootModelElement getNRMEForMark(String path, String elementType, IProject project) {
+		ArrayList<Object> instances = MarkingData.getInstancesForType(elementType, project);
+		for (Object candidate: instances) {
+			String candidatePath = MarkingData.getPathkey((NonRootModelElement) candidate, project);
+			if ( path.equals(candidatePath) ) {
+				return (NonRootModelElement) candidate;
+			}
+		}
+		return null;
 	}
 }

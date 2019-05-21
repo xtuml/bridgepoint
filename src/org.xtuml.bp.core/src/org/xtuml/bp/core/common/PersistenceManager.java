@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: PersistenceManager.java,v $
-//Version:   $Revision: 1.39 $
-//Modified:  $Date: 2013/05/10 13:26:32 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -26,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -520,6 +514,18 @@ public class PersistenceManager {
 		}
         initializing = false;
         
+        // The following forces the marking plugin to load without creating a hard bundle dependency from 
+        // core to that plugin.  We want it to load, register the listener, and initialize for in-memory
+        // marking data with connections to the actual model instances. 
+        final String packageName = "org.xtuml.bp.ui.marking"; //$NON-NLS-1$
+		Bundle bundle = Platform.getBundle(packageName);
+		try {
+			Class<?> clazz = bundle.loadClass( packageName + "." + "MarkTransactionListener");//$NON-NLS-1$ //$NON-NLS-2$
+			Method initMethod = clazz.getMethod("initialize", new Class[] {IProject[].class});//$NON-NLS-1$
+			initMethod.invoke(clazz, new Object[] {projects});
+		} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+			e.printStackTrace();
+		} 
     }
 
     private UpgradeHandler getUpgradeHandler() {

@@ -2,6 +2,7 @@ package org.xtuml.bp.ui.marking;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.xtuml.bp.core.common.TransactionManager;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -14,10 +15,14 @@ public class Activator extends AbstractUIPlugin {
 	// The shared instance
 	private static Activator plugin;
 	
+	private static MarkTransactionListener marktransactionListener;
+	
 	/**
 	 * The constructor
 	 */
 	public Activator() {
+		super();
+		plugin = this;
 	}
 
 	/*
@@ -26,7 +31,9 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		plugin = this;
+		
+		marktransactionListener = new MarkTransactionListener() {}; 
+		TransactionManager.getSingleton().addTransactionListener(marktransactionListener);
 	}
 
 	/*
