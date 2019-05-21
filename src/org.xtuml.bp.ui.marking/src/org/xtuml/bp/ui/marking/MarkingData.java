@@ -21,6 +21,8 @@ import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
@@ -375,8 +377,10 @@ public class MarkingData {
 			signature = ((Function_c) inst).Getsignature(1);
 		} else if (inst instanceof Operation_c) {
 			signature = ((Operation_c) inst).Getsignature(1);
-		} else if (inst instanceof ExecutableProperty_c) {
-			signature = ((ExecutableProperty_c) inst).Getsignature(1);
+		} else if (inst instanceof InterfaceOperation_c) {
+			signature = ((InterfaceOperation_c) inst).Getsignature(1);
+		} else if (inst instanceof InterfaceSignal_c) {
+			signature = ((InterfaceSignal_c) inst).Getsignature(1);
 		}
 		
 		if (!signature.isEmpty()) {

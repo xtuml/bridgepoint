@@ -1,13 +1,14 @@
 package org.xtuml.bp.ui.marking;
 
 import org.eclipse.core.resources.IProject;
+import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ITransactionListener;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.RelationshipChangeModelDelta;
 import org.xtuml.bp.core.common.Transaction;
 
 public class MarkTransactionListener implements ITransactionListener {
@@ -29,7 +30,8 @@ public class MarkTransactionListener implements ITransactionListener {
             	if ( (deltaKind == Modeleventnotification_c.DELTA_NEW) ||
             		 (deltaKind == Modeleventnotification_c.DELTA_DELETE) ||
             		 (deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) ||
-            		 (deltaKind == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) 
+            		 (deltaKind == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) ||
+            		 isDataTypeChange(deltaToHandle)
             	   ) {
             		NonRootModelElement nrme = ((NonRootModelElement) deltaToHandle.getModelElement());
             		NonRootModelElement sys_nrme = nrme.getRoot();
@@ -46,6 +48,22 @@ public class MarkTransactionListener implements ITransactionListener {
             	}
             }
         }
+    }
+    
+    /**
+     * @return  True if the delta is for a model element changing datatype, otherwise false.
+     */
+    public boolean isDataTypeChange(IModelDelta delta) {
+		if ( (delta.getKind() == Modeleventnotification_c.DELTA_ELEMENT_RELATED)  ||
+		     (delta.getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED) 
+		  ) { 
+			RelationshipChangeModelDelta rcmd = (RelationshipChangeModelDelta) delta;
+			Object dest = rcmd.getDestinationModelElement();
+			if (dest instanceof DataType_c) {
+				return true;
+			}
+		}
+		return false;
     }
     
 }
