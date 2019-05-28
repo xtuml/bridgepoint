@@ -1913,7 +1913,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	public static ModelContentMergeViewer getInstance(Object input) {
 		if(input == null) {
 			Set<Object> keySet = instanceMap.keySet();
-			return instanceMap.get(keySet.iterator().next());
+			if (keySet.iterator().hasNext()) {
+				return instanceMap.get(keySet.iterator().next());
+			} else {
+				return null;
+			}
 		}
 		return instanceMap .get(input);
 	}

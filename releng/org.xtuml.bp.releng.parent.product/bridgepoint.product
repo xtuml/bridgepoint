@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.15.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="BridgePoint" uid="org.xtuml.bp.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="6.17.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
+      -Dbridgepoint.GenerateFunctionsFromList=disabled
+      -Xss4m
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="icons/green-bp.iconset/icon_16x16.png" i32="icons/green-bp.iconset/icon_32x32.png" i48="icons/green-bp.iconset/icon_48x48.png" i64="icons/green-bp.iconset/icon_64x64.png" i128="icons/green-bp.iconset/icon_128x128.png" i256="icons/green-bp.iconset/icon_256x256.png"/>
+
+   <splash
+      location="org.xtuml.bp.pkg"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="000000" />
+   <launcher name="bridgepoint">
+      <linux icon="icons/icon.xpm"/>
+      <macosx icon="icons/green-bp.icns"/>
+      <win useIco="false">
+         <bmp
+            winSmallHigh="icons/green-bp_16x16_32bit.bmp"
+            winSmallLow="icons/green-bp_16x16_8bit.bmp"
+            winMediumHigh="icons/green-bp_32x32_32bit.bmp"
+            winMediumLow="icons/green-bp_32x32_8bit.bmp"
+            winLargeHigh="icons/green-bp_48x48_32bit.bmp"
+            winLargeLow="icons/green-bp_48x48_8bit.bmp"
+            winExtraLargeHigh="icons/green-bp_256x256_32bit.bmp"/>
+      </win>
+   </launcher>
+
+
+   <vm>
+   </vm>
 
    <license>
-     <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-     <text>
-          Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not 
+        <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        <text>
+   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not 
           use this file except in compliance with the License.  You may obtain a copy 
           of the License at
  
@@ -17,42 +56,8 @@
           WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
           License for the specific language governing permissions and limitations under
           the License.
-     </text>
+         </text>
    </license>
-
-   <configIni use="default">
-   </configIni>
-
-   <launcherArgs>
-      <programArgsLin>--launcher.GTK_version
-2
-      </programArgsLin>
-      <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
-      -Dbridgepoint.GenerateFunctionsFromList=disabled
-      -Xss4m
-      </vmArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
-      </vmArgsMac>
-   </launcherArgs>
-
-   <windowImages/>
-
-   <splash
-      location="org.xtuml.bp.pkg"
-      startupProgressRect="5,275,445,15"
-      startupMessageRect="7,252,445,20"
-      startupForegroundColor="000000" />
-   <launcher name="bridgepoint">
-      <solaris/>
-      <win useIco="false">
-         <bmp/>
-      </win>
-   </launcher>
-
-
-   <vm>
-   </vm>
-
 
    <plugins>
    </plugins>
@@ -80,7 +85,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://download.eclipse.org/releases/mars/" enabled="false" />
+      <repository location="http://download.eclipse.org/releases/oxygen/" enabled="true" />
    </repositories>
 
    <preferencesInfo>

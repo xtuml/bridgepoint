@@ -1,15 +1,5 @@
 package org.xtuml.bp.debug.ui.actions;
 
-//======================================================================
-//
-// File: org/xtuml/bp/core/ui/MonitorAction.java
-//
-// (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//======================================================================
-//
-//Version:      $Revision: 1.15 $
-//
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
@@ -22,13 +12,11 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.ClassInEngine_c;
 import org.xtuml.bp.core.ClassMonitor_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
-import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ComponentInstance_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Instance_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;

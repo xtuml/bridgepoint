@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: DiagramEditPart.java,v $
-//Version:   $Revision: 1.57.2.1 $
-//Modified:  $Date: 2013/07/08 14:32:23 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -25,7 +17,6 @@ package org.xtuml.bp.ui.graphics.parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Preferences.IPropertyChangeListener;
 import org.eclipse.core.runtime.Preferences.PropertyChangeEvent;
@@ -58,7 +49,6 @@ import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.IActionFilter;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;

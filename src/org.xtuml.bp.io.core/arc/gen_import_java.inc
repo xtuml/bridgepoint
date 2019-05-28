@@ -1,15 +1,7 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: gen_import_java.inc,v $
-.// Version:   $Revision: 1.111 $
-.// Modified:  $Date: 2013/06/12 13:08:05 $
-.//
-.// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-.//
-.//====================================================================
-.//
 .// Generate the Java code that validates/translates data from BP SQL
-.// into a format that Tiger uses.
+.// into a format that BridgePoint uses.
 .//
 .//====================================================================
 .//
@@ -280,6 +272,11 @@
       .elif((table.Key_lett == "S_UDT") and (col.Name == "Definition"))
           (parms.size() > ${attr_col_num} && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})).trim() : ""\
           .assign special_case = true
+      .elif (table.Key_Lett == "S_DIM")
+        .if ((col.Name == "TSParm_ID") or (col.Name == "Svc_ID"))
+          (parms.size() > ${attr_col_num} ? IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):IdAssigner.NULL_UUID)
+          .assign special_case = true
+        .end if
 	  .end if
 	  .// Dialect attribute introduced
 	  .assign dialectAdded = false;
@@ -425,7 +422,6 @@ public class ${class_name} extends CoreImport
     private boolean IPR_WindowSelection = false;
     private boolean initialCheck = false;
     private List<NonRootModelElement> loadedInstances = new Vector<NonRootModelElement>();
-    private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();
     private List<NonRootModelElement> loadedGraphicsInstances = new Vector<NonRootModelElement>();
     .if(multilevel)
     private PersistableModelComponent m_component;
@@ -606,10 +602,6 @@ public class ${class_name} extends CoreImport
             .for each ce in configurableElements
                 .// each ce is an eo
                 .select one table related by ce->EI[R3]->T[R4]
-.// TODO: BOB debug
-.if (empty table)
-.print "ERROR! T is null on ce->EI[R3]->R[R4]. ce.Name: ${ce.Name}"
-.end if                
                 .assign className  = "$Cr{table.Name}"
                 if(actualContent.equals("${className}"))
                 {

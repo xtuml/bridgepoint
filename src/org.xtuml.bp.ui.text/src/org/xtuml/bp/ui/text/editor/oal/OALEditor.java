@@ -1,12 +1,5 @@
 //========================================================================
 //
-//File:      $RCSfile: OALEditor.java,v $
-//Version:   $Revision: 1.12 $
-//Modified:  $Date: 2013/01/10 23:20:54 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -23,14 +16,16 @@
 package org.xtuml.bp.ui.text.editor.oal;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
-import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditor extends AbstractModelElementTextEditor {
@@ -103,4 +98,12 @@ public class OALEditor extends AbstractModelElementTextEditor {
         setAction("ContentAssistProposal", action); 
         markAsStateDependentAction("ContentAssistProposal", true);
     }
+    
+	@Override
+	protected boolean isTabsToSpacesConversionEnabled()
+	{ 
+	    IPreferenceStore store = EditorsUI.getPreferenceStore(); 
+	    boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		return spacesForTabs;
+	}
 }

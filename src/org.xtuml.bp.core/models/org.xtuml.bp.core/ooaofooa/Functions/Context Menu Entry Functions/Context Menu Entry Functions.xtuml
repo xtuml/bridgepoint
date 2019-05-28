@@ -590,7 +590,7 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 ',
 	'select any ee from instances of S_EE where USER::selectOne(id:selected.EE_ID);
-ee.Name = param.new_name;',
+ee.rename(new_name: param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -5911,8 +5911,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_TXN_GenericPackageAssignEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event exists to assign
+	'// UI: event exists to assign
 select any txn from instances of SM_TXN
    where USER::selectOne(id:selected.Trans_ID);
 select one dest_state related by txn->SM_STATE[R506];
@@ -5970,8 +5969,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_EVT_GenericPackageIgnoreInState',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: cant happen entry exists for this event
+	'// UI: cant happen entry exists for this event
 	select any event from instances of SM_EVT
          where USER::selectOne(id:selected.SMevt_ID);
 
@@ -6018,8 +6016,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_EVT_GenericPackageCantHappenInState',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event ignored entry exists for this event
+	'// UI: event ignored entry exists for this event
 select any event from instances of SM_EVT
          where USER::selectOne(id:selected.SMevt_ID);
 
@@ -6066,8 +6063,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_STATE_GenericPackageIgnoreEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: cant happen entry exists for this state
+	'// UI: cant happen entry exists for this state
 select any state from instances of SM_STATE
          where USER::selectOne(id:selected.SMstt_ID);
 
@@ -6140,8 +6136,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_STATE_GenericPackageCantHappenEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event ignored entry exists for this state
+	'// UI: event ignored entry exists for this state
 select any state from instances of SM_STATE
          where USER::selectOne(id:selected.SMstt_ID);
 
@@ -6243,8 +6238,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_CRTXN_GenericPackageAssignEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event exists to assign
+	'// UI: event exists to assign
 select any ctxn from instances of SM_CRTXN
    where USER::selectOne(id:selected.Trans_ID);
 select one txn related by ctxn->SM_TXN[R507];
@@ -6313,8 +6307,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_TXN_GenericPackageAssignSignal',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: signal exists to assign
+	'// UI: signal exists to assign
 select any txn from instances of SM_TXN where
                                           USER::selectOne(id:selected.Trans_ID);
 Trans_ID = txn.Trans_ID;
@@ -7776,6 +7769,177 @@ item.moveDown();',
 	0);
 INSERT INTO PE_PE
 	VALUES ("af027b4a-d8f7-48f9-a1fc-78d4b18c9064",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("83aab91b-2255-44c4-b00a-8ba161aa4bf7",
+	"00000000-0000-0000-0000-000000000000",
+	'D_DEPL_Delete',
+	'ContextMenuFunction: TRUE
+',
+	'select many deployments from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
+for each deployment in deployments
+  deployment.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("83aab91b-2255-44c4-b00a-8ba161aa4bf7",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e19ebe7c-84a6-4464-af1b-da1260d131a8",
+	"00000000-0000-0000-0000-000000000000",
+	'D_DEPL_Rename',
+	'ContextMenuFunction: TRUE
+',
+	'select any deployment from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
+deployment.Name = param.new_name;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("33ed6d23-45eb-4b99-9924-e0861c0c2fd0",
+	"e19ebe7c-84a6-4464-af1b-da1260d131a8",
+	'new_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e19ebe7c-84a6-4464-af1b-da1260d131a8",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e3ff3168-2ae3-4b68-bf71-17c971b0067c",
+	"00000000-0000-0000-0000-000000000000",
+	'EP_PKG_ComponentsDeployment',
+	'ContextMenuFunction: TRUE
+',
+	'select any pkg from instances of EP_PKG where USER::selectOne(id:selected.Package_ID);
+pkg.newDeployment();
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("e3ff3168-2ae3-4b68-bf71-17c971b0067c",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("23ed5b53-2c15-4aa6-86a4-47994f7aef24",
+	"00000000-0000-0000-0000-000000000000",
+	'D_DEPL_ImportTerminatorsFromFile',
+	'',
+	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
+if not_empty element
+  file_selection = USER::selectFiles( ext:"*.int;*.mod" );
+  filename = Util::getNextString( string_iterator:file_selection );
+  while ( "" != filename )
+    element.importFromFile(filename:filename);
+    filename = Util::getNextString( string_iterator:file_selection );
+  end while;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("23ed5b53-2c15-4aa6-86a4-47994f7aef24",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3c01e6fe-7803-4550-9000-16c3168f289e",
+	"00000000-0000-0000-0000-000000000000",
+	'D_DEPL_ImportTerminatorsFromComponent',
+	'',
+	'select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
+if not_empty element
+  select many selectedComponents from instances of C_C where USER::selectMany(id:selected.Id);
+  for each selectedComponent in selectedComponents
+    element.importFromComponent( c_c: selectedComponent );
+  end for;
+end if;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("3c01e6fe-7803-4550-9000-16c3168f289e",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("12ba918c-d6bd-4152-8451-5ed2430e5084",
+	"00000000-0000-0000-0000-000000000000",
+	'D_TERM_Delete',
+	'',
+	'select many terminators from instances of D_TERM where USER::selectOne(id:selected.Term_ID);
+for each terminator in terminators
+  terminator.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("12ba918c-d6bd-4152-8451-5ed2430e5084",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e376cf40-eacc-4f0a-81b6-8640aa3bb6c7",
+	"00000000-0000-0000-0000-000000000000",
+	'D_TERM_DeleteStaleServices',
+	'',
+	'select many terminators from instances of D_TERM where USER::selectOne(id:selected.Term_ID);
+for each terminator in terminators
+  terminator.deleteStaleServices();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("e376cf40-eacc-4f0a-81b6-8640aa3bb6c7",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3ab7e6b8-96dd-4173-b462-ed9782003e1a",
+	"00000000-0000-0000-0000-000000000000",
+	'D_TSVC_Delete',
+	'ContextMenuFunction: TRUE
+',
+	'select many services from instances of D_TSVC where USER::selectOne(id:selected.Svc_ID);
+for each service in services
+  service.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("3ab7e6b8-96dd-4173-b462-ed9782003e1a",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",

@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.xtuml.bp</groupId>
     <artifactId>org.xtuml.bp.releng.parent</artifactId>
-    <version>6.15.0-SNAPSHOT</version>
+    <version>6.17.0-SNAPSHOT</version>
     <relativePath>../../releng/org.xtuml.bp.releng.parent/</relativePath>
   </parent>
   <groupId>org.xtuml.bp</groupId>
   <artifactId>org.xtuml.bp.pkg</artifactId>
-  <version>6.15.0-SNAPSHOT</version>
+  <version>6.17.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
   <properties>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>

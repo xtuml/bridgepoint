@@ -1,7 +1,7 @@
 BridgePoint xtUML Release Notes
 ========================
 
-Release 6.15.0
+Release 6.17
 
 License
 -------
@@ -14,7 +14,7 @@ System Requirements
 | Category              | Requirement                          |
 |-----------------------|--------------------------------------|
 | Operating System      | Linux, MacOS, Windows                |
-| *Eclipse              | Version 4.5                          |
+| *Eclipse              | Version 4.7                          |
 | *Java Virtual Machine | Version 8 or later                   |
 
 *(supplied by installer, except JVM not supplied on MacOS)
@@ -35,7 +35,7 @@ preferences at `xtUML > Action Language > Default Action Language Dialect`. The 
   
 Interoperability with Previous Releases
 ------
-BridgePoint 6.14 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 6.17 is compatible with workspaces and projects created with prior versions back to 
 BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to 
 open the model in a prior version.   
 
@@ -48,9 +48,9 @@ Closed Issues
 ------
  
 | Issue |  Subject |
-|-------|-----------------------------------------------------------------|
-[10265](https://support.onefact.net/issues/10265) |  Bump version to 6.15  
-    
+|-------|-----------------------------------------------------------------|   
+[11436](https://support.onefact.net/issues/11436) |  Bump engineering version to 6.17     
+
     
 Known Issues and Feature Requests
 ------

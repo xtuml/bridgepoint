@@ -21,8 +21,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// dispose all message arguments
+	'// dispose all message arguments
 select one pe related by self->PE_PE[R8001];
 if(not_empty pe)
   // PE_PE.dispose() will call back into this function at which time the

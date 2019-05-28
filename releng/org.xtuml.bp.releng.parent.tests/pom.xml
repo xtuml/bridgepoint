@@ -7,13 +7,13 @@
 	<parent>
 		<groupId>org.xtuml.bp</groupId>
 		<artifactId>org.xtuml.bp.releng.parent</artifactId>
-		<version>6.15.0-SNAPSHOT</version>
+		<version>6.17.0-SNAPSHOT</version>
 		<relativePath>../org.xtuml.bp.releng.parent/</relativePath>
 	</parent>
 
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent.tests.super</artifactId>
-	<version>6.15.0-SNAPSHOT</version>
+	<version>6.17.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -29,7 +29,6 @@
 		<module>${bp_test_path}/src/org.xtuml.bp.ui.properties.test</module>
 		<module>${bp_test_path}/src/org.xtuml.bp.ui.text.test</module>
 		<module>${bp_test_path}/src/org.xtuml.bp.welcome.test</module>
-		<module>${bp_test_path}/src/org.xtuml.internal.test</module>
 	</modules>
 
 

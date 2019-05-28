@@ -47,6 +47,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 	  .invoke traversal = get_pe_traversal(elemClass.Key_Lett)
 	  .assign peTraversal = traversal.result
 	  .assign secondaryPETraversal = traversal.result2
+	  .assign directAccess = true
 	  .if (peTraversal != "")
       PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(${peTraversal});
 	    .if(secondaryPETraversal != "")
@@ -58,10 +59,10 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
       Component_c comp = Component_c.getOneC_COnR8003(pe);
       SystemModel_c sys = ((Ooaofooa)v_${firstContextItemName}.getModelRoot()).getRoot();
 	    .if(not cme.EnableVisibilityFiltering)
-	  boolean isInGenericPackage = ((pkg !=null) || (comp !=null));
-      if (!isInGenericPackage) {
+	    	.assign directAccess = false
 	    .end if
 	  .end if
+	  .if (directAccess == true)
         Ooaofooa[] instancesUnderSystem = Ooaofooa.getInstancesUnderSystem(v_${firstContextItemName}.getModelRoot());
         for(int i = 0; i < instancesUnderSystem.length; i++) {
     	  ${cn.body}[] elementInstances = ${cn.body}.$r{class_name}Instances(instancesUnderSystem[i]);
@@ -87,6 +88,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 		    }
   	      }
 		}
+	  .end if
       .if ((peTraversal != "") and (not cme.EnableVisibilityFiltering))
         .invoke typeName = get_ooa_type_name(class.Key_Lett)
 		.assign tn = typeName.result
@@ -96,8 +98,6 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 		.else
 		  .assign globalEnable = "Pref_c.Getsystemboolean(BridgePointProjectReferencesPreferences.BP_PROJECT_CLASS_REFERENCES_ID, sys.getName())"
 		.end if
-	  }
-      else {
 	  	PackageableElement_c[] pes = null;
         if (pkg != null) {
           pkg.Clearscope();
@@ -141,7 +141,6 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
             elementList.add(elem);
 			${precondition.postamble}
         }
-      }
 	  .else
 		if (Pref_c.Getsystemboolean(
 				"com.mentor.nucleus.bp.ui.project.references", sys.getName()) == true) {
@@ -160,7 +159,28 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 			}
 		}
 	  .end if
-	return elementList.toArray(new ${cn.body}[elementList.size()]);
-  } // end getElements(${contextClName.body}) 
+    .assign type_to_choose = "item"
+    .if ("" != cme.TypeToChoose)
+      .assign type_to_choose = cme.TypeToChoose
+    .end if
+        Preferences projectPrefs = new ProjectScope((IProject) sys.getAdapter(IProject.class)).getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+        boolean iprsEnabled = projectPrefs.getBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
+                false);
+        if (!iprsEnabled && elementList.isEmpty()) {
+            boolean enableIprs = MessageDialog.openQuestion(
+                    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Enable IPRs?",
+                    "No ${type_to_choose}s found in visibility. Enable inter-project model references and try again?");
+            if (enableIprs) {
+                try {
+                    projectPrefs.putBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
+                    projectPrefs.flush();
+                } catch (BackingStoreException e) {
+                    CorePlugin.logError("Failed to set IPR preference.", e);
+                }
+                return getElements(v_element);
+            }
+        }
+        return elementList.toArray(new ${cn.body}[elementList.size()]);
+    } // end getElements(${contextClName.body}) 
 	.end if
 .end function

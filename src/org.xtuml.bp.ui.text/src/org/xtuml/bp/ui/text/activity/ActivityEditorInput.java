@@ -1,14 +1,4 @@
 package org.xtuml.bp.ui.text.activity;
-//====================================================================
-//
-// File:      $RCSfile: ActivityEditorInput.java,v $
-// Version:   $Revision: 1.21 $
-// Modified:  $Date: 2013/01/10 23:20:48 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-//
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -19,8 +9,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;

@@ -948,8 +948,12 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		return Get_name();
 	}
 	public String Get_name() {
-		return "";
+		return super.toString();
 	}
+  @Override
+  public String toString() {
+    return getName();
+  }
 	/**
 	 * This method will be implemented by the subtype.  If not it will do
 	 * nothing.
@@ -1141,6 +1145,13 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			}
 				return comp.getFile();
 			}
+    else if (adapter == org.eclipse.core.resources.IResource.class) {
+        PersistableModelComponent comp = getPersistableComponent(false);
+        if ( comp != null )
+        {
+            return comp.getFile().getParent();
+        }
+    }
 		return null;
 	}
 

@@ -1,12 +1,4 @@
 //====================================================================
-//
-//File:      $RCSfile: SimpleTooltipFigure.java,v $
-//Version:   $Revision:$
-//Modified:  $Date:$
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
 //Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 //use this file except in compliance with the License.  You may obtain a copy 
 //of the License at
@@ -23,16 +15,9 @@
 package org.xtuml.bp.ui.graphics.figures;
 
 import org.eclipse.draw2d.Border;
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.text.BlockFlow;
 import org.eclipse.draw2d.text.FlowPage;
-import org.eclipse.draw2d.text.InlineFlow;
-import org.eclipse.draw2d.text.ParagraphTextLayout;
-import org.eclipse.draw2d.text.SimpleTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
 
 public class SimpleTooltipFigure extends FlowPage {

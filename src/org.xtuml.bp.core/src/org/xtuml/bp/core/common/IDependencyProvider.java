@@ -1,7 +1,9 @@
 package org.xtuml.bp.core.common;
 
 import java.util.Vector;
+
 import org.eclipse.core.resources.IProject;
+import org.xtuml.bp.core.Component_c;
 
 public interface IDependencyProvider {
 
@@ -23,6 +25,21 @@ public interface IDependencyProvider {
 	 * Save modified dependencies
 	 */
 	public void setDependencies( IProject project, String[] updatedDeps );
+	
+	/**
+	 * @param project Project handle for which to get dependencies
+	 * @param dependency A string dependency to add to the dependencies
+	 * Add a single dependency
+	 */
+	public void addDependency( IProject project, String dependency );
+
+	/**
+	 * @param project Project handle for which to get dependencies
+	 * @param dependency A domain to add to the dependencies
+	 * Add a dependency to a domain in the workspace. This adds a dependency
+	 * on the generated ".int" file in the "models" directory of the project.
+	 */
+	public void addDependency( IProject project, Component_c dependency );
 	
 	/**
 	 * @param project Project handle for which to check dependency version

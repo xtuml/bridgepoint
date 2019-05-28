@@ -1,13 +1,13 @@
-What's New in BridgePoint 6.15
+What's New in BridgePoint 6.17
 ========================
 
 Release Highlights
 -------
-* Engineering build 
+* Engineering build
 
 -------------------------------------------------------------------------------
 
 Engineering build
 ------
-This is an engineering build.  See http://support.onefact.net for issue tracking.
+This is an engineering build for in-progress development between major releases.   
     

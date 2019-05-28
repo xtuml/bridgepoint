@@ -260,7 +260,9 @@ if ( success!="")
  self.isRealized = true;
 else 
  self.dispose();
-end if;        ',
+end if;        
+
+self.Key_Lett = OS::remove_spaces(s:name);',
 	1,
 	'',
 	"3bb8b8cb-581e-4676-99d9-29a0408f7f18",
@@ -514,6 +516,31 @@ INSERT INTO O_TFR
 	'',
 	"b04655fc-86af-476d-ae98-a620d244abd9",
 	0);
+INSERT INTO O_TFR
+	VALUES ("8594e84c-e38e-4fe3-92a3-5086d9f00e2f",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	'rename',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'if(OS::remove_spaces(s:self.Name) == self.Key_Lett)
+  self.Key_Lett = OS::remove_spaces(s:param.new_name);
+end if;
+self.Name = param.new_name;
+',
+	1,
+	'',
+	"d5225d5c-eae8-4b61-a84e-ef9fdab20ad8",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("445b753e-062c-4426-b043-8d8cec84adc1",
+	"8594e84c-e38e-4fe3-92a3-5086d9f00e2f",
+	'new_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("d597da19-93f3-476f-9e24-db650e00c933",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");

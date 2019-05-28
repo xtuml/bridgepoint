@@ -35,6 +35,7 @@
     * [What is publicly available?  Can anyone outside the xtUML dev team actually build Generator?](#buildinggenerator)  
     * [Generator dependencies: Galaxy, Windows, Visual C++...  What's required to eliminate them?](#replacinggenerator)
     * [How often to these tools change?  When would I have to rebuild them?](#rebuildingmctools)  
+    * [How do I upgrade my projects to use the new model compilers?](#mcupgrade)  
   * [BridgePoint Architecture](#bparchitecture)
     * [What is a NonRootModelElement?](#nrme)
     * [What is a ModelRoot?](#modelroot)
@@ -462,6 +463,17 @@ Generator is a legacy application that is dependent on the Galaxy string process
   * xtumlmc_build has been a very stable application that changes very little over time.  Linux users never have to rebuild the application.  They can simply modify the script and use the changes immediately.  In our experience, Windows users do not attempt or need to modify this script, but if they did the [instructions for rebuilding the EXE version using Strawberry Perl are available](https://github.com/xtuml/mc/blob/master/bin/README.md).  
   * mcmc must be rebuilt any time the model compiler is enhanced or fixed in the area of OAL translation.  The xtUML dev team generally rebuilds mcmc with each new release of BridgePoint.  Since this tool is recently open sourced, we cannot yet say how often customers wish to rebuild the tool.  However, as before, the [instructions to do so are available](https://github.com/xtuml/mc/blob/master/model/com.mentor.nucleus.bp.core/gen/HOWTO%20Create%20mcmc-docgen.txt).
   * Owing to it's closed source heritage, Generator contains a binary version of the C model compiler source templates.  Thus, any time the C MC changed, generator was rebuilt to pick up these changes.  Since generator is now open source, users must no longer rely on the binary model compiler.  Our team has not made changes to the generator source code in a very long time (years).  The primary reason generator would need to be rebuilt is if a developer wanted to create a archetype language construct.  Since generator has a parser for the archetype language, it would need to be rebuilt to take advantage of the enhancement.  As with the other tools, the [instructions to rebuild generator are available](https://github.com/xtuml/generator/blob/master/src/gen_erate/README.txt) if needed.
+
+* **How do I upgrade my projects to use the new model compilers?**  <a id="mcupgrade"></a>  
+
+  * In April 2019 a major upgrade of the BridgePoint model compilers was
+    completed. Projects using model compilers created before this version must
+    be upgraded. Refer to section 5.2.1
+    [here](../notes/11491_mcs/11491_mcs_int.adoc) to see the recommended upgrade
+    procedure. Questions about model upgrade can be directed to the
+    [xtUML community chat](https://hangouts.google.com/group/vMohZ9oW08xR7wSd2)
+    or to the [xtUML.org forums](https://xtuml.org/community/forum/xtuml-forum/).
+
 
 Miscellaneous <a id="misc"></a>
 ------------

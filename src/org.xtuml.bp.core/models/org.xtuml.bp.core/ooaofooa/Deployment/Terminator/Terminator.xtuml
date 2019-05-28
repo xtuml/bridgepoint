@@ -1,0 +1,614 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'Terminator',
+	1651,
+	'D_TERM',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("996e8c32-1085-4101-860b-2c660c0f9198",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'createServiceFromOperationOrSignal',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'spr_ro = param.spr_ro;
+spr_rs = param.spr_rs;
+spr_po = param.spr_po;
+spr_ps = param.spr_ps;
+
+select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
+if ( empty c_ep )
+  select one c_ep related by spr_rs->SPR_REP[R4502]->C_EP[R4500];
+  if (empty c_ep)
+    select one c_ep related by spr_po->SPR_PEP[R4503]->C_EP[R4501];
+    if (empty c_ep)
+      select one c_ep related by spr_ps->SPR_PEP[R4503]->C_EP[R4501];
+    end if;
+  end if;
+end if;
+
+// create create service
+create object instance service of D_TSVC;
+relate service to self across R1651;
+service.Name = c_ep.Name;
+service.Return_Dimensions = "";
+service.Is_Stale = false;
+service.Implementation_Scope = ImplementationScope::Domain;
+
+// populate details from message implementation
+if ( not_empty spr_ro )
+  service.Descrip = spr_ro.Descrip;
+  service.Action_Semantics_internal = spr_ro.Action_Semantics_internal;
+  service.Suc_Pars = spr_ro.Suc_Pars;
+  service.Dialect = spr_ro.Dialect;
+elif ( not_empty spr_rs )
+  service.Descrip = spr_rs.Descrip;
+  service.Action_Semantics_internal = spr_rs.Action_Semantics_internal;
+  service.Suc_Pars = spr_rs.Suc_Pars;
+  service.Dialect = spr_rs.Dialect;
+elif ( not_empty spr_po )
+  service.Descrip = spr_po.Descrip;
+  service.Action_Semantics_internal = "";
+  service.Suc_Pars = spr_po.Suc_Pars;
+  service.Dialect = ActionDialect::none;
+elif ( not_empty spr_ps )
+  service.Descrip = spr_ps.Descrip;
+  service.Action_Semantics_internal = "";
+  service.Suc_Pars = spr_ps.Suc_Pars;
+  service.Dialect = ActionDialect::none;
+else
+  USER::logError( msg:"No message instance passed to creation operation", path:"" );
+end if;
+
+// create parameters
+select any c_pp related by c_ep->C_PP[R4006];
+select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
+while ( not_empty prev_c_pp )
+  c_pp = prev_c_pp;
+  select one prev_c_pp related by c_pp->C_PP[R4021.''succeeds''];
+end while;
+while ( not_empty c_pp )
+  service.createServiceParameterFromPropertyParameter( c_pp:c_pp );
+  select one c_pp related by c_pp->C_PP[R4021.''precedes''];
+end while;
+
+// link data type
+service.setToDefaultDataType();
+select one c_io related by c_ep->C_IO[R4004];
+if ( not_empty c_io )
+  select one s_dt related by c_io->S_DT[R4008];
+  select one depl related by self->D_DEPL[R1650];
+  type_ref = depl.addTypeReference( s_dt:s_dt );
+  select one existing_type related by service->S_DT[R1656];
+  if (not_empty existing_type)
+    unrelate existing_type from service across R1656;
+  end if;
+  relate type_ref to service across R1656;
+  service.Return_Dimensions = c_io.Return_Dimensions;
+end if;
+
+// resolve dimensions
+service.parseReturn_Dimensions();',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_ro',
+	"92776846-85ef-4067-ba50-1decd204b1d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("92776846-85ef-4067-ba50-1decd204b1d8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Required Operation>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("3341d7a4-36fa-4cb9-be9f-b2227c25a817",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_rs',
+	"4299235e-fac4-4b13-afe1-9e82353ed442",
+	0,
+	'',
+	"49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4299235e-fac4-4b13-afe1-9e82353ed442",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Required Signal>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("68d0aac6-397f-4264-b6bb-3ccfee3e957b",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_po',
+	"6a167139-6a62-442a-8d11-c1e910577fd6",
+	0,
+	'',
+	"3341d7a4-36fa-4cb9-be9f-b2227c25a817",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6a167139-6a62-442a-8d11-c1e910577fd6",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Provided Operation>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("7b889c5b-9600-4ec1-9731-df2f7c91f86c",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	'spr_ps',
+	"7db58cc8-220b-47ac-b7a6-84cf87e63663",
+	0,
+	'',
+	"68d0aac6-397f-4264-b6bb-3ccfee3e957b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7db58cc8-220b-47ac-b7a6-84cf87e63663",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Provided Signal>',
+	'',
+	'',
+	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many services related by self->D_TSVC[R1651];
+for each service in services
+  unrelate service from self across R1651;
+  service.dispose();
+end for;
+
+select one deployment related by self->D_DEPL[R1650];
+if (not_empty deployment)
+  unrelate self from deployment across R1650;
+end if;
+
+delete object instance self;',
+	1,
+	'',
+	"c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	0);
+INSERT INTO O_TFR
+	VALUES ("c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'createServiceFromSMASL',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'service_name = param.service_name;
+smasl_iterator = param.smasl_iterator;
+
+// create new service
+create object instance service of D_TSVC;
+relate service to self across R1651;
+service.Name = service_name;
+service.Is_Stale = false;
+
+service.Descrip = "";
+service.Action_Semantics_internal = "";
+service.setToDefaultDataType();
+if (self.Provider)
+  service.Dialect = ActionDialect::none;
+else
+  service.Dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
+  if ( service.Dialect == ActionDialect::masl )
+    // new MASL activities get initialized with the "null" statement
+    service.Action_Semantics_internal = "begin\n  null;\nend service;";
+  end if;
+end if;
+service.Suc_Pars = ParseStatus::parseInitial;
+service.Implementation_Scope = ImplementationScope::Domain;
+
+// create parameters and return type
+smasl = Util::getNextString( string_iterator:smasl_iterator );
+while ( "" != smasl )
+  element = Util::stringSplit( s:smasl, delimiter:",", i:0 );
+  the_rest = Util::stringSplit( s:smasl, delimiter:",", i:1 );
+  if ( "parameter" == element )
+    param_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    param_direction = Util::stringSplit( s:Util::stringSplit( s:the_rest, delimiter:",", i:1 ), delimiter:",", i:0 );
+    if ( "" != param_name )
+      service.createServiceParameterFromSMASL( param_name:param_name, param_direction:param_direction, smasl_iterator:smasl_iterator );
+    end if;
+  elif ( "typeref" == element )
+    type_name = Util::stringSplit( s:the_rest, delimiter:",", i:0 );
+    select one depl related by self->D_DEPL[R1650];
+    select one parent_package related by depl->PE_PE[R8001]->EP_PKG[R8000];
+    select any shared_package related by parent_package->PE_PE[R8000]->EP_PKG[R8001] where ( selected.Name == "Shared" );
+    select any type_ref related by shared_package->PE_PE[R8000]->S_DT[R8001] where ( selected.Name == self.Domain_Name + "::" + type_name );
+    if (empty type_ref)
+      select one s_sys related by parent_package->S_SYS[R1405];
+      dt_id = s_sys.getCoreTypeId(name:type_name);
+      select any type_ref from instances of S_DT where ( selected.DT_ID == dt_id );
+      if (empty type_ref)
+        type_ref = depl.createTypeReference( type_name:type_name );
+      end if;
+    end if;
+    select one existing_type related by service->S_DT[R1656];
+    if (not_empty existing_type)
+      unrelate existing_type from service across R1656;
+    end if;
+    relate type_ref to service across R1656;
+  elif ( "routine" == element and ",,,,,,," == the_rest )
+    // check if this service was a duplicate
+    select many other_services related by self->D_TSVC[R1651] where ( selected.Svc_ID != service.Svc_ID );
+    for each other_service in other_services
+      if (other_service.getSignature(flavor:1) == service.getSignature(flavor:1))
+        service.dispose();
+        break;
+      end if;
+    end for;
+    break;
+  else
+    // ignore line
+  end if;
+  smasl = Util::getNextString( string_iterator:smasl_iterator );
+end while;',
+	1,
+	'',
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("cf8f1b4c-c66c-431e-9dd8-67a43f0e7beb",
+	"c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	'service_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("adcc32ac-44fa-4775-a7e7-078320fb9c28",
+	"c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	'smasl_iterator',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"cf8f1b4c-c66c-431e-9dd8-67a43f0e7beb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'mergeWith',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'd_term = param.d_term;
+
+// update description
+self.Descrip = self.Descrip + d_term.Descrip;
+
+// try to merge services
+select many services related by self->D_TSVC[R1651];
+for each service in services
+
+  // find a service in the new terminator with the same signature
+  signature = service.getSignature(flavor:1);
+  select any new_service from instances of D_TSVC where false;
+  select many new_services related by d_term->D_TSVC[R1651];
+  for each cand_service in new_services
+    if (cand_service.getSignature(flavor:1) == signature)
+      new_service = cand_service;
+      break;
+    end if;
+  end for;
+  if (not_empty new_service)
+    service.mergeWith(d_tsvc:new_service);
+  else
+    // find a service with the same name (if there are no other overloaded services)
+    select any sibling_service related by self->D_TSVC[R1651] where ( selected.Name == service.Name and selected.Svc_ID != service.Svc_ID );
+    select many new_services related by d_term->D_TSVC[R1651] where ( selected.Name == service.Name );
+    if (empty sibling_service and cardinality new_services == 1)
+      for each new_service in new_services
+        service.mergeWith(d_tsvc:new_service);
+        break;
+      end for;
+    else
+      // mark this service as stale, but do not delete
+      service.Is_Stale = true;
+    end if;
+  end if;
+
+end for;
+
+// copy over any leftover services
+select many new_services related by d_term->D_TSVC[R1651];
+for each new_service in new_services
+  unrelate new_service from d_term across R1651;
+  relate new_service to self across R1651;
+end for;
+
+// dispose the merged terminator
+d_term.dispose();',
+	1,
+	'',
+	"3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("c6047b81-a776-4034-b9e2-249342987116",
+	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	'd_term',
+	"874ea64a-b4ce-4146-900c-e720c93634f2",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("874ea64a-b4ce-4146-900c-e720c93634f2",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Terminator>',
+	'',
+	'',
+	'../Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'deleteStaleServices',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many services related by self->D_TSVC[R1651];
+for each service in services
+  if (service.Is_Stale)
+    service.dispose();
+  end if;
+end for;',
+	1,
+	'',
+	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	0);
+INSERT INTO O_TFR
+	VALUES ("166a18b7-5f21-4b62-861c-339f953259b7",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'actionFilter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'if (param.name == "can" )
+  if ( param.value == "delete stale services" )
+  	select any stale_service related by self->D_TSVC[R1651] where ( selected.Is_Stale );
+  	return not_empty stale_service;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
+	"166a18b7-5f21-4b62-861c-339f953259b7",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f20f9fb5-2442-4b4c-9bb3-c96634dd17c9",
+	"166a18b7-5f21-4b62-861c-339f953259b7",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
+	'');
+INSERT INTO O_REF
+	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	0,
+	"354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
+	"9459a396-4c2f-4715-acb4-d335a9b326f7",
+	"66dd162e-8f9f-40d1-a9d1-465466c6d7be",
+	"de9f13f4-d9c8-4ac3-98ac-25eeabfa3065",
+	"ae66631e-8b98-4a45-8ff7-e3a368127270",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Deployment',
+	'Deployment_ID',
+	'R1650');
+INSERT INTO R_RGO_PROXY
+	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
+	"9459a396-4c2f-4715-acb4-d335a9b326f7",
+	'../Deployment.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("354dbb09-a550-4f40-9bd6-0510c6669b8e",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	0,
+	"b81f2d41-0571-49aa-abec-7ffcc4cccf43",
+	"66dd162e-8f9f-40d1-a9d1-465466c6d7be",
+	'../Deployment.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("de9f13f4-d9c8-4ac3-98ac-25eeabfa3065",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("de9f13f4-d9c8-4ac3-98ac-25eeabfa3065",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	'Deployment_ID',
+	'',
+	'',
+	'Deployment_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"00000000-0000-0000-0000-000000000000",
+	'Term_ID',
+	'',
+	'',
+	'Term_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("3fd758ee-7d03-421f-89a0-fd3c1169b70a",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'if ("" != self.Terminator_Name)
+  self.Name = self.Domain_Name + "::" + self.Terminator_Name;
+else
+  self.Name = self.Domain_Name;
+end if;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("3fd758ee-7d03-421f-89a0-fd3c1169b70a",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("3fd758ee-7d03-421f-89a0-fd3c1169b70a",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"de9f13f4-d9c8-4ac3-98ac-25eeabfa3065",
+	'Name',
+	'Full Name:Qualified Terminator Name',
+	'',
+	'Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4ad3e468-a96e-46d2-b0b2-ed5aa4f0b449",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("4ad3e468-a96e-46d2-b0b2-ed5aa4f0b449",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("4ad3e468-a96e-46d2-b0b2-ed5aa4f0b449",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"796e666e-041e-493a-a6c5-ad223315d337",
+	'Domain_Name',
+	'Full Name:Domain Name
+readonly:true',
+	'',
+	'Domain_Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("cae15c21-bc75-4e81-836a-78f4968f0246",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("cae15c21-bc75-4e81-836a-78f4968f0246",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("cae15c21-bc75-4e81-836a-78f4968f0246",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"4ad3e468-a96e-46d2-b0b2-ed5aa4f0b449",
+	'Terminator_Name',
+	'Full Name:Terminator Name
+readonly:true',
+	'',
+	'Terminator_Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("796e666e-041e-493a-a6c5-ad223315d337",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("796e666e-041e-493a-a6c5-ad223315d337",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("796e666e-041e-493a-a6c5-ad223315d337",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"3fd758ee-7d03-421f-89a0-fd3c1169b70a",
+	'Descrip',
+	'Full Name: Terminator Service Description
+Description: A textual description of this terminator service.',
+	'',
+	'Descrip',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"cae15c21-bc75-4e81-836a-78f4968f0246",
+	'Provider',
+	'User_Visible:false',
+	'',
+	'Provider',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_OIDA
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	'Term_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ID
+	VALUES (2,
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO PE_PE
+	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	1,
+	"de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Deployment',
+	'',
+	0,
+	'../Deployment.xtuml');

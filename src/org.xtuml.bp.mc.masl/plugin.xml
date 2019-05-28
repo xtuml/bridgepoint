@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension
+       id="org.xtuml.bp.mc.masl.MCNature"
+       name="model compiler nature"
+       point="org.eclipse.core.resources.natures">
+    <runtime>
+      <run class="org.xtuml.bp.mc.masl.MaslExportNature"></run>
+    </runtime>
+    <builder id="org.xtuml.bp.mc.masl.masl_builder"></builder>
+  </extension>
+  <extension point="org.eclipse.ui.ide.projectNatureImages">
+    <image icon="platform:/plugin/org.xtuml.bp.core/icons/xtuml-nature.gif"
+           natureId="org.xtuml.bp.mc.masl.MCNature"
+           id="org.xtuml.resoures.natureimage">
+    </image>
+  </extension>
+  <extension
+        id="org.xtuml.bp.mc.masl.masl_builder"
+        name="MASL Export Builder"
+        point="org.eclipse.core.resources.builders">
+    <builder
+        hasNature="true"
+        isConfigurable="true"
+        callOnEmptyDelta="true">
+      <run class="org.xtuml.bp.mc.masl.MaslExportBuilder" />
+    </builder>
+  </extension>
+  <extension point="org.xtuml.bp.core.model-compilers">
+    <model-compiler
+      name="MASL Exporter"
+      wizard-class="org.xtuml.bp.mc.masl.MaslExportSetupWizard"
+      nature-class="org.xtuml.bp.mc.masl.MaslExportNature">
+    </model-compiler>
+  </extension>
+  <extension point="org.eclipse.ui.startup">
+    <startup class="org.xtuml.bp.mc.masl.Activator"/>
+  </extension>
+  <extension
+       point="org.eclipse.ui.propertyPages">
+    <page
+         name="MASL Exporter"
+         class="org.xtuml.bp.mc.masl.preferences.MaslExporterPreferencePage"
+         id="org.xtuml.bp.mc.masl.preferences.MaslExporterPreferencePage"
+         category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+      <enabledWhen>
+      <adapt type="org.eclipse.core.resources.IProject">
+           <test property="org.eclipse.core.resources.projectNature" value="org.xtuml.bp.mc.masl.MCNature"/>
+      </adapt>
+      </enabledWhen>
+    </page>
+  </extension>
+</plugin>

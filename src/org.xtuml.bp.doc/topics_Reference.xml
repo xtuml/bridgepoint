@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $RCSfile: topics_Reference.xml,v $
- Version:   $Revision: 1.31 $
- Modified:  $Date: 2013/01/10 23:14:46 $
-
- (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+ File:       topics_Reference.xml
 
  ========================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -73,6 +69,7 @@ the License.
           <topic label="Function Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/FunctionPackage.htm"/>
           <topic label="External Entity Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ExternalEntityPackage.htm"/>
           <topic label="Class Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ClassDiagram.htm"/>
+          <topic label="Deployments" href="Reference/UserInterface/xtUMLModeling/ModelElements/Deployments/Deployments.html"/>
           <topic label="State Machine Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/StateMachinePackage.htm"/>
           <topic label="Activity Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Activity.htm"/>
           <topic label="Communication Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Communication.htm"/>

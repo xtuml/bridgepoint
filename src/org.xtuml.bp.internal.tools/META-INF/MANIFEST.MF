@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Tools Plug-in
 Bundle-SymbolicName: org.xtuml.bp.internal.tools; singleton:=true
-Bundle-Version: 6.15.0.qualifier
+Bundle-Version: 6.17.0.qualifier
 Bundle-ClassPath: tools.jar
 Bundle-Activator: org.xtuml.bp.internal.tools.mcjava.Activator
 Bundle-Vendor: xtUML.org
@@ -27,3 +27,4 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.internal.tools
