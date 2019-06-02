@@ -356,7 +356,7 @@ INSERT INTO CME VALUES ('Delete', '', 'D_TSVC', '', true );
 INSERT INTO CME VALUES ('--', 'Edit association', 'R_REL', '', false, 'Configure association details', '1');
 
 --
-INSERT INTO MEF VALUES ('--', 'Edit association', 'R_REL', 'type', 'simp');
+INSERT INTO MEF VALUES ('--', 'Edit association', 'R_REL', 'type', 'simp_or_assoc');
 INSERT INTO MEF VALUES ('--', 'Delete stale services', 'D_TERM', 'can', 'delete stale services');
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_P',    'can', 'dissatisfy' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_R',    'can', 'dissatisfy' );

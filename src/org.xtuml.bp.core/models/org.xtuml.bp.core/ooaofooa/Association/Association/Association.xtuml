@@ -451,9 +451,10 @@ INSERT INTO O_TFR
         return not_empty sup_oida;
       end if;
     end if;
-  elif (param.value == "simp" )
+  elif (param.value == "simp_or_assoc" )
     select one r_simp related by self->R_SIMP[R206];
-    return not_empty r_simp;
+    select one r_assoc related by self->R_ASSOC[R206];
+    return not_empty r_simp or not_empty r_assoc;
   end if;
 elif (param.name == "formalized" )
   if (param.value =="true" )

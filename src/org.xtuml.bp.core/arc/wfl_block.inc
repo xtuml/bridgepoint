@@ -353,6 +353,25 @@ ${inner_blck.body}\
         .assign w_fld.Type = "Label"
         .relate w_fld to w_step across R2009
         .relate w_fld to statement across R2010
+      .elif (("getCheckbox" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Check"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
+        .end if
       .end if
     .end if
     .select one next_statement related by statement->ACT_SMT[R661.'succeeds']

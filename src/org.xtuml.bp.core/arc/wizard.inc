@@ -177,6 +177,8 @@ public class ${wizard_class_name} extends Wizard
       public $cr{class.Name}_c [] v_${field.Instance_Handle};
     .elif (field.type == "Text")
       public String v_${field.Instance_Handle} = null;
+    .elif (field.type == "Check")
+      public boolean v_${field.Instance_Handle} = false;
     .end if
   .end for
 

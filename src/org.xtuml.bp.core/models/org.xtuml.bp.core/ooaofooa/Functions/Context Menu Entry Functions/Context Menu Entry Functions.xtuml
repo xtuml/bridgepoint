@@ -8030,19 +8030,25 @@ LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
 a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 
+// Is associavitve
+select one assoc related by r_rel->R_ASSOC[R206];
+is_associative = not_empty assoc;
+associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative");
+LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
+
 // Formalizing class
 formalizer[1] = b_class.Name;
 formalizer[0] = a_class.Name;
 form_class = USER::getDropdown(options:formalizer, prompt:"Formalized In");
-LAYOUT::setLayout(field_name:"form_class", row_num:"4", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"form_class", row_num:"5", width:"1", height:"1");
 
 // Identifier in A class
 select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"a_ident", row_num:"4", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_ident", row_num:"5", width:"1", height:"1");
 
 // Identifier in B class
 select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"b_ident", row_num:"4", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_ident", row_num:"5", width:"1", height:"1");
 
 // Associative details
 // Associative class
@@ -8057,7 +8063,7 @@ for each associative_class in associative_classes
   i = i - 1;
 end for;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class");
-LAYOUT::setLayout(field_name:"assoc_class", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"assoc_class", row_num:"6", width:"1", height:"1");
 select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
 if (empty associative_class)
   select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
@@ -8065,15 +8071,15 @@ end if;
 
 // Identifier in A class
 a_ident_label = USER::getLabel(label:a_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"a_ident_label", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_ident_label", row_num:"6", width:"1", height:"1");
 select any a_ident2 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"a_ident2", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
 
 // Identifier in B class
 b_ident_label = USER::getLabel(label:b_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"b_ident_label", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_ident_label", row_num:"6", width:"1", height:"1");
 select any b_ident2 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"b_ident2", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 
 // Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];

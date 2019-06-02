@@ -86,6 +86,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -127,6 +128,9 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   public List $cr{field.Instance_Handle}List;
     .elif (field.Type == "Label")
   public Label $cr{field.Instance_Handle}Label;
+    .elif (field.Type == "Check")
+  public Label $cr{field.Instance_Handle}Label;
+  public Button $cr{field.Instance_Handle}Check;
     .end if
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).
@@ -149,6 +153,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .select one class related by field->O_OBJ[R2011]
   $cr{class.Name}_c [] v_$r{field.Instance_Handle};
   $cr{class.Name}_c [] $cr{field.Instance_Handle}Instances;
+    .elif (field.Type == "Check")
+  boolean v_$r{field.Instance_Handle} = false;
     .end if
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).
@@ -196,6 +202,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .elif (context_field.Type == "List")
         .select any class from instances of O_OBJ where (selected.Key_Lett == context_field.Key_Lett)
     $cr{class.Name}_c [] v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
+      .elif (context_field.Type == "Check")
+    boolean v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
       .end if
       .// Still need to consider radio buttons for enums
       .// (and enum handling in general).
@@ -322,6 +330,25 @@ public class ${page_class_name} extends PtWizardPage implements Listener
         .end if
       .end if
     .end if
+    .if (field.Type == "Check")
+      .// USER::getLabel
+      .assign load_ui = ""
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+      .select one act_ai related by statement->ACT_AI[R603]
+      .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+      .if ((not_empty act_ai) and (not_empty v_brv))
+        .select one s_brg related by v_brv->S_BRG[R828]
+        .select one s_ee related by s_brg->S_EE[R19]
+        .if (("getCheck" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+            .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "default")
+            .select any v_val related by v_par->V_VAL[R800]
+            .assign load_ui = ""
+            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Check.setSelection(${v_val.buffer});\n"
+            .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
+            .assign field.buffer = "// ${statement.buffer}" + load_ui
+        .end if
+      .end if
+    .end if
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).
   .end for
@@ -416,6 +443,13 @@ ${result.body}
       $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
       $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
       $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
+    .elif (field.Type == "Check")
+      .if (not_empty cflx)
+    $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
+    $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
+      .end if
+    $cr{field.Instance_Handle}Check = new Button(${current_row}, SWT.CHECK);
+    $cr{field.Instance_Handle}Check.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .end if
     .if (isLinkedPage.islinked)
         $cr{field.Instance_Handle}Phrase = new Label (${current_row}, SWT.CENTER);
@@ -459,6 +493,8 @@ ${result.body}
     $cr{field.Instance_Handle}Combo.addListener(SWT.Selection, this);
       .elif (field.type == "List")
     $cr{field.Instance_Handle}List.addListener(SWT.Selection, this);
+      .elif (field.type == "Check")
+    $cr{field.Instance_Handle}Check.addListener(SWT.Selection, this);
     .end if
   .end for
   }
@@ -475,6 +511,8 @@ ${result.body}
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
       .elif (field.type == "List")
       v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}List.getSelectionIndex()];
+      .elif (field.type == "Check")
+      this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Check.getSelection();
     .end if
   }
     .end for
@@ -496,6 +534,10 @@ ${result.body}
     if (event.widget == $cr{field.Instance_Handle}List) {
         updateSelected$cr{field.Instance_Handle}();
   }
+      .elif (field.type == "Check")
+    if (event.widget == $cr{field.Instance_Handle}Check) {
+        updateSelected$cr{field.Instance_Handle}();
+  }
     .end if
     .end for
     getWizard().getContainer().updateButtons();
@@ -505,7 +547,7 @@ ${result.body}
   {
     boolean isPageComplete = true;
   .for each field in fields
-    .if (field.type != "Label")
+    .if ((field.type != "Label") and (field.type != "Check"))
     if (v_$r{field.Instance_Handle} == null) isPageComplete = false;
     .end if
   .end for
@@ -531,7 +573,7 @@ ${result.body}
   {
     if ((PtWizardPage)getWizard().getNextPage(this) == null) return false;
     .for each field in fields
-      .if (field.type != "Label")
+      .if ((field.type != "Label") and (field.type != "Check"))
     if (v_$r{field.Instance_Handle} == null) return false;
       .end if
     .end for
