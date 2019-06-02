@@ -7956,6 +7956,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'R_REL_EditAssociation',
 	'ContextMenuFunction: TRUE
+Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
 	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 select any a_oir related by r_rel->R_OIR[R201];
@@ -8042,6 +8043,37 @@ LAYOUT::setLayout(field_name:"a_ident", row_num:"4", width:"1", height:"1");
 // Identifier in B class
 select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"b_ident", row_num:"4", width:"1", height:"1");
+
+// Associative details
+// Associative class
+select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
+select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
+associative_classes = associative_classes + associative_imported_classes;
+num_options = cardinality associative_classes;
+associative_class_options[num_options-1] = "";
+i = num_options - 1;
+for each associative_class in associative_classes
+  associative_class_options[i] = associative_class.Name;
+  i = i - 1;
+end for;
+assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class");
+LAYOUT::setLayout(field_name:"assoc_class", row_num:"5", width:"1", height:"1");
+select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
+if (empty associative_class)
+  select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
+end if;
+
+// Identifier in A class
+a_ident_label = USER::getLabel(label:a_class.Name + " identifier");
+LAYOUT::setLayout(field_name:"a_ident_label", row_num:"5", width:"1", height:"1");
+select any a_ident2 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"a_ident2", row_num:"5", width:"1", height:"1");
+
+// Identifier in B class
+b_ident_label = USER::getLabel(label:b_class.Name + " identifier");
+LAYOUT::setLayout(field_name:"b_ident_label", row_num:"5", width:"1", height:"1");
+select any b_ident2 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"b_ident2", row_num:"5", width:"1", height:"1");
 
 // Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];

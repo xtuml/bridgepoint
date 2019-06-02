@@ -95,7 +95,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 
 import org.xtuml.bp.core.*;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,19 +135,19 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   // cache for user choices
   .for each field in fields
     .if (field.Type == "Text")
-  String $cr{field.Instance_Handle} = null;
+  String v_$r{field.Instance_Handle} = null;
     .elif (field.Type == "Combo")
       .select one class related by field->O_OBJ[R2011]
       .if (not_empty class)
-  $cr{class.Name}_c $cr{field.Instance_Handle} = null;
+  $cr{class.Name}_c v_$r{field.Instance_Handle} = null;
   $cr{class.Name}_c [] $cr{field.Instance_Handle}Instances;
       .else
-  String $cr{field.Instance_Handle} = null;
+  String v_$r{field.Instance_Handle} = null;
   String[] $cr{field.Instance_Handle}Instances;
       .end if
     .elif (field.Type == "List")
       .select one class related by field->O_OBJ[R2011]
-  $cr{class.Name}_c [] $cr{field.Instance_Handle};
+  $cr{class.Name}_c [] v_$r{field.Instance_Handle};
   $cr{class.Name}_c [] $cr{field.Instance_Handle}Instances;
     .end if
     .// Still need to consider radio buttons for enums
@@ -352,6 +352,7 @@ ${result.body}
     row1.setLayout(rowLayout);
     .assign current_row = "row1"
 
+    .select any prev_field from instances of W_FLD where (false)
     .for each field in fields
       .assign field_row_num = "1"
       .assign field_width = "1"
@@ -395,6 +396,9 @@ ${result.body}
       .if (((empty cflx) and (not_empty s_brg)) and (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett)))
         .// do not create label
       .else
+        .if ((empty cflx) and ((not_empty prev_field) and (prev_field.Type == "Label")))
+          .// do not create label
+        .else
     $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
     $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
   .if (isLinkedPage.islinked)
@@ -402,11 +406,12 @@ ${result.body}
     .else
       $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");            
     .end if
+        .end if
       .end if
     $cr{field.Instance_Handle}Combo = new Combo(${current_row}, SWT.BORDER | SWT.READ_ONLY);
     $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .elif (field.Type == "List")
-  List $cr{field.Instance_Handle};
+  List v_$r{field.Instance_Handle};
     .elif (field.Type == "Label")
       $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
       $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
@@ -417,6 +422,7 @@ ${result.body}
         $cr{field.Instance_Handle}Phrase.setText("");
         $cr{field.Instance_Handle}Phrase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
       .end if
+      .assign prev_field = field
     .end for
 
     // set the composite as the control for this page
@@ -462,13 +468,13 @@ ${result.body}
   public void updateSelected$cr{field.Instance_Handle}()
   {
       .if (field.type == "Text")
-      this.$cr{field.Instance_Handle} = $cr{field.Instance_Handle}Text.getText();
-      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.$cr{field.Instance_Handle};
+      this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Text.getText();
+      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
       .elif (field.type == "Combo")
-      this.$cr{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
-      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.$cr{field.Instance_Handle};
+      this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
+      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
       .elif (field.type == "List")
-      $cr{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}List.getSelectionIndex()];
+      v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}List.getSelectionIndex()];
     .end if
   }
     .end for
@@ -500,7 +506,7 @@ ${result.body}
     boolean isPageComplete = true;
   .for each field in fields
     .if (field.type != "Label")
-    if ($cr{field.Instance_Handle} == null) isPageComplete = false;
+    if (v_$r{field.Instance_Handle} == null) isPageComplete = false;
     .end if
   .end for
     return isPageComplete;
@@ -510,7 +516,7 @@ ${result.body}
   {        
     .for each field in fields
       .if (field.type != "Label")
-      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = $cr{field.Instance_Handle};
+      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = v_$r{field.Instance_Handle};
       .end if
     .end for
     PtWizardPage page =  (PtWizardPage)getWizard().getNextPage(this);
@@ -526,7 +532,7 @@ ${result.body}
     if ((PtWizardPage)getWizard().getNextPage(this) == null) return false;
     .for each field in fields
       .if (field.type != "Label")
-    if ($cr{field.Instance_Handle} == null) return false;
+    if (v_$r{field.Instance_Handle} == null) return false;
       .end if
     .end for
     return true;
