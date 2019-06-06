@@ -34,18 +34,38 @@ See <<dr-2>>.
 - New transaction listener
 - Update `MarkingEditorDialog` to handle the case where the marks are already loaded in memory before the dialog is opened.
 
-- I there 1 MarkTransactionListener, or one for each SystemModel_c? I think the former based on the following:
-        TransactionListener listener = new TransactionListener();
-        getSystemModel().getTransactionManager().addTransactionListener(listener);
-  - How are they added to the system Models?  In ui.marking Activator (what if this activator runs before SystemModel_c's are loaded)?  
-    In constructor for SystemModel_c (this would create a bp.core dependency on ui.marking)?
-  
-=== 5.1 Item
+-----
+Having a bit of trouble getting the marking listener going at startup because the new listener is in the 
+ui.marking plugin, which is lazy loaded.  This may not be the best solution, but for now I have added a
+call to CorePlugin that loads the bundle and a class by name.  This forces the lazy load to occur.  
 
+// Load a bundle without creating an osgi dependency.  This pattern is already used in many places
+// in BP core.
+final String packageName = "org.xtuml.bp.ui.marking"; //$NON-NLS-1$
+    Bundle bundle = Platform.getBundle(packageName);
+    try {
+        bundle.loadClass( packageName + "." + "MarkTransactionListener");//$NON-NLS-1$ //$NON-NLS-2$
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+-----
+
+// Load marking data for each project after the project is loaded
+  // Add code at line 515 at end of PersistenceManager::initialize()
+
+// Support overloaded terminator services by storing them with their signature
+  
+// If the application.mark or feature.mark is not found, it would be better to just log a message and not 
+// throw an exception that generates a full stack trace...
 
 == 6 Design Comments
 
 None.
+
+// What happens if the marking data is changed in the files on disk outside of BridgePoint?  Right now the file is re-read on every invocation
+// of the marking dialog.  That will no longer happen.
+
+// fix bug in TerminatorService::getSignature() that always added "void" to the return type porting of the signature string
 
 == 7 User Documentation
 
@@ -53,7 +73,16 @@ None.
 
 == 8 Unit Test
 
-TODO
+// Deleting a package that contains a marked class
+// Delete marked top-level package
+// Delete marked sub-level package
+// Delete a marked function 
+// Test overloaded functions (Rename/delete/move)
+// Rename a package that contains multiple marks
+// Rename of an interface param does not persist the in-memory mods to disk
+// Change return type on interface signal
+// add param to interface signal
+// remove param from interface signal
 
 == 9 Document References
 
