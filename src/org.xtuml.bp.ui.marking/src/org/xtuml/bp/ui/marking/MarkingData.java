@@ -19,7 +19,6 @@ import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
@@ -27,6 +26,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.TerminatorService_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -381,6 +381,8 @@ public class MarkingData {
 			signature = ((InterfaceOperation_c) inst).Getsignature(1);
 		} else if (inst instanceof InterfaceSignal_c) {
 			signature = ((InterfaceSignal_c) inst).Getsignature(1);
+		} else if (inst instanceof TerminatorService_c) {
+			signature = ((TerminatorService_c) inst).Getsignature(1);
 		}
 		
 		if (!signature.isEmpty()) {
