@@ -81,7 +81,9 @@ public class MarkingData {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + FEATURE_FILE));
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			CorePlugin.logError("Error loading feature markings from " + FEATURE_FILE, fnfe);
+			// With the change to add the marking listener the data may be attempted to be loaded on a 
+			// project without the .mark files.  We don't want to throw an exception in this case, just log it.
+			System.out.println(fnfe);
 		}
 		
 		while ( inFile.hasNext() ) {
@@ -118,7 +120,9 @@ public class MarkingData {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + MARKINGS_FILE));
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			CorePlugin.logError("Problem loading " + MARKINGS_FILE, fnfe);
+			// With the change to add the marking listener the data may be attempted to be loaded on a 
+			// project without the .mark files.  We don't want to throw an exception in this case, just lot it.
+			System.out.println(fnfe);
 		}
 		
 		while ( inFile.hasNext() ) {
