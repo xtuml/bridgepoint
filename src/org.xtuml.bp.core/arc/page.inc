@@ -77,6 +77,7 @@ package org.xtuml.bp.core.ui;
 // (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 //
 //====================================================================
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -89,6 +90,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -135,6 +137,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .// Still need to consider radio buttons for enums
     .// (and enum handling in general).
   .end for
+  public List<Composite> rows = new ArrayList<>();
+  GridData rowData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 
   // cache for user choices
   .for each field in fields
@@ -372,11 +376,12 @@ ${result.body}
     // create the desired layout for this wizard page
     composite.setLayout(GridLayoutFactory.fillDefaults().margins(20, 0).spacing(0, 0).create());
     GridLayout rowLayout = GridLayoutFactory.fillDefaults().numColumns(6).margins(0, 10).equalWidth(true).create();
-    GridData rowData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+    rowData.widthHint = 750;
 
     Composite row1 = new Composite(composite, SWT.NONE);
     row1.setLayoutData(rowData);
     row1.setLayout(rowLayout);
+    rows.add(row1);
     .assign current_row = "row1"
 
     .select any prev_field from instances of W_FLD where (false)
@@ -395,6 +400,7 @@ ${result.body}
     Composite ${current_row} = new Composite(composite, SWT.NONE);
     ${current_row}.setLayoutData(rowData);
     ${current_row}.setLayout(rowLayout);
+    rows.add(${current_row});
       .end if
       .if (isLinkedPage.islinked)
     $cr{field.Instance_Handle}PrefixLabel = new Label (${current_row}, SWT.CENTER);
@@ -514,8 +520,50 @@ ${result.body}
       .elif (field.type == "Check")
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Check.getSelection();
     .end if
+    .select many w_deps related by field->W_DEP[R2016.'depended_on_by']
+    .for each w_dep in w_deps
+      .select one dependent_field related by w_dep->W_FLD[R2016.'depended_on_by']
+      .assign inverter = ""
+      .if (w_dep.inverse)
+        .assign inverter = "!"
+      .end if
+      .if (dependent_field.Type == "Text")
+      if (null != $cr{dependent_field.Instance_Handle}Text) $cr{dependent_field.Instance_Handle}Text.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      .elif (dependent_field.Type == "Combo")
+      if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      .elif (dependent_field.Type == "List")
+      if (null != $cr{dependent_field.Instance_Handle}List) $cr{dependent_field.Instance_Handle}List.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      .elif (dependent_field.Type == "Label")
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      .elif (dependent_field.Type == "Check")
+      if (null != $cr{dependent_field.Instance_Handle}Check) $cr{dependent_field.Instance_Handle}Check.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      .end if
+    .end for
   }
     .end for
+
+  private void updateVisibleRows() {
+      for (Composite row : rows) {
+          boolean showRow = false;
+          for (Control child : row.getChildren()) {
+              if (child.getVisible()) {
+                  showRow = true;
+                  break;
+              }
+          }
+          row.setVisible(showRow);
+          if (showRow) {
+              row.setLayoutData(rowData);
+          }
+          else {
+              row.setLayoutData(GridDataFactory.fillDefaults().exclude(true).create());
+          }
+      }
+      getControl().getShell().pack();
+  }
 
   /**
    * @see Listener#handleEvent(Event)
@@ -540,6 +588,7 @@ ${result.body}
   }
     .end if
     .end for
+    updateVisibleRows();
     getWizard().getContainer().updateButtons();
   }
 

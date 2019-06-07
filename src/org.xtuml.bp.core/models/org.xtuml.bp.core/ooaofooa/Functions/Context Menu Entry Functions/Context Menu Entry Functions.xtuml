@@ -8041,14 +8041,17 @@ formalizer[1] = b_class.Name;
 formalizer[0] = a_class.Name;
 form_class = USER::getDropdown(options:formalizer, prompt:"Formalized In");
 LAYOUT::setLayout(field_name:"form_class", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"form_class", field2:"associative_rel", inverse:true);
 
 // Identifier in A class
 select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"a_ident", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident", field2:"associative_rel", inverse:true);
 
 // Identifier in B class
 select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"b_ident", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"b_ident", field2:"associative_rel", inverse:true);
 
 // Associative details
 // Associative class
@@ -8068,18 +8071,23 @@ select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_P
 if (empty associative_class)
   select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
 end if;
+USER::dependsOn(field1:"assoc_class", field2:"associative_rel", inverse:false);
 
 // Identifier in A class
 a_ident_label = USER::getLabel(label:a_class.Name + " identifier");
 LAYOUT::setLayout(field_name:"a_ident_label", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident_label", field2:"associative_rel", inverse:false);
 select any a_ident2 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false);
 
 // Identifier in B class
 b_ident_label = USER::getLabel(label:b_class.Name + " identifier");
 LAYOUT::setLayout(field_name:"b_ident_label", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"b_ident_label", field2:"associative_rel", inverse:false);
 select any b_ident2 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false);
 
 // Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];

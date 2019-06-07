@@ -295,6 +295,27 @@ ${inner_blck.body}\
         .assign w_fmt.height = height_lst.Value
         .relate w_fmt to w_fld across R2015
       .end if
+    .elif ((not_empty s_brg) and (("dependsOn" == s_brg.Name) and ("USER" == s_ee.Key_Lett)))
+      .// get label from string literal parameter
+      .select any field1_par related by act_brg->V_PAR[R628] where (selected.Name == "field1")
+      .select any field1_lst related by field1_par->V_VAL[R800]->V_LST[R801]
+      .select any field2_par related by act_brg->V_PAR[R628] where (selected.Name == "field2")
+      .select any field2_lst related by field2_par->V_VAL[R800]->V_LST[R801]
+      .if (((not_empty field1_lst) and ("" != field1_lst.Value)) and ((not_empty field2_lst) and ("" != field2_lst.Value)))
+        .select any field1 related by w_step->W_FLD[R2009] where (selected.Instance_Handle == field1_lst.Value)
+        .select any field2 related by w_step->W_FLD[R2009] where (selected.Instance_Handle == field2_lst.Value)
+        .if ((not_empty field1) and (not_empty field2))
+          .create object instance w_dep of W_DEP
+          .relate field1 to w_dep across R2016.'depends_on'
+          .relate field2 to w_dep across R2016.'depended_on_by'
+          .assign w_dep.inverse = false
+          .select any inverse_par related by act_brg->V_PAR[R628] where (selected.Name == "inverse")
+          .select any inverse_lbo related by inverse_par->V_VAL[R800]->V_LBO[R801]
+          .if (not_empty inverse_lbo)
+            .assign w_dep.inverse = (("TRUE" == inverse_lbo.Value) or ("true" == inverse_lbo.Value))
+          .end if
+        .end if
+      .end if
     .end if
     .select one act_ai related by statement->ACT_AI[R603]
     .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]

@@ -609,31 +609,40 @@ INSERT INTO S_BPARM
 INSERT INTO S_BRG
 	VALUES ("eae38b52-ff85-4310-a6ba-287d7c94b2cd",
 	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
-	'getCheckbox',
+	'dependsOn',
 	'',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000001",
-	'return false;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
 	1,
 	'',
 	0);
 INSERT INTO S_BPARM
 	VALUES ("e6204324-07be-409c-9e76-9e4c3ff9bfff",
 	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
-	'prompt',
+	'field1',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
-	"56db468c-0953-4c5e-a8ee-cadeafaa4c6d",
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_BPARM
-	VALUES ("56db468c-0953-4c5e-a8ee-cadeafaa4c6d",
+	VALUES ("a4585778-10de-44fb-b8e4-286a75947315",
 	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
-	'default',
+	'field2',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"e6204324-07be-409c-9e76-9e4c3ff9bfff",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("860c7164-027c-4aaa-bc93-bb36b7aacaab",
+	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	'inverse',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
-	"00000000-0000-0000-0000-000000000000",
+	"a4585778-10de-44fb-b8e4-286a75947315",
 	'');
 INSERT INTO S_BRG
 	VALUES ("ada1cd2d-30b0-4964-8bef-f9d3a7291727",
@@ -705,6 +714,35 @@ INSERT INTO S_DIM
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_BRG
+	VALUES ("a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getCheckbox',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'return false;',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("734a4e21-1824-4897-b3e4-6a8657fceda1",
+	"a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	'prompt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a5b014f0-6904-42a6-ad32-5ec768db559b",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a5b014f0-6904-42a6-ad32-5ec768db559b",
+	"a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	'default',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("2f1f82f7-9389-4b32-8a37-2885d5c591fc",
 	1,
