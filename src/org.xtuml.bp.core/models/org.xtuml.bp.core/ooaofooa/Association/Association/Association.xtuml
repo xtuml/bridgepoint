@@ -962,14 +962,16 @@ if (not_empty b_part)
 end if;
 
 // formalize the association
-select one simp related by self->R_SIMP[R206];
-non_formalizer = a_part;
-identifier = a_ident;
-if ("Class A" == form_class)
-  non_formalizer = b_part;
-  identifier = b_ident;
-end if;
-simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);',
+if ("Not formalized" != form_class)
+  select one simp related by self->R_SIMP[R206];
+  non_formalizer = a_part;
+  identifier = a_ident;
+  if (a_class.Name == form_class)
+    non_formalizer = b_part;
+    identifier = b_ident;
+  end if;
+  simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+end if;',
 	1,
 	'',
 	"e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",

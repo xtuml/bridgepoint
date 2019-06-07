@@ -138,7 +138,6 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .// (and enum handling in general).
   .end for
   public List<Composite> rows = new ArrayList<>();
-  GridData rowData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 
   // cache for user choices
   .for each field in fields
@@ -376,6 +375,7 @@ ${result.body}
     // create the desired layout for this wizard page
     composite.setLayout(GridLayoutFactory.fillDefaults().margins(20, 0).spacing(0, 0).create());
     GridLayout rowLayout = GridLayoutFactory.fillDefaults().numColumns(6).margins(0, 10).equalWidth(true).create();
+    GridData rowData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
     rowData.widthHint = 750;
 
     Composite row1 = new Composite(composite, SWT.NONE);
@@ -488,6 +488,12 @@ ${result.body}
       .end if
     .end for 
     addListeners();
+
+    // update dependencies
+    .select many dep_fields related by step->W_FLD[R2009]->W_DEP[R2016.'depended_on_by']->W_FLD[R2016.'depends_on']
+    .for each dep_field in dep_fields
+    updateSelected$cr{dep_field.Instance_Handle}();
+    .end for
   }
   
   private void addListeners()
@@ -528,22 +534,34 @@ ${result.body}
         .assign inverter = "!"
       .end if
       .if (dependent_field.Type == "Text")
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       if (null != $cr{dependent_field.Instance_Handle}Text) $cr{dependent_field.Instance_Handle}Text.setVisible(${inverter}this.v_$r{field.Instance_Handle});
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       .elif (dependent_field.Type == "Combo")
-      if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       .elif (dependent_field.Type == "List")
       if (null != $cr{dependent_field.Instance_Handle}List) $cr{dependent_field.Instance_Handle}List.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       .elif (dependent_field.Type == "Label")
       if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       .elif (dependent_field.Type == "Check")
-      if (null != $cr{dependent_field.Instance_Handle}Check) $cr{dependent_field.Instance_Handle}Check.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Check) $cr{dependent_field.Instance_Handle}Check.setVisible(${inverter}this.v_$r{field.Instance_Handle});
       .end if
     .end for
   }
     .end for
+
+  private void updateLayoutData(Control control) {
+      if (control instanceof Composite) {
+          for (Control child : ((Composite)control).getChildren()) {
+              updateLayoutData(child);
+          }
+      }
+      GridData currentData = (GridData)control.getLayoutData();
+      if (null == currentData) currentData = GridDataFactory.fillDefaults().create();
+      control.setLayoutData(GridDataFactory.createFrom(currentData).exclude(!control.getVisible()).create());
+      control.getShell().pack();
+  }
 
   private void updateVisibleRows() {
       for (Composite row : rows) {
@@ -555,14 +573,7 @@ ${result.body}
               }
           }
           row.setVisible(showRow);
-          if (showRow) {
-              row.setLayoutData(rowData);
-          }
-          else {
-              row.setLayoutData(GridDataFactory.fillDefaults().exclude(true).create());
-          }
       }
-      getControl().getShell().pack();
   }
 
   /**
@@ -589,6 +600,7 @@ ${result.body}
     .end if
     .end for
     updateVisibleRows();
+    updateLayoutData(getControl());
     getWizard().getContainer().updateButtons();
   }
 
