@@ -30,42 +30,75 @@ See <<dr-2>>.
 
 == 5 Design
 
-- Store pointer to NRME in marking data in memory
-- New transaction listener
-- Update `MarkingEditorDialog` to handle the case where the marks are already loaded in memory before the dialog is opened.
+5.1  Data Handling Changes
 
------
-Having a bit of trouble getting the marking listener going at startup because the new listener is in the 
-ui.marking plugin, which is lazy loaded.  This may not be the best solution, but for now I have added a
-call to CorePlugin that loads the bundle and a class by name.  This forces the lazy load to occur.  
+Because the primary functionality of this change deals with the in-
+memory marking data, we deemed it best to add the bulk of the new functionality
+in the `org.xtuml.bp.ui.marking` plugin rather than core.  
 
-// Load a bundle without creating an osgi dependency.  This pattern is already used in many places
-// in BP core.
-final String packageName = "org.xtuml.bp.ui.marking"; //$NON-NLS-1$
-    Bundle bundle = Platform.getBundle(packageName);
-    try {
-        bundle.loadClass( packageName + "." + "MarkTransactionListener");//$NON-NLS-1$ //$NON-NLS-2$
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    }
------
+However, we needed the ability to get the new listener up and running right 
+as BridgePoint is starting up.  It needs the ability to start watching model
+changes right away before the user even considers the underlying impacts of
+their model changes on marking.
 
-// Load marking data for each project after the project is loaded
-  // Add code at line 515 at end of PersistenceManager::initialize()
+The challenge is that the `ui.marking` plugin is lazy loaded and won't activate
+until one of its contained pieces of functionality is needed.  Another challenge
+is that it is unacceptable to create a dependency where `bp.core` has a 
+dependency specified on an external plugin.  We want `bp.core` to be at the root
+of the dependency tree.
 
-// Support overloaded terminator services by storing them with their signature
-  
-// If the application.mark or feature.mark is not found, it would be better to just log a message and not 
-// throw an exception that generates a full stack trace...
+5.1.1  To deal with these requirements, we follow a pattern already used in 
+the BridgePoint code where `bp.core` needs this "soft" dependency to `ui.canvas`.
+The approach is to use a raw function invocation out of a bundle loaded by
+name only and not specify a dependency in the `bp.core` plugin metadata. This
+causes the marking plugin to be loaded and activated.  This "soft" dependency
+is created in `PersistenceManager.java` after model data is loaded.
+
+5.2 `MarkTransactionListener`
+
+A core piece of the new functionality for this work is a class named `MarkTransactionListener`. As
+the name states it listens to transactions happening in the tool.  If the transaction
+could have affected application model elements then it calls out to the 
+`MarkingData` class to recalculate path keys as necessary.
+
+5.3 `MarkingData`
+
+This class is primarily a data structure that stores information about each
+mark.  It is modified by this work to keep a pointer to the `NonRootModelElement`
+that a mark is associated with.  Because model transactions affect these
+`NRME` instances we can now positively keep track of what marking data must
+change in response to transactions. 
+
+This work also added a number of helper functions in this class to 
+calculate path keys, perform manipulations on the collection of marking
+data, etc. 
+ 
+5.4 `MarkingDataManager`
+
+This class has been added to keep the marking data for all projects in the
+workspace in memory while BridgePoint is running. Previously the marking
+data was only in memory on a per-project basis as the marking dialog was
+active.  
+ 
+5.5 `MarkingEditorDialog`
+
+The dialog is updated to leverage the markings stored and persisted by 
+the `MarkingDataManager` rather than loading and persisting the information
+by itself.
+
 
 == 6 Design Comments
 
-None.
-
-// What happens if the marking data is changed in the files on disk outside of BridgePoint?  Right now the file is re-read on every invocation
-// of the marking dialog.  That will no longer happen.
-
-// fix bug in TerminatorService::getSignature() that always added "void" to the return type porting of the signature string
+6.1  Fixed bug in `TerminatorService::getSignature()` that always added "void" to 
+the return type portion of the signature string:
+```
+  ...
+  // Get return type
+  select one returntype related by self->S_DT[R1656];
+  signature = signature + returntype.Name + " ";
+-  signature = signature + "void ";
+end if;
+```
 
 == 7 User Documentation
 
@@ -73,21 +106,13 @@ None.
 
 == 8 Unit Test
 
-// Deleting a package that contains a marked class
-// Delete marked top-level package
-// Delete marked sub-level package
-// Delete a marked function 
-// Test overloaded functions (Rename/delete/move)
-// Rename a package that contains multiple marks
-// Rename of an interface param does not persist the in-memory mods to disk
-// Change return type on interface signal
-// add param to interface signal
-// remove param from interface signal
+See <<dr-3>>.
 
 == 9 Document References
 
 . [[dr-1]] https://support.onefact.net/issues/11634[11634 - Keep marks in sync with changing model elements]
 . [[dr-2]] link:../11555_marking/11555_marking_ant.adoc[Marking enhancement analysis note]
+. [[dr-3]] https://support.onefact.net/issues/11683[11683 - Marking data listener tests]
 
 ---
 
