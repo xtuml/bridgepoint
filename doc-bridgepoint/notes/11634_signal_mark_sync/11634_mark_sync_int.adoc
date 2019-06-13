@@ -1,6 +1,6 @@
 = Keep marks in sync with changing model elements 
 
-xtUML Project Design Note
+xtUML Project Implementation Note
 
 == 1 Abstract
 
@@ -108,7 +108,23 @@ None.
 
 See <<dr-3>>.
 
-== 9 Document References
+== 9 Code Changes
+
+- fork/repository: __keithbrown/bridgepoint__ 
+- branch: __11634_signal_mark_sync__ 
+
+----
+doc-bridgepoint/notes/11634_signal_mark_sync/11634_mark_sync_dnt.adoc
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Deployment/Terminator Service/Terminator Service.xtuml
+src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/PersistenceManager.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/Activator.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkTransactionListener.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingData.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingDataManager.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingEditorDialog.java
+----
+
+== 10 Document References
 
 . [[dr-1]] https://support.onefact.net/issues/11634[11634 - Keep marks in sync with changing model elements]
 . [[dr-2]] link:../11555_marking/11555_marking_ant.adoc[Marking enhancement analysis note]
