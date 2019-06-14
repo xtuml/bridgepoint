@@ -172,6 +172,8 @@ public class ${wizard_class_name} extends Wizard
       .else
       public String v_${field.Instance_Handle} = "";
       .end if
+    .elif (field.type == "Toggle")
+      public String v_${field.Instance_Handle} = "";
     .elif (field.type == "List")
       .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
       public $cr{class.Name}_c [] v_${field.Instance_Handle};

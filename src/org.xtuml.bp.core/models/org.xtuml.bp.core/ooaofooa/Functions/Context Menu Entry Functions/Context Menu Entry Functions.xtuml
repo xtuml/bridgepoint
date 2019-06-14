@@ -7983,7 +7983,7 @@ a_label1 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
 
 // A to B conditionality
-a_cond = USER::getDropdown(options:conditionalities, prompt:"");
+a_cond = USER::getToggle(option1:conditionalities[0], option2:conditionalities[1], prompt:"");
 LAYOUT::setLayout(field_name:"a_cond", row_num:"2", width:"1", height:"1");
 
 // A to B phrase
@@ -7997,7 +7997,7 @@ a_phrase = USER::getText(default:default_a_phrase, prompt:"");
 LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 
 // A to B multiplicity
-a_mult = USER::getDropdown(options:multiplicities, prompt:"");
+a_mult = USER::getToggle(option1:multiplicities[0], option2:multiplicities[1], prompt:"");
 LAYOUT::setLayout(field_name:"a_mult", row_num:"2", width:"1", height:"1");
 
 // B label
@@ -8009,7 +8009,7 @@ b_label2 = USER::getLabel(label:b_class.Name);
 LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
 
 // B to A conditionality
-b_cond = USER::getDropdown(options:conditionalities, prompt:"");
+b_cond = USER::getToggle(option1:conditionalities[0], option2:conditionalities[1], prompt:"");
 LAYOUT::setLayout(field_name:"b_cond", row_num:"3", width:"1", height:"1");
 
 // B to A phrase
@@ -8023,7 +8023,7 @@ b_phrase = USER::getText(default:default_b_phrase, prompt:"");
 LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
 
 // B to A multiplicity
-b_mult = USER::getDropdown(options:multiplicities, prompt:"");
+b_mult = USER::getToggle(option1:multiplicities[0], option2:multiplicities[1], prompt:"");
 LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
 
 // A label

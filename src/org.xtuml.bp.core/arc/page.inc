@@ -126,6 +126,9 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   public Label $cr{field.Instance_Handle}PrefixLabel;
   public Label $cr{field.Instance_Handle}Phrase;
       .end if
+    .elif (field.Type == "Toggle")
+  public Label $cr{field.Instance_Handle}Label;
+  public Button $cr{field.Instance_Handle}Toggle;
     .elif (field.Type == "List")
   public List $cr{field.Instance_Handle}List;
     .elif (field.Type == "Label")
@@ -152,6 +155,9 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   String v_$r{field.Instance_Handle} = null;
   String[] $cr{field.Instance_Handle}Instances;
       .end if
+    .elif (field.Type == "Toggle")
+  String v_$r{field.Instance_Handle} = null;
+  String[] $cr{field.Instance_Handle}Instances;
     .elif (field.Type == "List")
       .select one class related by field->O_OBJ[R2011]
   $cr{class.Name}_c [] v_$r{field.Instance_Handle};
@@ -204,6 +210,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
         .else
     String v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
         .end if
+      .elif (context_field.Type == "Toggle")
+    String v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
       .elif (context_field.Type == "List")
         .select any class from instances of O_OBJ where (selected.Key_Lett == context_field.Key_Lett)
     $cr{class.Name}_c [] v_${context_field.Instance_Handle} = ((${wizard_class_name})getWizard()).v_${context_field.Instance_Handle};
@@ -314,6 +322,29 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
           .end if
+        .end if
+      .end if
+    .end if
+    .if (field.Type == "Toggle")
+      .// USER::getToggle
+      .assign load_ui = ""
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+      .select one act_ai related by statement->ACT_AI[R603]
+      .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+      .if ((not_empty act_ai) and (not_empty v_brv))
+        .select one s_brg related by v_brv->S_BRG[R828]
+        .select one s_ee related by s_brg->S_EE[R19]
+        .if (("getToggle" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+          .select any v_par1 related by v_brv->V_PAR[R810] where (selected.Name == "option1")
+          .select any v_val1 related by v_par1->V_VAL[R800]
+          .select any v_par2 related by v_brv->V_PAR[R810] where (selected.Name == "option2")
+          .select any v_val2 related by v_par2->V_VAL[R800]
+          .assign load_ui = ""
+          .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = new String[] {${v_val1.buffer}, ${v_val2.buffer}};\n"
+          .assign load_ui = load_ui + "$cr{field.Instance_Handle}Toggle.setText($cr{field.Instance_Handle}Instances[0]);\n"
+          .// TODO
+          .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
+          .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if
       .end if
     .end if
@@ -446,6 +477,13 @@ ${result.body}
       .end if
     $cr{field.Instance_Handle}Combo = new Combo(${current_row}, SWT.BORDER | SWT.READ_ONLY);
     $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
+    .elif (field.Type == "Toggle")
+      .if (not_empty cflx)
+    $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
+    $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
+      .end if
+    $cr{field.Instance_Handle}Toggle = new Button(${current_row}, SWT.PUSH);
+    $cr{field.Instance_Handle}Toggle.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .elif (field.Type == "List")
   List v_$r{field.Instance_Handle};
     .elif (field.Type == "Label")
@@ -506,6 +544,8 @@ ${result.body}
     $cr{field.Instance_Handle}Text.addListener(SWT.KeyUp, this);
       .elif (field.type == "Combo")
     $cr{field.Instance_Handle}Combo.addListener(SWT.Selection, this);
+      .elif (field.type == "Toggle")
+    $cr{field.Instance_Handle}Toggle.addListener(SWT.Selection, this);
       .elif (field.type == "List")
     $cr{field.Instance_Handle}List.addListener(SWT.Selection, this);
       .elif (field.type == "Check")
@@ -523,6 +563,16 @@ ${result.body}
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
       .elif (field.type == "Combo")
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
+      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
+      .elif (field.type == "Toggle")
+      if ($cr{field.Instance_Handle}Instances[0].equals($cr{field.Instance_Handle}Toggle.getText())) {
+          this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[1];
+          $cr{field.Instance_Handle}Toggle.setText($cr{field.Instance_Handle}Instances[1]);
+      }
+      else {
+          this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[0];
+          $cr{field.Instance_Handle}Toggle.setText($cr{field.Instance_Handle}Instances[0]);
+      }
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
       .elif (field.type == "List")
       v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}List.getSelectionIndex()];
@@ -546,6 +596,9 @@ ${result.body}
       .elif (dependent_field.Type == "Combo")
       if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
       if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${comparison});
+      .elif (dependent_field.Type == "Toggle")
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
+      if (null != $cr{dependent_field.Instance_Handle}Toggle) $cr{dependent_field.Instance_Handle}Combo.setVisible(${comparison});
       .elif (dependent_field.Type == "List")
       if (null != $cr{dependent_field.Instance_Handle}List) $cr{dependent_field.Instance_Handle}List.setVisible(${comparison});
       .elif (dependent_field.Type == "Label")
@@ -594,6 +647,10 @@ ${result.body}
   }
       .elif (field.type == "Combo")
     if (event.widget == $cr{field.Instance_Handle}Combo) {
+        updateSelected$cr{field.Instance_Handle}();
+  }
+      .elif (field.type == "Toggle")
+    if (event.widget == $cr{field.Instance_Handle}Toggle) {
         updateSelected$cr{field.Instance_Handle}();
   }
       .elif (field.type == "List")
