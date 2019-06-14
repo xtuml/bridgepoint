@@ -156,6 +156,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .select one class related by field->O_OBJ[R2011]
   $cr{class.Name}_c [] v_$r{field.Instance_Handle};
   $cr{class.Name}_c [] $cr{field.Instance_Handle}Instances;
+    .elif (field.Type == "Label")
+  String v_$r{field.Instance_Handle} = null;
     .elif (field.Type == "Check")
   boolean v_$r{field.Instance_Handle} = false;
     .end if
@@ -329,6 +331,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_val related by v_par->V_VAL[R800]
           .assign load_ui = ""
           .assign load_ui = load_ui + "$cr{field.Instance_Handle}Label.setText(${v_val.buffer});\n"
+          .assign load_ui = load_ui + "v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Label.getText();\n"
           .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if
       .end if
@@ -529,23 +532,27 @@ ${result.body}
     .select many w_deps related by field->W_DEP[R2016.'depended_on_by']
     .for each w_dep in w_deps
       .select one dependent_field related by w_dep->W_FLD[R2016.'depended_on_by']
-      .assign inverter = ""
+      .assign comparison = "this.v_$r{field.Instance_Handle}"
+      .// ignore the compare value if it is an empty string
+      .if ("" != w_dep.comparison)
+        .assign comparison = "(${w_dep.comparison})"
+      .end if
       .if (w_dep.inverse)
-        .assign inverter = "!"
+        .assign comparison = "!" + comparison
       .end if
       .if (dependent_field.Type == "Text")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
-      if (null != $cr{dependent_field.Instance_Handle}Text) $cr{dependent_field.Instance_Handle}Text.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
+      if (null != $cr{dependent_field.Instance_Handle}Text) $cr{dependent_field.Instance_Handle}Text.setVisible(${comparison});
       .elif (dependent_field.Type == "Combo")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
-      if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
+      if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${comparison});
       .elif (dependent_field.Type == "List")
-      if (null != $cr{dependent_field.Instance_Handle}List) $cr{dependent_field.Instance_Handle}List.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}List) $cr{dependent_field.Instance_Handle}List.setVisible(${comparison});
       .elif (dependent_field.Type == "Label")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
       .elif (dependent_field.Type == "Check")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${inverter}this.v_$r{field.Instance_Handle});
-      if (null != $cr{dependent_field.Instance_Handle}Check) $cr{dependent_field.Instance_Handle}Check.setVisible(${inverter}this.v_$r{field.Instance_Handle});
+      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
+      if (null != $cr{dependent_field.Instance_Handle}Check) $cr{dependent_field.Instance_Handle}Check.setVisible(${comparison});
       .end if
     .end for
   }

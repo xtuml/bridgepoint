@@ -309,10 +309,16 @@ ${inner_blck.body}\
           .relate field1 to w_dep across R2016.'depends_on'
           .relate field2 to w_dep across R2016.'depended_on_by'
           .assign w_dep.inverse = false
+          .assign w_dep.comparison = ""
           .select any inverse_par related by act_brg->V_PAR[R628] where (selected.Name == "inverse")
           .select any inverse_lbo related by inverse_par->V_VAL[R800]->V_LBO[R801]
           .if (not_empty inverse_lbo)
             .assign w_dep.inverse = (("TRUE" == inverse_lbo.Value) or ("true" == inverse_lbo.Value))
+          .end if
+          .select any compare_par related by act_brg->V_PAR[R628] where (selected.Name == "comparison")
+          .select any compare_lst related by compare_par->V_VAL[R800]->V_LST[R801]
+          .if (not_empty compare_lst)
+            .assign w_dep.comparison = compare_lst.Value
           .end if
         .end if
       .end if

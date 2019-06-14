@@ -8053,7 +8053,7 @@ select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_P
 if (empty associative_class)
   select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
 end if;
-USER::dependsOn(field1:"assoc_class", field2:"associative_rel", inverse:false);
+USER::dependsOn(field1:"assoc_class", field2:"associative_rel", inverse:false, comparison:"");
 
 // Formalizing class
 formalizer[2] = b_class.Name;
@@ -8061,37 +8061,47 @@ formalizer[1] = a_class.Name;
 formalizer[0] = "Not formalized";
 form_class = USER::getDropdown(options:formalizer, prompt:"Formalized In");
 LAYOUT::setLayout(field_name:"form_class", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"form_class", field2:"associative_rel", inverse:true);
+USER::dependsOn(field1:"form_class", field2:"associative_rel", inverse:true, comparison:"");
 
 // Identifier in A class
-select any a_ident related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"a_ident", row_num:"5", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident", field2:"associative_rel", inverse:true);
+a_ident1_label = USER::getLabel(label:"Identifier");
+LAYOUT::setLayout(field_name:"a_ident1_label", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident1_label", field2:"associative_rel", inverse:true, comparison:"");
+USER::dependsOn(field1:"a_ident1_label", field2:"form_class", inverse:false, comparison:"v_b_label1.equals(v_form_class)");
+select any a_ident1 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident1", field2:"associative_rel", inverse:true, comparison:"");
+USER::dependsOn(field1:"a_ident1", field2:"form_class", inverse:false, comparison:"v_b_label1.equals(v_form_class)");
 
 // Identifier in B class
-select any b_ident related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"b_ident", row_num:"5", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident", field2:"associative_rel", inverse:true);
+b_ident1_label = USER::getLabel(label:"Identifier");
+LAYOUT::setLayout(field_name:"b_ident1_label", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"b_ident1_label", field2:"associative_rel", inverse:true, comparison:"");
+USER::dependsOn(field1:"b_ident1_label", field2:"form_class", inverse:false, comparison:"v_a_label1.equals(v_form_class)");
+select any b_ident1 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"b_ident1", field2:"associative_rel", inverse:true, comparison:"");
+USER::dependsOn(field1:"b_ident1", field2:"form_class", inverse:false, comparison:"v_a_label1.equals(v_form_class)");
 
 // Identifier in A class
-a_ident_label = USER::getLabel(label:a_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"a_ident_label", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident_label", field2:"associative_rel", inverse:false);
+a_ident2_label = USER::getLabel(label:a_class.Name + " identifier");
+LAYOUT::setLayout(field_name:"a_ident2_label", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident2_label", field2:"associative_rel", inverse:false, comparison:"");
 select any a_ident2 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false);
+USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false, comparison:"");
 
 // Identifier in B class
-b_ident_label = USER::getLabel(label:b_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"b_ident_label", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident_label", field2:"associative_rel", inverse:false);
+b_ident2_label = USER::getLabel(label:b_class.Name + " identifier");
+LAYOUT::setLayout(field_name:"b_ident2_label", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"b_ident2_label", field2:"associative_rel", inverse:false, comparison:"");
 select any b_ident2 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false);
+USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comparison:"");
 
 // Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
-r_rel.editSimpleAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident, b_ident:b_ident, a_class:a_class, b_class:b_class );',
+r_rel.editSimpleAssociation(rel_num:rel_num, a_cond:a_cond, a_phrase:a_phrase, a_mult:a_mult, b_cond:b_cond, b_phrase:b_phrase, b_mult:b_mult, form_class:form_class, a_ident:a_ident1, b_ident:b_ident1, a_class:a_class, b_class:b_class );',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',

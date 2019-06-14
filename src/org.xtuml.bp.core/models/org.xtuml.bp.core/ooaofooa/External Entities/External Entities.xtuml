@@ -644,6 +644,15 @@ INSERT INTO S_BPARM
 	'',
 	"a4585778-10de-44fb-b8e4-286a75947315",
 	'');
+INSERT INTO S_BPARM
+	VALUES ("15c9c28b-5151-4ed7-b23f-a8e16af89759",
+	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	'comparison',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"860c7164-027c-4aaa-bc93-bb36b7aacaab",
+	'');
 INSERT INTO S_BRG
 	VALUES ("ada1cd2d-30b0-4964-8bef-f9d3a7291727",
 	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
