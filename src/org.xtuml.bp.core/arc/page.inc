@@ -308,16 +308,18 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select one s_brg related by v_brv->S_BRG[R828]
           .select one s_ee related by s_brg->S_EE[R19]
           .if (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
-            .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "options")
-            .select any v_val related by v_par->V_VAL[R800]
+            .select any options_par related by v_brv->V_PAR[R810] where (selected.Name == "options")
+            .select any options_val related by options_par->V_VAL[R800]
+            .select any sel_par related by v_brv->V_PAR[R810] where (selected.Name == "default_selection")
+            .select any sel_val related by sel_par->V_VAL[R800]
             .assign load_ui = ""
-            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = ${v_val.buffer}.clone();\n"
+            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = ${options_val.buffer}.clone();\n"
             .assign load_ui = load_ui + "$cr{field.Instance_Handle}Combo.removeAll();\n"
             .assign load_ui = load_ui + "for (String option : $cr{field.Instance_Handle}Instances) {\n"
             .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(option);\n"
             .assign load_ui = load_ui + "}\n"
             .assign load_ui = load_ui + "if ($cr{field.Instance_Handle}Instances.length > 0) {\n"
-            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.select(0);\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.select(${sel_val.buffer});\n"
             .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
@@ -341,7 +343,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_val2 related by v_par2->V_VAL[R800]
           .assign load_ui = ""
           .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = new String[] {${v_val1.buffer}, ${v_val2.buffer}};\n"
-          .assign load_ui = load_ui + "$cr{field.Instance_Handle}Toggle.setText($cr{field.Instance_Handle}Instances[0]);\n"
+          .assign load_ui = load_ui + "$cr{field.Instance_Handle}Toggle.setText("""");\n"
           .// TODO
           .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
           .assign field.buffer = "// ${statement.buffer}" + load_ui
@@ -578,6 +580,7 @@ ${result.body}
       v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}List.getSelectionIndex()];
       .elif (field.type == "Check")
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Check.getSelection();
+      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
     .end if
     .select many w_deps related by field->W_DEP[R2016.'depended_on_by']
     .for each w_dep in w_deps

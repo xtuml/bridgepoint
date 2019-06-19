@@ -921,10 +921,12 @@ b_cond = param.b_cond;
 b_phrase = param.b_phrase;
 b_mult = param.b_mult;
 form_class = param.form_class;
+migrate_to_assoc = param.migrate_to_assoc;
 a_ident = param.a_ident;
 b_ident = param.b_ident;
 a_class = param.a_class;
 b_class = param.b_class;
+assoc_class = param.assoc_class;
 
 // set the number
 self.Numb = GD::string_to_int(value:rel_num);
@@ -961,16 +963,32 @@ if (not_empty b_part)
   b_part.Txt_Phrs = a_phrase;
 end if;
 
-// formalize the association
-if ("Not formalized" != form_class)
-  select one simp related by self->R_SIMP[R206];
-  non_formalizer = a_part;
-  identifier = a_ident;
-  if (a_class.Name == form_class)
-    non_formalizer = b_part;
-    identifier = b_ident;
+select one simp related by self->R_SIMP[R206];
+if (not migrate_to_assoc)
+
+  // formalize the association
+  if ("Not formalized" != form_class and not self.isFormalized())
+    non_formalizer = a_part;
+    identifier = a_ident;
+    if (a_class.Name == form_class)
+      non_formalizer = b_part;
+      identifier = b_ident;
+    end if;
+    simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+  elif ("Not formalized" == form_class and self.isFormalized())
+    self.unformalize();
   end if;
-  simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+
+else
+
+  // migrate to linked
+  select any imported_class related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
+  imported_id = GD::NULL_UNIQUE_ID();
+  if (not_empty imported_class)
+    imported_id = imported_class.IObj_ID;
+  end if;
+  simp.migrateToLinked(imported_id:imported_id, using:assoc_class.Obj_ID);
+
 end if;',
 	1,
 	'',
@@ -1055,7 +1073,7 @@ INSERT INTO O_TPARM
 	"eb5488e0-119d-421e-865a-23c0845acaa0",
 	0,
 	'',
-	"6b5d0124-17ae-4821-870a-b776d0c38336",
+	"be43ebd1-8096-4598-a90f-c5fe9e6109c2",
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
@@ -1097,6 +1115,24 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("be43ebd1-8096-4598-a90f-c5fe9e6109c2",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'migrate_to_assoc',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"6b5d0124-17ae-4821-870a-b776d0c38336",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("aa292418-9630-455b-b5d0-4a5209702ff7",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'assoc_class',
+	"fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	'',
+	"8f35344a-f241-4944-ac03-2f1d89376cb2",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
