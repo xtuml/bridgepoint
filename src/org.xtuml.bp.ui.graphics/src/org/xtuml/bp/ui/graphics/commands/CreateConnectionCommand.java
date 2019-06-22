@@ -22,6 +22,8 @@
 //
 package org.xtuml.bp.ui.graphics.commands;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.eclipse.draw2d.Connection;
@@ -43,7 +45,11 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Gd_c;
+import org.xtuml.bp.core.LinkedAssociation_c;
+import org.xtuml.bp.core.Package_c;
+import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.EditAssociationOnR_RELAction;
 import org.xtuml.bp.core.ui.EditAssociationOnR_RELWizard;
@@ -57,6 +63,7 @@ import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
@@ -197,6 +204,7 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
 			Object newElement = GraphicalElement_c.getOneGD_GEOnR2(result).getRepresents();
 			if (newElement instanceof Association_c) {
 			    SimpleAssociation_c simp = SimpleAssociation_c.getOneR_SIMPOnR206((Association_c)newElement);
+			    LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
 			    if (null != simp) {
 			        Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
 			        EditAssociationOnR_RELAction editAction = new EditAssociationOnR_RELAction();
@@ -207,8 +215,22 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
                         return false;
                     }
                     else {
+                        linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
+                        if (null != linked) {  // migrated to assoc
+                            // delete the connector
+                            this.result.Dispose();
+                            // reconcile graphics
+                            SystemModel_c s_sys = SystemModel_c.getOneS_SYSOnR1405(Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001((Association_c)newElement)));
+                            List<NonRootModelElement> elementsToReconcile = new ArrayList<>();
+                            elementsToReconcile.add(s_sys);
+                            GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(elementsToReconcile);
+                            reconciler.runReconciler(false, true);
+                        }
                         return true;
                     }
+			    }
+			    else if (null != linked) {
+			        // TODO
 			    }
 			}
 		}
