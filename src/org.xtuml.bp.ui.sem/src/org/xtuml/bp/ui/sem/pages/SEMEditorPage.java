@@ -332,14 +332,19 @@ public class SEMEditorPage extends Composite {
 			            		setCursor(fOpenCursor);
 			            		return;
 			            	} else {
-								StateEventMatrixEntry_c entry = getMatrixEntry((StateMachineState_c) item.getData(), event);
-								if(entry != null) {
-									// if this is a new state transition matrix entry
-									// then open the transition activity editor
-									NewStateTransition_c transition = NewStateTransition_c.getOneSM_NSTXNOnR504(entry);
-									if(transition != null) {
-										setCursor(fOpenCursor);
-										return;
+								if (item.getData() instanceof NoStateRow) {
+									// We don't allow editing of a creation transition, so nothing in this row is editable
+									return;
+								} else {
+									StateEventMatrixEntry_c entry = getMatrixEntry((StateMachineState_c) item.getData(), event);
+									if (entry != null) {
+										// if this is a new state transition matrix entry
+										// then open the transition activity editor
+										NewStateTransition_c transition = NewStateTransition_c.getOneSM_NSTXNOnR504(entry);
+										if (transition != null) {
+											setCursor(fOpenCursor);
+											return;
+										}
 									}
 								}
 			            	}
@@ -370,15 +375,20 @@ public class SEMEditorPage extends Composite {
 				            	if(event == null) {
 				            		elementToOpen = item.getData();
 				            	} else {
-									StateEventMatrixEntry_c entry = getMatrixEntry((StateMachineState_c) item.getData(), event);
-									if(entry != null) {
-										// if this is a new state transition matrix entry
-										// then open the transition activity editor
-										NewStateTransition_c transition = NewStateTransition_c.getOneSM_NSTXNOnR504(entry);
-										if(transition != null) {
-											elementToOpen = Transition_c.getOneSM_TXNOnR507(transition);
-										}
-									}
+				            		if (item.getData() instanceof NoStateRow) {
+				            			// We don't allow editing of a creation transition, so nothing in this row is editable
+				            			return;
+				            		} else {
+				            			StateEventMatrixEntry_c entry = getMatrixEntry((StateMachineState_c) item.getData(), event);
+				            			if(entry != null) {
+				            				// if this is a new state transition matrix entry
+				            				// then open the transition activity editor
+				            				NewStateTransition_c transition = NewStateTransition_c.getOneSM_NSTXNOnR504(entry);
+				            				if(transition != null) {
+				            					elementToOpen = Transition_c.getOneSM_TXNOnR507(transition);
+				            				}
+				            			}
+				            		}
 				            	}
 				            }
 				        }
