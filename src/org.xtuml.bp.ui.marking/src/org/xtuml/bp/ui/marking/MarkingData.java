@@ -82,8 +82,8 @@ public class MarkingData {
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
 			// With the change to add the marking listener the data may be attempted to be loaded on a 
-			// project without the .mark files.  We don't want to throw an exception in this case, just log it.
-			System.out.println(fnfe);
+			// project without the .mark files.  This may be fine as not all projects use this style of
+			// marking.  So we don't do anything when the file is not found.
 		}
 		
 		while ( inFile.hasNext() ) {
@@ -121,8 +121,8 @@ public class MarkingData {
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
 			// With the change to add the marking listener the data may be attempted to be loaded on a 
-			// project without the .mark files.  We don't want to throw an exception in this case, just lot it.
-			System.out.println(fnfe);
+			// project without the .mark files.  This may be fine as not all projects use this style of
+			// marking.  So we don't do anything when the file is not found.
 		}
 		
 		while ( inFile.hasNext() ) {
