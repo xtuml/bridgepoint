@@ -927,6 +927,7 @@ b_ident = param.b_ident;
 a_class = param.a_class;
 b_class = param.b_class;
 assoc_class = param.assoc_class;
+assoc_formalized = param.assoc_formalized;
 
 // set the number
 self.Numb = GD::string_to_int(value:rel_num);
@@ -988,6 +989,23 @@ else
     imported_id = imported_class.IObj_ID;
   end if;
   simp.migrateToLinked(imported_id:imported_id, using:assoc_class.Obj_ID);
+  
+  // formalize the association
+  if (assoc_formalized)
+    select one linked related by self->R_ASSOC[R206];
+    one_id = 0;
+    oth_id = 0;
+    select one aone related by linked->R_AONE[R209];
+    select one aoth related by linked->R_AOTH[R210];
+    if (a_ident.Obj_ID == aone.Obj_ID and b_ident.Obj_ID == aoth.Obj_ID)
+      one_id = a_ident.Oid_ID;
+      oth_id = b_ident.Oid_ID;
+    elif (b_ident.Obj_ID == aone.Obj_ID and a_ident.Obj_ID == aoth.Obj_ID)
+      one_id = b_ident.Oid_ID;
+      oth_id = a_ident.Oid_ID;
+    end if;
+    linked.formalize(one_id:one_id, oth_id:oth_id);
+  end if;
 
 end if;',
 	1,
@@ -1133,6 +1151,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"8f35344a-f241-4944-ac03-2f1d89376cb2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4a2a9e4f-80aa-45d5-b7c3-e72d5de559fd",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'assoc_formalized',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"aa292418-9630-455b-b5d0-4a5209702ff7",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
