@@ -8069,17 +8069,22 @@ associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative"
 LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
 
 // Associative class
+select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
 select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 associative_classes = associative_classes + associative_imported_classes;
+default_selection = 0;
 num_options = cardinality associative_classes;
 associative_class_options[num_options-1] = "";
 i = num_options - 1;
 for each associative_class in associative_classes
   associative_class_options[i] = associative_class.Name;
+  if not_empty assr and assr.Name == associative_class.Name
+    default_selection = i;
+  end if;
   i = i - 1;
 end for;
-assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:0);
+assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection);
 LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
 select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
 if (empty associative_class)
