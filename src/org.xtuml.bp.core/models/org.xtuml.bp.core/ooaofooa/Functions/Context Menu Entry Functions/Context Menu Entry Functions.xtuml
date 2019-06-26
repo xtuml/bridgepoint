@@ -7963,9 +7963,13 @@ Import: org.xtuml.bp.core.common.NonRootModelElement
 select any a_oir related by r_rel->R_OIR[R201];
 select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
 select one a_form related by a_oir->R_RGO[R203]->R_FORM[R205];
+select one a_aone related by a_oir->R_RTO[R203]->R_AONE[R204];
+select one a_aoth related by a_oir->R_RTO[R203]->R_AOTH[R204];
 select any b_oir related by r_rel->R_OIR[R201] where (selected.OIR_ID != a_oir.OIR_ID);
 select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
 select one b_form related by b_oir->R_RGO[R203]->R_FORM[R205];
+select one b_aone related by b_oir->R_RTO[R203]->R_AONE[R204];
+select one b_aoth related by b_oir->R_RTO[R203]->R_AOTH[R204];
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
 
@@ -7981,7 +7985,7 @@ LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
 // A to B conditionality
 default_a_cond = "Conditionally";
 other_a_cond = "Unconditionally";
-if ((not_empty b_part and b_part.Cond == 0) or (not_empty b_form and b_form.Cond == 0))
+if ((not_empty b_part and b_part.Cond == 0) or (not_empty b_form and b_form.Cond == 0) or (not_empty b_aone and b_aone.Cond == 0) or (not_empty b_aoth and b_aoth.Cond == 0))
   default_a_cond = "Unconditionally";
   other_a_cond = "Conditionally";
 end if;
@@ -7992,8 +7996,12 @@ LAYOUT::setLayout(field_name:"a_cond", row_num:"2", width:"1", height:"1");
 default_a_phrase = "";
 if (not_empty b_part)
   default_a_phrase = b_part.Txt_Phrs;
-else
+elif (not_empty b_form)
   default_a_phrase = b_form.Txt_Phrs;
+elif (not_empty b_aone)
+  default_a_phrase = b_aone.Txt_Phrs;
+elif (not_empty b_aoth)
+  default_a_phrase = b_aoth.Txt_Phrs;
 end if;
 a_phrase = USER::getText(default:default_a_phrase, prompt:"");
 LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
@@ -8001,7 +8009,7 @@ LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 // A to B multiplicity
 default_a_mult = "One";
 other_a_mult = "Many";
-if ((not_empty b_part and b_part.Mult == 1) or (not_empty b_form and b_form.Mult == 1))
+if ((not_empty b_part and b_part.Mult == 1) or (not_empty b_form and b_form.Mult == 1) or (not_empty b_aone and b_aone.Mult == 1) or (not_empty b_aoth and b_aoth.Mult == 1))
   default_a_mult = "Many";
   other_a_mult = "One";
 end if;
@@ -8019,7 +8027,7 @@ LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
 // B to A conditionality
 default_b_cond = "Conditionally";
 other_b_cond = "Unconditionally";
-if ((not_empty a_part and a_part.Cond == 0) or (not_empty a_form and a_form.Cond == 0))
+if ((not_empty a_part and a_part.Cond == 0) or (not_empty a_form and a_form.Cond == 0) or (not_empty a_aone and a_aone.Cond == 0) or (not_empty a_aoth and a_aoth.Cond == 0))
   default_b_cond = "Unconditionally";
   other_b_cond = "Conditionally";
 end if;
@@ -8030,8 +8038,12 @@ LAYOUT::setLayout(field_name:"b_cond", row_num:"3", width:"1", height:"1");
 default_b_phrase = "";
 if (not_empty a_part)
   default_b_phrase = a_part.Txt_Phrs;
-else
+elif (not_empty a_form)
   default_b_phrase = a_form.Txt_Phrs;
+elif (not_empty a_aone)
+  default_b_phrase = a_aone.Txt_Phrs;
+elif (not_empty a_aoth)
+  default_b_phrase = a_aoth.Txt_Phrs;
 end if;
 b_phrase = USER::getText(default:default_b_phrase, prompt:"");
 LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
@@ -8039,7 +8051,7 @@ LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
 // B to A multiplicity
 default_b_mult = "One";
 other_b_mult = "Many";
-if ((not_empty a_part and a_part.Mult == 1) or (not_empty a_form and a_form.Mult == 1))
+if ((not_empty a_part and a_part.Mult == 1) or (not_empty a_form and a_form.Mult == 1) or (not_empty a_aone and a_aone.Mult == 1) or (not_empty a_aoth and a_aoth.Mult == 1))
   default_b_mult = "Many";
   other_b_mult = "One";
 end if;
@@ -8134,8 +8146,10 @@ USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comp
 
 // Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
+
+
 if (associative_rel)
-  r_rel.editSimpleAssociation(rel_num:rel_num,
+  r_rel.editAssociation(rel_num:rel_num,
                               a_cond:a_cond,
                               a_phrase:a_phrase,
                               a_mult:a_mult,
@@ -8151,7 +8165,7 @@ if (associative_rel)
                               assoc_class:associative_class,
                               assoc_formalized:formalize_assoc);
 else
-  r_rel.editSimpleAssociation(rel_num:rel_num,
+  r_rel.editAssociation(rel_num:rel_num,
                               a_cond:a_cond,
                               a_phrase:a_phrase,
                               a_mult:a_mult,

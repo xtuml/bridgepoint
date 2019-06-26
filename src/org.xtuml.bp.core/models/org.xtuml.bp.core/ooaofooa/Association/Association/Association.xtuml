@@ -909,7 +909,7 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("25e72586-4980-4217-b43b-c45aacc395cd",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
-	'editSimpleAssociation',
+	'editAssociation',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -929,82 +929,217 @@ b_class = param.b_class;
 assoc_class = param.assoc_class;
 assoc_formalized = param.assoc_formalized;
 
+select one simp related by self->R_SIMP[R206];
+select one linked related by self->R_ASSOC[R206];
+
 // set the number
 self.Numb = GD::string_to_int(value:rel_num);
 
-// set A parameters
-select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
-if (not_empty a_part)
-  if ("Unconditionally" == b_cond)
-    a_part.Cond = 0;
-  else
-    a_part.Cond = 1;
-  end if;
-  if ("One" == b_mult)
-    a_part.Mult = 0;
-  else
-    a_part.Mult = 1;
-  end if;
-  a_part.Txt_Phrs = b_phrase;
-end if;
+if (not_empty simp)
 
-// set B parameters
-select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
-if (not_empty b_part)
-  if ("Unconditionally" == a_cond)
-    b_part.Cond = 0;
-  else
-    b_part.Cond = 1;
-  end if;
-  if ("One" == a_mult)
-    b_part.Mult = 0;
-  else
-    b_part.Mult = 1;
-  end if;
-  b_part.Txt_Phrs = a_phrase;
-end if;
-
-select one simp related by self->R_SIMP[R206];
-if (not migrate_to_assoc)
-
-  // formalize the association
-  if ("Not formalized" != form_class and not self.isFormalized())
-    non_formalizer = a_part;
-    identifier = a_ident;
-    if (a_class.Name == form_class)
-      non_formalizer = b_part;
-      identifier = b_ident;
+  // set A parameters
+  select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
+  if (not_empty a_part)
+    if ("Unconditionally" == b_cond)
+      a_part.Cond = 0;
+    else
+      a_part.Cond = 1;
     end if;
-    simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
-  elif ("Not formalized" == form_class and self.isFormalized())
-    self.unformalize();
-  end if;
-
-else
-
-  // migrate to linked
-  select any imported_class related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
-  imported_id = GD::NULL_UNIQUE_ID();
-  if (not_empty imported_class)
-    imported_id = imported_class.IObj_ID;
-  end if;
-  simp.migrateToLinked(imported_id:imported_id, using:assoc_class.Obj_ID);
-  
-  // formalize the association
-  if (assoc_formalized)
-    select one linked related by self->R_ASSOC[R206];
-    one_id = 0;
-    oth_id = 0;
-    select one aone related by linked->R_AONE[R209];
-    select one aoth related by linked->R_AOTH[R210];
-    if (a_ident.Obj_ID == aone.Obj_ID and b_ident.Obj_ID == aoth.Obj_ID)
-      one_id = a_ident.Oid_ID;
-      oth_id = b_ident.Oid_ID;
-    elif (b_ident.Obj_ID == aone.Obj_ID and a_ident.Obj_ID == aoth.Obj_ID)
-      one_id = b_ident.Oid_ID;
-      oth_id = a_ident.Oid_ID;
+    if ("One" == b_mult)
+      a_part.Mult = 0;
+    else
+      a_part.Mult = 1;
     end if;
-    linked.formalize(one_id:one_id, oth_id:oth_id);
+    a_part.Txt_Phrs = b_phrase;
+  end if;
+  select any a_form related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205] where (selected.Obj_ID == a_class.Obj_ID);
+  if (not_empty a_form)
+    if ("Unconditionally" == b_cond)
+      a_form.Cond = 0;
+    else
+      a_form.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_form.Mult = 0;
+    else
+      a_form.Mult = 1;
+    end if;
+    a_form.Txt_Phrs = b_phrase;
+  end if;
+
+  // set B parameters
+  select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
+  if (not_empty b_part)
+    if ("Unconditionally" == a_cond)
+      b_part.Cond = 0;
+    else
+      b_part.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_part.Mult = 0;
+    else
+      b_part.Mult = 1;
+    end if;
+    b_part.Txt_Phrs = a_phrase;
+  end if;
+  select any b_form related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205] where (selected.Obj_ID == b_class.Obj_ID);
+  if (not_empty b_form)
+    if ("Unconditionally" == a_cond)
+      b_form.Cond = 0;
+    else
+      b_form.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_form.Mult = 0;
+    else
+      b_form.Mult = 1;
+    end if;
+    b_form.Txt_Phrs = a_phrase;
+  end if;
+
+  if (not migrate_to_assoc)
+
+    // formalize the association
+    if ("Not formalized" != form_class and not self.isFormalized())
+      non_formalizer = a_part;
+      identifier = a_ident;
+      if (a_class.Name == form_class)
+        non_formalizer = b_part;
+        identifier = b_ident;
+      end if;
+      simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+    elif ("Not formalized" == form_class and self.isFormalized())
+      self.unformalize();
+    end if;
+
+  else
+
+    // migrate to linked
+    select any imported_class related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
+    imported_id = GD::NULL_UNIQUE_ID();
+    if (not_empty imported_class)
+      imported_id = imported_class.IObj_ID;
+    end if;
+    simp.migrateToLinked(imported_id:imported_id, using:assoc_class.Obj_ID);
+    
+    // formalize the association
+    if (assoc_formalized)
+      select one linked related by self->R_ASSOC[R206];
+      one_id = 0;
+      oth_id = 0;
+      select one aone related by linked->R_AONE[R209];
+      select one aoth related by linked->R_AOTH[R210];
+      if (a_ident.Obj_ID == aone.Obj_ID and b_ident.Obj_ID == aoth.Obj_ID)
+        one_id = a_ident.Oid_ID;
+        oth_id = b_ident.Oid_ID;
+      elif (b_ident.Obj_ID == aone.Obj_ID and a_ident.Obj_ID == aoth.Obj_ID)
+        one_id = b_ident.Oid_ID;
+        oth_id = a_ident.Oid_ID;
+      end if;
+      linked.formalize(one_id:one_id, oth_id:oth_id);
+    end if;
+
+  end if;
+
+elif (not_empty linked)
+
+  // set A parameters
+  select any a_aone related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204] where (selected.Obj_ID == a_class.Obj_ID);
+  if (not_empty a_aone)
+    if ("Unconditionally" == b_cond)
+      a_aone.Cond = 0;
+    else
+      a_aone.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_aone.Mult = 0;
+    else
+      a_aone.Mult = 1;
+    end if;
+    a_aone.Txt_Phrs = b_phrase;
+  end if;
+  select any a_aoth related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204] where (selected.Obj_ID == a_class.Obj_ID);
+  if (not_empty a_aoth)
+    if ("Unconditionally" == b_cond)
+      a_aoth.Cond = 0;
+    else
+      a_aoth.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_aoth.Mult = 0;
+    else
+      a_aoth.Mult = 1;
+    end if;
+    a_aoth.Txt_Phrs = b_phrase;
+  end if;
+
+  // set B parameters
+  select any b_aone related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204] where (selected.Obj_ID == b_class.Obj_ID);
+  if (not_empty b_aone)
+    if ("Unconditionally" == a_cond)
+      b_aone.Cond = 0;
+    else
+      b_aone.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_aone.Mult = 0;
+    else
+      b_aone.Mult = 1;
+    end if;
+    b_aone.Txt_Phrs = a_phrase;
+  end if;
+  select any b_aoth related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204] where (selected.Obj_ID == b_class.Obj_ID);
+  if (not_empty b_aoth)
+    if ("Unconditionally" == a_cond)
+      b_aoth.Cond = 0;
+    else
+      b_aoth.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_aoth.Mult = 0;
+    else
+      b_aoth.Mult = 1;
+    end if;
+    b_aoth.Txt_Phrs = a_phrase;
+  end if;
+
+  if (migrate_to_assoc)
+
+    // formalize the association
+    if (assoc_formalized)
+      one_id = 0;
+      oth_id = 0;
+      select one aone related by linked->R_AONE[R209];
+      select one aoth related by linked->R_AOTH[R210];
+      if (a_ident.Obj_ID == aone.Obj_ID and b_ident.Obj_ID == aoth.Obj_ID)
+        one_id = a_ident.Oid_ID;
+        oth_id = b_ident.Oid_ID;
+      elif (b_ident.Obj_ID == aone.Obj_ID and a_ident.Obj_ID == aoth.Obj_ID)
+        one_id = b_ident.Oid_ID;
+        oth_id = a_ident.Oid_ID;
+      end if;
+      linked.formalize(one_id:one_id, oth_id:oth_id);
+    end if;
+
+  else
+      
+    // migrate to simple
+    linked.migrateToSimple();
+
+    // formalize the association
+    if ("Not formalized" != form_class and not self.isFormalized())
+      select one simp related by self->R_SIMP[R206];
+      select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
+      select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
+      non_formalizer = a_part;
+      identifier = a_ident;
+      if (a_class.Name == form_class)
+        non_formalizer = b_part;
+        identifier = b_ident;
+      end if;
+      simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+    end if;
+    
   end if;
 
 end if;',
