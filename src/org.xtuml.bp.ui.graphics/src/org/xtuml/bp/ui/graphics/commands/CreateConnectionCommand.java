@@ -37,23 +37,23 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Association_c;
-import org.xtuml.bp.core.CorePlugin;
+import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
+import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.ui.EditAssociationOnR_RELAction;
-import org.xtuml.bp.core.ui.EditAssociationOnR_RELWizard;
+import org.xtuml.bp.core.ui.BinaryEditAssociationOnR_RELAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.ui.SubsupEditAssociationOnR_SUBAction;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -204,18 +204,17 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
 			Object newElement = GraphicalElement_c.getOneGD_GEOnR2(result).getRepresents();
 			if (newElement instanceof Association_c) {
 			    SimpleAssociation_c simp = SimpleAssociation_c.getOneR_SIMPOnR206((Association_c)newElement);
-			    LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
 			    if (null != simp) {
 			        Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
-			        EditAssociationOnR_RELAction editAction = new EditAssociationOnR_RELAction();
+			        BinaryEditAssociationOnR_RELAction editAction = new BinaryEditAssociationOnR_RELAction();
 			        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
-                    WizardDialog wd = editAction.R_REL_EditAssociation(Selection.getInstance().getStructuredSelection());
+                    WizardDialog wd = editAction.R_REL_BinaryEditAssociation(Selection.getInstance().getStructuredSelection());
                     int result = wd.open();
                     if (Window.CANCEL == result) {
                         return false;
                     }
                     else {
-                        linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
+                        LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
                         if (null != linked) {  // migrated to assoc
                             // delete the connector
                             this.result.Dispose();
@@ -229,9 +228,22 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
                         return true;
                     }
 			    }
-			    else if (null != linked) {
-			        // TODO
-			    }
+			}
+			else if (newElement instanceof ClassAsSubtype_c) {
+                ClassAsSubtype_c[] otherSubtypes = ClassAsSubtype_c.getManyR_SUBsOnR213(
+                        SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR213((ClassAsSubtype_c) newElement),
+                        (candidate) -> !((ClassAsSubtype_c) candidate).getOir_id()
+                                .equals(((ClassAsSubtype_c) newElement).getOir_id()));
+                if (otherSubtypes.length == 0) {
+                    Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
+			        SubsupEditAssociationOnR_SUBAction editAction = new SubsupEditAssociationOnR_SUBAction();
+			        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+                    WizardDialog wd = editAction.R_SUB_SubsupEditAssociation(Selection.getInstance().getStructuredSelection());
+                    int result = wd.open();
+                    if (Window.CANCEL == result) {
+                        return false;
+                    }
+                }
 			}
 		}
 		return true;

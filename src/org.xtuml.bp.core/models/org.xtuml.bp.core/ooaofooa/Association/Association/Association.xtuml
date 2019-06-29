@@ -455,6 +455,9 @@ INSERT INTO O_TFR
     select one r_simp related by self->R_SIMP[R206];
     select one r_assoc related by self->R_ASSOC[R206];
     return not_empty r_simp or not_empty r_assoc;
+  elif (param.value == "subsup" )
+    select one r_subsup related by self->R_SUBSUP[R206];
+    return not_empty r_subsup;
   end if;
 elif (param.name == "formalized" )
   if (param.value =="true" )
@@ -1295,6 +1298,64 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"aa292418-9630-455b-b5d0-4a5209702ff7",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7e702f2d-f714-4c51-b383-2be831f205f1",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'editSubsupAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'rel_num = param.rel_num;
+formalized = param.formalized;
+ident = param.ident;
+
+select one subsup related by self->R_SUBSUP[R206];
+
+// set the number
+self.Numb = GD::string_to_int(value:rel_num);
+
+if (not self.isFormalized() and formalized)
+  
+  // formalize association
+  subsup.formalize(id:ident.Oid_ID);
+
+elif (self.isFormalized() and not formalized)
+
+  // unformalize association
+  self.unformalize();
+  
+end if;',
+	1,
+	'',
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("7e33a5f7-188c-480b-9a9a-0c2eeba26f99",
+	"7e702f2d-f714-4c51-b383-2be831f205f1",
+	'rel_num',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("33addf8a-d26f-4f05-9919-2ace1972ad7d",
+	"7e702f2d-f714-4c51-b383-2be831f205f1",
+	'ident',
+	"eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	'',
+	"5112e967-0fb3-43ee-a0bb-2d57e953c372",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5112e967-0fb3-43ee-a0bb-2d57e953c372",
+	"7e702f2d-f714-4c51-b383-2be831f205f1",
+	'formalized',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"7e33a5f7-188c-480b-9a9a-0c2eeba26f99",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",

@@ -7954,7 +7954,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("fa7aaede-9569-4614-a9a2-6bbf6479e7b8",
 	"00000000-0000-0000-0000-000000000000",
-	'R_REL_EditAssociation',
+	'R_REL_BinaryEditAssociation',
 	'ContextMenuFunction: TRUE
 Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
@@ -8135,6 +8135,7 @@ USER::dependsOn(field1:"formalize_assoc", field2:"associative_rel", inverse:fals
 a_ident2_label = USER::getLabel(label:a_class.Name + " identifier");
 LAYOUT::setLayout(field_name:"a_ident2_label", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident2_label", field2:"associative_rel", inverse:false, comparison:"");
+USER::dependsOn(field1:"a_ident2_label", field2:"formalize_assoc", inverse:false, comparison:"");
 select any a_ident2 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false, comparison:"");
@@ -8144,6 +8145,7 @@ USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comp
 b_ident2_label = USER::getLabel(label:b_class.Name + " identifier");
 LAYOUT::setLayout(field_name:"b_ident2_label", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident2_label", field2:"associative_rel", inverse:false, comparison:"");
+USER::dependsOn(field1:"b_ident2_label", field2:"formalize_assoc", inverse:false, comparison:"");
 select any b_ident2 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comparison:"");
@@ -8192,6 +8194,89 @@ end if;',
 	0);
 INSERT INTO PE_PE
 	VALUES ("fa7aaede-9569-4614-a9a2-6bbf6479e7b8",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("cdcd0966-8895-48a0-b362-4a5f0daf8e4f",
+	"00000000-0000-0000-0000-000000000000",
+	'R_REL_SubsupEditAssociation',
+	'ContextMenuFunction: TRUE
+Import: org.xtuml.bp.core.common.NonRootModelElement
+',
+	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
+
+select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+
+// Association number
+default_rel_num = GD::int_to_string(value:r_rel.Numb);
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
+LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+
+// Formalize associative
+formalize_assoc = USER::getCheckbox(default:r_rel.isFormalized(), prompt:"Formalized");
+LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"2", width:"1", height:"1");
+
+// Identifier
+ident_label = USER::getLabel(label:sup_class.Name + " identifier");
+LAYOUT::setLayout(field_name:"ident_label", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"ident_label", field2:"formalize_assoc", inverse:false, comparison:"");
+select any ident related by sup_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"ident", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"ident", field2:"formalize_assoc", inverse:false, comparison:"");
+
+// Edit the association
+select one ep_pkg related by sup_class->PE_PE[R8001]->EP_PKG[R8000];
+r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:ident);',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("cdcd0966-8895-48a0-b362-4a5f0daf8e4f",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ef9aae71-c299-44cc-83e4-1a8f065962ca",
+	"00000000-0000-0000-0000-000000000000",
+	'R_SUB_SubsupEditAssociation',
+	'ContextMenuFunction: TRUE
+Import: org.xtuml.bp.core.common.NonRootModelElement
+',
+	'select any r_sub from instances of R_SUB where USER::selectOne(id:selected.Rel_ID);
+
+select one r_rel related by r_sub->R_SUBSUP[R213]->R_REL[R206];
+select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+
+// Association number
+default_rel_num = GD::int_to_string(value:r_rel.Numb);
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
+LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+
+// Formalize associative
+formalize_assoc = USER::getCheckbox(default:r_rel.isFormalized(), prompt:"Formalized");
+LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"2", width:"1", height:"1");
+
+// Identifier
+ident_label = USER::getLabel(label:sup_class.Name + " identifier");
+LAYOUT::setLayout(field_name:"ident_label", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"ident_label", field2:"formalize_assoc", inverse:false, comparison:"");
+select any ident related by sup_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+LAYOUT::setLayout(field_name:"ident", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"ident", field2:"formalize_assoc", inverse:false, comparison:"");
+
+// Edit the association
+select one ep_pkg related by sup_class->PE_PE[R8001]->EP_PKG[R8000];
+r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:ident);',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("ef9aae71-c299-44cc-83e4-1a8f065962ca",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
