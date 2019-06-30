@@ -1,79 +1,382 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="../github-pandoc.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<title>BridgePoint xtUML Release Notes</title>
+<link rel="stylesheet" href="./../asciidoctor-default.css">
 </head>
-<body>
-<h1 id="bridgepoint-xtuml-release-notes">BridgePoint xtUML Release Notes</h1>
-<p>Release 6.17</p>
-<h2 id="license">License</h2>
-<p>BridgePoint is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License Agreement</a>.</p>
-<h2 id="system-requirements">System Requirements</h2>
-<table>
+<body class="article">
+<div id="header">
+<h1>BridgePoint xtUML Release Notes</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Release 6.18</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_license">License</h3>
+<div class="paragraph">
+<p>BridgePoint is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_system_requirements">System Requirements</h3>
+<table class="tableblock frame-all grid-all" style="width: 80%;">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
 <thead>
-<tr class="header">
-<th>Category</th>
-<th>Requirement</th>
+<tr>
+<th class="tableblock halign-left valign-top">Category</th>
+<th class="tableblock halign-left valign-top">Requirement</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>Operating System</td>
-<td>Linux, MacOS, Windows</td>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operating System</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux, MacOS, Windows</p></td>
 </tr>
-<tr class="even">
-<td>*Eclipse</td>
-<td>Version 4.7</td>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*Eclipse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version 4.7</p></td>
 </tr>
-<tr class="odd">
-<td>*Java Virtual Machine</td>
-<td>Version 8 or later</td>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*Java Virtual Machine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version 8</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
 <p>*(supplied by installer, except JVM not supplied on MacOS)</p>
-<h2 id="general-notes">General Notes</h2>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_general_notes">General Notes</h3>
+<div class="ulist">
 <ul>
-<li><p>A summary of the release highlights and new functionality is available on the <a href="../WhatsNew/WhatsNew.html">What's New</a> page.</p></li>
-<li><p><strong>IMPORTANT</strong>: BridgePoint is completely open source software. Please see <a href="http://xtuml.org">xtUML.org</a> and <a href="http://onefact.net">onefact.net</a><br />
-for ongoing development and support of BridgePoint.</p></li>
-<li><p>BridgePoint ships as a zip file, similar to standard eclipse packages. Users who wish to<br />
-create desktop shortcuts to start BridgePoint should set the shortcut to start <code>&lt;install dir&gt;/bridgepoint</code>.</p></li>
-<li><p>BridgePoint supports two different action languages: OAL and MASL. The default is set via workspace<br />
-preferences at <code>xtUML &gt; Action Language &gt; Default Action Language Dialect</code>. The default is set to OAL.</p></li>
+<li>
+<p>A summary of the release highlights and new functionality is available on the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a> page.</p>
+</li>
+<li>
+<p><span class="red"><strong>IMPORTANT:</strong></span> Project builders for model translation and MASL export have changed
+significantly in this release.  See the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a> page for
+details about required project changes to work with the new build tools.</p>
+</li>
+<li>
+<p>BridgePoint is completely open source software. Please see <a href="http://xtuml.org">xtuml.org</a> and <a href="http://onefact.net">onefact.net</a>
+for ongoing development and support of BridgePoint.</p>
+</li>
+<li>
+<p>BridgePoint ships as a zip file, similar to standard eclipse packages. Users who wish to
+create desktop shortcuts to start BridgePoint should set the shortcut to start <code>&lt;install dir&gt;/bridgepoint</code>.</p>
+</li>
+<li>
+<p>BridgePoint supports two different action languages: OAL and MASL.  The default is set via workspace
+preferences at <code>xtUML &gt; Action Language &gt; Default Action Language Dialect</code>. The default is set to OAL.</p>
+</li>
 </ul>
-<h2 id="interoperability-with-previous-releases">Interoperability with Previous Releases</h2>
-<p>BridgePoint 6.17 is compatible with workspaces and projects created with prior versions back to<br />
-BridgePoint 5.0. However, after opening the model in this version a modeler will not be able to<br />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interoperability_with_previous_releases">Interoperability with Previous Releases</h3>
+<div class="paragraph">
+<p>BridgePoint 6.18 is compatible with workspaces and projects created with prior versions back to
+BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to
 open the model in a prior version.</p>
-<h2 id="changelog-roadmap">Changelog / Roadmap</h2>
-<p>For a complete list of changes for this and all completed BridgePoint Pro releases see the<br />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changelog_roadmap">Changelog / Roadmap</h3>
+<div class="paragraph">
+<p>For a complete list of changes for this and all completed BridgePoint Pro releases see the
 <a href="https://support.onefact.net/projects/bridgepoint/roadmap?utf8=%E2%9C%93&amp;completed=1">BridgePoint roadmap</a> in the issue tracking system.</p>
-<h2 id="closed-issues">Closed Issues</h2>
-<table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_closed_issues">Closed Issues</h3>
+<table class="tableblock frame-all grid-all" style="width: 80%;">
+<colgroup>
+<col style="width: 23.0769%;">
+<col style="width: 76.9231%;">
+</colgroup>
 <thead>
-<tr class="header">
-<th>Issue</th>
-<th>Subject</th>
+<tr>
+<th class="tableblock halign-left valign-top">Issue</th>
+<th class="tableblock halign-left valign-top">Subject</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td><a href="https://support.onefact.net/issues/11436">11436</a></td>
-<td>Bump engineering version to 6.17</td>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11685">11685</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean up marking file exception</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11682">11682</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MC-3020 cannot build on Windows</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11645">11645</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClassCastException in State Even Matrix</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11642">11642</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issue building</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11634">11634</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keep marks in sync with changing model elements</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11628">11628</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State Event Matrix display problem</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11573">11573</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Model data corruption in translation extensions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11567">11567</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Introduce iuml-dumper</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11555">11555</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renaming signal causes marks to be lost</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11545">11545</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always run build on build project</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11541">11541</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build Project not exporting MASL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11533">11533</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formatting change in MASL output</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11532">11532</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Get rid of MASLProject example</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11528">11528</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formatting change in MASL Export</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11525">11525</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make building projects easier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11513">11513</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create repository.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11512">11512</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make projects building easier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11511">11511</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fix string array initialization for docgen.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11503">11503</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Place coverage output behind an option for masl.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11502">11502</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Properties test fails to build</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11499">11499</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fix deployment export test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11498">11498</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Print MASL exporter output to console</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11497">11497</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deadlock caused by StaleServiceDecorator</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11491">11491</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean up model compiler projects (improve model compiler builder infrastructure)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11488">11488</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL project export requires a cleanse</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11486">11486</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Update docgen to support Deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11484">11484</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Improve robustness of mc3020 instance loader.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11483">11483</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upon creation of EE, set Key Letters to same value as EE Name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11482">11482</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mctools refresh and cleanup</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11481">11481</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployments documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11479">11479</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle exclusion of terminator services from prj file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11473">11473</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete testing for deployments</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11467">11467</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pointless loadProxies map created during import?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11466">11466</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Give warning when no configuration package marked.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11465">11465</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copy/paste error in t.sys_threadwin.c</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11464">11464</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intermittent Errors - Build Server - build with test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11461">11461</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enhanced MASL export mechanism</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11450">11450</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convert GPS Watch to use deployments</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11449">11449</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build error in bp.xtext.masl caused by BridgePoint&#8217;s dependence on xtend-maven-plugin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11445">11445</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add asciidoc templates to process folders.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10525">10525</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implement deployments</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10474">10474</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display issue in state event matrix</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10372">10372</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project Management</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10370">10370</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL deployments</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10320">10320</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project Primus documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10319">10319</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL export flow changes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10315">10315</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primus SRS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10308">10308</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parent task for project Primus</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10251">10251</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL workflow documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10218">10218</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duplicate ports appear in model after restart</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10210">10210</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL Domain export problem</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10207">10207</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duplicate ports appear after running Verifier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10195">10195</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASL exporter emits warnings for core types</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9893">9893</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xtuml2masl without eclipse</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9888">9888</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change MASL export folder</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9827">9827</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grip SRS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9724">9724</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Have jenkins run build_and_test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9319">9319</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make MASL output flow processing more robust</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9022">9022</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fix IPR usage described in MASL Conversion Guide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/8969">8969</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean up build.properties files</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/8463">8463</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Topics missing from user documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/8058">8058</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove un-needed if(!isInGenericPackage) block</p></td>
 </tr>
 </tbody>
 </table>
-<h2 id="known-issues-and-feature-requests">Known Issues and Feature Requests</h2>
-<p>The BridgePoint support system is hosted at <a href="http://support.onefact.net" class="uri">http://support.onefact.net</a>. Please check here for known issues and to<br />
-submit bug reports and requests for new features. This issue tracker contains <a href="https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&amp;set_filter=1&amp;f%5B%5D=status_id&amp;op%5Bstatus_id%5D=%3D&amp;v%5Bstatus_id%5D%5B%5D=1&amp;v%5Bstatus_id%5D%5B%5D=7&amp;v%5Bstatus_id%5D%5B%5D=2&amp;f%5B%5D=&amp;c%5B%5D=project&amp;c%5B%5D=status&amp;c%5B%5D=subject&amp;c%5B%5D=fixed_version&amp;c%5B%5D=due_date&amp;group_by=&amp;t%5B%5D=">all open bugs and feature requests</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_known_issues_and_feature_requests">Known Issues and Feature Requests</h3>
+<div class="paragraph">
+<p>The BridgePoint support system is hosted at <a href="http://support.onefact.net">http://support.onefact.net</a>. Please
+check here for known issues and to submit bug reports and requests for new features. This
+issue tracker contains <a href="https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&amp;set_filter=1&amp;f%5B%5D=status_id&amp;op%5Bstatus_id%5D=%3D&amp;v%5Bstatus_id%5D%5B%5D=1&amp;v%5Bstatus_id%5D%5B%5D=7&amp;v%5Bstatus_id%5D%5B%5D=2&amp;f%5B%5D=&amp;c%5B%5D=project&amp;c%5B%5D=status&amp;c%5B%5D=subject&amp;c%5B%5D=fixed_version&amp;c%5B%5D=due_date&amp;group_by=&amp;t%5B%5D=">all open bugs and feature requests</a>.</p>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+</div>
+</div>
 </body>
 </html>
