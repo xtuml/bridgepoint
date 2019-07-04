@@ -51,14 +51,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
-
 import org.xtuml.bp.core.End_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.TraceLogger;
@@ -134,7 +130,6 @@ public class CanvasPlugin extends AbstractUIPlugin {
           IConfigurationElement[] modelEditorExtensions = elems[j].getChildren();
           for (int k = 0; k < modelEditorExtensions.length; k++) {
         	IConfigurationElement modelEditorExtension = modelEditorExtensions[k];
-			int value = 0;
             if (modelEditorExtension.getName().equals("symbol")) {
               String className = modelEditorExtension.getAttribute("class");
               if (!className.equals("")) {
@@ -271,7 +266,6 @@ public class CanvasPlugin extends AbstractUIPlugin {
           // Note that this section is loading only "defaultfor" definitions.
           // "symbol" definitions follow this
           for (int k = 0; k < modelEditorExtensions.length; k++) {
-          	int value = 0;
           	IConfigurationElement modelEditorExtension = modelEditorExtensions[k];
             if (modelEditorExtension.getName().equals("defaultFor")) {
               String className = modelEditorExtension.getAttribute("class");

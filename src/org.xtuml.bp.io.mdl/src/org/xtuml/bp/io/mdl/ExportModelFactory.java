@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ExportModelFactory.java,v $
-//Version:   $Revision: 1.13 $
-//Modified:  $Date: 2013/05/10 13:26:12 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -25,10 +17,7 @@ package org.xtuml.bp.io.mdl;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -67,7 +56,6 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 	@Override
 	public IRunnableWithProgress create(Ooaofooa aModelRoot, SystemModel_c sys,
 			boolean exportGraphics) throws FileNotFoundException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

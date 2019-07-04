@@ -600,6 +600,7 @@ public class ModelCacheManager {
 								.create(sca, compareRoot, true, new Path(""));
 						streamProcessor.setContents(contents);
 						streamProcessor.setImporter(modelInputLoader);
+						scanner.close();
 					}
 					if (isSingleFileOld) {
 						readonlyInputs.add(key);

@@ -133,12 +133,9 @@ public class DanglingReferenceDecorator implements ILightweightLabelDecorator {
     }
 
     public void dispose() {
-        // TODO Auto-generated method stub
-
     }
 
     public boolean isLabelProperty(Object element, String property) {
-        // TODO Auto-generated method stub
         return false;
     }
 

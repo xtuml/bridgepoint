@@ -32,7 +32,6 @@ if ( 2 != param.flavor and 3 != param.flavor )
   // Get return type
   select one returntype related by self->S_DT[R1656];
   signature = signature + returntype.Name + " ";
-  signature = signature + "void ";
 end if;
  
 // Get name

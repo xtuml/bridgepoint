@@ -1,44 +1,22 @@
 package org.xtuml.bp.welcome.cheatsheets.library;
-//====================================================================
-//
-//File: $RCSfile: OpenDiagramAction.java,v $
-//Version: $Revision: 1.4 $
-//Modified: $Date: 2013/01/10 23:32:09 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
-import java.awt.Component;
-
-import org.eclipse.core.internal.resources.TestingSupport;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-import org.eclipse.ui.internal.UIPlugin;
-
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.ui.NewPackageOnEP_PKGAction;
-import org.xtuml.bp.core.ui.NewPackageOnS_SYSAction;
-import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.utilities.ui.ProjectUtilities;
 import org.xtuml.bp.utilities.ui.CanvasUtilities;
+import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
 public class OpenDiagramAction extends Action implements ICheatSheetAction{
 
 
 	@Override
 	public void run(String[] params, ICheatSheetManager manager) {
-		// TODO Auto-generated method stub
 		String projectName = params[0];
 		String elementType =   params [1]; 
 		final String elementName = params[2];

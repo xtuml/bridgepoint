@@ -481,8 +481,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one package related by self->EP_PKG[R8000];
+	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
 if not_empty component
   component.clearScope();
@@ -690,8 +689,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one package related by self->EP_PKG[R8000];
+	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
 if not_empty component
   component.clearScope();
@@ -728,8 +726,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one package related by self->EP_PKG[R8000];
+	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
 if not_empty component
   component.clearScope();
@@ -766,8 +763,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one package related by self->EP_PKG[R8000];
+	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
 if not_empty component
   component.clearScope();
@@ -820,8 +816,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one package related by self->EP_PKG[R8000];
+	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
 if not_empty component
   component.clearScope();
@@ -858,8 +853,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one package related by self->EP_PKG[R8000];
+	'select one package related by self->EP_PKG[R8000];
 select one component related by self->C_C[R8003];
 if not_empty component
   component.clearScope();

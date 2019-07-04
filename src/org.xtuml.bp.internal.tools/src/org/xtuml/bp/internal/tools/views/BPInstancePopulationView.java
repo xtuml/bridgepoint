@@ -34,20 +34,15 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
-
-import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.EclipseOoaofooa;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.util.CoreUtil;
-import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.model.BPThread;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.OoaofgraphicsBase;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -383,7 +378,6 @@ public class BPInstancePopulationView extends ViewPart {
 				// Nothing to do here, no children				
 			} else if (parent instanceof BPSummaryTree) {
 				BPSummaryTree thisParent = (BPSummaryTree)parent;
-				List<InstanceList> unsortedLists = new ArrayList<InstanceList>();
 				
 				// Need to get all the children from the BPModelRootTrees of this
 				// BPProjectTree.
@@ -565,11 +559,6 @@ public class BPInstancePopulationView extends ViewPart {
 	}
 
 	private void hookDoubleClickAction() {
-	}
-
-	private void showMessage(String message) {
-		UIUtil.openInformation(viewer.getControl().getShell(),
-				"BP Instance Population Monitor", message);
 	}
 
 	/**

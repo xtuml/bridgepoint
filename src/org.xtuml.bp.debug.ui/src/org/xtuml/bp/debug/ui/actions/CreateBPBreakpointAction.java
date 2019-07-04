@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile$
-//Version:   $Revision$
-//Modified:  $Date$
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -55,16 +47,13 @@ import org.xtuml.bp.debug.ui.model.IBPBreakpoint;
 
 /**
  * Presents the standard properties dialog to configure
- * the attibutes of a Breakpoint from the popup menu of a breakpoint instance 
+ * the attributes of a Breakpoint from the popup menu of a breakpoint instance 
  */
 public class CreateBPBreakpointAction implements IObjectActionDelegate {
 
 	private IWorkbenchPart fPart;
 	private NonRootModelElement fNrme;
 
-	// TODO PLCM:  the method of finding the resource for the marker will probably change
-	// once PLCM is implemented
-	
 	public void run(IAction action) {
         IBreakpoint existing_bp = determineBreakpoint();
         if ( existing_bp != null ) {

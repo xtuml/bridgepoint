@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: ModelImportPage.java,v $
-//Version:   $Revision: 1.20 $
-//Modified:  $Date: 2013/05/10 13:26:19 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -40,20 +32,17 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.dialogs.WizardDataTransferPage;
-
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.ui.tree.ModelCheckedTreeViewer;
 import org.xtuml.bp.io.mdl.tree.ModelCheckedTreeContentProvider;
 import org.xtuml.bp.ui.explorer.ModelLabelProvider;
-import org.xtuml.bp.core.ui.tree.ModelCheckedTreeViewer;
 
 public class ModelImportPage extends WizardDataTransferPage {
 
 	private Selection selection = Selection.getInstance();
 	private ModelCheckedTreeViewer m_treeviewer;
-	private Composite m_parent;
 	private Combo sourceNameField;
 	private String sourceFieldPath;
 	protected Button sourceBrowseButton;

@@ -1,14 +1,15 @@
 package org.xtuml.bp.welcome;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.ui.plugin.*;
-import org.osgi.framework.BundleContext;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -78,7 +79,7 @@ public class WelcomePlugin extends AbstractUIPlugin {
 		URL resolvedURL = null;
 		String result = "";
 		try {
-			resolvedURL =  Platform.resolve(url);
+			resolvedURL =  FileLocator.resolve(url);
 			result = resolvedURL.getPath();
 		} catch (IOException e) {
 			System.err.println("Unable to resolve URL for entry: " + entry + ".  " + e.getLocalizedMessage()); //$NON-NLS-1$
