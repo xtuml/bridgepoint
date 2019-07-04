@@ -1,12 +1,3 @@
-.//====================================================================
-.//
-.// File:      $RCSfile: import_functions.inc,v $
-.// Version:   $Revision: 1.66 $
-.// Modified:  $Date: 2013/06/12 13:08:05 $
-.//
-.// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-.//
-.//====================================================================
 .invoke arc_env = GET_ENV_VAR( "PTC_MC_ARC_DIR" )
 .assign mc_archetypes = arc_env.result
 .if ( mc_archetypes == "" )
@@ -306,7 +297,7 @@ ${setSize.body}
   private void storeC_C(Ooaofooa modelRoot, String table, Vector parms,
                           Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("C_C") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
-      // TODO - This code was added to upgrade C_C instances, but only for
+      // This code was added to upgrade C_C instances, but only for
       // these instances when created before 1.5
       Component_c component = new Component_c(modelRoot, IdAssigner.createUUIDFromString((String)parms.elementAt(0)), 
           IdAssigner.NULL_UUID,
@@ -367,7 +358,7 @@ ${setSize.body}
   private void storeCD_IC(Ooaofooa modelRoot, String table, Vector parms,
                           Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("CD_IC") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
-      // TODO - This code was added to upgrade CD_IC instances, but only for
+      // This code was added to upgrade CD_IC instances, but only for
       // these instances when created before 1.5
       ImportHelper.CD_IC cdic = new ImportHelper.CD_IC(
         IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
@@ -383,7 +374,7 @@ ${setSize.body}
   private void storeCD_IID(Ooaofooa modelRoot, String table, Vector parms,
                            Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("CD_IID") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
-      // TODO - This code was added to upgrade CD_IID instances, but only for
+      // This code was added to upgrade CD_IID instances, but only for
       // these instances when created before 1.5
       ImportHelper.CD_IID cdiid = new ImportHelper.CD_IID(
         IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
@@ -396,7 +387,7 @@ ${setSize.body}
   private void storeCD_CID(Ooaofooa modelRoot, String table, Vector parms,
                            Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("CD_CID") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
-      // TODO - This code was added to upgrade CD_CID instances, but only for
+      // This code was added to upgrade CD_CID instances, but only for
       // these instances when created before 1.5
       ImportHelper.CD_CID cdcid = new ImportHelper.CD_CID(
         IdAssigner.createUUIDFromString((String) parms.elementAt(0)),
@@ -408,7 +399,7 @@ ${setSize.body}
   private void storeCD_CDE(Ooaofooa modelRoot, String table, Vector parms,
                            Vector rawParms, int numParms, IProgressMonitor pm) {
     if (table.equalsIgnoreCase("CD_CDE") && !actualVersion.equals(persistenceVersion) && (!actualVersion.equals(bp7_1_5VersionNumber)) && !actualVersion.equals(bp7_1_4VersionNumber)) { //$$NON-NLS-1$$
-      // TODO - This code was added to upgrade CD_CDE instances, but only for
+      // This code was added to upgrade CD_CDE instances, but only for
       // these instances when created before 1.5
       ImportHelper.CD_CDE cdcde = new ImportHelper.CD_CDE(
         IdAssigner.createUUIDFromString((String) parms.elementAt(0)),

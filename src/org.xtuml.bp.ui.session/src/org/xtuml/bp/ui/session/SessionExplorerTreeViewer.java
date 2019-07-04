@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile$
-//Version:   $Revision$
-//Modified:  $Date$
-//
-// (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -34,7 +26,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;

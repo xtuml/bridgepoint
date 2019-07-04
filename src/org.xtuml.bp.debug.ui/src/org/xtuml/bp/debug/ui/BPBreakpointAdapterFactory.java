@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile$
-//Version:   $Revision$
-//Modified:  $Date$
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -26,8 +18,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.debug.ui.actions.IToggleBreakpointsTarget;
-
-import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.ui.text.activity.ActivityEditor;
 
 /**

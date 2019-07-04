@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ToolsPlugin.java,v $
-//Version:   $Revision: 1.10.24.1 $
-//Modified:  $Date: 2013/07/26 10:13:33 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License.  You may obtain a copy
 // of the License at
@@ -26,7 +18,6 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
 
 /**

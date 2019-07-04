@@ -1,0 +1,121 @@
+= BridgePoint xtUML Release Notes
+
+Release 6.18
+
+=== License
+BridgePoint is licensed under the link:http://www.apache.org/licenses/LICENSE-2.0[Apache 2.0 license]. 
+
+
+=== System Requirements
+  
+[width="80%",options="header"]
+|=========================================================
+|Category | Requirement
+| Operating System      | Linux, MacOS, Windows 
+| *Eclipse              | Version 4.7 
+| *Java Virtual Machine | Version 8 
+|=========================================================
+
+*(supplied by installer, except JVM not supplied on MacOS)
+
+=== General Notes
+* A summary of the release highlights and new functionality is available on the link:../WhatsNew/WhatsNew.html[What's New] page.  
+  
+* [red]#*IMPORTANT:*# Project builders for model translation and MASL export have changed
+significantly in this release.  See the link:../WhatsNew/WhatsNew.html[What's New] page for 
+details about required project changes to work with the new build tools.  
+
+* BridgePoint is completely open source software. Please see link:http://xtuml.org[xtuml.org] and link:http://onefact.net[onefact.net] 
+for ongoing development and support of BridgePoint.  
+  
+* BridgePoint ships as a zip file, similar to standard eclipse packages. Users who wish to 
+create desktop shortcuts to start BridgePoint should set the shortcut to start `<install dir>/bridgepoint`.  
+
+* BridgePoint supports two different action languages: OAL and MASL.  The default is set via workspace 
+preferences at `xtUML > Action Language > Default Action Language Dialect`. The default is set to OAL.       
+  
+=== Interoperability with Previous Releases
+BridgePoint 6.18 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to 
+open the model in a prior version.   
+
+=== Changelog / Roadmap
+For a complete list of changes for this and all completed BridgePoint Pro releases see the 
+link:https://support.onefact.net/projects/bridgepoint/roadmap?utf8=%E2%9C%93&completed=1[BridgePoint roadmap] in the issue tracking system.  
+
+=== Closed Issues
+
+[width="80%",cols="3,10",options="header"]
+|=========================================================
+| Issue |  Subject 
+| link:https://support.onefact.net/issues/11685[11685] | Clean up marking file exception
+| link:https://support.onefact.net/issues/11682[11682] | MC-3020 cannot build on Windows
+| link:https://support.onefact.net/issues/11645[11645] | ClassCastException in State Even Matrix
+| link:https://support.onefact.net/issues/11642[11642] | Issue building
+| link:https://support.onefact.net/issues/11634[11634] | Keep marks in sync with changing model elements
+| link:https://support.onefact.net/issues/11628[11628] | State Event Matrix display problem
+| link:https://support.onefact.net/issues/11573[11573] | Model data corruption in translation extensions
+| link:https://support.onefact.net/issues/11567[11567] | Introduce iuml-dumper
+| link:https://support.onefact.net/issues/11555[11555] | Renaming signal causes marks to be lost
+| link:https://support.onefact.net/issues/11545[11545] | Always run build on build project
+| link:https://support.onefact.net/issues/11541[11541] | Build Project not exporting MASL
+| link:https://support.onefact.net/issues/11533[11533] | Formatting change in MASL output
+| link:https://support.onefact.net/issues/11532[11532] | Get rid of MASLProject example
+| link:https://support.onefact.net/issues/11528[11528] | Formatting change in MASL Export
+| link:https://support.onefact.net/issues/11525[11525] | Make building projects easier
+| link:https://support.onefact.net/issues/11513[11513] | Create repository.
+| link:https://support.onefact.net/issues/11512[11512] | Make projects building easier
+| link:https://support.onefact.net/issues/11511[11511] | Fix string array initialization for docgen.
+| link:https://support.onefact.net/issues/11503[11503] | Place coverage output behind an option for masl.
+| link:https://support.onefact.net/issues/11502[11502] | Properties test fails to build
+| link:https://support.onefact.net/issues/11499[11499] | Fix deployment export test
+| link:https://support.onefact.net/issues/11498[11498] | Print MASL exporter output to console
+| link:https://support.onefact.net/issues/11497[11497] | Deadlock caused by StaleServiceDecorator
+| link:https://support.onefact.net/issues/11491[11491] | Clean up model compiler projects (improve model compiler builder infrastructure)
+| link:https://support.onefact.net/issues/11488[11488] | MASL project export requires a cleanse
+| link:https://support.onefact.net/issues/11486[11486] | Update docgen to support Deployments.
+| link:https://support.onefact.net/issues/11484[11484] | Improve robustness of mc3020 instance loader.
+| link:https://support.onefact.net/issues/11483[11483] | Upon creation of EE, set Key Letters to same value as EE Name
+| link:https://support.onefact.net/issues/11482[11482] | mctools refresh and cleanup
+| link:https://support.onefact.net/issues/11481[11481] | Deployments documentation
+| link:https://support.onefact.net/issues/11479[11479] | Handle exclusion of terminator services from prj file
+| link:https://support.onefact.net/issues/11473[11473] | Complete testing for deployments
+| link:https://support.onefact.net/issues/11467[11467] | Pointless loadProxies map created during import?
+| link:https://support.onefact.net/issues/11466[11466] | Give warning when no configuration package marked.
+| link:https://support.onefact.net/issues/11465[11465] | Copy/paste error in t.sys_threadwin.c
+| link:https://support.onefact.net/issues/11464[11464] | Intermittent Errors - Build Server - build with test
+| link:https://support.onefact.net/issues/11461[11461] | Enhanced MASL export mechanism
+| link:https://support.onefact.net/issues/11450[11450] | Convert GPS Watch to use deployments
+| link:https://support.onefact.net/issues/11449[11449] | Build error in bp.xtext.masl caused by BridgePoint's dependence on xtend-maven-plugin
+| link:https://support.onefact.net/issues/11445[11445] | Add asciidoc templates to process folders.
+| link:https://support.onefact.net/issues/10525[10525] | Implement deployments
+| link:https://support.onefact.net/issues/10474[10474] | Display issue in state event matrix
+| link:https://support.onefact.net/issues/10372[10372] | Project Management
+| link:https://support.onefact.net/issues/10370[10370] | MASL deployments
+| link:https://support.onefact.net/issues/10320[10320] | Project Primus documentation
+| link:https://support.onefact.net/issues/10319[10319] | MASL export flow changes
+| link:https://support.onefact.net/issues/10315[10315] | Primus SRS
+| link:https://support.onefact.net/issues/10308[10308] | Parent task for project Primus
+| link:https://support.onefact.net/issues/10251[10251] | MASL workflow documentation
+| link:https://support.onefact.net/issues/10218[10218] | Duplicate ports appear in model after restart
+| link:https://support.onefact.net/issues/10210[10210] | MASL Domain export problem
+| link:https://support.onefact.net/issues/10207[10207] | Duplicate ports appear after running Verifier
+| link:https://support.onefact.net/issues/10195[10195] | MASL exporter emits warnings for core types
+| link:https://support.onefact.net/issues/9893[9893] |  xtuml2masl without eclipse
+| link:https://support.onefact.net/issues/9888[9888] |  Change MASL export folder
+| link:https://support.onefact.net/issues/9827[9827] |  Grip SRS
+| link:https://support.onefact.net/issues/9724[9724] |  Have jenkins run build_and_test
+| link:https://support.onefact.net/issues/9319[9319] |  Make MASL output flow processing more robust
+| link:https://support.onefact.net/issues/9022[9022] |  Fix IPR usage described in MASL Conversion Guide
+| link:https://support.onefact.net/issues/8969[8969] |  Clean up build.properties files
+| link:https://support.onefact.net/issues/8463[8463] |  Topics missing from user documentation
+| link:https://support.onefact.net/issues/8058[8058] |  Remove un-needed if(!isInGenericPackage) block
+|=========================================================
+
+    
+=== Known Issues and Feature Requests
+The BridgePoint support system is hosted at link:http://support.onefact.net[http://support.onefact.net]. Please 
+check here for known issues and to submit bug reports and requests for new features. This 
+issue tracker contains link:https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=7&v%5Bstatus_id%5D%5B%5D=2&f%5B%5D=&c%5B%5D=project&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=fixed_version&c%5B%5D=due_date&group_by=&t%5B%5D=[all open bugs and feature requests].  
+
+  

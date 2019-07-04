@@ -43,13 +43,8 @@ import org.xtuml.bp.core.ActorParticipant_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
 import org.xtuml.bp.core.BinaryAssociation_c;
-import org.xtuml.bp.core.ClassAsAssociatedOneSide_c;
 import org.xtuml.bp.core.ClassAsLink_c;
-import org.xtuml.bp.core.ClassAsSimpleFormalizer_c;
-import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
-import org.xtuml.bp.core.ClassAsSupertype_c;
-import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.ClassInEngine_c;
 import org.xtuml.bp.core.ClassInState_c;
 import org.xtuml.bp.core.ClassInstanceParticipant_c;
@@ -72,7 +67,6 @@ import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FlowFinalNode_c;
 import org.xtuml.bp.core.ForkJoinNode_c;
-import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Generalization_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ImportedProvision_c;
@@ -94,13 +88,10 @@ import org.xtuml.bp.core.PackageParticipant_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.Provision_c;
-import org.xtuml.bp.core.ReferredToClassInAssoc_c;
-import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.ReturnMessage_c;
 import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.SendSignal_c;
-import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.StateMachine_c;
@@ -299,7 +290,6 @@ public class Cl_c {
     }
     
 	public static UUID Getthetargetconnectorid(final UUID Ooa_id, final int Ooa_type, final Object system) {
-		UUID id = null;
 		Object connector = Getinstancefromooa_id(Ooa_id, Ooa_type, system);
 		Class[] argTypes = new Class[0];
 		Object[] args = new Object[0];

@@ -1,13 +1,13 @@
 //=====================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License.  You may obtain a copy
 // of the License at
 //
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
 // License for the specific language governing permissions and limitations under
 // the License.
 //=====================================================================
@@ -36,14 +36,14 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.PasteAction;
 
 /**
- * This class is the front-end for graphics reconciliation. It is abstract to allow 
- * overriding of behavior. This functionality for this class was inside CanvasTransactionListener, 
+ * This class is the front-end for graphics reconciliation. It is abstract to allow
+ * overriding of behavior. This functionality for this class was inside CanvasTransactionListener,
  * but over time the behavior has grown to a point where it deserves to be a first-class object.
  */
 public class GraphicsReconcilerLauncher {
 	// A map of each SystemModel to reconcile to the set of elements in that SystemModel to reconcile
 	private Set<SystemModel_c> systemsToReconcile = new HashSet<SystemModel_c>();
-	
+
 	public GraphicsReconcilerLauncher(List<NonRootModelElement> roots) {
 		for (NonRootModelElement root : roots) {
 			SystemModel_c system = null;
@@ -58,14 +58,14 @@ public class GraphicsReconcilerLauncher {
 				// Note that we explicitly use a Set to assure we have a unique set of roots
 				systemsToReconcile.add(system);
 			}
-		}		
+		}
 	}
 
 	public static void reconcileThisTransaction(Transaction transaction, boolean syncExec, final boolean removeElements) {
 		if (!transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) {
 			if (elementsMustBeReconciled(transaction)) {
 				if (transaction.getTransactionManager().getActiveTransaction() == null) {
-					List<NonRootModelElement> rootElements =  getAffectedElements(transaction);	
+					List<NonRootModelElement> rootElements =  getAffectedElements(transaction);
 					GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(rootElements);
 					reconciler.startReconciler(syncExec, removeElements, transaction);
 				}
@@ -76,7 +76,7 @@ public class GraphicsReconcilerLauncher {
 	public void runReconciler(boolean removeElements) {
 		runReconciler(removeElements, false);
 	}
-	
+
 	public void runReconciler(boolean removeElements, boolean createAllGraphics) {
 		TransactionManager manager = TransactionManager.getSingleton();
 		Transaction newTrans = null;
@@ -84,15 +84,11 @@ public class GraphicsReconcilerLauncher {
 			newTrans = manager.startTransaction("Auto-reconcilation", Ooaofgraphics.getDefaultInstance(), false,
 					Transaction.AUTORECONCILE_TYPE);
 			Ooaofgraphics ooag = Ooaofgraphics.getDefaultInstance();
-			
+
 			for (SystemModel_c system : systemsToReconcile) {
 				// Now reconcile
-				if (createAllGraphics) {
-					int passnumber = 1;
-					AutoReconciliationSpecification_c.Reconcileallgraphics(ooag, passnumber, system, system.getSys_id());
-				} else {
-					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, system.getSys_id());
-				}
+				int passnumber = 1;
+				AutoReconciliationSpecification_c.Reconcileallgraphics(ooag, passnumber, system, system.getSys_id());
 			}
 		} catch (TransactionException e) {
 			if (newTrans != null)
@@ -148,7 +144,7 @@ public class GraphicsReconcilerLauncher {
 				if (deltas[i].getKind() == Modeleventnotification_c.DELTA_NEW
 						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_DELETE
 						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_RELATED
-						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED) 
+						|| deltas[i].getKind() == Modeleventnotification_c.DELTA_ELEMENT_UNRELATED)
 				{
 					return true;
 				}
@@ -160,18 +156,18 @@ public class GraphicsReconcilerLauncher {
 
 	public void startReconciler(boolean syncExec, final boolean removeElements, Transaction transaction) {
 
-		// We should not need to run reconciliation on a Move 
+		// We should not need to run reconciliation on a Move
 		// Note that when move was removed the question came up about disabling on copy/paste.
 		// It is worth noting that in the case where elements are copied from ME, all graphics ARE
 		// also copied, so it is not the reconciler that "recreates" graphics during copy/paste it
-		// is the copy that is smart enough to get any graphics associated with the ME selection. 
+		// is the copy that is smart enough to get any graphics associated with the ME selection.
 		// However, on paste in that situation the container symbol for the element being pasted IS
-		// created by graphics reconciliation. Therefore, for now only move is filtered.		
+		// created by graphics reconciliation. Therefore, for now only move is filtered.
 		if (transaction.getDisplayName() != null
 				&& transaction.getDisplayName().contains(PasteAction.TransactionNameForMove)) {
 			return;
 		}
-		
+
 		// call the auto create code, which will create
 		// any elements that need to be
 		// if the current thread is the UI thread then just

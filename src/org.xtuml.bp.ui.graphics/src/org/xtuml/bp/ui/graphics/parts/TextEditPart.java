@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: TextEditPart.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/01/10 23:05:55 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -39,14 +31,11 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.jface.resource.FontDescriptor;
-import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.xtuml.bp.core.End_c;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Style_c;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Connector_c;
