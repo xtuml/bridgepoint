@@ -687,7 +687,15 @@ ${result.body}
     boolean isPageComplete = true;
   .for each field in fields
     .if ((field.type != "Label") and (field.type != "Check"))
-    if (v_$r{field.Instance_Handle} == null) isPageComplete = false;
+      .if (field.Type == "Text")
+      if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()) isPageComplete = false;
+      .elif (field.Type == "Combo")
+      if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Combo && $cr{field.Instance_Handle}Combo.getVisible()) isPageComplete = false;
+      .elif (field.Type == "Toggle")
+      if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Toggle && $cr{field.Instance_Handle}Toggle.getVisible()) isPageComplete = false;
+      .elif (field.Type == "List")
+      if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}List && $cr{field.Instance_Handle}List.getVisible()) isPageComplete = false;
+      .end if
     .end if
   .end for
     return isPageComplete;
