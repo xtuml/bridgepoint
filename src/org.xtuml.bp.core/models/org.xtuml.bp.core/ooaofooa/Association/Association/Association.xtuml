@@ -923,7 +923,7 @@ a_mult = param.a_mult;
 b_cond = param.b_cond;
 b_phrase = param.b_phrase;
 b_mult = param.b_mult;
-form_class = param.form_class;
+part_class = param.part_class;
 migrate_to_assoc = param.migrate_to_assoc;
 a_ident = param.a_ident;
 b_ident = param.b_ident;
@@ -1003,15 +1003,15 @@ if (not_empty simp)
   if (not migrate_to_assoc)
 
     // formalize the association
-    if ("Not formalized" != form_class and not self.isFormalized())
-      non_formalizer = a_part;
-      identifier = a_ident;
-      if (a_class.Name == form_class)
-        non_formalizer = b_part;
-        identifier = b_ident;
+    if ("Not formalized" != part_class and not self.isFormalized())
+      non_formalizer = b_part;
+      identifier = b_ident;
+      if (a_class.Name == part_class)
+        non_formalizer = a_part;
+        identifier = a_ident;
       end if;
       simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
-    elif ("Not formalized" == form_class and self.isFormalized())
+    elif ("Not formalized" == part_class and self.isFormalized())
       self.unformalize();
     end if;
 
@@ -1130,15 +1130,15 @@ elif (not_empty linked)
     linked.migrateToSimple();
 
     // formalize the association
-    if ("Not formalized" != form_class and not self.isFormalized())
+    if ("Not formalized" != part_class and not self.isFormalized())
       select one simp related by self->R_SIMP[R206];
       select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
       select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
-      non_formalizer = a_part;
-      identifier = a_ident;
-      if (a_class.Name == form_class)
-        non_formalizer = b_part;
-        identifier = b_ident;
+      non_formalizer = b_part;
+      identifier = b_ident;
+      if (a_class.Name == part_class)
+        non_formalizer = a_part;
+        identifier = a_ident;
       end if;
       simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
     end if;
@@ -1216,7 +1216,7 @@ INSERT INTO O_TPARM
 INSERT INTO O_TPARM
 	VALUES ("6b5d0124-17ae-4821-870a-b776d0c38336",
 	"25e72586-4980-4217-b43b-c45aacc395cd",
-	'form_class',
+	'part_class',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',

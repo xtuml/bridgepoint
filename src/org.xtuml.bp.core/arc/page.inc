@@ -313,7 +313,13 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .select any sel_par related by v_brv->V_PAR[R810] where (selected.Name == "default_selection")
             .select any sel_val related by sel_par->V_VAL[R800]
             .assign load_ui = ""
-            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = ${options_val.buffer}.clone();\n"
+            .assign load_ui = load_ui + "List<String> $cr{field.Instance_Handle}InstancesTemp = new ArrayList<>();\n"
+            .assign load_ui = load_ui + "for (String option : ${options_val.buffer}) {\n"
+            .assign load_ui = load_ui + "    if (!option.isEmpty()) {\n"
+            .assign load_ui = load_ui + "        $cr{field.Instance_Handle}InstancesTemp.add(option);\n"
+            .assign load_ui = load_ui + "    }\n"
+            .assign load_ui = load_ui + "}\n"
+            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = $cr{field.Instance_Handle}InstancesTemp.toArray(new String[0]);\n"
             .assign load_ui = load_ui + "$cr{field.Instance_Handle}Combo.removeAll();\n"
             .assign load_ui = load_ui + "for (String option : $cr{field.Instance_Handle}Instances) {\n"
             .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(option);\n"
@@ -381,8 +387,11 @@ public class ${page_class_name} extends PtWizardPage implements Listener
         .if (("getCheckbox" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
             .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "default")
             .select any v_val related by v_par->V_VAL[R800]
+            .select any disabled_par related by v_brv->V_PAR[R810] where (selected.Name == "disabled")
+            .select any disabled_val related by disabled_par->V_VAL[R800]
             .assign load_ui = ""
             .assign load_ui = load_ui + "$cr{field.Instance_Handle}Check.setSelection(${v_val.buffer});\n"
+            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Check.setEnabled(!${disabled_val.buffer});\n"
             .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if

@@ -7960,12 +7960,21 @@ Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
 	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 
-select any a_oir related by r_rel->R_OIR[R201];
+select any a_oir from instances of R_OIR where false;
+select any b_oir from instances of R_OIR where false;
+select any assr_oir related by r_rel->R_OIR[R201]->R_RGO[R203]->R_ASSR[R205]->R_RGO[R205]->R_OIR[R203];
+if (not_empty assr_oir)
+  select any a_oir related by r_rel->R_OIR[R201] where (selected.OIR_ID != assr_oir.OIR_ID);
+  select any b_oir related by r_rel->R_OIR[R201] where (selected.OIR_ID != assr_oir.OIR_ID and selected.OIR_ID != a_oir.OIR_ID);
+else
+  select any a_oir related by r_rel->R_OIR[R201];
+  select any b_oir related by r_rel->R_OIR[R201] where (selected.OIR_ID != a_oir.OIR_ID);
+end if;
+
 select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
 select one a_form related by a_oir->R_RGO[R203]->R_FORM[R205];
 select one a_aone related by a_oir->R_RTO[R203]->R_AONE[R204];
 select one a_aoth related by a_oir->R_RTO[R203]->R_AOTH[R204];
-select any b_oir related by r_rel->R_OIR[R201] where (selected.OIR_ID != a_oir.OIR_ID);
 select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
 select one b_form related by b_oir->R_RGO[R203]->R_FORM[R205];
 select one b_aone related by b_oir->R_RTO[R203]->R_AONE[R204];
@@ -8065,7 +8074,7 @@ LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 // Is associavitve
 select one assoc related by r_rel->R_ASSOC[R206];
 is_associative = not_empty assoc;
-associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative");
+associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative", disabled:false);
 LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
 
 // Associative class
@@ -8092,42 +8101,75 @@ if (empty associative_class)
 end if;
 USER::dependsOn(field1:"assoc_class", field2:"associative_rel", inverse:false, comparison:"");
 
-// Formalizing class
-formalizer[2] = b_class.Name;
-formalizer[1] = a_class.Name;
-formalizer[0] = "Not formalized";
+// Participating class
+b_to_a_part = "";
+select many a_ident_attrs related by a_class->O_ID[R104]->O_OIDA[R105];
+if (not_empty a_ident_attrs and default_b_mult == "One")
+  b_to_a_part = a_class.Name;
+  if (a_class.Obj_ID == b_class.Obj_ID)
+    if (not_empty b_part)
+      b_to_a_part = a_class.Name + "." + "''" + b_part.Txt_Phrs + "''";
+    elif (not_empty b_form)
+      b_to_a_part = a_class.Name + "." + "''" + b_form.Txt_Phrs + "''";
+    end if;
+  end if;
+end if;
+
+a_to_b_part = "";
+select many b_ident_attrs related by b_class->O_ID[R104]->O_OIDA[R105];
+if (not_empty b_ident_attrs and default_a_mult == "One")
+  a_to_b_part = b_class.Name;
+  if (a_class.Obj_ID == b_class.Obj_ID)
+    if (not_empty a_part)
+      a_to_b_part = b_class.Name + "." + "''" + a_part.Txt_Phrs + "''";
+    elif (not_empty a_form)
+      a_to_b_part = b_class.Name + "." + "''" + a_form.Txt_Phrs + "''";
+    end if;
+  end if;
+end if;
+participant[2] = a_to_b_part;
+participant[1] = b_to_a_part;
+if (default_a_cond == "Unconditionally" and default_b_cond == "Conditionally")  // prefer the unconditional one
+  participant[2] = b_to_a_part;
+  participant[1] = a_to_b_part;
+end if;
+participant[0] = "Not formalized";
+if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
+  participant[0] = "";
+end if;
 default_selection = 0;
 if (r_rel.isFormalized() and not_empty a_form)
   default_selection = 1;
 elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 2;
 end if;
-form_class = USER::getDropdown(options:formalizer, prompt:"Formalized In", default_selection:default_selection);
-LAYOUT::setLayout(field_name:"form_class", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"form_class", field2:"associative_rel", inverse:true, comparison:"");
+part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection);
+LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"part_class", field2:"associative_rel", inverse:true, comparison:"");
 
 // Identifier in A class
 a_ident1_label = USER::getLabel(label:"Identifier");
 LAYOUT::setLayout(field_name:"a_ident1_label", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident1_label", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"a_ident1_label", field2:"form_class", inverse:false, comparison:"v_b_label1.equals(v_form_class)");
+USER::dependsOn(field1:"a_ident1_label", field2:"part_class", inverse:false, comparison:"v_b_label1.equals(v_part_class)");
 select any a_ident1 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident1", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"a_ident1", field2:"form_class", inverse:false, comparison:"v_b_label1.equals(v_form_class)");
+USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_b_label1.equals(v_part_class)");
 
 // Identifier in B class
 b_ident1_label = USER::getLabel(label:"Identifier");
 LAYOUT::setLayout(field_name:"b_ident1_label", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident1_label", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"b_ident1_label", field2:"form_class", inverse:false, comparison:"v_a_label1.equals(v_form_class)");
+USER::dependsOn(field1:"b_ident1_label", field2:"part_class", inverse:false, comparison:"v_a_label1.equals(v_part_class)");
 select any b_ident1 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
 LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident1", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"b_ident1", field2:"form_class", inverse:false, comparison:"v_a_label1.equals(v_form_class)");
+USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_a_label1.equals(v_part_class)");
 
 // Formalize associative
-formalize_assoc = USER::getCheckbox(default:true, prompt:"Formalized");
+assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
+formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
 LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"formalize_assoc", field2:"associative_rel", inverse:false, comparison:"");
 
@@ -8163,7 +8205,7 @@ if (associative_rel)
                               b_cond:b_cond,
                               b_phrase:b_phrase,
                               b_mult:b_mult,
-                              form_class:form_class,
+                              part_class:part_class,
                               migrate_to_assoc: associative_rel,
                               a_ident:a_ident2,
                               b_ident:b_ident2,
@@ -8179,7 +8221,7 @@ else
                               b_cond:b_cond,
                               b_phrase:b_phrase,
                               b_mult:b_mult,
-                              form_class:form_class,
+                              part_class:part_class,
                               migrate_to_assoc: associative_rel,
                               a_ident:a_ident1,
                               b_ident:b_ident1,
@@ -8215,7 +8257,8 @@ rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // Formalize associative
-formalize_assoc = USER::getCheckbox(default:r_rel.isFormalized(), prompt:"Formalized");
+assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
+formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
 LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"2", width:"1", height:"1");
 
 // Identifier
@@ -8257,7 +8300,8 @@ rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // Formalize associative
-formalize_assoc = USER::getCheckbox(default:r_rel.isFormalized(), prompt:"Formalized");
+assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
+formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
 LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"2", width:"1", height:"1");
 
 // Identifier
