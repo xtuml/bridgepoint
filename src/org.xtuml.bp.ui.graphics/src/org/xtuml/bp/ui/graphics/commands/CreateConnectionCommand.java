@@ -37,16 +37,24 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
+import org.xtuml.bp.core.ClassAsSupertype_c;
+import org.xtuml.bp.core.ClassIdentifierAttribute_c;
+import org.xtuml.bp.core.ClassIdentifier_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -205,28 +213,37 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
 			if (newElement instanceof Association_c) {
 			    SimpleAssociation_c simp = SimpleAssociation_c.getOneR_SIMPOnR206((Association_c)newElement);
 			    if (null != simp) {
-			        Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
-			        BinaryEditAssociationOnR_RELAction editAction = new BinaryEditAssociationOnR_RELAction();
-			        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
-                    WizardDialog wd = editAction.R_REL_BinaryEditAssociation(Selection.getInstance().getStructuredSelection());
-                    int result = wd.open();
-                    if (Window.CANCEL == result) {
-                        return false;
-                    }
-                    else {
-                        LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
-                        if (null != linked) {  // migrated to assoc
-                            // delete the connector
-                            this.result.Dispose();
-                            // reconcile graphics
-                            SystemModel_c s_sys = SystemModel_c.getOneS_SYSOnR1405(Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001((Association_c)newElement)));
-                            List<NonRootModelElement> elementsToReconcile = new ArrayList<>();
-                            elementsToReconcile.add(s_sys);
-                            GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(elementsToReconcile);
-                            reconciler.runReconciler(false, true);
+			        ClassIdentifier_c[] ids = ClassIdentifier_c.getManyO_IDsOnR105(ClassIdentifierAttribute_c.getManyO_OIDAsOnR105(ClassIdentifier_c.getManyO_IDsOnR104(ModelClass_c.getManyO_OBJsOnR201((Association_c)newElement))));
+			        if (Pref_c.Getboolean("bridgepoint_prefs_require_formalized_associations") && ids.length < 1) {
+			            MessageDialog.openWarning(
+			              PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Missing class identifier",
+			              "At least one class must have an identifier to create a relationship.");
+			            return false;
+			        }
+			        else {
+                        Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
+                        BinaryEditAssociationOnR_RELAction editAction = new BinaryEditAssociationOnR_RELAction();
+                        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+                        WizardDialog wd = editAction.R_REL_BinaryEditAssociation(Selection.getInstance().getStructuredSelection());
+                        int result = wd.open();
+                        if (Window.CANCEL == result) {
+                            return false;
                         }
-                        return true;
-                    }
+                        else {
+                            LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
+                            if (null != linked) {  // migrated to assoc
+                                // delete the connector
+                                this.result.Dispose();
+                                // reconcile graphics
+                                SystemModel_c s_sys = SystemModel_c.getOneS_SYSOnR1405(Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001((Association_c)newElement)));
+                                List<NonRootModelElement> elementsToReconcile = new ArrayList<>();
+                                elementsToReconcile.add(s_sys);
+                                GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(elementsToReconcile);
+                                reconciler.runReconciler(false, true);
+                            }
+                            return true;
+                        }
+			        }
 			    }
 			}
 			else if (newElement instanceof ClassAsSubtype_c) {
@@ -235,13 +252,26 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
                         (candidate) -> !((ClassAsSubtype_c) candidate).getOir_id()
                                 .equals(((ClassAsSubtype_c) newElement).getOir_id()));
                 if (otherSubtypes.length == 0) {
-                    Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
-			        SubsupEditAssociationOnR_SUBAction editAction = new SubsupEditAssociationOnR_SUBAction();
-			        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
-                    WizardDialog wd = editAction.R_SUB_SubsupEditAssociation(Selection.getInstance().getStructuredSelection());
-                    int result = wd.open();
-                    if (Window.CANCEL == result) {
-                        return false;
+                    ClassIdentifier_c[] ids = ClassIdentifier_c.getManyO_IDsOnR105(ClassIdentifierAttribute_c
+                            .getManyO_OIDAsOnR105(ClassIdentifier_c.getManyO_IDsOnR104(ModelClass_c.getManyO_OBJsOnR201(
+                                    ClassInAssociation_c.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(
+                                            ClassAsSupertype_c.getOneR_SUPEROnR212(SubtypeSupertypeAssociation_c
+                                                    .getOneR_SUBSUPOnR213((ClassAsSubtype_c) newElement))))))));
+			        if (Pref_c.Getboolean("bridgepoint_prefs_require_formalized_associations") && ids.length < 1) {
+			            MessageDialog.openWarning(
+			              PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Missing class identifier",
+			              "Supertype class must have an identifier to create a relationship.");
+			            return false;
+			        }
+			        else {
+                        Selection.getInstance().setSelection(new StructuredSelection(newElement), true);
+                        SubsupEditAssociationOnR_SUBAction editAction = new SubsupEditAssociationOnR_SUBAction();
+                        editAction.setActivePart(null, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+                        WizardDialog wd = editAction.R_SUB_SubsupEditAssociation(Selection.getInstance().getStructuredSelection());
+                        int result = wd.open();
+                        if (Window.CANCEL == result) {
+                            return false;
+                        }
                     }
                 }
 			}

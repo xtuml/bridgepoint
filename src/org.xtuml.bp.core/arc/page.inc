@@ -697,7 +697,20 @@ ${result.body}
   .for each field in fields
     .if ((field.type != "Label") and (field.type != "Check"))
       .if (field.Type == "Text")
-      if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()) isPageComplete = false;
+        .assign comparison = "v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()"
+        .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+        .select one act_ai related by statement->ACT_AI[R603]
+        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+        .if ((not_empty act_ai) and (not_empty v_brv))
+          .select one s_brg related by v_brv->S_BRG[R828]
+          .select one s_ee related by s_brg->S_EE[R19]
+          .if (("getText" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+            .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "require_value")
+            .select any v_val related by v_par->V_VAL[R800]
+            .assign comparison = "(v_$r{field.Instance_Handle} == null || (${v_val.buffer} && v_$r{field.Instance_Handle}.isEmpty())) && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()"
+          .end if
+        .end if
+      if (${comparison}) isPageComplete = false;
       .elif (field.Type == "Combo")
       if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Combo && $cr{field.Instance_Handle}Combo.getVisible()) isPageComplete = false;
       .elif (field.Type == "Toggle")

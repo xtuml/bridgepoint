@@ -7984,7 +7984,7 @@ select one b_class related by b_oir->O_OBJ[R201];
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
-rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // A label
@@ -8012,7 +8012,7 @@ elif (not_empty b_aone)
 elif (not_empty b_aoth)
   default_a_phrase = b_aoth.Txt_Phrs;
 end if;
-a_phrase = USER::getText(default:default_a_phrase, prompt:"");
+a_phrase = USER::getText(default:default_a_phrase, prompt:"", require_value:PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases"));
 LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 
 // A to B multiplicity
@@ -8054,7 +8054,7 @@ elif (not_empty a_aone)
 elif (not_empty a_aoth)
   default_b_phrase = a_aoth.Txt_Phrs;
 end if;
-b_phrase = USER::getText(default:default_b_phrase, prompt:"");
+b_phrase = USER::getText(default:default_b_phrase, prompt:"", require_value:PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases"));
 LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
 
 // B to A multiplicity
@@ -8148,24 +8148,48 @@ LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"associative_rel", inverse:true, comparison:"");
 
 // Identifier in A class
-a_ident1_label = USER::getLabel(label:"Identifier");
-LAYOUT::setLayout(field_name:"a_ident1_label", row_num:"5", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident1_label", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"a_ident1_label", field2:"part_class", inverse:false, comparison:"v_b_label1.equals(v_part_class)");
-select any a_ident1 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
+a_ident_default_selection = 0;
+num_options = cardinality a_idents;
+if (num_options < 1)
+  num_options = 1;
+end if;
+a_ident_options[num_options-1] = "";
+i = num_options - 1;
+for each a_ident in a_idents
+  a_ident_options[i] = a_ident.get_name();
+  select any formalizing_id related by r_rel->R_OIR[R201]->R_RTO[R203]->O_ID[R109] where (selected.Obj_ID == a_ident.Obj_ID and selected.Oid_ID == a_ident.Oid_ID);
+  if (not_empty formalizing_id)
+    a_ident_default_selection = i;
+  end if;
+  i = i - 1;
+end for;
+a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection);
 LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident1", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_b_label1.equals(v_part_class)");
+USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_a_label1.equals(v_part_class)");
 
 // Identifier in B class
-b_ident1_label = USER::getLabel(label:"Identifier");
-LAYOUT::setLayout(field_name:"b_ident1_label", row_num:"5", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident1_label", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"b_ident1_label", field2:"part_class", inverse:false, comparison:"v_a_label1.equals(v_part_class)");
-select any b_ident1 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
+b_ident_default_selection = 0;
+num_options = cardinality b_idents;
+if (num_options < 1)
+  num_options = 1;
+end if;
+b_ident_options[num_options-1] = "";
+i = num_options - 1;
+for each b_ident in b_idents
+  b_ident_options[i] = b_ident.get_name();
+  select any formalizing_id related by r_rel->R_OIR[R201]->R_RTO[R203]->O_ID[R109] where (selected.Obj_ID == b_ident.Obj_ID and selected.Oid_ID == b_ident.Oid_ID);
+  if (not_empty formalizing_id)
+    b_ident_default_selection = i;
+  end if;
+  i = i - 1;
+end for;
+b_ident1 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection);
 LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident1", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_a_label1.equals(v_part_class)");
+USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_b_label1.equals(v_part_class)");
 
 // Formalize associative
 assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
@@ -8174,21 +8198,13 @@ LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"6", width:"1", height:"
 USER::dependsOn(field1:"formalize_assoc", field2:"associative_rel", inverse:false, comparison:"");
 
 // Identifier in A class
-a_ident2_label = USER::getLabel(label:a_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"a_ident2_label", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident2_label", field2:"associative_rel", inverse:false, comparison:"");
-USER::dependsOn(field1:"a_ident2_label", field2:"formalize_assoc", inverse:false, comparison:"");
-select any a_ident2 related by a_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+a_ident2 = USER::getDropdown(options:a_ident_options, prompt:a_class.Name + " identifier", default_selection:a_ident_default_selection);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false, comparison:"");
 USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Identifier in B class
-b_ident2_label = USER::getLabel(label:b_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"b_ident2_label", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident2_label", field2:"associative_rel", inverse:false, comparison:"");
-USER::dependsOn(field1:"b_ident2_label", field2:"formalize_assoc", inverse:false, comparison:"");
-select any b_ident2 related by b_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
+b_ident2 = USER::getDropdown(options:b_ident_options, prompt:b_class.Name + " identifier", default_selection:b_ident_default_selection);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comparison:"");
 USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
@@ -8253,7 +8269,7 @@ select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
-rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // Formalize associative
@@ -8296,7 +8312,7 @@ select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
-rel_num = USER::getText(default:default_rel_num, prompt:"Association Number");
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // Formalize associative
