@@ -533,10 +533,9 @@ ${result.body}
     addListeners();
 
     // update dependencies
-    .select many dep_fields related by step->W_FLD[R2009]->W_DEP[R2016.'depended_on_by']->W_FLD[R2016.'depends_on']
-    .for each dep_field in dep_fields
-    updateSelected$cr{dep_field.Instance_Handle}();
-    .end for
+    updateDependentFields();
+    updateVisibleRows();
+    updateLayoutData(composite);
   }
   
   private void addListeners()
@@ -582,10 +581,17 @@ ${result.body}
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Check.getSelection();
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
     .end if
-    .select many w_deps related by field->W_DEP[R2016.'depended_on_by']
+  }
+    .end for
+
+  private void updateDependentFields() {
+  .for each field in fields
+    .assign visible = ""
+    .assign sep = ""
+    .select many w_deps related by field->W_DEP[R2016.'depends_on']
     .for each w_dep in w_deps
-      .select one dependent_field related by w_dep->W_FLD[R2016.'depended_on_by']
-      .assign comparison = "this.v_$r{field.Instance_Handle}"
+      .select one depended_on_field related by w_dep->W_FLD[R2016.'depends_on']
+      .assign comparison = "this.v_$r{depended_on_field.Instance_Handle}"
       .// ignore the compare value if it is an empty string
       .if ("" != w_dep.comparison)
         .assign comparison = "(${w_dep.comparison})"
@@ -593,26 +599,30 @@ ${result.body}
       .if (w_dep.inverse)
         .assign comparison = "!" + comparison
       .end if
-      .if (dependent_field.Type == "Text")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
-      if (null != $cr{dependent_field.Instance_Handle}Text) $cr{dependent_field.Instance_Handle}Text.setVisible(${comparison});
-      .elif (dependent_field.Type == "Combo")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
-      if (null != $cr{dependent_field.Instance_Handle}Combo) $cr{dependent_field.Instance_Handle}Combo.setVisible(${comparison});
-      .elif (dependent_field.Type == "Toggle")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
-      if (null != $cr{dependent_field.Instance_Handle}Toggle) $cr{dependent_field.Instance_Handle}Combo.setVisible(${comparison});
-      .elif (dependent_field.Type == "List")
-      if (null != $cr{dependent_field.Instance_Handle}List) $cr{dependent_field.Instance_Handle}List.setVisible(${comparison});
-      .elif (dependent_field.Type == "Label")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
-      .elif (dependent_field.Type == "Check")
-      if (null != $cr{dependent_field.Instance_Handle}Label) $cr{dependent_field.Instance_Handle}Label.setVisible(${comparison});
-      if (null != $cr{dependent_field.Instance_Handle}Check) $cr{dependent_field.Instance_Handle}Check.setVisible(${comparison});
+      .assign visible = visible + sep + comparison
+      .assign sep = " && "
+    .end for
+    .if (not_empty w_deps)
+      .if (field.Type == "Text")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Text) $cr{field.Instance_Handle}Text.setVisible(${visible});
+      .elif (field.Type == "Combo")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Combo) $cr{field.Instance_Handle}Combo.setVisible(${visible});
+      .elif (field.Type == "Toggle")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Toggle) $cr{field.Instance_Handle}Toggle.setVisible(${visible});
+      .elif (field.Type == "List")
+      if (null != $cr{field.Instance_Handle}List) $cr{field.Instance_Handle}List.setVisible(${visible});
+      .elif (field.Type == "Label")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      .elif (field.Type == "Check")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Check) $cr{field.Instance_Handle}Check.setVisible(${visible});
       .end if
-    .end for
+    .end if
+  .end for
   }
-    .end for
 
   private void updateLayoutData(Control control) {
       if (control instanceof Composite) {
@@ -666,6 +676,7 @@ ${result.body}
   }
     .end if
     .end for
+    updateDependentFields();
     updateVisibleRows();
     updateLayoutData(getControl());
     getWizard().getContainer().updateButtons();
