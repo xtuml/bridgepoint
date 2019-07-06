@@ -8134,14 +8134,17 @@ if (default_a_cond == "Unconditionally" and default_b_cond == "Conditionally")  
   participant[1] = a_to_b_part;
 end if;
 participant[0] = "Not formalized";
-if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
-  participant[0] = "";
-end if;
 default_selection = 0;
 if (r_rel.isFormalized() and not_empty a_form)
   default_selection = 1;
 elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 2;
+end if;
+if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
+  participant[0] = "";
+  if (default_selection > 0)
+    default_selection = default_selection - 1;
+  end if;
 end if;
 part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection);
 LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
