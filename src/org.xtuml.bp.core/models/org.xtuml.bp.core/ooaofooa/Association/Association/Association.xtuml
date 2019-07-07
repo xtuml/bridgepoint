@@ -927,11 +927,13 @@ part_class = param.part_class;
 migrate_to_assoc = param.migrate_to_assoc;
 a_ident = param.a_ident;
 b_ident = param.b_ident;
-a_class = param.a_class;
-b_class = param.b_class;
+a_oir = param.a_oir;
+b_oir = param.b_oir;
 assoc_class = param.assoc_class;
 assoc_formalized = param.assoc_formalized;
 
+select one a_class related by a_oir->O_OBJ[R201];
+select one b_class related by b_oir->O_OBJ[R201];
 select any a_identifier related by a_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:a_ident, i1:1, i2:-1)) - 1);
 select any b_identifier related by b_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:b_ident, i1:1, i2:-1)) - 1);
 
@@ -944,7 +946,7 @@ self.Numb = GD::string_to_int(value:rel_num);
 if (not_empty simp)
 
   // set A parameters
-  select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
+  select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
   if (not_empty a_part)
     if ("Unconditionally" == b_cond)
       a_part.Cond = 0;
@@ -958,7 +960,7 @@ if (not_empty simp)
     end if;
     a_part.Txt_Phrs = b_phrase;
   end if;
-  select any a_form related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205] where (selected.Obj_ID == a_class.Obj_ID);
+  select one a_form related by a_oir->R_RGO[R203]->R_FORM[R205];
   if (not_empty a_form)
     if ("Unconditionally" == b_cond)
       a_form.Cond = 0;
@@ -974,7 +976,7 @@ if (not_empty simp)
   end if;
 
   // set B parameters
-  select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
+  select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
   if (not_empty b_part)
     if ("Unconditionally" == a_cond)
       b_part.Cond = 0;
@@ -988,7 +990,7 @@ if (not_empty simp)
     end if;
     b_part.Txt_Phrs = a_phrase;
   end if;
-  select any b_form related by self->R_OIR[R201]->R_RGO[R203]->R_FORM[R205] where (selected.Obj_ID == b_class.Obj_ID);
+  select one b_form related by b_oir->R_RGO[R203]->R_FORM[R205];
   if (not_empty b_form)
     if ("Unconditionally" == a_cond)
       b_form.Cond = 0;
@@ -1007,11 +1009,23 @@ if (not_empty simp)
 
     // formalize the association
     if ("Not formalized" != part_class and not self.isFormalized())
-      non_formalizer = b_part;
-      identifier = b_identifier;
+      select any non_formalizer from instances of R_PART where false;
+      select any identifier from instances of O_ID where false;
       if (a_class.Name == part_class)
         non_formalizer = a_part;
         identifier = a_identifier;
+      elif (b_class.Name == part_class)
+        non_formalizer = b_part;
+        identifier = b_identifier;
+      else  // reflexive
+        reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
+        if (reflexive_phrase == a_phrase)
+          non_formalizer = b_part;
+          identifier = b_identifier;
+        else
+          non_formalizer = a_part;
+          identifier = a_identifier;
+        end if;
       end if;
       simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
     elif ("Not formalized" == part_class and self.isFormalized())
@@ -1050,7 +1064,7 @@ if (not_empty simp)
 elif (not_empty linked)
 
   // set A parameters
-  select any a_aone related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204] where (selected.Obj_ID == a_class.Obj_ID);
+  select one a_aone related by a_oir->R_RTO[R203]->R_AONE[R204];
   if (not_empty a_aone)
     if ("Unconditionally" == b_cond)
       a_aone.Cond = 0;
@@ -1064,7 +1078,7 @@ elif (not_empty linked)
     end if;
     a_aone.Txt_Phrs = b_phrase;
   end if;
-  select any a_aoth related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204] where (selected.Obj_ID == a_class.Obj_ID);
+  select one a_aoth related by a_oir->R_RTO[R203]->R_AOTH[R204];
   if (not_empty a_aoth)
     if ("Unconditionally" == b_cond)
       a_aoth.Cond = 0;
@@ -1080,7 +1094,7 @@ elif (not_empty linked)
   end if;
 
   // set B parameters
-  select any b_aone related by self->R_OIR[R201]->R_RTO[R203]->R_AONE[R204] where (selected.Obj_ID == b_class.Obj_ID);
+  select one b_aone related by b_oir->R_RTO[R203]->R_AONE[R204];
   if (not_empty b_aone)
     if ("Unconditionally" == a_cond)
       b_aone.Cond = 0;
@@ -1094,7 +1108,7 @@ elif (not_empty linked)
     end if;
     b_aone.Txt_Phrs = a_phrase;
   end if;
-  select any b_aoth related by self->R_OIR[R201]->R_RTO[R203]->R_AOTH[R204] where (selected.Obj_ID == b_class.Obj_ID);
+  select one b_aoth related by b_oir->R_RTO[R203]->R_AOTH[R204];
   if (not_empty b_aoth)
     if ("Unconditionally" == a_cond)
       b_aoth.Cond = 0;
@@ -1137,11 +1151,23 @@ elif (not_empty linked)
       select one simp related by self->R_SIMP[R206];
       select any a_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == a_class.Obj_ID);
       select any b_part related by self->R_OIR[R201]->R_RTO[R203]->R_PART[R204] where (selected.Obj_ID == b_class.Obj_ID);
-      non_formalizer = b_part;
-      identifier = b_identifier;
+      select any non_formalizer from instances of R_PART where false;
+      select any identifier from instances of O_ID where false;
       if (a_class.Name == part_class)
         non_formalizer = a_part;
         identifier = a_identifier;
+      elif (b_class.Name == part_class)
+        non_formalizer = b_part;
+        identifier = b_identifier;
+      else  // reflexive
+        reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
+        if (reflexive_phrase == a_phrase)
+          non_formalizer = b_part;
+          identifier = b_identifier;
+        else
+          non_formalizer = a_part;
+          identifier = a_identifier;
+        end if;
       end if;
       simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
     end if;
@@ -1246,24 +1272,24 @@ INSERT INTO O_TPARM
 INSERT INTO O_TPARM
 	VALUES ("da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
 	"25e72586-4980-4217-b43b-c45aacc395cd",
-	'a_class',
-	"fccebe2f-504b-427a-8324-057515d05242",
+	'a_oir',
+	"84509681-1256-4002-b6a9-c0d824170d0f",
 	0,
 	'',
 	"4f0244c6-6545-4f5e-a196-37345690ff3a",
 	'');
 INSERT INTO S_DT_PROXY
-	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	VALUES ("84509681-1256-4002-b6a9-c0d824170d0f",
 	"00000000-0000-0000-0000-000000000000",
-	'inst_ref<Model Class>',
+	'inst_ref<Class In Association>',
 	'',
 	'',
-	'../../Subsystem/Subsystem.xtuml');
+	'../Association.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("8f35344a-f241-4944-ac03-2f1d89376cb2",
 	"25e72586-4980-4217-b43b-c45aacc395cd",
-	'b_class',
-	"fccebe2f-504b-427a-8324-057515d05242",
+	'b_oir',
+	"84509681-1256-4002-b6a9-c0d824170d0f",
 	0,
 	'',
 	"da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
@@ -1286,6 +1312,13 @@ INSERT INTO O_TPARM
 	'',
 	"8f35344a-f241-4944-ac03-2f1d89376cb2",
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Model Class>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("4a2a9e4f-80aa-45d5-b7c3-e72d5de559fd",
 	"25e72586-4980-4217-b43b-c45aacc395cd",

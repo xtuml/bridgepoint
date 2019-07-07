@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Association');
 INSERT INTO GD_GE
 	VALUES ("5e2db6d0-b55f-4a12-b32a-89fa1c21cb80",
@@ -4240,6 +4240,46 @@ INSERT INTO PE_PE
 	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("84509681-1256-4002-b6a9-c0d824170d0f",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Class In Association>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("84509681-1256-4002-b6a9-c0d824170d0f",
+	0,
+	"2a83ce0a-3939-4ef4-9a99-70471ff57de9");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2a83ce0a-3939-4ef4-9a99-70471ff57de9",
+	'Class In Association',
+	202,
+	'R_OIR',
+	'A Class In Association captures the role which a class plays in participating in an association.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Class In Association/Class In Association.xtuml');
+INSERT INTO PE_PE
+	VALUES ("84509681-1256-4002-b6a9-c0d824170d0f",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("d32aa790-6039-479c-8e8f-5e667a0d1b90",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Class In Association>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("d32aa790-6039-479c-8e8f-5e667a0d1b90",
+	1,
+	"2a83ce0a-3939-4ef4-9a99-70471ff57de9");
+INSERT INTO PE_PE
+	VALUES ("d32aa790-6039-479c-8e8f-5e667a0d1b90",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_ASSOC
 	VALUES ("515308f9-a169-463c-8eb8-d153a56c6e1b");
 INSERT INTO R_REL
@@ -4294,14 +4334,6 @@ INSERT INTO R_OIR
 	"515308f9-a169-463c-8eb8-d153a56c6e1b",
 	"d7e002d9-1d74-4978-a0b8-c6474d469afb",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2a83ce0a-3939-4ef4-9a99-70471ff57de9",
-	'Class In Association',
-	202,
-	'R_OIR',
-	'A Class In Association captures the role which a class plays in participating in an association.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Class In Association/Class In Association.xtuml');
 INSERT INTO R_AOTH
 	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
 	"515308f9-a169-463c-8eb8-d153a56c6e1b",

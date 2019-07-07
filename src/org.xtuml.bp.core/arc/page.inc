@@ -96,6 +96,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
@@ -117,6 +119,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .if (field.Type == "Text")
   public Text $cr{field.Instance_Handle}Text;
   public Label $cr{field.Instance_Handle}Label;
+  public boolean $cr{field.Instance_Handle}_is_required;
+  public ControlDecoration $cr{field.Instance_Handle}Error;
     .elif (field.Type == "Combo")
   public Combo $cr{field.Instance_Handle}Combo;
   public Label $cr{field.Instance_Handle}Label;
@@ -250,9 +254,12 @@ public class ${page_class_name} extends PtWizardPage implements Listener
         .if (("getText" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
           .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "default")
           .select any v_val related by v_par->V_VAL[R800]
+          .select any required_par related by v_brv->V_PAR[R810] where (selected.Name == "require_value")
+          .select any required_val related by required_par->V_VAL[R800]
           .if (not_empty v_val)
             .assign load_ui = "if (initialLoad) {\n"
             .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Text.setText(${v_val.buffer});\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}_is_required = ${required_val.buffer};\n"
             .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
@@ -324,23 +331,32 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .select any reload_val related by reload_par->V_VAL[R800]
             .assign load_ui = ""
             .assign load_ui = load_ui + "if (initialLoad || ${reload_val.buffer}) {\n"
-            .assign load_ui = load_ui + "this.v_$r{field.Instance_Handle} = null;\n"
-            .assign load_ui = load_ui + "((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = null;\n"
-            .assign load_ui = load_ui + "List<String> $cr{field.Instance_Handle}InstancesTemp = new ArrayList<>();\n"
-            .assign load_ui = load_ui + "for (String option : ${options_val.buffer}) {\n"
-            .assign load_ui = load_ui + "    if (!option.isEmpty()) {\n"
-            .assign load_ui = load_ui + "        $cr{field.Instance_Handle}InstancesTemp.add(option);\n"
+            .assign load_ui = load_ui + "    String previousChoice = this.v_$r{field.Instance_Handle};\n"
+            .assign load_ui = load_ui + "    this.v_$r{field.Instance_Handle} = null;\n"
+            .assign load_ui = load_ui + "    ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = null;\n"
+            .assign load_ui = load_ui + "    List<String> $cr{field.Instance_Handle}InstancesTemp = new ArrayList<>();\n"
+            .assign load_ui = load_ui + "    for (String option : ${options_val.buffer}) {\n"
+            .assign load_ui = load_ui + "        if (!option.isEmpty()) {\n"
+            .assign load_ui = load_ui + "            $cr{field.Instance_Handle}InstancesTemp.add(option);\n"
+            .assign load_ui = load_ui + "        }\n"
             .assign load_ui = load_ui + "    }\n"
-            .assign load_ui = load_ui + "}\n"
-            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = $cr{field.Instance_Handle}InstancesTemp.toArray(new String[0]);\n"
-            .assign load_ui = load_ui + "$cr{field.Instance_Handle}Combo.removeAll();\n"
-            .assign load_ui = load_ui + "for (String option : $cr{field.Instance_Handle}Instances) {\n"
-            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.add(option);\n"
-            .assign load_ui = load_ui + "}\n"
-            .assign load_ui = load_ui + "if ($cr{field.Instance_Handle}Instances.length > 0) {\n"
-            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.select(${sel_val.buffer});\n"
-            .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
-            .assign load_ui = load_ui + "}\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Instances = $cr{field.Instance_Handle}InstancesTemp.toArray(new String[0]);\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.removeAll();\n"
+            .assign load_ui = load_ui + "    for (String option : $cr{field.Instance_Handle}Instances) {\n"
+            .assign load_ui = load_ui + "        $cr{field.Instance_Handle}Combo.add(option);\n"
+            .assign load_ui = load_ui + "    }\n"
+            .assign load_ui = load_ui + "    if ($cr{field.Instance_Handle}Instances.length > 0) {\n"
+            .assign load_ui = load_ui + "        if (null == previousChoice) {\n"
+            .assign load_ui = load_ui + "            $cr{field.Instance_Handle}Combo.select(${sel_val.buffer});\n"
+            .assign load_ui = load_ui + "        }\n"
+            .assign load_ui = load_ui + "        else {\n"
+            .assign load_ui = load_ui + "            int previousChoiceIndex = $cr{field.Instance_Handle}Combo.indexOf(previousChoice);\n"
+            .assign load_ui = load_ui + "            if (previousChoiceIndex >= 0) {\n"
+            .assign load_ui = load_ui + "                $cr{field.Instance_Handle}Combo.select($cr{field.Instance_Handle}Combo.indexOf(previousChoice));\n"
+            .assign load_ui = load_ui + "            }\n"
+            .assign load_ui = load_ui + "        }\n"
+            .assign load_ui = load_ui + "        updateSelected$cr{field.Instance_Handle}();\n"
+            .assign load_ui = load_ui + "    }\n"
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
           .end if
@@ -431,6 +447,45 @@ ${result.body}
       Oth_idTextPhrase = " for the '" + v_oth_side.getTxt_phrs() + "' side";  
     .end if
   .invoke clear_workspace()
+
+  // update dependent fields
+  .for each field in fields
+    .assign visible = ""
+    .assign sep = ""
+    .select many w_deps related by field->W_DEP[R2016.'depends_on']
+    .for each w_dep in w_deps
+      .select one depended_on_field related by w_dep->W_FLD[R2016.'depends_on']
+      .assign comparison = "this.v_$r{depended_on_field.Instance_Handle}"
+      .// ignore the compare value if it is an empty string
+      .if ("" != w_dep.comparison)
+        .assign comparison = "(${w_dep.comparison})"
+      .end if
+      .if (w_dep.inverse)
+        .assign comparison = "!" + comparison
+      .end if
+      .assign visible = visible + sep + comparison
+      .assign sep = " && "
+    .end for
+    .if (not_empty w_deps)
+      .if (field.Type == "Text")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Text) $cr{field.Instance_Handle}Text.setVisible(${visible});
+      .elif (field.Type == "Combo")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Combo) $cr{field.Instance_Handle}Combo.setVisible(${visible});
+      .elif (field.Type == "Toggle")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Toggle) $cr{field.Instance_Handle}Toggle.setVisible(${visible});
+      .elif (field.Type == "List")
+      if (null != $cr{field.Instance_Handle}List) $cr{field.Instance_Handle}List.setVisible(${visible});
+      .elif (field.Type == "Label")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      .elif (field.Type == "Check")
+      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
+      if (null != $cr{field.Instance_Handle}Check) $cr{field.Instance_Handle}Check.setVisible(${visible});
+      .end if
+    .end if
+  .end for
   }
   
   public void createControl(Composite parent) {
@@ -487,6 +542,10 @@ ${result.body}
   .end if
     $cr{field.Instance_Handle}Text = new Text(${current_row}, SWT.BORDER);
     $cr{field.Instance_Handle}Text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
+    $cr{field.Instance_Handle}Error = new ControlDecoration($cr{field.Instance_Handle}Text, SWT.TOP | SWT.LEFT);
+    $cr{field.Instance_Handle}Error.setImage(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR).getImage());
+    $cr{field.Instance_Handle}Error.setDescriptionText("Missing required field");
+    $cr{field.Instance_Handle}Error.hide();
     .elif (field.Type == "Combo")
       .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
       .select one s_brg related by statement->ACT_AI[R603]->V_VAL[R609]->V_BRV[R801]->S_BRG[R828]
@@ -561,8 +620,6 @@ ${result.body}
     .end for 
     addListeners();
 
-    // update dependencies
-    updateDependentFields();
     updateVisibleRows();
     updateLayoutData(composite);
   }
@@ -591,6 +648,12 @@ ${result.body}
       .if (field.type == "Text")
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Text.getText();
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
+      if ($cr{field.Instance_Handle}_is_required && this.v_$r{field.Instance_Handle}.isEmpty()) {
+          $cr{field.Instance_Handle}Error.show();
+      }
+      else {
+          $cr{field.Instance_Handle}Error.hide();
+      }
       .elif (field.type == "Combo")
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
@@ -612,46 +675,6 @@ ${result.body}
     .end if
   }
     .end for
-
-  private void updateDependentFields() {
-  .for each field in fields
-    .assign visible = ""
-    .assign sep = ""
-    .select many w_deps related by field->W_DEP[R2016.'depends_on']
-    .for each w_dep in w_deps
-      .select one depended_on_field related by w_dep->W_FLD[R2016.'depends_on']
-      .assign comparison = "this.v_$r{depended_on_field.Instance_Handle}"
-      .// ignore the compare value if it is an empty string
-      .if ("" != w_dep.comparison)
-        .assign comparison = "(${w_dep.comparison})"
-      .end if
-      .if (w_dep.inverse)
-        .assign comparison = "!" + comparison
-      .end if
-      .assign visible = visible + sep + comparison
-      .assign sep = " && "
-    .end for
-    .if (not_empty w_deps)
-      .if (field.Type == "Text")
-      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
-      if (null != $cr{field.Instance_Handle}Text) $cr{field.Instance_Handle}Text.setVisible(${visible});
-      .elif (field.Type == "Combo")
-      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
-      if (null != $cr{field.Instance_Handle}Combo) $cr{field.Instance_Handle}Combo.setVisible(${visible});
-      .elif (field.Type == "Toggle")
-      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
-      if (null != $cr{field.Instance_Handle}Toggle) $cr{field.Instance_Handle}Toggle.setVisible(${visible});
-      .elif (field.Type == "List")
-      if (null != $cr{field.Instance_Handle}List) $cr{field.Instance_Handle}List.setVisible(${visible});
-      .elif (field.Type == "Label")
-      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
-      .elif (field.Type == "Check")
-      if (null != $cr{field.Instance_Handle}Label) $cr{field.Instance_Handle}Label.setVisible(${visible});
-      if (null != $cr{field.Instance_Handle}Check) $cr{field.Instance_Handle}Check.setVisible(${visible});
-      .end if
-    .end if
-  .end for
-  }
 
   private void updateLayoutData(Control control) {
       if (control instanceof Composite) {
@@ -706,7 +729,6 @@ ${result.body}
     .end if
     .end for
     loadUI(false);
-    updateDependentFields();
     updateVisibleRows();
     updateLayoutData(getControl());
     getWizard().getContainer().updateButtons();
@@ -718,20 +740,7 @@ ${result.body}
   .for each field in fields
     .if ((field.type != "Label") and (field.type != "Check"))
       .if (field.Type == "Text")
-        .assign comparison = "v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()"
-        .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
-        .select one act_ai related by statement->ACT_AI[R603]
-        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
-        .if ((not_empty act_ai) and (not_empty v_brv))
-          .select one s_brg related by v_brv->S_BRG[R828]
-          .select one s_ee related by s_brg->S_EE[R19]
-          .if (("getText" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
-            .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "require_value")
-            .select any v_val related by v_par->V_VAL[R800]
-            .assign comparison = "(v_$r{field.Instance_Handle} == null || (${v_val.buffer} && v_$r{field.Instance_Handle}.isEmpty())) && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()"
-          .end if
-        .end if
-      if (${comparison}) isPageComplete = false;
+      if ((v_$r{field.Instance_Handle} == null || ($cr{field.Instance_Handle}_is_required && v_$r{field.Instance_Handle}.isEmpty())) && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()) isPageComplete = false;
       .elif (field.Type == "Combo")
       if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Combo && $cr{field.Instance_Handle}Combo.getVisible()) isPageComplete = false;
       .elif (field.Type == "Toggle")
