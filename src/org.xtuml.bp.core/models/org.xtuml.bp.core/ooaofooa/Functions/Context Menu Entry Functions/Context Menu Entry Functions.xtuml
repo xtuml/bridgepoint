@@ -8093,7 +8093,7 @@ for each associative_class in associative_classes
   end if;
   i = i - 1;
 end for;
-assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection);
+assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
 select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
 if (empty associative_class)
@@ -8104,32 +8104,32 @@ USER::dependsOn(field1:"assoc_class", field2:"associative_rel", inverse:false, c
 // Participating class
 b_to_a_part = "";
 select many a_ident_attrs related by a_class->O_ID[R104]->O_OIDA[R105];
-if (not_empty a_ident_attrs and default_b_mult == "One")
+if (not_empty a_ident_attrs and b_mult == "One")
   b_to_a_part = a_class.Name;
   if (a_class.Obj_ID == b_class.Obj_ID)
     if (not_empty b_part)
-      b_to_a_part = a_class.Name + "." + "''" + b_part.Txt_Phrs + "''";
+      b_to_a_part = a_class.Name + "." + "''" + a_phrase + "''";
     elif (not_empty b_form)
-      b_to_a_part = a_class.Name + "." + "''" + b_form.Txt_Phrs + "''";
+      b_to_a_part = a_class.Name + "." + "''" + a_phrase + "''";
     end if;
   end if;
 end if;
 
 a_to_b_part = "";
 select many b_ident_attrs related by b_class->O_ID[R104]->O_OIDA[R105];
-if (not_empty b_ident_attrs and default_a_mult == "One")
+if (not_empty b_ident_attrs and a_mult == "One")
   a_to_b_part = b_class.Name;
   if (a_class.Obj_ID == b_class.Obj_ID)
     if (not_empty a_part)
-      a_to_b_part = b_class.Name + "." + "''" + a_part.Txt_Phrs + "''";
+      a_to_b_part = b_class.Name + "." + "''" + b_phrase + "''";
     elif (not_empty a_form)
-      a_to_b_part = b_class.Name + "." + "''" + a_form.Txt_Phrs + "''";
+      a_to_b_part = b_class.Name + "." + "''" + b_phrase + "''";
     end if;
   end if;
 end if;
 participant[2] = a_to_b_part;
 participant[1] = b_to_a_part;
-if (default_a_cond == "Unconditionally" and default_b_cond == "Conditionally")  // prefer the unconditional one
+if (a_cond == "Unconditionally" and b_cond == "Conditionally")  // prefer the unconditional one
   participant[2] = b_to_a_part;
   participant[1] = a_to_b_part;
 end if;
@@ -8146,7 +8146,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
     default_selection = default_selection - 1;
   end if;
 end if;
-part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection);
+part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection, reload_options:true);
 LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"associative_rel", inverse:true, comparison:"");
 
@@ -8167,7 +8167,7 @@ for each a_ident in a_idents
   end if;
   i = i - 1;
 end for;
-a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection);
+a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident1", field2:"associative_rel", inverse:true, comparison:"");
 USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_a_label1.equals(v_part_class)");
@@ -8189,7 +8189,7 @@ for each b_ident in b_idents
   end if;
   i = i - 1;
 end for;
-b_ident1 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection);
+b_ident1 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident1", field2:"associative_rel", inverse:true, comparison:"");
 USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_b_label1.equals(v_part_class)");
@@ -8201,13 +8201,13 @@ LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"6", width:"1", height:"
 USER::dependsOn(field1:"formalize_assoc", field2:"associative_rel", inverse:false, comparison:"");
 
 // Identifier in A class
-a_ident2 = USER::getDropdown(options:a_ident_options, prompt:a_class.Name + " identifier", default_selection:a_ident_default_selection);
+a_ident2 = USER::getDropdown(options:a_ident_options, prompt:a_class.Name + " identifier", default_selection:a_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false, comparison:"");
 USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Identifier in B class
-b_ident2 = USER::getDropdown(options:b_ident_options, prompt:b_class.Name + " identifier", default_selection:b_ident_default_selection);
+b_ident2 = USER::getDropdown(options:b_ident_options, prompt:b_class.Name + " identifier", default_selection:b_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comparison:"");
 USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");

@@ -193,6 +193,10 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   }
   
   public void onPageEntry() {
+      loadUI(true);
+  }
+
+  private void loadUI(boolean initialLoad) {
     Ooaofooa modelRoot = Selection.getModelRoot((StructuredSelection)
       ((${wizard_class_name})getWizard()).getSelection());
   .select many context_fields related by step->W_WOF[R2005]->W_STEP[R2005]->W_FLD[R2009]
@@ -247,8 +251,10 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "default")
           .select any v_val related by v_par->V_VAL[R800]
           .if (not_empty v_val)
-            .assign load_ui = "$cr{field.Instance_Handle}Text.setText(${v_val.buffer});\n"
-            .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
+            .assign load_ui = "if (initialLoad) {\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Text.setText(${v_val.buffer});\n"
+            .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
+            .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
           .end if
         .end if
@@ -259,9 +265,10 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
       .select one sel_rel related by statement->ACT_SEL[R603]
       .if (not_empty sel_rel)
+        .assign load_ui = load_ui + "if (initialLoad) {\n"
         .select one var related by sel_rel->V_VAR[R638]
         .if (sel_rel.is_implicit == 1)
-          .assign load_ui = "$cr{class.Name}_c         v_${var.Name}  = null ;\n"
+          .assign load_ui = load_ui + "$cr{class.Name}_c         v_${var.Name}  = null ;\n"
         .end if
         .assign load_ui = load_ui + "int ${var.Name}InstCount;\n"
         .assign load_ui = load_ui + "int ${var.Name}ResultCount = 0;\n"
@@ -299,6 +306,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .assign load_ui = load_ui + "      $cr{field.Instance_Handle}Combo.select(0);\n"
           .assign load_ui = load_ui + "      updateSelected$cr{field.Instance_Handle}();\n  }\n"
         .end if
+        .assign load_ui = load_ui + "}\n"
         .assign field.buffer = statement.buffer + load_ui
       .else
         .// USER::getDropdown
@@ -312,7 +320,12 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .select any options_val related by options_par->V_VAL[R800]
             .select any sel_par related by v_brv->V_PAR[R810] where (selected.Name == "default_selection")
             .select any sel_val related by sel_par->V_VAL[R800]
+            .select any reload_par related by v_brv->V_PAR[R810] where (selected.Name == "reload_options")
+            .select any reload_val related by reload_par->V_VAL[R800]
             .assign load_ui = ""
+            .assign load_ui = load_ui + "if (initialLoad || ${reload_val.buffer}) {\n"
+            .assign load_ui = load_ui + "this.v_$r{field.Instance_Handle} = null;\n"
+            .assign load_ui = load_ui + "((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = null;\n"
             .assign load_ui = load_ui + "List<String> $cr{field.Instance_Handle}InstancesTemp = new ArrayList<>();\n"
             .assign load_ui = load_ui + "for (String option : ${options_val.buffer}) {\n"
             .assign load_ui = load_ui + "    if (!option.isEmpty()) {\n"
@@ -327,6 +340,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .assign load_ui = load_ui + "if ($cr{field.Instance_Handle}Instances.length > 0) {\n"
             .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Combo.select(${sel_val.buffer});\n"
             .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
+            .assign load_ui = load_ui + "}\n"
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
           .end if
@@ -348,10 +362,12 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_par2 related by v_brv->V_PAR[R810] where (selected.Name == "option2")
           .select any v_val2 related by v_par2->V_VAL[R800]
           .assign load_ui = ""
+          .assign load_ui = load_ui + "if (initialLoad) {\n"
           .assign load_ui = load_ui + "$cr{field.Instance_Handle}Instances = new String[] {${v_val1.buffer}, ${v_val2.buffer}};\n"
           .assign load_ui = load_ui + "$cr{field.Instance_Handle}Toggle.setText("""");\n"
           .// TODO
           .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
+          .assign load_ui = load_ui + "}\n"
           .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if
       .end if
@@ -369,8 +385,10 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "label")
           .select any v_val related by v_par->V_VAL[R800]
           .assign load_ui = ""
+          .assign load_ui = load_ui + "if (initialLoad) {\n"
           .assign load_ui = load_ui + "$cr{field.Instance_Handle}Label.setText(${v_val.buffer});\n"
           .assign load_ui = load_ui + "v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Label.getText();\n"
+          .assign load_ui = load_ui + "}\n"
           .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if
       .end if
@@ -390,9 +408,11 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .select any disabled_par related by v_brv->V_PAR[R810] where (selected.Name == "disabled")
             .select any disabled_val related by disabled_par->V_VAL[R800]
             .assign load_ui = ""
+            .assign load_ui = load_ui + "if (initialLoad) {\n"
             .assign load_ui = load_ui + "$cr{field.Instance_Handle}Check.setSelection(${v_val.buffer});\n"
             .assign load_ui = load_ui + "$cr{field.Instance_Handle}Check.setEnabled(!${disabled_val.buffer});\n"
             .assign load_ui = load_ui + "updateSelected$cr{field.Instance_Handle}();\n"
+            .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if
       .end if
@@ -685,6 +705,7 @@ ${result.body}
   }
     .end if
     .end for
+    loadUI(false);
     updateDependentFields();
     updateVisibleRows();
     updateLayoutData(getControl());
