@@ -8105,7 +8105,8 @@ while ( i < (num_options-1) )
     end if;
     j = j + 1;
   end while;
-  if not_empty assr and assr.Name == associative_class_options[i]
+  s3 = associative_class_options[i];
+  if not_empty assr and assr.Name == s3
     default_selection = i;
   end if;
   i = i + 1;
