@@ -8097,7 +8097,8 @@ i = 0;
 while ( i < (num_options-1) )
   j = 0;
   while ( j < (num_options-i-1) )
-    if ( associative_class_options[j] > associative_class_options[j+1] )
+    s1 = associative_class_options[j]; s2 = associative_class_options[j+1];
+    if ( s1 > s2 )
       s = associative_class_options[j];
       associative_class_options[j] = associative_class_options[j+1];
       associative_class_options[j+1] = s;
