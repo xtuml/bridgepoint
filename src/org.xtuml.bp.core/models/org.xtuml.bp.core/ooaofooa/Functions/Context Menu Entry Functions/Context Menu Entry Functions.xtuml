@@ -8090,11 +8090,25 @@ associative_class_options[num_options-1] = "";
 i = num_options - 1;
 for each associative_class in associative_classes
   associative_class_options[i] = associative_class.Name;
-  if not_empty assr and assr.Name == associative_class.Name
-    default_selection = i;
-  end if;
   i = i - 1;
 end for;
+// Bubble sort list of associative classes.
+i = 0;
+while ( i < (num_options-1) )
+  j = 0;
+  while ( j < (num_options-i-1) )
+    if ( associative_class_options[j] > associative_class_options[j+1] )
+      s = associative_class_options[j];
+      associative_class_options[j] = associative_class_options[j+1];
+      associative_class_options[j+1] = s;
+    end if;
+    j = j + 1;
+  end while;
+  if not_empty assr and assr.Name == associative_class_options[i]
+    default_selection = i;
+  end if;
+  i = i + 1;
+end while;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
 select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
