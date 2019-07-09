@@ -124,6 +124,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .elif (field.Type == "Combo")
   public Combo $cr{field.Instance_Handle}Combo;
   public Label $cr{field.Instance_Handle}Label;
+  public ControlDecoration $cr{field.Instance_Handle}Error;
       .if (isLinkedPage.islinked)
   public String $cr{field.Instance_Handle}TextPhrase = "";
   public Text $cr{field.Instance_Handle}Prefix;    
@@ -355,8 +356,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .assign load_ui = load_ui + "                $cr{field.Instance_Handle}Combo.select($cr{field.Instance_Handle}Combo.indexOf(previousChoice));\n"
             .assign load_ui = load_ui + "            }\n"
             .assign load_ui = load_ui + "        }\n"
-            .assign load_ui = load_ui + "        updateSelected$cr{field.Instance_Handle}();\n"
             .assign load_ui = load_ui + "    }\n"
+            .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
           .end if
@@ -567,6 +568,10 @@ ${result.body}
       .end if
     $cr{field.Instance_Handle}Combo = new Combo(${current_row}, SWT.BORDER | SWT.READ_ONLY);
     $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
+    $cr{field.Instance_Handle}Error = new ControlDecoration($cr{field.Instance_Handle}Combo, SWT.TOP | SWT.LEFT);
+    $cr{field.Instance_Handle}Error.setImage(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR).getImage());
+    $cr{field.Instance_Handle}Error.setDescriptionText("Missing required field");
+    $cr{field.Instance_Handle}Error.hide();
     .elif (field.Type == "Toggle")
       .if (not_empty cflx)
     $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
@@ -655,8 +660,28 @@ ${result.body}
           $cr{field.Instance_Handle}Error.hide();
       }
       .elif (field.type == "Combo")
-      this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
+      if ($cr{field.Instance_Handle}Instances.length > 0) {
+          this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
+      }
+      else {
+          this.v_$r{field.Instance_Handle} = null;
+      }
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
+        .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+        .select one act_ai related by statement->ACT_AI[R603]
+        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+        .if ((not_empty act_ai) and (not_empty v_brv))
+          .select one s_brg related by v_brv->S_BRG[R828]
+          .select one s_ee related by s_brg->S_EE[R19]
+          .if (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+      if (null == this.v_$r{field.Instance_Handle} || (this.v_$r{field.Instance_Handle} instanceof String && ((String)this.v_$r{field.Instance_Handle}).isEmpty())) {
+          $cr{field.Instance_Handle}Error.show();
+      }
+      else {
+          $cr{field.Instance_Handle}Error.hide();
+      }
+          .end if
+        .end if
       .elif (field.type == "Toggle")
       if ($cr{field.Instance_Handle}Instances[0].equals($cr{field.Instance_Handle}Toggle.getText())) {
           this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[1];
