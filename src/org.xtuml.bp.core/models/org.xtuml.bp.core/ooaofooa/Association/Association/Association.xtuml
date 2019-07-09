@@ -934,8 +934,14 @@ assoc_formalized = param.assoc_formalized;
 
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
-select any a_identifier related by a_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:a_ident, i1:1, i2:-1)) - 1);
-select any b_identifier related by b_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:b_ident, i1:1, i2:-1)) - 1);
+select any a_identifier from instances of O_ID where false;
+if ("" != a_ident)
+  select any a_identifier related by a_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:a_ident, i1:1, i2:-1)) - 1);
+end if;
+select any b_identifier from instances of O_ID where false;
+if ("" != b_ident)
+  select any b_identifier related by b_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:b_ident, i1:1, i2:-1)) - 1);
+end if;
 
 select one simp related by self->R_SIMP[R206];
 select one linked related by self->R_ASSOC[R206];
