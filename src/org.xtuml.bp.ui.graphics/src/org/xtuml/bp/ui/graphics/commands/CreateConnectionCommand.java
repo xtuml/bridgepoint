@@ -229,10 +229,6 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
                         if (Window.CANCEL == result) {
                             return false;
                         }
-                        else {
-                            LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
-                            return true;
-                        }
 			        }
 			    }
 			}
