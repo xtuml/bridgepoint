@@ -1130,6 +1130,25 @@ elif (not_empty linked)
   end if;
 
   if (migrate_to_assoc)
+     
+    // check if the associative class needs to be changed
+    select one current_assr related by linked->R_ASSR[R211];
+    if (current_assr.Obj_ID != assoc_class.Obj_ID)
+      current_id = current_assr.Obj_ID;
+      new_id = assoc_class.Obj_ID;
+      select one current_pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+      select one current_assr_pkg related by current_assr->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]->PE_PE[R8001]->EP_PKG[R8000];
+      select one assoc_class_pkg related by assoc_class->PE_PE[R8001]->EP_PKG[R8000];
+      if (current_pkg.Package_ID != current_assr_pkg.Package_ID)
+        select any imported_current_assr related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == current_assr.Obj_ID);
+        current_id = imported_current_assr.IObj_ID;
+      end if;
+      if (current_pkg.Package_ID != assoc_class_pkg.Package_ID)
+        select any imported_assoc_class related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
+        new_id = imported_assoc_class.IObj_ID;
+      end if;
+      success = current_assr.moveAssociation(current_id:current_id, new_id:new_id, end:End::Start);
+    end if;
 
     // formalize the association
     if (assoc_formalized)
