@@ -65,6 +65,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 	public boolean showGrid;
 	public boolean snapToGrid;
 	public int gridSpacing;
+	public boolean requireFormalAssoc;
+	public boolean requireRolePhrases;
 	public String defaultRoutingStyle;
     public boolean emitRTOData;
 	public boolean showReferenceRemovalDialog;
@@ -144,6 +146,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         showGrid = syncTo.showGrid;
         snapToGrid = syncTo.snapToGrid;
         gridSpacing = syncTo.gridSpacing;
+        requireFormalAssoc = syncTo.requireFormalAssoc;
+        requireRolePhrases = syncTo.requireRolePhrases;
         defaultRoutingStyle = syncTo.defaultRoutingStyle;
         
         startUpTime = syncTo.startUpTime;
@@ -205,6 +209,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.showGrid = showGrid;
         prefs.snapToGrid = snapToGrid;
         prefs.gridSpacing = gridSpacing;
+        prefs.requireFormalAssoc = requireFormalAssoc;
+        prefs.requireRolePhrases = requireRolePhrases;
         prefs.defaultRoutingStyle = defaultRoutingStyle;
         prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
         prefs.showReferenceSyncReport = showReferenceSyncReport;

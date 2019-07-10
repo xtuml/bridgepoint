@@ -64,6 +64,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SHOW_GRID = PREFIX + "showGrid"; //$NON-NLS-1$
     public static final String SNAP_TO_GRID = PREFIX + "snapToGrid"; //$NON-NLS-1$
     public static final String GRID_SPACING = PREFIX + "gridSpacing"; //$NON-NLS-1$
+    public static final String REQUIRE_FORMAL_ASSOC = PREFIX + "require_formalized_associations"; //$NON-NLS-1$
+    public static final String REQUIRE_ROLE_PHRASES = PREFIX + "require_role_phrases"; //$NON-NLS-1$
     public static final String EMIT_RTO_DATA = PREFIX + "emit_rto_data"; //$NON-NLS-1$
 	public static final String DEFAULT_ROUTING_STYLE = PREFIX + "defaultRoutingStyle"; //$NON-NLS-1$
 	public static final String SHOW_FORMALIZATIONS = PREFIX + "showFormalizations"; //$NON-NLS-1$
@@ -151,6 +153,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(SHOW_GRID, prefs.showGrid);
         store.setValue(SNAP_TO_GRID, prefs.snapToGrid);
         store.setValue(GRID_SPACING, prefs.gridSpacing);
+        store.setValue(REQUIRE_FORMAL_ASSOC, prefs.requireFormalAssoc);
+        store.setValue(REQUIRE_ROLE_PHRASES, prefs.requireRolePhrases);
         store.setValue(DEFAULT_ROUTING_STYLE, prefs.defaultRoutingStyle);
         store.setValue(EMIT_RTO_DATA, prefs.emitRTOData);
         store.setValue(SHOW_SYNC_DELETION_DIALOG, prefs.showReferenceRemovalDialog);
@@ -258,6 +262,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showGrid = store.getBoolean(BridgePointPreferencesStore.SHOW_GRID);
         prefs.snapToGrid = store.getBoolean(BridgePointPreferencesStore.SNAP_TO_GRID);
         prefs.gridSpacing = store.getInt(BridgePointPreferencesStore.GRID_SPACING);
+        prefs.requireFormalAssoc = store.getBoolean(BridgePointPreferencesStore.REQUIRE_FORMAL_ASSOC);
+        prefs.requireRolePhrases = store.getBoolean(BridgePointPreferencesStore.REQUIRE_ROLE_PHRASES);
         prefs.defaultRoutingStyle = store.getString(BridgePointPreferencesStore.DEFAULT_ROUTING_STYLE);
         prefs.emitRTOData = store.getBoolean(BridgePointPreferencesStore.EMIT_RTO_DATA);
         prefs.showReferenceRemovalDialog = store.getBoolean(BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG);
@@ -326,6 +332,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         
         prefs.startUpTime = 5;
         
+        prefs.requireFormalAssoc = false;
+        prefs.requireRolePhrases = false;
         prefs.showGrid = false;
         prefs.snapToGrid = true;
         prefs.gridSpacing = 12;
