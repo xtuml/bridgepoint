@@ -1227,12 +1227,11 @@ while (i < numRoots)
             						connector_ooa_id_to_find:OS::NULL_UNIQUE_ID(),  // Used in recursive call only
             						shape_ooa_instance_to_find:OS::NULL_INSTANCE(), // Used in recursive call only
             						passNumber:param.passNumber);					// 
-	   	          // mark this shape as having had its connectors created
-		          shapeInPackage.connectors_created_during_reconciliation = true;
               end if;
             end if;
           end for;
-
+          // mark this shape as having had its connectors created
+          shapeInPackage.connectors_created_during_reconciliation = true;
         end for;
       end if;          
     end if;
