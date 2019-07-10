@@ -333,7 +333,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
             .assign load_ui = ""
             .assign load_ui = load_ui + "if (initialLoad || ${reload_val.buffer}) {\n"
             .assign load_ui = load_ui + "    String previousChoice = this.v_$r{field.Instance_Handle};\n"
-            .assign load_ui = load_ui + "    this.v_$r{field.Instance_Handle} = null;\n"
+            .assign load_ui = load_ui + "    this.v_$r{field.Instance_Handle} = """";\n"
             .assign load_ui = load_ui + "    ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = """";\n"
             .assign load_ui = load_ui + "    List<String> $cr{field.Instance_Handle}InstancesTemp = new ArrayList<>();\n"
             .assign load_ui = load_ui + "    for (String option : ${options_val.buffer}) {\n"
@@ -660,6 +660,26 @@ ${result.body}
           $cr{field.Instance_Handle}Error.hide();
       }
       .elif (field.type == "Combo")
+        .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+        .select one act_ai related by statement->ACT_AI[R603]
+        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+        .select one s_brg related by v_brv->S_BRG[R828]
+        .select one s_ee related by s_brg->S_EE[R19]
+        .if ((not_empty s_brg) and ("getDropdown" == s_brg.Name) and (not_empty s_ee) and ("USER" == s_ee.Key_Lett))
+      if ($cr{field.Instance_Handle}Instances.length > 0) {
+          this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
+      }
+      else {
+          this.v_$r{field.Instance_Handle} = "";
+      }
+      ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
+      if (null == this.v_$r{field.Instance_Handle} || this.v_$r{field.Instance_Handle}.isEmpty()) {
+          $cr{field.Instance_Handle}Error.show();
+      }
+      else {
+          $cr{field.Instance_Handle}Error.hide();
+      }
+        .else
       if ($cr{field.Instance_Handle}Instances.length > 0) {
           this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Instances[$cr{field.Instance_Handle}Combo.getSelectionIndex()];
       }
@@ -667,20 +687,6 @@ ${result.body}
           this.v_$r{field.Instance_Handle} = null;
       }
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
-        .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
-        .select one act_ai related by statement->ACT_AI[R603]
-        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
-        .if ((not_empty act_ai) and (not_empty v_brv))
-          .select one s_brg related by v_brv->S_BRG[R828]
-          .select one s_ee related by s_brg->S_EE[R19]
-          .if (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
-      if (null == this.v_$r{field.Instance_Handle} || (this.v_$r{field.Instance_Handle} instanceof String && ((String)this.v_$r{field.Instance_Handle}).isEmpty())) {
-          $cr{field.Instance_Handle}Error.show();
-      }
-      else {
-          $cr{field.Instance_Handle}Error.hide();
-      }
-          .end if
         .end if
       .elif (field.type == "Toggle")
       if ($cr{field.Instance_Handle}Instances[0].equals($cr{field.Instance_Handle}Toggle.getText())) {
