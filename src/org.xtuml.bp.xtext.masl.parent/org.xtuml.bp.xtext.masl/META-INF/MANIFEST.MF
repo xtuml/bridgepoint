@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 6.17.0.qualifier
+Bundle-Version: 6.18.0.qualifier
 Bundle-ClassPath: .
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl;singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -48,3 +48,4 @@ Export-Package: org.xtuml.bp.xtext.masl,
  org.xtuml.bp.xtext.masl.typesystem,
  org.xtuml.bp.xtext.masl.validation
 Import-Package: org.apache.log4j
+Automatic-Module-Name: org.xtuml.bp.xtext.masl

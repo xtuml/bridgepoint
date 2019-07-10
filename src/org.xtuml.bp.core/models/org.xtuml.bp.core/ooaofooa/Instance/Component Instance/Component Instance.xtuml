@@ -270,7 +270,6 @@ else
     rootCompIdInPkg = component.getRootComponentId();
     select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
   end if;  
-  isInGenericPackage = not_empty package or not_empty rootComponent;
   
   select many oalBreakpoints related by component->ACT_BIC[R694]->ACT_ACT[R694]
                     ->ACT_BLK[R666]->ACT_SMT[R602]->BP_OAL[R3101]->BP_BP[R3102];

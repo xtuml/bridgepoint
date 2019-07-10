@@ -25548,8 +25548,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'String_literal_false_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance lbo of V_LBO;
+	'create object instance lbo of V_LBO;
 lbo.Value = "FALSE";
 
 create object instance val of V_VAL;
@@ -25782,8 +25781,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Member_access_end',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::Member_access_end()
+	'// ::Member_access_end()
 if ( param.b1_root_inst_access_id == GD::NULL_UNIQUE_ID())
   // There is no field, dispose incompletely created value instances . . .
   ::clear_value_data();

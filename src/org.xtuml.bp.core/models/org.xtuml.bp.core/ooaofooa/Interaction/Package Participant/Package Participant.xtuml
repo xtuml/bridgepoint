@@ -14,8 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-if(param.name == "can")
+	'if(param.name == "can")
   // if the current action is one which requires
   // this element to be selected along with a
   // synchronous message
@@ -103,8 +102,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-select one participant related by self->SQ_P[R930];
+	'select one participant related by self->SQ_P[R930];
 if(not_empty participant)
   participant.dispose();
 else

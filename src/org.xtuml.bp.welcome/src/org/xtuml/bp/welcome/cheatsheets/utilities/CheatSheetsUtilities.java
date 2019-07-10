@@ -1,28 +1,13 @@
 package org.xtuml.bp.welcome.cheatsheets.utilities;
-//====================================================================
-//
-//File: $RCSfile: CheatSheetsUtilities.java,v $
-//Version: $Revision: 1.4 $
-//Modified: $Date: 2013/01/10 23:32:10 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//====================================================================
-//
-import java.rmi.activation.Activatable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.core.internal.dtree.ObjectNotFoundException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.Component_c;
@@ -51,7 +36,6 @@ import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
-import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.ui.canvas.Connector_c;

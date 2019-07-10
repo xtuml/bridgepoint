@@ -524,7 +524,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'service' | 'function'
+	 *     'function' | 'service'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) domain=[DomainDefinition|ID]
@@ -820,7 +820,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'service' | 'function'
+	 *     'function' | 'service'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) domain=[DomainDefinition|ID]

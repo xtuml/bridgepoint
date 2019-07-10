@@ -1,28 +1,7 @@
 package org.xtuml.bp.als.oal;
 
-//====================================================================
-//
-// File:      $RCSfile: TextParser.java,v $
-// Version:   $Revision: 1.25 $
-// Modified:  $Date: 2013/01/10 23:20:48 $
-//
-// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
-//
-//====================================================================
-//
 import java.util.UUID;
 
-import antlr.MismatchedTokenException;
-import antlr.NoViableAltException;
-import antlr.RecognitionException;
-import antlr.Token;
-import antlr.TokenStream;
-import antlr.TokenStreamException;
-import antlr.collections.AST;
-
-import org.xtuml.bp.als.oal.OalParser;
-import org.xtuml.bp.als.oal.Oal_validate;
-import org.xtuml.bp.als.oal.pt_SemanticException;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -45,10 +24,17 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.ContainerUtil;
+
+import antlr.MismatchedTokenException;
+import antlr.NoViableAltException;
+import antlr.RecognitionException;
+import antlr.Token;
+import antlr.TokenStream;
+import antlr.TokenStreamException;
+import antlr.collections.AST;
 
 public class TextParser extends OalParser {
 	long m_act_id = 0;
@@ -213,7 +199,7 @@ public class TextParser extends OalParser {
 			if (token != null) {
 				parserTokenText = token.getText();
 			} else if (ast != null) {
-				parserTokenText = token.getText();
+				parserTokenText = ast.getText();
 			}
 			if (parserTokenText == null) {
 				parserTokenText = " ";

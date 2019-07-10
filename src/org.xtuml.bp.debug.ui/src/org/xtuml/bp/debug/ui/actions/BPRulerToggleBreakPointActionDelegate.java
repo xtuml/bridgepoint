@@ -1,7 +1,6 @@
 package org.xtuml.bp.debug.ui.actions;
 
 import org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate;
-import org.eclipse.debug.ui.actions.ToggleBreakpointAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.source.IVerticalRulerInfo;
 import org.eclipse.ui.texteditor.ITextEditor;

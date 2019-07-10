@@ -5911,8 +5911,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_TXN_GenericPackageAssignEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event exists to assign
+	'// UI: event exists to assign
 select any txn from instances of SM_TXN
    where USER::selectOne(id:selected.Trans_ID);
 select one dest_state related by txn->SM_STATE[R506];
@@ -5970,8 +5969,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_EVT_GenericPackageIgnoreInState',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: cant happen entry exists for this event
+	'// UI: cant happen entry exists for this event
 	select any event from instances of SM_EVT
          where USER::selectOne(id:selected.SMevt_ID);
 
@@ -6018,8 +6016,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_EVT_GenericPackageCantHappenInState',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event ignored entry exists for this event
+	'// UI: event ignored entry exists for this event
 select any event from instances of SM_EVT
          where USER::selectOne(id:selected.SMevt_ID);
 
@@ -6066,8 +6063,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_STATE_GenericPackageIgnoreEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: cant happen entry exists for this state
+	'// UI: cant happen entry exists for this state
 select any state from instances of SM_STATE
          where USER::selectOne(id:selected.SMstt_ID);
 
@@ -6140,8 +6136,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_STATE_GenericPackageCantHappenEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event ignored entry exists for this state
+	'// UI: event ignored entry exists for this state
 select any state from instances of SM_STATE
          where USER::selectOne(id:selected.SMstt_ID);
 
@@ -6243,8 +6238,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_CRTXN_GenericPackageAssignEvent',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: event exists to assign
+	'// UI: event exists to assign
 select any ctxn from instances of SM_CRTXN
    where USER::selectOne(id:selected.Trans_ID);
 select one txn related by ctxn->SM_TXN[R507];
@@ -6313,8 +6307,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'SM_TXN_GenericPackageAssignSignal',
 	'ContextMenuFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// UI: signal exists to assign
+	'// UI: signal exists to assign
 select any txn from instances of SM_TXN where
                                           USER::selectOne(id:selected.Trans_ID);
 Trans_ID = txn.Trans_ID;

@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ConnectorEditPart.java,v $
-//Version:   $Revision: 1.21 $
-//Modified:  $Date: 2013/01/17 03:29:44 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -33,7 +25,6 @@ import org.eclipse.draw2d.ConnectionRouter;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -64,10 +55,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.IActionFilter;
-
 import org.xtuml.bp.core.End_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.Style_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
