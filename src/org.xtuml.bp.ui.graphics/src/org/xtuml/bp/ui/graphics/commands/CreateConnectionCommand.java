@@ -231,16 +231,6 @@ public class CreateConnectionCommand extends Command implements IExecutionValida
                         }
                         else {
                             LinkedAssociation_c linked = LinkedAssociation_c.getOneR_ASSOCOnR206((Association_c)newElement);
-                            if (null != linked) {  // migrated to assoc
-                                // delete the connector
-                                this.result.Dispose();
-                                // reconcile graphics
-                                SystemModel_c s_sys = SystemModel_c.getOneS_SYSOnR1405(Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001((Association_c)newElement)));
-                                List<NonRootModelElement> elementsToReconcile = new ArrayList<>();
-                                elementsToReconcile.add(s_sys);
-                                GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(elementsToReconcile);
-                                reconciler.runReconciler(false, true);
-                            }
                             return true;
                         }
 			        }
