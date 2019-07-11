@@ -7979,7 +7979,7 @@ phrases_required = a_class.Obj_ID == b_class.Obj_ID or PREF::getBoolean(name:"br
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
-rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true);
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // A label
@@ -8007,7 +8007,7 @@ elif (not_empty b_aone)
 elif (not_empty b_aoth)
   default_a_phrase = b_aoth.Txt_Phrs;
 end if;
-a_phrase = USER::getText(default:default_a_phrase, prompt:"", require_value:phrases_required);
+a_phrase = USER::getText(default:default_a_phrase, prompt:"", require_value:phrases_required, validate_name:true);
 LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 
 // A to B multiplicity
@@ -8049,7 +8049,7 @@ elif (not_empty a_aone)
 elif (not_empty a_aoth)
   default_b_phrase = a_aoth.Txt_Phrs;
 end if;
-b_phrase = USER::getText(default:default_b_phrase, prompt:"", require_value:phrases_required);
+b_phrase = USER::getText(default:default_b_phrase, prompt:"", require_value:phrases_required, validate_name:true);
 LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
 
 // B to A multiplicity
@@ -8275,7 +8275,7 @@ select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
-rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true);
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // Formalize associative
@@ -8318,7 +8318,7 @@ select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
-rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true);
+rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // Formalize associative
