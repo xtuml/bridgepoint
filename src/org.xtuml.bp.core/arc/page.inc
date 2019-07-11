@@ -773,7 +773,16 @@ ${result.body}
       .if (field.Type == "Text")
       if ((v_$r{field.Instance_Handle} == null || ($cr{field.Instance_Handle}_is_required && v_$r{field.Instance_Handle}.isEmpty())) && null != $cr{field.Instance_Handle}Text && $cr{field.Instance_Handle}Text.getVisible()) isPageComplete = false;
       .elif (field.Type == "Combo")
+        .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${field.Statement_ID}")
+        .select one act_ai related by statement->ACT_AI[R603]
+        .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+        .select one s_brg related by v_brv->S_BRG[R828]
+        .select one s_ee related by s_brg->S_EE[R19]
+        .if ((not_empty s_brg) and ("getDropdown" == s_brg.Name) and (not_empty s_ee) and ("USER" == s_ee.Key_Lett))
+      if (("".equals(v_$r{field.Instance_Handle}) || v_$r{field.Instance_Handle} == null) && null != $cr{field.Instance_Handle}Combo && $cr{field.Instance_Handle}Combo.getVisible()) isPageComplete = false;
+        .else
       if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Combo && $cr{field.Instance_Handle}Combo.getVisible()) isPageComplete = false;
+        .end if
       .elif (field.Type == "Toggle")
       if (v_$r{field.Instance_Handle} == null && null != $cr{field.Instance_Handle}Toggle && $cr{field.Instance_Handle}Toggle.getVisible()) isPageComplete = false;
       .elif (field.Type == "List")
