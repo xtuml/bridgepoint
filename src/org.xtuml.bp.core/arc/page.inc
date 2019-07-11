@@ -121,6 +121,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   public Text $cr{field.Instance_Handle}Text;
   public Label $cr{field.Instance_Handle}Label;
   public boolean $cr{field.Instance_Handle}_is_required;
+  public boolean $cr{field.Instance_Handle}_validate_name;
   public ControlDecoration $cr{field.Instance_Handle}Error;
     .elif (field.Type == "Combo")
   public Combo $cr{field.Instance_Handle}Combo;
@@ -258,10 +259,13 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_val related by v_par->V_VAL[R800]
           .select any required_par related by v_brv->V_PAR[R810] where (selected.Name == "require_value")
           .select any required_val related by required_par->V_VAL[R800]
+          .select any validate_par related by v_brv->V_PAR[R810] where (selected.Name == "validate_name")
+          .select any validate_val related by validate_par->V_VAL[R800]
           .if (not_empty v_val)
             .assign load_ui = "if (initialLoad) {\n"
             .assign load_ui = load_ui + "    $cr{field.Instance_Handle}Text.setText(${v_val.buffer});\n"
             .assign load_ui = load_ui + "    $cr{field.Instance_Handle}_is_required = ${required_val.buffer};\n"
+            .assign load_ui = load_ui + "    $cr{field.Instance_Handle}_validate_name = ${validate_val.buffer};\n"
             .assign load_ui = load_ui + "    updateSelected$cr{field.Instance_Handle}();\n"
             .assign load_ui = load_ui + "}\n"
             .assign field.buffer = "// ${statement.buffer}" + load_ui
@@ -654,7 +658,7 @@ ${result.body}
       .if (field.type == "Text")
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Text.getText();
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
-      String errMessage = ($cr{field.Instance_Handle}_is_required && this.v_$r{field.Instance_Handle}.isEmpty()) ? "Missing required field" : UIUtil.validateNameUsingRenameAction(this.v_$r{field.Instance_Handle}, null);
+      String errMessage = ($cr{field.Instance_Handle}_is_required && this.v_$r{field.Instance_Handle}.isEmpty()) ? "Missing required field" : $cr{field.Instance_Handle}_validate_name ? UIUtil.validateNameUsingRenameAction(this.v_$r{field.Instance_Handle}, null) : null;
       if (null != errMessage) {
           $cr{field.Instance_Handle}Error.setDescriptionText(errMessage);
           $cr{field.Instance_Handle}Error.show();
