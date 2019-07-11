@@ -655,7 +655,7 @@ ${result.body}
       this.v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Text.getText();
       ((${wizard_class_name})getWizard()).v_${field.Instance_Handle} = this.v_$r{field.Instance_Handle};
       String errMessage = ($cr{field.Instance_Handle}_is_required && this.v_$r{field.Instance_Handle}.isEmpty()) ? "Missing required field" : UIUtil.validateNameUsingRenameAction(this.v_$r{field.Instance_Handle}, null);
-      if (null != errMessage && ! "Association Number".equals($cr{field.Instance_Handle}Label.getText())) {
+      if (null != errMessage) {
           $cr{field.Instance_Handle}Error.setDescriptionText(errMessage);
           $cr{field.Instance_Handle}Error.show();
       }
