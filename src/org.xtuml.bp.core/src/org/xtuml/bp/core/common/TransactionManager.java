@@ -63,6 +63,7 @@ import org.xtuml.bp.core.util.UIUtil;
  */
 public class TransactionManager {
 	Transaction activeTransaction;
+	int nestedTransactionCount = 0;
 
 	int maxStackSize = 87;
 
@@ -178,9 +179,13 @@ public class TransactionManager {
 			IDeltaCollector deltaCollector, String type, boolean undoable)
 			throws TransactionException {
 		if (activeTransaction != null) {
+		    nestedTransactionCount++;
+		    return activeTransaction;
+		    /*
 			throw new TransactionException("Transaction '"
 					+ activeTransaction.getDisplayName()
 					+ "' is already in progress");
+			*/
 		}
 
 		// If a Move is in progress we require that the next transaction be the paste. If the user
@@ -543,6 +548,10 @@ public class TransactionManager {
 	public boolean endTransaction(Transaction transaction, boolean lockWorkspace) {
 		if (activeTransaction == null || activeTransaction != transaction) {
 			throw new IllegalStateException("no transaction is in progress");
+		}
+		if (nestedTransactionCount > 0) {
+		    nestedTransactionCount--;
+		    return true;
 		}
 
 		try {

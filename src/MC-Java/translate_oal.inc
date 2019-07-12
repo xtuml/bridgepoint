@@ -71,6 +71,8 @@
   .invoke gen_transform_values(root_pkg_name)
   .print "************** generate function return values      *****************"
   .invoke gen_synch_service_values(root_pkg_name)
+  .print "************** generate array element reference values **************"
+  .invoke gen_array_element_reference_values(root_pkg_name)
 .end function
 .//
 .//
@@ -92,7 +94,7 @@
   .param string main_class_name
   .param boolean output_change_messages
   .print "************** generate assignments                 *****************"
-  .invoke gen_asgn_statements()
+  .invoke gen_asgn_statements(root_pkg_name)
   .print "************** generate creates                     *****************"
   .invoke gen_create_instance_statements(main_class_name, output_change_messages)
   .print "************** generate deletes                     *****************"

@@ -112,6 +112,10 @@ for each autoReconcileSpec in allAutoRecSpecs
   end if;
 end for;
 
+
+// pass 3 is for associative links, sub/super, and satisfaction. 
+GD_ARS::ReconcileAllGraphics(system_id:param.system_id,s_sys:param.s_sys, passNumber:3); 
+
 if (CL::traceGraphicsCreationIsEnabled()) 
   msg = "GD_ARS.Reconcile() ended.";
   CL::logTraceMsg(filterType:LoggerType::OPERATION, filterValue:"use_string_buffer", message:msg);
@@ -140,6 +144,22 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("247dec33-370a-485e-afa3-10120fa78e90",
+	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
+	's_sys',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"965be58d-e2e1-4b02-a7a2-f2fddb250d11",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("bb127757-3046-42f0-8eaa-58bc50d7f658",
 	"0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -713,13 +733,6 @@ INSERT INTO O_TPARM
 	'',
 	"65078753-20ee-46a9-9812-37f490b6a240",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
-	"00000000-0000-0000-0000-000000000000",
-	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("447c2aaa-2b3a-487f-820e-a0a2222ed9ae",
 	"8ffad301-a127-4be7-a504-064da8b3f9dc",
@@ -1214,11 +1227,11 @@ while (i < numRoots)
             						connector_ooa_id_to_find:OS::NULL_UNIQUE_ID(),  // Used in recursive call only
             						shape_ooa_instance_to_find:OS::NULL_INSTANCE(), // Used in recursive call only
             						passNumber:param.passNumber);					// 
+                // mark this shape as having had its connectors created
+                shapeInPackage.connectors_created_during_reconciliation = true;
               end if;
             end if;
           end for;
-          // mark this shape as having had its connectors created
-          shapeInPackage.connectors_created_during_reconciliation = true;
         end for;
       end if;          
     end if;

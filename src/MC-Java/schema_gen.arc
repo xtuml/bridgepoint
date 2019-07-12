@@ -331,7 +331,11 @@ CREATE ROP REF_ID R$_{rel_inst.Numb} FROM MC 	$_{asc_obj.Key_Lett} 	( \
 $_{att_r.Name}\
 			.assign com = true
 		.end for
+		.if (r_obj.Obj_ID == l_obj.Obj_ID)
+ )  PHRASE '$_{l_side.Txt_Phrs}'
+		.else
  )
+		.end if
 		         TO 1  	$_{r_obj.Key_Lett} 	( \
 		.assign com = false
 		.for each o_r_inst in o_r_set
@@ -372,7 +376,11 @@ CREATE ROP REF_ID R$_{rel_inst.Numb} FROM MC 	$_{asc_obj.Key_Lett} 	( \
 $_{att.Name}\
 			.assign com = true
 		.end for
+		.if (r_obj.Obj_ID == l_obj.Obj_ID)
+ )  PHRASE '$_{r_side.Txt_Phrs}'
+		.else
  )
+		.end if
 		         TO 1  	$_{l_obj.Key_Lett} 	( \
 		.assign com = false
 		.select one r_rto_inst related by l_side -> R_RTO[R204]

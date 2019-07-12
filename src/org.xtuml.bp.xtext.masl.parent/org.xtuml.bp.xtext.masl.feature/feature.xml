@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.xtext.masl.feature"
       label="MASL Editor Feature"
-      version="6.17.0.qualifier"
+      version="6.18.0.qualifier"
       provider-name="xtUML.org">
 
    <copyright>

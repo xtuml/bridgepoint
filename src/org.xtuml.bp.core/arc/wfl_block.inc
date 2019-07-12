@@ -274,6 +274,150 @@ ${inner_blck.body}\
 ${inner_blck.body}\
       .end if
     .end if
+    .select one act_brg related by statement->ACT_BRG[R603]
+    .select one s_brg related by act_brg->S_BRG[R674]
+    .select one s_ee related by s_brg->S_EE[R19]
+    .if ((not_empty s_brg) and (("setLayout" == s_brg.Name) and ("LAYOUT" == s_ee.Key_Lett)))
+      .// set layout data for field
+      .select any field_name_par related by act_brg->V_PAR[R628] where (selected.Name == "field_name")
+      .select any field_name_lst related by field_name_par->V_VAL[R800]->V_LST[R801]
+      .select any row_num_par related by act_brg->V_PAR[R628] where (selected.Name == "row_num")
+      .select any row_num_lst related by row_num_par->V_VAL[R800]->V_LST[R801]
+      .select any width_par related by act_brg->V_PAR[R628] where (selected.Name == "width")
+      .select any width_lst related by width_par->V_VAL[R800]->V_LST[R801]
+      .select any height_par related by act_brg->V_PAR[R628] where (selected.Name == "height")
+      .select any height_lst related by height_par->V_VAL[R800]->V_LST[R801]
+      .select any w_fld related by w_step->W_FLD[R2009] where (selected.Instance_Handle == field_name_lst.Value)
+      .if (not_empty w_fld)
+        .create object instance w_fmt of W_FMT
+        .assign w_fmt.row_num = row_num_lst.Value
+        .assign w_fmt.width = width_lst.Value
+        .assign w_fmt.height = height_lst.Value
+        .relate w_fmt to w_fld across R2015
+      .end if
+    .elif ((not_empty s_brg) and (("dependsOn" == s_brg.Name) and ("USER" == s_ee.Key_Lett)))
+      .// get label from string literal parameter
+      .select any field1_par related by act_brg->V_PAR[R628] where (selected.Name == "field1")
+      .select any field1_lst related by field1_par->V_VAL[R800]->V_LST[R801]
+      .select any field2_par related by act_brg->V_PAR[R628] where (selected.Name == "field2")
+      .select any field2_lst related by field2_par->V_VAL[R800]->V_LST[R801]
+      .if (((not_empty field1_lst) and ("" != field1_lst.Value)) and ((not_empty field2_lst) and ("" != field2_lst.Value)))
+        .select any field1 related by w_step->W_FLD[R2009] where (selected.Instance_Handle == field1_lst.Value)
+        .select any field2 related by w_step->W_FLD[R2009] where (selected.Instance_Handle == field2_lst.Value)
+        .if ((not_empty field1) and (not_empty field2))
+          .create object instance w_dep of W_DEP
+          .relate field1 to w_dep across R2016.'depends_on'
+          .relate field2 to w_dep across R2016.'depended_on_by'
+          .assign w_dep.inverse = false
+          .assign w_dep.comparison = ""
+          .select any inverse_par related by act_brg->V_PAR[R628] where (selected.Name == "inverse")
+          .select any inverse_lbo related by inverse_par->V_VAL[R800]->V_LBO[R801]
+          .if (not_empty inverse_lbo)
+            .assign w_dep.inverse = (("TRUE" == inverse_lbo.Value) or ("true" == inverse_lbo.Value))
+          .end if
+          .select any compare_par related by act_brg->V_PAR[R628] where (selected.Name == "comparison")
+          .select any compare_lst related by compare_par->V_VAL[R800]->V_LST[R801]
+          .if (not_empty compare_lst)
+            .assign w_dep.comparison = compare_lst.Value
+          .end if
+        .end if
+      .end if
+    .end if
+    .select one act_ai related by statement->ACT_AI[R603]
+    .select one v_brv related by act_ai->V_VAL[R609]->V_BRV[R801]
+    .if ((not_empty act_ai) and (not_empty v_brv))
+      .select one s_brg related by v_brv->S_BRG[R828]
+      .select one s_ee related by s_brg->S_EE[R19]
+      .if (("getText" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .// add a text box
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Text"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
+        .end if
+      .elif (("getDropdown" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Combo"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
+        .end if
+      .elif (("getToggle" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Toggle"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
+        .end if
+      .elif (("getLabel" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .// add a dynamic text label
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Label"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+      .elif (("getCheckbox" == s_brg.Name) and ("USER" == s_ee.Key_Lett))
+        .select one result_var related by act_ai->V_VAL[R689]->V_TVL[R801]->V_VAR[R805]
+        .create object instance w_fld of W_FLD
+        .assign w_fld.Name = "USER_" + result_var.Name
+        .assign w_fld.Instance_Handle = result_var.Name
+        .assign w_fld.Cardinality = ""
+        .assign w_fld.buffer = ""
+        .assign w_fld.Type = "Check"
+        .relate w_fld to w_step across R2009
+        .relate w_fld to statement across R2010
+        .// get label from string literal parameter
+        .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "prompt")
+        .select any v_lst related by v_par->V_VAL[R800]->V_LST[R801]
+        .if ((not_empty v_lst) and ("" != v_lst.Value))
+          .create object instance w_cfl of W_CFL
+          .assign w_cfl.Label = v_lst.Value
+          .assign name = "USER_" + result_var.Name
+          .relate w_cfl to w_fld across R2014
+        .end if
+      .end if
+    .end if
     .select one next_statement related by statement->ACT_SMT[R661.'succeeds']
     .assign statement = next_statement
   .end while
