@@ -1151,7 +1151,7 @@ elif (not_empty linked)
     end if;
 
     // formalize the association
-    if (assoc_formalized)
+    if (assoc_formalized and not self.isFormalized())
       one_id = 0;
       oth_id = 0;
       select one aone related by linked->R_AONE[R209];
@@ -1164,6 +1164,8 @@ elif (not_empty linked)
         oth_id = a_identifier.Oid_ID;
       end if;
       linked.formalize(one_id:one_id, oth_id:oth_id);
+    elif (not assoc_formalized and self.isFormalized())
+      self.unformalize();
     end if;
 
   else
