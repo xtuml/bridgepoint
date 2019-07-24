@@ -27,63 +27,190 @@ See <<dr-2>> section 4
 
 5.1 Workflow generation changes
 
+Several changes had to be made to the way workflow generation works to support
+the association editor.
+
 5.1.1 New input elements
+
+This section describes the new elements that were added for different types of
+inputs.
 
 5.1.1.1 Text entry
 
-- prompt
-- default value TODO
+The bridge `getText` was added to the `USER` EE. The bridge returns a string
+which represents the text entered in a free form text box. The following
+describes the parameters:
+
+`default` is the text which is populated in the box when the wizard is created.
+
+`prompt` is the text that is displayed before the text box. It must be a literal
+string.
+
+`require_value` is a boolean value. If true, the text box may not be empty.
+
+`validate_name` is a boolean value. If true, the text in the box will be
+validated with the BridgePoint identifier validation logic found in the
+`RenameAction` class.
 
 5.1.1.2 Text options (dropdown)
 
-- prompt
-- array of options
-- default value is first array element
+The bridge `getDropdown` was added to the `USER` EE. The bridge returns a string
+which represents a selection out of a finite number of options displayed in a
+dropdown box. The following describes the parameters:
 
-5.1.1.3 Toggle option?
+`options` is a array of strings which represent the available options.
 
-- TODO
+`prompt` is the text that is displayed before the dropdown. It must be a literal
+string.
 
-5.1.2 Validation
+`default_selection` is an integer index representing the option that should be
+selected when the wizard is created.
 
-- TODO
+`reload_options` is a boolean value. If true, the code which creates the options
+array will be run each time a value in the wizard is changed. This is helpful
+when the options are dependent on other fields. For example, in the association
+editor, the list of classes which can be used for the formalizing identifier
+depends on the cardinality of the association.
+
+5.1.1.3 Toggle option (select from two text options)
+
+The bridge `getToggle` was added to the `USER` EE. The bridge returns a string
+which represents the selection out of two string options. The options are
+displayed as a button which when clicked toggles between the two options. The
+following describes the parameters:
+
+`option1` represents the string option which is displayed when the wizard is
+created.
+
+`option2` represents the string option which is toggled to when the button is
+pushed.
+
+`prompt` is the text that is displayed before the toggle button. It must be a
+literal string.
+
+5.1.1.4 Boolean input (checkbox)
+
+The bridge `getCheckbox` was added to the `USER` EE. The bridge returns a
+boolean which represents the state of the checkbox. The following describes the
+parameters:
+
+`default` is a boolean value which represents the initial state of the checkbox
+when the wizard is created.
+
+`prompt` is the text that is displayed before the dropdown. It must be a literal
+string.
+
+`disable` is a boolean value. If true, the checkbox is grayed out and cannot be
+changed.
+
+5.1.1.5 Labels
+
+The bridge `getLabel` was added to the `USER` EE. The bridge returns a
+string value which does not have any semantic meaning. The only reason a value
+is returned is to enable linking fields together with dependencies (see 5.1.2).
+The following describes the parameters:
+
+`label` is a string value representing the label text.
+
+5.1.2 Fields dependent on other values
+
+The `dependsOn` bridge was added to the `USER` EE. The bridge defines a
+dependency between two input fields. The following describes the parameters.
+
+`field1` is a string which must be the name of a variable returned by another
+`USER` bridge. This field is the dependent field. It must be a literal string.
+
+`field2` is a string which must be the name of a variable returned by another
+`USER` bridge. This field is the field that is depended on. It must be a literal
+string. `field2` is typically a boolean value but is not necessarily boolean.
+
+`inverse` is a boolean value. If true, the comparison is logically inverted. It
+must be a literal boolean.
+
+`comparison` is a string value which represents a Java expression which returns
+a boolean value. It must be a literal string. This is useful for more complex
+dependencies.
 
 5.1.3 Layout and styling
 
-- TODO
+A new EE `Layout` with one bridge `setLayout` was created. This bridge is used
+to define where the inputs are laid out in the wizard. The layout uses a six
+column system. By default, all fields are one column wide and one row tall. The
+following describes the parameters:
+
+`field_name` is a string which must be the name of a variable return by a `USER`
+bridge call. It must be a literal string.
+
+`row_num` is a string value which represents the row in which the field is laid
+out. It must be a literal string.
+
+`width` is a string value which represents the number of columns the field
+covers. It must be a literal string.
+
+`height` is a string value which represents number of rows the field covers. It
+must be a literal string.
 
 5.2 Association types
 
 5.2.1 Simple associations
 
-- line drawing?
-- CME?
+Simple associations are created in the same way they have always been with a
+drawing tool. At the end of the connector creation command, the "Edit
+association" action is invoked on the newly created association. It is also
+available for existing associations through the right click menu.
+
+A binary association can also result from editing an existing linked association
+and migrating to a simple association.
 
 5.2.2 Linked associations
 
-- TODO
+Linked associations can be created by creating a binary association and
+migrating to linked. The "Edit association" action is also available through the
+right click menu.
 
 5.2.3 Subsuper associations
 
-- TODO
+For subtype supertype associations, when a connector representing the first
+subtype connection of the association is created, the "Edit association" access
+is invoked on the newly created association. It is also available through the
+right click menu for existing associations. When additional subtypes are added,
+they inherit the existing properties of the association (this is existing
+behavior).
 
 5.2.4 Reflexive associations
 
-- TODO
+For reflexive binary associations, the relationship phrases are included in the
+dropdown menu to select the formalizing identifier. No special handling is
+required for reflexive linked associations.
 
-5.3 Editing existing associations
+5.3 Preferences
 
-- TODO
+Two new boolean preferences are added in the xtUML > Diagram Editors
+preferences page. 
 
-5.4 Preferences
+If "Require formalized associations` is checked, the association editor does not
+allow "finish" unless the association is formalized.  Additionally, associations
+cannot be created unless at least one valid identifier exists in one of the
+classes being created.
 
-- TODO
+If "Require role phrases" is checked, the association editor does not allow
+"finish" unless a value is given in the in the role phrase text box.
 
 == 6 Design Comments
 
-- MC-Java implementation of arrays
-  - only works with one dimensional arrays
-  - limited to parameters on bridges and transients
+6.1 Arrays in MC-Java
+
+Some support for arrays was added in MC-Java. Only one dimensional arrays are
+supported and the support is limited to bridge parameters and transient
+variables. This was added to support the `options` parameter in the
+`getDropdown` menu.
+
+6.2 Transaction manager
+
+Because a CME action is invoked in the middle of a graphical draw operation, the
+transaction manager was changed to allow nested transactions. With nested
+transactions, each of the nested transactions are rolled up into the outermost
+transaction.
 
 == 7 User Documentation
 
