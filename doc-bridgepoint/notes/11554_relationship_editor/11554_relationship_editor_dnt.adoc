@@ -9,7 +9,6 @@ user to set up referentials and role phrases at creation time.
 
 This issue originates from a November 17, 2018 discussion between users and
 the BridgePoint engineering team regarding high-priority work items.
-https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
 
 == 2 Introduction and Background
 
@@ -194,7 +193,7 @@ cannot be created unless at least one valid identifier exists in one of the
 classes being created.
 
 If "Require role phrases" is checked, the association editor does not allow
-"finish" unless a value is given in the in the role phrase text box.
+"finish" unless a value is given in the role phrase text box.
 
 == 6 Design Comments
 
@@ -214,16 +213,24 @@ transaction.
 
 == 7 User Documentation
 
-TODO
+No updated user documentation is planned as of the design of the association
+editor.  The association editor is relatively self-explanator and launches
+itself automatically.
 
 == 8 Unit Test
 
-TODO
+A test model is available to manually test the association editor.  It is
+found at <<dr-3>>.
+
+A test procedure is available to manually test the association editor.  It
+is found at <<dr-4>>.
 
 == 9 Document References
 
 . [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
 . [[dr-2]] link:11554_relationship_editor_ant.adoc[Relationship editor analysis note]
+. [[dr-3]] https://github.com/xtuml/models/tree/master/test/assoc_edit[Association Editor test model]
+. [[dr-4]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
 
 ---
 
