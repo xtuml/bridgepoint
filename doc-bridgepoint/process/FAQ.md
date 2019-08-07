@@ -527,8 +527,8 @@ now sets its own default stack size in the `bridgepoint.ini` file in the install
 set to four megabytes via the virtual machine argument `-Xss4m`.  Users may wish to increase or decrease this 
 value (minimum recommendation is `-Xss512k`) depending on memory constraints and/or the size of their models.
 
-* **How to build a formalized collaboration/communication diagram** <a id="form_collab"></a>
-Formalizing a collaboration (AKA communication) diagram by connecting messages on the diagram
+* **How to build a formalized collaboration/communication diagram** <a id="form_collab"></a>  
+Formalizing a collaboration (aka communication) diagram by connecting messages on the diagram
 to events and operations defined within the underlying executable (class and state) models is 
 simple, albeit perhaps not intuitive.
   - Create a package to contain the collaboration diagram.
@@ -540,10 +540,10 @@ simple, albeit perhaps not intuitive.
   - Draw a communication link between each pair of collaborating participants on the diagram.
   - For each message on the collaboration diagram:
     - Use the "Interaction" drawer on the Palette to select the "(A)Synchronous Message" tool.
-    - Alongside the communication line between the sender/receiver pair, draw a short line, moving toward the receiver
-    - Select both the receiver and the message (ctrl-select)
+    - Alongside the communication line between the sender/receiver pair, draw a short line, moving toward the receiver.
+    - Select both the receiver and the message (ctrl-select).
     - Invoke the context-menu entry, "Formalize..."
-    - Select the appropriate event or operation defined within the underlying executable models.
+    - Select the appropriate event or operation defined within the underlying executable models.  
 The resulting diagram will look something like this:
   <img src="ExampleCollabDiag.png" alt="ExampleCollabDiag" style="width: 320px;"/>
 
