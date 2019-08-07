@@ -544,6 +544,7 @@ simple, albeit perhaps not intuitive.
     - Select both the receiver and the message (ctrl-select).
     - Invoke the context-menu entry, "Formalize..."
     - Select the appropriate event or operation defined within the underlying executable models.  
+    
 The resulting diagram will look something like this:
   <img src="ExampleCollabDiag.png" alt="ExampleCollabDiag" style="width: 320px;"/>
 
