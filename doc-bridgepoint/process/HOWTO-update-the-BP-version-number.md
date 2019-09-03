@@ -51,7 +51,7 @@ Steps
   
   - Go to the org.xtuml.bp.doc plug-in.  Update, by hand, the Release Notes.md and 
   Whats New.md files to reflect the proper version.  Rebuild the HTML versions of these 
-  files using pandoc (instructions in bp.doc/README.md)  
+  files using asciidoctor (instructions in bp.doc/README.md)  
   
   R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   

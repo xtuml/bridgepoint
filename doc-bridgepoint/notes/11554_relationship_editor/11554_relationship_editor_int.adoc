@@ -1,0 +1,85 @@
+= Relationship Editor
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note documents the code changes for a newly added association editor.
+
+== 2 Introduction and Background
+
+See <<dr-1>> and <<dr-2>>.
+
+== 3 Requirements
+
+See <<dr-2>>.
+
+== 4 Work Required
+
+See <<dr-3>>.
+
+== 5 Implementation Comments
+
+A post-release bug was identified and fixed.  The Redmine issue is found
+at <<dr-6>>.
+
+== 6 Unit Test
+
+See <<dr-4>>, <<dr-5>>.
+
+== 7 User Documentation
+
+No user documentation was changed with this work.
+
+== 8 Code Changes
+
+- fork/repository:  cortlandstarrett/bridgepoint
+- branch:  11554_relationship_editor_cds
+
+----
+ doc-bridgepoint/notes/11554_relationship_editor/11554_relationship_editor_ant.adoc | 105 ++++++
+ doc-bridgepoint/notes/11554_relationship_editor/11554_relationship_editor_dnt.adoc | 105 ++++++
+ doc-bridgepoint/notes/11554_relationship_editor/11554_relationship_editor_int.adoc | 105 ++++++
+ src/MC-Java/java.arc                                                               |   6 +-
+ src/MC-Java/schema_gen.arc                                                         |   8 +
+ src/MC-Java/statement.inc                                                          |  50 ++-
+ src/MC-Java/translate_oal.inc                                                      |   6 +-
+ src/MC-Java/value.inc                                                              |  21 ++
+ src/org.xtuml.bp.core/arc/create_rename_action.inc                                 |  32 +-
+ src/org.xtuml.bp.core/arc/page.inc                                                 | 672 +++++++++++++++++++++++++++++++--------
+ src/org.xtuml.bp.core/arc/wfl_block.inc                                            | 144 +++++++++
+ src/org.xtuml.bp.core/arc/wizard.inc                                               |  18 +-
+ .../models/org.xtuml.bp.core/context_menu/Context Menu/Context Menu.xtuml          | 598 +++++++++++++++++++++++++++++++++-
+ .../models/org.xtuml.bp.core/context_menu/Context Menu/Dependency/Dependency.xtuml | 247 ++++++++++++++
+ .../models/org.xtuml.bp.core/context_menu/Context Menu/Format/Format.xtuml         | 193 +++++++++++
+ .../models/org.xtuml.bp.core/ooaofooa/Association/Association.xtuml                |  98 +++++-
+ .../models/org.xtuml.bp.core/ooaofooa/Association/Association/Association.xtuml    | 516 ++++++++++++++++++++++++++++++
+ .../models/org.xtuml.bp.core/ooaofooa/External Entities/External Entities.xtuml    | 344 ++++++++++++++++++++
+ .../Functions/Context Menu Entry Functions/Context Menu Entry Functions.xtuml      | 403 +++++++++++++++++++++++
+ src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Subsystem.xtuml  |  96 +++++-
+ src/org.xtuml.bp.core/sql/context_menu.pei.sql                                     |   6 +
+ .../src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java                  |   6 +
+ .../src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java                  |   8 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/common/TransactionManager.java         |   9 +
+ src/org.xtuml.bp.core/src/org/xtuml/bp/core/ui/.gitignore                          |   9 +
+ src/org.xtuml.bp.pkg/plugin_customization.ini                                      |   2 +
+ .../Auto Reconciliation Specification/Auto Reconciliation Specification.xtuml      |  31 +-
+ .../src/org/xtuml/bp/ui/canvas/GraphicsReconcilerLauncher.java                     |   2 +-
+ .../src/org/xtuml/bp/ui/graphics/commands/CreateConnectionCommand.java             |  90 +++++-
+ .../src/org/xtuml/bp/ui/graphics/preferences/GraphicalEditorPreferences.java       |  40 +++
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
+. [[dr-2]] link:11554_relationship_editor_ant.adoc[Relationship editor analysis note]
+. [[dr-3]] link:11554_relationship_editor_dnt.adoc[Relationship editor design note]
+. [[dr-4]] https://github.com/xtuml/models/tree/master/test/assoc_edit[Association Editor test model]
+. [[dr-5]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
+. [[dr-6]] https://support.onefact.net/issues/11703[Changing cardinality of formalized linked association with association editor causes unformalization followed by reformalization]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
