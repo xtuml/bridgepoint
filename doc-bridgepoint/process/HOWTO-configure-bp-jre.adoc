@@ -38,8 +38,11 @@ BridgePoint with the Java 8 distributions from https://adoptopenjdk.net/index.ht
 Linux and macOS users need to be aware that most of the default Java installs provided
 by package managers (such as apt and homebrew) are now installing Java 11.  You must
 take the necessary steps to install Java 8. Both versions may exist on a system at
-the same time. The next section explains how to configure BridgePoint to use the
-proper one.
+the same time.
+
+TIP: On ubuntu 18.04, we installed OpenJDK 8 JDK with: `sudo apt install openjdk-8-jdk`
+
+The next section explains how to configure BridgePoint to use the proper one.
 
 == 3 Configuring BridgePoint
 
