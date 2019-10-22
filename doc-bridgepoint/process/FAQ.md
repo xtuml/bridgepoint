@@ -14,6 +14,7 @@
   * [BridgePoint Installation](#installation)
     * [What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?](#userdevversions)
     * [Machine Recommendations](#machinerecomendations)
+    * [How do configure BridgePoint to use a specific Java runtime (JRE or JDK)](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
