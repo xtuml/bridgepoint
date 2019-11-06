@@ -6,10 +6,10 @@
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./../..">
 
-    <property name="currentVersion" value="6.16.0.qualifier" />
-    <property name="newVersion" value="6.17.0.qualifier" />
-    <property name="currentVersionSS" value="6.16.0-SNAPSHOT" />
-    <property name="newVersionSS" value="6.17.0-SNAPSHOT" />
+    <property name="currentVersion" value="6.18.0.qualifier" />
+    <property name="newVersion" value="6.19.0.qualifier" />
+    <property name="currentVersionSS" value="6.18.0-SNAPSHOT" />
+    <property name="newVersionSS" value="6.19.0-SNAPSHOT" />
 	<property name="bptestdir" value="${basedir}/../bptest"/>
 
     <target name="updateVersion" description="Update the version of BridgePoint">

@@ -14,6 +14,7 @@
   * [BridgePoint Installation](#installation)
     * [What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?](#userdevversions)
     * [Machine Recommendations](#machinerecomendations)
+    * [How do configure BridgePoint to use a specific Java runtime (JRE or JDK)](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
@@ -55,6 +56,7 @@
     * [What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)](#synchronize)  
     * [Capture a stack dump when Eclipse hangs](#stack_dump)  
     * [How to set the stack size](#stack_size)  
+    * [How to build a formalized collaboration/communication diagram](#form_collab)
 
 
 xtUML Profile <a id="xtuml_profile"></a>
@@ -525,3 +527,25 @@ thrown StackOverflowError exceptions, especially during load of large models.  D
 now sets its own default stack size in the `bridgepoint.ini` file in the installation.  The default is
 set to four megabytes via the virtual machine argument `-Xss4m`.  Users may wish to increase or decrease this 
 value (minimum recommendation is `-Xss512k`) depending on memory constraints and/or the size of their models.
+
+* **How to build a formalized collaboration/communication diagram** <a id="form_collab"></a>  
+Formalizing a collaboration (aka communication) diagram by connecting messages on the diagram
+to events and operations defined within the underlying executable (class and state) models is 
+simple, albeit perhaps not intuitive.
+  - Create a package to contain the collaboration diagram.
+  - Open the canvas editor on the newly created package.
+  - Use the "Interaction" drawer on the Palette to select the "Instance" tool.
+  - Create an instance for each participant on the collaboration diagram.
+  - Formalize each instance to a class within the underlying class model.
+  - Use the "Communication" drawer on the Palette to select the "Link" tool.
+  - Draw a communication link between each pair of collaborating participants on the diagram.
+  - For each message on the collaboration diagram:
+    - Use the "Interaction" drawer on the Palette to select the "(A)Synchronous Message" tool.
+    - Alongside the communication line between the sender/receiver pair, draw a short line, moving toward the receiver.
+    - Select both the receiver and the message (ctrl-select).
+    - Invoke the context-menu entry, "Formalize..."
+    - Select the appropriate event or operation defined within the underlying executable models.  
+    
+The resulting diagram will look something like this:
+  <img src="ExampleCollabDiag.png" alt="ExampleCollabDiag" style="width: 320px;"/>
+

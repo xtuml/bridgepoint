@@ -591,7 +591,11 @@ import ${br.Descrip:Import};
           .if ( parameter.Order == item_number )
             .select one par_type related by parameter->S_DT[R22]
             .invoke type = do_type(par_type)
-${param_delimiter}final ${type.body} p_$cr{parameter.Name}\
+            .assign dims = ""
+            .if ("" != parameter.Dimensions)
+              .assign dims = "[]"
+            .end if
+${param_delimiter}final ${type.body}${dims} p_$cr{parameter.Name}\
             .assign param_delimiter = ","
             .break for
           .end if

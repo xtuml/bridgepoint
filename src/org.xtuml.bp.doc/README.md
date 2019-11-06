@@ -47,7 +47,7 @@ To update the release notes closed issues list:
 - Check the "Regular expression" checkbox
 - In Filename enter ReleaseNotes.md
 - Click Replace...
-- In the With field enter: [$1](https://support.onefact.net/issues/$1) | 
+- In the With field enter: | link:https://support.onefact.net/issues/$1[$1] | 
 - Click OK
  
 To duplicate a column in vi:
@@ -62,5 +62,5 @@ To add square brackets around the first number:
 
 To add links to the issue numbers in the first column, use vi and...
 ```
-:%s/ \([0-9][0-9]*\) /(https:\/\/support.onefact.net\/issues\/\1) /
+:%s/ \([0-9][0-9]*\) /(link:https:\/\/support.onefact.net\/issues\/\1\[\1\]) /
 ```

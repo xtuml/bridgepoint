@@ -45,6 +45,9 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 	private ComboFieldEditor routingStyle;
     private static ColorSelector gradientBaseColor;
     
+	private BooleanFieldEditor requireFormalAssoc;
+	private BooleanFieldEditor requireRolePhrases;
+
 	public GraphicalEditorPreferences() {
 		super(GRID);
 	}
@@ -135,6 +138,32 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 		dblGroup.setLayoutData(gridData);
 		dblGroup.setLayout(gridLayout);
 	}
+	
+	protected void addAssociationField(Composite parent) {
+		// Create a Group to hold the association editor fields
+		Group group = new Group(parent, SWT.NONE);
+		group.setText("Association editor");
+
+		GridLayout gridLayout = new GridLayout(2, false);
+
+		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.horizontalSpan = 2;
+
+		// TODO change to real pref and not SHOW_GRID and SNAP_TO_GRID in following...
+		requireFormalAssoc = new BooleanFieldEditor(
+				BridgePointPreferencesStore.REQUIRE_FORMAL_ASSOC,
+				"Require formalized associations", group);
+		addField(requireFormalAssoc);
+
+		requireRolePhrases = new BooleanFieldEditor(
+				BridgePointPreferencesStore.REQUIRE_ROLE_PHRASES,
+				"Require role phrases", group);
+		addField(requireRolePhrases);
+
+		group.setLayoutData(gridData);
+		group.setLayout(gridLayout);
+	}
 
 	@Override
 	public void init(IWorkbench workbench) {
@@ -154,6 +183,7 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 		model.getStore().loadModel(getPreferenceStore(), null, model);
 		addGridField(parent);
 		addAppearanceField(parent);
+		addAssociationField(parent);
 		// add context f1 help to parent container
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent,
 				IGraphicalHelpContextIds.diagramPreferencesId);
@@ -291,6 +321,16 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 		}
 		RGB rgb = gradientBaseColor.getColorValue();
 		bpPrefs.gradientBaseColor = convertToLong(rgb);
+		if (requireFormalAssoc.getBooleanValue()) {
+			bpPrefs.requireFormalAssoc = true;
+		} else {
+			bpPrefs.requireFormalAssoc = false;
+		}
+		if (requireRolePhrases.getBooleanValue()) {
+			bpPrefs.requireRolePhrases = true;
+		} else {
+			bpPrefs.requireRolePhrases = false;
+		}
 		model.getStore().saveModel(getPreferenceStore(), model);
 		GraphicalEditor.redrawAll();
 		return true;

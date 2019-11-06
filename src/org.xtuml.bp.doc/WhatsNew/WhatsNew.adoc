@@ -1,0 +1,27 @@
+= What's New in BridgePoint 6.19
+
+== Release Highlights
+* Association editor
+* Engineering build 
+
+'''
+
+=== Deployments
+
+=== Association Editor 
+
+A new association editor is added to BridgePoint UML Editor.  It allows the user
+to populate the details of a relationship as the association is drawn on the
+canvas.  The editor supports automatic formalization as well as configuration
+of referentials, role phrases, conditionality, and multiplicity.
+
+.Association Editor
+image::assoc_editor.png[Association Editor, width=75%]
+
+Workspace preferences are available to adjust default behavior of the new
+editor.
+
+.Association Editor Preferences
+image::assoc_editor_prefs.png[Association Editor Prefs, width=75%]
+
+    

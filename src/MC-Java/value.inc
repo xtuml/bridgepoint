@@ -400,3 +400,24 @@ ${params.body})\
 ${rpn_result.body}.$cr{func.Name}(modelRoot${params.body})\
 .end function
 .//
+.function gen_array_element_reference_values
+  .param string root_pkg_name
+  .select many array_element_references from instances of V_AER
+  .for each array_element_reference in array_element_references
+    .select one val related by array_element_reference->V_VAL[R801]
+    .invoke result = gen_array_element_reference_value(root_pkg_name, val)
+    .assign val.buffer = "${result.body}"
+  .end for
+.end function
+.//
+.function gen_array_element_reference_value
+  .param string root_pkg_name
+  .param inst_ref val
+  .select one v_aer related by val->V_AER[R801]
+  .select one root_val related by v_aer->V_VAL[R838]
+  .select one index_val related by v_aer->V_VAL[R839]
+  .invoke gen_value(root_pkg_name, root_val)
+  .invoke gen_value(root_pkg_name, index_val)
+${root_val.buffer}[${index_val.buffer}]\
+.end function
+.//
