@@ -550,7 +550,7 @@ simple, albeit perhaps not intuitive.
 The resulting diagram will look something like this:
   <img src="ExampleCollabDiag.png" alt="ExampleCollabDiag" style="width: 320px;"/>
 
-* **How do I put a Post-It Note (sticky note) comment on a diagram?** <a id="sticky_note"></a>
+* **How do I put a Post-It Note (sticky note) comment on a diagram?** <a id="sticky_note"></a>  
   There are times when it is useful to annotate a spot or element in a diagram
 (especially an analysis diagram like Use Case, Sequence, etc) with a graphical
 note or comment.
