@@ -551,20 +551,20 @@ The resulting diagram will look something like this:
   <img src="ExampleCollabDiag.png" alt="ExampleCollabDiag" style="width: 320px;"/>
 
 * **How do I put a Post-It Note (sticky note) comment on a diagram?** <a id="sticky_note"></a>
-There are times when it is useful to annotate a spot or element in a diagram
+  There are times when it is useful to annotate a spot or element in a diagram
 (especially an analysis diagram like Use Case, Sequence, etc) with a graphical
 note or comment.
 
-The BridgePoint xtUML editor does not currently (as of 2019) have a “Note”
+  The BridgePoint xtUML editor does not currently (as of 2019) have a “Note”
 tool, but the “Activity Partition” tool from the Activity drawer in the
 Palette can be used to serve the purpose. This tool simply draws a line,
 which you can add text to by setting the Name value in the Properties
 view.  You can also add a Description which will show as hover text.
 
-To make the note stand out, activate the context menu on the newly created
+  To make the note stand out, activate the context menu on the newly created
 element and select Format > Line Color > Red (or any color you wish).
 
-The context menu also contains the “Layers” entry.  You can add all your
+  The context menu also contains the “Layers” entry.  You can add all your
 diagram notes to a “Notes” layer, then you have the ability to hide or show
 the Notes layer to show the diagram with the additional annotations or not.
 
