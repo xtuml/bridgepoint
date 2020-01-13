@@ -1,7 +1,6 @@
 package org.xtuml.bp.ui.marking;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Vector;
@@ -29,12 +28,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.ExecutableProperty_c;
-import org.xtuml.bp.core.Function_c;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Operation_c;
-import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.ui.marking.MarkingData.Mark;
 
@@ -55,7 +48,7 @@ public class MarkingEditorDialog extends Dialog {
 		this.title = title;
 		this.project = project;
 	
-		markingData = new MarkingData(project);		
+		markingData = MarkingDataManager.getMarkingData(project);		
 	}
 
 	private void reloadTableFeatures(String elementType, String modelElement) {
@@ -89,42 +82,11 @@ public class MarkingEditorDialog extends Dialog {
 		modelElementCombo.clearSelection();
 		modelElementCombo.removeAll();
 		
-		try {
-			// returns the Class object for the class with the specified name
-			String ooaClassName = elementType.trim();
-			ooaClassName = ooaClassName.replaceAll(" ", "");
-			Class<?> clazz = Class.forName(CorePlugin.getDefault().getBundle().getSymbolicName() + "." + ooaClassName + "_c");
-
-			ModelRoot[] roots = Ooaofooa.getInstancesUnderSystem(project.getName());
-			// This Java reflection call helps invoke a method like this:
-			//     ModelClass_c[] mcs = ModelClass_c.ModelClassInstances(modelRoot);
-			// So the loop here finds all instances of a given OOAofOOA class in
-			// a project.
-			Method instancesMethod = clazz.getMethod(ooaClassName + "Instances", ModelRoot.class);
-			for (ModelRoot modelroot : roots) {
-				Object[] instances = (Object[]) instancesMethod.invoke(null, modelroot);
-				for (Object inst : instances) {
-					String entryText = getPathkey((NonRootModelElement) inst);
-					modelElementCombo.add(entryText);
-				}
-			}
-		} catch (ClassNotFoundException e) {
-			CorePlugin.logError(e.toString(), e);
-	    } catch ( NoSuchMethodException e ) {
-			CorePlugin.logError(e.toString(), e);
-        } catch ( NullPointerException e ) {
-			CorePlugin.logError(e.toString(), e);
-        } catch ( SecurityException e ) {
-			CorePlugin.logError(e.toString(), e);
-        } catch ( IllegalAccessException e ) {
-			CorePlugin.logError(e.toString(), e);
-        } catch ( IllegalArgumentException e ) {
-			CorePlugin.logError(e.toString(), e);
-        } catch ( InvocationTargetException e ) {
-			CorePlugin.logError(e.toString(), e);
-        } catch ( ExceptionInInitializerError e ) {
-			CorePlugin.logError(e.toString(), e);
-        }
+		ArrayList<Object> instances = MarkingData.getInstancesForType(elementType, project); 
+		for (Object inst : instances) {
+			String entryText = MarkingData.getPathkey((NonRootModelElement) inst, project);
+			modelElementCombo.add(entryText);
+		}
 	}
 	
 	@Override
@@ -323,32 +285,4 @@ public class MarkingEditorDialog extends Dialog {
         return parent;
 	}
 
-	private String getPathkey(NonRootModelElement inst) {
-		String signature = new String("");
-		String pathkey = ((NonRootModelElement) inst).getPath();
-		
-		// If the instance requires a full signature, replace the last segment which
-		// is the name with the full signature
-		if (inst instanceof Function_c) {
-			signature = ((Function_c) inst).Getsignature(1);
-		} else if (inst instanceof Operation_c) {
-			signature = ((Operation_c) inst).Getsignature(1);
-		} else if (inst instanceof ExecutableProperty_c) {
-			signature = ((ExecutableProperty_c) inst).Getsignature(1);
-		}
-		
-		if (!signature.isEmpty()) {
-			signature = signature.replaceAll(", ", " ");
-			String[] pathPieces = pathkey.split("::");
-			String updatedPath = new String("");
-			for (int i=0; i<pathPieces.length-1; ++i) {
-				updatedPath = updatedPath.concat(pathPieces[i] + "::");
-			}
-			updatedPath = updatedPath.concat(signature);
-			pathkey = updatedPath;
-		}
-
-		pathkey = pathkey.replaceFirst(project.getName() + "::", "");
-		return pathkey;
-	}
 }

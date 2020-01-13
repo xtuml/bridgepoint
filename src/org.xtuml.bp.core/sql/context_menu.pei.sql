@@ -353,7 +353,13 @@ INSERT INTO CME VALUES ('--', 'Import terminators from component', 'D_DEPL', 'C_
 INSERT INTO CME VALUES ('--', 'Delete stale services', 'D_TERM', '', false );
 INSERT INTO CME VALUES ('Delete', '', 'D_TSVC', '', true );
 
+INSERT INTO CME VALUES ('Binary', 'Edit association', 'R_REL', '', false, 'Configure association details', '1');
+INSERT INTO CME VALUES ('Subsup', 'Edit association', 'R_REL', '', false, 'Configure association details', '1');
+INSERT INTO CME VALUES ('Subsup', 'Edit association', 'R_SUB', '', false, 'Configure association details', '1');
+
 --
+INSERT INTO MEF VALUES ('Binary', 'Edit association', 'R_REL', 'type', 'simp_or_assoc');
+INSERT INTO MEF VALUES ('Subsup', 'Edit association', 'R_REL', 'type', 'subsup');
 INSERT INTO MEF VALUES ('--', 'Delete stale services', 'D_TERM', 'can', 'delete stale services');
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_P',    'can', 'dissatisfy' );
 INSERT INTO MEF VALUES ('--',    'Disconnect',  'C_R',    'can', 'dissatisfy' );

@@ -4322,6 +4322,86 @@ INSERT INTO DIM_DIA
 	727.000000,
 	898.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Class Identifier>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
+	'Class Identifier',
+	104,
+	'O_ID',
+	'A set of one or more Attributes which uniquely distinguishes each instance of a class is a class identifier.  A class may have several identifiers.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Class Identifier/Class Identifier.xtuml');
+INSERT INTO PE_PE
+	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("5c5ae7f5-7f0d-4f0b-bc69-abae9c5bddb1",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Class Identifier>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("5c5ae7f5-7f0d-4f0b-bc69-abae9c5bddb1",
+	1,
+	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea");
+INSERT INTO PE_PE
+	VALUES ("5c5ae7f5-7f0d-4f0b-bc69-abae9c5bddb1",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Model Class>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
+	'Model Class',
+	101,
+	'O_OBJ',
+	'A model class represents an abstraction of a real world thing.  All instances of a class have the same characteristics and conform to the same set of rules.  The characteristics of a class are captured as attributes.  Each class within a domain are assigned a unique name, number, and keyletter.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Model Class/Model Class.xtuml');
+INSERT INTO PE_PE
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("63e74cb3-a25c-4a12-b722-91c7c7a8fafa",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Model Class>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("63e74cb3-a25c-4a12-b722-91c7c7a8fafa",
+	1,
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO PE_PE
+	VALUES ("63e74cb3-a25c-4a12-b722-91c7c7a8fafa",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("25f2ec9c-2124-4bca-8331-31e7ec8a06d2");
 INSERT INTO R_REL
@@ -4578,14 +4658,6 @@ INSERT INTO R_OIR
 	"c001c38f-c5e8-4b71-b567-dae640c5465e",
 	"2cf9d3a1-a3ce-4b45-8881-3a9c3e293ffc",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
-	'Model Class',
-	101,
-	'O_OBJ',
-	'A model class represents an abstraction of a real world thing.  All instances of a class have the same characteristics and conform to the same set of rules.  The characteristics of a class are captured as attributes.  Each class within a domain are assigned a unique name, number, and keyletter.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Model Class/Model Class.xtuml');
 INSERT INTO PE_PE
 	VALUES ("c001c38f-c5e8-4b71-b567-dae640c5465e",
 	1,
@@ -5239,14 +5311,6 @@ INSERT INTO R_OIR
 	"ae65b722-98af-47f6-a883-64869f597ce3",
 	"e2c47517-97f0-45ff-8924-1136551a79e9",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
-	'Class Identifier',
-	104,
-	'O_ID',
-	'A set of one or more Attributes which uniquely distinguishes each instance of a class is a class identifier.  A class may have several identifiers.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Class Identifier/Class Identifier.xtuml');
 INSERT INTO R_ASSR
 	VALUES ("9b35aece-af3e-4a8c-b571-557cffcd828f",
 	"ae65b722-98af-47f6-a883-64869f597ce3",

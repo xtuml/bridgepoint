@@ -3911,6 +3911,10 @@ if ( not_empty pvl )
   if ( not_empty tparm )
     return tparm.By_Ref == 0;
   end if;
+  select one pparm related by pvl->C_PP[R843];
+  if ( not_empty pparm )
+    return pparm.By_Ref == 0;
+  end if;
 end if;
 
 
