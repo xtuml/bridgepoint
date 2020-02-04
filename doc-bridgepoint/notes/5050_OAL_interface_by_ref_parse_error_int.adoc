@@ -1,0 +1,61 @@
+= OAL Parse Interface By-Ref Parameter as Read-only
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+The issue describes a legal operation, interface instance calling a
+class/interface operation with a by-reference parameter, but a parse of this
+legal operation results in an error message, "Cannot pass read-only value to
+pass-by-reference parameter. This note documents the fix for this.
+
+== 2 Introduction and Background
+
+Issue <<dr-1, 5050>> has had some previous work done by Cortland Starrett in 
+the addition of an example project, to reproduce the problem, and a note 
+stating, "I think the problem is in OAL Validation Utility 
+Functions::Is_readonly_value."
+
+An xtUML search on the error message shows three OAL Validation functions that
+report the error, and a debug run with a breakpoint set in the java generated
+versions of these functions leads to the aforementioned Is_readonly_value
+function.
+
+== 3 Requirements
+
+== 4 Work Required
+
+. Add Property Parameter case to OAL Validation Utility Functions::Is_readonly_value
+. Update any tests for this functionality
+. Verify change doesn't break unit tests
+. Determine if this fixes other related issues
+
+== 5 Implementation Comments
+
+Issues 10157, 7679, 7678, & 5055 should be checked against this fix.
+
+== 6 Unit Test
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  5050-readonly-byref-parm
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/5050[5050 - OAL parse error in a port/interface operation with by-reference parameters]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
