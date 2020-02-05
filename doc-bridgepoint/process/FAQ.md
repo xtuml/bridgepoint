@@ -14,7 +14,7 @@
   * [BridgePoint Installation](#installation)
     * [What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?](#userdevversions)
     * [Machine Recommendations](#machinerecomendations)
-    * [How do configure BridgePoint to use a specific Java runtime (JRE or JDK)](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
+    * [How do I configure BridgePoint to use a specific Java runtime (JRE or JDK)?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
@@ -132,6 +132,11 @@ BridgePoint Installation <a id="installation"></a>
   model translation uses a single thread.  Therefore, translation performance is not improved with multiple 
   processors.  Model execution performance is single-threaded when "deterministic execution" is selected, and
   multi-threaded when it is not selected.  In general, any processor running at 1GHz and beyond will work fine.
+
+* [**How do I configure BridgePoint to use a specific Java runtime (JRE or JDK)?**](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
+  BridgePoint is no longer bundled with Java.  You must install Java as a
+  pre-dependency before running BridgePoint.  Instructions to do so are found
+  [here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc).
   
 * **Errors During Unzip**  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
