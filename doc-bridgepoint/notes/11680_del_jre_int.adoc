@@ -1,0 +1,88 @@
+= Stop including the Java JRE (or JDK)
+
+xtUML Project Implementation Note
+
+
+== 1 Abstract
+
+This note describes the work performed to unbundle the JRE from 
+BridgePoint.
+
+
+== 2 Introduction and Background
+
+BridgePoint has always included a pre-packaged JRE inside the BridgePoint
+installation on Windows and Linux.  The MacOS version has never included a JRE.
+
+Oracle has changed JRE licensing in spring 2019. The xtUML development team
+has been considering unbundling the JRE on Windows and Linux for several years
+and the time is now right to go ahead with this removal.
+
+Users will now be required to manage their Java installation outside of BridgePoint
+and configure BridgePoint as necessary to use their chosen Java runtime. 
+
+== 3 Requirements
+
+3.1 BridgePoint installation for Windows shall no longer include a Java runtime.  
+3.2 BridgePoint installation for Linux shall no longer include a Java runtime.  
+3.3 Documentation shall be created to instruct users how to configure BridgePoint to 
+use a specific Java runtime.  
+
+== 4 Work Required
+
+4.1  Remove the 'org.xtuml.bp.jre' and 'org.xtuml.bp.jre.parent' plugins from the 
+'packaging' repository.  
+4.2  Update the eclipse '*.product' files for BridgePoint Modeler and BridgePoint Developer
+editions to no longer include the JRE plugins.  
+4.3  Update the maven POM for the BridgePoint build editions to no longer include the JRE plugins.  
+
+== 5 Implementation Comments
+
+None.  
+
+== 6 Unit Test
+
+6.1  A branch build is created and tested on Windows and Linux that no longer includes the
+pre-packaged JRE.  
+ 
+== 7 User Documentation
+
+7.1  Created a document 'HOWTO Configure BridgePoint to use a Specific JRE' that makes suggestions
+for choosing a new Java runtime and instructs the user how to set up BridgePoint to use it.  
+7.2  Updated the FAQ to link to this document.  
+
+== 8 Code Changes
+
+- fork/repository:  __keithbrown/bridgepoint__
+- branch: __11680_del_jre__ 
+
+----
+doc-bridgepoint/notes/11680_del_jre_int.adoc 
+doc-bridgepoint/process/FAQ.md 
+doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc 
+doc-bridgepoint/process/images/java11_start_error_linux.png
+doc-bridgepoint/process/images/vm_arg_for_java8_linux.png
+doc-bridgepoint/process/images/vm_arg_for_java8_mac.png
+doc-bridgepoint/process/images/vm_arg_for_java8_windows.png
+releng/org.xtuml.bp.releng.parent.product-dev/bridgepoint-dev.product
+releng/org.xtuml.bp.releng.parent.product/bridgepoint.product
+releng/org.xtuml.bp.releng.parent/pom.xml
+----
+
+- fork/repository:  __keithbrown/packaging__
+- branch: __11680_del_jre__ 
+
+----
+D features/org.xtuml.bp.jre.parent
+D features/org.xtuml.bp.jre
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11680[11680 - Stop including the Java JRE (or JDK)]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
