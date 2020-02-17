@@ -1,1 +1,0 @@
-This folder contains technical notes that are created during the development process.
