@@ -1,0 +1,65 @@
+= Coverage Option
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+The CME for editing associations was created to handle simple and associative
+relationships. The issue raised is due to a situation where there is no
+possibility of an associative relationship due to a lack of candidate classes to
+fill the role of associative class. This note documents the work to validate the
+availability of a class to fill the associative role.
+
+== 2 Introduction and Background
+
+In issue <<dr-1,11554>>, a new feature was added to enable editing of
+associations via a pop-up dialog. The work allowed automatic formalization of
+simple and associative relationships and allowed automatic linkage of a class as
+an associative class.
+
+As is common in new feature development, some additional work or issues didn't
+get captured until there was enough usage of the feature.
+
+== 3 Requirements
+
+=== 3.1 Add validation of associative class candidates
+
+=== 3.2 Ensure usability remains unchanged
+
+== 4 Work Required
+
+=== 4.1 R_REL_BinaryEditAssociation fix
+Examination of the OAL in this function showed that there was no validation of
+the existence of candidate classes for use as an associative class. This caused
+an array out of bounds exception due to the algorithms in place for accessing a
+list of candidate classes.
+
+A conditional check was added to the OAL where the array of candidate
+associative classes is created to prevent creation of a negative sized array.
+
+
+== 5 Implementation Comments
+
+none
+
+== 6 Unit Test
+
+
+== 7 User Documentation
+
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  11554-associative-valid-check
+
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
