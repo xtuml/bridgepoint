@@ -30,9 +30,7 @@ import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Deferral_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -131,17 +129,9 @@ public class ActivityEditor extends OALEditor
         if (m_modelElement == null  || m_modelElement.isOrphaned() || 
             (forEditor != null && forEditor.disposed)) return;
         
-        String document = m_document.get();
-        if ( m_modelElement instanceof Operation_c ) {
-        	// handle deferred operations
-        	if ( null != Deferral_c.getOneO_DEFOnR126((Operation_c)m_modelElement) ) {
-        		document = ((Operation_c)m_modelElement).Generatedeferredbody();
-        	}
-        }
-        
 		Ooaofooa modelRoot = (Ooaofooa)m_modelElement.getModelRoot();
 		OalLexer lexer = new OalLexer(
-				new StringReader(document));
+				new StringReader(m_document.get()));
 		EditorTextParser parser = new EditorTextParser(modelRoot, lexer,
 				m_myAnnotationModel, m_ae_input, m_document);
         boolean parseCompleted = false;

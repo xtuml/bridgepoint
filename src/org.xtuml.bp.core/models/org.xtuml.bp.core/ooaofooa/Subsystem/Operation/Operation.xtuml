@@ -1018,56 +1018,6 @@ end if;',
 	'',
 	"29089dec-6f3d-4db2-9b81-886883d68ddf",
 	0);
-INSERT INTO O_TFR
-	VALUES ("f926324e-5c8f-4627-b10b-970a9a05f220",
-	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
-	'generateDeferredBody',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	1,
-	'body = "";
-select one deferral related by self->O_DEF[R126];
-if ( not_empty deferral )
-  select one ret_dt related by self->S_DT[R116];
-  returns_value = ret_dt.Name != "void";
-  select any o_tparm related by self->O_TPARM[R117];
-  select one prev_o_tparm related by o_tparm->O_TPARM[R124.''succeeds''];
-  while ( not_empty prev_o_tparm )
-    o_tparm = prev_o_tparm;
-    select one prev_o_tparm related by o_tparm->O_TPARM[R124.''succeeds''];
-  end while;
-  parameter_list = "";
-  sep = "";
-  while ( not_empty o_tparm )
-    parameter_list = parameter_list + sep + o_tparm.Name + ":param." + o_tparm.Name;
-    sep = ",";
-    select one o_tparm related by o_tparm->O_TPARM[R124.''precedes''];
-  end while;
-  select one r_rel related by deferral->R_REL[R126];
-  select many subtypes related by r_rel->R_SUBSUP[R206]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-  subtype_number = 1;
-  for each subtype in subtypes
-    subtype_var = "subtype" + GD::int_to_string( value:subtype_number );
-    body = body + "select one " + subtype_var + " related by self->" + subtype.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb ) + "];\n";
-    body = body + "if ( not_empty " + subtype_var + " )\n";
-    if ( returns_value )
-      body = body + "return ";
-    end if;
-    body = body + subtype_var + "." + self.Name + "(" + parameter_list + ");\n";
-    if ( subtype_number < cardinality subtypes )
-      body = body + "else\n";
-    end if;
-    subtype_number = subtype_number + 1;
-  end for;
-  for each subtype in subtypes
-    body = body + "end if;\n";
-  end for;
-end if;
-return body;',
-	1,
-	'',
-	"0ef90ca9-0f27-4143-beb6-7eebb7ae9206",
-	0);
 INSERT INTO O_NBATTR
 	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");

@@ -362,13 +362,7 @@ public class ParserAllActivityModifier implements IAllActivityModifier {
 		} else if (modelElement instanceof Bridge_c) {
 			oalText = ((Bridge_c) modelElement).getAction_semantics();
 		} else if (modelElement instanceof Operation_c) {
-        // handle deferred operations
-        if (null != Deferral_c.getOneO_DEFOnR126((Operation_c)modelElement)) {
-            oalText = ((Operation_c)modelElement).Generatedeferredbody();
-        }
-        else {
-            oalText = ((Operation_c)modelElement).getAction_semantics();
-        }
+			oalText = ((Operation_c) modelElement).getAction_semantics();
 		} else if (modelElement instanceof Attribute_c) {
 			DerivedBaseAttribute_c dba = DerivedBaseAttribute_c
 					.getOneO_DBATTROnR107(BaseAttribute_c.getOneO_BATTROnR106((Attribute_c) modelElement));
