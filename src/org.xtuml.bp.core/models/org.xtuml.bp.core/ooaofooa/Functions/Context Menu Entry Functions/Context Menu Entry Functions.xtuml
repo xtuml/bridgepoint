@@ -8142,9 +8142,9 @@ end if;
 participant[0] = "Not formalized";
 default_selection = 0;
 if (r_rel.isFormalized() and not_empty a_form)
-  default_selection = 1;
-elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 2;
+elif (r_rel.isFormalized() and not_empty b_form)
+  default_selection = 1;
 end if;
 if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
   participant[0] = "";

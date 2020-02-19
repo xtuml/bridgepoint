@@ -51,12 +51,13 @@ none
 == 8 Code Changes
 
 - fork/repository:  lwriemen/bridgepoint
-- branch:  11554-associative-valid-check
+- branch:  11724-associative-valid-check
 
 
 == 9 Document References
 
-. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically
+formalize and force user to setup referentials and role phrases at creation]
 
 ---
 

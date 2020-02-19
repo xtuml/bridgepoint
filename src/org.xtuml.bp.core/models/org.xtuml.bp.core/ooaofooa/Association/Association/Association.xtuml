@@ -949,6 +949,9 @@ select one linked related by self->R_ASSOC[R206];
 // set the number
 self.Numb = GD::string_to_int(value:rel_num);
 
+// Flag based to set if determined that a formalization change is needed
+formalizationChange = false;
+
 if (not_empty simp)
 
   // set A parameters
@@ -1010,9 +1013,49 @@ if (not_empty simp)
     end if;
     b_form.Txt_Phrs = a_phrase;
   end if;
-
+  
   if (not migrate_to_assoc)
 
+    // Check to see if this is will require reformalization.
+    // Reformalization requires recalculation of form and part instances.
+    if ("Not formalized" != part_class and self.isFormalized())
+      // Determine if part class for the formalization is the same as the part_class parameter.
+      if (not empty a_form)
+        select one b_rto related by b_part->R_RTO[R204];
+        if ((a_class.Name == part_class) or (b_rto.Oid_ID != a_identifier.Oid_ID))
+          self.unformalize();
+          select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
+          if ("Unconditionally" == b_cond)
+            a_part.Cond = 0;
+          else
+            a_part.Cond = 1;
+          end if;
+          if ("One" == b_mult)
+            a_part.Mult = 0;
+          else
+            a_part.Mult = 1;
+          end if;
+          a_part.Txt_Phrs = b_phrase;
+        end if;
+      else
+        select one a_rto related by a_part->R_RTO[R204];
+        if ((b_class.Name == part_class) or (a_rto.Oid_ID != b_identifier.Oid_ID))
+          self.unformalize();
+          select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
+          if ("Unconditionally" == a_cond)
+            b_part.Cond = 0;
+          else
+            b_part.Cond = 1;
+          end if;
+          if ("One" == a_mult)
+            b_part.Mult = 0;
+          else
+            b_part.Mult = 1;
+          end if;
+          b_part.Txt_Phrs = a_phrase;
+        end if;
+      end if;
+    end if;
     // formalize the association
     if ("Not formalized" != part_class and not self.isFormalized())
       select any non_formalizer from instances of R_PART where false;

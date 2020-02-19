@@ -1,0 +1,84 @@
+= Coverage Option
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+The CME for editing associations was created to handle simple and associative
+relationships. The issue raised is due to a situation where there is no
+reformalization of an associative relationship due after changes to formalizing
+identifiers are made. This note documents the work to add reformalization.
+
+== 2 Introduction and Background
+
+In issue <<dr-1,11554>>, a new feature was added to enable editing of
+associations via a pop-up dialog. The work allowed automatic formalization of
+simple and associative relationships and allowed automatic linkage of a class as
+an associative class.
+
+The work for this issue also includes issue <<dr-2,11719>>, whose solution
+eliminated the problem of no popup appearing in two situations.
+
+This issue has shown further problems where the popup is showing the wrong
+formalization upon editor open, and the changes made in the editor don't get
+reflected on the canvas unless migrating from simple to linked associations and
+vice versa.
+
+== 3 Requirements
+
+=== 3.1 Ensure popup shows current state of association.
+
+=== 3.2 Ensure canvas reflects changes made to association.
+
+== 4 Work Required
+
+=== 4.1 R_REL_BinaryEditAssociation fix for wrong formalization
+
+The OAL assigning the formalization value was reverse of what it should be, so
+the assignment was corrected.
+
+=== 4.2 fix for canvas update
+
+In Association method, editAssociation, added a check, in the case of a
+specified formalization, to see if the current formalizing class was the same 
+as the specified participating class. If so, then unformalize the relationship,
+and reselect and reinitialize the participating variable for that class, as the
+formalizing variable is now invalid.
+
+The aforementioned step has to be done after the partticipating and formalizing
+class variables from the wizard are selected and initialized, but before any
+formalizing is performed.
+
+== 5 Implementation Comments
+
+It seems to me that this could be done more efficiently, but I didn't see an
+easy way to do this. I'll leave it for future consideration.
+
+== 6 Unit Test
+
+See <<dr-3>>, <<dr-4>>.
+
+== 7 User Documentation
+
+No user documentation was changed with this work.
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  11724-update-formalize
+
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically
+formalize and force user to setup referentials and role phrases at creation]
+. [[dr-2]] https://support.onefact.net/issues/11719[11719 - Create association
+fails if only two classes in the package]
+. [[dr-3]] https://github.com/xtuml/models/tree/master/test/assoc_edit[Association Editor test model]
+. [[dr-4]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
