@@ -38,6 +38,7 @@ Setup Instructions
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __ALL__  
       - [Maven](https://maven.apache.org/install.html)    
+      - [A Java8 JDK](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc).  Make sure JAVA_HOME environment variable is set.
 
     - __MAC__
       - Install flex, bison, pypy and git (we suggest via homebrew)
