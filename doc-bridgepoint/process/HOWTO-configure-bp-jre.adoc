@@ -44,6 +44,9 @@ the same time.
 
 TIP: On ubuntu 18.04, we installed OpenJDK 8 JDK with: `sudo apt install openjdk-8-jdk`
 
+Once you have a Java8 JDK installed, make sure you set the JAVA_HOME environment variable
+for your shell.
+
 The next section explains how to configure BridgePoint to use the proper Java runtime.
 
 == 3 Configuring BridgePoint
