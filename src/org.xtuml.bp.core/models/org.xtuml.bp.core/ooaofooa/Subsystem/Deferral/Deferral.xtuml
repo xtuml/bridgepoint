@@ -7,6 +7,24 @@ INSERT INTO O_OBJ
 	'O_DEF',
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("7d4218cb-d42a-47a7-a685-e4d3a38bc004",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	'get_name',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one r_rel related by self->R_REL[R126];
+select one o_tfr related by self->O_TFR[R126];
+name = "R" + GD::int_to_string(value:r_rel.Numb) + "." + o_tfr.Name;
+if (self.required != 0)
+  name = "{" + name + "}";
+end if;
+return name;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
 INSERT INTO O_REF
 	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -102,6 +120,29 @@ INSERT INTO O_ATTR
 	'Rel_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bcc239fc-7f6a-4faf-9a7b-f8be96b0506a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO O_BATTR
+	VALUES ("bcc239fc-7f6a-4faf-9a7b-f8be96b0506a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO O_ATTR
+	VALUES ("bcc239fc-7f6a-4faf-9a7b-f8be96b0506a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"33d68d1f-fddd-492b-bece-9fe1b1f10e88",
+	'required',
+	'Full Name: Required
+Description: If the deferred operation is not required, the implementation of the supertype will be used if
+the subtype operation does not exist.
+Data Domain: 0 = required, 1 = optional
+enum0: Required
+enum1: Optional',
+	'',
+	'required',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID

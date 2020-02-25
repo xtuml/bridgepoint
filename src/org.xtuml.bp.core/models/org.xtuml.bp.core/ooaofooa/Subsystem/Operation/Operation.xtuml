@@ -403,7 +403,7 @@ INSERT INTO O_TFR
     select one deferral related by self->O_DEF[R126];
     select any subsuper_rel related by self->O_OBJ[R115]->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_REL[R206];
     return Scope::Instance == self.Instance_Based and empty deferral and not_empty subsuper_rel;
-  elif ( param.value == "make retained" )
+  elif ( param.value == "make local" )
     select one deferral related by self->O_DEF[R126];
     return not_empty deferral;
   end if;
@@ -948,6 +948,11 @@ INSERT INTO O_TFR
 	'select any r_rel from instances of R_REL where ( selected.Rel_ID == param.rel_id );
 if ( not_empty r_rel )
   create object instance o_def of O_DEF;
+  if (param.required)
+    o_def.required = 0;
+  else
+    o_def.required = 1;
+  end if;
   relate self to r_rel across R126 using o_def;
   // create subtype operations if they do not already exist
   select one ret_dt related by self->S_DT[R116];
@@ -1002,10 +1007,19 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("6aaebfdf-590d-467b-82d6-d8432c7c2443",
+	"29089dec-6f3d-4db2-9b81-886883d68ddf",
+	'required',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"c58ad90e-ebda-433c-9bc2-cc18f2225215",
+	'');
 INSERT INTO O_TFR
 	VALUES ("0ef90ca9-0f27-4143-beb6-7eebb7ae9206",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
-	'makeRetained',
+	'makeLocal',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
