@@ -7951,7 +7951,8 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
-	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
+	'// Select current state of specified relationship
+select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 
 select any a_oir from instances of R_OIR where false;
 select any b_oir from instances of R_OIR where false;
@@ -7980,11 +7981,9 @@ phrases_required = a_class.Obj_ID == b_class.Obj_ID or PREF::getBoolean(name:"br
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
-LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
 // A label
 a_label1 = USER::getLabel(label:a_class.Name);
-LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
 
 // A to B conditionality
 default_a_cond = "Conditionally";
@@ -7994,7 +7993,6 @@ if ((not_empty b_part and b_part.Cond == 0) or (not_empty b_form and b_form.Cond
   other_a_cond = "Conditionally";
 end if;
 a_cond = USER::getToggle(option1:default_a_cond, option2:other_a_cond, prompt:"");
-LAYOUT::setLayout(field_name:"a_cond", row_num:"2", width:"1", height:"1");
 
 // A to B phrase
 default_a_phrase = "";
@@ -8008,7 +8006,6 @@ elif (not_empty b_aoth)
   default_a_phrase = b_aoth.Txt_Phrs;
 end if;
 a_phrase = USER::getText(default:default_a_phrase, prompt:"", require_value:phrases_required, validate_name:true);
-LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 
 // A to B multiplicity
 default_a_mult = "One";
@@ -8018,15 +8015,12 @@ if ((not_empty b_part and b_part.Mult == 1) or (not_empty b_form and b_form.Mult
   other_a_mult = "One";
 end if;
 a_mult = USER::getToggle(option1:default_a_mult, option2:other_a_mult, prompt:"");
-LAYOUT::setLayout(field_name:"a_mult", row_num:"2", width:"1", height:"1");
 
 // B label
 b_label1 = USER::getLabel(label:b_class.Name);
-LAYOUT::setLayout(field_name:"b_label1", row_num:"2", width:"1", height:"1");
 
 // B label
 b_label2 = USER::getLabel(label:b_class.Name);
-LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
 
 // B to A conditionality
 default_b_cond = "Conditionally";
@@ -8036,7 +8030,6 @@ if ((not_empty a_part and a_part.Cond == 0) or (not_empty a_form and a_form.Cond
   other_b_cond = "Conditionally";
 end if;
 b_cond = USER::getToggle(option1:default_b_cond, option2:other_b_cond, prompt:"");
-LAYOUT::setLayout(field_name:"b_cond", row_num:"3", width:"1", height:"1");
 
 // B to A phrase
 default_b_phrase = "";
@@ -8050,7 +8043,6 @@ elif (not_empty a_aoth)
   default_b_phrase = a_aoth.Txt_Phrs;
 end if;
 b_phrase = USER::getText(default:default_b_phrase, prompt:"", require_value:phrases_required, validate_name:true);
-LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
 
 // B to A multiplicity
 default_b_mult = "One";
@@ -8060,17 +8052,14 @@ if ((not_empty a_part and a_part.Mult == 1) or (not_empty a_form and a_form.Mult
   other_b_mult = "One";
 end if;
 b_mult = USER::getToggle(option1:default_b_mult, option2:other_b_mult, prompt:"");
-LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
 
 // A label
 a_label2 = USER::getLabel(label:a_class.Name);
-LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 
 // Is associavitve
 select one assoc related by r_rel->R_ASSOC[R206];
 is_associative = not_empty assoc;
 associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative", disabled:false);
-LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
 
 // Associative class
 select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
@@ -8098,17 +8087,16 @@ if (0 < num_options)
         associative_class_options[j] = associative_class_options[j+1];
         associative_class_options[j+1] = s;
       end if;
+      s3 = associative_class_options[j];
+      if not_empty assr and assr.Name == s3
+        default_selection = j;
+      end if;
       j = j + 1;
     end while;
-    s3 = associative_class_options[i];
-    if not_empty assr and assr.Name == s3
-      default_selection = i;
-    end if;
     i = i + 1;
   end while;
 end if;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
 select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
 if (empty associative_class)
   select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Name == assoc_class);
@@ -8153,7 +8141,6 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
   end if;
 end if;
 part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection, reload_options:true);
-LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"associative_rel", inverse:true, comparison:"");
 
 // Identifier in A class
@@ -8174,7 +8161,6 @@ for each a_ident in a_idents
   i = i + 1;
 end for;
 a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident1", field2:"associative_rel", inverse:true, comparison:"");
 USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_b_to_a_part.equals(v_part_class)");
 
@@ -8196,27 +8182,44 @@ for each b_ident in b_idents
   i = i + 1;
 end for;
 b_ident1 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident1", field2:"associative_rel", inverse:true, comparison:"");
 USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_a_to_b_part.equals(v_part_class)");
 
 // Formalize associative
 assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
 formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
-LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"formalize_assoc", field2:"associative_rel", inverse:false, comparison:"");
 
 // Identifier in A class
 a_ident2 = USER::getDropdown(options:a_ident_options, prompt:a_class.Name + " identifier", default_selection:a_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false, comparison:"");
 USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Identifier in B class
 b_ident2 = USER::getDropdown(options:b_ident_options, prompt:b_class.Name + " identifier", default_selection:b_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comparison:"");
 USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
+
+// Draw context menu
+LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_cond", row_num:"2", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
+LAYOUT::setLayout(field_name:"a_mult", row_num:"2", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_label1", row_num:"2", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_cond", row_num:"3", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
+LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"6", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 
 // Edit the association
 select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];

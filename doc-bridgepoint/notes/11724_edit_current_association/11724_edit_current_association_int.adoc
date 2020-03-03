@@ -1,15 +1,18 @@
-= Coverage Option
+= Edit Current Association Issues Implementation Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
 
 xtUML Project Implementation Note
 
-== 1 Abstract
+== Abstract
 
 The CME for editing associations was created to handle simple and associative
 relationships. The issue raised is due to a situation where there is no
 reformalization of an associative relationship due after changes to formalizing
 identifiers are made. This note documents the work to add reformalization.
 
-== 2 Introduction and Background
+== Introduction and Background
 
 In issue <<dr-1,11554>>, a new feature was added to enable editing of
 associations via a pop-up dialog. The work allowed automatic formalization of
@@ -24,51 +27,59 @@ formalization upon editor open, and the changes made in the editor don't get
 reflected on the canvas unless migrating from simple to linked associations and
 vice versa.
 
-== 3 Requirements
+== Requirements
 
-=== 3.1 Ensure popup shows current state of association.
+=== Ensure popup shows current state of association.
 
-=== 3.2 Ensure canvas reflects changes made to association.
+=== Ensure canvas reflects changes made to association.
 
-== 4 Work Required
+== Work Required
 
-=== 4.1 R_REL_BinaryEditAssociation fix for wrong formalization
+=== R_REL_BinaryEditAssociation fix for wrong formalization
 
 The OAL assigning the formalization value was reverse of what it should be, so
 the assignment was corrected.
 
-=== 4.2 fix for canvas update
+=== fix for canvas update
 
-In Association method, editAssociation, added a check, in the case of a
-specified formalization, to see if the current formalizing class was the same 
-as the specified participating class. If so, then unformalize the relationship,
-and reselect and reinitialize the participating variable for that class, as the
-formalizing variable is now invalid.
+In Association method, editAssociation, a check for a need for reformalization
+was added that checked four cases:
+. simple to linked
+. linked to simple
+. formalizing identifier change in formalized simple
+. formalizing identifier change in formalized linked
 
-The aforementioned step has to be done after the partticipating and formalizing
-class variables from the wizard are selected and initialized, but before any
-formalizing is performed.
+The former two cases allowed removal of code that was already doing the
+migration, but didn't cover all the cases needed.
 
-== 5 Implementation Comments
+=== fix for invalid participating class value
 
-It seems to me that this could be done more efficiently, but I didn't see an
-easy way to do this. I'll leave it for future consideration.
+The wizard file, page.inc, was updated to allow an index of zero (Not
+formalized) to be set as default when the previous participating class was 
+invalidated as a candidate.
 
-== 6 Unit Test
+=== fix for wrong associative class shown
 
-See <<dr-3>>, <<dr-4>>.
+In R_REL_BinaryEditAssociation, the check for current associative class was
+placed in the wrong part of the bubble sort algorithm. The check was moved to
+the inner loop, which resulted in more checks, but didn't skip half the possible
+candidates.
 
-== 7 User Documentation
+== Unit Test
+
+See <<dr-3,Association Editor test model>>, <<dr-4,Association Editor Test Procedure>>.
+
+== User Documentation
 
 No user documentation was changed with this work.
 
-== 8 Code Changes
+== Code Changes
 
 - fork/repository:  lwriemen/bridgepoint
 - branch:  11724-update-formalize
 
 
-== 9 Document References
+== Document References
 
 . [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically
 formalize and force user to setup referentials and role phrases at creation]
