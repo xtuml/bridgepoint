@@ -8088,8 +8088,15 @@ if (0 < num_options)
         associative_class_options[j+1] = s;
       end if;
       s3 = associative_class_options[j];
-      if not_empty assr and assr.Name == s3
-        default_selection = j;
+      if not_empty assr
+        if (assr.Name == s3)
+          default_selection = j;
+        else
+          s3 = associative_class_options[j + 1];
+          if (assr.Name == s3)
+            s3 = associative_class_options[j + 1];
+          end if;
+        end if;
       end if;
       j = j + 1;
     end while;
