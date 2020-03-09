@@ -1933,7 +1933,8 @@ Full Name: None',
 INSERT INTO S_ENUM
 	VALUES ("589b212d-d112-469d-abeb-d26bd4bb1122",
 	'asl',
-	'',
+	'Value: 6
+Full Name: ASL',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"47c9d344-3827-4c15-bb20-4db045cf56ab");
 INSERT INTO PE_PE
