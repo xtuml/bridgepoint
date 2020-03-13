@@ -57,6 +57,8 @@ These menu entries appear on only the context menu of Model Explorer.
 | Combine With...         | Opens dialog that allows the user to combine one referential attribute with another valid attribute. |
 | Ignore in State...      | Opens dialog to specify a state the event should be ignored in. | 
 | Launch Verifier         | Run the xtUML Model Debugging tool on the selection. |
+| Make Deferred...        | Opens a dialog to mark an instance based operation as deferred to subtypes. |
+| Make Local              | Converts a deferred instance based operation back to a normal operation. |
 | Manage Project Markings | Opens a dialog to manage markings stored in `features.mark` and `application.mark`. | 
 | Move Down               | Move the selected attribute or parameter down in the parent's containment list. |
 | Move Up                 | Move the selected attribute or parameter up in the parent's containment list. |
