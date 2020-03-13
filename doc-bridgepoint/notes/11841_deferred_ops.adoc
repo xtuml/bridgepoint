@@ -30,7 +30,7 @@ original analysis note <<dr-1>>.
 3.1.2.1 BridgePoint shall only allow an operation to defer across one supsuper association at a given time.  +
 3.1.3 BridgePoint shall allow the user to choose whether the deferral is "required" or "optional".  +
 3.2 BridgePoint shall supply a CME to mark a deferred to operation as local (non-deferred).  +
-3.2.1 The option to mark an operation as a local operation shall be available only if the operation is already marked as deferred.  p
+3.2.1 The option to mark an operation as a local operation shall be available only if the operation is already marked as deferred.  +
 3.3 Details of deferrals applied to operations shall be visible in the Properties view.  +
 3.4 Ciera shall support deferred operation behavior.  +
 3.4.1 If a deferred operation is invoked, the subtype of the current instance shall be selected and the operation on the subtype instance shall be invoked.  +
