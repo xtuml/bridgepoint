@@ -1,0 +1,139 @@
+= Support deferred operations in BridgePoint (part 1)
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Deferred operations are supported in MASL and there is desire for them to be
+supported by xtUML/OAL.  Additionally, the Ciera model compiler (which is
+itself an xtUML/OAL model) uses them. Up to this point, they have been
+maintained by hand, but this feature will give them official support within
+BridgePoint.
+
+== 2 Introduction and Background
+
+Original analysis note found at <<dr-1>>.
+
+Ciera project found at <<dr-2>>.
+
+== 3 Requirements
+
+These requirements are a modified subset of the requirements proposed in the
+original analysis note <<dr-1>>.
+
+3.1 BridgePoint shall supply a CME to mark an instance based operation as a deferred operation.  
+3.1.1 The option to mark an operation as a deferred operation shall be available only if the following conditions are met:  
+3.1.1.1 The operation is not already a deferred operation.  
+3.1.1.2 The operation is an instance based operation.  
+3.1.1.3 The class on which the operation is defined is participating as a supertype in at least one subsuper association.  
+3.1.2 BridgePoint shall allow the user to choose which supsuper association to defer the operation across.  
+3.1.2.1 BridgePoint shall only allow an operation to defer across one supsuper association at a given time.  
+3.1.3 BridgePoint shall allow the user to choose whether the deferral is "required" or "optional".  
+3.2 BridgePoint shall supply a CME to mark a deferred to operation as local (non-deferred).  
+3.2.1 The option to mark an operation as a local operation shall be available only if the operation is already marked as deferred.  
+3.3 Details of deferrals applied to operations shall be visible in the Properties view.  
+3.4 Ciera shall support deferred operation behavior.  
+3.4.1 If a deferred operation is invoked, the subtype of the current instance shall be selected and the operation on the subtype instance shall be invoked.  
+3.4.1.1 If there is no subtype instance related, Ciera shall throw an error.
+3.4.1.2 If the deferred operation is marked "optional" and there is no deferred to operation in the subtype instance, the deferred operation itself shall be executed.  
+3.4.2 Deferred to operations shall be invocable directly.  
+3.4.3 Deferred operations which return values, have parameters, or use array types shall be supported.  
+
+== 4 Work Required
+
+4.1 Model deferral
+
+`O_DEF` was added to the Subsystem subsystem as shown in the BridgePoint diagram
+in the analysis note <<dr-1>>. Another attribute "required" was added to capture
+whether or not the deferred operation requires each subtype to provide an
+implementation.
+
+4.2 CMEs
+
+`MakeDeferred` and `MakeLocal` CMEs were introduced along with corresponding
+operations on `O_TFR` and action filter (to determine when the CMEs are
+visible). PEI data was updated for the new CMEs.
+
+4.3 Persistence
+
+The new `O_DEF` class was added to the persistence tree PEI data as a child of
+`O_TFR`.
+
+4.4 Properties
+
+The appropriate PEI data was updated to include deferrals in the properties view
+
+4.5 OOA schema
+
+The schema was updated to include `O_DEF`.
+
+== 5 Implementation Comments
+
+5.1 An MC-Java bug was fixed in the process. The bug was that enumerator values
+were generated starting at 1 and not 0. This is not consistent with MC-3020 (and
+other model compiler tools), so it makes it impossible to load BridgePoint data
+with the MC-3020 SQL loader. The original bug report can be seen at <<dr-4>>.
+
+== 6 Unit Test
+
+6.0 Import the model attached to the issue <<dr-3>> into a new workspace.
+
+6.1 UI testing  
+6.1.1 Right click `op1`. Confirm that "Make Deferred..." CME is available.  
+6.1.2 Select "Make Deferred...", click Finish. Confirm that `op1` operations
+appeared in classes `B` and `C`. With `A::op1` selected, confirm that the
+deferral is viewable in properties and that the value for "Required" is
+"Required".  
+6.1.3 Right click on `op2`. Confirm that "Make Deferred..." CME is _not_ available.  
+6.1.4 Right click on `class_based_op`. Confirm that "Make Deferred..." CME is _not_ available.  
+6.1.5 Right click on `subtype_op`. Confirm that "Make Deferred..." CME is _not_ available.  
+6.1.6 Right click on `op_no_rel`. Confirm that "Make Deferred..." CME is _not_ available.  
+6.1.7 Right click on `op3` and select "Make Deferred...". Confirm that the
+dropdown box for "Relationship" contains both `R2` and `R3`. Select `R3`,
+uncheck "Required", and click Finish. Navigate to the deferral in properties and
+confirm that the value for "Required" is "Optional".  
+6.1.8 Right click on `E::op3` again and select "Make Local". Confirm that the
+deferral disappears from the properties view.  
+6.1.9 Right click on `op_no_rel` again and select confirm that the "Make Local"
+CME is _not_ available.  
+
+6.2 Ciera behavior test  
+6.2.1 Build the project by running `mvn install` in the project directory.
+Verify that it builds cleanly with no errors (no "FAIL" tests).  
+6.2.2 Run the project by running `bash run.sh` in the project directory. Confirm
+that all tests pass.  
+6.2.3 Uncomment lines 44 and 45 in `init`. Build and run again. Confirm that an
+error is thrown and the program exits. The error should look something like the
+following:  
+```
+No subtype selected
+io.ciera.runtime.summit.exceptions.XtumlException: No subtype selected
+...
+```
+
+== 7 User Documentation
+
+Entries were added in the BridgePoint CME documentation for "Make Deferred..."
+and "Make Local".
+
+== 8 Code Changes
+
+- fork/repository:  your_fork/repo_name
+- branch:  your_branch_name_here
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] link:../10129_deferred_ops/10129_deferred_ops_ant.md[Deferred operations analysis note]
+. [[dr-2]] https://github.com/xtuml/ciera/[Ciera project homepage]
+. [[dr-3]] https://support.onefact.net/issues/11841[Support deferred operations in BridgePoint (part 1)]
+. [[dr-4]] https://support.onefact.net/issues/10298[MC-Java generated enumerator values do not start from 0]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
