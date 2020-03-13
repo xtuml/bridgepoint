@@ -146,7 +146,7 @@ and "Make Local".
 
 == 9 Document References
 
-. [[dr-1]] link:../10129_deferred_ops/10129_deferred_ops_ant.md[Deferred operations analysis note]
+. [[dr-1]] link:10129_deferred_ops/10129_deferred_ops_ant.md[Deferred operations analysis note]
 . [[dr-2]] https://github.com/xtuml/ciera/[Ciera project homepage]
 . [[dr-3]] https://support.onefact.net/issues/11841[Support deferred operations in BridgePoint (part 1)]
 . [[dr-4]] https://support.onefact.net/issues/10298[MC-Java generated enumerator values do not start from 0]
