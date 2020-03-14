@@ -244,6 +244,8 @@ INSERT INTO CME VALUES ('--',       'Move Up',             'C_PP',    '',       
 INSERT INTO CME VALUES ('--',       'Move Down',           'C_PP',    '',                      false, '' );
 INSERT INTO CME VALUES ('--',       'Move Up',             'O_TFR',   '',                      false, '' );
 INSERT INTO CME VALUES ('--',       'Move Down',           'O_TFR',   '',                      false, '' );
+INSERT INTO CME VALUES ('--',       'Make Deferred',       'O_TFR',   '',                      false, 'Select the relationship to defer the operation to.' );
+INSERT INTO CME VALUES ('--',       'Make Local'   ,       'O_TFR',   '',                      false, '' );
 INSERT INTO CME VALUES ('--',       'Move Up',             'C_AS',    '',                      false, '' );
 INSERT INTO CME VALUES ('--',       'Move Down',           'C_AS',    '',                      false, '' );
 INSERT INTO CME VALUES ('--',       'Move Up',             'C_IO',    '',                      false, '' );
@@ -429,6 +431,8 @@ INSERT INTO MEF VALUES ('--',       'Move Down',     'C_PP',    'can', 'move dow
 INSERT INTO MEF VALUES ('Set',    'Type',          'C_PP',    'can', 'SetType' );
 INSERT INTO MEF VALUES ('--',       'Move Up',       'O_TFR',    'can', 'move up' );
 INSERT INTO MEF VALUES ('--',       'Move Down',     'O_TFR',    'can', 'move down' );
+INSERT INTO MEF VALUES ('--',       'Make Deferred', 'O_TFR',    'can', 'make deferred' );
+INSERT INTO MEF VALUES ('--',       'Make Local',    'O_TFR',    'can', 'make local' );
 INSERT INTO MEF VALUES ('--',       'Move Up',       'C_AS',    'can', 'move up' );
 INSERT INTO MEF VALUES ('--',       'Move Down',     'C_AS',    'can', 'move down' );
 INSERT INTO MEF VALUES ('--',       'Move Up',       'C_IO',    'can', 'move up' );
