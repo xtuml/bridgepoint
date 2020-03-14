@@ -950,6 +950,7 @@ if ( not_empty r_rel )
   create object instance o_def of O_DEF;
   if (param.required)
     o_def.required = 0;
+    self.Suc_Pars = ParseStatus::doNotParse;
   else
     o_def.required = 1;
   end if;
