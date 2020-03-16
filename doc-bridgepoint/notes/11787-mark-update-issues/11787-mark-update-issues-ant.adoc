@@ -1,0 +1,61 @@
+= Unintended Marking Deletions Issue Analysis Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
+
+xtUML Project Analysis Note
+
+== Abstract
+
+Unintended deletions are being made to the application.mark files when model
+elements are renamed or moved.
+
+== Introduction and Background
+
+The application.mark support in BridgePoint was originally set up to be updated
+via manual operation only; manual operation was either direct edit of the file,
+or via the Marking Editor tool. In issue <<dr-2,11634>>, automated update of the
+file was added.
+
+== Requirements
+
+=== Ensure order of operations is correct
+
+The application.mark file shouldn't be updated until the editor changes have
+been finalized in the areas the application.mark parser monitors.
+
+=== Update Marking Editor help file
+
+Marking Editor help file states that the application.mark file will not be
+modified for renamed or removed elements, but issue <<dr-2,11634>> changed that
+approach to be automated. The help file should be amended to indicate this and
+list any updated information needed by the user.
+
+=== Add support for asterix as _path_ mark and _markable element type_ mark
+
+Support of asterix for these two marks is requested for supporting the Ciera project.
+
+== Analysis
+
+=== Known parsing areas
+
+The application.mark parsing is done in:
+- getPathKey
+- getNRMEForMark
+- recalculatePathKeys
+- getMarks
+
+== Work Required
+_to be specified in the design note_
+
+== Acceptance Test
+_to be specified in the design note_
+
+== Document References
+. [[dr-1]] https://support.onefact.net/issues/11787[11787 - Project markings are removed in different scenarios]
+. [[dr-2]] https://support.onefact.net/issues/11634[11634 - Keep marks in sync with changing model elements]
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
