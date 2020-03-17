@@ -7972,7 +7972,8 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
-	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
+	'// Select current state of specified relationship
+select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 
 select any a_oir from instances of R_OIR where false;
 select any b_oir from instances of R_OIR where false;
@@ -8119,12 +8120,19 @@ if (0 < num_options)
         associative_class_options[j] = associative_class_options[j+1];
         associative_class_options[j+1] = s;
       end if;
+      s3 = associative_class_options[j];
+      if not_empty assr
+        if (assr.Name == s3)
+          default_selection = j;
+        else
+          s3 = associative_class_options[j + 1];
+          if (assr.Name == s3)
+            s3 = associative_class_options[j + 1];
+          end if;
+        end if;
+      end if;
       j = j + 1;
     end while;
-    s3 = associative_class_options[i];
-    if not_empty assr and assr.Name == s3
-      default_selection = i;
-    end if;
     i = i + 1;
   end while;
 end if;
@@ -8163,9 +8171,9 @@ end if;
 participant[0] = "Not formalized";
 default_selection = 0;
 if (r_rel.isFormalized() and not_empty a_form)
-  default_selection = 1;
-elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 2;
+elif (r_rel.isFormalized() and not_empty b_form)
+  default_selection = 1;
 end if;
 if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
   participant[0] = "";

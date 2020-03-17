@@ -1,0 +1,124 @@
+= Edit Current Association Issues Design Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
+
+xtUML Project Design Note
+
+== Abstract
+
+
+== Introduction and Background
+
+See <<dr-6,11724 - Edit Current Association Issues Analysis Note>>
+
+== Requirements
+
+See <<dr-6,11724 - Edit Current Association Issues Analysis Note>>
+
+== Analysis
+
+See <<dr-6,11724 - Edit Current Association Issues Analysis Note>>
+
+=== Known Issues
+
+Issue <<dr-2, 11719>> is duplicated in this issue, and issue <<dr-3,11699>>
+should be solved by 11724. The other issues attached to issue, <<dr-1,
+11554>>, should not be under consideration for 11724.
+
+=== Discovered Issues
+
+==== Changing formalizing id doesn't cause update of graphics in all cases
+
+The root cause of this issue is that the association needs to be reformalized.
+This issue will be fixed as part of 11724.
+
+==== Current state of association formalization isn't reflected in association editor
+
+The _Edit association_ view doesn't always show the current participating or
+associative class in the selection dropdown list. This issue will be fixed as
+part of 11724.
+
+==== Some changes in Edit association cause the editor view to be wrong
+
+This issue appears to occur only with formalized associations where the user
+selection has caused the current association to become invalid. e.g., a
+formalized 1:M is changed to a M:1. This issue will be fixed in as part of
+11724.
+
+== Design
+
+From prior work in addressing 11724, it has been noted that all of the issues
+are due to one or a combination of the following:
+
+. Wrong population of fields
+. Lack of validation of populators
+. Reformalization required (unformalize and formalize)
+
+NOTE: Referential prefixes aren't retained through and unformalize and
+reformalize. _Issue 11700_ was created to address this.
+
+=== Wrong population of fields and lack of validation
+
+As noted the <<dr-6, Analysis Note>>, the validation and population of fields 
+is done in the OAL contained in _Context Menu Entry
+Functions::R_REL_BinaryEditAssociation_. The population is based upon current
+state of the diagram and the current user selections in the _Edit association_
+context menu. Repopulation is done upon changes made within the context menu.
+
+Population is done via the USER and LAYOUT external entities. The USER external
+entity also provides user data that needs to be considered in validation.
+
+Validation must occur before population of fields is done both initially and
+when the fields are repopulated after context menu changes.
+
+The Finish button takes the population and validation data and passes it on to
+the _Association::editAssociation_ OAL.
+
+=== Reformalization required
+
+As noted the <<dr-6, Analysis Note>>, formalization and unformalization occurs 
+in _Association::editAssociation_, but the decision is made prior to the call 
+to _Association::editAssociation_ based upon the fields populated in the context
+menu. Reformalization decisions are made entirely in
+_Association::editAssociation_ predicated by a decision to formalize. The
+_Association::editAssociation_ OAL should determine if the present association
+is already formalized, and then determine if the participating class,
+associative class, type of association, or the referred to identifier has 
+changed. In all of these cases, the current formalization must be unformalized, 
+before the new formalization can be established. In the associative class 
+changed case, the associative link should be deleted and a new associative link
+added before the new formalization is established.
+
+== Design Comments
+
+The best way to fix one case of Edit association context menu entry invalid
+population was in the page.inc file, which is part of the CME wizard. This was a
+case where the participating class array didn't contain the expected entry and
+no case for failure was provided. The result in this case was negative index
+value, which wasn't applied to the array, unlike in isse 11719.
+
+The page.inc file was mentioned in 11719, but the fix in this case was better
+applied in the OAL.
+
+== User Documentation
+
+== Unit Test
+
+Additions were added to <<dr-4, Association Editor Test Procedure>> and <<dr-5,
+Association Editor test model>> to prevent against regression.
+
+== Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
+. [[dr-2]] https://support.onefact.net/issues/11719[11719 - Create association fails if only two classes in the package]
+. [[dr-3]] https://support.onefact.net/issues/11699[11699 - Changing from one assoc to another assoc does not work]
+. [[dr-4]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
+. [[dr-5]] https://github.com/xtuml/models/tree/master/test/assoc_edit[Association Editor test model]
+. [[dr-6]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11724_edit_current_association/11724_edit_current_association_ant.adoc[11724 - Edit Current Association Issues Analysis Note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
