@@ -151,6 +151,7 @@ INSERT INTO T_TNS VALUES (385, 'Deployment.gif', 'D_DEPL', '', 'Name', '', 'Depl
 INSERT INTO T_TNS VALUES (386, 'Terminator.gif', 'D_TERM', '', 'Name', '', 'Terminator', -1, '');
 INSERT INTO T_TNS VALUES (387, 'TerminatorService.gif', 'D_TSVC', '', 'Name', '', 'Terminator Service', -1, '');
 INSERT INTO T_TNS VALUES (388, 'TerminatorServiceParameter.gif', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameter', 1654, 'succeeds');
+INSERT INTO T_TNS VALUES (389, 'InstanceBasedOperation.gif', 'O_DEF', '', '', '', 'Deferred Operation', -1, '');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
@@ -413,6 +414,8 @@ INSERT INTO T_TPS VALUES (602, 386, 387, '->D_TSVC[R1651]', '', false);
 INSERT INTO T_TPS VALUES (603, 387,  17, '->S_DT[R1656]', 'Type', false);
 INSERT INTO T_TPS VALUES (604, 387, 388, '->D_TSPARM[R1652]', '', false);
 INSERT INTO T_TPS VALUES (605, 388,  17, '->S_DT[R1653]', 'Type', false);
+INSERT INTO T_TPS VALUES (606, 7,  389, '->O_DEF[R126]', 'Deferral', false);
+INSERT INTO T_TPS VALUES (607, 389,  30, '->R_REL[R126]', 'Relationship', false);
 
 -- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures
