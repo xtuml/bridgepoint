@@ -1905,35 +1905,35 @@ Full Name: MASL',
 INSERT INTO S_ENUM
 	VALUES ("7c84a7f3-f993-4fc5-9577-43d4f6c91b5f",
 	'alf',
-	'Value: 2
+	'Value: 3
 Full Name: Alf',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"589b212d-d112-469d-abeb-d26bd4bb1122");
 INSERT INTO S_ENUM
 	VALUES ("1ca866cf-5d48-474d-a751-31e4881f9eb0",
 	'java',
-	'Value: 3
+	'Value: 4
 Full Name: Java',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"7c84a7f3-f993-4fc5-9577-43d4f6c91b5f");
 INSERT INTO S_ENUM
 	VALUES ("a7ddbfcf-db5b-4878-9c8f-9458b1b8d77e",
 	'c',
-	'Value: 4
+	'Value: 5
 Full Name: C',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"1ca866cf-5d48-474d-a751-31e4881f9eb0");
 INSERT INTO S_ENUM
 	VALUES ("ea44c033-c9b2-49e5-8576-294d13e8d339",
 	'none',
-	'Value: 5
+	'Value: 6
 Full Name: None',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"a7ddbfcf-db5b-4878-9c8f-9458b1b8d77e");
 INSERT INTO S_ENUM
 	VALUES ("589b212d-d112-469d-abeb-d26bd4bb1122",
 	'asl',
-	'Value: 6
+	'Value: 2
 Full Name: ASL',
 	"7b54f646-a8a8-4b82-9bb0-cf5465115f3b",
 	"47c9d344-3827-4c15-bb20-4db045cf56ab");

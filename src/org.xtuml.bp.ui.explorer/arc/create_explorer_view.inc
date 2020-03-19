@@ -895,24 +895,14 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 					}
 
 					// Get the value of the dialect attribute
-                                        try {
-                                            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
-                                            dialect = (int) getDialectMethod.invoke(dialectObj);
-                                        } catch ( NoSuchMethodException e ) {
-                                            System.out.println( e );
-                                        } catch ( NullPointerException e ) {
-                                            System.out.println( e );
-                                        } catch ( SecurityException e ) {
-                                            System.out.println( e );
-                                        } catch ( IllegalAccessException e ) {
-                                            System.out.println( e );
-                                        } catch ( IllegalArgumentException e ) {
-                                            System.out.println( e );
-                                        } catch ( InvocationTargetException e ) {
-                                            System.out.println( e );
-                                        } catch ( ExceptionInInitializerError e ) {
-                                            System.out.println( e );
-                                        }
+                    try {
+                        Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
+                        dialect = (int) getDialectMethod.invoke(dialectObj);
+                    } catch ( NoSuchMethodException | NullPointerException | SecurityException |
+                    		  IllegalAccessException | IllegalArgumentException | InvocationTargetException |
+							  ExceptionInInitializerError e ) {
+                        System.out.println( e );
+                    }
 
 					// If the "dialect" attribute is neither "oal" nor "masl",
 					// check the default language preference. Set "dialect" to
@@ -921,24 +911,14 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 						IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                                                 dialect = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
-                                                try {
-                                                    Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", int.class); //$$NON-NLS-1$$
-                                                    setDialectMethod.invoke(dialectObj, dialect);
-                                                } catch ( NoSuchMethodException e ) {
-                                                    System.out.println( e );
-                                                } catch ( NullPointerException e ) {
-                                                    System.out.println( e );
-                                                } catch ( SecurityException e ) {
-                                                    System.out.println( e );
-                                                } catch ( IllegalAccessException e ) {
-                                                    System.out.println( e );
-                                                } catch ( IllegalArgumentException e ) {
-                                                    System.out.println( e );
-                                                } catch ( InvocationTargetException e ) {
-                                                    System.out.println( e );
-                                                } catch ( ExceptionInInitializerError e ) {
-                                                    System.out.println( e );
-                                                }
+                        try {
+                            Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", int.class); //$$NON-NLS-1$$
+                            setDialectMethod.invoke(dialectObj, dialect);
+                        } catch ( NoSuchMethodException | NullPointerException | SecurityException |
+                        		  IllegalAccessException | IllegalArgumentException | InvocationTargetException |
+								  ExceptionInInitializerError e ) {
+                            System.out.println( e );
+                        }
 					}
 				}
 

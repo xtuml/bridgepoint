@@ -1,0 +1,95 @@
+= Introduce ASL Editor
+
+xtUML Project Design Note
+
+
+== 1 Abstract
+
+This note describes the work to add an ASL editor along with the existing
+OAL and MASL editors.
+
+TIP:  This document is marked down with http://asciidoc.org/[AsciiDoc].
+You can get tips from the
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
+
+== 2 Introduction and Background
+
+Here is an example reference to a document reference <<dr-3>>.
+Here is an example with named text <<dr-3,SMASL Specification>>.
+Here we refer to the image below, <<caption text under image>>.
+
+.caption text under image
+image::localimage.png[image description alternate text,width=25%]
+
+== 3 Requirements
+
+TODO 
+
+== 4 Analysis
+
+ASL editor
+------------
+NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/11444_wasl/wasl/data/Events/TSV2_10_9/meta_instances/Events_20/extracted_data/Events_objVERCETL_2.al
+
+x Add to the ActionDialect enum in the metamodel
+  - TODO: make the same change in MC metamodel
+
+- New editor / editor input / etc
+  - See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
+    and org.xtuml.bp.ui.text.masl.MASLEditorInput
+
+- Find places where dialect*==*masl
+  - there are places in oal that I have not investigated yet
+  - Attribute::migrateBaseToDerived()
+  x [Bridge|Function|Operation...]::Initialize() - only for begin/end, so may not be needed for ASL
+  - create_explorer_view.inc (Generates ExplorerView.java)
+    - Note that there are places where the code checks == and != Actiondialect_c.[oal|masl]   Look at both!
+  - GraphicalEditor.java : handleOpen() here is very similar to the one in ExplorerView but this one is not generated
+  - SampleProjectGettingStartedAction.java - handling for special MASL prefs (identifier naming and concrete polys)
+
+- ExplorerView::handleOpen()
+  - Looks for all extensions to org.xtuml.bp.core.editors
+  - Why does it set the dialect of the element being opened on line 2824 if it's not masl|oal|none?  Don't understand
+    why it's overwriting the user-set dialect value.
+    - To reproduce: set dialect to ASL, then open the editor by double-clicking.  Dialect will be changed to workspace
+    default (generally OAL).
+
+- TODO: preferences
+  - add ASL to default action language selection on prefs ui
+  - Handle in ActionLanguagePreferences.java
+
+auto-indent
+  - Old issue is 10232 OAL Editor Enhancements.
+
+== 5 Design
+
+TODO
+
+=== 5.1 Item
+
+TODO
+
+
+== 6 Design Comments
+
+TODO
+
+== 7 User Documentation
+
+TODO
+
+== 8 Unit Test
+
+TODO
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/NNNNN[NNNNN - headline]
+. [[dr-2]] ...
+. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
