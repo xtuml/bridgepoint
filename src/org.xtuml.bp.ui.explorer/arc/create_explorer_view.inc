@@ -79,6 +79,7 @@ import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
+import org.xtuml.bp.ui.text.asl.ASLActivityEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -904,10 +905,10 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
                         System.out.println( e );
                     }
 
-					// If the "dialect" attribute is neither "oal" nor "masl",
+					// If the "dialect" attribute is neither "oal", "asl", nor "masl",
 					// check the default language preference. Set "dialect" to
 					// be the preference value and open the proper editor.
-					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.none ) {
+					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.asl && dialect != Actiondialect_c.none ) {
 						IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                                                 dialect = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
@@ -925,6 +926,13 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 				// check to see if we need to open the MASL editor
 				if (MASLEditorInput.isSupported(current) && dialect == Actiondialect_c.masl ) { //$$NON-NLS-1$$
 					inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput"); //$$NON-NLS-1$$
+					try {
+						editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
+					} catch (NoSuchFieldException e) {
+						System.out.println(e);
+					}
+				} else if (ASLActivityEditorInput.isSupported(current) && dialect == Actiondialect_c.asl) { // $$NON-NLS-1$$
+					inputClass = bundle.loadClass("org.xtuml.bp.ui.text.asl.ASLActivityEditorInput"); //$$NON-NLS-1$$
 					try {
 						editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
 					} catch (NoSuchFieldException e) {
