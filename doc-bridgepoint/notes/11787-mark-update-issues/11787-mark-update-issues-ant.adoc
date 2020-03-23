@@ -45,8 +45,37 @@ The application.mark parsing is done in:
 - recalculatePathKeys
 - getMarks
 
+==== Observed behavior
+* [[ref-a,class name change]]Upon class name change, any mark with the class name gets deleted.
+** It has been observed to work on occasion.
+* [[ref-c,other container mark deletion]]Other marks not associated with the change have been deleted.
+** The other marks were deleted were in a different container at a peer level to the change container. e.g., `CTR::CTR::CTR vs CTR::CTR::OTH`.
+* [[ref-b,use of asterix]]Any marks containing an `*` are removed.
+
+==== Code Handling
+* For the <<ref-a>> observation, it was found that the _path_ element of the
+ mark contained the class name, and the _path_ element was used to determine
+ the validity of the root element, i.e., the class. If the order of operations
+ was correct, i.e., class name is changed before end of transaction processing,
+ this will cause a failure, because the old class name doesn't match the new
+ class name. This is also the reason for the <<ref-b>> issue with respect to an
+ `*` for the _path_ of the mark.
+* TBD for <<ref-c>>
+* TBD for <<ref-b>> for the _markable element type_.
+
+=== Order of operations
+
+The observation that the class rename sometimes updates the application.mark
+file correctly means that the marking update occured before the actual class 
+rename occured.
+
+According to <<dr-4>>, transactions are handled via asynchronous events to all
+transaction listeners. Asynchronous events can't be guaranteed to have an
+established order, so the marking update must be able to handle both situations.
+
 == Work Required
-_to be specified in the design note_
+
+Determine best place to handle the possible order cases.
 
 == Acceptance Test
 _to be specified in the design note_
@@ -54,6 +83,8 @@ _to be specified in the design note_
 == Document References
 . [[dr-1]] https://support.onefact.net/issues/11787[11787 - Project markings are removed in different scenarios]
 . [[dr-2]] https://support.onefact.net/issues/11634[11634 - Keep marks in sync with changing model elements]
+. [[dr-3]] https://support.onefact.net/issues/11555[11555 - Renaming signal causes marks to be lost]
+. [[dr-4]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8261_masl_refactor/8261_masl_refactor_dnt.md[8621 Masl Refactor Design Note]
 ---
 
 This work is licensed under the Creative Commons CC0 License

@@ -1,0 +1,62 @@
+= Unintended Marking Deletions Issue Design Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
+
+xtUML Project Analysis Note
+
+== Abstract
+
+Unintended deletions are being made to the application.mark files when model
+elements are renamed or moved.
+
+== Introduction and Background
+
+
+== Requirements
+
+See <<dr-1>>.
+
+== Analysis
+
+See <<dr-1>> for explanation of what is occuring.
+
+Exploration using the debugger has shown that insufficient information is
+available at MarkTransactionListener.start function, so all handling needs to 
+occur at the end of transaction. 
+
+The IModelChangeListener was also evaluated as another option, but this occurs 
+before the transaction handling. There would be no recourse for cancellation or
+undoing the transaction.
+
+The point in the end of transaction handling where the problem occurs is at the
+MarkingData.recalculatePathKeys function call; right before this call, the
+marking data is collected, and the marking data contents are stale with respect
+to the change.
+
+The issue with an element change only occurs when the path is modified; this
+occurs for DELTA_ATTRIBUTE_CHANGE transactions only. Any algorithm changes
+should be predicated upon only this transaction.
+
+== Design
+
+The transaction end event will call MarkingData.recalculatePathKeys using the 
+marking data containing the old value, then if that call fails, the marking data
+will be updated with the changed value, MarkingData.recalculatePathKeys will 
+check for the new value, and the rest of the algorithm will proceed as normal.
+
+== Design Comments
+
+== User Documentation
+
+== Unit Test
+
+== Document References
+. [[dr-1]]
+https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11787-mark-update-issues/11787-mark-update-issues-ant.adoc[11787 Mark Update Issues Analysis Note]
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
