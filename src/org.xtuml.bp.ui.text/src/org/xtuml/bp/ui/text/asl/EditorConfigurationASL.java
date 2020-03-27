@@ -10,12 +10,11 @@ import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class EditorConfigurationASL extends ASLEditorConfiguration {
 
-// TODO	private EditorHover m_hover;
+	// Note that the sister OAL EditorConfiguration sets up hover text 
+	// support (for parse messages) that we don't do for ASL.
 
 	public EditorConfigurationASL(IEditorPart ep, SyntaxHighlightingPreferences prefs, ASLEditor editor) {
 		super(prefs, editor);
-//		m_hover = new EditorHover();
-//		m_hover.setEditor(ep);
 	}
 
 
@@ -23,7 +22,6 @@ public class EditorConfigurationASL extends ASLEditorConfiguration {
 	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getAnnotationHover(org.eclipse.jface.text.source.ISourceViewer)
 	 */
 	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
-//		return m_hover;
 		return null;
 	}
 
@@ -31,7 +29,6 @@ public class EditorConfigurationASL extends ASLEditorConfiguration {
 	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getTextHover(org.eclipse.jface.text.source.ISourceViewer, java.lang.String)
 	 */
 	public ITextHover getTextHover( ISourceViewer sourceViewer, String contentType) {
-//		return m_hover;
 		return null;
 	}
 

@@ -32,7 +32,7 @@ ASL editor
 NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/11444_wasl/wasl/data/Events/TSV2_10_9/meta_instances/Events_20/extracted_data/Events_objVERCETL_2.al
 
 x Add to the ActionDialect enum in the metamodel
-  - TODO: make the same change in MC metamodel
+  x (Cort) Make the same change in MC metamodel
 
 - New editor / editor input / etc
   - See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
@@ -51,11 +51,13 @@ x Add to the ActionDialect enum in the metamodel
   - In the context menu Open list, "ASL Editor", "MASL Editor", "Activity Editor"... change to "OAL Editor"?
 
 - ExplorerView::handleOpen()
-  - Looks for all extensions to org.xtuml.bp.core.editors
-  - Why does it set the dialect of the element being opened on line 2824 if it's not masl|oal|none?  Don't understand
-    why it's overwriting the user-set dialect value.
-    - To reproduce: set dialect to ASL, then open the editor by double-clicking.  Dialect will be changed to workspace
-    default (generally OAL).
+  // Looks for all extensions to org.xtuml.bp.core.editors
+  // Figures out which editor to open
+  x Modify to handle opening ASL editor when it sees ASL dialect
+
+- Verify maven clean target works properly in ui.text plugin for new java files
+
+- TODO: Look over all new code and see if there are unused functions, import cleanup, TODOs etc...
 
 - TODO: preferences
   - add ASL to default action language selection on prefs ui
@@ -68,7 +70,21 @@ x Add to the ActionDialect enum in the metamodel
 
 auto-indent
   - Old issue is 10232 OAL Editor Enhancements.
-
+  - if ... then
+    else
+    endif
+  - for ... in ... do
+    endfor
+  - no while loop???
+  
+syntax highlight
+  - keywords: create/with, generate/to, if/else/endif, define/enddefine, delete, countof, TRUE/FALSE/UNDEFINED, this,
+              find/find-one/find-all/where, link, for/in/do/endfor, break, $INLINE/$ENDINLINE, $ADA_INLINE/$END_ADAINLINE,
+              no elseif???
+      - OAL version is generated            
+      - find-one and find-all choke on dash in name
+  - comments with #, no multi-line
+  - Strings only delimited with "" and not ' '  
 
 junit tests
 

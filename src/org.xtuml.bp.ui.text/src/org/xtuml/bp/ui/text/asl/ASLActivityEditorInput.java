@@ -29,20 +29,6 @@ public class ASLActivityEditorInput extends AbstractModelElementPropertyEditorIn
 	 */
 	public ASLActivityEditorInput(ModelElementID modelElementID, IFile placeHolderFile) throws PartInitException {
 		super(modelElementID, placeHolderFile);
-		// The step marker is only required to hold a physical file in existence long
-		// enough to satisfy the
-		// requirements of the Eclipse source code location system. Once we get here,
-		// it's OK to remove the marker.
-		/*
-		 * TODO try { ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-		 * 
-		 * @Override public void run(IProgressMonitor monitor) throws CoreException { //
-		 * delete the markers in a workspace runnable
-		 * placeHolderFile.deleteMarkers("org.xtuml.bp.ui.text.stepmarker", false,
-		 * IResource.DEPTH_ZERO); } }, new NullProgressMonitor()); } catch
-		 * (CoreException ce) { TextPlugin.logError("Error removing stepping marker: ",
-		 * ce); }
-		 */
 	}
 
 	/**
@@ -109,11 +95,10 @@ public class ASLActivityEditorInput extends AbstractModelElementPropertyEditorIn
 		if (element instanceof NonRootModelElement) {
 			try {
 				ModelRoot.disableChangeNotification();
-				// Need to wait until verifier is not executing anything. Waiting
-				// on the semaphore below meets this requirement. It is grabbed
-				// in the verifier event loop in debug.ui.BPThread.startModel()
+				// Not super critical to grab the save semaphore here, but is
+				// good practice to prevent potential save conflicts (especially if 
+				// ASL is ever supported by verifier).
 				Ooaofooa.beginSaveOperation();
-				// TODO - see if the ASL editor save actually goes through here....
 				super.doSaveDocument(monitor, element, document, overwrite);
 				Ooaofooa.endSaveOperation();
 			} finally {
@@ -125,7 +110,9 @@ public class ASLActivityEditorInput extends AbstractModelElementPropertyEditorIn
 	/**
 	 * checks if the ASL activity for the model element is empty or not
 	 */
-/* TODO	public static boolean activityEmpty(Object modelElementObject) throws CoreException {
+/* TODO	SKB - I think this can be deleted as it's not used (OAL one in ActivityEditorInput does 
+ * not appear to be used either).
+   public static boolean activityEmpty(Object modelElementObject) throws CoreException {
 		ASLActivityEditorInput input = createInstance(modelElementObject);
 
 		boolean empty = false;

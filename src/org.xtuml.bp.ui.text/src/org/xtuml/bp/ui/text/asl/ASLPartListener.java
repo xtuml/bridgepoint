@@ -1,4 +1,5 @@
 package org.xtuml.bp.ui.text.asl;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.IDocument;

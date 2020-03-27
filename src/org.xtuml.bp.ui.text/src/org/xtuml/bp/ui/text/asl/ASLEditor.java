@@ -1,18 +1,3 @@
-//========================================================================
-//
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//========================================================================
-
 package org.xtuml.bp.ui.text.asl;
 
 import org.eclipse.jface.action.Action;
@@ -35,7 +20,8 @@ public class ASLEditor extends AbstractModelElementTextEditor {
 	private IPreferenceModel.IChangeListener prefChangeListener;
 
 	public ASLEditor() {
-		this(OALEditorPlugin.getDefaultOALPlugin().getSyntaxHighlightingPreferences()); // TODO - reuse OAL Syntax highlighting prefs??
+		// TODO - reuse OAL Syntax highlighting prefs??
+		this(OALEditorPlugin.getDefaultOALPlugin().getSyntaxHighlightingPreferences()); 
 	}
 
 	public ASLEditor(SyntaxHighlightingPreferences aPreferences) {
@@ -86,8 +72,7 @@ public class ASLEditor extends AbstractModelElementTextEditor {
      */
     protected boolean isPrefQuickDiffAlwaysOn()
     {
-        // we don't currently want quick-diff info to be displayed in the
-        // line column bar
+        // we don't currently want quick-diff info to be displayed in the line column bar
         return false;
     }
     

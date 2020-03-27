@@ -1,17 +1,3 @@
-//========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//========================================================================
-
 package org.xtuml.bp.ui.text.asl;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -30,11 +16,9 @@ import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 import org.xtuml.bp.ui.text.editor.oal.OALPartitionScanner;
-import org.xtuml.bp.ui.text.editor.oal.OALScanner;
-import org.xtuml.bp.ui.text.editor.oal.OALTokenTypes;
 
 public class ASLEditorConfiguration extends SourceViewerConfiguration {
-	private ITokenScanner oalScanner;
+	private ITokenScanner aslScanner;
 	private ITokenScanner commentScanner;
 	private ASLEditor editor;
 
@@ -57,19 +41,17 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 	}
 
 	protected ITokenScanner getActionLanguageScanner() {
-		if (oalScanner == null) {
-			//  TODO - reuse OALScanner here????
-			oalScanner = new OALScanner(tokenTypeManager);
+		if (aslScanner == null) {
+			aslScanner = new ASLScanner(tokenTypeManager);
 		}
-		return oalScanner;
+		return aslScanner;
 	}
 
 	protected ITokenScanner getCommentScanner() {
 		if (commentScanner == null) {
 			RuleBasedScanner scanner = new RuleBasedScanner();
-			// TODO - reuse OALTokenTypes here????
 			scanner.setDefaultReturnToken(
-				tokenTypeManager.getDefaultToken(OALTokenTypes.TOKEN_TYPE_multi_line_comment));
+				tokenTypeManager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_multi_line_comment));
 
 			commentScanner = scanner;
 		}
@@ -98,7 +80,8 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 	@Override
 	public IContentAssistant getContentAssistant(ISourceViewer sv) {
 		// We don't yet support content assist in ASL editor.
-		// When the time comes, refer to the way this is done in OALEditorConfiguration::getContentAssist()
+		// When the time comes, refer to the way this is done in 
+		// OALEditorConfiguration::getContentAssist()
 	    return null;
 	}
 
@@ -111,8 +94,7 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 	}
 	
 	@Override
-	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer,
-            String contentType)
+	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType)
 	{
 	    IAutoEditStrategy strategy= (IDocument.DEFAULT_CONTENT_TYPE.equals(contentType)
 	            ? new ASLAutoEditStrategy() : new DefaultIndentLineAutoEditStrategy());
@@ -120,8 +102,7 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 	}
 	
 	@Override
-	public String[] getIndentPrefixes(ISourceViewer sourceViewer,
-            String contentType)
+	public String[] getIndentPrefixes(ISourceViewer sourceViewer, String contentType)
 	{
 		String[] prefixes = super.getIndentPrefixesForTab(getTabWidth(sourceViewer));
 		return  prefixes;
