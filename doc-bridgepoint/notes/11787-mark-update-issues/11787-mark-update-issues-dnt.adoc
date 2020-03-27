@@ -12,6 +12,7 @@ elements are renamed or moved.
 
 == Introduction and Background
 
+See <<dr-1>>.
 
 == Requirements
 
@@ -38,12 +39,19 @@ The issue with an element change only occurs when the path is modified; this
 occurs for DELTA_ATTRIBUTE_CHANGE transactions only. Any algorithm changes
 should be predicated upon only this transaction.
 
+recalculatePathKeys modifies the collected marking data. A fix has to occur
+before or during the call to recalculatePathKeys.
+
 == Design
 
-The transaction end event will call MarkingData.recalculatePathKeys using the 
-marking data containing the old value, then if that call fails, the marking data
-will be updated with the changed value, MarkingData.recalculatePathKeys will 
-check for the new value, and the rest of the algorithm will proceed as normal.
+=== Keyletter change persist
+
+The keyletter mark data can be updated before the call to recalculatePathKeys,
+so a new MarkingData method will be created to handle it. There is no need to
+run recalculate path keys for a keyletter transaction.
+
+=== Class rename fix
+
 
 == Design Comments
 

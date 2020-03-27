@@ -1,0 +1,53 @@
+= Unintended Marking Deletions Issue Implementation Note
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+== 2 Introduction and Background
+
+== 3 Requirements
+
+== 4 Work Required
+
+=== 4.1 Keyletter change persist
+
+Added new method to MarkingData.java, MarkingData::updatekeyLetterData. The
+method searches the collected marking data and updates marks with the same value
+as the old key letter to have a value of the new keyletter. The method returns
+true, if the marking data was updated. The return is needed as the transaction
+might not have a representative mark for the change.
+
+The method is called from MarkTransactionListener::transactionEnded, after the
+marking data is collected, but before path keys are recalculated, as the path
+key recalculation can modify the marking data.
+
+=== 4.2 Class rename fix
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+
+== 7 User Documentation
+
+
+== 8 Code Changes
+
+- fork/repository: lwriemen/bridgepoint
+- branch:  11787-masl-disappearing-marks
+----
+ Put the file list here
+----
+
+== 9 Document References
+. [[dr-1]]
+https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11787-mark-update-issues/11787-mark-update-issues-ant.adoc[11787 Mark Update Issues Analysis Note]
+. [[dr-2]]
+https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11787-mark-update-issues/11787-mark-update-issues-dnt.adoc[11787 Mark Update Issues Design Note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

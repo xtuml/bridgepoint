@@ -267,6 +267,38 @@ public class MarkingData {
 		
 		return marksUpdated;
 	}
+	public boolean updateNameData(String newAttributeValue, String oldAttributeValue, String attributeName)
+	{
+		LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+		boolean marksUpdated = false;
+		
+		for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+			LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
+			for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) { 
+				if ( featureEntry.getValue().path.endsWith(oldAttributeValue) ) {
+					String newPath = elementEntry.getKey().substring(0, elementEntry.getKey().lastIndexOf(oldAttributeValue)).concat(newAttributeValue);
+					marksUpdated = true;
+					Mark origMark = featureEntry.getValue();
+					Mark mark = new Mark(); 
+					mark.markable_name = origMark.markable_name; 
+					mark.feature_name = origMark.feature_name; 
+					mark.path = newPath; 
+					mark.value = origMark.value; 
+					mark.nrme = origMark.nrme; 
+					newMarkList.put(newPath, mark);
+				} else {
+					// Unchanged entry
+					newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
+				}
+			}
+			newMarkingsMap.put(elementEntry.getKey(), newMarkList);
+		}
+		// Use the newly updated map of markings
+		if (marksUpdated) {
+			markingsMap = newMarkingsMap;
+		}
+		return marksUpdated;
+	}
 
 	/**
 	 * Write the modified application marking data to disk
@@ -446,4 +478,43 @@ public class MarkingData {
 		}
 		return null;
 	}
+	
+	/**
+	 * Update the keyletter value contained in the mark.
+	 * @param newAttributeValue - the new keyletter
+	 * @param oldAttributeValue - the old keyletter
+	 * @return Indicates if the marking data needs to be persisted.
+	 */
+	public boolean updateKeyletterData(String newAttributeValue, String oldAttributeValue)
+	{
+		LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+		boolean marksUpdated = false;
+		
+		for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+			LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
+			for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) { 
+				if ( featureEntry.getValue().value.regionMatches(1, oldAttributeValue, 0, oldAttributeValue.length()) ) {
+					marksUpdated = true;
+					Mark origMark = featureEntry.getValue();
+					Mark mark = new Mark(); 
+					mark.markable_name = origMark.markable_name; 
+					mark.feature_name = origMark.feature_name; 
+					mark.path = origMark.path; 
+					mark.value = "\"" + newAttributeValue + "\""; 
+					mark.nrme = origMark.nrme; 
+					newMarkList.put(featureEntry.getKey(), mark);
+				} else {
+					// Unchanged entry
+					newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
+				}
+			}
+			newMarkingsMap.put(elementEntry.getKey(), newMarkList);
+		}
+		// Use the newly updated map of markings
+		if (marksUpdated) {
+			markingsMap = newMarkingsMap;
+		}
+		return marksUpdated;
+	}
+	
 }
