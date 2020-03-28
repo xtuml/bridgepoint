@@ -19,10 +19,21 @@ true, if the marking data was updated. The return is needed as the transaction
 might not have a representative mark for the change.
 
 The method is called from MarkTransactionListener::transactionEnded, after the
-marking data is collected, but before path keys are recalculated, as the path
-key recalculation can modify the marking data.
+marking data is collected, and will block the call to recalculatePathKeys. The
+method call is predicated upon an attribute name of "Key_lett".
 
 === 4.2 Class rename fix
+
+Added new method to MarkingData.java, MarkingData::updateClassNameData. The
+method searches the collected marking data and updates marks with the same path
+endings as the old class name to have a value of the new class name. The method 
+returns true, if the marking data was updated. The return is needed as the 
+transaction might not have a representative mark for the change.
+
+The method is called from MarkTransactionListener::transactionEnded, after the
+marking data is collected and will block the call to recalculatePathKeys. The
+method call is predicated upon an attribute name of "Name" and an attribute
+model element instance of ModelClass_c.
 
 == 5 Implementation Comments
 

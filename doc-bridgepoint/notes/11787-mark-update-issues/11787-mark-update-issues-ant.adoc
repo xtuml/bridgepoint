@@ -50,6 +50,7 @@ The application.mark parsing is done in:
 ** It has been observed to work on occasion.
 * [[ref-c,other container mark deletion]]Other marks not associated with the change have been deleted.
 ** The other marks were deleted were in a different container at a peer level to the change container. e.g., `CTR::CTR::CTR vs CTR::CTR::OTH`.
+** The other mark deletion was observed with class name change, key letter change, and method name change.
 * [[ref-b,use of asterix]]Any marks containing an `*` are removed.
 
 ==== Code Handling
