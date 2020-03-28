@@ -2,6 +2,7 @@ package org.xtuml.bp.ui.marking;
 
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
@@ -46,6 +47,11 @@ public class MarkTransactionListener implements ITransactionListener {
             					AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
             					if ("Key_lett" == change.getAttributeName()) {
             					    rpk = md.updateKeyletterData(change.getNewValue().toString(), change.getOldValue().toString());
+            					} else {
+            						if ( ("Name" == change.getAttributeName()) && 
+            							 (change.getModelElement() instanceof ModelClass_c) ) {
+            							rpk = md.updateClassNameData(change.getNewValue().toString(), change.getOldValue().toString());
+            						}
             					}
             				}
             				if (rpk || md.recalculatePathKeys()) {

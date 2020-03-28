@@ -267,7 +267,8 @@ public class MarkingData {
 		
 		return marksUpdated;
 	}
-	public boolean updateNameData(String newAttributeValue, String oldAttributeValue, String attributeName)
+
+	public boolean updateClassNameData(String newAttributeValue, String oldAttributeValue)
 	{
 		LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
 		boolean marksUpdated = false;
