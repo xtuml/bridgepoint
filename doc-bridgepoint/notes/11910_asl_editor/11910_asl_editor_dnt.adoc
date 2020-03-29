@@ -75,16 +75,26 @@ auto-indent
     endif
   - for ... in ... do
     endfor
-  - no while loop???
+  - loop
+    endloop
   
-syntax highlight
-  - keywords: create/with, generate/to, if/else/endif, define/enddefine, delete, countof, TRUE/FALSE/UNDEFINED, this,
-              find/find-one/find-all/where, link, for/in/do/endfor, break, $INLINE/$ENDINLINE, $ADA_INLINE/$END_ADAINLINE,
-              no elseif???
-      - OAL version is generated            
+- syntax highlighting
+  - keywords 
+      - List in Appendix B of http://www.ooatool.com/docs/ASL03.pdf
+      - In changelog of manual found some inconsistencies with Appendix B
+          - associate/unassociate not in Appendix B 
+          - current-date/current-time or current_date/current_time? Looks like the latter is right.
+          - size-of and sizeof not in Appendix B or anywhere else in manual
       - find-one and find-all choke on dash in name
-  - comments with #, no multi-line
-  - Strings only delimited with "" and not ' '  
+  - comments 
+      - Single line with #
+      - Multi-line with "#{" to "}#" (page 7)
+        - Multi-line comments may be created by surrounding the lines by “#{{” and “}#”.
+          In this case there should be no characters on a line before the “#{“ or after the
+          “}#”
+  - Strings with "" 
+  - Should values inside ' ' be highlighted?
+  - TEST: need to check every construct visually for proper highlighting
 
 junit tests
 

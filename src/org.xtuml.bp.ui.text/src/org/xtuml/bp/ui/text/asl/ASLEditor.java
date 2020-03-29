@@ -1,19 +1,16 @@
 package org.xtuml.bp.ui.text.asl;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
-import org.eclipse.ui.texteditor.ContentAssistAction;
-import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
-import org.xtuml.bp.ui.text.editor.oal.OALDocumentProvider;
 
+// TODO - refactor for OAL/ASL combination
 public class ASLEditor extends AbstractModelElementTextEditor {
 
 	private SyntaxHighlightingPreferences preferences;
@@ -30,8 +27,7 @@ public class ASLEditor extends AbstractModelElementTextEditor {
 		preferences = aPreferences;
 
 		setSourceViewerConfiguration(new ASLEditorConfiguration(preferences, this));
-		// TODO - reuse OALDocumentProvider here???
-		setDocumentProvider(new OALDocumentProvider());
+		setDocumentProvider(new ASLDocumentProvider());
 		setEventListeners();
 	}
 	
@@ -79,11 +75,6 @@ public class ASLEditor extends AbstractModelElementTextEditor {
     @Override
     protected void createActions() {
         super.createActions();
-        Action action = new ContentAssistAction(OALEditorPlugin.getDefaultOALPlugin().getResourceBundle(), "ContentAssistProposal.", this); 
-        String id = ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS;
-        action.setActionDefinitionId(id);
-        setAction("ContentAssistProposal", action); 
-        markAsStateDependentAction("ContentAssistProposal", true);
     }
     
 	@Override

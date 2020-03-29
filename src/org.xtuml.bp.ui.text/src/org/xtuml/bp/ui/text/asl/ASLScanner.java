@@ -17,7 +17,7 @@ public class ASLScanner extends RuleBasedScanner {
 		
 		setDefaultReturnToken(otherToken);
 
-		IRule[] rules = new IRule[4];
+		IRule[] rules = new IRule[5];
 
 		//@note Defining rule for white space.
 		rules[0] = new WhitespaceRule(new WhitespaceDetector());
@@ -25,11 +25,14 @@ public class ASLScanner extends RuleBasedScanner {
 		//@note Defining rule for single line comment.
 		rules[1] = new EndOfLineRule("#", manager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_single_line_comment));
 
+		//@note Defining rule for single line strings.
+		rules[2] = new SingleLineRule("'", "'", manager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_string));
+
         //@note Defining rule for single line strings.
-        rules[2] = new SingleLineRule("\"", "\"", manager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_string));
+        rules[3] = new SingleLineRule("\"", "\"", manager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_string));
 		
 		//@note Defining rule for string literals, Archetype will generate code in createRule method.
-		rules[3] = ASLKeywordRule.createRule(manager, otherToken);
+		rules[4] = ASLKeywordRule.createRule(manager, otherToken);
 
 		setRules(rules);
 	}

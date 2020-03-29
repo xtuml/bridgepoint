@@ -15,7 +15,6 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
-import org.xtuml.bp.ui.text.editor.oal.OALPartitionScanner;
 
 public class ASLEditorConfiguration extends SourceViewerConfiguration {
 	private ITokenScanner aslScanner;
@@ -36,8 +35,7 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
 			IDocument.DEFAULT_CONTENT_TYPE,
-			// TODO - reuse OALPartitionScanner here????
-			OALPartitionScanner.CONTENT_TYPE_multiline_comment };
+			ASLPartitionScanner.CONTENT_TYPE_multiline_comment };
 	}
 
 	protected ITokenScanner getActionLanguageScanner() {
@@ -68,10 +66,8 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 			reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 
 			dr = new DefaultDamagerRepairer(getCommentScanner());
-			// TODO - understand what the OALPartitionScanner is doing here and make an intelligent comment.
-			//   Reuse that code???
-			reconciler.setDamager(dr, OALPartitionScanner.CONTENT_TYPE_multiline_comment);
-			reconciler.setRepairer(dr, OALPartitionScanner.CONTENT_TYPE_multiline_comment);
+			reconciler.setDamager(dr, ASLPartitionScanner.CONTENT_TYPE_multiline_comment);
+			reconciler.setRepairer(dr, ASLPartitionScanner.CONTENT_TYPE_multiline_comment);
 
 		}
 		return reconciler;

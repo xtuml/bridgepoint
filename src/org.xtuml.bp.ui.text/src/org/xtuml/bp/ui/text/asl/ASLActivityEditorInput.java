@@ -107,19 +107,4 @@ public class ASLActivityEditorInput extends AbstractModelElementPropertyEditorIn
 		}
 	}
 
-	/**
-	 * checks if the ASL activity for the model element is empty or not
-	 */
-/* TODO	SKB - I think this can be deleted as it's not used (OAL one in ActivityEditorInput does 
- * not appear to be used either).
-   public static boolean activityEmpty(Object modelElementObject) throws CoreException {
-		ASLActivityEditorInput input = createInstance(modelElementObject);
-
-		boolean empty = false;
-
-		ModelElementPropertyStorage storage = new ModelElementPropertyStorage(input, "Action_semantics_internal");
-		empty = storage.getPropertyValue().isEmpty();
-
-		return empty;
-	}*/
 }

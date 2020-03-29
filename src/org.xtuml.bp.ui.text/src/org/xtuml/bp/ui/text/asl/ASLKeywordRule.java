@@ -46,7 +46,7 @@ public class ASLKeywordRule extends WordRule
         // create a new object of this class that sports our keyword-detector
         ASLKeywordRule rule = new ASLKeywordRule(new ASLWordDetector(), defaultToken);
 
-        // for each OAL keyword
+        // for each ASL keyword
         IToken keywordToken = manager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_keyword);
         for (int i = 0; i < keywords.length; ++i) {
             // have the new rule associate this keyword with the keyword-token
@@ -59,11 +59,13 @@ public class ASLKeywordRule extends WordRule
     /**
      * Answers whether given characters are some part of any ASL keyword. 
      */
+    // TODO SKB - I think this function and the next is where we need to do more
+    // work for keywords with hyphen
     static class ASLWordDetector implements IWordDetector
     {
     	// Since a word detector needs to detect all words including all keywords
     	// and non keywords, we use java identifier start and part rules, which
-    	// apply to oal as well.
+    	// apply to ASL as well.
     	// The responsibility of determining if a given word is keyword or not
     	// does not fall under IWordDetector.
     	
