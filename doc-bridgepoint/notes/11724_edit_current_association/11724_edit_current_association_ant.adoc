@@ -1,0 +1,119 @@
+= Edit Current Association Issues Analysis Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
+
+xtUML Project Analysis Note
+
+== Abstract
+
+This analysis is presented due to a perception of rework needed after initial
+work was done to address issues in the CME for editing associations. The scope
+of the rework isn't that large, but it does require some thought.
+
+== Introduction and Background
+
+The CME for editing associations was created via issue <<dr-1,11554>> to handle
+simple, associative, and generalization relationships. Issue <<dr-2, 11719>> 
+was raised due to a situation where there was no validation that an available 
+associative class existed, and this issue was raised referencing both the 
+problem in issue <<dr-2,11719>> and an issue with changes made in the CME for 
+editing associations to existing, formalized associations, not being reflected 
+in the graphical presentation of the relationship.
+
+After fixes were put in place, the test, <<dr-3,assoc_edit>>, was modified to
+add regression tests for the fixes, but further exploration of uncovered test
+scenarios showed more similar issues. These issues would have required the same
+fixes in multiple places in _Association::editAssociation_ and maybe in 
+_Context Menu Entry Functions::R_REL_BinaryEditAssociation_.
+
+== Requirements
+
+These requirements are based upon the fixes done and other issues seen in
+exploring test scenarios.
+
+=== Validation of elements shown in the Edit association CME
+
+Issue <<dr-2, 11719>> was due to trying to populate associative class data when
+none existed.
+
+==== Current Values Shown
+
+One of the fixes done was found in a test of editing an existing formalized 
+simple association, where the current participating class name wasn't the value
+shown in the dropdown list on start of the _Edit association_ view. Further
+testing also showed this was occuring with linked associations, but a fix hasn't
+been added.
+
+==== Changed values validated
+
+This issue, 11724, mentions, "change to a cardinality that requires the value
+to change", and this was observed but not fixed using the test model. The _Edit
+association_ view should reflect any required changes. This would include
+removing and repopulating shown selections like formalizing class and identifier
+options.
+
+=== Reformalization on identifier change
+
+Two cases were observed and fixed for formalized, simple associations. One was a
+change of which class was the participating class, and the other was a change 
+of the identifier used from the participating class.
+
+=== Correct graphical presentation
+
+This is somewhat captured in the previous requirements, but a case was seen
+where an established, unformalized linked association was edited with a change
+to another associative class. The old associative link remained on the diagram,
+and the new associative class had an associative link attached to it seemingly 
+going nowhere. Undo appeared not to work, and manually deleting the link, 
+attached to the new associative class, removed both associative links.
+
+== Analysis
+
+=== Workflow Support
+
+See <<dr-4, 11554 - Relationship Editor Analysis Note>> for a breakdown of the
+CME mechanism. For all of the fixes to date, the participating OAL functions are
+the only aspects that have required modification. This is expected to be true
+for future fixes.
+
+=== Context Menu Entry Functions::R_REL_BinaryEditAssociation
+
+This context menu entry OAL function is responsible for populating the data
+presented to the user by the _Edit association_ view, so population and 
+validation of the data needs to be done in this function.
+
+=== Association::editAssociation
+
+This is the OAL function called with the data obtained from the CME. This
+function is going to make the determination of the need to formalize and
+unformalize an association.
+
+This is a very large function, and is used for both linked and simple
+associations. The duplication of code needed for the bug fixes should be placed
+into supporting functions, maybe associated with different classes in the
+_Association_ subsytem.
+
+=== Unknowns
+
+Some fixes might not be contained in the aforementioned OAL, and might be
+associated with other existing bugs. It is recommended that these be placed into
+their own issues and not included in the scope of this work.
+
+== Work Required
+_to be specified in the design note_
+
+== Acceptance Test
+_to be specified in the design note_
+
+== Document References
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
+. [[dr-2]] https://support.onefact.net/issues/11719[11719 - Create association
+fails if only two classes in the package]
+. [[dr-3]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
+. [[dr-4]] https://github.com/xtuml/doc-bridgepoint/notes/11554_relationship_editor/11554_relationship_editor_ant.adoc[Relationship Editor Analysis Note]
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
