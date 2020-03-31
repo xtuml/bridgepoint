@@ -41,6 +41,7 @@ public class MarkTransactionListener implements ITransactionListener {
                      IProject project = (IProject) ((SystemModel_c) sys_nrme).getAdapter(IProject.class);
                      if ( project != null ) {
                         MarkingData md = MarkingDataManager.getMarkingData(project);
+                        if (md.verifyMarkingData()) {
                         boolean rpk = false;
                         // Update a key letter change here, as recalculatePathKeys doesn't handle it.
                         if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
@@ -57,6 +58,7 @@ public class MarkTransactionListener implements ITransactionListener {
                         if (rpk || md.recalculatePathKeys()) {
                            // If the marks were updated then persist them
                            md.persist();
+                        }
                         }
                      }
                   }

@@ -268,39 +268,6 @@ public class MarkingData {
       return marksUpdated;
    }
 
-   public boolean updateClassNameData(String newAttributeValue, String oldAttributeValue)
-   {
-      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
-      boolean marksUpdated = false;
-      
-      for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
-         LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
-         for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) { 
-            if ( featureEntry.getValue().path.endsWith(oldAttributeValue) ) {
-               String newPath = elementEntry.getKey().substring(0, elementEntry.getKey().lastIndexOf(oldAttributeValue)).concat(newAttributeValue);
-               marksUpdated = true;
-               Mark origMark = featureEntry.getValue();
-               Mark mark = new Mark(); 
-               mark.markable_name = origMark.markable_name; 
-               mark.feature_name = origMark.feature_name; 
-               mark.path = newPath; 
-               mark.value = origMark.value; 
-               mark.nrme = origMark.nrme; 
-               newMarkList.put(newPath, mark);
-            } else {
-               // Unchanged entry
-               newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
-            }
-         }
-         newMarkingsMap.put(elementEntry.getKey(), newMarkList);
-      }
-      // Use the newly updated map of markings
-      if (marksUpdated) {
-         markingsMap = newMarkingsMap;
-      }
-      return marksUpdated;
-   }
-
    /**
     * Write the modified application marking data to disk
     */
@@ -479,7 +446,53 @@ public class MarkingData {
       }
       return null;
    }
-   
+
+   public boolean verifyMarkingData() {
+      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+      LinkedHashMap<String,Mark> markList;
+      Scanner inFile = new Scanner("");
+      
+      try {
+         inFile = new Scanner(new FileReader(project.getLocation().toString() + MARKINGS_FILE));
+         inFile.useDelimiter(",|\\r|\\n");
+      } catch (FileNotFoundException fnfe) {
+         // With the change to add the marking listener the data may be attempted to be loaded on a 
+         // project without the .mark files.  This may be fine as not all projects use this style of
+         // marking.  So we don't do anything when the file is not found.
+      }
+      
+      while ( inFile.hasNext() ) {
+         String modelElement = inFile.next().trim();
+         String featureName = inFile.next().trim();
+         String elementType = inFile.next().trim();
+         String featureValue = inFile.nextLine().trim();
+         featureValue = featureValue.replaceFirst(",", "");
+
+         if ( newMarkingsMap.containsKey(modelElement) ) {
+            // The model element has already been seen, add the feature to the list
+            markList = newMarkingsMap.get(modelElement);
+         } else {
+            // Element Type has not been seen yet
+            markList = new LinkedHashMap<String,Mark>();
+            newMarkingsMap.put(modelElement, markList);
+         }
+         Mark mark = new Mark();
+         mark.markable_name = elementType;
+         mark.feature_name = featureName;
+         mark.path = modelElement;
+         mark.value = featureValue;
+         mark.nrme = MarkingData.getNRMEForMark(modelElement, elementType, this.project);
+         markList.put(getCombinedRef(featureName, elementType), mark);
+      }
+      inFile.close();
+      boolean verified = markingsMap.equals(newMarkingsMap);
+      if (!verified) {
+         markingsMap = newMarkingsMap;
+         System.err.println("Marking data found invalid, corrected.");
+         verified = true;
+      }
+      return verified;
+   }
    /**
     * Update the keyletter value contained in the mark.
     * @param newAttributeValue - the new keyletter
@@ -517,5 +530,38 @@ public class MarkingData {
       }
       return marksUpdated;
    }
-   
+
+   public boolean updateClassNameData(String newAttributeValue, String oldAttributeValue)
+   {
+      boolean marksUpdated = false;
+      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+      
+      for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+         LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
+         for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) { 
+            if ( featureEntry.getValue().path.endsWith(oldAttributeValue) ) {
+               String newPath = elementEntry.getKey().substring(0, elementEntry.getKey().lastIndexOf(oldAttributeValue)).concat(newAttributeValue);
+               marksUpdated = true;
+               Mark origMark = featureEntry.getValue();
+               Mark mark = new Mark(); 
+               mark.markable_name = origMark.markable_name; 
+               mark.feature_name = origMark.feature_name; 
+               mark.path = newPath; 
+               mark.value = origMark.value; 
+               mark.nrme = origMark.nrme; 
+               newMarkList.put(newPath, mark);
+            } else {
+               // Unchanged entry
+               newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
+            }
+         }
+         newMarkingsMap.put(elementEntry.getKey(), newMarkList);
+      }
+      // Use the newly updated map of markings
+      if (marksUpdated) {
+         markingsMap = newMarkingsMap;
+      }
+      return marksUpdated;
+   }
+
 }
