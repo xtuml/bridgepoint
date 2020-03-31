@@ -42,23 +42,23 @@ public class MarkTransactionListener implements ITransactionListener {
                      if ( project != null ) {
                         MarkingData md = MarkingDataManager.getMarkingData(project);
                         if (md.verifyMarkingData()) {
-                        boolean rpk = false;
-                        // Update a key letter change here, as recalculatePathKeys doesn't handle it.
-                        if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
-                           AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
-                           if ("Key_lett" == change.getAttributeName()) {
-                               rpk = md.updateKeyletterData(change.getNewValue().toString(), change.getOldValue().toString());
-                           } else {
-                              if ( ("Name" == change.getAttributeName()) && 
-                                  (change.getModelElement() instanceof ModelClass_c) ) {
-                                 rpk = md.updateClassNameData(change.getNewValue().toString(), change.getOldValue().toString());
+                           boolean rpk = false;
+                           // Update a key letter change here, as recalculatePathKeys doesn't handle it.
+                           if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                              AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                              if ("Key_lett" == change.getAttributeName()) {
+                                  rpk = md.updateKeyletterData(change.getNewValue().toString(), change.getOldValue().toString());
+                              } else {
+                                 if ( ("Name" == change.getAttributeName()) && 
+                                     (change.getModelElement() instanceof ModelClass_c) ) {
+                                    rpk = md.updateClassNameData(change.getNewValue().toString(), change.getOldValue().toString());
+                                 }
                               }
                            }
-                        }
-                        if (rpk || md.recalculatePathKeys()) {
-                           // If the marks were updated then persist them
-                           md.persist();
-                        }
+                           if (rpk || md.recalculatePathKeys()) {
+                              // If the marks were updated then persist them
+                              md.persist();
+                           }
                         }
                      }
                   }
