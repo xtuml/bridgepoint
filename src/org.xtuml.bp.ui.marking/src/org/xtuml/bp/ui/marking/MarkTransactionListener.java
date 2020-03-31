@@ -41,7 +41,7 @@ public class MarkTransactionListener implements ITransactionListener {
                      IProject project = (IProject) ((SystemModel_c) sys_nrme).getAdapter(IProject.class);
                      if ( project != null ) {
                         MarkingData md = MarkingDataManager.getMarkingData(project);
-                        if (md.verifyMarkingData()) {
+                        if (md.verifyMarkingData(deltaToHandle)) {
                            boolean rpk = false;
                            // Update a key letter change here, as recalculatePathKeys doesn't handle it.
                            if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
@@ -49,10 +49,12 @@ public class MarkTransactionListener implements ITransactionListener {
                               if ("Key_lett" == change.getAttributeName()) {
                                   rpk = md.updateKeyletterData(change.getNewValue().toString(), change.getOldValue().toString());
                               } else {
+                            	  /*
                                  if ( ("Name" == change.getAttributeName()) && 
                                      (change.getModelElement() instanceof ModelClass_c) ) {
                                     rpk = md.updateClassNameData(change.getNewValue().toString(), change.getOldValue().toString());
                                  }
+                                 */
                               }
                            }
                            if (rpk || md.recalculatePathKeys()) {

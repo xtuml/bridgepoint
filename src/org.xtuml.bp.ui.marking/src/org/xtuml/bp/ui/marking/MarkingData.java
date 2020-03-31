@@ -22,11 +22,14 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
+import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TerminatorService_c;
+import org.xtuml.bp.core.common.AttributeChangeModelDelta;
+import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -447,7 +450,7 @@ public class MarkingData {
       return null;
    }
 
-   public boolean verifyMarkingData() {
+   public boolean verifyMarkingData(IModelDelta deltaToHandle) {
       LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
       LinkedHashMap<String,Mark> markList;
       Scanner inFile = new Scanner("");
@@ -482,6 +485,25 @@ public class MarkingData {
          mark.path = modelElement;
          mark.value = featureValue;
          mark.nrme = MarkingData.getNRMEForMark(modelElement, elementType, this.project);
+         if (null == mark.nrme) {
+             // Is this mark involved in the current transaction as an attribute change?
+             if ( deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                 AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                 String oldAttributeValue = change.getOldValue().toString();
+                 String newAttributeValue = change.getNewValue().toString();
+                 // This change would have to affect the path to return a null NRME. 
+                 // recalculatePathKeys handles interpath changes well, so check end of path.
+                 // This is usually a class name change.
+                 if (modelElement.endsWith(oldAttributeValue)) {
+                     modelElement = modelElement.substring(0, modelElement.lastIndexOf(oldAttributeValue)).concat(newAttributeValue);
+                     mark.path = modelElement;
+                     mark.nrme = MarkingData.getNRMEForMark(modelElement, elementType, this.project);
+                     if (null == mark.nrme) {
+                         System.err.println("nrme retry also null.");
+                     }
+                 }
+             }
+         }
          markList.put(getCombinedRef(featureName, elementType), mark);
       }
       inFile.close();
