@@ -9,6 +9,7 @@ import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.core.CorePlugin;
 
+// TODO - This is pretty similar to OALAutoEditStrategy.  See if it can be refactored.
 public class ASLAutoEditStrategy implements IAutoEditStrategy {
 
     public void customizeDocumentCommand(IDocument document, DocumentCommand command) {
@@ -51,13 +52,11 @@ public class ASLAutoEditStrategy implements IAutoEditStrategy {
             int start = document.getLineOffset(line);
             int end = start + document.getLineLength(line);
             String text = document.get(start,end-start);
-            // The following regex implements our pattern matching where we look for the required
-            // keywords.  We look for if, elif, or while followed by an optionally parenthesized 
-            // condition and we also look for else and for each while handling the user adding some
-            // extra spaces in the keyword.
+            // The following regex implements our pattern matching where we look for the required keywords
+            // to auto-indent after.  We look for lines beginning with "if", "else", "for", "loop", "switch", 
+            // "case", and "default"
             text = text.trim();
-            // TODO - This is where we need to do some pattern matching for ASL blocks!!!
-            if ( text.matches("^\\s*(?i)(if|elif|while)\\s*\\(?.*") || text.matches("^\\s*(?i)(else|for\\s+each\\s+)(.*)") ) {
+            if ( text.matches("^\\s*(?i)(if|else|for|loop|switch|case|default)(.*)") ) {
                 IPreferenceStore store = EditorsUI.getPreferenceStore();
                 boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
                 int tabWidth = store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH);

@@ -77,6 +77,11 @@ auto-indent
     endfor
   - loop
     endloop
+  - switch ...
+       case ...
+       default 
+    endswitch
+       
   
 - syntax highlighting
   - keywords 
