@@ -50,29 +50,27 @@ The application.mark parsing is done in:
 ** It has been observed to work on occasion.
 * [[ref-c,other container mark deletion]]Other marks not associated with the change have been deleted.
 ** The other marks were deleted were in a different container at a peer level to the change container. e.g., `CTR::CTR::CTR vs CTR::CTR::OTH`.
-** The other mark deletion was observed with class name change, key letter change, and method name change.
+** The other mark deletion was observed with class name change, key letter change, and method name change, and didn't require a change to data actually in application.mark.
 * [[ref-b,use of asterix]]Any marks containing an `*` are removed.
+* [[ref-d,marking data initialization]]The MarkingData initialization sometimes 
+returns Marks with null nrme attributes. 
 
 ==== Code Handling
-* For the <<ref-a>> observation, it was found that the _path_ element of the
- mark contained the class name, and the _path_ element was used to determine
- the validity of the root element, i.e., the class. If the order of operations
- was correct, i.e., class name is changed before end of transaction processing,
- this will cause a failure, because the old class name doesn't match the new
- class name. This is also the reason for the <<ref-b>> issue with respect to an
- `*` for the _path_ of the mark.
-* TBD for <<ref-c>>
+* For the <<ref-a>> observation, mark data has the nrme attribute set to null, 
+which causes the path to be invalidated, or the call to getNRMEForMark with the
+new class name returns null, which causes the path to be invalidated. The
+recalculatePathKeys call removes marks with invalid paths, as it assumes they
+are scheduled for deletion.
+* The observed bahavior for <<ref-c>>, with respect to the marks being deleted, 
+is that they are also returning an invalid path.
 * TBD for <<ref-b>> for the _markable element type_.
 
 === Order of operations
 
-The observation that the class rename sometimes updates the application.mark
-file correctly means that the marking update occured before the actual class 
-rename occured.
-
-According to <<dr-4>>, transactions are handled via asynchronous events to all
-transaction listeners. Asynchronous events can't be guaranteed to have an
-established order, so the marking update must be able to handle both situations.
+* For the <<ref-d>>, the null attributes can appear in any order, which suggests
+that model loading isn't done sequentially.
+* For the <<ref-a>>, there appears to be a race condition with class name 
+change in the loaded model and the marking data transaction end processing.
 
 == Work Required
 

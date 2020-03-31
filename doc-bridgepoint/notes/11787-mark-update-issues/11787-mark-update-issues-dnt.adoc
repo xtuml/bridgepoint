@@ -42,6 +42,9 @@ should be predicated upon only this transaction.
 recalculatePathKeys modifies the collected marking data. A fix has to occur
 before or during the call to recalculatePathKeys.
 
+Path issues are due to nrme attribute setting. For a valid set of marks, this
+shouldn't be null, but the race conditions in <<dr-1>> are in play.
+
 == Design
 
 === Keyletter change persist
