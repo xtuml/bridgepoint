@@ -252,7 +252,7 @@ attempted.
 . Right click on the project and select "Properties"
 . In the "Builders" section, select "Missing builder
   (org.xtuml.bp.mc.*.export_builder)" and click "Remove"
-. In the "Builders" section, select "Missing Compiler" and click "Remove"
+. In the "Builders" section, select "Model Compiler" and click "Remove"
 . Click "Apply and Close"
 . Right click on the project and select "BridgePoint Utilities > Set Model
   Compilers"
