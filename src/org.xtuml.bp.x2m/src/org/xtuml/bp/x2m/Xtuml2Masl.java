@@ -394,7 +394,7 @@ public class Xtuml2Masl {
         }
 
         Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
-                .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
+                .setSkipActionLanguage(skipActionLanguage).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
                     .setIsDomain(buildElements.get(i).isDomain);
