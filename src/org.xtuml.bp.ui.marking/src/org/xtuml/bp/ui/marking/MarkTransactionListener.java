@@ -41,26 +41,16 @@ public class MarkTransactionListener implements ITransactionListener {
                      IProject project = (IProject) ((SystemModel_c) sys_nrme).getAdapter(IProject.class);
                      if ( project != null ) {
                         MarkingData md = MarkingDataManager.getMarkingData(project);
-                        if (md.verifyMarkingData(deltaToHandle)) {
-                           boolean rpk = false;
-                           // Update a key letter change here, as recalculatePathKeys doesn't handle it.
-                           if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
-                              AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
-                              if ("Key_lett" == change.getAttributeName()) {
-                                  rpk = md.updateKeyletterData(change.getNewValue().toString(), change.getOldValue().toString());
-                              } else {
-                            	  /*
-                                 if ( ("Name" == change.getAttributeName()) && 
-                                     (change.getModelElement() instanceof ModelClass_c) ) {
-                                    rpk = md.updateClassNameData(change.getNewValue().toString(), change.getOldValue().toString());
-                                 }
-                                 */
-                              }
-                           }
-                           if (rpk || md.recalculatePathKeys()) {
-                              // If the marks were updated then persist them
-                              md.persist();
-                           }
+                        // Update a mark value change here, as recalculatePathKeys doesn't handle it.
+                        boolean valueDataUpdated = false;
+                        if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                           AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                           valueDataUpdated = md.updateValueData(change.getNewValue().toString(), change.getOldValue().toString());
+                        }
+                        boolean pathDataUpdated = md.verifyPathData(deltaToHandle);
+                        if (valueDataUpdated || pathDataUpdated) {
+                           // If the marks were updated then persist them
+                           md.persist();
                         }
                      }
                   }

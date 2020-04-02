@@ -49,6 +49,13 @@ public class MarkingData {
          value = new String("");
          nrme = null;
       }
+      
+      public boolean contains(String value) { 
+         return markable_name.matches("[:]*" + value + "[:$]") || 
+                feature_name.matches("[:]*" + value + "[:$]") || 
+                path.matches("[:]*" + value + "[:$]") || 
+                value.matches("[:\"]*" + value + "[:\"$]*");
+      }
    }
    
    private IProject project;
@@ -200,7 +207,11 @@ public class MarkingData {
       mark.feature_name = featureName;
       mark.path = modelElement;
       mark.value = newValue;
-      mark.nrme = MarkingData.getNRMEForMark(modelElement, elemType, this.project);
+      if (modelElement.equals("*")) {
+          mark.nrme = null;
+      } else {
+          mark.nrme = MarkingData.getNRMEForMark(modelElement, elemType, this.project);
+      }
       markList.put(getCombinedRef(featureName, elemType), mark);
    }
 
@@ -215,25 +226,77 @@ public class MarkingData {
    }
    
    /**
-    * Iterate through all the marks and update model path keys. 
+    * Iterate through all the marks and update model path keys.
+    * Retains marks with '*' data as is.
+    * Retries added for possible model loading race conditions. This only 
+    * applies to attribute changes.
     *
+    * @param deltaToHandle - the change data to use for retries.
+    * 
     * @return Flag indicating if the markings had to be updated or not 
     */
-   public boolean recalculatePathKeys() {
+   public boolean verifyPathData(IModelDelta deltaToHandle) {
       LinkedHashMap<String,Mark> newMarkList;
       LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
       boolean marksUpdated = false;
       
       for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
          Set<Map.Entry<String, Mark>> featureEntrySet = elementEntry.getValue().entrySet();
-
-         // Run a path check on the first mark in the set.  If it's OK, then all the marks in this set
-         // are OK and we skip further processing.  If it's not OK, we must iterate through all the marks
-         // for this model element and update them.
-         Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next(); 
-         // Use the mark's nrme to get the updated path and see if it matches elementEntry.getKey()
-         String newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
+         String newPath;
          String currentPath = elementEntry.getKey();
+         
+         Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next(); 
+         // Handle '*' in path as a special case per Ciera requirements.
+         if (currentPath.equals("*")) {
+             newPath = currentPath;
+         } else if ( (deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) && 
+                     !(currentPath.matches(".*\\b" +
+                       ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString() + 
+                       "\\b.*")) ) {
+             // Attribute change with attribute not in path.
+             newPath = currentPath;
+         } else {
+            // Run a path check on the first mark in the set.  If it's OK, then all the marks in this set
+            // are OK and we skip further processing.  If it's not OK, we must iterate through all the marks
+            // for this model element and update them.
+            // Use the mark's nrme to get the updated path and see if it matches elementEntry.getKey()
+            newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
+            // Due to the possibility of a race condition between the model update causing this transaction and 
+            // this transaction handling, additional steps need to be taken to ensure the return of the 
+            // previous call wasn't due to being out of sync with the model.
+            if ((newPath == null) || newPath.isEmpty()) {
+               // Is this mark involved in the current transaction as an attribute change?
+               if ( deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                  AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                  String oldAttributeValue = change.getOldValue().toString();
+                  String newAttributeValue = change.getNewValue().toString();
+                  // This change would have to affect the path to return a null NRME, so check the path.
+                  String modelElement = firstfeatureEntry.getValue().path;
+                  if (modelElement.matches(".*\\b" + oldAttributeValue + "\\b.*")) {
+                     // There can be more than one match in the path, so we have to change each until a
+                     // valid nrme is found.
+                     NonRootModelElement newNrme = null;
+                     boolean allTried = false;
+                     int idx = modelElement.indexOf(oldAttributeValue);
+                     int lastIdx = modelElement.lastIndexOf(oldAttributeValue);
+                     while (!allTried && (null == newNrme)) {
+                         String updatedPath = modelElement.replaceFirst("(.{" + idx + "})\\b" + oldAttributeValue + "\\b(.*)", "$1" + newAttributeValue + "$2");
+                         newNrme = MarkingData.getNRMEForMark(updatedPath, firstfeatureEntry.getValue().markable_name, this.project);
+                         if (idx == lastIdx) {
+                             allTried = true;
+                         } else {
+                             idx = modelElement.indexOf(oldAttributeValue, idx + oldAttributeValue.length());
+                             updatedPath = modelElement;
+                         }
+                     }
+                     if (null == newNrme) {
+                         System.err.println("nrme retry also null.");
+                     }
+                     newPath = MarkingData.getPathkey(newNrme, project);
+                  } 
+               }
+            }
+         }
          if ((newPath == null) || newPath.isEmpty()) {
             // A container for the marked element must have been deleted, remove the mark
             marksUpdated = true;
@@ -268,6 +331,45 @@ public class MarkingData {
          markingsMap = newMarkingsMap;
       }
       
+      return marksUpdated;
+   }
+
+   /**
+    * Check the value data, contained in the mark, for change and update on change.
+    * @param newAttributeValue - the new value
+    * @param oldAttributeValue - the old value
+    * @return Indicates if the marking data needs to be persisted.
+    */
+   public boolean updateValueData(String newAttributeValue, String oldAttributeValue)
+   {
+      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+      boolean marksUpdated = false;
+      
+      for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+         LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
+         for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) {
+            String markValue = featureEntry.getValue().value;
+            if ( markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") ) {
+               marksUpdated = true;
+               Mark origMark = featureEntry.getValue();
+               Mark mark = new Mark();
+               mark.markable_name = origMark.markable_name;
+               mark.feature_name = origMark.feature_name;
+               mark.path = origMark.path;
+               mark.value = markValue.replace(oldAttributeValue, newAttributeValue);
+               mark.nrme = origMark.nrme;
+               newMarkList.put(featureEntry.getKey(), mark);
+            } else {
+               // Unchanged entry
+               newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
+            }
+         }
+         newMarkingsMap.put(elementEntry.getKey(), newMarkList);
+      }
+      // Use the newly updated map of markings
+      if (marksUpdated) {
+         markingsMap = newMarkingsMap;
+      }
       return marksUpdated;
    }
 
@@ -448,142 +550,6 @@ public class MarkingData {
          }
       }
       return null;
-   }
-
-   public boolean verifyMarkingData(IModelDelta deltaToHandle) {
-      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
-      LinkedHashMap<String,Mark> markList;
-      Scanner inFile = new Scanner("");
-      
-      try {
-         inFile = new Scanner(new FileReader(project.getLocation().toString() + MARKINGS_FILE));
-         inFile.useDelimiter(",|\\r|\\n");
-      } catch (FileNotFoundException fnfe) {
-         // With the change to add the marking listener the data may be attempted to be loaded on a 
-         // project without the .mark files.  This may be fine as not all projects use this style of
-         // marking.  So we don't do anything when the file is not found.
-      }
-      
-      while ( inFile.hasNext() ) {
-         String modelElement = inFile.next().trim();
-         String featureName = inFile.next().trim();
-         String elementType = inFile.next().trim();
-         String featureValue = inFile.nextLine().trim();
-         featureValue = featureValue.replaceFirst(",", "");
-
-         if ( newMarkingsMap.containsKey(modelElement) ) {
-            // The model element has already been seen, add the feature to the list
-            markList = newMarkingsMap.get(modelElement);
-         } else {
-            // Element Type has not been seen yet
-            markList = new LinkedHashMap<String,Mark>();
-            newMarkingsMap.put(modelElement, markList);
-         }
-         Mark mark = new Mark();
-         mark.markable_name = elementType;
-         mark.feature_name = featureName;
-         mark.path = modelElement;
-         mark.value = featureValue;
-         mark.nrme = MarkingData.getNRMEForMark(modelElement, elementType, this.project);
-         if (null == mark.nrme) {
-             // Is this mark involved in the current transaction as an attribute change?
-             if ( deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
-                 AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
-                 String oldAttributeValue = change.getOldValue().toString();
-                 String newAttributeValue = change.getNewValue().toString();
-                 // This change would have to affect the path to return a null NRME. 
-                 // recalculatePathKeys handles interpath changes well, so check end of path.
-                 // This is usually a class name change.
-                 if (modelElement.endsWith(oldAttributeValue)) {
-                     modelElement = modelElement.substring(0, modelElement.lastIndexOf(oldAttributeValue)).concat(newAttributeValue);
-                     mark.path = modelElement;
-                     mark.nrme = MarkingData.getNRMEForMark(modelElement, elementType, this.project);
-                     if (null == mark.nrme) {
-                         System.err.println("nrme retry also null.");
-                     }
-                 }
-             }
-         }
-         markList.put(getCombinedRef(featureName, elementType), mark);
-      }
-      inFile.close();
-      boolean verified = markingsMap.equals(newMarkingsMap);
-      if (!verified) {
-         markingsMap = newMarkingsMap;
-         System.err.println("Marking data found invalid, corrected.");
-         verified = true;
-      }
-      return verified;
-   }
-   /**
-    * Update the keyletter value contained in the mark.
-    * @param newAttributeValue - the new keyletter
-    * @param oldAttributeValue - the old keyletter
-    * @return Indicates if the marking data needs to be persisted.
-    */
-   public boolean updateKeyletterData(String newAttributeValue, String oldAttributeValue)
-   {
-      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
-      boolean marksUpdated = false;
-      
-      for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
-         LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
-         for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) { 
-            if ( featureEntry.getValue().value.regionMatches(1, oldAttributeValue, 0, oldAttributeValue.length()) ) {
-               marksUpdated = true;
-               Mark origMark = featureEntry.getValue();
-               Mark mark = new Mark(); 
-               mark.markable_name = origMark.markable_name; 
-               mark.feature_name = origMark.feature_name; 
-               mark.path = origMark.path; 
-               mark.value = "\"" + newAttributeValue + "\""; 
-               mark.nrme = origMark.nrme; 
-               newMarkList.put(featureEntry.getKey(), mark);
-            } else {
-               // Unchanged entry
-               newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
-            }
-         }
-         newMarkingsMap.put(elementEntry.getKey(), newMarkList);
-      }
-      // Use the newly updated map of markings
-      if (marksUpdated) {
-         markingsMap = newMarkingsMap;
-      }
-      return marksUpdated;
-   }
-
-   public boolean updateClassNameData(String newAttributeValue, String oldAttributeValue)
-   {
-      boolean marksUpdated = false;
-      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
-      
-      for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
-         LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
-         for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) { 
-            if ( featureEntry.getValue().path.endsWith(oldAttributeValue) ) {
-               String newPath = elementEntry.getKey().substring(0, elementEntry.getKey().lastIndexOf(oldAttributeValue)).concat(newAttributeValue);
-               marksUpdated = true;
-               Mark origMark = featureEntry.getValue();
-               Mark mark = new Mark(); 
-               mark.markable_name = origMark.markable_name; 
-               mark.feature_name = origMark.feature_name; 
-               mark.path = newPath; 
-               mark.value = origMark.value; 
-               mark.nrme = origMark.nrme; 
-               newMarkList.put(newPath, mark);
-            } else {
-               // Unchanged entry
-               newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
-            }
-         }
-         newMarkingsMap.put(elementEntry.getKey(), newMarkList);
-      }
-      // Use the newly updated map of markings
-      if (marksUpdated) {
-         markingsMap = newMarkingsMap;
-      }
-      return marksUpdated;
    }
 
 }
