@@ -56,11 +56,12 @@ The application.mark parsing is done in:
 returns Marks with null nrme attributes. 
 
 ==== Code Handling
+
+=== Mark deletion
+
 * For the <<ref-a>> observation, mark data has the nrme attribute set to null, 
-which causes the path to be invalidated, or the call to getNRMEForMark with the
-new class name returns null, which causes the path to be invalidated. The
-recalculatePathKeys call removes marks with invalid paths, as it assumes they
-are scheduled for deletion.
+which causes the path to be invalidated. The recalculatePathKeys call removes 
+marks with invalid paths, as it assumes they are scheduled for deletion.
 * The observed bahavior for <<ref-c>>, with respect to the marks being deleted, 
 is that they are also returning an invalid path.
 * The MarkingData initialization as well as the path recalculation doesn't 
@@ -70,9 +71,17 @@ fails.
 === Order of operations
 
 * For the <<ref-d>>, the null nrme attributes can appear in any order, which 
-suggests that model loading isn't done sequentially.
-* For the <<ref-a>>, there appears to be a race condition with class name 
-change in the loaded model and the marking data transaction end processing.
+suggests that model loading isn't done sequentially. There is a race condition
+between the model loading and the initialization of the marking data. If the
+mark element isn't loaded yet, the attempt to find it's NRME returns null.
+* For the <<ref-a>>, the null nrme is the issue. It is possible to get a valid 
+nrme if the mark can be found, the transaction change applied to the existing
+mark's path, and the nrme obtained from the new path.
+* There are two ways to ensure <<ref-a>> and <<ref-c>> don't occur for valid 
+marking data; 1) Don't initialize the marking data until the model loading is
+finished, and 2) Reinitialize the marking data of makr with a null nrme. The
+reinitialization can't be done at transaction end, as the mark path has already
+changed.
 
 == Work Required
 
