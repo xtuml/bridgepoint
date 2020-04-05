@@ -62,7 +62,7 @@ method and the update path method must both be run for the transaction.
 
 === Path name change fix
 
-A mechanism for updaating the path name will be added to the path calculation in
+A mechanism for updating the path name will be added to the path calculation in
 such a manner that the old name will be checked, and then if it fails, the new
 name will be checked. The result handling will then proceed as written.
 
