@@ -42,29 +42,48 @@ should be predicated upon only this transaction.
 recalculatePathKeys modifies the collected marking data. A fix has to occur
 before or during the call to recalculatePathKeys.
 
-Path issues are due to nrme attribute setting. For a valid set of marks, this
-shouldn't be null, but the race conditions in <<dr-1>> are in play.
+Path issues can be due to nrme attribute setting. For a valid set of named 
+marks, the nrme attribute shouldn't be null, but the race conditions discussed 
+in <<dr-1>> are in play.
+
+The race conditions also come into play when the nrme attribute is valid. In
+this case, the new value for a named element is in place, but the old value is
+being used to recalculate the path.
 
 == Design
 
-=== Keyletter change persist
+=== Value change persist
 
-The keyletter mark data can be updated before the call to recalculatePathKeys,
-so a new MarkingData method will be created to handle it. There is no need to
-run recalculate path keys for a keyletter transaction.
+The mark value attribute data can be updated before the call to recalculate the
+new path, so a new MarkingData method will be created to handle it.
 
-=== Class rename fix
+Some value data updates can also be due to named path changes, so this new
+method and the update path method must both be run for the transaction.
 
+=== Path name change fix
+
+A mechanism for updaating the path name will be added to the path calculation in
+such a manner that the old name will be checked, and then if it fails, the new
+name will be checked. The result handling will then proceed as written.
+
+=== Asterix support
+
+Asterix detection will be added to the path calculation and marks with an
+asterix will not be modified. As asterix support in values isn't required, the
+value update method will not have any special handling for asterix.
 
 == Design Comments
+
+These fixes will not solve all issues with marks getting deleted that might be
+caused by <<dr-2>>.
 
 == User Documentation
 
 == Unit Test
 
 == Document References
-. [[dr-1]]
-https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11787-mark-update-issues/11787-mark-update-issues-ant.adoc[11787 Mark Update Issues Analysis Note]
+. [[dr-1]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11787-mark-update-issues/11787-mark-update-issues-ant.adoc[11787 Mark Update Issues Analysis Note]
+. [[dr-2]] https://support.onefact.net/issues/11472[11472 - Deadlock during load (parent)]
 ---
 
 This work is licensed under the Creative Commons CC0 License

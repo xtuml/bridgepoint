@@ -2,7 +2,6 @@ package org.xtuml.bp.ui.marking;
 
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.DataType_c;
-import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
@@ -45,9 +44,9 @@ public class MarkTransactionListener implements ITransactionListener {
                         boolean valueDataUpdated = false;
                         if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
                            AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
-                           valueDataUpdated = md.updateValueData(change.getNewValue().toString(), change.getOldValue().toString());
+                           valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(), change.getOldValue().toString());
                         }
-                        boolean pathDataUpdated = md.verifyPathData(deltaToHandle);
+                        boolean pathDataUpdated = md.recalculatePathKeys(deltaToHandle);
                         if (valueDataUpdated || pathDataUpdated) {
                            // If the marks were updated then persist them
                            md.persist();

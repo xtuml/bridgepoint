@@ -63,12 +63,14 @@ recalculatePathKeys call removes marks with invalid paths, as it assumes they
 are scheduled for deletion.
 * The observed bahavior for <<ref-c>>, with respect to the marks being deleted, 
 is that they are also returning an invalid path.
-* TBD for <<ref-b>> for the _markable element type_.
+* The MarkingData initialization as well as the path recalculation doesn't 
+account for <<ref-b>>. Both try to get the path key for a value of '*', which
+fails.
 
 === Order of operations
 
-* For the <<ref-d>>, the null attributes can appear in any order, which suggests
-that model loading isn't done sequentially.
+* For the <<ref-d>>, the null nrme attributes can appear in any order, which 
+suggests that model loading isn't done sequentially.
 * For the <<ref-a>>, there appears to be a race condition with class name 
 change in the loaded model and the marking data transaction end processing.
 

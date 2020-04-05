@@ -49,13 +49,6 @@ public class MarkingData {
          value = new String("");
          nrme = null;
       }
-      
-      public boolean contains(String value) { 
-         return markable_name.matches("[:]*" + value + "[:$]") || 
-                feature_name.matches("[:]*" + value + "[:$]") || 
-                path.matches("[:]*" + value + "[:$]") || 
-                value.matches("[:\"]*" + value + "[:\"$]*");
-      }
    }
    
    private IProject project;
@@ -235,7 +228,7 @@ public class MarkingData {
     * 
     * @return Flag indicating if the markings had to be updated or not 
     */
-   public boolean verifyPathData(IModelDelta deltaToHandle) {
+   public boolean recalculatePathKeys(IModelDelta deltaToHandle) {
       LinkedHashMap<String,Mark> newMarkList;
       LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
       boolean marksUpdated = false;
@@ -289,9 +282,6 @@ public class MarkingData {
                              updatedPath = modelElement;
                          }
                      }
-                     if (null == newNrme) {
-                         System.err.println("nrme retry also null.");
-                     }
                      newPath = MarkingData.getPathkey(newNrme, project);
                   } 
                }
@@ -340,7 +330,7 @@ public class MarkingData {
     * @param oldAttributeValue - the old value
     * @return Indicates if the marking data needs to be persisted.
     */
-   public boolean updateValueData(String newAttributeValue, String oldAttributeValue)
+   public boolean updateValueData(NonRootModelElement nrmeOfChange, String newAttributeValue, String oldAttributeValue)
    {
       LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
       boolean marksUpdated = false;
@@ -348,8 +338,14 @@ public class MarkingData {
       for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
          LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
          for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) {
+            // Check for model loading/mark loading race condition.
+            NonRootModelElement nrmeCurrent = featureEntry.getValue().nrme;
+            if ( (null == nrmeCurrent) && !featureEntry.getValue().path.equals("*") ){
+                nrmeCurrent = getNRMEForMark(featureEntry.getValue().path, featureEntry.getValue().markable_name, this.project);
+            }
             String markValue = featureEntry.getValue().value;
-            if ( markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") ) {
+            if ( markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") && 
+                 (featureEntry.getValue().path.equals("*") || nrmeOfChange.equals(nrmeCurrent)) ) {
                marksUpdated = true;
                Mark origMark = featureEntry.getValue();
                Mark mark = new Mark();
