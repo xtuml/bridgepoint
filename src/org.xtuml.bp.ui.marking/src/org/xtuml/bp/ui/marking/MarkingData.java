@@ -326,6 +326,7 @@ public class MarkingData {
 
    /**
     * Check the value data, contained in the mark, for change and update on change.
+    * @param nrmeOfChange - the NRME obtained from the transaction
     * @param newAttributeValue - the new value
     * @param oldAttributeValue - the old value
     * @return Indicates if the marking data needs to be persisted.
