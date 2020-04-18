@@ -259,18 +259,18 @@ INSERT INTO O_TFR
 select one battr related by self->O_BATTR[R113];
 if ( not_empty battr )
 
-select one attr related by self->O_ATTR[R106];
-select one dt related by attr->S_DT[R114];
-if ( not_empty dt )
-  if ( dt.Name == "same_as<Base_Attribute>" )
-    return;
-  else
-    unrelate attr from dt across R114;
+  select one attr related by self->O_ATTR[R106];
+  select one dt related by attr->S_DT[R114];
+  if ( not_empty dt )
+    if ( dt.Name == "same_as<Base_Attribute>" )
+      return;
+    else
+      unrelate attr from dt across R114;
+    end if;
   end if;
-end if;
 
 
-select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
+  select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
 
 
   select one system related by pkg->S_SYS[R1405];
@@ -286,7 +286,6 @@ select one pkg related by attr->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
   else
     relate attr to ref_attr_dt across R114;
   end if;
-
 end if;
 ',
 	1,
