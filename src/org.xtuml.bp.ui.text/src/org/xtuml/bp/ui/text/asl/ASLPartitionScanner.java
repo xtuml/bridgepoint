@@ -19,6 +19,9 @@ public class ASLPartitionScanner extends RuleBasedPartitionScanner {
 
 		IPredicateRule[] rules = new IPredicateRule[1];
 
+		// TODO SKB - This is currently not working for multi-line comments.  I think 
+		// the issue is that the single line comment uses the single token "#" (defined
+		// in ASLScanner) and that is getting processed before this multiline rule
 		rules[0] = new MultiLineRule("#{", "}#", commentToken, (char) 0, true); //$NON-NLS-1$
 
 		setPredicateRules(rules);
@@ -58,7 +61,7 @@ public class ASLPartitionScanner extends RuleBasedPartitionScanner {
 		* Method declared on IWordDetector
 		*/
 		public boolean isWordStart(char c) {
-			return (c == '#');
+			return (c == '}' || c == '#');
 		}
 
 		/* (non-Javadoc)

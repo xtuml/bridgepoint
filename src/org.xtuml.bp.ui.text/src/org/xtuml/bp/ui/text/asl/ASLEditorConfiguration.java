@@ -34,8 +34,8 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
-			IDocument.DEFAULT_CONTENT_TYPE,
-			ASLPartitionScanner.CONTENT_TYPE_multiline_comment };
+			ASLPartitionScanner.CONTENT_TYPE_multiline_comment,
+			IDocument.DEFAULT_CONTENT_TYPE};
 	}
 
 	protected ITokenScanner getActionLanguageScanner() {
@@ -61,14 +61,13 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 		if (reconciler == null) {
 			reconciler = new PresentationReconciler();
 
-			DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getActionLanguageScanner());
-			reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
-			reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
-
-			dr = new DefaultDamagerRepairer(getCommentScanner());
+			DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getCommentScanner());
 			reconciler.setDamager(dr, ASLPartitionScanner.CONTENT_TYPE_multiline_comment);
 			reconciler.setRepairer(dr, ASLPartitionScanner.CONTENT_TYPE_multiline_comment);
-
+			
+			dr = new DefaultDamagerRepairer(getActionLanguageScanner());
+			reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
+			reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 		}
 		return reconciler;
 	}

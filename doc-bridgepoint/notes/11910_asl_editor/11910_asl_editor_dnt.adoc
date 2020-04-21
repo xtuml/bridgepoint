@@ -99,7 +99,7 @@ auto-indent
           “}#”
   - Strings with "" 
   - Should values inside ' ' be highlighted?
-  - TEST: need to check every construct visually for proper highlighting
+  - TEST: need to check every construct visually for proper highlighting, caps and lower
 
 junit tests
 
