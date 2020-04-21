@@ -1,0 +1,180 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
+	'Deferral',
+	115,
+	'O_DEF',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("7d4218cb-d42a-47a7-a685-e4d3a38bc004",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	'get_name',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one r_rel related by self->R_REL[R126];
+select one o_tfr related by self->O_TFR[R126];
+name = "R" + GD::int_to_string(value:r_rel.Numb) + "." + o_tfr.Name;
+if (self.required != 0)
+  name = "{" + name + "}";
+end if;
+return name;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_REF
+	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	0,
+	"fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"9671ea98-4a51-4815-93ec-d2d6b9226ac9",
+	"7b3593a6-e1fe-4654-8b54-eebe1a20853a",
+	"202fbf96-9ba9-4745-ade1-8510eeab69f8",
+	"813dacd1-45f8-4601-adf9-2f073676b690",
+	"b52241c0-88e3-4ca2-b62e-1a49bb4e71d6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Operation',
+	'Tfr_ID',
+	'R126.''delegates execution of''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"9671ea98-4a51-4815-93ec-d2d6b9226ac9",
+	"7b3593a6-e1fe-4654-8b54-eebe1a20853a",
+	'../Subsystem.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	0,
+	"9671ea98-4a51-4815-93ec-d2d6b9226ac9",
+	"202fbf96-9ba9-4745-ade1-8510eeab69f8",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("813dacd1-45f8-4601-adf9-2f073676b690",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	1,
+	'Tfr_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'../Operation/Operation.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("813dacd1-45f8-4601-adf9-2f073676b690",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"00000000-0000-0000-0000-000000000000",
+	'Tfr_ID',
+	'',
+	'',
+	'Tfr_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"9671ea98-4a51-4815-93ec-d2d6b9226ac9",
+	"7b3593a6-e1fe-4654-8b54-eebe1a20853a",
+	"c8a8bb86-7339-4930-84d9-8ec81ea0d736",
+	"33d68d1f-fddd-492b-bece-9fe1b1f10e88",
+	"060d61fa-f22b-4b5d-8b4e-775e2de9873c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Association',
+	'Rel_ID',
+	'R126.''defers execution to subtypes across''');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"9671ea98-4a51-4815-93ec-d2d6b9226ac9",
+	"c8a8bb86-7339-4930-84d9-8ec81ea0d736",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("33d68d1f-fddd-492b-bece-9fe1b1f10e88",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("33d68d1f-fddd-492b-bece-9fe1b1f10e88",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"813dacd1-45f8-4601-adf9-2f073676b690",
+	'Rel_ID',
+	'',
+	'',
+	'Rel_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bcc239fc-7f6a-4faf-9a7b-f8be96b0506a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO O_BATTR
+	VALUES ("bcc239fc-7f6a-4faf-9a7b-f8be96b0506a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO O_ATTR
+	VALUES ("bcc239fc-7f6a-4faf-9a7b-f8be96b0506a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	"33d68d1f-fddd-492b-bece-9fe1b1f10e88",
+	'required',
+	'Full Name: Required
+Description: If the deferred operation is not required, the implementation of the supertype will be used if
+the subtype operation does not exist.
+Data Domain: 0 = required, 1 = optional
+enum0: Required
+enum1: Optional',
+	'',
+	'required',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO O_OIDA
+	VALUES ("813dacd1-45f8-4601-adf9-2f073676b690",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	0,
+	'Tfr_ID');
+INSERT INTO O_OIDA
+	VALUES ("33d68d1f-fddd-492b-bece-9fe1b1f10e88",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	0,
+	'Rel_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO O_ID
+	VALUES (2,
+	"dc721b26-4e27-4d57-a1c8-03da343208d2");
+INSERT INTO PE_PE
+	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Subsystem',
+	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
+	101,
+	'../Subsystem.xtuml');

@@ -57,21 +57,24 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
-                    <include>mcmc</include>
+                    <include>build_masl</include>
+                    <include>CLI.sh</include>
+                    <include>integrity</include>
+                    <include>launch-cli.py</include>
                     <include>m2x</include>
                     <include>masl</include>
                     <include>masl2xtuml</include>
+                    <include>masl_check</include>
+                    <include>masl_round_trip</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
+                    <include>mcmc</include>
+                    <include>wasl_round_trip</include>
+                    <include>wasldiff</include>
                     <include>x2m</include>
                     <include>xtuml2masl</include>
+                    <include>xtuml2wasl</include>
                     <include>xtumlmc_build</include>
-                    <include>CLI.sh</include>
-                    <include>launch-cli.py</include>
-                    <include>masl_round_trip</include>
-                    <include>build_masl</include>
-                    <include>masl_check</include>
-                    <include>integrity</include>
                   </includes>
                 </resource>
               </resources>              
@@ -91,26 +94,29 @@
                 <resource>
                   <directory>../../../mc/bin/</directory>
                   <includes>
-                    <include>MASLParser.jar</include>
-                    <include>xtumlmc_build</include>
+                    <include>build_masl</include>
                     <include>CLI.sh</include>
                     <include>launch-cli.py</include>
                     <include>masl2xtuml</include>
-                    <include>masldiff</include>
-                    <include>xtuml2masl</include>
-                    <include>masl_round_trip</include>
-                    <include>build_masl</include>
                     <include>masl_check</include>
+                    <include>masl_round_trip</include>
+                    <include>masldiff</include>
+                    <include>MASLParser.jar</include>
+                    <include>wasl_round_trip</include>
+                    <include>wasldiff</include>
+                    <include>xtuml2masl</include>
+                    <include>xtuml2wasl</include>
+                    <include>xtumlmc_build</include>
                   </includes>
                 </resource>
                 <resource>
                   <directory>../../../mc/bin/mac/</directory>
                   <includes>
-                    <include>mcmc</include>
+                    <include>integrity</include>
                     <include>m2x</include>
                     <include>masl</include>
+                    <include>mcmc</include>
                     <include>x2m</include>
-                    <include>integrity</include>
                   </includes>
                 </resource>
               </resources>              
@@ -128,15 +134,33 @@
               <outputDirectory>${basedir}/win.all/tools/mc/bin</outputDirectory>
               <resources>          
                 <resource>
+                  <directory>../../../mc/bin</directory>
+                  <includes>
+                    <include>build_masl</include>
+                    <include>CLI.sh</include>
+                    <include>launch-cli.py</include>
+                    <include>masl2xtuml</include>
+                    <include>masl_check</include>
+                    <include>masl_round_trip</include>
+                    <include>masldiff</include>
+                    <include>MASLParser.jar</include>
+                    <include>wasl_round_trip</include>
+                    <include>wasldiff</include>
+                    <include>xtuml2masl</include>
+                  </includes>
+                </resource>
+                <resource>
                   <directory>../../../mc/bin/win</directory>
                   <includes>
-                    <include>mcmc.exe</include>
-                    <include>xtumlmc_build.exe</include>
                     <include>CLI.bat</include>
+                    <include>integrity.exe</include>
                     <include>m2x.exe</include>
                     <include>masl.exe</include>
+                    <include>mcmc.exe</include>
                     <include>x2m.exe</include>
-                    <include>integrity.exe</include>
+                    <include>xtuml2wasl</include>
+                    <include>xtumlmc_build.exe</include>
+                    <include>xtumlmc_build.pl</include>
                   </includes>
                 </resource>
               </resources>              
@@ -179,6 +203,9 @@
                 <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar" 
                       tofile="${basedir}/mac.all/tools/mc/bin/antlr-3.5.2-complete.jar"
                       overwrite="true" />             
+                <copy file="${basedir}/linux.all/tools/mc/bin/antlr-3.5.2-complete.jar"
+                      tofile="${basedir}/win.all/tools/mc/bin/antlr-3.5.2-complete.jar"
+                      overwrite="true" />
                 <get src="https://github.com/xtuml/pyrsl/releases/download/v2.1.0/gen_erate.pyz" 
                      dest="${basedir}/linux.all/tools/mc/bin/gen_erate.pyz" />
                 <copy file="${basedir}/linux.all/tools/mc/bin/gen_erate.pyz" 
