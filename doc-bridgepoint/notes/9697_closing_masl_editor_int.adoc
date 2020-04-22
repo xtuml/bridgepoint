@@ -1,0 +1,54 @@
+= Issue closing MASL editor and not saving
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This implementation note describes the fix reported in <<dr-1>>.
+
+== 2 Introduction and Background
+
+User reported that opening a masl text file, modifying it, then closing without
+saving leaves the file in a state, that whenever it is reopened and modified,
+the user is presented with a message that the file is open in another editor.
+
+== 3 Requirements
+
+A file should be able to be opened, modified, and saved or not saved without the
+file being left in a state where any subsequent edits will not view the file as
+already in use.
+
+== 4 Work Required
+
+Ensure the file is properly closed on exit.
+
+== 5 Implementation Comments
+
+This had to do with xtext tracking the "dirty" state of files it's editor 
+opens. The dispose() method in the MASL editor, which inherits the Xtext editor,
+wasn't calling the parent dispose method to properly clean up after itself.
+
+== 6 Unit Test
+
+No unit tests needed.
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  9697-masl-file-lock
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/9697[9697 - Issue closing MASL editor and not saving]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
