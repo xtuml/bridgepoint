@@ -86,19 +86,14 @@ auto-indent
 - syntax highlighting
   - keywords 
       - List in Appendix B of http://www.ooatool.com/docs/ASL03.pdf
-      - In changelog of manual found some inconsistencies with Appendix B
-          - associate/unassociate not in Appendix B 
-          - current-date/current-time or current_date/current_time? Looks like the latter is right.
-          - size-of and sizeof not in Appendix B or anywhere else in manual
-      - find-one and find-all choke on dash in name
   - comments 
       - Single line with #
       - Multi-line with "#{" to "}#" (page 7)
         - Multi-line comments may be created by surrounding the lines by “#{{” and “}#”.
           In this case there should be no characters on a line before the “#{“ or after the
           “}#”
-  - Strings with "" 
-  - Should values inside ' ' be highlighted?
+  - Strings with "", or '' 
+  - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
   - TEST: need to check every construct visually for proper highlighting, caps and lower
 
 junit tests

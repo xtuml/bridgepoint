@@ -74,7 +74,8 @@ public class ASLKeywordRule extends WordRule
 		}
 
 		public boolean isWordPart(char c) {
-			return Character.isJavaIdentifierPart(c);
+			// ASL allows hyphen in keywords as well
+			return Character.isJavaIdentifierPart(c) || (c == '-');
 		}
     }
 
