@@ -40,6 +40,8 @@ public class ASLActivityEditor extends ASLEditor {
 
 	public ASLActivityEditor() {
 		super();
+		// TODO - the next is not right.  DocumentProvider extends OALDocumentProvider and we need 
+		//   something that extends ASLDocumentProvider
 		setDocumentProvider(new DocumentProvider());
 		setRangeIndicator(new DefaultRangeIndicator());
 

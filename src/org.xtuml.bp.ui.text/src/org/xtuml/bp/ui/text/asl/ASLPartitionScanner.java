@@ -61,14 +61,14 @@ public class ASLPartitionScanner extends RuleBasedPartitionScanner {
 		* Method declared on IWordDetector
 		*/
 		public boolean isWordStart(char c) {
-			return (c == '}' || c == '#');
+			return (c == '#');
 		}
 
 		/* (non-Javadoc)
 		* Method declared on IWordDetector
 		*/
 		public boolean isWordPart(char c) {
-			return (c == '}' || c == '#');
+			return (c == '{' || c == '}' || c == '#');
 		}
 	};
 

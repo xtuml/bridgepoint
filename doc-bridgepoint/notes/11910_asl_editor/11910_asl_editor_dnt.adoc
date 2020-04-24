@@ -31,8 +31,6 @@ ASL editor
 ------------
 NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/11444_wasl/wasl/data/Events/TSV2_10_9/meta_instances/Events_20/extracted_data/Events_objVERCETL_2.al
 
-x Add to the ActionDialect enum in the metamodel
-  x (Cort) Make the same change in MC metamodel
 
 - New editor / editor input / etc
   - See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
@@ -50,25 +48,139 @@ x Add to the ActionDialect enum in the metamodel
   - SampleProjectGettingStartedAction.java - handling for special MASL prefs (identifier naming and concrete polys)
   - In the context menu Open list, "ASL Editor", "MASL Editor", "Activity Editor"... change to "OAL Editor"?
 
-- ExplorerView::handleOpen()
-  // Looks for all extensions to org.xtuml.bp.core.editors
-  // Figures out which editor to open
-  x Modify to handle opening ASL editor when it sees ASL dialect
 
-- Verify maven clean target works properly in ui.text plugin for new java files
+- TODO: refactor common code between ASL and OAL 
 
 - TODO: Look over all new code and see if there are unused functions, import cleanup, TODOs etc...
-
-- TODO: preferences
-  - add ASL to default action language selection on prefs ui
-  - Handle in ActionLanguagePreferences.java
 
 - TODO - why does ui.text/arc/create_plugin_xml.arc (line 188) explictly list MASL object contributions rather than use the loop
   and set that OAL does on line 162???
   - I set up ASL like MASL but not sure that's right...
   - Need type definition editor like MASL does in this function (line 478)???
+  
 
-auto-indent
+== 5 Design
+
+TODO
+=== 5.1 Metamodel 
+x Add to the ActionDialect enum in the metamodel
+  x (Cort) Make the same change in MC metamodel
+
+
+=== 5.2 ASL Editor
+
+
+=== 5.3 Syntax Highlighting 
+- syntax highlighting (DONE except for Multi-line comment)
+  - keywords 
+      - List in Appendix B of http://www.ooatool.com/docs/ASL03.pdf
+  - comments 
+      - Single line with #
+      - Multi-line with "#{" to "}#" (page 7)
+        - Multi-line comments may be created by surrounding the lines by “#{” and “}#”.
+          In this case there should be no characters on a line before the “#{“ or after the
+          “}#”
+          - TODO: The multi-line comment scanner does not appear to even be being run?!?
+                  As a test I changed the single line comment marker to "@" and the multi-line
+                  to /* ... */ and it still never hit the breakpoints I expect to hit in 
+                  ASLPartitionScanner...
+                  ASLDocumentProvider.createDocument() is not being called??? Why not?
+          - TODO: identified problem with DocumentProvider in ASLActivityEditor
+  - Strings with "", or '' 
+  - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
+
+```java
+    public static String[] keywords = {
+        "already_defined", 
+        "and", 
+        "append", 
+        "associate", 
+        "boolean", 
+        "break", 
+        "breakif", 
+        "bridge", 
+        "by", 
+        "case", 
+        "countof", 
+        "counterpart", 
+        "create", 
+        "current-date", 
+        "current-time", 
+        "date", 
+        "default", 
+        "define", 
+        "delete", 
+        "disunion-of", 
+        "do", 
+        "else", 
+        "enddefine", 
+        "endfor", 
+        "endif", 
+        "endloop", 
+        "endswitch", 
+        "enduse", 
+        "equals", 
+        "error", 
+        "event", 
+        "false", 
+        "find", 
+        "find-all", 
+        "find-one", 
+        "find-only", 
+        "for", 
+        "function", 
+        "generate", 
+        "greater-than", 
+        "greater-than-or-equal-to", 
+        "if", 
+        "in", 
+        "input", 
+        "instance", 
+        "integer", 
+        "intersection-of", 
+        "is", 
+        "link", 
+        "link-counterpart", 
+        "loop", 
+        "not", 
+        "not-equals", 
+        "not-in", 
+        "of", 
+        "one-of", 
+        "only", 
+        "or", 
+        "ordered", 
+        "output", 
+        "real", 
+        "reverse", 
+        "structure", 
+        "switch", 
+        "text", 
+        "then", 
+        "this", 
+        "time_of_day", 
+        "to", 
+        "true", 
+        "unassociate", 
+        "undefined", 
+        "union-of", 
+        "unique", 
+        "unlink", 
+        "unlink-counterpart", 
+        "use", 
+        "using", 
+        "where", 
+        "with", 
+        "$inline", 
+        "$endinline", 
+        "$ada_inline", 
+        "$end_adainline", 
+    };
+```
+=== 5.4 Automatic Indentation
+
+TODO
+auto-indent (DONE) 
   - Old issue is 10232 OAL Editor Enhancements.
   - if ... then
     else
@@ -81,31 +193,20 @@ auto-indent
        case ...
        default 
     endswitch
-       
+
+=== 5.5 User Interface
+
+x ExplorerView::handleOpen()
+  // Looks for all extensions to org.xtuml.bp.core.editors
+  // Figures out which editor to open
+  x Modify to handle opening ASL editor when it sees ASL dialect
   
-- syntax highlighting
-  - keywords 
-      - List in Appendix B of http://www.ooatool.com/docs/ASL03.pdf
-  - comments 
-      - Single line with #
-      - Multi-line with "#{" to "}#" (page 7)
-        - Multi-line comments may be created by surrounding the lines by “#{{” and “}#”.
-          In this case there should be no characters on a line before the “#{“ or after the
-          “}#”
-  - Strings with "", or '' 
-  - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
-  - TEST: need to check every construct visually for proper highlighting, caps and lower
+=== 5.6 Preferences
+- TODO: preferences
+  x add ASL to default action language selection on prefs ui in ActionLanguagePreferences.java
 
-junit tests
-
-== 5 Design
-
-TODO
-
-=== 5.1 Item
-
-TODO
-
+=== 5.7 Build
+- TODO: Verify maven clean target works properly in ui.text plugin for new java files
 
 == 6 Design Comments
 
@@ -118,6 +219,8 @@ TODO
 == 8 Unit Test
 
 TODO
+  - Test auto-indent works properly
+  - TEST: need to check every keyword visually for proper highlighting, caps and lower
 
 == 9 Document References
 

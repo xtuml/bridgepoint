@@ -59,8 +59,6 @@ public class ASLKeywordRule extends WordRule
     /**
      * Answers whether given characters are some part of any ASL keyword. 
      */
-    // TODO SKB - I think this function and the next is where we need to do more
-    // work for keywords with hyphen
     static class ASLWordDetector implements IWordDetector
     {
     	// Since a word detector needs to detect all words including all keywords
