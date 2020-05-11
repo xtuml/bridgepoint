@@ -199,7 +199,7 @@ public class ${action_name} extends Action {
       .invoke cn = get_class_name(class)
       .invoke fn = get_func_name(menu_entry)
   private void ${fn.body}(IStructuredSelection selection) {
-	      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+	      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
 	      .if (not_empty function)
             .if ( "${function.Descrip:Translate}" == "native" )
               .print "${function.Name} written as native code"
@@ -219,7 +219,7 @@ ${function.Action_Semantics}
     {
 		PersistenceManager pm = PersistenceManager.getDefaultInstance();
  		PersistableModelComponent component = null;
-        boolean result = false;
+        boolean result = true;
         final IStructuredSelection structuredSelection = Selection.getInstance().getStructuredSelection();
         for (Iterator iterator = structuredSelection.iterator();
             iterator.hasNext();
@@ -236,9 +236,9 @@ ${function.Action_Semantics}
             {	
                 	  .select any op related by class->O_TFR[R115] where (selected.Name == "canDelete")
 		              .if (not_empty op)
-						result = ((${cn.body})context).Candelete();
+						result = result && ((${cn.body})context).Candelete();
 				      .else
-						result = true;
+						result = result && true;
 					  .end if
 					}
       .assign else_str = "else "

@@ -86,9 +86,13 @@ INSERT INTO T_TNS VALUES (79, '', 'CL_IR',  '', 'Name', '', 'Imported Required I
 INSERT INTO T_TNS VALUES (80, '', 'SQ_COP', '', 'Label', '', 'Component Participants', false);
 INSERT INTO T_TNS VALUES (81, '', 'EP_PKG', '', 'Label', '', 'Packages', false);
 INSERT INTO T_TNS VALUES (82, '', 'CNST_CSP', '', 'Name', '', 'Constant Specifications', false);
-INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', false);
+INSERT INTO T_TNS VALUES (83, '', 'CNST_LSC', '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constants', true);
 INSERT INTO T_TNS VALUES (85, '', 'CL_POR',  '', 'Name', '', 'Port Reference', false);
 INSERT INTO T_TNS VALUES (86, '', 'S_EXP', '', 'Name', '', 'Exceptions', false);
+INSERT INTO T_TNS VALUES (87, '', 'D_DEPL', '', 'Name', '', 'Deployments', false);
+INSERT INTO T_TNS VALUES (88, '', 'D_TERM', '', 'Name', '', 'Terminators', true);
+INSERT INTO T_TNS VALUES (89, '', 'D_TSVC', '', 'Name', '', 'Terminator Services', true);
+INSERT INTO T_TNS VALUES (90, '', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameters', true);
 
 INSERT INTO T_TPS VALUES (1, 81, '->EP_PKG[R1401]');
 INSERT INTO T_TPS VALUES (81,28,    '->PE_PE[R8000]->S_DT[R8001]->S_CDT[R17]');
@@ -214,3 +218,7 @@ INSERT INTO T_TPS VALUES (78,72, '->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009]->SPR_
 INSERT INTO T_TPS VALUES (79,69, '->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009]->SPR_REP[R4500]->SPR_RO[R4502]');
 INSERT INTO T_TPS VALUES (79,71, '->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009]->SPR_REP[R4500]->SPR_RS[R4502]');
 INSERT INTO T_TPS VALUES (81,86, '->PE_PE[R8000]->S_EXP[R8001]');
+INSERT INTO T_TPS VALUES (81,87, '->PE_PE[R8000]->D_DEPL[R8001]');
+INSERT INTO T_TPS VALUES (87,88, '->D_TERM[R1650]');
+INSERT INTO T_TPS VALUES (88,89, '->D_TSVC[R1651]');
+INSERT INTO T_TPS VALUES (89,90, '->D_TSPARM[R1652]');

@@ -290,6 +290,30 @@ INSERT INTO DIM_ELE
 	VALUES ("acc37ee1-886e-47e5-8c9c-832ce046638d",
 	0,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("2ac7e4ca-ba79-4b4d-ace2-e05555c65496",
+	"734339f1-ac44-4aee-b543-a8a885e6670b",
+	"abfa9390-c09b-4897-8657-3617f02472b8",
+	12,
+	0,
+	'org.xtuml.bp.core::ooaofooa::External Entities::Layout');
+INSERT INTO GD_SHP
+	VALUES ("2ac7e4ca-ba79-4b4d-ace2-e05555c65496");
+INSERT INTO GD_NCS
+	VALUES ("2ac7e4ca-ba79-4b4d-ace2-e05555c65496");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"2ac7e4ca-ba79-4b4d-ace2-e05555c65496");
+INSERT INTO DIM_GE
+	VALUES (3184.000000,
+	1584.000000,
+	"2ac7e4ca-ba79-4b4d-ace2-e05555c65496",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2ac7e4ca-ba79-4b4d-ace2-e05555c65496",
+	0,
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("734339f1-ac44-4aee-b543-a8a885e6670b",
 	'',
@@ -513,6 +537,303 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e63c80f4-04ce-440c-9b19-fe1c87134322",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'selectFiles',
+	'Opens a file selection dialog and allows a user to select zero to many files.
+If the value of ''ext'' is not empty string, only show files with that extension.
+Returns an object which is an iterator over the selected filenames.
+
+Import:org.eclipse.swt.widgets.FileDialog; import org.eclipse.ui.PlatformUI; import java.util.Arrays; import org.eclipse.swt.SWT; import org.eclipse.swt.widgets.Display; import java.io.File
+Translate:native',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'FileDialog dialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.MULTI);
+dialog.setText("Select files...");
+if (null != p_Ext && !"".equals(p_Ext.trim())) {
+    dialog.setFilterExtensions(p_Ext.trim().split(","));
+}
+dialog.open();
+while (Display.getCurrent().readAndDispatch()); // https://bugs.eclipse.org/bugs/show_bug.cgi?id=527306
+return Arrays.asList(dialog.getFileNames()).stream().map((fileName) -> new File(new File(dialog.getFilterPath()), fileName).getAbsolutePath()).iterator();',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("f0de7653-c743-481c-a3d4-019d3246c748",
+	"e63c80f4-04ce-440c-9b19-fe1c87134322",
+	'ext',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("c11782ac-e29a-4dcd-98a6-2450d274373a",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getText',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return "";',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("fa1b1dd5-6451-49af-b485-291b0d85934c",
+	"c11782ac-e29a-4dcd-98a6-2450d274373a",
+	'prompt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"3d171e42-6b22-4429-bbfb-b6cd9aaca2a0",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3d171e42-6b22-4429-bbfb-b6cd9aaca2a0",
+	"c11782ac-e29a-4dcd-98a6-2450d274373a",
+	'default',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("203faf12-f6c1-40e4-b96b-fdee16ca7e9e",
+	"c11782ac-e29a-4dcd-98a6-2450d274373a",
+	'require_value',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"fa1b1dd5-6451-49af-b485-291b0d85934c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1af1f458-02b7-4006-9e82-c8f64b436089",
+	"c11782ac-e29a-4dcd-98a6-2450d274373a",
+	'validate_name',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"203faf12-f6c1-40e4-b96b-fdee16ca7e9e",
+	'');
+INSERT INTO S_BRG
+	VALUES ("eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'dependsOn',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("e6204324-07be-409c-9e76-9e4c3ff9bfff",
+	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	'field1',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a4585778-10de-44fb-b8e4-286a75947315",
+	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	'field2',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"e6204324-07be-409c-9e76-9e4c3ff9bfff",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("860c7164-027c-4aaa-bc93-bb36b7aacaab",
+	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	'inverse',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"a4585778-10de-44fb-b8e4-286a75947315",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("15c9c28b-5151-4ed7-b23f-a8e16af89759",
+	"eae38b52-ff85-4310-a6ba-287d7c94b2cd",
+	'comparison',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"860c7164-027c-4aaa-bc93-bb36b7aacaab",
+	'');
+INSERT INTO S_BRG
+	VALUES ("ada1cd2d-30b0-4964-8bef-f9d3a7291727",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getLabel',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return "";',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("91eec643-3f80-4874-8459-71af2c34a120",
+	"ada1cd2d-30b0-4964-8bef-f9d3a7291727",
+	'label',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("a615cc4a-2e35-401a-aaa5-55943db99ec0",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getDropdown',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return "";',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("86052850-b7ba-4f55-b0a3-958146585e75",
+	"a615cc4a-2e35-401a-aaa5-55943db99ec0",
+	'prompt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"51bd08a7-454f-4e8e-bb01-b33fb4f44e8e",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("51bd08a7-454f-4e8e-bb01-b33fb4f44e8e",
+	"a615cc4a-2e35-401a-aaa5-55943db99ec0",
+	'options',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'[]',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DIM
+	VALUES (0,
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"51bd08a7-454f-4e8e-bb01-b33fb4f44e8e",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"5219c2f9-32df-44ec-b605-d029b678823b",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_BPARM
+	VALUES ("6078fe68-9c92-4c37-8bfa-0fb8b6faba6c",
+	"a615cc4a-2e35-401a-aaa5-55943db99ec0",
+	'default_selection',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"86052850-b7ba-4f55-b0a3-958146585e75",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ea7b2ffb-3752-47a2-8b33-689bcfc22260",
+	"a615cc4a-2e35-401a-aaa5-55943db99ec0",
+	'reload_options',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"6078fe68-9c92-4c37-8bfa-0fb8b6faba6c",
+	'');
+INSERT INTO S_BRG
+	VALUES ("a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getCheckbox',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'return false;',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("734a4e21-1824-4897-b3e4-6a8657fceda1",
+	"a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	'prompt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a5b014f0-6904-42a6-ad32-5ec768db559b",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a5b014f0-6904-42a6-ad32-5ec768db559b",
+	"a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	'default',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1f311629-ae86-49aa-8206-021d353d15b4",
+	"a0b95a03-8c53-47b6-8610-18e9d63b24e9",
+	'disabled',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"734a4e21-1824-4897-b3e4-6a8657fceda1",
+	'');
+INSERT INTO S_BRG
+	VALUES ("613a3733-1831-4106-a893-45146b4d7dda",
+	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
+	'getToggle',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return "";',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("5a3d3657-dd4e-4d0f-8979-a2968b6edf65",
+	"613a3733-1831-4106-a893-45146b4d7dda",
+	'prompt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"8fc3229a-8997-4718-971b-d5961bf6d33a",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("30f05e4d-22ce-46c1-8dac-bd4d45ff6d46",
+	"613a3733-1831-4106-a893-45146b4d7dda",
+	'option1',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8fc3229a-8997-4718-971b-d5961bf6d33a",
+	"613a3733-1831-4106-a893-45146b4d7dda",
+	'option2',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"30f05e4d-22ce-46c1-8dac-bd4d45ff6d46",
 	'');
 INSERT INTO PE_PE
 	VALUES ("2f1f82f7-9389-4b32-8a37-2885d5c591fc",
@@ -884,13 +1205,6 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"00000000-0000-0000-0000-000000000000",
-	'instance',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
 INSERT INTO S_BRG
 	VALUES ("8f23eac2-64f7-4881-863a-deae3f2eb94a",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -2658,6 +2972,153 @@ INSERT INTO S_BPARM
 	'',
 	"50343eaf-4139-4aea-89ce-6162253869d2",
 	'');
+INSERT INTO S_BRG
+	VALUES ("b02e4008-da5e-4df5-bd63-dd6b74c41bb9",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'getNextString',
+	'Get the next string from the iterator. If there is no next string, return
+empty string.
+
+Import:java.util.Iterator
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'if (null != p_String_iterator && p_String_iterator instanceof Iterator<?>) {
+    Iterator<?> selection = (Iterator<?>)p_String_iterator;
+    return selection.hasNext() ? selection.next().toString() : "";
+}
+else {
+    return "";
+}',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("feb238b1-5bfc-481b-825a-c443bb06e048",
+	"b02e4008-da5e-4df5-bd63-dd6b74c41bb9",
+	'string_iterator',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("48024caf-bcdb-4146-8107-1be70690f23f",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'parseMASLFile',
+	'Parses a single MASL file specified by the input filename and produces an array of
+SMASL lines. An iterator over the lines is returned.
+
+Import:java.io.IOException; import java.lang.ProcessBuilder.Redirect; import java.util.Scanner; import java.util.List; import java.util.ArrayList
+Translate:native',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'try {
+	final String javaExe = System.getProperty("java.home") + "/bin/java";
+    final String toolsDir = System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin/";
+    final String parserJar = toolsDir + "MASLParser.jar";
+    final String antlrJar = toolsDir + "antlr-3.5.2-complete.jar";
+    final String classpath = String.join(":", new String[] {parserJar, antlrJar});
+	Process proc = new ProcessBuilder().redirectOutput(Redirect.PIPE).command(javaExe, "-cp", classpath, "MaslImportParser", "-f", "target", p_Filename).start();
+	Scanner sc = new Scanner(proc.getInputStream());
+	List<String> smasl = new ArrayList<>();
+	while (sc.hasNextLine()) {
+	    smasl.add(sc.nextLine());
+	}
+	sc.close();
+	return smasl.iterator();
+} catch (IOException e) { 
+	e.printStackTrace();
+}
+return null;',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("c83b82e7-f986-4401-96b1-c3a402098bec",
+	"48024caf-bcdb-4146-8107-1be70690f23f",
+	'filename',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("141008e5-c4d7-4242-ab44-2886d13b5a4a",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'addDependency',
+	'Import:org.eclipse.core.resources.IProject
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'IProject project = (IProject)p_S_sys.getAdapter(IProject.class);
+CorePlugin.getDefaultDependencyProvider().addDependency(project, p_Dependency);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("5243558f-a2d1-447a-b1fa-ae344dbda785",
+	"141008e5-c4d7-4242-ab44-2886d13b5a4a",
+	's_sys',
+	"87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<System Model>',
+	'',
+	'',
+	'../Domain/Domain.xtuml');
+INSERT INTO S_BPARM
+	VALUES ("c9016add-fb9b-4e65-8a96-33bbda8d4d36",
+	"141008e5-c4d7-4242-ab44-2886d13b5a4a",
+	'dependency',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"5243558f-a2d1-447a-b1fa-ae344dbda785",
+	'');
+INSERT INTO S_BRG
+	VALUES ("247657d0-4272-4036-9ccc-7b178f581e72",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'addDomainDependency',
+	'Import:org.eclipse.core.resources.IProject
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'IProject project = (IProject)p_S_sys.getAdapter(IProject.class);
+CorePlugin.getDefaultDependencyProvider().addDependency(project, p_Dependency);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("60b8b8f3-f998-4abe-876b-747d172f70ff",
+	"247657d0-4272-4036-9ccc-7b178f581e72",
+	's_sys',
+	"87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c7ca1a8b-0dbb-4c4b-aa44-f6ff2f1b94d8",
+	"247657d0-4272-4036-9ccc-7b178f581e72",
+	'dependency',
+	"493bbbec-fd81-4863-a436-77e6f08bd55a",
+	0,
+	'',
+	"60b8b8f3-f998-4abe-876b-747d172f70ff",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("493bbbec-fd81-4863-a436-77e6f08bd55a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Component>',
+	'',
+	'',
+	'../Component/Component.xtuml');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
@@ -3559,6 +4020,44 @@ INSERT INTO S_BPARM
 	'',
 	"40275a35-1743-4a8a-815e-019069f145d5",
 	'');
+INSERT INTO S_BRG
+	VALUES ("9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	"4dbc824e-7f35-4e67-b275-79632eac75cc",
+	'locateNameResults',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("d64d6dc9-5e4c-46aa-9e10-3c2730d03e9c",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'pattern',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c9d3c31e-5b74-4656-9010-e533b17f4e0a",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'contents',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"d64d6dc9-5e4c-46aa-9e10-3c2730d03e9c",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("7de8afce-ffa0-4a7b-8f9c-8210ed003e33",
+	"9e87e935-0cc2-4e03-8fa4-abc5bd7f7a54",
+	'isCaseSensitive',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"c9d3c31e-5b74-4656-9010-e533b17f4e0a",
+	'');
 INSERT INTO PE_PE
 	VALUES ("4dbc824e-7f35-4e67-b275-79632eac75cc",
 	1,
@@ -3818,6 +4317,68 @@ INSERT INTO S_BPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("f5fca9e3-9eba-4c8b-9f16-9f79f8b6cf9a",
+	1,
+	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("abfa9390-c09b-4897-8657-3617f02472b8",
+	'Layout',
+	'Import:org.xtuml.bp.core.common.ILogger',
+	'LAYOUT',
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Layout',
+	1);
+INSERT INTO S_BRG
+	VALUES ("c8c1c2d9-9b9a-4ed8-b4e8-3787d7cb0b07",
+	"abfa9390-c09b-4897-8657-3617f02472b8",
+	'setLayout',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("7fd5c193-2cae-4198-b9ad-0201b48ca5e5",
+	"c8c1c2d9-9b9a-4ed8-b4e8-3787d7cb0b07",
+	'field_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2968324b-1bd7-47c5-be0a-32e11127f958",
+	"c8c1c2d9-9b9a-4ed8-b4e8-3787d7cb0b07",
+	'width',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6cc05a47-ac40-419f-b47c-bdd6dd2c29f8",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("51e3e3d8-3e6b-483b-9f85-e96e7035e3b2",
+	"c8c1c2d9-9b9a-4ed8-b4e8-3787d7cb0b07",
+	'height',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"2968324b-1bd7-47c5-be0a-32e11127f958",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6cc05a47-ac40-419f-b47c-bdd6dd2c29f8",
+	"c8c1c2d9-9b9a-4ed8-b4e8-3787d7cb0b07",
+	'row_num',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"7fd5c193-2cae-4198-b9ad-0201b48ca5e5",
+	'');
+INSERT INTO PE_PE
+	VALUES ("abfa9390-c09b-4897-8657-3617f02472b8",
 	1,
 	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"00000000-0000-0000-0000-000000000000",

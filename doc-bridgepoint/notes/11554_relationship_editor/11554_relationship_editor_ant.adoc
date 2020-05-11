@@ -1,0 +1,105 @@
+= Relationship Editor
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+Want to automatically formalize relationships when they are drawn and force the
+user to set up referentials and role phrases at creation time.
+
+This issue originates from a November 17, 2018 discussion between users and
+the BridgePoint engineering team regarding high-priority work items.
+
+== 2 Introduction and Background
+
+One difference between BridgePoint and iUML highlighted at xtUML Days 2017 is
+UI work flows. BridgePoint tends to provide an editing experience that focuses
+on individual model changes -- renaming, adding elements, changing individual
+property values of model elements. iUML focuses on more cohesive editing actions
+-- creating an attribute includes specifying its type, optionally adding it to
+an identifier, etc. Creating a relationship includes formalizing the
+relationship, specifying cardinality and role phrases, etc. iUML does not allow
+users to create an attribute and then add it to an identifier; these are done in
+one action. Model elements may be edited after the fact, but it is always in the
+context of the larger modeling action. Users have expressed preference for the
+more cohesive work flow approach.
+
+== 3 Requirements
+
+=== 3.1 Formalization at Creation
+BridgePoint shall support formalizing associations at relationship creation time.
+
+==== 3.2.1 Formalization Configuration
+This mechanism may be enabled or disabled through a workspace preference.
+
+=== 3.2 Standards Enforcement
+The auto-formalization mechanism shall support enforcement of certain modeling standards.
+
+==== 3.2.1 Enforcement Configuration
+The enforcement rules may be configured through workspace preferences.
+
+==== 3.2.2 Role Phrase Configuration
+Role phrases may be configured to be required or optional.
+
+=== 3.3 Default Values
+Reasonable defaults shall be provided for all new workspace preferences.
+
+== 4 Analysis
+
+=== 4.1 Workflow Support
+
+BridgePoint currently uses a mechanism to generate UI workflows as Eclipse
+wizards. Actions that require multiple inputs or steps can be defined using a
+combination of PEI data and special OAL functions. Invocations to a special EE
+("User") are used to map to user interactions such as selecting elements from a
+drop down menu or entering text. Archetypes generate wizard implementations and
+menu entries based on the PEI data and parsed OAL instances. This mechanism can
+be reused to easily create a variety of operations. It could also be modified to
+generate any flavor of UI element. For example, instead of wizards, it could be
+changed to support a workflow in a single dialog or even an editor pane.
+
+=== 4.2 Element Creation
+
+During element creation, special OOA of OOA functions are invoked to initialize
+a new element. These functions could be used to hook into existing UI workflows.
+In this way a particular workflow can be automatically initiated on creation of
+an element. This could be controlled by a preference.
+
+=== 4.3 Workflow Generation Pitfalls
+
+A full relationship editor is quite a bit more complex than any UI workflow so
+far in BridgePoint. This section enumerates the shortcomings of the generation
+process and where it would need to be changed to support such a workflow.
+
+==== 4.3.1 Model Data/Generation Coupling
+
+Over time the archetypes used to generate UI workflows have become strongly
+coupled to the data used to generate those workflows. The result is a generation
+flow which is very specific to the current UI workflows. For example, some of the labels
+for the relationship formalization actions are hard coded directly into the
+archtypes. This makes the workflow generation considerably less flexible for use
+with new workflows.
+
+==== 4.3.2 Handwritten Code
+
+In addition to <<4.3.1 Model Data/Generation Coupling>>
+for some of the more complex workflows, handwritten code is
+required for certain pages of the wizards. This can potentially be a Good
+Thing from the perspective of adding new workflows, as it adds flexibility to the
+mechanism, however it means that less of the code is generated than would be
+ideal.
+
+== 5 Work Required
+_to be specified in the design note_
+
+== 6 Acceptance Test
+_to be specified in the design note_
+
+== 7 Document References
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically formalize and force user to setup referentials and role phrases at creation]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

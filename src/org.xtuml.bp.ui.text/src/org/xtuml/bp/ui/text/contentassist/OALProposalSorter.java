@@ -11,7 +11,8 @@ public class OALProposalSorter implements ICompletionProposalSorter {
 
     private static final int[] ORDERING = {
         Proposaltypes_c.Attribute,
-        Proposaltypes_c.Operation,
+        Proposaltypes_c.InstanceBasedOperation,
+        Proposaltypes_c.ClassBasedOperation,
         Proposaltypes_c.SignalToProvider,
         Proposaltypes_c.SignalFromProvider,
         Proposaltypes_c.OperationToProvider,
@@ -30,8 +31,13 @@ public class OALProposalSorter implements ICompletionProposalSorter {
         Proposaltypes_c.Function,
         Proposaltypes_c.Bridge,
         Proposaltypes_c.EDT,
+        Proposaltypes_c.UDT,
+        Proposaltypes_c.ConstantSpecification,
         Proposaltypes_c.Enumerator,
         Proposaltypes_c.Constant,
+        Proposaltypes_c.SystemModel,
+        Proposaltypes_c.Package,
+        Proposaltypes_c.Component,
         Proposaltypes_c.Literal,
         Proposaltypes_c.Keyword
     };

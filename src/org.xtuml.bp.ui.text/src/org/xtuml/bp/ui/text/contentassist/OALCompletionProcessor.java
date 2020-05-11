@@ -25,6 +25,8 @@ import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -34,6 +36,7 @@ import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
@@ -41,6 +44,7 @@ import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProposalList_c;
@@ -58,6 +62,7 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.TransitionActionBody_c;
+import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -202,8 +207,10 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         switch( type ) {
             case Proposaltypes_c.Attribute:
                 return CorePlugin.getImageFor( Attribute_c.class );
-            case Proposaltypes_c.Operation:
-                return CorePlugin.getImageFor( Operation_c.class );
+            case Proposaltypes_c.InstanceBasedOperation:
+                return CorePlugin.getImageFor( "Operation_cInstanceBased", false, null, true );
+            case Proposaltypes_c.ClassBasedOperation:
+                return CorePlugin.getImageFor( "Operation_cClassBased", false, null, true );
             case Proposaltypes_c.Association:
                 return CorePlugin.getImageFor( Association_c.class );
             case Proposaltypes_c.Variable:
@@ -232,6 +239,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( Bridge_c.class );
             case Proposaltypes_c.EDT:
                 return CorePlugin.getImageFor( EnumerationDataType_c.class );
+            case Proposaltypes_c.UDT:
+                return CorePlugin.getImageFor( UserDataType_c.class );
             case Proposaltypes_c.Enumerator:
                 return CorePlugin.getImageFor( Enumerator_c.class );
             case Proposaltypes_c.Constant:
@@ -246,6 +255,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 return CorePlugin.getImageFor( "InterfaceOperation_cClientServer", false, null, true );
             case Proposaltypes_c.OperationFromProvider:
                 return CorePlugin.getImageFor( "InterfaceOperation_cServerClient", false, null, true );
+            case Proposaltypes_c.SystemModel:
+                return CorePlugin.getImageFor( SystemModel_c.class );
+            case Proposaltypes_c.Package:
+                return CorePlugin.getImageFor( Package_c.class );
+            case Proposaltypes_c.Component:
+                return CorePlugin.getImageFor( Component_c.class );
+            case Proposaltypes_c.ConstantSpecification:
+                return CorePlugin.getImageFor( ConstantSpecification_c.class );
             case Proposaltypes_c.Keyword:
                 return null;
             default:

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Session UI Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.session; singleton:=true
-Bundle-Version: 6.11.0.qualifier
+Bundle-Version: 6.19.0.qualifier
 Bundle-ClassPath: session.jar
 Bundle-Activator: org.xtuml.bp.ui.session.SessionExplorerPlugin
 Bundle-Vendor: xtUML.org
@@ -24,3 +24,4 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.ui.session

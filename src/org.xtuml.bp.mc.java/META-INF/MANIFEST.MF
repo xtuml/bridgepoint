@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Java Model Compiler
+Bundle-SymbolicName: org.xtuml.bp.mc.java;singleton:=true
+Bundle-Version: 6.19.0.qualifier
+Bundle-Activator: org.xtuml.bp.mc.java.Activator
+Bundle-Vendor: xtUML.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.core.variables,
+ org.xtuml.bp.core,
+ org.xtuml.bp.io.core,
+ org.xtuml.bp.mc,
+ org.eclipse.debug.ui,
+ org.eclipse.ui.ide,
+ org.xtuml.bp.io.mdl
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: org.xtuml.bp.mc.java
+Bundle-ClassPath: mcjava.jar
+Import-Package: org.xtuml.bp.utilities.ui
+Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.mc.java

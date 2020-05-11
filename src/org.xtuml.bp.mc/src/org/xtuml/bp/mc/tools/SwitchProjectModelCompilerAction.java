@@ -1,32 +1,16 @@
-//========================================================================
-//
-// File: SwitchProjectModelCompilerAction.java
-//
-// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
-//
-//========================================================================
-// This document contains information proprietary and confidential to
-// Mentor Graphics Corp. and is not for external distribution.
-//======================================================================== 
-//
-//
-
 package org.xtuml.bp.mc.tools;
 
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PlatformUI;
-
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.XtUMLNature;
-
+import org.xtuml.bp.core.SystemModel_c;
 
 public class SwitchProjectModelCompilerAction implements IActionDelegate {
 
@@ -34,20 +18,21 @@ public class SwitchProjectModelCompilerAction implements IActionDelegate {
 
     @Override
     public void run(IAction action) {
-        
+
         // UI guarantees only IProjects are selected
         for (Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
-            IProject project = (IProject) iterator.next();
+            IProject project = (IProject) ((SystemModel_c) iterator.next()).getAdapter(IProject.class);
             switchMC(project);
         }
     }
 
-    private static void switchMC(IProject project) {
-        WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(),
-                new SwitchProjectModelCompilerWizard(project));
-        wizardDialog.open();        
+    private void switchMC(IProject project) {
+        IWorkbenchWizard wizard = new SwitchProjectModelCompilerWizard(project);
+        wizard.init(PlatformUI.getWorkbench(), (IStructuredSelection) selection);
+        WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
+        wizardDialog.open();
     }
-    
+
     @Override
     public void selectionChanged(IAction action, ISelection selection) {
         this.selection = (IStructuredSelection) selection;

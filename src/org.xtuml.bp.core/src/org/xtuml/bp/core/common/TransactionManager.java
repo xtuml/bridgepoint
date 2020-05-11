@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: TransactionManager.java,v $
-//Version:   $Revision: 1.43 $
-//Modified:  $Date: 2013/06/12 13:08:25 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -27,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -69,6 +63,7 @@ import org.xtuml.bp.core.util.UIUtil;
  */
 public class TransactionManager {
 	Transaction activeTransaction;
+	int nestedTransactionCount = 0;
 
 	int maxStackSize = 87;
 
@@ -77,11 +72,11 @@ public class TransactionManager {
 
 	private static ArrayList<IFile> affectedComponents = new ArrayList<IFile>();
 
-	ListenerList transactionListeners = new ListenerList();
+	ListenerList transactionListeners = new ListenerList(ListenerList.IDENTITY);
 	private Action redoAction;
 	private Action undoAction;
 
-	private static ArrayList<String> affectedModelElementsNames = new ArrayList<String>();
+	private static Set<String> affectedModelElementsNames = new HashSet<String>();
 	private Transaction lastTransaction;
 
 	private boolean ignoreResourceChanges = false;
@@ -90,7 +85,7 @@ public class TransactionManager {
 
 	public boolean ignoreResourceChangesMarker;
 
-	private ListenerList transactionListenersAtEnd = new ListenerList();
+	private ListenerList transactionListenersAtEnd = new ListenerList(ListenerList.IDENTITY);
 
 	public static final String FAMILY_TRANSACTION = "Transaction Jobs"; //$NON-NLS-1$
 	public static final int FORWARD_DIRECTION = 1;
@@ -184,9 +179,13 @@ public class TransactionManager {
 			IDeltaCollector deltaCollector, String type, boolean undoable)
 			throws TransactionException {
 		if (activeTransaction != null) {
+		    nestedTransactionCount++;
+		    return activeTransaction;
+		    /*
 			throw new TransactionException("Transaction '"
 					+ activeTransaction.getDisplayName()
 					+ "' is already in progress");
+			*/
 		}
 
 		// If a Move is in progress we require that the next transaction be the paste. If the user
@@ -349,8 +348,9 @@ public class TransactionManager {
 					"The requested change will affect associated model elements that refer to the " +
 					"items in this changeset.  If you proceed, datatype-related\nelements will be " +
 					"modified to refer to a core type.  Imported or reference elements will be deleted.  " +
-					"The affected elements are listed\nbelow.  " + 
-					"For more information see the BridgePoint UML Suite Help > Reference > User Interface > Downgrade Dialog ." +
+					"Constant values will be reset to their defaults.\n" +
+					"The affected elements are listed below.  " + 
+					"For more information see the BridgePoint UML Suite Help > Reference > User Interface > Downgrade Dialog." +
                     "\n\nDo you want to continue?",
 					null,
 					BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true, true);			
@@ -548,6 +548,10 @@ public class TransactionManager {
 	public boolean endTransaction(Transaction transaction, boolean lockWorkspace) {
 		if (activeTransaction == null || activeTransaction != transaction) {
 			throw new IllegalStateException("no transaction is in progress");
+		}
+		if (nestedTransactionCount > 0) {
+		    nestedTransactionCount--;
+		    return true;
 		}
 
 		try {

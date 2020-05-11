@@ -33,13 +33,13 @@ import java.util.Set;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.search.ui.text.Match;
-
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ContentMatch_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Match_c;
+import org.xtuml.bp.core.NameMatch_c;
 import org.xtuml.bp.core.SearchResult_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -102,14 +102,32 @@ public class ModelSearchContentProvider implements ITreeContentProvider {
 				@Override
 				public int compare(Object o1, Object o2) {
 					if(o1 instanceof Match_c && o2 instanceof Match_c) {
+						boolean doContentCompare = false;
+						boolean doNameCompare = false;
 						ContentMatch_c cm1 = ContentMatch_c
 								.getOneSR_CMOnR9801((Match_c) o1);
 						ContentMatch_c cm2 = ContentMatch_c
 								.getOneSR_CMOnR9801((Match_c) o2);
+						NameMatch_c nm1 = NameMatch_c
+								.getOneSR_NMOnR9801((Match_c) o1);
+						NameMatch_c nm2 = NameMatch_c
+								.getOneSR_NMOnR9801((Match_c) o2);
 						if(cm1 == null || cm2 == null) {
+							if ( nm1 == null || nm2 == null ) {
+								return -1;
+							} else {
+								doNameCompare = true;
+							}
+						} else {
+							doContentCompare = true;
+						}
+						if (doContentCompare) {
+							return cm1.getStartposition() - cm2.getStartposition();
+						} else if (doNameCompare) {
+							return nm1.getName().compareTo(nm2.getName());
+						} else {
 							return -1;
 						}
-						return cm1.getStartposition() - cm2.getStartposition();
 					} else {
 						// if we get here there is a model element along side
 						// a match, we want the match on top

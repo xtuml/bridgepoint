@@ -8,14 +8,10 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeValue_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
-import org.xtuml.bp.core.ClassAsAssociatedOneSide_c;
-import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataItemValue_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.InstanceHandle_c;
@@ -23,7 +19,6 @@ import org.xtuml.bp.core.InstanceSet_c;
 import org.xtuml.bp.core.Instance_c;
 import org.xtuml.bp.core.LinkParticipation_c;
 import org.xtuml.bp.core.Link_c;
-import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.LocalReference_c;
 import org.xtuml.bp.core.LocalValue_c;
 import org.xtuml.bp.core.Local_c;
@@ -35,7 +30,6 @@ import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.TransientVar_c;
-import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.ValueInArray_c;
 import org.xtuml.bp.core.ValueInStructure_c;
 import org.xtuml.bp.core.Variable_c;
@@ -72,37 +66,30 @@ public class BPVariable extends BPDebugElement implements IVariable {
 	}
 
 	public String getReferenceTypeName() throws DebugException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public boolean hasValueChanged() throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void setValue(String expression) throws DebugException {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void setValue(IValue value) throws DebugException {
-		// TODO Auto-generated method stub
 
 	}
 
 	public boolean supportsValueModification() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean verifyValue(String expression) throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean verifyValue(IValue value) throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
     public String getName() {

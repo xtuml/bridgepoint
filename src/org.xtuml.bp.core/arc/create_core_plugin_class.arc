@@ -113,6 +113,8 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceChangeTracker;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.ActionFile;
+import org.xtuml.bp.core.common.DependencyData;
+import org.xtuml.bp.core.common.IDependencyProvider;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.AbstractStreamExportFactory;
@@ -123,6 +125,7 @@ import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.marker.DelayedMarkerJob;
 import org.xtuml.bp.core.ui.marker.ProblemModelChangeListener;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferenceNode;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferenceNode;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -615,6 +618,27 @@ public class CorePlugin extends AbstractUIPlugin {
     // else if(objectName.equals("RequiredSignal_cBiDirectional")) {
     // descriptor = getImageDescriptor("metadata/InOutSignal.gif");
     // }
+    .elif (class_name.body == "Operation_c")
+    else if (objectName.equals("Operation_cClassBased")) {
+    	descriptor = getImageDescriptor("metadata/ClassBasedOperation.gif");
+    }
+    else if (objectName.equals("Operation_cInstanceBased")) {
+    	descriptor = getImageDescriptor("metadata/InstanceBasedOperation.gif");
+    }
+    .elif (class_name.body == "TerminatorService_c")
+    else if (objectName.equals("TerminatorService_cProvided")) {
+    	descriptor = getImageDescriptor("metadata/ProvidedTerminatorService.gif");
+    }
+    else if (objectName.equals("TerminatorService_cRequired")) {
+    	descriptor = getImageDescriptor("metadata/TerminatorService.gif");
+    }
+    .elif (class_name.body == "Terminator_c")
+    else if (objectName.equals("Terminator_cProvided")) {
+    	descriptor = getImageDescriptor("metadata/ProvidedTerminator.gif");
+    }
+    else if (objectName.equals("Terminator_cRequired")) {
+    	descriptor = getImageDescriptor("metadata/Terminator.gif");
+    }
     .else
       .if (first tree_nodes)
             if (objectName.equals("${class_name.body}")) {
@@ -713,6 +737,24 @@ public class CorePlugin extends AbstractUIPlugin {
       //if (dir == Ifdirectiontype_c.BiDirectional) {
       //  name += "BiDirectional";
       //}
+      if (object instanceof Operation_c && ((Operation_c)object).getInstance_based() == Scope_c.Class ) {
+        name += "ClassBased";
+      }
+      if (object instanceof Operation_c && ((Operation_c)object).getInstance_based() == Scope_c.Instance ) {
+        name += "InstanceBased";
+      }
+      if (object instanceof TerminatorService_c && Terminator_c.getOneD_TERMOnR1651((TerminatorService_c)object).getProvider() ) {
+        name += "Provided";
+      }
+      if (object instanceof TerminatorService_c && !(Terminator_c.getOneD_TERMOnR1651((TerminatorService_c)object).getProvider()) ) {
+        name += "Required";
+      }
+      if (object instanceof Terminator_c && ((Terminator_c)object).getProvider() ) {
+        name += "Provided";
+      }
+      if (object instanceof Terminator_c && !(((Terminator_c)object).getProvider()) ) {
+        name += "Required";
+      }
       return name;
     } 
     
@@ -1142,11 +1184,19 @@ public class CorePlugin extends AbstractUIPlugin {
 			pm.addToRoot(pn);
 			pn = new BridgePointProjectActionLanguagePreferenceNode(projectNode);
 			pm.addToRoot(pn);
+			String PROPERTY_PREFIX = "bridgepoint.";
+            String DEPEND_PROPERTY = "Dependencies";
+            String propertyKey = PROPERTY_PREFIX + DEPEND_PROPERTY;
+            String actualPropertyValue = System.getProperty(propertyKey, "enabled");
+            if ( !actualPropertyValue.equals("disabled") ) {
+                pn = new BridgePointProjectDependenciesPreferenceNode(projectNode);
+                pm.addToRoot(pn);
+            }
 			return pm;
         }
         
         /**
-         * This routine intializes the static member imageRegistry if it has not been initialized.
+         * This routine initializes the static member imageRegistry if it has not been initialized.
          * This is done here instead of in a member initializer for plugin start-up purposes.
          * When called from the command-line there may not be a workbench.
          */
@@ -1262,6 +1312,10 @@ public class CorePlugin extends AbstractUIPlugin {
 						..getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 				projectNode.removePreferenceChangeListener(listener);
 			}
+		}
+		
+		public static IDependencyProvider getDefaultDependencyProvider() {
+		    return DependencyData.getDefaultInstance();
 		}
 }
 .end function

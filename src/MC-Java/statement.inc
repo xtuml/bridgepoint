@@ -146,10 +146,11 @@ else if ( ${test.buffer} )
 .// assignment to attribute statements
 .// --------------------------------------------------------
 .function gen_asgn_statements
+  .param string root_pkg_name
 .select many assign_statements from instances of ACT_AI
 .for each assign_statement in assign_statements
   .select one statement related by assign_statement->ACT_SMT[R603]
-  .invoke result = gen_asgn_statement(assign_statement)
+  .invoke result = gen_asgn_statement(root_pkg_name, assign_statement)
   .assign statement.buffer="${result.body}"
 .end for
 .end function
@@ -158,6 +159,7 @@ else if ( ${test.buffer} )
 .// gen_asgn_attr_statement
 .// --------------------------------------------------------
 .function gen_asgn_statement
+  .param string root_pkg_name
   .param inst_ref statement
     .// This supports only simple attribute assignments
     .// We need to rename this function to gen_asgn_statement
@@ -175,7 +177,9 @@ else if ( ${test.buffer} )
 	.assign intCast2 = ""
     .select one irf related by lvalue->V_AVL[R801]->V_VAL[R807]->V_IRF[R801]
     .select one tvr related by lvalue->V_TVL[R801]
+    .select one aer related by lvalue->V_AER[R801]
     .select one directirf related by lvalue->V_IRF[R801]
+    .select one directisr related by lvalue->V_ISR[R801]
     .if (not_empty irf)
       .select one inst_var related by irf->V_VAR[R808]
       .select one attr related by lvalue->V_AVL[R801]->O_ATTR[R806]
@@ -253,11 +257,63 @@ ${result.body} \
       .end if
       .//
 ${lvalue.buffer} = ${intCast1}${rvalue.buffer}${intCast2} ;
+    .elif (not_empty aer)
+      .// Array element reference
+      .select one tvr related by aer->V_VAL[R838]->V_TVL[R801]
+      .if (not_empty tvr)
+        .select any uValueType related by rvalue->S_DT[R820]
+        .invoke result = do_type(uValueType)
+        .//
+        .// check if this is an array that needs pre-initialization
+        .select one aer_var related by tvr->V_VAR[R805]
+        .select one act_smt related by statement->ACT_SMT[R603]
+        .select any prev_smt related by aer_var->V_TVL[R805]->V_VAL[R801]->V_AER[R838]->V_VAL[R801]->ACT_AI[R689]->ACT_SMT[R603] where ((selected.LineNumber < act_smt.LineNumber) or ((selected.LineNumber == act_smt.LineNumber) and (selected.StartPosition < act_smt.StartPosition)))
+        .if (empty prev_smt)
+          .// this is the first occurrance -- initialization is needed
+          .select one aer_index_val related by aer->V_VAL[R839]
+          .invoke gen_value(root_pkg_name, aer_index_val)
+${result.body}[] v_${aer_var.Name} = new ${result.body}[${aer_index_val.buffer}+1];
+        .end if
+        .//
+        .// resolve the value's core data type
+        .select one valueCoreType related by valueType->S_UDT[R17]->S_DT[R18]
+        .if (not_empty valueCoreType) 
+          .assign valueType = valueCoreType;
+        .end if
+        .//
+        .// if the value is of the 'real' type
+        .assign intCast1 = ""
+        .assign intCast2 = ""
+        .if (valueType.Name == "real")
+          .// resolve the assignee's core data type
+          .select any var related by tvr->V_VAR[R805];
+          .select any varType related by var->S_DT[R848]
+          .invoke result = getCoreDataType(varType);
+          .assign varType = result.coreType;
+          .//
+          .// if the assignee is of the integer type
+          .if (varType.Name == "integer")
+            .// cast the value to an int, to avoid a "possible loss of precision"
+            .// syntax error in the generated code
+            .assign intCast1 = "(int)("
+            .assign intCast2 = ")"
+          .end if
+        .end if
+        .//
+${lvalue.buffer} = ${intCast1}${rvalue.buffer}${intCast2};
+      .end if
     .elif (not_empty directirf)
       .if (lvalue.isImplicit == 1)
         .select any new_obj related by directirf->V_VAR[R808]->V_INT[R814]->O_OBJ[R818]
         .invoke cn = get_class_name( new_obj )
 ${cn.body} \
+      .end if
+${lvalue.buffer} = ${rvalue.buffer} ;
+    .elif (not_empty directisr)
+      .if (lvalue.isImplicit == 1)
+        .select any new_obj related by directisr->V_VAR[R809]->V_INS[R814]->O_OBJ[R819]
+        .invoke cn = get_class_name( new_obj )
+${cn.body}[] \
       .end if
 ${lvalue.buffer} = ${rvalue.buffer} ;
     .else
@@ -763,7 +819,7 @@ ${cn.body} \
 v_${var.Name} = ${cn.body}.${nfn.body}${func_suffix}(\
   .end if
   .assign link_count = 1
-  .select one link related by last_link->ACT_LNK[R604.'precedes']
+  .select one link related by last_link->ACT_LNK[R604.'succeeds']
   .while (not_empty link)
     .select any lnk_obj related by link->O_OBJ[R678]
     .invoke lcn = get_class_name( lnk_obj )
@@ -779,7 +835,7 @@ ${lcn.body}.${nfn.body}${func_suffix}(\
 ${lcn.body}.${nfn.body}${func_suffix}(\
       .end if
     .assign link_count = link_count + 1
-    .select one next_link related by link->ACT_LNK[R604.'precedes']
+    .select one next_link related by link->ACT_LNK[R604.'succeeds']
     .assign link = next_link
   .end while
   .assign start_var_name = ""

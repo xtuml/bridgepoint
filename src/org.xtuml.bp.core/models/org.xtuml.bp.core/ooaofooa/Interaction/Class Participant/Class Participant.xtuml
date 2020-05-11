@@ -720,7 +720,6 @@ if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
   select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
   select one package related by packageableElem->EP_PKG[R8000];
   select one component related by packageableElem->C_C[R8003];
-  isInGenericPackage = not_empty package or not_empty component;
 
     if (empty package)
       rootCompIdInPkg = component.getRootComponentId();

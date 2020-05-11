@@ -34,7 +34,7 @@
 .//
 .function wfl_blck_xlate
 .param inst_ref blck
-  .select any step from instances of W_STEP where (selected.Block_Id == "${blck.Block_Id}")
+  .select any step from instances of W_STEP where ("${selected.Block_Id}" == "${blck.Block_Id}")
   .if (not_empty step)
 ${step.buffer}
   .end if
@@ -50,10 +50,10 @@ ${step.buffer}
     .end if
   .end for
   .assign statement = last_statement
-  .select one prev_stmt related by last_statement->ACT_SMT[R661.'succeeds']
+  .select one prev_stmt related by last_statement->ACT_SMT[R661.'precedes']
   .while (not_empty prev_stmt)
     .assign statement = prev_stmt
-    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'succeeds']
+    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'precedes']
   .end while
   .while (not_empty statement)
     .// For the workflow, we are only interested in executing the passive statements
@@ -101,8 +101,8 @@ ${step.buffer}
       .assign passive = true
     .end if
     .if (passive == true)
-        .select any field from instances of W_FLD where (selected.Statement_Id == "${statement.Statement_Id}")
-        .select any context_item from instances of W_CTI where (selected.Statement_Id == "${statement.Statement_Id}")
+        .select any field from instances of W_FLD where ("${selected.Statement_Id}" == "${statement.Statement_Id}")
+        .select any context_item from instances of W_CTI where ("${selected.Statement_Id}" == "${statement.Statement_Id}")
         .if (not_empty field)
 ${field.buffer}
         .elif (not_empty context_item)
@@ -143,7 +143,7 @@ ${inner_blck.body}
 ${else_stmt.buffer2}
       .end if
     .end if
-    .select one next_statement related by statement->ACT_SMT[R661.'precedes']
+    .select one next_statement related by statement->ACT_SMT[R661.'succeeds']
     .assign statement = next_statement
   .end while
 .end function

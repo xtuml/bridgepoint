@@ -8,7 +8,7 @@ INSERT INTO EP_PKG
 	'',
 	0);
 INSERT INTO GD_MD
-	VALUES ("5f621d58-9258-4b88-9d21-e26f427a617f",
+	VALUES ("00000000-0000-0000-0000-000000000000",
 	112,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	108,
@@ -24,15 +24,8 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::Functions::OAL Validation Functions');
-INSERT INTO DIM_DIA
-	VALUES ("5f621d58-9258-4b88-9d21-e26f427a617f",
-	'',
-	1.000000,
-	4000.000000,
-	3000.000000,
-	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_SYNC
 	VALUES ("a99a79fc-8395-453b-89ca-7225baa5e145",
 	"00000000-0000-0000-0000-000000000000",
@@ -11414,38 +11407,90 @@ INSERT INTO S_SYNC
 	'current_scope = ::get_current_scope();
 select any block from instances of ACT_BLK where (selected.Block_ID == current_scope);
 select one body related by block->ACT_ACT[R612];
-isInGenericPackage = body.associateWithContainer();
-if isInGenericPackage
+containerFoundorCreated = body.associateWithContainer();
+if containerFoundorCreated
   select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
   select one component related by containingElem->C_C[R8001];
   select one package related by containingElem->EP_PKG[R8001];
+  
+  select many edts from instances of  S_EDT where false;
+  select many udts from instances of  S_UDT where false;
+  select many csps from instances of  CNST_CSP where false;
 
-  // Check for Enumeration match for token
-  if not_empty component
-    component.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::DATATYPE,
-                          originatingContainerID:component.Id,
-                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+  if ( 0 == ::scopedsegment_size() ) // reference is not scoped, must do blind search
+    // Check for Enumeration match for token
+    if not_empty component
+      component.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::DATATYPE,
+                            originatingContainerID:component.Id,
+                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    else
+      package.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::DATATYPE, descending:false,
+                             originatingContainerID:package.Package_ID,
+                                            delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    end if;
+    select any resultSet related by component->PE_CRS[R8007] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::DATATYPE; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::DATATYPE; 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many edts related by results->S_DT[R8001]->S_EDT[R17];
+    select many udts related by results->S_DT[R8001]->S_UDT[R17];
+
+    // Check for a Constant Specification match for token
+    if not_empty component
+      component.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::CONSTANT,
+                            originatingContainerID:component.Id,
+                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    else
+      package.collectVisibleElementsForName(name:param.a3_text,
+           type:ElementTypeConstants::CONSTANT, descending:false,
+                             originatingContainerID:package.Package_ID,
+                                            delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                            collectGlobally:true);
+    end if;
+    select any resultSet related by component->PE_CRS[R8007] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::CONSTANT; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where
+                                    selected.Name == param.a3_text and 
+                                  selected.Type == ElementTypeConstants::CONSTANT; 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many csps related by results->CNST_CSP[R8001];
   else
-    package.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::DATATYPE, descending:false,
-                           originatingContainerID:package.Package_ID,
-                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+    
+    // get containers that match the path
+    matched_containers = ::scopedmatches_collect( lookaheadText:"", validate:true );
+
+    select many c_c_to_s_edts related by matched_containers->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    select many ep_pkg_to_s_edts related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
+    select many edts related by s_edts->S_EDT[R17];
+
+    select many c_c_to_s_udts related by matched_containers->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    select many ep_pkg_to_s_udts related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]->S_DT[R17] where ( selected.Name == param.a3_text );
+    s_udts = c_c_to_s_udts | ep_pkg_to_s_udts;
+    select many udts related by s_udts->S_UDT[R17];
+
+    select many c_c_to_cnst_csps related by matched_containers->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
+    select many ep_pkg_to_cnst_csps related by matched_containers->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
+    csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
+    
   end if;
-  select any resultSet related by component->PE_CRS[R8007] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::DATATYPE; 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty package
-    select any pkgResultSet related by package->PE_SRS[R8005] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::DATATYPE; 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many edts related by results->S_DT[R8001]->S_EDT[R17];
-  select many udts related by results->S_DT[R8001]->S_UDT[R17];
+
   UDTCount = 0;
   for each udt in udts
     baseId = udt.getCoreType();
@@ -11457,34 +11502,10 @@ if isInGenericPackage
       end if;
     end if;
   end for;
+
   EDTCount = cardinality edts;
   EDTCount = EDTCount + UDTCount;
 
-  // Check for a Constant Specification match for token
-  if not_empty component
-    component.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::CONSTANT,
-                          originatingContainerID:component.Id,
-                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
-  else
-    package.collectVisibleElementsForName(name:param.a3_text,
-         type:ElementTypeConstants::CONSTANT, descending:false,
-                           originatingContainerID:package.Package_ID,
-                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
-  end if;
-  select any resultSet related by component->PE_CRS[R8007] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::CONSTANT; 
-  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-  if not_empty package
-    select any pkgResultSet related by package->PE_SRS[R8005] where
-                                  selected.Name == param.a3_text and 
-                                selected.Type == ElementTypeConstants::CONSTANT; 
-    select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-  end if;
-  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == param.a3_text );
   CSPCount = cardinality csps;
   TOTALCount = CSPCount + EDTCount;
   if TOTALCount == 0
@@ -11541,30 +11562,12 @@ if isInGenericPackage
     end for;
   end if;
 
-  return GD::NULL_UNIQUE_ID();
 else
-    // see if any enumerations are located at the system level
-    cur_sys_name = ::getSystemName();
-    select any sys from instances of S_SYS where selected.Name == cur_sys_name;
-      select many dt related by sys->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001] where
-                                                 selected.Name == param.a3_text;
-  select many edt related by dt->S_EDT[R17];
-  if ( empty edt )
-    ERR::reportParseError( msg: "Cannot find enumeration data type ->%s<-",
+    ERR::reportParseError( msg: "Unable to find container of data type ->%s<-",
           token: param.a1_rule_token );
-  elif ( cardinality edt > 1 )
-    ERR::reportParseError( msg: "More than one enumeration data type named ->%s<-",
-          token: param.a1_rule_token );
-  else
-    // store the textual position of the data type name 
-    block.currentDataTypeNameLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
-    block.currentDataTypeNameColumn = ::getColumn(rule_token: param.a1_rule_token);
-
-    select any the_edt related by dt->S_EDT[R17];
-    return the_edt.DT_ID;
-  end if;
-  return param.a6_current_rule_id;
-end if;',
+end if;
+return GD::NULL_UNIQUE_ID();
+',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -11678,9 +11681,9 @@ if ( empty csp )
                                 selected.Type == ElementTypeConstants::CONSTANT; 
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
-  select many csps related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == csp_name );
+  select many csps related by results->CNST_CSP[R8001];
   if ( ( cardinality csps ) == 1 )
-    select any csp related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == csp_name );
+    select any csp related by results->CNST_CSP[R8001];
   end if;
 end if;
 
@@ -11778,15 +11781,15 @@ INSERT INTO S_SYNC
 	'Scoped_access_end',
 	'ParserValidateFunction: TRUE',
 	'select any enum from instances of S_ENUM 
-    where (selected.Enum_ID == param.b2_scoped_member2_id );
-if(empty enum)
+    where (selected.Enum_ID == param.b3_scoped_member1_id );
+if(empty enum)  
   // if the enumerator was not found
   // check the system level
   sysName = ::getSystemName();
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any enum related by system->G_EIS[R9100]->PE_PE[R9100]->S_DT[R8001]->
-    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b2_scoped_member2_id);
+    S_EDT[R17]->S_ENUM[R27] where (selected.Enum_ID == param.b3_scoped_member1_id);
 end if;
 
 if ( not_empty enum )
@@ -11815,7 +11818,7 @@ if ( not_empty enum )
 end if;
 
 select any const from instances of CNST_SYC
-    where (selected.Const_ID == param.b2_scoped_member2_id );
+    where (selected.Const_ID == param.b3_scoped_member1_id );
 if(empty const)
   // if the constant was not found
   // check the system level
@@ -11823,7 +11826,7 @@ if(empty const)
   select any system from instances of S_SYS where (selected.Name == sysName);
 
     select any const related by system->G_EIS[R9100]->PE_PE[R9100]->CNST_CSP[R8001]->
-    CNST_SYC[R1504] where (selected.Const_ID == param.b2_scoped_member2_id);
+    CNST_SYC[R1504] where (selected.Const_ID == param.b3_scoped_member1_id);
 end if;
 
 if ( not_empty const )
@@ -11890,22 +11893,31 @@ INSERT INTO S_SPARM
 	"5497043a-805d-4195-b2e0-2ecba1e6c334",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
+	VALUES ("5751a7f3-9adb-4b7c-b96a-a130f590499d",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b1_scoped_data_type1_id',
+	'b1_scoped_path1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"8fb98390-9c0e-4cf4-a42c-714f2f26ed71",
 	'');
 INSERT INTO S_SPARM
-	VALUES ("68ea48f3-1c25-4545-addc-5ee623349c02",
+	VALUES ("d1e89994-a085-43a6-aa49-1f836aea3133",
 	"c72f1739-7267-480c-917d-bcca081eb867",
-	'b2_scoped_member2_id',
+	'b2_scoped_data_type1_id',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
-	"f82ddf02-c3d9-4ad2-bb75-84fa3dde7faa",
+	"5751a7f3-9adb-4b7c-b96a-a130f590499d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c1cee153-1c6f-43b8-adb1-a16960469512",
+	"c72f1739-7267-480c-917d-bcca081eb867",
+	'b3_scoped_member1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"d1e89994-a085-43a6-aa49-1f836aea3133",
 	'');
 INSERT INTO PE_PE
 	VALUES ("c72f1739-7267-480c-917d-bcca081eb867",
@@ -14155,7 +14167,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("9e9cc4b1-62fb-4ef9-8576-b96041e3330a",
 	"00000000-0000-0000-0000-000000000000",
-	'Invocation_parameters_loop4_start',
+	'Invocation_parameters_loop5_start',
 	'ParserValidateFunction: TRUE',
 	'return GD::NULL_UNIQUE_ID();
 
@@ -14238,7 +14250,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("8a396c8e-c2f0-40ec-83b9-423d4e995aa9",
 	"00000000-0000-0000-0000-000000000000",
-	'Invocation_parameters_loop4_end',
+	'Invocation_parameters_loop5_end',
 	'ParserValidateFunction: TRUE',
 	'select any val from instances of V_VAL where selected.Value_ID == param.a2_upper_ruleid_name;
 
@@ -14684,7 +14696,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("81410c7b-cbd1-4e52-8282-e6a1a571a8c5",
 	"00000000-0000-0000-0000-000000000000",
-	'Instance_chain_loop5_start',
+	'Instance_chain_loop6_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -14834,7 +14846,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("a9eca515-aa0c-4b2f-a78e-ca531fe1dbb1",
 	"00000000-0000-0000-0000-000000000000",
-	'Instance_chain_loop5_end',
+	'Instance_chain_loop6_end',
 	'ParserValidateFunction: TRUE',
 	'select any right_obj from instances of O_OBJ 
     where ( selected.Obj_ID == param.b1_object_keyletters1_id );
@@ -16108,7 +16120,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("365c7fbb-670d-43ec-938d-2cef4f791b17",
 	"00000000-0000-0000-0000-000000000000",
-	'Supp_data_loop6_start',
+	'Supp_data_loop7_start',
 	'ParserValidateFunction: TRUE',
 	'return GD::NULL_UNIQUE_ID();
 
@@ -16260,7 +16272,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("357be310-9b88-4762-8911-c389be37902d",
 	"00000000-0000-0000-0000-000000000000",
-	'Supp_data_loop6_end',
+	'Supp_data_loop7_end',
 	'ParserValidateFunction: TRUE',
 	'select any stmt from instances of ACT_SMT 
     where selected.Statement_ID == param.a2_upper_ruleid_name;
@@ -18393,7 +18405,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("82893656-bb24-4a5c-95d5-b7db0b419d3e",
 	"00000000-0000-0000-0000-000000000000",
-	'Sub_expr_loop7_start',
+	'Sub_expr_loop8_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -18545,7 +18557,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("2dbfcb65-6af1-427a-8db9-2d0385ea4db6",
 	"00000000-0000-0000-0000-000000000000",
-	'Sub_expr_loop7_end',
+	'Sub_expr_loop8_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b2_conjunction2_id != GD::NULL_UNIQUE_ID() )
   op_id = ::binary_operator_create( a1_text: "or", a2_dt_name: "boolean" );
@@ -19113,7 +19125,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("c668e69b-fee3-4353-8d2f-16f642f37938",
 	"00000000-0000-0000-0000-000000000000",
-	'Conjunction_loop8_start',
+	'Conjunction_loop9_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -19265,7 +19277,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("54b52080-73c9-4946-9889-a52205172a81",
 	"00000000-0000-0000-0000-000000000000",
-	'Conjunction_loop8_end',
+	'Conjunction_loop9_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b2_relational_expr2_id != GD::NULL_UNIQUE_ID() )
   op_id = ::binary_operator_create( a1_text: "and", a2_dt_name: "boolean" );
@@ -20399,7 +20411,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("0aa995fd-e355-418c-ad91-93959f314cbc",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_loop9_start',
+	'Addition_loop10_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -20721,7 +20733,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("17cf6cf1-84dc-47c8-adef-17de17deab18",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_loop9_end',
+	'Addition_loop10_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b2_plus_or_minus2_id != GD::NULL_UNIQUE_ID() )
   lhs_id = param.b1_multiplication1_id;
@@ -20731,7 +20743,7 @@ INSERT INTO S_SYNC
   return  ::binary_operation_validate( a1_left_op: lhs_id, 
               a2_operator: param.b2_plus_or_minus2_id, 
               a3_right_op: param.b3_multiplication3_id, 
-              a4_op_type: "addition expression",
+              a4_op_type: "additive expression",
               a5_set_dt: TRUE, a6_rule_token: param.a1_rule_token, a7_rule_id:param.a3_ruleid_name );
 
 end if;
@@ -21478,7 +21490,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("a7e7f159-7d5a-4c04-a085-48c27e33bb5f",
 	"00000000-0000-0000-0000-000000000000",
-	'Multiplication_loop10_start',
+	'Multiplication_loop11_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;
 
@@ -21799,7 +21811,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("08078702-1f8f-42f7-800c-fa65d6810558",
 	"00000000-0000-0000-0000-000000000000",
-	'Multiplication_loop10_end',
+	'Multiplication_loop11_end',
 	'ParserValidateFunction: TRUE',
 	'if (param.b3_mult_op3_id != GD::NULL_UNIQUE_ID() )
   lhs_id = param.b2_sign_expr2_id;
@@ -21809,7 +21821,7 @@ INSERT INTO S_SYNC
   return  ::binary_operation_validate( a1_left_op: lhs_id, 
               a2_operator: param.b3_mult_op3_id, 
               a3_right_op: param.b4_sign_expr4_id, 
-              a4_op_type: "multiplication expression",
+              a4_op_type: "multiplicative expression",
               a5_set_dt: TRUE, a6_rule_token: param.a1_rule_token, a7_rule_id:param.a3_ruleid_name );
 
 end if;
@@ -24226,116 +24238,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Scoped_access_validate',
 	'ParserValidateFunction: TRUE',
-	'return param.a6_current_rule_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-',
+	'return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
@@ -25645,8 +25548,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'String_literal_false_validate',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-create object instance lbo of V_LBO;
+	'create object instance lbo of V_LBO;
 lbo.Value = "FALSE";
 
 create object instance val of V_VAL;
@@ -25879,8 +25781,7 @@ INSERT INTO S_SYNC
 	"00000000-0000-0000-0000-000000000000",
 	'Member_access_end',
 	'ParserValidateFunction: TRUE',
-	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
-// ::Member_access_end()
+	'// ::Member_access_end()
 if ( param.b1_root_inst_access_id == GD::NULL_UNIQUE_ID())
   // There is no field, dispose incompletely created value instances . . .
   ::clear_value_data();
@@ -25909,7 +25810,7 @@ else
   else
     select any block from instances of ACT_BLK where
                                              selected.Block_ID == current_scope;
-    // This code is a close copy of what is in Member_access_loop11_end.
+    // This code is a close copy of what is in Member_access_loop12_end.
     // Need to look and see if this can be refactored.
       cur_sys_name = ::getSystemName();
       select any sys from instances of S_SYS where selected.Name == cur_sys_name;
@@ -26259,9 +26160,9 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("685ae89b-077f-4185-8b75-01b8bcb60a14",
 	"00000000-0000-0000-0000-000000000000",
-	'Member_access_loop11_start',
+	'Member_access_loop12_start',
 	'ParserValidateFunction: TRUE',
-	'// ::Member_access_loop11_start()
+	'// ::Member_access_loop12_start()
 return param.a3_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -26303,7 +26204,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("9a2a02ea-bdb3-4aba-baf6-13fbe024f335",
 	"00000000-0000-0000-0000-000000000000",
-	'Member_access_loop11_end',
+	'Member_access_loop12_end',
 	'ParserValidateFunction: TRUE',
 	'// Member_access_loop_11_end()
 select any rootVal from instances of V_VAL where
@@ -26324,7 +26225,7 @@ else
 
   if empty instRefDt
     USER::logError(msg: "Internal Error in OAL Validation Function " +
-                 "Member_access_loop11_end().  Variable <instRefDt> is empty.",path:"PathNotProvided");
+                 "Member_access_loop12_end().  Variable <instRefDt> is empty.",path:"PathNotProvided");
   end if;
   name = rootVal.Text;
   var_id = ::get_var_in_scope( name: name, rule_token: param.a1_rule_token );
@@ -27271,7 +27172,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("f8b30c6c-acc6-47f0-9946-263b84b45291",
 	"00000000-0000-0000-0000-000000000000",
-	'Array_refs_loop12_start',
+	'Array_refs_loop13_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a3_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -27314,7 +27215,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("b86215f7-ed42-4245-a5dc-e75ce2d1362e",
 	"00000000-0000-0000-0000-000000000000",
-	'Array_refs_loop12_end',
+	'Array_refs_loop13_end',
 	'ParserValidateFunction: TRUE',
 	'rootVal_ID = ::get_value_chain_end(start_value_ID:param.a3_outer_loop_id);
 select any rootVal from instances of V_VAL where
@@ -34800,7 +34701,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("1e736fb6-30b2-49b4-9918-40ac2faba479",
 	"00000000-0000-0000-0000-000000000000",
-	'Addition_plus_or_minus_content_assist',
+	'Addition_additive_operator_content_assist',
 	'ParserValidateFunction: TRUE',
 	'::rval_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -36381,149 +36282,6 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
-	VALUES ("d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	"00000000-0000-0000-0000-000000000000",
-	'Scoped_access_tok_doublecolon_content_assist',
-	'ParserValidateFunction: TRUE',
-	'act_id = ::get_current_context();
-select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
-if ( not_empty act )
-  line = ::getLineNumber( rule_token:param.a1_rule_token );
-  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
-  select one list related by act->P_PL[R1603];
-  if ( not_empty list )
-    if ( ( list.line != line ) or ( list.col != col ) )
-      list.dispose();
-      create object instance list of P_PL;
-      list.line = line;
-      list.col = col;
-      relate list to act across R1603;
-    end if;
-  else
-    create object instance list of P_PL;
-    list.line = line;
-    list.col = col;
-    relate list to act across R1603;
-  end if;
-
-  // get the EDT and/or constant specification
-  dt_text = "";
-  select any s_edt from instances of S_EDT where ( selected.DT_ID == param.b1_scoped_data_type1_id );
-  select any cnst_csp from instances of CNST_CSP where ( selected.Constant_Spec_ID == param.b1_scoped_data_type1_id );
-  if ( not_empty s_edt )
-    select one s_dt related by s_edt->S_DT[R17];
-    dt_text = s_dt.Name;
-    in_generic_package = act.associateWithContainer();
-    select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
-    select one c_c related by containing_pe->C_C[R8001];
-    select one ep_pkg related by containing_pe->EP_PKG[R8001];
-    if not_empty c_c
-      c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-    else
-      ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
-    end if;
-    select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CONSTANT ); 
-    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
-    if not_empty ep_pkg
-      select any pkgResultSet related by ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::CONSTANT ); 
-      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
-    end if;
-    select any cnst_csp related by results->CNST_CSP[R8001] where ( selected.InformalGroupName == s_dt.Name );
-  end if;
-  if ( not_empty cnst_csp )
-    dt_text = cnst_csp.InformalGroupName;
-  end if;
-  
-  // enumerator proposals
-  select many s_enums related by s_edt->S_ENUM[R27];
-  for each s_enum in s_enums
-    create object instance  new_item of P_P;
-    new_item.type = ProposalTypes::Enumerator;
-    new_item.display_text = s_enum.Name;
-    new_item.replacement_text = new_item.display_text;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    list.addProposal( Proposal_ID:new_item.Proposal_ID );
-  end for;
-  
-  // constant proposals
-  select many cnst_sycs related by cnst_csp->CNST_SYC[R1504];
-  for each cnst_syc in cnst_sycs
-    create object instance new_item of P_P;
-    new_item.type = ProposalTypes::Constant;
-    new_item.display_text = cnst_syc.Name;
-    new_item.replacement_text = cnst_syc.Name;
-    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
-    new_item.needs_space = false;
-    list.addProposal( Proposal_ID:new_item.Proposal_ID );
-  end for;
-  
-end if;',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'',
-	0);
-INSERT INTO S_SPARM
-	VALUES ("e2ea5db2-ed5c-4e88-9e95-9eca6ccb4f42",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a1_rule_token',
-	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("c911d0e1-706b-4280-9e1a-f3796acd6a51",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a2_upper_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"e2ea5db2-ed5c-4e88-9e95-9eca6ccb4f42",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("6b33f598-cc27-4b4a-b8e6-78e5184f96c6",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a3_rule_begin_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"c911d0e1-706b-4280-9e1a-f3796acd6a51",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("b7595a6b-2120-4f72-906f-cc731a4779b8",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'a4_rule_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"6b33f598-cc27-4b4a-b8e6-78e5184f96c6",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("34a9d257-93a7-4144-a7a6-2cffaf6c7192",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b1_scoped_data_type1_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"b7595a6b-2120-4f72-906f-cc731a4779b8",
-	'');
-INSERT INTO S_SPARM
-	VALUES ("1a4e4d5e-9c67-4f74-af57-6281b0260b48",
-	"d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	'b2_scoped_member2_id',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"34a9d257-93a7-4144-a7a6-2cffaf6c7192",
-	'');
-INSERT INTO PE_PE
-	VALUES ("d7f06498-1cce-4897-9d4b-eeb018165b8e",
-	1,
-	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	"00000000-0000-0000-0000-000000000000",
-	1);
-INSERT INTO S_SYNC
 	VALUES ("683f2729-f1f8-4acd-b28d-3e10d0f14b36",
 	"00000000-0000-0000-0000-000000000000",
 	'Rval_begin2_content_assist',
@@ -36769,7 +36527,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("8ee2a91d-b745-48bd-8052-63e0b614f655",
 	"00000000-0000-0000-0000-000000000000",
-	'Partial_block_loop13_end',
+	'Partial_block_loop14_end',
 	'ParserValidateFunction: TRUE',
 	'return param.a3_ruleid_name;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -36830,7 +36588,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("04386ef2-ceef-46e4-a91c-f380c30beba9",
 	"00000000-0000-0000-0000-000000000000",
-	'Partial_block_loop13_start',
+	'Partial_block_loop14_start',
 	'ParserValidateFunction: TRUE',
 	'return param.a2_rule_begin_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -38637,6 +38395,771 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("f1bcf10b-02a8-451b-9fda-bffc771a2294",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a96b2b06-5987-494a-885f-845f03e07a29",
+	"00000000-0000-0000-0000-000000000000",
+	'Additive_operator_validate',
+	'ParserValidateFunction: TRUE',
+	'return ::binary_operator_create( a1_text: param.a3_text, a2_dt_name: "" );',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("77ed7069-9dbb-413e-8893-f1a8efc68330",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a5804623-5db3-4ef8-add8-ebc69741b3f0",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"77ed7069-9dbb-413e-8893-f1a8efc68330",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6d233844-29f3-479a-bb0e-6d9bb466813c",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a5804623-5db3-4ef8-add8-ebc69741b3f0",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7de148e7-bd85-4ad9-ade3-79f924578d24",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6d233844-29f3-479a-bb0e-6d9bb466813c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d0222c07-5aa0-4838-9689-a9f397506376",
+	"a96b2b06-5987-494a-885f-845f03e07a29",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7de148e7-bd85-4ad9-ade3-79f924578d24",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a96b2b06-5987-494a-885f-845f03e07a29",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("119a0835-47a4-4955-a0e8-a01e01170301",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_validate',
+	'ParserValidateFunction: TRUE',
+	'return param.a6_current_rule_id;
+',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("a2ac1404-da06-46df-b2d8-5b4be149edf8",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f8e1fb4b-de6d-4a8c-9807-28b2b269621a",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a2ac1404-da06-46df-b2d8-5b4be149edf8",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3d0cb8d1-be32-4d50-bef2-83fa41a6a161",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f8e1fb4b-de6d-4a8c-9807-28b2b269621a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c8f28b15-30d8-4eb3-8300-c2f854ce531b",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"3d0cb8d1-be32-4d50-bef2-83fa41a6a161",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9402993c-02e0-4fe5-be55-484a96408c20",
+	"119a0835-47a4-4955-a0e8-a01e01170301",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c8f28b15-30d8-4eb3-8300-c2f854ce531b",
+	'');
+INSERT INTO PE_PE
+	VALUES ("119a0835-47a4-4955-a0e8-a01e01170301",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_validate',
+	'ParserValidateFunction: TRUE',
+	'return param.a6_current_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("6205de7e-a7ea-40cc-a1f5-f256bb3b7586",
+	"e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6dd2d07c-7577-48c0-b1cd-292238ae05e2",
+	"e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6205de7e-a7ea-40cc-a1f5-f256bb3b7586",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("e82b922d-cc60-4121-ae62-0859fc4464a7",
+	"e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6dd2d07c-7577-48c0-b1cd-292238ae05e2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9a9f1572-9920-4c65-a67d-900c82ce87a7",
+	"e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"e82b922d-cc60-4121-ae62-0859fc4464a7",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("df760f0f-8649-4d74-be3a-d7fb109ced02",
+	"e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9a9f1572-9920-4c65-a67d-900c82ce87a7",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e0652d91-5ba7-4505-b3ab-a701b09f7095",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_end',
+	'ParserValidateFunction: TRUE',
+	'return param.a4_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("f995d82a-5d65-4820-a86a-c6036cc823f2",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6d2f105d-42d7-4d85-b73d-93b29028ad8c",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f995d82a-5d65-4820-a86a-c6036cc823f2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b3f05acc-3202-4240-b67e-4acde3f36196",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6d2f105d-42d7-4d85-b73d-93b29028ad8c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5f839ccf-5a89-4389-bf3a-ef1fdd0612d7",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"b3f05acc-3202-4240-b67e-4acde3f36196",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("df9bb6ea-4cb6-49b1-a9bd-f800a3778a96",
+	"5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	'b1_scoped_path_segment1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5f839ccf-5a89-4389-bf3a-ef1fdd0612d7",
+	'');
+INSERT INTO PE_PE
+	VALUES ("5f9ce501-0b6f-459f-806e-a260ed5e480c",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("9d0c05e7-3685-407a-b3ce-c334767976b0",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_start',
+	'ParserValidateFunction: TRUE',
+	'::scopedsegment_reset();
+return param.a1_ruleid_name;
+',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("94a4c751-2758-47ca-bc41-0eaea231226f",
+	"9d0c05e7-3685-407a-b3ce-c334767976b0",
+	'a1_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("9d0c05e7-3685-407a-b3ce-c334767976b0",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_loop4_start',
+	'ParserValidateFunction: TRUE',
+	'return param.a2_rule_begin_id; ',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("1217b1d9-8ed9-4df0-a877-3d401c0735aa",
+	"3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	'a1_upper_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a46da627-e724-4db0-a36e-949a939869cf",
+	"3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	'a2_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1217b1d9-8ed9-4df0-a877-3d401c0735aa",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("92ec6f70-749c-4644-a850-323371bd436c",
+	"3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	'a3_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a46da627-e724-4db0-a36e-949a939869cf",
+	'');
+INSERT INTO PE_PE
+	VALUES ("3fe66071-ca96-4743-9f96-e214e7c81a2d",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_loop4_end',
+	'ParserValidateFunction: TRUE',
+	'return param.a4_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("eb9ef3cd-fef6-4d65-9881-c49d364346e5",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("15d276cb-fad0-453c-a2aa-cf1ca9f4ab01",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"eb9ef3cd-fef6-4d65-9881-c49d364346e5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9e375c33-5eea-416d-ab47-865e5785f32d",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"15d276cb-fad0-453c-a2aa-cf1ca9f4ab01",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b58495d7-223d-431e-b7d4-3373689008d5",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9e375c33-5eea-416d-ab47-865e5785f32d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4efbb00f-7073-4d01-b190-93da85e2aaae",
+	"f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	'b1_scoped_path_segment1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"b58495d7-223d-431e-b7d4-3373689008d5",
+	'');
+INSERT INTO PE_PE
+	VALUES ("f342f9fa-0fc6-4f46-a831-c42c638b8132",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_lookahead_content_assist',
+	'ParserValidateFunction: TRUE',
+	'act_id = ::get_current_context();
+select any act from instances of ACT_ACT where ( selected.Action_ID == act_id );
+if ( not_empty act )
+  line = ::getLineNumber( rule_token:param.a1_rule_token );
+  col = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) );
+  select one list related by act->P_PL[R1603];
+  if ( not_empty list )
+    if ( ( list.line != line ) or ( list.col != col ) )
+      list.dispose();
+      create object instance list of P_PL;
+      list.line = line;
+      list.col = col;
+      relate list to act across R1603;
+    end if;
+  else
+    create object instance list of P_PL;
+    list.line = line;
+    list.col = col;
+    relate list to act across R1603;
+  end if;
+  
+  // This is a lookahead content assist rule. Because of the way the grammar is set up,
+  // path segments cannot be validated until _after_ the next segment appears (which is
+  // too late for content assist). Consequently, content assist has to do some work to
+  // parse the next package based on token text _before_ the validation code does the work.
+  // Practically, this means the scoped segment cache contains all but the last segment. The
+  // last segment is contained in the lookahead token text.
+  
+  lookahead_text = ::getText( rule_token:param.a1_rule_token );
+  matched_elements = ::scopedmatches_collect( lookaheadText: lookahead_text, validate:false );
+  
+  // if there is only one segment, the match might be a system
+  select many matched_systems from instances of S_SYS where false;
+  if ( 0 == ::scopedsegment_size() )
+    // seach for systems
+    // Using a trick here to search for visible system models by searching for visible packages
+    // and then navigating back to the system model instance set
+    in_generic_package = act.associateWithContainer();
+    select one containing_pe related by act->ACT_BIE[R640]->PE_PE[R640];
+    select one containing_c_c related by containing_pe->C_C[R8001];
+    select one containing_ep_pkg related by containing_pe->EP_PKG[R8001];
+    if not_empty containing_c_c
+      containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    else
+      containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    end if;
+    select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty containing_ep_pkg
+      select any pkgResultSet related by containing_ep_pkg->PE_SRS[R8005] where ( selected.Name == "" and selected.Type == ElementTypeConstants::PACKAGE ); 
+      select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+    end if;
+    select many matched_systems related by results->EP_PKG[R8001]->S_SYS[R1405] where ( selected.Name == lookahead_text );
+    
+    // If there is only 1 segment, we need to consider that this may not
+    // be a scoped path, but rather a Class Based Operations, Interface message,
+    // or bridge
+    ::Invocation_tok_doublecolon_content_assist(
+        a1_rule_token:param.a1_rule_token,
+        a2_upper_rule_id:param.a2_upper_rule_id,
+        a3_rule_begin_id:param.a3_rule_begin_id,
+        a4_rule_id:param.a4_rule_id,
+        b1_obj_or_ee_keyletters1_id:param.b1_scoped_path_segment1_id,
+        b2_bridge_or_transform_function2_id:param.b1_scoped_path_segment1_id,
+        b3_invocation_parameters3_id: param.b1_scoped_path_segment1_id);
+    select many proposals related by list->P_P[R1601];
+    for each proposal in proposals
+      // Need to add "::" for these items, if any were found.  
+      proposal.replacement_text = "::" + proposal.replacement_text;
+      proposal.cursor_position = proposal.cursor_position + 2;
+    end for;
+  end if;
+
+  // create component proposals
+  select many c_c_to_c_cs related by matched_elements->C_C[R8001]->PE_PE[R8003]->C_C[R8001];
+  select many ep_pkg_to_c_cs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->C_C[R8001];
+  proposal_c_cs = c_c_to_c_cs | ep_pkg_to_c_cs;
+  for each proposal_c_c in proposal_c_cs 
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Component;
+    new_item.display_text = proposal_c_c.Name;
+    new_item.replacement_text = "::" + proposal_c_c.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+  // create package proposals
+  select many c_c_to_ep_pkgs related by matched_elements->C_C[R8001]->PE_PE[R8003]->EP_PKG[R8001];
+  select many ep_pkg_to_ep_pkgs related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->EP_PKG[R8001];
+  select many s_sys_to_ep_pkgs related by matched_systems->EP_PKG[R1401];
+  proposal_ep_pkgs = c_c_to_ep_pkgs | ep_pkg_to_ep_pkgs | s_sys_to_ep_pkgs;
+  for each proposal_pkg in proposal_ep_pkgs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Package;
+    new_item.display_text = proposal_pkg.Name;
+    new_item.replacement_text = "::" + proposal_pkg.Name + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // create EDT proposals
+  select many c_c_to_s_edts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
+  select many ep_pkg_to_s_edts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_EDT[R17]->S_DT[R17];
+  proposal_s_edts = c_c_to_s_edts | ep_pkg_to_s_edts;
+  for each proposal_s_edt in proposal_s_edts
+    create object instance  new_item of P_P;
+    new_item.type = ProposalTypes::EDT;
+    new_item.display_text = proposal_s_edt.Name;
+    new_item.replacement_text = "::" + new_item.display_text + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+  // create UDT proposals
+  select many c_c_to_s_udts related by matched_elements->C_C[R8001]->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]->S_DT[R17];
+  select many ep_pkg_to_s_udts related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->S_DT[R8001]->S_UDT[R17]->S_DT[R17];
+  proposal_s_udts = c_c_to_s_udts | ep_pkg_to_s_udts;
+  for each proposal_s_udt in proposal_s_udts
+    select one udt related by proposal_s_udt->S_UDT[R17];
+    baseId = udt.getCoreType();
+    select any base_edt from instances of S_EDT where ( selected.DT_ID == baseId );
+    if ( not_empty base_edt )
+      create object instance  new_item of P_P;
+      new_item.type = ProposalTypes::UDT;
+      new_item.display_text = proposal_s_udt.Name;
+      new_item.replacement_text = "::" + new_item.display_text + "::";
+      new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+      new_item.needs_space = false;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
+    end if;
+  end for;
+
+  // create constant specification proposals
+  select many c_c_to_cnst_csps related by matched_elements->C_C[R8001]->PE_PE[R8003]->CNST_CSP[R8001];
+  select many ep_pkg_to_cnst_csps related by matched_elements->EP_PKG[R8001]->PE_PE[R8000]->CNST_CSP[R8001];
+  proposal_cnst_csps = c_c_to_cnst_csps | ep_pkg_to_cnst_csps;
+  for each proposal_cnst_csp in proposal_cnst_csps
+    create object instance  new_item of P_P;
+    new_item.type = ProposalTypes::ConstantSpecification;
+    new_item.display_text = proposal_cnst_csp.InformalGroupName;
+    new_item.replacement_text = "::" + new_item.display_text + "::";
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // enumerator proposals
+  select many s_enums related by matched_elements->S_DT[R8001]->S_EDT[R17]->S_ENUM[R27];
+  select many s_udts related by matched_elements->S_DT[R8001]->S_UDT[R17];  // get enumerators from UDTs based on EDTs
+  for each s_udt in s_udts
+    baseId = s_udt.getCoreType();
+    select any base_edt from instances of S_EDT where ( selected.DT_ID == baseId );
+    select many udt_enums related by base_edt->S_ENUM[R27];
+    s_enums = s_enums | udt_enums;
+  end for;
+  for each s_enum in s_enums
+    create object instance  new_item of P_P;
+    new_item.type = ProposalTypes::Enumerator;
+    new_item.display_text = s_enum.Name;
+    new_item.replacement_text = "::" + new_item.display_text;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+  
+  // create constant proposals
+  select many cnst_sycs related by matched_elements->CNST_CSP[R8001]->CNST_SYC[R1504];
+  for each cnst_syc in cnst_sycs
+    create object instance new_item of P_P;
+    new_item.type = ProposalTypes::Constant;
+    new_item.display_text = cnst_syc.Name;
+    new_item.replacement_text = "::" + cnst_syc.Name;
+    new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
+    new_item.needs_space = false;
+    list.addProposal( Proposal_ID:new_item.Proposal_ID );
+  end for;
+
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("69c26b2c-47a2-4ac3-ad8b-c063ce8cb061",
+	"66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("5d2080ea-47d8-431a-a191-c91b39724559",
+	"66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"69c26b2c-47a2-4ac3-ad8b-c063ce8cb061",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6b23f23f-68d6-4850-b0ae-7673fd283f0c",
+	"66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"5d2080ea-47d8-431a-a191-c91b39724559",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9c52c728-c5a4-47f0-9741-57673e3c9d1d",
+	"66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6b23f23f-68d6-4850-b0ae-7673fd283f0c",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("837df5b6-35eb-4a89-bacb-e91843068d7b",
+	"66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	'b1_scoped_path_segment1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9c52c728-c5a4-47f0-9741-57673e3c9d1d",
+	'');
+INSERT INTO PE_PE
+	VALUES ("66f83760-9c5f-4973-a320-b2042b6fd8ed",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_name_validate',
+	'ParserValidateFunction: TRUE',
+	'::scopedsegment_add_segment( token:param.a1_rule_token, segment_name: param.a3_text );
+return param.a6_current_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("7d974d44-a75a-4b24-9c95-539a7e14c71b",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("94b650cf-a376-4dfd-83f7-2690d198f1b2",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a3_text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"7d974d44-a75a-4b24-9c95-539a7e14c71b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ff88cb15-6c82-4413-95fa-4521a690b473",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a4_rule_ref_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"94b650cf-a376-4dfd-83f7-2690d198f1b2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6db8f27c-15c6-4961-a03f-0d0f5012980b",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a5_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"ff88cb15-6c82-4413-95fa-4521a690b473",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("22dde921-a866-4104-b719-10a76d24a94a",
+	"db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	'a6_current_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6db8f27c-15c6-4961-a03f-0d0f5012980b",
+	'');
+INSERT INTO PE_PE
+	VALUES ("db4dc6c7-259d-4d2a-b3ca-bd335f87a883",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("822a20b6-f288-49e8-a135-95ed3589f2f8",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_start',
+	'ParserValidateFunction: TRUE',
+	'return param.a1_ruleid_name;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("8ad4ab4f-ebed-48c9-9741-7626666bfb1e",
+	"822a20b6-f288-49e8-a135-95ed3589f2f8",
+	'a1_ruleid_name',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("822a20b6-f288-49e8-a135-95ed3589f2f8",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e2a98593-0290-4973-b7c6-f9b86c595613",
+	"00000000-0000-0000-0000-000000000000",
+	'Scoped_path_segment_end',
+	'ParserValidateFunction: TRUE',
+	'return param.a4_rule_id;',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("75a2de4a-768f-4b51-a81b-7ee00ee90cb2",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("72bc3ffc-45fa-4675-844c-e22da7a6cc8b",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"75a2de4a-768f-4b51-a81b-7ee00ee90cb2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("71367ee6-a542-40e4-8095-e91c71dd8b99",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"72bc3ffc-45fa-4675-844c-e22da7a6cc8b",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("8491b879-6972-4d74-8fcf-a86a3b72086e",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"71367ee6-a542-40e4-8095-e91c71dd8b99",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("da851d7d-765a-491a-99e0-edcd390bf0af",
+	"e2a98593-0290-4973-b7c6-f9b86c595613",
+	'b1_scoped_path_segment_name1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"8491b879-6972-4d74-8fcf-a86a3b72086e",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e2a98593-0290-4973-b7c6-f9b86c595613",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",

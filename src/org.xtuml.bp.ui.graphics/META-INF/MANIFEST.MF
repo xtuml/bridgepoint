@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Graphics Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.graphics;singleton:=true
-Bundle-Version: 6.11.0.qualifier
+Bundle-Version: 6.19.0.qualifier
 Bundle-Activator: org.xtuml.bp.ui.graphics.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
@@ -31,3 +31,4 @@ Export-Package: org.xtuml.bp.ui.graphics.actions,
  org.xtuml.bp.ui.graphics.print,
  org.xtuml.bp.ui.graphics.providers,
  org.xtuml.bp.ui.graphics.tools
+Automatic-Module-Name: org.xtuml.bp.ui.graphics

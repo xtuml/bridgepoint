@@ -26,7 +26,7 @@ INSERT INTO T_TNS VALUES (1,  'System.gif',                     'S_SYS',   '', '
 INSERT INTO T_TNS VALUES (6,  'Class.gif',                      'O_OBJ',   '', 'Name', '',                 'Class', 						-1, '');
 INSERT INTO T_TNS VALUES (3,  'Function.gif',                   'S_SYNC',  '', 'Name', '',                 'Function', 					-1, '');
 INSERT INTO T_TNS VALUES (4,  'FunctionParameter.gif',          'S_SPARM', '', 'Name', '',                 'Function Parameter',        54, 'succeeds');
-INSERT INTO T_TNS VALUES (7,  'Operation.gif',                  'O_TFR',   '', 'Name', '',                 'Operation',                 125, 'succeeds');
+INSERT INTO T_TNS VALUES (7,  'InstanceBasedOperation.gif',                  'O_TFR',   '', 'Name', '',                 'Operation',                 125, 'succeeds');
 INSERT INTO T_TNS VALUES (8,  'OperationParameter.gif',         'O_TPARM', '', 'Name', '',                 'Operation Parameter',       124, 'succeeds');
 INSERT INTO T_TNS VALUES (10, 'InstanceStateChart.gif',         'SM_ISM',  'Instance State Chart', '', '', 'Instance State Chart', 		-1, '');
 INSERT INTO T_TNS VALUES (15, 'ClassStateChart.gif',            'SM_ASM',  'Class State Chart', '', '',    'Class State Chart', 			-1, '');
@@ -126,7 +126,7 @@ INSERT INTO T_TNS VALUES (297, 'Package.gif', 'EP_PKG',  '', 'Label', '', 'Packa
 INSERT INTO T_TNS VALUES (298, 'Association.gif',                'I_LIP',   '', 'Label', '',                     'Association', 					-1, '');
 INSERT INTO T_TNS VALUES (299, 'Class.gif',                  'CSME_CIE',   '', 'Label', '',                 'Classes Under Execution',                     -1, '');
 INSERT INTO T_TNS VALUES (300, 'ConstantSpecification.gif',  'CNST_CSP',  '', 'InformalGroupName', '',      'Constant Specification',  -1, '');
-INSERT INTO T_TNS VALUES (301, 'Enumerator.gif',             'CNST_LSC',  '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constant', -1, '');
+INSERT INTO T_TNS VALUES (301, 'Enumerator.gif',             'CNST_LSC',  '', 'Name', '->CNST_LFSC[R1503]->CNST_SYC[R1502]', 'Literal Symbolic Constant', 1505, 'succeeds');
 INSERT INTO T_TNS VALUES (302, 'Enumerator.gif',             'CNST_SYC',  '', '', '',                 'Symbolic Constant', 				-1, '');
 INSERT INTO T_TNS VALUES (303, 'Satisfaction.gif',           'C_SF',  '', 'Label', '',                 'Satisfactions', 				-1, '');
 INSERT INTO T_TNS VALUES (305, 'Attribute.gif',           'O_NBATTR','', '', '',                     'Non Derived Attribute', 			-1, '');
@@ -138,14 +138,20 @@ INSERT INTO T_TNS VALUES (310, 'Attribute.gif',                      'MSG_ISM', 
 INSERT INTO T_TNS VALUES (311, 'Attribute.gif',                      'MSG_IAM',  '', '','',                 'Informal Message', 						-1, '');
 INSERT INTO T_TNS VALUES (312, 'Function.gif',                      'MSG_F',  '', '','',                 'Formal Function', 						-1, '');
 INSERT INTO T_TNS VALUES (313, 'Bridge.gif',                         'MSG_B',  '', '','',                 'Formal Bridge Operation', 						-1, '');
-INSERT INTO T_TNS VALUES (314, 'Operation.gif',                    'MSG_O',  '', '','',                 'Formal Operation', 						-1, '');
+INSERT INTO T_TNS VALUES (314, 'InstanceBasedOperation.gif',                    'MSG_O',  '', '','',                 'Formal Operation', 						-1, '');
 INSERT INTO T_TNS VALUES (315, 'InterfaceOperation.gif',       'MSG_IOP',  '', '','',                 'Formal Interface Operation', 						-1, '');
 INSERT INTO T_TNS VALUES (316, 'Event.gif',                          'MSG_E',  '', '','',                 'Formal Event', 						-1, '');
 INSERT INTO T_TNS VALUES (317, 'InterfaceSignal.gif',            'MSG_SIG',  '', '','',                 'Formal Signal', 						-1, '');
-INSERT INTO T_TNS VALUES (318, 'Operation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
+INSERT INTO T_TNS VALUES (318, 'InstanceBasedOperation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
 INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '','',                 'Creation Transitions', 						-1, '');
 INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name', '',                 'Port Reference',                        -1, '');
 INSERT INTO T_TNS VALUES (383, 'Exception.gif', 'S_EXP', '', 'Name', '', 'Exception', -1, '');
+INSERT INTO T_TNS VALUES (384, 'Range.gif', 'S_RANGE', '', '', '', 'Range', -1, '');
+INSERT INTO T_TNS VALUES (385, 'Deployment.gif', 'D_DEPL', '', 'Name', '', 'Deployment', -1, '');
+INSERT INTO T_TNS VALUES (386, 'Terminator.gif', 'D_TERM', '', 'Name', '', 'Terminator', -1, '');
+INSERT INTO T_TNS VALUES (387, 'TerminatorService.gif', 'D_TSVC', '', 'Name', '', 'Terminator Service', -1, '');
+INSERT INTO T_TNS VALUES (388, 'TerminatorServiceParameter.gif', 'D_TSPARM', '', 'Name', '', 'Terminator Service Parameter', 1654, 'succeeds');
+INSERT INTO T_TNS VALUES (389, 'InstanceBasedOperation.gif', 'O_DEF', '', '', '', 'Deferred Operation', -1, '');
 
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
@@ -183,6 +189,7 @@ INSERT INTO T_TPS VALUES (41, 16, 305, '->O_BATTR[R106]->O_NBATTR[R107]', '', fa
 INSERT INTO T_TPS VALUES (42, 16, 34, '->O_RATTR[R106]->O_REF[R108]', '', false);
 INSERT INTO T_TPS VALUES (43, 75, 17, '->S_DT[R17]', '', false);
 INSERT INTO T_TPS VALUES (44, 74, 17, '->S_DT[R17]', '', false);
+INSERT INTO T_TPS VALUES (402,74, 384, '->S_RANGE[R57]', '', false);
 INSERT INTO T_TPS VALUES (45, 77, 17, '->S_DT[R17]', '', false);
 INSERT INTO T_TPS VALUES (46, 27, 28, '->S_BRG[R19]', '', false);
 INSERT INTO T_TPS VALUES (50, 28, 17, '->S_DT[R20]', 'Return Type', true);
@@ -401,6 +408,14 @@ INSERT INTO T_TPS VALUES (378, 125, 126, '->PE_PE[R8003]->CL_IC[R8001]', '', fal
 INSERT INTO T_TPS VALUES (379, 125, 130, '->PE_PE[R8003]->C_I[R8001]', '', false);
 INSERT INTO T_TPS VALUES (380, 125, 74,  '->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]', '', false);
 INSERT INTO T_TPS VALUES (381, 297, 383, '->PE_PE[R8000]->S_EXP[R8001]', '', false);
+INSERT INTO T_TPS VALUES (382, 297, 385, '->PE_PE[R8000]->D_DEPL[R8001]', '', false);
+INSERT INTO T_TPS VALUES (601, 385, 386, '->D_TERM[R1650]', '', false);
+INSERT INTO T_TPS VALUES (602, 386, 387, '->D_TSVC[R1651]', '', false);
+INSERT INTO T_TPS VALUES (603, 387,  17, '->S_DT[R1656]', 'Type', false);
+INSERT INTO T_TPS VALUES (604, 387, 388, '->D_TSPARM[R1652]', '', false);
+INSERT INTO T_TPS VALUES (605, 388,  17, '->S_DT[R1653]', 'Type', false);
+INSERT INTO T_TPS VALUES (606, 7,  389, '->O_DEF[R126]', 'Deferral', false);
+INSERT INTO T_TPS VALUES (607, 389,  30, '->R_REL[R126]', 'Relationship', false);
 
 -- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures
@@ -426,3 +441,5 @@ INSERT INTO T_EDL VALUES (6, 297, 'PE_PE', '->PE_PE[R8001]');
 INSERT INTO T_EA VALUES (6, 'Visibility');
 INSERT INTO T_EDL VALUES (7, 6, 'PE_PE', '->PE_PE[R8001]');
 INSERT INTO T_EA VALUES (7, 'Visibility');
+
+

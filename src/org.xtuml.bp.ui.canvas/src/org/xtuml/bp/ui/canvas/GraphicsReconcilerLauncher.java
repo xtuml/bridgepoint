@@ -14,21 +14,15 @@
 package org.xtuml.bp.ui.canvas;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IModelDelta;
-import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
@@ -91,7 +85,7 @@ public class GraphicsReconcilerLauncher {
 					int passnumber = 1;
 					AutoReconciliationSpecification_c.Reconcileallgraphics(ooag, passnumber, system, system.getSys_id());
 				} else {
-					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, system.getSys_id());
+					AutoReconciliationSpecification_c.Reconcile(ooag, removeElements, system, system.getSys_id());
 				}
 			}
 		} catch (TransactionException e) {

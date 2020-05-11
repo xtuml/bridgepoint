@@ -2,16 +2,18 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MASL Xtext generic IDE support
 Bundle-Vendor: xtUML.org
-Bundle-Version: 6.11.0.qualifier
+Bundle-Version: 6.19.0.qualifier
 Bundle-SymbolicName: org.xtuml.bp.xtext.masl.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.xtext.masl,
  org.eclipse.xtext.ide,
- org.eclipse.xtext.xbase.ide
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.xtuml.bp.xtext.masl.ide.contentassist.antlr,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.internal,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer.jflex,
  org.xtuml.bp.xtext.masl.ide.highlighting
+Automatic-Module-Name: org.xtuml.bp.xtext.masl.ide
 

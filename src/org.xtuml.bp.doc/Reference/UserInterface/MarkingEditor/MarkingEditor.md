@@ -8,8 +8,8 @@ a highlighter pen to mark each element that has a particular property.
 
 The MASL model compiler takes this input in the form of ```pragma``` statements
 associated with application model element.  The marks created using this marking
-editor are output as ```pragma```s when the modeler runs the ```Export MASL```
-tool.      
+editor are output as ```pragma```s when the modeler runs the ```Build Project```
+tool to export MASL.      
 
 The marking editor provides a user interface for the MASL marking process.  It
 uses selection fields to minimize the possibility of user-induced typing errors
@@ -175,7 +175,7 @@ There are a few specific things to note about this file:
 means that if the modeler moves, deletes, or renames an element, he or she must either
 remark the new element in this file and delete the old element, or edit the new
 path data into this file by hand on the old entries.  Marks that do not match
-any instances in the model are simply ignored by the ```Export MASL``` process and
+any instances in the model are simply ignored by the MASL export process and
 are not passed downstream.  Therefore, they do not hurt anything if left in place.
 The export process will provide warnings for unused marks.        
     

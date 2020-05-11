@@ -147,7 +147,7 @@ public class ${class_name} implements IReferentialAttributeManager {
       .assign rgo_counter = 1
       .for each r_rgo in r_rgos
         .select one rgo_rel related by r_rgo->R_OIR[R203]->R_REL[R201]
-        .select one r_rto related by r_rgo->O_REF[R111]->O_RTIDA[R111]->R_RTO[R110] where ( ( selected.Obj_ID == o_obj.Obj_ID ) and ( selected.Rel_ID == rgo_rel.Rel_ID ) )
+        .select any r_rto related by r_rgo->O_REF[R111]->O_RTIDA[R111]->R_RTO[R110] where ( ( selected.Obj_ID == o_obj.Obj_ID ) and ( selected.Rel_ID == rgo_rel.Rel_ID ) )
         .invoke rgo_selection = getRGOSelection( r_rgo, r_rto, rgo_counter )
 ${rgo_selection.body}
         .select many o_rtidas related by r_rgo->O_REF[R111]->O_RTIDA[R111] where ( ( selected.Obj_ID == o_obj.Obj_ID ) and ( selected.Rel_ID == rgo_rel.Rel_ID ) )

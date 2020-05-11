@@ -1,15 +1,7 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: gen_import_java.inc,v $
-.// Version:   $Revision: 1.111 $
-.// Modified:  $Date: 2013/06/12 13:08:05 $
-.//
-.// (c) Copyright 2007-2014 by Mentor Graphics Corp.  All rights reserved.
-.//
-.//====================================================================
-.//
 .// Generate the Java code that validates/translates data from BP SQL
-.// into a format that Tiger uses.
+.// into a format that BridgePoint uses.
 .//
 .//====================================================================
 .//
@@ -40,14 +32,14 @@
   .//
   .select one table related by p_col->T[R5]
   .select many tcol_set related by table->C[R5]
-  .select any last_tcol related by table->C[R5] where ( selected.nextName == "" )
+  .select any last_tcol related by table->C[R5] where ( not selected.nextName )
   .assign x = (cardinality tcol_set) - 1
   .while ( x >= 0 )
     .if ( last_tcol.Name == p_col.Name )
       .break while
     .end if
     .assign x = x - 1
-    .select one last_tcol related by last_tcol->C[R6.'follows']
+    .select one last_tcol related by last_tcol->C[R6.'precedes']
   .end while
   .assign attr_result = x
 .end function
@@ -63,7 +55,7 @@
     .select any col related by table->C[R5] where (selected.nextName == "")
     .for each col in col_set
         .// if this column doesn't follow any other
-        .select one follows related by col->C[R6.'follows'];
+        .select one follows related by col->C[R6.'precedes'];
         .if (empty follows)
             .// it is the starting column in the order, and
             .// the one we should start with
@@ -280,6 +272,11 @@
       .elif((table.Key_lett == "S_UDT") and (col.Name == "Definition"))
           (parms.size() > ${attr_col_num} && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})).trim() : ""\
           .assign special_case = true
+      .elif (table.Key_Lett == "S_DIM")
+        .if ((col.Name == "TSParm_ID") or (col.Name == "Svc_ID"))
+          (parms.size() > ${attr_col_num} ? IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):IdAssigner.NULL_UUID)
+          .assign special_case = true
+        .end if
 	  .end if
 	  .// Dialect attribute introduced
 	  .assign dialectAdded = false;
@@ -335,7 +332,7 @@
            null\
         .end if
       .end if
-      .select one nextCol related by col->C[R6.'precedes'];
+      .select one nextCol related by col->C[R6.'follows'];
       .select many ec_set related by col->EC[R9]
       .for each ec in ec_set
 , ${post_string}
@@ -345,7 +342,7 @@
 , ${post_string}
       .end if
       .assign attr_col_num = attr_col_num + 1
-      .select one col related by col->C[R6.'precedes'];
+      .select one col related by col->C[R6.'follows'];
     .end while
 .end function
 .//
@@ -425,7 +422,6 @@ public class ${class_name} extends CoreImport
     private boolean IPR_WindowSelection = false;
     private boolean initialCheck = false;
     private List<NonRootModelElement> loadedInstances = new Vector<NonRootModelElement>();
-    private List<NonRootModelElement> loadedProxies = new Vector<NonRootModelElement>();
     private List<NonRootModelElement> loadedGraphicsInstances = new Vector<NonRootModelElement>();
     .if(multilevel)
     private PersistableModelComponent m_component;
@@ -606,10 +602,6 @@ public class ${class_name} extends CoreImport
             .for each ce in configurableElements
                 .// each ce is an eo
                 .select one table related by ce->EI[R3]->T[R4]
-.// TODO: BOB debug
-.if (empty table)
-.print "ERROR! T is null on ce->EI[R3]->R[R4]. ce.Name: ${ce.Name}"
-.end if                
                 .assign className  = "$Cr{table.Name}"
                 if(actualContent.equals("${className}"))
                 {

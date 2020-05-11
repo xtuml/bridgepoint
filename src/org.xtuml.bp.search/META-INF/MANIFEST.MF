@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Search
 Bundle-SymbolicName: org.xtuml.bp.search;singleton:=true
-Bundle-Version: 6.11.0.qualifier
+Bundle-Version: 6.19.0.qualifier
 Bundle-Activator: org.xtuml.bp.search.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
@@ -20,3 +20,4 @@ Export-Package: org.xtuml.bp.search,
  org.xtuml.bp.search.adapters,
  org.xtuml.bp.search.query,
  org.xtuml.bp.search.results
+Automatic-Module-Name: org.xtuml.bp.search

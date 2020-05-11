@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.SystemModel_c;
 
 
 public class LaunchMarkingEditorAction implements IActionDelegate {
@@ -19,7 +20,7 @@ public class LaunchMarkingEditorAction implements IActionDelegate {
         
         // UI guarantees only IProjects are selected
         for (Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
-            IProject project = (IProject) iterator.next();
+			IProject project = (IProject) ((SystemModel_c)iterator.next()).getAdapter(IProject.class);
             markProject(project);
         }
     }

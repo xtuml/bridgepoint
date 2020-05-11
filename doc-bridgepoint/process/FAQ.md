@@ -13,13 +13,15 @@
     * [What happened to the xtUML Editor?](#xtumleditor)
   * [BridgePoint Installation](#installation)
     * [What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?](#userdevversions)
-    * [Machine Recomendations](#machinerecomendations)
+    * [Machine Recommendations](#machinerecomendations)
+    * [How do I configure BridgePoint to use a specific Java runtime (JRE or JDK)?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
     * [Installing xsltproc](#xsltproc)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
+    * [Maven Build Error](#mavenbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
     * [Windows Unit Test Configuration](#windowstesting)
     * [How do I run BridgePoint Unit Tests?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
@@ -35,6 +37,7 @@
     * [What is publicly available?  Can anyone outside the xtUML dev team actually build Generator?](#buildinggenerator)  
     * [Generator dependencies: Galaxy, Windows, Visual C++...  What's required to eliminate them?](#replacinggenerator)
     * [How often to these tools change?  When would I have to rebuild them?](#rebuildingmctools)  
+    * [How do I upgrade my projects to use the new model compilers?](#mcupgrade)  
   * [BridgePoint Architecture](#bparchitecture)
     * [What is a NonRootModelElement?](#nrme)
     * [What is a ModelRoot?](#modelroot)
@@ -52,6 +55,10 @@
     * [What are support.onefact.net accounts for?](#redmineacct)  
     * [How do I use Github with two-factor authentication](#github2fa)  
     * [What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)](#synchronize)  
+    * [Capture a stack dump when Eclipse hangs](#stack_dump)  
+    * [How to set the stack size](#stack_size)  
+    * [How to build a formalized collaboration/communication diagram](#form_collab)
+    * [How do I put a Post-It Note (sticky note) comment on a diagram?](#sticky_note)
 
 
 xtUML Profile <a id="xtuml_profile"></a>
@@ -109,24 +116,28 @@ BridgePoint Installation <a id="installation"></a>
   of the xtUML Modeler version.  It adds additional eclipse features that support
   Java and Xtext code development and testing. 
 
-* **Hardware Requirements and Recomendations**  <a id="machinerecomendations"></a>  
+* **Hardware Requirements and Recommendations**  <a id="machinerecomendations"></a>  
   BridgePoint runs under [Eclipse](https://www.eclipse.org/). Hence, machine resource usage comes largely from
   Eclipse. As of this writing, there are no published hardware requirements for Eclipse.  Eclipse offers 32 and
-  64-bit versions. BridgePoint is built using only the 32-bit version of Eclipse. BridgePoint plugins under
+  64-bit versions. BridgePoint is built using only the 64-bit version of Eclipse. BridgePoint plugins under
   Eclipse will never use more than 4GB of RAM while editing and executing models.  However, for people using
-  BridgePoint model compilers, a seperate process runs during model translation.  This process is a stand-alone
-  32-bit binary, so it too may use up to 4GB of RAM.  Therefore, the current maximum possible usage is 8GB.  
+  BridgePoint model compilers, a separate process runs during model translation.  This process is a stand-alone
+  64-bit binary, so it too may use up to 4GB of RAM.  Therefore, the current maximum possible usage is 8GB.  
 
   #####RAM
-  Experience has shown that the tool runs very well with 4GB of RAM under Linux environments.  In Windows, 8GB is 
-  the minimum recomendation. The tool does not offically support Mac OS, but it does run well with 4GB of RAM on 
-  a Mac.
+  Experience has shown that the tool runs very well with 4GB of RAM under Linux and MacOS environments.  In Windows, 8GB is 
+  the minimum recommendation. 
 
   #####Processor
   Eclipse utilizes threading very well. Mutli-core processors help performance when editing models. However,
   model translation uses a single thread.  Therefore, translation performance is not improved with multiple 
   processors.  Model execution performance is single-threaded when "deterministic execution" is selected, and
   multi-threaded when it is not selected.  In general, any processor running at 1GHz and beyond will work fine.
+
+* [**How do I configure BridgePoint to use a specific Java runtime (JRE or JDK)?**](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
+  BridgePoint is no longer bundled with Java.  You must install Java as a
+  pre-dependency before running BridgePoint.  Instructions to do so are found
+  [here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc).
   
 * **Errors During Unzip**  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
@@ -173,7 +184,7 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
 
 * **ANTLR Build Error** <a id="antlrbuilderror"></a>  
   After following the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) 
-  if you see errors in plugins caused by missing dependant files, and those files refer to ANTLR, follow these 
+  if you see errors in plugins caused by missing dependent files, and those files refer to ANTLR, follow these 
   instructions to resolve the issue:
  
   - Open a terminal (or cygwin shell if windows)
@@ -186,9 +197,23 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   - Check grammar
   - Click Run  
   
-  This problem is that ANTLR is not running when it should in some cases. This is a sporatic dependancy 
-  issue that has not yet been completly resolved.  It is raised in the issue tracking system as 
+  This problem is that ANTLR is not running when it should in some cases. This is a sporadic dependency 
+  issue that has not yet been completely resolved.  It is raised in the issue tracking system as 
   issue [7631](https://support.onefact.net/redmine/issues/7631).
+
+* **Maven Build Error** <a id="mavenbuilderror"></a>
+  After following the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) 
+  if you see errors in plugins caused by missing dependent files, and those files refer to org.eclipse.core.runtime, follow   these instructions to resolve the issue:
+  
+  - Check the version of Apache Maven using ```mvn -version```
+  - If the version is newer than 3.6.0, then proceed with this solution.
+  - Install Apache Maven 3.6.0 as detailed on the [Maven](https://maven.apache.org/install.html) website.
+  - If you are using Ubuntu or other Linux that supports alternatives, you can try the following:
+      - Download the .tar.gz and extract into /usr/share/maven
+      - Run the following command:  
+        ```$ sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/maven/apache-maven-3.6.0/bin/mvn 360```
+      - Switch maven version using:  
+        ```$ sudo update-alternatives --config mvn```
   
 * **Linux Distribution-Specific Instructions** <a id="linux"></a>
   * Package Requirements for Various Linux Distributions  
@@ -203,7 +228,7 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
         Uses the same packages as specified for Ubuntu installation.
   
 * **Windows Unit Test Configuration**  <a id="windowstesting"></a>  
-  This is used when runnning unit tests under Windows.  These instructions are used to prepare the Windows environment to run graphical compare tests.  If you do not want or need to run graphical compare tests, you do not have to perform these steps.  However, some BridgePoint unit tests will fail in Windows if you do not perform these steps.
+  This is used when running unit tests under Windows.  These instructions are used to prepare the Windows environment to run graphical compare tests.  If you do not want or need to run graphical compare tests, you do not have to perform these steps.  However, some BridgePoint unit tests will fail in Windows if you do not perform these steps.
 
   - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
     - Exit BridgePoint
@@ -231,7 +256,7 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   - Sometimes tests freeze due to race conditions in the automated button presses. No CPU activity after a reasonable wait period is a good indicator. A manual button press will resolve the freeze, but often requires a guess as to which button to press. Run the test over again individually from the **JUnit Plug-in Test** section.
   
 * **How to turn on Tracing/Debugging statements in BridgePoint** <a id="tracing"></a>
-  - Bridgepoint utilizes the Eclipse platform tracing debug facility. There is a very nice [Eclipse tracing FAQ](https://wiki.eclipse.org/FAQ_How_do_I_use_the_platform_debug_tracing_facility) that describes how to use this. A quick example of what you will learn by looking at this [Eclipse tracing FAQ](https://wiki.eclipse.org/FAQ_How_do_I_use_the_platform_debug_tracing_facility) is that you can modify an Eclipse launch configuration, go to the Tracing tab, select the plugin you want to trace/debug, and select the available debug options from there. For example, you can do this for the org.xtuml.bp.core plugin to trace/debug that plugin.
+  - BridgePoint utilizes the Eclipse platform tracing debug facility. There is a very nice [Eclipse tracing FAQ](https://wiki.eclipse.org/FAQ_How_do_I_use_the_platform_debug_tracing_facility) that describes how to use this. A quick example of what you will learn by looking at this [Eclipse tracing FAQ](https://wiki.eclipse.org/FAQ_How_do_I_use_the_platform_debug_tracing_facility) is that you can modify an Eclipse launch configuration, go to the Tracing tab, select the plugin you want to trace/debug, and select the available debug options from there. For example, you can do this for the org.xtuml.bp.core plugin to trace/debug that plugin.
 
 * **Command line Build Instructions** <a id="clibuild"></a>
   - The instructions in this section describe how to use command line scripts on Linux to build the BridgePoint plug-ins and package them into a full zipfile.  These instructions assume the build area will be under the user home folder.        
@@ -255,11 +280,11 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
 
 * **How do BridgePoint Context Menu Entries (CMEs) work?** <a id="bp_cme"></a>
   - There is a package in org.xtuml.bp.core project named context_menu. Under this package is the class diagram that defines  BridgePoint CME behavior. 
-    - The preexisting instance data that populates this model is found in [bp.core/sql/context_menu.pei.sql](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.core/sql/context_menu.pei.sql).
+    - The pre-existing instance data that populates this model is found in [bp.core/sql/context_menu.pei.sql](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.core/sql/context_menu.pei.sql).
   - The OAL that defines the behavior of the CME is found in the ooaofooa model under ooaofooa::Functions::Context Menu Entry Functions
     - Under this package are operations that use the naming convention: "Class Keyletter"_"CME Operation"
     - In these operations are the behaviors each CME action takes on the specified class 
-  - Classes in bridgepoint that use CME have a operation named actionFilter. For example, class Model Class (O_OBJ) has this.
+  - Classes in BridgePoint that use CME have a operation named actionFilter. For example, class Model Class (O_OBJ) has this.
   - The actionFilter operation has OAL that acts as a filter to determine when to enable/disable the CME
   - There are exceptions to the above description. However, in general that is how it works.
   
@@ -294,7 +319,7 @@ BridgePoint Architecture <a id="bparchitecture"></a>
     When proxies are in use the way the tool knows a NRME is a proxy is 
     that the PMC attribute is null. In this case, the NRME attribute named
     "m_contentpath" will NOT be null, and it will refer to the path that was
-    obtained from the proxy instance in the .xtuml file when this NRME proxy
+    obtained from the proxy instance in the `.xtuml` file when this NRME proxy
     was loaded. As soon as the actual model element is loaded, the m_contentpath
     attribute is changed to null and the PMC attribute is assigned.
   
@@ -409,11 +434,11 @@ BridgePoint Architecture <a id="bparchitecture"></a>
   on the transaction listener.
 
 * **How is the OAL parser generated?** <a id="parser"></a>  
-  An explanation of how the OAL parser is generated can be cound at
+  An explanation of how the OAL parser is generated can be found at
   [9763_content_assistance_dnt.md](../notes/9763_content_assistance/9763_content_assistance_dnt.md)
   section 5.1.1.
   
-Verifer <a id="verifier"></a>
+Verifier <a id="verifier"></a>
 ------------
 
 * **What does "Nothing to verify." mean?**  <a id="nothingtoverify"></a>  
@@ -462,6 +487,17 @@ Generator is a legacy application that is dependent on the Galaxy string process
   * mcmc must be rebuilt any time the model compiler is enhanced or fixed in the area of OAL translation.  The xtUML dev team generally rebuilds mcmc with each new release of BridgePoint.  Since this tool is recently open sourced, we cannot yet say how often customers wish to rebuild the tool.  However, as before, the [instructions to do so are available](https://github.com/xtuml/mc/blob/master/model/com.mentor.nucleus.bp.core/gen/HOWTO%20Create%20mcmc-docgen.txt).
   * Owing to it's closed source heritage, Generator contains a binary version of the C model compiler source templates.  Thus, any time the C MC changed, generator was rebuilt to pick up these changes.  Since generator is now open source, users must no longer rely on the binary model compiler.  Our team has not made changes to the generator source code in a very long time (years).  The primary reason generator would need to be rebuilt is if a developer wanted to create a archetype language construct.  Since generator has a parser for the archetype language, it would need to be rebuilt to take advantage of the enhancement.  As with the other tools, the [instructions to rebuild generator are available](https://github.com/xtuml/generator/blob/master/src/gen_erate/README.txt) if needed.
 
+* **How do I upgrade my projects to use the new model compilers?**  <a id="mcupgrade"></a>  
+
+  * In April 2019 a major upgrade of the BridgePoint model compilers was
+    completed. Projects using model compilers created before this version must
+    be upgraded. Refer to section 5.2.1
+    [here](../notes/11491_mcs/11491_mcs_int.adoc) to see the recommended upgrade
+    procedure. Questions about model upgrade can be directed to the
+    [xtUML community chat](https://hangouts.google.com/group/vMohZ9oW08xR7wSd2)
+    or to the [xtUML.org forums](https://xtuml.org/community/forum/xtuml-forum/).
+
+
 Miscellaneous <a id="misc"></a>
 ------------
 
@@ -469,7 +505,7 @@ Miscellaneous <a id="misc"></a>
   Send an email to "issues@onefact.net" with the issue ID enclosed in brackets in the subject line (e.g. [#7777]).  The content of the e-mail will be appended to the issue as a new note. It can take up to 15 minutes before the note appears in the issue on http://support.onefact.net.
 
 * **Is the xtUML.org ID connected to Redmine in any way?**  <a id="connectedids"></a>  
-  Only indirectly.  Users may create accounts on xtUML.org or support.onefact.net (BridgePoint Redmine System) completely indpendently of one another.  When a user creates an account on support.onefact.net they have the option to enter their xtuml.org user ID, but it is only used for informational purposes.  The accounts are not linked.   
+  Only indirectly.  Users may create accounts on xtUML.org or support.onefact.net (BridgePoint Redmine System) completely independently of one another.  When a user creates an account on support.onefact.net they have the option to enter their xtuml.org user ID, but it is only used for informational purposes.  The accounts are not linked.   
 
 * **What are xtUML.org accounts for?**  <a id="xorgacct"></a>  
   Your xtuml.org account allows you to use the community features of the website.  This includes the built-in chat feature as well as the forums.  Your account also grants you access to the on-line learning courses with progress tracking.  The website grants approvals to new account requests immediately.   
@@ -480,11 +516,77 @@ Miscellaneous <a id="misc"></a>
 * **How do I use Github with two-factor authentication?**  <a id="github2fa"></a>  
   You can set up 2FA on your Github account and use git from the command line or EGit. [See the instructions here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-setup-github-2-factor-auth.md)   
   
-* **What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)** <a id="synchronize"></a>)  
+* **What does a yellow triangle in Model Explorer mean? (Synchronize with library/Synchronize references)** <a id="synchronize"></a>  
   When an interface is changed (operation/signal added or deleted), BridgePoint will detect this and decorate the project and affected elements in Model Explorer with the yellow warning sign.  For example, in the screenshot below you will see that a new operation has been added to the UI interface, which caused the project and affected components and ports to get decorated with the warning sign.  
 
   From this point the modeler can run the "Synchronize references" (push changes) or "Synchronize with library" (pull changes) on the project.  These actions will perform the desired update and dirty the affected elements in the underlying revision control.  Using these tools there is no need to unformalize/reformalize or break the satisfaction of connected interfaces.  
 
   If you are interested in more learning why this is implemented in this manner, the following engineering notes provide background: [9717_interface_msg_dnt.md](../notes/9717_interface_msg/9717_interface_msg_dnt.md), [dts0100841747.dnt](../notes/9717_interface_msg/dts0100841747.dnt.txt).  
 
-  <img src="ModelExplorerSynchronizeWarning.png" alt="ModelExplorerSynchronizeWarning" style="width: 20px;"/>  
+  <img src="ModelExplorerSynchronizeWarning.png" alt="ModelExplorerSynchronizeWarning" style="width: 320px;"/>  
+
+* **Capture a stack dump when Eclipse hangs** <a id="stack_dump"></a>  
+Using JVisualVM to capture thread dumps when a deadlock occurs  
+  - Download the JDK 1.6
+     Note: It MUST be the JDK, the JRE does NOT include the needed tool (jvisualvm.exe)
+  - Install this JDK on the machine with the problem
+  - Navigate to the JDK installation folder.  
+    For example the default is:  
+    C:\Program Files\Java\jdk1.6.0_23\bin
+  - Run jvisualvm.exe
+  - The tool will show you a list of the Java processes running on the machine
+  - Connect to Eclipse by double clicking the process.   
+  - Switch to the Threads tab.
+  - Click the "Thread Dump" button in upper right.
+  - A dump of all threads is displayed.  It even reports any deadlocks that it sees. 
+  - Select-all from this report and save it.  This is the information we need. 
+    Paste it to a file and include it in the CQ bug report.
+
+* **How to set the stack size** <a id="stack_size"></a>  
+The default stack size for java threads is typically set by java itself.  On occasion, BridgePoint has
+thrown StackOverflowError exceptions, especially during load of large models.  Due to this, BridgePoint
+now sets its own default stack size in the `bridgepoint.ini` file in the installation.  The default is
+set to four megabytes via the virtual machine argument `-Xss4m`.  Users may wish to increase or decrease this 
+value (minimum recommendation is `-Xss512k`) depending on memory constraints and/or the size of their models.
+
+* **How to build a formalized collaboration/communication diagram** <a id="form_collab"></a>  
+Formalizing a collaboration (aka communication) diagram by connecting messages on the diagram
+to events and operations defined within the underlying executable (class and state) models is 
+simple, albeit perhaps not intuitive.
+  - Create a package to contain the collaboration diagram.
+  - Open the canvas editor on the newly created package.
+  - Use the "Interaction" drawer on the Palette to select the "Instance" tool.
+  - Create an instance for each participant on the collaboration diagram.
+  - Formalize each instance to a class within the underlying class model.
+  - Use the "Communication" drawer on the Palette to select the "Link" tool.
+  - Draw a communication link between each pair of collaborating participants on the diagram.
+  - For each message on the collaboration diagram:
+    - Use the "Interaction" drawer on the Palette to select the "(A)Synchronous Message" tool.
+    - Alongside the communication line between the sender/receiver pair, draw a short line, moving toward the receiver.
+    - Select both the receiver and the message (ctrl-select).
+    - Invoke the context-menu entry, "Formalize..."
+    - Select the appropriate event or operation defined within the underlying executable models.  
+    
+The resulting diagram will look something like this:
+  <img src="ExampleCollabDiag.png" alt="ExampleCollabDiag" style="width: 320px;"/>
+
+* **How do I put a Post-It Note (sticky note) comment on a diagram?** <a id="sticky_note"></a>  
+  There are times when it is useful to annotate a spot or element in a diagram
+(especially an analysis diagram like Use Case, Sequence, etc) with a graphical
+note or comment.
+
+  The BridgePoint xtUML editor does not currently (as of 2019) have a “Note”
+tool, but the “Activity Partition” tool from the Activity drawer in the
+Palette can be used to serve the purpose. This tool simply draws a line,
+which you can add text to by setting the Name value in the Properties
+view.  You can also add a Description which will show as hover text.
+
+  To make the note stand out, activate the context menu on the newly created
+element and select Format > Line Color > Red (or any color you wish).
+
+  The context menu also contains the “Layers” entry.  You can add all your
+diagram notes to a “Notes” layer, then you have the ability to hide or show
+the Notes layer to show the diagram with the additional annotations or not.
+
+  <img src="sticky_note.png" alt="Post-It Note / Sticky Note"/>
+

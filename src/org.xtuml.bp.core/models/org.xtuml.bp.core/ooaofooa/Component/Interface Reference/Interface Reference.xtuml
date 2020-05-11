@@ -588,33 +588,17 @@ if(not_empty interface)
       select one ep related by signal->C_EP[R4004];
       create object instance req_ep of SPR_REP;
       create object instance req_signal of SPR_RS;
-      req_signal.initialize();
       relate requirement to ep across R4500 using req_ep;
       relate req_signal to req_ep across R4502;
-	  if ( req_signal.Dialect == ActionDialect::masl )
-	    // if the dialect is MASL check if it should be None dialect
-		select one package related by req_signal->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
-		if ( empty package or Util::stringContains(haystack:package.Descrip, needle:"masl_project") )
-		  req_signal.Dialect = ActionDialect::none;
-		  req_signal.Action_Semantics_internal = "";
-		end if;
-      end if;
+      req_signal.initialize();
     end for;
     for each operation in operations
       select one ep related by operation->C_EP[R4004];
       create object instance req_ep of SPR_REP;
       create object instance req_operation of SPR_RO;
-      req_operation.initialize();
       relate requirement to ep across R4500 using req_ep;
       relate req_operation to req_ep across R4502;
-	  if ( req_operation.Dialect == ActionDialect::masl )
-	    // if the dialect is MASL check if it should be None dialect
-		select one package related by req_operation->SPR_REP[R4502]->C_R[R4500]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
-		if ( empty package or Util::stringContains(haystack:package.Descrip, needle:"masl_project") )
-		  req_operation.Dialect = ActionDialect::none;
-		  req_operation.Action_Semantics_internal = "";
-		end if;
-      end if;
+      req_operation.initialize();
     end for;
   else
     select one provision related by self->C_P[R4009];
@@ -622,33 +606,17 @@ if(not_empty interface)
       select one ep related by signal->C_EP[R4004];
       create object instance pro_ep of SPR_PEP;
       create object instance pro_signal of SPR_PS;
-      pro_signal.initialize();
       relate provision to ep across R4501 using pro_ep;
       relate pro_signal to pro_ep across R4503;
-      if ( pro_signal.Dialect == ActionDialect::masl )
-	    // if the dialect is MASL check if it should be None dialect
-		select one package related by pro_signal->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
-		if ( empty package or not Util::stringContains(haystack:package.Descrip, needle:"masl_project") )
-		  pro_signal.Dialect = ActionDialect::none;
-		  pro_signal.Action_Semantics_internal = "";
-		end if;
-      end if;
+      pro_signal.initialize();
     end for;
     for each operation in operations
       select one ep related by operation->C_EP[R4004];
       create object instance pro_ep of SPR_PEP;
       create object instance pro_operation of SPR_PO;
-      pro_operation.initialize();
       relate provision to ep across R4501 using pro_ep;
       relate pro_operation to pro_ep across R4503;
-      if ( pro_operation.Dialect == ActionDialect::masl )
-	    // if the dialect is MASL check if it should be None dialect
-		select one package related by pro_operation->SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
-		if ( empty package or not Util::stringContains(haystack:package.Descrip, needle:"masl_project") )
-		  pro_operation.Dialect = ActionDialect::none;
-		  pro_operation.Action_Semantics_internal = "";
-		end if;
-      end if;
+      pro_operation.initialize();
     end for;
   end if;
 end if;',
@@ -902,9 +870,9 @@ if(not_empty provision)
       select one ep related by operation->C_EP[R4004];
       create object instance pro_ep of SPR_PEP;
       create object instance pro_operation of SPR_PO;
-      pro_operation.initialize();
       relate provision to ep across R4501 using pro_ep;
       relate pro_operation to pro_ep across R4503;        
+      pro_operation.initialize();
     end if;
   end for;
   // compare the signal set with the associated provided signals
@@ -932,9 +900,9 @@ if(not_empty provision)
       select one ep related by signal->C_EP[R4004];
       create object instance pro_ep of SPR_PEP;
       create object instance pro_signal of SPR_PS;
-      pro_signal.initialize();
       relate provision to ep across R4501 using pro_ep;
       relate pro_signal to pro_ep across R4503;        
+      pro_signal.initialize();
     end if;
   end for;
 end if;
@@ -965,9 +933,9 @@ if(not_empty requirement)
       select one ep related by operation->C_EP[R4004];
       create object instance req_ep of SPR_REP;
       create object instance req_operation of SPR_RO;
-      req_operation.initialize();
       relate requirement to ep across R4500 using req_ep;
       relate req_operation to req_ep across R4502;        
+      req_operation.initialize();
     end if;
   end for;
   // compare the signal set with the associated provided signals
@@ -995,9 +963,9 @@ if(not_empty requirement)
       select one ep related by signal->C_EP[R4004];
       create object instance req_ep of SPR_REP;
       create object instance req_signal of SPR_RS;
-      req_signal.initialize();
       relate requirement to ep across R4500 using req_ep;
       relate req_signal to req_ep across R4502;        
+      req_signal.initialize();
     end if;
   end for;
 end if;',

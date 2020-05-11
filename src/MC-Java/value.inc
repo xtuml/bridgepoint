@@ -277,6 +277,15 @@
   .invoke gen_value(root_pkg_name, l_val)
   .invoke gen_value(root_pkg_name, r_val)
   .select one dt related by l_val->S_DT[R820]
+  .select one irdt related by dt->S_IRDT[R17]
+  .select one irdt_obj related by irdt->O_OBJ[R123]
+  .assign class_name = ""
+  .assign irdt_is_set = false
+  .if ( not_empty irdt )
+    .invoke cn = get_class_name( irdt_obj )
+    .assign class_name = cn.body
+    .assign irdt_is_set = irdt.isSet
+  .end if
   .if (("${binary_op.operator}" == "==") AND ((dt.Name == "string") OR (dt.Name == "unique_id")))
     .// Test for string equality using the equals method otherwise
     .// test will fail unless strings are exactly the same instance
@@ -285,6 +294,18 @@
 (! ${l_val.buffer}.equals(${r_val.buffer}))\
   .elif ((dt.Name == "string") AND ((("${binary_op.operator}" == ">") OR ("${binary_op.operator}" == "<")) OR (("${binary_op.operator}" == ">=") OR ("${binary_op.operator}" == "<="))))
 (${l_val.buffer}.compareTo(${r_val.buffer}) ${binary_op.operator} 0)\
+  .elif ( ( ( "+" == binary_op.operator ) OR ( "|" == binary_op.operator ) ) AND ( not_empty irdt ) )
+NonRootModelElement.setUnion( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "&" == binary_op.operator ) AND ( not_empty irdt ) )
+NonRootModelElement.setIntersection( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "-" == binary_op.operator ) AND ( not_empty irdt ) )
+NonRootModelElement.setDifference( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "^" == binary_op.operator ) AND ( not_empty irdt ) )
+NonRootModelElement.setSymmetricDifference( ${l_val.buffer}, ${r_val.buffer}, new ${class_name}[0] )\
+  .elif ( ( "==" == binary_op.operator ) AND ( irdt_is_set ) )
+NonRootModelElement.setEquals( ${l_val.buffer}, ${r_val.buffer} )\
+  .elif ( ( "!=" == binary_op.operator ) AND ( irdt_is_set ) )
+(!NonRootModelElement.setEquals( ${l_val.buffer}, ${r_val.buffer} ))\
   .else
     .if ("$Ur{binary_op.operator}" == "AND")
       .assign binary_op.operator = "&&"
@@ -377,5 +398,26 @@ ${params.body})\
   .invoke rpn_result = get_root_pkg_name( root_pkg )
   .invoke params = gen_parameter_list(root_pkg_name, parameters, true )
 ${rpn_result.body}.$cr{func.Name}(modelRoot${params.body})\
+.end function
+.//
+.function gen_array_element_reference_values
+  .param string root_pkg_name
+  .select many array_element_references from instances of V_AER
+  .for each array_element_reference in array_element_references
+    .select one val related by array_element_reference->V_VAL[R801]
+    .invoke result = gen_array_element_reference_value(root_pkg_name, val)
+    .assign val.buffer = "${result.body}"
+  .end for
+.end function
+.//
+.function gen_array_element_reference_value
+  .param string root_pkg_name
+  .param inst_ref val
+  .select one v_aer related by val->V_AER[R801]
+  .select one root_val related by v_aer->V_VAL[R838]
+  .select one index_val related by v_aer->V_VAL[R839]
+  .invoke gen_value(root_pkg_name, root_val)
+  .invoke gen_value(root_pkg_name, index_val)
+${root_val.buffer}[${index_val.buffer}]\
 .end function
 .//

@@ -1,12 +1,4 @@
 //=====================================================================
-//
-//File:      $RCSfile: ModelCheckedTreeViewer.java,v $
-//Version:   $Revision: 1.10 $
-//Modified:  $Date: 2012/10/12 22:55:16 $
-//
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -24,7 +16,7 @@ package org.xtuml.bp.core.ui.tree;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.jface.util.ListenerList;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -48,7 +40,7 @@ public class ModelCheckedTreeViewer extends CheckboxTreeViewer {
 	private HashMap<Object, List<Object>> fChildrenSelected = new HashMap<Object, List<Object>>();
 	private IStructuredSelection fOriginalSelection;
 	boolean fExclusiveCheckBoxes = false;
-	private ListenerList internalCheckStateChangeListeners = new ListenerList();
+	private ListenerList internalCheckStateChangeListeners = new ListenerList(ListenerList.IDENTITY);
 	private boolean linkedWithSelection = false;
 	private boolean includeCheckItemsInSelection = true;
 	

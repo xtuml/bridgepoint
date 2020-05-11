@@ -7,20 +7,24 @@ This has obvious drawbacks for an open-source project.  If those files must be
 edited as is, you can try to use LibreOffice.  
 
 However, the xtUML team will move to more robust and open means of documentation
-creation.  For example, the ```Reference > UserInterface > PackageReferences```
-documentation source form is github-flavored markdown (found in ```PackageReferences.md```).  
+creation.  For example, the `Reference > UserInterface > PackageReferences`
+documentation source form is github-flavored markdown (found in `PackageReferences.md`).  
 
-The HTML version of this document is used inside the eclipse help system and it
-is generated with the tool ```pandoc```.
+Thus, the HTML version of help documents for use inside the eclipse help system may be 
+generated from Markdown or AsciiDoc source using either `pandoc` or `asciidoctor`.
 
 ```
 $ pandoc PackageReferences.md -f markdown_github -t html5 -o PackageReferences.html -c ../../../github-pandoc.css 
+```
+```
+$ cd ~/git/bridgepoint/src/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/ModelElements/Deployments
+$ asciidoctor -b html5 -a stylesheet=../../../../../asciidoctor-default.css -a linkcss -a copycss! -a reproducible= Deployments.adoc 
 ```
 
 > * The HTML is generated using version 1.19.2.1 of `pandoc`. This specific release can be downloaded here: https://github.com/jgm/pandoc/releases/tag/1.19.2.1
 > * There is a [Markdown cheatsheet here](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
 > * The original [github-like CSS is here](https://gist.github.com/dashed/6714393)
-> * There are browser extensions that will render markdown to html for local files, which is handy when writing docs.  The one I use for chromium is called "Markdown Viewer"
+> * There are browser extensions that will render markdown or asciidoc to html for local files, which is handy when writing docs.  The one I use for chromium is called "Markdown Viewer"
 
 To generate PDFs for release emails: 
 Open the html file in google chrome and use the built-in `Print > Save as PDF` feature.  This leaves 
@@ -43,7 +47,7 @@ To update the release notes closed issues list:
 - Check the "Regular expression" checkbox
 - In Filename enter ReleaseNotes.md
 - Click Replace...
-- In the With field enter: [$1](https://support.onefact.net/issues/$1) | 
+- In the With field enter: | link:https://support.onefact.net/issues/$1[$1] | 
 - Click OK
  
 To duplicate a column in vi:
@@ -58,5 +62,5 @@ To add square brackets around the first number:
 
 To add links to the issue numbers in the first column, use vi and...
 ```
-:%s/ \([0-9][0-9]*\) /(https:\/\/support.onefact.net\/issues\/\1) /
+:%s/ \([0-9][0-9]*\) /(link:https:\/\/support.onefact.net\/issues\/\1\[\1\]) /
 ```

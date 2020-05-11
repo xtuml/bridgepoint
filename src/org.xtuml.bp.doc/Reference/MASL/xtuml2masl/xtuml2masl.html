@@ -14,12 +14,12 @@
 <body>
 <h1 id="xtuml2masl">xtuml2masl</h1>
 <p>This command line tool converts an xtUML package into an equivalent MASL domain or MASL<br />
-project depending on parameter settings.</p>
+project/deployment depending on parameter settings.</p>
 <h2 id="syntax">Syntax</h2>
 <h3 id="domain-export">Domain Export</h3>
-<pre><code>xtuml2masl [-v | -V] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -d &lt;domain component&gt; [ -o &lt;output directory&gt; ]</code></pre>
+<pre><code>xtuml2masl [-v | -V] [-c] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -d &lt;domain component&gt; [ -o &lt;output directory&gt; ]</code></pre>
 <h3 id="package-export">Package Export</h3>
-<pre><code>xtuml2masl [-v | -V] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -p &lt;project package&gt; [ -o &lt;output directory&gt; ]</code></pre>
+<pre><code>xtuml2masl [-v | -V] [-c] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -p &lt;project/deployment package&gt; [ -o &lt;output directory&gt; ]</code></pre>
 <table style="width:88%;">
 <colgroup>
 <col style="width: 33%" />
@@ -37,30 +37,34 @@ project depending on parameter settings.</p>
 <td>Optionally print help message</td>
 </tr>
 <tr class="even">
+<td>-c</td>
+<td>Optionally used to enable the production of coverage statistics</td>
+</tr>
+<tr class="odd">
 <td>-e</td>
 <td>Optionally used to indicate the tool is called from eclipse and pre-builder should not be run</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>-xf</td>
 <td>Optionally skip the formatting step</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>-xl</td>
 <td>Optionally exclude action langauge from export</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>-i &lt;eclipse project&gt;</td>
 <td>Specify an absolute or relative path to the root directory of the Eclipse project containing the input model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>-d &lt;domain component&gt;</td>
 <td>Specify xtUML component that will be exported as a MASL domain</td>
 </tr>
-<tr class="odd">
-<td>-p &lt;project package&gt;</td>
-<td>Specify xtUML package that will be exported as a MASL project</td>
-</tr>
 <tr class="even">
+<td>-p &lt;project/deployment package&gt;</td>
+<td>Specify xtUML package that will be exported as a MASL project/deployment</td>
+</tr>
+<tr class="odd">
 <td>-o &lt;output directory&gt;</td>
 <td>Optionally specify the target folder to write to</td>
 </tr>
@@ -70,7 +74,6 @@ project depending on parameter settings.</p>
 <ul>
 <li>The tool is located in the subdirectory <code>&lt;BridgePoint Home&gt;/tools/mc/bin</code></li>
 <li>Output defaults to the current directory</li>
-<li><code>WORKSPACE</code> variable in your shell environment must be set to the path to your eclipse workspace</li>
 <li>Progress and error messages are reported to stderr</li>
 <li>Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage</li>
 </ul>

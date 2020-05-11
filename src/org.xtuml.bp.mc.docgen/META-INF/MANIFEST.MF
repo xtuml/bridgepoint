@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: C Model Compiler (Source)
+Bundle-SymbolicName: org.xtuml.bp.mc.docgen;singleton:=true
+Bundle-Version: 6.19.0.qualifier
+Bundle-Activator: org.xtuml.bp.mc.docgen.Activator
+Bundle-Vendor: xtUML.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.xtuml.bp.core,
+ org.xtuml.bp.mc,
+ org.xtuml.bp.io.image,
+ org.eclipse.ui.console,
+ org.eclipse.ui.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: org.xtuml.bp.mc.docgen
+Bundle-ClassPath: docgen.jar
+Eclipse-BundleShape: dir
+Automatic-Module-Name: org.xtuml.bp.mc.docgen

@@ -82,9 +82,9 @@ INSERT INTO AB VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${o_id_attr.Name}'\
           .// represent user defined types as their core type
           .select one dt related by udt->S_DT[R18]
         .end if
-        .select one next_attr related by attr->O_ATTR[R103.'succeeds']
+        .select one next_attr related by attr->O_ATTR[R103.'precedes']
         .invoke na_ip = attr_is_persistent(next_attr)
-        .select one attr_after_next related by next_attr->O_ATTR[R103.'succeeds']
+        .select one attr_after_next related by next_attr->O_ATTR[R103.'precedes']
         .invoke aan_ip = attr_is_persistent(attr_after_next)
         .if ( empty next_attr )
 INSERT INTO C VALUES ( '${obj.Name}', '${attr.Name}', '', '${dt.Name}'\
@@ -92,7 +92,7 @@ INSERT INTO C VALUES ( '${obj.Name}', '${attr.Name}', '', '${dt.Name}'\
           .// next attr is not persistent
           .// find the next persistent attr
           .while ((not aan_ip.result) AND ( not_empty attr_after_next ))
-            .select one attr_after_next related by attr_after_next->O_ATTR[R103.'succeeds']
+            .select one attr_after_next related by attr_after_next->O_ATTR[R103.'precedes']
             .invoke aan_ip = attr_is_persistent(attr_after_next)
           .end while
           .if ( empty attr_after_next )

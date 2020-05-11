@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile$
-//Version:   $Revision$
-//Modified:  $Date$
-//
-//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -28,11 +20,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.dialogs.PropertyPage;
-
-import org.xtuml.bp.core.Instance_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.debug.ui.model.BPBreakpoint;
-import org.xtuml.bp.debug.ui.model.BPLineBreakpoint;
 
 /**
  * 

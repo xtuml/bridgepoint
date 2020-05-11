@@ -78,6 +78,9 @@
 //
 package ${package.result}.${lang_name.result};
 
+import java.util.ArrayList;
+import java.util.List;
+
 import antlr.RecognitionException;
 import antlr.Token;
 
@@ -94,7 +97,27 @@ public class ${java_class} {
   private ${java_class} Self = null;
   private NonRootModelElement m_nrme = null;
   private boolean contentAssistEnabled;
-  
+
+  private ArrayList<ScopedSegment> scopedSegments = new ArrayList<ScopedSegment>();
+
+  class ScopedSegment {
+  	Token token;
+  	String segmentName;
+  		
+  	/**
+  	 * Prevent no-arg constructor
+  	 */
+  	private ScopedSegment() {			
+  	}
+  		
+  	// Only used by the outer class
+  	ScopedSegment(Token tok, String name) {
+      this();
+  		token = tok;
+  		segmentName = name;
+  	}
+  }
+
   public ${java_class}(NonRootModelElement nrme) {
     Self = this;
     m_nrme = nrme;

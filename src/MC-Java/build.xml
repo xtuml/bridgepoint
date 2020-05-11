@@ -35,7 +35,18 @@
    </exec>
    <!-- delete the copied xtuml file to prevent adding previously processed xtumls files -->
    <delete file="gen/code_generation/${param1}-${param6}.xtuml" />
-    <!-- for NON-parallel core builds -->
+   <!-- make sure the ooa.pei.sql file is available -->
+   <echo>Verifying dependency file ooa.pei.sql exists and creating if necessary.</echo>
+   <ant antfile="${mcj_path}/../org.xtuml.bp.io.mdl/generate.xml" target="class2table" useNativeBasedir="true">
+     <property name="iocore_path" value="../org.xtuml.bp.io.core" />
+   	 <property name="class2table.input" value="sql/ooaofooa-1.sql" />
+   	 <property name="class2table.output" value="ooa.pei.sql" />
+   	 <property name="core_path" value="../org.xtuml.bp.core" />
+   	 <property name="canvas_path" value="../org.xtuml.bp.ui.canvas" />
+   	 <property name="graphics.model" value="sql/ooaofgraphics.sql" />
+   </ant>
+   <!-- for NON-parallel core builds -->
+   <echo>Proceeding with build for split ${param6}</echo>
    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
          <env key="PTC_MC_ARC_DIR" value="${param3}" />
          <env key="PTC_MCC_SS_START" value="${param4}" />
@@ -46,9 +57,10 @@
          <env key="PTC_MCC_ROOT" value="${param1}" />
          <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
          <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-         <arg line="xtumlmc_gen_erate -nopersist
+         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/../org.xtuml.bp.io.core/sql/file_io_schema.sql
             -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
+            -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/ooa.pei.sql
             -import ${param3}/ooa_schema.sql
             -d 0
             -import sql/${param1}-${param6}.sql
@@ -68,6 +80,7 @@
          <arg line="${bp_bin_dir}/generate-with-file_io.pl ${param1}-${param8} -nopersist
             -import ../../../sql/${param4}.sql
             -import ../../../../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
+            -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/ooa.pei.sql
             -import ../../../${param3}/ooa_schema.sql
             -d 0
             -import ../../../sql/${param1}-${param8}.sql
@@ -93,6 +106,18 @@
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
           <arg line="xtumlmc_cleanse_for_BridgePoint ${UUID_Seed} ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
     </exec>
+    <!-- make sure the ooa.pei.sql file is available -->
+    <echo>Verifying dependency file ooa.pei.sql exists and creating if necessary.</echo>
+    <ant antfile="${mcj_path}/../org.xtuml.bp.io.mdl/generate.xml" target="class2table" useNativeBasedir="true">
+      <property name="iocore_path" value="../org.xtuml.bp.io.core" />
+    	 <property name="class2table.input" value="sql/ooaofooa-1.sql" />
+    	 <property name="class2table.output" value="ooa.pei.sql" />
+    	 <property name="core_path" value="../org.xtuml.bp.core" />
+    	 <property name="canvas_path" value="../org.xtuml.bp.ui.canvas" />
+    	 <property name="graphics.model" value="sql/ooaofgraphics.sql" />
+    </ant>
+   	<!-- now translate this split of the model -->
+   	<echo>Proceeding with build</echo>
     <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
         <env key="PTC_MC_ARC_DIR" value="${param3}" />
         <env key="PTC_MCC_SS_START" value="" />
@@ -101,9 +126,10 @@
         <env key="PTC_MCC_ROOT" value="${param1}" />
         <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
         <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-        <arg line="xtumlmc_gen_erate -nopersist
+        <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/../org.xtuml.bp.io.core/sql/file_io_schema.sql
             -import ${param3}/ooa_schema.sql
+            -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/ooa.pei.sql
             -import sql/${param1}.sql
             -arch ${param3}/verify_selects.arc
             -arch ${param3}/java.arc" />
@@ -137,7 +163,7 @@
           <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
           <env key="PTC_MCC_ROOT" value="${param4}" />
 	      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	      <arg line="xtumlmc_gen_erate -nopersist
+	      <arg line="xtumlmc_gen_erate -qim -nopersist
 	         -import ${param2}/ooa_schema.sql
 	         -import ${param1}
 	         -arch ${param2}/schema_gen.arc" />
@@ -151,7 +177,7 @@
           <env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
           <env key="PTC_MCC_ROOT" value="${param4}" />
 	      <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
-	      <arg line="xtumlmc_gen_erate -nopersist
+	      <arg line="xtumlmc_gen_erate -qim -nopersist
 	         -import ../${param2}/ooa_schema.sql
 	         -import ${param1}
 	         -arch ../${param2}/schema_gen.arc" />

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../../../github-pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="expressions">Expressions</h1>
+<h2 id="simple-expressions">Simple Expressions</h2>
+<p>Simple expressions are a single primary expression, unary operation, or binary<br />
+operation. An expression is not a complete OAL statement, but is evaluated as<br />
+part of a full OAL statement such as <code>assign</code>, <code>if</code>, <code>where</code>, etc.</p>
+<h3 id="syntax">Syntax</h3>
+<pre><code>  &lt;primary expression&gt;
+  &lt;unary operator&gt; &lt;primary expression&gt;
+  &lt;primary expression&gt; &lt;binary operator&gt; &lt;primary expression&gt;</code></pre>
+<p><code>&lt;primary expression&gt;</code> is a local variable reference, an activity invocation<br />
+(function, operation, message, bridge), a constant value reference, an<br />
+enumerator reference, a parameter access, an instance attribute access, a<br />
+structure member access, or a literal value.</p>
+<p><code>&lt;unary operator&gt;</code> is any unary operator appropriate for the data type to which<br />
+the expression evaluates. See below for the full list of unary operators for<br />
+each type.</p>
+<p><code>&lt;binary operator&gt;</code> is any binary operator appropriate for the data types to<br />
+which the expression evaluates. See below for the full list of binary operators<br />
+for each type.</p>
+<h3 id="examples">Examples</h3>
+<pre><code>  not ( CHK::get_status() )
+  x + y
+  name == &quot;Jeff&quot;
+  &quot;Bridge&quot; + &quot;Point&quot;
+  cust1.age - cust2.age</code></pre>
+<h2 id="compound-expressions">Compound expressions</h2>
+<p>Compound expressions can be used to combine simple expressions, allowing for<br />
+multiple tests and more complex assignment arithmetic.</p>
+<h3 id="syntax-1">Syntax</h3>
+<pre><code>  &lt;unary operator&gt; &lt;expression&gt;
+  &lt;expression&gt; &lt;binary operator&gt; &lt;expression&gt;
+  ( &lt;expression&gt; )</code></pre>
+<p><code>&lt;expression&gt;</code> is a simple or compound expression</p>
+<p><code>&lt;unary operator&gt;</code> see above</p>
+<p><code>&lt;binary operator&gt;</code> see above</p>
+<h3 id="examples-1">Examples</h3>
+<pre><code>  // examples of compound expressions:
+  not (arm.available and servo.on)
+  2 * (x + y) + TIM::timer_remaining_time(timer_inst_ref:timer_1)
+  (a + b) / (c - d)
+
+  // examples of OAL statements using
+  // compound expressions:
+  if ((i == 1) AND (name == &quot;Doug&quot;))
+    x = 0.5 * (y + z);
+  end if;
+
+  x = x * ((x + 1) / (x + 2));</code></pre>
+<h3 id="operator-precedence">Operator precedence</h3>
+<p>The analyst can depend on the following rules regarding the order of evaluation<br />
+of compound expressions:</p>
+<ul>
+<li>Parentheses can be used to override all other ordering rules.<br />
+</li>
+<li>All sub expressions with operators of equal precedence are evaluated from left<br />
+to right, starting with the operators of highest precedence. This is repeated<br />
+until the compound expression has been completely evaluated.<br />
+</li>
+<li>A short-circuit with regard to compound expressions means that an expression<br />
+can be fully evaluated based upon the value of one of its sub expressions.<br />
+Whether or not short-circuiting occurs depends entirely on the implementation<br />
+of the software architecture or the simulator being used. The analyst should<br />
+therefore avoid writing OAL that depends on short-circuiting of expressions.</li>
+</ul>
+<p>The following precedence table specifies the evaluation order in OAL ordered<br />
+from highest precedence (tightest binding) to lowest precedence (loosest<br />
+binding).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Operator(s)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cardinality, empty, not_empty</td>
+<td>instance reference and set tests</td>
+</tr>
+<tr class="even">
+<td>not , -</td>
+<td>negation</td>
+</tr>
+<tr class="odd">
+<td>* , / , % , &amp; , ^</td>
+<td>multiplicative operation</td>
+</tr>
+<tr class="even">
+<td>+ , - , |</td>
+<td>additive operation</td>
+</tr>
+<tr class="odd">
+<td>== , != , &lt; , &gt; , &lt;= , &gt;=</td>
+<td>comparison operation</td>
+</tr>
+<tr class="even">
+<td>and</td>
+<td>logical conjunction</td>
+</tr>
+<tr class="odd">
+<td>or</td>
+<td>logical disjunction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="arithmetic-expressions">Arithmetic expressions</h2>
+<p>Arithmetic expressions are defined for real and integer data types only. These<br />
+data types may be mixed for any given expression.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>*</td>
+<td>multiplication</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>division</td>
+</tr>
+<tr class="odd">
+<td>%</td>
+<td>remainder</td>
+</tr>
+<tr class="even">
+<td>+</td>
+<td>addition</td>
+</tr>
+<tr class="odd">
+<td>-</td>
+<td>subtraction/additive inverse</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>If any sub expression in an arithmetic expression is real, the expression will<br />
+evaluate to a data type of real.<br />
+</li>
+<li>Division of two integers results in the integer division result (truncated)<br />
+and will not produce a real value.<br />
+</li>
+<li>When <code>-</code> is used as a unary operation, it evaluates to the additive inverse of<br />
+the operand.</li>
+</ul>
+<h3 id="examples-2">Examples</h3>
+<pre><code>  -27
+  2 + 2
+  (x + y) / 2
+  0.707 * voltage
+  (plane.offset + ALT::get_altitude())</code></pre>
+<h2 id="boolean-expressions">Boolean expressions</h2>
+<p>A boolean expression is any expression that evaluates to either a <code>true</code> or<br />
+<code>false</code> value. Boolean expressions are often used for comparison in statements<br />
+like <code>if</code> and <code>while</code>, and also in <code>where</code> clauses. Although boolean expressions<br />
+usually contain other expression types (such as arithmetic or string<br />
+expressions), they can also be used to compare time values, instance references,<br />
+instance set references, and unique IDs. There is also one unary operator,<br />
+<code>not</code>, which can be used to logically negate a boolean expression.</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 33%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+<th>Valid operand types</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>==</td>
+<td>equality</td>
+<td>any</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>inequality</td>
+<td>any</td>
+</tr>
+<tr class="odd">
+<td>&lt;</td>
+<td>less than</td>
+<td>integer, real, date, timestamp, string</td>
+</tr>
+<tr class="even">
+<td>&gt;</td>
+<td>greater than</td>
+<td>integer, real, date, timestamp, string</td>
+</tr>
+<tr class="odd">
+<td>&lt;=</td>
+<td>less than or equal to</td>
+<td>integer, real, date, timestamp, string</td>
+</tr>
+<tr class="even">
+<td>&gt;=</td>
+<td>greater than or equal to</td>
+<td>integer, real, date, timestamp, string</td>
+</tr>
+<tr class="odd">
+<td>and</td>
+<td>logical conjunction</td>
+<td>boolean</td>
+</tr>
+<tr class="even">
+<td>or</td>
+<td>logical disjunction</td>
+<td>boolean</td>
+</tr>
+<tr class="odd">
+<td>not</td>
+<td>boolean negation</td>
+<td>boolean</td>
+</tr>
+<tr class="even">
+<td>empty<sup>1</sup></td>
+<td>instance reference/set empty</td>
+<td>instance reference, instance reference set</td>
+</tr>
+<tr class="odd">
+<td>not_empty<sup>1</sup></td>
+<td>instance reference/set not empty</td>
+<td>instance reference, instance reference set</td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup> see section <a href="#additional_unary_operators">&quot;Additional unary operators&quot;</a></p>
+<h3 id="note">Note</h3>
+<ul>
+<li>Both operands of equality and comparison operators must be of the same type<br />
+or of a user defined type based on the same core type, except for numeric<br />
+types. Integers and reals can be mixed in equality and comparison<br />
+operations. See section <a href="../HTML/bpalref.book-3.htm#data-type-strength">&quot;Data Type Strength&quot;</a><br />
+for more information.</li>
+</ul>
+<h3 id="examples-3">Examples</h3>
+<pre><code>  x == 1
+  id != &quot;abc&quot;
+  CTL::error() or flag
+  (account.balance == 0.00) and ((TIM::get_current_time() - last_pay_time)
+    &gt;= max_wait)</code></pre>
+<h2 id="string-expressions">String expressions</h2>
+<p>A string expression is any expression that evaluates to a string value. String<br />
+expressions can be either a simple string or a concatenation of one or more<br />
+simple strings.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>+</td>
+<td>string concatenation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-4">Examples</h3>
+<pre><code>  &quot;Hello, world!&quot;
+  &quot;Executable&quot; + &quot;-&quot; + &quot;UML&quot;
+  cust.first_name + &quot; &quot; + cust.last_name
+  CHS::get_date_string(date:TIM::current_date())</code></pre>
+<h2 id="instance-set-expressions">Instance set expressions</h2>
+<p>An instance set expression is any expression that evaluates to an instance set<br />
+value. Instance set expressions are used for set arithmetic. Instance reference<br />
+and instance reference set types are valid operands for instance set<br />
+expressions. During evaluation, an operand of instance reference type is<br />
+considered to be an instance set containing exactly one instance.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Operator(s)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>| , +</td>
+<td>set union</td>
+</tr>
+<tr class="even">
+<td>&amp;</td>
+<td>set intersection</td>
+</tr>
+<tr class="odd">
+<td>-</td>
+<td>set difference</td>
+</tr>
+<tr class="even">
+<td>^</td>
+<td>set symmetric difference</td>
+</tr>
+</tbody>
+</table>
+<h3 id="set-arithmetic-definitions">Set arithmetic definitions</h3>
+<ul>
+<li>A <strong>set</strong> is a collection of elements in which there are no duplicates.</li>
+<li>The <strong>union</strong> of sets A and B (<code>A | B</code> or <code>A + B</code>) is<br />
+the set of all elements that are contained in either A or B (or both). Note<br />
+that the result is still a set (no duplicates) even if an element is in both A<br />
+and B. Union is commutative, meaning <code>A | B == B | A</code>.<br />
+<img src="union.png" alt="union.png" /></li>
+<li>The <strong>intersection</strong> of sets A and B (<code>A &amp; B</code>) is the set of all elements that<br />
+are contained in both A and B. Note again that the result is still a set (no<br />
+duplicates). Intersection is also commutative, meaning <code>A &amp; B == B &amp; A</code>.<br />
+<img src="intersection.png" alt="intersection.png" /></li>
+<li>The <strong>difference</strong> (subtraction) of sets A and B (<code>A - B</code>) is the set of all<br />
+elements that are in set A and <em>not</em> in set B. Subtraction is <em>not</em><br />
+commutative meaning <code>A - B != B - A</code>.<br />
+<img src="difference.png" alt="difference.png" /></li>
+<li>The <strong>symmetric difference</strong> (disjunctive union/disunion) of sets A and B (<code>A   ^ B</code>) is the set of all elements that are in set A or in set B but <em>not</em> both.<br />
+Symmetric difference is also commutative, meaning <code>A ^ B == B ^ A</code>.<br />
+<img src="symmetric_difference.png" alt="symmetric_difference.png" /></li>
+</ul>
+<h3 id="note-1">Note</h3>
+<ul>
+<li>To use set expressions, the operand types must be published using the &quot;Publish<br />
+References&quot; context menu tool. See the <a href="../../UserInterface/BridgePointContextMenuTools/BridgePointContextMenuTools.html#shared-context-menu-entries">BridgePoint Context Menu<br />
+Tools</a><br />
+for more information.</li>
+</ul>
+<h3 id="examples-5">Examples</h3>
+<pre><code>  select many animals from instances of ANIMAL;
+  select many dogs related by animals-&gt;DOG[R1]-&gt;ANIMAL[R1];
+  select many cats related by animals-&gt;CAT[R1]-&gt;ANIMAL[R1];
+  select many fish related by animals-&gt;FISH[R1]-&gt;ANIMAL[R1];
+  dogs_and_cats = dogs | cats;
+  not_fish = animals - fish;</code></pre>
+<h2 id="where-expressions">Where expressions</h2>
+<p>A where expression is a special type of boolean expression used in a <code>select</code><br />
+statement. The instance handle <code>selected</code> is valid only within the where<br />
+expression. The <code>selected</code> keyword should be used as an instance reference to<br />
+access the instances of the given set for the <code>select</code> statement containing the<br />
+<code>where</code> expression. The <code>where</code> expression must evaluate to a boolean value.</p>
+<h3 id="examples-6">Examples</h3>
+<pre><code>  select any firstname from instances of EMP where selected.name == &quot;Bob&quot;;
+  select many accounts from instances of ACC where (selected.status == &quot;Ok&quot;) and
+    (selected.balance &gt; (min_bal + 200));
+
+
+  // Use where clause to find a particular probe.
+  select any probe from instances of SP
+         where selected.probe_ID == param.probe_id;
+  generate SP3:probe_in_position to probe;</code></pre>
+<h2 id="constant-and-enumerator-values">Constant and enumerator values</h2>
+<p>The analyst can define enumerated data types and symbolic constants to be used<br />
+in action language. Enumerator values may only be used in expressions where the<br />
+enumerated type is expected (assignment statement, equality expression, etc.).<br />
+Symbolic constants may only be defined for the core types <code>integer</code>, <code>real</code>,<br />
+<code>string</code>, <code>boolean</code>. A symbolic constant reference may be used in any<br />
+expression that is compatible with the type which is assigned to it.</p>
+<h3 id="syntax-2">Syntax</h3>
+<pre><code>  &lt;enumerated data type name&gt;::&lt;enumerator name&gt;
+  &lt;constant specification name&gt;::&lt;symbolic constant name&gt;
+  &lt;symbolic constant name&gt;</code></pre>
+<h3 id="note-2">Note</h3>
+<ul>
+<li>If a symbolic constant value is accessed without being scoped by the name of<br />
+the constant specification, the constant name must be unique in the global<br />
+scope.</li>
+</ul>
+<h3 id="examples-7">Examples</h3>
+<pre><code>  day = DayOfWeek::MONDAY;
+  mole = AVOGADROS_NUMBER;
+  circumference = 2 * Math::PI * r;</code></pre>
+<h2 id="literal-expressions">Literal expressions</h2>
+<p>In many of the examples, literals have been used as parts of expressions. While<br />
+this serves well for the purposes of illustration, it should be noted that most<br />
+analysis models require minimal use of literals since such data is more commonly<br />
+stored as attributes of specification classes, or symbolic constants.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>integer</td>
+<td>1, 42, -127, etc.</td>
+</tr>
+<tr class="even">
+<td>real</td>
+<td>1.0, 4.5, -56.0, etc.</td>
+</tr>
+<tr class="odd">
+<td>string</td>
+<td>&quot;string&quot;</td>
+</tr>
+<tr class="even">
+<td>boolean</td>
+<td>true, false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes-1">Notes</h3>
+<ul>
+<li>Literals may be defined for the above data types only.</li>
+<li>Based arithmetic literals and scientific notation are not supported.</li>
+</ul>
+<h2 id="additional-unary-operators">Additional unary operators <a id="additional_unary_operators"></a></h2>
+<p>Three operators have been provided to allow the analyst to determine the size of<br />
+an instance reference set or whether or not an instance reference is defined.<br />
+These operations may be performed anywhere an expression may be used.</p>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 31%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+<th>Valid operand types</th>
+<th>Evaluation type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>empty</td>
+<td>instance reference/set empty</td>
+<td>instance reference, instance reference set</td>
+<td>boolean</td>
+</tr>
+<tr class="even">
+<td>not_empty</td>
+<td>instance reference/set not empty</td>
+<td>instance reference, instance reference set</td>
+<td>boolean</td>
+</tr>
+<tr class="odd">
+<td>cardinality</td>
+<td>instance reference set length</td>
+<td>instance reference set</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-8">Examples</h3>
+<pre><code>  select one d_inst related by self-&gt;D[R1];
+  if (not_empty d_inst)
+    // Statements here protected against access to empty d_inst.
+  end if;</code></pre>
+</body>
+</html>

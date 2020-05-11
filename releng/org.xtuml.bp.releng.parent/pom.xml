@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent</artifactId>
-	<version>6.11.0-SNAPSHOT</version>
+	<version>6.19.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.25.0</tycho-version>
-		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.9.6.v201510161327</ant-home-path>
+		<tycho-version>1.0.0</tycho-version>
+		<ant-home-path>${env.bp_install_dir}/plugins/org.apache.ant_1.10.1.v20170504-0840</ant-home-path>
 		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
         <bp_test_path>../../../bptest</bp_test_path>
@@ -18,14 +18,14 @@
 
 	<repositories>
 		<repository>
-			<id>mars</id>
+			<id>oxygen</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/mars/</url>
+			<url>http://download.eclipse.org/releases/oxygen/</url>
 		</repository>
 		<repository>
-			<id>mars-update</id>
+			<id>oxygen-update</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.5/</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.7/</url>
 		</repository>
 		<repository>
 			<id>antlr</id>
@@ -43,21 +43,18 @@
 	<modules>
 		<module>../../src/org.xtuml.bp.als</module>
 		<module>../../src/org.xtuml.bp.als.oal</module>
-		<module>../../src/org.xtuml.bp.cdt</module>
 		<module>../../src/org.xtuml.bp.cli</module>
 		<module>../../src/org.xtuml.bp.debug.ui</module>
 		<module>../../src/org.xtuml.bp.doc</module>
-		<module>../../src/org.xtuml.bp.docgen</module>
+		<module>../../src/org.xtuml.bp.mc.docgen</module>
 		<module>../../src/org.xtuml.bp.integrity</module>
 		<module>../../src/org.xtuml.bp.internal.tools</module>
 		<module>../../src/org.xtuml.bp.io.image</module>
+		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.bp.mc</module>
-		<module>../../src/org.xtuml.bp.mc.c.source</module>
-		<module>../../src/org.xtuml.bp.mc.cpp.source</module>
-		<module>../../src/org.xtuml.bp.mc.java.source</module>
-		<module>../../src/org.xtuml.bp.mc.none</module>
-		<module>../../src/org.xtuml.bp.mc.systemc.source</module>
-		<module>../../src/org.xtuml.bp.mc.template</module>
+		<module>../../src/org.xtuml.bp.mc.masl</module>
+		<module>../../src/org.xtuml.bp.mc.mc3020</module>
+		<module>../../src/org.xtuml.bp.mc.java</module>
 		<module>../../src/org.xtuml.bp.pkg</module>
 		<module>../../src/org.xtuml.bp.pkg-feature</module>
 		<module>../../src/org.xtuml.bp.search</module>
@@ -68,14 +65,12 @@
 		<module>../../src/org.xtuml.bp.ui.marking</module> <!-- move to bp.releng.parent.generation/pom.xml if we wanted to generate this project -->
 		<module>../../src/org.xtuml.bp.utilities</module>
 		<module>../../src/org.xtuml.bp.welcome</module>
-		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.help.bp.mc</module>
 		<module>../org.xtuml.bp.releng.p2</module>
 		<module>../org.xtuml.bp.releng.parent.generation</module>
 		<module>../org.xtuml.bp.releng.parent.product</module>
 		<module>../org.xtuml.bp.releng.parent.product-dev</module>
 		<module>../org.xtuml.bp.mctools.parent</module>
-		<module>../../../packaging/features/org.xtuml.bp.jre.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.docgen.parent</module>
 		<module>../../../packaging/features/org.xtuml.bp.MinGW.parent</module>
 	</modules>

@@ -118,7 +118,10 @@ This file is the plugin manifest for the BridgePoint core plugin.
                .if(menu_entry.extraEntryText != "")
                  .if(not menu_entry.UsesSelectionDialog)
                label="${menu_entry.Label}${menu_entry.extraEntryText}"
-                   .assign propertyKey = "$r{menu_entry.Label}$r{menu_entry.extraEntryText}"
+                   .assign propertyKey = "$r{menu_entry.Label}"
+                   .if ("..." != menu_entry.extraEntryText)
+                     .assign propertyKey = "${propertyKey}$r{menu_entry.extraEntryText}"
+                   .end if
                    .if ( "${propertyKey}" == "Formalize(NoTargetSelected)" )
                      .assign propertyKey = "nokey"
                    .end if
@@ -130,7 +133,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
                  .end if
                .end if
                .if(menu_entry.UsesSelectionDialog)
-                    .if (menu_entry.Specialism == "Generic Package")
+                    .if ((menu_entry.Specialism == "Generic Package") or (menu_entry.Specialism == "--"))
                        label="${menu_entry.Label}..."
                        .// We don't allow hiding generated wizard invocations.  So we don't set propertyKey here.
                     .else
@@ -201,18 +204,6 @@ This file is the plugin manifest for the BridgePoint core plugin.
                menubarPath="org.xtuml.bp.ui.context-internal"
                enablesFor="1"
                id="org.xtuml.bp.core.ui.SetValueOnConstantAction">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            objectClass="org.xtuml.bp.core.SystemModel_c"
-            id="org.xtuml.bp.core.ui.setprojectprefs">
-         <action
-               label="Project Preferences"
-               class="org.xtuml.bp.core.ui.SetBPProjectPreferencesAction"
-               menubarPath="org.xtuml.bp.ui.context-internal"
-               enablesFor="1"
-               id="org.xtuml.bp.core.ui.SetBPProjectPreferencesAction">
          </action>
       </objectContribution>
       <objectContribution
@@ -320,6 +311,37 @@ This file is the plugin manifest for the BridgePoint core plugin.
            category="org.xtuml.bp.core.root">
      </page>       
    </extension>
+   <extension
+       point="org.eclipse.ui.propertyPages">
+     <page
+         name="xtUML Project"
+         class="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage"
+         id="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject">
+           <test property="org.eclipse.core.resources.projectNature" value="org.xtuml.bp.core.xtumlnature"/>
+         </adapt>
+       </enabledWhen>
+     </page>
+     <page
+       name="Inter-project References"
+       class="org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferencesPage"
+       id="org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferencesPage"
+       category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+     </page>
+     <page
+       name="Action Language"
+       class="org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferencesPage"
+       id="org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferencesPage"
+       category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+     </page>
+     <page
+       name="Dependencies"
+       class="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
+       id="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
+       category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+     </page>
+   </extension>
    <extension id="org.xtuml.bp.core.ui.viewcats"
               name="BridgePoint"
               point="org.eclipse.ui.views">
@@ -353,7 +375,27 @@ This file is the plugin manifest for the BridgePoint core plugin.
 					class="org.xtuml.bp.core.ui.actions.AssociationCardinalityContributionItem"
 							id="org.xtuml.bp.core.ui.actions.cardinality.dynamic">
 				</dynamic>
+				<menu
+					id="org.xtuml.bp.core.ui.actions.range"
+							label="Range">
+				</menu>
+				<dynamic
+					class="org.xtuml.bp.core.ui.actions.RangeContributionItem"
+							id="org.xtuml.bp.core.ui.actions.range.dynamic">
+				</dynamic>
 			</menuContribution>
+    <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
+      <separator 
+        name="org.xtuml.bp.core.properties.separator"
+        visible="true">
+      </separator>
+      <command 
+        id="org.xtuml.bp.core.ProjectPropertiesCommand"
+        commandId="org.eclipse.ui.file.properties"
+        label="Properties"
+        style="push">
+      </command>
+    </menuContribution>
 	</extension>
    <extension
          point="org.eclipse.ui.newWizards">

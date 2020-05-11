@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: ExplorerCutAction.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:15:51 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -22,21 +14,12 @@
 //
 package org.xtuml.bp.ui.explorer.ui.actions;
 
-import java.util.Iterator;
-
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.Transfer;
-import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.CutAction;
 import org.xtuml.bp.core.ui.Selection;
-import org.xtuml.bp.core.util.CoreUtil;
 
 public class ExplorerCutAction extends CutAction {
 

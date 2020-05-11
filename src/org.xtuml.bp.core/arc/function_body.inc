@@ -45,7 +45,7 @@
       .select many context_items related by wfl->W_CTI[R2003]
       .select any context_item from instances of W_CTI where (false)
       .for each context_item in context_items
-        .if (context_item.Type == "many")
+        .if ((first context_items) and (context_item.Type == "many"))
           .assign iteration_req = true
           .// a set of values must be placed in a new array for processing
           .select one class related by context_item->O_OBJ[R2002]
@@ -84,7 +84,7 @@
             .assign firstContextItemName = context_item.Name
       ${cn.body} v_${context_item.Name} = (${cn.body})context;
           .elif(not_last context_items)
-            .select any statement from instances of ACT_SMT where ("${selected.Statement_Id}" == context_item.Statement_ID)
+            .select any statement from instances of ACT_SMT where ("${selected.Statement_ID}" == "${context_item.Statement_ID}")
             .select any srw_stmt related by statement->ACT_SEL[R603]->ACT_SRW[R664]
             .select one srw_val related by srw_stmt->V_VAL[R611]
             .invoke hubi = has_user_bridge_invocation( srw_val )
@@ -161,10 +161,14 @@
 				false, null);
 		.end if
       dialog.setBlockOnOpen(true);
-      dialog.setTitle("${cme.Label} Selection");
+      dialog.setTitle("$C{cme.Label} Selection");
       int result = dialog.open();
       if(result == Window.OK) {
-					${selectedElementType} v_${context_item.Name} = (${selectedElementType}) dialog.getResult()[0];
+        .if ("many" == context_item.Type)
+					${selectedElementType}[] v_${context_item.Name} = Arrays.copyOf(dialog.getResult(), dialog.getResult().length, ${selectedElementType}[].class);
+        .else
+					${selectedElementType} v_${context_item.Name} = dialog.getResult().length > 0 ? (${selectedElementType}) dialog.getResult()[0] : null;
+        .end if
 					if(v_${context_item.Name} != null) {
       .else
         .// this assumes that there's only one context item for the workflow
@@ -218,7 +222,7 @@
     .select any function from instances of S_SYNC where (selected.Sync_Id == wfl.Sync_Id)
     .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
     .if (not_empty action)
-      .select one outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
+      .select any outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
       .if (not_empty outer_block)
         // Ensure that actions take place between Verifier Activity executions
 		Ooaofooa.beginSaveOperation();
@@ -390,6 +394,8 @@ for(Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
     .assign attr_result = "Component_c.getOneC_COnR4010(Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(v_element)))"
   .elif (kl == "C_DG")
 	.assign attr_result = "Component_c.getOneC_COnR4010(Port_c.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4013(InterfaceReferenceInDelegation_c.getOneC_RIDOnR4013(v_element))))"
+  .elif (kl == "D_DEPL")
+    .assign attr_result = "v_element"
   .end if
 .end function
 .function get_from_pe_traversal

@@ -293,7 +293,7 @@ public class ${action_name} extends Action {
       .invoke cn = get_class_name(class)
       .invoke fn = get_func_name(menu_entry)
   private static boolean ${fn.body}(IStructuredSelection  selection, String p_New_name) {
-      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
       .if (not_empty function)
         .if ( class.AdapterName == "IProject" )
     ${cn.body} element = (${cn.body}) selection.iterator().next();
@@ -591,22 +591,24 @@ ${nav_string.body}\
         }
     	}
 
-		final ModelRoot modelRoot = ((NonRootModelElement) element).getModelRoot();
+    if (null != element) {
+        final ModelRoot modelRoot = ((NonRootModelElement) element).getModelRoot();
 
-                .select many sig_op_set from instances of O_TFR where (selected.name == "getSignature")
-                .select many sig_obj_set related by sig_op_set->O_OBJ[R115]
-                // TODO - LPS
-                // This code ignores model elements that can have a signature (have the 'getSignature' operation).
-                // In the future we should check that the signatures are unique instead of the names. For now we are
-                // simply ignoring the name check for these elements.
-		if ( 
-                .for each sig_obj in sig_obj_set
-                  .invoke cn = get_class_name(sig_obj)
-                   !(element instanceof ${cn.body}) &&
-                .end for
-                    !(Ooaofooa.Getuniqueinitialname(modelRoot, name, element).equals(name))) {
-			return CorePlugin.DUPLICATE_NAME_ERROR;
-		}
+                    .select many sig_op_set from instances of O_TFR where (selected.name == "getSignature")
+                    .select many sig_obj_set related by sig_op_set->O_OBJ[R115]
+                    // TODO - LPS
+                    // This code ignores model elements that can have a signature (have the 'getSignature' operation).
+                    // In the future we should check that the signatures are unique instead of the names. For now we are
+                    // simply ignoring the name check for these elements.
+        if ( 
+                    .for each sig_obj in sig_obj_set
+                      .invoke cn = get_class_name(sig_obj)
+                       !(element instanceof ${cn.body}) &&
+                    .end for
+                        !(Ooaofooa.Getuniqueinitialname(modelRoot, name, element).equals(name))) {
+          return CorePlugin.DUPLICATE_NAME_ERROR;
+        }
+    }
 		
         return null;
     }

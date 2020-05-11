@@ -7,6 +7,95 @@ INSERT INTO O_OBJ
 	'SQU_D',
 	'',
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("8ef9c179-c168-4774-9a63-7c1aa5a3964a",
+	"a3c7f045-3b7f-43eb-b691-a22e756bd359",
+	'configureParticipants',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// considering the configured parameters of this query
+// locate the elements which participate
+select one query related by self->SQU_Q[R9600];
+Search::gatherParticipants(queryId:query.Id, monitor:param.monitor);',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("09e0a896-344d-4915-bcc2-f066b4e9936e",
+	"8ef9c179-c168-4774-9a63-7c1aa5a3964a",
+	'monitor',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("32648588-f21c-41f0-b632-ea4949ca0b39",
+	"a3c7f045-3b7f-43eb-b691-a22e756bd359",
+	'createParticipant',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'create object instance participant of SP_SP;
+create object instance searchable of SP_SE;
+create object instance namedParticipant of SP_NS;
+relate searchable to participant across R9700;
+searchable.modelRootId = param.modelRootId;
+searchable.elementId = param.elementId;
+searchable.className = param.className;
+namedParticipant.searchableValue = param.searchableValue;
+relate namedParticipant to searchable across R9702;
+select one engine related by self->SQU_Q[R9600]->SEN_E[R9500];
+relate engine to participant across R9502;',
+	1,
+	'',
+	"8ef9c179-c168-4774-9a63-7c1aa5a3964a",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("a2e5251b-7a71-4065-9359-db2948d31034",
+	"32648588-f21c-41f0-b632-ea4949ca0b39",
+	'modelRootId',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b4f5fff9-9f1c-4a4f-9bff-b5dae0f566c6",
+	"32648588-f21c-41f0-b632-ea4949ca0b39",
+	'elementId',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"a2e5251b-7a71-4065-9359-db2948d31034",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("08e375b1-d542-48bd-9ea9-d07b4033e428",
+	"32648588-f21c-41f0-b632-ea4949ca0b39",
+	'className',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"b4f5fff9-9f1c-4a4f-9bff-b5dae0f566c6",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b43b4cf7-cddc-4da6-95e8-8be8dc18a84d",
+	"32648588-f21c-41f0-b632-ea4949ca0b39",
+	'searchableValue',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"08e375b1-d542-48bd-9ea9-d07b4033e428",
+	'');
 INSERT INTO O_REF
 	VALUES ("a3c7f045-3b7f-43eb-b691-a22e756bd359",
 	"525a6deb-951f-4843-80a5-6ec89e5ff969",

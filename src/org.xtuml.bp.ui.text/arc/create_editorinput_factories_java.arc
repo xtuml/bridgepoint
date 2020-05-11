@@ -31,7 +31,7 @@
 .end if
 .//
 .include "${mc_archetypes}/arch_utils.inc"
-.include "arc/create_util.inc"
+.include "create_util.inc"
 .//
 .invoke chain_util_env = GET_ENV_VAR( "CHAIN_UTIL_DIR" )
 .assign chain_util = chain_util_env.result

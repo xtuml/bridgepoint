@@ -1,12 +1,4 @@
 //========================================================================
-//
-//File:      $RCSfile: GraphicsModelTransactionListener.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:06:05 $
-//
-//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
 // of the License at
@@ -27,7 +19,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
@@ -37,7 +28,6 @@ import org.xtuml.bp.core.common.ModelElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.ui.canvas.CanvasModelListener;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;

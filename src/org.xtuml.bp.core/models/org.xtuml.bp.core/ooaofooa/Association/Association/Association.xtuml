@@ -451,6 +451,13 @@ INSERT INTO O_TFR
         return not_empty sup_oida;
       end if;
     end if;
+  elif (param.value == "simp_or_assoc" )
+    select one r_simp related by self->R_SIMP[R206];
+    select one r_assoc related by self->R_ASSOC[R206];
+    return not_empty r_simp or not_empty r_assoc;
+  elif (param.value == "subsup" )
+    select one r_subsup related by self->R_SUBSUP[R206];
+    return not_empty r_subsup;
   end if;
 elif (param.name == "formalized" )
   if (param.value =="true" )
@@ -901,6 +908,518 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"2cfadbe5-9b95-43e2-8f80-9e2fd0c74de9",
+	'');
+INSERT INTO O_TFR
+	VALUES ("25e72586-4980-4217-b43b-c45aacc395cd",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'editAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Copy parameter data into local variables
+rel_num = param.rel_num;
+a_cond = param.a_cond;
+a_phrase = param.a_phrase;
+a_mult = param.a_mult;
+b_cond = param.b_cond;
+b_phrase = param.b_phrase;
+b_mult = param.b_mult;
+part_class = param.part_class;
+migrate_to_assoc = param.migrate_to_assoc;
+a_ident = param.a_ident;
+b_ident = param.b_ident;
+a_oir = param.a_oir;
+b_oir = param.b_oir;
+assoc_class = param.assoc_class;
+assoc_formalized = param.assoc_formalized;
+
+// Get classes involved in binary relationship
+select one a_class related by a_oir->O_OBJ[R201];
+select one b_class related by b_oir->O_OBJ[R201];
+
+// Get class identifiers specified in the context menu entry
+select any a_identifier from instances of O_ID where false;
+if ("" != a_ident)
+  select any a_identifier related by a_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:a_ident, i1:1, i2:-1)) - 1);
+end if;
+select any b_identifier from instances of O_ID where false;
+if ("" != b_ident)
+  select any b_identifier related by b_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:b_ident, i1:1, i2:-1)) - 1);
+end if;
+
+// Get current association simple or linked determiners.
+select one simp related by self->R_SIMP[R206];
+select one linked related by self->R_ASSOC[R206];
+
+// Determine if parameter data warrants a reformalization.
+// First case is a change from simple to linked or vice versa.
+// NOTE: This case uses established migration functions that will unformalize a
+// formalized association.
+if (not migrate_to_assoc and not empty linked)
+  // migrate to simple
+  linked.migrateToSimple();
+  select one simp related by self->R_SIMP[R206];
+  select one linked related by self->R_ASSOC[R206];
+elif (not empty simp and migrate_to_assoc)
+  // migrate to linked
+  select any imported_class related by self->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
+  imported_id = GD::NULL_UNIQUE_ID();
+  if (not_empty imported_class)
+    imported_id = imported_class.IObj_ID;
+  end if;
+  simp.migrateToLinked(imported_id:imported_id, using:assoc_class.Obj_ID);
+  select one linked related by self->R_ASSOC[R206];
+  select one simp related by self->R_SIMP[R206];
+else
+  // All other cases only need to be checked if the association is already 
+  // formalized.
+  if (self.isFormalized())
+    if (not empty simp)
+      // Check for participating class change
+      // Check for referred to identifier change
+      // Determine if part class for the formalization is the same as the part_class parameter.
+      select one a_form related by a_oir->R_RGO[R203]->R_FORM[R205];
+      if (not empty a_form)
+        select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
+        select one b_rto related by b_part->R_RTO[R204];
+        if ((a_class.Name == part_class) or (b_rto.Oid_ID != a_identifier.Oid_ID))
+          self.unformalize();
+        end if;
+      else
+        select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
+        select one a_rto related by a_part->R_RTO[R204];
+        if ((b_class.Name == part_class) or (a_rto.Oid_ID != b_identifier.Oid_ID))
+          self.unformalize();
+        end if;
+      end if;
+    elif (not empty linked)
+      // Check for associative class change
+      select one current_assr related by linked->R_ASSR[R211];
+      if (current_assr.Obj_ID != assoc_class.Obj_ID)
+        self.unformalize();
+      else
+        // Check for referred to identifier change
+        select one oneId related by linked->R_AONE[R209]->R_RTO[R204]->O_ID[R109];
+        select one othId related by linked->R_AOTH[R210]->R_RTO[R204]->O_ID[R109];
+        if (((a_identifier.Oid_ID != oneId.Oid_ID) and (a_identifier.Oid_ID != othId.Oid_ID)) or 
+            ((b_identifier.Oid_ID != oneId.Oid_ID) and (b_identifier.Oid_ID != othId.Oid_ID)))
+          self.unformalize();
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+
+// Set the association number
+self.Numb = GD::string_to_int(value:rel_num);
+
+// Handle starting from simple association
+if (not_empty simp)
+
+  // set A parameters
+  select one a_part related by a_oir->R_RTO[R203]->R_PART[R204];
+  if (not_empty a_part)
+    if ("Unconditionally" == b_cond)
+      a_part.Cond = 0;
+    else
+      a_part.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_part.Mult = 0;
+    else
+      a_part.Mult = 1;
+    end if;
+    a_part.Txt_Phrs = b_phrase;
+  end if;
+  select one a_form related by a_oir->R_RGO[R203]->R_FORM[R205];
+  if (not_empty a_form)
+    if ("Unconditionally" == b_cond)
+      a_form.Cond = 0;
+    else
+      a_form.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_form.Mult = 0;
+    else
+      a_form.Mult = 1;
+    end if;
+    a_form.Txt_Phrs = b_phrase;
+  end if;
+
+  // set B parameters
+  select one b_part related by b_oir->R_RTO[R203]->R_PART[R204];
+  if (not_empty b_part)
+    if ("Unconditionally" == a_cond)
+      b_part.Cond = 0;
+    else
+      b_part.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_part.Mult = 0;
+    else
+      b_part.Mult = 1;
+    end if;
+    b_part.Txt_Phrs = a_phrase;
+  end if;
+  select one b_form related by b_oir->R_RGO[R203]->R_FORM[R205];
+  if (not_empty b_form)
+    if ("Unconditionally" == a_cond)
+      b_form.Cond = 0;
+    else
+      b_form.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_form.Mult = 0;
+    else
+      b_form.Mult = 1;
+    end if;
+    b_form.Txt_Phrs = a_phrase;
+  end if;
+  
+  // formalize the association
+  if ("Not formalized" != part_class and not self.isFormalized())
+    select any non_formalizer from instances of R_PART where false;
+    select any identifier from instances of O_ID where false;
+    if (a_class.Name == part_class)
+      non_formalizer = a_part;
+      identifier = a_identifier;
+    elif (b_class.Name == part_class)
+      non_formalizer = b_part;
+      identifier = b_identifier;
+    else  // reflexive
+      reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
+      if (reflexive_phrase == a_phrase)
+        non_formalizer = b_part;
+        identifier = b_identifier;
+      else
+        non_formalizer = a_part;
+        identifier = a_identifier;
+      end if;
+    end if;
+    simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+  elif ("Not formalized" == part_class and self.isFormalized())
+    self.unformalize();
+  end if;
+
+
+// Handle starting from linked association
+elif (not_empty linked)
+
+  // set A parameters
+  select one a_aone related by a_oir->R_RTO[R203]->R_AONE[R204];
+  if (not_empty a_aone)
+    if ("Unconditionally" == b_cond)
+      a_aone.Cond = 0;
+    else
+      a_aone.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_aone.Mult = 0;
+    else
+      a_aone.Mult = 1;
+    end if;
+    a_aone.Txt_Phrs = b_phrase;
+  end if;
+  select one a_aoth related by a_oir->R_RTO[R203]->R_AOTH[R204];
+  if (not_empty a_aoth)
+    if ("Unconditionally" == b_cond)
+      a_aoth.Cond = 0;
+    else
+      a_aoth.Cond = 1;
+    end if;
+    if ("One" == b_mult)
+      a_aoth.Mult = 0;
+    else
+      a_aoth.Mult = 1;
+    end if;
+    a_aoth.Txt_Phrs = b_phrase;
+  end if;
+
+  // set B parameters
+  select one b_aone related by b_oir->R_RTO[R203]->R_AONE[R204];
+  if (not_empty b_aone)
+    if ("Unconditionally" == a_cond)
+      b_aone.Cond = 0;
+    else
+      b_aone.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_aone.Mult = 0;
+    else
+      b_aone.Mult = 1;
+    end if;
+    b_aone.Txt_Phrs = a_phrase;
+  end if;
+  select one b_aoth related by b_oir->R_RTO[R203]->R_AOTH[R204];
+  if (not_empty b_aoth)
+    if ("Unconditionally" == a_cond)
+      b_aoth.Cond = 0;
+    else
+      b_aoth.Cond = 1;
+    end if;
+    if ("One" == a_mult)
+      b_aoth.Mult = 0;
+    else
+      b_aoth.Mult = 1;
+    end if;
+    b_aoth.Txt_Phrs = a_phrase;
+  end if;
+
+  // check if the associative class needs to be changed
+  select one current_assr related by linked->R_ASSR[R211];
+  if (current_assr.Obj_ID != assoc_class.Obj_ID)
+    current_id = current_assr.Obj_ID;
+    new_id = assoc_class.Obj_ID;
+    select one current_pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+    select one current_assr_pkg related by current_assr->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]->PE_PE[R8001]->EP_PKG[R8000];
+    select one assoc_class_pkg related by assoc_class->PE_PE[R8001]->EP_PKG[R8000];
+    if (current_pkg.Package_ID != current_assr_pkg.Package_ID)
+      select any imported_current_assr related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == current_assr.Obj_ID);
+      current_id = imported_current_assr.IObj_ID;
+    end if;
+    if (current_pkg.Package_ID != assoc_class_pkg.Package_ID)
+      select any imported_assoc_class related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
+      new_id = imported_assoc_class.IObj_ID;
+    end if;
+    success = current_assr.moveAssociation(current_id:current_id, new_id:new_id, end:End::Start);
+  end if;
+
+  // formalize the association
+  if (assoc_formalized and not self.isFormalized())
+    one_id = 0;
+    oth_id = 0;
+    select one aone related by linked->R_AONE[R209];
+    select one aoth related by linked->R_AOTH[R210];
+    if (a_identifier.Obj_ID == aone.Obj_ID and b_identifier.Obj_ID == aoth.Obj_ID)
+      one_id = a_identifier.Oid_ID;
+      oth_id = b_identifier.Oid_ID;
+    elif (b_identifier.Obj_ID == aone.Obj_ID and a_identifier.Obj_ID == aoth.Obj_ID)
+      one_id = b_identifier.Oid_ID;
+      oth_id = a_identifier.Oid_ID;
+    end if;
+    linked.formalize(one_id:one_id, oth_id:oth_id);
+  elif (not assoc_formalized and self.isFormalized())
+    self.unformalize();
+  end if;
+
+end if;',
+	1,
+	'',
+	"e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("0cc3841f-8b79-490d-a49a-d2a7b9c66725",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'rel_num',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1f734bed-a939-4958-9838-17bb18fb826e",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_cond',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"0cc3841f-8b79-490d-a49a-d2a7b9c66725",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("cd726ab1-5840-46c8-bb2d-a10334f3d089",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_phrase',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"1f734bed-a939-4958-9838-17bb18fb826e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ed962779-0906-492d-8fc3-0eddcfeeb1a4",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_mult',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"cd726ab1-5840-46c8-bb2d-a10334f3d089",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8c0b50ed-679d-4206-a9d4-173131defadb",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_cond',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"ed962779-0906-492d-8fc3-0eddcfeeb1a4",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c1b603f0-871f-4daa-a0d7-6989c83ace7b",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_phrase',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"8c0b50ed-679d-4206-a9d4-173131defadb",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("67977b9d-9b4c-4eb2-9faa-92fc6c5103ea",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_mult',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"c1b603f0-871f-4daa-a0d7-6989c83ace7b",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6b5d0124-17ae-4821-870a-b776d0c38336",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'part_class',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"67977b9d-9b4c-4eb2-9faa-92fc6c5103ea",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("59d417ca-c09f-417e-a591-aa6b29cbf984",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_ident',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"be43ebd1-8096-4598-a90f-c5fe9e6109c2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4f0244c6-6545-4f5e-a196-37345690ff3a",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_ident',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"59d417ca-c09f-417e-a591-aa6b29cbf984",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_oir',
+	"84509681-1256-4002-b6a9-c0d824170d0f",
+	0,
+	'',
+	"4f0244c6-6545-4f5e-a196-37345690ff3a",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("84509681-1256-4002-b6a9-c0d824170d0f",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Class In Association>',
+	'',
+	'',
+	'../Association.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("8f35344a-f241-4944-ac03-2f1d89376cb2",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_oir',
+	"84509681-1256-4002-b6a9-c0d824170d0f",
+	0,
+	'',
+	"da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("aa292418-9630-455b-b5d0-4a5209702ff7",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'assoc_class',
+	"fccebe2f-504b-427a-8324-057515d05242",
+	0,
+	'',
+	"8f35344a-f241-4944-ac03-2f1d89376cb2",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("fccebe2f-504b-427a-8324-057515d05242",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Model Class>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4a2a9e4f-80aa-45d5-b7c3-e72d5de559fd",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'assoc_formalized',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"aa292418-9630-455b-b5d0-4a5209702ff7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("be43ebd1-8096-4598-a90f-c5fe9e6109c2",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'migrate_to_assoc',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"6b5d0124-17ae-4821-870a-b776d0c38336",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7e702f2d-f714-4c51-b383-2be831f205f1",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'editSubsupAssociation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'rel_num = param.rel_num;
+formalized = param.formalized;
+ident = param.ident;
+
+select one subsup related by self->R_SUBSUP[R206];
+
+// set the number
+self.Numb = GD::string_to_int(value:rel_num);
+
+if (not self.isFormalized() and formalized)
+  
+  // formalize association
+  subsup.formalize(id:ident.Oid_ID);
+
+elif (self.isFormalized() and not formalized)
+
+  // unformalize association
+  self.unformalize();
+  
+end if;',
+	1,
+	'',
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("7e33a5f7-188c-480b-9a9a-0c2eeba26f99",
+	"7e702f2d-f714-4c51-b383-2be831f205f1",
+	'rel_num',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("33addf8a-d26f-4f05-9919-2ace1972ad7d",
+	"7e702f2d-f714-4c51-b383-2be831f205f1",
+	'ident',
+	"eb5488e0-119d-421e-865a-23c0845acaa0",
+	0,
+	'',
+	"5112e967-0fb3-43ee-a0bb-2d57e953c372",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("eb5488e0-119d-421e-865a-23c0845acaa0",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Class Identifier>',
+	'',
+	'',
+	'../../Subsystem/Subsystem.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("5112e967-0fb3-43ee-a0bb-2d57e953c372",
+	"7e702f2d-f714-4c51-b383-2be831f205f1",
+	'formalized',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"7e33a5f7-188c-480b-9a9a-0c2eeba26f99",
 	'');
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",

@@ -28,7 +28,6 @@ Setup Instructions
     - https://github.com/xtuml/pt_antlr
     - https://github.com/xtuml/packaging
     - https://github.com/xtuml/models
-    - https://github.com/xtuml/packaging
     
   - [Download the latest BridgePoint Developer version of the tool](https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html "https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html").
   
@@ -36,12 +35,10 @@ Setup Instructions
     - You may unzip wherever you like, a suggestion is:  ```~/xtuml/```
       - On MacOS, you must now run the additional step: ```cp ~/xtuml/BridgePoint.app/Contents/MacOS/bridgepoint ~/xtuml/BridgePoint.app/Contents/Eclipse```
 
-  - [Download the special version of generator](https://s3.amazonaws.com/xtuml-releases/development-environment/gen_erate.pyz.0.5.0)  
-    - Replace generator in the installation with this downloaded version: `mv ~/Downloads/gen_erate.pyz.0.5.0 ~/xtuml/BridgePoint.app/Contents/Eclipse/tools/mc/bin/gen_erate.pyz`  
-    
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __ALL__  
       - [Maven](https://maven.apache.org/install.html)    
+      - [A Java8 JDK](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc).  Make sure JAVA_HOME environment variable is set.
 
     - __MAC__
       - Install flex, bison, pypy and git (we suggest via homebrew)
@@ -49,7 +46,7 @@ Setup Instructions
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
-    sudo apt-get install libstdc++5 g++ ant git default-jdk  
+    sudo apt-get install libstdc++5 g++ ant git openjdk-8-jdk  
     ```  
     The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```

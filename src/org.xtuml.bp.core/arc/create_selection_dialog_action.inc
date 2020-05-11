@@ -51,10 +51,14 @@ package org.xtuml.bp.core.ui.actions;
 //
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
@@ -101,7 +105,7 @@ public class ${action_name} implements IObjectActionDelegate {
 		// do nothing
   }
   public static void ${fn.body}(IStructuredSelection selection) {
-      .select any function from instances of S_SYNC where (selected.Name == "${fn.body}")
+      .select any function from instances of S_SYNC where ("${selected.Name}" == "${fn.body}")
       .if (not_empty function)
         .invoke result = function_body(function)
 ${result.body}
