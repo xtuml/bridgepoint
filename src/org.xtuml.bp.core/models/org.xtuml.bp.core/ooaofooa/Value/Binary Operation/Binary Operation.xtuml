@@ -46,6 +46,8 @@ select one irdt related by dt->S_IRDT[R17];
 coreDataTypeName = dt.getCoreDataTypeName();
 if (coreDataTypeName == "boolean")
   return GD::boolean_to_instance(value:self.getBoolean(stack_frame_id: param.stack_frame_id));
+elif (dt.Name == "timestamp")
+  return GD::long_to_instance(value:self.getLong(stack_frame_id: param.stack_frame_id));
 elif (coreDataTypeName == "integer")
   return GD::int_to_instance(value:self.getInteger(stack_frame_id: param.stack_frame_id));
 elif (coreDataTypeName == "real")
@@ -62,7 +64,7 @@ end if;
 return GD::string_to_instance(value:"Error");',
 	1,
 	'',
-	"0e14a938-1c79-4982-8baa-5f633e2adf08",
+	"94882b1c-d3d7-42ea-b2a9-46803ef23b3c",
 	0);
 INSERT INTO O_TPARM
 	VALUES ("10924281-1032-458e-9941-8f3dffe5bf93",
@@ -595,21 +597,18 @@ select any rightResult related by rightOperand->I_VSF[R2978] where
 select one rightRtVal related by rightResult->RV_RVL[R3305];
 stack_frame.popValue(value_id:leftOperand.Value_ID);
 stack_frame.popValue(value_id:rightOperand.Value_ID);
+leftOpVal = GD::instance_to_int(value:leftRtVal.getValue());
+rightOpVal = GD::instance_to_int(value:rightRtVal.getValue());
 if (self.Operator == "+")
-  return (GD::instance_to_int(value:leftRtVal.getValue())
-  		+ GD::instance_to_int(value:rightRtVal.getValue()));
+  return leftOpVal + rightOpVal;
 elif (self.Operator == "-")
-  return (GD::instance_to_int(value:leftRtVal.getValue())
-  		- GD::instance_to_int(value:rightRtVal.getValue()));
+  return leftOpVal - rightOpVal;
 elif (self.Operator == "*")
-  return (GD::instance_to_int(value:leftRtVal.getValue())
-  		* GD::instance_to_int(value:rightRtVal.getValue()));
+  return leftOpVal + rightOpVal;
 elif (self.Operator == "/")
-  return (GD::instance_to_int(value:leftRtVal.getValue())
-  		/ GD::instance_to_int(value:rightRtVal.getValue()));
+  return leftOpVal / rightOpVal;
 elif (self.Operator == "%")
-  return (GD::instance_to_int(value:leftRtVal.getValue())
-  		% GD::instance_to_int(value:rightRtVal.getValue()));
+  return leftOpVal % rightOpVal;
 end if;
 
 
@@ -790,6 +789,70 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("94882b1c-d3d7-42ea-b2a9-46803ef23b3c",
+	"cf40c1ab-d375-4f8d-8664-2593f9c59401",
+	'getLong',
+	'',
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
+	1,
+	'// Value: Binary Operation.getInteger()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select any stack_frame related by self->V_VAL[R801]->I_VSF[R2978]->
+             I_STF[R2951] where selected.Stack_Frame_ID == param.stack_frame_id;
+select one leftOperand related by self->V_VAL[R802];
+select any leftResult related by leftOperand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+select one leftRtVal related by leftResult->RV_RVL[R3305];
+select one rightOperand related by self->V_VAL[R803];
+select any rightResult related by rightOperand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+select one rightRtVal related by rightResult->RV_RVL[R3305];
+stack_frame.popValue(value_id:leftOperand.Value_ID);
+stack_frame.popValue(value_id:rightOperand.Value_ID);
+leftOpVal = GD::instance_to_long(value:leftRtVal.getValue());
+rightOpVal = GD::instance_to_long(value:rightRtVal.getValue());
+if (self.Operator == "+")
+  return leftOpVal + rightOpVal;
+elif (self.Operator == "-")
+  return leftOpVal - rightOpVal;
+elif (self.Operator == "*")
+  return leftOpVal + rightOpVal;
+elif (self.Operator == "/")
+  return leftOpVal / rightOpVal;
+elif (self.Operator == "%")
+  return leftOpVal % rightOpVal;
+end if;
+
+
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Binary Operation.getInteger error: returning default value, 0",path:pathMsg);
+return 0;
+
+',
+	1,
+	'',
+	"0e14a938-1c79-4982-8baa-5f633e2adf08",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("c4a004ef-5dfd-45de-af86-9aada5b1c1c9",
+	"94882b1c-d3d7-42ea-b2a9-46803ef23b3c",
+	'stack_frame_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
+	"00000000-0000-0000-0000-000000000000",
+	'long',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",

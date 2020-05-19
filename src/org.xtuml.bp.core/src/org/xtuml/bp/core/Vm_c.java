@@ -13,6 +13,7 @@ import java.util.UUID;
 import lib.BPBoolean;
 import lib.BPFloat;
 import lib.BPInteger;
+import lib.BPLong;
 import lib.BPString;
 import lib.BPUniqueId;
 
@@ -239,7 +240,7 @@ public class Vm_c {
 
     private static String[] coreTypesThatMapToObject = { "inst_ref<Object>",
             "inst_ref_set<Object>", "inst<Event>", "inst<Mapping>",
-            "inst_ref<Mapping>", "date", "inst_ref<Timer>", "timestamp" };
+            "inst_ref<Mapping>", "date", "inst_ref<Timer>" };
 
     public static void Addargumentvalue(Object value) {
         targetInfo tgtInfo = getStack().peek();
@@ -285,6 +286,20 @@ public class Vm_c {
                     result = (BPInteger) value;
                 } else {
                     result = new BPInteger(Integer.parseInt((String) value));
+                }
+                tgtInfo.argVals.add(result);
+            }
+        } else if (type.equals("timestamp")) { //$NON-NLS-1$
+            if (byRef == false) {
+                tgtInfo.argTypes.add(long.class);
+                tgtInfo.argVals.add((Object) new Long(Gd_c
+                        .String_to_long((String) value)));
+            } else {
+                tgtInfo.argTypes.add(BPLong.class);
+                if (value instanceof BPLong) {
+                    result = (BPLong) value;
+                } else {
+                    result = new BPLong(Long.parseLong((String) value));
                 }
                 tgtInfo.argVals.add(result);
             }

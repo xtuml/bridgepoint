@@ -85,10 +85,8 @@ public class LOG {
 	// ============================================================================
 	// Bridge: LogTime
 	// ============================================================================
-	public static void LogTime(String ee_message, Object ee_t) {
-		String objString = (ee_t == null) ? "<null>" : ee_t.toString();
-
-		CorePlugin.out.println("LogTime:  " + objString + " " + ee_message);
+	public static void LogTime(String ee_message, long ee_t) {
+		CorePlugin.out.println("LogTime:  " + ee_t + " " + ee_message);
 	}
 
 	// ============================================================================

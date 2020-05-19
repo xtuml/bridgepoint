@@ -1691,11 +1691,35 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'		// Timestamps are already strings
-		if ( p_Value != null){
-			return p_Value.toString();
-		}
-		return "empty";',
+	'try
+{
+  if (p_Value instanceof lib.BPString)
+  {
+    return ((lib.BPString) p_Value).getValue();
+  }
+  if (p_Value instanceof lib.BPLong)
+  {
+    return Long.toString(((lib.BPLong)p_Value).getValue());
+  }
+  if (p_Value instanceof String) {
+  	return (String)p_Value;
+  }
+  else {
+    return p_Value.toString();
+  }
+}
+catch(NumberFormatException e)
+{  
+  //A number format exception was caught here, just return -1;
+  CorePlugin.logError("GD::timestamp_to_string exception: NumberFormatException", e);
+  return "";
+}
+catch(Exception e)
+{
+  //An exception was caught here, just return -1;
+  CorePlugin.logError("GD::timestamp_to_string exception: Exception", e);
+  return "";
+}',
 	0,
 	'',
 	0);
@@ -1908,6 +1932,130 @@ INSERT INTO S_BPARM
 	"3b0abf20-8a8a-4933-ae87-8a14e0d4d219",
 	'value',
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("8b222167-3f5b-4428-8abb-ca6ff97e3bd7",
+	"058cdd28-59e8-461f-8413-8013501f3a1a",
+	'instance_to_long',
+	'Translate:native',
+	0,
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
+	'try
+{
+  if (p_Value instanceof lib.BPString)
+  {
+    return String_to_long(((lib.BPString) p_Value).getValue());
+  }
+  if (p_Value instanceof lib.BPLong)
+  {
+    return ((lib.BPLong)p_Value).getValue();
+  }
+  if (p_Value instanceof String) {
+    if (((String)p_Value).equals("not participating")) {
+      return 0L;
+    }
+  }
+  //object has to be converted to string because it was originally stored as string 
+  return String_to_long(p_Value.toString());  
+}
+catch(NumberFormatException e)
+{  
+  //A number format exception was caught here, just return -1;
+  CorePlugin.logError("GD::instance_to_long exception: NumberFormatException", e);
+  return -1L;
+}
+catch(Exception e)
+{
+  //An exception was caught here, just return -1;
+  CorePlugin.logError("GD::instance_to_long exception: Exception", e);
+  return -1L;
+}
+  
+',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("1682e5ce-aa22-4cb1-afef-b78d0c183fbc",
+	"8b222167-3f5b-4428-8abb-ca6ff97e3bd7",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
+	"00000000-0000-0000-0000-000000000000",
+	'long',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("c075c1c7-7373-4918-a576-c751c20eed64",
+	"058cdd28-59e8-461f-8413-8013501f3a1a",
+	'string_to_long',
+	'Translate:native',
+	0,
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
+	'String value = p_Value;
+try {
+  long val = 0L;
+  // Coerce reals to integers
+  int decimal = p_Value.indexOf(''.'');
+  int exponent = p_Value.toUpperCase().indexOf(''E'');
+  if (decimal != -1 || exponent != -1) {
+    val = (long) Double.parseDouble(p_Value);
+  // Convert alternate base to base 10 if necessary
+  } else if (p_Value.startsWith("0b")) {
+    val = Long.parseLong(p_Value.substring(2), 2);
+  } else if (p_Value.startsWith("0x")) {
+    val = Long.parseLong(p_Value.substring(2), 16);
+  } else {
+    val = Long.parseLong(value);
+  }
+  return val;
+} catch (NumberFormatException e) {
+	//A number format exception was caught here, just return -1;
+	CorePlugin.logError(
+			"GD::string_to_long exception: NumberFormatException", e);
+	return -1L;
+} catch (Exception e) {
+	//An exception was caught here, just return -1;
+	CorePlugin.logError("GD::string_to_long exception: Exception", e);
+	return -1L;
+}',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("57b7649b-19f8-447b-86d6-a3bedf6606dc",
+	"c075c1c7-7373-4918-a576-c751c20eed64",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("3560e58c-3da7-4e78-9852-dc57f10ad6eb",
+	"058cdd28-59e8-461f-8413-8013501f3a1a",
+	'long_to_instance',
+	'Translate:native',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'return (Object)Long.toString(p_Value);',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("693b8348-4ba9-488a-8e44-fdde30b49933",
+	"3560e58c-3da7-4e78-9852-dc57f10ad6eb",
+	'value',
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -2309,13 +2457,6 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
-	"00000000-0000-0000-0000-000000000000",
-	'long',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
 INSERT INTO S_BPARM
 	VALUES ("745e520a-477c-4243-9b8f-9cfc628eabed",
 	"5a3b5d29-d3cb-4f92-abea-98473ee175ea",

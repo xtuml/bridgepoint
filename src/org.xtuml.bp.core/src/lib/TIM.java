@@ -538,7 +538,7 @@ public class TIM {
 	// ========================================================================
 	public static Object current_clock() {
 		long millis = System.currentTimeMillis();
-		return new Long(millis); // type timestamp
+		return new Long(millis * 1000); // type timestamp
 	}
 
 	// ========================================================================

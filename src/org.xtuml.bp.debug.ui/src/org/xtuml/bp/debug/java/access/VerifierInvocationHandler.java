@@ -74,6 +74,7 @@ import org.xtuml.bp.debug.ui.model.BPThread;
 import lib.BPBoolean;
 import lib.BPFloat;
 import lib.BPInteger;
+import lib.BPLong;
 import lib.BPString;
 import lib.BPUniqueId;
 import lib.LOG;
@@ -1528,6 +1529,8 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
             DataType_c superType = DataType_c.getOneS_DTOnR17(cdt);
             if (superType.getName().equals("integer")) {
                 return byRef ? BPInteger.class : int.class;
+            } else if (superType.getName().equals("timestamp")) {
+                return byRef ? BPLong.class : long.class;
             } else if (superType.getName().equals("real")) {
                 return byRef ? BPFloat.class : float.class;
             } else if (superType.getName().equals("string")) {
@@ -1551,8 +1554,6 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
             } else if (superType.getName().equals("date")) {
                 return java.lang.Object.class;
             } else if (superType.getName().equals("inst_ref<Timer>")) {
-                return java.lang.Object.class;
-            } else if (superType.getName().equals("timestamp")) {
                 return java.lang.Object.class;
             } else if (superType.getName().equals("void")) {
                 return void.class;

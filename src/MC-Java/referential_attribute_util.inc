@@ -24,7 +24,10 @@
       .if ( "boolean" == type.Name )
         .assign attr_null_value = "false"
       .end if
-      .if ( ( "string" == type.Name ) or ( "timestamp" == type.Name ) )
+      .if ( "timestamp" == type.Name ) 
+        .assign attr_null_value = "0L"
+      .end if
+      .if ( "string" == type.Name )
         .assign attr_null_value = """"""
       .end if
     .end if
