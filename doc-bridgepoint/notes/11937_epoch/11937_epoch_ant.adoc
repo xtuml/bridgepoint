@@ -41,12 +41,21 @@ the current `TIM` EE.
         an epoch can be initialized (e.g. `TIM::set_epoch( year, month, day )`).
 | TA3 | A bridge operation shall be supplied which returns the current
         time as a numeric type expressed as a quantity of seconds since
-        the beginning of the epoch (e.g. `TIM::current_time() :
+        the beginning of the epoch (e.g. `TIM::current_seconds() :
         integer`).
+| TA3.1 | The `timestamp` global data type shall be derived from integer
+          rather than `inst<Mapping>`.  In Verifier, it shall be implemented
+          as `long` (64 bits signed integer or larger).
+| TA3.2 | `TIM::current_clock() : timestamp` shall continue to return a
+          timestamp, but the timestamp shall be microseconds since the
+          start of the epoch.
+| TA3.3 | `TIM::timestamp_to_string( timestamp ) : string` is added to provide
+          a convenient string conversion of the input timestamp expressed in
+          microseconds.
 | TA4 | A bridge operation shall be supplied which converts numeric time
         values into strings formatted per an input format string
         containing some or all of year, month, day-of-month, hour, minute,
-        second (e.g. `TIM::format( t, "yyyy/MM/dd hh:mm:ss" ) : string`).
+        second (e.g. `TIM::timestamp_format( ts, "yyyy/MM/dd hh:mm:ss" ) : string`).
 | TA5 | Comparing two numeric time or duration values shall be provided.
         All operations corresponding to the following operators shall be
         supported:  `<`, `>`, `<=`, `>=`, `!=`, `==`.  This will be
@@ -62,20 +71,23 @@ the current `TIM` EE.
         warning) is supplied to detect subtraction of a time value from a
         duration.
 | TA9 | A time-of-day operation shall be provided which returns a duration
-        since the start of the day given a time value (e.g.
-        `TIM::time_of_day( timeval ) : integer`).
+        in microseconds since the start of the day given a time value (e.g.
+        `TIM::time_of_day( timeval ) : timestamp`).
 | TA10 | A test model shall be created and published that tests the
          capability and serves for future regression testing.
 | TA11 a| simulated time
 
           . Provide a bridge operation to set the current simulated time,
-            using month, day, year, hour, minute, second parameters (e.g.
-            `TIM::set_time( year, month, day, hour, minute, second ) : integer` ).
-            The bridge returns the current time as set.
+            using integer month, day, year, hour, minute, second and
+            microsecond parameters (e.g.
+            `TIM::set_time( year, month, day, hour, minute, second,
+            microsecond ) : timestamp` ).
+            The bridge returns the current timestamp time in microseconds
+            as set.
           . Provide a bridge operation to advance current simulated time
             using numeric duration expressed in seconds ( e.g.
-            `TIM::advance_time( seconds ) : integer` ).  The bridge returns
-            the current time after the advancement.
+            `TIM::advance_time( microseconds ) : timestamp` ).  The bridge
+            returns the current time in microseconds after the advancement.
 |===
 
 == 4 Analysis
