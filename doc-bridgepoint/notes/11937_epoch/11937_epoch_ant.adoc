@@ -128,7 +128,7 @@ high midnight on the morning of the requested date.  At bring-up (before
 an invocation of `TIM::set_epoch`, the epoch shall be initialized to
 midnight of _today_.
 
-=== 4.3 Set and Advanced Time Offset (`timeAdjustmentOffset`)
+=== 4.3 Set and Advance Time Offset (`timeAdjustmentOffset`)
 
 The two new simulated time bridges allow setting and advancing the
 current time.  This implies another offset value to be maintained.  The
