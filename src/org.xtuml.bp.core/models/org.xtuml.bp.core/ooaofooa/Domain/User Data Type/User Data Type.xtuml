@@ -260,8 +260,6 @@ elif(param.typeName == "inst<Event>")
   return false;
 elif(param.typeName == "date")
   return false;
-elif(param.typeName == "timestamp")
-  return false;
 elif(param.typeName == "inst_ref<Timer>")
   return false;
 end if;
