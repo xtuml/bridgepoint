@@ -541,8 +541,8 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ';'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     body=CodeBlock ('service' | 'function')? (ambiguity) (rule end)
-	 *     body=CodeBlock ('service' | 'function')? (ambiguity) pragmas+=Pragma
+	 *     body=CodeBlock ('function' | 'service')? (ambiguity) (rule end)
+	 *     body=CodeBlock ('function' | 'service')? (ambiguity) pragmas+=Pragma
 	 */
 	protected void emit_ObjectServiceDefinition_SemicolonKeyword_14_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -550,7 +550,7 @@ public class MASLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('service' | 'function')?
+	 *     ('function' | 'service')?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     body=CodeBlock (ambiguity) ';'? (rule end)

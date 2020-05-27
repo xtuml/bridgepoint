@@ -1,10 +1,13 @@
 package lib;
 
 import java.util.ArrayList;
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.HashMap;
@@ -66,9 +69,55 @@ public class TIM {
   private static long suspendTime = 0;
   private static boolean running = false;
 
-  private static Instant systemEpochOffset = Instant.EPOCH; // Nanoseconds
-  //private static long simulatedEpochOffset = 0;
+  private static Instant systemEpoch = Instant.EPOCH;
+  private static long systemEpochOffsetMicros = 0;
 
+  // Adapted from solution at https://stackoverflow.com/a/38658066
+  // Multiple sources say the Java 8 implementation of Clock only supports millisecond resolution
+  // This is supposedly resolved in Java 9 and above.
+  private static class NanoClock extends Clock {
+    private final Clock clock;
+    private final long initialNanos;
+    private final Instant initialInstant;
+
+    public NanoClock()
+    {
+        this(Clock.systemUTC());
+    }
+
+    public NanoClock(final Clock clock)
+    {
+        this.clock = clock;
+        initialInstant = clock.instant();
+        initialNanos = getSystemNanos();
+    }
+
+    @Override
+    public ZoneId getZone()
+    {
+        return clock.getZone();
+    }
+
+    @Override
+    public Instant instant()
+    {
+        return initialInstant.plusNanos(getSystemNanos() - initialNanos);
+    }
+
+    @Override
+    public Clock withZone(final ZoneId zone)
+    {
+        return new NanoClock(clock.withZone(zone));
+    }
+
+    private long getSystemNanos()
+    {
+        return System.nanoTime();
+    }
+  }
+
+  private static Clock epochClock = new NanoClock();
+  
   /*
    * Initializes the real-time verifier timer thread
    */
@@ -357,6 +406,13 @@ public class TIM {
     }
   }
 
+  public static long getCurrentTime(){
+    if (SIM_TIME)
+      return simulatedTime;
+    else
+      return (System.nanoTime()/1000 - suspendTime);
+  }
+
   // ========================================================================
   // Bridge: timer_start
   // ========================================================================
@@ -411,7 +467,7 @@ public class TIM {
     int left = 0;
     if ((timer_inst instanceof Timer_c) && timersList.contains(timer_inst)) {
       Timer_c timer = (Timer_c) timer_inst;
-      left = (int)(timer.getExpiration() - current_clock());
+      left = (int)(timer.getExpiration() - getCurrentTime());
     }
     return left;
   }
@@ -424,7 +480,7 @@ public class TIM {
       Timer_c timer = (Timer_c) timer_inst;
       ComponentInstance_c compInst = timersMap.get(timer);
       removeTimer(timer);
-      timer.setExpiration(Util_c.Addinttolong(microseconds, current_clock()));
+      timer.setExpiration(Util_c.Addinttolong(microseconds, getCurrentTime()));
       timer.setRunning(true);
       insertTimer(timer,compInst);
       return true; // successfully reset
@@ -539,12 +595,12 @@ public class TIM {
   // Bridge: current_clock
   // ========================================================================
   public static long current_clock() {
-      long timeValue = TimeUnit.MILLISECONDS.toMicros(systemEpochOffset.toEpochMilli());
+    long timeValue = (TimeUnit.SECONDS.toMicros(Instant.now().getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(Instant.now(epochClock).getNano()));
     if (SIM_TIME)
-      timeValue += simulatedTime;
+      timeValue = simulatedTime;
     else
-      timeValue += (System.nanoTime()/1000 - suspendTime);
-      return timeValue;
+      timeValue -= systemEpochOffsetMicros;
+    return timeValue;
   }
 
   // ========================================================================
@@ -552,8 +608,8 @@ public class TIM {
   // ========================================================================
   public static Object create_date(int day, int hour, int min, int month,
       int sec, int year) {
-    Instant cal = Instant.from(LocalDateTime.of(year, month, day, hour, min, sec));
-    cal.plusSeconds(systemEpochOffset.getLong(ChronoField.INSTANT_SECONDS));
+    Instant cal = LocalDateTime.of(year, month, day, hour, min, sec).toInstant(ZoneOffset.UTC);
+    cal.minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffsetMicros));
     return (Object) cal;
   }
 
@@ -561,7 +617,7 @@ public class TIM {
   // Bridge: current_date
   // ========================================================================
   public static Object current_date() {
-    Instant cal = Instant.now().plusSeconds(systemEpochOffset.getLong(ChronoField.INSTANT_SECONDS));
+    Instant cal = Instant.now().minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffsetMicros));
     return (Object) cal;
   }
 
@@ -572,41 +628,47 @@ public class TIM {
      if (SIM_TIME)
        return current_clock();
      else
-       return Instant.now().plusSeconds(systemEpochOffset.getLong(ChronoField.INSTANT_SECONDS)).getLong(ChronoField.INSTANT_SECONDS);
+       return Instant.now().getEpochSecond() - TimeUnit.MICROSECONDS.toSeconds(systemEpochOffsetMicros);
    }
 
   // ========================================================================
   // Bridge: set_epoch
   // ========================================================================
    public static void set_epoch(int day, int month, int year) {
-     systemEpochOffset = Instant.from(LocalDate.of(year, month, day));
+     systemEpoch = LocalDate.of(year, month, day).atStartOfDay(ZoneOffset.UTC).toInstant();
+     systemEpochOffsetMicros = TimeUnit.SECONDS.toMicros(systemEpoch.getEpochSecond() - Instant.EPOCH.getEpochSecond());
    }
 
   // ========================================================================
   // Bridge: time_of_day
   // ========================================================================
   public static long time_of_day(long timeval) {
-	return LocalTime.from(Instant.ofEpochSecond(0, timeval)).getLong(ChronoField.MICRO_OF_DAY);
+    // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
+    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timeval) + TimeUnit.MICROSECONDS.toNanos(systemEpochOffsetMicros);
+	  return LocalTime.from(Instant.ofEpochSecond(0, nanoVal).atZone(ZoneOffset.UTC)).getLong(ChronoField.MICRO_OF_DAY);
   }
 
   // ========================================================================
   // Bridge: timestamp_format
   // ========================================================================
-  public static String timestamp_format(long t, String format) {
+  public static String timestamp_format(long ts, String format) {
+    // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
+    long nanoVal = TimeUnit.MICROSECONDS.toNanos(ts) + TimeUnit.MICROSECONDS.toNanos(systemEpochOffsetMicros);
 	// Discard all '[' ']' '{' '}', as they throw an error.
-	String stripped = format.replaceAll("\\[|\\]|{|}", " ");
+	String stripped = format.replaceAll("\\[|\\]", " ").replaceAll("\\{|\\}", " ");
 	if (!stripped.contentEquals(format)) {
 		System.out.println("All [, {, ], and } characters were stripped from the output string." );
 	}
-    return LocalDateTime.from(Instant.ofEpochSecond(0, t)).format(DateTimeFormatter.ofPattern(stripped));
+    return LocalDateTime.ofInstant(Instant.ofEpochSecond(0, nanoVal), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(stripped));
   }
 
   // ========================================================================
   // Bridge: timestamp_to_string
   // ========================================================================
-  public static String timestamp_to_string(long t) {
-    String nanoString = Instant.ofEpochSecond(0, t).toString();
-    return String.valueOf(nanoString.toCharArray(), 0, nanoString.lastIndexOf("000"));
+  public static String timestamp_to_string(long timestamp) {
+    // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
+    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp) + TimeUnit.MICROSECONDS.toNanos(systemEpochOffsetMicros);
+    return Instant.ofEpochSecond(0, nanoVal).toString();
   }
   
   // ========================================================================
