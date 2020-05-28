@@ -159,7 +159,35 @@ elif (self.Operator == "==" or self.Operator == "!=")
     isComponentRef = dtLeft.Name == "component_ref";
   end if;
 
-  if (dtLeftRealorInt)    
+  if (isTimestamp)
+    if (self.Operator == "==")
+      if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
+        return true;
+      else
+        return false;
+      end if;
+    else  // we know that (self.Operator == "!=")
+      if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
+        return false;
+      else
+        return true;
+      end if;
+    end if;
+  elif (isDate)
+    if (self.Operator == "==")
+      if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
+        return true;
+      else
+        return false;
+      end if;
+    else  // we know that (self.Operator == "!=")
+      if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
+        return false;
+      else
+        return true;
+      end if;
+    end if;
+  elif (dtLeftRealorInt)    
     if (self.Operator == "==")  
 
       //Assuming the boolean binary operations contains real and/or int operands
@@ -209,34 +237,6 @@ elif (self.Operator == "==" or self.Operator == "!=")
        end if;
       end if; 
 
-    end if;
-  elif (isDate)
-    if (self.Operator == "==")
-      if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
-        return true;
-      else
-        return false;
-      end if;
-    else  // we know that (self.Operator == "!=")
-      if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
-        return false;
-      else
-        return true;
-      end if;
-    end if;
-  elif (isTimestamp)
-    if (self.Operator == "==")
-      if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
-        return true;
-      else
-        return false;
-      end if;
-    else  // we know that (self.Operator == "!=")
-      if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
-        return false;
-      else
-        return true;
-      end if;
     end if;
   elif (isComponentRef)
     if (self.Operator == "==")
@@ -296,7 +296,19 @@ elif (self.Operator == "<")
     isDate = dtLeft.Name == "date";
   end if;
   
-  if (dtLeftRealorInt)  
+  if (isTimestamp)
+    if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 1)
+      return true;
+    else
+      return false;
+    end if;
+  elif (isDate)
+    if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 1)
+      return true;
+    else
+      return false;
+    end if;
+  elif (dtLeftRealorInt)  
     //Assuming the boolean binary operations contains real and/or int operands
     select one dtRight related by rightOperand->S_DT[R820];
     leftDataTypeName = dtLeft.getCoreDataTypeName();
@@ -319,18 +331,6 @@ elif (self.Operator == "<")
         		< GD::instance_to_real(value:rightRtVal.getValue()));
       end if;
     end if; 	    
-  elif (isDate)
-    if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 1)
-      return true;
-    else
-      return false;
-    end if;
-  elif (isTimestamp)
-    if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 1)
-      return true;
-    else
-      return false;
-    end if;
   else
     pathMsg = "<No Path Available - Empty instance>";
     if (not_empty body)
@@ -352,7 +352,19 @@ elif (self.Operator == ">")
     isDate = dtLeft.Name == "date";
   end if;
   
-  if (dtLeftRealorInt)  
+  if (isTimestamp)
+    if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 2)
+      return true;
+    else
+      return false;
+    end if;
+  elif (isDate)
+    if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 2)
+      return true;
+    else
+      return false;
+    end if;
+  elif (dtLeftRealorInt)  
     //Assuming the boolean binary operations contains real and/or int operands
     select one dtRight related by rightOperand->S_DT[R820];
     leftDataTypeName = dtLeft.getCoreDataTypeName();
@@ -375,18 +387,6 @@ elif (self.Operator == ">")
         		> GD::instance_to_real(value:rightRtVal.getValue()));
       end if;
     end if;  
-  elif (isDate)
-    if (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 2)
-      return true;
-    else
-      return false;
-    end if;
-  elif (isTimestamp)
-    if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 2)
-      return true;
-    else
-      return false;
-    end if;
   else
     pathMsg = "<No Path Available - Empty instance>";
     if (not_empty body)
@@ -407,7 +407,21 @@ elif (self.Operator == "<=")
     isDate = dtLeft.Name == "date";
   end if;
   
-  if (dtLeftRealorInt)  
+  if (isTimestamp)
+    if ((GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
+      or (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 1))
+      return true;
+    else
+      return false;
+    end if;
+  elif (isDate)
+    if ((GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
+      or (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 1))
+      return true;
+    else
+      return false;
+    end if;
+  elif (dtLeftRealorInt)  
     //Assuming the boolean binary operations contains real and/or int operands
     select one dtRight related by rightOperand->S_DT[R820];
     leftDataTypeName = dtLeft.getCoreDataTypeName();
@@ -430,20 +444,6 @@ elif (self.Operator == "<=")
         		<= GD::instance_to_real(value:rightRtVal.getValue()));
       end if;
     end if;  
-  elif (isDate)
-    if ((GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
-      or (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 1))
-      return true;
-    else
-      return false;
-    end if;
-  elif (isTimestamp)
-    if ((GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
-      or (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 1))
-      return true;
-    else
-      return false;
-    end if;
   else
     pathMsg = "<No Path Available - Empty instance>";
     if (not_empty body)
@@ -464,7 +464,21 @@ elif (self.Operator == ">=")
     isDate = dtLeft.Name == "date";
   end if;
   
-  if (dtLeftRealorInt)  
+  if (isTimestamp)
+    if ((GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
+      or (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 2))
+      return true;
+    else
+      return false;
+    end if;
+  elif (isDate)
+    if ((GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
+      or (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 2))
+      return true;
+    else
+      return false;
+    end if;
+  elif (dtLeftRealorInt)  
     //Assuming the boolean binary operations contains real and/or int operands
     select one dtRight related by rightOperand->S_DT[R820];
     leftDataTypeName = dtLeft.getCoreDataTypeName();
@@ -487,20 +501,6 @@ elif (self.Operator == ">=")
         		>= GD::instance_to_real(value:rightRtVal.getValue()));
       end if;
     end if; 
-  elif (isDate)
-    if ((GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 0)
-      or (GD::compare_dates(d1:leftRtVal.getValue(),d2:rightRtVal.getValue()) == 2))
-      return true;
-    else
-      return false;
-    end if;
-  elif (isTimestamp)
-    if ((GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
-      or (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 2))
-      return true;
-    else
-      return false;
-    end if;
   else
     pathMsg = "<No Path Available - Empty instance>";
     if (not_empty body)
