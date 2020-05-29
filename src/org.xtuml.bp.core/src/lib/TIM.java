@@ -529,66 +529,102 @@ public class TIM {
   // Bridge: get_second
   // ========================================================================
   public static int get_second(Object date) {
+    int ret = -1;
     if (date instanceof Instant){
-      Instant cal = (Instant) date;
-      return cal.get(ChronoField.SECOND_OF_DAY);
+      LocalDateTime cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
+      if ( cal.isSupported(ChronoField.SECOND_OF_MINUTE) ) {
+        ret = cal.get( ChronoField.SECOND_OF_MINUTE );
+      } else {
+        // If the field is unsupported, then return as zero.
+        ret = 0;
+      }
     }
-    return -1;
+    return ret;
   }
 
   // ========================================================================
   // Bridge: get_minute
   // ========================================================================
   public static int get_minute(Object date) {
+    int ret = -1;
     if (date instanceof Instant){
-      Instant cal = (Instant) date;
-      return cal.get(ChronoField.MINUTE_OF_DAY);
+      LocalDateTime cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
+      if ( cal.isSupported(ChronoField.MINUTE_OF_HOUR) ) {
+        ret = cal.get(ChronoField.MINUTE_OF_HOUR);
+      } else {
+        // If the field is unsupported, then return as zero.
+        ret = 0;
+      }
     }
-    return -1;
+    return ret;
   }
 
   // ========================================================================
   // Bridge: get_hour
   // ========================================================================
   public static int get_hour(Object date) {
+    int ret = -1;
     if (date instanceof Instant){
-      Instant cal = (Instant) date;
-      return cal.get(ChronoField.HOUR_OF_DAY);
+      LocalDateTime cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
+      if ( cal.isSupported(ChronoField.HOUR_OF_DAY) ) {
+        ret = cal.get(ChronoField.HOUR_OF_DAY);
+      } else {
+        // If the field is unsupported, then return as zero.
+        ret = 0;
+      }
     }
-    return -1;
+    return ret;
   }
 
   // ========================================================================
   // Bridge: get_day
   // ========================================================================
   public static int get_day(Object date) {
+    int ret = -1;
     if (date instanceof Instant){
-      Instant cal = (Instant) date;
-      return cal.get(ChronoField.DAY_OF_MONTH);
+      LocalDateTime cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
+      if ( cal.isSupported(ChronoField.DAY_OF_MONTH) ) {
+        ret = cal.get(ChronoField.DAY_OF_MONTH);
+      } else {
+        // If the field is unsupported, then return as first day of month.
+        ret = 1;
+      }
     }
-    return -1;
+    return ret;
   }
 
   // ========================================================================
   // Bridge: get_month
   // ========================================================================
   public static int get_month(Object date) {
+    int ret = -1;
     if (date instanceof Instant){
-      Instant cal = (Instant) date;
-      return cal.get(ChronoField.MONTH_OF_YEAR);
+      LocalDateTime cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
+      if ( cal.isSupported(ChronoField.MONTH_OF_YEAR) ) {
+        ret = cal.get(ChronoField.MONTH_OF_YEAR);
+      } else {
+        // If the field is unsupported, then return as January.
+        ret = 1;
+      }
     }
-    return -1; // cannot return 0, represents January
+    return ret;
   }
 
   // ========================================================================
   // Bridge: get_year
   // ========================================================================
   public static int get_year(Object date) {
+    int ret = -1;
     if (date instanceof Instant){
-      Instant cal = (Instant) date;
-      return cal.get(ChronoField.YEAR);
+      LocalDateTime cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
+      if ( cal.isSupported(ChronoField.YEAR) ) {
+        ret = cal.get(ChronoField.YEAR);
+      } else {
+        // If the field is unsupported, then return as zero.
+        ret = 0;
+      }
     }
-    return -1;
+    return ret;
   }
 
   // ========================================================================
@@ -619,9 +655,10 @@ public class TIM {
   // Bridge: current_date
   // ========================================================================
   public static Object current_date() {
-    Instant cal = Instant.now();
-    if ( !isSIM_TIME() ) {
-      cal.minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset));
+    Instant cal = Instant.now().minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset));
+    if ( isSIM_TIME() ) {
+      long nanoVal = TimeUnit.MICROSECONDS.toNanos(current_clock());
+      cal = Instant.ofEpochSecond(0, nanoVal);
     }
     return (Object) cal;
   }
