@@ -24,7 +24,7 @@ INSERT INTO GD_MD
 	200,
 	150,
 	0,
-	'3.2.5',
+	'4.1.17',
 	'org.xtuml.bp.core::ooaofooa::External Entities');
 INSERT INTO GD_GE
 	VALUES ("0102f1fa-ae83-469a-8b89-0be091f473f6",
@@ -849,7 +849,7 @@ needed for interacting with the Graphics domain. Some of these
 bridges are duplicated by the OS EE and should be integrated at
 some point in the near future.
 
-Import:java.util.UUID;import java.util.Calendar',
+Import:java.util.UUID;import java.util.Calendar; import java.time.Instant; import java.time.LocalDateTime; import java.time.ZoneId; import java.time.format.DateTimeFormatter',
 	'GD',
 	"00000000-0000-0000-0000-000000000000",
 	'',
@@ -1739,7 +1739,10 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
-	'		if (p_Value instanceof Calendar) {
+	'		if (p_Value instanceof Instant) {
+			String result = LocalDateTime.ofInstant( (Instant)p_Value, ZoneId.systemDefault() ).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+			return result;
+		} else if (p_Value instanceof Calendar) {
 			String result = ((Calendar) p_Value).getTime().toLocaleString();
 			return result;
 		}
@@ -1838,7 +1841,16 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
-	'		if ((p_D1 instanceof Calendar) && (p_D2 instanceof Calendar)) {
+	'		if ((p_D1 instanceof Instant) && (p_D2 instanceof Instant)) {
+		    long d1 = ((Instant) p_D1).toEpochMilli();
+		    long d2 = ((Instant) p_D2).toEpochMilli();
+		    if (d1 == d2)
+		    	return 0;
+		    if (d1 < d2)
+		    	return 1;
+		    if (d1 > d2)
+		    	return 2;
+		} else if ((p_D1 instanceof Calendar) && (p_D2 instanceof Calendar)) {
 		    long d1 = ((Calendar) p_D1).getTimeInMillis();
 		    long d2 = ((Calendar) p_D2).getTimeInMillis();
 		    if (d1 == d2)

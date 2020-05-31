@@ -22,6 +22,10 @@
 
 package lib;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -71,15 +75,11 @@ public class LOG {
 	// Bridge: LogDate
 	// ============================================================================
 	public static void LogDate(Object ee_d, String ee_message) {
-		String objString = null;
-				if (ee_d != null) {
-					SimpleDateFormat format = new SimpleDateFormat(
-							"EEE MMM dd yyyy HH:mm:ss zzz");
-					Date date = ((GregorianCalendar) ee_d).getTime();
-					objString = format.format(date);
-				}
-				CorePlugin.out.println("LogDate:  " + objString + " " + ee_message);
-
+	  String objString = null;
+		if (ee_d instanceof Instant) {
+		  objString = LocalDateTime.ofInstant( (Instant)ee_d, ZoneId.systemDefault() ).format(DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss zzz"));
+			CorePlugin.out.println("LogDate:  " + objString + " " + ee_message);
+		}
 	}
 
 	// ============================================================================
