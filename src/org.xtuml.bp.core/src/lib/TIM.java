@@ -72,50 +72,6 @@ public class TIM {
   private static long timeAdjustmentOffset = 0;
   private static Instant systemEpoch = Instant.EPOCH;
   private static long systemEpochOffset = 0;
-
-  // Adapted from solution at https://stackoverflow.com/a/38658066
-  // Multiple sources say the Java 8 implementation of Clock only supports millisecond resolution
-  // This is supposedly resolved in Java 9 and above.
-  private static class NanoClock extends Clock {
-    private final Clock clock;
-    private final long initialNanos;
-    private final Instant initialInstant;
-
-    public NanoClock() {
-        this(Clock.systemUTC());
-    }
-
-    public NanoClock(final Clock clock) {
-        this.clock = clock;
-        initialInstant = clock.instant();
-        initialNanos = getSystemNanos();
-    }
-
-    @Override
-    public ZoneId getZone() {
-        return clock.getZone();
-    }
-
-    @Override
-    public Instant instant() {
-        return initialInstant.plusNanos(getSystemNanos() - initialNanos);
-    }
-
-    @Override
-    public Clock withZone(final ZoneId zone) {
-        return new NanoClock(clock.withZone(zone));
-    }
-
-    public long getInstantMicros() {
-      return TimeUnit.NANOSECONDS.toMicros(instant().getNano());
-    }
-   
-    private long getSystemNanos() {
-        return System.nanoTime();
-    }
-  }
-
-  private static NanoClock epochClock = new NanoClock();
   private static long startTime;
   
   /*
@@ -130,7 +86,7 @@ public class TIM {
           try {
             synchronized(timerLock) {
               if (!timersList.isEmpty() && !suspended){
-                remTime = timersList.get(0).getExpiration()- current_clock();
+                remTime = timersList.get(0).getExpiration()- getCurrentTime();
                 if (remTime > VIEWERS_REFRESH_RATE_MILLISECS*1000)
                   timerLock.wait(VIEWERS_REFRESH_RATE_MILLISECS);
                 else if (remTime > 0)
@@ -271,7 +227,6 @@ public class TIM {
     timeAdjustmentOffset = 0;
     systemEpoch = Instant.EPOCH;
     systemEpochOffset = 0;
-    epochClock = new NanoClock();
     Instant now = Instant.now();
     startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());;
     if (simTime) {
@@ -355,12 +310,12 @@ public class TIM {
 
   public static void suspendTime(){
     suspended = true;
-    suspendMark = epochClock.getInstantMicros();
+    suspendMark = System.nanoTime()/1000;
   }
 
   public static void resumeTime(){
     if (suspended){
-      suspendTime += epochClock.getInstantMicros() - suspendMark;
+      suspendTime += System.nanoTime()/1000 - suspendMark;
       suspended = false;
       if (isSIM_TIME()){
         synchronized(idleBusyLock){
@@ -416,7 +371,7 @@ public class TIM {
     if ( isSIM_TIME() ) {
       return simulatedTime;
     } else {
-      return current_clock() - suspendTime; 
+      return System.nanoTime()/1000 - suspendTime; 
     }
   }
 
