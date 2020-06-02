@@ -30,6 +30,7 @@ import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.rules.FastPartitioner;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 
+// TODO SKB replaced by ActionLanguageDocumentProvider...
 public class OALDocumentProvider extends FileDocumentProvider {
 
 	protected IDocument createDocument(Object element) throws CoreException {

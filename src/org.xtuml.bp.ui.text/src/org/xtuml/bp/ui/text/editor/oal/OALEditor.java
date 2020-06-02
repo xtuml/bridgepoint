@@ -26,6 +26,7 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
+import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditor extends AbstractModelElementTextEditor {
@@ -43,7 +44,8 @@ public class OALEditor extends AbstractModelElementTextEditor {
 		preferences = aPreferences;
 
 		setSourceViewerConfiguration(new OALEditorConfiguration(preferences, this));
-		setDocumentProvider(new OALDocumentProvider());
+		// TODO SKB - refactor setDocumentProvider(new OALDocumentProvider());
+		setDocumentProvider(new ActionLanguageDocumentProvider());
 		setEventListeners();
 	}
 	

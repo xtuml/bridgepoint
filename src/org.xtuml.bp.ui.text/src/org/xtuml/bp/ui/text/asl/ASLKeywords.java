@@ -46,6 +46,7 @@ public class ASLKeywords
 		"find-one", //$NON-NLS-1$
 		"find-only", //$NON-NLS-1$
 		"for", //$NON-NLS-1$
+		"from", //$NON-NLS-1$
 		"function", //$NON-NLS-1$
 		"generate", //$NON-NLS-1$
 		"greater-than", //$NON-NLS-1$

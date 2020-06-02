@@ -35,7 +35,7 @@ NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/1
 - New editor / editor input / etc
   - See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
     and org.xtuml.bp.ui.text.masl.MASLEditorInput
-  - ASLActivityEditorInputFactor.java should be generated
+  - ASLActivityEditorInputFactory.java should be generated
   - Look at what else is editor-related and generated... 
 
 - Find places where dialect*==*masl
@@ -47,14 +47,16 @@ NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/1
   - GraphicalEditor.java : handleOpen() here is very similar to the one in ExplorerView but this one is not generated
   - SampleProjectGettingStartedAction.java - handling for special MASL prefs (identifier naming and concrete polys)
   - In the context menu Open list, "ASL Editor", "MASL Editor", "Activity Editor"... change to "OAL Editor"?
+      - The best thing would be to look at the dialect that is set on the activity and only show the relevant 
+        option on the context menu.  Do something dynamic like the Cardinality menu on associations?? But that is more work...
 
 
 - TODO: refactor common code between ASL and OAL 
 
 - TODO: Look over all new code and see if there are unused functions, import cleanup, TODOs etc...
 
-- TODO - why does ui.text/arc/create_plugin_xml.arc (line 188) explictly list MASL object contributions rather than use the loop
-  and set that OAL does on line 162???
+- TODO - why does ui.text/arc/create_plugin_xml.arc (line 199) explicitly list MASL object contributions rather than use the loop
+  and set that OAL does on line 174???
   - I set up ASL like MASL but not sure that's right...
   - Need type definition editor like MASL does in this function (line 478)???
   
@@ -179,7 +181,6 @@ x Add to the ActionDialect enum in the metamodel
 ```
 === 5.4 Automatic Indentation
 
-TODO
 auto-indent (DONE) 
   - Old issue is 10232 OAL Editor Enhancements.
   - if ... then
@@ -202,7 +203,6 @@ x ExplorerView::handleOpen()
   x Modify to handle opening ASL editor when it sees ASL dialect
   
 === 5.6 Preferences
-- TODO: preferences
   x add ASL to default action language selection on prefs ui in ActionLanguagePreferences.java
 
 === 5.7 Build

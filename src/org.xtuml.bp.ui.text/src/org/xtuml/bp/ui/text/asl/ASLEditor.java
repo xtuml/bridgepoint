@@ -8,6 +8,7 @@ import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.text.AbstractModelElementTextEditor;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
+import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 // TODO - refactor for OAL/ASL combination
@@ -27,7 +28,8 @@ public class ASLEditor extends AbstractModelElementTextEditor {
 		preferences = aPreferences;
 
 		setSourceViewerConfiguration(new ASLEditorConfiguration(preferences, this));
-		setDocumentProvider(new ASLDocumentProvider());
+		// TODO - switched to refactored version below setDocumentProvider(new ASLDocumentProvider());
+		setDocumentProvider(new ActionLanguageDocumentProvider());
 		setEventListeners();
 	}
 	
