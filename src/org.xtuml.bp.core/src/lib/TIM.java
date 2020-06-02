@@ -10,7 +10,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
@@ -110,17 +109,14 @@ public class TIM {
     public long getInstantMicros() {
       return TimeUnit.NANOSECONDS.toMicros(instant().getNano());
     }
-    
-    public long getSystemMicros() {
-      return TimeUnit.NANOSECONDS.toMicros(getSystemNanos());
-    }
-    
+   
     private long getSystemNanos() {
         return System.nanoTime();
     }
   }
 
   private static NanoClock epochClock = new NanoClock();
+  private static long startTime;
   
   /*
    * Initializes the real-time verifier timer thread
@@ -272,6 +268,12 @@ public class TIM {
    * @param simTime
    */
   public static void init(boolean simTime){
+    timeAdjustmentOffset = 0;
+    systemEpoch = Instant.EPOCH;
+    systemEpochOffset = 0;
+    epochClock = new NanoClock();
+    Instant now = Instant.now();
+    startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());;
     if (simTime) {
       if (simThread == null) {
         initializeSimTime();
@@ -353,12 +355,12 @@ public class TIM {
 
   public static void suspendTime(){
     suspended = true;
-    suspendMark = epochClock.getSystemMicros();
+    suspendMark = epochClock.getInstantMicros();
   }
 
   public static void resumeTime(){
     if (suspended){
-      suspendTime += epochClock.getSystemMicros() - suspendMark;
+      suspendTime += epochClock.getInstantMicros() - suspendMark;
       suspended = false;
       if (isSIM_TIME()){
         synchronized(idleBusyLock){
@@ -411,7 +413,11 @@ public class TIM {
   }
 
   public static long getCurrentTime(){
-    return current_clock();
+    if ( isSIM_TIME() ) {
+      return current_clock();
+    } else {
+      return current_clock() - suspendTime; 
+    }
   }
 
   // ========================================================================
@@ -662,11 +668,14 @@ public class TIM {
   // Bridge: current_clock
   // ========================================================================
   public static long current_clock() {
-    long timeValue = TimeUnit.SECONDS.toMicros(Instant.now().getEpochSecond()) + epochClock.getInstantMicros();
-    if (SIM_TIME)
+    Instant now = Instant.now();
+    long timeValue = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
+    if (SIM_TIME) {
       timeValue = simulatedTime + timeAdjustmentOffset;
-    else
-      timeValue -= systemEpochOffset - suspendTime;
+    } else {
+      timeValue -= systemEpochOffset;
+      timeValue -= timeAdjustmentOffset;
+    }
     return timeValue;
   }
 
@@ -686,7 +695,7 @@ public class TIM {
   // Bridge: current_date
   // ========================================================================
   public static Object current_date() {
-    Instant cal = Instant.now().minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset));
+    Instant cal = Instant.now().minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)).minusSeconds(TimeUnit.MICROSECONDS.toSeconds(timeAdjustmentOffset));
     if ( isSIM_TIME() ) {
       long nanoVal = TimeUnit.MICROSECONDS.toNanos(current_clock());
       cal = Instant.ofEpochSecond(0, nanoVal);
@@ -698,10 +707,7 @@ public class TIM {
   // Bridge: current_seconds
   // ========================================================================
    public static long current_seconds() {
-     if (isSIM_TIME())
-       return current_clock();
-     else
-       return Instant.now().getEpochSecond() - TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset);
+     return TimeUnit.MICROSECONDS.toSeconds( current_clock() );
    }
 
   // ========================================================================
@@ -727,30 +733,27 @@ public class TIM {
   // ========================================================================
   // Bridge: timestamp_format
   // ========================================================================
-  public static String timestamp_format(long ts, String format) {
+  public static String timestamp_format(long timestamp, String format) {
     // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
-    long nanoVal = TimeUnit.MICROSECONDS.toNanos(ts);
+    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp);
     if ( !isSIM_TIME() ) {
       nanoVal += TimeUnit.MICROSECONDS.toNanos(systemEpochOffset);
     }
-    // Discard all '[' ']' '{' '}', as they throw an error.
-    String stripped = format.replaceAll("\\[|\\]", " ").replaceAll("\\{|\\}", " ");
-    if (!stripped.contentEquals(format)) {
-      System.out.println("All [, {, ], and } characters were stripped from the output string." );
+    DateTimeFormatter formatter;
+    try {
+      formatter = DateTimeFormatter.ofPattern(format);
+    } catch ( IllegalArgumentException e ) {
+      System.err.println("IllegalArgumentException: " + e.getMessage());
+      return "Invalid format string!";
     }
-    return LocalDateTime.ofInstant(Instant.ofEpochSecond(0, nanoVal), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(stripped));
+    return LocalDateTime.ofInstant(Instant.ofEpochSecond(0, nanoVal), ZoneOffset.UTC).format(formatter);
   }
 
   // ========================================================================
   // Bridge: timestamp_to_string
   // ========================================================================
   public static String timestamp_to_string(long timestamp) {
-    // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
-    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp);
-    if ( !isSIM_TIME() ) {
-      nanoVal += TimeUnit.MICROSECONDS.toNanos(systemEpochOffset);
-    }
-    return Instant.ofEpochSecond(0, nanoVal).toString();
+    return Long.toString(timestamp);
   }
   
   // ========================================================================
@@ -759,26 +762,23 @@ public class TIM {
   // ========================================================================
   public static long set_time( int day, int hour, int microsecond, int minute, int month, int second, int year ) {
     Instant cal = LocalDateTime.of(year, month, day, hour, minute, second, (int)TimeUnit.MICROSECONDS.toNanos(microsecond)).toInstant(ZoneOffset.UTC);
+    long setTime = TimeUnit.NANOSECONDS.toMicros( TimeUnit.SECONDS.toNanos( cal.getEpochSecond() ) + cal.getNano() );
     if ( isSIM_TIME() ) {
-      timeAdjustmentOffset = TimeUnit.NANOSECONDS.toMicros( TimeUnit.SECONDS.toNanos( cal.getEpochSecond() ) + cal.getNano() );
-      return timeAdjustmentOffset;
+      timeAdjustmentOffset = setTime;
     } else {
-      systemEpochOffset -= ChronoUnit.MICROS.between(Instant.now(epochClock), cal);
-      return current_clock();
+      Instant now = Instant.now();
+      long nowTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
+      timeAdjustmentOffset = nowTime - setTime;
     }
+    return setTime;
   }
 
   // ========================================================================
   // Bridge: advance_time
   // ========================================================================
   public static long advance_time(long microseconds) {
-    if ( isSIM_TIME() ) {
-      timeAdjustmentOffset += microseconds;
-      return timeAdjustmentOffset;
-    } else {
-      systemEpochOffset -= microseconds;
-      return current_clock();
-    }
+    timeAdjustmentOffset += microseconds;
+    return timeAdjustmentOffset;
   }
   
 }
