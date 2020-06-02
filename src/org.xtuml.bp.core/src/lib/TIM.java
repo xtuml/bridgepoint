@@ -414,7 +414,7 @@ public class TIM {
 
   public static long getCurrentTime(){
     if ( isSIM_TIME() ) {
-      return current_clock();
+      return simulatedTime;
     } else {
       return current_clock() - suspendTime; 
     }
