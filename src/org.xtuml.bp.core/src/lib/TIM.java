@@ -493,12 +493,7 @@ public class TIM {
   public static int get_second(Object date) {
     int ret = -1;
     if (date instanceof Instant){
-      LocalDateTime cal;
-      if ( isSIM_TIME() ) {
-        cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
-      } else {
-        cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
-      }
+      LocalDateTime cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
       if ( cal.isSupported(ChronoField.SECOND_OF_MINUTE) ) {
         ret = cal.get( ChronoField.SECOND_OF_MINUTE );
       } else {
@@ -515,12 +510,7 @@ public class TIM {
   public static int get_minute(Object date) {
     int ret = -1;
     if (date instanceof Instant){
-      LocalDateTime cal;
-      if ( isSIM_TIME() ) {
-        cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
-      } else {
-        cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
-      }
+      LocalDateTime cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
       if ( cal.isSupported(ChronoField.MINUTE_OF_HOUR) ) {
         ret = cal.get(ChronoField.MINUTE_OF_HOUR);
       } else {
@@ -537,12 +527,7 @@ public class TIM {
   public static int get_hour(Object date) {
     int ret = -1;
     if (date instanceof Instant){
-      LocalDateTime cal;
-      if ( isSIM_TIME() ) {
-        cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
-      } else {
-        cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
-      }
+      LocalDateTime cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
       if ( cal.isSupported(ChronoField.HOUR_OF_DAY) ) {
         ret = cal.get(ChronoField.HOUR_OF_DAY);
       } else {
@@ -559,12 +544,7 @@ public class TIM {
   public static int get_day(Object date) {
     int ret = -1;
     if (date instanceof Instant){
-      LocalDateTime cal;
-      if ( isSIM_TIME() ) {
-        cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
-      } else {
-        cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
-      }
+      LocalDateTime cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
       if ( cal.isSupported(ChronoField.DAY_OF_MONTH) ) {
         ret = cal.get(ChronoField.DAY_OF_MONTH);
       } else {
@@ -581,12 +561,7 @@ public class TIM {
   public static int get_month(Object date) {
     int ret = -1;
     if (date instanceof Instant){
-      LocalDateTime cal;
-      if ( isSIM_TIME() ) {
-        cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
-      } else {
-        cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
-      }
+      LocalDateTime cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
       if ( cal.isSupported(ChronoField.MONTH_OF_YEAR) ) {
         ret = cal.get(ChronoField.MONTH_OF_YEAR);
       } else {
@@ -603,12 +578,7 @@ public class TIM {
   public static int get_year(Object date) {
     int ret = -1;
     if (date instanceof Instant){
-      LocalDateTime cal;
-      if ( isSIM_TIME() ) {
-        cal = LocalDateTime.ofInstant( (Instant)date, ZoneOffset.UTC );
-      } else {
-        cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
-      }
+      LocalDateTime cal = LocalDateTime.ofInstant( ((Instant)date).plusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)), ZoneOffset.UTC );
       if ( cal.isSupported(ChronoField.YEAR) ) {
         ret = cal.get(ChronoField.YEAR);
       } else {
@@ -623,14 +593,13 @@ public class TIM {
   // Bridge: current_clock
   // ========================================================================
   public static long current_clock() {
-    Instant now = Instant.now();
-    long timeValue = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
-    if (SIM_TIME) {
-      timeValue = simulatedTime + timeAdjustmentOffset;
-    } else {
-      timeValue -= systemEpochOffset;
-      timeValue -= timeAdjustmentOffset;
+    long timeValue = simulatedTime;
+    if ( !isSIM_TIME() ) {
+      Instant now = Instant.now();
+      timeValue = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
     }
+    timeValue -= systemEpochOffset;
+    timeValue += timeAdjustmentOffset;
     return timeValue;
   }
 
@@ -640,9 +609,8 @@ public class TIM {
   public static Object create_date(int day, int hour, int min, int month,
     int sec, int year) {
     Instant cal = LocalDateTime.of(year, month, day, hour, min, sec).toInstant(ZoneOffset.UTC);
-    if ( !isSIM_TIME() ) {
-      cal.minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset));
-    }
+    // CDS - systemEpochOffset needs to be applied in all cases (including wall clock time).
+    cal.minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset));
     return (Object) cal;
   }
 
@@ -650,11 +618,8 @@ public class TIM {
   // Bridge: current_date
   // ========================================================================
   public static Object current_date() {
-    Instant cal = Instant.now().minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset)).minusSeconds(TimeUnit.MICROSECONDS.toSeconds(timeAdjustmentOffset));
-    if ( isSIM_TIME() ) {
-      long nanoVal = TimeUnit.MICROSECONDS.toNanos(current_clock());
-      cal = Instant.ofEpochSecond(0, nanoVal);
-    }
+    // CDS - We need to convert current_clock rather than accessing system time directly.
+    Instant cal = Instant.ofEpochSecond(0, TimeUnit.MICROSECONDS.toNanos(current_clock()));
     return (Object) cal;
   }
 
@@ -677,23 +642,17 @@ public class TIM {
   // Bridge: time_of_day
   // ========================================================================
   public static long time_of_day(long timeval) {
-    // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
-    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timeval);
-    if ( !isSIM_TIME() ) {
-      nanoVal += TimeUnit.MICROSECONDS.toNanos(systemEpochOffset);
-    }
-    return LocalTime.from(Instant.ofEpochSecond(0, nanoVal).atZone(ZoneOffset.UTC)).getLong(ChronoField.MICRO_OF_DAY);
+    // CDS - This function should not care whether simulated or not.
+    // CDS - This is just a modulus of 24 * 60 * 60 * 1000000.
+    return timeval % (24 * 60 * 60 * 1000000);
   }
 
   // ========================================================================
   // Bridge: timestamp_format
   // ========================================================================
   public static String timestamp_format(long timestamp, String format) {
-    // Convert back to Instant.EPOCH value, before calling Java Time/Date functions.
+    // CDS - There is no dependency on simtime here.  All time is the same.
     long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp);
-    if ( !isSIM_TIME() ) {
-      nanoVal += TimeUnit.MICROSECONDS.toNanos(systemEpochOffset);
-    }
     DateTimeFormatter formatter;
     try {
       formatter = DateTimeFormatter.ofPattern(format);
@@ -733,7 +692,7 @@ public class TIM {
   // ========================================================================
   public static long advance_time(long microseconds) {
     timeAdjustmentOffset += microseconds;
-    return timeAdjustmentOffset;
+    return current_clock();
   }
   
 }
