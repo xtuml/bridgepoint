@@ -229,6 +229,7 @@ public class TIM {
     systemEpochOffset = 0;
     Instant now = Instant.now();
     startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());;
+    simulatedTime = startTime;
     if (simTime) {
       if (simThread == null) {
         initializeSimTime();
