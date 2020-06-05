@@ -363,11 +363,7 @@ public class TIM {
   }
 
   public static long getCurrentTime(){
-    if ( isSIM_TIME() ) {
-      return simulatedTime;
-    } else {
-      return System.nanoTime()/1000 - suspendTime; 
-    }
+    return current_clock();
   }
 
   // ========================================================================
