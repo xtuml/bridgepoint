@@ -639,8 +639,6 @@ public class TIM {
   // Bridge: time_of_day
   // ========================================================================
   public static long time_of_day(long timeval) {
-    // CDS - This function should not care whether simulated or not.
-    // CDS - This is just a modulus of 24 * 60 * 60 * 1000000.
     return timeval % (24 * 60 * 60 * 1000000);
   }
 
@@ -648,8 +646,7 @@ public class TIM {
   // Bridge: timestamp_format
   // ========================================================================
   public static String timestamp_format(long timestamp, String format) {
-    // CDS - There is no dependency on simtime here.  All time is the same.
-    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp);
+    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp - systemEpochOffset);
     DateTimeFormatter formatter;
     try {
       formatter = DateTimeFormatter.ofPattern(format);
