@@ -64,7 +64,7 @@ public class TIM {
 
   private static boolean allIdle = true;
   private static boolean suspended = false;
-  private static long simulatedTime;
+  private static long simulatedTime = 1576800000000000; // 50 years (1970) of microseconds
   private static long suspendMark;
   private static long suspendTime = 0;
   private static boolean running = false;
@@ -72,7 +72,7 @@ public class TIM {
   private static long timeAdjustmentOffset = 0;
   private static Instant systemEpoch = Instant.EPOCH;
   private static long systemEpochOffset = 0;
-  private static long startTime;
+  private static long startTime = 1576800000000000; // 50 years (1970) of microseconds
   
   /*
    * Initializes the real-time verifier timer thread
@@ -228,7 +228,7 @@ public class TIM {
     systemEpoch = Instant.EPOCH;
     systemEpochOffset = 0;
     Instant now = Instant.now();
-    startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());;
+    startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
     simulatedTime = startTime;
     if (simTime) {
       if (simThread == null) {
