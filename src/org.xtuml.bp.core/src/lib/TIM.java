@@ -63,16 +63,22 @@ public class TIM {
   private static Object timerLock = new Object();
 
   private static long timeAdjustmentOffset = 0;
-  private static Instant systemEpoch = Instant.EPOCH;
+  private static Instant systemEpoch;
   private static long systemEpochOffset = 0;
-  private static Instant tnow = Instant.now();
-  private static long startTime = TimeUnit.SECONDS.toMicros(tnow.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(tnow.getNano());
+  private static long startTime;
   private static boolean allIdle = true;
   private static boolean suspended = false;
-  private static long simulatedTime = startTime;
+  private static long simulatedTime;
   private static long suspendMark;
   private static long suspendTime = 0;
   private static boolean running = false;
+
+  static {
+    systemEpoch = Instant.EPOCH;
+    Instant now = Instant.now();
+    startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
+    simulatedTime = startTime;
+  }
 
   /*
    * Initializes the real-time verifier timer thread
