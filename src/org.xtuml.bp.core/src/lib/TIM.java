@@ -65,7 +65,6 @@ public class TIM {
   private static long timeAdjustmentOffset = 0;
   private static Instant systemEpoch;
   private static long systemEpochOffset = 0;
-  private static long startTime;
   private static boolean allIdle = true;
   private static boolean suspended = false;
   private static long simulatedTime;
@@ -76,8 +75,7 @@ public class TIM {
   static {
     systemEpoch = Instant.EPOCH;
     Instant now = Instant.now();
-    startTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
-    simulatedTime = startTime;
+    simulatedTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
   }
 
   /*
@@ -615,7 +613,6 @@ public class TIM {
   // Bridge: current_date
   // ========================================================================
   public static Object current_date() {
-    // CDS - We need to convert current_clock rather than accessing system time directly.
     Instant cal = Instant.ofEpochSecond(0, TimeUnit.MICROSECONDS.toNanos(current_clock()));
     return (Object) cal;
   }
@@ -671,14 +668,8 @@ public class TIM {
   public static long set_time( int day, int hour, int microsecond, int minute, int month, int second, int year ) {
     Instant cal = LocalDateTime.of(year, month, day, hour, minute, second, (int)TimeUnit.MICROSECONDS.toNanos(microsecond)).toInstant(ZoneOffset.UTC);
     long setTime = TimeUnit.NANOSECONDS.toMicros( TimeUnit.SECONDS.toNanos( cal.getEpochSecond() ) + cal.getNano() );
-    if ( isSIM_TIME() ) {
-      timeAdjustmentOffset = setTime;
-    } else {
-      Instant now = Instant.now();
-      long nowTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
-      timeAdjustmentOffset = nowTime - setTime;
-    }
-    return setTime;
+    timeAdjustmentOffset = current_clock() - setTime;
+    return current_clock();
   }
 
   // ========================================================================
