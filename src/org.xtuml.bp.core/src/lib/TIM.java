@@ -604,7 +604,6 @@ public class TIM {
   public static Object create_date(int day, int hour, int min, int month,
     int sec, int year) {
     Instant cal = LocalDateTime.of(year, month, day, hour, min, sec).toInstant(ZoneOffset.UTC);
-    // CDS - systemEpochOffset needs to be applied in all cases (including wall clock time).
     cal.minusSeconds(TimeUnit.MICROSECONDS.toSeconds(systemEpochOffset));
     return (Object) cal;
   }
@@ -613,7 +612,7 @@ public class TIM {
   // Bridge: current_date
   // ========================================================================
   public static Object current_date() {
-    Instant cal = Instant.ofEpochSecond(0, TimeUnit.MICROSECONDS.toNanos(current_clock()));
+    Instant cal = Instant.ofEpochSecond(TimeUnit.MICROSECONDS.toSeconds(current_clock()));
     return (Object) cal;
   }
 
@@ -643,7 +642,7 @@ public class TIM {
   // Bridge: timestamp_format
   // ========================================================================
   public static String timestamp_format(long timestamp, String format) {
-    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp - systemEpochOffset);
+    long nanoVal = TimeUnit.MICROSECONDS.toNanos(timestamp + systemEpochOffset);
     DateTimeFormatter formatter;
     try {
       formatter = DateTimeFormatter.ofPattern(format);
