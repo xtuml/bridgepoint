@@ -667,6 +667,7 @@ public class TIM {
   public static long set_time( int day, int hour, int microsecond, int minute, int month, int second, int year ) {
     Instant cal = LocalDateTime.of(year, month, day, hour, minute, second, (int)TimeUnit.MICROSECONDS.toNanos(microsecond)).toInstant(ZoneOffset.UTC);
     long setTime = TimeUnit.NANOSECONDS.toMicros( TimeUnit.SECONDS.toNanos( cal.getEpochSecond() ) + cal.getNano() );
+    timeAdjustmentOffset = 0; // Clear out previous time setting.
     timeAdjustmentOffset = setTime - systemEpochOffset - current_clock();
     return current_clock();
   }
