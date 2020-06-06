@@ -662,12 +662,12 @@ public class TIM {
   
   // ========================================================================
   // Bridge: set_time
-   // TIM::set_time( year, month, day, hour, minute, second ) : timestamp
+   // TIM::set_time( year, month, day, hour, minute, second, microsecond ) : timestamp
   // ========================================================================
   public static long set_time( int day, int hour, int microsecond, int minute, int month, int second, int year ) {
     Instant cal = LocalDateTime.of(year, month, day, hour, minute, second, (int)TimeUnit.MICROSECONDS.toNanos(microsecond)).toInstant(ZoneOffset.UTC);
     long setTime = TimeUnit.NANOSECONDS.toMicros( TimeUnit.SECONDS.toNanos( cal.getEpochSecond() ) + cal.getNano() );
-    timeAdjustmentOffset = setTime - current_clock();
+    timeAdjustmentOffset = setTime - systemEpochOffset - current_clock();
     return current_clock();
   }
 
