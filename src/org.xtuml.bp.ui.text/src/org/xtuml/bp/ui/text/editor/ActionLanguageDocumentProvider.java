@@ -1,4 +1,3 @@
-// TODO SKB - working on refactoring OALDocumentProvider and ASLDocumentProvider into here 
 package org.xtuml.bp.ui.text.editor;
 
 import org.eclipse.core.runtime.CoreException;

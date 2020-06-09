@@ -11,7 +11,6 @@ import org.xtuml.bp.ui.text.OALEditorPlugin;
 import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
-// TODO - refactor for OAL/ASL combination
 public class ASLEditor extends AbstractModelElementTextEditor {
 
 	private SyntaxHighlightingPreferences preferences;
@@ -50,7 +49,6 @@ public class ASLEditor extends AbstractModelElementTextEditor {
 						break;
 					case SyntaxHighlightingPreferences.MODEL_TOKEN_ATTRIBUTE_CHANGED :
 						getSourceViewer().invalidateTextPresentation();
-						//getTextWidget().redrawRange(0, doc.getLength(), true);
 						break;
 				}
 			}

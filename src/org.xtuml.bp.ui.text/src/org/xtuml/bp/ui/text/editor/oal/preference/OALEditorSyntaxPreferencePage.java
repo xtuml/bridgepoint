@@ -252,7 +252,6 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
 
         String content = loadPreviewContentFromFile("OALPreviewCode.txt");
         IDocument document = new Document(content);
-        // TODO SKB, refactored below - OALDocumentProvider.setDocumentPartitioner(document);
         ActionLanguageDocumentProvider.setDocumentPartitioner(document, ActionLanguageDocumentProvider.ALType.OAL);
         viewer.setDocument(document);
 

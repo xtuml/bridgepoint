@@ -33,12 +33,12 @@ NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/1
 
 
 - New editor / editor input / etc
-  - See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
+  x See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
     and org.xtuml.bp.ui.text.masl.MASLEditorInput
   - ASLActivityEditorInputFactory.java should be generated
-  - Look at what else is editor-related and generated... 
+  x Look at what else is editor-related and generated... 
 
-- Find places where dialect*==*masl
+- TODO Find places where dialect*==*masl
   - there are places in oal that I have not investigated yet
   - Attribute::migrateBaseToDerived()
   x [Bridge|Function|Operation...]::Initialize() - only for begin/end, so may not be needed for ASL
@@ -50,11 +50,6 @@ NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/1
       - The best thing would be to look at the dialect that is set on the activity and only show the relevant 
         option on the context menu.  Do something dynamic like the Cardinality menu on associations?? But that is more work...
 
-
-- TODO: refactor common code between ASL and OAL 
-
-- TODO: Look over all new code and see if there are unused functions, import cleanup, TODOs etc...
-
 - TODO - why does ui.text/arc/create_plugin_xml.arc (line 199) explicitly list MASL object contributions rather than use the loop
   and set that OAL does on line 174???
   - I set up ASL like MASL but not sure that's right...
@@ -63,7 +58,6 @@ NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/1
 
 == 5 Design
 
-TODO
 === 5.1 Metamodel 
 x Add to the ActionDialect enum in the metamodel
   x (Cort) Make the same change in MC metamodel
@@ -79,16 +73,7 @@ x Add to the ActionDialect enum in the metamodel
   - comments 
       - Single line with #
       - Multi-line with "#{" to "}#" (page 7)
-        - Multi-line comments may be created by surrounding the lines by “#{” and “}#”.
-          In this case there should be no characters on a line before the “#{“ or after the
-          “}#”
-          - TODO: The multi-line comment scanner does not appear to even be being run?!?
-                  As a test I changed the single line comment marker to "@" and the multi-line
-                  to /* ... */ and it still never hit the breakpoints I expect to hit in 
-                  ASLPartitionScanner...
-                  ASLDocumentProvider.createDocument() is not being called??? Why not?
-          - TODO: identified problem with DocumentProvider in ASLActivityEditor
-          - FIX: Introduced new class ActionLanguageDocumentProvider that handles both ASL and OAL flavors
+          - Introduced new class ActionLanguageDocumentProvider that handles both ASL and OAL flavors
                  and sets up the appropriate document partitioner.
   - Strings with "", or '' 
   - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
@@ -206,9 +191,11 @@ x ExplorerView::handleOpen()
   
 === 5.6 Preferences
   x add ASL to default action language selection on prefs ui in ActionLanguagePreferences.java
+  x ASL will use the same coloring as specified in the xtUML Activity Editor Preferences
 
 === 5.7 Build
-- TODO: Verify maven clean target works properly in ui.text plugin for new java files
+- Verified maven clean target works properly in ui.text plugin for new java files
+- Verified build is successful
 
 == 6 Design Comments
 
@@ -234,6 +221,7 @@ TODO
 TODO
   - Test auto-indent works properly
   - TEST: need to check every keyword visually for proper highlighting, caps and lower
+  - Check preferences for coloring
 
 == 9 Document References
 

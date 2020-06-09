@@ -40,8 +40,6 @@ public class ASLActivityEditor extends ASLEditor {
 
 	public ASLActivityEditor() {
 		super();
-		// TODO - the next is not right.  DocumentProvider extends OALDocumentProvider and we need 
-		//   something that extends ASLDocumentProvider
 		setDocumentProvider(new DocumentProvider());
 		setRangeIndicator(new DefaultRangeIndicator());
 
@@ -56,7 +54,8 @@ public class ASLActivityEditor extends ASLEditor {
 		} else if (input instanceof AbstractModelElementEditorInput) {
 			// since AbstractModelElementEditorInput is instance of FileEditorInput, we need
 			// to put this check
-			// TODO issue 720 will remove this check.
+			// We had old comment that "issue 720 will remove this check." but that never happened and without context 
+			//   we'll just leave it alone.
 			throw new PartInitException("EditorInput of type " + input.getClass() + " not supported");
 		} else if (input instanceof FileEditorInput) {
 			IFile file = ((FileEditorInput) input).getFile();
