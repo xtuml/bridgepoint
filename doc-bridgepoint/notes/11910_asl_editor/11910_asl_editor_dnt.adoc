@@ -88,6 +88,8 @@ x Add to the ActionDialect enum in the metamodel
                   ASLPartitionScanner...
                   ASLDocumentProvider.createDocument() is not being called??? Why not?
           - TODO: identified problem with DocumentProvider in ASLActivityEditor
+          - FIX: Introduced new class ActionLanguageDocumentProvider that handles both ASL and OAL flavors
+                 and sets up the appropriate document partitioner.
   - Strings with "", or '' 
   - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
 
@@ -210,7 +212,18 @@ x ExplorerView::handleOpen()
 
 == 6 Design Comments
 
-TODO
+The ASL editor is similar in many ways to the existing OAL editor and leveraged some of the same code.
+This presented opportunities to refactor common code into reusable blocks.
+
+ActionLanguageDocumentProvider - sets up the appropriate document partitioner based on dialect
+ActionLanguageTokenTypes.java - defines constants that are common between ASL and OAL editors
+ActionLanguageAutoEditStrategy.java - functionality that handles automatic indentation after specific keywords.
+
+xxxKeywords.java - not refactored
+xxxEditorConfiguration.java - not going to be refactored
+xxxPartitionScanner.java - not going to be refactored
+xxxScanner.java - not going to be refactored
+
 
 == 7 User Documentation
 

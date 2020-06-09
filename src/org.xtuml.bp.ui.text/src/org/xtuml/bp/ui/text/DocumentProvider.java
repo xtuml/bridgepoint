@@ -21,9 +21,6 @@ import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
-// TODO SKB import org.eclipse.ui.editors.text.FileDocumentProvider.FileInfo;
-// TODO SKB import org.eclipse.ui.editors.text.FileDocumentProvider.FileSynchronizer;
-// TODO SKB import org.eclipse.ui.texteditor.AbstractDocumentProvider.ElementInfo;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.MealyActionHome_c;
@@ -50,7 +47,6 @@ import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
 import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput;
 
-// TODO SKB - switched to refactored version below public class DocumentProvider extends OALDocumentProvider
 public class DocumentProvider extends ActionLanguageDocumentProvider
 {
   List elementRenameListeners = new ArrayList();

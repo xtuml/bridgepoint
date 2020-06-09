@@ -44,7 +44,6 @@ public class OALEditor extends AbstractModelElementTextEditor {
 		preferences = aPreferences;
 
 		setSourceViewerConfiguration(new OALEditorConfiguration(preferences, this));
-		// TODO SKB - refactor setDocumentProvider(new OALDocumentProvider());
 		setDocumentProvider(new ActionLanguageDocumentProvider());
 		setEventListeners();
 	}

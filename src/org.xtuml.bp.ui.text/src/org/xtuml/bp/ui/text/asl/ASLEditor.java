@@ -18,7 +18,6 @@ public class ASLEditor extends AbstractModelElementTextEditor {
 	private IPreferenceModel.IChangeListener prefChangeListener;
 
 	public ASLEditor() {
-		// TODO - reuse OAL Syntax highlighting prefs??
 		this(OALEditorPlugin.getDefaultOALPlugin().getSyntaxHighlightingPreferences()); 
 	}
 
@@ -28,7 +27,6 @@ public class ASLEditor extends AbstractModelElementTextEditor {
 		preferences = aPreferences;
 
 		setSourceViewerConfiguration(new ASLEditorConfiguration(preferences, this));
-		// TODO - switched to refactored version below setDocumentProvider(new ASLDocumentProvider());
 		setDocumentProvider(new ActionLanguageDocumentProvider());
 		setEventListeners();
 	}

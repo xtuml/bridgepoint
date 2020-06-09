@@ -14,6 +14,7 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.xtuml.bp.ui.text.editor.ActionLanguageTokenTypes;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class ASLEditorConfiguration extends SourceViewerConfiguration {
@@ -49,7 +50,7 @@ public class ASLEditorConfiguration extends SourceViewerConfiguration {
 		if (commentScanner == null) {
 			RuleBasedScanner scanner = new RuleBasedScanner();
 			scanner.setDefaultReturnToken(
-				tokenTypeManager.getDefaultToken(ASLTokenTypes.TOKEN_TYPE_multi_line_comment));
+				tokenTypeManager.getDefaultToken(ActionLanguageTokenTypes.TOKEN_TYPE_multi_line_comment));
 
 			commentScanner = scanner;
 		}
