@@ -72,11 +72,6 @@ public class TIM {
   private static long suspendTime = 0;
   private static boolean running = false;
 
-  static {
-    systemEpoch = Instant.EPOCH;
-    Instant now = Instant.now();
-    simulatedTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
-  }
 
   /*
    * Initializes the real-time verifier timer thread
@@ -227,15 +222,27 @@ public class TIM {
    *
    * @param simTime
    */
-  public static void init(boolean simTime){
-    if (simTime) {
-      if (simThread == null) {
-        initializeSimTime();
+  public static void init(boolean simTime, boolean deterministic) {
+	systemEpoch = Instant.EPOCH;
+	Instant now = Instant.now();
+	simulatedTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
+	timeAdjustmentOffset = 0;
+	systemEpochOffset = 0;
+	allIdle = true;
+	suspended = false;
+	suspendMark = 0;
+	suspendTime = 0;
+	running = false;	  
+	if (!deterministic) {  
+      if (simTime) {
+        if (simThread == null) {
+          initializeSimTime();
+        }
+      } else {
+        if (realThread == null)
+          initializeRealTime();
       }
-    } else {
-      if (realThread == null)
-        initializeRealTime();
-    }
+	}
   }
 
   public static void terminate(ComponentInstance_c ee){
