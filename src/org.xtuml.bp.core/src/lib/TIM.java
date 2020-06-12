@@ -223,17 +223,17 @@ public class TIM {
    * @param simTime
    */
   public static void init(boolean simTime, boolean deterministic) {
-	systemEpoch = Instant.EPOCH;
-	Instant now = Instant.now();
-	simulatedTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
-	timeAdjustmentOffset = 0;
-	systemEpochOffset = 0;
-	allIdle = true;
-	suspended = false;
-	suspendMark = 0;
-	suspendTime = 0;
-	running = false;	  
-	if (!deterministic) {  
+    systemEpoch = Instant.EPOCH;
+    Instant now = Instant.now();
+    simulatedTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
+    timeAdjustmentOffset = 0;
+    systemEpochOffset = 0;
+    allIdle = true;
+    suspended = false;
+    suspendMark = 0;
+    suspendTime = 0;
+    running = false;
+    if (!deterministic) {  
       if (simTime) {
         if (simThread == null) {
           initializeSimTime();
@@ -242,7 +242,7 @@ public class TIM {
         if (realThread == null)
           initializeRealTime();
       }
-	}
+    }
   }
 
   public static void terminate(ComponentInstance_c ee){
