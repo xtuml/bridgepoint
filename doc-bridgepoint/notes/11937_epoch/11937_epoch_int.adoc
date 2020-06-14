@@ -1,0 +1,144 @@
+= Time and Date Arithmetic
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+See <<dr-1>>
+
+== 2 Introduction and Background
+
+See <<dr-1>>
+
+== 3 Requirements
+
+See <<dr-1>>
+
+== 4 Work Required
+
+The work in bridgepoint concerns updating the Model Verifier implementation of
+the Time (TIM) domain. The TIM.java file is the Verifier implementation of the
+Time domain.
+
+A decision was made to use the newer Java time and date mechanisms rather than
+the pre-Java 8 time and date mechanisms. This was based upon recommendations in
+the Java API reference material. It was also decided to use microsecond
+resolution, rather than the current millisecond resolution.
+
+=== 4.1 Reference variables
+
+==== 4.1.1 systemEpochOffset
+
+The systemEpochOffset is the difference between a system-defined epoch and a 
+user-defined epoch. All usage of Java time functions have to account for this 
+value, because they assume an integer value of time is based upon the system-
+defined epoch. There is no way to change the epoch in Java without changing 
+the calendar (maybe not even then).
+
+==== 4.1.2 timeAdjustmentOffset
+
+The timeAdjustmentOffset is used to track the difference between real time and
+adjustments made for simulated time. This offset is used in simulated time to
+allow timers to not require adjustment at each time set and advancement, and it
+allows for values of time shown to the user to be adjusted correctly.
+
+=== 4.2 Set epoch
+
+__void set_epoch(int day, int month, int year)__ - The date values are 
+converted to an integer and then the difference between this value and the 
+system epoch is used to set systemEpochOffset.
+
+=== 4.3 Current seconds
+
+__void current_seconds()__ - Reads the current system time, adjusts for the 
+epoch offset and (in simulated time) time adjustments, and returns an integer
+value representing the seconds since the epoch.
+
+==== 4.3.1 Timestamp value
+
+__String timestamp_to_string(long timestamp)__ - Returns the value of an 
+integer timestamp in a human readable format.
+
+=== 4.4 Formatted time
+
+__String timestamp_format(long timestamp, String format)__ - Parses the 
+integer timestamp into the user supplied format string. Format is expected to
+be according to the Java 8 API date and time formatting convention.
+
+=== 4.5 Time math
+
+Mathematical and boolean operations between timestamps and integers as supported
+by BridgePoint.
+
+=== 4.6 Time of day
+
+__long time_of_day(long timeval)__ - Takes the modulus of the timestamp by the
+number of seconds in a day and returns the value.
+
+=== 4.7 Current date and time functions
+
+All of the current date and time functions had to be amended to accommodate the
+offset values.
+
+=== 4.8 Simulated time
+==== 4.8.1 Set time
+
+__long set_time( int day, int hour, int microsecond, int minute, int month, int
+second, int year )__ - This sets the value of the timeAdjustmentOffset anew each
+time it is called. The new value is based on the calculated value from the date
+parameters, the systemEpochOffest value, and the current_clock return value.
+
+==== 4.8.2 Advance time
+
+__long advance_time(long microseconds)__ - Adds the specified microseconds to
+the timeAdjustmentOffset.
+
+== 5 Implementation Comments
+
+=== 5.1 Epoch setting
+
+It should be noted that any timestamps from a prior epoch setting are
+invalidated when a new epoch is set. This could be mitigated by a Time model
+that related timestamps to a specific epoch setting. This is of little concern
+as most applications would only set the epoch once, if at all.
+
+=== 5.2 Time math issues
+
+BridgePoint integers are constrained by implementation decisions to use `int`
+instead of the higher resolution `long`. This introduced some problems in
+allowing all the desired time math operations. `timestamp` was changed to a
+`long` from an `inst<Mapping>`, which allowed this work to proceed, but literal
+long values aren't supported by BridgePoint.
+
+=== 5.3 Timer time vs calendar time
+
+Outside the scope of this work, but it should be noted that the <<dr-1>> `Time
+versus Duration` discussion outlines why the timer portion of the Time domain
+and the calendar time portion should be wholly distinct. There is some crossover
+in that the only support for setting an alarm (calendar time event) is via the
+normal timer settings.
+
+== 6 Unit Test
+
+See <<dr-3>>
+
+== 7 User Documentation
+
+The OAL document time and date sections should be updated.
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  11937-TIM-java-epoch
+
+== 9 Document References
+
+. [[dr-1]] link:11937_epoch_ant.adoc[Time and Date Arithmetic Analysis Note]
+. [[dr-2]] https://support.onefact.net/issues/11937[11937 - time and date arithmetic]
+. [[dr-3]] https://github.com/xtuml/models/tree/master/test/EpochTest[Epoch Test Model]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
