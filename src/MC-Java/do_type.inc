@@ -25,7 +25,7 @@
       .end if
     .else
       .select one udt related by type->S_UDT[R17]
-      .if (not_empty udt)
+      .if (((not_empty udt) and (type.Name != "timestamp")) and (type.Name != "long"))
         .select one type related by udt->S_DT[R18]
       .end if
       .if (type.Name == "unique_id")
@@ -34,13 +34,19 @@
       .if (type.Name == "integer") 
         .assign typedecl = "int         "
       .end if
+      .if (type.Name == "long") 
+        .assign typedecl = "long         "
+      .end if
       .if (type.Name == "real")
         .assign typedecl = "float       "
       .end if
       .if (type.Name == "boolean")
         .assign typedecl = "boolean     "
       .end if
-      .if ((type.Name == "string") OR (type.Name == "timestamp"))
+      .if (type.Name == "timestamp")
+        .assign typedecl = "long     "
+      .end if
+      .if (type.Name == "string")
         .assign typedecl = "String      "
       .end if
       .if (type.Name == "inst_ref<Mapping>")
