@@ -50,7 +50,7 @@ system epoch is used to set systemEpochOffset.
 
 === 4.3 Current seconds
 
-__void current_seconds()__ - Reads the current system time, adjusts for the 
+__integer current_seconds()__ - Reads the current system time, adjusts for the 
 epoch offset and (in simulated time) time adjustments, and returns an integer
 value representing the seconds since the epoch.
 
