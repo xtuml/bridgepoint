@@ -1,0 +1,236 @@
+= Introduce ASL Editor
+
+xtUML Project Design Note
+
+
+== 1 Abstract
+
+This note describes the work to add an ASL editor along with the existing
+OAL and MASL editors.
+
+TIP:  This document is marked down with http://asciidoc.org/[AsciiDoc].
+You can get tips from the
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
+
+== 2 Introduction and Background
+
+Here is an example reference to a document reference <<dr-3>>.
+Here is an example with named text <<dr-3,SMASL Specification>>.
+Here we refer to the image below, <<caption text under image>>.
+
+.caption text under image
+image::localimage.png[image description alternate text,width=25%]
+
+== 3 Requirements
+
+TODO 
+
+== 4 Analysis
+
+ASL editor
+------------
+NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/11444_wasl/wasl/data/Events/TSV2_10_9/meta_instances/Events_20/extracted_data/Events_objVERCETL_2.al
+
+
+- New editor / editor input / etc
+  x See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
+    and org.xtuml.bp.ui.text.masl.MASLEditorInput
+  - ASLActivityEditorInputFactory.java should be generated
+  x Look at what else is editor-related and generated... 
+
+- TODO Find places where dialect*==*masl
+  - there are places in oal that I have not investigated yet
+  - Attribute::migrateBaseToDerived()
+  x [Bridge|Function|Operation...]::Initialize() - only for begin/end, so may not be needed for ASL
+  - create_explorer_view.inc (Generates ExplorerView.java)
+    - Note that there are places where the code checks == and != Actiondialect_c.[oal|masl]   Look at both!
+  - GraphicalEditor.java : handleOpen() here is very similar to the one in ExplorerView but this one is not generated
+  - SampleProjectGettingStartedAction.java - handling for special MASL prefs (identifier naming and concrete polys)
+  - In the context menu Open list, "ASL Editor", "MASL Editor", "Activity Editor"... change to "OAL Editor"?
+      - The best thing would be to look at the dialect that is set on the activity and only show the relevant 
+        option on the context menu.  Do something dynamic like the Cardinality menu on associations?? But that is more work...
+
+- TODO - why does ui.text/arc/create_plugin_xml.arc (line 199) explicitly list MASL object contributions rather than use the loop
+  and set that OAL does on line 174???
+  - I set up ASL like MASL but not sure that's right...
+  - Need type definition editor like MASL does in this function (line 478)???
+  
+
+== 5 Design
+
+=== 5.1 Metamodel 
+x Add to the ActionDialect enum in the metamodel
+  x (Cort) Make the same change in MC metamodel
+
+
+=== 5.2 ASL Editor
+
+
+=== 5.3 Syntax Highlighting 
+- syntax highlighting (DONE except for Multi-line comment)
+  - keywords 
+      - List in Appendix B of http://www.ooatool.com/docs/ASL03.pdf
+  - comments 
+      - Single line with #
+      - Multi-line with "#{" to "}#" (page 7)
+          - Introduced new class ActionLanguageDocumentProvider that handles both ASL and OAL flavors
+                 and sets up the appropriate document partitioner.
+  - Strings with "", or '' 
+  - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
+
+```java
+    public static String[] keywords = {
+        "already_defined", 
+        "and", 
+        "append", 
+        "associate", 
+        "boolean", 
+        "break", 
+        "breakif", 
+        "bridge", 
+        "by", 
+        "case", 
+        "countof", 
+        "counterpart", 
+        "create", 
+        "current-date", 
+        "current-time", 
+        "date", 
+        "default", 
+        "define", 
+        "delete", 
+        "disunion-of", 
+        "do", 
+        "else", 
+        "enddefine", 
+        "endfor", 
+        "endif", 
+        "endloop", 
+        "endswitch", 
+        "enduse", 
+        "equals", 
+        "error", 
+        "event", 
+        "false", 
+        "find", 
+        "find-all", 
+        "find-one", 
+        "find-only", 
+        "for", 
+        "function", 
+        "generate", 
+        "greater-than", 
+        "greater-than-or-equal-to", 
+        "if", 
+        "in", 
+        "input", 
+        "instance", 
+        "integer", 
+        "intersection-of", 
+        "is", 
+        "link", 
+        "link-counterpart", 
+        "loop", 
+        "not", 
+        "not-equals", 
+        "not-in", 
+        "of", 
+        "one-of", 
+        "only", 
+        "or", 
+        "ordered", 
+        "output", 
+        "real", 
+        "reverse", 
+        "structure", 
+        "switch", 
+        "text", 
+        "then", 
+        "this", 
+        "time_of_day", 
+        "to", 
+        "true", 
+        "unassociate", 
+        "undefined", 
+        "union-of", 
+        "unique", 
+        "unlink", 
+        "unlink-counterpart", 
+        "use", 
+        "using", 
+        "where", 
+        "with", 
+        "$inline", 
+        "$endinline", 
+        "$ada_inline", 
+        "$end_adainline", 
+    };
+```
+=== 5.4 Automatic Indentation
+
+auto-indent (DONE) 
+  - Old issue is 10232 OAL Editor Enhancements.
+  - if ... then
+    else
+    endif
+  - for ... in ... do
+    endfor
+  - loop
+    endloop
+  - switch ...
+       case ...
+       default 
+    endswitch
+
+=== 5.5 User Interface
+
+x ExplorerView::handleOpen()
+  // Looks for all extensions to org.xtuml.bp.core.editors
+  // Figures out which editor to open
+  x Modify to handle opening ASL editor when it sees ASL dialect
+  
+=== 5.6 Preferences
+  x add ASL to default action language selection on prefs ui in ActionLanguagePreferences.java
+  x ASL will use the same coloring as specified in the xtUML Activity Editor Preferences
+
+=== 5.7 Build
+- Verified maven clean target works properly in ui.text plugin for new java files
+- Verified build is successful
+
+== 6 Design Comments
+
+The ASL editor is similar in many ways to the existing OAL editor and leveraged some of the same code.
+This presented opportunities to refactor common code into reusable blocks.
+
+ActionLanguageDocumentProvider - sets up the appropriate document partitioner based on dialect
+ActionLanguageTokenTypes.java - defines constants that are common between ASL and OAL editors
+ActionLanguageAutoEditStrategy.java - functionality that handles automatic indentation after specific keywords.
+
+xxxKeywords.java - not refactored
+xxxEditorConfiguration.java - not going to be refactored
+xxxPartitionScanner.java - not going to be refactored
+xxxScanner.java - not going to be refactored
+
+
+== 7 User Documentation
+
+TODO
+
+== 8 Unit Test
+
+TODO
+  - Test auto-indent works properly
+  - TEST: need to check every keyword visually for proper highlighting, caps and lower
+  - Check preferences for coloring
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/NNNNN[NNNNN - headline]
+. [[dr-2]] ...
+. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

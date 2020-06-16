@@ -1,25 +1,9 @@
-//========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//========================================================================
-
-package org.xtuml.bp.ui.text.editor.oal;
+package org.xtuml.bp.ui.text.asl;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.contentassist.ContentAssistant;
-import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
@@ -30,38 +14,36 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
-import org.xtuml.bp.ui.text.contentassist.OALCompletionProcessor;
-import org.xtuml.bp.ui.text.contentassist.OALProposalSorter;
 import org.xtuml.bp.ui.text.editor.ActionLanguageTokenTypes;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
-public class OALEditorConfiguration extends SourceViewerConfiguration {
-	private ITokenScanner oalScanner;
+public class ASLEditorConfiguration extends SourceViewerConfiguration {
+	private ITokenScanner aslScanner;
 	private ITokenScanner commentScanner;
-	private OALEditor editor;
+	private ASLEditor editor;
 
 	private SyntaxHighlightingPreferences tokenTypeManager;
 
-	public OALEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager, OALEditor editor) {
+	public ASLEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager, ASLEditor editor) {
 		this.tokenTypeManager = tokenTypeManager;
 		this.editor = editor;
 	}
 
-	public OALEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager) {
+	public ASLEditorConfiguration(SyntaxHighlightingPreferences tokenTypeManager) {
 	    this(tokenTypeManager, null);
 	}
 
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
 			IDocument.DEFAULT_CONTENT_TYPE,
-			OALPartitionScanner.CONTENT_TYPE_multiline_comment };
+			ASLPartitionScanner.CONTENT_TYPE_multiline_comment };
 	}
 
 	protected ITokenScanner getActionLanguageScanner() {
-		if (oalScanner == null) {
-			oalScanner = new OALScanner(tokenTypeManager);
+		if (aslScanner == null) {
+			aslScanner = new ASLScanner(tokenTypeManager);
 		}
-		return oalScanner;
+		return aslScanner;
 	}
 
 	protected ITokenScanner getCommentScanner() {
@@ -85,8 +67,8 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 			reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 
 			dr = new DefaultDamagerRepairer(getCommentScanner());
-			reconciler.setDamager(dr, OALPartitionScanner.CONTENT_TYPE_multiline_comment);
-			reconciler.setRepairer(dr, OALPartitionScanner.CONTENT_TYPE_multiline_comment);
+			reconciler.setDamager(dr, ASLPartitionScanner.CONTENT_TYPE_multiline_comment);
+			reconciler.setRepairer(dr, ASLPartitionScanner.CONTENT_TYPE_multiline_comment);
 
 		}
 		return reconciler;
@@ -94,19 +76,10 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 	
 	@Override
 	public IContentAssistant getContentAssistant(ISourceViewer sv) {
-	    if ( null != editor ) {
-            ContentAssistant ca = new ContentAssistant();
-            IContentAssistProcessor pr = new OALCompletionProcessor( editor, ca );
-            ca.setContentAssistProcessor(pr, IDocument.DEFAULT_CONTENT_TYPE);
-            ca.enableAutoActivation( true );
-            ca.setAutoActivationDelay( 0 );
-            ca.setInformationControlCreator(getInformationControlCreator(sv));
-            ca.setSorter( new OALProposalSorter() );
-            ca.enableAutoInsert( true );
-            ca.enableColoredLabels( true );
-            return ca;
-	    }
-	    else return null;
+		// We don't yet support content assist in ASL editor.
+		// When the time comes, refer to the way this is done in 
+		// OALEditorConfiguration::getContentAssist()
+	    return null;
 	}
 
 	@Override
@@ -118,21 +91,18 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 	}
 	
 	@Override
-	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer,
-            String contentType)
+	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType)
 	{
 	    IAutoEditStrategy strategy= (IDocument.DEFAULT_CONTENT_TYPE.equals(contentType)
-	            ? new OALAutoEditStrategy() : new DefaultIndentLineAutoEditStrategy());
+	            ? new ASLAutoEditStrategy() : new DefaultIndentLineAutoEditStrategy());
 	    return new IAutoEditStrategy[] { strategy };
 	}
 	
 	@Override
-	public String[] getIndentPrefixes(ISourceViewer sourceViewer,
-            String contentType)
+	public String[] getIndentPrefixes(ISourceViewer sourceViewer, String contentType)
 	{
 		String[] prefixes = super.getIndentPrefixesForTab(getTabWidth(sourceViewer));
 		return  prefixes;
 	}
-	
 
 }

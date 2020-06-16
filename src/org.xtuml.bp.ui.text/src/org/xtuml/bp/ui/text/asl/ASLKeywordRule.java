@@ -1,26 +1,4 @@
-//========================================================================
-//
-//File:      $RCSfile: OALKeywordRule.java,v $
-//Version:   $Revision: 1.10 $
-//Modified:  $Date: 2013/01/10 23:20:54 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-//
-//========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//======================================================================== 
-
-package org.xtuml.bp.ui.text.editor.oal;
+package org.xtuml.bp.ui.text.asl;
 
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IToken;
@@ -31,9 +9,9 @@ import org.eclipse.jface.text.rules.IWordDetector;
 import org.xtuml.bp.ui.text.editor.*;
 
 /**
- * Evaluates whether a word is an OAL keyword.
+ * Evaluates whether a word is an ASL keyword.
  */
-public class OALKeywordRule extends WordRule
+public class ASLKeywordRule extends WordRule
 {
     /**
      * Is reused (for speed) across calls to this.evaluate().
@@ -47,12 +25,12 @@ public class OALKeywordRule extends WordRule
     /**
      * An abbreviation for the specified generated array.
      */
-    private static final String[] keywords = OALKeywords.keywords;
+    private static final String[] keywords = ASLKeywords.keywords;
 
     /**
      * Constructor.
      */
-    private OALKeywordRule(IWordDetector detector, IToken defaultToken)
+    private ASLKeywordRule(IWordDetector detector, IToken defaultToken)
     {
         super(detector, defaultToken);
     }
@@ -60,15 +38,15 @@ public class OALKeywordRule extends WordRule
     /**
      * Factory method. 
      *  
-     * @param manager           Supplies the OAL token to associate with OAL keywords. 
+     * @param manager           Supplies the ASL token to associate with ASL keywords. 
      * @param defaultToken      See WordRule constructor.
      */
-    public static OALKeywordRule createRule(SyntaxHighlightingPreferences manager, IToken defaultToken)
+    public static ASLKeywordRule createRule(SyntaxHighlightingPreferences manager, IToken defaultToken)
     {
         // create a new object of this class that sports our keyword-detector
-        OALKeywordRule rule = new OALKeywordRule(new OALWordDetector(), defaultToken);
+        ASLKeywordRule rule = new ASLKeywordRule(new ASLWordDetector(), defaultToken);
 
-        // for each OAL keyword
+        // for each ASL keyword
         IToken keywordToken = manager.getDefaultToken(ActionLanguageTokenTypes.TOKEN_TYPE_keyword);
         for (int i = 0; i < keywords.length; ++i) {
             // have the new rule associate this keyword with the keyword-token
@@ -79,13 +57,13 @@ public class OALKeywordRule extends WordRule
     }
 
     /**
-     * Answers whether given characters are some part of any OAL keyword. 
+     * Answers whether given characters are some part of any ASL keyword. 
      */
-    static class OALWordDetector implements IWordDetector
+    static class ASLWordDetector implements IWordDetector
     {
     	// Since a word detector needs to detect all words including all keywords
     	// and non keywords, we use java identifier start and part rules, which
-    	// apply to oal as well.
+    	// apply to ASL as well.
     	// The responsibility of determining if a given word is keyword or not
     	// does not fall under IWordDetector.
     	
@@ -94,25 +72,26 @@ public class OALKeywordRule extends WordRule
 		}
 
 		public boolean isWordPart(char c) {
-			return Character.isJavaIdentifierPart(c);
+			// ASL allows hyphen in keywords as well
+			return Character.isJavaIdentifierPart(c) || (c == '-');
 		}
     }
 
     /**
      * Evaluates whether the next word's-worth of characters from the given scanner
-     * constitute an OAL keyword.
+     * constitute an ASL keyword.
      * 
      * See parent method overridden.
      */
     public IToken evaluate(ICharacterScanner scanner)
     {
         // if the first character from the scanner is the start of any
-        // OAL keyword, and either what column the character is at is unimportant, 
+        // ASL keyword, and either what column the character is at is unimportant, 
         // or matches the column constraint specified in the parent class
         char c = (char)scanner.read();
         if (fDetector.isWordStart(c) 
             && (fColumn == UNDEFINED || fColumn == scanner.getColumn() - 1)) {
-            // until we hit a character that is no longer a part of any OAL keyword,
+            // until we hit a character that is no longer a part of any ASL keyword,
             // or the scanner has no more characters to supply to us      
             word.setLength(0);
             do {
@@ -153,7 +132,7 @@ public class OALKeywordRule extends WordRule
         }
 
         // return a token that will signal the caller that the word was unrecognized
-        // as an OAL keyword
+        // as an ASL keyword
         return Token.UNDEFINED;
     }
 }
