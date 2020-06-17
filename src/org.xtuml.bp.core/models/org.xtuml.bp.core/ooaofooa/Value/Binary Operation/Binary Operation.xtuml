@@ -604,7 +604,7 @@ if (self.Operator == "+")
 elif (self.Operator == "-")
   return leftOpVal - rightOpVal;
 elif (self.Operator == "*")
-  return leftOpVal + rightOpVal;
+  return leftOpVal * rightOpVal;
 elif (self.Operator == "/")
   return leftOpVal / rightOpVal;
 elif (self.Operator == "%")
@@ -817,7 +817,7 @@ if (self.Operator == "+")
 elif (self.Operator == "-")
   return leftOpVal - rightOpVal;
 elif (self.Operator == "*")
-  return leftOpVal + rightOpVal;
+  return leftOpVal * rightOpVal;
 elif (self.Operator == "/")
   return leftOpVal / rightOpVal;
 elif (self.Operator == "%")
