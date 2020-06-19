@@ -1,0 +1,130 @@
+= GD_CTXT End Usage in Older Models Fix
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+This note analyzes the impact of an enhancement introduced in <<dr-2>>. The 
+manifestation of problems with the enhancement was noticed in models created 
+prior to the release of a BridgePoint build containing the enhancement.
+
+== 2 Introduction and Background
+
+Issue <<dr-2>> was created to allow model compilers to assume that all
+enumerations would be represented as zero-based. This is a common assumption in
+modern third-generation programming languages. This created an issue, as
+documented in <<dr-1>>, with existing enumerations in the OOAofOOA and
+OOAofGraphics, that had no explicit values assigned, to their enumerator values,
+via a model compilation directive in the description of the enumerator value.
+The issue in <<dr-1>> first appeared in BridgePoint builds after the 2020-12-19
+nightly build.
+    The issue was observed via the verb phrases on associations of models
+created prior to the enhanced BridgePoint builds. One verb phrase didn't appear
+on the canvas, and the other was shifted to the end of the association where the
+missing verb phrase should have been. 
+
+== 3 Requirements
+
+The fix for this issue needs user friendly and as automated as possible, because
+it affects a large number of models. It is highly user visible, and a fix will
+be highly desired by BridgePoint users.
+
+=== 3.1 Built-in
+An existing BridgePoint utility can be utilized, or a new one created.
+
+=== 3.2 Automated detection
+The utility should be able to determine if and where the fix needs applied. This
+would be desirable on the load of a model, but it might also need to be launched
+after model load by the user.
+
+=== 3.3 Non-invasive
+The fix should neither add to the time the user expects to wait in cases where
+the fix isn't needed, nor should the fix operate without the user's knowledge.
+
+== 4 Analysis
+
+The observation of missing verb phrases was traced back to the OOAofGraphics
+enumeration, __End__, being persisted in the model files (*.xtuml). The Floating
+Text (GD_CTXT) objects use the __End__ enumertion to type the __end__
+attribute.
+    Investigation of the cause of the issue found that other enumerations could
+have been affected, and further investigation found that the __End__ appears 
+to have been the only affected enumeration to be persisted in the models.
+    Analysis of the affected attributes was done by examining their usage in OAL
+in the OOAofOOA, and the resulting build output. All of the classes in the
+OOAofOOA and OOAofGraphics were also examined for usage of possibly affected
+enumerations as attributes, and then searching the __models__ repository for
+persistence of the classes in the model files.
+
+=== 4.1 Affected Enumerations
+==== 4.1.1 OOAofGraphics Enumerations
+* Axis
+* CursorType
+* Direction
+* End
+* Justification
+* RoutingType
+* Style
+* Vertex
+
+==== 4.1.2 OOAofOOA Enumerations
+* Breakpoint_Type
+* EventProcessType
+* Multiplicity
+* OalConstants
+* ProposalTypes
+* RunStateType
+* SearchScope
+* Severity
+* StateChangeType
+* StateEnum
+* SynchronizationType
+
+==== 4.1.3 Enumerations Used In Attributes
+* End
+  - Terminal Specifications::Connector Terminal (TS_CNT),
+  - Graphical Data::Element In Resize (GD_EIR),
+  - Graphical Data::Floating Text (GD_CTXT)
+* RoutingType 
+  - Graphical Data::Connector (GD_CON)
+* Vertex 
+  - Graphical Data::Element In Resize (GD_EIR)
+* Multiplicity 
+  - Selection::Chain Link (ACT_LNK)
+* ProposalTypes 
+  - Proposal::Proposal (P_P)
+* RunStateType 
+  - Engine::Stack (I_STACK)
+* SearchScope 
+  - Search::Query::Query (SQU_Q)
+
+== 5 Work Required
+
+=== 5.1 Determine Best Utilities Approach
+
+Look over current utilities and determine if the fix should be added to one,
+implemented as a new utility, or done during model loading.
+
+=== 5.2 Implement
+
+=== 5.3 Test
+Test should be done using a existing models and ensuring minimal change occurs.
+A new test could be created for any situations that might not be found in
+existing models.
+
+== 6 Acceptance Test
+
+Load the Microwave Oven model and GPS Watch model and run the utility on them.
+Examine the relationships to ensure the verb phrases are correct. Check sequence
+diagrams to see if text is located corrrectly.
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11949[11949 - Verb phrases missing on all associations]
+. [[dr-2]] https://support.onefact.net/issues/10298[10298 - MC-Java generated enumerator values do not start from 0]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
