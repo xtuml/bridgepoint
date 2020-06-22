@@ -80,7 +80,7 @@ tacit unit of seconds.
 | TA4 | A bridge operation shall be supplied which converts numeric time
         values into strings formatted per an input format string
         containing some or all of year, month, day-of-month, hour, minute,
-        second (e.g. `EPOCH::format( mytime, "yyyy/MM/dd hh:mm:ss" ) :
+        second (e.g. `EPOCH::format( mytime, "yyyy/MM/dd HH:mm:ss" ) :
         string`).
 | TA5 | Comparing two numeric time or duration values shall be provided.
         All operations corresponding to the following operators shall be
