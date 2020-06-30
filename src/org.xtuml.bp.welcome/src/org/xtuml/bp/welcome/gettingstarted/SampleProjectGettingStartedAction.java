@@ -388,6 +388,28 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                     }
                 }
             }
+            else if ( "ASL".equals( dialect ) ) {
+                // Check:
+                // - default dialect == ASL
+                // - concrete polys == enabled
+                // - restricted identifiers == enabled
+                if ( model.defaultActionLanguageDialect != Actiondialect_c.asl ||
+                     model.allowConcretePolys == false ||
+                     model.requireMaslStyleIdentifiers == false ) {
+                    boolean setPreferences = UIUtil.openScrollableTextDialog( PlatformUI.getWorkbench().getDisplay().getActiveShell(), true,
+                        title,
+                        "Default action language dialect: ASL\n" +
+                        "Enable restricted identifier naming for model elements: true\n" +
+                        "Allow concrete polymorphic events: true",
+                        message,
+                        null, null, true, false);
+                    if ( setPreferences ) {
+                        model.defaultActionLanguageDialect = Actiondialect_c.asl;
+                        model.requireMaslStyleIdentifiers = true;
+                        model.allowConcretePolys = true;
+                    }
+                }
+            }
             else { /* do nothing */ }
             model.getStore().saveModel( CorePlugin.getDefault().getPreferenceStore(), model );
         }
