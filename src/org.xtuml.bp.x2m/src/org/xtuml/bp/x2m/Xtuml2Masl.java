@@ -58,7 +58,7 @@ public class Xtuml2Masl {
     // run a xtUML to MASL export
     public void xtuml2masl() throws IOException, RuntimeException {
         System.out.println("\n=====================================================================================================");
-        System.out.println("Exporting MASL for " + name + "...");
+        System.out.println("Exporting " + architecture +" for " + name + "...");
 
         // create the output directory if it does not exist
         File outDirFile = new File(outDir);

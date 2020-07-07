@@ -17,7 +17,7 @@ public class WaslExporterPreferences {
 
     // preference defaults
     private static final boolean AUTO_SELECT_ELEMENTS_DEFAULT = true;
-    private static final boolean FORMAT_OUTPUT_DEFAULT = true;
+    private static final boolean FORMAT_OUTPUT_DEFAULT = false;
     private static final boolean EMIT_ACTIVITIES_DEFAULT = true;
     private static final String OUTPUT_DESTINATION_DEFAULT = "wasl/";
 
