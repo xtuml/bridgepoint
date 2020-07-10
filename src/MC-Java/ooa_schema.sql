@@ -6,7 +6,8 @@ CREATE TABLE ACT_ACT (
     CurrentScope_ID UNIQUE_ID,
     return_value INTEGER,
     Label STRING,
-    Parsed_Block_ID UNIQUE_ID );
+    Parsed_Block_ID UNIQUE_ID
+);
 CREATE TABLE ACT_AI (
     Statement_ID UNIQUE_ID,
     r_Value_ID UNIQUE_ID,
@@ -241,12 +242,12 @@ CREATE TABLE ACT_SGN (
     Value_ID UNIQUE_ID
 );
 CREATE TABLE ACT_SMT (
-    Statement_ID       UNIQUE_ID,
-    Block_ID   UNIQUE_ID,
-    Previous_Statement_ID      UNIQUE_ID,
+    Statement_ID UNIQUE_ID,
+    Block_ID UNIQUE_ID,
+    Previous_Statement_ID UNIQUE_ID,
     LineNumber INTEGER,
-    StartPosition      INTEGER,
-    Label      STRING,
+    StartPosition INTEGER,
+    Label STRING,
     buffer STRING, 
     buffer2 STRING,
     Controlled_Block  UNIQUE_ID,
@@ -465,7 +466,8 @@ CREATE TABLE C_C (
     Mult INTEGER,
     Root_Package_IDdeprecated UNIQUE_ID,
     isRealized BOOLEAN,
-    Realized_Class_Path STRING
+    Realized_Class_Path STRING,
+    Key_Lett STRING
 );
 CREATE TABLE C_DG (
     Id UNIQUE_ID,
@@ -476,7 +478,8 @@ CREATE TABLE C_EP (
     Interface_Id UNIQUE_ID,
     Direction INTEGER,
     Name STRING,
-    Descrip STRING
+    Descrip STRING,
+    Numb INTEGER
 );
 CREATE TABLE C_I (
     Id UNIQUE_ID,
@@ -544,7 +547,8 @@ CREATE TABLE C_SF (
 CREATE TABLE D_DEPL (
     Deployment_ID UNIQUE_ID,
     Name STRING,
-    Descrip STRING );
+    Descrip STRING
+);
 CREATE TABLE D_TERM (
     Term_ID UNIQUE_ID,
     Deployment_ID UNIQUE_ID,
@@ -552,7 +556,8 @@ CREATE TABLE D_TERM (
     Descrip STRING,
     Domain_Name STRING,
     Terminator_Name STRING,
-    Provider BOOLEAN );
+    Provider BOOLEAN
+);
 CREATE TABLE D_TSPARM (
     TSParm_ID UNIQUE_ID,
     Svc_ID UNIQUE_ID,
@@ -561,7 +566,8 @@ CREATE TABLE D_TSPARM (
     By_Ref INTEGER,
     Dimensions STRING,
     Previous_TSParm_ID UNIQUE_ID,
-    Descrip STRING );
+    Descrip STRING
+);
 CREATE TABLE D_TSVC (
     Svc_ID UNIQUE_ID,
     Term_ID UNIQUE_ID,
@@ -573,7 +579,9 @@ CREATE TABLE D_TSVC (
     Return_Dimensions STRING,
     Dialect INTEGER,
     Is_Stale BOOLEAN,
-    Implementation_Scope INTEGER );
+    Implementation_Scope INTEGER,
+    Numb INTEGER
+);
 CREATE TABLE EP_PKG (
     Package_ID UNIQUE_ID,
     Sys_ID UNIQUE_ID,
@@ -581,6 +589,10 @@ CREATE TABLE EP_PKG (
     Name STRING,
     Descrip STRING,
     Num_Rng INTEGER
+);
+CREATE TABLE EP_PKGREF (
+    Referring_Package_ID UNIQUE_ID,
+    Referred_Package_ID UNIQUE_ID
 );
 CREATE TABLE E_CEA (
     Statement_ID UNIQUE_ID
@@ -991,7 +1003,8 @@ CREATE TABLE O_TFR (
     Suc_Pars INTEGER,
     Return_Dimensions STRING,
     Previous_Tfr_ID UNIQUE_ID,
-    Dialect INTEGER
+    Dialect INTEGER,
+    Numb INTEGER
 );
 CREATE TABLE O_TPARM (
     TParm_ID UNIQUE_ID,
@@ -1573,7 +1586,8 @@ CREATE TABLE S_SYNC (
     DT_ID UNIQUE_ID,
     Suc_Pars INTEGER,
     Return_Dimensions STRING,
-    Dialect INTEGER
+    Dialect INTEGER,
+    Numb INTEGER
 );
 CREATE TABLE S_SYS (
     Sys_ID UNIQUE_ID,
@@ -1592,6 +1606,7 @@ CREATE TABLE TE_ABA (
     te_cID UNIQUE_ID,
     SelfEventCount INTEGER,
     NonSelfEventCount INTEGER,
+    IsTrace BOOLEAN,
     ParameterDeclaration STRING,
     ParameterDefinition STRING,
     ParameterStructure STRING,
@@ -1687,7 +1702,6 @@ CREATE TABLE TE_C (
     CodeComments BOOLEAN,
     CollectionsFlavor INTEGER,
     classes_file STRING,
-    functions_file STRING,
     MaxObjExtent INTEGER,
     MaxRelExtent INTEGER,
     MaxSelectExtent INTEGER,
@@ -1699,8 +1713,6 @@ CREATE TABLE TE_C (
     PEIClassCount INTEGER,
     PersistentClassCount INTEGER,
     module_file STRING,
-    port_file STRING,
-    include_file STRING,
     included_in_build BOOLEAN,
     internal_behavior BOOLEAN,
     isRealized BOOLEAN,
@@ -1710,7 +1722,9 @@ CREATE TABLE TE_C (
     first_eeID UNIQUE_ID,
     first_syncID UNIQUE_ID,
     smsg_send STRING,
-    smsg_recv STRING
+    smsg_recv STRING,
+    class_strings STRING,
+    first_te_class_ID UNIQUE_ID
 );
 CREATE TABLE TE_CALLOUT (
     file STRING,
@@ -1942,7 +1956,8 @@ CREATE TABLE TE_EVT (
     Priority INTEGER,
     SM_ID UNIQUE_ID,
     SMevt_ID UNIQUE_ID,
-    te_smID UNIQUE_ID
+    te_smID UNIQUE_ID,
+    next_ID UNIQUE_ID
 );
 CREATE TABLE TE_EXTENT (
     sets_type STRING,
@@ -2385,7 +2400,10 @@ CREATE TABLE TE_SET (
     init STRING,
     copy STRING,
     clear STRING,
-    setadd STRING,
+    setunion STRING,
+    setintersection STRING,
+    setdifference STRING,
+    setsymmetricdifference STRING,
     insert_element STRING,
     insert_instance STRING,
     insert_block STRING,
@@ -2430,7 +2448,12 @@ CREATE TABLE TE_SM (
     num_states INTEGER,
     num_events INTEGER,
     SM_ID UNIQUE_ID,
-    te_classGeneratedName STRING
+    te_classGeneratedName STRING,
+    first_te_state_ID UNIQUE_ID,
+    first_te_evt_ID UNIQUE_ID,
+    state_strings STRING,
+    event_strings STRING,
+    class_based BOOLEAN
 );
 CREATE TABLE TE_SMT (
     Statement_ID UNIQUE_ID,
@@ -2450,7 +2473,8 @@ CREATE TABLE TE_STATE (
     number INTEGER,
     Order INTEGER,
     SM_ID UNIQUE_ID,
-    SMstt_ID UNIQUE_ID
+    SMstt_ID UNIQUE_ID,
+    next_ID UNIQUE_ID
 );
 CREATE TABLE TE_STRING (
     memset STRING,
@@ -2463,7 +2487,9 @@ CREATE TABLE TE_STRING (
     itoa STRING,
     atoi STRING,
     max_string_length STRING,
-    debug_buffer_depth STRING
+    debug_buffer_depth STRING,
+    u128touuid STRING,
+    uuidtou128 STRING
 );
 CREATE TABLE TE_SWC (
     Obj_Kl STRING,
@@ -2514,12 +2540,12 @@ CREATE TABLE TE_SYS (
     InstanceLoading BOOLEAN,
     self_name STRING,
     Name STRING,
-    AUTOSAR BOOLEAN,
-    VFB BOOLEAN,
     SystemCPortsType STRING,
     AllPortsPoly BOOLEAN,
     StructuredMessaging BOOLEAN,
     NetworkSockets BOOLEAN,
+    SimulatedTime BOOLEAN,
+    StateSaveBufferSize INTEGER,
     Sys_ID UNIQUE_ID
 );
 CREATE TABLE TE_TARGET (
@@ -2550,8 +2576,7 @@ CREATE TABLE TE_THREAD (
     flavor STRING,
     serialize BOOLEAN,
     number_of_threads INTEGER,
-    extra_initialization STRING,
-    AUTOSAR_enabled STRING
+    extra_initialization STRING
 );
 CREATE TABLE TE_TIM (
     max_timers STRING,
@@ -2678,6 +2703,13 @@ CREATE TABLE TM_IF (
     Name STRING,
     c_iId UNIQUE_ID
 );
+CREATE TABLE TM_MSG (
+    te_mactID UNIQUE_ID,
+    ComponentName STRING,
+    PortName STRING,
+    MessageName STRING,
+    IsSafeForInterrupts BOOLEAN
+);
 CREATE TABLE TM_POINTER (
     Domain STRING,
     DT_name STRING,
@@ -2709,12 +2741,13 @@ CREATE TABLE TM_SYSTAG (
     PersistInstanceCacheDepth INTEGER,
     PersistLinkCacheDepth INTEGER,
     UnitsToDynamicallyAllocate INTEGER,
-    VFB BOOLEAN,
     InstanceLoading BOOLEAN,
     SystemCPortsType STRING,
     AllPortsPoly BOOLEAN,
     StructuredMessaging BOOLEAN,
-    NetworkSockets BOOLEAN
+    NetworkSockets BOOLEAN,
+    SimulatedTime BOOLEAN,
+    StateSaveBufferSize INTEGER
 );
 CREATE TABLE TM_TEMPLATE (
     ID UNIQUE_ID,
@@ -3034,6 +3067,8 @@ CREATE ROP REF_ID R125 FROM 1C O_TFR (Previous_Tfr_ID) PHRASE 'succeeds' TO 1C O
 CREATE ROP REF_ID R126 FROM MC O_DEF (Rel_ID) TO 1 R_REL (Rel_ID);
 CREATE ROP REF_ID R126 FROM 1C O_DEF (Tfr_ID) TO 1 O_TFR (Tfr_ID);
 CREATE ROP REF_ID R1401 FROM MC EP_PKG (Sys_ID) TO 1C S_SYS (Sys_ID);
+CREATE ROP REF_ID R1402 FROM MC EP_PKGREF (Referred_Package_ID) PHRASE 'refers to' TO 1 EP_PKG (Package_ID) PHRASE 'is referenced by';
+CREATE ROP REF_ID R1402 FROM 1C EP_PKGREF (Referring_Package_ID) PHRASE 'is referenced by' TO 1 EP_PKG (Package_ID) PHRASE 'refers to';
 CREATE ROP REF_ID R1405 FROM MC EP_PKG (Direct_Sys_ID) TO 1 S_SYS (Sys_ID);
 CREATE ROP REF_ID R1500 FROM MC CNST_SYC (DT_ID) TO 1 S_DT (DT_ID);
 CREATE ROP REF_ID R1502 FROM 1C CNST_LFSC (Const_ID) TO 1 CNST_SYC (Const_ID);
@@ -3214,6 +3249,11 @@ CREATE ROP REF_ID R2098 FROM 1C TE_C (first_eeID) TO 1C TE_EE (ID);
 CREATE ROP REF_ID R2099 FROM 1C TE_PO (first_te_mactID) TO 1C TE_MACT (ID);
 CREATE ROP REF_ID R21 FROM MC S_BPARM (Brg_ID) TO 1 S_BRG (Brg_ID);
 CREATE ROP REF_ID R210 FROM 1 R_AOTH (Rel_ID) TO 1 R_ASSOC (Rel_ID);
+CREATE ROP REF_ID R2100 FROM 1C TE_SM (first_te_state_ID) TO 1C TE_STATE (ID);
+CREATE ROP REF_ID R2101 FROM 1C TE_STATE (next_ID) PHRASE 'precedes' TO 1C TE_STATE (ID) PHRASE 'succeeds';
+CREATE ROP REF_ID R2102 FROM 1C TE_EVT (next_ID) PHRASE 'precedes' TO 1C TE_EVT (ID) PHRASE 'succeeds';
+CREATE ROP REF_ID R2103 FROM 1C TE_C (first_te_class_ID) TO 1C TE_CLASS (ID);
+CREATE ROP REF_ID R2104 FROM 1C TE_SM (first_te_evt_ID) TO 1C TE_EVT (ID);
 CREATE ROP REF_ID R211 FROM 1 R_ASSR (Rel_ID) TO 1 R_ASSOC (Rel_ID);
 CREATE ROP REF_ID R212 FROM 1 R_SUPER (Rel_ID) TO 1 R_SUBSUP (Rel_ID);
 CREATE ROP REF_ID R213 FROM MC R_SUB (Rel_ID) TO 1 R_SUBSUP (Rel_ID);
@@ -3232,6 +3272,7 @@ CREATE ROP REF_ID R2805 FROM MC TM_TPV (te_ciID) TO 1C TE_CI (ID);
 CREATE ROP REF_ID R2806 FROM MC TM_TPV (te_iirID) TO 1C TE_IIR (ID);
 CREATE ROP REF_ID R2807 FROM 1C TM_IF (c_iId) TO 1 C_I (Id);
 CREATE ROP REF_ID R2808 FROM MC TM_TPV (tm_tpID) TO 1 TM_TP (ID);
+CREATE ROP REF_ID R2809 FROM MC TM_MSG (te_mactID) TO 1 TE_MACT (ID);
 CREATE ROP REF_ID R2901 FROM MC I_LNK (fromInst_ID, Rel_ID) TO 1 I_LIP (Inst_ID, Rel_ID);
 CREATE ROP REF_ID R2902 FROM MC I_LNK (toInst_ID, Rel_ID) TO 1 I_LIP (Inst_ID, Rel_ID);
 CREATE ROP REF_ID R2903 FROM MC I_LNK (assocInst_ID, Rel_ID) TO 1C I_LIP (Inst_ID, Rel_ID);
