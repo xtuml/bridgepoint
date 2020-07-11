@@ -311,7 +311,7 @@
            ((String)parms.elementAt(${attr_col_num})).equals( "false" ) ? false : true\
            .assign post_string = "  //$$NON-NLS-1$$"
         .elif ( col.type == "integer" )
-           Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
+           (rawParms.size() <= ${attr_col_num} || !ImportInteger.isInt(parms.elementAt(${attr_col_num}))) ? 0 : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
         .elif ( col.type == "real" )
            Float.parseFloat((String)parms.elementAt(${attr_col_num}))\
         .elif ( col.type == "unique_id" )
