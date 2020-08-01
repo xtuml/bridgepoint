@@ -1430,6 +1430,34 @@ INSERT INTO PE_PE
 	"f10395e2-6099-42e4-9635-26164f0ea089",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("0efd2a94-1d74-4e0a-8feb-b209fd542143",
+	"00000000-0000-0000-0000-000000000000",
+	'checkCounterpartIntegrity',
+	'',
+	'select any ge from instances of GD_GE where selected.OOA_ID == param.ooa_id;
+if (not empty ge)
+  ge.checkIntegrity();
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO S_SPARM
+	VALUES ("a019c9b4-4890-4e4e-bc64-fa2a52ce22e0",
+	"0efd2a94-1d74-4e0a-8feb-b209fd542143",
+	'ooa_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("0efd2a94-1d74-4e0a-8feb-b209fd542143",
+	1,
+	"f10395e2-6099-42e4-9635-26164f0ea089",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("f10395e2-6099-42e4-9635-26164f0ea089",
 	1,
