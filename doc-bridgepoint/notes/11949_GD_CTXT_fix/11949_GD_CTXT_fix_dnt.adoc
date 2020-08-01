@@ -1,0 +1,72 @@
+=  Fix GD_CTXT End Usage in Older Models Design Note
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+This design note presents a design to address the analysis in <<dr-2>>.
+
+== 2 Introduction and Background
+
+Refer to <<dr-2>> for discussion of <<dr-1>>.
+
+== 3 Requirements
+
+This section is only required if there is no preceding analysis note.
+
+== 4 Analysis
+
+This section is only required if there is no preceding analysis note. If present
+it sets out a brief analysis of the problem to be resolved by this design note.
+
+== 5 Design
+
+=== 5.1 Built-in
+
+The fix will use the existing integrity checker built into BridgePoint.
+
+=== 5.2 Automated detection
+
+The existing integrity checker runs on model load, so detection of the issue
+will run automatically.
+
+=== 5.3 Non-invasive
+
+The additional integrity check will only be run on affected components, so it
+will add the minimal amount of time needed. There is a tradeoff between having
+the utility in place requiring minimal user interaction, and having the user
+have to explicitly call the utility.
+
+A need to fix can be detected, so models that don't need fixed will not be
+adversely affected.
+
+User notification was left out. With the fix always running on model load, the
+user will never see the issue manifest. A Load and Persist would write the fix
+to the .xtuml file, but a user change to the model would also cause the fix to
+be persisted.
+
+== 6 Design Comments
+
+There are two places the fix can be run:
+# The IntegrityChecker::checkPMCContents operation
+# A known affected ooaofooa element checkIntegrity operation
+
+The latter requires creation of an outgoing ooaofooa bridge to allow for OAL 
+reference, but is a better way to restrict the amount of checking done.
+
+== 7 User Documentation
+
+Describe the end user documentation that was added for this change.
+
+== 8 Unit Test
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11949[11949 - Verb phrases missing on all associations]
+. [[dr-2]] link:11949_GD_CTXT_fix_ant.adoc[Fix GD_CTXT End Usage in Older Models Analysis Note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

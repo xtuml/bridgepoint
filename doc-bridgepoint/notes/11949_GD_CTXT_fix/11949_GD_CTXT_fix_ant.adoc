@@ -1,4 +1,4 @@
-= GD_CTXT End Usage in Older Models Fix
+= Fix GD_CTXT End Usage in Older Models Analysis Note
 
 xtUML Project Analysis Note
 
