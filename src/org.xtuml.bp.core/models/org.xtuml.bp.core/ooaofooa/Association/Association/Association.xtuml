@@ -600,7 +600,7 @@ for each association in associations
   end if;
 end for;
 // Fix for issue 11949. Checks End enumeration integrity in ooaofgraphics.
-GD::checkCounterpartIntegrity();',
+GD::checkCounterpartIntegrity(instance:self.convertToInstance());',
 	1,
 	'',
 	"7db37c64-90c7-45f2-b8f3-82411f18525a",

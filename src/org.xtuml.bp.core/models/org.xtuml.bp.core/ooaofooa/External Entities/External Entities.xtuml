@@ -2077,13 +2077,23 @@ INSERT INTO S_BRG
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
 	'checkCounterpartIntegrity',
 	'Translate:native
-Checks the integrity of the graphical counterpart to the calling element.',
+Checks the integrity of the graphical counterpart to the calling element.
+Import:org.xtuml.bp.core.common.NonRootModelElement',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
-	'      checkCounterpartIntegrity();',
+	'     ((NonRootModelElement)p_Instance).checkCounterpartIntegrity();',
 	0,
 	'',
 	0);
+INSERT INTO S_BPARM
+	VALUES ("e358c233-d943-4e06-9e52-91424e05b3df",
+	"b1f610fd-9c68-44a9-a5eb-6d803c1ae20f",
+	'instance',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("058cdd28-59e8-461f-8413-8013501f3a1a",
 	1,

@@ -252,6 +252,43 @@ end if;',
 	'',
 	"8ed5565a-64d5-46f8-ad14-470a5eceb070",
 	0);
+INSERT INTO O_TFR
+	VALUES ("247410cb-22b4-47de-9fdc-fdddb605dd01",
+	"77d1cb23-9b16-462c-99a7-0df500aade81",
+	'checkIntegrity',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Fix for issue 11949. Checks End enumeration integrity in ooaofgraphics.
+GD::checkCounterpartIntegrity(instance:self.convertToInstance());
+',
+	1,
+	'',
+	"90e180dc-906b-4504-86e8-d0a673574bc4",
+	0);
+INSERT INTO O_TFR
+	VALUES ("4720c057-cc0b-4ef3-9383-ebddc88ab170",
+	"77d1cb23-9b16-462c-99a7-0df500aade81",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"247410cb-22b4-47de-9fdc-fdddb605dd01",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("77d1cb23-9b16-462c-99a7-0df500aade81",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",

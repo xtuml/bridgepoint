@@ -1,0 +1,96 @@
+=  Fix GD_CTXT End Usage in Older Models Implementation Note
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the implementation of <<dr-3>>.
+
+== 2 Introduction and Background
+
+Initial investigation resulted in the view that only Association and Activity
+Node instances were affected, but in testing the implementation, Message and
+Timing Mark instances were also found to be affected.
+
+In <<dr-3>> it was stated that there are two places the fix can be run:
+# The IntegrityChecker::checkPMCContents operation
+# A known affected ooaofooa element checkIntegrity operation
+This turns out to be incorrect, as the first choice will not access all the
+affected elements during model load; the integrity checker during model load
+only goes to the first level of children of NonRootModelElement.
+
+== 3 Requirements
+
+This section is only required if there is no preceding design note.
+
+== 4 Work Required
+
+In order to ease the reflection from affected ooaofooa elements to ooaofgraphics
+Graphical Element instances, a new function was added to the ooaofgraphics,
+Functions::checkCounterpartIntegrity, with a parameter representing the
+identifier of the ooaofooa element.
+
+A counterpart in the ooaofooa domain, External Entities::Graphics
+Domain::checkCounterpartIntegrity, was also added. In ooaofooa,
+NonRootModelElement got a checkCounterpartIntegrity function to be called from
+the affected element's checkIntegrity function. All affected element's plus any
+parents in between the element and NonRootModelElement got a checkIntegrity
+function added.
+
+Timing Mark was an outlier, that didn't seem to get called, even though it
+should be a direct descendent of NonRootModelElement. Lifespan::checkIntegrity
+was modified to ensure the Timing Mark was checked.
+
+=== 4.1 Built-in
+
+The above changes allowed the built-in checkIntegrity method to run the fix.
+
+=== 4.2 Automated detection
+
+The IntegrityChecker::checkPMCContents runs when a model is loaded in
+BridgePoint, so the aforementioned changes result in a fixed model
+automatically.
+
+=== 4.3 Non-invasive
+
+The fix gets applied without the user having to initiate the fix, and it doesn't
+get persisted unless explicitly requested by the user calling Load and Persist
+or making changes to the model.
+
+== 5 Implementation Comments
+
+This was the author's first attempt at bridging between the ooaofooa and the
+ooaofgraphics. It is uncertain if the implementation is the best use of the
+existing bridge mechanisms, that use reflection. A better way may have been to
+bridge to the corresponding GraphicalElement directly.
+
+Another implementation could be to just run the checkIntegrity function on every
+Connector instance during the model load. This might actually be a faster check.
+
+== 6 Unit Test
+
+There are no unit tests associated with this issue.
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  11949-association-phrases
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11949[11949 - Verb phrases missing on all associations]
+. [[dr-2]] link:11949_GD_CTXT_fix_ant.adoc[Fix GD_CTXT End Usage in Older Models Analysis Note]
+. [[dr-3]] link:11949_GD_CTXT_fix_dnt.adoc[Fix GD_CTXT End Usage in Older Models Design Note]
+
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

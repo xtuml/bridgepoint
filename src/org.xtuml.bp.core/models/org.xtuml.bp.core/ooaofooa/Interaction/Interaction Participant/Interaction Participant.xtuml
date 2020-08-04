@@ -215,6 +215,47 @@ return GD::NULL_UNIQUE_ID();',
 	'',
 	"fee4dcf9-1a7a-4271-b559-b6eba5952506",
 	0);
+INSERT INTO O_TFR
+	VALUES ("04a41081-6990-4864-b2c6-e66caa6521b5",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"0cd49a19-a6dc-43e3-9cf3-1c3234037f04",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("aec8a3cf-b900-4b6d-8899-5bd2ffbb0229",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'checkIntegrity',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Fix for issue 11949. Checks End enumeration integrity in ooaofgraphics.
+GD::checkCounterpartIntegrity(instance:self.convertToInstance());
+select one sq_ls related by self->SQ_LS[R930];
+if (not empty sq_ls)
+  sq_ls.checkIntegrity();
+end if;
+',
+	1,
+	'',
+	"04a41081-6990-4864-b2c6-e66caa6521b5",
+	0);
 INSERT INTO O_REF
 	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
