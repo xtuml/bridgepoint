@@ -196,47 +196,6 @@ INSERT INTO O_TPARM
 	'',
 	"ede188fc-f988-4b91-b3bb-0f2f8cc67ec8",
 	'');
-INSERT INTO O_TFR
-	VALUES ("ecb39c5a-7304-459f-ba2f-5f52faba25d1",
-	"2e229f31-74d7-4262-b3e5-6aec62ebb037",
-	'convertToInstance',
-	'A utility operation to cast an instance of this type to the
-instance datatype.
-
-Translate: native',
-	"bc3722c8-5188-4529-8519-cf9eb9816b17",
-	1,
-	'// just return this instance as an Object
-return this;',
-	0,
-	'',
-	"11731fc9-da00-4434-a3ac-8db7d95032cc",
-	0);
-INSERT INTO S_DT_PROXY
-	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"00000000-0000-0000-0000-000000000000",
-	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO O_TFR
-	VALUES ("fa740ef1-55e0-4fbc-8c78-8c46ef1f138b",
-	"2e229f31-74d7-4262-b3e5-6aec62ebb037",
-	'checkIntegrity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// Fix for issue 11949. Checks End enumeration integrity in ooaofgraphics.
-GD::checkCounterpartIntegrity(instance:self.convertToInstance());
-select many sq_tms related by self->SQ_TM[R931];
-for each sq_tm in sq_tms
-  sq_tm.checkIntegrity();
-end for;
-',
-	1,
-	'',
-	"ecb39c5a-7304-459f-ba2f-5f52faba25d1",
-	0);
 INSERT INTO O_NBATTR
 	VALUES ("b8e1f1c9-9312-4ecf-88fc-f894e1ff3415",
 	"2e229f31-74d7-4262-b3e5-6aec62ebb037");

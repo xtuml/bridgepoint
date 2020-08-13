@@ -8,16 +8,13 @@ This note describes the implementation of <<dr-3>>.
 
 == 2 Introduction and Background
 
-Initial investigation resulted in the view that only Association and Activity
-Node instances were affected, but in testing the implementation, Message and
-Timing Mark instances were also found to be affected.
+Initial investigation resulted in the view that only __Association__ and
+__Activity Node__ instances were affected, but in testing the implementation,
+__Message__ and __Timing Mark__ instances were also found to be affected.
 
-In <<dr-3>> it was stated that there are two places the fix can be run:
-# The IntegrityChecker::checkPMCContents operation
-# A known affected ooaofooa element checkIntegrity operation
-This turns out to be incorrect, as the first choice will not access all the
-affected elements during model load; the integrity checker during model load
-only goes to the first level of children of NonRootModelElement.
+After review, a solution involving only ooaofgraphics instances was considered a
+better fit. This means all Connector_c instances are checked during import
+model.
 
 == 3 Requirements
 
@@ -25,30 +22,22 @@ This section is only required if there is no preceding design note.
 
 == 4 Work Required
 
-In order to ease the reflection from affected ooaofooa elements to ooaofgraphics
-Graphical Element instances, a new function was added to the ooaofgraphics,
-Functions::checkCounterpartIntegrity, with a parameter representing the
-identifier of the ooaofooa element.
+A __checkIntegrity__ method was added to the __Connector__ class. This method 
+checks for a legal triplet of __end__ attribute values, when the __Connector__ 
+instance is associated with three __Floating Text__ instances.
 
-A counterpart in the ooaofooa domain, External Entities::Graphics
-Domain::checkCounterpartIntegrity, was also added. In ooaofooa,
-NonRootModelElement got a checkCounterpartIntegrity function to be called from
-the affected element's checkIntegrity function. All affected element's plus any
-parents in between the element and NonRootModelElement got a checkIntegrity
-function added.
-
-Timing Mark was an outlier, that didn't seem to get called, even though it
-should be a direct descendent of NonRootModelElement. Lifespan::checkIntegrity
-was modified to ensure the Timing Mark was checked.
+For the case where the __Connector__ instance is associated with only one
+__Floating Text__ instance, only an __end__ atribute value of __Floating__ is
+allowed.
 
 === 4.1 Built-in
 
-The above changes allowed the built-in checkIntegrity method to run the fix.
+The above changes allowed the built-in model import mechanism to run the fix.
 
 === 4.2 Automated detection
 
-The IntegrityChecker::checkPMCContents runs when a model is loaded in
-BridgePoint, so the aforementioned changes result in a fixed model
+The __Connector::checkIntegrity__ method is run when a model is loaded in
+BridgePoint, so the aforementioned changes result in a fixed model 
 automatically.
 
 === 4.3 Non-invasive
@@ -59,13 +48,15 @@ or making changes to the model.
 
 == 5 Implementation Comments
 
-This was the author's first attempt at bridging between the ooaofooa and the
-ooaofgraphics. It is uncertain if the implementation is the best use of the
-existing bridge mechanisms, that use reflection. A better way may have been to
-bridge to the corresponding GraphicalElement directly.
+Analysis of __End__ enumerator uses shows that the case of three instances of
+__Floating Text__ associated with a __Connector__ instance only uses the values
+of __::Start__, __::End__, and __::Middle__. 
 
-Another implementation could be to just run the checkIntegrity function on every
-Connector instance during the model load. This might actually be a faster check.
+Uses of __::End_Fixed__ and __::Start_Fixed__ are only used with fixed text. 
+Uses of __::Additional__ are confined to shapes, and uses of __::None__ don't 
+concern __Floating Text__. This means that the single __Connector__ instance 
+associated with a single __Floating Text__ instance requires the __end__ 
+attribute to have a value of __End::Floating__.
 
 == 6 Unit Test
 

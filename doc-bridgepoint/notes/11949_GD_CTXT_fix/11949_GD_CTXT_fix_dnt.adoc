@@ -23,22 +23,17 @@ it sets out a brief analysis of the problem to be resolved by this design note.
 
 === 5.1 Built-in
 
-The fix will use the existing integrity checker built into BridgePoint.
+The fix will use the existing import model mechanism built into BridgePoint.
 
 === 5.2 Automated detection
 
-The existing integrity checker runs on model load, so detection of the issue
-will run automatically.
+The import model runs on model loading, so detection of the issue will run 
+automatically.
 
 === 5.3 Non-invasive
 
-The additional integrity check will only be run on affected components, so it
-will add the minimal amount of time needed. There is a tradeoff between having
-the utility in place requiring minimal user interaction, and having the user
-have to explicitly call the utility.
-
-A need to fix can be detected, so models that don't need fixed will not be
-adversely affected.
+The import model happens before the user sees the model, so the user will not
+know the fix is run.
 
 User notification was left out. With the fix always running on model load, the
 user will never see the issue manifest. A Load and Persist would write the fix
@@ -47,12 +42,9 @@ be persisted.
 
 == 6 Design Comments
 
-There are two places the fix can be run:
-# The IntegrityChecker::checkPMCContents operation
-# A known affected ooaofooa element checkIntegrity operation
-
-The latter requires creation of an outgoing ooaofooa bridge to allow for OAL 
-reference, but is a better way to restrict the amount of checking done.
+The observations made in investigating the model showed two cases:
+# Three __Floating Text__ instances are associated with a single __Connector__ instance.
+# A single __Floating Text__ instance is associated with a single __Connector__ instance. The single case had an __end__ attribute value of __Floating__.
 
 == 7 User Documentation
 

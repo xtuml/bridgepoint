@@ -598,9 +598,7 @@ for each association in associations
          severity:Severity::Error, name:self.get_name(), path:self.getPath(),
                               id:self.Rel_ID, element:self.convertToInstance());
   end if;
-end for;
-// Fix for issue 11949. Checks End enumeration integrity in ooaofgraphics.
-GD::checkCounterpartIntegrity(instance:self.convertToInstance());',
+end for;',
 	1,
 	'',
 	"7db37c64-90c7-45f2-b8f3-82411f18525a",

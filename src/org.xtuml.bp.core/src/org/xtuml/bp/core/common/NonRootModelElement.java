@@ -22,8 +22,6 @@
 
 package org.xtuml.bp.core.common;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1201,22 +1199,4 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 	}
 
-  public void checkCounterpartIntegrity() {
-    try {
-      Class<?> graphicsClass = OoaofgraphicsUtil.getGraphicsClass();
-      ModelRoot graphicsRoot = (ModelRoot) OoaofgraphicsUtil.getGraphicsRoot(getModelRoot().getId(), graphicsClass);
-      Method integrityMethod = graphicsClass.getMethod("Checkcounterpartintegrity", new Class[] {ModelRoot.class, java.util.UUID.class});
-      integrityMethod.invoke(graphicsClass, new Object[] {graphicsRoot, this.m_id});
-    } catch (SecurityException e) {
-      CorePlugin.logError("Unable to check counterpart integrity.", e);
-    } catch (NoSuchMethodException e) {
-      CorePlugin.logError("Unable to check counterpart integrity.", e);
-    } catch (IllegalArgumentException e) {
-      CorePlugin.logError("Unable to check counterpart integrity.", e);
-    } catch (IllegalAccessException e) {
-      CorePlugin.logError("Unable to check counterpart integrity.", e);
-    } catch (InvocationTargetException e) {
-      CorePlugin.logError("Unable to check counterpart integrity.", e);
-    }
-  }
 }

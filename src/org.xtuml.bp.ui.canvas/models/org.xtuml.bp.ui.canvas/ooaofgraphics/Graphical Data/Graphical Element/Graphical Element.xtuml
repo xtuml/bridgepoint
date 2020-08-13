@@ -752,21 +752,6 @@ INSERT INTO O_TFR
 	'',
 	"8813dd74-4e33-4145-b970-f2d263d22454",
 	0);
-INSERT INTO O_TFR
-	VALUES ("4b83c36d-6d8c-4e6f-b10b-1a7e4333f4d7",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'checkIntegrity',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'select one conn related by self->GD_CON[R2];
-if (not empty conn)
-  conn.checkIntegrity();
-end if;',
-	1,
-	'',
-	"46e4c092-ac89-41e9-82eb-2914b330847f",
-	0);
 INSERT INTO O_NBATTR
 	VALUES ("81e34c0a-4504-4774-b4d9-a17d0fc4e930",
 	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c");
