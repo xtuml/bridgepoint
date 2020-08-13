@@ -55,8 +55,8 @@ public class ${class_name} {
 			  .end if
 			.end if
 	    .else
-	      .assign enum_num_integer = enum_num_integer + 1
 	   			public final static int ${en} = ${enum_num_integer};
+	      .assign enum_num_integer = enum_num_integer + 1
 	    .end if
 	  .else
 	    .print "ERROR: Enumerator Name is empty"

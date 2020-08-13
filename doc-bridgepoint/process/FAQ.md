@@ -14,13 +14,14 @@
   * [BridgePoint Installation](#installation)
     * [What is the difference between the "xtUML Modeler" and "BridgePoint Development" versions?](#userdevversions)
     * [Machine Recommendations](#machinerecomendations)
-    * [How do configure BridgePoint to use a specific Java runtime (JRE or JDK)](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
+    * [How do I configure BridgePoint to use a specific Java runtime (JRE or JDK)?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
     * [Errors During Unzip](#unziperrors)
     * [Shared/Multi-user Installation](#sharedinstall)
     * [Starting BridgePoint](#launchers)
     * [Installing xsltproc](#xsltproc)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
+    * [Maven Build Error](#mavenbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
     * [Windows Unit Test Configuration](#windowstesting)
     * [How do I run BridgePoint Unit Tests?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
@@ -132,6 +133,11 @@ BridgePoint Installation <a id="installation"></a>
   model translation uses a single thread.  Therefore, translation performance is not improved with multiple 
   processors.  Model execution performance is single-threaded when "deterministic execution" is selected, and
   multi-threaded when it is not selected.  In general, any processor running at 1GHz and beyond will work fine.
+
+* [**How do I configure BridgePoint to use a specific Java runtime (JRE or JDK)?**](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc)
+  BridgePoint is no longer bundled with Java.  You must install Java as a
+  pre-dependency before running BridgePoint.  Instructions to do so are found
+  [here](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc).
   
 * **Errors During Unzip**  <a id="unziperrors"></a>  
   When unzipping the BridgePoint distribution if you see a message that indicates a duplicate file is 
@@ -194,6 +200,20 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   This problem is that ANTLR is not running when it should in some cases. This is a sporadic dependency 
   issue that has not yet been completely resolved.  It is raised in the issue tracking system as 
   issue [7631](https://support.onefact.net/redmine/issues/7631).
+
+* **Maven Build Error** <a id="mavenbuilderror"></a>
+  After following the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) 
+  if you see errors in plugins caused by missing dependent files, and those files refer to org.eclipse.core.runtime, follow   these instructions to resolve the issue:
+  
+  - Check the version of Apache Maven using ```mvn -version```
+  - If the version is newer than 3.6.0, then proceed with this solution.
+  - Install Apache Maven 3.6.0 as detailed on the [Maven](https://maven.apache.org/install.html) website.
+  - If you are using Ubuntu or other Linux that supports alternatives, you can try the following:
+      - Download the .tar.gz and extract into /usr/share/maven
+      - Run the following command:  
+        ```$ sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/maven/apache-maven-3.6.0/bin/mvn 360```
+      - Switch maven version using:  
+        ```$ sudo update-alternatives --config mvn```
   
 * **Linux Distribution-Specific Instructions** <a id="linux"></a>
   * Package Requirements for Various Linux Distributions  

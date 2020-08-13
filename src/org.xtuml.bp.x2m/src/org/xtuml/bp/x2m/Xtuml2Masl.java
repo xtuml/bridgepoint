@@ -33,6 +33,7 @@ public class Xtuml2Masl {
 
     private String projectLocation;
     private String outDir;
+    private String architecture;
     private String name;
     private boolean isDomain;
     private boolean validate;
@@ -46,6 +47,7 @@ public class Xtuml2Masl {
         coverage = false;
         prebuild = false;
         outDir = ".";
+        architecture = "MASL";
         skipFormat = false;
         skipActionLanguage = false;
         projectLocation = "";
@@ -131,6 +133,8 @@ public class Xtuml2Masl {
         maslCmd.add(name);
         maslCmd.add("-o");
         maslCmd.add(outDir);
+        maslCmd.add("-a");
+        maslCmd.add(architecture);
         System.out.println(maslCmd);
         Process maslProcess = new ProcessBuilder().command(maslCmd).start();
 
@@ -221,6 +225,11 @@ public class Xtuml2Masl {
 
     public Xtuml2Masl setOutputDirectory(String outDir) {
         this.outDir = outDir;
+        return this;
+    }
+
+    public Xtuml2Masl setArchitecture(String architecture) {
+        this.architecture = architecture;
         return this;
     }
 
@@ -319,7 +328,7 @@ public class Xtuml2Masl {
 
     private static void printUsage() {
         System.err.println(
-                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -d <domain component> [-o <output directory>]\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -p <project package> [-o <output directory>]");
+                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -d <domain component> [-o <output directory>] [-a <architecture>]\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -p <project package> [-o <output directory>] [-a <architecture>]");
     }
 
     private static class BuildElement {
@@ -341,6 +350,7 @@ public class Xtuml2Masl {
         boolean skipFormatter = false;
         boolean skipActionLanguage = false;
         String outDir = "";
+        String architecture = "MASL"; // default to MASL
         List<String> inputs = new ArrayList<>();
         List<BuildElement> buildElements = new ArrayList<>();
 
@@ -360,7 +370,7 @@ public class Xtuml2Masl {
             } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
                 skipFormatter = true;
                 directive = "";
-            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg)) { // set the
+            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg) || "-a".equals(arg)) { // set the
                                                                                                        // directive
                 directive = arg;
             } else if ("-xl".equals(arg) && !skipActionLanguage) { // if we encounter flag indicating skip output of
@@ -375,6 +385,8 @@ public class Xtuml2Masl {
                 buildElements.add(new BuildElement(true, arg));
             } else if ("-o".equals(directive) && "".equals(outDir)) { // only can set the output directory once
                 outDir = arg;
+            } else if ("-a".equals(directive)) {
+                architecture = arg;
             } else {
                 printUsage();
                 System.exit(1);

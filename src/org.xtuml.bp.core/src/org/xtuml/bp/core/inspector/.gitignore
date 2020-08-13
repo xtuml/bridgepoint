@@ -44,6 +44,7 @@ CoreDataTypeInspector.java
 DataTypeInspector.java
 DataTypePackageInspector.java
 DecisionMergeNodeInspector.java
+DeferralInspector.java
 DelegationInspector.java
 DerivedAssociationInspector.java
 DerivedBaseAttributeInspector.java
