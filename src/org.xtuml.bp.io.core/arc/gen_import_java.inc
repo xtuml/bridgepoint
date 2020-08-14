@@ -82,18 +82,18 @@
            6000 - scrolly - (int)(621/Float.parseFloat((String)parms.elementAt(${zf_col_num})))\
         .assign special_case = true
       .elif(((table.Key_Lett == "GD_MD") and (col.Name == "version")) and (callingProject == "NBP"))
-	    .// add an empty string for this column
-		((parms.size() > ${attr_col_num}) && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})):""\
-		.assign special_case = true
+       .// add an empty string for this column
+      ((parms.size() > ${attr_col_num}) && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})):""\
+      .assign special_case = true
       .elif(((table.Key_Lett == "GD_MD") and (col.Name == "represents_path")) and (callingProject == "NBP"))
-	    .// add an empty string for this column
-		((parms.size() > ${attr_col_num}) && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})):""\
-		.assign special_case = true
+       .// add an empty string for this column
+      ((parms.size() > ${attr_col_num}) && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})):""\
+      .assign special_case = true
       .elif(((table.Key_Lett == "GD_GE") and (col.Name == "represents_path")) and (callingProject == "NBP"))
-	    .// add an empty string for this column
-		((parms.size() > ${attr_col_num}) && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})):""\
-		.assign special_case = true
-	  .elif (( (table.Key_Lett == "R_RTO") and (col.Name == "Oid_ID")) and (callingProject == "BP") )
+       .// add an empty string for this column
+      ((parms.size() > ${attr_col_num}) && parms.elementAt(${attr_col_num}) != null) ? removeTics((String) parms.elementAt(${attr_col_num})):""\
+      .assign special_case = true
+     .elif (( (table.Key_Lett == "R_RTO") and (col.Name == "Oid_ID")) and (callingProject == "BP") )
         .//
         .// this column is special, change 99 to -1
            Integer.parseInt((String)parms.elementAt(${attr_col_num}))==99?-1:Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
@@ -234,16 +234,16 @@
            parms.elementAt(${attr_col_num}) != null && ImportInteger.isInt(parms.elementAt(${attr_col_num})) ?Integer.parseInt((String)parms.elementAt(${attr_col_num})):0
           .assign special_case = true     
         .end if     
-	  .elif (table.Key_Lett == "MSG_M")
-	    .if(col.Name == "participatesInCommunication")
-		  false\
-		  .assign special_case = true
-		.end if
-	  .elif (table.Key_lett == "S_SYS")
-	    .if(col.Name == "useGlobals")
-		  parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
-		  .assign special_case = true
-	    .end if
+     .elif (table.Key_Lett == "MSG_M")
+       .if(col.Name == "participatesInCommunication")
+        false\
+        .assign special_case = true
+      .end if
+     .elif (table.Key_lett == "S_SYS")
+       .if(col.Name == "useGlobals")
+        parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
+        .assign special_case = true
+       .end if
       .elif (table.Key_lett == "C_C")
         .if(col.Name == "isRealized")
           parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
@@ -277,35 +277,35 @@
           (parms.size() > ${attr_col_num} ? IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):IdAssigner.NULL_UUID)
           .assign special_case = true
         .end if
-	  .end if
-	  .// Dialect attribute introduced
-	  .assign dialectAdded = false;
-	  .if(col.Name == "Dialect")
-	    .if(table.Key_lett == "O_DBATTR")
-	      .assign dialectAdded = true;
-	    .elif(table.Key_lett == "O_TFR")
+     .end if
+     .// Dialect attribute introduced
+     .assign dialectAdded = false;
+     .if(col.Name == "Dialect")
+       .if(table.Key_lett == "O_DBATTR")
+         .assign dialectAdded = true;
+       .elif(table.Key_lett == "O_TFR")
           .assign dialectAdded = true;
-	    .elif(table.Key_lett == "SM_ACT")
+       .elif(table.Key_lett == "SM_ACT")
           .assign dialectAdded = true;
-	    .elif(table.Key_lett == "SPR_PO")
-		  .assign dialectAdded = true;
+       .elif(table.Key_lett == "SPR_PO")
+        .assign dialectAdded = true;
         .elif(table.Key_lett == "SPR_PS")
-		  .assign dialectAdded = true;
-	    .elif(table.Key_lett == "SPR_RO")
-		  .assign dialectAdded = true;
-	    .elif(table.Key_lett == "SPR_RS")
-		  .assign dialectAdded = true;
-	    .elif(table.Key_lett == "S_BRG")
-		  .assign dialectAdded = true;
-	    .elif(table.Key_lett == "S_SYNC")
-		  .assign dialectAdded = true;
-		.end if
-		.if (dialectAdded)
-			(rawParms.size() <= ${attr_col_num} || !ImportInteger.isInt(parms.elementAt(${attr_col_num}))) ? Actiondialect_c.oal : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
-		  .assign special_case = true
-		.end if
-	  .end if
-	  .// end of Dialect attribute introduced change
+        .assign dialectAdded = true;
+       .elif(table.Key_lett == "SPR_RO")
+        .assign dialectAdded = true;
+       .elif(table.Key_lett == "SPR_RS")
+        .assign dialectAdded = true;
+       .elif(table.Key_lett == "S_BRG")
+        .assign dialectAdded = true;
+       .elif(table.Key_lett == "S_SYNC")
+        .assign dialectAdded = true;
+      .end if
+      .if (dialectAdded)
+         (rawParms.size() <= ${attr_col_num} || !ImportInteger.isInt(parms.elementAt(${attr_col_num}))) ? Actiondialect_c.oal : Integer.parseInt((String)parms.elementAt(${attr_col_num}))\
+        .assign special_case = true
+      .end if
+     .end if
+     .// end of Dialect attribute introduced change
       .if (special_case == false)
         .if ( col.type == "boolean" )
            ((String)parms.elementAt(${attr_col_num})).equals( "false" ) ? false : true\
@@ -326,8 +326,8 @@
           .else
            removeTics((String)parms.elementAt(${attr_col_num}))\
           .end if
-		.elif ( col.Name == "expiration" )
-		  Long.parseLong((String)parms.elementAt(${attr_col_num}))\
+      .elif ( col.Name == "expiration" )
+        Long.parseLong((String)parms.elementAt(${attr_col_num}))\
         .else
            null\
         .end if
@@ -475,7 +475,7 @@ public class ${class_name} extends CoreImport
      */
     private final static String bp7_1_4VersionNumber = "7.1.4";
 
-	private final static String bp7_1_5VersionNumber = "7.1.5";
+   private final static String bp7_1_5VersionNumber = "7.1.5";
     /**
      * The current persistence version
      */
@@ -553,7 +553,7 @@ public class ${class_name} extends CoreImport
      */
     public void run(IProgressMonitor pm) {
     .if (callingProject == "NBP")
-    	helper.eesToUpgradeForIsRealized.clear();
+      helper.eesToUpgradeForIsRealized.clear();
     .end if
         m_success = doLoadSql(pm);
         .if(not setComponent)
@@ -719,7 +719,7 @@ public class ${class_name} extends CoreImport
     }
 
     public void processAction( String smasl, int dialect, int startLine, UUID uuid, UUID uuid2 ) {
-	.if (class_name == "ImportModelComponent")
+   .if (class_name == "ImportModelComponent")
         if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
@@ -849,7 +849,7 @@ public class ${class_name} extends CoreImport
             if (modelRoot.getId().equals(Ooaofooa.DEFAULT_WORKING_MODELSPACE) &&
                             m_component.getRootModelElement() instanceof SystemModel_c) {
                     SystemModel_c system = (SystemModel_c) m_component.getRootModelElement();
-					// We always set them up, even if we don't use them
+               // We always set them up, even if we don't use them
                     helper.setUpGlobals(system);
             }
 
@@ -861,8 +861,8 @@ public class ${class_name} extends CoreImport
               Ooaofooa mr = Ooaofooa.getDefaultInstance();
               Ooaofgraphics gmr = Ooaofgraphics.getDefaultInstance();
               try {
-				mr.disableDeltaCollection();
-				gmr.disableDeltaCollection();
+            mr.disableDeltaCollection();
+            gmr.disableDeltaCollection();
             if(m_parseGraphics){
                 ModelRoot graphicsModelRoot = getGraphicsModelRoot();
 
@@ -874,24 +874,25 @@ public class ${class_name} extends CoreImport
                 helper.importPreBP7_1Connectors();
                 helper.importPreBP7_1_1ConnectorTexts();
                 helper.createShapeSubtypes(getGraphicsModelRoot());
-				helper.upgradeGraphicalAnchors(loadedGraphicsInstances);
-				helper.configureMessages(loadedGraphicsInstances);
+                helper.upgradeConnectorEnds(loadedGraphicsInstances);
+                helper.upgradeGraphicalAnchors(loadedGraphicsInstances);
+                helper.configureMessages(loadedGraphicsInstances);
             }
             loadedInstances.addAll(helper.upgradeTransitions(loadedInstances));
             helper.upgradeEventData(getModelRoot(), loadedInstances);
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
-            	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
+                helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
             helper.upgradeDSAs(getModelRoot());
             helper.upgradeElementOrder(loadedInstances);
-			loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
-			helper.fixSatisfactionAssociations(loadedInstances);
-			helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
+            loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
+            helper.fixSatisfactionAssociations(loadedInstances);
+            helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
             loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
-			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
-			helper.removeSupertypePackageableElement(loadedInstances);
-			helper.addPortReferenceInstances(loadedInstances);
-			helper.upgradeEEsForIsRealized();
+            loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
+            helper.removeSupertypePackageableElement(loadedInstances);
+            helper.addPortReferenceInstances(loadedInstances);
+            helper.upgradeEEsForIsRealized();
           }
           finally {
             mr.enableDeltaCollection();
@@ -923,9 +924,9 @@ public class ${class_name} extends CoreImport
                        getModelRoot(), model.getOoa_id(), model.getOoa_type()));
               }
               if(loadedGraphicsInstances.get(i) instanceof GraphicalElement_c) {
-					GraphicalElement_c element = (GraphicalElement_c) loadedGraphicsInstances.get(i);
-						element.setRepresents(Cl_c.Getinstancefromooa_id(
-								getModelRoot(), element.getOoa_id(), element.getOoa_type()));
+               GraphicalElement_c element = (GraphicalElement_c) loadedGraphicsInstances.get(i);
+                  element.setRepresents(Cl_c.Getinstancefromooa_id(
+                        getModelRoot(), element.getOoa_id(), element.getOoa_type()));
               }
           }
 
@@ -963,30 +964,30 @@ public class ${class_name} extends CoreImport
   .invoke result = genFinishLoadMethod(multilevel, setComponent, callingProject)
 ${result.body}\
 
-	.if (class_name == "ImportModelStream")
+   .if (class_name == "ImportModelStream")
      public boolean setIPRPreference(String projectName) {
-    	boolean preferenceIPR = false;
-    	IProject selectedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-    	if (selectedProject != null) {
-    		IScopeContext projectScope = new ProjectScope(selectedProject);
-    		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-    		preferenceIPR = Pref_c.Getsystemboolean( "com.mentor.nucleus.bp.ui.project.references" ,projectName);
-    		if (!preferenceIPR ){
-    			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-    				public void run() {
-    					IPR_WindowSelection = org.eclipse.jface.dialogs.MessageDialog.openQuestion(PlatformUI.getWorkbench().getDisplay().getActiveShell(), 
-    							"Enable Inter-Project Preference", 
-    					"One or more elements refer to another element outside of this project. Would you like to enable Inter-project referencing?");
-    				}
-    			});
-    			if (!IPR_WindowSelection){
-    				return preferenceIPR;
-    			}
-    		}
-    		projectNode.putBoolean("com.mentor.nucleus.bp.ui.project.references", true);
-    		return preferenceIPR;
-    	}
-    	return preferenceIPR;
+      boolean preferenceIPR = false;
+      IProject selectedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+      if (selectedProject != null) {
+         IScopeContext projectScope = new ProjectScope(selectedProject);
+         Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+         preferenceIPR = Pref_c.Getsystemboolean( "com.mentor.nucleus.bp.ui.project.references" ,projectName);
+         if (!preferenceIPR ){
+            PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+               public void run() {
+                  IPR_WindowSelection = org.eclipse.jface.dialogs.MessageDialog.openQuestion(PlatformUI.getWorkbench().getDisplay().getActiveShell(), 
+                        "Enable Inter-Project Preference", 
+                  "One or more elements refer to another element outside of this project. Would you like to enable Inter-project referencing?");
+               }
+            });
+            if (!IPR_WindowSelection){
+               return preferenceIPR;
+            }
+         }
+         projectNode.putBoolean("com.mentor.nucleus.bp.ui.project.references", true);
+         return preferenceIPR;
+      }
+      return preferenceIPR;
     }
     .end if
     
@@ -996,18 +997,18 @@ ${result.body}\
       .// The relationship pointers are not initialized until later.
           ModelRoot.disableChangeNotification();
       try {
-    	.if (class_name == "ImportModelStream")
-    	if (!modelRoot.isCompareRoot() && !initialCheck && table.contains("_PROXY" )){
-	    	String path = (String)parms.lastElement();
-	    	String absolutePath = PersistenceUtil.resolveRelativePath(projRelPath, 
-	    			new Path(removeTics(path))); 
-	    	String projectName = PersistenceUtil.getProjectNameFromPath(absolutePath);
-	    	String thisProjectName = projRelPath.segment(0);
-	    	if(!thisProjectName.equals(projectName)) {
-	    		this.setIPRPreference(thisProjectName);
-	    	}  
-	    	initialCheck = true;
-	    }
+      .if (class_name == "ImportModelStream")
+      if (!modelRoot.isCompareRoot() && !initialCheck && table.contains("_PROXY" )){
+         String path = (String)parms.lastElement();
+         String absolutePath = PersistenceUtil.resolveRelativePath(projRelPath, 
+               new Path(removeTics(path))); 
+         String projectName = PersistenceUtil.getProjectNameFromPath(absolutePath);
+         String thisProjectName = projRelPath.segment(0);
+         if(!thisProjectName.equals(projectName)) {
+            this.setIPRPreference(thisProjectName);
+         }  
+         initialCheck = true;
+       }
         .end if
       .invoke result = genCreationMethodCalls()
 ${result.body}\
