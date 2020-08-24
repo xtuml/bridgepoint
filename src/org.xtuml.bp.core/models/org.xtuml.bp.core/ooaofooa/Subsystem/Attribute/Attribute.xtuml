@@ -582,7 +582,7 @@ INSERT INTO O_TFR
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'removeFromIdentifier',
 	'',
-	"ba5eda7a-def5-0000-0000-000000000004",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any oida related by self->O_OIDA[R105]
     where selected.Oid_ID == param.oid;
@@ -593,13 +593,14 @@ if ( cardinality id_attr_set == 1 )
   // being referenced
   select any rtida related by oida->O_RTIDA[R110];
   if ( not_empty rtida )
-    return "Operation not allowed.  Cannot remove the last attribute from an identifying attribute used to formalize an association.";
+	  USER::warning( msg: "Operation not allowed.  Cannot remove the last attribute from an identifying attribute used to formalize an association." );
+	  return false;
   end if;
 end if;
 
 oida.dispose();
 
-return "";
+return true;
 ',
 	1,
 	'',
