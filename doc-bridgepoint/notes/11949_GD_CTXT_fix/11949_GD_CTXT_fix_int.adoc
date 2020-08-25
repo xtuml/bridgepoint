@@ -1,0 +1,87 @@
+=  Fix GD_CTXT End Usage in Older Models Implementation Note
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the implementation of <<dr-3>>.
+
+== 2 Introduction and Background
+
+Initial investigation resulted in the view that only __Association__ and
+__Activity Node__ instances were affected, but in testing the implementation,
+__Message__ and __Timing Mark__ instances were also found to be affected.
+
+After review, a solution involving only ooaofgraphics instances was considered a
+better fit. This means all Connector_c instances are checked during import
+model.
+
+== 3 Requirements
+
+This section is only required if there is no preceding design note.
+
+== 4 Work Required
+
+A __checkIntegrity__ method was added to the __Connector__ class. This method 
+checks for a legal triplet of __end__ attribute values, when the __Connector__ 
+instance is associated with three __Floating Text__ instances.
+
+For the case where the __Connector__ instance is associated with only one
+__Floating Text__ instance, only an __end__ atribute value of __Floating__ is
+allowed.
+
+=== 4.1 Built-in
+
+The above changes allowed the built-in model import mechanism to run the fix.
+
+=== 4.2 Automated detection
+
+The __Connector::checkIntegrity__ method is run when a model is loaded in
+BridgePoint, so the aforementioned changes result in a fixed model 
+automatically.
+
+=== 4.3 Non-invasive
+
+The fix gets applied without the user having to initiate the fix, and it doesn't
+get persisted unless explicitly requested by the user calling Load and Persist
+or making changes to the model.
+
+== 5 Implementation Comments
+
+Analysis of __End__ enumerator uses shows that the case of three instances of
+__Floating Text__ associated with a __Connector__ instance only uses the values
+of __::Start__, __::End__, and __::Middle__. 
+
+Uses of __::End_Fixed__ and __::Start_Fixed__ are only used with fixed text. 
+Uses of __::Additional__ are confined to shapes, and uses of __::None__ don't 
+concern __Floating Text__. This means that the single __Connector__ instance 
+associated with a single __Floating Text__ instance requires the __end__ 
+attribute to have a value of __End::Floating__.
+
+== 6 Unit Test
+
+There are no unit tests associated with this issue.
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  11949-association-phrases
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11949[11949 - Verb phrases missing on all associations]
+. [[dr-2]] link:11949_GD_CTXT_fix_ant.adoc[Fix GD_CTXT End Usage in Older Models Analysis Note]
+. [[dr-3]] link:11949_GD_CTXT_fix_dnt.adoc[Fix GD_CTXT End Usage in Older Models Design Note]
+
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

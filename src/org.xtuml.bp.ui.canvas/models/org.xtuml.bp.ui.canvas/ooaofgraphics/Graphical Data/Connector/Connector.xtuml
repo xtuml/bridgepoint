@@ -2407,6 +2407,46 @@ INSERT INTO O_TFR
 	'',
 	"2ad4b204-8b67-40c8-a138-33952454ceb1",
 	0);
+INSERT INTO O_TFR
+	VALUES ("89edef3c-269e-4f1f-a716-c5242b1905bc",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'checkIntegrity',
+	'Checks for known issues in formerly persisted model data.',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Check for floating text with bad end values
+// Issue #11949 - Change to enumeration handling affected End types persisted 
+// in model data. Triplet values of 1,2,3 changed to 0,1,2.
+//                Single value of 7 changed to 6.
+needs_correction = false;
+select many ctxts related by self->GD_CTXT[R8];
+if (3 == cardinality ctxts)
+  for each ctxt in ctxts
+    if ((ctxt.end != End::End) and (ctxt.end != End::Middle) and (ctxt.end != End::Start))
+      needs_correction = true;
+    end if;
+  end for;
+  if (needs_correction)
+    for each ctxt in ctxts
+      if (ctxt.end == End::End)
+        ctxt.end = End::Start;
+      elif (ctxt.end == End::Middle)
+        ctxt.end = End::End;
+      else
+        ctxt.end = End::Middle;
+      end if;
+    end for;
+  end if;
+elif (1 == cardinality ctxts)
+  select any ctxt related by self->GD_CTXT[R8];
+  if (ctxt.end != End::Floating)
+    ctxt.end = End::Floating;
+  end if;
+end if;',
+	1,
+	'',
+	"0a6cc2f5-63f1-4764-a0a6-82175f7f2426",
+	0);
 INSERT INTO O_REF
 	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
 	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
