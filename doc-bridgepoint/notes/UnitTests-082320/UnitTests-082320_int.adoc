@@ -66,7 +66,13 @@ result of the call, removing the need for the extra block.  This allowed
 the code to be generated as expected.
 
 == 5 Implementation Comments
+5.1
 
+The approach described in 4.3 caused many issues with testing.  The
+reason for this is that you cannot return values in cme's.  In such a
+case the infrastructure will generate code that does not end the
+transaction.  This left an unusable transaction manager for all tests
+run after the first one that attempted removal from an identifier.
 
 == 6 Unit Test
 
