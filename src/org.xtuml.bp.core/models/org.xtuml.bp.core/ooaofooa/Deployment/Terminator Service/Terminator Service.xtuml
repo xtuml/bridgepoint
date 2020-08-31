@@ -1208,7 +1208,8 @@ INSERT INTO O_ATTR
 	"04ce6ea5-f98b-4779-91c0-2417b128e576",
 	"b50dda75-baa2-47d4-bd25-26810b438fff",
 	'Numb',
-	'',
+	'Full Name:  Operation Number
+Description: numeric key to distinguish the service to action language',
 	'',
 	'Numb',
 	0,

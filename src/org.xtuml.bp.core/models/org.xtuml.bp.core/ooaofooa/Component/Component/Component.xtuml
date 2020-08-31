@@ -3740,7 +3740,8 @@ INSERT INTO O_ATTR
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	"0393f31c-d40d-42f0-9b42-e558cd07da73",
 	'Key_Lett',
-	'',
+	'Full Name: Alternate Name
+Description: Key letters or alternate label',
 	'',
 	'Key_Lett',
 	0,
