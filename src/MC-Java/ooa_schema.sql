@@ -514,7 +514,8 @@ CREATE TABLE C_PO (
     Component_Id UNIQUE_ID,
     Name STRING,
     Mult INTEGER,
-    DoNotShowPortOnCanvas BOOLEAN
+    DoNotShowPortOnCanvas BOOLEAN,
+    Key_Lett STRING
 );
 CREATE TABLE C_PP (
     PP_Id UNIQUE_ID,
@@ -1346,7 +1347,8 @@ CREATE TABLE SPR_RO (
     Descrip STRING,
     Action_Semantics STRING,
     Suc_Pars INTEGER,
-    Dialect INTEGER
+    Dialect INTEGER,
+    Numb INTEGER
 );
 CREATE TABLE SPR_RS (
     Id UNIQUE_ID,
