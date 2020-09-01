@@ -324,7 +324,7 @@
           .if (col.Name == "Name")
            removeTics((String)parms.elementAt(${attr_col_num})).trim()\
           .else
-           ((rawParms.size() <= ${attr_col_num}) ? "" : removeTics((String)parms.elementAt(${attr_col_num}))\
+           (rawParms.size() <= ${attr_col_num}) ? "" : removeTics((String)parms.elementAt(${attr_col_num}))\
           .end if
       .elif ( col.Name == "expiration" )
         Long.parseLong((String)parms.elementAt(${attr_col_num}))\
