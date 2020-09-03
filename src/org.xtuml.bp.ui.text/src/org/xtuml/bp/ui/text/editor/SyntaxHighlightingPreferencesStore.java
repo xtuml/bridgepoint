@@ -35,7 +35,6 @@ import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModelStore;
 import org.xtuml.bp.ui.text.OALEditorConstants;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences.TokenTypeInfo;
-import org.xtuml.bp.ui.text.editor.oal.OALTokenTypes;
 
 /**
  * @author babar
@@ -140,31 +139,31 @@ public class SyntaxHighlightingPreferencesStore implements IPreferenceModelStore
         prefs.setBackgroundRGB(OALEditorConstants.DEFAULT_BACKGROUND, OALEditorConstants.DEFAULT_BACKGROUND_ISSYSTEMDEFAULT);
 
         prefs.setTextAttribute(
-            OALTokenTypes.TOKEN_TYPE_single_line_comment,
+            ActionLanguageTokenTypes.TOKEN_TYPE_single_line_comment,
             OALEditorConstants.DEFAULT_LABEL_SINGLE_LINE_COMMENT,
             OALEditorConstants.DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT,
             null,
             OALEditorConstants.DEFAULT_STYLE_SINGLE_LINE_COMMENT);
         prefs.setTextAttribute(
-            OALTokenTypes.TOKEN_TYPE_multi_line_comment,
+            ActionLanguageTokenTypes.TOKEN_TYPE_multi_line_comment,
             OALEditorConstants.DEFAULT_LABEL_MULTI_LINE_COMMENT,
             OALEditorConstants.DEFAULT_FOREGROUND_MULTI_LINE_COMMENT,
             null,
             OALEditorConstants.DEFAULT_STYLE_MULTI_LINE_COMMENT);
         prefs.setTextAttribute(
-            OALTokenTypes.TOKEN_TYPE_string,
+            ActionLanguageTokenTypes.TOKEN_TYPE_string,
             OALEditorConstants.DEFAULT_LABEL_STRING,
             OALEditorConstants.DEFAULT_FOREGROUND_STRING,
             null,
             OALEditorConstants.DEFAULT_STYLE_STRING);
         prefs.setTextAttribute(
-            OALTokenTypes.TOKEN_TYPE_keyword,
+            ActionLanguageTokenTypes.TOKEN_TYPE_keyword,
             OALEditorConstants.DEFAULT_LABEL_KEYWORD,
             OALEditorConstants.DEFAULT_FOREGROUND_KEYWORD,
             null,
             OALEditorConstants.DEFAULT_STYLE_KEYWORD);
         prefs.setTextAttribute(
-            OALTokenTypes.TOKEN_TYPE_other,
+            ActionLanguageTokenTypes.TOKEN_TYPE_other,
             OALEditorConstants.DEFAULT_LABEL_OTHER,
             OALEditorConstants.DEFAULT_FOREGROUND_OTHER,
             null,

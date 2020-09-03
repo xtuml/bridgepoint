@@ -10,19 +10,17 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.progress.UIJob;
-
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.MealyActionHome_c;
@@ -46,10 +44,10 @@ import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 import org.xtuml.bp.ui.text.annotation.ActivityProblemAnnotation;
 import org.xtuml.bp.ui.text.description.DescriptionAnnotationModel;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
+import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
 import org.xtuml.bp.ui.text.typedefinition.TypeDefinitionEditorInput;
-import org.xtuml.bp.ui.text.editor.oal.OALDocumentProvider;
 
-public class DocumentProvider extends OALDocumentProvider
+public class DocumentProvider extends ActionLanguageDocumentProvider
 {
   List elementRenameListeners = new ArrayList();
   public DocumentProvider()
@@ -201,8 +199,6 @@ public class DocumentProvider extends OALDocumentProvider
 	}
 	
 	protected ElementInfo createElementInfo(Object element) throws CoreException {
-		//ElementInfo info 
-		
 		if (element instanceof AbstractModelElementPropertyEditorInput) {
 			
 			AbstractModelElementPropertyEditorInput input= (AbstractModelElementPropertyEditorInput) element;

@@ -44,6 +44,7 @@ public class ActionLanguagePreferences
     private Group defaultDialectGroup;
     private Button defaultDialectOALRadio;
     private Button defaultDialectMASLRadio;
+    private Button defaultDialectASLRadio;
     private Group allowPromotionGroup;
     private Button allowPromotionYesRadio;
     private Button allowPromotionNoRadio;
@@ -95,6 +96,9 @@ public class ActionLanguagePreferences
 
     defaultDialectMASLRadio = new Button(defaultDialectGroup, SWT.RADIO | SWT.LEFT);
     defaultDialectMASLRadio.setText("MASL");
+
+    defaultDialectASLRadio = new Button(defaultDialectGroup, SWT.RADIO | SWT.LEFT);
+    defaultDialectASLRadio.setText("ASL");
 
     // Create the "Allow promotion?" group box and set its layout
     allowPromotionGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
@@ -239,6 +243,9 @@ public class ActionLanguagePreferences
       else if ( defaultDialectMASLRadio.getSelection()) {
           bpPrefs.defaultActionLanguageDialect = Actiondialect_c.masl;
       }
+      else if ( defaultDialectASLRadio.getSelection()) {
+          bpPrefs.defaultActionLanguageDialect = Actiondialect_c.asl;
+      }
       else {
           bpPrefs.defaultActionLanguageDialect = Actiondialect_c.oal;
       }
@@ -318,14 +325,22 @@ public class ActionLanguagePreferences
       if (bpPrefs.defaultActionLanguageDialect == Actiondialect_c.oal) {
           defaultDialectOALRadio.setSelection(true);
           defaultDialectMASLRadio.setSelection(false);
+          defaultDialectASLRadio.setSelection(false);
       }
       else if (bpPrefs.defaultActionLanguageDialect == Actiondialect_c.masl) {
           defaultDialectOALRadio.setSelection(false);
           defaultDialectMASLRadio.setSelection(true);
+          defaultDialectASLRadio.setSelection(false);
+      }
+      else if (bpPrefs.defaultActionLanguageDialect == Actiondialect_c.asl) {
+          defaultDialectOALRadio.setSelection(false);
+          defaultDialectMASLRadio.setSelection(false);
+          defaultDialectASLRadio.setSelection(true);
       }
       else {
           defaultDialectOALRadio.setSelection(true);
           defaultDialectMASLRadio.setSelection(false);
+          defaultDialectASLRadio.setSelection(false);
       }
       
       if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.ALWAYS)) {
