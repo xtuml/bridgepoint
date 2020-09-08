@@ -461,7 +461,7 @@ Ciera <a id="ciera"></a>
   ```
    -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y
   ```
-  * This will will have the application wait for your remote debugger to attach
+  * This will have the application wait for your remote debugger to attach
   * Open the development version of xtUML
   * Import your project into the workspace
   * Open the Debug Perspective
