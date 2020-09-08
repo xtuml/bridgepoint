@@ -480,7 +480,7 @@ Ciera <a id="ciera"></a>
   * Click Apply
   * Close the Debug Configurations dialog
 
-  * Set a breakpoint in Eclipse in this file inside of the main method:
+  * In Bridgepoint, set a breakpoint for the application in the main method:
   ```
   {project}/target/generated-sources/java/{project}/{project}Application.java
   ```
@@ -488,7 +488,7 @@ Ciera <a id="ciera"></a>
   ```
   java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y {project}.{Project}Application
   ```
-  * In Eclipse choose Run > Debug Configurations... > Remote Java Application > {DebugConfigName}
+  * In Bridgepoint choose Run > Debug Configurations... > Remote Java Application > {DebugConfigName}
   * Click Debug
   * The breakpoint is hit
 
