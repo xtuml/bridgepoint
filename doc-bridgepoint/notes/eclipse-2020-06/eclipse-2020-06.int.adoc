@@ -241,6 +241,8 @@ org.xtuml.bp.MinGW.parent/pom.xml
 
 ----
 buildmt/buildmt/setup.sh
+buildmt/buildmt/jenkins-home/jobs/bridgepoint/
+    config.xml
 buildmt/buildmt/jenkins-home/jobs/
     Build-BridgePoint/config.xml
 buildmt/buildmt/jenkins-home/jobs/build-mc/
