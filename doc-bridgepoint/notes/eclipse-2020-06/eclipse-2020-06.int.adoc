@@ -1,0 +1,257 @@
+= Upgrade to Eclipse 2020-06, move to JDK 11
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the changes reuired to move Bridgepoint tooling to eclipse version 2020-06.  This version fully supports JDKs up to version 14.
+
+== 2 Introduction and Background
+
+Bridgepoint tooling is currently based on the Eclipse Oxygen release.  This release is over 3 years old at this point.  The later releases havee been working on better performance and UI/UX.  Bridgepoint also remains on the JDK 1.8 version which is over 6 years old.  The Eclipse 2020-06 version fully supports up to the JDK 14 version.
+
+== 3 Requirements
+
+3.1 Update to Eclipse 2020-06
+
+The Bridgepoint tooling will be developed in and for the Eclipse 2020-06 version.
+
+3.2 JDK upgrade
+
+The JDK should be updated to the latest supported version.  JDK 11 is the last release to offer full support from Oracle.  Additionally, xtext which is used  for some of the acttion language support plugins supports up to JDK 11 but not further.  JDK 11 is chosen for the upgrade.
+
+== 4 Work Required
+
+4.1 Update maven configurations and product configurations for Eclipse 2020-06
+
+In org.xtuml.bp.releng.parent/pom.xml change the eclipse version definitions to 2020-06 from oxygen.  Also in the same file change the CDT version to 9.11 to match the Eclipse release.
+
+Update the bridgepoint products, modeler and dev, to point at the eclipse 2020-06 update site.
+
+4.2 Update maven configurations to reference new tycho version
+
+To upgrade tycho along with the new eclipse version we must modify all pom files that specify a tycho version property to point at tycho version 1.3.0.
+
+4.3 Update xtext project poms
+
+The xtext projects need to have the xtext version property updated to 2.22.  Xtext version 1.17 introduced support for JDK 11, but moving to the latest to match that of the eclipse version is desirable.  Xtext is at  version 2.23, but maven could not satisfy all dependencies with that version.  Version 2.22 was chosen.
+
+Upgrading xtext required changing some xtend definitions.  These were updated to fully match the overidden methods, which had their visibility changed.  Additionally the requirement of using the override modifier was added.  In these cases the xtend methods were updated accordingly.
+
+The upgrade changed lines of generated code which causes a large change set that was not directly modified.  The xtext projects have a lot of work required to properly set up git ignores, but is not done as part of this work.
+
+4.4 org.eclipse.equinox.ds
+
+This plugin was not a direct requirement of Bridgepoint, but non the less needed to build and deploy.  In the later Eclipse releases this requirement has changed to org.apache.felix.scr.  More details can be found https://bugs.eclipse.org/bugs/show_bug.cgi?id=539655[here].
+
+4.5 org.eclipse.ui.help.WorkbenchHelp deprecation
+
+The concrete WorkbenchHelp class as been removed in favor of an interface based help system tied to the PlatformUI.  In Session View the call to set the help is changed to usee the new PlatformUI based approach.
+
+4.6 Tests
+
+Only two tests required updating.  One was the tiger nature tests.  The specific test creates a new project using a non-default location.  Eclipse now adds text to specify where the project was created.  The expected result is updated accordingly.
+
+The other test was simply adding required interface methods for the latest API.  These where in the debug.ui.test suites.
+
+4.7 Build server
+
+The build server setup script is updated to ensure java 11 is used rather than java 8.  Additionally, the server installation script is modified to install java 11 for newly seetup build servers.
+
+The jenkins jobs is modified to allow specifying a fork and branch for the packaging repository.  This allowed for this issue the correct tycho version to be specified for building.
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+. Run all existing tests
+. All tests pass
+. Run smoke tests from https://support.onefact.net/issues/10034[Issue 10034]
+. All tests pass
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bridgepoint
+- branch:  eclipse-2020-06
+
+----
+doc-bridgepoint/notes/eclipse-2020-06/
+    eclipse-2020-06.int.adoc
+
+org.xtuml.bp.core/src/org/xtuml/bp/core/util/
+    BridgePointDemoEncryptor.java
+
+org.xtuml.bp.mctools.parent/pom.xml
+
+org.xtuml.bp.releng.parent/pom.xml
+
+org.xtuml.bp.releng.parent.product/
+    bridgepoint.product
+org.xtuml.bp.releng.parent.product/p2.inf
+
+org.xtuml.bp.releng.parent.product-dev/
+    bridgepoint-dev.product
+org.xtuml.bp.releng.parent.product-dev/p2.inf
+
+org.xtuml.bp.ui.explorer/arc/
+    create_mon_explorer_view.inc
+
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/pom.xml
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/META-INF/MANIFEST.MF
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src/org/xtuml/bp/xtext/masl/validation/
+    MaslIssueCodesProvider.xtend
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/
+    AbstractMASLRuntimeModule.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/
+    MASLStandaloneSetupGenerated.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/
+    MASLAntlrTokenFileProvider.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/
+    MASLParser.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/
+    internal/DebugInternalMASL.g
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/
+    internal/InternalMASLParser.g
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/
+    internal/InternalMASLParser.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/lexer/
+    InternalMASLLexer.g
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/lexer/
+    jflex/JFlexBasedInternalMASLLexer.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/lexer/
+    jflex/MASLFlexer.flex
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/parser/antlr/lexer/
+    jflex/MASLFlexer.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/scoping/
+    AbstractMASLScopeProvider.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/serializer/
+    MASLSemanticSequencer.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/serializer/
+    MASLSyntacticSequencer.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/services/
+    MASLGrammarAccess.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl/src-gen/org/xtuml/bp/xtext/masl/validation/
+    AbstractMASLValidator.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/META-INF/MANIFEST.MF
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src/org/xtuml/bp/xtext/masl/ide/
+    MASLIdeModule.xtend
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src/org/xtuml/bp/xtext/masl/ide/
+    MASLIdeSetup.xtend
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/META-INF/services/
+    org.eclipse.xtext.ISetup
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/org/xtuml/bp/xtext/masl/ide/
+    AbstractMASLIdeModule.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/org/xtuml/bp/xtext/masl/ide/
+    contentassist/antlr/MASLParser.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/org/xtuml/bp/xtext/masl/ide/
+    contentassist/antlr/PartialMASLContentAssistParser.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/org/xtuml/bp/xtext/masl/ide/
+    contentassist/antlr/internal/InternalMASLParser.g
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/org/xtuml/bp/xtext/masl/ide/
+    contentassist/antlr/lexer/InternalMASLLexer.g
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ide/src-gen/org/xtuml/bp/xtext/masl/ide/
+    contentassist/antlr/lexer/jflex/JFlexBasedInternalMASLLexer.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.tests/META-INF/MANIFEST.MF
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.tests/src-gen/org/xtuml/bp/xtext/masl/tests/
+    MASLInjectorProvider.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/plugin.xml_gen
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/META-INF/MANIFEST.MF
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/src/org/xtuml/bp/xtext/masl/ui/validation/
+    MaslValidationConfigurationBlock.xtend
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/src-gen/org/xtuml/bp/xtext/masl/ui/
+    AbstractMASLUiModule.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/src-gen/org/xtuml/bp/xtext/masl/ui/
+    MASLExecutableExtensionFactory.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/src-gen/org/xtuml/bp/xtext/masl/ui/
+    contentassist/AbstractMASLProposalProvider.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui/src-gen/org/xtuml/bp/xtext/masl/ui/internal/
+    MaslActivator.java
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui.tests/META-INF/MANIFEST.MF
+org.xtuml.bp.xtext.masl.parent/
+    org.xtuml.bp.xtext.masl.ui.tests/src-gen/org/xtuml/bp/xtext/masl/ui/tests/
+    MASLUiInjectorProvider.java
+org.xtuml.bp.xtext.masl.parent/pom.xml
+----
+
+- fork/repository:  travislondon/bptest
+- branch:  eclipse-2020-06
+
+----
+org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/
+    TigerNatureTestGenerics.java
+
+org.xtuml.bp.debug.ui.test/src/org/xtuml/bp/debug/
+    test/BPTestLaunchConfiguration.java
+org.xtuml.bp.debug.ui.test/src/org/xtuml/bp/debug/
+    test/BPTestLaunchConfigurationType.java
+----
+
+- fork/repository:  travislondon/packaging
+- branch:  eclipse-2020-06
+
+----
+org.xtuml.bp.docgen.parent/pom.xml
+
+org.xtuml.bp.MinGW.parent/pom.xml
+----
+
+- fork/repository:  travislondon/buildmt
+- branch:  eclipse-2020-06
+
+----
+buildmt/buildmt/setup.sh
+buildmt/buildmt/jenkins-home/jobs/
+    Build-BridgePoint/config.xml
+buildmt/buildmt/jenkins-home/jobs/build-mc/
+    config.xml
+buildmt/install-build-server.sh
+----
+
+== 9 Document References
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
