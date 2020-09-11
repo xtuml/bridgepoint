@@ -30,6 +30,8 @@
     * [Command Line Build Instructions](#clibuild)
     * [How do BridgePoint Context Menu Entries (CMEs) work?](#bp_cme)
     * [How to generate code for a specific class without waiting for a full build](#fast_build1)
+  * [Ciera](#ciera)
+    * [Setting up a remote debug session in Bridgepoint](#ciera_bridgepoint_remote_debugging)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -450,6 +452,41 @@ Verifier <a id="verifier"></a>
   
   If you are still having trouble, check out [this thread on the xtuml.org forums](https://xtuml.org/community/topic/what-does-nothing-to-verify-mean/) and ask for help there.
 
+Ciera <a id="ciera"></a>
+------------
+
+* **Setting up a remote debug session in Bridgepoint**  <a id="ciera_bridgepoint_remote_debugging"></a>  
+  * Build your project as described by the <a href="https://xtuml.github.io/cieradoc/userguide/en_US/CieraUserGuide.pdf">Ciera documentation</a>
+  * Open Bridgepoint
+  * Import your project into the workspace
+  * Open the Debug Perspective
+  * Open Debug Configurations at Debug > Debug Configurations...
+  * Select Remote Java Application in the left tree
+  * Press the New Button at the top left of the tree, or right click and select New
+  * Enter a name for the debug configuration
+  * Select the Source tab
+  * Click the Add... button
+  * Choose Workspace Folder
+  * Navigate to this folder and select:
+   ```
+   {project}/target/generate-sources/java
+   ```
+  * Click OK
+  * Click Apply
+  * Close the Debug Configurations dialog
+
+  * In Bridgepoint, set a breakpoint for the application in the main method:
+  ```
+  {project}/target/generated-sources/java/{project}/{project}Application.java
+  ```
+  * Run the application in a terminal:
+  ```
+  java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y {project}.{Project}Application
+  ```
+  * This will have the application wait for your remote debugger to attach
+  * In Bridgepoint choose Debug > Debug Configurations... > Remote Java Application > {DebugConfigName}
+  * Click Debug
+  * The breakpoint is hit
 
 Model Translation / Model Compilers <a id="mcs"></a>
 ------------
