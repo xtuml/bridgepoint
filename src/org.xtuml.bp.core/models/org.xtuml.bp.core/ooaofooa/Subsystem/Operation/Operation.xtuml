@@ -44,6 +44,13 @@ if (not_empty body)
   body.dispose();
 end if;
 //
+// Deferral
+select one deferral related by self->O_DEF[R126];
+if(not_empty deferral)
+  select one association related by deferral->R_REL[R126];
+  unrelate self from association across R126 using deferral;
+  delete object instance deferral;
+end if;
 // Invocation Subsystem
 select many invs related by self->ACT_TFM[R673];
 for each inv in invs

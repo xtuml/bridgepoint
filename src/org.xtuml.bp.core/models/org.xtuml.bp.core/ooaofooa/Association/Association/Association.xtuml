@@ -305,6 +305,12 @@ for each uru in urus
   unrelate self from uru across R656;
 end for;
 //
+// Deferrals
+select many deferrals related by self->O_DEF[R126];
+for each deferral in deferrals
+  select one operation related by deferral->O_TFR[R126];
+  operation.makeLocal();
+end for;
 // Selection subsystem
 select many lnks related by self->ACT_LNK[R681];
 for each lnk in lnks

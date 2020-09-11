@@ -2846,11 +2846,7 @@ select any attr from instances of O_ATTR
 select any Identifier related by attr->O_ID[R105]
     where USER::selectOneWithInt(id:selected.Oid_ID);
 if ( not_empty Identifier )
-  result = attr.removeFromIdentifier( oid: Identifier.Oid_ID );
-  if ( result != "" )
-    USER::warning( msg: result );
-    return false;
-  end if;
+   attr.removeFromIdentifier( oid: Identifier.Oid_ID );
 end if;
 ',
 	"ba5eda7a-def5-0000-0000-000000000001",

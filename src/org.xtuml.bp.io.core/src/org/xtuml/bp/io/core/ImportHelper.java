@@ -2664,4 +2664,17 @@ public class ImportHelper
 		}
 
 	}
+
+  public void upgradeConnectorEnds(List<NonRootModelElement> loadedGraphicalInstances) {
+    for(NonRootModelElement graphicalElement : loadedGraphicalInstances) {
+      // use the Connector_c instances as a starting point
+      if(graphicalElement instanceof Connector_c) {
+        // if this connector is considered a graphical anchor
+        // host, then check to make sure it has no target (must be
+        // white space
+        Connector_c connector = (Connector_c) graphicalElement;
+        connector.Checkintegrity();
+      }
+    }
+  }
 }

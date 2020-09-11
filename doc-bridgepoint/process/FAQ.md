@@ -21,6 +21,7 @@
     * [Installing xsltproc](#xsltproc)
   * [BridgePoint Developer Issues](#bpdevelopers)
     * [ANTLR Build Error](#antlrbuilderror)
+    * [Maven Build Error](#mavenbuilderror)
     * [Linux Distribution-Specific Instructions](#linux)
     * [Windows Unit Test Configuration](#windowstesting)
     * [How do I run BridgePoint Unit Tests?](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-run-bridgepoint-unit-tests.md)
@@ -29,6 +30,8 @@
     * [Command Line Build Instructions](#clibuild)
     * [How do BridgePoint Context Menu Entries (CMEs) work?](#bp_cme)
     * [How to generate code for a specific class without waiting for a full build](#fast_build1)
+  * [Ciera](#ciera)
+    * [Setting up a remote debug session in Bridgepoint](#ciera_bridgepoint_remote_debugging)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -199,6 +202,20 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   This problem is that ANTLR is not running when it should in some cases. This is a sporadic dependency 
   issue that has not yet been completely resolved.  It is raised in the issue tracking system as 
   issue [7631](https://support.onefact.net/redmine/issues/7631).
+
+* **Maven Build Error** <a id="mavenbuilderror"></a>
+  After following the [Developer's Getting Started Guide](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/Developer%20Getting%20Started%20Guide.md) 
+  if you see errors in plugins caused by missing dependent files, and those files refer to org.eclipse.core.runtime, follow   these instructions to resolve the issue:
+  
+  - Check the version of Apache Maven using ```mvn -version```
+  - If the version is newer than 3.6.0, then proceed with this solution.
+  - Install Apache Maven 3.6.0 as detailed on the [Maven](https://maven.apache.org/install.html) website.
+  - If you are using Ubuntu or other Linux that supports alternatives, you can try the following:
+      - Download the .tar.gz and extract into /usr/share/maven
+      - Run the following command:  
+        ```$ sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/maven/apache-maven-3.6.0/bin/mvn 360```
+      - Switch maven version using:  
+        ```$ sudo update-alternatives --config mvn```
   
 * **Linux Distribution-Specific Instructions** <a id="linux"></a>
   * Package Requirements for Various Linux Distributions  
@@ -435,6 +452,41 @@ Verifier <a id="verifier"></a>
   
   If you are still having trouble, check out [this thread on the xtuml.org forums](https://xtuml.org/community/topic/what-does-nothing-to-verify-mean/) and ask for help there.
 
+Ciera <a id="ciera"></a>
+------------
+
+* **Setting up a remote debug session in Bridgepoint**  <a id="ciera_bridgepoint_remote_debugging"></a>  
+  * Build your project as described by the <a href="https://xtuml.github.io/cieradoc/userguide/en_US/CieraUserGuide.pdf">Ciera documentation</a>
+  * Open Bridgepoint
+  * Import your project into the workspace
+  * Open the Debug Perspective
+  * Open Debug Configurations at Debug > Debug Configurations...
+  * Select Remote Java Application in the left tree
+  * Press the New Button at the top left of the tree, or right click and select New
+  * Enter a name for the debug configuration
+  * Select the Source tab
+  * Click the Add... button
+  * Choose Workspace Folder
+  * Navigate to this folder and select:
+   ```
+   {project}/target/generate-sources/java
+   ```
+  * Click OK
+  * Click Apply
+  * Close the Debug Configurations dialog
+
+  * In Bridgepoint, set a breakpoint for the application in the main method:
+  ```
+  {project}/target/generated-sources/java/{project}/{project}Application.java
+  ```
+  * Run the application in a terminal:
+  ```
+  java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y {project}.{Project}Application
+  ```
+  * This will have the application wait for your remote debugger to attach
+  * In Bridgepoint choose Debug > Debug Configurations... > Remote Java Application > {DebugConfigName}
+  * Click Debug
+  * The breakpoint is hit
 
 Model Translation / Model Compilers <a id="mcs"></a>
 ------------

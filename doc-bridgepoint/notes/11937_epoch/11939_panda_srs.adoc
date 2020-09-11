@@ -1,0 +1,116 @@
+[frame=none,grid=none]
+|===
+a| image::panda.jpg[width=50%,align=left] a| image::1f.png[align=right]
+|===
+
+= Project Panda - https://support.onefact.net/issues/11939[11939]
+
+**Software Requirements Specification**
+
+== 1 Abstract
+
+Project _Panda_ delivers two components.  The first is a state model
+enhancement to the Ciera Java model compiler.  The second is an external
+entity that facilitates manipulation of time and date within xtUML models.
+This note explains the project from a high-level requirements and project
+management point of view.
+
+== 2 Introduction and Background
+
+BridgePoint Verifier and MC-3020 support a modeling feature which allows
+actions to be defined on the transitions of state machines supporting
+Mealy style as well mixed Mealy/Moore state machines.  This feature
+is not present in Ciera (Java model compiler).  This work adds it.
+
+BridgePoint Verifier and model compilers by default manipulate time, date,
+durations and delayed events through an external entity named Time with
+key letters 'TIM'.  The TIM EE has existed and been stable for many years.
+However, it is limited.  The work done in the project addresses the
+ability to manipulate and compare date, time and duration values.
+
+== 3 Requirements
+
+All work shall be done within the open source 'xtuml' configuration
+management system (currently hosted on github.com) and licensed under the
+current licensing of the greater body of BridgePoint and xtUML artifacts
+(currently Apache 2.0 and Creative Commons CC0).  No source, models or
+documentation shall be proprietary.
+
+=== 3.1 Actions on Transitions
+
+.Actions on Transitions Requirements
+[%autowidth,options="header"]
+|===
+| ID   | Description
+| AoT1 | Actions on transitions will be translated in Java source
+         code using the Ciera model compiler.
+| AoT2 | The semantics of actions on transitions will conform to
+         those implemented in BridgePoint Verifier as the defacto
+         standard.
+| AoT3 | The Ciera user guide shall be updated to reflect this work.
+| AoT4 | A test model shall be created and published that tests the
+         capability and serves for future regression testing.
+|===
+
+=== 3.2 Time Arithmetic
+
+In the following requirements a semantic distinction is made between
+_time_ (date/time) and _duration_.  A _time_ is an instant within an
+_epoch_ (a point on a timeline) relative to the start of the epoch.
+A _duration_ is a quantity of time independent of a starting point.
+It is noted that in this design there will be no syntactic distinction;
+both _time_ and _duration_ will be core numeric types (integers).
+
+Restated, this work does not introduce a new type.  The type of epoch time
+and duration values returned from these bridges will be `integer` with a
+tacit unit of seconds.
+
+.Date, Time and Duration Arithmetic Requirements
+[%autowidth,options="header"]
+|===
+| ID  | Description
+| TA1 | A new external entity shall be supplied which manipulates time
+        relative to an epoch.
+| TA2 | A bridge operation shall be supplied through which the start of
+        an epoch can be initialized (e.g. `EPOCH::initialize(...)`).
+| TA3 | A bridge operation shall be supplied which returns the current
+        time as a numeric type expressed as a quantity of seconds since
+        the beginning of the epoch (e.g. `EPOCH::current_time() :
+        integer`).
+| TA4 | A bridge operation shall be supplied which converts numeric time
+        values into strings formatted per an input format string
+        containing some or all of year, month, day-of-month, hour, minute,
+        second (e.g. `EPOCH::format( mytime, "yyyy/MM/dd HH:mm:ss" ) :
+        string`).
+| TA5 | Comparing two numeric time or duration values shall be provided.
+        All operations corresponding to the following operators shall be
+        supported:  `<`, `>`, `<=`, `>=`, `!=`, `==`.  This will be
+        supported directly in OAL.
+| TA6 | A subtraction operation shall be supported using the native OAL
+        operator `-` with no type checking or error reporting (in the case
+        of a negative result).
+| TA7 | A means to add a duration to a time value shall be supplied
+        directly in OAL using the `+` operator.  No detection (error or
+        warning) is supplied to detect addition of multiple time values.
+| TA8 | A means to subtract a duration from a time value shall be supplied
+        directly in OAL using the `-` operator.  No detection (error or
+        warning) is supplied to detect subtraction of a time value from a
+        duration.
+| TA9 | A time-of-day operation shall be provided which returns a duration
+        since the start of the day given a time value (e.g.
+        `EPOCH::time_of_day( timeval ) : integer`).
+| TA10 | A test model shall be created and published that tests the
+         capability and serves for future regression testing.
+|===
+
+== 4 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11939[11939 - Project Panda]
+. [[dr-2]] https://support.onefact.net/issues/11936[11936 - actions on transitions for Ciera]
+. [[dr-3]] https://support.onefact.net/issues/11937[11937 - time and date arithmetic]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
