@@ -457,15 +457,10 @@ Ciera <a id="ciera"></a>
 
 * **Setting up a remote debug session in Bridgepoint**  <a id="ciera_bridgepoint_remote_debugging"></a>  
   * Build your project as described by the <a href="https://xtuml.github.io/cieradoc/userguide/en_US/CieraUserGuide.pdf">Ciera documentation</a>
-  * Run your project with the following options added:
-  ```
-   -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y
-  ```
-  * This will have the application wait for your remote debugger to attach
-  * Open the development version of xtUML
+  * Open Bridgepoint
   * Import your project into the workspace
   * Open the Debug Perspective
-  * Open Debug Configurations at Run > Debug Configurations...
+  * Open Debug Configurations at Debug > Debug Configurations...
   * Select Remote Java Application in the left tree
   * Press the New Button at the top left of the tree, or right click and select New
   * Enter a name for the debug configuration
@@ -488,7 +483,8 @@ Ciera <a id="ciera"></a>
   ```
   java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y {project}.{Project}Application
   ```
-  * In Bridgepoint choose Run > Debug Configurations... > Remote Java Application > {DebugConfigName}
+  * This will have the application wait for your remote debugger to attach
+  * In Bridgepoint choose Debug > Debug Configurations... > Remote Java Application > {DebugConfigName}
   * Click Debug
   * The breakpoint is hit
 
