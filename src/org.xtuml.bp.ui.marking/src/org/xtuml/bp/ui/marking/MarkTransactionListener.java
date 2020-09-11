@@ -4,6 +4,7 @@ import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.AttributeChangeModelDelta;
 import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ITransactionListener;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -39,7 +40,14 @@ public class MarkTransactionListener implements ITransactionListener {
             			IProject project = (IProject) ((SystemModel_c) sys_nrme).getAdapter(IProject.class);
             			if ( project != null ) {
             				MarkingData md = MarkingDataManager.getMarkingData(project);
-            				if (md.recalculatePathKeys()) {
+                        // Update a mark value change here, as recalculatePathKeys doesn't handle it.
+                        boolean valueDataUpdated = false;
+                        if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                           AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                           valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(), change.getOldValue().toString());
+                        }
+                        boolean pathDataUpdated = md.recalculatePathKeys(deltaToHandle);
+                        if (valueDataUpdated || pathDataUpdated) {
             					// If the marks were updated then persist them
             					md.persist();
             				}
