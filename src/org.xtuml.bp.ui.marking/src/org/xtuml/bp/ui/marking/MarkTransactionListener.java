@@ -14,8 +14,11 @@ import org.xtuml.bp.core.common.Transaction;
 
 public class MarkTransactionListener implements ITransactionListener {
 
-	public void transactionStarted(Transaction transaction) {
-	}
+    public void transactionStarted(Transaction transaction) {        
+    }
+    
+    public void transactionCancelled(Transaction transaction){
+    }
 
     public void transactionEnded(Transaction transaction) {
     	if (transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) { return; }
@@ -70,6 +73,6 @@ public class MarkTransactionListener implements ITransactionListener {
 			}
 		}
 		return false;
-	}
-
+    }
+    
 }
