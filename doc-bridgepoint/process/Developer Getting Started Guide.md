@@ -156,4 +156,5 @@ git clean -fdx -e build_configuration.sh
 cd ~/git/bptest
 git clean -fdx
 ```
+- Occasionally updates to the development environment will require using a clean workspace.
 - Check the Unit Testing section of [BridgePoint FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#unittesting) 
