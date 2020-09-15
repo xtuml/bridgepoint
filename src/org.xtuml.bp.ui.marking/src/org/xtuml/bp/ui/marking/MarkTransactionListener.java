@@ -44,7 +44,8 @@ public class MarkTransactionListener implements ITransactionListener {
                         boolean valueDataUpdated = false;
                         if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
                            AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
-                           valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(), change.getOldValue().toString());
+                           valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(),
+                        		   	change.getOldValue() != null ? change.getOldValue().toString() : "");
                         }
                         boolean pathDataUpdated = md.recalculatePathKeys(deltaToHandle);
                         if (valueDataUpdated || pathDataUpdated) {
