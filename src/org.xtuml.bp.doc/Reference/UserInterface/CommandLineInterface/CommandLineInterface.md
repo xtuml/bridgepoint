@@ -16,9 +16,9 @@ CLI task can be found by entering
 CLI <Build | Import | Execute | Merge> -help
 ```
  
-Examples demonstrating the expected usage of the CLI are included in the BridgePoint and xtUML Editor 
+__*FIXME Examples demonstrating the expected usage of the CLI are included in the BridgePoint and xtUML Editor 
 installation, and can be found in the folder <Installation root>/eclipse. Note, that the examples are 
-specific to the host operating system with CLI.bat intended for Windows and CLI.sh intended for Linux.   
+specific to the host operating system with CLI.bat intended for Windows and CLI.sh intended for Linux. FIXME*__   
 
  
 Preparing a Project to be Used With CLI

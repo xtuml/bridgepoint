@@ -1,0 +1,105 @@
+= CLI script import changes
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+Users have requested updates to the BridgePoint CLI script to better meet usage
+requirements.
+
+== 2 Introduction and Background
+
+Users of the BridgePoint CLI script have noticed some problems with how they
+have traditionally managed their working environments and how the CLI script
+allows them to manage their working environments in issues <<dr-1>> and 
+<<dr-2>>. 
+
+== 3 Requirements
+
+The following requirements are taken from issues <<dr-1>> and <<dr-2>>.
+
+=== 3.1 Create a new project outside of $WORKSPACE
+
+From <<dr-1>>, '`CLI Import needs an option to specify the directory for the 
+destination of the project creation. i.e., mirrors the functionality in the 
+eclipse "New Project" pop-up.`'
+
+=== 3.2 Ensure the -i option for the xtuml2masl command works with 3.1.
+
+From <<dr-1>>, "`Related to this, the -i option on xtuml2masl is somewhat
+confusing when trying to export a domain created as above.`"
+
+=== 3.3 Ensure documentation for CLI matches new implementation
+
+Add new option and usage notes for the option.
+
+=== 3.4 Ensure project deletion doesn't occur unintentionally
+
+An existing project is automatically deleted, even if the -deleteProject option
+isn't specified. This should be changed, so the user is notified the project
+already exists and has to intentionally delete it.
+
+=== 3.5 Importing a file should work like importing a project
+
+Importing a file will fail if the workspace project doesn't exist, while 
+importing a project will work if the workspace doesn't exist. This 
+inconsistancy should be addressed by creating the workspace project.
+
+== 4 Work Required
+
+=== 4.1 Add option for destination outside of $WORKSPACE
+
+Add the option and add support for the option for both project and file
+importing.
+
+=== 4.2 Check usage of the -i option of xtuml2masl
+
+=== 4.3 Add check before deleting project
+
+Add a check of the -deleteProject option before deleting a project, and add some
+user output in the case where the -deleteProject option isn't used and the
+project already exists.
+
+=== 4.4 Add workspace project creation for file imports
+
+The workspace directory is created by the CLI.sh script.
+
+==== 4.4.1 -project, -deleteProject, project exists
+
+# Delete project
+# Create project
+# Import file into project
+
+==== 4.4.2 -project, no -deleteProject, project exists
+
+# Warn user the project exists
+
+==== 4.4.3 no -project, -deleteProject, project exists
+
+# Delete project (project name based on file name)
+# Create project
+# Import file into project
+
+==== 4.4.4 no -project, no -deleteProject, project exists
+
+# Warn user the project exists (project name based on file name)
+
+=== 4.5 Update documentation
+
+== 5 Acceptance Test
+
+Verify that target destination is used for project files.
+
+Verify 3.2 and 3.3.
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/9680[9680 - CLI Import into non-workspace directory]
+. [[dr-2]] https://support.onefact.net/issues/9883[9883 - model import/export
+questions]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

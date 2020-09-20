@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -32,12 +33,14 @@ public class ImportExecutor implements Executor {
     private IProject project;
     private String filePath;
     private String targetProjectName;
+    private String targetWorkingPath;
 
     protected ImportExecutor(BPCLIPreferences prefs) {
         cmdLine = prefs;
         projectPath = cmdLine.getStringValue("-project");
         filePath = cmdLine.getStringValue("-file");
         targetProjectName = cmdLine.getStringValue("-targetProject");
+        targetWorkingPath = cmdLine.getStringValue("-workingPath");
     }
 
     public void execute() {
@@ -64,10 +67,19 @@ public class ImportExecutor implements Executor {
     }
 
     private void importProject() throws CoreException, BPCLIException, IOException {
-        // verifier the source exists and is a Folder
+        // Verify the source exists and is a Folder
         File source = new File(projectPath);
         if(!source.exists() || !source.isDirectory()) {
             throw new BPCLIException("The source project does not exist.");
+        }
+        // Verify the destination exists and is a Folder
+        if (!targetWorkingPath.isEmpty()) {
+            File destination = new File(targetWorkingPath);
+            if(destination.exists()) {
+                if (!destination.isDirectory()) {
+                    throw new BPCLIException("The destination does not exist.");
+                }
+            }
         }
         // Get the source project
         String projectName = getProjectNameFromPath();
@@ -76,18 +88,27 @@ public class ImportExecutor implements Executor {
 
         // delete an existing project
         if (project.exists()) {
-            System.out.println("Deleting existing project...");
-            project.delete(true, true, new NullProgressMonitor());
+            if (cmdLine.getBooleanValue("-deleteExisting")) {
+                System.out.println("Deleting existing project...");
+                project.delete(true, true, new NullProgressMonitor());
+            } else {
+                throw new BPCLIException("The project to be imported already exists in the workspace. Use the -deleteExisting flag to overwrite it.");
+            }
         } 
 
         System.out.println("Importing project: " + projectName);
+        final IProjectDescription description = ResourcesPlugin.getWorkspace().newProjectDescription(project.getName());
+        if (!targetWorkingPath.isEmpty()) {
+            IPath workingPath = new Path(targetWorkingPath);
+            description.setLocation(workingPath);
+        }
         // create the project
-        project.create(new NullProgressMonitor());
+        project.create(description, new NullProgressMonitor());
         // Copy source project contents
         copyFolder(new File(projectPath), project.getLocation().toFile());
         project.open(new NullProgressMonitor());
         // force refresh of the description
-        IProjectDescription description = ResourcesPlugin.getWorkspace().loadProjectDescription( project.getLocation().append("/.project") );
+        description.setLocation(project.getLocation().append("/.project"));
         project.setDescription(description, new NullProgressMonitor());
 
         prepareProject( project );
@@ -137,7 +158,6 @@ public class ImportExecutor implements Executor {
             targetProjectName = FilenameUtils.removeExtension(targetProjectName); 
         }
         
-        System.out.println("Importing file into project: " + targetProjectName);
         project = ResourcesPlugin.getWorkspace().getRoot().getProject(targetProjectName);
 
         // delete existing project and create a new one
@@ -157,6 +177,7 @@ public class ImportExecutor implements Executor {
             }
         }
         
+        System.out.println("Importing file into project: " + targetProjectName);
         prepareProject( project );
     
         // Import the file into the project
