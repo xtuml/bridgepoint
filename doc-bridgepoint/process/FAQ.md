@@ -31,7 +31,7 @@
     * [How do BridgePoint Context Menu Entries (CMEs) work?](#bp_cme)
     * [How to generate code for a specific class without waiting for a full build](#fast_build1)
   * [Ciera](#ciera)
-    * [Debugging Ciera Projects](#ciera_debugging)
+    * [Setting up a remote debug session in Bridgepoint](#ciera_bridgepoint_remote_debugging)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -455,79 +455,29 @@ Verifier <a id="verifier"></a>
 Ciera <a id="ciera"></a>
 ------------
 
-**Debugging Ciera Projects** <a id="ciera_debugging"></a>  
-
-* **Configuring Source Inclusion**
-  
-  If you are working with a project where the source is not in the standard target/generated-source location, you may need to create a jar with the build.  This can be done by modifying the projects pom.xml file to add the maven source plugin.  Under the ```<plugins>``` section add the following plugin definition.
-
-```
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-source-plugin</artifactId>
-  <version>3.2.0</version>
-  <executions>
-    <execution>
-      <id>attach-sources</id>
-      <goals>
-        <goal>jar</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
-```
-
-  On build this will create a jar file appended with the -sources tag, Project/target/Project-{version}-sources.jar.
- 
-  * Add plugin definition
-* Build your project as described by the <a href="https://xtuml.github.io/cieradoc/userguide/en_US/CieraUserGuide.pdf">Ciera documentation</a>
-* **Preparing source in Bridgepoint**
+* **Setting up a remote debug session in Bridgepoint**  <a id="ciera_bridgepoint_remote_debugging"></a>  
+  * Build your project as described by the <a href="https://xtuml.github.io/cieradoc/userguide/en_US/CieraUserGuide.pdf">Ciera documentation</a>
   * Open Bridgepoint
   * Import your project into the workspace
-* **If using generated sources jar**
-  * Create a new project, New > Project...
-  * Select General > Project
-  * Name the project
-  * Right click the project in Project Explorer/Navigator
-  * Select Import...
-  * Choose General > Archive
-  * Click Next
-  * Browse for the Project/target/Project-{version}-sources.jar file and click Open
-  * Click Finish
-  * Choose No to overwrite .project
- 
-* **Setting up remote debug configuration**
   * Open the Debug Perspective
   * Open Debug Configurations at Debug > Debug Configurations...
   * Select Remote Java Application in the left tree
   * Press the New Button at the top left of the tree, or right click and select New
   * Enter a name for the debug configuration
   * Select the Source tab
-  * Select any default source lookup path entries and click Remove
-  
-* **If using an out of the box Ciera configuration**
   * Click the Add... button
   * Choose Workspace Folder
   * Navigate to this folder and select:
    ```
-   {project}/target/generated-sources/java
+   {project}/target/generate-sources/java
    ```
-* **If using generated sources jar**
-  * Click the Add... button
-  * Choose Project
-  * Check the source project previously created
-  * Close the Debug Configurations dialog
   * Click OK
   * Click Apply
+  * Close the Debug Configurations dialog
+
   * In Bridgepoint, set a breakpoint for the application in the main method:
-  
-  **If using an out of box Ciera configuration**
   ```
   {project}/target/generated-sources/java/{project}/{project}Application.java
-  ```
-  **If using generated sourcese jar**
-  ```
-  {jar-source-project}/{project}/{project}Application.java
   ```
   * Run the application in a terminal:
   ```
