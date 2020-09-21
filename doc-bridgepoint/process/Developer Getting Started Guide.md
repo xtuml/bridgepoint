@@ -71,9 +71,7 @@ Build Instructions
   git clone https://github.com/"username"/packaging.git ~/git/packaging
   ```
 
-  - There are two ways to configure the build:
-    - Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths. Also adjust the flag to indicate if you want to run all the JUnit tests during build or not.  
-    - Add environment variables to your user environment to override the variables in ```~/git/bridgepoint/utilities/build/build_configuration.sh```. Look inside build_configuration.sh to see which variables you can override.  
+  - Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths. Also adjust the flag to indicate if you want to run all the JUnit tests during build or not.  
 
   - Build BridgePoint:
   ```~/git/bridgepoint/utilities/build/build_and_test_bp.sh```
