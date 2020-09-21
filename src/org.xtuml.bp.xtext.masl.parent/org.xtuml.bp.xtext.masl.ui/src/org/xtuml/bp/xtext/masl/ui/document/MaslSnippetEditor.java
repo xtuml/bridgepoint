@@ -39,10 +39,10 @@ import org.xtuml.bp.xtext.masl.ui.document.MaslDocumentProvider;
 public class MaslSnippetEditor extends XtextEditor {
   @Inject
   private IImageHelper imageHelper;
-  
+
   private Label signatureLabel;
   private IModelChangeListener modelChangeListener;
-  
+
   public MaslSnippetEditor() {
 	  super();
 	  modelChangeListener = new ModelChangeAdapter() {
@@ -75,12 +75,12 @@ public class MaslSnippetEditor extends XtextEditor {
 	  };
 	  Ooaofooa.getDefaultInstance().addModelChangeListener(modelChangeListener);
   }
-  
+
   @Override
   public boolean isSaveAsAllowed() {
     return false;
   }
-  
+
   @Override
   public void createPartControl(final Composite parent) {
     final IEditorInput input = this.getEditorInput();
@@ -125,7 +125,7 @@ public class MaslSnippetEditor extends XtextEditor {
       @Override
       public void elementContentAboutToBeReplaced(final Object element) {
       }
-      
+
       @Override
       public void elementContentReplaced(final Object element) {
         IEditorInput _editorInput = MaslSnippetEditor.this.getEditorInput();
@@ -135,21 +135,21 @@ public class MaslSnippetEditor extends XtextEditor {
           MaslSnippetEditor.this.updateLabelAndVisibleRegion(((MaslDocumentProvider) _documentProvider), ((AbstractModelElementPropertyEditorInput) _editorInput_1));
         }
       }
-      
+
       @Override
       public void elementDeleted(final Object element) {
       }
-      
+
       @Override
       public void elementDirtyStateChanged(final Object element, final boolean isDirty) {
       }
-      
+
       @Override
       public void elementMoved(final Object originalElement, final Object movedElement) {
       }
     });
   }
-  
+
   @Override
   public Image getDefaultImage() {
     Image _xifexpression = null;
@@ -163,9 +163,10 @@ public class MaslSnippetEditor extends XtextEditor {
     }
     return _xifexpression;
   }
-  
+
   @Override
   public void dispose() {
+	  super.dispose();
 	  Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
   }
 
