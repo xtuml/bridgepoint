@@ -468,6 +468,8 @@ end if;
 create object instance rattr of O_RATTR;
 rattr.Ref_Mode = 1;  // use referred to attribute name
 relate self to rattr across R106;
+
+rattr.setDatatype();
 ',
 	1,
 	'',
