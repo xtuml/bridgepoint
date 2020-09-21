@@ -1,0 +1,102 @@
+= Unintended Marking Deletions Issue Analysis Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
+
+xtUML Project Analysis Note
+
+== Abstract
+
+Unintended deletions are being made to the application.mark files when model
+elements are renamed or moved.
+
+== Introduction and Background
+
+The application.mark support in BridgePoint was originally set up to be updated
+via manual operation only; manual operation was either direct edit of the file,
+or via the Marking Editor tool. In issue <<dr-2,11634>>, automated update of the
+file was added.
+
+== Requirements
+
+=== Ensure order of operations is correct
+
+The application.mark file shouldn't be updated until the editor changes have
+been finalized in the areas the application.mark parser monitors.
+
+=== Update Marking Editor help file
+
+Marking Editor help file states that the application.mark file will not be
+modified for renamed or removed elements, but issue <<dr-2,11634>> changed that
+approach to be automated. The help file should be amended to indicate this and
+list any updated information needed by the user.
+
+=== Add support for asterix as _path_ mark and _markable element type_ mark
+
+Support of asterix for these two marks is requested for supporting the Ciera project.
+
+== Analysis
+
+=== Known parsing areas
+
+The application.mark parsing is done in:
+- getPathKey
+- getNRMEForMark
+- recalculatePathKeys
+- getMarks
+
+==== Observed behavior
+* [[ref-a,class name change]]Upon class name change, any mark with the class name gets deleted.
+** It has been observed to work on occasion.
+* [[ref-c,other container mark deletion]]Other marks not associated with the change have been deleted.
+** The other marks were deleted were in a different container at a peer level to the change container. e.g., `CTR::CTR::CTR vs CTR::CTR::OTH`.
+** The other mark deletion was observed with class name change, key letter change, and method name change, and didn't require a change to data actually in application.mark.
+* [[ref-b,use of asterix]]Any marks containing an `*` are removed.
+* [[ref-d,marking data initialization]]The MarkingData initialization sometimes 
+returns Marks with null nrme attributes. 
+
+==== Code Handling
+
+=== Mark deletion
+
+* For the <<ref-a>> observation, mark data has the nrme attribute set to null, 
+which causes the path to be invalidated. The recalculatePathKeys call removes 
+marks with invalid paths, as it assumes they are scheduled for deletion.
+* The observed bahavior for <<ref-c>>, with respect to the marks being deleted, 
+is that they are also returning an invalid path.
+* The MarkingData initialization as well as the path recalculation doesn't 
+account for <<ref-b>>. Both try to get the path key for a value of '*', which
+fails.
+
+=== Order of operations
+
+* For the <<ref-d>>, the null nrme attributes can appear in any order, which 
+suggests that model loading isn't done sequentially. There is a race condition
+between the model loading and the initialization of the marking data. If the
+mark element isn't loaded yet, the attempt to find it's NRME returns null.
+* For the <<ref-a>>, the null nrme is the issue. It is possible to get a valid 
+nrme if the mark can be found, the transaction change applied to the existing
+mark's path, and the nrme obtained from the new path.
+* There are two ways to ensure <<ref-a>> and <<ref-c>> don't occur for valid 
+marking data; 1) Don't initialize the marking data until the model loading is
+finished, and 2) Reinitialize the marking data of makr with a null nrme. The
+reinitialization can't be done at transaction end, as the mark path has already
+changed.
+
+== Work Required
+
+Determine best place to handle the possible order cases.
+
+== Acceptance Test
+_to be specified in the design note_
+
+== Document References
+. [[dr-1]] https://support.onefact.net/issues/11787[11787 - Project markings are removed in different scenarios]
+. [[dr-2]] https://support.onefact.net/issues/11634[11634 - Keep marks in sync with changing model elements]
+. [[dr-3]] https://support.onefact.net/issues/11555[11555 - Renaming signal causes marks to be lost]
+. [[dr-4]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8261_masl_refactor/8261_masl_refactor_dnt.md[8621 Masl Refactor Design Note]
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
