@@ -3,6 +3,7 @@ package org.xtuml.bp.ui.marking;
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
 import org.xtuml.bp.core.common.IModelDelta;
@@ -23,7 +24,7 @@ public class MarkTransactionListener implements ITransactionListener {
     public void transactionEnded(Transaction transaction) {
     	if (transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) { return; }
     	
-        ModelRoot[] modelRoots = transaction.getParticipatingModelRoots();
+        ModelRoot[] modelRoots = transaction.getParticipatingModelRoots(Ooaofooa.class);
         for (int i = 0; i < modelRoots.length; i++ ){
             IModelDelta[] modelDeltas = transaction.getDeltas(modelRoots[i]);
             for (IModelDelta deltaToHandle : modelDeltas) {

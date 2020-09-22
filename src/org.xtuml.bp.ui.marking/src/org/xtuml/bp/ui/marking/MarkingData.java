@@ -245,7 +245,8 @@ public class MarkingData {
          // Handle '*' in path as a special case per Ciera requirements.
          if (currentPath.equals("*")) {
              newPath = currentPath;
-         } else if ( (deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) && 
+         } else if ( (deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) &&
+        		    ((AttributeChangeModelDelta) deltaToHandle).getOldValue() != null &&
                      !(currentPath.matches(".*\\b" +
                        ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString() + 
                        "\\b.*")) ) {
