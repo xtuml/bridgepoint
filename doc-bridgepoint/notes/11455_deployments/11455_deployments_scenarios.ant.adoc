@@ -97,6 +97,67 @@ Another bit of work that could be done that may help in limiting order modificat
 
 == 5 Work Required
 
+=== 5.1 Function import into deployment
+==== 5.1.1 Existing approach extended to automatically publish scenarios to interface
+
+===== 5.1.1.1 Scenario publish to interface
+The operation, Deployment.importFromComponent(), is modifed to navigate further into the component to find the scenarios package.  For each function found a new operation, Deployment.publishToInterface(), is called.  This new operation would first create a new interface as well as provided interface formalized to the interface.  For all functions the Interface.publishOperationFromFunction() operation would be called.  After the publishing has occured the existing logic in importFromComponent() is completed.
+
+===== 5.1.1.2 Silently create terminators for all scenario functions
+The operation, Deployment.importFromComponent(), is modified to navigate futher into the component to find the scenarios package.  For each function a new Terminator Service is created along with matching parameters.
+
+===== 5.1.1.3 Add scenario to the deployment design
+A new class is added to Deployment, Scenario, as a subtype of Terminator Service.  The new class has a reflexive ordering association added.  Depending on the desired approach, <<5.1.1.1>> or <<5.1.1.2>>, this new class shall be created and associated with the Terminator Service subtype.  Initial ordering shall configured based on the order in the selection from the scenarios package.
+
+=== 4.2 Scenario selection
+
+The ElementSelectionDialog shall be configured to enable checkboxes.  The dialog shall also be configured to have the functions under the scenarios package listed as children of the component.
+
+The selection shall be handled by the UI infrastructure and passed to the Component.importFromComponent function.
+
+==== 4.2.1 Overload the existing Import context menu action
+
+If this approach is taken the configuration specified in <<4.2>> should be filtered to only be used in the case of WASL.
+
+==== 4.2.2 Create a new context menu action, "Import scenarios from components..."
+
+Create a new CME function that is much like the Import terminators from component.  In this one configure the selection dialog according to <<4.2>>.  Filtering of the CME should allow it only to show when the deployment is in a project configured for WASL.
+
+=== 4.3 Ordering
+==== 4.3.1 Capturing order
+
+==== 4.3.1.1 Ordering with existing terminators
+
+A new reflexive ordering assocation is added to the Terminator Service class.  Upon creation of Terminator Service instances the ordering association shall be properly populated.  This is for both existing Terminator Service usage and new Terminator Service usage around scenarios.
+
+==== 4.3.1.2 Ordering of new scenario design
+
+Handled in <<5.1.1.3>>.
+
+==== 4.3.1.3 Ordering specified in marking
+
+
+==== 4.3.2 Configuring order
+
+===== 4.3.2.1 Modeled approach
+
+Two new CMEs are added for the Terminator Service, or Scenario types.  These are Move Up and Move Down.  Each one shall have a corresponding operation in the type and shall adjust the ordering association accordingly.  Move Up and Move down shall have filtering added to prevent showing when not applicable.
+
+Not considering drag and drop support at this point.
+
+===== 4.3.2.2 Marking approach
+
+====== 4.3.2.2.1 Simple text ordering
+
+
+====== 4.3.2.2.2 Configurable entry
+
+The marking editor shall be extended to include a secondary popup dialog, which shall contain a list of scenarios in their current order.  The entries shall reused the added Move Up and Move Down CMEs to allow order modification.
+
+==== 4.3.3 Ordering during initial configuration
+
+The ElementSelectionDialog shall be extended to capture the order in which elements are selected.  As long as this order is maintained in the dialog the same order will be passed to the CME function handling the terminator creation. 
+
 == 6 Acceptance Test
 
 == 7 Document References
