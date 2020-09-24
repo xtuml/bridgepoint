@@ -200,7 +200,6 @@ public class TIM {
         try {
           ModelRoot.disableChangeNotification();
           simulatedTime = timersList.get(0).getExpiration() - timeAdjustmentOffset;
-          System.out.println("Simulated time is: " + simulatedTime);
           timersList.get(0).Tick();
           eventDelivered = true;
         } catch (Exception e) {
