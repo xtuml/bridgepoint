@@ -16,13 +16,13 @@ The <<dr-1,headline issue>> talks about cases where timers stop firing in verifi
 
 == 4 Work Required
 
-4.1 Do not disable shared timer thread
+4.1 Do not disable shared timer threads
 
-Investigation into this work shows that a single thread is used across multiple verifier invocations.  This thread is held as a static variable in the TIM implementation.  The logic during BPDebugTarget terminate checks a list of targets and stops the timers if there are no longer targets being run.  The call to stop the timers will toggle a static flag of running and will expect the thread to shutdown.
+Investigation into this work shows that a single thread, one for real time and one for simulated time, is used across multiple verifier invocations.  These threads are held as a static variables in the TIM implementation.  The logic during BPDebugTarget terminate checks a list of targets and stops the timers if there are no longer targets being run.  The call to stop the timers will toggle a static flag of running and will expect the threads to shutdown.
 
-In the specific issues specified in the <<dr-1, 12015>>, ARCH::shutdown is used to terminate the verifier invocation.  A larger problem exists here in that the call to BPDebugTarget is never called in this case.  This leaves the shared thread running, with a boolean value of running set to false.  While this is set to false the thread will not process any timer events.  Upon another launch a new thread will not be initialized and therefore will not be set to running true.
+In the specific issues specified in the <<dr-1, 12015>>, ARCH::shutdown is used to terminate the verifier invocation.  A larger problem exists here in that the call to BPDebugTarget.terminate() is never called in this case.  This leaves the shared thread running, with a boolean value of running set to false.  While this is set to false the thread will not process any timer events.  Upon another launch a new thread will not be initialized and therefore will not be set to running true.
 
-For this work the thread will be left as running true.  This will have the effect of a verifier clock thread always waiting in sleep after the first use.  This thread will then be reused as necessary.  This thread being left over has no implications on the performance of the tool.
+For this work the threads will be left as running true.  This will have the effect of a verifier clock threads always waiting in sleep after the first use.  This threads will then be reused as necessary.  These threads being left over have no implications on the performance of the tool.
 
 Another issue shall be raised to better handle ARCH::shutdown.
 
