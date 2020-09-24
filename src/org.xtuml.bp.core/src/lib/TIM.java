@@ -160,7 +160,10 @@ public class TIM {
   }
 
   public static void stopTimers() {
-    running = false;
+      // running = false;
+	  // leave running as we use one thread per all launches,
+	  // this should be enabled again once ARCH::shutdown can
+	  // handle stopping timers
     try {
       if (simThread != null) {
         synchronized(idleBusyLock) {
@@ -169,15 +172,15 @@ public class TIM {
         simThread.join();
         simThread = null;
       }
-      if (realThread != null) {
-        synchronized(timerLock) {
-          timerLock.notify();
-        }
-        if(realThread != null) {
-          realThread.join();
-        }
-        realThread = null;
-      }
+		//  if (realThread != null) {
+		//  	synchronized(timerLock) {
+		//      timerLock.notify();
+		//  }
+        //  if(realThread != null) {
+        //  	realThread.join();
+        //  }
+        //  realThread = null;
+//      }
     } catch (InterruptedException e) {
       CorePlugin.logError("Unexpected Interrupted exception waiting for timers to stop", e);
     }
@@ -232,7 +235,6 @@ public class TIM {
     suspended = false;
     suspendMark = 0;
     suspendTime = 0;
-    running = false;
     if (!deterministic) {  
       if (simTime) {
         if (simThread == null) {
