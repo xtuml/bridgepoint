@@ -170,17 +170,17 @@ public class TIM {
           idleBusyLock.notify();
         }
         simThread.join();
-        simThread = null;
+//        simThread = null;
       }
-		//  if (realThread != null) {
-		//  	synchronized(timerLock) {
-		//      timerLock.notify();
-		//  }
-        //  if(realThread != null) {
-        //  	realThread.join();
-        //  }
-        //  realThread = null;
-//      }
+      if (realThread != null) {
+        synchronized(timerLock) {
+          timerLock.notify();
+        }
+        if(realThread != null) {
+          realThread.join();
+        }
+//        realThread = null;
+      }
     } catch (InterruptedException e) {
       CorePlugin.logError("Unexpected Interrupted exception waiting for timers to stop", e);
     }
@@ -200,6 +200,7 @@ public class TIM {
         try {
           ModelRoot.disableChangeNotification();
           simulatedTime = timersList.get(0).getExpiration() - timeAdjustmentOffset;
+          System.out.println("Simulated time is: " + simulatedTime);
           timersList.get(0).Tick();
           eventDelivered = true;
         } catch (Exception e) {
@@ -229,6 +230,11 @@ public class TIM {
     systemEpoch = Instant.EPOCH;
     Instant now = Instant.now();
     simulatedTime = TimeUnit.SECONDS.toMicros(now.getEpochSecond()) + TimeUnit.NANOSECONDS.toMicros(now.getNano());
+    if(idleBusyLock != null) {
+    	synchronized (idleBusyLock) {
+    		idleBusyLock.notify();
+    	}
+    }
     timeAdjustmentOffset = 0;
     systemEpochOffset = 0;
     allIdle = true;
