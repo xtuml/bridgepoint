@@ -1,0 +1,113 @@
+= Support scenarios in deployments
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+This note analyzes the various approaches to supporting scenario configuration in BridgePoint using the existing Deployment mechanisms.
+
+== 2 Introduction and Background
+
+In iUML, when creating a build set, the tool offers a list of all of the scenarios from each domain.  The user chooses which scenarios to run and in what order.
+
+In BridgePoint build sets are mapped to a deployment.  Currently a deployment is created, then terminators can be imported from components within the workspace.  These terminators are interface messages that are found in the workspace components.  The tool does not allow seeing into components at the time of import, nor does it allow selection of interface messages.
+
+== 3 Requirements
+
+. Functions can be imported into deployments
+. Function execution order can be set within a deployment
+. Deployments are self reliant after creation
+
+== 4 Analysis
+
+=== 4.1 Function import into deployment
+==== 4.1.1 Existing approach extended to automatically publish scenarios to interface
+
+===== 4.1.1.1 Scenario publish to interface
+In this approach the import terminators functionality would be extended to publish to interfaces all functions under the scenarios package.  The existing framework would then configure the terminators under deployment as it does now.  The end result would be that all scenarios functions would be available under the configured deployment.
+
+A downfall to this approach would be that the projects containing the scenarios would need to be modified to support the publishing to interfaces.
+
+This would have the benefit of keeping the model inline with the intended design of deployments.  Where a terminator has a matching interface message to service.
+
+===== 4.1.1.2 Silently create terminators for all scenario functions
+
+In this approach the import functionality would be extended to create a terminator representation for each scenario function.  The existing usage of the import terminators functionality would appear exactly the same.  Again the end result would be availability of all scenario functions under the deployment.
+
+The benefit to this approach is the action would only affect the newly configured deployment.
+
+===== 4.1.1.3 Add scenario to the deployment design
+
+Rather than overload the existing Terminator Service pattern the design could be extended such that Terminator Service is subtyped into Interface Message and Scenario.  This design pattern would clearly show that scenarios have different behavior than the existing interface message variants.
+
+=== 4.2 Scenario selection
+
+Scenario selection may be important during configuration of a deployment.  In the case that it is the existing import functionality could be extended to show scenarios as children under the listed components.  The selection dialog could be extended easily to include checkboxes.  Those checked in that case would be the ones with deployment terminator services created.
+
+There are two UI related options to choose at this point:
+
+1. Overload the existing Import context menu action
+2. Create a new context menu action, "Import scenarios from components..."
+
+In either case the effort is minimal.
+
+=== 4.3 Ordering
+
+As per the requirements ordering must be captured for execution.  There are a few ways this can be achieved.
+
+==== 4.3.1 Capturing order
+
+==== 4.3.1.1 Ordering with existing terminators
+
+In this approach the Terminator Service class would be extended to have an ordering association.  This would allow new mechanisms to offer order modification as well as capture the ordering for model compilation.
+
+This has the disadvantage of assuming that all terminator services require ordering.
+
+==== 4.3.1.2 Ordering of new scenario design
+
+If the approach in <<4.1.1.3>> is chosen an ordering association would be added to the new scenario subtype.  Again this would allow new mechanisms for order modification and capture the ordering.
+
+This of course has the advantage of separating ordering from other types of Terminator Service.
+
+==== 4.3.1.3 Ordering specified in marking
+
+Once scenarios are available in any form, a new mark type could be added.  This mark would specify an order of execution for avialable scenarios within the deployment.
+
+==== 4.3.2 Configuring order
+
+===== 4.3.2.1 Modeled approach
+
+In either approach, <<4.3.1.1>> or <<4.3.1.2>>, a new menu item action would be added to move a scenario representation either up or down.  This would adjust the ordering assocation accordingly.
+
+A better UI solution would be to introduce drag and drop ordering, though this would be a good amount more of effort.
+
+===== 4.3.2.2 Marking approach
+
+====== 4.3.2.2.1 Simple text ordering
+
+For the first version of this addition the mark could be a free form comma separated string field.  This would be the least amount of effort.  However in this case there would be no verification of the terminators listed.  Any problems would be detected late during the model translation phase.
+
+====== 4.3.2.2.2 Configurable entry
+
+In this case the comma separated string in <<4.2.3.1>> would be used but only for display.  Upon clicking the entry an ordered tree would display.  The order could be modifiable in the same way as described in <<4.3.2.1>>.
+
+==== 4.3.3 Ordering during initial configuration
+
+Another bit of work that could be done that may help in limiting order modification would be to initialize order based on the selected order of scenarios.  This approach would be dependent on <<4.2>>.
+
+== 5 Work Required
+
+== 6 Acceptance Test
+
+== 7 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/11455[11455 - export deployment (build set)]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
