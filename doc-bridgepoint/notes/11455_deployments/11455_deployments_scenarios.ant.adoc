@@ -53,7 +53,7 @@ In either case the effort is minimal.
 
 === 4.3 Ordering
 
-As per the requirements ordering must be captured for execution.  There are a few ways this can be achieved.
+As per the requirements, ordering must be captured for execution.  There are a few ways this can be achieved.
 
 ==== 4.3.1 Capturing order
 
@@ -84,12 +84,11 @@ A better UI solution would be to introduce drag and drop ordering, though this w
 ===== 4.3.2.2 Marking approach
 
 ====== 4.3.2.2.1 Simple text ordering
+This approach would add a Deployment element type, with all deployments listed under  the element drop down.  Upon selection of a deployment the mark could be a free form comma separated string field.  This would be the least amount of effort.  However in this case there would be no verification of the terminators listed.  Any problems would be detected late during the model translation phase.
 
-For the first version of this addition the mark could be a free form comma separated string field.  This would be the least amount of effort.  However in this case there would be no verification of the terminators listed.  Any problems would be detected late during the model translation phase.
+====== 4.3.2.2.2 Configurable order
 
-====== 4.3.2.2.2 Configurable entry
-
-In this case the comma separated string in <<4.2.3.1>> would be used but only for display.  Upon clicking the entry an ordered tree would display.  The order could be modifiable in the same way as described in <<4.3.2.1>>.
+In this case the deployment again would be selected in the drop down for the marking editor element.  Only the the scenarios/terminator services would be listed in the table as the order they were created.  Two new actions would be added, Move Up and Move Down.  Depending on the approach chosen the persisted ordering would be updated.  In the case of <<4.3.2.1>> the ordering association would be updated.  In the case of <<4.3.2.2.1>> the ordering in the persisted mark file would be updated.
 
 ==== 4.3.3 Ordering during initial configuration
 
@@ -109,56 +108,61 @@ The operation, Deployment.importFromComponent(), is modified to navigate futher 
 ===== 5.1.1.3 Add scenario to the deployment design
 A new class is added to Deployment, Scenario, as a subtype of Terminator Service.  The new class has a reflexive ordering association added.  Depending on the desired approach, <<5.1.1.1>> or <<5.1.1.2>>, this new class shall be created and associated with the Terminator Service subtype.  Initial ordering shall configured based on the order in the selection from the scenarios package.
 
-=== 4.2 Scenario selection
+=== 5.2 Scenario selection
 
 The ElementSelectionDialog shall be configured to enable checkboxes.  The dialog shall also be configured to have the functions under the scenarios package listed as children of the component.
 
 The selection shall be handled by the UI infrastructure and passed to the Component.importFromComponent function.
 
-==== 4.2.1 Overload the existing Import context menu action
+==== 5.2.1 Overload the existing Import context menu action
 
 If this approach is taken the configuration specified in <<4.2>> should be filtered to only be used in the case of WASL.
 
-==== 4.2.2 Create a new context menu action, "Import scenarios from components..."
+==== 5.2.2 Create a new context menu action, "Import scenarios from components..."
 
 Create a new CME function that is much like the Import terminators from component.  In this one configure the selection dialog according to <<4.2>>.  Filtering of the CME should allow it only to show when the deployment is in a project configured for WASL.
 
-=== 4.3 Ordering
-==== 4.3.1 Capturing order
+=== 5.3 Ordering
+==== 5.3.1 Capturing order
 
-==== 4.3.1.1 Ordering with existing terminators
+==== 5.3.1.1 Ordering with existing terminators
 
 A new reflexive ordering assocation is added to the Terminator Service class.  Upon creation of Terminator Service instances the ordering association shall be properly populated.  This is for both existing Terminator Service usage and new Terminator Service usage around scenarios.
 
-==== 4.3.1.2 Ordering of new scenario design
+==== 5.3.1.2 Ordering of new scenario design
 
-Handled in <<5.1.1.3>>.
+Handled in <<5.1.1.3>>.  Like Terminator Service ordering the ordering shall be maintained during creation.
 
-==== 4.3.1.3 Ordering specified in marking
+==== 5.3.1.3 Ordering specified in marking
+In this case there will be no order associations.  Ordering will be initially set to the creation order.  The comma separated list would govern the sequencing of terminator services.
 
+==== 5.3.2 Configuring order
 
-==== 4.3.2 Configuring order
-
-===== 4.3.2.1 Modeled approach
+===== 5.3.2.1 Modeled approach
 
 Two new CMEs are added for the Terminator Service, or Scenario types.  These are Move Up and Move Down.  Each one shall have a corresponding operation in the type and shall adjust the ordering association accordingly.  Move Up and Move down shall have filtering added to prevent showing when not applicable.
 
 Not considering drag and drop support at this point.
 
-===== 4.3.2.2 Marking approach
+===== 5.3.2.2 Marking approach
+ 
+====== 5.3.2.2.1 Simple text ordering
+A new Element Type shall be added to the drop down of the marking editor dialog.  This type shall be Deployment.  When selected the Element drop down shall list all Deployments in the project.  Upon selecting a deployment an entry shall be displayed with Feature as Build Set, and Value set to a comma separated list of terminator services.
 
-====== 4.3.2.2.1 Simple text ordering
+====== 5.3.2.2.2 Configurable entry
+The same marking type and element support shall be added as in <<5.3.2.2.1>>.  When a deployment is selected the table shall display a row for each terminator service.  The Feature column shall contain the name of the terminator service, where the Value column shall be empty.
 
+The marking editor shall have a new action area added to the right side of the dialog.  Two new actions shall be added, Move Up and Move Down.  These actions shall work off of a single selected element in the table.  Upon execution each action shall update the expected ordering persistence, whether it is the modeled association or the comma separated value in the marking file.
 
-====== 4.3.2.2.2 Configurable entry
-
-The marking editor shall be extended to include a secondary popup dialog, which shall contain a list of scenarios in their current order.  The entries shall reused the added Move Up and Move Down CMEs to allow order modification.
-
-==== 4.3.3 Ordering during initial configuration
+==== 5.3.3 Ordering during initial configuration
 
 The ElementSelectionDialog shall be extended to capture the order in which elements are selected.  As long as this order is maintained in the dialog the same order will be passed to the CME function handling the terminator creation. 
 
 == 6 Acceptance Test
+
+. Terminator Services can be imported to deployments from scenario packages.
+. Terminator Services can have their order configured
+. Once configured a deployment can continue being conigured wihtou the existence of the original components containing the scenarios.
 
 == 7 Document References
 
