@@ -196,7 +196,10 @@ public class TIM {
       if (ee != null) {
         try {
           ModelRoot.disableChangeNotification();
-          simulatedTime = timersList.get(0).getExpiration() - timeAdjustmentOffset;
+          long timeValue = timersList.get(0).getExpiration() - timeAdjustmentOffset;
+          if ( simulatedTime < timeValue) {
+        	  simulatedTime = timeValue;
+          }
           timersList.get(0).Tick();
           eventDelivered = true;
         } catch (Exception e) {
