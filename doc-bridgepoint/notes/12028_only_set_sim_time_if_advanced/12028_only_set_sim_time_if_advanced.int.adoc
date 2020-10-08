@@ -1,0 +1,55 @@
+= Only advance simulated time if advancing
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the changes to prevent setting time when it is in the past.
+
+== 2 Introduction and Background
+
+The set_time bridge allows users to set a base time, or to advance the simulated time during execution.  The implementation will allow setting time in the past, which causes newly timed events to not fire.
+
+== 3 Requirements
+
+3.1 Scheduled events shall fire at the set expiration.
+
+== 4 Work Required
+
+4.1 Prevent setting time to the past
+
+In TIM.java, before we set the time, make sure that the given time is actually in the future.
+
+== 5 Implementation Comments
+
+None.
+
+== 6 Unit Test
+
+See <<dr-1>>.
+
+== 7 User Documentation
+
+None.
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bridgepoint
+- branch:  12028_only_set_sim_time_if_advanced
+
+----
+src/org.xtuml.bp.core/src/lib/TIM.java
+----
+
+== 9 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/12028[12028 - Timers behave incorrectly in Verifier when simulated time enabled.]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
