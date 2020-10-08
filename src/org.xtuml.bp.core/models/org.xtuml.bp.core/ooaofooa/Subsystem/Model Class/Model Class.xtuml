@@ -788,6 +788,9 @@ attr.Root_Nam = id_attr.Name;
 select one ref_attr related by attr->O_RATTR[R106];
 relate ref_attr to base_attr across R113;
 
+// have to configure the type after creation and setup
+ref_attr.setDatatype();
+
 if ( param.id != -1 )
   select any assr_id related by self->O_ID[R104] where selected.Oid_ID == param.id;
   create object instance assr_oida of O_OIDA;
