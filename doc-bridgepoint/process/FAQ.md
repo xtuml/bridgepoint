@@ -31,7 +31,7 @@
     * [How do BridgePoint Context Menu Entries (CMEs) work?](#bp_cme)
     * [How to generate code for a specific class without waiting for a full build](#fast_build1)
   * [Ciera](#ciera)
-    * [Setting up a remote debug session in Bridgepoint](#ciera_bridgepoint_remote_debugging)
+    * [Debugging Ciera Projects](#ciera_debugging)
   * [Verifier](#verifier)
     * [What does "Nothing to verify." mean?](#nothingtoverify) 
   * [Model Translation / Model Compilers](#mcs)
@@ -455,15 +455,33 @@ Verifier <a id="verifier"></a>
 Ciera <a id="ciera"></a>
 ------------
 
+**Debugging Ciera Projects** <a id="ciera_debugging"></a>  
+
 * **Configuring Source Inclusion**
   
   If you are working with a project where the source is not in the standard target/generated-source location, you may need to create a jar with the build.  This can be done by modifying the projects pom.xml file to add the maven source plugin.  Under the ```<plugins>``` section add the following plugin definition.
+
+```
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-source-plugin</artifactId>
+  <version>3.2.0</version>
+  <executions>
+    <execution>
+      <id>attach-sources</id>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+```
 
   On build this will create a jar file appended with the -sources tag, Project/target/Project-{version}-sources.jar.
  
   * Add plugin definition
 * Build your project as described by the <a href="https://xtuml.github.io/cieradoc/userguide/en_US/CieraUserGuide.pdf">Ciera documentation</a>
-* **Preparing source in Bridgepoint**  <a id="ciera_bridgepoint_remote_debugging"></a>  
+* **Preparing source in Bridgepoint**
   * Open Bridgepoint
   * Import your project into the workspace
 * **If using generated sources jar**
@@ -485,6 +503,8 @@ Ciera <a id="ciera"></a>
   * Press the New Button at the top left of the tree, or right click and select New
   * Enter a name for the debug configuration
   * Select the Source tab
+  * Select any default source lookup path entries and click Remove
+  
 * **If using an out of the box Ciera configuration**
   * Click the Add... button
   * Choose Workspace Folder
