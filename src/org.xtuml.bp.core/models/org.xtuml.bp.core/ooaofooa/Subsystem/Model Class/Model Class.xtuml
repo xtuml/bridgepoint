@@ -784,23 +784,17 @@ newAttr_id = self.newAttribute();
 select any attr related by self->O_ATTR[R102] where selected.Attr_ID == newAttr_id;
 attr.migrateBaseToReferential();
 attr.Root_Nam = id_attr.Name;
-if (not empty base_attr)
-  select one ref_attr related by attr->O_RATTR[R106];
-  relate ref_attr to base_attr across R113;
-else
-  // Set the datatype for the new attribute.
-  select one dt related by attr->S_DT[R114];
-  select one id_dt related by id_attr->S_DT[R114];
-  if (dt.Name != id_dt.Name)
-  	unrelate dt from attr across R114;
-  	relate id_dt to attr across R114;
-  end if;
-end if;
+
+select one ref_attr related by attr->O_RATTR[R106];
+relate ref_attr to base_attr across R113;
+
+// have to configure the type after creation and setup
+ref_attr.setDatatype();
 
 if ( param.id != -1 )
   select any assr_id related by self->O_ID[R104] where selected.Oid_ID == param.id;
   create object instance assr_oida of O_OIDA;
-  relate attr to assr_id across R105 using assr_oida;
+   relate attr to assr_id across R105 using assr_oida;
 end if;
 return newAttr_id;
 ',

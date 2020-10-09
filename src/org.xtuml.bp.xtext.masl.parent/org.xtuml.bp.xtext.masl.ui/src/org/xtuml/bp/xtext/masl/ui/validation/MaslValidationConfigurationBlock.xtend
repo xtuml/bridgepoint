@@ -58,7 +58,7 @@ class MaslValidationConfigurationBlock extends AbstractValidatorConfigurationBlo
 		addComboBox(INVALID_INDEXED_EXPRESSION, 'Invalid indexed expression', composite, defaultIndent)
 	}
 
-	protected def Combo addComboBox(String prefKey, String label, Composite parent, int indent) {
+	override protected def Combo addComboBox(String prefKey, String label, Composite parent, int indent) {
 	  val values = #[ 
 		  	SeverityConverter.SEVERITY_ERROR, 
 		  	SeverityConverter.SEVERITY_WARNING,
