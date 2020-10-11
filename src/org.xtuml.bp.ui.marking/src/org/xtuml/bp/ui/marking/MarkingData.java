@@ -349,8 +349,8 @@ public class MarkingData {
                 nrmeCurrent = getNRMEForMark(featureEntry.getValue().path, featureEntry.getValue().markable_name, this.project);
             }
             String markValue = featureEntry.getValue().value;
-            if ( markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") && 
-                 (featureEntry.getValue().path.equals("*") || nrmeOfChange.equals(nrmeCurrent)) ) {
+            if (  markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") && 
+                 (featureEntry.getValue().path.equals("*") || nrmeOfChange.equals(nrmeCurrent)) && !oldAttributeValue.equals("") ) {
                marksUpdated = true;
                Mark origMark = featureEntry.getValue();
                Mark mark = new Mark();
