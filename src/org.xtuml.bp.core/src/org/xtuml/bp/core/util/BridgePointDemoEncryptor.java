@@ -31,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.KeySpec;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 
 import javax.crypto.Cipher;
@@ -43,8 +44,6 @@ import javax.crypto.spec.PBEParameterSpec;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 public class BridgePointDemoEncryptor {
     private Cipher ecipher;
@@ -111,7 +110,7 @@ public class BridgePointDemoEncryptor {
             byte[] enc = ecipher.doFinal(utf8);
 
             // Encode bytes to base64 to get a string
-            return Base64.encode(enc);
+            return Base64.getEncoder().encodeToString(enc);
         } catch (javax.crypto.BadPaddingException e) {
         } catch (IllegalBlockSizeException e) {
         } catch (UnsupportedEncodingException e) {
@@ -122,7 +121,7 @@ public class BridgePointDemoEncryptor {
     protected String decrypt(String str) {
         try {
             // Decode base64 to get bytes
-            byte[] dec = Base64.decode(str);
+            byte[] dec = Base64.getDecoder().decode(str);
 
             // Decrypt
             byte[] utf8 = dcipher.doFinal(dec);
