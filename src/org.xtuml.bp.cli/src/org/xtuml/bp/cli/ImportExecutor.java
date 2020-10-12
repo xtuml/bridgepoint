@@ -82,7 +82,10 @@ public class ImportExecutor implements Executor {
             }
         }
         // Get the source project
-        String projectName = getProjectNameFromPath();
+        String projectName = targetProjectName;
+        if (projectName.isEmpty()) {
+        	projectName = getProjectNameFromPath();
+        }
         project = ResourcesPlugin.getWorkspace().getRoot()
                 .getProject(projectName);
 
@@ -96,7 +99,6 @@ public class ImportExecutor implements Executor {
             }
         } 
 
-        System.out.println("Importing project: " + projectName);
         final IProjectDescription description = ResourcesPlugin.getWorkspace().newProjectDescription(project.getName());
         if (!targetWorkingPath.isEmpty()) {
             IPath workingPath = new Path(targetWorkingPath);
@@ -104,6 +106,7 @@ public class ImportExecutor implements Executor {
         }
         // create the project
         project.create(description, new NullProgressMonitor());
+        System.out.println("Importing project: " + projectName);
         // Copy source project contents
         copyFolder(new File(projectPath), project.getLocation().toFile());
         project.open(new NullProgressMonitor());
@@ -152,32 +155,38 @@ public class ImportExecutor implements Executor {
         if(!sourceFile.exists() || !sourceFile.isFile()) {
             throw new BPCLIException("The source file does not exist.");
         }
-        if (targetProjectName.isEmpty()) {
+        // Verify the destination exists and is a Folder
+        if (!targetWorkingPath.isEmpty()) {
+            File destination = new File(targetWorkingPath);
+            if(destination.exists()) {
+                if (!destination.isDirectory()) {
+                    throw new BPCLIException("The destination does not exist.");
+                }
+            }
+        }
+        String projectName = targetProjectName;
+        if (projectName.isEmpty()) {
             // No target project given, use the name of the file as the project name
-            targetProjectName = sourceFile.getName();
-            targetProjectName = FilenameUtils.removeExtension(targetProjectName); 
+            projectName = sourceFile.getName();
+            projectName = FilenameUtils.removeExtension(projectName); 
         }
         
-        project = ResourcesPlugin.getWorkspace().getRoot().getProject(targetProjectName);
+        project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 
-        // delete existing project and create a new one
+        // Check for delete existing project
         if (project.exists()) {
             if (cmdLine.getBooleanValue("-deleteExisting")) {
                 System.out.println("Deleting existing project...");
                 project.delete(true, true, new NullProgressMonitor());
-            } 
-        } 
-        if (!project.exists()) {
-            if (cmdLine.getBooleanValue("-deleteExisting")) {
-                System.out.println("Creating project...");
-                project = ProjectUtilities.createProjectNoUI(targetProjectName);
-            } 
-            else {
-                throw new BPCLIException("The single file import requires the target project already exist.");
             }
+        } 
+        // Check to see if a new project needs to be created.
+        if (!project.exists()) {
+            System.out.println("Creating project...");
+            project = ProjectUtilities.createProjectNoUI(projectName, targetWorkingPath);
         }
         
-        System.out.println("Importing file into project: " + targetProjectName);
+        System.out.println("Importing file into project: " + projectName);
         prepareProject( project );
     
         // Import the file into the project
