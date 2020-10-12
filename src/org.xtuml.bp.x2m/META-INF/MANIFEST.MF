@@ -7,6 +7,6 @@ Bundle-ClassPath: x2m.jar
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.x2m
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.x2m
