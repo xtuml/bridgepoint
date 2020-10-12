@@ -1,0 +1,90 @@
+= CLI script import changes
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+See <<dr-2>>.
+
+== 2 Introduction and Background
+
+See <<dr-2>>.
+
+== 3 Requirements
+
+See <<dr-2>>.
+
+== 4 Work Required
+
+=== 4.1 Added new option -workingPath
+
+Added option to Import::getCommandLineOptions and the ImportExecutor 
+constructor.
+
+=== 4.2 Added support for workingPath to import project code
+
+Updated ImportExecutor::importProject to add check for workingPath option and
+then a check to see if it points to a valid path. The IProjectDescription
+creation was moved up to allow for setting the location to the workingPath
+value.
+
+=== 4.3 Added support for workingPath to import file code
+
+Updated ProjectUtilities::createProjectNoUI to take a location parameter, and
+updated ImportExecutor::importFile to pass a validated workingPath value in the
+aforementioned location parameter. The createProjectNoUI will then load the
+location, if the option value exists.
+
+=== 4.4 Updated deleteExisting handling in import project code
+
+An existing project is now only deleted if deleteExisting is specified, 
+otherwise a CLI error message is returned.
+
+=== 4.5 Updated deleteExisting handling in import file code
+
+An existing project is now only deleted if deleteExisting is specified, 
+otherwise a CLI error message is returned.
+
+=== 4.6 Updated project missing handling in import file code
+
+If the project is missing, then it gets created as specified by the
+targetProject option or as the file name, if targetOptions isn't specified.
+
+== 5 Implementation Comments
+
+Found it odd that the import project didn't go through ProjectUtilities to
+create a project, but didn't investigate too closely. Might be a future
+refactor.
+
+== 6 Unit Test
+
+== 7 User Documentation
+
+Update the CommandLineInterface documentation to match the new code, correct out
+of date descriptions, and converted to asciidoc.
+
+== 8 Code Changes
+
+- fork/repository: lwriemen/bridgepoint
+- branch:  9680-cli-import
+
+----
+doc-bridgepoint/notes/9680_cli_import/9680_cli_import_ant.adoc
+doc-bridgepoint/notes/9680_cli_import/9680_cli_import_int.adoc
+src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/Import.java
+src/org.xtuml.bp.cli/src/org/xtuml/bp/cli/ImportExecutor.java
+src/org.xtuml.bp.doc/Reference/UserInterface/CommandLineInterface/CommandLineInterface.adoc
+src/org.xtuml.bp.doc/Reference/UserInterface/CommandLineInterface/CommandLineInterface.md
+src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/9680[9680 - CLI Import into non-workspace directory]
+. [[dr-2]] link:9680_cli_import_ant.adoc[CLI import analysis note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
