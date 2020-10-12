@@ -62,7 +62,8 @@ to the current workspace.
 
 | -project <directory> | The fully qualified path of the project to be imported.
 | -deleteExisting | Delete an existing project with the same name in the
-workspace before importing the named project.
+workspace before importing the named project.footnote:[This will _not_ delete
+files stored in a location outside of the workspace via `-workingPath`.]
 | -file <file> | The fully qualified path of an xtUML file to import.
 | -targetProject <name> | The desired name of the imported project in the
 workspace.footnote:[If omitted, the project name will be set to be the name of
