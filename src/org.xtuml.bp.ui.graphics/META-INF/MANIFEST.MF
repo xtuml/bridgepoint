@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.ui.properties,
  org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.1.3",
  org.xtuml.bp.ui.explorer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Import-Package: org.xtuml.bp.ui.text.activity,
  org.xtuml.bp.ui.text.description,

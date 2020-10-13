@@ -1,10 +1,8 @@
 package org.xtuml.bp.ui.marking;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -15,18 +13,26 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.Vector;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
+import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TerminatorService_c;
+import org.xtuml.bp.core.common.AttributeChangeModelDelta;
+import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
@@ -197,7 +203,11 @@ public class MarkingData {
 		mark.feature_name = featureName;
 		mark.path = modelElement;
 		mark.value = newValue;
+      if (modelElement.equals("*")) {
+          mark.nrme = null;
+      } else {
 		mark.nrme = MarkingData.getNRMEForMark(modelElement, elemType, this.project);
+      }
 		markList.put(getCombinedRef(featureName, elemType), mark);
 	}
 
@@ -213,24 +223,74 @@ public class MarkingData {
 	
 	/**
 	 * Iterate through all the marks and update model path keys. 
+    * Retains marks with '*' data as is.
+    * Retries added for possible model loading race conditions. This only 
+    * applies to attribute changes.
 	 *
+    * @param deltaToHandle - the change data to use for retries.
+    * 
 	 * @return Flag indicating if the markings had to be updated or not 
 	 */
-	public boolean recalculatePathKeys() {
+   public boolean recalculatePathKeys(IModelDelta deltaToHandle) {
 		LinkedHashMap<String,Mark> newMarkList;
 		LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
 		boolean marksUpdated = false;
 		
 		for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
 			Set<Map.Entry<String, Mark>> featureEntrySet = elementEntry.getValue().entrySet();
+         String newPath;
+         String currentPath = elementEntry.getKey();
 
+         Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next(); 
+         // Handle '*' in path as a special case per Ciera requirements.
+         if (currentPath.equals("*")) {
+             newPath = currentPath;
+         } else if ( (deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) &&
+        		    ((AttributeChangeModelDelta) deltaToHandle).getOldValue() != null &&
+                     !(currentPath.matches(".*\\b" +
+                       ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString() + 
+                       "\\b.*")) ) {
+             // Attribute change with attribute not in path.
+             newPath = currentPath;
+         } else {
 			// Run a path check on the first mark in the set.  If it's OK, then all the marks in this set
 			// are OK and we skip further processing.  If it's not OK, we must iterate through all the marks
 			// for this model element and update them.
-			Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next(); 
 			// Use the mark's nrme to get the updated path and see if it matches elementEntry.getKey()
-			String newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
-			String currentPath = elementEntry.getKey();
+            newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
+            // Due to the possibility of a race condition between the model update causing this transaction and 
+            // this transaction handling, additional steps need to be taken to ensure the return of the 
+            // previous call wasn't due to being out of sync with the model.
+            if ((newPath == null) || newPath.isEmpty()) {
+               // Is this mark involved in the current transaction as an attribute change?
+               if ( deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                  AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                  String oldAttributeValue = change.getOldValue().toString();
+                  String newAttributeValue = change.getNewValue().toString();
+                  // This change would have to affect the path to return a null NRME, so check the path.
+                  String modelElement = firstfeatureEntry.getValue().path;
+                  if (modelElement.matches(".*\\b" + oldAttributeValue + "\\b.*")) {
+                     // There can be more than one match in the path, so we have to change each until a
+                     // valid nrme is found.
+                     NonRootModelElement newNrme = null;
+                     boolean allTried = false;
+                     int idx = modelElement.indexOf(oldAttributeValue);
+                     int lastIdx = modelElement.lastIndexOf(oldAttributeValue);
+                     while (!allTried && (null == newNrme)) {
+                         String updatedPath = modelElement.replaceFirst("(.{" + idx + "})\\b" + oldAttributeValue + "\\b(.*)", "$1" + newAttributeValue + "$2");
+                         newNrme = MarkingData.getNRMEForMark(updatedPath, firstfeatureEntry.getValue().markable_name, this.project);
+                         if (idx == lastIdx) {
+                             allTried = true;
+                         } else {
+                             idx = modelElement.indexOf(oldAttributeValue, idx + oldAttributeValue.length());
+                             updatedPath = modelElement;
+                         }
+                     }
+                     newPath = MarkingData.getPathkey(newNrme, project);
+                  } 
+               }
+            }
+         }
 			if ((newPath == null) || newPath.isEmpty()) {
 				// A container for the marked element must have been deleted, remove the mark
 				marksUpdated = true;
@@ -269,23 +329,70 @@ public class MarkingData {
 	}
 
 	/**
+    * Check the value data, contained in the mark, for change and update on change.
+    * @param nrmeOfChange - the NRME obtained from the transaction
+    * @param newAttributeValue - the new value
+    * @param oldAttributeValue - the old value
+    * @return Indicates if the marking data needs to be persisted.
+    */
+   public boolean updateValueData(NonRootModelElement nrmeOfChange, String newAttributeValue, String oldAttributeValue)
+   {
+      LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
+      boolean marksUpdated = false;
+      
+      for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
+         LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
+         for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) {
+            // Check for model loading/mark loading race condition.
+            NonRootModelElement nrmeCurrent = featureEntry.getValue().nrme;
+            if ( (null == nrmeCurrent) && !featureEntry.getValue().path.equals("*") ){
+                nrmeCurrent = getNRMEForMark(featureEntry.getValue().path, featureEntry.getValue().markable_name, this.project);
+            }
+            String markValue = featureEntry.getValue().value;
+            if (  markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") && 
+                 (featureEntry.getValue().path.equals("*") || nrmeOfChange.equals(nrmeCurrent)) && !oldAttributeValue.equals("") ) {
+               marksUpdated = true;
+               Mark origMark = featureEntry.getValue();
+               Mark mark = new Mark();
+               mark.markable_name = origMark.markable_name;
+               mark.feature_name = origMark.feature_name;
+               mark.path = origMark.path;
+               mark.value = markValue.replace(oldAttributeValue, newAttributeValue);
+               mark.nrme = origMark.nrme;
+               newMarkList.put(featureEntry.getKey(), mark);
+            } else {
+               // Unchanged entry
+               newMarkList.put(featureEntry.getKey(), featureEntry.getValue());
+            }
+         }
+         newMarkingsMap.put(elementEntry.getKey(), newMarkList);
+      }
+      // Use the newly updated map of markings
+      if (marksUpdated) {
+         markingsMap = newMarkingsMap;
+      }
+      return marksUpdated;
+   }
+
+   /**
 	 * Write the modified application marking data to disk
 	 */
 	public void persist() {
 		try {
-			FileOutputStream fout = new FileOutputStream(project.getLocation().toString() + MARKINGS_FILE);
-			PrintStream stream = new PrintStream(fout);
+			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(project.getFullPath().append(MARKINGS_FILE));
 			
+			StringJoiner markingContentBuilder = new StringJoiner("\n");
 			// Persist the markings
 			for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
 				for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet()) {
 					if ( ! featureEntry.getValue().value.isEmpty() ) {
-						stream.println(featureEntry.getValue().path + DELIM + featureEntry.getValue().feature_name + DELIM + featureEntry.getValue().markable_name + DELIM + featureEntry.getValue().value);
+						markingContentBuilder.add(featureEntry.getValue().path + DELIM + featureEntry.getValue().feature_name + DELIM + featureEntry.getValue().markable_name + DELIM + featureEntry.getValue().value);
 					}
 				}
 			}
-			fout.close();
-		} catch (IOException e) {
+			ByteArrayInputStream bias = new ByteArrayInputStream(markingContentBuilder.toString().getBytes());
+			file.setContents(bias, IFile.DEPTH_ONE, new NullProgressMonitor());
+		} catch (CoreException e) {
 			CorePlugin.logError("Error persisting to " + MARKINGS_FILE, e);
 		}        
 	}
