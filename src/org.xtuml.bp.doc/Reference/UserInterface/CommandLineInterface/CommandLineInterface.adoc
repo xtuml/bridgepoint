@@ -1,0 +1,154 @@
+= Command Line Interface
+
+The Command Line Interface (CLI) provides a mechanism to automate the execution
+and translation of xtUML projects. The CLI supports Import, Build and Execute
+tasks using the following command structure:
+
+`CLI <Build | Import | Execute | Merge> <Argument List>`
+
+where `<Argument List>` depends on the task.
+Further details on the options available for each CLI task can be found by
+entering `CLI <Build | Import | Execute | Merge> -help`
+
+== Preparing a Project to be Used With CLI
+Prior to invoking the CLI, assign the proper value to the WORKSPACE environment
+variable in the launch terminal.footnote:[You can also modify the value CLI.sh
+in the <BridgePoint install>/tools/mc/bin/CLI.sh file.]
+
+For each target project, launch and build configurations are required under the
+following circumstances:
+
+. For the `Build` task, a build configuration must exist for each name requested
+by option `-buildConfig`
+. For the `Execute` task, a launch configuration must exist for each name
+requested by option `-launch` and each configuration must identify at least one
+`Initializer`.footnote:[an interface operation, interface signal or state
+machine event.]
+
+_It is recommended that the `Execution timeout (seconds)` selection be set to a
+value greater than 0, so if the execution time exceeds this limit, execution
+will terminate with a timeout error message._
+
+image::debug_config.png[777,616]
+
+== Building a Project Using the CLI
+The Build task, `CLI Build <Argument List>`, is used to translate an xtUML
+model using the project’s selected model compiler.
+
+`<Argument List>` can contain any of the following options:
+
+|===
+|Parameter | Description
+
+| -project <name> | The name of the project to be built.
+| -buildConfig <name> | The name of the CDT build configuration to be used.
+footnote:[If omitted then the current Active configuration is used.]
+| -prebuildOnly | Only execute the BridgePoint Model Compiler pre-builder.
+| -doNotParse footnote:[Only applies if -prebuildOnly is used.] | Do not parse
+the model during this build process.
+| -cleanCLI | Perform a clean build of the project.
+| -debugCLI | Launch a workbench and leave it open after execution.
+| -help | Display usage information.
+|===
+
+== Importing a Project Using the CLI
+The Import task, `CLI Import <Argument List>`, is used to add the named project
+to the current workspace.
+
+`<Argument List>` can contain any of the following options:
+
+|===
+| Parameter | Description
+
+| -project <directory> | The fully qualified path of the project to be imported.
+| -deleteExisting | Delete an existing project with the same name in the
+workspace before importing the named project.footnote:[This will _not_ delete
+files stored in a location outside of the workspace via `-workingPath`.]
+| -file <file> | The fully qualified path of an xtUML file to import.
+| -targetProject <name> | The desired name of the imported project in the
+workspace.footnote:[If omitted, the project name will be set to be the name of
+the project or xtUML filename being imported.]
+| -workingPath <directory> | The fully qualified path to the storage location of
+the project files.
+| -help | Display usage information.
+|===
+
+== Executing a Project Using the CLI
+The Execute task, `CLI Execute <Argument List>`, is used to run an xtUML model
+using BridgePoint’s xtUML Debugging perspective.
+
+`<Argument List>` can contain any of the following options:
+
+|===
+| Parameter | Description
+
+| -launch <name> | The name of the launch configuration to execute.
+| -debugCLI | Launch a workbench and leave it open after execution.
+| -help | Display usage information.
+|===
+
+== Merging Changes From a Remote Version into the Local Project Using the CLI
+The Merge task, `CLI Merge <Argument List>`, is used to produce an xtUML model
+file containing the merged resultant from two xtUML model files, that are
+derived from a common ancestor.
+
+`<Argument List>` can contain any of the following options:
+
+|===
+| Parameter | Description
+
+| -rightFile <file> | The name of the remote file to be used in the merge.
+| -leftFile <file> | The name of the local file to be used in the merge.
+| -ancestorFile <file> | The name of the common ancestor to both `rightFile`
+and `leftFile`.
+| -outputFile <file> | The name of the file to hold the resultant of the merge.
+| -help | Display usage information.
+|===
+
+_The Merge task will fail and no output file generated, if conflicts exist
+between the left file and the right file. Also, an absolute path must be
+specified for the left, right, ancestor and output files._
+
+== Suggestions for Troubleshooting CLI Problems
+These suggestions are intended for problems involving scripts that interact with
+usage of the CLI script. The combination of these suggestions is often
+sufficient to isolate and correct CLI problems.
+
+. Interactively, repeat the scripted steps inside the tool GUI. The information
+contained in the console window can assist in isolating the problem and
+confirming whether the issue relates to the CLI script or other aspects of the
+scripted process.
+. If confirmed that the issue is a CLI script problem, modify the `eclipsec`
+invocation inside the CLI script to add `-debug -console -consoleLog` to the
+command just before `-application` and re-run the script. These additional
+settings will present extra debugging detail in the console output.
+. For further debugging, add `-debugCLI` to suspected CLI commands. The
+`-debugCLI` option is analogous to a breakpoint at the end of the CLI command
+that will leave the eclipse workbench open for further interactive probing.
+
+== CLI Examples Using the GPS Watch Project
+Here is a simple script that will:footnote:[Location path for CLI.sh omitted for
+brevity.]
+. Import the GPS Watch project from `$HOME/temp` into `$WORKSPACE`.
+. Build the project as a `Debug` configuration.
+. Execute the project using the `GPS_Watch_test` debug configuration.
+
+....
+CLI.sh Import -deleteExisting -project $HOME/temp/GPS_Watch
+
+CLI.sh Build -project GPS_Watch -buildConfig Debug -cleanCLI
+
+CLI.sh Execute -launch "`GPS Watch With Initializer`"
+....
+
+If the GPS Watch project, located at `$WORKSPACE/GPS_Watch/model.xtuml`, is
+modified and stored as two projects, `$WORKSPACE/GPS1` and `$WORKSPACE/GPS2`,
+then a merged file named, `model.xtuml` can be produced from this CLI command:
+
+....
+CLI.sh Merge -leftFile $WORKSPACE/GPS1/model.xtuml \
+-rightFile $WORKSPACE/GPS2/model.xtuml \
+-ancestorFile $WORKSPACE/GPS_Watch/model.xtuml \
+-outputFile $WORKSPACE/GPS_merge/model.xtuml
+....
+
