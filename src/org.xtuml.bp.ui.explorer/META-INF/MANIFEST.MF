@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.core,
  org.xtuml.bp.ui.properties
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: org.xtuml.bp.ui.text.activity,
  org.xtuml.bp.ui.text.description,
  org.xtuml.bp.ui.text.masl
