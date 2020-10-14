@@ -697,6 +697,113 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("3b20f580-9628-4c73-9b6f-a22f8d029c5b",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'actionFilter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'if(param.name == "can")
+  if(param.value == "createSequence")
+  	select many systems from instances of S_SYS;
+  	for each system in systems
+  		select any package related by system->EP_PKG[R1405] where selected.Name == "scenarios";
+	  	if(not_empty package)
+		  // at least one package may have importable scanerios
+		  select many funcs related by package->PE_PE[R8000]->S_SYNC[R8001];
+		  for each func in funcs
+		  	if(func.isAvailableScenario(deployment: self))
+		  		return  true;
+		  	end if;
+		  end for;
+	  	end if;
+  	end for;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"395dae24-b839-41bf-a5e0-a6158baa7d56",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("6b5d17e8-36b3-4160-9096-bcead8627dc8",
+	"3b20f580-9628-4c73-9b6f-a22f8d029c5b",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("461f78c5-749a-4d73-abfb-6bc455d4ef56",
+	"3b20f580-9628-4c73-9b6f-a22f8d029c5b",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"6b5d17e8-36b3-4160-9096-bcead8627dc8",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e576ba58-d038-433c-9851-1a1bbfef8ca8",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'functionIsScenario',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select any func from instances of S_SYNC where selected.Sync_ID == param.funcId;
+return func.isAvailableScenario(deployment: self);',
+	1,
+	'',
+	"3b20f580-9628-4c73-9b6f-a22f8d029c5b",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("96a96fdd-3711-4e28-88d5-c68cda063aea",
+	"e576ba58-d038-433c-9851-1a1bbfef8ca8",
+	'funcId',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("878f52cc-11e3-443d-bafa-a983f951b9db",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'createOrReturnTerminatorForScenarios',
+	'',
+	"874ea64a-b4ce-4146-900c-e720c93634f2",
+	1,
+	'/**
+	Create a terminator for the chosen scenarios.  
+	
+	In the WASL workflow a terminator represents a sequenced set of functions.  Each
+	deployment may have only one terminator.
+	
+ */
+ // only one allowed, check for existing one and return if present
+ select any term related  by self->D_TERM[R1650] where selected.Terminator_Name == "Sequence";
+ if(not_empty term)
+ 	return term;
+ end if;
+name = self.Name;
+create object instance term of D_TERM;
+relate term to self across R1650;
+term.Domain_Name = name;
+term.Terminator_Name = "Sequence";
+term.Descrip = "";
+term.Provider = false;
+return term;',
+	1,
+	'',
+	"e576ba58-d038-433c-9851-1a1bbfef8ca8",
+	0);
+INSERT INTO S_DT_PROXY
+	VALUES ("874ea64a-b4ce-4146-900c-e720c93634f2",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Terminator>',
+	'',
+	'',
+	'../Deployment.xtuml');
 INSERT INTO O_REF
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -780,6 +887,28 @@ INSERT INTO O_ATTR
 	'Full Name:Deployment Description',
 	'',
 	'Descrip',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("40c7ee23-8b62-44bb-9694-60a8c194f7bd",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_BATTR
+	VALUES ("40c7ee23-8b62-44bb-9694-60a8c194f7bd",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555");
+INSERT INTO O_ATTR
+	VALUES ("40c7ee23-8b62-44bb-9694-60a8c194f7bd",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	"b08fd23c-3b7b-4e5c-a981-9996acfa3055",
+	'Key_Lett',
+	'Full Name: Deployment Key Letters
+
+In WASL Deployments match to Projects.
+
+WASL has key letter identifiers on projects, therefore we create that map between xtUML and WASL here.  ',
+	'',
+	'Key_Lett',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',

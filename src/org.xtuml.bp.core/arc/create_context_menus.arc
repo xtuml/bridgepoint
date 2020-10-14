@@ -74,9 +74,15 @@ ${result.body}
 .select many menu_entries from instances of CME
 .for each menu_entry in menu_entries
   .if(menu_entry.UsesSelectionDialog)
-    .invoke result = create_selection_dialog_action(path, menu_entry)
+      .invoke fn = get_func_name(menu_entry)
+      .select any function from instances of S_SYNC where (selected.Name == fn.body)
+      .if ( "${function.Descrip:Translate}" != "native" )
+        .invoke result = create_selection_dialog_action(path, menu_entry)
 ${result.body}
-    .emit to file "${action_rel_path}/${result.result}.java"
+        .emit to file "${action_rel_path}/${result.result}.java"
+      .else
+        .print "WARNING: Function ${function.Name} has a native implementation; nothing done"
+      .end if
   .else
     .if (menu_entry.Global == false)
       .invoke result = create_object_action(path, menu_entry)

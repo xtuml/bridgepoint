@@ -25,6 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,6 +35,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -152,6 +154,11 @@ public class ElementSelectionFlatView extends Composite {
 
 	private boolean fHideInvisibleElements;
 
+	private Text fSelectedElementOrder;
+	private List<Object> fOrderedSelection = new ArrayList<Object>();
+
+	private boolean fMaintainSelectionOrder;
+
 	private static final String DIALOG_SETTINGS = "org.xtuml.bp.core.ui.dialogs.ElementSelectionFlatView"; //$NON-NLS-1$
 
 	private static final String CACHED_SEARCH_PATTERN = "CACHED_SEARCH_PATTERN"; //$NON-NLS-1$
@@ -170,12 +177,20 @@ public class ElementSelectionFlatView extends Composite {
 
 	private static final String CACHED_VISIBILITY_FILTER = "CACHED_VISIBILITY_FILTER"; //$NON-NLS-1$
 
+	public ElementSelectionFlatView(Composite parent, int style, String action, boolean loneSelection,
+			NonRootModelElement[] elements, String initialFilter, ElementSelectionDialog dialog,
+			NonRootModelElement currentElement, boolean enableVisibilityFiltering, Package_c hostPackage) {
+		this(parent, style, action, loneSelection, elements, initialFilter, dialog, currentElement,
+				enableVisibilityFiltering, hostPackage, false);
+	}
+	
 	public ElementSelectionFlatView(Composite parent, int style, String action,
 			boolean loneSelection, NonRootModelElement[] elements,
 			String initialFilter, ElementSelectionDialog dialog,
 			NonRootModelElement currentElement,
-			boolean enableVisibilityFiltering, Package_c hostPackage) {
+			boolean enableVisibilityFiltering, Package_c hostPackage, boolean ordered) {
 		super(parent, style);
+		fMaintainSelectionOrder = ordered;
 		fSorter.setIgnoreCase(true);
 		fElements = elements;
         fSelectedElements = new HashSet<>();
@@ -407,6 +422,24 @@ public class ElementSelectionFlatView extends Composite {
 		}
 		
 		fOriginalForeground = fFilter.getForeground();
+		if (fMaintainSelectionOrder) {
+			gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
+			gd.horizontalSpan = 2;
+			gd.verticalSpan = 1;
+			Label selectionOrderLabel = new Label(this, SWT.NONE);
+			selectionOrderLabel.setFont(font);
+			selectionOrderLabel.setText("Selected:");
+			selectionOrderLabel.setLayoutData(gd);
+			gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
+			gd.horizontalSpan = 2;
+			gd.verticalSpan = 1;
+			gd.heightHint = 100;
+			fSelectedElementOrder = new Text(this, SWT.WRAP | SWT.V_SCROLL);
+			fSelectedElementOrder.setFont(font);
+			fSelectedElementOrder.setText(selectedElementsToText());
+			fSelectedElementOrder.setLayoutData(gd);
+			
+		}
 		Label label = new Label(this, SWT.NONE);
 		label.setFont(font);
 		if(charIsVowel(action.charAt(0))) {
@@ -442,6 +475,26 @@ public class ElementSelectionFlatView extends Composite {
 			    for (TableItem item : fTable.getSelection()) {
 			    	fSelectedElements.add(item.getData());
 			    }
+				if (fMaintainSelectionOrder) {
+					// for group selection, i.e, holding shift
+					// add any in the selection we do not have
+					// remove any that are not part of the selection
+					List<TableItem> newSelection = Arrays.stream(fTable.getSelection())
+							.filter(i -> !fOrderedSelection.contains(i)).collect(Collectors.toList());
+					if ((e.stateMask & SWT.SHIFT) == SWT.SHIFT) {
+						int lastSelectedIndex = fSelectedElements.isEmpty() ? 0
+								: fTable.indexOf((TableItem) fOrderedSelection.get(fOrderedSelection.size() - 1));
+						boolean reverse = lastSelectedIndex > fTable.indexOf((TableItem) e.item);
+						if (reverse) {
+							Collections.reverse(newSelection);
+						}
+					}
+					fOrderedSelection.addAll(newSelection);
+					fOrderedSelection = fOrderedSelection.stream()
+							.filter(i -> Arrays.stream(fTable.getSelection()).anyMatch(o -> o == i)).distinct()
+							.collect(Collectors.toList());
+					fSelectedElementOrder.setText(selectedElementsToText());
+				}
 				updateOKStatus();
 			}
 
@@ -450,6 +503,22 @@ public class ElementSelectionFlatView extends Composite {
 			}
 
 		});
+		if(fMaintainSelectionOrder) {
+			fTable.addFocusListener(new FocusListener() {
+				
+				@Override
+				public void focusLost(FocusEvent e) {
+					// do nothing
+				}
+				
+				@Override
+				public void focusGained(FocusEvent e) {
+					// transfer selection to ordered selection
+					fOrderedSelection.add(((Table) e.widget).getSelection()[0]);
+					fSelectedElementOrder.setText(selectedElementsToText());
+				}
+			});
+		}
 		fTable.addMouseListener(new MouseListener() {
 			public void mouseUp(MouseEvent e) {
 			}
@@ -481,6 +550,12 @@ public class ElementSelectionFlatView extends Composite {
 					+ getLabel(fCurrentElement));
 			fLabel.setImage(getImageForElement(fCurrentElement));
 		}
+	}
+
+	private String selectedElementsToText() {
+		List<String> elements = fOrderedSelection.stream().map(i -> ((TableItem) i).getData().toString() + " - "
+				+ getLabel((NonRootModelElement) ((TableItem) i).getData())).collect(Collectors.toList());
+		return String.join("\n", elements);
 	}
 
 	private boolean charIsVowel(char character) {
@@ -1032,6 +1107,9 @@ public class ElementSelectionFlatView extends Composite {
 	}
 
 	private void disposeFlatView() {
+		// convert result array from table items that
+		// are about to be disposed, to their data
+		fOrderedSelection = fOrderedSelection.stream().map(i -> ((TableItem) i).getData()).collect(Collectors.toList());
 		store(fSettings);
 	}
 
@@ -1054,7 +1132,8 @@ public class ElementSelectionFlatView extends Composite {
 	}
 
 	public Object[] getSelection() {
-		return fSelectedElements.toArray();
+		return fMaintainSelectionOrder ? fOrderedSelection.toArray()
+				: fSelectedElements.toArray();
 	}
 
 }
