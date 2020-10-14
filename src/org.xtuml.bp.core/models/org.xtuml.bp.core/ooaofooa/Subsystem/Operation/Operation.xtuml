@@ -1384,6 +1384,25 @@ INSERT INTO S_DT_PROXY
 	'Enumerator for available action dialects',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("2020fb53-8b3d-48e5-90a4-15134cb599eb",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_BATTR
+	VALUES ("2020fb53-8b3d-48e5-90a4-15134cb599eb",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_ATTR
+	VALUES ("2020fb53-8b3d-48e5-90a4-15134cb599eb",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	"ad0610bc-594c-4195-806b-b4bab885fd69",
+	'Numb',
+	'Full Name:  Operation Number
+Description: numeric key to distinguish the service to action language',
+	'',
+	'Numb',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
