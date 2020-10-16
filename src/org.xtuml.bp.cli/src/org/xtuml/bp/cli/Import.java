@@ -73,6 +73,10 @@ public class Import implements IApplication {
                         "-workspacePreferences",
                         "",
                         "Worskpace preferences to set before import."),
+                new CommandLineOption(
+                        "-workingPath",
+                        "",
+                        "The fully qualified path to the project storage location."),
                 new CommandLineOption("-help", false, "Display usage information.")
         };
 	    return cmdLineOptions;

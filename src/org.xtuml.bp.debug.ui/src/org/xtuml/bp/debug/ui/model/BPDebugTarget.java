@@ -147,9 +147,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					 * We only start the separate timer thread when
 					 * we are not running in deterministic mode.
 					 */
-					if (!isDeterministic()) {
-						TIM.init(useSimTime);
-					}
+					TIM.init(useSimTime, isDeterministic());
 					for (BPThread thread: threads.toArray(new BPThread[0])) {
 						ComponentInstance_c target = thread.getEngine();
 						Component_c comp = Component_c.getOneC_COnR2955(target);

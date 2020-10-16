@@ -1,0 +1,120 @@
+= Update tests to reach 100% passing
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the changes required to get the unit tests passing
+on the build server.
+
+== 2 Introduction and Background
+
+Currently the unit tests report 15 failures.  The tests have not been
+running with the build server since 2019-05-08, at which point there
+were 5 failures.
+
+== 3 Requirements
+
+3.1 Unit tests pass with 100% success rate
+
+== 4 Work Required
+4.1 Deferral Disposal
+
+The disposal framework for O_DEF instances was not considering the case
+when an R_REL instance was disposed.  This was causing test failures
+related to the left over instance.  The R_REL.dispose() operation was
+modified to add a section for making all associated deferrals local.
+
+Likewise the O_TFR.dispose() operation was modified to unhook associated
+deferrals as well as delete the object.
+
+4.1.1 Test instance selection for Deferral
+
+Certain generated tests required the addition of a test case element.  
+The ContextMenuTest model was updated to add a deferral and the test was
+updated to select the proper test element.
+
+4.2 Rename tests for events
+
+The generated tests for the Rename and Delete action were blindly
+selecting an event test instance.  The result instance was actually a
+non local event and renaming was causing issues as the test was meant
+for the local event.  The archetype was updated to add a query selector.
+
+4.3 CME specification error with Remove From Identifier
+
+The CME function, removeFromIdentifier, had the following OAL:
+
+---
+if ( not_empty Identifier )
+  result = attr.removeFromIdentifier( oid: Identifier.Oid_ID );
+  if ( result != "" )
+    USER::warning( msg: result );
+    return false;
+  end if;
+---
+
+The workflow archetypes are designed to not output the code from the last
+inner block of the function into the page classes.  In this case we are
+testing a result, and logging accordingly.  This causes the
+removeFromIdentifier call to occur on page load, then triggers an error
+when trying to attempt removal again on finish.
+
+To get around this O_ATTR.removeFromIdentifier() was changed to log the
+error and return a boolean.  The CME function was changed to return the
+result of the call, removing the need for the extra block.  This allowed
+the code to be generated as expected.
+
+== 5 Implementation Comments
+5.1
+
+The approach described in 4.3 caused many issues with testing.  The
+reason for this is that you cannot return values in cme's.  In such a
+case the infrastructure will generate code that does not end the
+transaction.  This left an unusable transaction manager for all tests
+run after the first one that attempted removal from an identifier.
+
+== 6 Unit Test
+
+All existing tests are run and pass.
+
+== 7 User Documentation
+
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bridgepoint
+- branch:  UnitTests-082320
+
+----
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Association/Association/Association.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/Context Menu Entry Functions/Context Menu Entry Functions.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Attribute/Attribute.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Operation/Operation.xtuml
+----
+
+- fork/repository:  travislondon/bptest
+- branch:  UnitTests-082320
+
+----
+src/org.xtuml.bp.als.oal.test/src/org/xtuml/bp/als/oal/test/TestAssign_Generics.java
+src/org.xtuml.bp.core.test/arc/create_action_test.arc
+src/org.xtuml.bp.core.test/arc/create_context_menu_tests.arc
+----
+
+- fork/repository:  travislondon/models
+- branch:  UnitTests-082320
+
+----
+models/test/ContextMenuTests/models/ContextMenuTests/ContextMenuTests/Formalize Menu Tests/Formalize Menu Tests.xtuml
+models/test/ContextMenuTests/models/ContextMenuTests/ContextMenuTests/Test Subsystem/Class A/Class A.xtuml
+models/test/ContextMenuTests/models/ContextMenuTests/ContextMenuTests/Test Subsystem/Class B/Class B.xtuml
+----
+
+== 9 Document References
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

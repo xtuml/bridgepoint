@@ -1,0 +1,130 @@
+= Add verbosity enablement in Ciera
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the changes required to have Ciera enable verbosity levels within the pyxtuml prebuilder.
+
+== 2 Introduction and Background [[Backgorund]]
+
+When building a project with Ciera, during prebuild, you get very little output by default.  If the project has a parse error somewhere you get a parse exception with a cryptic message.  This message contains only two numbers that with some investigation represent the line number and column of the syntax exception.  pyxtuml's prebuilder module has verbosity levels built in and provide a decent amount of information already.  Ciera does not make use of the verbosity parameter.
+
+== 3 Requirements
+
+. Verbosity can be enabled for the Ciera prebuild goal
+. Verbosity level can be configured for the Ciera prebuild goal
+. pyxtuml prebuild output is easier to understand
+
+== 4 Work Required
+
+=== 4.1 Allow verbosity enablement in Ciera projects
+=== 4.1.1 Extend prebuild goal to include new parameter for verbosity level
+=== 4.1.2 Convert goal parameter value to necessary -v count for pyxtuml
+pyxtuml prebuild configures the level of verbosity by counting the number of v's in the -v parameter set.  They are mapped as follows:
+
+In pyxtuml:
+
+* 0: logging.ERROR - not used as default is warning and this is included in 1
+* 1: logging.WARNING - -v (default)
+* 2: logging.INFO - -vv
+* 3: logging.DEBUG - -vvv
+
+In Ciera:
+
+* None: No -v passed
+* WARN: -v passed
+* INFO: -vv passed
+* DEBUG: -vvv passed
+
+The pom execution section for the prebuild goal can be extended with the above:
+```
+<execution>
+  <id>pre-build</id>
+  <goals>
+    <goal>pyxtuml-pre-build</goal>
+  </goals>
+  <configuration>
+    <loggingLevel>INFO</loggingLevel>
+  </configuration>
+</execution>
+```
+
+=== 4.2 Enhance prebuild output when logging
+
+As mentioned in the <<Background,Background>>, pyxtuml prebuilder already supports logging at different verbosity levels.  It also outputs a parse exception with the line number and column.
+
+First the output given for the parse exception is extended to label the line number and column as such:
+
+```
+bridgepoint.oal.ParseException: invalid token 'LESSTHAN' at Line number: 2 : Column: 1
+```
+
+All prebuilder classes in prebuild.py which are for elements with action language are updated such that they list the type of element as well as the path from containing component to element.  The resultant output  is:
+
+```
+INFO:bridgepoint.prebuild:processing Function at MicrowaveOven::StartCooking
+```
+
+This could later be extended to add the complete path, but if DEBUG level is set you also get this:
+
+```
+DEBUG:xtuml.load:parsing /Users/travislondon/git/ciera/examples/MicrowaveOven/models/MicrowaveOven/components/MicrowaveOven/Functions/Functions.xtuml
+```
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+. Add required configuration section to an example project's prebuild goal execution
+. Set the loggingLevel to INFO
+. Run mvn install
+* INFO statements are present in the output
+. Set the loggingLevel to DEBUG
+. Run mvn clean
+. Run mvn install
+* DEBUG and INFO statements are present in the output
+. Create a parse error in an example project
+. Run mvn install
+* Parse exception includes Line number and Column labels
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/ciera
+- branch:  12009_pre_build_verbosity
+
+----
+.gitignore
+src/ciera-maven-plugin/src/main/java/io/ciera/maven/PyxtumlPreBuildMojo.java
+----
+
+- fork/repository: travislondon/pyxtuml
+- branch: 12009_pre_build_verbosity
+
+----
+.gitignore
+bridgepoint/oal.py
+bridgepoint/prebuild.py
+setup.py
+xtuml/version.py
+----
+
+- fork/repository: travislondon/bridgepoint
+- branch: 12009_pre_build_verbosity
+
+----
+.gitignore
+doc-bridgepoint/notes/12009_pre_build_verbosity/12009_pre_build_verbosity.int.adoc
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12009[12009 - Provide ability to isolate source of pre-builder failure]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

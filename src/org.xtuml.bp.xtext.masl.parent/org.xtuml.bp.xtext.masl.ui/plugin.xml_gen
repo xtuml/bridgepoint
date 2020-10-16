@@ -26,11 +26,11 @@
 		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
 			commandId="org.xtuml.bp.xtext.masl.MASL.validate">
-		<activeWhen>
-			<reference
+			<activeWhen>
+				<reference
 					definitionId="org.xtuml.bp.xtext.masl.MASL.Editor.opened">
-			</reference>
-		</activeWhen>
+				</reference>
+			</activeWhen>
 		</handler>
 		<!-- copy qualified name -->
 		<handler
@@ -119,38 +119,38 @@
 	</extension>
 	<extension
 		point="org.eclipse.ui.commands">
-	<command
+		<command
 			description="Trigger expensive validation"
 			id="org.xtuml.bp.xtext.masl.MASL.validate"
 			name="Validate">
-	</command>
-	<!-- copy qualified name -->
-	<command
+		</command>
+		<!-- copy qualified name -->
+		<command
 			id="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
 			categoryId="org.eclipse.ui.category.edit"
 			description="Copy the qualified name for the selected element"
 			name="Copy Qualified Name">
-	</command>
-	<command
+		</command>
+		<command
 			id="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName"
 			categoryId="org.eclipse.ui.category.edit"
 			description="Copy the qualified name for the selected element"
 			name="Copy Qualified Name">
-	</command>
+		</command>
 	</extension>
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution
 			locationURI="popup:#TextEditorContext?after=group.edit">
-			 <command
-				 commandId="org.xtuml.bp.xtext.masl.MASL.validate"
-				 style="push"
-				 tooltip="Trigger expensive validation">
-			<visibleWhen checkEnabled="false">
-				<reference
-					definitionId="org.xtuml.bp.xtext.masl.MASL.Editor.opened">
-				</reference>
-			</visibleWhen>
-		</command>
+			<command
+				commandId="org.xtuml.bp.xtext.masl.MASL.validate"
+				style="push"
+				tooltip="Trigger expensive validation">
+				<visibleWhen checkEnabled="false">
+					<reference
+						definitionId="org.xtuml.bp.xtext.masl.MASL.Editor.opened">
+					</reference>
+				</visibleWhen>
+			</command>
 		</menuContribution>
 		<!-- copy qualified name -->
 		<menuContribution locationURI="popup:#TextEditorContext?after=copy">
@@ -203,6 +203,15 @@
 				</reference>
 			</activeWhen>
 		</handler>
+	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="mod,tr,ext,scn,al,int,svc,prj,fn,masl"
+			id="org.xtuml.bp.xtext.masl.MASL.contenttype"
+			name="MASL File"
+			priority="normal">
+		</content-type>
 	</extension>
 	<!-- adding resource factories -->
 	<extension
@@ -408,7 +417,7 @@
 	<!-- Quick Outline -->
 	<extension
 		point="org.eclipse.ui.handlers">
-		<handler 
+		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
@@ -468,7 +477,7 @@
 	</extension>
 	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
-		<handler 
+		<handler
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
@@ -505,12 +514,18 @@
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="mod,tr,ext,scn,al,int,svc,prj,fn,masl">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.xtuml.bp.xtext.masl.MASL.contenttype"
+			contentViewerId="org.xtuml.bp.xtext.masl.MASL.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="org.xtuml.bp.xtext.masl.MASL.compare.contentMergeViewers"
 			class="org.xtuml.bp.xtext.masl.ui.MASLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="mod,tr,ext,scn,al,int,svc,prj,fn,masl" label="MASL Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.xtuml.bp.xtext.masl.MASL.contenttype"
+			contentMergeViewerId="org.xtuml.bp.xtext.masl.MASL.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="org.xtuml.bp.xtext.masl.MASL.editors.documentProviders"

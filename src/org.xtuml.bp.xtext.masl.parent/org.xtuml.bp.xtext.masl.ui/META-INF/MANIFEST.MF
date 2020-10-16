@@ -15,13 +15,13 @@ Require-Bundle: org.xtuml.bp.xtext.masl;visibility:=reexport,
  org.eclipse.ui,
  org.eclipse.compare,
  org.eclipse.xtext.builder,
- org.eclipse.xtend.lib;resolution:=optional,
- org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib;bundle-version="2.14.0";resolution:=optional,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.xtuml.bp.core;resolution:=optional,
  org.xtuml.bp.ui.text;resolution:=optional,
  org.eclipse.ltk.ui.refactoring;bundle-version="3.7.200"
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.xtuml.bp.xtext.masl.ui,
  org.xtuml.bp.xtext.masl.ui.build,
  org.xtuml.bp.xtext.masl.ui.contentassist,
