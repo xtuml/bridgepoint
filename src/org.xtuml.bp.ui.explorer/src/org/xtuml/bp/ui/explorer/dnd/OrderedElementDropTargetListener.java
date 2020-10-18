@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -68,17 +69,18 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 			CorePlugin.logError("Unable to import copy data.", e);
 		}
 		if(isMove) {
-			Object orderedElement = getOrderedElement(getSourceObject());
-			try {
-				Method dispose = orderedElement.getClass().getMethod("Dispose", new Class[0]);
-				dispose.invoke(orderedElement, new Object[0]);
-			} catch (NoSuchMethodException | SecurityException e) {
-				// if there is no dispose, log an error this will
-				// just be treated as a copy
-				CorePlugin.logError("Dispose method not found for move.", e);
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				CorePlugin.logError("Unable to invoke dispose method for move", e);
-			}
+			Stream.of(Selection.getInstance().getSelectedNonRootModelElements()).forEach(s -> {
+				try {
+					Method dispose = s.getClass().getMethod("Dispose", new Class[0]);
+					dispose.invoke(s, new Object[0]);
+				} catch (NoSuchMethodException | SecurityException e) {
+					// if there is no dispose, log an error this will
+					// just be treated as a copy
+					CorePlugin.logError("Dispose method not found for move.", e);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					CorePlugin.logError("Unable to invoke dispose method for move", e);
+				}
+			});
 		}
 	}
 
@@ -109,20 +111,18 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 			return;
 		}
 		if (sourceContainer != targetContainer) {
-			if ((event.detail & DND.DROP_COPY) == DND.DROP_COPY) {
-				if (sourceContainer.getClass() == targetContainer.getClass()) {
-					// verify target has paste operation
-					try {
-						targetContainer.getClass().getMethod(
-								"Paste" + selected.getClass().getSimpleName().toLowerCase().replaceAll("_c", ""),
-								new Class[] {UUID.class});
-						event.detail = DND.DROP_COPY;
-					} catch (NoSuchMethodException | SecurityException e) {
-						event.detail = DND.DROP_NONE;
-						// ignore
-					}
-					return;
+			if (sourceContainer.getClass() == targetContainer.getClass()) {
+				// verify target has paste operation
+				try {
+					targetContainer.getClass().getMethod(
+							"Paste" + selected.getClass().getSimpleName().toLowerCase().replaceAll("_c", ""),
+							new Class[] {UUID.class});
+					event.detail = (event.operations & DND.DROP_MOVE) == 0 ? DND.DROP_COPY : DND.DROP_MOVE;
+				} catch (NoSuchMethodException | SecurityException e) {
+					event.detail = DND.DROP_NONE;
+					// ignore
 				}
+				return;
 			}
 		}
 		event.detail = DND.DROP_NONE;

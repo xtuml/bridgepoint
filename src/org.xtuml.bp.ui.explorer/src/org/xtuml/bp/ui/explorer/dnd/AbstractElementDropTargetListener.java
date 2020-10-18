@@ -44,7 +44,7 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 			Transaction transaction = TransactionManager.getSingleton().startTransaction("Drop element.",
 					new ModelElement[] { Ooaofooa.getDefaultInstance() });
 			// this is a reorder if the target container is the source container
-			performDrop(sourceContainer == targetContainer, (event.operations & DND.DROP_COPY) == 0);
+			performDrop(sourceContainer == targetContainer, (event.detail & DND.DROP_MOVE) == DND.DROP_MOVE);
 			TransactionManager.getSingleton().endTransaction(transaction);
 		} catch (TransactionException e) {
 			CorePlugin.logError("Unable to perform drop element.", e);
@@ -53,6 +53,11 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 
 	public ITreeContentProvider getProvider() {
 		return provider;
+	}
+
+	@Override
+	public void dragOperationChanged(DropTargetEvent event) {
+		event.detail = event.operations;
 	}
 
 	Object getContainer(Object toDrop, String parentType) {
