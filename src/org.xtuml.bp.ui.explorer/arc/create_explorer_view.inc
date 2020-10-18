@@ -43,15 +43,17 @@ package org.xtuml.bp.ui.explorer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.action.*;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.dnd.DND;
-import org.eclipse.swt.dnd.TextTransfer;
-import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -69,8 +71,6 @@ import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
 import org.xtuml.bp.core.ui.*;
 import org.xtuml.bp.core.util.*;
-import org.xtuml.bp.ui.explorer.dnd.OrderedElementDragSourceListener;
-import org.xtuml.bp.ui.explorer.dnd.OrderedElementDropTargetListener;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerPasteAction;
@@ -188,7 +188,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     createToolbar();
     createFilters();
     hookListeners();
-    addDragAndDropSupport();
     initLabelProvider(treeViewer);
 	treeViewer.setInput(Ooaofooa.getDefaultInstance());
     getViewSite().getActionBars().setGlobalActionHandler(
@@ -215,19 +214,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     // Set help for the view 
     PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), IModelExplorerHelpContextIds.modelExplorerId);
   }
-
-	/**
-	 * Set up drag and drop support
-	 */
-
-	protected void addDragAndDropSupport() {
-		treeViewer.addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { TextTransfer.getInstance() },
-				new OrderedElementDragSourceListener());
-
-		treeViewer.addDropSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { TextTransfer.getInstance() },
-				new OrderedElementDropTargetListener());
-	}
-
   /**
    * Hook up all the listeners needed by Model Explorer
    */    
@@ -454,7 +440,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     tv.setSelectionToWidget(sel, true);
 
     // scroll to reveal all elements of the new selection
-    for (Iterator<?> iterator = sel.iterator(); iterator.hasNext();) {
+    for (Iterator iterator = sel.iterator(); iterator.hasNext();) {
       Object element = iterator.next();
       if(element != null){
       tv.reveal(element);
@@ -528,7 +514,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
       public void run() {
         IStructuredSelection selection = Selection.getInstance().getStructuredSelection();
         getTreeViewer().setSelection(selection);
-        for (Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
           Object element = iterator.next();
           getTreeViewer().reveal(element);
         }
