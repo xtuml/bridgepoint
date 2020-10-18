@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.xtuml.bp.core.CorePlugin;
@@ -43,7 +44,7 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 			Transaction transaction = TransactionManager.getSingleton().startTransaction("Drop element.",
 					new ModelElement[] { Ooaofooa.getDefaultInstance() });
 			// this is a reorder if the target container is the source container
-			performDrop(sourceContainer == targetContainer);
+			performDrop(sourceContainer == targetContainer, (event.operations & DND.DROP_COPY) == 0);
 			TransactionManager.getSingleton().endTransaction(transaction);
 		} catch (TransactionException e) {
 			CorePlugin.logError("Unable to perform drop element.", e);
@@ -100,6 +101,6 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 		return -1;
 	}
 
-	abstract void performDrop(boolean reorder);
+	abstract void performDrop(boolean reorder, boolean isMove);
 
 }

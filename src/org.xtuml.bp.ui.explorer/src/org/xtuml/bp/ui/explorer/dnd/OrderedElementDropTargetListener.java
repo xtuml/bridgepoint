@@ -24,11 +24,11 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 	ModelContentProvider provider = new ModelContentProvider();
 
 	@Override
-	public void performDrop(boolean reorder) {
+	public void performDrop(boolean reorder, boolean move) {
 		if (reorder) {
 			performReordering();
 		} else {
-			performCopy();
+			performCopy(move);
 		}
 	}
 
@@ -44,7 +44,7 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 		}
 	}
 
-	private void performCopy() {
+	private void performCopy(boolean isMove) {
 		NonRootModelElement destination = (NonRootModelElement) targetContainer;
 		ModelStreamProcessor processor = new ModelStreamProcessor();
 		processor.setDestinationElement(destination);
@@ -66,6 +66,10 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 			processor.processSecondStep(new NullProgressMonitor());
 		} catch (IOException e) {
 			CorePlugin.logError("Unable to import copy data.", e);
+		}
+		if(isMove) {
+			Object orderedElement = getOrderedElement(getSourceObject());
+			orderedElement.Dispose();
 		}
 	}
 

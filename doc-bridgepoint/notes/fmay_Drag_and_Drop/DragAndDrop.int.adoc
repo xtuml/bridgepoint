@@ -24,6 +24,8 @@ Modify MC-Java/referred_to.inc to include a new function that generates re-order
 . getElementAt(index: integer) - Gets the element in the ordering at the given index
 . orderingIndexOf() - Returns self's index in the ordering
 . insertIntoOrdering(index: integer) - Adjusts the ordering association to place self at the given index
+. getOrderedElementCount() - Returns the count of elements participating in the ordering
+. canChangeOrder() - Returns true if there are at least two elements in the ordering
 
 For the following elements mark the associations with OrderBy: true:
 
