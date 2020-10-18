@@ -69,7 +69,16 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 		}
 		if(isMove) {
 			Object orderedElement = getOrderedElement(getSourceObject());
-			orderedElement.Dispose();
+			try {
+				Method dispose = orderedElement.getClass().getMethod("Dispose", new Class[0]);
+				dispose.invoke(orderedElement, new Object[0]);
+			} catch (NoSuchMethodException | SecurityException e) {
+				// if there is no dispose, log an error this will
+				// just be treated as a copy
+				CorePlugin.logError("Dispose method not found for move.", e);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				CorePlugin.logError("Unable to invoke dispose method for move", e);
+			}
 		}
 	}
 
