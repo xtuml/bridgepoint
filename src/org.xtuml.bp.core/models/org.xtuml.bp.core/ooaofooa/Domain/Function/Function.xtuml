@@ -843,6 +843,53 @@ end if;
 	'',
 	"db818c67-a176-46df-95bd-be1be9a0ddee",
 	0);
+INSERT INTO O_TFR
+	VALUES ("e8914779-84b0-4c89-8140-b5872bfdc6a8",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'isAvailableScenario',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'deployment = param.deployment;
+select one parent related by self->PE_PE[R8001]->EP_PKG[R8000];
+if(parent.Name == "scenarios")
+	// see if this function is already assigned to the deployment
+	select many services related by deployment->D_TERM[R1650]->D_TSS[R1658]->D_SIS[R1659]->D_TSVC[R1660];
+	noMatch = true;
+	for each service in services
+		// note we split the TerminatorName from the service signature to match functions
+        serviceSig = service.getSignature(flavor: 1);
+        returnType = Util::stringSplit(s: serviceSig, delimiter: " ", i: 0);
+        name = Util::stringSplit(s: Util::stringSplit(s: serviceSig, delimiter: " ", i:1), delimiter: "::", i:1);
+        sigToMatch = returnType + " " + name;
+		if(sigToMatch == self.getSignature(flavor:1))
+			noMatch = false;
+			break;
+		end if;
+	end for;
+	return noMatch;
+end if;
+return false;',
+	1,
+	'',
+	"7776869e-dc27-4ad9-8c73-5e2a0a32b6f6",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("84e2f0a5-6d42-4da5-ab2e-68644d2e2c15",
+	"e8914779-84b0-4c89-8140-b5872bfdc6a8",
+	'deployment',
+	"4e624234-9443-4818-b41d-0ad8fee84168",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4e624234-9443-4818-b41d-0ad8fee84168",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Deployment>',
+	'',
+	'',
+	'../../Deployment/Deployment.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d1398f19-3322-4cf6-882c-368b5143249f",
 	"bc9a6c16-8809-4681-92ab-421898fa108a");

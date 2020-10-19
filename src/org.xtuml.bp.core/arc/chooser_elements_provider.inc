@@ -23,8 +23,8 @@
 .function generate_chooser_element_function
   .param inst_ref function
   .select one wfl related by function->W_WOF[R2001]
-  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty wfl)
+	  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
       .assign sel_decl = "IStructuredSelection"
       .assign iteration_req = false
 	  .select any class from instances of O_OBJ where (selected.Obj_id == 0)
