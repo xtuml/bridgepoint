@@ -95,6 +95,7 @@ service.parseReturn_Dimensions();',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
@@ -187,6 +188,7 @@ delete object instance self;',
 	1,
 	'',
 	"c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c2c0d204-b5de-4fba-80ed-b774506d0ccd",
@@ -267,6 +269,7 @@ end while;',
 	1,
 	'',
 	"996e8c32-1085-4101-860b-2c660c0f9198",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("cf8f1b4c-c66c-431e-9dd8-67a43f0e7beb",
@@ -350,6 +353,7 @@ d_term.dispose();',
 	1,
 	'',
 	"3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c6047b81-a776-4034-b9e2-249342987116",
@@ -383,6 +387,7 @@ end for;',
 	1,
 	'',
 	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("166a18b7-5f21-4b62-861c-339f953259b7",
@@ -401,6 +406,7 @@ return false;',
 	1,
 	'',
 	"5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
@@ -502,6 +508,7 @@ end if;',
 	1,
 	'',
 	"166a18b7-5f21-4b62-861c-339f953259b7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("61600c39-f754-4d89-960d-c7bf23b339ae",
@@ -686,6 +693,24 @@ INSERT INTO O_ATTR
 	'Provider',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8f95ab6d-3a3b-4a64-9987-95d338bef8f7",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("8f95ab6d-3a3b-4a64-9987-95d338bef8f7",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("8f95ab6d-3a3b-4a64-9987-95d338bef8f7",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	'System_Name',
+	'',
+	'',
+	'System_Name',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID

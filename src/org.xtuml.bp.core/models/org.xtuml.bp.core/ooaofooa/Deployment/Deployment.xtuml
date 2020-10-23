@@ -2407,7 +2407,7 @@ INSERT INTO R_FORM
 	"7d8d5579-63d5-4f85-b5e1-1c6117144a42",
 	"93cc6c65-4dde-4106-a756-a7813d6cdb75",
 	0,
-	0,
+	1,
 	'contains a sequenced service set');
 INSERT INTO R_RGO
 	VALUES ("0d103934-70db-46cf-b8a5-d888f3f5bb7e",
