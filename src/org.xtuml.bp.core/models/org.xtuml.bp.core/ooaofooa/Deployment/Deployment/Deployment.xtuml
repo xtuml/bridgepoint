@@ -405,7 +405,7 @@ select one c_c related by c_po->C_C[R4010];
 select any c_r related by c_po->C_IR[R4016]->C_R[R4009];
 select any c_p related by c_po->C_IR[R4016]->C_P[R4009];
 select one package related by c_c->PE_PE[R8001]->EP_PKG[R8000];
-select one system related by package->S_SYS[R1405];
+select one s_sys related by package->S_SYS[R1405];
 
 select any existing_term related by self->D_TERM[R1650] where ( selected.Domain_Name == c_c.Name and ( (not_empty c_r and selected.Terminator_Name == c_po.Name) or
                                                                                                        (not_empty c_p and selected.Terminator_Name == "") ) );
@@ -415,7 +415,6 @@ create object instance term of D_TERM;
 relate term to self across R1650;
 term.Domain_Name = c_c.Name;
 term.Terminator_Name = c_po.Name;
-term.System_Name = system.Name;
 term.Descrip = "";
 term.Provider = false;
 
@@ -431,11 +430,11 @@ if (not_empty c_r)
   // for each message, create a terminator service
   select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
   for each spr_ro in spr_ros
-    term.createServiceFromOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps );
+    term.createServiceFromOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps, s_sys: s_sys );
   end for;
   select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
   for each spr_rs in spr_rss
-    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps );
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps, s_sys: s_sys );
   end for;
 elif (not_empty c_p)
   term.Terminator_Name = "";
@@ -447,11 +446,11 @@ elif (not_empty c_p)
   // for each message, create a terminator service
   select many spr_pos related by c_p->SPR_PEP[R4501]->SPR_PO[R4503];
   for each spr_po in spr_pos
-    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:spr_po, spr_ps:empty_spr_ps );
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:spr_po, spr_ps:empty_spr_ps, s_sys: s_sys );
   end for;
   select many spr_pss related by c_p->SPR_PEP[R4501]->SPR_PS[R4503];
   for each spr_ps in spr_pss
-    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:spr_ps );
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:spr_ps, s_sys: s_sys );
   end for;
 end if;
 
