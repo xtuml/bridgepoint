@@ -18,6 +18,7 @@ INSERT INTO O_TFR
 spr_rs = param.spr_rs;
 spr_po = param.spr_po;
 spr_ps = param.spr_ps;
+s_sys = param.s_sys;
 
 select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
 if ( empty c_ep )
@@ -37,6 +38,7 @@ service.Name = c_ep.Name;
 service.Return_Dimensions = "";
 service.Is_Stale = false;
 service.Implementation_Scope = ImplementationScope::Domain;
+service.Implementation_System = s_sys.Name;
 
 // populate details from message implementation
 if ( not_empty spr_ro )
@@ -95,6 +97,7 @@ service.parseReturn_Dimensions();',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
@@ -160,6 +163,22 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("0b411521-d930-4ad6-8c8a-43f4e07136e0",
+	"996e8c32-1085-4101-860b-2c660c0f9198",
+	's_sys',
+	"87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	0,
+	'',
+	"7b889c5b-9600-4ec1-9731-df2f7c91f86c",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<System Model>',
+	'',
+	'',
+	'../../Domain/Domain.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
@@ -187,6 +206,7 @@ delete object instance self;',
 	1,
 	'',
 	"c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c2c0d204-b5de-4fba-80ed-b774506d0ccd",
@@ -267,6 +287,7 @@ end while;',
 	1,
 	'',
 	"996e8c32-1085-4101-860b-2c660c0f9198",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("cf8f1b4c-c66c-431e-9dd8-67a43f0e7beb",
@@ -350,6 +371,7 @@ d_term.dispose();',
 	1,
 	'',
 	"3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c6047b81-a776-4034-b9e2-249342987116",
@@ -383,6 +405,7 @@ end for;',
 	1,
 	'',
 	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("166a18b7-5f21-4b62-861c-339f953259b7",
@@ -401,6 +424,7 @@ return false;',
 	1,
 	'',
 	"5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
@@ -434,7 +458,9 @@ INSERT INTO O_TFR
 
 func = param.func;
 
-select one comp related by func->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->C_C[R8003];
+select one pkg related by func->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by pkg->S_SYS[R1405];
+select one comp related by pkg->PE_PE[R8001]->C_C[R8003];
 if(not_empty comp)
 	//  collect the the last service ordered
 	select one sequence related by self->D_TSS[R1658];
@@ -452,6 +478,7 @@ if(not_empty comp)
 	service.Return_Dimensions = "";
 	service.Is_Stale = false;
 	service.Implementation_Scope = ImplementationScope::Domain;
+	service.Implementation_System = system.Name;
 		
 	// set up the sequence
 	if(empty sequence)
@@ -502,6 +529,7 @@ end if;',
 	1,
 	'',
 	"166a18b7-5f21-4b62-861c-339f953259b7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("61600c39-f754-4d89-960d-c7bf23b339ae",
