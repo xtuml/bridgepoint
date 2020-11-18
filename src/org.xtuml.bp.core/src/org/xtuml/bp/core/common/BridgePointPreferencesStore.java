@@ -95,6 +95,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	
 	public static final String PERSIST_ACTIVITY_FILES = "persist_activity_files";
 	public static final String NO_PERSIST_ACTIVITY_FILES = "no_persist_activity_files";
+	
+	public static final String ENABLE_GRAPHICAL_DIFFERENCES = PREFIX + "enable_graphical_differences"; //$NON-NLS-1$
+	public static final String ENABLE_GRAPHICAL_AUTO_MERGE = PREFIX + "enable_graphical_auto_merge"; //$NON-NLS-1$
 		
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
@@ -163,6 +166,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(REQUIRE_MASL_STYLE_IDENTIFIERS, prefs.requireMaslStyleIdentifiers);
         store.setValue(OPAQUE_COMPONENTS, prefs.opaqueComponents);
         store.setValue(SHOW_FORMALIZATIONS, prefs.showFormalizations);
+        
+        store.setValue(ENABLE_GRAPHICAL_DIFFERENCES, prefs.enableGraphicalDifferences);
+        store.setValue(ENABLE_GRAPHICAL_AUTO_MERGE, prefs.enableAutoGraphicalMerge);
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -275,6 +281,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         	store.getBoolean(BridgePointPreferencesStore.REQUIRE_MASL_STYLE_IDENTIFIERS);
         prefs.opaqueComponents =
         	store.getBoolean(BridgePointPreferencesStore.OPAQUE_COMPONENTS);
+        
+        prefs.enableGraphicalDifferences = store.getBoolean(BridgePointPreferencesStore.ENABLE_GRAPHICAL_DIFFERENCES);
+        prefs.enableAutoGraphicalMerge = store.getBoolean(BridgePointPreferencesStore.ENABLE_GRAPHICAL_AUTO_MERGE);
                 
         return prefs;
     }
@@ -345,5 +354,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.requireMaslStyleIdentifiers = false;
         prefs.opaqueComponents = false;
         prefs.showFormalizations = true;
+        
+        prefs.enableGraphicalDifferences = false;
+        prefs.enableAutoGraphicalMerge = false;
     }
 }

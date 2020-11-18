@@ -85,8 +85,10 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public boolean contentAssistEnablePartialParsing;
 
     public boolean allowConcretePolys;
+	public boolean enableGraphicalDifferences;
+	public boolean enableAutoGraphicalMerge;
     
-	public Class getStoreClass() {
+	public Class<?> getStoreClass() {
 		return BridgePointPreferencesStore.class;
 	}
 
@@ -156,6 +158,9 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
         requireMaslStyleIdentifiers = syncTo.requireMaslStyleIdentifiers;;
         opaqueComponents = syncTo.opaqueComponents;
+        
+        enableGraphicalDifferences = syncTo.enableGraphicalDifferences;
+        enableAutoGraphicalMerge = syncTo.enableAutoGraphicalMerge;
 	}
 
     public Object deepClone() {
@@ -217,6 +222,9 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
         prefs.requireMaslStyleIdentifiers = requireMaslStyleIdentifiers;
         prefs.opaqueComponents = opaqueComponents;
+        
+        prefs.enableGraphicalDifferences = enableGraphicalDifferences;
+        prefs.enableAutoGraphicalMerge = enableAutoGraphicalMerge;
 
         return prefs;
     }

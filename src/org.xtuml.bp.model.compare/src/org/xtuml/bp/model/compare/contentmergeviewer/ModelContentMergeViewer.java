@@ -119,6 +119,7 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.StateMachine_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
@@ -199,7 +200,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	// This field is used to enable graphical data
-	public boolean enableGraphics = false;
+	public boolean enableGraphics = CorePlugin
+			.getDefault()
+			.getPreferenceStore()
+			.getBoolean(
+					BridgePointPreferencesStore.ENABLE_GRAPHICAL_DIFFERENCES);
 	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
@@ -1319,28 +1324,34 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					viewer.setKey(rightKey);
 					viewer.setInput(getInput());
 				}
-				if(left instanceof IStreamContentAccessor && leftIsLocal()) {
-					// here we will automatically merge any incoming/conflicting
-					// graphics this will cover the case where only graphics
-					// are changed
-					List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(leftIsLocal());
-					if(!graphicalDifferences.isEmpty()) {
-						mergeIncomingGraphicalChanges(graphicalDifferences,
-								leftIsLocal(), (ICompareInput) getInput());
-						markLeftDirty(true);
-						differencer.refresh();
+				if (left instanceof IStreamContentAccessor && leftIsLocal()) {
+					if (CorePlugin.getDefault().getPreferenceStore()
+							.getBoolean(BridgePointPreferencesStore.ENABLE_GRAPHICAL_AUTO_MERGE)) {
+						// here we will automatically merge any incoming/conflicting
+						// graphics this will cover the case where only graphics
+						// are changed
+						List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(leftIsLocal());
+						if (!graphicalDifferences.isEmpty()) {
+							mergeIncomingGraphicalChanges(graphicalDifferences, leftIsLocal(),
+									(ICompareInput) getInput());
+							markLeftDirty(true);
+							differencer.refresh();
+						}
 					}
 				}
-				if(right instanceof IStreamContentAccessor && !leftIsLocal()) {
-					// here we will automatically merge any incoming/conflicting
-					// graphics this will cover the case where only graphics
-					// are changed
-					List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(!leftIsLocal());
-					if(!graphicalDifferences.isEmpty()) {
-						mergeIncomingGraphicalChanges(graphicalDifferences,
-								!leftIsLocal(), (ICompareInput) getInput());
-						markRightDirty(true);
-						differencer.refresh();
+				if (right instanceof IStreamContentAccessor && !leftIsLocal()) {
+					if (CorePlugin.getDefault().getPreferenceStore()
+							.getBoolean(BridgePointPreferencesStore.ENABLE_GRAPHICAL_AUTO_MERGE)) {
+						// here we will automatically merge any incoming/conflicting
+						// graphics this will cover the case where only graphics
+						// are changed
+						List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(!leftIsLocal());
+						if (!graphicalDifferences.isEmpty()) {
+							mergeIncomingGraphicalChanges(graphicalDifferences, !leftIsLocal(),
+									(ICompareInput) getInput());
+							markRightDirty(true);
+							differencer.refresh();
+						}
 					}
 				}
 			} catch (ModelLoadException e) {

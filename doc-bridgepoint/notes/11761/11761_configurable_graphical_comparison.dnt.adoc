@@ -39,7 +39,7 @@ When changing the state of the enableGraphics flag we must refresh the differenc
 A new preference class shall be added, ModelComparePreferences.  This class shall define two preferences, both as check boxes.  The two preferences shall be:
 
 * Enable graphical compare
-* Enable automatic Graphical merge
+* Enable automatic graphical merge
 
 The preferences shall be configured as part of the "org.xtuml.bp.core.root" category.  This will be done in the plugin.xml for the model compare project.  Specifying this category will configure these preferences as a child to the xtUML root preference.
 
