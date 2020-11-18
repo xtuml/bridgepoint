@@ -1,0 +1,78 @@
+= Configurable Graphical Comparison
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+This note describes the changes required to support a configurable option during model compare for showing graphical differences.
+
+== 2 Introduction and Background
+Model compare had work done to include a tree based comparison view of graphics.  This initially was designed such that the graphical differences were always present.  Some customer requirements drove the implementation to have graphical data automatically merged and have the graphical differences hidden.  At this point a flag was added to disable showing graphical differences with no user facing option to adjust.
+
+== 3 Requirements
+=== 3.1 Add user option for toggling graphical differences
+=== 3.2 Add user preferences for graphical compare
+
+== 4 Analysis
+=== 4.1 User option for toggling graphical differences
+Initial analysis considered a workspace preference for showing or hiding graphical differences.  A better design would be to have a toggle button for showing or hiding the graphical differences in the compare trees.  This option is similar to the existing textual comparison option, yet it provides a cleaner picture of the changes (no sql).
+
+=== 4.2 Add user preferences for graphical compare
+For users that do not care about graphical changes two preferences shall be added.  One for the default to show graphical changes in the compare view.   The other to enable the automatic merge of graphical changes.  By default both preferences will be disabled.
+
+These preferences shall be a workspace preference under the existing xtUML category.  Like the other categories the plugin_customization.ini shall have these preferences configured.  This will allow users to customize their deployments of BridgePoint.
+
+=== 4.3 Add new API icons for compare/merge
+Eclipse Oxygen changed the compare APIs quite a bit.  Some of this resulted in dangerous access to the internal compare APIs, see <<dr-2>>.  This work does not address the use of the dangerous APIs directly, but continues the incorrect approach so that the buttons show.  <<dr-2>> will correctly replace the copy paste approach used here.
+
+== 5 Design
+=== 5.1 Add user option for toggling graphical differences
+==== 5.1.1 enableGraphics flag
+The ModelContentMergeViewer class holds the existing flag to disable graphical differences in the tree.  This flag is shall be renamed from the generic term "debug" to "enableGraphics".   The default value shall remain false.
+
+==== 5.1.2 Add toolbar button to toggle flag
+The configured toolbar for ModelContentMergeViewer shall be extended to add a new toggle action, Enable Graphical Compare.  When toggled the enableGraphics flag shall be true, otherwise false.
+
+When changing the state of the enableGraphics flag we must refresh the differences, the trees, and the drawn difference markers.
+
+=== 5.2 Add user preferences for graphical compare
+A new preference class shall be added, ModelComparePreferences.  This class shall define two preferences, both as check boxes.  The two preferences shall be:
+
+* Enable graphical compare
+* Enable automatic Graphical merge
+
+The preferences shall be configured as part of the "org.xtuml.bp.core.root" category.  This will be done in the plugin.xml for the model compare project.  Specifying this category will configure these preferences as a child to the xtUML root preference.
+
+=== 5.3 Add new API icons for compare/merge
+The expected icons from the eclipse compare API are extracted and copied into model compare.  The archetype which geenerates the properties file is updated to account for the use of png over  gif.  A new entry is added for the Switch Left with Right button.
+
+== 6 Design Comments
+
+== 7 User Documentation
+
+== 8 Unit Test
+- Set preferences to: x enable graphics  _ enable auto merge
+- Drag a shape on a diagram
+- Right click the background of the diagram
+- Choose Compare With > Local History...
+- Choose the previous version
+- R The graphical differences are shown
+- Click the Enable Graphical Compare button
+- R The graphical differences are hidden
+- Click the Enable Graphical Compare button
+- R The graphical differences are shown
+- Set the preferencs to: x enable graphics x enable auto merge
+- In one workspace commit a graphical only change to master
+- In another workspace right click and selected Synchronize Worksapce
+- In the synchronization view double click the model file
+R The compare editor is marked as dirty, no changes are shown
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11761[11761 - Use cases diff/merge]
+. [[dr-2]] https://support.onefact.net/issues/11763[11763 - Merge buttons are not visible]
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

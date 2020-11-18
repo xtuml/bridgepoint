@@ -325,9 +325,8 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			differences = mergeViewer.getDifferencer().getRightDifferences();
 		}
 		for (TreeDifference difference : differences) {
-			if(differenceIsGraphical(difference) && !mergeViewer.debug) {
-				// we do not include graphical differences
-				// at this time
+			if(differenceIsGraphical(difference) && !mergeViewer.enableGraphics) {
+				// graphics are disabled
 				continue;
 			}
 			gc.setForeground(getMergeViewer().getColor(

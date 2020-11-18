@@ -101,6 +101,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -134,6 +135,7 @@ import org.xtuml.bp.model.compare.ModelMergeProcessor;
 import org.xtuml.bp.model.compare.TreeDifference;
 import org.xtuml.bp.model.compare.TreeDifferencer;
 import org.xtuml.bp.model.compare.actions.CopyDiffAction;
+import org.xtuml.bp.model.compare.actions.EnableGraphicsAction;
 import org.xtuml.bp.model.compare.actions.NavigateDownAction;
 import org.xtuml.bp.model.compare.actions.NavigateUpAction;
 import org.xtuml.bp.model.compare.providers.ComparableProvider;
@@ -196,11 +198,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private List<ModelMergeViewer> rightExtensions = new ArrayList<ModelMergeViewer>();
 	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
-	// This field will enable graphical data, and in the future maybe other
-	// data, when set to true.  This is helpful currently when looking into
-	// graphical related changes as they are used during merge but not shown
-	// in the tree
-	public boolean debug = false;
+	// This field is used to enable graphical data
+	public boolean enableGraphics = false;
 	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
@@ -490,6 +489,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		Utilities.initAction(navigateUp, getResourceBundle(), "action.PrevDiff.");
 		previousDifference = new ActionContributionItem(navigateUp);
 		toolBarManager.appendToGroup("navigation", previousDifference); //$NON-NLS-1$
+		EnableGraphicsAction enableGraphicsAction = new EnableGraphicsAction(this);
+		enableGraphicsAction.setImageDescriptor(CorePlugin.getImageDescriptor("diagram.gif"));
+		ActionContributionItem graphics = new ActionContributionItem(enableGraphicsAction);
+		toolBarManager.appendToGroup("navigation", graphics);
 	}
 
 	public TreeDifference getNextDifference(boolean down) {
@@ -875,7 +878,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			mergeDifferences.addAll(remainder);
 			for (TreeDifference difference : mergeDifferences) {
 				// skip graphical data at this point
-				if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !debug) {
+				if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !enableGraphics) {
 					continue;
 				}
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
@@ -982,7 +985,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				| SWT.MULTI | SWT.FULL_SELECTION | SWT.DOUBLE_BUFFERED
 				| SWT.NO_BACKGROUND | SWT.BORDER, this, configuration.isLeftEditable(), false);
 		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider();
-		leftContentProvider.setIncludeNonTreeData(debug);
+		leftContentProvider.setIncludeNonTreeData(enableGraphics);
 		leftTreeViewer.setContentProvider(leftContentProvider);
 		leftTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1021,7 +1024,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		rightTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.addSynchronizationViewer(rightTreeViewer);
 		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider();
-		rightProvider.setIncludeNonTreeData(debug);
+		rightProvider.setIncludeNonTreeData(enableGraphics);
 		rightTreeViewer.setContentProvider(rightProvider);
 		rightTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		rightItem.setControl(rightPanel);
@@ -1043,7 +1046,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				false, true);
 		ancestorTreeViewer.setUseHashlookup(true);
 		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider();
-		ancestorProvider.setIncludeNonTreeData(debug);
+		ancestorProvider.setIncludeNonTreeData(enableGraphics);
 		ancestorTreeViewer.setContentProvider(ancestorProvider);
 		ancestorTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		leftTreeViewer.addSynchronizationViewer(ancestorTreeViewer);
@@ -1145,7 +1148,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		gc.setAntialias(SWT.ON);
 		List<TreeDifference> differences = differencer.getLeftDifferences();
 		for (TreeDifference difference : differences) {
-			if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !debug) {
+			if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !enableGraphics) {
 				// currently do not include graphical data
 				continue;
 			}
@@ -1258,7 +1261,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							.getRootElements(ancestor, this, false,
 									getAncestorCompareRoot(), ancestorKey);
 				}
-				if(leftElements.length != 0) {
+				if(leftElements != null && leftElements.length != 0) {
 					ICompareInput visited = visitedModels.get(leftElements[0]);
 					if(visited == null) {
 						visitedModels.put(leftElements[0], (ICompareInput) getInput());
