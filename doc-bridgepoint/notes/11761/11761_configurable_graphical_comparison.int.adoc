@@ -1,0 +1,51 @@
+= Configurable Graphical Comparison
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note list the code changes for the work specified in <<dr.2>>.
+
+== 2 Introduction and Background
+
+See <<dr.2>>
+
+== 3 Requirements
+
+See <<dr.2>>
+
+== 4 Work Required
+See <<dr.2>>
+
+== 5 Implementation Comments
+
+During testing a couple of NPEs were hit which prevented the merge viewer to display.  The cases where one side of the comparison was null is expected.  The code is updated to gracefully handle this situation.
+
+== 6 Unit Test
+
+See <<dr.2>>
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bridgepoint
+- branch:  11761_diff_merge_part_1
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/11761[11761 - Use cases diff/merge]
+. [[dr-2]] https://www.google.com/url?q=https://github.com/travislondon/bridgepoint/blob/11761_diff_merge_part_1/doc-bridgepoint/notes/11761/11761_configurable_graphical_comparison.dnt.adoc&sa=D&source=hangouts&ust=1605811001247000&usg=AFQjCNHcIYXum59vs591KT2YJLqA82Rg4w[Design note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
