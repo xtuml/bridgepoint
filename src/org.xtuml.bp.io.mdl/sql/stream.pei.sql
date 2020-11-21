@@ -129,7 +129,8 @@ INSERT INTO EO VALUES ( '2.1.1',	'2.1.1.1',	'2.1.2',	'Operation', 115, 'many', '
 INSERT INTO EO VALUES ( '2.1.1.1',	'2.1.1.1.1','2.1.1.2', 	'Operation Parameter', 117, 'many', 'first' );
 INSERT INTO EO VALUES ( '2.1.1.1.1','',         '',         'Dimensions', 121, 'many', 'first' );
 INSERT INTO EO VALUES ( '2.1.1.2',  '15',       '2.1.1.3',  'Operation Body', 696, 'one', 'first', false, false, '', false, true );
-INSERT INTO EO VALUES ( '2.1.1.3',  '', '',     'Dimensions', 122, 'many', 'first' );
+INSERT INTO EO VALUES ( '2.1.1.3',  '', '2.1.1.4',     'Dimensions', 122, 'many', 'first' );
+INSERT INTO EO VALUES ( '2.1.1.4',  '', '',     'Deferral', 126, 'one', 'first' );
 INSERT INTO EO VALUES ( '2.1.2',	'2.1.2.1',	'2.1.3',	'Attribute', 102, 'many', 'last' );
 INSERT INTO EO VALUES ( '2.1.2.1',	'2.1.2.1.1','2.1.2.2',	'Base Attribute', 106, 'one', 'last' );
 INSERT INTO EO VALUES ( '2.1.2.1.1','2.1.2.1.1.1',	'2.1.2.1.2','Derived Base Attribute', 107, 'one', 'first' );

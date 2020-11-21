@@ -2846,11 +2846,7 @@ select any attr from instances of O_ATTR
 select any Identifier related by attr->O_ID[R105]
     where USER::selectOneWithInt(id:selected.Oid_ID);
 if ( not_empty Identifier )
-  result = attr.removeFromIdentifier( oid: Identifier.Oid_ID );
-  if ( result != "" )
-    USER::warning( msg: result );
-    return false;
-  end if;
+   attr.removeFromIdentifier( oid: Identifier.Oid_ID );
 end if;
 ',
 	"ba5eda7a-def5-0000-0000-000000000001",
@@ -7794,6 +7790,27 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	1);
 INSERT INTO S_SYNC
+	VALUES ("e9a4922c-32de-41cd-9f8c-5202d95d6b6d",
+	"00000000-0000-0000-0000-000000000000",
+	'O_TFR_MakeDeferred',
+	'ContextMenuFunction: TRUE',
+	'select any o_tfr from instances of O_TFR where USER::selectOne( id:selected.Tfr_ID );
+select any Relationship related by o_tfr->O_OBJ[R115]->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_REL[R206]
+  where ( USER::selectOne( id:selected.Rel_ID ) );
+required_default = true;
+required = USER::getCheckbox(default:required_default, prompt:"Required", disabled:false);
+o_tfr.makeDeferred(rel_id:Relationship.Rel_ID, required:required);',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("e9a4922c-32de-41cd-9f8c-5202d95d6b6d",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
 	VALUES ("e19ebe7c-84a6-4464-af1b-da1260d131a8",
 	"00000000-0000-0000-0000-000000000000",
 	'D_DEPL_Rename',
@@ -7951,7 +7968,8 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
-	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
+	'// Select current state of specified relationship
+select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 
 select any a_oir from instances of R_OIR where false;
 select any b_oir from instances of R_OIR where false;
@@ -8079,31 +8097,41 @@ select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[
 associative_classes = associative_classes + associative_imported_classes;
 default_selection = 0;
 num_options = cardinality associative_classes;
-associative_class_options[num_options-1] = "";
-i = num_options - 1;
-for each associative_class in associative_classes
-  associative_class_options[i] = associative_class.Name;
-  i = i - 1;
-end for;
-// Bubble sort list of associative classes.
-i = 0;
-while ( i < (num_options-1) )
-  j = 0;
-  while ( j < (num_options-i-1) )
-    s1 = associative_class_options[j]; s2 = associative_class_options[j+1];
-    if ( s1 > s2 )
-      s = associative_class_options[j];
-      associative_class_options[j] = associative_class_options[j+1];
-      associative_class_options[j+1] = s;
-    end if;
-    j = j + 1;
+associative_class_options[num_options] = "";
+if (0 < num_options)
+  associative_class_options[num_options-1] = "";
+  i = num_options - 1;
+  for each associative_class in associative_classes
+    associative_class_options[i] = associative_class.Name;
+    i = i - 1;
+  end for;
+  // Bubble sort list of associative classes.
+  i = 0;
+  while ( i < (num_options-1) )
+    j = 0;
+    while ( j < (num_options-i-1) )
+      s1 = associative_class_options[j]; s2 = associative_class_options[j+1];
+      if ( s1 > s2 )
+        s = associative_class_options[j];
+        associative_class_options[j] = associative_class_options[j+1];
+        associative_class_options[j+1] = s;
+      end if;
+      s3 = associative_class_options[j];
+      if not_empty assr
+        if (assr.Name == s3)
+          default_selection = j;
+        else
+          s3 = associative_class_options[j + 1];
+          if (assr.Name == s3)
+            s3 = associative_class_options[j + 1];
+          end if;
+        end if;
+      end if;
+      j = j + 1;
+    end while;
+    i = i + 1;
   end while;
-  s3 = associative_class_options[i];
-  if not_empty assr and assr.Name == s3
-    default_selection = i;
-  end if;
-  i = i + 1;
-end while;
+end if;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
 select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
@@ -8139,9 +8167,9 @@ end if;
 participant[0] = "Not formalized";
 default_selection = 0;
 if (r_rel.isFormalized() and not_empty a_form)
-  default_selection = 1;
-elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 2;
+elif (r_rel.isFormalized() and not_empty b_form)
+  default_selection = 1;
 end if;
 if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
   participant[0] = "";
@@ -8343,6 +8371,23 @@ r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:i
 	0);
 INSERT INTO PE_PE
 	VALUES ("ef9aae71-c299-44cc-83e4-1a8f065962ca",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("d136a0c1-c711-4249-96d3-03a0bee6b3c4",
+	"00000000-0000-0000-0000-000000000000",
+	'O_TFR_MakeLocal',
+	'ContextMenuFunction: TRUE',
+	'select any o_tfr from instances of O_TFR where USER::selectOne( id:selected.Tfr_ID );
+o_tfr.makeLocal();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("d136a0c1-c711-4249-96d3-03a0bee6b3c4",
 	1,
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",

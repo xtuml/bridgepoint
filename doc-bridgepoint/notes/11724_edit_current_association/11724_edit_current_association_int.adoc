@@ -1,0 +1,95 @@
+= Edit Current Association Issues Implementation Note
+:numbered:
+:sectnums:
+:sectnumlevels: 5
+
+xtUML Project Implementation Note
+
+== Abstract
+
+The CME for editing associations was created to handle simple and associative
+relationships. The issue raised is due to a situation where there is no
+reformalization of an associative relationship due after changes to formalizing
+identifiers are made. This note documents the work to add reformalization.
+
+== Introduction and Background
+
+In issue <<dr-1,11554>>, a new feature was added to enable editing of
+associations via a pop-up dialog. The work allowed automatic formalization of
+simple and associative relationships and allowed automatic linkage of a class as
+an associative class.
+
+The work for this issue also includes issue <<dr-2,11719>>, whose solution
+eliminated the problem of no popup appearing in two situations.
+
+This issue has shown further problems where the popup is showing the wrong
+formalization upon editor open, and the changes made in the editor don't get
+reflected on the canvas unless migrating from simple to linked associations and
+vice versa.
+
+== Requirements
+
+=== Ensure popup shows current state of association.
+
+=== Ensure canvas reflects changes made to association.
+
+== Work Required
+
+=== R_REL_BinaryEditAssociation fix for wrong formalization
+
+The OAL assigning the formalization value was reverse of what it should be, so
+the assignment was corrected.
+
+=== fix for canvas update
+
+In Association method, editAssociation, a check for a need for reformalization
+was added that checked four cases:
+. simple to linked
+. linked to simple
+. formalizing identifier change in formalized simple
+. formalizing identifier change in formalized linked
+
+The former two cases allowed removal of code that was already doing the
+migration, but didn't cover all the cases needed.
+
+=== fix for invalid participating class value
+
+The wizard file, page.inc, was updated to allow an index of zero (Not
+formalized) to be set as default when the previous participating class was 
+invalidated as a candidate.
+
+=== fix for wrong associative class shown
+
+In R_REL_BinaryEditAssociation, the check for current associative class was
+placed in the wrong part of the bubble sort algorithm. The check was moved to
+the inner loop, which resulted in more checks, but didn't skip half the possible
+candidates.
+
+== Unit Test
+
+See <<dr-3,Association Editor test model>>, <<dr-4,Association Editor Test Procedure>>.
+
+== User Documentation
+
+No user documentation was changed with this work.
+
+== Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  11724-update-formalize
+
+
+== Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11554[11554 - Automatically
+formalize and force user to setup referentials and role phrases at creation]
+. [[dr-2]] https://support.onefact.net/issues/11719[11719 - Create association
+fails if only two classes in the package]
+. [[dr-3]] https://github.com/xtuml/models/tree/master/test/assoc_edit[Association Editor test model]
+. [[dr-4]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

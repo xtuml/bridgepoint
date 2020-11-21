@@ -38,6 +38,7 @@ Setup Instructions
   - The following 3rd party tools are required to build BridgePoint.  Install them now.    
     - __ALL__  
       - [Maven](https://maven.apache.org/install.html)    
+      - [A Java8 JDK](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc).  Make sure JAVA_HOME environment variable is set.
 
     - __MAC__
       - Install flex, bison, pypy and git (we suggest via homebrew)
@@ -45,7 +46,7 @@ Setup Instructions
     - __LINUX__ - Linux Ubuntu installation commands are presented below.  If installing in a 
     different Linux distribution you must use the [commands appropriate for your Linux distribution](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#linux).
     ```
-    sudo apt-get install libstdc++5 g++ ant git default-jdk  
+    sudo apt-get install libstdc++5 g++ ant git openjdk-8-jdk  
     ```  
     The build runs __a lot__ faster if the pypy python tool is available.  We recommend it be installed:
     ```
@@ -70,7 +71,9 @@ Build Instructions
   git clone https://github.com/"username"/packaging.git ~/git/packaging
   ```
 
-  - Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths. Also adjust the flag to indicate if you want to run all the JUnit tests during build or not.  
+  - There are two ways to configure the build:
+    - Modify ```~/git/bridgepoint/utilities/build/build_configuration.sh``` to account for your local paths. Also adjust the flag to indicate if you want to run all the JUnit tests during build or not.  
+    - Add environment variables to your user environment to override the variables in ```~/git/bridgepoint/utilities/build/build_configuration.sh```. Look inside build_configuration.sh to see which variables you can override.  
 
   - Build BridgePoint:
   ```~/git/bridgepoint/utilities/build/build_and_test_bp.sh```
@@ -155,4 +158,5 @@ git clean -fdx -e build_configuration.sh
 cd ~/git/bptest
 git clean -fdx
 ```
+- Occasionally updates to the development environment will require using a clean workspace.
 - Check the Unit Testing section of [BridgePoint FAQ](https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#unittesting) 

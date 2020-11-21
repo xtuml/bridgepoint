@@ -44,6 +44,13 @@ if (not_empty body)
   body.dispose();
 end if;
 //
+// Deferral
+select one deferral related by self->O_DEF[R126];
+if(not_empty deferral)
+  select one association related by deferral->R_REL[R126];
+  unrelate self from association across R126 using deferral;
+  delete object instance deferral;
+end if;
 // Invocation Subsystem
 select many invs related by self->ACT_TFM[R673];
 for each inv in invs
@@ -399,6 +406,13 @@ INSERT INTO O_TFR
   elif ( param.value == "move down" )
     select one next_attr related by self->O_TFR[R125.''precedes''];
     return not_empty next_attr;
+  elif ( param.value == "make deferred" )
+    select one deferral related by self->O_DEF[R126];
+    select any subsuper_rel related by self->O_OBJ[R115]->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]->R_SUBSUP[R212]->R_REL[R206];
+    return Scope::Instance == self.Instance_Based and empty deferral and not_empty subsuper_rel;
+  elif ( param.value == "make local" )
+    select one deferral related by self->O_DEF[R126];
+    return not_empty deferral;
   end if;
 end if;
 return false;
@@ -930,6 +944,101 @@ end for;',
 	1,
 	'',
 	"526027fd-7223-4f59-a55a-d55a625c8850",
+	0);
+INSERT INTO O_TFR
+	VALUES ("29089dec-6f3d-4db2-9b81-886883d68ddf",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'makeDeferred',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any r_rel from instances of R_REL where ( selected.Rel_ID == param.rel_id );
+if ( not_empty r_rel )
+  create object instance o_def of O_DEF;
+  if (param.required)
+    o_def.required = 0;
+    self.Suc_Pars = ParseStatus::doNotParse;
+  else
+    o_def.required = 1;
+  end if;
+  relate self to r_rel across R126 using o_def;
+  // create subtype operations if they do not already exist
+  select one ret_dt related by self->S_DT[R116];
+  select any first_o_tparm related by self->O_TPARM[R117];
+  select one prev_o_tparm related by first_o_tparm->O_TPARM[R124.''succeeds''];
+  while ( not_empty prev_o_tparm )
+    first_o_tparm = prev_o_tparm;
+    select one prev_o_tparm related by first_o_tparm->O_TPARM[R124.''succeeds''];
+  end while;
+  select many o_objs related by r_rel->R_SUBSUP[R206]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+  for each o_obj in o_objs
+    select any operation related by o_obj->O_TFR[R115] where ( selected.Name == self.Name ); // only match by name
+    if ( empty operation )
+      create object instance operation of O_TFR;
+      relate o_obj to operation across R115;
+      operation.initialize();
+      // set name
+      operation.Name = self.Name;
+      // set type
+      select one old_type related by operation->S_DT[R116];
+      unrelate old_type from operation across R116;
+      relate ret_dt to operation across R116;
+      // copy parameters
+      o_tparm = first_o_tparm;
+      while ( not_empty o_tparm )
+        select one parm_dt related by o_tparm->S_DT[R118];
+        create object instance parm of O_TPARM;
+        relate operation to parm across R117;
+        parm.initialize();
+        operation.createParameterInInteractions(id:parm.TParm_ID);
+        // set parameter name
+        parm.Name = o_tparm.Name;
+        // set type
+        select one old_type related by parm->S_DT[R118];
+        unrelate old_type from parm across R118;
+        relate parm_dt to parm across R118;
+        select one o_tparm related by o_tparm->O_TPARM[R124.''precedes''];
+      end while;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"2befe97c-e633-444b-a770-cc44b1e7371d",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("c58ad90e-ebda-433c-9bc2-cc18f2225215",
+	"29089dec-6f3d-4db2-9b81-886883d68ddf",
+	'rel_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6aaebfdf-590d-467b-82d6-d8432c7c2443",
+	"29089dec-6f3d-4db2-9b81-886883d68ddf",
+	'required',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"c58ad90e-ebda-433c-9bc2-cc18f2225215",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0ef90ca9-0f27-4143-beb6-7eebb7ae9206",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'makeLocal',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one deferral related by self->O_DEF[R126];
+select one deferred_to_rel related by deferral->R_REL[R126];
+if ( not_empty deferral and not_empty deferred_to_rel )
+  unrelate self from deferred_to_rel across R126 using deferral;
+end if;',
+	1,
+	'',
+	"29089dec-6f3d-4db2-9b81-886883d68ddf",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",

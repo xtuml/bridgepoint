@@ -78,7 +78,11 @@ This file is the plugin manifest for the BridgePoint compare plugin.
             priority="high">
       </content-type>
    </extension>
-
-
-
+   <extension point="org.eclipse.ui.preferencePages">
+     <page class="org.xtuml.bp.model.compare.preferences.ModelCompareMergePreferences"
+           id="org.xtuml.bp.model.compare.preferences.ModelCompareMergePreferences"
+           name="Model Compare/Merge"
+           category="org.xtuml.bp.core.root">
+     </page>
+   </extension>
 </plugin>

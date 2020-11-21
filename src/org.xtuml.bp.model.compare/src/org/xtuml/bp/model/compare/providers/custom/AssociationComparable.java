@@ -39,7 +39,7 @@ public class AssociationComparable extends NonRootModelElementComparable {
 
 	@Override
 	public boolean treeItemTypeEquals(Object other) {
-		return true;
+		return other.getClass() == getRealElement().getClass();
 	}
 
 	@Override
@@ -47,7 +47,11 @@ public class AssociationComparable extends NonRootModelElementComparable {
 		// if the formalization state does not match do not
 		// return true
 		Association_c thisAssoc = (Association_c) getRealElement();
-		Association_c otherAssoc = (Association_c) ((ComparableTreeObject) other).getRealElement();
+		Object potentialOther = ((ComparableTreeObject) other).getRealElement();
+		if(!(potentialOther instanceof Association_c)) {
+			return false;
+		}
+		Association_c otherAssoc = (Association_c) potentialOther;
 		if (thisAssoc.Isformalized() && !otherAssoc.Isformalized()
 				|| !thisAssoc.Isformalized() && otherAssoc.Isformalized()) {
 			return false;

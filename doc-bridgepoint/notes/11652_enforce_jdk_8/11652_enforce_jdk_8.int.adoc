@@ -1,0 +1,93 @@
+= Enforce JDK 1.8 during build server runs
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Currently builds on the server are failing due to a newer version of
+the java JDK being installed.
+
+== 2 Introduction and Background
+
+The build server is configured and run dynamically.  This process
+installs all required libraries to build, test and package the product
+for delivery.  The BridgePoint tool requires a JDK version no higher
+than 1.8.  This is a rather outdated version and other tools that
+BridgePoint relies on have moved to a newer version of 1.11.  Once this 
+newer version is installed it is set as the default BridgePoint will fail
+to build.
+
+
+== 3 Requirements
+
+3.1 BridgePoint build server shall build, test and package the tool
+without error
+
+== 4 Work Required
+
+4.1 Enforce use of JDK 1.8
+
+Initial attempts were made to set JAVA_HOME and the PATH at the
+appropriate locations of the build scripts.  This required multiple
+locations to change.  An easier solution was to make use of the system
+alternatives functionality.  In the install-build-server.sh script we
+currently install open jdk 8, but this does not update the default java
+version for the system.  Immediately following the call to install the
+jdk two new statements were added.  The first one installs the new jdk
+as an alternative in the system.  The second one configures the system
+to use the jdk 8 version.
+
+4.2 Allow testing to run
+
+During the initial research phase for this work it was noticed that the
+build would fail with tests enabled.  This was tracked down to the
+ui.properties.test expecting a new elment's (O_DEF) properties be
+tested.  The test model and code was updated to include a deferral and
+properly test the new properties fields.
+
+== 5 Implementation Comments
+
+
+== 6 Unit Test
+. Trigger a build using the launch-build.sh script
+. Result the build completes without error
+. Result the build is available on the S3 site
+. Trigger a build with tests using the launch-build.sh script
+. Result the build completes without error
+. Result the tests run to completion
+. Result the build is available on the S3 site
+
+== 7 User Documentation
+
+
+== 8 Code Changes
+
+- fork/repository:  https://github.com/travislondon/buildmt
+- branch:  master
+
+- fork/repository: https://github.com/travislondon/bptest
+- branch: master
+
+----
+install-build-server.sh
+
+src/org.xtuml.bp.ui.properties.test/arc/create_view_test.arc
+src/org.xtuml.bp.ui.properties.test/models/org.xtuml.bp.ui.properties.test/testProp/Deferral/Deferral.xtuml
+src/org.xtuml.bp.ui.properties.test/models/org.xtuml.bp.ui.properties.test/testProp/Deferral/Subclass/Subclass.xtuml
+src/org.xtuml.bp.ui.properties.test/models/org.xtuml.bp.ui.properties.test/testProp/Deferral/Superclass/Superclass.xtuml
+src/org.xtuml.bp.ui.properties.test/models/org.xtuml.bp.ui.properties.test/testProp/testProp.xtuml
+src/org.xtuml.bp.ui.properties.test/src/org/xtuml/bp/ui/properties/test/EnumRangeTest.java
+----
+
+== 9 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/11652[11652 - openjdk 11 getting isntalled on the build server]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
