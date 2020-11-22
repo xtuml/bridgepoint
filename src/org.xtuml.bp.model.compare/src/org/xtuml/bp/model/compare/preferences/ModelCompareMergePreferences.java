@@ -2,28 +2,30 @@ package org.xtuml.bp.model.compare.preferences;
 
 //========================================================================
 //
-//File:      $RCSfile: MessageDirectionPreferences.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2012/01/23 21:28:10 $
+//File: /preferences/ModelCompareMergePreferences.java.java
 //
-//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
+//This work is licensed under the Creative Commons CC0 License
 //
 //========================================================================
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-// use this file except in compliance with the License.  You may obtain a copy 
-// of the License at
+//Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+//use this file except in compliance with the License.  You may obtain a copy 
+//of the License at
 //
-//       http://www.apache.org/licenses/LICENSE-2.0
+//   http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-// License for the specific language governing permissions and limitations under
-// the License.
-//========================================================================
+//Unless required by applicable law or agreed to in writing, software 
+//distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+//WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+//License for the specific language governing permissions and limitations under
+//the License.
+//======================================================================== 
+//
+// Preferences for model merge
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -32,18 +34,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.PlatformUI;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.common.BridgePointPreferencesModel;
-import org.xtuml.bp.core.ui.ICoreHelpContextIds;
+import org.xtuml.bp.model.compare.ComparePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 
-public class ModelCompareMergePreferences extends PreferencePage implements
-		IWorkbenchPreferencePage {
+public class ModelCompareMergePreferences extends PreferencePage implements IWorkbenchPreferencePage {
 
 	private Group optionGroup;
 	private Button enableGraphicsButton;
 	private Button enableAutoMergeButton;
+	private Button ignoreGraphicalConflicts;
 
 	protected IPreferenceModel model;
 
@@ -60,8 +59,8 @@ public class ModelCompareMergePreferences extends PreferencePage implements
 		gl.verticalSpacing = 10;
 		composite.setLayout(gl);
 
-		optionGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
-		GridLayout bkLayout = new GridLayout(3, true);
+		optionGroup = new Group(composite, SWT.NONE);
+		GridLayout bkLayout = new GridLayout(1, false);
 		optionGroup.setLayout(bkLayout);
 
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -77,44 +76,60 @@ public class ModelCompareMergePreferences extends PreferencePage implements
 		enableGraphicsButton.setLayoutData(new GridData());
 
 		enableAutoMergeButton = new Button(optionGroup, SWT.CHECK | SWT.LEFT);
+		// if auto merge is set to true, enable ignore graphical conflicts
+		// the two must be true
+		enableAutoMergeButton.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(enableAutoMergeButton.getSelection()) {
+					ignoreGraphicalConflicts.setSelection(true);
+					ignoreGraphicalConflicts.setEnabled(false);
+				} else {
+					ignoreGraphicalConflicts.setEnabled(true);
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
 		enableAutoMergeButton.setText("Enable &automatic graphical merge");
 		enableAutoMergeButton.setLayoutData(new GridData());
+		
+		ignoreGraphicalConflicts = new Button(optionGroup, SWT.CHECK | SWT.LEFT);
+		ignoreGraphicalConflicts.setText("&Ignore graphical conflicts");
+		ignoreGraphicalConflicts.setLayoutData(new GridData());
 
-		model = new BridgePointPreferencesModel();
-        model.getStore().loadModel(getPreferenceStore(), null, model);
+		model = new ModelComparePreferenceModel();
+		model.getStore().loadModel(getPreferenceStore(), null, model);
 
 		syncUIWithPreferences();
-		
+
 		return composite;
 	}
 
 	public void init(IWorkbench workbench) {
-		// Initialize the Core preference store
-		setPreferenceStore(CorePlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(ComparePlugin.getDefault().getPreferenceStore());
 	}
 
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		// add F1 context support to main BridgePoint preference page
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
-				ICoreHelpContextIds.corePreferencesId);
 	}
 
 	public boolean performOk() {
 		super.performOk();
 
-		// When closing the preferences UI, the performOk() for each page the user
-		// viewed will be called.  Those other performOk()'s may have caused the
-		// store to be updated.  So we need to make sure our copy of the
-		// preferences model is up to date before we modify and save it.
-        model.getStore().loadModel(getPreferenceStore(), null, model);
+		model.getStore().loadModel(getPreferenceStore(), null, model);
 
-		BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+		ModelComparePreferenceModel bpPrefs = (ModelComparePreferenceModel) model;
 		bpPrefs.enableGraphicalDifferences = enableGraphicsButton.getSelection();
 		bpPrefs.enableAutoGraphicalMerge = enableAutoMergeButton.getSelection();
+		bpPrefs.ignoreGraphicalConflicts = ignoreGraphicalConflicts.getSelection();
 
 		model.getStore().saveModel(getPreferenceStore(), model);
-		
+
 		return true;
 	}
 
@@ -123,17 +138,13 @@ public class ModelCompareMergePreferences extends PreferencePage implements
 		model.getStore().restoreModelDefaults(model);
 		syncUIWithPreferences();
 	}
-	
-    private void syncUIWithPreferences() {
-        BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-        
-        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
-        // have already been set up with the correct data (either from the store
-        // or defaults) before this function is called.  Calling model.loadModel(...)
-        // here would overwrite the population of the default model data in
-        // performDefaults().
-            enableGraphicsButton.setSelection(bpPrefs.enableGraphicalDifferences);
-            enableAutoMergeButton.setSelection(bpPrefs.enableAutoGraphicalMerge);
-    }
+
+	private void syncUIWithPreferences() {
+		ModelComparePreferenceModel prefs = (ModelComparePreferenceModel) model;
+
+		enableGraphicsButton.setSelection(prefs.enableGraphicalDifferences);
+		enableAutoMergeButton.setSelection(prefs.enableAutoGraphicalMerge);
+		ignoreGraphicalConflicts.setSelection(prefs.ignoreGraphicalConflicts);
+	}
 
 }

@@ -49,5 +49,7 @@ public interface IModelContentMergeViewer {
 	public boolean isLeftEditable();
 
 	public boolean isRightEditable();
+	
+	public boolean graphicsEnabled();
 
 }

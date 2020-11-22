@@ -1,0 +1,167 @@
+= Remove use of private compare API
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+This note describes the required changes to remove the model compare reliance on private eclipse compare API.
+
+== 2 Introduction and Background
+
+After upgrading to Eclipse oxygen the model compare viewer lost the images for most of the available actions.  Investigation showed that the missing icons were related to a change to private API.  It also showed that there are many more locations in model compare that are referencing private API.
+
+== 3 Requirements
+=== 3.1 All toolbar actions have icons present
+=== 3.2 bp.model.compare makes no use of private api
+
+== 4 Analysis / Design
+The reasons for not relying on private APIs are evident by issues like the one raised for this work.  While the topic of this issue is only related to missing icons, what other issues may be present from this practice are unknown.  Therefore the larger part of this work is to completely remove reliance on any private API.  This will allow future versions of model compare to continually function as designed.
+
+=== 4.1  Missing icons
+Eclipse oxygen changed their icon approach from using gif files to png files.  The combination of this change along with bp compare relying on the hard coded gif usage results in the missing icons.
+
+==== 4.1.1 Update model compare properties file to reference png files
+The create_properties_file.inc archetype is used to generate a Java properties file that captures UI related strings and paths.  This file is updated to configure the icon paths to point at a png variant.
+
+==== 4.1.2 Implement local version of ICompareUIConstants
+The IComapareUIConstants interface is private API in the eclipse compare plugin.  A model compare version IModelCompareConstants is created locally.  This interface defines the various icon paths as well as some user preference keys.  The interface is a copy of the private interface, with the exception of the value prefix being changed to org.xtuml.bp.model.compare.
+
+==== 4.1.3 Implement utiltities
+The private API way of initializing an action was to build on the given key in order to collect all parts that an action
+
+. description
+. image
+. label
+. tooltip
+
+These are all set in the Java properties file that is described in 4.1.1.
+
+A new utility class is added, util/Utilities.java.  For model compare we only need to implement a local version of initAction and getImageDescriptor.  The implementation are simplified to the minimum required for model compare.
+
+In order to separate model compare from the private API we now must implement support for a local image registry.  To support this ComparePlugin is modified to manage an image registry and provide access to images held by it.
+
+=== 4.1.4 Copy png images from private API
+A local copy of all images under the eclipse compare plugin is made.
+
+=== 4.2 Difference navigation
+Another area where private API was heavily relied on is with difference navigation; including the dialog and preferences associated with it.  Eclipse compare provides a set of preferences which configure what to do when reaching the end of navigation in the current compare editor.  These preferences are:
+
+. Prompt
+. Wrap to the beginning or end of current editor
+. Navigate to the next difference editor
+. Do nothing
+
+=== 4.2.1 Model Compare preferences
+Model compare shall manage its own preferences.  <<dr-2>> introduced the first model compare preferences: Enable graphial differences and Automerge graphical differences.  When that work was completed the preference set was simple enough to be added and managed directly by the bp.core plugin preferences.  With the introducation of the difference navigation preference the better approach is to localize model compare preferences.
+
+==== 4.2.1.1 Localized preferences
+To support local preferences model compare has a new structure created which follows the design of the bp.core preference system:
+
+. ModelComparePreferenceStore
+. ModelComparePreferenceModel
+
+==== 4.2.1.2 Existing model compare preferences
+The <<dr-2>> added preferences are moved to the new model compare preference store.
+
+==== 4.2.1.3 Difference navigation preferences
+A new preference is added to the store, navigation option.
+
+===== 4.2.1.3.1 Messages java class for new preference
+Following the implementation in the eclipse private API a new class is added, ModelCompareMessages.  This new class holds static variables to property keys that are added in the create_properties_file.inc.  The new keys are to support these aspects of difference navigation:
+
+. Preference title
+. Preference option labels
+
+===== 4.2.1.3.2 Preference page
+A new preference page class is added, ModelCompareNavigationPreferences.  This class is responsible for creating the UI controls for the difference navigation preference. A plugin entry is added to register the new preference page.
+
+Now that there are two different preference sets a new container preference page is added, ModelComparePreferences.  This page is shown when selecting the root Model Compare tree item in the preferences dialog.  The graphical difference preferences are added as a child, Graphical Compare/Merge. The difference navigation page is added as a child, Navigation.
+
+==== 4.2.1.4 Graphical conflicts
+The current model compare infrastructure is designed to ignore conflicts related to graphical changes.  This is not always desirable and therefore a preference is added to control the behavior.  The default is set to not ignore graphical conflicts.
+
+==== 4.2.2 Navigation dialog
+In difference navigation a dialog is shown if the navigation preference is set to prompt.  The dialog used is also private API.  A new dialog implementation is added, NavigationEndDialog.  This class shows the same type of controls present in the preference page added in 4.2.1.3.2 and cover the options listed in 4.2.  Similar to the preference the various keys are added to ModelCompareMessages and create_properties_file.inc.  One difference here is that there are different options depending on the navigation direction, up vs down.
+
+=== 4.3 LocalResourceTypedElement
+LocalResourceTypeElement gives us access to information about a local resource, like the readonly flag.  This class is private API but investigation shows that its super type supports the same required flags and is therefore used in place.
+
+=== 4.4 Buffered Canvas
+To support drawing the difference indicators in the tree a private class was being used, BufferedCanvas.  This class prevents flickering while redrawing giving a better experience.  The class is straight forward and small.  Its implementation is copied into model compare, leaving the original copyright intact.
+
+=== 4.5 MergeViewerContentProvider
+This MergeViewerContentProvider class is private API and is used to write changes in either direction.  The model compare implementation extended this class to provide the necessary model writes.  The class implements a public interface, IMergeViewerContentProvider.  A new local class is added, ModelMergeViewerContentProvider.  This class directly implements the public interface.
+
+The extended functions are now moved to this new class.  The other require methods are implemented in the same manner as the private class.
+
+=== 4.6 Navigation and graphical differences
+Navigation never considered the ignored graphical differences.  This means that if graphical differences are present yet hidden navigation still iterates them but gives no indication of such navigation.
+
+==== 4.6.1 Filter graphics
+Grapical differences must always be computed by the differencer.  However the two access points, getLeftDifferences and getRightDifferences can filter graphics out.  These two access points are used in navigation.  The two methods are modified to take a new parameter includeGraphics.  The differences returned are filtered to match the intention of the new parameter.
+
+==== 4.6.2 Update references
+===== 4.6.2.1 ModelStructureDiffViewer
+In this case the preference is referenced to determine graphical inclusion.
+
+===== 4.6.2.2 ModelContentMergeViewer
+All references are updated to pass the local flag for graphical inclusion.
+
+===== 4.6.2.3 Classes owned by ModelContentMergeViewer
+Classes which are created and owned by ModelContentMergeViewer are extended to pass the result of a new method ModelContentMergeViewer.graphicsEnabled().
+
+==== 4.6.3 Capture graphical flag for each tree difference
+In order to filter graphical differences each tree difference type must indicate whether it is graphical or not.  The computation expense would be too much if determining during the filter operation.
+
+===== 4.6.3.1 Abstract difference class
+The main tree difference abstract class, ComparableTreeObject, is modified to include a new abstract method isGraphical.
+
+===== 4.6.3.2 Subtypes of ComparableTreeObject
+Each subtype of ComparableTreeObject is extended to include a field, graphical.  Each one's constructor is modified to take a new parameter, graphical.  Each one is extended to implement the isGraphical method and return this field.
+
+====== 4.6.3.2.1 Subtypes
+The following are subtypes of ComparableTreeObject.  In some cases the comparable is custom for a non graphical element, and are instantiated accordingly.  In other cases the NonRootModelElement associated is checked to see if the model root is graphical or not.
+
+- EmptyElement
+- NonRootModelElementComparable
+- ObjectElementComparable
+
+The custom comparables extend from the NonRootModelComparable class.
+
+=== Ignore ancestor option
+In eclipse compare there was previously an ignore ancestor option which would switch the differencing to a two way compare.  In model compare there are references to the private API for this.  Considering the option is no longer available in the model compare viewer by default, this logic is removed.
+
+== 5 Design
+Combined with Analysis.
+
+== 6 Design Comments
+
+== 7 User Documentation
+
+== 8 Unit Test
+
+=== Existing tests
+- Existing model compare/merge tests pass
+
+=== Preference tests
+. Create a conflicting change in graphical data only
+. Set Ignore graphical conflicts to true
+. Open a merge viewer
+. R There are no conflicts shown (red outline)
+. Close the viewer
+. Set Ignore graphical conflicts to false
+. Open a merge viewer
+. R The graphical diferrences are marked as conflicts
+
+
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11761[11761 - Use cases diff/merge]
+. [[dr-2]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11761/11761_configurable_graphical_comparison.dnt.adoc[Part 1 Design]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

@@ -31,7 +31,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class NewBaseAttributeComparable extends NonRootModelElementComparable {
 
 	public NewBaseAttributeComparable(NewBaseAttribute_c realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

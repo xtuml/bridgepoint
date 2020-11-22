@@ -248,8 +248,9 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 					}
 					location = getAdjustedLocationForSlot(location, child,
 							children, otherChildren, createdFor, remoteRoots, localRoots);
+					boolean graphical = element.getModelRoot() instanceof Ooaofgraphics;
 					EmptyElement empty = new EmptyElement(child, element,
-							location);
+							location, graphical);
 					// if the location will be at the end, prevent
 					// index out of bounds exceptions by just adding
 					// the element to the end

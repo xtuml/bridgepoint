@@ -51,4 +51,5 @@ public abstract class ComparableTreeObject {
 	public boolean ignoreOrdering() {
 		return false;
 	}
+	public abstract boolean isGraphical();
 }

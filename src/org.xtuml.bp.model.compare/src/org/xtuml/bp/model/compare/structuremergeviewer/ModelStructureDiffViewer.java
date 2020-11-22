@@ -44,10 +44,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
+import org.xtuml.bp.model.compare.ComparePlugin;
 import org.xtuml.bp.model.compare.EmptyElement;
 import org.xtuml.bp.model.compare.TreeDifference;
 import org.xtuml.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
+import org.xtuml.bp.model.compare.preferences.ModelComparePreferenceStore;
 import org.xtuml.bp.model.compare.providers.TreeDifferenceContentProvider;
 import org.xtuml.bp.model.compare.providers.TreeDifferenceLabelProvider;
 
@@ -129,8 +130,9 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 					}
 					TreeItem topItem = getTree().getItem(0);
 					if(topItem.getItemCount() > 0) {
+						boolean enableGraphics = ComparePlugin.getDefault().getPreferenceStore().getBoolean(ModelComparePreferenceStore.ENABLE_GRAPHICAL_DIFFERENCES);
 						TreeDifference difference = ((TreeDifferenceContentProvider) getContentProvider())
-								.getDifferencer().getLeftDifferences().get(0);
+								.getDifferencer().getLeftDifferences(enableGraphics).get(0);
 						if(difference.getElement() instanceof EmptyElement) {
 							difference = difference.getMatchingDifference();
 						}
