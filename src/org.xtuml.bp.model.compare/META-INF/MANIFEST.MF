@@ -9,6 +9,7 @@ Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.model.compare,
  org.xtuml.bp.model.compare.actions,
  org.xtuml.bp.model.compare.contentmergeviewer,
+ org.xtuml.bp.model.compare.preferences,
  org.xtuml.bp.model.compare.providers,
  org.xtuml.bp.model.compare.providers.custom,
  org.xtuml.bp.model.compare.structuremergeviewer
