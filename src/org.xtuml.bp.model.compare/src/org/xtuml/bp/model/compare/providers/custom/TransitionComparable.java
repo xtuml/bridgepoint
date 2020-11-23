@@ -35,7 +35,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class TransitionComparable extends NonRootModelElementComparable {
 
 	public TransitionComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

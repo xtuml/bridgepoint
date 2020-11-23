@@ -37,7 +37,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class ActionComparable extends NonRootModelElementComparable {
 
 	public ActionComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override
