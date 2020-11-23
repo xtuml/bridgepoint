@@ -27,16 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.compare.CompareConfiguration;
+import org.eclipse.compare.CompareUI;
 import org.eclipse.compare.IEditableContent;
-import org.eclipse.compare.internal.CompareDialog;
-import org.eclipse.compare.internal.CompareUIPlugin;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.EditingSupport;
@@ -61,7 +59,6 @@ import org.eclipse.swt.events.TreeEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -72,7 +69,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.Transition_c;
@@ -319,10 +315,10 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		gc.setAntialias(SWT.ON);
 		Tree tree = getTree();
 		List<TreeDifference> differences = mergeViewer.getDifferencer()
-				.getLeftDifferences();
+				.getLeftDifferences(mergeViewer.graphicsEnabled());
 		if (mergeViewer.getLeftViewer() != this
 				&& mergeViewer.getAncestorTree() != this) {
-			differences = mergeViewer.getDifferencer().getRightDifferences();
+			differences = mergeViewer.getDifferencer().getRightDifferences(mergeViewer.graphicsEnabled());
 		}
 		for (TreeDifference difference : differences) {
 			if(differenceIsGraphical(difference) && !mergeViewer.enableGraphics) {
@@ -821,38 +817,17 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 					compareConfiguration.setRightEditable(rightEditable);
 				}
 				final TextualAttributeCompareEditorInput compareInput = new TextualAttributeCompareEditorInput(
-						compareConfiguration, (ObjectElement) leftElement,
-						(ObjectElement) rightElement, (ObjectElement) ancestor,
-						SynchronizedTreeViewer.this);
-				if (CompareUIPlugin.getDefault().compareResultOK(compareInput,
-						null)) {
-					Runnable runnable = new Runnable() {
-						public void run() {
-							CompareDialog dialog = new CompareDialog(PlatformUI
-									.getWorkbench().getActiveWorkbenchWindow()
-									.getShell(), compareInput) {
-
-								@Override
-								protected Button createButton(Composite parent,
-										int id, String label,
-										boolean defaultButton) {
-									if (id == IDialogConstants.CANCEL_ID) {
-										return null;
-									} else {
-										return super.createButton(parent, id,
-												label, defaultButton);
-									}
-								}
-
-							};
-							dialog.open();
-						}
-					};
-					if (Display.getCurrent() == null) {
-						Display.getDefault().syncExec(runnable);
-					} else {
-						runnable.run();
+						compareConfiguration, (ObjectElement) leftElement, (ObjectElement) rightElement,
+						(ObjectElement) ancestor, SynchronizedTreeViewer.this);
+				Runnable runnable = new Runnable() {
+					public void run() {
+						CompareUI.openCompareDialog(compareInput);
 					}
+				};
+				if (Display.getCurrent() == null) {
+					Display.getDefault().syncExec(runnable);
+				} else {
+					runnable.run();
 				}
 				return null;
 			}

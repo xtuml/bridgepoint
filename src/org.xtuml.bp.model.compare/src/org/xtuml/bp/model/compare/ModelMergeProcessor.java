@@ -1292,7 +1292,7 @@ public class ModelMergeProcessor {
 							TreeDifferencer.getLocationOfElement(
 									contentProvider.getParent(element
 											.getParent()), element.getParent(),
-									contentProvider)),
+									contentProvider), false),
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(localOwner,

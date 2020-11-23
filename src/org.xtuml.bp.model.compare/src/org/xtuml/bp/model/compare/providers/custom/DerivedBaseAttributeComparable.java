@@ -28,7 +28,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class DerivedBaseAttributeComparable extends NonRootModelElementComparable {
 
 	public DerivedBaseAttributeComparable(DerivedBaseAttribute_c realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

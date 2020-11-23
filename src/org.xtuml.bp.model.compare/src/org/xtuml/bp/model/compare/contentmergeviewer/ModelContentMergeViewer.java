@@ -22,11 +22,8 @@
 package org.xtuml.bp.model.compare.contentmergeviewer;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.UUID;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareNavigator;
@@ -46,16 +42,10 @@ import org.eclipse.compare.IEditableContent;
 import org.eclipse.compare.ISharedDocumentAdapter;
 import org.eclipse.compare.IStreamContentAccessor;
 import org.eclipse.compare.ITypedElement;
+import org.eclipse.compare.ResourceNode;
 import org.eclipse.compare.SharedDocumentAdapter;
 import org.eclipse.compare.contentmergeviewer.ContentMergeViewer;
 import org.eclipse.compare.contentmergeviewer.IMergeViewerContentProvider;
-import org.eclipse.compare.internal.BufferedCanvas;
-import org.eclipse.compare.internal.CompareMessages;
-import org.eclipse.compare.internal.CompareUIPlugin;
-import org.eclipse.compare.internal.ICompareUIConstants;
-import org.eclipse.compare.internal.MergeViewerContentProvider;
-import org.eclipse.compare.internal.NavigationEndDialog;
-import org.eclipse.compare.internal.Utilities;
 import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.compare.structuremergeviewer.ICompareInput;
 import org.eclipse.core.resources.IFile;
@@ -65,23 +55,18 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.JFaceResources;
@@ -101,30 +86,22 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.team.internal.ui.synchronize.LocalResourceTypedElement;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.texteditor.IDocumentProvider;
-
-import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.StateMachine_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionManager;
-import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.model.compare.ComparableTreeObject;
 import org.xtuml.bp.model.compare.ComparePlugin;
 import org.xtuml.bp.model.compare.CompareTransactionManager;
@@ -132,6 +109,7 @@ import org.xtuml.bp.model.compare.EmptyElement;
 import org.xtuml.bp.model.compare.ITreeDifferencerProvider;
 import org.xtuml.bp.model.compare.ModelCacheManager;
 import org.xtuml.bp.model.compare.ModelCacheManager.ModelLoadException;
+import org.xtuml.bp.model.compare.ModelCompareMessages;
 import org.xtuml.bp.model.compare.ModelMergeProcessor;
 import org.xtuml.bp.model.compare.TreeDifference;
 import org.xtuml.bp.model.compare.TreeDifferencer;
@@ -139,11 +117,15 @@ import org.xtuml.bp.model.compare.actions.CopyDiffAction;
 import org.xtuml.bp.model.compare.actions.EnableGraphicsAction;
 import org.xtuml.bp.model.compare.actions.NavigateDownAction;
 import org.xtuml.bp.model.compare.actions.NavigateUpAction;
+import org.xtuml.bp.model.compare.preferences.ModelComparePreferenceStore;
 import org.xtuml.bp.model.compare.providers.ComparableProvider;
 import org.xtuml.bp.model.compare.providers.ModelCompareContentProvider;
 import org.xtuml.bp.model.compare.providers.ModelCompareLabelProvider;
+import org.xtuml.bp.model.compare.providers.ModelMergeViewerContentProvider;
 import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 import org.xtuml.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
+import org.xtuml.bp.model.compare.util.BufferedCanvas;
+import org.xtuml.bp.model.compare.util.Utilities;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
@@ -200,11 +182,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	// This field is used to enable graphical data
-	public boolean enableGraphics = CorePlugin
+	public boolean enableGraphics = ComparePlugin
 			.getDefault()
 			.getPreferenceStore()
 			.getBoolean(
-					BridgePointPreferencesStore.ENABLE_GRAPHICAL_DIFFERENCES);
+					ModelComparePreferenceStore.ENABLE_GRAPHICAL_DIFFERENCES);
 	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
@@ -220,185 +202,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			configuration.getContainer().getActionBars().setGlobalActionHandler(
 					ActionFactory.REDO.getId(), redo);
 		}
-		setContentProvider(new MergeViewerContentProvider(configuration) {
-
-			@Override
-			public void saveLeftContent(Object element, byte[] bytes) {
-				if (element instanceof ICompareInput) {
-					ICompareInput node = (ICompareInput) element;
-					updateSMIds(node, true);
-					writeData(node, true);
-					NonRootModelElement[] rootElements = new NonRootModelElement[0];
-					try {
-						rootElements = modelManager.getRootElements(element,
-								this, false, getLeftCompareRoot(),
-								ModelCacheManager.getLeftKey(element));
-						if (rootElements.length != 0) {
-							ICompareInput savedInput = savedModels.get(rootElements[0]);
-							if(savedInput == null) {
-								savedModels.put(rootElements[0], node);
-							}
-						}
-					} catch (ModelLoadException e) {
-						CorePlugin
-								.logError(
-										"Unable to get root model elements from compare input.",
-										e);
-					} finally {
-						modelManager.releaseModel(element, this,
-								ModelCacheManager.getLeftKey(element));
-					}
-				}
-			}
-
-			@Override
-			public void saveRightContent(Object element, byte[] bytes) {
-				if (element instanceof ICompareInput) {
-					ICompareInput node = (ICompareInput) element;
-					updateSMIds(node, false);
-					writeData(node, false);
-					NonRootModelElement[] rootElements = new NonRootModelElement[0];
-					try {
-						rootElements = modelManager.getRootElements(element,
-								this, false, getRightCompareRoot(),
-								ModelCacheManager.getRightKey(element));
-						if (rootElements.length != 0) {
-							ICompareInput savedInput = savedModels.get(rootElements[0]);
-							if(savedInput == null) {
-								savedModels.put(rootElements[0], node);
-							}
-						}
-					} catch (ModelLoadException e) {
-						CorePlugin
-								.logError(
-										"Unable to get root model elements from compare input.",
-										e);
-					} finally {
-						modelManager.releaseModel(element, this,
-								ModelCacheManager.getRightKey(element));
-					}
-				}
-
-			}
-
-		});
+		setContentProvider(new ModelMergeViewerContentProvider(configuration, this));
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
-	
-	protected void updateSMIds(ICompareInput node, boolean left) {
-		// reset any SM ids that were upgrade for compare/merge
-		Object key = ModelCacheManager.getLeftKey(node);
-		if(!left) {
-			key = ModelCacheManager.getRightKey(node);
-		}
-		Ooaofooa compareRoot = getLeftCompareRoot();
-		if(!left) {
-			compareRoot = getRightCompareRoot();
-		}
-		UUID originalSMId = modelManager
-				.getOriginalSMIdFromEntry(key);
-		if (originalSMId != null) {
-			NonRootModelElement[] rootElements;
-			try {
-				rootElements = modelManager.getRootElements(node, this, false,
-						compareRoot, key);
-				// only support case where there is only one root
-				StateMachine_c sm = null;
-				if (rootElements[0] instanceof InstanceStateMachine_c) {
-					sm = StateMachine_c
-							.getOneSM_SMOnR517((InstanceStateMachine_c) rootElements[0]);
-				}
-				if (rootElements[0] instanceof ClassStateMachine_c) {
-					sm = StateMachine_c
-							.getOneSM_SMOnR517((ClassStateMachine_c) rootElements[0]);
-				}
-				if (sm != null) {
-					ModelCacheManager.updateIdForStateMachine(
-							originalSMId, sm);
-				}
-			} catch (ModelLoadException e) {
-				CorePlugin.logError("Unable to load compare data.",
-						e);
-			}
-		}
-	}
 
-	protected void writeData(ICompareInput input, boolean toLeft) {
-		try {
-			ITypedElement destination = input.getLeft();
-			Ooaofooa root = Ooaofooa.getInstance(ModelRoot
-					.getLeftCompareRootPrefix() + input.hashCode());
-			if (!toLeft) {
-				destination = input.getRight();
-				root = Ooaofooa.getInstance(ModelRoot
-						.getRightCompareRootPrefix() + input.hashCode());
-			}
-			final NonRootModelElement rootElement = modelManager
-					.getRootElements(destination, null, false, root,
-							ModelCacheManager
-									.getLeftKey(input))[0];
-			if (destination instanceof IEditableContent) {
-				// before saving copy all graphical changes that are
-				// non-conflicting
-				List<TreeDifference> incomingGraphicalDifferences = getIncomingGraphicalDifferences(toLeft);
-				if (incomingGraphicalDifferences.size() > 0) {
-					mergeIncomingGraphicalChanges(incomingGraphicalDifferences,
-							toLeft, input);
-				}
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				AbstractModelExportFactory modelExportFactory = CorePlugin
-						.getModelExportFactory();
-				IRunnableWithProgress runnable = modelExportFactory.create(
-						root, baos, rootElement);
-				runnable.run(new NullProgressMonitor());
-				((IEditableContent) destination).setContent(baos.toByteArray());
-				if (destination instanceof LocalResourceTypedElement) {
-					((IFile) ((LocalResourceTypedElement) destination)
-							.getResource()).setContents(
-							new ByteArrayInputStream(baos.toByteArray()),
-							IFile.FORCE | IFile.KEEP_HISTORY,
-							new NullProgressMonitor());
-				}
-				WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
-
-					@Override
-					public IStatus runInWorkspace(IProgressMonitor monitor)
-							throws CoreException {
-						NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
-								.getDefaultInstance()
-								.getInstanceList(rootElement.getClass())
-								.getGlobal(rootElement.getInstanceKey());
-						if (elementGlobally != null) {
-							if (elementGlobally.getFile() != null) {
-								elementGlobally.getFile().refreshLocal(
-										IFile.DEPTH_INFINITE, monitor);
-							}
-						}
-						return Status.OK_STATUS;
-					}
-				};
-				job.schedule(1500);
-			}
-
-		} catch (FileNotFoundException e) {
-			ComparePlugin.writeToLog("Unable to save merge data.", e,
-					ModelContentMergeViewer.class);
-		} catch (ModelLoadException e) {
-			ComparePlugin.writeToLog("Unable to save merge data.", e,
-					ModelContentMergeViewer.class);
-		} catch (InvocationTargetException e) {
-			ComparePlugin.writeToLog("Unable to save merge data.", e,
-					ModelContentMergeViewer.class);
-		} catch (InterruptedException e) {
-			ComparePlugin.writeToLog("Unable to save merge data.", e,
-					ModelContentMergeViewer.class);
-		} catch (CoreException e) {
-			ComparePlugin.writeToLog("Unable to save merge data.", e,
-					ModelContentMergeViewer.class);
-		}
-	}
-
-	protected void mergeIncomingGraphicalChanges(
+	public void mergeIncomingGraphicalChanges(
 			List<TreeDifference> incomingGraphicalDifferences, boolean left, ICompareInput input) {
 		ITreeDifferencerProvider provider = (ITreeDifferencerProvider) leftTreeViewer
 				.getContentProvider();
@@ -451,8 +259,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							a.setEnabled(result);
 						}
 					});
-			Utilities.initAction(a, getResourceBundle(),
-					"action.CopyDiffLeftToRight."); //$NON-NLS-1$
+			Utilities.initAction(a, "action.CopyDiffLeftToRight."); //$NON-NLS-1$
 			ActionContributionItem item = new ActionContributionItem(a);
 			item.setVisible(true);
 			toolBarManager.appendToGroup("merge", item); //$NON-NLS-1$
@@ -480,22 +287,22 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							a.setEnabled(result);
 						}
 					});
-			Utilities.initAction(a, getResourceBundle(),
-					"action.CopyDiffRightToLeft."); //$NON-NLS-1$
+			Utilities.initAction(a, "action.CopyDiffRightToLeft."); //$NON-NLS-1$
 			ActionContributionItem item = new ActionContributionItem(a);
 			item.setVisible(true);
 			toolBarManager.appendToGroup("merge", item); //$NON-NLS-1$
 		}
 		Action navigateDown = new NavigateDownAction(this);
-		Utilities.initAction(navigateDown, getResourceBundle(), "action.NextDiff.");
+		Utilities.initAction(navigateDown, "action.NextDiff.");
 		nextDifference = new ActionContributionItem(navigateDown);
 		toolBarManager.appendToGroup("navigation", nextDifference); //$NON-NLS-1$
 		Action navigateUp = new NavigateUpAction(this);
-		Utilities.initAction(navigateUp, getResourceBundle(), "action.PrevDiff.");
+		Utilities.initAction(navigateUp, "action.PrevDiff.");
 		previousDifference = new ActionContributionItem(navigateUp);
 		toolBarManager.appendToGroup("navigation", previousDifference); //$NON-NLS-1$
 		EnableGraphicsAction enableGraphicsAction = new EnableGraphicsAction(this);
 		enableGraphicsAction.setImageDescriptor(CorePlugin.getImageDescriptor("diagram.gif"));
+		enableGraphicsAction.setChecked(enableGraphics);
 		ActionContributionItem graphics = new ActionContributionItem(enableGraphicsAction);
 		toolBarManager.appendToGroup("navigation", graphics);
 	}
@@ -528,7 +335,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		// if the selection is empty return the first
 		// difference
 		if(selected == null) {
-			return differencer.getNextDifference(null);
+			return differencer.getNextDifference(null, enableGraphics);
 		} else {
 			// walk the tree down
 			return walkDown(selected.getData());
@@ -598,7 +405,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					return difference;
 				}
 			}
-			if(child.equals(selected)) {
+			if(child != null && child.equals(selected)) {
 				checkChild = true;
 			}
 		}
@@ -643,16 +450,16 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	public void endOfDocumentReached(boolean down) {
 		Control c= getControl();
-		if (Utilities.okToUse(c)) {
+		if (c != null && !c.isDisposed()) {
 			handleEndOfDocumentReached(c.getShell(), down);
 		}
 	}
 	
 	private void handleEndOfDocumentReached(Shell shell, boolean next) {
-		IPreferenceStore store = CompareUIPlugin.getDefault().getPreferenceStore();
-		String value = store.getString(ICompareUIConstants.PREF_NAVIGATION_END_ACTION);
-		if (!value.equals(ICompareUIConstants.PREF_VALUE_PROMPT)) {
-			performEndOfDocumentAction(shell, store, ICompareUIConstants.PREF_NAVIGATION_END_ACTION, next);
+		IPreferenceStore store = ComparePlugin.getDefault().getPreferenceStore();
+		String value = store.getString(ModelComparePreferenceStore.NAVIGATION_OPTION);
+		if (!value.equals(IModelCompareConstants.PREF_VALUE_PROMPT)) {
+			performEndOfDocumentAction(shell, store, ModelComparePreferenceStore.NAVIGATION_OPTION, next);
 		} else {
 			shell.getDisplay().beep();
 			String loopMessage;
@@ -660,19 +467,19 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			String message;
 			String title;
 			if (next) {
-				title = CompareMessages.TextMergeViewer_0;
-				message = CompareMessages.TextMergeViewer_1;
-				loopMessage = CompareMessages.TextMergeViewer_2;
-				nextMessage = CompareMessages.TextMergeViewer_3;
+				title = ModelCompareMessages.NavigationEndDialogTitleNext;
+				message = ModelCompareMessages.NavigationEndDialogMessageNext;
+				loopMessage = ModelCompareMessages.NavigationEndDialogLoopMessageNext;
+				nextMessage = ModelCompareMessages.NavigationEndDialogNextMessageNext;
 			} else {
-				title = CompareMessages.TextMergeViewer_4;
-				message = CompareMessages.TextMergeViewer_5;
-				loopMessage = CompareMessages.TextMergeViewer_6;
-				nextMessage = CompareMessages.TextMergeViewer_7;
+				title = ModelCompareMessages.NavigationEndDialogTitlePrev;
+				message = ModelCompareMessages.NavigationEndDialogMessagePrev;
+				loopMessage = ModelCompareMessages.NavigationEndDialogLoopMessagePrev;
+				nextMessage = ModelCompareMessages.NavigationEndDialogNextMessagePrev;
 			}
-			String[] localLoopOption = new String[] { loopMessage, ICompareUIConstants.PREF_VALUE_LOOP };
-			String[] nextElementOption = new String[] { nextMessage, ICompareUIConstants.PREF_VALUE_NEXT};
-			String[] doNothingOption = new String[] { CompareMessages.TextMergeViewer_17, ICompareUIConstants.PREF_VALUE_DO_NOTHING};
+			String[] localLoopOption = new String[] { loopMessage, IModelCompareConstants.PREF_VALUE_LOOP };
+			String[] nextElementOption = new String[] { nextMessage, IModelCompareConstants.PREF_VALUE_NEXT};
+			String[] doNothingOption = new String[] { ModelCompareMessages.NavigationEndDialogDoNothing, IModelCompareConstants.PREF_VALUE_DO_NOTHING};
 			NavigationEndDialog dialog = new NavigationEndDialog(shell,
 					title,
 					null,
@@ -684,11 +491,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			});
 			int result = dialog.open();
 			if (result == Window.OK) {
-				performEndOfDocumentAction(shell, store, ICompareUIConstants.PREF_NAVIGATION_END_ACTION_LOCAL, next);
+				performEndOfDocumentAction(shell, store, IModelCompareConstants.PREF_NAVIGATION_END_ACTION_LOCAL, next);
 				if (dialog.getToggleState()) {
-					String oldValue = store.getString(ICompareUIConstants.PREF_NAVIGATION_END_ACTION);
-					store.putValue(ICompareUIConstants.PREF_NAVIGATION_END_ACTION, store.getString(ICompareUIConstants.PREF_NAVIGATION_END_ACTION_LOCAL));
-					store.firePropertyChangeEvent(ICompareUIConstants.PREF_NAVIGATION_END_ACTION, oldValue, store.getString(ICompareUIConstants.PREF_NAVIGATION_END_ACTION_LOCAL));
+					String oldValue = store.getString(ModelComparePreferenceStore.NAVIGATION_OPTION);
+					store.putValue(ModelComparePreferenceStore.NAVIGATION_OPTION, store.getString(IModelCompareConstants.PREF_NAVIGATION_END_ACTION_LOCAL));
+					store.firePropertyChangeEvent(ModelComparePreferenceStore.NAVIGATION_OPTION, oldValue, store.getString(IModelCompareConstants.PREF_NAVIGATION_END_ACTION_LOCAL));
 				}
 			}
 		}
@@ -696,10 +503,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	
 	private void performEndOfDocumentAction(Shell shell, IPreferenceStore store, String key, boolean next) {
 		String value = store.getString(key);
-		if (value.equals(ICompareUIConstants.PREF_VALUE_DO_NOTHING)) {
+		if (value.equals(IModelCompareConstants.PREF_VALUE_DO_NOTHING)) {
 			return;
 		}
-		if (value.equals(ICompareUIConstants.PREF_VALUE_NEXT)) {
+		if (value.equals(IModelCompareConstants.PREF_VALUE_NEXT)) {
 			ICompareNavigator navigator = getCompareConfiguration()
 					.getContainer().getNavigator();
 			if (hasNextElement(next)) {
@@ -707,9 +514,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		} else {
 			if(next) {
-				revealAndSelectDifference(differencer.getNextDifference(null));
+				revealAndSelectDifference(differencer.getNextDifference(null, enableGraphics));
 			} else {
-				revealAndSelectDifference(differencer.getLastDifference());
+				revealAndSelectDifference(differencer.getLastDifference(enableGraphics));
 			}
 		}
 	}
@@ -730,7 +537,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		}
 		leftTreeViewer.getTree().deselectAll();
 		rightTreeViewer.getTree().deselectAll();
-		if(!differencer.getLeftDifferences().contains(next)) {
+		if(!differencer.getLeftDifferences(enableGraphics).contains(next)) {
 			next = next.getMatchingDifference();
 		}
 		if(next.getElement() != null) {
@@ -916,10 +723,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	public List<TreeDifference> getSelectedDifferences(boolean left, boolean ignoreSelection) {
 		if (ignoreSelection && left) {
-			return differencer.getLeftDifferences();
+			return differencer.getLeftDifferences(enableGraphics);
 		}
 		if (ignoreSelection && !left) {
-			return differencer.getRightDifferences();
+			return differencer.getRightDifferences(enableGraphics);
 		}
 		SynchronizedTreeViewer viewer = leftTreeViewer;
 		List<TreeDifference> differences = new ArrayList<TreeDifference>();
@@ -1151,9 +958,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		}
 		gc.setAdvanced(true);
 		gc.setAntialias(SWT.ON);
-		List<TreeDifference> differences = differencer.getLeftDifferences();
+		List<TreeDifference> differences = differencer.getLeftDifferences(enableGraphics);
 		for (TreeDifference difference : differences) {
-			if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !enableGraphics) {
+			if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 				// currently do not include graphical data
 				continue;
 			}
@@ -1325,8 +1132,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					viewer.setInput(getInput());
 				}
 				if (left instanceof IStreamContentAccessor && leftIsLocal()) {
-					if (CorePlugin.getDefault().getPreferenceStore()
-							.getBoolean(BridgePointPreferencesStore.ENABLE_GRAPHICAL_AUTO_MERGE)) {
+					if (ComparePlugin.getDefault().getPreferenceStore()
+							.getBoolean(ModelComparePreferenceStore.ENABLE_GRAPHICAL_AUTO_MERGE)) {
 						// here we will automatically merge any incoming/conflicting
 						// graphics this will cover the case where only graphics
 						// are changed
@@ -1340,8 +1147,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					}
 				}
 				if (right instanceof IStreamContentAccessor && !leftIsLocal()) {
-					if (CorePlugin.getDefault().getPreferenceStore()
-							.getBoolean(BridgePointPreferencesStore.ENABLE_GRAPHICAL_AUTO_MERGE)) {
+					if (ComparePlugin.getDefault().getPreferenceStore()
+							.getBoolean(ModelComparePreferenceStore.ENABLE_GRAPHICAL_AUTO_MERGE)) {
 						// here we will automatically merge any incoming/conflicting
 						// graphics this will cover the case where only graphics
 						// are changed
@@ -1369,7 +1176,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			@Override
 			public void run() {
 				if(differencer != null) {
-					revealAndSelectDifference(differencer.getNextDifference(null));
+					revealAndSelectDifference(differencer.getNextDifference(null, enableGraphics));
 				}				
 			}
 		});
@@ -1393,11 +1200,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		}
 	}
 
-	private List<TreeDifference> getIncomingGraphicalDifferences(boolean left) {
+	public List<TreeDifference> getIncomingGraphicalDifferences(boolean left) {
 		List<TreeDifference> incomingGraphicalDifferences = new ArrayList<TreeDifference>();
-		List<TreeDifference> differences = differencer.getRightDifferences();
+		List<TreeDifference> differences = differencer.getRightDifferences(true);
 		if (!left) {
-			differences = differencer.getLeftDifferences();
+			differences = differencer.getLeftDifferences(true);
 		}
 		for (TreeDifference difference : differences) {
 			// only copy those that are incoming or conflicting
@@ -1833,13 +1640,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	RGB getStrokeColor(TreeDifference difference) {
 		updateColors();
-		boolean ignoreAncestor = Utilities.getBoolean(
-				getCompareConfiguration(),
-				ICompareUIConstants.PROP_IGNORE_ANCESTOR, false);
 		if(difference.isContainedDifference()) {
 			return CONTAINED;
 		}
-		if (isThreeWay() && !ignoreAncestor) {
+		if (isThreeWay()) {
 			switch (difference.getKind() & Differencer.DIRECTION_MASK) {
 			case Differencer.RIGHT:
 				if (leftIsLocal())
@@ -1982,8 +1786,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					// eclipse does not
 					if (getInput() instanceof ICompareInput) {
 						Object left = ((ICompareInput) getInput()).getLeft();
-						if (left instanceof LocalResourceTypedElement) {
-							ResourceAttributes resourceAttributes = ((LocalResourceTypedElement) left)
+						if (left instanceof ResourceNode) {
+							ResourceAttributes resourceAttributes = ((ResourceNode) left)
 									.getResource().getResourceAttributes();
 							return !resourceAttributes.isReadOnly();
 						}
@@ -2010,8 +1814,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					// eclipse does not
 					if (getInput() instanceof ICompareInput) {
 						Object right = ((ICompareInput) getInput()).getRight();
-						if (right instanceof LocalResourceTypedElement) {
-							ResourceAttributes resourceAttributes = ((LocalResourceTypedElement) right)
+						if (right instanceof ResourceNode) {
+							ResourceAttributes resourceAttributes = ((ResourceNode) right)
 									.getResource().getResourceAttributes();
 							return !resourceAttributes.isReadOnly();
 						}
@@ -2075,16 +1879,16 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			ITypedElement left = cinput.getLeft();
 			ITypedElement right = cinput.getRight();
 			ITypedElement anc = cinput.getAncestor();
-			if(left instanceof LocalResourceTypedElement) {
-				IResource leftResource = ((LocalResourceTypedElement) left).getResource();
+			if(left instanceof ResourceNode) {
+				IResource leftResource = ((ResourceNode) left).getResource();
 				resources.add(leftResource);
 			}
-			if(right instanceof LocalResourceTypedElement) {
-				IResource rightResource = ((LocalResourceTypedElement) right).getResource();
+			if(right instanceof ResourceNode) {
+				IResource rightResource = ((ResourceNode) right).getResource();
 				resources.add(rightResource);
 			}
-			if(anc != null && anc instanceof LocalResourceTypedElement) {
-				IResource ancResource = ((LocalResourceTypedElement) anc).getResource();
+			if(anc != null && anc instanceof ResourceNode) {
+				IResource ancResource = ((ResourceNode) anc).getResource();
 				resources.add(ancResource);
 			}
 		}
@@ -2105,5 +1909,18 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				mergeDifferences.add(difference);
 			}
 		}
+	}
+
+	public Map<NonRootModelElement, ICompareInput> getSavedModels() {
+		return savedModels;
+	}
+	
+	public ModelCacheManager getManager() {
+		return modelManager;
+	}
+
+	@Override
+	public boolean graphicsEnabled() {
+		return enableGraphics;
 	}
 }
