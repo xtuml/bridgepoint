@@ -117,7 +117,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	  public DebugGraphicsCreation() {}
   }
   
-  private void initializeCanvases() {
+  public static void initializeCanvases() {
 	Ooaofgraphics graphicsModelRoot = Ooaofgraphics.getDefaultInstance();
     IExtensionRegistry reg = Platform.getExtensionRegistry();
     IExtensionPoint extPt = reg.getExtensionPoint("org.xtuml.bp.core.editors"); //$NON-NLS-1$
@@ -634,7 +634,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
       }
     } 
   }
-  private ModelSpecification_c locateMesByNameAndClassType(Ooaofgraphics modelRoot,
+  private static ModelSpecification_c locateMesByNameAndClassType(Ooaofgraphics modelRoot,
 		String name, String className) {
 	  ModelSpecification_c [] modelSpecs =
 		  ModelSpecification_c.ModelSpecificationInstances(modelRoot);
@@ -654,7 +654,7 @@ logError("Specified Symbol specification not found: ", e);
 return null;
 	
 }
-private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
+private static ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
 		                                                          String name, String className) {
 	  ElementSpecification_c [] ess =
                 ElementSpecification_c.ElementSpecificationInstances(modelRoot);

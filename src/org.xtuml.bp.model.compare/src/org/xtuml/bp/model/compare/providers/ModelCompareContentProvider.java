@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
@@ -135,22 +134,18 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			}
 			if(getIncludeNonTreeData()) {
 				// include graphical data if asked for
-				Model_c model = ComparePlugin.getDefault().getModelCacheManager().getLoadedGraphicalModelsForElements(element);
-				if(model == null && modelRoots != null) {
-					for(Ooaofooa modelRoot : modelRoots) {
-						model = Model_c.ModelInstance(Ooaofgraphics.getInstance(modelRoot.getId()), new ClassQueryInterface_c() {
-							
-							@Override
-							public boolean evaluate(Object candidate) {
-								return ((Model_c) candidate).getRepresents() == finalElement; 
-							}
-						});
-						if(model != null) {
+				Model_c model = ComparePlugin.getDefault().getModelCacheManager()
+						.getLoadedGraphicalModelsForElements(element);
+				if (model == null && modelRoots != null) {
+					for (Ooaofooa modelRoot : modelRoots) {
+						model = Model_c.ModelInstance(Ooaofgraphics.getInstance(modelRoot.getId()),
+								e -> ((Model_c) e).getRepresents() == finalElement);
+						if (model != null) {
 							break;
 						}
 					}
 				}
-				if(model != null) {
+				if (model != null) {
 					childRelations.add(model);
 				}
 			}

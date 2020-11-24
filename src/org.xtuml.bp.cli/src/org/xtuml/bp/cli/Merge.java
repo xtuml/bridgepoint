@@ -48,7 +48,7 @@ public class Merge implements IApplication {
 		} catch (Exception err) {
 			BPCLIPreferences.logError("Error during merge: " + err.getMessage(), err);			
 		}
-		return new Integer(1);
+		return 1;
 	}
 
 	@Override

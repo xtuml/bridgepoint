@@ -144,6 +144,10 @@ public class ModelCompareMergePreferences extends PreferencePage implements IWor
 
 		enableGraphicsButton.setSelection(prefs.enableGraphicalDifferences);
 		enableAutoMergeButton.setSelection(prefs.enableAutoGraphicalMerge);
+		if(prefs.enableAutoGraphicalMerge) {
+			// ignore graphical conflicts must be disabled
+			ignoreGraphicalConflicts.setEnabled(false);
+		}
 		ignoreGraphicalConflicts.setSelection(prefs.ignoreGraphicalConflicts);
 	}
 
