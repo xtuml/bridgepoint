@@ -319,6 +319,13 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
 
     $BPINSTALL/BridgePoint.app/Contents/Eclipse/tools/mc/bin/CLI.sh Merge -leftFile $LEFT -rightFile $RIGHT -ancestorFile $ANCESTOR -outputFile $LEFT
     ```
+  * **Git attributes**
+
+    To have a git repository make use of the custom merge driver for all xtuml files you must enable it with a local .gitattributes file.  The contents for that file are simply:
+    ```console
+    *.xtuml merge=xtuml
+    ```
+
   * **Model compare preferences**
     The differencing engine can be configured to ignore graphical conflicts if desired.  If this preference is chosen the local graphical data will always be kept.
 
