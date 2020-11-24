@@ -335,6 +335,10 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
     ```
     The preference to modify is labeled org.xtuml.bp.model.compare/bridgepoint_prefs_ignore_graphical_conflicts and is false by default.
 
+  * **When a conflict occurs**
+  
+    When a conflict is encountered you must use the merge tool in Bridgepoint.  Open Bridgepoint with a workspace containing the conflicts.  Then right click the project and choose Team > Merge Tool.
+
 * **How do BridgePoint Context Menu Entries (CMEs) work?** <a id="bp_cme"></a>
   - There is a package in org.xtuml.bp.core project named context_menu. Under this package is the class diagram that defines  BridgePoint CME behavior. 
     - The pre-existing instance data that populates this model is found in [bp.core/sql/context_menu.pei.sql](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.core/sql/context_menu.pei.sql).
