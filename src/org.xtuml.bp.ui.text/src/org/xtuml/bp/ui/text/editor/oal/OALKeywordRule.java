@@ -69,7 +69,7 @@ public class OALKeywordRule extends WordRule
         OALKeywordRule rule = new OALKeywordRule(new OALWordDetector(), defaultToken);
 
         // for each OAL keyword
-        IToken keywordToken = manager.getDefaultToken(OALTokenTypes.TOKEN_TYPE_keyword);
+        IToken keywordToken = manager.getDefaultToken(ActionLanguageTokenTypes.TOKEN_TYPE_keyword);
         for (int i = 0; i < keywords.length; ++i) {
             // have the new rule associate this keyword with the keyword-token
             rule.addWord(keywords[i], keywordToken);

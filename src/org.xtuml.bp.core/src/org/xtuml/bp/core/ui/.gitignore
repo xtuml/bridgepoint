@@ -364,3 +364,5 @@ MakeDeferredOnO_TFRAction.java
 MakeDeferredOnO_TFRWizard.java
 MakeDeferredOnO_TFRWizardPage1.java
 MakeLocalOnO_TFRAction.java
+MoveDownOnD_TSVCAction.java
+MoveUpOnD_TSVCAction.java 

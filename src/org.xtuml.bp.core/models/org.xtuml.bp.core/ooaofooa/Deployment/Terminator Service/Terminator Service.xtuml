@@ -134,6 +134,7 @@ return signature;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("4b6b1b55-e3d1-4e6d-bc59-aee7b083dea4",
@@ -171,10 +172,17 @@ if (not_empty terminator)
   unrelate self from terminator across R1651;
 end if;
 
+select one sis related by self->D_SIS[R1660];
+if(not_empty sis)
+	unrelate self from sis across R1660;
+	sis.dispose();
+end if;
+
 delete object instance self;',
 	1,
 	'',
 	"4cc9981a-5e5c-4d08-9bdd-bcf8947f7cca",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("1bde8527-d786-4434-be87-62643a4f9cff",
@@ -198,6 +206,7 @@ return result;',
 	1,
 	'',
 	"9524261a-9215-4a3c-b524-cb85848a6de0",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("6b2a0206-bed5-4069-81ed-749529fad60e",
@@ -242,6 +251,7 @@ parameter.parseDimensions();',
 	1,
 	'',
 	"1bde8527-d786-4434-be87-62643a4f9cff",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("08896123-2c41-4248-b7f1-e914b966af3a",
@@ -277,6 +287,7 @@ return false;
 	1,
 	'',
 	"1cc860ea-81a1-43c5-b2bc-0c478632b8db",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("479c5167-4028-41fc-b68b-1ab4da321eea",
@@ -293,6 +304,7 @@ return this;',
 	0,
 	'',
 	"fed8e95f-1c10-450d-8240-4db17f14d865",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -315,6 +327,7 @@ return dimensions;
 	1,
 	'',
 	"479c5167-4028-41fc-b68b-1ab4da321eea",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ec7addcc-d324-4dd7-a08e-ad6f3c1f3b43",
@@ -327,6 +340,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"14c4956e-3eae-436a-ab8b-2eadc298d07f",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("108ffc97-0484-4244-a5b3-9f03be64ed44",
@@ -348,6 +362,7 @@ select one packageableElem related by self->D_TERM[R1651]->D_DEPL[R1650]->PE_PE[
 	1,
 	'',
 	"ec7addcc-d324-4dd7-a08e-ad6f3c1f3b43",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("94e08efd-c52d-4697-beac-1e39c1de1dc4",
@@ -375,6 +390,7 @@ return false;
 	1,
 	'',
 	"108ffc97-0484-4244-a5b3-9f03be64ed44",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8595a6b5-ee2b-48e2-9abd-389d3cb30192",
@@ -388,6 +404,7 @@ return dt.Name == "void";',
 	1,
 	'',
 	"b524f496-d6d7-42cf-91ac-75206bcec545",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("783b5fa0-622c-4edd-a216-6fa95605de66",
@@ -422,6 +439,7 @@ end if;
 	1,
 	'',
 	"8595a6b5-ee2b-48e2-9abd-389d3cb30192",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d3c812fe-af58-4026-88ef-86456102b16f",
@@ -481,6 +499,7 @@ end if;',
 	1,
 	'',
 	"783b5fa0-622c-4edd-a216-6fa95605de66",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8351ab37-8295-4e1f-9619-d650b927a837",
@@ -503,6 +522,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"6cd3f6c2-f6c8-4b05-b4fb-0f4d8755f7a3",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("3ccfbe1c-d2f5-4b09-a422-440348e98c98",
@@ -538,6 +558,7 @@ select one component related by packageableElem->C_C[R8003];
 	1,
 	'',
 	"8351ab37-8295-4e1f-9619-d650b927a837",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("6d074281-0076-42e4-b2e0-2a4e0c5bcfe5",
@@ -570,6 +591,7 @@ return GD::NULL_UNIQUE_ID();
 	1,
 	'',
 	"3ccfbe1c-d2f5-4b09-a422-440348e98c98",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c7b0bf34-80f9-4b5f-a864-a399ec60a7e7",
@@ -602,6 +624,7 @@ end if;
 	1,
 	'',
 	"1cef9569-6751-4a54-b623-10a3bb926a65",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("cc2b58c8-d9a7-44fc-9a34-31ffe194e517",
@@ -625,6 +648,7 @@ end for;',
 	1,
 	'',
 	"c7b0bf34-80f9-4b5f-a864-a399ec60a7e7",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f0a20d4b-9dd2-4e18-9d6f-53b82dd4a18b",
@@ -648,6 +672,7 @@ if (dims.size() > 0) {
 	0,
 	'',
 	"cc2b58c8-d9a7-44fc-9a34-31ffe194e517",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("1cc860ea-81a1-43c5-b2bc-0c478632b8db",
@@ -724,6 +749,7 @@ end while;',
 	1,
 	'',
 	"6b2a0206-bed5-4069-81ed-749529fad60e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("94bdcb9c-012c-43e6-9432-cbf04c6078d7",
@@ -851,6 +877,7 @@ d_tsvc.dispose();',
 	1,
 	'',
 	"f0a20d4b-9dd2-4e18-9d6f-53b82dd4a18b",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d6f7b3ec-cf23-4626-b782-61793f7e5534",
@@ -875,10 +902,140 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'return self.Is_Stale;',
+	'/* always allow deleting sequenced terminators */
+select  one sis related by self->D_SIS[R1660];
+if(not_empty sis)
+	return true;
+end if;
+return self.Is_Stale;',
 	1,
 	'',
 	"843baf72-80a4-43ef-9ac2-47234c1e77b6",
+	0,
+	0);
+INSERT INTO O_TFR
+	VALUES ("ca73ae59-07d0-4418-addc-2b6eb3d809eb",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'createServiceParameterFromFunctionParameter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'func_parm = param.parameter;
+
+// get last parameter
+select any last_parameter related by self->D_TSPARM[R1652];
+select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+while ( not_empty next_parameter )
+  last_parameter = next_parameter;
+  select one next_parameter related by last_parameter->D_TSPARM[R1654.''precedes''];
+end while;
+
+// create new parameter
+create object instance parameter of D_TSPARM;
+relate parameter to self across R1652;
+if ( not_empty last_parameter )
+  relate parameter to last_parameter across R1654.''succeeds'';
+end if;
+parameter.Name = func_parm.Name;
+parameter.By_Ref = func_parm.By_Ref;
+parameter.Dimensions = func_parm.Dimensions;
+parameter.Descrip = func_parm.Descrip;
+
+// link data type
+select one s_dt related by func_parm->S_DT[R26];
+select one depl related by self->D_TERM[R1651]->D_DEPL[R1650];
+type_ref = depl.addTypeReference( s_dt:s_dt );
+select one existing_type related by parameter->S_DT[R1653];
+if (not_empty existing_type)
+  unrelate existing_type from parameter across R1653;
+end if;
+relate type_ref to parameter across R1653;
+
+// resolve dimensions
+parameter.parseDimensions();',
+	1,
+	'',
+	"d8f69a4b-4c87-4d1b-af88-f0057321babb",
+	0,
+	0);
+INSERT INTO O_TPARM
+	VALUES ("cc66119e-7689-4a46-96e4-01e5e62cc36e",
+	"ca73ae59-07d0-4418-addc-2b6eb3d809eb",
+	'parameter',
+	"4289288a-0181-4521-b247-cdc41a6f74e0",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4289288a-0181-4521-b247-cdc41a6f74e0",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Function Parameter>',
+	'',
+	'',
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8789e0f8-6b46-48bf-8045-3f108d137c18",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'actionFilter',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'if(param.name == "can")
+	if(param.value == "move up")
+		select one prev related by self->D_SIS[R1660]->D_SIS[R1661.''succeeds''];
+		return not_empty prev;
+   end if;
+   if(param.value == "move down")
+   	  select one next related by self->D_SIS[R1660]->D_SIS[R1661.''precedes''];
+   	  return not_empty next;
+   end if;
+end if;
+return false;',
+	1,
+	'',
+	"ca73ae59-07d0-4418-addc-2b6eb3d809eb",
+	0,
+	0);
+INSERT INTO O_TPARM
+	VALUES ("98f7df72-7e7b-45e4-bad2-e6fb8b13982a",
+	"8789e0f8-6b46-48bf-8045-3f108d137c18",
+	'name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("18227b4b-19b0-4e76-84cc-06f238caa6ab",
+	"8789e0f8-6b46-48bf-8045-3f108d137c18",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"98f7df72-7e7b-45e4-bad2-e6fb8b13982a",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d5445f93-bee4-41d7-8d83-bf54a94f8e17",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'initializeSequentialNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many siblings related by self->D_TERM[R1651]->D_TSVC[R1651]
+     where selected.Svc_ID != self.Svc_ID;
+lastNumber = 0;
+for each sibling in siblings
+  if(lastNumber < sibling.Numb)
+  	lastNumber = sibling.Numb;
+  end if;
+end for;
+self.Numb = lastNumber + 1;
+',
+	1,
+	'',
+	"8789e0f8-6b46-48bf-8045-3f108d137c18",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
@@ -1197,6 +1354,43 @@ INSERT INTO S_DT_PROXY
 domain or from the deployment.',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("9714c054-b572-414f-b82e-b6940907442b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("9714c054-b572-414f-b82e-b6940907442b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("9714c054-b572-414f-b82e-b6940907442b",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"b50dda75-baa2-47d4-bd25-26810b438fff",
+	'Numb',
+	'Full Name:  Operation Number
+Description: numeric key to distinguish the service to action language',
+	'',
+	'Numb',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_BATTR
+	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576");
+INSERT INTO O_ATTR
+	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	"9714c054-b572-414f-b82e-b6940907442b",
+	'Implementation_System',
+	'User_Visible:false',
+	'',
+	'Implementation_System',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");
