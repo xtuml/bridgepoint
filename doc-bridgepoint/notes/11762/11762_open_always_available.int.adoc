@@ -1,0 +1,67 @@
+= Open always available in synchronize views
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes the changes required to properly filter the open menu item.
+
+== 2 Introduction and Background
+
+Currently the Open entry is added to the context menu without any filtering.  This gives the perception that there may be further comparison functionality present.
+
+== 3 Requirements
+
+=== 3.1 Open available on action semantic tree entry
+=== 3.2 Open available on description tree entry
+=== 3.3 Open available on parent of action semantic tree entry
+=== 3.4 Open available on parent of description tree entry
+
+== 4 Work Required
+=== 4.1 Refactor element to open logic 
+Editors are opened through the handleOpen method in the SynchronizedTreeViewer class.  Within that method there is logic to verify that the selected element is either the parent of action semantics/description or the actuual action semantics/description.
+
+This logic is moved to a new method, getEditorElementComparable.  The new method will return a ObjectElementComparable instance if it meets all of the requirements specified in section 3.
+
+=== 4.2 Context Menu filtering
+The method created in section 4.1 is used against the current selection during content menu creation.  If the method returns an ObjectElementComparable the Open menu entry is added to the menu.
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+. Right click on a Description entry in the tree
+. R the Open menu item is present
+. Right click on an Action Semantics entry in the tree
+. R the Open menu item is not present
+. Right click on a parent of a Description entry in the tree
+. R the Open menu item is not present
+. Right click on a parent of an Action Semantics entry in the tree
+. R the Open menu item is not present 
+. Right click on a state in the tree
+. R the Open menu item is present
+. Right click on a transaction in the tree
+. R the Open menu item is present 
+. Right click on an element that is neither the parent or an Action Semantics/description element
+. R The Open menu item is not present
+. Repeat above tests replacing right click with double clicking
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bridgepoint
+- branch:  11762_filter_open
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11762[11762 - Misleading text in compare view]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
