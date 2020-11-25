@@ -68,7 +68,12 @@ public class ModelComparePreferenceStore implements IPreferenceModelStore {
 		}
         prefs.enableGraphicalDifferences = store.getBoolean(ModelComparePreferenceStore.ENABLE_GRAPHICAL_DIFFERENCES);
         prefs.enableAutoGraphicalMerge = store.getBoolean(ModelComparePreferenceStore.ENABLE_GRAPHICAL_AUTO_MERGE);
-        prefs.ignoreGraphicalConflicts = store.getBoolean(ModelComparePreferenceStore.IGNORE_GRAPHICAL_CONFLICTS);
+        if(prefs.enableAutoGraphicalMerge) {
+        	// ignore graphical conflicts must be set to true
+        	prefs.ignoreGraphicalConflicts = true;
+        } else {
+        	prefs.ignoreGraphicalConflicts = store.getBoolean(ModelComparePreferenceStore.IGNORE_GRAPHICAL_CONFLICTS);
+        }
         prefs.navigationOption = store.getString(ModelComparePreferenceStore.NAVIGATION_OPTION);
         
         return prefs;
