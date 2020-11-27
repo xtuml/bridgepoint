@@ -53,7 +53,28 @@ The method created in section 4.1 is used against the current selection during c
 - branch:  11762_filter_open
 
 ----
- Put the file list here
+doc-bridgepoint/notes/11762/11762_open_always_available.int.adoc
+
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/contentmergeviewer/SynchronizedTreeViewer.java
+----
+
+- fork/repository: travislondon/bptest
+- branch: 11762_filter_open
+
+----
+org.xtuml.bp.model.compare.test/src/org/xtuml/bp/model/compare/test/CompareOpenActionTest.java
+org.xtuml.bp.model.compare.test/src/org/xtuml/bp/model/compare/test/ModelCompareTestSuite.java
+
+org.xtuml.bp.test/src/org/xtuml/bp/test/TestUtil.java
+org.xtuml.bp.test/src/org/xtuml/bp/test/common/CompareTestUtilities.java
+org.xtuml.bp.test/src/org/xtuml/bp/test/common/UITestingUtilities.java
+----
+
+- fork/repository: travislondon/models
+- branch: 11762_filter_open
+
+----
+models/test_repositories/OpenActionFiltering.zip
 ----
 
 == 9 Document References
