@@ -5,281 +5,298 @@ xtUML Project Design Note
 
 == 1 Abstract
 
-TODO - clean up this note top to bottom
-
-This note describes the work to add an ASL editor along with the existing
-OAL and MASL editors.
-
-TIP:  This document is marked down with http://asciidoc.org/[AsciiDoc].
-You can get tips from the
-https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference].
+This note describes the work to add an editor to BridgePoint that handles the ASL action language
+to go along with the existing OAL and MASL editors.
 
 == 2 Introduction and Background
 
-Here is an example reference to a document reference <<dr-3>>.
-Here is an example with named text <<dr-3,SMASL Specification>>.
-Here we refer to the image below, <<caption text under image>>.
+We desire to create an ASL editor that is very similar to the BridgePoint OAL editor. To be clear, it will
+__not__ use the same infrastructure or be similar to the Xtext-based MASL editor.
 
-.caption text under image
-image::localimage.png[image description alternate text,width=25%]
+This work is part of Project Caledonia for a One Fact customer.  There are a number of issues in the
+issue tracker related to this work: <<dr-2>>, <<dr-3>>, <<dr-4>>.
 
 == 3 Requirements
 
-3.1  BridgePoint shall be extended to support actions with a dialect "ASL"
+3.1.  BridgePoint shall be extended to support actions with a dialect "ASL"
 
-3.2  BridgePoint shall provide an ASL editor that can:
-3.2.1  Open activities with dialect ASL
-3.2.2  Persist activities with dialect ASL
-3.2.3  Provide highlighting of ASL keywords to be defined by the ASL manual and the customer
-3.2.4  Provide automatic indentation after ASL block opening constructs such as conditional evaluations, loops, and switch statements
+3.2.  BridgePoint shall provide an ASL editor that can:
 
-3.3  BridgePoint shall provide a preference that allows ASL to be set as the default dialect
+3.2.1.  Open activities with dialect ASL
+
+3.2.2.  Persist activities with dialect ASL
+
+3.2.3.  Provide highlighting of ASL keywords to be defined by the ASL manual and the customer
+
+3.2.4.  Provide automatic indentation after ASL block opening constructs such as conditional evaluations, loops, and switch statements
+
+3.3.  BridgePoint shall provide a preference that allows ASL to be set as the default dialect
 
 
 == 4 Analysis
 
-ASL editor
-------------
-NOTE: ASL at models/wasl/data. https://github.com/cortlandstarrett/models/blob/11444_wasl/wasl/data/Events/TSV2_10_9/meta_instances/Events_20/extracted_data/Events_objVERCETL_2.al
+NOTE: ASL sample models may be found https://github.com/xtuml/models/tree/master/masl/SWATS[here]  
 
+=== 4.1 Editor, Editor Input, etc...
 
-- New editor / editor input / etc
-  x See org.xtuml.bp.ui.text.activity.ActivityEditorInput / ActivityEditor
-    and org.xtuml.bp.ui.text.masl.MASLEditorInput
-  - TODO: ASLActivityEditorInputFactory.java should be generated???
-    - NOTE: the list of elements in the first function should match the 9 objectcontributions
-      in the plugin.xml
-    - This file seems to need lots of cleanup.  Looks to me like there is much code that handles
-      metamodel elements that aren't even supported by ASL.
+The existing OAL editor implementation primarily lives in the `org.xtuml.bp.ui.text.activity` package
+in classes `ActivityEditor` and `ActivityEditorInput`.  The MASL editor lives in several plugins named
+`org.xtuml.bp.xtext.\*` but is connected into BridgePoint with the `org.xtuml.bp.ui.text.masl.*` classes.
 
-- TODO Find places where dialect*==*masl
-  - there are places in oal that I have not investigated yet
-  - Attribute::migrateBaseToDerived()
-  x [Bridge|Function|Operation...]::Initialize() - only for begin/end, so may not be needed for ASL
-  - create_explorer_view.inc (Generates ExplorerView.java)
-    - Note that there are places where the code checks == and != Actiondialect_c.[oal|masl]   Look at both!
-  x GraphicalEditor.java : handleOpen() here is very similar to the one in ExplorerView but this one is not generated
-  x SampleProjectGettingStartedAction.java - handling for special MASL prefs (identifier naming and concrete polys)
+The new ASL editor will mirror the functionality of the OAL editor.  Much of the code can follow the structure
+of the OAL implementation and modified for the ASL editor. Common code can be refactored.
 
-4.x  Popup Menus
-4.x.x  ASL editor is added to the context menu of various model elements in the BridgePoint UI via 
-       an extension of the 'org.eclipse.ui.popupMenus' extension point that defines 'objectContribution' 
-       settings inside the 'org.xtuml.bp.ui.text/plugin.xml' file.  This 'plugin.xml' file is
-       generated.  The archetype contains a loop that generates the popup menu object contributions
-       for every metamodel element that has an 'Action_Semantics' attribute.
-4.x.x  The configuration of the MASL object contributions does not use a similar loop.  It
-       explicitly defines the contribution for each type of metamodel element it wants to 
-       attach to.  I assume this is because there are some types of metamodel elements that
-       may have OAL but not MASL.  They are 'Attribute_c', 'Transition_c', and 'CreationTransition_c'.
-4.x.x  The ASL editor contributions are configured explicitly like the MASL ones and not the OAL ones (using 
-       loop).  
-       TODO - talk to the team about if this is the right choice.
+=== 4.2 Special handling for MASL
 
+This work analyzed the metamodel OAL and all source code java to look for places
+where there is special handling for MASL.  We looked for both "dialect\*==*masl" and
+"dialect*!=*masl".
 
-- TODO: Need type definition editor like MASL does in this function 
-(create_plugin_xml.arc line 488)???
-  - This appears to make MASL editor connected to UserDataType_c somehow. Not sure.  Seems
-    to be a global hookup, which doesn't really make sense.
-  
+==== 4.2.1  dialect != masl
+There are no places where a negative comparison to the MASL dialect enumerator is performed.
+
+==== 4.2.2  dialect == masl
+There are numerous places in the code where the dialect is checked for equality with the MASL dialect enumerator.
+
+===== 4.2.2.1 `initialize()` methods
+A number of action homes perform this comparison in their `initialize()` functions.  No action is
+required for ASL in these cases because all these spots are doing is adding the MASL action `begin...end`
+markers and these are not used in ASL.
+
+===== 4.2.2.2 `Attribute::migrateBaseToDerived()`
+The special case here is extended for ASL as well as the existing MASL check because derived
+attributes are not supported by ASL or MASL.
+ 
+===== 4.2.2.3 `SynchronizationDecorator`
+BridgePoint contains a MASL special case for "automatic synchronization" of references.  Specifically, when 
+the Synchronization Decorator runs, if the default dialect is set to MASL then BridgePoint automatically 
+runs the PullSynchronizationChanges action (effectively Synchronize with Library).  
+
+The work to add this feature was captured in issue 9717 <<dr-5>>.  Later, issue 10000 <<dr-6>> was raised which 
+found a problem related to auto-synch and that issue is still open.
+
+Due to this potential issue with auto-synchronization and that we expect ASL users to prefer Deployments
+over traditional wired Components, we are choosing __not__ to special case for ASL and __not__ auto-synch. 
+
+=== 4.3 No type definition editor 
+BridgePoint includes a special editor for creating MASL types from xtUML 
+user defined types.  This editor will not be used for ASL-based models. 
+
+ASL types are going to all be normal xtUML types. ASL supports UDTs, 
+structures and enums, just like OAL. 
+
 
 == 5 Design
 
 === 5.1 Metamodel 
-x Add to the ActionDialect enum in the metamodel
-  x (Cort) Make the same change in MC metamodel
+This work only required a single change to the OOAofOOA metamodel and this is to add the
+`asl` enumerator to the `ActionDialect` enum.  A corresponding change was made to the 
+model compiler version of the metamodel.
 
-
-=== 5.2 ASL Editor
-==== 5.2.1  Opening the correct editor
+=== 5.2 Integrating the New Editor into BridgePoint
+==== 5.2.1  New ASL Editor Infrastructure
+As mentioned in the analysis, the new ASL editor is very similar to the existing OAL editor.  Therefore, it
+made the most sense to put most of the new code into a sibling java package named `org.xtuml.bp.ui.text.asl` 
+inside the `org.xtuml.bp.ui.text` plugin.
+ 
+==== 5.2.2  Opening the Correct Editor
 
 Action language editors may be opened by double-clicking a model element in the Model Explorer view or 
-on the canvas.  When the user does so, the 'Action Dialect' property is inspected to determine the proper
-editor to open.  This code lives in 'ExplorerView.java' and 'GraphicalEditor.java', respectively, in the 'handleOpen()' 
-function.
+on the canvas.  When the user does so, the `Action Dialect` property is inspected to determine the proper
+editor to open.  This code lives in `ExplorerView.java` (generated by `create_explorer_view.inc`) and 
+`GraphicalEditor.java`, respectively, in the `handleOpen()` function.
 
 Editors may also be opened via the context menu of Model Explorer.  See the section on Popup Menus for more
 details.
 
-=== 5.3 Syntax Highlighting 
-- syntax highlighting (done)
-  - keywords 
-      - List in Appendix B of http://www.ooatool.com/docs/ASL03.pdf
-  - comments 
-      - Single line with #
-      - Multi-line with "#{" to "}#" (page 7)
-          - Introduced new class ActionLanguageDocumentProvider that handles both ASL and OAL flavors
-                 and sets up the appropriate document partitioner.
-  - Strings with "", or '' 
-  - Built-in types: Integer, Real, Boolean, Date, Text, Time_of_Day, etc 
+===== 5.2.2.1 `ASLActivityEditorInputFactory.java`
+This code specifically prevents (by not listing among the supported model elements) ASL editor
+from being opened on actions for Creation Transitions, Transitions, and Derived Attributes.
 
-```java
-    public static String[] keywords = {
-        "already_defined", 
-        "and", 
-        "append", 
-        "associate", 
-        "boolean", 
-        "break", 
-        "breakif", 
-        "bridge", 
-        "by", 
-        "case", 
-        "countof", 
-        "counterpart", 
-        "create", 
-        "current-date", 
-        "current-time", 
-        "date", 
-        "default", 
-        "define", 
-        "delete", 
-        "disunion-of", 
-        "do", 
-        "else", 
-        "enddefine", 
-        "endfor", 
-        "endif", 
-        "endloop", 
-        "endswitch", 
-        "enduse", 
-        "equals", 
-        "error", 
-        "event", 
-        "false", 
-        "find", 
-        "find-all", 
-        "find-one", 
-        "find-only", 
-        "for", 
-        "function", 
-        "generate", 
-        "greater-than", 
-        "greater-than-or-equal-to", 
-        "if", 
-        "in", 
-        "input", 
-        "instance", 
-        "integer", 
-        "intersection-of", 
-        "is", 
-        "link", 
-        "link-counterpart", 
-        "loop", 
-        "not", 
-        "not-equals", 
-        "not-in", 
-        "of", 
-        "one-of", 
-        "only", 
-        "or", 
-        "ordered", 
-        "output", 
-        "real", 
-        "reverse", 
-        "structure", 
-        "switch", 
-        "text", 
-        "then", 
-        "this", 
-        "time_of_day", 
-        "to", 
-        "true", 
-        "unassociate", 
-        "undefined", 
-        "union-of", 
-        "unique", 
-        "unlink", 
-        "unlink-counterpart", 
-        "use", 
-        "using", 
-        "where", 
-        "with", 
-        "$inline", 
-        "$endinline", 
-        "$ada_inline", 
-        "$end_adainline", 
-    };
-```
+The list of supported elements matches the nine ASL Editor `objectcontribution` elements in the `plugin.xml`.
+
+==== 5.2.3  Popup Menus
+===== 5.2.3.1  ASL editor is added to the context menu of various model elements
+In the BridgePoint UI via an extension of the `org.eclipse.ui.popupMenus` extension point that 
+defines `objectContribution` settings inside the `org.xtuml.bp.ui.text/plugin.xml` file.  This 
+`plugin.xml` file is generated.  The archetype contains a loop that generates the popup menu 
+object contributions for every metamodel element that has an `Action_Semantics` attribute.
+
+===== 5.2.3.2  Difference with OAL in creation of `plugin.xml`
+The configuration of the MASL and ASL object contributions does not use a similar loop.  It
+explicitly defines the contribution for each type of metamodel element it wants to attach to.  
+This is because there are some types of metamodel elements that may have OAL but not MASL or 
+ASL.  They are `Attribute_c`, `Transition_c`, and `CreationTransition_c`.
+
+=== 5.3 Syntax Highlighting 
+The ASL editor supports syntax highlighting of key syntactical elements: keywords, comments, strings,
+and built-in types.
+
+==== 5.3.1 Keywords 
+The following table contains the list of recognized ASL keywords. Any capitalization scheme of 
+the keyword may be used.
+
+[format="csv",width="85%",cols="4"]
+[frame="topbot",grid="none"]
+|======
+"already_defined", "and", "append", "associate"
+"boolean", "break", "breakif", "bridge"
+"by", "case", "countof", "counterpart"
+"create", "current-date", "current-time", "date"
+"default", "define", "delete", "disunion-of"
+"do", "else", "enddefine", "endfor"
+"endif", "endloop", "endswitch", "enduse"
+"equals", "error", "event", "false"
+"find", "find-all", "find-one", "find-only"
+"for", "function", "generate", "greater-than"
+"greater-than-or-equal-to", "if", "in", "input"
+"instance", "integer", "intersection-of", "is"
+"link", "link-counterpart", "loop", "not"
+"not-equals", "not-in", "of", "one-of"
+"only", "or", "ordered", "output"
+"real", "reverse", "structure", "switch"
+"text", "then", "this", "time_of_day"
+"to", "true", "unassociate", "undefined"
+"union-of", "unique", "unlink", "unlink-counterpart"
+"use", "using", "where", "with"
+"$inline", "$endinline", "$ada_inline", "$end_adainline"
+|======
+
+==== 5.3.2 Comments 
+Single line comments that start with `#` are supported.
+
+Multi-line comments wrapped with `\#{` to `}#`.
+ 
+In the code, we introduced new class `ActionLanguageDocumentProvider` that handles both 
+ASL and OAL flavors and sets up the appropriate document partitioner for comment recognition.
+
+==== 5.3.3 Strings 
+Strings may be wrapped either with `" "` or `' '` 
+
+==== 5.3.4 Built-in Types 
+ASL built-in types are:
+
+* Integer
+* Real
+* Boolean
+* Date
+* Text
+* Time_of_Day 
 
 === 5.4 Automatic Indentation
 
-auto-indent (DONE) 
-  - Old issue is 10232 OAL Editor Enhancements.
-  - if ... then
-    else
-    endif
-  - for ... in ... do
-    endfor
-  - loop
-    endloop
-  - switch ...
-       case ...
-       default 
-    endswitch
+This is a key feature of modern editors.  Automatic indentation was introduced into the OAL 
+editor in issue 10232 <<dr-1>>.
+
+The following styles of blocks support automatic indentation:
+
+[source]
+----
+if ... then
+  # code
+else
+  # code
+endif
+----
+
+[source]
+----
+for ... in ... do
+  # code
+endfor
+----
+
+[source]
+----
+loop
+  # code
+endloop
+----
+
+[source]
+----
+switch ...
+    case ...
+        # code
+    default 
+        # code
+endswitch
+----
 
 === 5.5 User Interface
 
-x ExplorerView::handleOpen()
-  // Looks for all extensions to org.xtuml.bp.core.editors
-  // Figures out which editor to open
-  x Modify to handle opening ASL editor when it sees ASL dialect
+A key feature of the ASL editor user interface is the ability to open the ASL editor
+when an ASL activity is selected.
+
+This logic is performed in `ExplorerView::handleOpen()`. This code looks for all extensions 
+to `org.xtuml.bp.core.editors` and figures out which editor to open. It is modified to handle 
+opening the ASL editor when it sees an activity with the dialect attribute set to ASL.
   
 === 5.6 Preferences
-  x add ASL to default action language selection on prefs ui in ActionLanguagePreferences.java
-  x ASL will use the same coloring as specified in the xtUML Activity Editor Preferences
+The preferences system is updated to add ASL to the default action language selection 
+in `ActionLanguagePreferences.java`.
 
-=== 5.7  `SampleProjectGettingStartedAction.java`
-  x This code is used by all of the project creation links in the Welcome page.  It is extended
-    to add support for ASL, performing the same configuration as MASL by restricting the naming 
-    scheme for identifiers and allowing concrete polymorphic events. Of course the dialect is set
-    to ASL instead of MASL.
+NOTE: ASL will use the same coloring as OAL as specified in the xtUML Activity Editor Preferences
+
+=== 5.7 Welcome action updates
+This work updates `SampleProjectGettingStartedAction.java`.  This code is used by all of the 
+project creation links in the Welcome page.  It is extended to add support for ASL, performing 
+the same configuration as MASL by restricting the naming scheme for identifiers and allowing 
+concrete polymorphic events. Of course, the dialect is set to ASL instead of MASL.
     
-=== 5.x Build
-x Verified maven clean target works properly in ui.text plugin for new java files
-x Verified build is successful
+=== 5.8 Build
+We must make sure the new code integrates into our build infrastructure.
+
+* Verified maven clean target works properly in ui.text plugin for new java files
+* Verified build is successful
 
 == 6 Design Comments
 
-6.x Code Reuse
+=== 6.1 Code Reuse
 The ASL editor is similar in many ways to the existing OAL editor and leveraged some of the same code.
 This presented opportunities to refactor common code into reusable blocks.
 
-ActionLanguageDocumentProvider - sets up the appropriate document partitioner based on dialect
-ActionLanguageTokenTypes.java - defines constants that are common between ASL and OAL editors
-ActionLanguageAutoEditStrategy.java - functionality that handles automatic indentation after specific keywords.
+* `ActionLanguageDocumentProvider.java` - sets up the appropriate document partitioner based on dialect
+* `ActionLanguageTokenTypes.java` - defines constants that are common between ASL and OAL editors
+* `ActionLanguageAutoEditStrategy.java` - functionality that handles automatic indentation after specific keywords.
 
-xxxKeywords.java - not refactored
-xxxEditorConfiguration.java - not going to be refactored
-xxxPartitionScanner.java - not going to be refactored
-xxxScanner.java - not going to be refactored
 
-6.x  Popup Menu
-  - In the context menu Open With list, "ASL Editor", "MASL Editor", and "Activity Editor"
-  - The last opens the original OAL editor and was generically named because it was the one and only
-    action language dialect for decades.  We do not recommend mixing different dialects of action language
-    in a single model.  Generally a user will double-click a model element to open the appropriate activity
-    editor, which is automatically chosen based on the dialect property of the model element's activity.
-    Since the "Open With" is an edge case, we are choosing __not__ to modify its name to "OAL Editor" in this 
-    list at this time.
+=== 6.2 Popup Menu
+A context menu on an activity contains the `Open With` submenu.  This list contains "ASL Editor", 
+"MASL Editor", and "Activity Editor".
+
+The last item, "Activity Editor", opens the original OAL editor and was generically named because 
+it was the one and only action language dialect for decades.  We do not recommend mixing different 
+dialects of action language in a single model.  So, in general, a user will double-click a model 
+element to open the appropriate activity editor. This appropriate editor to open is automatically 
+chosen by BridgePoint based on the dialect property of the model element's activity.
+
+Since the "Open With" is an edge case, we are choosing __not__ to modify its name to "OAL Editor" 
+in this list at this time.
 
 == 7 User Documentation
 
-TODO - There is existing documentation for "Activity Editor" that could be cleaned up and clarified
-for the commonality and distinction between the 3 editors.  It 
-currently makes no distinction between MASL and OAL Activity Editor (MASL is effectively ignored).
+Update the preference page screenshot from the BridgePoint Help located at *BridgePoint UML Suite Help > 
+Reference > User Interface > xtUML Modeling Perspective > Preferences > xtUML > Action Language Preferences* 
+to show the ASL action language selection that is now available alongside OAL and MASL.
 
 == 8 Unit Test
 
-TODO
-  - Test auto-indent works properly
-  - TEST: need to check every keyword visually for proper highlighting, caps and lower
-  - Check preferences for coloring
+Manual testing was performed by creating an ASL model and pasting in or entering the syntax under
+test.
+
+  - Verified auto-indent works properly
+  - Verified proper highlighting of keywords, with varying capitalization schemes correctly having no impact
+  - Check preferences for coloring of comments, keywords, etc.
 
 == 9 Document References
 
-. [[dr-1]] https://support.onefact.net/issues/NNNNN[NNNNN - headline]
-. [[dr-2]] ...
-. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+. [[dr-1]] https://support.onefact.net/issues/10232[10232 - OAL Editor fixes and improvements]
+. [[dr-2]] https://support.onefact.net/issues/11412[11412 - ASL Editing]
+. [[dr-3]] https://support.onefact.net/issues/11910[11910 - ASL Editor]
+. [[dr-4]] https://support.onefact.net/issues/12060[12060 - ASL Editor Code Cleanup]
+. [[dr-5]] https://support.onefact.net/issues/9717[9717 - Interface Management Errors]
+. [[dr-6]] https://support.onefact.net/issues/10000[10000 - Auto-synch causes problems when projects are loaded out of order]
 
 ---
 
