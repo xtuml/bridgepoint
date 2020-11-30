@@ -86,7 +86,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
     public boolean allowConcretePolys;
     
-	public Class getStoreClass() {
+	public Class<?> getStoreClass() {
 		return BridgePointPreferencesStore.class;
 	}
 
@@ -156,6 +156,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
         requireMaslStyleIdentifiers = syncTo.requireMaslStyleIdentifiers;;
         opaqueComponents = syncTo.opaqueComponents;
+        
 	}
 
     public Object deepClone() {

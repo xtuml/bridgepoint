@@ -32,9 +32,11 @@ import org.xtuml.bp.model.compare.EmptyElement;
 public class NonRootModelElementComparable extends ComparableTreeObject implements IAdaptable {
 
 	private NonRootModelElement realElement;
+	private boolean graphical;
 
-	public NonRootModelElementComparable(NonRootModelElement realElement) {
+	public NonRootModelElementComparable(NonRootModelElement realElement, boolean isGraphical) {
 		this.realElement = realElement;
+		this.graphical = isGraphical;
 	}
 	@Override
 	public boolean treeItemEquals(Object other) {
@@ -147,12 +149,17 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 		NonRootModelElement real = (NonRootModelElement) getRealElement();
 		return real.getClass().getSimpleName().hashCode();
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Object getAdapter(Class adapter) {
 		if(adapter == NonRootModelElement.class) {
 			return getRealElement();
 		}
 		return null;
+	}
+	@Override
+	public boolean isGraphical() {
+		return graphical;
 	}
 	
 }

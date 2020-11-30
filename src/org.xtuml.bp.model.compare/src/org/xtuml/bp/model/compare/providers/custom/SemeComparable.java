@@ -29,7 +29,7 @@ public class SemeComparable extends NonRootModelElementComparable {
 	 * @param realElement
 	 */
 	public SemeComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	/* (non-Javadoc)

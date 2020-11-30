@@ -202,6 +202,9 @@ public class ModelCacheManager {
 
 	private void updateSMId(NonRootModelElement[] rootElements,
 			ModelMapEntry entry) {
+		if(rootElements == null) {
+			return;
+		}
 		for(NonRootModelElement rootElement : rootElements) {
 			StateMachine_c sm = null;
 			UUID objId = null;

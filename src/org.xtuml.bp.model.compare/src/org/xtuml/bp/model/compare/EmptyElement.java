@@ -26,11 +26,13 @@ public class EmptyElement extends ComparableTreeObject {
 	private Object parent;
 	private Object represents;
 	private int location;
+	private boolean graphical;
 
-	public EmptyElement(Object represents, Object parent, int location) {
+	public EmptyElement(Object represents, Object parent, int location, boolean isGraphical) {
 		this.parent = parent;
 		this.represents = represents;
 		this.location = location;
+		this.graphical = isGraphical;
 	}
 
 	public Object getParent() {
@@ -110,6 +112,11 @@ public class EmptyElement extends ComparableTreeObject {
 	@Override
 	public int hashCode() {
 		return represents.hashCode();
+	}
+
+	@Override
+	public boolean isGraphical() {
+		return graphical;
 	}
 	
 	
