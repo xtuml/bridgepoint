@@ -45,8 +45,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 public class BridgePointDemoEncryptor {
     private Cipher ecipher;
     private Cipher dcipher;
