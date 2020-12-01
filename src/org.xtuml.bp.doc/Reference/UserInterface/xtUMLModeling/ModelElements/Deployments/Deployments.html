@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.7.1">
+<meta name="generator" content="Asciidoctor 2.0.10">
 <title>Deployments</title>
 <link rel="stylesheet" href="./../../../../../asciidoctor-default.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,8 +27,9 @@
 <ul class="sectlevel2">
 <li><a href="#_importing_from_a_component">4.1. Importing from a component</a></li>
 <li><a href="#_importing_from_masl">4.2. Importing from MASL</a></li>
-<li><a href="#_type_references">4.3. Type references</a></li>
-<li><a href="#_xtext_masl_dependencies">4.4. Xtext MASL dependencies</a></li>
+<li><a href="#_importing_scenarios_from_a_component">4.3. Importing scenarios from a component</a></li>
+<li><a href="#_type_references">4.4. Type references</a></li>
+<li><a href="#_xtext_masl_dependencies">4.5. Xtext MASL dependencies</a></li>
 </ul>
 </li>
 <li><a href="#_refreshing_terminators_from_source_material">5. Refreshing terminators from source material</a>
@@ -60,7 +61,7 @@ on component references. That approach does not use deployments as described her
 </div>
 <div class="paragraph">
 <p>Deployments were added to accomplish bridging in a way that is more natural to modelers
-using MASL. Deployments reference domain components by name rather than by
+using MASL/ASL. Deployments reference domain components by name rather than by
 direct reference and graphical interconnections. This allows deployments to be edited
 without requiring all associated domain projects to be in the workspace at the same
 time.  Deployments are therefore separated and independent from the domain sources.
@@ -171,7 +172,7 @@ user. Terminators and deployments may be deleted. Stale services may also be del
 terminators represent all of the public services (inbound API) of a particular
 domain. These are named with the same name as the domain and appear brown in the
 Model Explorer view. Services on provided terminators are automatically assigned the
-"None" dialect. For MASL users, the dialect should always be "None" for provided services.</p>
+"None" dialect. For MASL/ASL users, the dialect should always be "None" for provided services.</p>
 </div>
 <div class="paragraph">
 <p>Required terminators represent the terminators (outbound API) of a domain. They
@@ -184,7 +185,7 @@ source service or the workspace default dialect when necessary.</p>
 <div class="sect2">
 <h3 id="_implementation_scope">3.2. Implementation scope</h3>
 <div class="paragraph">
-<p>In MASL modeling, users require the ability to specify that a terminator service in
+<p>In MASL/ASL modeling, users require the ability to specify that a terminator service in
 a deployment is implemented in native code. In this case, a declaration in the <code>.prj</code>
 file is necessary, but a <code>.tr</code> definition file should not be produced. Alternatively,
 to indicate the domain implementation is used, a terminator service may be excluded
@@ -221,6 +222,38 @@ of the Implementation Scope and Dialect properties of terminator services.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MASL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Declaration in <code>.prj</code>. Corresponding <code>.tr</code> definition file created.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Implementation scope effect on WASL export</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Implementation Scope</th>
+<th class="tableblock halign-left valign-top">Dialect</th>
+<th class="tableblock halign-left valign-top">WASL Export Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No declaration in <code>.dmp</code>. No corresponding <code>.br</code> definition file created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declaration in <code>.dmp</code>. No corresponding <code>.br</code> definition file created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declaration in <code>.dmp</code>. Corresponding <code>.br</code> definition file is created.</p></td>
 </tr>
 </tbody>
 </table>
@@ -320,7 +353,56 @@ be selected at once.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_references">4.3. Type references</h3>
+<h3 id="_importing_scenarios_from_a_component">4.3. Importing scenarios from a component</h3>
+<div class="paragraph">
+<p>A 'scenario' is an optional domain function that is used during the
+runtime initialization of a deployment.  Scenarios are defined and located
+in domain components in packages named "scenarios".  Scenarios can be
+ordered into a cohesive 'sequence' representing the inititialization
+ordering of the configured deployment.  A sequence of scenarios can be
+produced in a deployment by importing scenarios from domain components in
+the workspace and ordering them within the deployment sequence terminator.</p>
+</div>
+<div class="imageblock right">
+<div class="content">
+<img src="import_scenarios_from_components.png" alt="Import scenarios from components" width="350">
+</div>
+<div class="title">Figure 9. Import scenarios from components</div>
+</div>
+<div class="paragraph">
+<p>If scenarios exist in domain components in the workspace, a context menu
+entry appears on the Deployment context menu.</p>
+</div>
+<div class="paragraph">
+<p>Initiating the 'Import scenarios from component' menu triggers to pop-up
+of a scenario chooser.  A table is presented that lists scenarios on the
+left and their associated model paths on the right.  Multiple scenarios
+can be chosen using the standard mouse select and multi-select gestures.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="selecting_scenarios.png" alt="Selecting scenarios" width="75%">
+</div>
+<div class="title">Figure 10. Selecting scenarios</div>
+</div>
+<div class="imageblock right">
+<div class="content">
+<img src="sequence_terminator_with_scenarios.png" alt="Sequence terminator with scenarios" width="250">
+</div>
+<div class="title">Figure 11. Sequence terminator with scenarios</div>
+</div>
+<div class="paragraph">
+<p>Once the scenarios have been chosen with the scenario chooser, a sequence
+is created as a specialized terminator in the deployment.  This terminator
+is named following the pattern '&lt;deployment name&gt;::Sequence'.  The
+scenarios in the sequence can be arranged in the desired order using the
+'Move Up' and 'Move Down' context menu entries.  The WASL Exporter
+preserves this ordering of scenarios in the exported files so that the
+downstream architecture may use them to sequence runtime initialization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_type_references">4.4. Type references</h3>
 <div class="paragraph">
 <p>Terminator services and service parameters may refer to types which are not
 xtUML core types. In order to maintain loose coupling between the source and the
@@ -338,7 +420,7 @@ the model and is created if it is not found in that location.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_xtext_masl_dependencies">4.4. Xtext MASL dependencies</h3>
+<h3 id="_xtext_masl_dependencies">4.5. Xtext MASL dependencies</h3>
 <div class="paragraph">
 <p>Dependencies on domain services and types can be defined in the <code>.dependencies</code>
 file or by using the Dependencies editor from the "Project Preferences" CME. These

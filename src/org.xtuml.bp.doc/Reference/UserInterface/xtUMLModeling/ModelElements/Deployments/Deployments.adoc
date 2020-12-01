@@ -18,7 +18,7 @@ users have historically used the direct and graphical wiring together of interfa
 on component references. That approach does not use deployments as described here.
 
 Deployments were added to accomplish bridging in a way that is more natural to modelers 
-using MASL. Deployments reference domain components by name rather than by
+using MASL/ASL. Deployments reference domain components by name rather than by
 direct reference and graphical interconnections. This allows deployments to be edited 
 without requiring all associated domain projects to be in the workspace at the same 
 time.  Deployments are therefore separated and independent from the domain sources.
@@ -88,7 +88,7 @@ Two different types of terminators are supported by deployments (Figure 4). Prov
 terminators represent all of the public services (inbound API) of a particular 
 domain. These are named with the same name as the domain and appear brown in the 
 Model Explorer view. Services on provided terminators are automatically assigned the 
-"None" dialect. For MASL users, the dialect should always be "None" for provided services. 
+"None" dialect. For MASL/ASL users, the dialect should always be "None" for provided services. 
 
 Required terminators represent the terminators (outbound API) of a domain. They 
 are named with the name of the domain followed by `::` followed by the name of the 
@@ -98,7 +98,7 @@ source service or the workspace default dialect when necessary.
 
 === Implementation scope 
 
-In MASL modeling, users require the ability to specify that a terminator service in 
+In MASL/ASL modeling, users require the ability to specify that a terminator service in 
 a deployment is implemented in native code. In this case, a declaration in the `.prj` 
 file is necessary, but a `.tr` definition file should not be produced. Alternatively,
 to indicate the domain implementation is used, a terminator service may be excluded 
@@ -113,6 +113,15 @@ of the Implementation Scope and Dialect properties of terminator services.
 | Domain               | Any     | No declaration in `.prj`. No corresponding `.tr` definition file created.
 | Deployment           | None    | Declaration in `.prj`. No corresponding `.tr` definition file created. 
 | Deployment           | MASL    | Declaration in `.prj`. Corresponding `.tr` definition file created. 
+|===
+
+.Implementation scope effect on WASL export
+[options="header"]
+|===
+| Implementation Scope | Dialect | WASL Export Behavior                              
+| Domain               | Any     | No declaration in `.dmp`. No corresponding `.br` definition file created.
+| Deployment           | None    | Declaration in `.dmp`. No corresponding `.br` definition file created. 
+| Deployment           | ASL     | Declaration in `.dmp`. Corresponding `.br` definition file is created. 
 |===
 
 The property "Implementation Scope" (Figure 5) is used to control where the implementation of
@@ -174,6 +183,41 @@ not remain in the workspace.
 The `Import terminators from file...` CME allows the user to import terminator definitions 
 from a file. A file browser is shown.  Multiple `.int` or `.mod` files may 
 be selected at once.
+
+=== Importing scenarios from a component
+
+A 'scenario' is an optional domain function that is used during the
+runtime initialization of a deployment.  Scenarios are defined and located
+in domain components in packages named "scenarios".  Scenarios can be
+ordered into a cohesive 'sequence' representing the inititialization
+ordering of the configured deployment.  A sequence of scenarios can be
+produced in a deployment by importing scenarios from domain components in
+the workspace and ordering them within the deployment sequence terminator.
+
+.Import scenarios from components
+image::import_scenarios_from_components.png[alt=Import scenarios from components,350,role=right]
+
+If scenarios exist in domain components in the workspace, a context menu
+entry appears on the Deployment context menu.
+
+Initiating the 'Import scenarios from component' menu triggers to pop-up
+of a scenario chooser.  A table is presented that lists scenarios on the
+left and their associated model paths on the right.  Multiple scenarios
+can be chosen using the standard mouse select and multi-select gestures.
+
+.Selecting scenarios
+image::selecting_scenarios.png[alt=Selecting scenarios,width=75%]
+
+.Sequence terminator with scenarios
+image::sequence_terminator_with_scenarios.png[alt=Sequence terminator with scenarios,250,role=right]
+
+Once the scenarios have been chosen with the scenario chooser, a sequence
+is created as a specialized terminator in the deployment.  This terminator
+is named following the pattern '<deployment name>::Sequence'.  The
+scenarios in the sequence can be arranged in the desired order using the
+'Move Up' and 'Move Down' context menu entries.  The WASL Exporter
+preserves this ordering of scenarios in the exported files so that the
+downstream architecture may use them to sequence runtime initialization.
 
 === Type references
 
