@@ -214,7 +214,8 @@ image::sequence_terminator_with_scenarios.png[alt=Sequence terminator with scena
 Once the scenarios have been chosen with the scenario chooser, a sequence
 is created as a specialized terminator in the deployment.  This terminator
 is named following the pattern '<deployment name>::Sequence'.  The
-scenarios in the sequence can be arranged in the desired order using the
+scenarios in the sequence can be arranged in the desired order by dragging
+and dropping the scenarios or by using the
 'Move Up' and 'Move Down' context menu entries.  The WASL Exporter
 preserves this ordering of scenarios in the exported files so that the
 downstream architecture may use them to sequence runtime initialization.
