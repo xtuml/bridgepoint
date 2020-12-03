@@ -26,7 +26,10 @@ if ( self.Dialect == ActionDialect::masl )
     self.Action_Semantics_internal = "begin\n  null;\nend service;";
   end if;
 end if;
-self.Suc_Pars = ParseStatus::parseInitial;',
+self.Suc_Pars = ParseStatus::parseInitial;
+// initialize number to match definition
+select one ep related by self->SPR_REP[R4502]->C_EP[R4500];
+self.Numb = ep.Numb;',
 	1,
 	'',
 	"5c56147a-9487-4bf4-a3da-7fd0101d7765",

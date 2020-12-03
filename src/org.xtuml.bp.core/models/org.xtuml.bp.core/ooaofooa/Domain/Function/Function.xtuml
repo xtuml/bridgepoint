@@ -91,6 +91,7 @@ if ( self.Dialect == ActionDialect::masl )
   self.Action_Semantics_internal = "begin\n  null;\nend service;";
 end if;
 self.Suc_Pars = ParseStatus::parseInitial;
+self.initializeSequentialNumber();
 ',
 	1,
 	'',
@@ -915,6 +916,28 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Deployment/Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("aaf1d26b-9d97-4bd2-9ca8-e736d34505c5",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'initializeSequentialNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many siblings related by self->PE_PE[R8001]->EP_PKG[R8000]
+   ->PE_PE[R8000]->S_SYNC[R8001] where selected.Sync_ID != self.Sync_ID;
+lastNumber = 0;
+for each sibling in siblings
+  if(lastNumber < sibling.Numb)
+  	lastNumber = sibling.Numb;
+  end if;
+end for;
+self.Numb = lastNumber + 1;
+',
+	1,
+	'',
+	"e8914779-84b0-4c89-8140-b5872bfdc6a8",
+	0,
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("d1398f19-3322-4cf6-882c-368b5143249f",
 	"bc9a6c16-8809-4681-92ab-421898fa108a");

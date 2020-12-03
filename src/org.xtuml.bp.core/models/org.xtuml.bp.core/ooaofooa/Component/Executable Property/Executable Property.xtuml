@@ -36,6 +36,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("a6e30463-18c5-4bbe-b587-7408b00541a8",
@@ -107,6 +108,7 @@ end if;',
 	1,
 	'',
 	"bfdf97d9-c17d-467c-8890-4690848c2f94",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
@@ -131,6 +133,7 @@ end if;',
 	1,
 	'',
 	"a6e30463-18c5-4bbe-b587-7408b00541a8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5326e73f-8186-424e-8266-eaa2bd2f5638",
@@ -152,6 +155,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -183,6 +187,7 @@ end for;
 	1,
 	'',
 	"23355088-2436-435e-9013-d939f0bdfb9c",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b6fab508-8b8a-48d5-b8d8-2247d7ce0cd1",
@@ -221,6 +226,7 @@ end if;',
 	1,
 	'',
 	"871c1a25-e46b-478b-aa50-073d032d288e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("6ee3498c-915d-4604-b212-69c770d54d4f",
@@ -242,6 +248,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"a656d869-408e-4e5d-8d04-17629d2628a4",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8dafa42d-27c3-4310-bcea-735a3aa949ed",
@@ -254,6 +261,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"00c0ffdc-2913-43ac-88f4-2e5c41ab4fa1",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f91b259b-f36c-410e-a6b2-634d12b14e70",
@@ -275,6 +283,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"8dafa42d-27c3-4310-bcea-735a3aa949ed",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("263b60cc-7cc1-4348-b2bf-a2595fa96faf",
@@ -287,6 +296,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"362eea93-9013-4581-b922-f36a88941dd5",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("cb43b585-6909-4ab7-901b-3c85b3f4c382",
@@ -328,6 +338,7 @@ return "";',
 	1,
 	'',
 	"263b60cc-7cc1-4348-b2bf-a2595fa96faf",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("2f263b6f-6407-485a-9588-645a01a89c7e",
@@ -338,6 +349,28 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("4fb02388-91fd-45ac-a572-da81333bdb18",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'initializeSequentialNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many siblings related by self->C_I[R4003]->C_EP[R4003]
+    where selected.Id != self.Id;
+lastNumber = 0;
+for each sibling in siblings
+  if(lastNumber < sibling.Numb)
+  	lastNumber = sibling.Numb;
+  end if;
+end for;
+self.Numb = lastNumber + 1;
+',
+	1,
+	'',
+	"10bfeda6-e0e4-4df6-963a-0ef15360020e",
+	0,
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("98e35966-ecb5-4116-a587-a4f47306b28f",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614");

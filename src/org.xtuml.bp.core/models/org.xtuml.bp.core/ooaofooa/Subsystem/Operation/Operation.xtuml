@@ -80,6 +80,7 @@ delete object instance self;',
 	1,
 	'',
 	"f5cbf68b-c0d3-4bf6-8ca6-8415633d947b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("82b17ab1-f21d-44aa-a143-90ee872f42c3",
@@ -109,11 +110,13 @@ if ( self.Dialect == ActionDialect::masl )
   // new MASL activities get initialized with the "null" statement
   self.Action_Semantics_internal = "begin\n  null;\nend service;";
 end if;
+self.initializeSequentialNumber();
 self.Suc_Pars = ParseStatus::parseInitial;
 ',
 	1,
 	'',
 	"82900736-052d-4b0a-a598-3eba3f030a05",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("535802ea-2f59-41e3-82a7-76e585a3e4be",
@@ -129,6 +132,7 @@ self.createParameterInInteractions(id:parm.TParm_ID);',
 	1,
 	'',
 	"c706de9b-8129-4184-89d7-8fd9006da379",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f97970a1-2190-4754-9b4a-882ca20c6917",
@@ -152,6 +156,7 @@ select one component related by packageableElem->C_C[R8003];
 	1,
 	'',
 	"360960c1-600a-4abe-968d-10ca28601831",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1ba0a5bf-8281-4469-a672-616cc138f268",
@@ -177,6 +182,7 @@ return this;',
 	0,
 	'',
 	"eaa0b1a7-9259-4724-9eb2-ef8926698fa4",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -196,6 +202,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"75673610-97fd-4a09-b134-344f7bb30724",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("bc4b0232-49dc-4954-9fd6-16d6ef01bef9",
@@ -228,6 +235,7 @@ end if;',
 	1,
 	'',
 	"5a2cfd95-ea2d-4499-8094-5297cb6409bd",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("67370533-0fb3-4375-b3f4-d4d470f38065",
@@ -241,6 +249,7 @@ return dt.Name == "void";',
 	1,
 	'',
 	"c966ac78-22e5-416d-8228-3aa178ad290c",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("75673610-97fd-4a09-b134-344f7bb30724",
@@ -255,6 +264,7 @@ return dimensions;',
 	1,
 	'',
 	"e3cce374-c383-4bd3-bccd-8cea6fad673f",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("5a2cfd95-ea2d-4499-8094-5297cb6409bd",
@@ -289,6 +299,7 @@ end if;
 	1,
 	'',
 	"535802ea-2f59-41e3-82a7-76e585a3e4be",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("237361fb-c503-4ce1-821a-58cb253f03ae",
@@ -353,6 +364,7 @@ end if;
 	1,
 	'',
 	"84ba0f37-64a9-4043-9b90-50a63fe962a7",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("84ba0f37-64a9-4043-9b90-50a63fe962a7",
@@ -391,6 +403,7 @@ end if;
 	1,
 	'',
 	"67370533-0fb3-4375-b3f4-d4d470f38065",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("77d1c376-72f6-43ea-990a-4be4e29f2777",
@@ -420,6 +433,7 @@ return false;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("09143469-07e7-4c7b-9d8e-54c66cfb2d8f",
@@ -509,6 +523,7 @@ end if;',
 	1,
 	'',
 	"82b17ab1-f21d-44aa-a143-90ee872f42c3",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("eaa0b1a7-9259-4724-9eb2-ef8926698fa4",
@@ -529,6 +544,7 @@ return false;
 	1,
 	'',
 	"77d1c376-72f6-43ea-990a-4be4e29f2777",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c966ac78-22e5-416d-8228-3aa178ad290c",
@@ -547,6 +563,7 @@ return false;
 	1,
 	'',
 	"f97970a1-2190-4754-9b4a-882ca20c6917",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("1cd1e65e-5629-48e7-bfd4-ae803c4f6d1e",
@@ -561,6 +578,7 @@ return clazz.getContainingComponentId();
 	1,
 	'',
 	"bc4b0232-49dc-4954-9fd6-16d6ef01bef9",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4cf1c3a6-f9fd-4a60-888c-04954a2d3806",
@@ -596,6 +614,7 @@ select one component related by packageableElem->C_C[R8003];
 	1,
 	'',
 	"1cd1e65e-5629-48e7-bfd4-ae803c4f6d1e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("6cedc647-1da3-4ae5-b583-10c8c17018b5",
@@ -619,6 +638,7 @@ return clazz.getContainerId();',
 	1,
 	'',
 	"4cf1c3a6-f9fd-4a60-888c-04954a2d3806",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("93b06972-4984-47d9-8b6a-e9372acdefd8",
@@ -643,6 +663,7 @@ end if;',
 	1,
 	'',
 	"c342c766-cfa1-4e69-86cd-3e3fbd3ed4b1",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("6b6644f1-b55c-4fb3-84b3-bc9fcbd81b8c",
@@ -675,6 +696,7 @@ end for;
 	1,
 	'',
 	"93b06972-4984-47d9-8b6a-e9372acdefd8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c69a9334-ae85-47ef-abe3-7359779ca3d2",
@@ -710,6 +732,7 @@ end if;',
 	1,
 	'',
 	"933d74df-6c9b-4f4c-948b-8a4bd0290ddd",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("7c7d67f4-4ccb-4afc-8698-36c3591564db",
@@ -750,6 +773,7 @@ end for;',
 	1,
 	'',
 	"6d3d58f5-ea5e-4b53-9036-2c09ed1c8354",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8ba04a71-31b7-4503-90bc-f7c72b75672d",
@@ -880,6 +904,7 @@ return signature;',
 	1,
 	'',
 	"ca6f4164-2b36-4e87-a092-a73d2ed55435",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("fe7adf66-2e41-4eee-b20e-1883ff031b71",
@@ -921,6 +946,7 @@ end if;
 	1,
 	'',
 	"8ba04a71-31b7-4503-90bc-f7c72b75672d",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("2befe97c-e633-444b-a770-cc44b1e7371d",
@@ -944,6 +970,7 @@ end for;',
 	1,
 	'',
 	"526027fd-7223-4f59-a55a-d55a625c8850",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("29089dec-6f3d-4db2-9b81-886883d68ddf",
@@ -1005,6 +1032,7 @@ end if;',
 	1,
 	'',
 	"2befe97c-e633-444b-a770-cc44b1e7371d",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c58ad90e-ebda-433c-9bc2-cc18f2225215",
@@ -1039,6 +1067,29 @@ end if;',
 	1,
 	'',
 	"29089dec-6f3d-4db2-9b81-886883d68ddf",
+	0,
+	0);
+INSERT INTO O_TFR
+	VALUES ("1ea5263c-22e7-4b1a-94ec-7051e89ed2a4",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'initializeSequentialNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many siblings related by self->O_OBJ[R115]->O_TFR[R115]
+     where selected.Tfr_ID != self.Tfr_ID;
+lastNumber = 0;
+for each sibling in siblings
+  if(lastNumber < sibling.Numb)
+  	lastNumber = sibling.Numb;
+  end if;
+end for;
+self.Numb = lastNumber + 1;
+',
+	1,
+	'',
+	"0ef90ca9-0f27-4143-beb6-7eebb7ae9206",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
