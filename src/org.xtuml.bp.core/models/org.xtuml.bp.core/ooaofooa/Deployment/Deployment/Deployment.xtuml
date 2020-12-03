@@ -435,11 +435,11 @@ if (not_empty c_r)
   // for each message, create a terminator service
   select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
   for each spr_ro in spr_ros
-    term.createServiceFromOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps, s_sys: s_sys );
+    term.createServiceFromOperationOrSignal( spr_ro:spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps );
   end for;
   select many spr_rss related by c_r->SPR_REP[R4500]->SPR_RS[R4502];
   for each spr_rs in spr_rss
-    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps, s_sys: s_sys );
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:spr_rs, spr_po:empty_spr_po, spr_ps:empty_spr_ps );
   end for;
 elif (not_empty c_p)
   term.Terminator_Name = "";
@@ -451,11 +451,11 @@ elif (not_empty c_p)
   // for each message, create a terminator service
   select many spr_pos related by c_p->SPR_PEP[R4501]->SPR_PO[R4503];
   for each spr_po in spr_pos
-    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:spr_po, spr_ps:empty_spr_ps, s_sys: s_sys );
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:spr_po, spr_ps:empty_spr_ps );
   end for;
   select many spr_pss related by c_p->SPR_PEP[R4501]->SPR_PS[R4503];
   for each spr_ps in spr_pss
-    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:spr_ps, s_sys: s_sys );
+    term.createServiceFromOperationOrSignal( spr_ro:empty_spr_ro, spr_rs:empty_spr_rs, spr_po:empty_spr_po, spr_ps:spr_ps );
   end for;
 end if;
 
