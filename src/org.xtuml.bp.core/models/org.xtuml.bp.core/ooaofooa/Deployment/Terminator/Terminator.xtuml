@@ -18,7 +18,6 @@ INSERT INTO O_TFR
 spr_rs = param.spr_rs;
 spr_po = param.spr_po;
 spr_ps = param.spr_ps;
-s_sys = param.s_sys;
 
 select one c_ep related by spr_ro->SPR_REP[R4502]->C_EP[R4500];
 if ( empty c_ep )
@@ -38,7 +37,6 @@ service.Name = c_ep.Name;
 service.Return_Dimensions = "";
 service.Is_Stale = false;
 service.Implementation_Scope = ImplementationScope::Domain;
-service.Implementation_System = s_sys.Name;
 
 // populate details from message implementation
 if ( not_empty spr_ro )
@@ -167,22 +165,6 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Component/Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml');
-INSERT INTO O_TPARM
-	VALUES ("0b411521-d930-4ad6-8c8a-43f4e07136e0",
-	"996e8c32-1085-4101-860b-2c660c0f9198",
-	's_sys',
-	"87b91544-a5a2-49a0-9050-8ff5457fb2a9",
-	0,
-	'',
-	"7b889c5b-9600-4ec1-9731-df2f7c91f86c",
-	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("87b91544-a5a2-49a0-9050-8ff5457fb2a9",
-	"00000000-0000-0000-0000-000000000000",
-	'inst_ref<System Model>',
-	'',
-	'',
-	'../../Domain/Domain.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
@@ -464,7 +446,6 @@ INSERT INTO O_TFR
 func = param.func;
 
 select one pkg related by func->PE_PE[R8001]->EP_PKG[R8000];
-select one system related by pkg->S_SYS[R1405];
 select one comp related by pkg->PE_PE[R8001]->C_C[R8003];
 if(not_empty comp)
 	//  collect the the last service ordered
@@ -483,7 +464,6 @@ if(not_empty comp)
 	service.Return_Dimensions = "";
 	service.Is_Stale = false;
 	service.Implementation_Scope = ImplementationScope::Domain;
-	service.Implementation_System = system.Name;
 	service.Numb = func.Numb;
 		
 	// set up the sequence
@@ -720,6 +700,24 @@ INSERT INTO O_ATTR
 	'Provider',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a54cf820-91ae-48e6-854b-afdef23449bd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("a54cf820-91ae-48e6-854b-afdef23449bd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("a54cf820-91ae-48e6-854b-afdef23449bd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	'Implementation_System',
+	'',
+	'',
+	'Implementation_System',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID

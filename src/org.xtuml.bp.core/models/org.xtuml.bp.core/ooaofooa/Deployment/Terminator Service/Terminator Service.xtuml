@@ -1373,24 +1373,6 @@ Description: numeric key to distinguish the service to action language',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO O_NBATTR
-	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576");
-INSERT INTO O_BATTR
-	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576");
-INSERT INTO O_ATTR
-	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576",
-	"9714c054-b572-414f-b82e-b6940907442b",
-	'Implementation_System',
-	'User_Visible:false',
-	'',
-	'Implementation_System',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");

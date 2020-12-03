@@ -883,10 +883,10 @@ if(parent.Name == "scenarios")
 	noMatch = true;
 	for each service in services
 		// note we split the TerminatorName from the service signature to match functions
-        serviceSig = service.getSignature(flavor: 1);
-        returnType = Util::stringSplit(s: serviceSig, delimiter: " ", i: 0);
-        name = Util::stringSplit(s: Util::stringSplit(s: serviceSig, delimiter: " ", i:1), delimiter: "::", i:1);
-        sigToMatch = returnType + " " + name;
+    serviceSig = service.getSignature(flavor: 1);
+    returnType = Util::stringSplit(s: serviceSig, delimiter: " ", i: 0);
+    name = Util::stringSplit(s: Util::stringSplit(s: serviceSig, delimiter: " ", i:1), delimiter: "::", i:1);
+    sigToMatch = returnType + " " + name;
 		if(sigToMatch == self.getSignature(flavor:1))
 			noMatch = false;
 			break;
