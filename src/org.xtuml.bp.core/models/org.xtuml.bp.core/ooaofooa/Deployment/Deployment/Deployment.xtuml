@@ -417,6 +417,11 @@ term.Domain_Name = c_c.Name;
 term.Terminator_Name = c_po.Name;
 term.Descrip = "";
 term.Provider = false;
+if(not_empty existing_term and existing_term.Implementation_System != "")
+  term.Implementation_System = existing_term.Implementation_System;
+else
+  term.Implementation_System = s_sys.Name;
+end if;
 
 select any empty_spr_ro from instances of SPR_RO where false;
 select any empty_spr_rs from instances of SPR_RS where false;
@@ -724,17 +729,28 @@ INSERT INTO O_TFR
 	1,
 	'if(param.name == "can")
   if(param.value == "createSequence")
-  	select many systems from instances of S_SYS;
-  	for each system in systems
-  		select any package related by system->EP_PKG[R1405] where selected.Name == "scenarios";
-	  	if(not_empty package)
-		  // at least one package may have importable scanerios
-		  select many funcs related by package->PE_PE[R8000]->S_SYNC[R8001];
-		  for each func in funcs
-		  	if(func.isAvailableScenario(deployment: self))
-		  		return  true;
-		  	end if;
-		  end for;
+    /**
+  	 * Scenarios can only come from components that are
+  	 * associated with this deployment already
+  	 */
+    select many terms related by self->D_TERM[R1650];
+    for each term in terms
+      select any system from instances of S_SYS where selected.Name == term.Implementation_System;
+	  	if(not_empty system)
+	  	  select any comp related by system->EP_PKG[R1405]->PE_PE[R8000]->C_C[R8001] where (selected.Name == term.Domain_Name);
+	  	  if(not_empty comp)
+	  	    // note top level packages are only considered at this point
+		  		select any package related by comp->PE_PE[R8003]->EP_PKG[R8001] where selected.Name == "scenarios";
+			  	if(not_empty package)
+					  // at least one package may have importable scanerios
+					  select many funcs related by package->PE_PE[R8000]->S_SYNC[R8001];
+					  for each func in funcs
+					  	if(func.isAvailableScenario(deployment: self))
+					  		return  true;
+					  	end if;
+					  end for;
+			  	end if;
+			  end if;
 	  	end if;
   	end for;
   end if;

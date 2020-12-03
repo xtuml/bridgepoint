@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -31,12 +32,14 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Terminator_c;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.Selection;
@@ -132,14 +135,24 @@ public class ImportScenariosFromComponentOnD_DEPLAction implements IObjectAction
 
 	public static Function_c[] getElements(Deployment_c v_element) {
 		List<Function_c> elementList = new ArrayList<Function_c>();
-		PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(v_element);
-		Package_c pkg = Package_c.getOneEP_PKGOnR8000(pe);
-		if (pkg != null) {
-			Ooaofooa[] instances = Ooaofooa.getInstances();
-			elementList = Arrays.stream(instances).flatMap(
-					i -> i.getInstanceList(Function_c.class).stream().filter(l -> ((Function_c) l).Isavailablescenario(v_element)))
-					.map(n -> (Function_c) n).collect(Collectors.toList());
-		}
+		Stream<Terminator_c> v_terms = Stream.of(Terminator_c.getManyD_TERMsOnR1650(v_element));
+		v_terms.forEach(term -> {
+			SystemModel_c v_system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
+					sys -> ((SystemModel_c) sys).getName().equals(term.getImplementation_system()));
+			if (v_system != null) {
+				Component_c v_comp = Component_c.getOneC_COnR8001(
+						PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(v_system)),
+						c -> ((Component_c) c).getName().equals(term.getDomain_name()));
+				Package_c v_pkg = Package_c.getOneEP_PKGOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(v_comp),
+						pkg -> ((Package_c) pkg).getName().equals("scenarios"));
+				if (v_pkg != null) {
+					Stream<Function_c> v_scenarios = Stream
+							.of(Function_c.getManyS_SYNCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(v_pkg)));
+					elementList.addAll(v_scenarios.filter(func -> ((Function_c) func).Isavailablescenario(v_element))
+							.collect(Collectors.toList()));
+				}
+			}
+		});
 		return elementList.toArray(new Function_c[elementList.size()]);
 	} // end getElements(Deployment_c)
 } // end ImportScenariosFromComponentOnD_DEPLAction
