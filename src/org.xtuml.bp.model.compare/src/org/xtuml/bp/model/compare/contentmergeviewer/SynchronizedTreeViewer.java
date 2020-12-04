@@ -538,20 +538,9 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		menuManager.setRemoveAllWhenShown(true);
 		menuManager.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager mgr) {
-				mgr.add(open);
-				// disabled for this promotion
-				// if (mergeViewer.getLeftViewer() ==
-				// SynchronizedTreeViewer.this
-				// && mergeViewer.getConfiguration().isLeftEditable()
-				// || mergeViewer.getRightViewer() ==
-				// SynchronizedTreeViewer.this
-				// && mergeViewer.getConfiguration().isRightEditable()) {
-				// mgr.add(new Separator());
-				// rename.setEnabled(RenameAction.canRenameAction());
-				// mgr.add(rename);
-				// delete.setEnabled(DeleteAction.canDeleteAction());
-				// mgr.add(delete);
-				// }
+				if(canOpen()) {
+					mgr.add(open);
+				}
 				boolean includeMoveUp = includeMoveUpOperation();
 				boolean includeMoveDown = includeMoveDownOperation();
 				if(includeMoveUp || includeMoveDown) {
@@ -573,6 +562,15 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		});
 		Menu menu = menuManager.createContextMenu(getTree());
 		getTree().setMenu(menu);
+	}
+
+	protected boolean canOpen() {
+		IStructuredSelection selection = (IStructuredSelection) getSelection();
+		if (selection.size() == 1) {
+			Object element = selection.getFirstElement();
+			return getEditorElementComparable(element) != null;
+		}
+		return false;
 	}
 
 	protected boolean includeMoveUpOperation() {
@@ -660,55 +658,6 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		moveUp.setText("Move Up");
 		moveDown = new MoveDownAction(this);
 		moveDown.setText("Move Down");
-		// Delete and Rename are retargetable actions defined by core.
-		//
-		//		delete = new DeleteAction(CorePlugin.getImageDescriptor("delete_edit.gif")) { //$NON-NLS-1$
-		//
-		// @Override
-		// public void run() {
-		// Transaction transaction = mergeViewer
-		// .getCompareTransactionManager()
-		// .startCompareTransaction();
-		// super.run();
-		// mergeViewer.getCompareTransactionManager().endTransaction(
-		// transaction);
-		// mergeViewer
-		// .markLeftDirty(SynchronizedTreeViewer.this == mergeViewer
-		// .getLeftViewer());
-		// mergeViewer
-		// .markRightDirty(SynchronizedTreeViewer.this == mergeViewer
-		// .getRightViewer());
-		// }
-		//			
-		// };
-		// ((DeleteAction) delete).setStartTransaction(false);
-		// rename = new RenameAction(this) {
-		//
-		// @Override
-		// public void saveChangesAndDispose(Object selection) {
-		// final Transaction transaction = mergeViewer
-		// .getCompareTransactionManager()
-		// .startCompareTransaction();
-		// super.saveChangesAndDispose(selection);
-		// // need to wait on rename as it is asynchronously called
-		// PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-		//					
-		// @Override
-		// public void run() {
-		// mergeViewer.getCompareTransactionManager().endTransaction(
-		// transaction);
-		// mergeViewer
-		// .markLeftDirty(SynchronizedTreeViewer.this == mergeViewer
-		// .getLeftViewer());
-		// mergeViewer
-		// .markRightDirty(SynchronizedTreeViewer.this == mergeViewer
-		// .getRightViewer());
-		// }
-		// });
-		// }
-		//			
-		// };
-		//
 		fileImport = CorePlugin.getResourceImportAction();
 		fileExport = CorePlugin.getResourceExportAction();
 	}
@@ -721,120 +670,107 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		if (sel.isEmpty()) {
 			return null;
 		}
-		Object current = sel.iterator().next();
-		// if the current selection has an Action_Semantics field
-		// the grab the necessary object element to open that, failing
-		// that look for a description attribute
-		if(current instanceof NonRootModelElementComparable) {
-			NonRootModelElement nrme = (NonRootModelElement) ((NonRootModelElementComparable) current).getRealElement();
-			if(nrme instanceof StateMachineState_c || nrme instanceof Transition_c) {
+		ObjectElementComparable current = getEditorElementComparable(sel.iterator().next());
+		if (current != null) {
+			Object leftInput = getMergeViewer().getLeftViewer().getInput();
+			Object rightInput = getMergeViewer().getRightViewer().getInput();
+			TreeItem rightMatch = getMatchingItem(current, synchronizedViewers.get(0));
+			TreeItem ancestorMatch = null;
+			if (synchronizedViewers.size() == 2) {
+				ancestorMatch = getMatchingItem(current, synchronizedViewers.get(1));
+			}
+			Object leftElement = current.getRealElement();
+			Object rightElement = null;
+			Object ancestor = null;
+			if (ancestorMatch != null) {
+				ancestor = ((ComparableTreeObject) ancestorMatch.getData()).getRealElement();
+			}
+			if (rightMatch != null) {
+				rightElement = ((ComparableTreeObject) rightMatch.getData()).getRealElement();
+			}
+			if (mergeViewer.getLeftViewer() != this) {
+				if (rightMatch == null) {
+					leftElement = null;
+				} else {
+					leftElement = rightMatch.getData();
+					leftElement = ((ComparableTreeObject) leftElement).getRealElement();
+				}
+				rightElement = current.getRealElement();
+			}
+			// create a compare dialog, using the text compare
+			final CompareConfiguration compareConfiguration = new CompareConfiguration();
+			boolean leftEditable = leftInput instanceof IEditableContent && ((IEditableContent) leftInput).isEditable();
+			boolean rightEditable = rightInput instanceof IEditableContent
+					&& ((IEditableContent) rightInput).isEditable();
+			// if this is a single file compare, do not allow editing
+			// at this time as there is no easy way to place the content
+			// changes back into the file
+			if (ComparePlugin.getDefault().getModelCacheManager()
+					.isInputReadonly(ModelCacheManager.getLeftKey(mergeViewer.getInput()))) {
+				compareConfiguration.setLeftEditable(false);
+				compareConfiguration.setRightEditable(false);
+			} else {
+				compareConfiguration.setLeftEditable(leftEditable);
+				compareConfiguration.setRightEditable(rightEditable);
+			}
+			final TextualAttributeCompareEditorInput compareInput = new TextualAttributeCompareEditorInput(
+					compareConfiguration, (ObjectElement) leftElement, (ObjectElement) rightElement,
+					(ObjectElement) ancestor, SynchronizedTreeViewer.this);
+			Runnable runnable = new Runnable() {
+				public void run() {
+					CompareUI.openCompareDialog(compareInput);
+				}
+			};
+			if (Display.getCurrent() == null) {
+				Display.getDefault().syncExec(runnable);
+			} else {
+				runnable.run();
+			}
+			return null;
+		}
+
+		return null;
+	}
+
+	private ObjectElementComparable getEditorElementComparable(Object element) {
+		if (element instanceof ObjectElementComparable) {
+			ObjectElementComparable comparable = (ObjectElementComparable) element;
+			ObjectElement objEle = (ObjectElement) comparable.getRealElement();
+			if (objEle.getName().equals("Descrip") || objEle.getName().equals("Action_Semantics")) {
+				return comparable;
+			}
+			return null;
+		}
+		// for states and transitions use the child action element
+		if (element instanceof NonRootModelElementComparable) {
+			NonRootModelElementComparable nrmeComp = (NonRootModelElementComparable) element;
+			NonRootModelElement nrme = (NonRootModelElement) nrmeComp.getRealElement();
+			if (nrme instanceof StateMachineState_c || nrme instanceof Transition_c) {
 				// we need to navigate to the Action element
 				// for the activity and description attributes
-				Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(current);
-				for(Object child : children) {
-					if(child instanceof NonRootModelElementComparable) {
-						current = child;
-						break;
-					}
-				}
-			}
-			ObjectElement actionObjEle = null;
-			ObjectElement descripObjEle = null;
-			Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(current);
-			for(Object child : children) {
-				if(child instanceof ObjectElementComparable) {
-					ObjectElementComparable comparable = (ObjectElementComparable) child;
-					ObjectElement objElement = (ObjectElement) comparable.getRealElement();
-					if(objElement.getName().equals("Action_Semantics")) {
-						actionObjEle = objElement;
-					} else {
-						if(objElement.getName().equals("Descrip")) {
-							descripObjEle = objElement;
+				Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(element);
+				for (Object child : children) {
+					if (child instanceof NonRootModelElementComparable) {
+						ObjectElementComparable editorElementComparable = getEditorElementComparable(child);
+						if(editorElementComparable != null) {
+							return editorElementComparable;
 						}
 					}
 				}
 			}
-			if(actionObjEle != null) {
-				current = ComparableProvider
-						.getComparableTreeObject(actionObjEle);
-			} else {
-				if(descripObjEle != null) {
-					current = ComparableProvider
-							.getComparableTreeObject(descripObjEle);
+			// check the nrme for object comparables
+			Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(element);
+			for (Object child : children) {
+				if (child instanceof ObjectElementComparable) {
+					ObjectElementComparable comparable = (ObjectElementComparable) child;
+					ObjectElement objEle = (ObjectElement) comparable.getRealElement();
+					if (objEle.getName().equals("Descrip") || objEle.getName().equals("Action_Semantics")) {
+						return comparable;
+					}
 				}
 			}
 		}
-		if (current instanceof ObjectElementComparable) {
-			ObjectElementComparable comparable = (ObjectElementComparable) current;
-			ObjectElement objElement = (ObjectElement) comparable.getRealElement();
-			if (objElement.getName().equals("Descrip") || objElement.getName().equals("Action_Semantics")) {
-				Object leftInput = getMergeViewer().getLeftViewer().getInput();
-				Object rightInput = getMergeViewer().getRightViewer()
-						.getInput();
-				TreeItem rightMatch = getMatchingItem(comparable,
-						synchronizedViewers.get(0));
-				TreeItem ancestorMatch = null;
-				if (synchronizedViewers.size() == 2) {
-					ancestorMatch = getMatchingItem(comparable,
-							synchronizedViewers.get(1));
-				}
-				Object leftElement = comparable.getRealElement();
-				Object rightElement = null;
-				Object ancestor = null;
-				if (ancestorMatch != null) {
-					ancestor = ((ComparableTreeObject) ancestorMatch.getData())
-							.getRealElement();
-				}
-				if (rightMatch != null) {
-					rightElement = ((ComparableTreeObject) rightMatch.getData())
-							.getRealElement();
-				}
-				if (mergeViewer.getLeftViewer() != this) {
-					if (rightMatch == null) {
-						leftElement = null;
-					} else {
-						leftElement = rightMatch.getData();
-						leftElement = ((ComparableTreeObject) leftElement)
-								.getRealElement();
-					}
-					rightElement = comparable.getRealElement();
-				}
-				// create a compare dialog, using the text compare
-				final CompareConfiguration compareConfiguration = new CompareConfiguration();
-				boolean leftEditable = leftInput instanceof IEditableContent
-						&& ((IEditableContent) leftInput).isEditable();
-				boolean rightEditable = rightInput instanceof IEditableContent
-						&& ((IEditableContent) rightInput).isEditable();
-				// if this is a single file compare, do not allow editing
-				// at this time as there is no easy way to place the content
-				// changes back into the file
-				if (ComparePlugin.getDefault().getModelCacheManager()
-						.isInputReadonly(ModelCacheManager.getLeftKey(mergeViewer.getInput()))) {
-					compareConfiguration.setLeftEditable(false);
-					compareConfiguration.setRightEditable(false);
-				} else {
-					compareConfiguration.setLeftEditable(leftEditable);
-					compareConfiguration.setRightEditable(rightEditable);
-				}
-				final TextualAttributeCompareEditorInput compareInput = new TextualAttributeCompareEditorInput(
-						compareConfiguration, (ObjectElement) leftElement, (ObjectElement) rightElement,
-						(ObjectElement) ancestor, SynchronizedTreeViewer.this);
-				Runnable runnable = new Runnable() {
-					public void run() {
-						CompareUI.openCompareDialog(compareInput);
-					}
-				};
-				if (Display.getCurrent() == null) {
-					Display.getDefault().syncExec(runnable);
-				} else {
-					runnable.run();
-				}
-				return null;
-			}
-		}
-
 		return null;
-
 	}
 
 	public void addSynchronizationViewer(final SynchronizedTreeViewer viewer) {
