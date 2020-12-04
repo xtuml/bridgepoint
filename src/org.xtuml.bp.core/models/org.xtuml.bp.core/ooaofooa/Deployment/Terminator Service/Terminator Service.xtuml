@@ -1015,6 +1015,28 @@ INSERT INTO O_TPARM
 	'',
 	"98f7df72-7e7b-45e4-bad2-e6fb8b13982a",
 	'');
+INSERT INTO O_TFR
+	VALUES ("d5445f93-bee4-41d7-8d83-bf54a94f8e17",
+	"04ce6ea5-f98b-4779-91c0-2417b128e576",
+	'initializeSequentialNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many siblings related by self->D_TERM[R1651]->D_TSVC[R1651]
+     where selected.Svc_ID != self.Svc_ID;
+lastNumber = 0;
+for each sibling in siblings
+  if(lastNumber < sibling.Numb)
+  	lastNumber = sibling.Numb;
+  end if;
+end for;
+self.Numb = lastNumber + 1;
+',
+	1,
+	'',
+	"8789e0f8-6b46-48bf-8045-3f108d137c18",
+	0,
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("20f5dd72-22a8-4da4-8a5b-253694477fa3",
 	"04ce6ea5-f98b-4779-91c0-2417b128e576");
@@ -1349,24 +1371,6 @@ Description: numeric key to distinguish the service to action language',
 	'Numb',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
-	'',
-	'');
-INSERT INTO O_NBATTR
-	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576");
-INSERT INTO O_BATTR
-	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576");
-INSERT INTO O_ATTR
-	VALUES ("50e5015b-fbca-447b-a557-36f3df6adf7c",
-	"04ce6ea5-f98b-4779-91c0-2417b128e576",
-	"9714c054-b572-414f-b82e-b6940907442b",
-	'Implementation_System',
-	'User_Visible:false',
-	'',
-	'Implementation_System',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID

@@ -415,7 +415,7 @@ if ( not_empty battr )
   if ( not_empty nbattr )
     create object instance dbattr of O_DBATTR;
     dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
-	if ( dialect == ActionDialect::masl )
+	if ( (dialect == ActionDialect::masl) or (dialect == ActionDialect::asl) )
       // Derived attributes actions are not supported by MASL
 	  dbattr.Dialect = ActionDialect::none;
 	else
