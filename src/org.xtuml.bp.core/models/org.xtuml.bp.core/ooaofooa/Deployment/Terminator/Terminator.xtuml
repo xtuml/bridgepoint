@@ -713,9 +713,29 @@ INSERT INTO O_ATTR
 	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"82c43b94-39f0-41ff-87a8-a2c647a41cb3",
 	'Implementation_System',
-	'',
+	'Full Name: Implementation System
+Description: System containing the implementation',
 	'',
 	'Implementation_System',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7a81372e-2b04-4970-98d6-0c8699e7d0fc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("7a81372e-2b04-4970-98d6-0c8699e7d0fc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("7a81372e-2b04-4970-98d6-0c8699e7d0fc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"a54cf820-91ae-48e6-854b-afdef23449bd",
+	'Key_Lett',
+	'Full Name: Key Letters
+Description: Key letters from port deployed',
+	'',
+	'Key_Lett',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',

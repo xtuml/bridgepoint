@@ -514,8 +514,10 @@ public class ElementSelectionFlatView extends Composite {
 				@Override
 				public void focusGained(FocusEvent e) {
 					// transfer selection to ordered selection
-					fOrderedSelection.add(((Table) e.widget).getSelection()[0]);
-					fSelectedElementOrder.setText(selectedElementsToText());
+					if(((Table) e.widget).getSelection().length > 0) {
+						fOrderedSelection.add(((Table) e.widget).getSelection()[0]);
+						fSelectedElementOrder.setText(selectedElementsToText());
+					}
 				}
 			});
 		}

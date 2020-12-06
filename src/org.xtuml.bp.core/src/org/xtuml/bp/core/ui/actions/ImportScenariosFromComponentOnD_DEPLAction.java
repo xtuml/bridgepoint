@@ -42,6 +42,7 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Terminator_c;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.common.StreamUtils;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.dialogs.ElementSelectionDialog;
 import org.xtuml.bp.core.util.TransactionUtil;
@@ -88,7 +89,7 @@ public class ImportScenariosFromComponentOnD_DEPLAction implements IObjectAction
 		// now find all the elements that should be shown
 		Function_c[] elements = getElements(v_element);
 		ElementSelectionDialog dialog = new ElementSelectionDialog(
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), elements, "component", true, null,
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), elements, "scenario", true, null,
 				false, null, true);
 		dialog.setBlockOnOpen(true);
 		dialog.setTitle("Import Scenarios From Component Selection");
@@ -135,7 +136,8 @@ public class ImportScenariosFromComponentOnD_DEPLAction implements IObjectAction
 
 	public static Function_c[] getElements(Deployment_c v_element) {
 		List<Function_c> elementList = new ArrayList<Function_c>();
-		Stream<Terminator_c> v_terms = Stream.of(Terminator_c.getManyD_TERMsOnR1650(v_element));
+		Stream<Terminator_c> v_terms = Stream.of(Terminator_c.getManyD_TERMsOnR1650(v_element))
+				.filter(StreamUtils.distinctByKey(Terminator_c::getDomain_name));
 		v_terms.forEach(term -> {
 			SystemModel_c v_system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(),
 					sys -> ((SystemModel_c) sys).getName().equals(term.getImplementation_system()));
