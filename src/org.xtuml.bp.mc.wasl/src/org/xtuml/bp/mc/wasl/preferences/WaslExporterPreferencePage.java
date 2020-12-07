@@ -35,6 +35,7 @@ public class WaslExporterPreferencePage extends PropertyPage {
     private Button automaticallySelectButton;
     Button enableFormatButton;
     Button emitActionLanguageButton;
+    Button cleanOutputButton;
     Text outputFolderTextbox;
 
     @Override
@@ -112,6 +113,9 @@ public class WaslExporterPreferencePage extends PropertyPage {
         outputFolderLabel.setText("Output destination:");
         outputFolderTextbox = new Text(outputControlGroup, SWT.LEFT | SWT.BORDER);
         outputFolderTextbox.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        
+        cleanOutputButton = new Button(outputControlGroup, SWT.CHECK);
+        cleanOutputButton.setText("Clean output before build");
 
         updateUI();
 
@@ -150,6 +154,7 @@ public class WaslExporterPreferencePage extends PropertyPage {
         prefs.setFormatOutput(enableFormatButton.getSelection());
         prefs.setEmitActivities(emitActionLanguageButton.getSelection());
         prefs.setOutputDestination(outputFolderTextbox.getText());
+        prefs.setCleanOutput(cleanOutputButton.getSelection());
         prefs.savePreferences();
     }
 
@@ -183,6 +188,7 @@ public class WaslExporterPreferencePage extends PropertyPage {
         }
         enableFormatButton.setSelection(prefs.isFormatOutput());
         emitActionLanguageButton.setSelection(prefs.isEmitActivities());
+        cleanOutputButton.setSelection(prefs.isCleanOutput());
         outputFolderTextbox.setText(prefs.getOutputDestination());
     }
 

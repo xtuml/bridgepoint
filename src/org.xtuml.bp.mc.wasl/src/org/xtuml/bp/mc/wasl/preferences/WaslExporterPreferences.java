@@ -19,6 +19,7 @@ public class WaslExporterPreferences {
     private static final boolean AUTO_SELECT_ELEMENTS_DEFAULT = true;
     private static final boolean FORMAT_OUTPUT_DEFAULT = false;
     private static final boolean EMIT_ACTIVITIES_DEFAULT = true;
+    private static final boolean CLEAN_OUTPUT_DEFAULT = true;
     private static final String OUTPUT_DESTINATION_DEFAULT = "wasl/";
 
     // preference keys
@@ -27,12 +28,14 @@ public class WaslExporterPreferences {
     private static final String EMIT_ACTIVITIES_KEY = "emit_activities";
     private static final String OUTPUT_DESTINATION_KEY = "output_destination";
     private static final String SELECTED_BUILD_ELEMENTS_KEY = "selected_build_elements";
+    private static final String CLEAN_OUTPUT_KEY = "clean_output";
 
     private IEclipsePreferences internalPrefs;
 
     private boolean autoSelectElements;
     private boolean formatOutput;
     private boolean emitActivities;
+    private boolean cleanOutput;
     private String outputDestination;
     List<UUID> selectedBuildElements;
 
@@ -72,6 +75,14 @@ public class WaslExporterPreferences {
     public void setOutputDestination(String outputDestination) {
         this.outputDestination = outputDestination;
     }
+    
+    public Boolean isCleanOutput() {
+    	return cleanOutput;
+    }
+    
+    public void setCleanOutput(boolean cleanOutput) {
+    	this.cleanOutput = cleanOutput;
+    }
 
     public List<UUID> getSelectedBuildElements() {
         return selectedBuildElements;
@@ -86,6 +97,7 @@ public class WaslExporterPreferences {
         formatOutput = FORMAT_OUTPUT_DEFAULT;
         emitActivities = EMIT_ACTIVITIES_DEFAULT;
         outputDestination = OUTPUT_DESTINATION_DEFAULT;
+        cleanOutput = CLEAN_OUTPUT_DEFAULT;
         selectedBuildElements = new ArrayList<>();
     }
 
@@ -114,6 +126,8 @@ public class WaslExporterPreferences {
         } else {
             this.outputDestination = outputDestination;
         }
+		String cleanOutput = internalPrefs.get(CLEAN_OUTPUT_KEY, "None");
+		this.cleanOutput = "None".equals(cleanOutput) ? CLEAN_OUTPUT_DEFAULT : Boolean.getBoolean(cleanOutput);
         String selectedBuildElements = internalPrefs.get(SELECTED_BUILD_ELEMENTS_KEY, "None");
         this.selectedBuildElements = new ArrayList<>();
         if (!"None".equals(selectedBuildElements)) {
@@ -141,6 +155,9 @@ public class WaslExporterPreferences {
             if (!autoSelectElements && !selectedBuildElements.isEmpty()) {
                 internalPrefs.put(SELECTED_BUILD_ELEMENTS_KEY,
                         selectedBuildElements.stream().map((uuid) -> uuid.toString()).collect(Collectors.joining(",")));
+            }
+            if (cleanOutput != CLEAN_OUTPUT_DEFAULT) {
+            	internalPrefs.putBoolean(CLEAN_OUTPUT_KEY, cleanOutput);
             }
             internalPrefs.flush();
         } catch (BackingStoreException e) {
