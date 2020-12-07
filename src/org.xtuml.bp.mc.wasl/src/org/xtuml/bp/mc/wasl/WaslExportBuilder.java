@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -26,8 +27,8 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.mc.AbstractExportBuilder;
-import org.xtuml.bp.mc.wasl.preferences.WaslExporterPreferences;
 import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
+import org.xtuml.bp.mc.wasl.preferences.WaslExporterPreferences;
 import org.xtuml.bp.x2m.Xtuml2Masl;
 
 public class WaslExportBuilder extends AbstractExportBuilder {
@@ -54,8 +55,13 @@ public class WaslExportBuilder extends AbstractExportBuilder {
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         //preBuild(kind, false, true, monitor);     Pre-build not necessary because x2m loads directories
+    	WaslExporterPreferences preferences = new WaslExporterPreferences(getProject());
         final String projPath = getProject().getLocation().toOSString();
-        outputDirectory = new Path(new WaslExporterPreferences(getProject()).getOutputDestination());
+        outputDirectory = new Path(preferences.getOutputDestination());
+        if(preferences.isCleanOutput()) {
+        	// remove the output folder
+			getProject().getFolder(outputDirectory).delete(true, new NullProgressMonitor());
+        }
         if (!outputDirectory.isAbsolute()) {
             outputDirectory = new Path(projPath + File.separator + outputDirectory.toOSString());
         }
