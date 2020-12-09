@@ -25,8 +25,8 @@
   .// obtain the workflow corresponding to the passed function
   .//
   .select one wfl related by function->W_WOF[R2001]
-  .select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
   .if (not_empty wfl)
+	.select any cme from instances of CME where ((selected.Specialism == wfl.Specialism) and (selected.Label == wfl.Label) and (selected.Key_Lett == wfl.Key_Lett))
     .select any field related by wfl->W_STEP[R2005]->W_FLD[R2009]
     .if (not_empty field)
       .print "Generating wizard invocation"

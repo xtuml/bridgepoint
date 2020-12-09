@@ -8392,6 +8392,77 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("d9cad42e-f923-4bc0-927d-3774b4ab21da",
+	"00000000-0000-0000-0000-000000000000",
+	'D_DEPL_ImportScenariosFromComponent',
+	'ContextMenuFunction: TRUE
+Translate: native',
+	'/*
+ * The logic for this is handled in the generated wizard, until the wizard infrastructure
+ * is enhanced this is commented out.  The general functionality is captured here.
+ 
+select any element from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
+if not_empty element
+  terminator = element.createTerminatorForScenarios();
+  select many selectedFunctions from instances of S_SYNC  where USER::selectMany(id:selected.Sync_ID) and (element.functionIsScenario(funcId: selected.Sync_ID));
+  for each selectedFunction in selectedFunctions
+    terminator.importFunctionAsTerminator( func: selectedFunction );
+  end for;
+end if;
+
+*/
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("d9cad42e-f923-4bc0-927d-3774b4ab21da",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5e98c23a-fada-4d41-b857-c7967cc4572c",
+	"00000000-0000-0000-0000-000000000000",
+	'D_TSVC_MoveUp',
+	'ContextMenuFunction: TRUE',
+	'select any service from instances of D_TSVC
+                                   where USER::selectOne(id:selected.Svc_ID);
+// only sequenced services will make use of this function
+select one sis related by service->D_SIS[R1660];
+sis.moveUp();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("5e98c23a-fada-4d41-b857-c7967cc4572c",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("d699e6a9-144c-4a3d-b5c2-e1c77c165a93",
+	"00000000-0000-0000-0000-000000000000",
+	'D_TSVC_MoveDown',
+	'ContextMenuFunction: TRUE',
+	'select any service from instances of D_TSVC
+                                   where USER::selectOne(id:selected.Svc_ID);
+// only sequenced services will make use of this function
+select one sis related by service->D_SIS[R1660];
+sis.moveDown();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("d699e6a9-144c-4a3d-b5c2-e1c77c165a93",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,

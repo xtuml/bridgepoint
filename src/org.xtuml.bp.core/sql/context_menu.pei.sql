@@ -352,8 +352,11 @@ INSERT INTO CME VALUES ('Delete', '',                         'D_TERM',    '',  
 INSERT INTO CME VALUES ('--',       'Publish To Interface','S_SYNC',  'C_I',                      false, 'Choose the interface to publish to', '*', false, '', true, false, 'interface');
 INSERT INTO CME VALUES ('--', 'Import terminators from file', 'D_DEPL', '', false, '', '', false, '...');
 INSERT INTO CME VALUES ('--', 'Import terminators from component', 'D_DEPL', 'C_C', false, 'Select a component', '1', false, '', true, false, 'component' );
+INSERT INTO CME VALUES ('--', 'Import scenarios from component', 'D_DEPL', 'C_C', false, 'Select scenarios', '1', false, '', true, false, 'component' );
 INSERT INTO CME VALUES ('--', 'Delete stale services', 'D_TERM', '', false );
 INSERT INTO CME VALUES ('Delete', '', 'D_TSVC', '', true );
+INSERT INTO CME VALUES ('--',       'Move Up',             'D_TSVC', '',                      false, '' );
+INSERT INTO CME VALUES ('--',       'Move Down',           'D_TSVC', '',                      false, '' );
 
 INSERT INTO CME VALUES ('Binary', 'Edit association', 'R_REL', '', false, 'Configure association details', '1');
 INSERT INTO CME VALUES ('Subsup', 'Edit association', 'R_REL', '', false, 'Configure association details', '1');
@@ -382,6 +385,10 @@ INSERT INTO MEF VALUES ('Referential',       'Split',         'O_ATTR',    'can'
 INSERT INTO MEF VALUES ('Base And Ref',       'Split',         'O_ATTR',    'can', 'split base' );
 
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Class',  'O_IOBJ', 'unassigned', 'generic pkg' );
+
+INSERT INTO MEF VALUES ('--', 'Import scenarios from component', 'D_DEPL', 'can', 'createSequence');
+INSERT INTO MEF VALUES ('--',       'Move Up',       'D_TSVC',    'can', 'move up' );
+INSERT INTO MEF VALUES ('--',       'Move Down',     'D_TSVC',    'can', 'move down' );
 
 INSERT INTO MEF VALUES ('Binary',     'Formalize',          'R_REL', 'type', 'unform simp' );
 INSERT INTO MEF VALUES ('Linked',     'Formalize',          'R_REL', 'type', 'unform assoc' );

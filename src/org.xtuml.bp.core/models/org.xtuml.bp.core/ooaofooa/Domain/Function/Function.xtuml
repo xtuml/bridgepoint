@@ -65,6 +65,7 @@ delete object instance self;',
 	1,
 	'',
 	"e6463a33-a86d-47c4-98dd-1fd5dccdd7fc",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c3f33d12-8e23-4a3e-8b78-d165acea17f6",
@@ -90,10 +91,12 @@ if ( self.Dialect == ActionDialect::masl )
   self.Action_Semantics_internal = "begin\n  null;\nend service;";
 end if;
 self.Suc_Pars = ParseStatus::parseInitial;
+self.initializeSequentialNumber();
 ',
 	1,
 	'',
 	"8daac801-9fd3-4547-abb6-6193d8134d74",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("3114a04c-34ab-455c-a63b-51bf8b1edc75",
@@ -110,6 +113,7 @@ self.createMessageArgumentsForParameter(id:parm.SParm_ID);',
 	1,
 	'',
 	"ac635df7-bcc5-4040-ae9b-c992f3816752",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f5f2d76a-ea42-4c43-9339-6cf30bb644dc",
@@ -131,6 +135,7 @@ select one packageableElem related by self->PE_PE[R8001];
 	1,
 	'',
 	"0b106f2d-d6e6-4751-a6f0-5d99de26c363",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("143a7ece-2e70-4a00-aa7e-4445a97bad84",
@@ -156,6 +161,7 @@ return this;',
 	0,
 	'',
 	"377cfc86-2b6c-444c-b4a9-83a57fe685d6",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -175,6 +181,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"c63f53ca-04d8-4091-9361-003be6dd7153",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("792f8318-ecae-4865-ae93-2b8262a0aede",
@@ -207,6 +214,7 @@ end if;',
 	1,
 	'',
 	"f7e2de6c-7e5f-4cf2-8f27-ad67303e4725",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ac635df7-bcc5-4040-ae9b-c992f3816752",
@@ -220,6 +228,7 @@ return dt.Name == "void";',
 	1,
 	'',
 	"65820dee-d465-462f-8e14-5acedf68302b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c63f53ca-04d8-4091-9361-003be6dd7153",
@@ -235,6 +244,7 @@ return dimensions;
 	1,
 	'',
 	"e84e0a54-74a3-4c73-8642-a417887258ec",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f7e2de6c-7e5f-4cf2-8f27-ad67303e4725",
@@ -269,6 +279,7 @@ end if;
 	1,
 	'',
 	"3114a04c-34ab-455c-a63b-51bf8b1edc75",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e579dab4-4d77-4c01-85e1-235c4e76dd29",
@@ -367,6 +378,7 @@ end if;',
 	1,
 	'',
 	"c3f33d12-8e23-4a3e-8b78-d165acea17f6",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("377cfc86-2b6c-444c-b4a9-83a57fe685d6",
@@ -386,6 +398,7 @@ return false;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("65820dee-d465-462f-8e14-5acedf68302b",
@@ -404,6 +417,7 @@ return false;
 	1,
 	'',
 	"f5f2d76a-ea42-4c43-9339-6cf30bb644dc",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("00ed58fd-1b77-48ba-9963-53a6d2cd9545",
@@ -426,6 +440,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"792f8318-ecae-4865-ae93-2b8262a0aede",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("a85e3cf8-a19a-4706-b38d-181e9d76d13e",
@@ -461,6 +476,7 @@ select one component related by packageableElem->C_C[R8003];
 	1,
 	'',
 	"00ed58fd-1b77-48ba-9963-53a6d2cd9545",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5e0905df-3568-4cb5-964a-c17771b62da7",
@@ -493,6 +509,7 @@ return GD::NULL_UNIQUE_ID();
 	1,
 	'',
 	"a85e3cf8-a19a-4706-b38d-181e9d76d13e",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("91999bd3-c71a-4565-ad76-a4c145a19e80",
@@ -517,6 +534,7 @@ end if;',
 	1,
 	'',
 	"f16bc4b5-43a8-4d0c-89d0-29101ef23cdc",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("4f7fc644-8e69-4f1c-a696-33954cf7d783",
@@ -553,6 +571,7 @@ end if;
 	1,
 	'',
 	"91999bd3-c71a-4565-ad76-a4c145a19e80",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5742a1ac-aa23-4032-9255-35515b504afc",
@@ -587,6 +606,7 @@ end if;',
 	1,
 	'',
 	"8a54d08f-5e81-4512-960d-eeb91cb5ad27",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("99a79c2a-c8da-46f5-8a83-28937351b580",
@@ -617,6 +637,7 @@ return result;',
 	1,
 	'',
 	"77ccad62-994a-4eba-97eb-6f83fcc38f90",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("9d318c1d-0992-4718-84b1-34a691ec9739",
@@ -650,6 +671,7 @@ end for;',
 	1,
 	'',
 	"1a29e8ec-33a3-405e-929c-6e095c2f8c35",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("db818c67-a176-46df-95bd-be1be9a0ddee",
@@ -778,6 +800,7 @@ return signature;',
 	1,
 	'',
 	"9d318c1d-0992-4718-84b1-34a691ec9739",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("a154c302-cfec-470a-a731-ddb683241171",
@@ -810,6 +833,7 @@ end for;',
 	1,
 	'',
 	"381144e2-c3a3-4f11-b8f8-a245937cdc88",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("381144e2-c3a3-4f11-b8f8-a245937cdc88",
@@ -842,6 +866,77 @@ end if;
 	1,
 	'',
 	"db818c67-a176-46df-95bd-be1be9a0ddee",
+	0,
+	0);
+INSERT INTO O_TFR
+	VALUES ("e8914779-84b0-4c89-8140-b5872bfdc6a8",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'isAvailableScenario',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'deployment = param.deployment;
+select one parent related by self->PE_PE[R8001]->EP_PKG[R8000];
+if(parent.Name == "scenarios")
+	// see if this function is already assigned to the deployment
+	select many services related by deployment->D_TERM[R1650]->D_TSS[R1658]->D_SIS[R1659]->D_TSVC[R1660];
+	noMatch = true;
+	for each service in services
+		// note we split the TerminatorName from the service signature to match functions
+    serviceSig = service.getSignature(flavor: 1);
+    returnType = Util::stringSplit(s: serviceSig, delimiter: " ", i: 0);
+    name = Util::stringSplit(s: Util::stringSplit(s: serviceSig, delimiter: " ", i:1), delimiter: "::", i:1);
+    sigToMatch = returnType + " " + name;
+		if(sigToMatch == self.getSignature(flavor:1))
+			noMatch = false;
+			break;
+		end if;
+	end for;
+	return noMatch;
+end if;
+return false;',
+	1,
+	'',
+	"7776869e-dc27-4ad9-8c73-5e2a0a32b6f6",
+	0,
+	0);
+INSERT INTO O_TPARM
+	VALUES ("84e2f0a5-6d42-4da5-ab2e-68644d2e2c15",
+	"e8914779-84b0-4c89-8140-b5872bfdc6a8",
+	'deployment',
+	"4e624234-9443-4818-b41d-0ad8fee84168",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4e624234-9443-4818-b41d-0ad8fee84168",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Deployment>',
+	'',
+	'',
+	'../../Deployment/Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("aaf1d26b-9d97-4bd2-9ca8-e736d34505c5",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'initializeSequentialNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many siblings related by self->PE_PE[R8001]->EP_PKG[R8000]
+   ->PE_PE[R8000]->S_SYNC[R8001] where selected.Sync_ID != self.Sync_ID;
+lastNumber = 0;
+for each sibling in siblings
+  if(lastNumber < sibling.Numb)
+  	lastNumber = sibling.Numb;
+  end if;
+end for;
+self.Numb = lastNumber + 1;
+',
+	1,
+	'',
+	"e8914779-84b0-4c89-8140-b5872bfdc6a8",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("d1398f19-3322-4cf6-882c-368b5143249f",
@@ -1110,6 +1205,25 @@ INSERT INTO S_DT_PROXY
 	'Enumerator for available action dialects',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("6c63ea8d-fbce-4edf-a742-ced2b8052ba6",
+	"bc9a6c16-8809-4681-92ab-421898fa108a");
+INSERT INTO O_BATTR
+	VALUES ("6c63ea8d-fbce-4edf-a742-ced2b8052ba6",
+	"bc9a6c16-8809-4681-92ab-421898fa108a");
+INSERT INTO O_ATTR
+	VALUES ("6c63ea8d-fbce-4edf-a742-ced2b8052ba6",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	"586efdc9-4350-440f-b1c0-bdcdbb5d99b0",
+	'Numb',
+	'Full Name:  Operation Number
+Description: numeric key to distinguish the service to action language',
+	'',
+	'Numb',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"bc9a6c16-8809-4681-92ab-421898fa108a");

@@ -415,7 +415,7 @@ if ( not_empty battr )
   if ( not_empty nbattr )
     create object instance dbattr of O_DBATTR;
     dialect = PREF::getActionDialect(name:"bridgepoint_prefs_default_action_language_dialect");
-	if ( dialect == ActionDialect::masl )
+	if ( (dialect == ActionDialect::masl) or (dialect == ActionDialect::asl) )
       // Derived attributes actions are not supported by MASL
 	  dbattr.Dialect = ActionDialect::none;
 	else
@@ -477,36 +477,11 @@ INSERT INTO O_TFR
 	VALUES ("c6ce473e-48b9-4953-b2a7-1c522d8ad359",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'moveUp',
-	'',
+	'Translate: native',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'::changeNotificationEnablement(enabled:false);
-select one prev_attr related by self->O_ATTR[R103.''succeeds''];
-select one prev_prev_attr related by prev_attr->O_ATTR[R103.''succeeds''];
-select one next_attr related by self->O_ATTR[R103.''precedes''];
-
-if ( not_empty prev_prev_attr )
-  unrelate prev_attr from prev_prev_attr across R103.''succeeds'';
-end if;
-if ( not_empty next_attr )
-  unrelate next_attr from self across R103.''succeeds'';
-end if;
-unrelate self from prev_attr across R103.''succeeds'';
-
-if ( not_empty prev_prev_attr )
-  relate self to prev_prev_attr across R103.''succeeds'';
-end if;
-// want to enable listeners at the last possible moment
-if ( empty next_attr )
-  ::changeNotificationEnablement(enabled:true);
-end if;
-relate prev_attr to self across R103.''succeeds'';
-if ( not_empty next_attr )
-  ::changeNotificationEnablement(enabled:true);
-  relate next_attr to prev_attr across R103.''succeeds'';
-end if;
-',
-	1,
+	'	insertIntoOrdering(orderingIndexOf() - 1);',
+	0,
 	'',
 	"22087947-8383-42c9-be53-652717c1b810",
 	0);
@@ -514,36 +489,11 @@ INSERT INTO O_TFR
 	VALUES ("22087947-8383-42c9-be53-652717c1b810",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
 	'moveDown',
-	'',
+	'Translate: native',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'::changeNotificationEnablement(enabled:false);
-select one next_attr related by self->O_ATTR[R103.''precedes''];
-select one prev_attr related by self->O_ATTR[R103.''succeeds''];
-select one next_next_attr related by next_attr->O_ATTR[R103.''precedes''];
-
-if ( not_empty next_next_attr )
-  unrelate next_next_attr from next_attr across R103.''succeeds'';
-end if;
-if ( not_empty prev_attr )
-  unrelate self from prev_attr across R103.''succeeds'';
-end if;
-unrelate next_attr from self across R103.''succeeds'';
-
-if ( not_empty prev_attr )
-  relate next_attr to prev_attr across R103.''succeeds'';
-end if;
-   
-// want to enable listeners at the last possible moment
-if ( empty next_next_attr )
-  ::changeNotificationEnablement(enabled:true);
-end if;
-relate self to next_attr across R103.''succeeds'';
-if ( not_empty next_next_attr )
-  ::changeNotificationEnablement(enabled:true);
-  relate next_next_attr to self across R103.''succeeds'';
-end if;',
-	1,
+	'	insertIntoOrdering(orderingIndexOf() + 1);',
+	0,
 	'',
 	"0b2d52a9-ff55-42ff-a764-42d3f6367e33",
 	0);

@@ -32,6 +32,7 @@ import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.ui.text.contentassist.OALCompletionProcessor;
 import org.xtuml.bp.ui.text.contentassist.OALProposalSorter;
+import org.xtuml.bp.ui.text.editor.ActionLanguageTokenTypes;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 
 public class OALEditorConfiguration extends SourceViewerConfiguration {
@@ -67,7 +68,7 @@ public class OALEditorConfiguration extends SourceViewerConfiguration {
 		if (commentScanner == null) {
 			RuleBasedScanner scanner = new RuleBasedScanner();
 			scanner.setDefaultReturnToken(
-				tokenTypeManager.getDefaultToken(OALTokenTypes.TOKEN_TYPE_multi_line_comment));
+				tokenTypeManager.getDefaultToken(ActionLanguageTokenTypes.TOKEN_TYPE_multi_line_comment));
 
 			commentScanner = scanner;
 		}

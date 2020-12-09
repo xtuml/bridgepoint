@@ -44,21 +44,25 @@ if ( not_empty spr_ro )
   service.Action_Semantics_internal = spr_ro.Action_Semantics_internal;
   service.Suc_Pars = spr_ro.Suc_Pars;
   service.Dialect = spr_ro.Dialect;
+  service.Numb = spr_ro.Numb;
 elif ( not_empty spr_rs )
   service.Descrip = spr_rs.Descrip;
   service.Action_Semantics_internal = spr_rs.Action_Semantics_internal;
   service.Suc_Pars = spr_rs.Suc_Pars;
   service.Dialect = spr_rs.Dialect;
+  service.Numb = spr_rs.Numb;
 elif ( not_empty spr_po )
   service.Descrip = spr_po.Descrip;
   service.Action_Semantics_internal = "";
   service.Suc_Pars = spr_po.Suc_Pars;
   service.Dialect = ActionDialect::none;
+  service.Numb = spr_po.Numb;
 elif ( not_empty spr_ps )
   service.Descrip = spr_ps.Descrip;
   service.Action_Semantics_internal = "";
   service.Suc_Pars = spr_ps.Suc_Pars;
   service.Dialect = ActionDialect::none;
+  service.Numb = spr_ps.Numb;
 else
   USER::logError( msg:"No message instance passed to creation operation", path:"" );
 end if;
@@ -95,6 +99,7 @@ service.parseReturn_Dimensions();',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("49a1da30-80d4-4daf-b3b0-1b4cc45e4a23",
@@ -173,6 +178,11 @@ for each service in services
   service.dispose();
 end for;
 
+select one sequence related  by self->D_TSS[R1658];
+if(not_empty sequence)
+	unrelate self from  sequence across R1658;
+	sequence.dispose();
+end if; 
 select one deployment related by self->D_DEPL[R1650];
 if (not_empty deployment)
   unrelate self from deployment across R1650;
@@ -182,6 +192,7 @@ delete object instance self;',
 	1,
 	'',
 	"c2c0d204-b5de-4fba-80ed-b774506d0ccd",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c2c0d204-b5de-4fba-80ed-b774506d0ccd",
@@ -213,6 +224,7 @@ else
 end if;
 service.Suc_Pars = ParseStatus::parseInitial;
 service.Implementation_Scope = ImplementationScope::Domain;
+service.initializeSequentialNumber();
 
 // create parameters and return type
 smasl = Util::getNextString( string_iterator:smasl_iterator );
@@ -262,6 +274,7 @@ end while;',
 	1,
 	'',
 	"996e8c32-1085-4101-860b-2c660c0f9198",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("cf8f1b4c-c66c-431e-9dd8-67a43f0e7beb",
@@ -345,6 +358,7 @@ d_term.dispose();',
 	1,
 	'',
 	"3e5c4657-2bb8-4dc5-8ae0-e6ba9a459708",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c6047b81-a776-4034-b9e2-249342987116",
@@ -378,6 +392,7 @@ end for;',
 	1,
 	'',
 	"899bd8c1-eec1-4a82-ae4d-19a800e5e6cc",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("166a18b7-5f21-4b62-861c-339f953259b7",
@@ -396,6 +411,7 @@ return false;',
 	1,
 	'',
 	"5d22eed4-bf88-43b7-925f-a0c16b14fe6e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
@@ -415,6 +431,108 @@ INSERT INTO O_TPARM
 	'',
 	"0620f6b8-ebd0-4b0d-bbb5-71b1d15b652a",
 	'');
+INSERT INTO O_TFR
+	VALUES ("02434254-2964-4c8f-955f-fda2b819a108",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'importFunctionAsTerminator',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'/**
+	In the WASL workflow a scenario is mapped to a domain function, these can be configured
+	in terminators as a sequnece.  Here we create a terminator service for the given function
+*/
+
+func = param.func;
+
+select one pkg related by func->PE_PE[R8001]->EP_PKG[R8000];
+select one comp related by pkg->PE_PE[R8001]->C_C[R8003];
+if(not_empty comp)
+	//  collect the the last service ordered
+	select one sequence related by self->D_TSS[R1658];
+	select any sis related by sequence->D_SIS[R1659];
+	select any lastSis from instances of D_SIS where selected.Svc_ID == GD::NULL_UNIQUE_ID();
+	while(not_empty sis)
+		lastSis = sis;
+		select one sis related by sis->D_SIS[R1661.''precedes''];
+	end while;
+	
+	// create create service
+	create object instance service of D_TSVC;
+	relate service to self across R1651;
+	service.Name = comp.Name + "::" + func.Name;
+	service.Return_Dimensions = "";
+	service.Is_Stale = false;
+	service.Implementation_Scope = ImplementationScope::Domain;
+	service.Numb = func.Numb;
+		
+	// set up the sequence
+	if(empty sequence)
+		// only one allowed
+		create object instance sequence of D_TSS;
+		relate sequence to self across R1658;
+	end if;
+	create object instance newSis of D_SIS;
+	relate newSis to sequence across R1659;
+	relate service to newSis across R1660;
+	if(not_empty lastSis)
+		relate lastSis to newSis across R1661.''precedes'';
+	end if;
+	
+	// populate details from function implementation
+	service.Descrip = func.Descrip;
+	service.Action_Semantics_internal = func.Action_Semantics_internal;
+	service.Suc_Pars = func.Suc_Pars;
+	service.Dialect = func.Dialect;
+	
+	// create parameters
+	select any parm related by func->S_SPARM[R24];
+	select one prev_parm related by parm->S_SPARM[R54.''succeeds''];
+	while ( not_empty prev_parm )
+	  parm = prev_parm;
+	  select one prev_parm related by parm->S_SPARM[R54.''succeeds''];
+	end while;
+	while ( not_empty parm )
+	  service.createServiceParameterFromFunctionParameter( parameter:parm );
+	  select one parm related by parm->S_SPARM[R54.''precedes''];
+	end while;
+	
+	// link data type
+	service.setToDefaultDataType();
+	select one s_dt related by func->S_DT[R25];
+	select one depl related by self->D_DEPL[R1650];
+	type_ref = depl.addTypeReference( s_dt:s_dt );
+	select one existing_type related by service->S_DT[R1656];
+	if (not_empty existing_type)
+	  unrelate existing_type from service across R1656;
+	end if;
+	relate type_ref to service across R1656;
+	service.Return_Dimensions = func.Return_Dimensions;
+	
+	// resolve dimensions
+	service.parseReturn_Dimensions();
+end if;',
+	1,
+	'',
+	"166a18b7-5f21-4b62-861c-339f953259b7",
+	0,
+	0);
+INSERT INTO O_TPARM
+	VALUES ("61600c39-f754-4d89-960d-c7bf23b339ae",
+	"02434254-2964-4c8f-955f-fda2b819a108",
+	'func',
+	"23c9ad06-d172-40bc-b1db-5fa7c9c5d1c7",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("23c9ad06-d172-40bc-b1db-5fa7c9c5d1c7",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Function>',
+	'',
+	'',
+	'../../Domain/Domain.xtuml');
 INSERT INTO O_REF
 	VALUES ("00fb3b30-e8fd-4053-b2eb-94274e6c7062",
 	"591815c2-2b96-4e7d-9d76-435b98b2b555",
@@ -582,6 +700,44 @@ INSERT INTO O_ATTR
 	'Provider',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a54cf820-91ae-48e6-854b-afdef23449bd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("a54cf820-91ae-48e6-854b-afdef23449bd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("a54cf820-91ae-48e6-854b-afdef23449bd",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"82c43b94-39f0-41ff-87a8-a2c647a41cb3",
+	'Implementation_System',
+	'Full Name: Implementation System
+Description: System containing the implementation',
+	'',
+	'Implementation_System',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7a81372e-2b04-4970-98d6-0c8699e7d0fc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_BATTR
+	VALUES ("7a81372e-2b04-4970-98d6-0c8699e7d0fc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062");
+INSERT INTO O_ATTR
+	VALUES ("7a81372e-2b04-4970-98d6-0c8699e7d0fc",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	"a54cf820-91ae-48e6-854b-afdef23449bd",
+	'Key_Lett',
+	'Full Name: Key Letters
+Description: Key letters from port deployed',
+	'',
+	'Key_Lett',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID

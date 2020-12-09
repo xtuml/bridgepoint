@@ -305,7 +305,7 @@ ${setSize.body}
           removeTics((String)parms.elementAt(2)).trim(), 
           removeTics((String)parms.elementAt(3)),
           0, 
-          IdAssigner.NULL_UUID, false, "");
+          IdAssigner.NULL_UUID, false, "", "");
           .if(multilevel)
       if (rootModelElement == null) {
           rootModelElement = component;

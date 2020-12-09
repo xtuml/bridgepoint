@@ -29,6 +29,7 @@ delete object instance self;',
 	1,
 	'',
 	"56b45cda-60fb-4e74-bcd2-fc12691b05e8",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("56b45cda-60fb-4e74-bcd2-fc12691b05e8",
@@ -44,6 +45,7 @@ Translate: native',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -98,6 +100,7 @@ return result;',
 	1,
 	'',
 	"102501dd-88ec-4527-ab52-eaabbd3c7749",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("4aab5b27-bec7-475b-8d7d-dac2fbfc7075",
@@ -152,6 +155,7 @@ end if;',
 	1,
 	'',
 	"73a6b126-7917-47ea-8fef-28f70e9bdce7",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f3388d7d-6cda-459d-958c-c4ea67546916",
@@ -177,6 +181,7 @@ return 1;',
 	1,
 	'',
 	"7ee72375-f5c8-4fc8-83cb-a7acce29a7da",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("74febb66-0af9-48e5-b060-cbad571ef7db",
@@ -206,6 +211,7 @@ end if;           ',
 	1,
 	'',
 	"7f3e321d-607b-4369-8030-11273bdae3c2",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("530645c4-af1d-4cc6-9591-68b5103b3da6",
@@ -218,6 +224,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"1e65fdde-e216-42b1-9069-b128e2ba99a6",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
@@ -239,6 +246,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"530645c4-af1d-4cc6-9591-68b5103b3da6",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("9e86ca42-e75e-49b1-b5e2-77f6239c9db8",
@@ -276,6 +284,7 @@ INSERT INTO O_TFR
 	1,
 	'create object instance signal of C_EP;
 relate self to signal across R4003;
+signal.initializeSequentialNumber();
 select many references related by self->C_IR[R4012];
 if(param.asynchronous)
  create object instance asignal of C_AS;
@@ -290,6 +299,7 @@ return signal.Id;',
 	1,
 	'',
 	"3ea48a0a-8577-4aea-bd7b-7747005454c4",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("30bc3a88-0a69-4bee-98d7-ecf36fac2322",
@@ -347,6 +357,7 @@ return "";
 	1,
 	'',
 	"f3388d7d-6cda-459d-958c-c4ea67546916",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1c3f4a33-836f-408b-ac9f-7796a34df83e",
@@ -399,6 +410,7 @@ return "";',
 	1,
 	'',
 	"c06ebec1-4f10-46cc-8b9d-86bdbc4bfa9c",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b66aaeeb-fc94-477f-a94c-2c13079e0616",
@@ -425,6 +437,7 @@ return not_empty op or not_empty sig;
 	1,
 	'',
 	"3c1f5f62-34ad-4e92-b906-61cc66035c43",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d06803a5-6130-4b22-aae5-ae4243049109",
@@ -582,6 +595,7 @@ end if;',
 	1,
 	'',
 	"678c416d-77aa-46fd-909d-c5687a36836b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("39bc07cc-1dd1-466a-9867-75441bc61401",
@@ -594,6 +608,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"188e9d6f-eadb-4ff9-a923-d73664ff3a07",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("d024f903-6559-4097-a5d3-14c889fe553f",
@@ -619,6 +634,7 @@ end if;',
 	1,
 	'',
 	"39bc07cc-1dd1-466a-9867-75441bc61401",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("fea18f37-3309-418a-a63f-a4cd6327f42e",
@@ -655,6 +671,7 @@ end if;
 	1,
 	'',
 	"d024f903-6559-4097-a5d3-14c889fe553f",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c892d661-65a9-4478-b964-9362d4b7924a",
@@ -689,6 +706,7 @@ end if;',
 	1,
 	'',
 	"df4446ef-776d-48f5-9d19-cebf906415e8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("293b6d9b-3e87-4097-b576-9c7e5afdbe80",
@@ -721,6 +739,7 @@ end for;
 	1,
 	'',
 	"02340862-a81d-42f8-96eb-a21e627342e0",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("6832b334-1dc3-4306-a2cd-ff7508ff7930",
@@ -757,6 +776,7 @@ return path;',
 	1,
 	'',
 	"cd040bfe-d59b-4ad2-83e1-0d80e9d11a49",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("165e0d2f-15b3-460f-83bb-ac00b9a281ae",
@@ -797,6 +817,7 @@ end if;',
 	1,
 	'',
 	"c155c509-03e3-466c-aff2-589244cfb2c8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c52ef492-b704-469f-8f23-f6334c5fc4cf",
@@ -851,6 +872,7 @@ end for;',
 	1,
 	'',
 	"9d36ddbe-8916-41bc-8164-04af9f5ba9fc",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("111a8f19-e4c5-4489-9873-da1e35dfca54",
@@ -863,6 +885,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"041af5ee-823a-4764-bccf-d6d3d28a8672",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("cf75b2c0-67f0-4226-b7bb-e18787581879",
@@ -942,6 +965,7 @@ if (not_empty function)
   iop.Name = newName;
   iop.Descrip = function.Descrip;
   iop.Return_Dimensions = function.Return_Dimensions;
+  execProp.Numb = function.Numb;
    
   //  
   // Now update the return type if it is different than the function''s return type
@@ -989,7 +1013,7 @@ if (not_empty function)
       end if;
     end for;
     newParam.Descrip = sparam.Descrip;
-    newParam.Dimensions = sparam.Dimensions;     
+    newParam.Dimensions = sparam.Dimensions;  
     newParam.Name = sparam.Name;
 
     // Set the data type for the new param
@@ -998,7 +1022,7 @@ if (not_empty function)
       unrelate newParam from newParamDefaultDataType across R4007;
       relate newParam to sparamDT across R4007;
     end if;
-  end for;    
+  end for;
 
   // If a new operartion was created, hook-up 
   // the operation that was just created to this interface
@@ -1009,6 +1033,7 @@ end if;',
 	1,
 	'',
 	"111a8f19-e4c5-4489-9873-da1e35dfca54",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1a6ba669-16cf-4099-8b9b-3970d955f499",

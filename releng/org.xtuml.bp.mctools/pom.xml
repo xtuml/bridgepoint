@@ -65,15 +65,13 @@
                     <include>masl</include>
                     <include>masl2xtuml</include>
                     <include>masl_check</include>
-                    <include>masl_round_trip</include>
+                    <include>round_trip</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
                     <include>mcmc</include>
-                    <include>wasl_round_trip</include>
                     <include>wasldiff</include>
                     <include>x2m</include>
                     <include>xtuml2masl</include>
-                    <include>xtuml2wasl</include>
                     <include>xtumlmc_build</include>
                   </includes>
                 </resource>
@@ -99,13 +97,11 @@
                     <include>launch-cli.py</include>
                     <include>masl2xtuml</include>
                     <include>masl_check</include>
-                    <include>masl_round_trip</include>
+                    <include>round_trip</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
-                    <include>wasl_round_trip</include>
                     <include>wasldiff</include>
                     <include>xtuml2masl</include>
-                    <include>xtuml2wasl</include>
                     <include>xtumlmc_build</include>
                   </includes>
                 </resource>
@@ -141,10 +137,9 @@
                     <include>launch-cli.py</include>
                     <include>masl2xtuml</include>
                     <include>masl_check</include>
-                    <include>masl_round_trip</include>
+                    <include>round_trip</include>
                     <include>masldiff</include>
                     <include>MASLParser.jar</include>
-                    <include>wasl_round_trip</include>
                     <include>wasldiff</include>
                     <include>xtuml2masl</include>
                   </includes>
@@ -158,7 +153,6 @@
                     <include>masl.exe</include>
                     <include>mcmc.exe</include>
                     <include>x2m.exe</include>
-                    <include>xtuml2wasl</include>
                     <include>xtumlmc_build.exe</include>
                     <include>xtumlmc_build.pl</include>
                   </includes>
