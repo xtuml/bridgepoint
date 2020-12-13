@@ -611,12 +611,6 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	}
 
 	@Override
-	protected IToolBarManager getToolBarManager(Composite parent) {
-		// TODO Auto-generated method stub
-		return super.getToolBarManager(parent);
-	}
-
-	@Override
 	protected void handleCompareInputChange() {
 		setLeftDirty(false);
 		setRightDirty(false);
