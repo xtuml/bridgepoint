@@ -66,6 +66,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ColorRegistry;
@@ -235,8 +237,29 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	@Override
 	protected void createToolItems(ToolBarManager toolBarManager) {
+		toolBarManager.remove("Swap");
 		CompareConfiguration cc = getCompareConfiguration();
 
+		// NOTE: we are removing the first item under the "modes" group
+		// this is not safe in the long run.  The item at this time is to
+		// swap left and right (or mirrored view).  This needs to be
+		// investigated to figure out how to support it in the graphical
+		// compare/merge
+		IContributionItem[] items = toolBarManager.getItems();
+		IContributionItem itemToRemove = null;
+		boolean next = false;
+		for(int i = 0; i < items.length; i++) {
+			if(next) {
+				itemToRemove = items[i];
+				break;
+			}
+			if(items[i].getId() != null && items[i].getId().equals("modes")) {
+				next = true;
+			}
+		}
+		if(itemToRemove != null) {
+			toolBarManager.remove(itemToRemove);
+		}
 		if (cc.isRightEditable()) {
 			final CopyDiffAction a = new CopyDiffAction(this, true);
 			leftTreeViewer
@@ -585,6 +608,12 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		}
 		refreshCenter();
+	}
+
+	@Override
+	protected IToolBarManager getToolBarManager(Composite parent) {
+		// TODO Auto-generated method stub
+		return super.getToolBarManager(parent);
 	}
 
 	@Override
@@ -960,10 +989,6 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		gc.setAntialias(SWT.ON);
 		List<TreeDifference> differences = differencer.getLeftDifferences(enableGraphics);
 		for (TreeDifference difference : differences) {
-			if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
-				// currently do not include graphical data
-				continue;
-			}
  			gc.setForeground(getColor(PlatformUI.getWorkbench().getDisplay(),
 					getStrokeColor(difference)));
 			TreeItem leftItem = leftTreeViewer.getItemForDifference(difference);
