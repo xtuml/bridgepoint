@@ -26,12 +26,16 @@ import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.xtuml.bp.model.compare.ComparePlugin;
@@ -97,10 +101,12 @@ public class ModelCompareMergePreferences extends PreferencePage implements IWor
 		});
 		enableAutoMergeButton.setText("Enable &automatic graphical merge");
 		enableAutoMergeButton.setLayoutData(new GridData());
+		setAutomergeHelp();
 		
 		ignoreGraphicalConflicts = new Button(optionGroup, SWT.CHECK | SWT.LEFT);
 		ignoreGraphicalConflicts.setText("&Ignore graphical conflicts");
 		ignoreGraphicalConflicts.setLayoutData(new GridData());
+		setIgnoreGraphicalConflictsHelp();
 
 		model = new ModelComparePreferenceModel();
 		model.getStore().loadModel(getPreferenceStore(), null, model);
@@ -110,6 +116,66 @@ public class ModelCompareMergePreferences extends PreferencePage implements IWor
 		return composite;
 	}
 
+	private void setAutomergeHelp() {
+		GridLayout layout = new GridLayout(1, true);
+		Composite composite = new Composite(optionGroup, SWT.None);
+		GridData helpTextData = new GridData(GridData.FILL_HORIZONTAL);
+		helpTextData.horizontalIndent = 15;
+		composite.setLayout(layout);
+		composite.setLayoutData(helpTextData);
+		Composite noteArea = new Composite(composite, SWT.None);
+		RowLayout noteLayout = new RowLayout();
+		noteLayout.wrap = true;
+		noteLayout.pack = true;
+		noteLayout.justify = false;
+		noteArea.setLayout(noteLayout);
+		Label note = new Label(noteArea, SWT.None);
+		note.setText("Note:");
+		applyBoldFont(note);
+		Label note2 = new Label(noteArea, SWT.None);
+		note2.setText("If enabled graphical changes will all be considered");
+		Label autoGraphMergeHelp2 = new Label(composite, SWT.None);
+		autoGraphMergeHelp2.setText("incoming without conflict. These changes will be copied");
+		Label autoGraphMergeHelp3 = new Label(composite, SWT.None);
+		autoGraphMergeHelp3.setText("from the remote branch automatically.");
+	}
+	
+	private void setIgnoreGraphicalConflictsHelp() {
+		GridLayout layout = new GridLayout(1, true);
+		Composite composite = new Composite(optionGroup, SWT.None);
+		GridData helpTextData = new GridData(GridData.FILL_HORIZONTAL);
+		helpTextData.horizontalIndent = 15;
+		composite.setLayout(layout);
+		composite.setLayoutData(helpTextData);
+		Composite noteArea = new Composite(composite, SWT.None);
+		RowLayout noteLayout = new RowLayout();
+		noteLayout.wrap = true;
+		noteLayout.pack = true;
+		noteLayout.justify = false;
+		noteArea.setLayout(noteLayout);
+		Label note = new Label(noteArea, SWT.None);
+		note.setText("Note:");
+		applyBoldFont(note);
+		Label autoGraphMergeHelp1 = new Label(noteArea, SWT.None);
+		autoGraphMergeHelp1.setText("If enabled graphical changes will always be considered incoming.");
+	}
+	
+	private void applyBoldFont(Label label) {
+		Font font = label.getFont();
+		if (font == null) {
+			return;
+		}
+		FontData[] fontDataArray = font.getFontData();
+		if (fontDataArray == null) {
+			return;
+		}
+		for (int index = 0; index < fontDataArray.length; index++) {
+			FontData fData = fontDataArray[index];
+			fData.setStyle(SWT.BOLD);
+		}
+		label.setFont(new Font(getFont().getDevice(), fontDataArray));
+	}
+	
 	public void init(IWorkbench workbench) {
 		setPreferenceStore(ComparePlugin.getDefault().getPreferenceStore());
 	}
