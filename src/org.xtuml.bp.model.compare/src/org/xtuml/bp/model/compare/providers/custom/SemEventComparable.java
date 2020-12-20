@@ -28,7 +28,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class SemEventComparable extends NonRootModelElementComparable {
 
 	public SemEventComparable(SemEvent_c realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

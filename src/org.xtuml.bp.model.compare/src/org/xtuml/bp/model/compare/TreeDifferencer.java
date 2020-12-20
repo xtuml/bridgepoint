@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.core.runtime.Assert;
@@ -14,6 +15,7 @@ import org.eclipse.jface.viewers.TreePath;
 
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
+import org.xtuml.bp.model.compare.preferences.ModelComparePreferenceStore;
 import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 
 public class TreeDifferencer extends Differencer {
@@ -218,9 +220,9 @@ public class TreeDifferencer extends Differencer {
 						if (ay && am) {
 							// empty
 						} else if (ay && !am) {
-							description= RIGHT | CHANGE;
-						} else if (!ay && am) {
 							description= LEFT | CHANGE;
+						} else if (!ay && am) {
+							description= RIGHT | CHANGE;
 						} else {
 							description= CONFLICTING | CHANGE;
 							if (elementsEqualIncludingValues(left, right, false, true))
@@ -247,10 +249,13 @@ public class TreeDifferencer extends Differencer {
 			}
 		}
 		int direction = description & DIRECTION_MASK;
-		if (direction == CONFLICTING
-				&& SynchronizedTreeViewer.differenceElementIsGraphical(left)) {
-			// consider all graphical changes as non-conflicting for now
-			return Differencer.RIGHT + Differencer.CHANGE;
+		// if preference indicates ignore graphical conflicts
+		if (ComparePlugin.getDefault().getPreferenceStore()
+				.getBoolean(ModelComparePreferenceStore.IGNORE_GRAPHICAL_CONFLICTS)) {
+			if (direction == CONFLICTING && SynchronizedTreeViewer.differenceElementIsGraphical(left)) {
+				// consider the graphical change as non-conflicting
+				return Differencer.RIGHT + Differencer.CHANGE;
+			}
 		}
 		return description;
 	}
@@ -354,11 +359,15 @@ public class TreeDifferencer extends Differencer {
 		}
 	}
 
-	public List<TreeDifference> getLeftDifferences() {
+	public List<TreeDifference> getLeftDifferences(boolean includeGraphics) {
 		List<TreeDifference> differences = new ArrayList<TreeDifference>();
 		Set<Object> keySet = leftDifferenceMap.keySet();
 		for (Object key : keySet) {
 			List<TreeDifference> set = leftDifferenceMap.get(key);
+			if (!includeGraphics) {
+				set = set.stream().filter(c -> !((ComparableTreeObject) c.getElement()).isGraphical())
+						.collect(Collectors.toList());
+			}
 			if(set != null) {
 				differences.addAll(set);
 			}
@@ -366,11 +375,15 @@ public class TreeDifferencer extends Differencer {
 		return differences;
 	}
 
-	public List<TreeDifference> getRightDifferences() {
+	public List<TreeDifference> getRightDifferences(boolean includeGraphics) {
 		List<TreeDifference> differences = new ArrayList<TreeDifference>();
 		Set<Object> keySet = rightDifferenceMap.keySet();
 		for (Object key : keySet) {
 			List<TreeDifference> set = rightDifferenceMap.get(key);
+			if (!includeGraphics) {
+				set = set.stream().filter(c -> !((ComparableTreeObject) c.getElement()).isGraphical())
+						.collect(Collectors.toList());
+			}
 			if(set != null) {
 				differences.addAll(set);
 			}
@@ -393,8 +406,8 @@ public class TreeDifferencer extends Differencer {
 		instances.remove(input);
 	}
 
-	public TreeDifference getNextDifference(TreeDifference difference) {
-		List<TreeDifference> leftDifferences = getLeftDifferences();
+	public TreeDifference getNextDifference(TreeDifference difference, boolean includeGraphics) {
+		List<TreeDifference> leftDifferences = getLeftDifferences(includeGraphics);
 		if (difference != null) {
 			int index = leftDifferences.indexOf(difference);
 			if (index + 1 == leftDifferences.size()) {
@@ -409,8 +422,8 @@ public class TreeDifferencer extends Differencer {
 		}
 	}
 
-	public TreeDifference getPreviousDifference(TreeDifference difference) {
-		List<TreeDifference> leftDifferences = getLeftDifferences();
+	public TreeDifference getPreviousDifference(TreeDifference difference, boolean includeGraphics) {
+		List<TreeDifference> leftDifferences = getLeftDifferences(includeGraphics);
 		if (difference != null) {
 			int index = leftDifferences.indexOf(difference);
 			if (index == 0) {
@@ -422,8 +435,8 @@ public class TreeDifferencer extends Differencer {
 		}
 	}
 
-	public TreeDifference getLastDifference() {
-		List<TreeDifference> leftDifferences = getLeftDifferences();
+	public TreeDifference getLastDifference(boolean includeGraphics) {
+		List<TreeDifference> leftDifferences = getLeftDifferences(includeGraphics);
 		if (leftDifferences.isEmpty()) {
 			return null;
 		}
