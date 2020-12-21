@@ -1,27 +1,26 @@
-= What's New in BridgePoint 6.19
+= What's New in BridgePoint 7.0.0
 
 == Release Highlights
-* Association editor
-* Engineering build 
+* Eclipse 2020 and Java 11 
+* ASL Support 
+* TODO: Other...
 
 '''
 
-=== Deployments
+=== Eclipse 2020 and Java 11
 
-=== Association Editor 
+The Eclipse version underneath BridgePoint has been upgraded in this release to
+Eclipse 2020-06.  This brings BridgePoint up to a modern version of Eclipse.  More
+information about Eclipse 2020-06 may be found link:https://www.eclipse.org/eclipseide/2020-06/[at this link].
 
-A new association editor is added to BridgePoint UML Editor.  It allows the user
-to populate the details of a relationship as the association is drawn on the
-canvas.  The editor supports automatic formalization as well as configuration
-of referentials, role phrases, conditionality, and multiplicity.
+Simultaneously, BridgePoint is upgraded to support and use Java 11.  BridgePoint now
+uses a Java 11 JRE/JDK from the system, it is no longer inside the BridgePoint installation. 
+These changes provide user experience and security improvements.
 
-.Association Editor
-image::assoc_editor.png[Association Editor, width=75%]
+=== ASL Support
 
-Workspace preferences are available to adjust default behavior of the new
-editor.
+Tools and UI have been built into BridgePoint that allow modelers to convert ASL models
+into xtUML that is editable inside BridgePoint.  These models can retain ASL as the action
+language instead of OAL. A new editor is added to support the ASL action language. 
 
-.Association Editor Preferences
-image::assoc_editor_prefs.png[Association Editor Prefs, width=75%]
-
-    
+TODO - other    
