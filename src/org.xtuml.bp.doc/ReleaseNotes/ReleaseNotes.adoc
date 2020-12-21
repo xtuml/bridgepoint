@@ -1,6 +1,6 @@
 = BridgePoint xtUML Release Notes
 
-Release 6.19
+Release 7.0.0
 
 === License
 BridgePoint is licensed under the link:http://www.apache.org/licenses/LICENSE-2.0[Apache 2.0 license]. 
@@ -12,8 +12,8 @@ BridgePoint is licensed under the link:http://www.apache.org/licenses/LICENSE-2.
 |=========================================================
 |Category | Requirement
 | Operating System      | Linux, MacOS, Windows 
-| *Eclipse              | Version 4.7 
-| *Java Virtual Machine | Version 8 
+| *Eclipse              | Version 2020-06 
+| *Java Virtual Machine | Version 11 
 |=========================================================
 
 *(supplied by installer, except JVM not supplied on MacOS)
@@ -35,7 +35,7 @@ create desktop shortcuts to start BridgePoint should set the shortcut to start `
 preferences at `xtUML > Action Language > Default Action Language Dialect`. The default is set to OAL.       
   
 === Interoperability with Previous Releases
-BridgePoint 6.18 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 7.0.0 is compatible with workspaces and projects created with prior versions back to 
 BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to 
 open the model in a prior version.   
 
@@ -48,9 +48,24 @@ link:https://support.onefact.net/projects/bridgepoint/roadmap?utf8=%E2%9C%93&com
 [width="80%",cols="3,10",options="header"]
 |=========================================================
 | Issue |  Subject 
-| link:https://support.onefact.net/issues/11704[11704] |  Remove un-needed if(!isInGenericPackage) block
+| link:https://support.onefact.net/issues/12057[12057] |  Improve Section 7 of Basic xtUML Modeling
+| link:https://support.onefact.net/issues/12053[12053] |  Function and operation numbering
+| link:https://support.onefact.net/issues/12052[12052] |  Collect data from all domains under a system
+| link:https://support.onefact.net/issues/12012[12012] |  Support Java 11 and Eclipse 2020-6
+| link:https://support.onefact.net/issues/12003[12003] |  Downgrade round trip in master.
+| link:https://support.onefact.net/issues/11999[11999] |  Add Docker container for BridgePoint on CentOS Linux
+| link:https://support.onefact.net/issues/11956[11956] |  Verifier adds when it should multiply.
+| link:https://support.onefact.net/issues/11949[11949] |  Verb phrases missing on all associations
+| link:https://support.onefact.net/issues/11945[11945] |  Support comments in MASL enums and structures.
+| link:https://support.onefact.net/issues/11930[11930] |  Allow permanent developer build configurations
+| link:https://support.onefact.net/issues/11910[11910] |  ASL Editor
+| link:https://support.onefact.net/issues/11719[11719] |  Create association fails if only two classes in the package
+| link:https://support.onefact.net/issues/11703[11703] |  Changing cardinality of formalized linked association with association editor causes unformalization followed by reformalization
+| link:https://support.onefact.net/issues/11702[11702] |  Retain model order of class attributes.
+| link:https://support.onefact.net/issues/11680[11680] |  Stop including the Java JRE (or JDK)
+| link:https://support.onefact.net/issues/9093[9093] |   Private typeref types exported wrong
 |=========================================================
-
+    
     
 === Known Issues and Feature Requests
 The BridgePoint support system is hosted at link:http://support.onefact.net[http://support.onefact.net]. Please 
