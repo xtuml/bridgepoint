@@ -1,15 +1,13 @@
 /*----------------------------------------------------------------------------
  * File:  MicrowaveOven_sys_types.h
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *
  *
  * System Name:  
  * System ID:    1
  * Model Compiler Product Information:
  * Product:  
- * Version:  
- * S/N:      
  * System default/colored values:
  * MaxStringLen:  32
  * MaxObjExtent:  0
@@ -17,11 +15,11 @@
  * MaxSelectExtent:  0
  * MaxSelfEvents:  0
  * MaxNonSelfEvents:  0
- * MaxTimers:  0
+ * MaxTimers:  21
  * MaxInterleavedBridges:  0
- * MaxInterleavedBridgeDataSize:  0
+ * MaxInterleavedBridgeDataSize:  8
  * CollectionsFlavor:  0
- * ForcePriorityEvents:  FALSE
+ * ForcePriorityEvents:  False
  * PEIClassCount:  0
  * PersistentClassCount:  0
  * PersistInstanceCacheDepth:  128
@@ -77,7 +75,6 @@ typedef unsigned char bool;
 #define FALSE ( (bool) 0 )
 #define TRUE  ( (bool) (!FALSE) )
 
-
 #define ESCHER_SYS_MAX_STRING_LEN 32
 #define ESCHER_PERSIST_INST_CACHE_DEPTH 128
 #define ESCHER_PERSIST_LINK_CACHE_DEPTH 128
@@ -90,7 +87,6 @@ typedef unsigned char bool;
 #define ESCHER_SYS_MAX_XTUML_TIMERS 21
 #define ESCHER_SYS_MAX_INTERLEAVED_BRIDGES 0
 #define ESCHER_SYS_MAX_INTERLEAVED_BRIDGE_DATA 8
-
 
 /*
  * Core types with byte widths defined for MISRA-C compliance.
@@ -107,15 +103,17 @@ typedef   signed short  s2_t;
 typedef unsigned short  u2_t;
 typedef   signed long   s4_t;
 typedef unsigned long   u4_t;
+typedef          double r_t;
 typedef          float  r4_t;
 typedef          double r8_t;
+typedef /*size_t*/ u4_t Escher_size_t;
 
 /*
  * These are some of the fundamental types used universally.
  */
 typedef u1_t Escher_DomainNumber_t;
 typedef u2_t Escher_ClassNumber_t;
-typedef u2_t Escher_ClassSize_t;
+typedef Escher_size_t Escher_ClassSize_t;
 typedef u2_t Escher_InstanceIndex_t;
 typedef u1_t Escher_StateNumber_t;
 typedef u1_t Escher_EventNumber_t;
@@ -132,7 +130,8 @@ typedef struct {
   Escher_StateNumber_t current_state;
 } Escher_InstanceBase_t;
 typedef Escher_InstanceBase_t * Escher_iHandle_t;
-typedef Escher_iHandle_t Escher_UniqueID_t;
+typedef i_t Escher_UniqueID_t;
+typedef void (*Escher_idf)( Escher_iHandle_t ); 
 
 /* Return code type for dispatch of a polymorphic event (see sys_events.h).  */
 typedef u1_t Escher_PolyEventRC_t;
@@ -208,7 +207,32 @@ typedef struct Escher_xtUMLevent_s Escher_xtUMLEvent_t;
 
 typedef unsigned long ETimer_time_t;
 
-typedef void Escher_Timer_t;
+/*---------------------------------------------------------------------
+ * Timer "Object" Structure Declaration
+ *    [next] is the mechanism used to collect and sequence timers.
+ *    Timer instances are strung together in an active (animate)
+ *    list and an inactive (inanimate) list.  The next pointer
+ *    provides the "hole for the beads".
+ *    [expiration] is the system clock time at which this
+ *    timer will pop.
+ *    [recurrence] is the repeating expiration duration
+ *    [event] is the handle of the event that the timer will
+ *    generate upon expiration.
+ *    [accesskey] is the unique serial number for this timer allocation
+ *-------------------------------------------------------------------*/
+typedef struct ETimer_s ETimer_t;
+struct ETimer_s {
+  ETimer_t * next;
+  ETimer_time_t expiration;
+  ETimer_time_t recurrence;
+  Escher_xtUMLEvent_t * event;
+  u4_t accesskey;
+};
+
+typedef struct {
+  ETimer_t * timer;
+  u4_t key;
+} Escher_Timer_t;
 
 /*
  * Event Macros
@@ -261,15 +285,15 @@ typedef _reentrant void (*DomainDispatcher_t)( Escher_xtUMLEvent_t * );
 
 
 
-extern Escher_xtUMLEvent_t * Escher_AllocatextUMLEvent( void );
-extern Escher_xtUMLEvent_t * Escher_NewxtUMLEvent( const void * const, const Escher_xtUMLEventConstant_t * const );
-extern Escher_xtUMLEvent_t * Escher_ModifyxtUMLEvent( Escher_xtUMLEvent_t *, const Escher_xtUMLEventConstant_t * const );
-extern void Escher_DeletextUMLEvent( Escher_xtUMLEvent_t * );
-extern void InitializeOoaEventPool( void );
-extern void Escher_xtUML_run( void );
-extern void * Escher_GetSelf( void );
-extern void Escher_SendEvent( Escher_xtUMLEvent_t * );
-extern void Escher_SendSelfEvent( Escher_xtUMLEvent_t * );
+Escher_xtUMLEvent_t * Escher_AllocatextUMLEvent( void );
+Escher_xtUMLEvent_t * Escher_NewxtUMLEvent( const void * const, const Escher_xtUMLEventConstant_t * const );
+Escher_xtUMLEvent_t * Escher_ModifyxtUMLEvent( Escher_xtUMLEvent_t *, const Escher_xtUMLEventConstant_t * const );
+void Escher_DeletextUMLEvent( Escher_xtUMLEvent_t * );
+void InitializeOoaEventPool( void );
+void Escher_xtUML_run( void );
+void * Escher_GetSelf( void );
+void Escher_SendEvent( Escher_xtUMLEvent_t * );
+void Escher_SendSelfEvent( Escher_xtUMLEvent_t * );
 
 /*
  * Delcarations for multi-tasking/threading services.
@@ -287,13 +311,13 @@ extern void Escher_SendSelfEvent( Escher_xtUMLEvent_t * );
 #define SEMAPHORE_FLAVOR_ILB       6
 #define SEMAPHORE_FLAVOR_MAX       7
 
-extern void Escher_InitializeThreading( void );
-extern void Escher_thread_create( void *(f)(void *), const u1_t );
-extern void Escher_mutex_lock( const u1_t );
-extern void Escher_mutex_unlock( const u1_t );
-extern void Escher_nonbusy_wait( const u1_t );
-extern void Escher_nonbusy_wake( const u1_t );
-extern void Escher_thread_shutdown( void );
+void Escher_InitializeThreading( void );
+void Escher_thread_create( void *(f)(void *), const u1_t );
+void Escher_mutex_lock( const u1_t );
+void Escher_mutex_unlock( const u1_t );
+void Escher_nonbusy_wait( const u1_t );
+void Escher_nonbusy_wake( const u1_t );
+void Escher_thread_shutdown( void );
 
 #ifdef NOMUTEX_DEBUG
 #define pthread_mutex_lock( X ) 0
@@ -307,8 +331,8 @@ extern void Escher_thread_shutdown( void );
 #define SYSTEM_DOMAIN_COUNT 1
 /* xtUML domain identification numbers */
 #define MicrowaveOven_DOMAIN_ID 0
+#define MicrowaveOven_DOMAIN_ID_text "MicrowaveOven"
 #include "MicrowaveOven_classes.h"
-
 /*----------------------------------------------------------------------------
  *
  * Run time instrumentation and tracing declarations are defined here.
@@ -331,7 +355,7 @@ extern void Escher_thread_shutdown( void );
 /* #define XTUML_SOURCE_PROLOGUE */
 
 #ifndef XTUML_SOURCE_PROLOGUE
-#define XTUML_SOURCE_PROLOGUE printf( "%s #%5u: ", __FILE__, __LINE__ ); XTUML_TRACE_FLUSH( 0 )
+#define XTUML_SOURCE_PROLOGUE printf( "%s #%6u: ", __FILE__, __LINE__ ); XTUML_TRACE_FLUSH( 0 )
 #endif
 
 /* To suppress state transition start tracing, uncomment the following macro */
@@ -372,24 +396,19 @@ extern void Escher_thread_shutdown( void );
 #endif
 
 /*
- * Transformer invocation start tracing:
+ * Component message start tracing:
  */
-/* To suppress transformer start tracing, uncomment the following macro */
-/* #define XTUML_TRANSFORMER_START_TRACE( obj_kl, tfr_name ) */
+/* To suppress component message start tracing, uncomment the following macro */
+/* #define COMP_MSG_START_TRACE( arg_format, component_number, port_number, message_number, args... ) */
 
-#ifndef XTUML_TRANSFORMER_START_TRACE
-#define XTUML_TRANSFORMER_START_TRACE( obj_kl, tfr_name ) do {   XTUML_SOURCE_PROLOGUE;   printf( "Invocation started: '%s' Transformer '%s'\n", obj_kl, tfr_name );   XTUML_TRACE_FLUSH( 0 ); } while (0)
+#ifndef COMP_MSG_START_TRACE
+#define COMP_MSG_START_TRACE( arg_format, component_number, port_number, message_number, args... ) do {   XTUML_SOURCE_PROLOGUE;   printf( "component %d port %d message %d " arg_format "\n", component_number, port_number, message_number, ## args );   XTUML_TRACE_FLUSH( 0 ); } while (0)
 #endif
 
 /*
- * Transformer invocation complete tracing:
+ * Component message end tracing:
  */
-/* To suppress transformer end tracing, uncomment the following macro */
-/* #define XTUML_TRANSFORMER_END_TRACE( obj_kl, tfr_name ) */
 
-#ifndef XTUML_TRANSFORMER_END_TRACE
-#define XTUML_TRANSFORMER_END_TRACE( obj_kl, tfr_name ) do {   XTUML_SOURCE_PROLOGUE;   printf( "Invocation complete: '%s' Transformer '%s'\n", obj_kl, tfr_name );   XTUML_TRACE_FLUSH( 0 ); } while (0)
-#endif
 
 /*
  * Object Action Language (OAL) statement level tracing:
@@ -407,6 +426,8 @@ extern void Escher_thread_shutdown( void );
 #ifndef XTUML_EMPTY_HANDLE_TRACE
 #define XTUML_EMPTY_HANDLE_TRACE( object_keyletters, s ) do { UserEmptyHandleDetectedCallout( object_keyletters, s ); } while (0)
 #endif
+
+void * xtUML_detect_empty_handle( void *, const char *, const char * );
 
 /*
  * Declare state information structure.

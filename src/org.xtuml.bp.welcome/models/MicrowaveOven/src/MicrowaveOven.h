@@ -3,7 +3,7 @@
  *
  * UML Component (Module) Declaration (Operations and Signals)
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_H
@@ -31,9 +31,9 @@ Bridges to other Domains:
 * To Timer domain
 
 
-
 */
 
+#include "MicrowaveOven_sys_types.h"
 
 
 #ifdef	__cplusplus
