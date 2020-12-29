@@ -4,7 +4,7 @@
  * Class:       Door  (MO_D)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_D_CLASS_H
@@ -23,9 +23,8 @@ struct MicrowaveOven_MO_D {
   /* application analysis class attributes */
   Escher_UniqueID_t DoorID;  /* * DoorID */
   bool is_secure;  /* - is_secure */
-
   /* relationship storage */
-  MicrowaveOven_MO_O * MO_O_R4;
+  MicrowaveOven_MO_O * MO_O_R4_provides_access_to;
 };
 
 
@@ -41,7 +40,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Devent1;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Devent1c;
-
 /*
  * instance event:  MO_D2:'close'
  */
@@ -50,15 +48,13 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Devent2;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Devent2c;
-
 /*
  * union of events targeted towards 'MO_D' state machine
  */
 typedef union {
-  MicrowaveOven_MO_Devent1 mo_d11;  
-  MicrowaveOven_MO_Devent2 mo_d22;  
+  MicrowaveOven_MO_Devent1 mo_d1_1;  
+  MicrowaveOven_MO_Devent2 mo_d2_2;  
 } MicrowaveOven_MO_D_Events_u;
-
 /*
  * enumeration of state model states for class
  */
@@ -76,5 +72,3 @@ extern void MicrowaveOven_MO_D_Dispatch( Escher_xtUMLEvent_t * );
 #endif
 
 #endif  /* MICROWAVEOVEN_MO_D_CLASS_H */
-
-

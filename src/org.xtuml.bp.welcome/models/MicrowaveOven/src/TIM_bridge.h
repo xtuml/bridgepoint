@@ -10,7 +10,7 @@
  * indeterminate) delay between the expiration of a timer and the delivery
  * of the associated event to the receiving state machine.
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef TIM_BRIDGE_H
@@ -18,6 +18,7 @@
 #ifdef	__cplusplus
 extern	"C"	{
 #endif
+
 
 /*
  * Bridge method to create an analysis specific date instance.
@@ -51,7 +52,7 @@ Escher_TimeStamp_t TIM_current_clock( void );
  * Note that upon expiration the timer will be (automatically) deleted.
  * Returns the instance handle of the non-recurring timer.
  */
-Escher_Timer_t * TIM_timer_start( Escher_xtUMLEvent_t *, const Escher_uSec_t );
+Escher_Timer_t TIM_timer_start( Escher_xtUMLEvent_t *, const Escher_uSec_t );
 
 /*
  * Starts a (recurring) timer to expire in <expression> microseconds,
@@ -60,7 +61,7 @@ Escher_Timer_t * TIM_timer_start( Escher_xtUMLEvent_t *, const Escher_uSec_t );
  * <expression> microseconds and (re)generate the event <event>.
  * Returns the instance handle of the recurring timer.
  */
-Escher_Timer_t * TIM_timer_start_recurring( Escher_xtUMLEvent_t *, const Escher_uSec_t );
+Escher_Timer_t TIM_timer_start_recurring( Escher_xtUMLEvent_t *, const Escher_uSec_t );
 
 /*
  * Returns the time remaining (in microseconds) before the timer
@@ -70,7 +71,7 @@ Escher_Timer_t * TIM_timer_start_recurring( Escher_xtUMLEvent_t *, const Escher_
  * transit (e.g., was generated) from a previous <timer> expiration.
  * Respectable analysis must account for this "ships passing" possibility.
  */
-Escher_uSec_t TIM_timer_remaining_time( const Escher_Timer_t * const );
+Escher_uSec_t TIM_timer_remaining_time( const Escher_Timer_t );
 
 /*
  * This method attempts to set an existing timer handle <timer> to expire
@@ -82,7 +83,7 @@ Escher_uSec_t TIM_timer_remaining_time( const Escher_Timer_t * const );
  * Respectable analysis must account for this "ships passing" possibility.
  */
 bool TIM_timer_reset_time( const Escher_uSec_t,
-                                  Escher_Timer_t * const );
+                                  const Escher_Timer_t );
 
 /*
  * This method attempts to add <expression> microseconds to the
@@ -94,7 +95,7 @@ bool TIM_timer_reset_time( const Escher_uSec_t,
  * Respectable analysis must account for this "ships passing" possibility.
  */
 bool TIM_timer_add_time( const Escher_uSec_t,
-                                Escher_Timer_t * const );
+                                const Escher_Timer_t );
 
 /*
  * This method attempts to cancel and delete the timer handle specified
@@ -105,7 +106,7 @@ bool TIM_timer_add_time( const Escher_uSec_t,
  * generated) from a previous expiration prior to this method invocation.
  * Respectable analysis must account for this "ships passing" possibility.
  */
-bool TIM_timer_cancel( Escher_Timer_t * const );
+bool TIM_timer_cancel( const Escher_Timer_t );
 
 /*
  * This provides a periodic tick to give the timer subsystem the

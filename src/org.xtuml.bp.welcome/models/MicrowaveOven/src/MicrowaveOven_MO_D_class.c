@@ -4,12 +4,12 @@
  * Class:       Door  (MO_D)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"
-#include "TIM_bridge.h"
 #include "MicrowaveOven_ARCH_bridge.h"
+#include "TIM_bridge.h"
 #include "MicrowaveOven_classes.h"
 
 
@@ -40,14 +40,13 @@ static void MicrowaveOven_MO_D_act1( MicrowaveOven_MO_D *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_D_act1( MicrowaveOven_MO_D * self, const Escher_xtUMLEvent_t * const event )
 {
-  MicrowaveOven_MO_O * oven = 0; /* oven (MO_O) */
- 
+  MicrowaveOven_MO_O * oven=0;
   /* ASSIGN self.is_secure = FALSE */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.is_secure = FALSE" );
-  self->is_secure = FALSE;
+  ((MicrowaveOven_MO_D *)xtUML_detect_empty_handle( self, "MO_D", "self.is_secure" ))->is_secure = FALSE;
   /* SELECT one oven RELATED BY self->MO_O[R4] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one oven RELATED BY self->MO_O[R4]" );
-  oven = self->MO_O_R4;
+  oven = ( 0 != self ) ? self->MO_O_R4_provides_access_to : 0;
   /* GENERATE MO_O4:cancel_cooking() TO oven */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_O4:cancel_cooking() TO oven" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( oven, &MicrowaveOven_MO_Oevent4c );
@@ -64,17 +63,15 @@ MicrowaveOven_MO_D_act2( MicrowaveOven_MO_D * self, const Escher_xtUMLEvent_t * 
 {
   /* ASSIGN self.is_secure = TRUE */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.is_secure = TRUE" );
-  self->is_secure = TRUE;
+  ((MicrowaveOven_MO_D *)xtUML_detect_empty_handle( self, "MO_D", "self.is_secure" ))->is_secure = TRUE;
 }
 
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Devent1c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_D_CLASS_NUMBER, MICROWAVEOVEN_MO_DEVENT1NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Devent2c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_D_CLASS_NUMBER, MICROWAVEOVEN_MO_DEVENT2NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 
 
 /*
@@ -122,7 +119,6 @@ MicrowaveOven_MO_D_Dispatch( Escher_xtUMLEvent_t * event )
   Escher_EventNumber_t event_number = GetOoaEventNumber( event );
   Escher_StateNumber_t current_state;
   Escher_StateNumber_t next_state;
-  
   if ( 0 != instance ) {
     current_state = instance->current_state;
     if ( current_state > 2 ) {
@@ -132,10 +128,10 @@ MicrowaveOven_MO_D_Dispatch( Escher_xtUMLEvent_t * event )
       next_state = MicrowaveOven_MO_D_StateEventMatrix[ current_state ][ event_number ];
       if ( next_state <= 2 ) {
         STATE_TXN_START_TRACE( "MO_D", current_state, state_name_strings[ current_state ] );
-        /* Execute the state action and update the current state.  */
+        /* Update the current state and execute the state action.  */
+        instance->current_state = next_state;
         ( *MicrowaveOven_MO_D_acts[ next_state ] )( instance, event );
         STATE_TXN_END_TRACE( "MO_D", next_state, state_name_strings[ next_state ] );
-        instance->current_state = next_state;
       } else if ( next_state == EVENT_IS_IGNORED ) {
           /* event ignored */
           STATE_TXN_IG_TRACE( "MO_D", current_state );
@@ -145,5 +141,4 @@ MicrowaveOven_MO_D_Dispatch( Escher_xtUMLEvent_t * event )
     }
   }
 }
-
 
