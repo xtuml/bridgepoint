@@ -4,7 +4,7 @@
  * Class:       Oven  (MO_O)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_O_CLASS_H
@@ -27,28 +27,26 @@ struct MicrowaveOven_MO_O {
   Escher_UniqueID_t BeeperID;  /* - BeeperID (R3) */
   Escher_UniqueID_t DoorID;  /* - DoorID (R4) */
   Escher_UniqueID_t TurntableID;  /* - TurntableID (R5) */
-  Escher_Timer_t * oven_timer;  /* - oven_timer */
+  Escher_Timer_t oven_timer;  /* - oven_timer */
   i_t remaining_cooking_time;  /* - remaining_cooking_time */
-
   /* relationship storage */
-  MicrowaveOven_MO_MT * MO_MT_R1;
-  MicrowaveOven_MO_IL * MO_IL_R2;
-  MicrowaveOven_MO_B * MO_B_R3;
-  MicrowaveOven_MO_D * MO_D_R4;
-  MicrowaveOven_MO_TRN * MO_TRN_R5;
+  MicrowaveOven_MO_MT * MO_MT_R1_houses;
+  MicrowaveOven_MO_IL * MO_IL_R2_is_illuminated_by;
+  MicrowaveOven_MO_B * MO_B_R3_features;
+  MicrowaveOven_MO_D * MO_D_R4_is_accessed_via;
+  MicrowaveOven_MO_TRN * MO_TRN_R5_has;
 };
 
-extern void MicrowaveOven_MO_O_R1_Link( MicrowaveOven_MO_MT *, MicrowaveOven_MO_O * );
+void MicrowaveOven_MO_O_R1_Link_is_housed_in( MicrowaveOven_MO_MT *, MicrowaveOven_MO_O * );
 /* Note:  MO_MT<-R1->MO_O unrelate accessor not needed */
-extern void MicrowaveOven_MO_O_R2_Link( MicrowaveOven_MO_IL *, MicrowaveOven_MO_O * );
+void MicrowaveOven_MO_O_R2_Link_illuminates( MicrowaveOven_MO_IL *, MicrowaveOven_MO_O * );
 /* Note:  MO_IL<-R2->MO_O unrelate accessor not needed */
-extern void MicrowaveOven_MO_O_R3_Link( MicrowaveOven_MO_B *, MicrowaveOven_MO_O * );
+void MicrowaveOven_MO_O_R3_Link_is_located_in( MicrowaveOven_MO_B *, MicrowaveOven_MO_O * );
 /* Note:  MO_B<-R3->MO_O unrelate accessor not needed */
-extern void MicrowaveOven_MO_O_R4_Link( MicrowaveOven_MO_D *, MicrowaveOven_MO_O * );
+void MicrowaveOven_MO_O_R4_Link_provides_access_to( MicrowaveOven_MO_D *, MicrowaveOven_MO_O * );
 /* Note:  MO_D<-R4->MO_O unrelate accessor not needed */
-extern void MicrowaveOven_MO_O_R5_Link( MicrowaveOven_MO_TRN *, MicrowaveOven_MO_O * );
+void MicrowaveOven_MO_O_R5_Link_occupies( MicrowaveOven_MO_TRN *, MicrowaveOven_MO_O * );
 /* Note:  MO_TRN<-R5->MO_O unrelate accessor not needed */
-
 
 #define MicrowaveOven_MO_O_MAX_EXTENT_SIZE 10
 extern Escher_Extent_t pG_MicrowaveOven_MO_O_extent;
@@ -57,7 +55,6 @@ extern Escher_Extent_t pG_MicrowaveOven_MO_O_extent;
  * instance event:  MO_O1:'initialise'
  * warning:  Event is not used in application - no code generated.
  */
-
 /*
  * instance event:  MO_O3:'start_cooking'
  */
@@ -66,7 +63,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Oevent3;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent3c;
-
 /*
  * instance event:  MO_O4:'cancel_cooking'
  */
@@ -75,12 +71,10 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Oevent4;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent4c;
-
 /*
  * instance event:  MO_O2:'oven_initialised'
  * warning:  Event is not used in application - no code generated.
  */
-
 /*
  * instance event:  MO_O5:'cooking_period_over'
  */
@@ -89,7 +83,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Oevent5;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent5c;
-
 /*
  * instance event:  MO_O6:'beeping_over'
  */
@@ -98,7 +91,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Oevent6;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent6c;
-
 /*
  * instance event:  MO_O7:'oven_safe'
  */
@@ -107,7 +99,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Oevent7;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent7c;
-
 /*
  * instance event:  MO_O8:'cooking_period'
  */
@@ -116,24 +107,21 @@ typedef struct {
   i_t p_period; /* period */
 } MicrowaveOven_MO_Oevent8;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent8c;
-
 /*
  * instance event:  MO_O9:'Unassigned Parameter Placeholder'
  * warning:  Event is not used in application - no code generated.
  */
-
 /*
  * union of events targeted towards 'MO_O' state machine
  */
 typedef union {
-  MicrowaveOven_MO_Oevent3 mo_o31;  
-  MicrowaveOven_MO_Oevent4 mo_o42;  
-  MicrowaveOven_MO_Oevent5 mo_o53;  
-  MicrowaveOven_MO_Oevent6 mo_o64;  
-  MicrowaveOven_MO_Oevent7 mo_o75;  
-  MicrowaveOven_MO_Oevent8 mo_o86;  
+  MicrowaveOven_MO_Oevent3 mo_o3_1;  
+  MicrowaveOven_MO_Oevent4 mo_o4_2;  
+  MicrowaveOven_MO_Oevent5 mo_o5_3;  
+  MicrowaveOven_MO_Oevent6 mo_o6_4;  
+  MicrowaveOven_MO_Oevent7 mo_o7_5;  
+  MicrowaveOven_MO_Oevent8 mo_o8_6;  
 } MicrowaveOven_MO_O_Events_u;
-
 /*
  * enumeration of state model states for class
  */
@@ -159,5 +147,3 @@ extern void MicrowaveOven_MO_O_Dispatch( Escher_xtUMLEvent_t * );
 #endif
 
 #endif  /* MICROWAVEOVEN_MO_O_CLASS_H */
-
-

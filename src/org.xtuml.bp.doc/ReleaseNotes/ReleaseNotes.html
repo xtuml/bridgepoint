@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.7.1">
+<meta name="generator" content="Asciidoctor 2.0.10">
 <title>BridgePoint xtUML Release Notes</title>
 <link rel="stylesheet" href="./../asciidoctor-default.css">
 </head>
@@ -13,13 +13,9 @@
 <h1>BridgePoint xtUML Release Notes</h1>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_release_7_0">Release 7.0</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Release 6.19</p>
-</div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="_license">License</h3>
 <div class="paragraph">
@@ -45,17 +41,17 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Linux, MacOS, Windows</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">*Eclipse</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version 4.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Virtual Machine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version 11</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">*Java Virtual Machine</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version 8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*Eclipse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version 2020-06</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>*(supplied by installer, except JVM not supplied on MacOS)</p>
+<p>*(supplied with installation)</p>
 </div>
 </div>
 <div class="sect2">
@@ -66,12 +62,13 @@
 <p>A summary of the release highlights and new functionality is available on the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a> page.</p>
 </li>
 <li>
-<p><span class="red"><strong>IMPORTANT:</strong></span> Project builders for model translation and MASL export have changed
-significantly in this release.  See the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a> page for
-details about required project changes to work with the new build tools.</p>
+<p><span class="red"><strong>IMPORTANT:</strong></span> BridgePoint 7.0 requires Java 11.  If Java 11 is not the
+system default JRE, then the user must configure BridgePoint to invoke Java 11
+explicitly.  See more information in the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a>
+including a FAQ which gives steps to configure BridgePoint for Java.</p>
 </li>
 <li>
-<p>BridgePoint is completely open source software. Please see <a href="http://xtuml.org">xtuml.org</a> and <a href="http://onefact.net">onefact.net</a>
+<p>BridgePoint is completely open source software. Please see <a href="https://xtuml.org">xtuml.org</a> and <a href="https://onefact.net">onefact.net</a>
 for ongoing development and support of BridgePoint.</p>
 </li>
 <li>
@@ -79,7 +76,7 @@ for ongoing development and support of BridgePoint.</p>
 create desktop shortcuts to start BridgePoint should set the shortcut to start <code>&lt;install dir&gt;/bridgepoint</code>.</p>
 </li>
 <li>
-<p>BridgePoint supports two different action languages: OAL and MASL.  The default is set via workspace
+<p>BridgePoint supports multiple action languages.  The default is set via workspace
 preferences at <code>xtUML &gt; Action Language &gt; Default Action Language Dialect</code>. The default is set to OAL.</p>
 </li>
 </ul>
@@ -88,8 +85,8 @@ preferences at <code>xtUML &gt; Action Language &gt; Default Action Language Dia
 <div class="sect2">
 <h3 id="_interoperability_with_previous_releases">Interoperability with Previous Releases</h3>
 <div class="paragraph">
-<p>BridgePoint 6.18 is compatible with workspaces and projects created with prior versions back to
-BridgePoint 5.0.  However, after opening the model in this version a modeler will not be able to
+<p>BridgePoint 7.0 is compatible with workspaces and projects created with prior versions back to
+BridgePoint 6.0.  However, after opening the model in this version a modeler will not be able to
 open the model in a prior version.</p>
 </div>
 </div>
@@ -115,8 +112,60 @@ open the model in a prior version.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11704">11704</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Remove un-needed if(!isInGenericPackage) block</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12052">12052</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Collect data from all domains under a system</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12012">12012</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support Java 11 and Eclipse 2020-6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12003">12003</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Downgrade round trip in master.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11999">11999</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add Docker container for BridgePoint on CentOS Linux</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11956">11956</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifier adds when it should multiply.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11949">11949</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verb phrases missing on all associations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11945">11945</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support comments in MASL enums and structures.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11930">11930</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allow permanent developer build configurations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11910">11910</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASL Editor</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11719">11719</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create association fails if only two classes in the package</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11703">11703</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changing cardinality of formalized linked association with association editor causes unformalization followed by reformalization</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11702">11702</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retain model order of class attributes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11680">11680</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stop including the Java JRE (or JDK)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/9093">9093</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private typeref types exported wrong</p></td>
 </tr>
 </tbody>
 </table>
@@ -124,9 +173,11 @@ open the model in a prior version.</p>
 <div class="sect2">
 <h3 id="_known_issues_and_feature_requests">Known Issues and Feature Requests</h3>
 <div class="paragraph">
-<p>The BridgePoint support system is hosted at <a href="http://support.onefact.net">http://support.onefact.net</a>. Please
+<p>The BridgePoint support system is hosted at <a href="https://support.onefact.net">support.onefact.net</a>. Please
 check here for known issues and to submit bug reports and requests for new features. This
 issue tracker contains <a href="https://support.onefact.net/projects/bridgepoint/issues?utf8=%E2%9C%93&amp;set_filter=1&amp;f%5B%5D=status_id&amp;op%5Bstatus_id%5D=%3D&amp;v%5Bstatus_id%5D%5B%5D=1&amp;v%5Bstatus_id%5D%5B%5D=7&amp;v%5Bstatus_id%5D%5B%5D=2&amp;f%5B%5D=&amp;c%5B%5D=project&amp;c%5B%5D=status&amp;c%5B%5D=subject&amp;c%5B%5D=fixed_version&amp;c%5B%5D=due_date&amp;group_by=&amp;t%5B%5D=">all open bugs and feature requests</a>.</p>
+</div>
+</div>
 </div>
 </div>
 </div>

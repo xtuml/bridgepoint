@@ -4,12 +4,12 @@
  * Class:       Oven  (MO_O)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"
-#include "TIM_bridge.h"
 #include "MicrowaveOven_ARCH_bridge.h"
+#include "TIM_bridge.h"
 #include "MicrowaveOven_classes.h"
 
 
@@ -17,14 +17,14 @@
  * RELATE MO_MT TO MO_O ACROSS R1
  */
 void
-MicrowaveOven_MO_O_R1_Link( MicrowaveOven_MO_MT * part, MicrowaveOven_MO_O * form )
+MicrowaveOven_MO_O_R1_Link_is_housed_in( MicrowaveOven_MO_MT * part, MicrowaveOven_MO_O * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R1_Link" );
+    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R1_Link_is_housed_in" );
     return;
   }
   form->TubeID = part->TubeID;
-  form->MO_MT_R1 = part;
+  form->MO_MT_R1_houses = part;
   /* Note:  MO_MT->MO_O[R1] not navigated */
 }
 
@@ -32,14 +32,14 @@ MicrowaveOven_MO_O_R1_Link( MicrowaveOven_MO_MT * part, MicrowaveOven_MO_O * for
  * RELATE MO_IL TO MO_O ACROSS R2
  */
 void
-MicrowaveOven_MO_O_R2_Link( MicrowaveOven_MO_IL * part, MicrowaveOven_MO_O * form )
+MicrowaveOven_MO_O_R2_Link_illuminates( MicrowaveOven_MO_IL * part, MicrowaveOven_MO_O * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R2_Link" );
+    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R2_Link_illuminates" );
     return;
   }
   form->LightID = part->LightID;
-  form->MO_IL_R2 = part;
+  form->MO_IL_R2_is_illuminated_by = part;
   /* Note:  MO_IL->MO_O[R2] not navigated */
 }
 
@@ -47,47 +47,46 @@ MicrowaveOven_MO_O_R2_Link( MicrowaveOven_MO_IL * part, MicrowaveOven_MO_O * for
  * RELATE MO_B TO MO_O ACROSS R3
  */
 void
-MicrowaveOven_MO_O_R3_Link( MicrowaveOven_MO_B * part, MicrowaveOven_MO_O * form )
+MicrowaveOven_MO_O_R3_Link_is_located_in( MicrowaveOven_MO_B * part, MicrowaveOven_MO_O * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R3_Link" );
+    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R3_Link_is_located_in" );
     return;
   }
   form->BeeperID = part->BeeperID;
-  form->MO_B_R3 = part;
-  part->MO_O_R3 = form;
+  form->MO_B_R3_features = part;
+  part->MO_O_R3_is_located_in = form;
 }
 
 /*
  * RELATE MO_D TO MO_O ACROSS R4
  */
 void
-MicrowaveOven_MO_O_R4_Link( MicrowaveOven_MO_D * part, MicrowaveOven_MO_O * form )
+MicrowaveOven_MO_O_R4_Link_provides_access_to( MicrowaveOven_MO_D * part, MicrowaveOven_MO_O * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R4_Link" );
+    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R4_Link_provides_access_to" );
     return;
   }
   form->DoorID = part->DoorID;
-  form->MO_D_R4 = part;
-  part->MO_O_R4 = form;
+  form->MO_D_R4_is_accessed_via = part;
+  part->MO_O_R4_provides_access_to = form;
 }
 
 /*
  * RELATE MO_TRN TO MO_O ACROSS R5
  */
 void
-MicrowaveOven_MO_O_R5_Link( MicrowaveOven_MO_TRN * part, MicrowaveOven_MO_O * form )
+MicrowaveOven_MO_O_R5_Link_occupies( MicrowaveOven_MO_TRN * part, MicrowaveOven_MO_O * form )
 {
   if ( (part == 0) || (form == 0) ) {
-    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R5_Link" );
+    XTUML_EMPTY_HANDLE_TRACE( "MO_O", "MicrowaveOven_MO_O_R5_Link_occupies" );
     return;
   }
   form->TurntableID = part->TurntableID;
-  form->MO_TRN_R5 = part;
+  form->MO_TRN_R5_has = part;
   /* Note:  MO_TRN->MO_O[R5] not navigated */
 }
-
 /*
  * Statically allocate space for the instance population for this class.
  * Allocate space for the class instance and its attribute values.
@@ -115,14 +114,13 @@ static void MicrowaveOven_MO_O_act1( MicrowaveOven_MO_O *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_O_act1( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * const event )
 {
-  MicrowaveOven_MO_B * beeper = 0; /* beeper (MO_B) */
- 
+  MicrowaveOven_MO_B * beeper=0;
   /* ASSIGN self.remaining_cooking_time = 0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.remaining_cooking_time = 0" );
-  self->remaining_cooking_time = 0;
+  ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.remaining_cooking_time" ))->remaining_cooking_time = 0;
   /* SELECT one beeper RELATED BY self->MO_B[R3] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one beeper RELATED BY self->MO_B[R3]" );
-  beeper = self->MO_B_R3;
+  beeper = ( 0 != self ) ? self->MO_B_R3_features : 0;
   /* GENERATE MO_B4:stop_beeping() TO beeper */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_B4:stop_beeping() TO beeper" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( beeper, &MicrowaveOven_MO_Bevent4c );
@@ -137,17 +135,16 @@ static void MicrowaveOven_MO_O_act2( MicrowaveOven_MO_O *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_O_act2( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * const event )
 {
-  /* IF ( ( self.remaining_cooking_time != 0 ) ) */
-  XTUML_OAL_STMT_TRACE( 1, "IF ( ( self.remaining_cooking_time != 0 ) )" );
-  if ( ( self->remaining_cooking_time != 0 ) ) {
-    MicrowaveOven_MO_D * door = 0; /* door (MO_D) */
- 
+  /* IF ( self.remaining_cooking_time != 0 ) */
+  XTUML_OAL_STMT_TRACE( 1, "IF ( self.remaining_cooking_time != 0 )" );
+  if ( ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.remaining_cooking_time" ))->remaining_cooking_time != 0 ) {
+    MicrowaveOven_MO_D * door=0;
     /* SELECT one door RELATED BY self->MO_D[R4] */
     XTUML_OAL_STMT_TRACE( 2, "SELECT one door RELATED BY self->MO_D[R4]" );
-    door = self->MO_D_R4;
-    /* IF ( ( door.is_secure == TRUE ) ) */
-    XTUML_OAL_STMT_TRACE( 2, "IF ( ( door.is_secure == TRUE ) )" );
-    if ( ( door->is_secure == TRUE ) ) {
+    door = ( 0 != self ) ? self->MO_D_R4_is_accessed_via : 0;
+    /* IF ( door.is_secure == TRUE ) */
+    XTUML_OAL_STMT_TRACE( 2, "IF ( door.is_secure == TRUE )" );
+    if ( ((MicrowaveOven_MO_D *)xtUML_detect_empty_handle( door, "MO_D", "door.is_secure" ))->is_secure == TRUE ) {
       /* GENERATE MO_O7:oven_safe() TO self */
       XTUML_OAL_STMT_TRACE( 3, "GENERATE MO_O7:oven_safe() TO self" );
       { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( self, &MicrowaveOven_MO_Oevent7c );
@@ -164,19 +161,16 @@ static void MicrowaveOven_MO_O_act3( MicrowaveOven_MO_O *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_O_act3( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * const event )
 {
-  Escher_xtUMLEvent_t * cooking_over;  /* cooking_over */ MicrowaveOven_MO_IL * light = 0; /* light (MO_IL) */
- MicrowaveOven_MO_TRN * turntable = 0; /* turntable (MO_TRN) */
- MicrowaveOven_MO_MT * tube = 0; /* tube (MO_MT) */
- 
+  Escher_xtUMLEvent_t * cooking_over;MicrowaveOven_MO_MT * tube=0;MicrowaveOven_MO_TRN * turntable=0;MicrowaveOven_MO_IL * light=0;
   /* CREATE EVENT INSTANCE cooking_over(  ) TO self */
   XTUML_OAL_STMT_TRACE( 1, "CREATE EVENT INSTANCE cooking_over(  ) TO self" );
   cooking_over = Escher_NewxtUMLEvent( (void *) self, &MicrowaveOven_MO_Oevent5c );
   /* ASSIGN self.oven_timer = TIM::timer_start(event_inst:cooking_over, microseconds:self.remaining_cooking_time) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.oven_timer = TIM::timer_start(event_inst:cooking_over, microseconds:self.remaining_cooking_time)" );
-  self->oven_timer = TIM_timer_start( (Escher_xtUMLEvent_t *)cooking_over, self->remaining_cooking_time );
+  ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.oven_timer" ))->oven_timer = TIM_timer_start( (Escher_xtUMLEvent_t *)cooking_over, ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.remaining_cooking_time" ))->remaining_cooking_time );
   /* SELECT one light RELATED BY self->MO_IL[R2] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one light RELATED BY self->MO_IL[R2]" );
-  light = self->MO_IL_R2;
+  light = ( 0 != self ) ? self->MO_IL_R2_is_illuminated_by : 0;
   /* GENERATE MO_IL1:switch_on() TO light */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_IL1:switch_on() TO light" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( light, &MicrowaveOven_MO_ILevent1c );
@@ -184,7 +178,7 @@ MicrowaveOven_MO_O_act3( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one turntable RELATED BY self->MO_TRN[R5] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one turntable RELATED BY self->MO_TRN[R5]" );
-  turntable = self->MO_TRN_R5;
+  turntable = ( 0 != self ) ? self->MO_TRN_R5_has : 0;
   /* GENERATE MO_TRN1:spin() TO turntable */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_TRN1:spin() TO turntable" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( turntable, &MicrowaveOven_MO_TRNevent1c );
@@ -192,7 +186,7 @@ MicrowaveOven_MO_O_act3( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one tube RELATED BY self->MO_MT[R1] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one tube RELATED BY self->MO_MT[R1]" );
-  tube = self->MO_MT_R1;
+  tube = ( 0 != self ) ? self->MO_MT_R1_houses : 0;
   /* GENERATE MO_MT3:power_on() TO tube */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_MT3:power_on() TO tube" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( tube, &MicrowaveOven_MO_MTevent3c );
@@ -207,19 +201,16 @@ static void MicrowaveOven_MO_O_act4( MicrowaveOven_MO_O *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_O_act4( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * const event )
 {
-  bool cancelled; MicrowaveOven_MO_IL * light = 0; /* light (MO_IL) */
- MicrowaveOven_MO_TRN * turntable = 0; /* turntable (MO_TRN) */
- MicrowaveOven_MO_MT * tube = 0; /* tube (MO_MT) */
- 
+  bool cancelled;MicrowaveOven_MO_MT * tube=0;MicrowaveOven_MO_TRN * turntable=0;MicrowaveOven_MO_IL * light=0;
   /* ASSIGN self.remaining_cooking_time = TIM::timer_remaining_time(timer_inst_ref:self.oven_timer) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.remaining_cooking_time = TIM::timer_remaining_time(timer_inst_ref:self.oven_timer)" );
-  self->remaining_cooking_time = TIM_timer_remaining_time( self->oven_timer );
+  ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.remaining_cooking_time" ))->remaining_cooking_time = TIM_timer_remaining_time( ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.oven_timer" ))->oven_timer );
   /* ASSIGN cancelled = TIM::timer_cancel(timer_inst_ref:self.oven_timer) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN cancelled = TIM::timer_cancel(timer_inst_ref:self.oven_timer)" );
-  cancelled = TIM_timer_cancel( self->oven_timer );
+  cancelled = TIM_timer_cancel( ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.oven_timer" ))->oven_timer );
   /* SELECT one light RELATED BY self->MO_IL[R2] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one light RELATED BY self->MO_IL[R2]" );
-  light = self->MO_IL_R2;
+  light = ( 0 != self ) ? self->MO_IL_R2_is_illuminated_by : 0;
   /* GENERATE MO_IL2:switch_off() TO light */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_IL2:switch_off() TO light" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( light, &MicrowaveOven_MO_ILevent2c );
@@ -227,7 +218,7 @@ MicrowaveOven_MO_O_act4( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one turntable RELATED BY self->MO_TRN[R5] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one turntable RELATED BY self->MO_TRN[R5]" );
-  turntable = self->MO_TRN_R5;
+  turntable = ( 0 != self ) ? self->MO_TRN_R5_has : 0;
   /* GENERATE MO_TRN2:stop() TO turntable */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_TRN2:stop() TO turntable" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( turntable, &MicrowaveOven_MO_TRNevent2c );
@@ -235,7 +226,7 @@ MicrowaveOven_MO_O_act4( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one tube RELATED BY self->MO_MT[R1] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one tube RELATED BY self->MO_MT[R1]" );
-  tube = self->MO_MT_R1;
+  tube = ( 0 != self ) ? self->MO_MT_R1_houses : 0;
   /* GENERATE MO_MT4:power_off() TO tube */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_MT4:power_off() TO tube" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( tube, &MicrowaveOven_MO_MTevent4c );
@@ -250,14 +241,10 @@ static void MicrowaveOven_MO_O_act5( MicrowaveOven_MO_O *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_O_act5( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * const event )
 {
-  MicrowaveOven_MO_B * beeper = 0; /* beeper (MO_B) */
- MicrowaveOven_MO_IL * light = 0; /* light (MO_IL) */
- MicrowaveOven_MO_TRN * turntable = 0; /* turntable (MO_TRN) */
- MicrowaveOven_MO_MT * tube = 0; /* tube (MO_MT) */
- 
+  MicrowaveOven_MO_MT * tube=0;MicrowaveOven_MO_TRN * turntable=0;MicrowaveOven_MO_IL * light=0;MicrowaveOven_MO_B * beeper=0;
   /* SELECT one beeper RELATED BY self->MO_B[R3] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one beeper RELATED BY self->MO_B[R3]" );
-  beeper = self->MO_B_R3;
+  beeper = ( 0 != self ) ? self->MO_B_R3_features : 0;
   /* GENERATE MO_B1:start_beeping() TO beeper */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_B1:start_beeping() TO beeper" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( beeper, &MicrowaveOven_MO_Bevent1c );
@@ -265,7 +252,7 @@ MicrowaveOven_MO_O_act5( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one light RELATED BY self->MO_IL[R2] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one light RELATED BY self->MO_IL[R2]" );
-  light = self->MO_IL_R2;
+  light = ( 0 != self ) ? self->MO_IL_R2_is_illuminated_by : 0;
   /* GENERATE MO_IL2:switch_off() TO light */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_IL2:switch_off() TO light" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( light, &MicrowaveOven_MO_ILevent2c );
@@ -273,7 +260,7 @@ MicrowaveOven_MO_O_act5( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one turntable RELATED BY self->MO_TRN[R5] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one turntable RELATED BY self->MO_TRN[R5]" );
-  turntable = self->MO_TRN_R5;
+  turntable = ( 0 != self ) ? self->MO_TRN_R5_has : 0;
   /* GENERATE MO_TRN2:stop() TO turntable */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_TRN2:stop() TO turntable" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( turntable, &MicrowaveOven_MO_TRNevent2c );
@@ -281,7 +268,7 @@ MicrowaveOven_MO_O_act5( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   }
   /* SELECT one tube RELATED BY self->MO_MT[R1] */
   XTUML_OAL_STMT_TRACE( 1, "SELECT one tube RELATED BY self->MO_MT[R1]" );
-  tube = self->MO_MT_R1;
+  tube = ( 0 != self ) ? self->MO_MT_R1_houses : 0;
   /* GENERATE MO_MT4:power_off() TO tube */
   XTUML_OAL_STMT_TRACE( 1, "GENERATE MO_MT4:power_off() TO tube" );
   { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( tube, &MicrowaveOven_MO_MTevent4c );
@@ -299,35 +286,29 @@ MicrowaveOven_MO_O_act6( MicrowaveOven_MO_O * self, const Escher_xtUMLEvent_t * 
   MicrowaveOven_MO_Oevent8 * rcvd_evt = (MicrowaveOven_MO_Oevent8 *) event;
   /* ASSIGN self.remaining_cooking_time = PARAM.period */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.remaining_cooking_time = PARAM.period" );
-  self->remaining_cooking_time = rcvd_evt->p_period;
+  ((MicrowaveOven_MO_O *)xtUML_detect_empty_handle( self, "MO_O", "self.remaining_cooking_time" ))->remaining_cooking_time = rcvd_evt->p_period;
 }
 
 
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent3c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_O_CLASS_NUMBER, MICROWAVEOVEN_MO_OEVENT3NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent4c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_O_CLASS_NUMBER, MICROWAVEOVEN_MO_OEVENT4NUM,
   ESCHER_IS_INSTANCE_EVENT };
 
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent5c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_O_CLASS_NUMBER, MICROWAVEOVEN_MO_OEVENT5NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent6c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_O_CLASS_NUMBER, MICROWAVEOVEN_MO_OEVENT6NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent7c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_O_CLASS_NUMBER, MICROWAVEOVEN_MO_OEVENT7NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Oevent8c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_O_CLASS_NUMBER, MICROWAVEOVEN_MO_OEVENT8NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 
 
 
@@ -392,7 +373,6 @@ MicrowaveOven_MO_O_Dispatch( Escher_xtUMLEvent_t * event )
   Escher_EventNumber_t event_number = GetOoaEventNumber( event );
   Escher_StateNumber_t current_state;
   Escher_StateNumber_t next_state;
-  
   if ( 0 != instance ) {
     current_state = instance->current_state;
     if ( current_state > 6 ) {
@@ -402,10 +382,10 @@ MicrowaveOven_MO_O_Dispatch( Escher_xtUMLEvent_t * event )
       next_state = MicrowaveOven_MO_O_StateEventMatrix[ current_state ][ event_number ];
       if ( next_state <= 6 ) {
         STATE_TXN_START_TRACE( "MO_O", current_state, state_name_strings[ current_state ] );
-        /* Execute the state action and update the current state.  */
+        /* Update the current state and execute the state action.  */
+        instance->current_state = next_state;
         ( *MicrowaveOven_MO_O_acts[ next_state ] )( instance, event );
         STATE_TXN_END_TRACE( "MO_O", next_state, state_name_strings[ next_state ] );
-        instance->current_state = next_state;
       } else if ( next_state == EVENT_CANT_HAPPEN ) {
           /* event cant happen */
           UserEventCantHappenCallout( current_state, next_state, event_number );
@@ -419,5 +399,4 @@ MicrowaveOven_MO_O_Dispatch( Escher_xtUMLEvent_t * event )
     }
   }
 }
-
 

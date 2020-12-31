@@ -4,7 +4,7 @@
  * Class:       Test Sequences  (MO_TS)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_TS_CLASS_H
@@ -22,7 +22,6 @@ struct MicrowaveOven_MO_TS {
   Escher_StateNumber_t current_state;
   /* application analysis class attributes */
   Escher_UniqueID_t TestSeqID;  /* * TestSeqID */
-
 };
 
 
@@ -38,17 +37,14 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_TSevent2;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_TSevent2c;
-
 /*
  * instance event:  MO_TS3:'perform_test_seq_2'
  * warning:  Event is not used in application - no code generated.
  */
-
 /*
  * instance event:  MO_TS1:'initialize'
  * warning:  Event is not used in application - no code generated.
  */
-
 /*
  * instance event:  MO_TS4:'test_seq_complete'
  */
@@ -57,15 +53,13 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_TSevent4;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_TSevent4c;
-
 /*
  * union of events targeted towards 'MO_TS' state machine
  */
 typedef union {
-  MicrowaveOven_MO_TSevent2 mo_ts21;  
-  MicrowaveOven_MO_TSevent4 mo_ts42;  
+  MicrowaveOven_MO_TSevent2 mo_ts2_1;  
+  MicrowaveOven_MO_TSevent4 mo_ts4_2;  
 } MicrowaveOven_MO_TS_Events_u;
-
 /*
  * enumeration of state model states for class
  */
@@ -85,5 +79,3 @@ extern void MicrowaveOven_MO_TS_Dispatch( Escher_xtUMLEvent_t * );
 #endif
 
 #endif  /* MICROWAVEOVEN_MO_TS_CLASS_H */
-
-

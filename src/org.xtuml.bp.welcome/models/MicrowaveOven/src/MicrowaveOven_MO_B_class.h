@@ -4,7 +4,7 @@
  * Class:       Beeper  (MO_B)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_B_CLASS_H
@@ -22,12 +22,11 @@ struct MicrowaveOven_MO_B {
   Escher_StateNumber_t current_state;
   /* application analysis class attributes */
   Escher_UniqueID_t BeeperID;  /* * BeeperID */
-  Escher_Timer_t * beeper_timer;  /* - beeper_timer */
+  Escher_Timer_t beeper_timer;  /* - beeper_timer */
   i_t beep_count;  /* - beep_count */
   Escher_xtUMLEvent_t * beeper_delay_over;  /* - beeper_delay_over */
-
   /* relationship storage */
-  MicrowaveOven_MO_O * MO_O_R3;
+  MicrowaveOven_MO_O * MO_O_R3_is_located_in;
 };
 
 
@@ -43,7 +42,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Bevent1;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent1c;
-
 /*
  * instance event:  MO_B2:'beep_delay_over'
  */
@@ -52,7 +50,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Bevent2;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent2c;
-
 /*
  * instance event:  MO_B3:'beeping_stopped'
  */
@@ -61,7 +58,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Bevent3;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent3c;
-
 /*
  * instance event:  MO_B4:'stop_beeping'
  */
@@ -70,17 +66,15 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_Bevent4;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent4c;
-
 /*
  * union of events targeted towards 'MO_B' state machine
  */
 typedef union {
-  MicrowaveOven_MO_Bevent1 mo_b11;  
-  MicrowaveOven_MO_Bevent2 mo_b22;  
-  MicrowaveOven_MO_Bevent3 mo_b33;  
-  MicrowaveOven_MO_Bevent4 mo_b44;  
+  MicrowaveOven_MO_Bevent1 mo_b1_1;  
+  MicrowaveOven_MO_Bevent2 mo_b2_2;  
+  MicrowaveOven_MO_Bevent3 mo_b3_3;  
+  MicrowaveOven_MO_Bevent4 mo_b4_4;  
 } MicrowaveOven_MO_B_Events_u;
-
 /*
  * enumeration of state model states for class
  */
@@ -100,5 +94,3 @@ extern void MicrowaveOven_MO_B_Dispatch( Escher_xtUMLEvent_t * );
 #endif
 
 #endif  /* MICROWAVEOVEN_MO_B_CLASS_H */
-
-
