@@ -1,4 +1,6 @@
-= What's New in BridgePoint 7.0
+= What's New in BridgePoint 7.1
+
+NOTE: This is an engineering build of BridgePoint 7.1.  Release highlights for build 7.0 follow.
 
 == Release Highlights
 * Eclipse 2020
