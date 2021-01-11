@@ -49,9 +49,11 @@ Steps
 
   - Select all projects in the workspace, refresh them to pick up the changes
   
-  - Go to the org.xtuml.bp.doc plug-in.  Update, by hand, the Release Notes.md and 
-  Whats New.md files to reflect the proper version.  Rebuild the HTML versions of these 
-  files using asciidoctor (instructions in bp.doc/README.md)  
+  - Go to the org.xtuml.bp.doc plug-in.  Update, by hand, the ReleaseNotes.adoc and 
+  WhatsNew.adoc files to reflect the proper version.  Rebuild the HTML versions of these 
+  files using asciidoctor (instructions in bp.doc/README.md).  Roughly this, space is __intentional__ after "reproducible= ":
+      $ /Users/kbrown/git/bridgepoint/src/org.xtuml.bp.doc/WhatsNew  
+      $ asciidoctor -b html5 -a stylesheet=../asciidoctor-default.css -a linkcss -a copycss! -a reproducible= WhatsNew.adoc
   
   R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   
