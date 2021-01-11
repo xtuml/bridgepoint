@@ -51,7 +51,7 @@ Steps
   
   - Go to the org.xtuml.bp.doc plug-in.  Update, by hand, the ReleaseNotes.adoc and 
   WhatsNew.adoc files to reflect the proper version.  Rebuild the HTML versions of these 
-  files using asciidoctor (instructions in bp.doc/README.md).  Roughly this, space is __intentional__ after "reproducible= ":
+  files using asciidoctor (more notes in bp.doc/README.md).  Roughly this, space is __intentional__ after "reproducible= ":
       $ /Users/kbrown/git/bridgepoint/src/org.xtuml.bp.doc/WhatsNew  
       $ asciidoctor -b html5 -a stylesheet=../asciidoctor-default.css -a linkcss -a copycss! -a reproducible= WhatsNew.adoc
   
