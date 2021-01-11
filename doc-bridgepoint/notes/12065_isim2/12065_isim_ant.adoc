@@ -1,0 +1,162 @@
+= BridgePoint iCCG/iSim Integration
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+This note documents analysis of the integration of iUML iCCG/iSim with
+BridgePoint.
+
+== 2 Introduction and Background
+
+iSim is a model simulation environment which is part of iUML tooling.  The
+simulation provides for testing of Shlaer-Mellor models having ASL as the
+action language.  iCCG is a model-based configurable code generator suite
+for translating Shlaer-Mellor models adhering to the iUML/ASL idiom.
+
+Project Caledonia <<dr-1>> upgraded BridgePoint to edit ASL-dialect
+Shlaer-Mellor models.  Caledonia provided for importing iUML/ASL models
+as well as editing them.  However, Caledonia makes no provision to leverage
+iUML "back-end" tooling such as iCCG and iSim.
+
+This note investigates avenues to leverage iUML back end IP.  Requirements
+established below do not directly dictate leveraging iCCG/iSim.  However,
+interfacing iCCG/iSim with BridgePoint may be an expedient approach to meet
+the enumerated requirements.
+
+Beyond the scope of this analysis are the commercial and licensing
+opportunities implied by the development.  Commercially, a new base of
+users may gain access to the value of iCCG/iSim technology.  The
+accompanying business models can be product or services oriented or a
+mixture of both.  The licensing approaches span a continuum from
+proprietary closed source to liberal open source.
+
+== 3 Requirements
+
+=== 3.1 Syntax-Check ASL
+
+Correct syntax of ASL bodies shall be validated.  Syntax errors shall be
+reported.
+
+=== 3.2 Semantics-Check ASL
+
+Semantically correct and legal ASL shall be validated.  This shall include
+type checking at the expression level as well as the structural xtUML level
+for classes, attributes, events, functions, parameters, etc.  Errors shall
+be reported.
+
+==== 3.2.1 Validation Performance
+
+Syntax and semantic validation shall occur with a speed and convenience
+substantially faster than a full WACA build cycle.
+
+=== 3.3 Execute Models
+
+Model data from BridgePoint shall be extractable in a manner that allows
+simulations to be run with iSim, (re)gaining the benefits experienced by
+running models extracted from iUML.
+
+== 4 Analysis
+
+=== 4.1 Port iCCG to BridgePoint
+
+Long term, it may be best to port iCCG code generators into BridgePoint.
+This would leverage a large amount of IP and restore it to active development
+and extension.  In the same manner as with iUML, BridgePoint can be used
+to model a model compiler.
+
+This approach is feasible and desirable but perhaps costly.
+
+=== 4.2 Provide an API to iCCG/iSim
+
+A potentially more conservative approach exists as a first step.  An API can
+be provided from a loaded xtUML model to the existing iCCG/iSim tooling.
+This API would be compatible with the read API currently used by iCCG/iSim
+with iUML.
+
+This approach is feasible and a useful first step.  This approach is selected.
+
+It is noted that the iuml_dumper utility employs the read API.
+
+It is noted that the iUML OOA of OOA could be dumped from iUML and then loaded
+into BridgePoint as MASL.
+
+=== 4.3 Export from BridgePoint into iUML
+
+== 5 Work Required
+
+== 5.1 Work Required for iCCG Port
+
+* Port iCCG models to BP
+  ** Deal with idiomatic differences including bridging.
+* Fully support ASL (including `$FORMAT`) used in translation.
+* Upgrade the code generator to transform iCCG model to executable code
+  (TA-1 replacement).
+* Replacement for populator
+  ** The existing populator is tied to the iUML meta-model, the iUML “C” API
+     and the TA-1 internal data structures.
+  ** The replacement will need to map the xtUML meta-model to the iUML
+     meta-model.
+* Note that the lexer/parser and semantic checking depends on OOA etc domains
+  having been populated before parsing occurs (depending on the details this
+  may require multi-pass loading of xtUML models)
+* TA-1 code generator “knew” it was translating iCCG models in order to
+  improve code generator build times (only really a problem if end users
+  are rebuilding the code generator).  Resolve this.
+
+== 5.2 Work Required for iCCG API (Read-API)
+
+This work is built as a model-based model compiler which will query OOAofOOA
+instances and populate iOOAofOOA instances.  An application programming
+interface is provided that is compatible with the iCCG Read-API which is
+invoked by iCCG and traverses the iOOAofOOA returning instance data on
+demand.
+
+The iCCG API is a C API, so this work will be rendered using the MC-3020 C
+model compiler.
+
+This work leverages much of the existing `xtuml2masl` flow.
+
+1. Instantiate the xtUML OOA of OOA (`mcooa`).
+2. Instantiate the iUML OOA of OOA (iOOAofOOA).
+3. Compose a set of model-to-model transformation actions to query the
+   OOAofOOA and populate the iOOAofOOA.
+4. Implement the read API to behave the same as that found in iUML.
+
+== 5.3 Work Required for Write-API
+
+== 6 Acceptance Test
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues?query_id=147[Caledonia Project Plan]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
+
+----
+RANDOM QUESTIONS
+When/where does ASL get parsed into instances?
+Should we simply dump models from BridgePoint back into iUML/iSim?
+What path is there to importing model data into iUML?
+Can iUML deal with models having no graphics?
+Licensing and IP questions starting from desires.
+
+NOTES
+Identify experiments to be done to test feasibility.
+Decide about command line.
+Choose implementation technology (MC-3020?).
+
+STEPS
+Load xtUML into xtUML OOA of OOA.
+M2M from xtUML OOA of OOA into iUML OOA of OOA.
+Implement reads into the iUML OOA of OOA.
+
+Artifacts From Ian:
+iUML OOA of OOA extracted in MASL format.
+documentation of the ReadAPI.
+----
