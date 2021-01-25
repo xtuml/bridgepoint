@@ -13,7 +13,7 @@ BridgePoint v6.19 and higher no longer include a pre-packaged JRE within
 the installation zipfile for Linux and Windows.  The macOS version of BridgePoint
 has never included a JRE.
 
-NOTE:  Throughout this document use of the term "JRE" indicates any Java runtime distribution.
+NOTE:  Throughout this document use of the term "JRE" indicates any Java runtime engine distribution.
 The actual Java runtime installed on your system may be either a runtime-only version
 of Java or a Java Development Kit (JDK) version.
 
@@ -21,8 +21,10 @@ This note describes how to configure your BridgePoint to use a JRE of your choic
 
 == 2 Which Java?
 
-BridgePoint requires Java 8.  It does not run with Java 11.  If you attempt to run
-BridgePoint with a Java 11 JRE, you will get an error during launch like this:
+BridgePoint 7 requires Java 11.  It does not run with Java 8.
+
+BridgePoint 6 requires Java 8.  It does not run with Java 11.  If you attempt to run
+BridgePoint 6 with a Java 11 JRE, you will get an error during launch like this:
 
 .Java 11 Launch Error (Linux)
 image::images/java11_start_error_linux.png[Java 11 launch error,width=35%]
@@ -35,16 +37,17 @@ The choice of "Which Java to use?" is not so simple and is now one that users an
 system administrators must actively make. There are many choices available.
 https://blog.joda.org/2018/09/time-to-look-beyond-oracles-jdk.html[This article] gives an
 overview of quite a few of choices.  The BridgePoint team has had success running
-BridgePoint with the Java 8 distributions from https://adoptopenjdk.net/index.html[AdoptOpenJDK].
+BridgePoint with the Java 8 and 11 distributions from https://adoptopenjdk.net/index.html[AdoptOpenJDK].
 
 Linux and macOS users need to be aware that most of the default Java installs provided
-by package managers (such as apt and homebrew) are now installing Java 11.  You must
-take the necessary steps to install Java 8. Both versions may exist on a system at
+by package managers (such as apt and homebrew) are now installing Java 11 and newer.  For BridgePoint 6 you must
+take the necessary steps to install Java 8.  For BridgePoint 7 you must take the necessary
+steps to install Java 11.  Both versions may exist on a system at
 the same time.
 
-TIP: On ubuntu 18.04, we installed OpenJDK 8 JDK with: `sudo apt install openjdk-8-jdk`
+TIP: For BridgePoint 6 on ubuntu 18.04, we installed OpenJDK 8 JDK with: `sudo apt install openjdk-8-jdk`
 
-Once you have a Java8 JDK installed, make sure you set the JAVA_HOME environment variable
+Once you have a Java JDK installed, make sure you set the JAVA_HOME environment variable
 for your shell.
 
 The next section explains how to configure BridgePoint to use the proper Java runtime.
@@ -71,7 +74,8 @@ image::images/vm_arg_for_java8_linux.png[Java VM Config Linux,width=65%]
 image::images/vm_arg_for_java8_mac.png[Java VM Config macOS,width=65%]
 
 Simply edit the `bridgepoint.ini` file with your choice of text editor and point
-to the desired Java executable.
+to the desired Java executable.  Remember, BridgePoint 6 requires Java 8;
+BridgePoint 7 requires Java 11.
 
 TIP: On Windows we do want to use 'javaw' as shown in the screenshot to avoid the creation of a command prompt window for the java launch.
 

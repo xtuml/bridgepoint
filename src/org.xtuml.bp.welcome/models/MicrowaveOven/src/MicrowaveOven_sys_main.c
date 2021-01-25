@@ -2,7 +2,7 @@
  * File:  MicrowaveOven_sys_main.c
  *
  * Description:  main, system initialization (and idle loop)
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"
@@ -18,8 +18,7 @@ static void ApplicationLevelInitialization( void )
 {
   Escher_DomainNumber_t d;
   Escher_ClassNumber_t c;
-
-  static const Escher_ClassNumber_t domain_class_count[ SYSTEM_DOMAIN_COUNT ] = {
+  const Escher_ClassNumber_t domain_class_count[ SYSTEM_DOMAIN_COUNT ] = {
     MicrowaveOven_MAX_CLASS_NUMBERS
   };
   for ( d = 0; d < SYSTEM_DOMAIN_COUNT; d++ ) {
@@ -39,11 +38,15 @@ static void ApplicationLevelInitialization( void )
  *
  */
 int
-main ( int argc, char ** argv )
+main( int argc, char ** argv )
 {
   UserInitializationCallout();
   Escher_SetFactoryInit( SYS_MAX_CONTAINERS );
   InitializeOoaEventPool();
+  /* Initialize TIM.  To change this, copy TIM_bridge.c to the gen folder.  */
+  #if ESCHER_SYS_MAX_XTUML_TIMERS > 0
+  TIM_init();
+  #endif
   ApplicationLevelInitialization();
   UserPreOoaInitializationCallout();
   MicrowaveOven_execute_initialization();
