@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.apache.commons.io.output.TeeOutputStream;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -58,9 +60,19 @@ public class WaslExportBuilder extends AbstractExportBuilder {
     	WaslExporterPreferences preferences = new WaslExporterPreferences(getProject());
         final String projPath = getProject().getLocation().toOSString();
         outputDirectory = new Path(preferences.getOutputDestination());
-        if(preferences.isCleanOutput()) {
-        	// remove the output folder
-			getProject().getFolder(outputDirectory).delete(true, new NullProgressMonitor());
+        IFolder buildFolder = getProject().getFolder(outputDirectory);
+        if(preferences.isCleanOutput() && buildFolder.exists()) {
+			// remove the sub folders, we do not want to remove the log
+			// file
+			Stream.of(buildFolder.members()).filter(r -> r.getType() == IResource.FOLDER)
+					.forEach(f -> {
+						try {
+							f.delete(true, new NullProgressMonitor());
+						} catch (CoreException e) {
+							// log on system error
+							System.err.println("Exception deleting resource: " + f.getName());
+						}
+					});
         }
         if (!outputDirectory.isAbsolute()) {
             outputDirectory = new Path(projPath + File.separator + outputDirectory.toOSString());

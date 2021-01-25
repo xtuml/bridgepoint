@@ -195,9 +195,15 @@ public class ImportExecutor implements Executor {
         try {
             project.open(new NullProgressMonitor());
             project.refreshLocal(IResource.DEPTH_INFINITE, null);
+            
+            boolean reconcileGraphics = false;
+            Boolean reconcileGraphicsOption = cmdLine.getBooleanValue("-reconcileGraphics");
+            if(reconcileGraphicsOption != null) {
+            	reconcileGraphics = reconcileGraphicsOption.booleanValue();
+            }
 
             System.out.println("Proceeding with import of " + filePath);
-            boolean setupSucceeded = ProjectUtilities.importModelWithoutWizard(systemModel, filePath);
+            boolean setupSucceeded = ProjectUtilities.importModelWithoutWizard(systemModel, filePath, reconcileGraphics);
             if(!setupSucceeded) {
                 throw new BPCLIException("The import process failed.");
             }
