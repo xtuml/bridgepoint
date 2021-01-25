@@ -74,6 +74,10 @@ public class Import implements IApplication {
                         "",
                         "Worskpace preferences to set before import."),
                 new CommandLineOption("-reconcileGraphics", false, "Enable graphical reconciliation on imported data."),
+                new CommandLineOption(
+                        "-workingPath",
+                        "",
+                        "The fully qualified path to the project storage location."),
                 new CommandLineOption("-help", false, "Display usage information.")
         };
 	    return cmdLineOptions;

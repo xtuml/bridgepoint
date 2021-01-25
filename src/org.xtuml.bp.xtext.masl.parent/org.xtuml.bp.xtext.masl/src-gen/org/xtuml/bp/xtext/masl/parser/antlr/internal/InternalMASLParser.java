@@ -2997,7 +2997,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               						if (current==null) {
                               							current = createModelElement(grammarAccess.getBuiltinTypeDeclarationRule());
                               						}
-                              						setWithLastConsumed(current, "anonymous", true, "anonymous");
+                              						setWithLastConsumed(current, "anonymous", lv_anonymous_2_0 != null, "anonymous");
                               					
                             }
 
@@ -3329,7 +3329,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       							if (current==null) {
                       								current = createModelElement(grammarAccess.getCharacteristicRule());
                       							}
-                      							setWithLastConsumed(current, "forValue", true, "(");
+                      							setWithLastConsumed(current, "forValue", lv_forValue_5_0 != null, "(");
                       						
                     }
 
@@ -3677,7 +3677,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getTypeParameterRule());
                       					}
-                      					setWithLastConsumed(current, "enum", true, "enum");
+                      					setWithLastConsumed(current, "enum", lv_enum_0_0 != null, "enum");
                       				
                     }
 
@@ -4001,7 +4001,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getRangeTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -4438,7 +4438,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       						if (current==null) {
                       							current = createModelElement(grammarAccess.getTypeForwardDeclarationRule());
                       						}
-                      						setWithLastConsumed(current, "subtype", true, "subtype");
+                      						setWithLastConsumed(current, "subtype", lv_subtype_2_0 != null, "subtype");
                       					
                     }
 
@@ -4696,7 +4696,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       						if (current==null) {
                       							current = createModelElement(grammarAccess.getTypeDeclarationRule());
                       						}
-                      						setWithLastConsumed(current, "subtype", true, "subtype");
+                      						setWithLastConsumed(current, "subtype", lv_subtype_2_0 != null, "subtype");
                       					
                     }
 
@@ -7394,7 +7394,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getInstanceTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -7558,7 +7558,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getNamedTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -8155,7 +8155,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getSequenceTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -8394,7 +8394,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getArrayTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -8734,7 +8734,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getSetTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -8903,7 +8903,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getBagTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_0_0 != null, "anonymous");
                       				
                     }
 
@@ -9087,7 +9087,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getDictionaryTypeReferenceRule());
                       					}
-                      					setWithLastConsumed(current, "anonymous", true, "anonymous");
+                      					setWithLastConsumed(current, "anonymous", lv_anonymous_1_0 != null, "anonymous");
                       				
                     }
 
@@ -10709,7 +10709,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getAttributeDefinitionRule());
                       					}
-                      					setWithLastConsumed(current, "preferred", true, "preferred");
+                      					setWithLastConsumed(current, "preferred", lv_preferred_2_0 != null, "preferred");
                       				
                     }
 
@@ -10746,7 +10746,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getAttributeDefinitionRule());
                       					}
-                      					setWithLastConsumed(current, "unique", true, "unique");
+                      					setWithLastConsumed(current, "unique", lv_unique_3_0 != null, "unique");
                       				
                     }
 
@@ -11682,7 +11682,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getObjectServiceDeclarationRule());
                       					}
-                      					setWithLastConsumed(current, "instance", true, "instance");
+                      					setWithLastConsumed(current, "instance", lv_instance_1_0 != null, "instance");
                       				
                     }
 
@@ -13232,7 +13232,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               							if (current==null) {
                               								current = createModelElement(grammarAccess.getTransitionRowRule());
                               							}
-                              							setWithLastConsumed(current, "nonExistant", true, null);
+                              							setWithLastConsumed(current, "nonExistant", lv_nonExistant_1_1 != null, null);
                               						
                             }
 
@@ -13252,7 +13252,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               							if (current==null) {
                               								current = createModelElement(grammarAccess.getTransitionRowRule());
                               							}
-                              							setWithLastConsumed(current, "nonExistant", true, null);
+                              							setWithLastConsumed(current, "nonExistant", lv_nonExistant_1_2 != null, null);
                               						
                             }
 
@@ -13272,7 +13272,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               							if (current==null) {
                               								current = createModelElement(grammarAccess.getTransitionRowRule());
                               							}
-                              							setWithLastConsumed(current, "nonExistant", true, null);
+                              							setWithLastConsumed(current, "nonExistant", lv_nonExistant_1_3 != null, null);
                               						
                             }
 
@@ -13292,7 +13292,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               							if (current==null) {
                               								current = createModelElement(grammarAccess.getTransitionRowRule());
                               							}
-                              							setWithLastConsumed(current, "nonExistant", true, null);
+                              							setWithLastConsumed(current, "nonExistant", lv_nonExistant_1_4 != null, null);
                               						
                             }
 
@@ -13717,7 +13717,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       						if (current==null) {
                       							current = createModelElement(grammarAccess.getTransitionOptionRule());
                       						}
-                      						setWithLastConsumed(current, "ignore", true, "Ignore");
+                      						setWithLastConsumed(current, "ignore", lv_ignore_5_0 != null, "Ignore");
                       					
                     }
 
@@ -13770,7 +13770,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               							if (current==null) {
                               								current = createModelElement(grammarAccess.getTransitionOptionRule());
                               							}
-                              							setWithLastConsumed(current, "cannotHappen", true, null);
+                              							setWithLastConsumed(current, "cannotHappen", lv_cannotHappen_6_1 != null, null);
                               						
                             }
 
@@ -13790,7 +13790,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                               							if (current==null) {
                               								current = createModelElement(grammarAccess.getTransitionOptionRule());
                               							}
-                              							setWithLastConsumed(current, "cannotHappen", true, null);
+                              							setWithLastConsumed(current, "cannotHappen", lv_cannotHappen_6_2 != null, null);
                               						
                             }
 
@@ -14753,7 +14753,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getAssocRelationshipDefinitionRule());
                       					}
-                      					setWithLastConsumed(current, "one", true, "one");
+                      					setWithLastConsumed(current, "one", lv_one_6_0 != null, "one");
                       				
                     }
 
@@ -16168,7 +16168,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getObjectServiceDefinitionRule());
                       					}
-                      					setWithLastConsumed(current, "instance", true, "instance");
+                      					setWithLastConsumed(current, "instance", lv_instance_1_0 != null, "instance");
                       				
                     }
 
@@ -21464,7 +21464,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getForStatementRule());
                       					}
-                      					setWithLastConsumed(current, "reverse", true, "reverse");
+                      					setWithLastConsumed(current, "reverse", lv_reverse_3_0 != null, "reverse");
                       				
                     }
 
@@ -29053,7 +29053,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getSortOrderComponentRule());
                       					}
-                      					setWithLastConsumed(current, "reverse", true, "reverse");
+                      					setWithLastConsumed(current, "reverse", lv_reverse_0_0 != null, "reverse");
                       				
                     }
 
@@ -29410,7 +29410,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getCreateExpressionRule());
                       					}
-                      					setWithLastConsumed(current, "unique", true, "unique");
+                      					setWithLastConsumed(current, "unique", lv_unique_1_0 != null, "unique");
                       				
                     }
 
@@ -33530,7 +33530,7 @@ public class InternalMASLParser extends AbstractInternalAntlrParser {
                       					if (current==null) {
                       						current = createModelElement(grammarAccess.getBooleanLiteralRule());
                       					}
-                      					setWithLastConsumed(current, "value", true, "true");
+                      					setWithLastConsumed(current, "value", lv_value_0_0 != null, "true");
                       				
                     }
 

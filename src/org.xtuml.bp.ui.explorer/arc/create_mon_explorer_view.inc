@@ -89,7 +89,6 @@ import org.eclipse.ui.actions.ExportResourcesAction;
 import org.eclipse.ui.actions.ImportResourcesAction;
 import org.eclipse.ui.actions.NewWizardMenu;
 import org.eclipse.ui.actions.RefreshAction;
-import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.framelist.BackAction;
 import org.eclipse.ui.views.framelist.ForwardAction;
@@ -337,7 +336,7 @@ public class ${viewer_name} extends ViewPart {
     };
     collapseAll.setToolTipText(COLLAPSE);
     collapseAll.setImageDescriptor(CorePlugin.getImageDescriptor("collapseall.gif")); //$$NON-NLS-1$$
-    WorkbenchHelp.setHelp(collapseAll, IModelExplorerHelpContextIds.COLLAPSE_ALL_ACTION);
+    PlatformUI.getWorkbench().getHelpSystem().setHelp(collapseAll, IModelExplorerHelpContextIds.COLLAPSE_ALL_ACTION);
     linkWithEditor = new Action(IWorkbenchActionConstants.SYNC_EDITOR) {
       public void run() {
         IStructuredSelection selection = (IStructuredSelection)Selection.getInstance().getSelection();

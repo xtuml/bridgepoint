@@ -48,7 +48,7 @@ class MaslIssueCodesProvider extends ConfigurableIssueCodesProvider {
 		issueCodes
 	}
 
-	private def initialize(IAcceptor<PreferenceKey> it) {
+	override protected def initialize(IAcceptor<PreferenceKey> it) {
 		add(ILLEGAL_EMPTY_LIST, SEVERITY_ERROR)
 		add(INCONSISTENT_RELATIONSHIP_ENDS, SEVERITY_ERROR) 
 		add(INCONSISTENT_RELATIONSHIP_NAVIGATION, SEVERITY_ERROR) 

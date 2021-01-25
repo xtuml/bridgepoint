@@ -28,6 +28,7 @@
     * [Common BridgePoint Unit Test Problems](#unittesting)
     * [How do I turn on Tracing/Debugging statements in BridgePoint](#tracing)
     * [Command Line Build Instructions](#clibuild)
+    * [xtUML git merge driver](#mergedriver)
     * [How do BridgePoint Context Menu Entries (CMEs) work?](#bp_cme)
     * [How to generate code for a specific class without waiting for a full build](#fast_build1)
   * [Ciera](#ciera)
@@ -280,6 +281,64 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
   
   This will clone the repositories into `~/build/git` if they do not exist locally, switch to the correct branch to build (here "testing") and run the build and packaging.   After the build is done, you can inspect the build workspace that was used.  Simply launch BridgePoint and choose the workspace (e.g. `/home/kbrown/build/work/testing`)   
 
+* **xtUML git merge driver** <a id="mergedriver"></a>
+
+  xtUML model compare uses a semantic aware differencing engine.  This allows for comparison at a model level rather than a textual level.  There are many benefits to this when working with model data across large teams.  The differencing engine is available when using the eclipse team interface; it takes a little bit of effort to enable this at git's core.  The following instructions will enable the differencing engine at the command line.
+
+  * **The git merge driver**
+
+    Git supports custom merge drivers which enable any script or application to perform the differencing between changes. A custom merge driver is defined in the config file for a git repository.  Here is an example for xtUML:
+
+    ```
+    [merge "xtuml"]
+        name = xtUML Merge
+        driver = ./.git/xtuml-merge.sh %A %B %O 
+    ```
+    This configuration should be set globally and as part of a developer's setup.  You can set the the global configuration as follows:
+    ```console
+    git config --global merge.xtuml.name "xtUML Merge"
+    git config --global merge.xtuml.driver "./.git/xtuml-merge.sh %A %B %O"
+    ```
+
+    Note that we are pointing at a script in order to capture the required absolute paths for the files involved.  This is required by the Bridgepoint CLI merge.  In this example the script is actually located in the .git folder, and the git merge is initiated at the repository root.  In production environments this script would live in a well defined location.
+
+    ```bash
+    #!/bin/bash
+    #
+    # xtuml-merge.sh
+    #
+    # Use this wrapper to provide absolute paths for
+    # temporary merge files
+    #
+
+    BPINSTALL="/Users/developer/xtuml" # installation dir for BridgePoint
+    BASEDIR=$(pwd)
+    LEFT=$BASEDIR/$1
+    RIGHT=$BASEDIR/$2
+    ANCESTOR=$BASEDIR/$3
+
+    $BPINSTALL/BridgePoint.app/Contents/Eclipse/tools/mc/bin/CLI.sh Merge -leftFile $LEFT -rightFile $RIGHT -ancestorFile $ANCESTOR -outputFile $LEFT
+    ```
+  * **Git attributes**
+
+    To have a git repository make use of the custom merge driver for all xtuml files you must enable it with a local .gitattributes file.  The contents for that file are simply:
+    ```console
+    *.xtuml merge=xtuml
+    ```
+
+  * **Model compare preferences**
+    The differencing engine can be configured to ignore graphical conflicts if desired.  If this preference is chosen the local graphical data will always be kept.
+
+    The preference is configured in this file:
+    ```console
+    $BPINSTALL/BridgePoint.app/Contents/Eclipse/plugins/org.xtuml.bp.pkg_<version>/plugin_customization.ini
+    ```
+    The preference to modify is labeled org.xtuml.bp.model.compare/bridgepoint_prefs_ignore_graphical_conflicts and is false by default.
+
+  * **When a conflict occurs**
+  
+    When a conflict is encountered you must use the merge tool in Bridgepoint.  Open Bridgepoint with a workspace containing the conflicts.  Then right click the project and choose Team > Merge Tool.
+
 * **How do BridgePoint Context Menu Entries (CMEs) work?** <a id="bp_cme"></a>
   - There is a package in org.xtuml.bp.core project named context_menu. Under this package is the class diagram that defines  BridgePoint CME behavior. 
     - The pre-existing instance data that populates this model is found in [bp.core/sql/context_menu.pei.sql](https://github.com/xtuml/bridgepoint/blob/master/src/org.xtuml.bp.core/sql/context_menu.pei.sql).
@@ -446,9 +505,10 @@ Verifier <a id="verifier"></a>
 * **What does "Nothing to verify." mean?**  <a id="nothingtoverify"></a>  
   It means that the execution engine did not find parsed instances to execute. Here are things to check:
   * Make sure the selected element is being parsed successfully. If there is an OAL error there will be nothing to launch.  Check the Problems view for errors.
-  * Make sure there is some OAL in the model elements that are under the selected launch configuration.  Inspect your model to verify there are elements under the project/component you are launching that contain action language. 
+  * Make sure there is some OAL in the model elements that are under the selected debug configuration.  Inspect your model to verify there are elements under the project/component you are launching that contain action language. 
   * Are the packages containing the classes inside a component? They need to be.
-  * Some other error in the selected launch configuration is likely present.  Check the Problems view and Error Log view for indications of issues in the model you are launching.  
+  * When creating a debug configuration for component definitions, check the box next to each component, not the one next to the package containing them (ref. https://support.onefact.net/issues/12085).
+  * Some other error in the selected debug configuration is likely present.  Check the Problems view and Error Log view for indications of issues in the model you are launching.  
   
   If you are still having trouble, check out [this thread on the xtuml.org forums](https://xtuml.org/community/topic/what-does-nothing-to-verify-mean/) and ask for help there.
 

@@ -1,0 +1,99 @@
+= Remove use of private compare API
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note lists the files changed for this issue.
+
+== 2 Introduction and Background
+
+See <<dr-2>>.
+
+== 3 Requirements
+
+See <<dr-2>>.
+
+== 4 Work Required
+
+See <<dr-2>>.
+
+== 5 Implementation Comments
+
+See <<dr-2>>.
+
+== 6 Unit Test
+
+See <<dr-2>>.
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bridgepoint
+- branch:  11761_diff_merge_part_2
+
+----
+doc-bridgepoint/notes/11761/11761_remove_private_apis.dnt.adoc
+doc-bridgepoint/notes/11761/11761_remove_private_apis.int.adoc
+
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesModel.java
+org.xtuml.bp.core/src/org/xtuml/bp/core/common/BridgePointPreferencesStore.java
+
+org.xtuml.bp.model.compare/arc/create_properties_file.inc
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/ComparableTreeObject.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/ComparePlugin.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/EmptyElement.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/ModelCompareMessages.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/ModelMergeProcessor.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/TreeDifferencer.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/actions/NavigateDownAction.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/actions/NavigateUpAction.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/contentmergeviewer/IModelCompareConstants.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/contentmergeviewer/IModelContentMergeViewer.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/contentmergeviewer/ModelContentMergeViewer.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/contentmergeviewer/NavigationEndDialog.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/contentmergeviewer/SynchronizedTreeViewer.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/preferences/ModelCompareMergePreferences.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/preferences/ModelCompareNavigationPreferences.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/preferences/ModelComparePreferenceModel.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/preferences/ModelComparePreferences.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/preferences/ModelComparePreferenceStore.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/ComparableProvider.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/ModelCompareContentProvider.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/ModelMergeViewerContentProvider.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/NonRootModelElementComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/ObjectElementComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/OverlayCompositeImageDescriptor.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/ActionComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/AssignedEventComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/AssociationComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/AssociationSubtypeComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/AttributeComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/DerivedBaseAttributeComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/EventMatrixComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/GraphicalDataComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/MessageComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/NewBaseAttributeComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/PolymorphicEventComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/SemeComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/SemEventComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/providers/custom/TransitionComparable.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/structuremergeviewer/ModelStructureDiffViewer.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/util/BufferedCanvas.java
+org.xtuml.bp.model.compare/src/org/xtuml/bp/model/compare/util/Utilities.java
+org.xtuml.bp.model.compare/plugin.xml
+
+org.xtuml.bp.pkg/plugin_customization.ini
+
+----
+
+== 9 Document References
+. [[dr-1]] https://support.onefact.net/issues/11761[11761 - Use cases diff/merge]
+. [[dr-2]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/11761/11761_remove_private_apis.dnt.adoc[Design]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

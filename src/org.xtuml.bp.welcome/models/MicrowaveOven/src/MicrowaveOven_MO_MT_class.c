@@ -4,12 +4,12 @@
  * Class:       Magnetron Tube  (MO_MT)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"
-#include "TIM_bridge.h"
 #include "MicrowaveOven_ARCH_bridge.h"
+#include "TIM_bridge.h"
 #include "MicrowaveOven_classes.h"
 
 
@@ -49,27 +49,27 @@ static void MicrowaveOven_MO_MT_act2( MicrowaveOven_MO_MT *, const Escher_xtUMLE
 static void
 MicrowaveOven_MO_MT_act2( MicrowaveOven_MO_MT * self, const Escher_xtUMLEvent_t * const event )
 {
-  /* IF ( ( self.current_power_output == med_low ) ) */
-  XTUML_OAL_STMT_TRACE( 1, "IF ( ( self.current_power_output == med_low ) )" );
-  if ( ( self->current_power_output == MicrowaveOven_tube_wattage_med_low_e ) ) {
+  /* IF ( self.current_power_output == med_low ) */
+  XTUML_OAL_STMT_TRACE( 1, "IF ( self.current_power_output == med_low )" );
+  if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_med_low_e ) {
     /* ASSIGN self.current_power_output = low */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = low" );
-    self->current_power_output = MicrowaveOven_tube_wattage_low_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_low_e;
   }
-  else if ( ( self->current_power_output == MicrowaveOven_tube_wattage_medium_e ) ) {
+  else if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_medium_e ) {
     /* ASSIGN self.current_power_output = med_low */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = med_low" );
-    self->current_power_output = MicrowaveOven_tube_wattage_med_low_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_med_low_e;
   }
-  else if ( ( self->current_power_output == MicrowaveOven_tube_wattage_med_high_e ) ) {
+  else if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_med_high_e ) {
     /* ASSIGN self.current_power_output = medium */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = medium" );
-    self->current_power_output = MicrowaveOven_tube_wattage_medium_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_medium_e;
   }
-  else if ( ( self->current_power_output == MicrowaveOven_tube_wattage_high_e ) ) {
+  else if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_high_e ) {
     /* ASSIGN self.current_power_output = med_high */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = med_high" );
-    self->current_power_output = MicrowaveOven_tube_wattage_med_high_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_med_high_e;
   }
 }
 
@@ -80,27 +80,27 @@ static void MicrowaveOven_MO_MT_act3( MicrowaveOven_MO_MT *, const Escher_xtUMLE
 static void
 MicrowaveOven_MO_MT_act3( MicrowaveOven_MO_MT * self, const Escher_xtUMLEvent_t * const event )
 {
-  /* IF ( ( self.current_power_output == low ) ) */
-  XTUML_OAL_STMT_TRACE( 1, "IF ( ( self.current_power_output == low ) )" );
-  if ( ( self->current_power_output == MicrowaveOven_tube_wattage_low_e ) ) {
+  /* IF ( self.current_power_output == low ) */
+  XTUML_OAL_STMT_TRACE( 1, "IF ( self.current_power_output == low )" );
+  if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_low_e ) {
     /* ASSIGN self.current_power_output = med_low */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = med_low" );
-    self->current_power_output = MicrowaveOven_tube_wattage_med_low_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_med_low_e;
   }
-  else if ( ( self->current_power_output == MicrowaveOven_tube_wattage_med_low_e ) ) {
+  else if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_med_low_e ) {
     /* ASSIGN self.current_power_output = medium */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = medium" );
-    self->current_power_output = MicrowaveOven_tube_wattage_medium_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_medium_e;
   }
-  else if ( ( self->current_power_output == MicrowaveOven_tube_wattage_medium_e ) ) {
+  else if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_medium_e ) {
     /* ASSIGN self.current_power_output = med_high */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = med_high" );
-    self->current_power_output = MicrowaveOven_tube_wattage_med_high_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_med_high_e;
   }
-  else if ( ( self->current_power_output == MicrowaveOven_tube_wattage_med_high_e ) ) {
+  else if ( ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output == MicrowaveOven_tube_wattage_med_high_e ) {
     /* ASSIGN self.current_power_output = high */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.current_power_output = high" );
-    self->current_power_output = MicrowaveOven_tube_wattage_high_e;
+    ((MicrowaveOven_MO_MT *)xtUML_detect_empty_handle( self, "MO_MT", "self.current_power_output" ))->current_power_output = MicrowaveOven_tube_wattage_high_e;
   }
 }
 
@@ -116,19 +116,15 @@ MicrowaveOven_MO_MT_act4( MicrowaveOven_MO_MT * self, const Escher_xtUMLEvent_t 
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent1c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_MT_CLASS_NUMBER, MICROWAVEOVEN_MO_MTEVENT1NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent2c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_MT_CLASS_NUMBER, MICROWAVEOVEN_MO_MTEVENT2NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent3c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_MT_CLASS_NUMBER, MICROWAVEOVEN_MO_MTEVENT3NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent4c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_MT_CLASS_NUMBER, MICROWAVEOVEN_MO_MTEVENT4NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 
 
 /*
@@ -184,7 +180,6 @@ MicrowaveOven_MO_MT_Dispatch( Escher_xtUMLEvent_t * event )
   Escher_EventNumber_t event_number = GetOoaEventNumber( event );
   Escher_StateNumber_t current_state;
   Escher_StateNumber_t next_state;
-  
   if ( 0 != instance ) {
     current_state = instance->current_state;
     if ( current_state > 4 ) {
@@ -194,10 +189,10 @@ MicrowaveOven_MO_MT_Dispatch( Escher_xtUMLEvent_t * event )
       next_state = MicrowaveOven_MO_MT_StateEventMatrix[ current_state ][ event_number ];
       if ( next_state <= 4 ) {
         STATE_TXN_START_TRACE( "MO_MT", current_state, state_name_strings[ current_state ] );
-        /* Execute the state action and update the current state.  */
+        /* Update the current state and execute the state action.  */
+        instance->current_state = next_state;
         ( *MicrowaveOven_MO_MT_acts[ next_state ] )( instance, event );
         STATE_TXN_END_TRACE( "MO_MT", next_state, state_name_strings[ next_state ] );
-        instance->current_state = next_state;
       } else if ( next_state == EVENT_IS_IGNORED ) {
           /* event ignored */
           STATE_TXN_IG_TRACE( "MO_MT", current_state );
@@ -207,5 +202,4 @@ MicrowaveOven_MO_MT_Dispatch( Escher_xtUMLEvent_t * event )
     }
   }
 }
-
 

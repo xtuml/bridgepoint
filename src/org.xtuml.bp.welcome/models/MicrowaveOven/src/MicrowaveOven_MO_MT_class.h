@@ -4,7 +4,7 @@
  * Class:       Magnetron Tube  (MO_MT)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_MT_CLASS_H
@@ -22,8 +22,7 @@ struct MicrowaveOven_MO_MT {
   Escher_StateNumber_t current_state;
   /* application analysis class attributes */
   Escher_UniqueID_t TubeID;  /* * TubeID */
-  s2_t current_power_output;  /* - current_power_output */
-
+  MicrowaveOven_tube_wattage_t current_power_output;  /* - current_power_output */
   /* relationship storage */
   /* Note:  No storage needed for MO_MT->MO_O[R1] */
 };
@@ -41,7 +40,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_MTevent1;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent1c;
-
 /*
  * instance event:  MO_MT2:'decrease_power'
  */
@@ -50,7 +48,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_MTevent2;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent2c;
-
 /*
  * instance event:  MO_MT3:'power_on'
  */
@@ -59,7 +56,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_MTevent3;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent3c;
-
 /*
  * instance event:  MO_MT4:'power_off'
  */
@@ -68,17 +64,15 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_MTevent4;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_MTevent4c;
-
 /*
  * union of events targeted towards 'MO_MT' state machine
  */
 typedef union {
-  MicrowaveOven_MO_MTevent1 mo_mt11;  
-  MicrowaveOven_MO_MTevent2 mo_mt22;  
-  MicrowaveOven_MO_MTevent3 mo_mt33;  
-  MicrowaveOven_MO_MTevent4 mo_mt44;  
+  MicrowaveOven_MO_MTevent1 mo_mt1_1;  
+  MicrowaveOven_MO_MTevent2 mo_mt2_2;  
+  MicrowaveOven_MO_MTevent3 mo_mt3_3;  
+  MicrowaveOven_MO_MTevent4 mo_mt4_4;  
 } MicrowaveOven_MO_MT_Events_u;
-
 /*
  * enumeration of state model states for class
  */
@@ -100,5 +94,3 @@ extern void MicrowaveOven_MO_MT_Dispatch( Escher_xtUMLEvent_t * );
 #endif
 
 #endif  /* MICROWAVEOVEN_MO_MT_CLASS_H */
-
-

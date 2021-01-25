@@ -166,6 +166,7 @@ public class MaslSnippetEditor extends XtextEditor {
   
   @Override
   public void dispose() {
+	  super.dispose();
 	  Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
   }
 

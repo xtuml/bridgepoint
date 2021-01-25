@@ -47,7 +47,7 @@ public class NavigateUpAction extends Action {
 	@Override
 	public boolean isEnabled() {
 		if(viewer.getDifferencer() != null) {
-			return !viewer.getDifferencer().getLeftDifferences().isEmpty();
+			return !viewer.getDifferencer().getLeftDifferences(viewer.graphicsEnabled()).isEmpty();
 		} else {
 			return false;
 		}

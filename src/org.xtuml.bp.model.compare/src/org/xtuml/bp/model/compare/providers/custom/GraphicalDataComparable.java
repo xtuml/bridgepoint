@@ -30,7 +30,7 @@ public class GraphicalDataComparable extends NonRootModelElementComparable {
 	 * @param realElement
 	 */
 	public GraphicalDataComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, true);
 	}
 
 	@Override

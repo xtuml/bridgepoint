@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Oal Plug-in
 Bundle-SymbolicName: org.xtuml.bp.als.oal;singleton:=true
-Bundle-Version: 6.19.0.qualifier
+Bundle-Version: 7.1.0.qualifier
 Bundle-ClassPath: oal.jar
 Bundle-Activator: org.xtuml.bp.als.oal.OalPlugin
 Bundle-Vendor: xtUML.org
@@ -18,6 +18,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.antlr
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.als.oal
