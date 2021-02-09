@@ -39,7 +39,7 @@
             composite="true"
             contentFile="cheatsheets/SimpleSystem.xml"
             id="org.xtuml.bp.welcome.SimpleSystem"
-            name="Modelling A Simple System">
+            name="Modeling A Simple System">
       </cheatsheet>
       <cheatsheet
             category="org.xtuml.bp.cheatsheets"
