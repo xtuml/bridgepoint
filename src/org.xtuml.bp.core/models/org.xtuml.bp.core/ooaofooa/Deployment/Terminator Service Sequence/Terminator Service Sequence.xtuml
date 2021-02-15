@@ -1,0 +1,217 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	'Terminator Service Sequence',
+	1654,
+	'D_TSS',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("5ddeb39b-d4f4-4793-a9d1-08e8f109fc72",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	'indexOf',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'/*
+	Return the index within the sequence of the given service
+*/
+service = param.service;
+select any firstSis related by self->D_SIS[R1659] where selected.Svc_ID == GD::NULL_UNIQUE_ID();
+select any sis related by self->D_SIS[R1659];
+while(not_empty sis)
+	firstSis = sis;
+	select one sis related by sis->D_SIS[R1661.''succeeds''];
+end while;
+index = 0;
+nextSis = firstSis;
+while(not_empty nextSis)
+	if(service == nextSis)
+		return index;
+	end if;
+	index = index + 1;
+	select one nextSis related by nextSis->D_SIS[R1661.''precedes''];
+end while;
+// not found
+return -1;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("f5b7465c-b672-4fcd-9b60-42ebdeca6a0f",
+	"5ddeb39b-d4f4-4793-a9d1-08e8f109fc72",
+	'service',
+	"ecc6da71-bbbf-48b3-9970-a1b604e9eec9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ecc6da71-bbbf-48b3-9970-a1b604e9eec9",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Service In Sequence>',
+	'',
+	'',
+	'../Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b18a098e-3fa8-4a6a-a821-e7a0b1f7415c",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	'getServiceInSequenceAt',
+	'',
+	"ecc6da71-bbbf-48b3-9970-a1b604e9eec9",
+	1,
+	'/*
+	Return the service within the sequence at the given location
+*/
+location = param.location;
+select any firstSis related by self->D_SIS[R1659] where selected.Svc_ID == GD::NULL_UNIQUE_ID();
+select any sis related by self->D_SIS[R1659];
+while(not_empty sis)
+	firstSis = sis;
+	select one sis related by sis->D_SIS[R1661.''succeeds''];
+end while;
+index = 0;
+nextSis = firstSis;
+while(not_empty nextSis)
+	if(index == location)
+		return nextSis;
+	end if;
+	index = index + 1;
+	select one nextSis related by nextSis->D_SIS[R1661.''precedes''];
+end while;
+// not found
+select any nullInstance from instances of D_SIS where selected.Svc_ID == GD::NULL_UNIQUE_ID();
+return nullInstance;',
+	1,
+	'',
+	"5ddeb39b-d4f4-4793-a9d1-08e8f109fc72",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("d74d8dc6-d3e5-4444-bac8-a8b016bbcdaa",
+	"b18a098e-3fa8-4a6a-a821-e7a0b1f7415c",
+	'location',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c6fd716e-62a5-41c9-8620-a52b07206c33",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many servInSeqs related by self->D_SIS[R1659];
+for each sis in servInSeqs
+	unrelate self from sis across R1659;
+	sis.dispose();
+end for;
+select  one terminator related by self->D_TERM[R1658];
+if(not_empty terminator)
+  unrelate self from terminator across R1658;
+end if;
+delete  object instance self;',
+	1,
+	'',
+	"b18a098e-3fa8-4a6a-a821-e7a0b1f7415c",
+	0);
+INSERT INTO O_REF
+	VALUES ("0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"7d8d5579-63d5-4f85-b5e1-1c6117144a42",
+	"93cc6c65-4dde-4106-a756-a7813d6cdb75",
+	"d1ccbec2-d562-4173-8ee3-f0ff23bbbf8c",
+	"be907af4-f259-4466-803a-e9d2c74d892d",
+	"ab6cb805-d663-44e2-87a8-63f56f481f33",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminator',
+	'Term_ID',
+	'R1658');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	"7d8d5579-63d5-4f85-b5e1-1c6117144a42",
+	"93cc6c65-4dde-4106-a756-a7813d6cdb75",
+	'../Deployment.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	0,
+	"7d8d5579-63d5-4f85-b5e1-1c6117144a42",
+	"d1ccbec2-d562-4173-8ee3-f0ff23bbbf8c",
+	'../Deployment.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("be907af4-f259-4466-803a-e9d2c74d892d",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	"dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	1,
+	'Term_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("dfc77fb8-580d-48d1-9787-0c4fa1ecef40",
+	"00fb3b30-e8fd-4053-b2eb-94274e6c7062",
+	'../Terminator/Terminator.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("be907af4-f259-4466-803a-e9d2c74d892d",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	"ecf024b5-d14c-4988-ba3d-4afb38a3df5e",
+	'Term_ID',
+	'',
+	'',
+	'Term_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ecf024b5-d14c-4988-ba3d-4afb38a3df5e",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e");
+INSERT INTO O_BATTR
+	VALUES ("ecf024b5-d14c-4988-ba3d-4afb38a3df5e",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e");
+INSERT INTO O_ATTR
+	VALUES ("ecf024b5-d14c-4988-ba3d-4afb38a3df5e",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	"00000000-0000-0000-0000-000000000000",
+	'Seq_ID',
+	'',
+	'',
+	'Seq_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e");
+INSERT INTO O_OIDA
+	VALUES ("ecf024b5-d14c-4988-ba3d-4afb38a3df5e",
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	0,
+	'Seq_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e");
+INSERT INTO O_ID
+	VALUES (2,
+	"0d103934-70db-46cf-b8a5-d888f3f5bb7e");
+INSERT INTO PE_PE
+	VALUES ("0d103934-70db-46cf-b8a5-d888f3f5bb7e",
+	1,
+	"de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("de299e23-fa69-4e8b-8e7b-d07f3fe9a09e",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Deployment',
+	'',
+	0,
+	'../Deployment.xtuml');

@@ -58,7 +58,7 @@ public class Xtuml2Masl {
     // run a xtUML to MASL export
     public void xtuml2masl() throws IOException, RuntimeException {
         System.out.println("\n=====================================================================================================");
-        System.out.println("Exporting MASL for " + name + "...");
+        System.out.println("Exporting " + architecture +" for " + name + "...");
 
         // create the output directory if it does not exist
         File outDirFile = new File(outDir);
@@ -394,7 +394,7 @@ public class Xtuml2Masl {
         }
 
         Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
-                .setSkipActionLanguage(skipActionLanguage).setOutputDirectory("".equals(outDir) ? "." : outDir);
+                .setSkipActionLanguage(skipActionLanguage).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
                     .setIsDomain(buildElements.get(i).isDomain);

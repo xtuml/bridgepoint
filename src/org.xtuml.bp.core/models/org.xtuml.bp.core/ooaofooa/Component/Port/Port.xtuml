@@ -27,6 +27,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("15a1715d-8e77-4335-90da-923b1f50028b",
@@ -51,6 +52,7 @@ self.Name = "Port" + GD::int_to_string(value:count);',
 	1,
 	'',
 	"6094ba79-595c-43a1-b01f-bee469a5b87e",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("6094ba79-595c-43a1-b01f-bee469a5b87e",
@@ -68,6 +70,7 @@ return portName;',
 	1,
 	'',
 	"99a33348-59e6-4a9b-b659-01b6d8d8447a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("0f13c9e0-36dc-4846-a50a-a4ec417f5db0",
@@ -80,6 +83,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"15a1715d-8e77-4335-90da-923b1f50028b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("99a33348-59e6-4a9b-b659-01b6d8d8447a",
@@ -93,6 +97,7 @@ return component.Id;',
 	1,
 	'',
 	"0884ed2a-3991-4e85-80ed-8658b8df8303",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("1abf55fa-bcb3-4dd6-be9e-8c1dd2b1fa10",
@@ -116,6 +121,7 @@ end if;',
 	1,
 	'',
 	"0f13c9e0-36dc-4846-a50a-a4ec417f5db0",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b9ef4048-4b46-40cc-b34a-78022ce30a4d",
@@ -183,6 +189,7 @@ end for;',
 	1,
 	'',
 	"1abf55fa-bcb3-4dd6-be9e-8c1dd2b1fa10",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("bad48f9a-533a-4078-a7d7-ec3b92e55f5c",
@@ -200,6 +207,7 @@ return this;
 	0,
 	'',
 	"b6940017-42df-43af-8aa4-338dabad239f",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("91a1ccea-bcad-409c-ad5b-3e7ffb77b434",
@@ -327,6 +335,25 @@ INSERT INTO O_ATTR
 	'Id',
 	1,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bb17db6b-5f92-4e6c-80be-e833d9df40f1",
+	"2205f09b-595f-431e-98d5-73d007d124b6");
+INSERT INTO O_BATTR
+	VALUES ("bb17db6b-5f92-4e6c-80be-e833d9df40f1",
+	"2205f09b-595f-431e-98d5-73d007d124b6");
+INSERT INTO O_ATTR
+	VALUES ("bb17db6b-5f92-4e6c-80be-e833d9df40f1",
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	"6e9add57-e069-483a-b78c-0adfaa3f6912",
+	'Key_Lett',
+	'Full Name: Key Letters
+Description: Key letters of the Port (Terminator)',
+	'',
+	'Key_Lett',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
