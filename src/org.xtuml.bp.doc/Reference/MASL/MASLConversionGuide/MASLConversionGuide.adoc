@@ -218,7 +218,7 @@ to the domain.
 Terminators and terminator services define the outbound messages a domain
 calls to access functionality provided by other domains.  They are modeled in BridgePoint 
 as a required interface implementing interface operations on the component boundary. 
-See the "disp" terminator and the `error()` and `result()` terminator services in Figure 2.   
+See the "disp" terminator and the `error()` and `result()` terminator services in <<masl_svc>>.
  
 IMPORTANT: The dialect property of the domain services and terminator services are important. 
 For ASL or MASL-idiom domains, all provided operations should have dialect "None" and required 
