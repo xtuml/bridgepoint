@@ -468,6 +468,8 @@ end if;
 create object instance rattr of O_RATTR;
 rattr.Ref_Mode = 1;  // use referred to attribute name
 relate self to rattr across R106;
+
+rattr.setDatatype();
 ',
 	1,
 	'',
@@ -1190,8 +1192,6 @@ else
       unrelate old_dt from battr_attr across R114;
     end if;
     relate s_dt to battr_attr across R114;
-    // set type of referential
-    new_rattr.setDatatype();
     
     // set the new data type
     for each ref_rattr in ref_rattrs
