@@ -34,6 +34,9 @@ machines.
 [link=01_ALU_all.png]
 image::01_ALU_all.png[ALU in BridgePoint]
 
+TIP:  In the sections below, click on highlighted text to see screenshots
+      which provide additional clarity.
+
 == xtUML Project
 . Create an Eclipse **xtUML Project** with the name of the new domain
   ('ALU' in this case) by right-clicking in the link:02_Model_Explorer.png[**Model Explorer**]
