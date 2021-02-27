@@ -4,12 +4,12 @@
  * Class:       Beeper  (MO_B)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"
-#include "TIM_bridge.h"
 #include "MicrowaveOven_ARCH_bridge.h"
+#include "TIM_bridge.h"
 #include "MicrowaveOven_classes.h"
 
 
@@ -40,13 +40,13 @@ static void MicrowaveOven_MO_B_act1( MicrowaveOven_MO_B *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_B_act1( MicrowaveOven_MO_B * self, const Escher_xtUMLEvent_t * const event )
 {
-  bool cancelled_timer; 
+  bool cancelled_timer;
   /* ASSIGN self.beep_count = 0 */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.beep_count = 0" );
-  self->beep_count = 0;
+  ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beep_count" ))->beep_count = 0;
   /* ASSIGN cancelled_timer = TIM::timer_cancel(timer_inst_ref:self.beeper_timer) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN cancelled_timer = TIM::timer_cancel(timer_inst_ref:self.beeper_timer)" );
-  cancelled_timer = TIM_timer_cancel( self->beeper_timer );
+  cancelled_timer = TIM_timer_cancel( ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beeper_timer" ))->beeper_timer );
 }
 
 /*
@@ -56,23 +56,22 @@ static void MicrowaveOven_MO_B_act2( MicrowaveOven_MO_B *, const Escher_xtUMLEve
 static void
 MicrowaveOven_MO_B_act2( MicrowaveOven_MO_B * self, const Escher_xtUMLEvent_t * const event )
 {
-  /* IF ( ( self.beep_count == 0 ) ) */
-  XTUML_OAL_STMT_TRACE( 1, "IF ( ( self.beep_count == 0 ) )" );
-  if ( ( self->beep_count == 0 ) ) {
-    Escher_xtUMLEvent_t * delay_over;  /* delay_over */ 
+  /* IF ( self.beep_count == 0 ) */
+  XTUML_OAL_STMT_TRACE( 1, "IF ( self.beep_count == 0 )" );
+  if ( ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beep_count" ))->beep_count == 0 ) {
+    Escher_xtUMLEvent_t * delay_over;
     /* CREATE EVENT INSTANCE delay_over(  ) TO self */
     XTUML_OAL_STMT_TRACE( 2, "CREATE EVENT INSTANCE delay_over(  ) TO self" );
     delay_over = Escher_NewxtUMLEvent( (void *) self, &MicrowaveOven_MO_Bevent2c );
     /* ASSIGN self.beeper_delay_over = delay_over */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.beeper_delay_over = delay_over" );
-    self->beeper_delay_over = delay_over;
+    ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beeper_delay_over" ))->beeper_delay_over = delay_over;
     /* ASSIGN self.beeper_timer = TIM::timer_start(event_inst:self.beeper_delay_over, microseconds:100000) */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.beeper_timer = TIM::timer_start(event_inst:self.beeper_delay_over, microseconds:100000)" );
-    self->beeper_timer = TIM_timer_start( (Escher_xtUMLEvent_t *)self->beeper_delay_over, 100000 );
+    ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beeper_timer" ))->beeper_timer = TIM_timer_start( (Escher_xtUMLEvent_t *)((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beeper_delay_over" ))->beeper_delay_over, 100000 );
   }
-  else if ( ( self->beep_count == 4 ) ) {
-    MicrowaveOven_MO_O * oven = 0; /* oven (MO_O) */
- 
+  else if ( ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beep_count" ))->beep_count == 4 ) {
+    MicrowaveOven_MO_O * oven=0;
     /* GENERATE MO_B3:beeping_stopped() TO self */
     XTUML_OAL_STMT_TRACE( 2, "GENERATE MO_B3:beeping_stopped() TO self" );
     { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( self, &MicrowaveOven_MO_Bevent3c );
@@ -80,7 +79,7 @@ MicrowaveOven_MO_B_act2( MicrowaveOven_MO_B * self, const Escher_xtUMLEvent_t * 
     }
     /* SELECT one oven RELATED BY self->MO_O[R3] */
     XTUML_OAL_STMT_TRACE( 2, "SELECT one oven RELATED BY self->MO_O[R3]" );
-    oven = self->MO_O_R3;
+    oven = ( 0 != self ) ? self->MO_O_R3_is_located_in : 0;
     /* GENERATE MO_O6:beeping_over() TO oven */
     XTUML_OAL_STMT_TRACE( 2, "GENERATE MO_O6:beeping_over() TO oven" );
     { Escher_xtUMLEvent_t * e = Escher_NewxtUMLEvent( oven, &MicrowaveOven_MO_Oevent6c );
@@ -90,29 +89,25 @@ MicrowaveOven_MO_B_act2( MicrowaveOven_MO_B * self, const Escher_xtUMLEvent_t * 
   else {
     /* ASSIGN self.beeper_timer = TIM::timer_start(event_inst:self.beeper_delay_over, microseconds:100000) */
     XTUML_OAL_STMT_TRACE( 2, "ASSIGN self.beeper_timer = TIM::timer_start(event_inst:self.beeper_delay_over, microseconds:100000)" );
-    self->beeper_timer = TIM_timer_start( (Escher_xtUMLEvent_t *)self->beeper_delay_over, 100000 );
+    ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beeper_timer" ))->beeper_timer = TIM_timer_start( (Escher_xtUMLEvent_t *)((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beeper_delay_over" ))->beeper_delay_over, 100000 );
   }
   /* ASSIGN self.beep_count = ( self.beep_count + 1 ) */
   XTUML_OAL_STMT_TRACE( 1, "ASSIGN self.beep_count = ( self.beep_count + 1 )" );
-  self->beep_count = ( self->beep_count + 1 );
+  ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beep_count" ))->beep_count = ( ((MicrowaveOven_MO_B *)xtUML_detect_empty_handle( self, "MO_B", "self.beep_count" ))->beep_count + 1 );
 }
 
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent1c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_B_CLASS_NUMBER, MICROWAVEOVEN_MO_BEVENT1NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent2c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_B_CLASS_NUMBER, MICROWAVEOVEN_MO_BEVENT2NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent3c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_B_CLASS_NUMBER, MICROWAVEOVEN_MO_BEVENT3NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_Bevent4c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_B_CLASS_NUMBER, MICROWAVEOVEN_MO_BEVENT4NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 
 
 /*
@@ -160,7 +155,6 @@ MicrowaveOven_MO_B_Dispatch( Escher_xtUMLEvent_t * event )
   Escher_EventNumber_t event_number = GetOoaEventNumber( event );
   Escher_StateNumber_t current_state;
   Escher_StateNumber_t next_state;
-  
   if ( 0 != instance ) {
     current_state = instance->current_state;
     if ( current_state > 2 ) {
@@ -170,10 +164,10 @@ MicrowaveOven_MO_B_Dispatch( Escher_xtUMLEvent_t * event )
       next_state = MicrowaveOven_MO_B_StateEventMatrix[ current_state ][ event_number ];
       if ( next_state <= 2 ) {
         STATE_TXN_START_TRACE( "MO_B", current_state, state_name_strings[ current_state ] );
-        /* Execute the state action and update the current state.  */
+        /* Update the current state and execute the state action.  */
+        instance->current_state = next_state;
         ( *MicrowaveOven_MO_B_acts[ next_state ] )( instance, event );
         STATE_TXN_END_TRACE( "MO_B", next_state, state_name_strings[ next_state ] );
-        instance->current_state = next_state;
       } else if ( next_state == EVENT_IS_IGNORED ) {
           /* event ignored */
           STATE_TXN_IG_TRACE( "MO_B", current_state );
@@ -183,5 +177,4 @@ MicrowaveOven_MO_B_Dispatch( Escher_xtUMLEvent_t * event )
     }
   }
 }
-
 

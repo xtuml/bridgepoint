@@ -1,0 +1,69 @@
+= xtUML to WASL Structural Mapping
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+This document enumerates the mapping of xtUML artifacts to artifacts in WASL.
+
+== 2 Introduction and Background
+
+Project Caledonia provided conversion of iUML/ASL idiom models into xtUML
+and, in turn, xtUML to WASL format.  This document documents a tabular mapping
+of xtUML metamodel artifacts into WASL file output.
+
+== 3 Structural Mapping
+
+.xtUML to WASL Mapping
+[options="header"]
+|===
+| xtUML class                  | xtUML attribute       | WASL file        | file row or column
+| Deployment                   | Name                  | <deployment>.dmp | $BUILD_SET_NAME
+| Deployment                   | Key_Lett              | <deployment>.dmp | $PROJECT_KEY_LETTER
+| Terminator                   | Name                  | <deployment>.dmp | $PROJECT_KEY_LETTER
+| Terminator                   | Domain_Name           | <deployment>.dmp | DOMAIN_IN_BUILD_SET
+| Terminator                   | Terminator_Name       |                  |
+| Terminator                   | Implementation_System | <deployment>.dmp | DOMAIN_IN_BUILD_SET
+| Terminator                   | Key_Lett              |                  |
+| Terminator Service           | Name                  | <deployment>.brp | operation name
+| Terminator Service           | Implementation_Scope  |                  |
+| Terminator Service           | Numb                  | <deployment>.brp | operation number
+| Terminator Service Parameter | Name                  | <deployment>.brp | parameter
+| Component                    | Name                  | <domain>.dmp     | $DOMAIN_NAME
+| Component                    | Key_Lett              | <domain>.dmp     | $DOMAIN_KEY_LETTER
+| Port                         | Name                  | <domain>.ter     | name
+| Port                         | Key_Lett              | <domain>.ter     | key letters
+| Function                     | Name                  | <domain>.fnp     | function name
+| Function                     | Numb                  | <domain>.fnp     | number
+| Operation                    | Name                  | <domain>.fnp     | operation name
+| Operation                    | Numb                  | <domain>.fnp     | number
+| Model Class                  | Name                  | <domain>.obj     | name
+| Model Class                  | Numb                  | <domain>.obj     | number
+| Model Class                  | Key_Lett              | <domain>.obj     | key letters
+| Attribute                    | Name                  | <domain>.obj     | attribute name
+| Class Identifier Attribute   |                       | <domain>.obj     | identifier
+| Operation                    | Name                  | <domain>.fnp     | operation name
+| Operation                    | Numb                  | <domain>.fnp     | number
+| State                        | Name                  | <domain>.stt     | state name
+| State Machine Event          | Mning                 | <domain>.evd     | event name
+| State Machine Event          | Numb                  | <domain>.evd     | event name
+| Data Type                    | Name                  | <domain>.typ     | type name
+| Enumerator                   | Name                  | <domain>.typ     | enumerator
+| Structure Member             | Name                  | <domain>.typ     | member
+| Range                        | Min                   | <domain>.typ     | range minimum
+| Range                        | Max                   | <domain>.typ     | range maximum
+| Association                  | Name                  | <domain>.rel     | relationship name
+| Association                  | Numb                  | <domain>.rel     | relationship number
+| * Parameter                  | Name                  | <domain>.*p      | parameter
+| Exception                    | Name                  |                  | 
+|===
+
+== 4 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11396[11396 - xtUML to WASL Structural Mapping]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

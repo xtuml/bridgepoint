@@ -43,17 +43,15 @@ package org.xtuml.bp.ui.explorer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.action.*;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -71,6 +69,8 @@ import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
 import org.xtuml.bp.core.ui.*;
 import org.xtuml.bp.core.util.*;
+import org.xtuml.bp.ui.explorer.dnd.OrderedElementDragSourceListener;
+import org.xtuml.bp.ui.explorer.dnd.OrderedElementDropTargetListener;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import org.xtuml.bp.ui.explorer.ui.actions.ExplorerPasteAction;
@@ -79,6 +79,7 @@ import org.xtuml.bp.ui.properties.ModelPropertySourceProvider;
 
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
+import org.xtuml.bp.ui.text.asl.ASLActivityEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -188,6 +189,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     createToolbar();
     createFilters();
     hookListeners();
+    addDragAndDropSupport();
     initLabelProvider(treeViewer);
 	treeViewer.setInput(Ooaofooa.getDefaultInstance());
     getViewSite().getActionBars().setGlobalActionHandler(
@@ -214,6 +216,19 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     // Set help for the view 
     PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), IModelExplorerHelpContextIds.modelExplorerId);
   }
+
+	/**
+	 * Set up drag and drop support
+	 */
+
+	protected void addDragAndDropSupport() {
+		treeViewer.addDragSupport(DND.DROP_MOVE, new Transfer[] { TextTransfer.getInstance() },
+				new OrderedElementDragSourceListener());
+
+		treeViewer.addDropSupport(DND.DROP_MOVE, new Transfer[] { TextTransfer.getInstance() },
+				new OrderedElementDropTargetListener());
+	}
+
   /**
    * Hook up all the listeners needed by Model Explorer
    */    
@@ -440,7 +455,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     tv.setSelectionToWidget(sel, true);
 
     // scroll to reveal all elements of the new selection
-    for (Iterator iterator = sel.iterator(); iterator.hasNext();) {
+    for (Iterator<?> iterator = sel.iterator(); iterator.hasNext();) {
       Object element = iterator.next();
       if(element != null){
       tv.reveal(element);
@@ -514,7 +529,7 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
       public void run() {
         IStructuredSelection selection = Selection.getInstance().getStructuredSelection();
         getTreeViewer().setSelection(selection);
-        for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
+        for (Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
           Object element = iterator.next();
           getTreeViewer().reveal(element);
         }
@@ -895,56 +910,43 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 					}
 
 					// Get the value of the dialect attribute
-                                        try {
-                                            Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
-                                            dialect = (int) getDialectMethod.invoke(dialectObj);
-                                        } catch ( NoSuchMethodException e ) {
-                                            System.out.println( e );
-                                        } catch ( NullPointerException e ) {
-                                            System.out.println( e );
-                                        } catch ( SecurityException e ) {
-                                            System.out.println( e );
-                                        } catch ( IllegalAccessException e ) {
-                                            System.out.println( e );
-                                        } catch ( IllegalArgumentException e ) {
-                                            System.out.println( e );
-                                        } catch ( InvocationTargetException e ) {
-                                            System.out.println( e );
-                                        } catch ( ExceptionInInitializerError e ) {
-                                            System.out.println( e );
-                                        }
+                    try {
+                        Method getDialectMethod = dialectObj.getClass().getMethod("getDialect"); //$$NON-NLS-1$$
+                        dialect = (int) getDialectMethod.invoke(dialectObj);
+                    } catch ( NoSuchMethodException | NullPointerException | SecurityException |
+                    		  IllegalAccessException | IllegalArgumentException | InvocationTargetException |
+							  ExceptionInInitializerError e ) {
+                        System.out.println( e );
+                    }
 
-					// If the "dialect" attribute is neither "oal" nor "masl",
+					// If the "dialect" attribute is neither "oal", "asl", nor "masl",
 					// check the default language preference. Set "dialect" to
 					// be the preference value and open the proper editor.
-					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.none ) {
+					if ( dialect != Actiondialect_c.masl && dialect != Actiondialect_c.oal && dialect != Actiondialect_c.asl && dialect != Actiondialect_c.none ) {
 						IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
                                                 dialect = store.getInt(BridgePointPreferencesStore.DEFAULT_ACTION_LANGUAGE_DIALECT);
 
-                                                try {
-                                                    Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", int.class); //$$NON-NLS-1$$
-                                                    setDialectMethod.invoke(dialectObj, dialect);
-                                                } catch ( NoSuchMethodException e ) {
-                                                    System.out.println( e );
-                                                } catch ( NullPointerException e ) {
-                                                    System.out.println( e );
-                                                } catch ( SecurityException e ) {
-                                                    System.out.println( e );
-                                                } catch ( IllegalAccessException e ) {
-                                                    System.out.println( e );
-                                                } catch ( IllegalArgumentException e ) {
-                                                    System.out.println( e );
-                                                } catch ( InvocationTargetException e ) {
-                                                    System.out.println( e );
-                                                } catch ( ExceptionInInitializerError e ) {
-                                                    System.out.println( e );
-                                                }
+                        try {
+                            Method setDialectMethod = dialectObj.getClass().getMethod("setDialect", int.class); //$$NON-NLS-1$$
+                            setDialectMethod.invoke(dialectObj, dialect);
+                        } catch ( NoSuchMethodException | NullPointerException | SecurityException |
+                        		  IllegalAccessException | IllegalArgumentException | InvocationTargetException |
+								  ExceptionInInitializerError e ) {
+                            System.out.println( e );
+                        }
 					}
 				}
 
 				// check to see if we need to open the MASL editor
 				if (MASLEditorInput.isSupported(current) && dialect == Actiondialect_c.masl ) { //$$NON-NLS-1$$
 					inputClass = bundle.loadClass("org.xtuml.bp.ui.text.masl.MASLEditorInput"); //$$NON-NLS-1$$
+					try {
+						editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
+					} catch (NoSuchFieldException e) {
+						System.out.println(e);
+					}
+				} else if (ASLActivityEditorInput.isSupported(current) && dialect == Actiondialect_c.asl) { // $$NON-NLS-1$$
+					inputClass = bundle.loadClass("org.xtuml.bp.ui.text.asl.ASLActivityEditorInput"); //$$NON-NLS-1$$
 					try {
 						editorId = (String) inputClass.getField("EDITOR_ID").get(null); //$$NON-NLS-1$$
 					} catch (NoSuchFieldException e) {

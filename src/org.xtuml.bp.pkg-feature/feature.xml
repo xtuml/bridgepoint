@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.pkg.feature"
       label="BridgePoint UML"
-      version="6.19.0.qualifier"
+      version="7.1.0.qualifier"
       provider-name="xtUML.org"
       plugin="org.xtuml.bp.pkg"
       image="images/GreenChip.gif">
@@ -112,6 +112,12 @@ the License.
 
    <plugin
          id="org.xtuml.bp.mc.masl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.xtuml.bp.mc.wasl"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

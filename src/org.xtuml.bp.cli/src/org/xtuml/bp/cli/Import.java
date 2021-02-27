@@ -28,7 +28,7 @@ public class Import implements IApplication {
 		try {
 			CommandLineOption[] cmdLineOptions = getCommandLineOptions();
 			
-			BPCLIPreferences cmdLine = new  BPCLIPreferences(context, cmdLineOptions);
+			BPCLIPreferences cmdLine = new BPCLIPreferences(context, cmdLineOptions);
 			if (cmdLine.getBooleanValue("-help")) {
 				cmdLine.usage("Import");
 			} else {
@@ -73,6 +73,7 @@ public class Import implements IApplication {
                         "-workspacePreferences",
                         "",
                         "Worskpace preferences to set before import."),
+                new CommandLineOption("-reconcileGraphics", false, "Enable graphical reconciliation on imported data."),
                 new CommandLineOption(
                         "-workingPath",
                         "",

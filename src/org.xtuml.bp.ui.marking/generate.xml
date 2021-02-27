@@ -74,7 +74,8 @@
       <!-- TODO - re-enable <touch file="${java.output}" /> -->
    </target>
 
-   <property name="rcs_java_files" value="Activator.java, LaunchMarkingEditorAction.java, MarkingEditorDialog.java, MarkingData.java" />
+   <property name="rcs_java_files" value="Activator.java, LaunchMarkingEditorAction.java, MarkingEditorDialog.java, MarkingData.java,
+                                            MarkTransactionListener.java, MarkingDataManager.java" />
 
    <target name="format_java" description="Format the generated java source">
       <!-- TODO : current unused since we're not generating anything

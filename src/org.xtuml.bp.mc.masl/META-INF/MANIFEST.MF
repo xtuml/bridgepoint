@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MASL Export Builder
 Bundle-SymbolicName: org.xtuml.bp.mc.masl; singleton:=true
-Bundle-Version: 6.19.0.qualifier
+Bundle-Version: 7.1.0.qualifier
 Bundle-Activator: org.xtuml.bp.mc.masl.Activator
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,

@@ -24,7 +24,7 @@
          <item
                title="Select a model compiler">
             <description>
-               The wizard now presents you with page to select the desired model compiler.  Select &apos;C Model Compiler (Source)&apos; from the list, then click <b>Finish</b>.
+               The wizard now presents you with page to select the desired model compiler.  Select &apos;MC-3020(C Model Compiler)&apos; from the list, then click <b>Finish</b>.
             </description>
          </item>
    

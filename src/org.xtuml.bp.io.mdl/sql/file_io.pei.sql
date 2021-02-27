@@ -49,11 +49,13 @@ INSERT INTO EO VALUES ( '23.29.1',    '', '', 'Packageable Element', 8001, 'one'
 INSERT INTO EO VALUES ( '23.31.1',    '', '', 'Packageable Element', 8001, 'one', 'first', false );
 
 INSERT INTO EO VALUES ( '23.30.1', '23.30.1.1', '23.30.2', 'Terminator', 1650, 'many', 'first', false );
-INSERT INTO EO VALUES ( '23.30.1.1', '23.30.1.1.1', '', 'Terminator Service', 1651, 'many', 'first', false );
+INSERT INTO EO VALUES ( '23.30.1.1', '23.30.1.1.1', '23.30.1.2', 'Terminator Service', 1651, 'many', 'first', false );
 INSERT INTO EO VALUES ( '23.30.1.1.1', '23.30.1.1.1.1', '23.30.1.1.2', 'Terminator Service Parameter', 1652, 'many', 'first', false );
 INSERT INTO EO VALUES ( '23.30.1.1.1.1', '', '', 'Dimensions', 1655, 'many', 'first' );
 INSERT INTO EO VALUES ( '23.30.1.1.2', '', '', 'Dimensions', 1657, 'many', 'first' );
 INSERT INTO EO VALUES ( '23.30.2', '', '', 'Packageable Element', 8001, 'one', 'first', false );
+INSERT INTO EO VALUES ( '23.30.1.2', '23.30.1.2.1', '', 'Terminator Service Sequence', 1658, 'many', 'first', false);
+INSERT INTO EO VALUES ( '23.30.1.2.1', '', '', 'Service In Sequence', 1659, 'many', 'first', false);
 
 INSERT INTO EO VALUES ( '12.4.1',       '',    '12.4.3',     'ComponentDiagram', 0, '', 'first', false );
 INSERT INTO EO VALUES ( '12.4.3',     '12.4.3.1',  '12.4.9',      'Port', 4010, 'many', 'first', false );             
