@@ -35,9 +35,11 @@ import org.xtuml.bp.core.inspector.ObjectElement;
 public class ObjectElementComparable extends ComparableTreeObject {
 
 	private ObjectElement realElement;
+	private boolean graphical;
 
-	public ObjectElementComparable(ObjectElement realElement) {
+	public ObjectElementComparable(ObjectElement realElement, boolean isGraphical) {
 		this.realElement = realElement;
+		this.graphical = isGraphical;
 	}
 	
 	@Override
@@ -190,5 +192,10 @@ public class ObjectElementComparable extends ComparableTreeObject {
 	public boolean treeItemValueEqualsIncludingChildren(Object other) {
 		// no children so do not worry about this check
 		return true;
+	}
+
+	@Override
+	public boolean isGraphical() {
+		return graphical;
 	}
 }

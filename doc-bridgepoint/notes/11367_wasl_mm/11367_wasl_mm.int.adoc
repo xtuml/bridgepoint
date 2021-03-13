@@ -1,0 +1,103 @@
+= Address failing test and adjust build server script
+
+xtUML Project Implementation Note
+
+
+== 1 Abstract
+
+This note describes two changes.  The first to address a failing test in
+the wasl mm branch.  The other is to enhance the build server script. 
+
+
+== 2 Introduction and Background
+
+2.1 Failing test
+
+The WASL MM branch changed the ooaofooa metamodel around a bit,
+introducing new elements.  Running the test suite shows that only one
+test is failing due to these introductions.
+
+2.2 Build server script
+
+The build server script is used to create an AWS EC2 instance and run a
+nightly build from a development machine.  This script was seeing some
+timeouts in part of the script's ssh connections.
+
+== 3 Requirements
+
+3.1 All tests must pass
+3.2 The server script should not hit timeouts unless due to issues out of
+the developers hands (i.e, network connectivity).
+
+
+== 4 Work Required
+
+4.1 ui.properties.test
+
+The only failing test was one in properties, which failed due to expected
+results missing the addition of the ASL dialect.  This dialect was added.
+
+4.2 SSH timeouts
+
+During testing it was found that if a left over build server information
+file (running_instance.json) existed, the script was designed to attempt
+to start a build on the instance defined in that configuration.
+Considering that these instances can be terminated outside of the scripts
+environment this file can become stale.  For this work a new section of
+script was added that checks for the files existence.  If the file is
+found the script reports thee current machine's IP and asks if the user
+would like to start a build on a new server or attempt to reuse the
+existing server. 
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+. Run existing tests
+. All tests pass
+
+- Build server script
+
+. Start a build server without the build config file being present
+. The server is started and the config file is created
+. Run the script again
+. The existing machine's IP is listed
+. Choose Existing
+. A new build is started on the existing build server
+. Run the script again
+. Choose New
+. A new server is created and a build is started
+. The config file is replaced with the new servers information
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  travislondon/bptest
+- branch:  11367_wasl_mm
+
+----
+src/org.xtuml.bp.ui.properties.test/src/org/xtuml/bp/ui/properties/test/EnumRangeTest.java
+----
+
+- fork/repository: travislondon/bridgepoint
+- branch: 11367_wasl_mm
+
+----
+doc-bridgepoint/notes/11367_wasl_mm/11367_wasl_mm.int.adoc
+----
+
+- fork/repository: travislondon/1f
+- branch: 11367_wasl_mm
+
+----
+1f/tools/aws-server.sh
+----
+
+== 9 Document References
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

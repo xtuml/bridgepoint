@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent</artifactId>
-	<version>6.19.0-SNAPSHOT</version>
+	<version>7.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -53,6 +53,7 @@
 		<module>../../src/org.xtuml.bp.x2m</module>
 		<module>../../src/org.xtuml.bp.mc</module>
 		<module>../../src/org.xtuml.bp.mc.masl</module>
+		<module>../../src/org.xtuml.bp.mc.wasl</module>
 		<module>../../src/org.xtuml.bp.mc.mc3020</module>
 		<module>../../src/org.xtuml.bp.mc.java</module>
 		<module>../../src/org.xtuml.bp.pkg</module>

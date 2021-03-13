@@ -134,6 +134,7 @@ the License.
       <topic label="MASL Modeling and Conversion Guide" href="Reference/MASL/MASLConversionGuide/MASLConversionGuide.html"/>
       <topic label="MASL Reference Manual" href="Reference/MASL/LanguageReference/current/html/bk01-toc.html"/>
       <topic label="MASL Tutorial" href="Reference/MASL/tutorial/html/bk01-toc.html"/>
+      <topic label="ASL Tutorial - Calculator Model" href="Reference/MASL/ASLtutorial/calc_edit_asl.html"/>
       <topic label="masl2xtuml" href="Reference/MASL/masl2xtuml/masl2xtuml.html"/>
       <topic label="xtuml2masl" href="Reference/MASL/xtuml2masl/xtuml2masl.html"/>
     </topic>

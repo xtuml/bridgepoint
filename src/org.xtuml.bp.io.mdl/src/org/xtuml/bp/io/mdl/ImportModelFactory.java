@@ -91,5 +91,18 @@ public class ImportModelFactory extends AbstractModelImportFactory {
 			
 			
 	}
+
+	@Override
+	public IModelImport create(InputStream inStream, Ooaofooa aModelRoot, PersistableModelComponent component,
+			boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
+		return new ImportModelComponent(
+			inStream,
+			aModelRoot,
+			component,
+			parseAll,
+			clearDatabase,
+			parseGraphics,
+			isTemplate);
+	}
 }
 

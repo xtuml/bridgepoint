@@ -1,19 +1,17 @@
 package org.xtuml.bp.cli;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.resources.ResourcesPlugin;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -24,8 +22,9 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IntegrityChecker;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.ui.AbstractStreamImportFactory;
+import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.io.core.CoreExport;
 import org.xtuml.bp.io.core.ImportHelper;
@@ -37,6 +36,8 @@ import org.xtuml.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import org.xtuml.bp.model.compare.providers.ModelCompareContentProvider;
 import org.xtuml.bp.model.compare.providers.ModelCompareLabelProvider;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
+import org.xtuml.bp.ui.canvas.Cl_c;
+import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
@@ -75,7 +76,7 @@ public class MergeExecutor implements Executor {
 					e);
 		}
     }
-/**
+    /**
 	 * Perform the CLI merge, return 0 for successful merge 1 for conflicts
 	 * found
 	 * 
@@ -86,37 +87,73 @@ public class MergeExecutor implements Executor {
 	private int performCLIMerge() throws InvocationTargetException,
 			InterruptedException, IOException {
 		try {
+			// initialize graphical specifications
+			CanvasPlugin.initializeCanvases();
 			Ooaofooa leftCompareRoot = Ooaofooa.getInstance(Ooaofooa
 					.getLeftCompareRootPrefix());
 			Ooaofooa rightCompareRoot = Ooaofooa.getInstance(Ooaofooa
 					.getRightCompareRootPrefix());
 			Ooaofooa ancestorCompareRoot = Ooaofooa.getInstance(Ooaofooa
 					.getAncestorCompareRootPrefix());
-			AbstractStreamImportFactory streamImportFactory = CorePlugin
-					.getStreamImportFactory();
+			AbstractModelImportFactory modelImportFactory = CorePlugin
+					.getModelImportFactory();
+			//  left system
+			SystemModel_c leftSys = new SystemModel_c(leftCompareRoot);
+			leftSys.setParentModelRoot(Ooaofooa.getDefaultInstance());
+			leftSys.setModelRoot(Ooaofooa.getDefaultInstance());
+			ImportHelper leftHelper = new ImportHelper(null);
+			leftHelper.setUpGlobals(leftSys);
+			leftSys.setParentModelRoot(leftCompareRoot);
+			leftSys.setModelRoot(leftCompareRoot);
+			PersistableModelComponent leftCom = new PersistableModelComponent(
+					leftSys);
+			
+			// right system
+			SystemModel_c rightSys = new SystemModel_c(rightCompareRoot);
+			rightSys.setParentModelRoot(Ooaofooa.getDefaultInstance());
+			rightSys.setModelRoot(Ooaofooa.getDefaultInstance());
+			ImportHelper rightHelper = new ImportHelper(null);
+			rightHelper.setUpGlobals(rightSys);
+			rightSys.setParentModelRoot(rightCompareRoot);
+			rightSys.setModelRoot(rightCompareRoot);
+			PersistableModelComponent rightCom = new PersistableModelComponent(
+					rightSys);
+			
+			// ancestor system
+			SystemModel_c ancSys = new SystemModel_c(ancestorCompareRoot);
+			ancSys.setParentModelRoot(Ooaofooa.getDefaultInstance());
+			ancSys.setModelRoot(Ooaofooa.getDefaultInstance());
+			ImportHelper ancHelper = new ImportHelper(null);
+			ancHelper.setUpGlobals(ancSys);
+			ancSys.setParentModelRoot(ancestorCompareRoot);
+			ancSys.setModelRoot(ancestorCompareRoot);
+			PersistableModelComponent ancCom = new PersistableModelComponent(
+					ancSys);
+
 			RandomAccessFile left = new RandomAccessFile(new File(leftFile),
 					"r");
 			byte[] leftBytes = new byte[(int) left.length()];
 			left.read(leftBytes);
-			IModelImport leftImporter = streamImportFactory.create(
-					new ByteArrayInputStream(leftBytes), leftCompareRoot, true,
-					new Path(""));
+			IModelImport leftImporter = modelImportFactory.create(
+					new ByteArrayInputStream(leftBytes), leftCompareRoot, leftCom, false,
+					false, true, false);
 			left.close();
 			RandomAccessFile right = new RandomAccessFile(new File(rightFile),
 					"r");
 			byte[] rightBytes = new byte[(int) right.length()];
 			right.read(rightBytes);
-			IModelImport rightImporter = streamImportFactory.create(
+
+			IModelImport rightImporter = modelImportFactory.create(
 					new ByteArrayInputStream(rightBytes), rightCompareRoot,
-					true, new Path(""));
+					rightCom, false, false, true, false);
 			right.close();
 			RandomAccessFile ancestor = new RandomAccessFile(new File(
 					ancestorFile), "r");
 			byte[] ancestorBytes = new byte[(int) ancestor.length()];
 			ancestor.read(ancestorBytes);
-			IModelImport ancestorImporter = streamImportFactory.create(
+			IModelImport ancestorImporter = modelImportFactory.create(
 					new ByteArrayInputStream(ancestorBytes),
-					ancestorCompareRoot, true, new Path(""));
+					ancestorCompareRoot, ancCom, false, false, true, false);
 			ancestor.close();
 			SystemModel_c sys = new SystemModel_c(Ooaofooa.getDefaultInstance());
 			ImportHelper helper = new ImportHelper(null);
@@ -124,21 +161,42 @@ public class MergeExecutor implements Executor {
 			sys.setParentModelRoot(leftCompareRoot);
 			sys.setModelRoot(leftCompareRoot);
 			leftImporter.run(new NullProgressMonitor());
+			leftImporter.finishComponentLoad(new NullProgressMonitor(), false);
 			rightImporter.run(new NullProgressMonitor());
+			rightImporter.finishComponentLoad(new NullProgressMonitor(), false);
 			if (ancestorImporter != null) {
 				ancestorImporter.run(new NullProgressMonitor());
+				ancestorImporter.finishComponentLoad(new NullProgressMonitor(), false);
 			}
-			Model_c[] models = Model_c.ModelInstances(Ooaofgraphics.getInstance(leftCompareRoot.getId()));
-			for(Model_c model : models) {
-				CanvasPlugin.setGraphicalRepresents(model);
+			Ooaofgraphics leftGraphicalRoot = Ooaofgraphics.getInstance(leftCompareRoot.getId());
+			Model_c[] models = Model_c.ModelInstances(leftGraphicalRoot);
+			for (Model_c model : models) {
+				model.relateAcrossR9To(
+						ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics.getDefaultInstance(),
+								s -> ((ModelSpecification_c) s).getModel_type() == model.getModel_typeCachedValue()
+										&& ((ModelSpecification_c) s).getOoa_type() == model.getOoa_typeCachedValue()));
+				model.setRepresents(
+						Cl_c.Getinstancefromooa_id(leftCompareRoot, model.getOoa_id(), model.getOoa_typeCachedValue()));
 			}
-			models = Model_c.ModelInstances(Ooaofgraphics.getInstance(rightCompareRoot.getId()));
-			for(Model_c model : models) {
-				CanvasPlugin.setGraphicalRepresents(model);
+			Ooaofgraphics rightGraphicalRoot = Ooaofgraphics.getInstance(rightCompareRoot.getId());
+			models = Model_c.ModelInstances(rightGraphicalRoot);
+			for (Model_c model : models) {
+				model.relateAcrossR9To(
+						ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics.getDefaultInstance(),
+								s -> ((ModelSpecification_c) s).getModel_type() == model.getModel_typeCachedValue()
+										&& ((ModelSpecification_c) s).getOoa_type() == model.getOoa_typeCachedValue()));
+				model.setRepresents(
+						Cl_c.Getinstancefromooa_id(rightCompareRoot, model.getOoa_id(), model.getOoa_typeCachedValue()));
 			}
-			models = Model_c.ModelInstances(Ooaofgraphics.getInstance(ancestorCompareRoot.getId()));
-			for(Model_c model : models) {
-				CanvasPlugin.setGraphicalRepresents(model);
+			Ooaofgraphics ancGraphicalRoot = Ooaofgraphics.getInstance(ancestorCompareRoot.getId());
+			models = Model_c.ModelInstances(ancGraphicalRoot);
+			for (Model_c model : models) {
+				model.relateAcrossR9To(
+						ModelSpecification_c.ModelSpecificationInstance(Ooaofgraphics.getDefaultInstance(),
+								s -> ((ModelSpecification_c) s).getModel_type() == model.getModel_typeCachedValue()
+										&& ((ModelSpecification_c) s).getOoa_type() == model.getOoa_typeCachedValue()));
+				model.setRepresents(
+						Cl_c.Getinstancefromooa_id(ancestorCompareRoot, model.getOoa_id(), model.getOoa_typeCachedValue()));
 			}
 			final NonRootModelElement leftRoot = leftImporter
 					.getRootModelElement();
@@ -157,7 +215,7 @@ public class MergeExecutor implements Executor {
 			TreeDifferencer differencer = new TreeDifferencer(contentProvider,
 					new Object[] { leftRoot }, new Object[] { rightRoot },
 					new Object[] { ancestorRoot }, ancestorRoot != null, new Object());
-			List<TreeDifference> differences = differencer.getRightDifferences();
+			List<TreeDifference> differences = differencer.getRightDifferences(true);
 			if(differences.isEmpty()) {
 				// early exit, nothing to merge
 				System.out.println("Nothing to merge.");

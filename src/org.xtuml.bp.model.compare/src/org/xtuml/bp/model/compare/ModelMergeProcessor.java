@@ -625,7 +625,7 @@ public class ModelMergeProcessor {
 		IPersistableElementParentDetails parentDetails = PersistenceManager
 				.getHierarchyMetaData().getParentDetails(
 						(NonRootModelElement) lastSupertype);
-		if (parentDetails.isMany()) {
+		if (parentDetails != null && parentDetails.isMany()) {
 			Object[] localDetails = new Object[] {
 					parentDetails.getParent(), parentDetails.getChild(),
 					parentDetails.getAssociationNumber(),
@@ -1292,7 +1292,7 @@ public class ModelMergeProcessor {
 							TreeDifferencer.getLocationOfElement(
 									contentProvider.getParent(element
 											.getParent()), element.getParent(),
-									contentProvider)),
+									contentProvider), false),
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(localOwner,
@@ -1637,35 +1637,37 @@ public class ModelMergeProcessor {
 
 	private static NonRootModelElement getLastSupertype(NonRootModelElement element) {
 		IPersistableElementParentDetails parentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(element);
-		NonRootModelElement parent = parentDetails.getParent();
-		// special case for PE_PE, its considered a child of its subtype for
-		// persistence reasons
-		if(parentDetails.getChild() instanceof PackageableElement_c) {
-			parent = parentDetails.getChild();
-		}
-		NonRootModelElement supertype = null;
-		NonRootModelElement lastSupertype = null;
-		if(parent != null && SupertypeSubtypeUtil.isSupertypeOf((NonRootModelElement) element, parent)) {
-			lastSupertype = parent;
-			supertype = parent;
-		}
-		while(supertype != null) {
-			parentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(supertype);
-			parent = parentDetails.getParent();
+		if(parentDetails != null) {
+	 		NonRootModelElement parent = parentDetails.getParent();
 			// special case for PE_PE, its considered a child of its subtype for
 			// persistence reasons
 			if(parentDetails.getChild() instanceof PackageableElement_c) {
 				parent = parentDetails.getChild();
 			}
-			if(parent != null && SupertypeSubtypeUtil.isSupertypeOf(supertype, parent)) {
-				supertype = parent;
+			NonRootModelElement supertype = null;
+			NonRootModelElement lastSupertype = null;
+			if(parent != null && SupertypeSubtypeUtil.isSupertypeOf((NonRootModelElement) element, parent)) {
 				lastSupertype = parent;
-			} else {
-				supertype = null;
+				supertype = parent;
 			}
-		}
-		if(lastSupertype != null) {
-			element = lastSupertype;
+			while(supertype != null) {
+				parentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(supertype);
+				parent = parentDetails.getParent();
+				// special case for PE_PE, its considered a child of its subtype for
+				// persistence reasons
+				if(parentDetails.getChild() instanceof PackageableElement_c) {
+					parent = parentDetails.getChild();
+				}
+				if(parent != null && SupertypeSubtypeUtil.isSupertypeOf(supertype, parent)) {
+					supertype = parent;
+					lastSupertype = parent;
+				} else {
+					supertype = null;
+				}
+			}
+			if(lastSupertype != null) {
+				element = lastSupertype;
+			}
 		}
 		return element;
 	}

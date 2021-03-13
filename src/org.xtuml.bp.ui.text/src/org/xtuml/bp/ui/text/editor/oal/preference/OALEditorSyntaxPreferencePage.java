@@ -47,10 +47,10 @@ import org.xtuml.bp.ui.preference.BasePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModel.IChangeListener;
 import org.xtuml.bp.ui.text.OALEditorPlugin;
+import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences;
 import org.xtuml.bp.ui.text.editor.SyntaxHighlightingPreferences.TokenTypeInfo;
 import org.xtuml.bp.ui.text.editor.oal.OALAutoEditStrategy;
-import org.xtuml.bp.ui.text.editor.oal.OALDocumentProvider;
 import org.xtuml.bp.ui.text.editor.oal.OALEditorConfiguration;
 
 public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
@@ -252,7 +252,7 @@ public class OALEditorSyntaxPreferencePage extends BaseModelEditor {
 
         String content = loadPreviewContentFromFile("OALPreviewCode.txt");
         IDocument document = new Document(content);
-        OALDocumentProvider.setDocumentPartitioner(document);
+        ActionLanguageDocumentProvider.setDocumentPartitioner(document, ActionLanguageDocumentProvider.ALType.OAL);
         viewer.setDocument(document);
 
         clonedPreferences.addModelChangeListener(new IChangeListener() {

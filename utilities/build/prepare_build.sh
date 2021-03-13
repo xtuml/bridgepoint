@@ -21,17 +21,17 @@ function importProjects {
   dir=`pwd`
   cd $BP_GIT_DIR
   # Explicitly import doc-bridgepoint and utilities
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import bridgepoint/doc-bridgepoint
-  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import bridgepoint/utilities
+  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import bridgepoint/doc-bridgepoint
+  java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import bridgepoint/utilities
   cd bridgepoint/src
   for file in `ls -1`; do
-    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file 
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file 
     # if this is the xtext parent, we need to import the nested projects
     if [ $file == "org.xtuml.bp.xtext.masl.parent" ]; then
       cd $file 
       for nestedFile in `ls -1`; do
         if [ -d $nestedFile ]; then
-           java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $nestedFile
+           java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $nestedFile
         fi
       done
       cd ..
@@ -39,20 +39,20 @@ function importProjects {
   done
   cd ../doc-bridgepoint
   for file in `ls -1`; do
-    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+    java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
   done
   cd ../releng
   for file in `ls -1`; do
-     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
   done
  cd ../utilities
   for file in `ls -1`; do
-     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+     java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
   done
   if [ "$INCLUDE_TESTS" == "true" ]; then
     cd ../../bptest/src
     for file in `ls -1`; do
-       java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
+       java -cp ${bp_install_dir}/plugins/org.eclipse.equinox.launcher_*.jar org.eclipse.equinox.launcher.Main -data $WORKSPACE -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import $file
     done
   fi
   cd $dir

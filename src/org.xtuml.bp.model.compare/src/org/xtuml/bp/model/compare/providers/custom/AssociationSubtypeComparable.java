@@ -34,7 +34,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class AssociationSubtypeComparable extends NonRootModelElementComparable {
 
 	public AssociationSubtypeComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

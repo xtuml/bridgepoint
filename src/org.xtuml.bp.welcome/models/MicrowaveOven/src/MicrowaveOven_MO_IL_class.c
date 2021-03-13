@@ -4,12 +4,12 @@
  * Class:       Internal Light  (MO_IL)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"
-#include "TIM_bridge.h"
 #include "MicrowaveOven_ARCH_bridge.h"
+#include "TIM_bridge.h"
 #include "MicrowaveOven_classes.h"
 
 
@@ -54,11 +54,9 @@ MicrowaveOven_MO_IL_act2( MicrowaveOven_MO_IL * self, const Escher_xtUMLEvent_t 
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_ILevent1c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_IL_CLASS_NUMBER, MICROWAVEOVEN_MO_ILEVENT1NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 const Escher_xtUMLEventConstant_t MicrowaveOven_MO_ILevent2c = {
   MicrowaveOven_DOMAIN_ID, MicrowaveOven_MO_IL_CLASS_NUMBER, MICROWAVEOVEN_MO_ILEVENT2NUM,
   ESCHER_IS_INSTANCE_EVENT };
-
 
 
 /*
@@ -106,7 +104,6 @@ MicrowaveOven_MO_IL_Dispatch( Escher_xtUMLEvent_t * event )
   Escher_EventNumber_t event_number = GetOoaEventNumber( event );
   Escher_StateNumber_t current_state;
   Escher_StateNumber_t next_state;
-  
   if ( 0 != instance ) {
     current_state = instance->current_state;
     if ( current_state > 2 ) {
@@ -116,10 +113,10 @@ MicrowaveOven_MO_IL_Dispatch( Escher_xtUMLEvent_t * event )
       next_state = MicrowaveOven_MO_IL_StateEventMatrix[ current_state ][ event_number ];
       if ( next_state <= 2 ) {
         STATE_TXN_START_TRACE( "MO_IL", current_state, state_name_strings[ current_state ] );
-        /* Execute the state action and update the current state.  */
+        /* Update the current state and execute the state action.  */
+        instance->current_state = next_state;
         ( *MicrowaveOven_MO_IL_acts[ next_state ] )( instance, event );
         STATE_TXN_END_TRACE( "MO_IL", next_state, state_name_strings[ next_state ] );
-        instance->current_state = next_state;
       } else if ( next_state == EVENT_IS_IGNORED ) {
           /* event ignored */
           STATE_TXN_IG_TRACE( "MO_IL", current_state );
@@ -129,5 +126,4 @@ MicrowaveOven_MO_IL_Dispatch( Escher_xtUMLEvent_t * event )
     }
   }
 }
-
 

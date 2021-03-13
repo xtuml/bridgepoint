@@ -62,6 +62,7 @@ import org.xtuml.bp.model.compare.providers.custom.SemEventComparable;
 import org.xtuml.bp.model.compare.providers.custom.SemeComparable;
 import org.xtuml.bp.model.compare.providers.custom.TransitionComparable;
 import org.xtuml.bp.ui.canvas.Model_c;
+import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 
 public class ComparableProvider {
 
@@ -84,7 +85,11 @@ public class ComparableProvider {
 				return new AssignedEventComparable(objEle);
 			}
 		}
-		return new ObjectElementComparable((ObjectElement) element);
+		boolean graphical = false;
+		if(objEle.getParent() instanceof NonRootModelElement) {
+			graphical = ((NonRootModelElement) objEle.getParent()).getModelRoot() instanceof Ooaofgraphics;
+		}
+		return new ObjectElementComparable((ObjectElement) element, graphical);
 	}
 
 	private static ComparableTreeObject getNonRootModelElementComparable(
@@ -140,7 +145,8 @@ public class ComparableProvider {
 		if(element instanceof StateEventMatrixEntry_c) {
 			return new SemeComparable((NonRootModelElement) element);
 		}
-		return new NonRootModelElementComparable((NonRootModelElement) element);
+		NonRootModelElement nrme = (NonRootModelElement) element;
+		return new NonRootModelElementComparable(nrme, nrme.getModelRoot() instanceof Ooaofgraphics);
 	}
 	
 }

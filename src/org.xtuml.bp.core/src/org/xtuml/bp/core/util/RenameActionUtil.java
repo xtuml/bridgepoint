@@ -5,6 +5,7 @@ import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ComponentParticipant_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
@@ -62,6 +63,9 @@ public class RenameActionUtil {
 			} else if (classType == ExternalEntity_c.class) {
 				ExternalEntity_c ee = (ExternalEntity_c) newElement;
 				ee.setKey_lett(proposedName.replaceAll(" ", ""));
+			} else if (classType == Deployment_c.class) {
+				Deployment_c depl = (Deployment_c) newElement;
+				depl.setKey_lett(proposedName.replaceAll(" ", ""));
 			}
 			newElement.setName(proposedName);
 		}

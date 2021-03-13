@@ -21,6 +21,8 @@
 //========================================================================
 package org.xtuml.bp.model.compare;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -28,6 +30,10 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -36,6 +42,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class ComparePlugin extends AbstractUIPlugin {
 	//The shared instance.
 	private static ComparePlugin plugin;
+	private static ImageRegistry imageRegistry;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
 
@@ -79,6 +86,39 @@ public class ComparePlugin extends AbstractUIPlugin {
 		return resourceBundle;
 	}
 
+    /**
+     * This routine initializes the static member imageRegistry if it has not been initialized.
+     * This is done here instead of in a member initializer for plugin start-up purposes.
+     * When called from the command-line there may not be a workbench.
+     */
+	private static ImageRegistry getStaticImageRegistry() {
+		if (imageRegistry == null) {
+			if (Display.getCurrent() != null) {
+				imageRegistry = new ImageRegistry(Display.getCurrent());
+			} else {
+				imageRegistry = new ImageRegistry(PlatformUI.getWorkbench().getDisplay());	
+			}
+		}
+		return imageRegistry;
+	}
+	
+	
+	public static ImageDescriptor getImageDescriptor(String path) {
+		try {
+			URL installURL = plugin.getBundle().getEntry("/");
+			URL url = new URL(installURL, path);
+	        ImageDescriptor imageDescriptor = getStaticImageRegistry().getDescriptor(path);
+	        if (imageDescriptor == null) {
+	            imageDescriptor = ImageDescriptor.createFromURL(url);
+	            getStaticImageRegistry().put(path, imageDescriptor);
+	        }
+	        return imageDescriptor;
+		} catch (MalformedURLException e) {
+			writeToLog("Invalid image path.", e, ComparePlugin.class);
+		}
+        return null;
+	}
+	
 	public static void writeToLog(
 		String errorMsg,
 		Throwable e,

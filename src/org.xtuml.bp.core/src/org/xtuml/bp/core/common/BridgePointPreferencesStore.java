@@ -95,7 +95,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	
 	public static final String PERSIST_ACTIVITY_FILES = "persist_activity_files";
 	public static final String NO_PERSIST_ACTIVITY_FILES = "no_persist_activity_files";
-		
+			
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
     }
@@ -163,6 +163,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(REQUIRE_MASL_STYLE_IDENTIFIERS, prefs.requireMaslStyleIdentifiers);
         store.setValue(OPAQUE_COMPONENTS, prefs.opaqueComponents);
         store.setValue(SHOW_FORMALIZATIONS, prefs.showFormalizations);
+        
     }
 
     public IPreferenceModel loadModel(IPreferenceStore store, BasePlugin plugin, IPreferenceModel model) {
@@ -345,5 +346,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.requireMaslStyleIdentifiers = false;
         prefs.opaqueComponents = false;
         prefs.showFormalizations = true;
+
     }
 }
