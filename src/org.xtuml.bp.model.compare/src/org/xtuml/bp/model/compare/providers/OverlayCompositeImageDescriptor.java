@@ -23,6 +23,7 @@ package org.xtuml.bp.model.compare.providers;
 
 import org.eclipse.jface.resource.CompositeImageDescriptor;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageDataProvider;
 import org.eclipse.swt.graphics.Point;
 
 public class OverlayCompositeImageDescriptor extends CompositeImageDescriptor {
@@ -38,8 +39,20 @@ public class OverlayCompositeImageDescriptor extends CompositeImageDescriptor {
 	
 	@Override
 	protected void drawCompositeImage(int width, int height) {
-		super.drawImage(base, 0, 0);
-		super.drawImage(overlay, 0, 0);
+		super.drawImage(new ImageDataProvider() {
+
+			@Override
+			public ImageData getImageData(int zoom) {
+				return base;
+			}
+		}, 0, 0);
+		super.drawImage(new ImageDataProvider() {
+
+			@Override
+			public ImageData getImageData(int zoom) {
+				return overlay;
+			}
+		}, 0, 0);
 	}
 
 	@Override

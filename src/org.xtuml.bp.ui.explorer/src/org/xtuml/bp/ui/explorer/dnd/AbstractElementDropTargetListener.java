@@ -62,7 +62,6 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 		try {
 			Transaction transaction = TransactionManager.getSingleton().startTransaction("Drop element.",
 					new ModelElement[] { Ooaofooa.getDefaultInstance() });
-			// this is a reorder if the target container is the source container
 			performDrop(sourceContainer == targetContainer, (event.detail & DND.DROP_MOVE) == DND.DROP_MOVE);
 			TransactionManager.getSingleton().endTransaction(transaction);
 		} catch (TransactionException e) {
@@ -125,6 +124,6 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 		return -1;
 	}
 
-	abstract void performDrop(boolean reorder, boolean isMove);
+	abstract void performDrop(boolean sameContainer, boolean isMove);
 
 }

@@ -10,7 +10,7 @@ import org.xtuml.bp.model.compare.providers.NonRootModelElementComparable;
 public class EventMatrixComparable extends NonRootModelElementComparable {
 
 	public EventMatrixComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 	@Override
 	public boolean treeItemEquals(Object other) {

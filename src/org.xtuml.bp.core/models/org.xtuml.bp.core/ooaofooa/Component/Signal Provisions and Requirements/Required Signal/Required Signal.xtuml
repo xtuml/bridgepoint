@@ -26,10 +26,14 @@ if ( self.Dialect == ActionDialect::masl )
     self.Action_Semantics_internal = "begin\n  null;\nend service;";
   end if;
 end if;
+// initialize number to match definition
+select one ep related by self->SPR_REP[R4502]->C_EP[R4500];
+self.Numb = ep.Numb;
 self.Suc_Pars = ParseStatus::parseInitial;',
 	1,
 	'',
 	"87f8deea-8ada-49e5-a511-e715e4404956",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("399b87ce-8edd-4a91-bd86-db9649a5a12b",
@@ -60,6 +64,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("3084049f-956d-47bf-bc29-ec509ce027a5",
@@ -113,6 +118,7 @@ return false;',
 	1,
 	'',
 	"3a846613-88b0-4685-bcec-db8bc6030414",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("586df3b2-df8d-4e4c-991e-5b69789f7ae0",
@@ -135,6 +141,7 @@ return rep.getComponentId();',
 	1,
 	'',
 	"399b87ce-8edd-4a91-bd86-db9649a5a12b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("acfbd9ac-51c1-41d0-aad0-8e629b26bcee",
@@ -153,6 +160,7 @@ return this;
 	0,
 	'',
 	"3084049f-956d-47bf-bc29-ec509ce027a5",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -183,6 +191,7 @@ end if;',
 	1,
 	'',
 	"acfbd9ac-51c1-41d0-aad0-8e629b26bcee",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("a465c580-b11d-414a-9072-37a78b7a1aea",
@@ -201,6 +210,7 @@ return true;',
 	1,
 	'',
 	"c364decb-cefa-4aae-8f28-3b85293fdb17",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("1ecdfe02-d8c6-4961-a9e3-8f19b26e3e0e",
@@ -220,6 +230,7 @@ end if;',
 	1,
 	'',
 	"a465c580-b11d-414a-9072-37a78b7a1aea",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d712b392-7c1b-4c1f-a2fe-0c86c4166f83",
@@ -249,6 +260,7 @@ end if;',
 	1,
 	'',
 	"1ecdfe02-d8c6-4961-a9e3-8f19b26e3e0e",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f0f85be8-fd26-44a7-a57a-f022b270c4ef",
@@ -261,6 +273,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"36fa2046-674b-443c-b370-fe12a129c6db",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("31835228-8825-4245-85a0-b8c34b621ddd",
@@ -273,6 +286,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"f0f85be8-fd26-44a7-a57a-f022b270c4ef",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("abaa1de1-e634-415d-a6f6-aa5dba348196",
@@ -312,6 +326,7 @@ end if;',
 	1,
 	'',
 	"31835228-8825-4245-85a0-b8c34b621ddd",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("b348a155-d633-4fc6-b59a-1276c966de33",
@@ -324,6 +339,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"2226d7a6-a24f-4a37-a67c-dcd74eb03dee",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c58b3977-adca-47be-8a65-0aff72613d02",
@@ -336,6 +352,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"b348a155-d633-4fc6-b59a-1276c966de33",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("694d45e3-6363-49b1-96b5-1fd4ecf05e19",
@@ -557,6 +574,25 @@ INSERT INTO S_DT_PROXY
 	'Enumerator for available action dialects',
 	'',
 	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("29ee3c9a-a29e-4477-abea-9aaa6cb63ef5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_BATTR
+	VALUES ("29ee3c9a-a29e-4477-abea-9aaa6cb63ef5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ATTR
+	VALUES ("29ee3c9a-a29e-4477-abea-9aaa6cb63ef5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"def2d5aa-f86b-4153-98de-03c1a869bbf4",
+	'Numb',
+	'Full Name: Signal Number
+Description: numeric key to distinguish the service to action language',
+	'',
+	'Numb',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"7267de3e-fe63-474a-952b-d3155f3e36f2");

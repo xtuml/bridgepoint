@@ -2,13 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Text Plug-in
 Bundle-SymbolicName: org.xtuml.bp.ui.text; singleton:=true
-Bundle-Version: 6.19.0.qualifier
+Bundle-Version: 7.1.0.qualifier
 Bundle-ClassPath: text.jar
 Bundle-Activator: org.xtuml.bp.ui.text.TextPlugin
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.ui.text,
  org.xtuml.bp.ui.text.activity,
  org.xtuml.bp.ui.text.annotation,
+ org.xtuml.bp.ui.text.asl,
  org.xtuml.bp.ui.text.contentassist,
  org.xtuml.bp.ui.text.description,
  org.xtuml.bp.ui.text.editor,

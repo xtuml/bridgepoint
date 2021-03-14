@@ -44,8 +44,8 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 	ModelContentProvider provider = new ModelContentProvider();
 
 	@Override
-	public void performDrop(boolean reorder, boolean move) {
-		if (reorder) {
+	public void performDrop(boolean sameContainer, boolean move) {
+		if (sameContainer && move) {
 			performReordering();
 		} else {
 			performCopy(move);
@@ -123,13 +123,14 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 			try {
 				selected.getClass().getMethod("insertIntoOrdering",
 						new Class[] { int.class });
-				event.detail = DND.DROP_MOVE;
+				// still copy if modifier is held
+				event.detail = (event.operations & DND.DROP_MOVE) == 0 ? DND.DROP_COPY : DND.DROP_MOVE;
 			} catch (NoSuchMethodException | SecurityException e) {
-				event.detail = DND.DROP_NONE;
+				// only copy if modifier is held
+				event.detail = (event.operations & DND.DROP_COPY) != 0 ? DND.DROP_COPY : DND.DROP_NONE;
 			}
-			return;
 		}
-		if (sourceContainer != targetContainer) {
+		if ((event.detail & DND.DROP_COPY) != 0) {
 			if (sourceContainer.getClass() == targetContainer.getClass()) {
 				// verify target has paste operation
 				try {
@@ -144,7 +145,6 @@ public class OrderedElementDropTargetListener extends AbstractElementDropTargetL
 				return;
 			}
 		}
-		event.detail = DND.DROP_NONE;
 	}
 
 	@Override

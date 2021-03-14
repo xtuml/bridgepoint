@@ -1,0 +1,64 @@
+= Upgrade the Built-in EEs for Epoch Time
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note documents upgrading the external entities (EEs) to include the
+bridges for for epoch time support.
+
+== 2 Introduction and Background
+
+Project Panda introduced the ability to set the epoch and manipulate system
+time.  This was done by adding bridges to the Time:TIM external entity.
+However, the models that can be added from the BridgePoint context menus
+had not been updated.  This work updates them.
+
+== 3 Requirements
+
+=== 3.1 Time:TIM has the missing epoch bridges.
+
+== 4 Work Required
+
+Edit the TIM EE source accessed by the 'Add Built-in External Entities'
+context menu entry.  Add the missing bridges.
+
+* advance_time
+* current_seconds
+* set_epoch
+* set_time
+* time_of_day
+* timestamp_format
+* timestamp_to_string
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+Using Verifier, run the xtuml/models/test/Epoch_test test case (running
+function test_epoch_time).
+
+== 7 User Documentation
+
+A short description is provided for each new bridge.
+
+== 8 Code Changes
+
+- fork/repository:  cortlandstarrett/bridgepoint
+- branch:  11959_newtim
+
+----
+ doc-bridgepoint/notes/11959_newtim_int.adoc            |  61 +++++++++++++++
+ src/org.xtuml.bp.pkg/Built-inExternalEntities/ee.xtuml | 280 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 318 insertions(+), 23 deletions(-)
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/11959[11959 - update TIM bridges for epoch time]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

@@ -32,7 +32,7 @@ import org.xtuml.bp.model.compare.providers.ObjectElementComparable;
 public class AssignedEventComparable extends ObjectElementComparable {
 
 	public AssignedEventComparable(ObjectElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

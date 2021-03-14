@@ -4,7 +4,7 @@
  * Class:       Internal Light  (MO_IL)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_IL_CLASS_H
@@ -22,7 +22,6 @@ struct MicrowaveOven_MO_IL {
   Escher_StateNumber_t current_state;
   /* application analysis class attributes */
   Escher_UniqueID_t LightID;  /* * LightID */
-
   /* relationship storage */
   /* Note:  No storage needed for MO_IL->MO_O[R2] */
 };
@@ -40,7 +39,6 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_ILevent1;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_ILevent1c;
-
 /*
  * instance event:  MO_IL2:'switch_off'
  */
@@ -49,15 +47,13 @@ typedef struct {
   /* Note:  no supplemental data for this event */
 } MicrowaveOven_MO_ILevent2;
 extern const Escher_xtUMLEventConstant_t MicrowaveOven_MO_ILevent2c;
-
 /*
  * union of events targeted towards 'MO_IL' state machine
  */
 typedef union {
-  MicrowaveOven_MO_ILevent1 mo_il11;  
-  MicrowaveOven_MO_ILevent2 mo_il22;  
+  MicrowaveOven_MO_ILevent1 mo_il1_1;  
+  MicrowaveOven_MO_ILevent2 mo_il2_2;  
 } MicrowaveOven_MO_IL_Events_u;
-
 /*
  * enumeration of state model states for class
  */
@@ -75,5 +71,3 @@ extern void MicrowaveOven_MO_IL_Dispatch( Escher_xtUMLEvent_t * );
 #endif
 
 #endif  /* MICROWAVEOVEN_MO_IL_CLASS_H */
-
-

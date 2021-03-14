@@ -5006,6 +5006,86 @@ INSERT INTO PE_PE
 	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("23c9ad06-d172-40bc-b1db-5fa7c9c5d1c7",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Function>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("23c9ad06-d172-40bc-b1db-5fa7c9c5d1c7",
+	0,
+	"bc9a6c16-8809-4681-92ab-421898fa108a");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
+	'Function',
+	16,
+	'S_SYNC',
+	'A function (S_SYNC) is a method associated with the domain (S_DOM).  It can be thought of as a global function within the domain.  Functions can be synchronously called from action specifications or used to provide a definition for bridge method  in another domain.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Function/Function.xtuml');
+INSERT INTO PE_PE
+	VALUES ("23c9ad06-d172-40bc-b1db-5fa7c9c5d1c7",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("77c60be4-d1e0-4021-be8b-7959c0882adb",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Function>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("77c60be4-d1e0-4021-be8b-7959c0882adb",
+	1,
+	"bc9a6c16-8809-4681-92ab-421898fa108a");
+INSERT INTO PE_PE
+	VALUES ("77c60be4-d1e0-4021-be8b-7959c0882adb",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("4289288a-0181-4521-b247-cdc41a6f74e0",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Function Parameter>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("4289288a-0181-4521-b247-cdc41a6f74e0",
+	0,
+	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
+	'Function Parameter',
+	17,
+	'S_SPARM',
+	'A parameter to a function (S_SYNC) is called a function parameter (S_SPARM).  Function parameters are either passed in by value, or by reference.  Function parameters can be accessed by using the param keyword from within a function action specification.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Function Parameter/Function Parameter.xtuml');
+INSERT INTO PE_PE
+	VALUES ("4289288a-0181-4521-b247-cdc41a6f74e0",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("586d21fb-44bd-4d36-8c6e-9fff67e40d46",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Function Parameter>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("586d21fb-44bd-4d36-8c6e-9fff67e40d46",
+	1,
+	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841");
+INSERT INTO PE_PE
+	VALUES ("586d21fb-44bd-4d36-8c6e-9fff67e40d46",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("f60d4f17-bd84-467d-a247-30314897dfad");
 INSERT INTO R_REL
@@ -5961,14 +6041,6 @@ INSERT INTO R_OIR
 	"c1e69dd4-ad0a-41a9-82cc-b58b72eb7f0b",
 	"ad134a92-8b84-4911-8adc-f29801b3350c",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
-	'Function',
-	16,
-	'S_SYNC',
-	'A function (S_SYNC) is a method associated with the domain (S_DOM).  It can be thought of as a global function within the domain.  Functions can be synchronously called from action specifications or used to provide a definition for bridge method  in another domain.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Function/Function.xtuml');
 INSERT INTO R_PART
 	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
 	"c1e69dd4-ad0a-41a9-82cc-b58b72eb7f0b",
@@ -6054,14 +6126,6 @@ INSERT INTO R_OIR
 	"aafaca3c-bdfd-44ba-ae27-869b22a8d58e",
 	"caa89794-4675-4fa1-a2f0-c519df3eafed",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
-	'Function Parameter',
-	17,
-	'S_SPARM',
-	'A parameter to a function (S_SYNC) is called a function parameter (S_SPARM).  Function parameters are either passed in by value, or by reference.  Function parameters can be accessed by using the param keyword from within a function action specification.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Function Parameter/Function Parameter.xtuml');
 INSERT INTO PE_PE
 	VALUES ("aafaca3c-bdfd-44ba-ae27-869b22a8d58e",
 	1,

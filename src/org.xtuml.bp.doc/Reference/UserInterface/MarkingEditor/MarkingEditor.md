@@ -103,12 +103,11 @@ from MASL:
 
 | MASL Markable Element | xtUML Element Type                   |
 |-----------------------|--------------------------------------|
-|project                | Component                            |
-|(project-)domain       | Component Reference                  |
+|project                | Deployment                           |
 |domain                 | Component                            |
 |(domain-)terminator    | Port                                 |
-|(project-)terminator   | Provision                            |
-|(project terminator service) routine | Provided Operation     |
+|(project-)terminator   | Terminator                           |
+|(project terminator service) routine | Terminator Service     |
 |object                 | Model Class                          |
 |(domain function or service) routine | Function               |
 |(terminator function or service) routine | Required Operation |

@@ -353,8 +353,12 @@ public class ProjectUtilities {
     }
 
 
+    public static boolean importModelWithoutWizard(SystemModel_c systemModel, String filePath) {
+    	return importModelWithoutWizard(systemModel, filePath, false);
+    }
+    
     public static boolean importModelWithoutWizard(SystemModel_c systemModel,
-            String filePath) {
+            String filePath, boolean reconcileGraphics) {
 		IPath templatePath = new Path(filePath);
 		if (templatePath.getFileExtension().equals(Ooaofooa.MODELS_EXT)) {
 			File inputFile;
@@ -366,7 +370,7 @@ public class ProjectUtilities {
 				String message = "";
 				IModelImport importer = importHelper.doImportPhase1(processor, systemModel, inputFile, monitor);
 				importHelper.doImportPhase2(processor, systemModel, monitor, message, importer);
-				importHelper.doResolveMASL(importer, systemModel, false);
+				importHelper.doResolveMASL(importer, systemModel, reconcileGraphics);
 			} catch (FileNotFoundException e) {
 				CorePlugin.logError("Internal error: failed to open " + filePath, e);
 				return false;

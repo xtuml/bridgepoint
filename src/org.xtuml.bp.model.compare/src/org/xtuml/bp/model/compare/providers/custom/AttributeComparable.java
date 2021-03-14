@@ -32,7 +32,7 @@ public class AttributeComparable extends NonRootModelElementComparable {
 	 * @param realElement
 	 */
 	public AttributeComparable(NonRootModelElement realElement) {
-		super(realElement);
+		super(realElement, false);
 	}
 
 	@Override

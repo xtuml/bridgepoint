@@ -5023,9 +5023,11 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("9e3e32ea-b1ca-4976-960d-d05d8ea26753",
 	103,
-	'This association specifies the order in which a classes attributes appear on the OIM. The instance for which no instance ''preceeds'' is the first (top) class attribute on the OIM. The instance for which no instance ''succeeds'' is the last (bottom) class attribute on the OIM.
+	'OrderBy: true
 
-OrderBy: true',
+This association specifies the order in which a classes attributes appear on the OIM. The instance for which no instance ''preceeds'' is the first (top) class attribute on the OIM. The instance for which no instance ''succeeds'' is the last (bottom) class attribute on the OIM.
+
+',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_PART
 	VALUES ("d931d595-21f3-4ce8-bad1-6661a0e261b8",
