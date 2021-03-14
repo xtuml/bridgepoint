@@ -1,19 +1,30 @@
 package org.xtuml.bp.ui.explorer.dnd;
-
-import java.util.stream.Stream;
-
-import org.eclipse.jface.viewers.ITreeContentProvider;
+//========================================================================
+//
+//File: ElementDropTargetListener.java
+//
+//This work is licensed under the Creative Commons CC0 License
+//
+//========================================================================
+//Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+//use this file except in compliance with the License.  You may obtain a copy 
+//of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+//Unless required by applicable law or agreed to in writing, software 
+//distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+//WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+//License for the specific language governing permissions and limitations under
+//the License.
+//======================================================================== 
+//
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.DropTargetListener;
-import org.eclipse.swt.dnd.TextTransfer;
-import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.Ooaofooa;
-import org.xtuml.bp.core.common.ModelElement;
-import org.xtuml.bp.core.common.Transaction;
-import org.xtuml.bp.core.common.TransactionException;
-import org.xtuml.bp.core.common.TransactionManager;
 
 public interface ElementDropTargetListener extends DropTargetListener {
+	
+	public static String transferSeparator = "___";
 
 	@Override
 	default public void dragEnter(DropTargetEvent event) {
@@ -39,75 +50,5 @@ public interface ElementDropTargetListener extends DropTargetListener {
 	default public void dropAccept(DropTargetEvent event) {
 		// override if implementation desired
 	}
-
-	@Override
-	default public void drop(DropTargetEvent event) {
-		if(event.currentDataType == null) {
-			return;
-		}
-		String[] transferData = getTransferData(event);
-		if (transferData[0].equals(event.item.getData().toString())) {
-			return;
-		}
-		try {
-			Transaction transaction = TransactionManager.getSingleton().startTransaction("Drop element.",
-					new ModelElement[] { Ooaofooa.getDefaultInstance() });
-			performDrop(event);
-			TransactionManager.getSingleton().endTransaction(transaction);
-		} catch (TransactionException e) {
-			CorePlugin.logError("Unable to perform drop element.", e);
-		}
-	}
-
-	default Object getContainer(Object toDrop, String parentType) {
-		if (toDrop.getClass().toString().equals(parentType)) {
-			return toDrop;
-		} else {
-			return getProvider().getParent(toDrop);
-		}
-	}
-
-	default Object[] getSiblings(Object container, String type) {
-		return Stream.of(getProvider().getChildren(container))
-				.filter(o -> o != null && o.getClass().toString().equals(type)).toArray();
-	}
-
-	default Object getDropElement(DropTargetEvent event) {
-		String[] transferData = getTransferData(event);
-		Object container = getContainer(event.item.getData(), transferData[2]);
-		Object[] children = getSiblings(container, transferData[1]);
-
-		for (int i = 0; i < children.length; i++) {
-			if (children[i].toString().equals(transferData[0])) {
-				return children[i];
-			}
-		}
-		return null;
-	}
-
-	public static String transferSeparator = ";";
-
-	default String[] getTransferData(DropTargetEvent event) {
-		String sourceText = (String) TextTransfer.getInstance().nativeToJava(event.currentDataType);
-		return sourceText.split(transferSeparator);
-	}
-
-	default int getElementIndex(Object target, String type, String parentType) {
-		Object container = getContainer(target, parentType);
-		if (container == target) {
-			return 0;
-		}
-		Object[] siblings = getSiblings(container, type);
-		for (int i = 0; i < siblings.length; i++) {
-			if (siblings[i] == target) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	void performDrop(DropTargetEvent event);
-
-	ITreeContentProvider getProvider();
 
 }

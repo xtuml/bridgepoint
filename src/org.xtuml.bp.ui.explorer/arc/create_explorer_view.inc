@@ -222,10 +222,10 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 	 */
 
 	protected void addDragAndDropSupport() {
-		treeViewer.addDragSupport(DND.DROP_MOVE, new Transfer[] { TextTransfer.getInstance() },
+		treeViewer.addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { TextTransfer.getInstance() },
 				new OrderedElementDragSourceListener());
 
-		treeViewer.addDropSupport(DND.DROP_MOVE, new Transfer[] { TextTransfer.getInstance() },
+		treeViewer.addDropSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { TextTransfer.getInstance() },
 				new OrderedElementDropTargetListener());
 	}
 
