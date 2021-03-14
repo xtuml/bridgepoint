@@ -29,6 +29,7 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ModelElement;
+import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.common.TransactionException;
@@ -51,7 +52,9 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 		if(event.item == null) {
 			return;
 		}
-		this.overObject = event.item.getData();
+		this.overObject = event.item.getData() instanceof MultipleOccurrenceElement
+				? ((MultipleOccurrenceElement) event.item.getData()).getElement()
+				: event.item.getData();
 		if (event.currentDataType == null) {
 			return;
 		}
@@ -87,7 +90,12 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 	}
 
 	Object[] getSiblings(Object container, String type) {
+		if(container == null) {
+			System.err.println("Should have a container...");
+			return new Object[0];
+		}
 		return Stream.of(getProvider().getChildren(container))
+				.map(o -> (o instanceof MultipleOccurrenceElement) ? ((MultipleOccurrenceElement) o).getElement() : o)
 				.filter(o -> o != null && o.getClass().getName().toString().equals(type)).toArray();
 	}
 
@@ -115,6 +123,10 @@ public abstract class AbstractElementDropTargetListener implements ElementDropTa
 	}
 
 	protected int getTargetIndex() {
+		if(targetContainer == null) {
+			System.err.println("Should have a target container...");
+			return -1;
+		}
 		Object[] siblings = getSiblings(targetContainer, toDropType);
 		for (int i = 0; i < siblings.length; i++) {
 			if (siblings[i] == overObject) {
