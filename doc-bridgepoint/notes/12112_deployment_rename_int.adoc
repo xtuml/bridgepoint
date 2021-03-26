@@ -1,0 +1,82 @@
+= Rename of deployment component not complete
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Issue <<dr-1>> shows a rename of a deployment where it was stated that instances
+of the name in the xtuml file were left unchanged.
+
+== 2 Introduction and Background
+
+In examining the document provided by the issue reporter, it was noted that the
+first unchanged instance was the keyletter field for the Deployment class.
+Subsequent other unchanged instances in the provided documentation were places
+that use the deployment name for the domain name to distinguish the terminator.
+
+Renames in BridgePoint are handled throught the Context Menu Entry Functions
+package in a function named, <class keyletters>_Rename. In complex rename
+scenarios, the class will have its own rename method that is called.
+
+Keyletters in BridgePoint default to the class name, and default keyletters 
+should get updated if the class name changes.
+
+
+== 3 Requirements
+
+=== 3.1 Update default Deployment keyletters on a rename
+
+== 4 Work Required
+
+=== 4.1 Update default Deployment keyletters on a rename in code
+. A method named, "rename", should be added to the Deployment class and action
+  language to update the keyletters and the class name will be added.
+. The new method will be called in place of existing action language in
+  Context Menu Entry Functions::D_DEPL_Rename.
+
+=== 4.2 Update default Deployment keyletters on a rename in unit test
+. Change the
+  bptest/src/org.xtuml.bp.core.test/src/org/xtuml/bp/core/test/ui/ContextMenuTestsGenerics.java
+  testContextMenuRenameActionOnD_DEPL method to ensure the rename updates the
+  D_DEPL::Key_Lett attribute, if defaulted.
+
+=== 4.3 Update special Deployment as Domain Terminators on a rename in code
+. Add code to find and update the Terminators using the Deployment name as the
+  Domain name in the new Deployment::rename method
+
+=== 4.4 Update special Deployment as Domain Terminators on a rename in unit test
+. Add checks for Terminator updates in the unit test.
+
+== 5 Implementation Comments
+
+Existing action language for a keyletters rename was copied to ensure
+consistency.
+
+It was noted that there are other package elements (i.e., elements
+with keyletters) that aren't updating default keyletters.
+
+== 6 Unit Test
+ContextMenuTestsGenerics::testContextMenuRenameActionOnD_DEPL
+
+== 7 User Documentation
+
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  12112_deployment_rename
+
+----
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Deployment/Deployment/Deployment.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Functions/Context Menu Entry Functions/Context Menu Entry Functions.xtuml
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12112[12112 Rename of deployment component not complete]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
