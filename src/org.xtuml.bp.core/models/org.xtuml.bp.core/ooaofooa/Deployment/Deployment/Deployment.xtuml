@@ -415,7 +415,7 @@ create object instance term of D_TERM;
 relate term to self across R1650;
 term.Domain_Name = c_c.Name;
 term.Terminator_Name = c_po.Name;
-term.Domain_Key_Lett = c_c.Key_Lett;
+term.Key_Lett = c_c.Key_Lett;
 term.Descrip = "";
 term.Provider = false;
 if(not_empty existing_term and existing_term.Implementation_System != "")
