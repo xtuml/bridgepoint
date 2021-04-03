@@ -73,6 +73,7 @@ if ( SystemModelcount > 0 )
 	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("2d66a4c8-ee35-4485-aa16-a2b8bf3c4753",
@@ -91,6 +92,7 @@ sys.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0d5a6e9d-e1be-45a9-b652-6c72231fdefd",
@@ -120,6 +122,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("51c47cdd-2d7f-4520-b96c-7e15c8dbd11e",
@@ -138,6 +141,7 @@ fn.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("cdf3dc93-4d9b-411b-9c44-ea7f501364e0",
@@ -166,6 +170,7 @@ fn.newParameter();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("bc6e9afa-1fb4-45b9-bdc1-10e28702d636",
@@ -186,6 +191,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6f606fe5-156b-4b04-982c-39eebc301904",
@@ -204,6 +210,7 @@ fnp.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b898bc40-2ec9-4130-bdad-7ef48ea63972",
@@ -233,6 +240,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("11e0417b-cdbd-4213-bdce-31d59c159302",
@@ -251,6 +259,7 @@ clazz.rename(new_name: param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("266e7416-2a31-476b-b06a-a6b043e11e12",
@@ -280,6 +289,7 @@ clazz.newOperation();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("df498193-c640-495e-94ad-257f176f8b22",
@@ -300,6 +310,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4fcd10c1-05b6-49c4-96bd-d76803ac5a02",
@@ -318,6 +329,7 @@ operation.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7769761a-38a1-456e-9bc8-d6f4bd239893",
@@ -346,6 +358,7 @@ operation.newParameter();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7c83bb4b-d93f-4f94-a58f-40fe9bdf28d5",
@@ -366,6 +379,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("767919a6-cfcd-4131-9c5e-2aed75c2d715",
@@ -384,6 +398,7 @@ parm.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("233871bf-11ac-4ab2-9482-72d3abb7c477",
@@ -414,6 +429,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("87daa374-3fdd-4b7c-901b-35c292c43fc3",
@@ -433,6 +449,7 @@ udt.rename(new_name:param.new_name);
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("abe78667-8b0f-4869-b9d0-3add52461f6a",
@@ -463,6 +480,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4ed29d47-79c1-486a-b7ec-d9527c30826a",
@@ -481,6 +499,7 @@ edt.rename(new_name:param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("03d25fcf-d901-4d6c-b23e-a937c56a1a1b",
@@ -509,6 +528,7 @@ edt.newEnumerator();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("858c073b-6504-4ce4-ac73-f6a62dc41f7a",
@@ -529,6 +549,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("20d3f68f-3cad-434b-a24b-4be507f02c71",
@@ -547,6 +568,7 @@ enumerator.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7d591cd1-c9c6-4e47-8790-134d5c9d5956",
@@ -576,6 +598,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c5b4884e-a0ea-4bed-ab08-f927b28abfe7",
@@ -594,6 +617,7 @@ ee.rename(new_name: param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("192e6967-514c-4b3e-8c8d-2e9b527d117f",
@@ -622,6 +646,7 @@ ee.newBridgeOperation();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("098d09ea-1e2f-48e6-8d39-59dc59d50bed",
@@ -642,6 +667,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c6ece81c-579c-4724-bf24-6f15f47381e9",
@@ -660,6 +686,7 @@ brg.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9ec34e4e-e1d4-4a71-aa46-44167c4b8984",
@@ -688,6 +715,7 @@ brg.newParameter();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("623a17ab-7bf9-4dbf-95c6-3686f675bc1c",
@@ -708,6 +736,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7edd3df3-9cc4-4ec0-a2c2-244a6e58f38d",
@@ -726,6 +755,7 @@ bparm.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ec26a2cd-398d-4737-9ca8-6bbf2ef527f6",
@@ -753,6 +783,7 @@ newAttr_id = clazz.newAttribute();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d261468a-51de-4682-b34d-ebbb65f5eadd",
@@ -822,6 +853,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("42b9ea8d-c6d6-4c21-8c0c-8e534203a9e7",
@@ -840,6 +872,7 @@ attr.Root_Nam = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5d176675-b458-45b3-8b43-80eb45d0c542",
@@ -868,6 +901,7 @@ ignore = clazz.create_sm(sm_type:"ISM");
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7b56cf26-0878-4ebf-88b7-1d63e06bee5e",
@@ -889,6 +923,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f3aeba08-4f2c-4ed8-b4e3-26a3f24716c5",
@@ -909,6 +944,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("06fd9044-7752-4cf5-be71-9b97e36b2681",
@@ -927,6 +963,7 @@ smstate.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6399a531-8563-4c04-a55f-f91be55522d9",
@@ -955,6 +992,7 @@ ism.newEvent();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("67ab5098-e88d-46aa-b4c9-49518ae8139c",
@@ -975,6 +1013,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("117c0004-d99d-40b1-ae4e-2e9413366343",
@@ -1003,6 +1042,7 @@ evt.Mning = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4a1167fd-4c9e-4a41-9254-d3a6fe2899b9",
@@ -1032,6 +1072,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1dcf2816-7e9d-4b3a-b806-74935f5719b4",
@@ -1051,6 +1092,7 @@ evtdi.Name = param.new_name;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5caa0f36-3c90-4cab-b1bd-03d13899af82",
@@ -1079,6 +1121,7 @@ ignore = clazz.create_sm(sm_type:"ASM");
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a4e6e019-3fe5-40f8-ae2c-457ce30c53b1",
@@ -1100,6 +1143,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3ea2cb34-1fc0-41fe-a0d6-94e4b8544160",
@@ -1119,6 +1163,7 @@ asm.newEvent();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5b07c082-4a52-4bf0-8397-e7ddccce0d65",
@@ -1138,6 +1183,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4b3d3809-57ee-423c-a929-6cdac6b8b19b",
@@ -1157,6 +1203,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("69fad391-f253-4f49-87d5-e2a9afc0fdc8",
@@ -1176,6 +1223,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a06106b9-0dca-418a-ba5b-868896ad9018",
@@ -1198,6 +1246,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0a05ac34-70e1-496d-a8a9-6761bb593c84",
@@ -1220,6 +1269,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f2f6b4f1-f81e-4693-bd3b-b62a67c939c3",
@@ -1239,6 +1289,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("dc237918-8c1b-47aa-9c19-100577f7d8c5",
@@ -1258,6 +1309,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("84a16811-e730-4480-a360-9a1addff0ed6",
@@ -1286,6 +1338,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("380f155f-bbbc-485d-a131-7181f3a00a16",
@@ -1305,6 +1358,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c1b5a58c-9f3a-48bc-9b39-d0faacd3ebf1",
@@ -1333,6 +1387,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("65488f7d-9e02-4b27-8c66-7b0b7a42c893",
@@ -1352,6 +1407,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("668a4e32-a881-4301-acbc-297fa0e4c193",
@@ -1380,6 +1436,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e7b3986b-bed6-4231-ac47-f6849212c793",
@@ -1399,6 +1456,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e8e3604a-77c0-4ca1-b500-9299f33db2ce",
@@ -1427,6 +1485,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ace808cd-fbf9-4317-add5-c7ba1416a288",
@@ -1446,6 +1505,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c1be7222-5b6e-44df-bbb3-e3ceb65a55be",
@@ -1474,6 +1534,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("bdee5d5b-55c3-48bd-8698-6ce433bab0fb",
@@ -1522,6 +1583,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("87fbe048-c8cb-43f4-8c8b-2d180df790d5",
@@ -1574,6 +1636,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f0584f75-38a6-40bc-a3f6-86f919bf1286",
@@ -1593,6 +1656,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("17d4bb17-f82e-454f-adbd-3eb4e3e68770",
@@ -1629,6 +1693,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9bc01b62-c35b-4605-af4e-0e9e8cd49a4b",
@@ -1648,6 +1713,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4d3b6c92-8624-4288-8eb3-502953a63ec5",
@@ -1667,6 +1733,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("86412e1c-45dd-48d7-9c48-3d34649c791c",
@@ -1686,6 +1753,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("995ff705-7181-4158-89e7-02b0980bd8fe",
@@ -1705,6 +1773,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1cfd6fd7-1724-461f-ade1-363c5170fb2d",
@@ -1749,6 +1818,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9b326a1e-1f24-4acb-bf54-082969df9c83",
@@ -1791,6 +1861,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5ed724b7-6742-43e5-bc07-5203ee1c0e81",
@@ -1810,6 +1881,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("db0d95fb-68f9-45e8-83e5-03c9a6ebeda2",
@@ -1829,6 +1901,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a86c4373-52e3-4ca5-b1d0-a4f625d12841",
@@ -1848,6 +1921,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d723abcf-bb58-49c5-8d67-efa565e36184",
@@ -1867,6 +1941,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6c29584e-5442-44dd-8e56-a5e87c7ae267",
@@ -1886,6 +1961,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("12263322-322f-482f-85a8-371b8dfe63a9",
@@ -1914,6 +1990,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1c27d770-3c3e-456f-a77e-b062d286e8f9",
@@ -1942,6 +2019,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6c1d72ec-cda7-424e-9e2f-0e75bd7f0c8f",
@@ -1970,6 +2048,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("2ffa4dfc-a375-4b68-bde9-94b693085ffc",
@@ -1989,6 +2068,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7eef2b1c-d266-44ed-b1c5-23419e3e7fed",
@@ -2008,6 +2088,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5d9fdea2-c1ce-469e-a235-f722f26e09ea",
@@ -2027,6 +2108,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c2ff1310-c4c4-419b-b69e-a60c6893f355",
@@ -2046,6 +2128,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ac0ca5d5-2203-403f-8b65-8d580fb9d4b0",
@@ -2065,6 +2148,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7f42098d-cb1e-454a-8c77-d5cfb21cef49",
@@ -2084,6 +2168,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fbac98e2-45b5-4508-9b75-70d6b57acbaf",
@@ -2103,6 +2188,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7732041d-8489-417c-847b-740e4a7c517d",
@@ -2131,6 +2217,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("bb0b3174-6544-4583-9e35-1d7af9505751",
@@ -2150,6 +2237,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("010a1f8a-3e8d-497c-a19f-91ba57ccddf3",
@@ -2178,6 +2266,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1902339c-166d-4540-bf6d-1c934f103c01",
@@ -2197,6 +2286,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f36ea2a4-22c2-40dd-96e0-ee7542d8d269",
@@ -2225,6 +2315,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("edec7466-327f-499c-a052-dfb15327b2b0",
@@ -2253,6 +2344,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a7cde273-60ca-4bb3-9a4c-c96477f0ee3d",
@@ -2302,6 +2394,7 @@ select one mclass related by cip->O_OBJ[R934];
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("bc0e8528-bf35-4565-94fb-feb8b553e93d",
@@ -2322,6 +2415,7 @@ end for;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4275b46d-6c0a-4cf6-a806-2eb90123860b",
@@ -2345,6 +2439,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7581dada-35f3-4c2f-a175-16d8e2831f23",
@@ -2365,6 +2460,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ca96ca10-6607-49ec-a4bf-2e549a958653",
@@ -2406,6 +2502,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e8418e02-8632-41d0-ae08-058c8da1946b",
@@ -2447,6 +2544,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4511dc98-8d01-4486-8aae-26f1e35ac183",
@@ -2487,6 +2585,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("cdff3a64-87c3-4c9a-a19c-bb9686f77ef9",
@@ -2545,6 +2644,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ff9b1dd0-8370-4368-909e-438f57ea5079",
@@ -2593,6 +2693,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6522f2d9-7450-4244-8807-7d660efa9bc1",
@@ -2613,6 +2714,7 @@ end for;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0e242cc8-6e02-4339-9ac0-f3e00ec9d263",
@@ -2633,6 +2735,7 @@ end for;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("532eda2c-03c6-40ba-b8d2-a7f7b18c4438",
@@ -2653,6 +2756,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6657056a-41ad-465d-a8cd-3e4f9d903510",
@@ -2673,6 +2777,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1d343841-0cd3-4861-99a0-c4dbfe2f2e41",
@@ -2693,6 +2798,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("534c99ce-d678-4754-9ac8-856bba8082ba",
@@ -2722,6 +2828,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("acec147d-8f89-474b-95ae-f3762aa842e9",
@@ -2742,6 +2849,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("64223695-74f6-47cd-ae6e-0fa46a443d0c",
@@ -2762,6 +2870,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7818ebb0-b360-4345-8b16-3ebeb0d646ec",
@@ -2782,6 +2891,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("35cc7287-4eb7-4244-9bec-7d9cf1b5293d",
@@ -2802,6 +2912,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ad6ad66c-4d75-4bad-8250-7a3406503e32",
@@ -2827,6 +2938,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e97e5b01-05c6-4558-94de-6f8bbb447e24",
@@ -2852,6 +2964,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("02f9ef6c-dc5d-448b-9f82-f8f09ca7256b",
@@ -2873,6 +2986,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1324973f-7a6b-477c-a295-cb6942813380",
@@ -2894,6 +3008,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8f898f09-93d8-4e67-a9fc-de716a91516e",
@@ -2915,6 +3030,7 @@ rel.unformalize();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("21c11e44-1120-498d-8b69-a8602e0d0ee3",
@@ -2936,6 +3052,7 @@ txn.removeEvent();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8e23a035-80af-42d1-a6bc-9fa81a0f2dff",
@@ -2969,6 +3086,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a2bd74b9-2d6d-4582-979e-b6f3d34b00b9",
@@ -3006,6 +3124,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a4203cc2-90e0-4688-8433-daa76959043a",
@@ -3035,6 +3154,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d49e0190-3c80-46b1-a2d3-b7ec77dcb9be",
@@ -3056,6 +3176,7 @@ attr.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8cbbf659-0613-4198-841f-866b5ea66881",
@@ -3077,6 +3198,7 @@ attr.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1d9964fe-ad87-4f81-93e7-b81a2dba913e",
@@ -3106,6 +3228,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d189a5e9-77f2-4726-8f92-3332a89e6bcf",
@@ -3143,6 +3266,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fe536389-8a3f-4e2a-89f8-5946030468d0",
@@ -3165,6 +3289,7 @@ rel.unformalize();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d0b8a8f3-8723-488a-a88b-09c2a6f85a22",
@@ -3187,6 +3312,7 @@ rel.unformalize();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0c88a511-2e6e-4694-9d35-25229537c3bb",
@@ -3211,6 +3337,7 @@ o_attr.combine_refs( other_id: Combine_with.Attr_ID );
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1100ec1d-95d7-4fc5-8095-bf7e20069ef3",
@@ -3235,6 +3362,7 @@ rattr.split_refs( other_id: Split_from.ARef_ID );
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("efb4801a-2681-476b-97cb-e0c3de3d8cd5",
@@ -3254,6 +3382,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7f6b1d51-08d1-40c4-b0fd-e618c93c73fb",
@@ -3271,6 +3400,7 @@ fj.GuardCondition = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("dda91534-6f00-4f55-b6f0-d4d3f431fd68",
@@ -3299,6 +3429,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("aae8ab02-b6a6-4180-9748-215a565286b1",
@@ -3318,6 +3449,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ac6bb811-9395-45ba-a773-5b18debb9d3d",
@@ -3335,6 +3467,7 @@ ae.Guard = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9df8c16e-dc50-4700-9408-763459bbfdd4",
@@ -3363,6 +3496,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9fe5513f-7dc6-4e58-9dc6-86be228a2054",
@@ -3382,6 +3516,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e50dc10a-18a5-4d3c-ad7e-a15295794be1",
@@ -3401,6 +3536,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("20de6bb0-7106-4bb0-89d2-c2b73201b2b6",
@@ -3418,6 +3554,7 @@ ga.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("16481116-4f13-46bf-ba79-81b355c55daf",
@@ -3444,6 +3581,7 @@ dm.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("be8bba4a-678f-43a8-9c97-224ac33ac833",
@@ -3472,6 +3610,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("19215a9d-417e-47df-8d50-e722524568c7",
@@ -3491,6 +3630,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("34f99bcc-963e-4dfd-853a-73fbee5003b1",
@@ -3508,6 +3648,7 @@ obj.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f5dd0112-7556-4a4c-aca0-71c2a471375a",
@@ -3536,6 +3677,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3d1fdf11-a7c2-4dd3-8c7d-2c52b7cf10b4",
@@ -3553,6 +3695,7 @@ aea.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f2ea4b49-6e62-45ad-a2a3-912068791ee0",
@@ -3581,6 +3724,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4366d7c8-f4ba-4174-952c-b054e0dd90fc",
@@ -3598,6 +3742,7 @@ ss.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3edc3da7-e145-43c8-badc-e53413a930b6",
@@ -3626,6 +3771,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5890c1c7-0203-4434-b4c4-acb32097a94c",
@@ -3643,6 +3789,7 @@ ap.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("65bb854e-2c8d-4654-b0ad-d4ab62d51af6",
@@ -3671,6 +3818,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("28adb78e-72d5-40b3-b627-522daee486ac",
@@ -3688,6 +3836,7 @@ ate.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a6fd4281-93d1-46be-ab55-7db5f32412f0",
@@ -3716,6 +3865,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5c7b8a4e-a1b9-4bfc-b912-25eaefc05f96",
@@ -3735,6 +3885,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a84e51be-9704-45dd-a40d-61a5497b2e55",
@@ -3754,6 +3905,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5b57b3ed-2f71-41c1-b581-0011b9ca3061",
@@ -3773,6 +3925,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3ad4c10c-8271-4c3f-aa86-059e86358188",
@@ -3801,6 +3954,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("81137809-f638-4ed7-b973-cb17087bd415",
@@ -3820,6 +3974,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3afdc45f-7068-40a2-8c47-c54af7754a00",
@@ -3848,6 +4003,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("35ec7e44-1c90-480c-888e-e0b089d6e6a5",
@@ -3867,6 +4023,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("55795278-658b-4d9e-b47c-1c6d10a58ba9",
@@ -3895,6 +4052,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("76634da6-b4e7-4af8-941e-27fde6a59d0a",
@@ -3914,6 +4072,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("890ec487-8cb1-486b-9558-0de93c957caf",
@@ -3942,6 +4101,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9906ac0a-f0aa-452a-adc4-95d65e4a5a57",
@@ -3961,6 +4121,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ee30cec6-f81e-4f9d-8b67-975f2cf07e0d",
@@ -3989,6 +4150,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ecda4a3d-d2a4-47b4-888d-e7b29fa815da",
@@ -4009,6 +4171,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("efa27165-3ec3-4c93-8361-7e1a9494bfe3",
@@ -4028,6 +4191,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("60674e17-3308-43d2-b45b-82fec5007faa",
@@ -4056,6 +4220,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d8d892d1-55d7-4510-bf42-ca4a3765013e",
@@ -4075,6 +4240,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0059ad85-90e6-46ac-8aef-a9297ecc2df9",
@@ -4094,6 +4260,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0bc58bd8-a583-43c3-b02e-5a43f1025d20",
@@ -4113,6 +4280,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ff9d7186-8ba0-4618-ad59-34399aa67029",
@@ -4132,6 +4300,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("bf20ccec-2833-4e27-8d5e-11fbe31bf776",
@@ -4151,6 +4320,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4e340cb7-a3fd-4e2a-b62f-21960d09d2d5",
@@ -4179,6 +4349,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("148a1faa-7637-43ab-be71-554ddd9681c4",
@@ -4199,6 +4370,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fa230aad-f804-426b-b03b-4a1a6650f1b6",
@@ -4216,6 +4388,7 @@ sdt.rename(new_name:param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("595f7a25-1cf4-4402-8974-beae5c5b18bb",
@@ -4244,6 +4417,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9dfb0e70-57aa-4264-a172-8f03e3fcbe05",
@@ -4262,6 +4436,7 @@ member.rename(new_name:param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d8581431-d032-48a1-a602-74cc526f5a83",
@@ -4289,6 +4464,7 @@ sdt.newMember();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9e51cfa9-f262-4b03-a049-386471f140c1",
@@ -4309,6 +4485,7 @@ member.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("339087d6-c67c-42cf-814e-3fb3b58c1298",
@@ -4329,6 +4506,7 @@ member.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a2cf1593-dd6f-462f-a213-c466e8a47121",
@@ -4354,6 +4532,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("74399aa3-8be6-416b-85a8-e0988bd20182",
@@ -4375,6 +4554,7 @@ txn.removeEvent();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b14bab53-5d97-43f6-b2bd-6d002fa5ed2e",
@@ -4396,6 +4576,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3796cef6-ca6d-4970-9faa-143e6a38e5c0",
@@ -4425,6 +4606,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9146aec7-a119-4e42-81c3-03853edff72c",
@@ -4444,6 +4626,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e9f577c3-f1a2-488b-921b-29cb61bdd5ae",
@@ -4464,6 +4647,7 @@ txn.removeSignal();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a6ad4623-1512-4823-a252-880eddcb7b64",
@@ -4483,6 +4667,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b6fa050a-9649-4069-9245-db4dd2b36587",
@@ -4511,6 +4696,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("803e20fc-d97e-4386-a0b2-179f66793c7c",
@@ -4530,6 +4716,7 @@ evt.newParameter();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5f59bbc5-4613-4d0a-a5e1-3a1471e1e0ef",
@@ -4549,6 +4736,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b622731b-f90a-426b-9ced-9c71b55faa52",
@@ -4568,6 +4756,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1a705a8d-406b-4982-887c-966485f07f6a",
@@ -4597,6 +4786,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("54f324c8-b703-47a1-9e54-bdfad62d8482",
@@ -4625,6 +4815,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0300d364-7e74-4e28-ae0f-b25386d24597",
@@ -4645,6 +4836,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("62691a60-4da4-474e-b5e1-043a9be31b03",
@@ -4665,6 +4857,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9ec830d3-cf7a-47bd-aa44-e71c473a10b4",
@@ -4685,6 +4878,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1ed23941-fe09-4037-bb71-db6dcf3b3f2c",
@@ -4705,6 +4899,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("2bbebd8e-b9e7-49f6-88fc-764769d62c2b",
@@ -4725,6 +4920,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ebd7dff7-3b53-4a74-82bb-4c2c179c5206",
@@ -4745,6 +4941,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("41f59ebd-ae6b-450f-8a7f-4dced4c6f002",
@@ -4765,6 +4962,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("98cc8128-c6a3-4d19-a6a8-86c54a23d7bd",
@@ -4785,6 +4983,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b34a9306-5260-4158-91ca-d4a4e587110d",
@@ -4805,6 +5004,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("24a2a422-4a37-4189-a662-f9b590bbe237",
@@ -4825,6 +5025,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("455fa479-0c14-4884-9964-ce9622cc635b",
@@ -4845,6 +5046,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3839939e-7b34-4e1e-9e2e-1077003c1a9f",
@@ -4865,6 +5067,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("523939f4-bd8e-4789-985f-995b20ade483",
@@ -4885,6 +5088,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("964dc1b6-058c-4325-8473-929b7a1355ad",
@@ -4905,6 +5109,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ac137031-64b3-4353-a7e6-9aac27a0fdbd",
@@ -4925,6 +5130,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d810e265-a0e9-49c1-a4a1-153763b46b8b",
@@ -4945,6 +5151,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ebb34c72-5aaa-478f-ba03-facb67692595",
@@ -4965,6 +5172,7 @@ item.moveDown();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("4307021b-b5f3-4637-83a2-05d7caf0e178",
@@ -4985,6 +5193,7 @@ item.moveUp();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("97c54c03-774a-437c-ba86-f2ccad760955",
@@ -5002,6 +5211,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f1f139ee-6db1-4564-974f-316528aead25",
@@ -5029,6 +5239,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7d47ab2f-328f-4be6-9779-3bbbb9706b27",
@@ -5056,6 +5267,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b9156727-2166-41c5-86f4-64ab6668fc04",
@@ -5083,6 +5295,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c5deae52-4a31-4080-b5e0-790ce55b54ed",
@@ -5110,6 +5323,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5fe3ed24-b086-4061-ba82-6e9dd3edafbd",
@@ -5137,6 +5351,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d1238217-26a6-474d-b5be-7becbdffc7fe",
@@ -5164,6 +5379,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("19046967-2305-4312-b9cf-91b6da804617",
@@ -5191,6 +5407,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c225ca5a-d805-40a5-9fb2-e29ad3e023a3",
@@ -5218,6 +5435,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("10cf5bd8-6b3b-4c9a-bd74-a01dc443fcb9",
@@ -5245,6 +5463,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("71aeb4ba-c8fc-4401-8dbe-d5e3c57d9ddd",
@@ -5272,6 +5491,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ed6ead20-501f-4eb7-b6ac-83d207bfcc54",
@@ -5299,6 +5519,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b4064902-6de4-49fc-8153-2396581aa73a",
@@ -5358,6 +5579,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("431bce69-bdb6-4ed0-b087-376187bf5203",
@@ -5376,6 +5598,7 @@ csp.newLiteralSymbolicConstant();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ba6b841a-3b71-488b-ad4c-1ec159799bdc",
@@ -5395,6 +5618,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f22079a0-3606-461d-8e3f-a1e3463df11f",
@@ -5412,6 +5636,7 @@ csp.InformalGroupName = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b81702f6-b6b9-4034-91c3-0660ad2d9d14",
@@ -5443,6 +5668,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("96d991a1-0574-4926-be17-f1aa4438f9db",
@@ -5461,6 +5687,7 @@ syc.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("49aad1cb-0561-4d36-b14e-52914a1b6e8c",
@@ -5501,6 +5728,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6a6df45f-9a24-48d6-a5eb-33ab65d02659",
@@ -5521,6 +5749,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6c2b9d2c-f3f8-46d6-ae26-cdb305c95eaf",
@@ -5541,6 +5770,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d80080fc-e116-404c-9d3d-591cf053f448",
@@ -5561,6 +5791,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("87b61a78-84d0-4d4d-9208-4da119127079",
@@ -5580,6 +5811,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("faeb76d0-8d7e-46fb-9d66-c319f18f6547",
@@ -5599,6 +5831,7 @@ pkg.newFunction();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8ce516db-31da-408f-8f17-ed9d1e992b9f",
@@ -5618,6 +5851,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f22bf527-439f-4b94-b4b9-5ad2115ef0f7",
@@ -5637,6 +5871,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("44a7feff-d6b6-4ca3-b4dc-7a6c87e98606",
@@ -5656,6 +5891,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7b77e504-c082-4cfc-b46f-9d0c43f2b8e5",
@@ -5675,6 +5911,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("925cbe08-e75b-4121-9054-ad0994739372",
@@ -5695,6 +5932,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e9986f0b-a1db-4380-ae40-5a329eda9ad7",
@@ -5715,6 +5953,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e5e62ee8-2dfd-4fe0-9d57-39e8c6684f82",
@@ -5734,6 +5973,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("27688f48-aa96-4ea4-ab57-f2e9ad6d7e68",
@@ -5753,6 +5993,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e2a76193-eae9-41e0-8df2-b36e63cd877f",
@@ -5771,6 +6012,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("897bba0d-dfee-48ea-9c5a-e32177ab704d",
@@ -5789,6 +6031,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f43eb3e5-b5e5-48fb-af9b-cdbd72d3d823",
@@ -5817,6 +6060,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3b8f3a3b-07e3-4490-bd65-5516c20aa9a2",
@@ -5843,6 +6087,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1cf3cac9-2117-4bd0-a798-fcb2eeeb3363",
@@ -5869,6 +6114,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("cf9cf4f5-2755-4645-b91c-e55b19fcbae6",
@@ -5895,6 +6141,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("cd277be9-54cb-4948-9dd7-a7b4a2487eae",
@@ -5953,6 +6200,7 @@ txn.addEvent(eventId:event.SMevt_ID, eventStateMachineId:event.SM_ID);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("85f544ec-87c3-4ba3-88c1-0946ce8213f2",
@@ -6000,6 +6248,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("87acd2ff-e7ee-4fe1-b168-7dc007515fd2",
@@ -6047,6 +6296,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8b78c7c3-1f45-49bc-beda-874f8d7a4723",
@@ -6094,6 +6344,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ee622c7b-006f-4ffb-8c4b-3ce829fb6075",
@@ -6120,6 +6371,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c4ede8a5-b35e-4e78-ab19-7a34de4b8426",
@@ -6167,6 +6419,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("319eefde-4a7a-454a-ac39-78c940f1b4a8",
@@ -6193,6 +6446,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("2112b1ce-efd4-49b1-a814-b6132546c1a9",
@@ -6222,6 +6476,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("97d03062-0fcc-4407-9c04-2da6e8787089",
@@ -6258,6 +6513,7 @@ txn.addEvent(eventId:event.SMevt_ID, eventStateMachineId:event.SM_ID);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7295f028-ea8a-4ead-ac02-9e2f8458b16d",
@@ -6291,6 +6547,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("037e0b70-a46d-4381-afb0-a5943473ef37",
@@ -6331,6 +6588,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("87e3d176-be58-4ded-af6e-a1555d6855bb",
@@ -6349,6 +6607,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a8732059-5a83-4d33-86ce-b8c754830852",
@@ -6368,6 +6627,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a4d489fc-bf0a-4034-86c0-198df108deac",
@@ -6386,6 +6646,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ba0ca65e-9d50-4df2-a8c3-5a134480014e",
@@ -6405,6 +6666,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("696338d8-a27d-4ad7-9ee8-da5b419a1f23",
@@ -6423,6 +6685,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("2a67f32c-8a85-4243-b9e6-d480c494ed97",
@@ -6441,6 +6704,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b4f8c34d-255e-47fb-8322-590257ddb1ee",
@@ -6460,6 +6724,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f156229f-0b6e-441d-add6-6825651ca45d",
@@ -6479,6 +6744,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("143914da-3b61-42a4-9aab-78ca53bad446",
@@ -6505,6 +6771,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("cc41dc16-fff3-4c0d-8bfb-71214660719b",
@@ -6524,6 +6791,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ff69ac62-04e8-46b4-8eb2-b38c213a2422",
@@ -6543,6 +6811,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1ffad5a8-6e06-4b79-9e47-f5cd1fac9d18",
@@ -6573,6 +6842,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b17c4568-f3c6-40c0-82ae-34806f2157e2",
@@ -6609,6 +6879,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("419c8ec2-38d2-46ff-8d1a-90893b52f444",
@@ -6646,6 +6917,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d6589714-5990-4fad-ad59-dceacb634b10",
@@ -6686,6 +6958,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("853f1337-0b4d-4191-86ff-19a6533903fe",
@@ -6726,6 +6999,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fac59737-7f5a-403c-9e81-15b34ce44538",
@@ -6745,6 +7019,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d6fbdf7b-a22f-49d7-b335-d9c0f5a380ce",
@@ -6763,6 +7038,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fd61467d-3595-4a92-9756-a9756da852d0",
@@ -6781,6 +7057,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ebbbb116-8fc6-435e-b3fe-e0ba81eb0e14",
@@ -6799,6 +7076,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f2c4a8b7-3fa0-4bc4-a7c2-a84100d86ba1",
@@ -6817,6 +7095,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b4e57f8f-7350-4d7a-81a1-ee8bb1f86966",
@@ -6835,6 +7114,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6609dd4d-1cd1-4347-bd8a-1702e2cc9713",
@@ -6853,6 +7133,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b929e9c1-f6a5-4c93-bbd0-78c7405cc256",
@@ -6871,6 +7152,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b90d0cdc-8ab2-4006-8214-0e66e33dc098",
@@ -6889,6 +7171,7 @@ pe.Visibility = Visibility::Public;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("30633dea-a3c2-4718-a28e-88657b50f2d1",
@@ -6907,6 +7190,7 @@ pe.Visibility = Visibility::Protected;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("6aba5e91-6fb2-4e76-b297-84fdd54ca3c8",
@@ -6925,6 +7209,7 @@ pe.Visibility = Visibility::Private;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8bbadc49-4172-4186-befb-b18c397fe082",
@@ -6951,6 +7236,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1fb62e46-d2c9-4725-a028-8d60092e5493",
@@ -6990,6 +7276,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fba9f45a-b442-4218-b32b-45a80474e8ad",
@@ -7029,6 +7316,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3786252c-42be-48ce-bbe3-2c42fc1e0df0",
@@ -7047,6 +7335,7 @@ pkg.newClass();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("53e2599e-7d85-43c0-9a75-f513c70cf5c0",
@@ -7065,6 +7354,7 @@ pkg.newIClass();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5881ca77-20c3-4c17-94e0-6f63895ff3ea",
@@ -7083,6 +7373,7 @@ pkg.newComponent();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("be52bd38-d9bc-48c8-bf63-e7f51e6f85db",
@@ -7100,6 +7391,7 @@ pkg.newImportedComponent();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c6670a84-90ef-457d-a266-71a3adddd89c",
@@ -7118,6 +7410,7 @@ pkg.newInterface();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("804ef314-ebef-46c2-ba6b-441b5c11d339",
@@ -7136,6 +7429,7 @@ pkg.newAcceptEventAction();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b5f4ac45-8fc7-4a3a-b05c-5ec85258c64e",
@@ -7153,6 +7447,7 @@ pkg.newAcceptTimeEventAction();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f4db886a-80de-4c63-aaec-52708e5bec8e",
@@ -7170,6 +7465,7 @@ pkg.newGenericAction();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("becc2f75-072b-493e-b131-b534493ee7d9",
@@ -7187,6 +7483,7 @@ pkg.newObjectNode();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("9d817d6b-bbbb-41b5-b746-e74dfc977dbc",
@@ -7204,6 +7501,7 @@ pkg.newSendSignalAction();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("43c9b864-7d0b-4d96-8b5b-0b990d5e92bc",
@@ -7221,6 +7519,7 @@ pkg.newExternalEntity();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("98963af7-9f99-464d-8dd2-5517eb89fb1d",
@@ -7238,6 +7537,7 @@ pkg.newActor();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("247b2d9d-668b-4eb8-a611-eaec79a05e28",
@@ -7255,6 +7555,7 @@ pkg.newClassParticipant();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("7d74b3bf-0094-4dfb-8d32-22d6a876cd21",
@@ -7272,6 +7573,7 @@ pkg.newComponentParticipant();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("dec7c902-fef7-43b8-8ee4-04f57e41674e",
@@ -7289,6 +7591,7 @@ pkg.newExternalEntityParticipant();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("de225162-465f-4336-a074-46aef3766933",
@@ -7306,6 +7609,7 @@ pkg.newPackageParticipant();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("280eaf3c-9bb3-46d5-b4a0-e9c8052f55b4",
@@ -7323,6 +7627,7 @@ pkg.newClassInstance();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("8ef5fe70-d7c4-41df-8852-31717c429ea9",
@@ -7340,6 +7645,7 @@ pkg.newConstantSpecification();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("44e89550-168f-4795-9445-68efcb067731",
@@ -7357,6 +7663,7 @@ pkg.newEnumeration();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("feb76969-0d02-488a-9ac6-c7c05b60e105",
@@ -7374,6 +7681,7 @@ pkg.newStructuredDatatype();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("a7f41c18-5d8f-40d4-83f1-db9d2ea76d15",
@@ -7391,6 +7699,7 @@ pkg.newDatatype();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("2b05af2c-8cf1-4d41-ab23-22ab8ca4297a",
@@ -7408,6 +7717,7 @@ pkg.newUseCase();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("b5d81f19-ddf3-45c8-bef0-c776f0c27ddd",
@@ -7429,6 +7739,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("26d92319-6f67-4945-b7b8-9db609f1e5ac",
@@ -7450,6 +7761,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f15a1885-0a7f-4814-87dd-96ef93dcd9e6",
@@ -7471,6 +7783,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("1b94539d-7e42-45b9-b241-ac5fd0d49cda",
@@ -7492,6 +7805,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("f61e1081-a509-421e-844a-5d5bdfa3428c",
@@ -7511,6 +7825,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("49ccd800-15ff-4066-86fc-8e8329494103",
@@ -7530,6 +7845,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("eee577cc-d545-4ec1-8d9b-ebf65eebc219",
@@ -7549,6 +7865,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5805d805-02f5-4d44-9b75-3811622aa7a9",
@@ -7568,6 +7885,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("42362893-e6a7-4d94-bcac-29bf263540eb",
@@ -7588,6 +7906,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0ef933fa-a3ee-4a2b-ad32-6f7cb87c497a",
@@ -7606,6 +7925,7 @@ exp.Name = param.new_name;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("be49743f-4e6a-4d95-9938-96608476cba8",
@@ -7634,6 +7954,7 @@ pkg.newException();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e79667b6-083a-443f-b102-d62d66155e2a",
@@ -7653,6 +7974,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("0850464e-5d5e-45b7-a05a-34e3215165c6",
@@ -7676,6 +7998,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("15d7024c-93d8-427d-ade3-8d3a49130db6",
@@ -7697,6 +8020,7 @@ o_attr.split_base_and_ref();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("c636b7b4-2f10-4876-89d8-2dfa5951225a",
@@ -7724,6 +8048,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("025f26e4-b688-489f-b800-58d7079fab21",
@@ -7743,6 +8068,7 @@ item.moveUp();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("56f71ca3-bdb7-4ab8-8aab-bcd5509be669",
@@ -7762,6 +8088,7 @@ item.moveDown();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("af027b4a-d8f7-48f9-a1fc-78d4b18c9064",
@@ -7782,6 +8109,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("83aab91b-2255-44c4-b00a-8ba161aa4bf7",
@@ -7803,6 +8131,7 @@ o_tfr.makeDeferred(rel_id:Relationship.Rel_ID, required:required);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e9a4922c-32de-41cd-9f8c-5202d95d6b6d",
@@ -7817,10 +8146,11 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 ',
 	'select any deployment from instances of D_DEPL where USER::selectOne(id:selected.Deployment_ID);
-deployment.Name = param.new_name;',
+deployment.rename(new_name:param.new_name);',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("33ed6d23-45eb-4b99-9924-e0861c0c2fd0",
@@ -7849,6 +8179,7 @@ pkg.newDeployment();
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e3ff3168-2ae3-4b68-bf71-17c971b0067c",
@@ -7873,6 +8204,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("23ed5b53-2c15-4aa6-86a4-47994f7aef24",
@@ -7896,6 +8228,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3c01e6fe-7803-4550-9000-16c3168f289e",
@@ -7915,6 +8248,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("12ba918c-d6bd-4152-8451-5ed2430e5084",
@@ -7934,6 +8268,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("e376cf40-eacc-4f0a-81b6-8640aa3bb6c7",
@@ -7954,6 +8289,7 @@ end for;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("3ab7e6b8-96dd-4173-b462-ed9782003e1a",
@@ -8283,6 +8619,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("fa7aaede-9569-4614-a9a2-6bbf6479e7b8",
@@ -8325,6 +8662,7 @@ r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:i
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("cdcd0966-8895-48a0-b362-4a5f0daf8e4f",
@@ -8368,6 +8706,7 @@ r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:i
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("ef9aae71-c299-44cc-83e4-1a8f065962ca",
@@ -8385,6 +8724,7 @@ o_tfr.makeLocal();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d136a0c1-c711-4249-96d3-03a0bee6b3c4",
@@ -8416,6 +8756,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d9cad42e-f923-4bc0-927d-3774b4ab21da",
@@ -8436,6 +8777,7 @@ sis.moveUp();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("5e98c23a-fada-4d41-b857-c7967cc4572c",
@@ -8456,6 +8798,7 @@ sis.moveDown();',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO PE_PE
 	VALUES ("d699e6a9-144c-4a3d-b5c2-e1c77c165a93",
