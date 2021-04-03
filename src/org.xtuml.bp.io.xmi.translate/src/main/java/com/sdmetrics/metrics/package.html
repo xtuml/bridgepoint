@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head></head>
+
+<body>Provides the core functionality of SDMetrics:
+calculating metrics, checking design rules.
+
+<img src="../doc-files/metricsDiag.gif"><p>
+
+<a name="tutorial"></a>
+<b>Tutorial - how to calculate metrics and check design rules for a UML model.</b><p>
+
+The following code snippets take you through the steps to calculate the
+design metrics and check the design rules for a UML model, and write the 
+results to the console. We assume we have already loaded the UML model, as 
+described in the tutorial for package {@link com.sdmetrics.model}.
+
+<ol>
+<li>Required imports:
+<pre>
+import java.util.Collection;
+
+import sdmetrics.metrics.Metric;
+import sdmetrics.metrics.MetricStore;
+import sdmetrics.metrics.MetricsEngine;
+import sdmetrics.metrics.Rule;
+import sdmetrics.metrics.RuleEngine;
+import sdmetrics.metrics.RuleFilter;
+import sdmetrics.metrics.RuleViolation;
+import sdmetrics.model.MetaModel;
+import sdmetrics.model.Model;
+import sdmetrics.model.ModelElement;
+import sdmetrics.util.XMLParser;
+</pre>
+
+<li>Have your model and its metamodel ready (see {@link com.sdmetrics.model}),
+as well as the metric definition file with the metrics and rules you wish 
+to calculate and check, respectively.
+
+<pre>
+MetaModel metaModel = ...;  // metamodel to use
+Model model = ...;          // model to uses
+String metricsURL = ...;    // metric definition file to use
+</pre>
+
+<li> Read the metric definition file
+<pre>
+XMLParser parser = new XMLParser();
+{@link com.sdmetrics.metrics.MetricStore} metricStore = new MetricStore(metaModel);
+parser.parse(metricsURL, metricStore.getSAXParserHandler());
+</pre>
+
+As is the case for parsing the metamodel and XMI files, you do not have to use 
+the SAX parser provided by class <code>XMLParser</code>. Instances of <code>org.xml.sax.XMLReader</code> 
+that you created yourself will also do.<p> 
+
+<li>Initialize the metrics engine
+<pre>
+{@link com.sdmetrics.metrics.MetricsEngine} metricsEngine = new MetricsEngine(metricStore, model);
+</pre>
+If you only want to check design rules, you can skip the next step and proceed directly
+with rule checking.<p>
+
+<li> Calculate all metrics for all model elements.<p>
+
+In the following nested loop, we only calculate metrics that are not defined 
+as "internal" helper metrics.
+
+<pre>
+for (ModelElement element : model) {
+   System.out.println("Calculating metrics for element " + element.getFullName());
+   // calculate and print all metric values for the element
+   Collection&lt;Metric&gt; metrics = metricStore.{@link com.sdmetrics.metrics.MetricStore#getMetrics getMetrics}(element.getType());
+   for ({@link com.sdmetrics.metrics.Metric} metric : metrics) {
+      if (!metric.isInternal()) {
+         System.out.println("  Metric " + metric.getName() + ": "
+               + metricsEngine.{@link com.sdmetrics.metrics.MetricsEngine#getMetricValue getMetricValue}(element, metric));
+      }
+   }
+}
+</pre>
+
+<li> Check all rules for all model elements<p>
+
+In this example we use a rule filter to only check design rules for the "analysis" phase.
+We also skip rules that have been disabled in the metric definition file, and we
+skip checking rules from which the model element has explicitly been exempted.
+
+<pre>
+{@link com.sdmetrics.metrics.RuleEngine} ruleEngine = new RuleEngine(metricsEngine);
+{@link com.sdmetrics.metrics.RuleFilter} ruleFilter = new RuleFilter("analysis");
+
+for (ModelElement element : model) {
+   System.out.println("Checking rules for element " + element.getFullName());
+   // get rules set of exempted rules for this element
+   Collection&lt;String&gt; exemptRuleNames = ruleEngine.{@link com.sdmetrics.metrics.RuleEngine#collectExemptedRules collectExemptedRules}(element);
+   Collection&lt;Rule&gt; rules = metricStore.{@link com.sdmetrics.metrics.MetricStore#getRules getRules}(element.getType());
+   for ({@link com.sdmetrics.metrics.Rule} rule : rules) {
+      if (rule.isEnabled() && ruleFilter.match(rule)
+            && !exemptRuleNames.contains(rule.getName())) {
+         List&lt;{@link com.sdmetrics.metrics.RuleViolation}&gt; issues = ruleEngine.{@link com.sdmetrics.metrics.RuleEngine#checkRule checkRule}(element,rule);
+         for (RuleViolation issue : issues) {
+            System.out.println("  Violates rule "
+               + issue.getRule().getName() + ": "
+               + issue.getValue());
+         }
+      }
+   }
+}
+</pre>
+</ol>
+Instead of manually looping through all model elements, metrics, and rules, you can
+also use the classes in package {@link com.sdmetrics.app} to calculate all data and
+organize it in a tabular layout.
+</body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="io.xmi.translate" default="all" basedir=".">
+
+    <property name="ant-home-path" value="/home/tlondon/engineering/ides/BridgePoint/plugins/org.apache.ant_1.10.8.v20200515-1239" />
+    <property name="mcj_path" value="../MC-Java" />
+    <property name="eclipse.home" value="/home/tlondon/engineering/ides/BridgePoint" />
+    <import file="${mcj_path}/common.xml" />
+
+    <property name="plugins-home" value="${ant.home}/../.." />
+
+    <property name="sql.input" value="../org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa" />
+    <property name="sql.output" value="sql/ooaofooa.sql" />
+
+    <target name="all" depends="sql, generate_processors" />
+    <target name="clean_all" depends="clean_sql, clean_processors" />
+    <target name="sql.depends">
+        <echo>Plugins home: ${plugins-home}</echo>
+
+        <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
+            <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
+        </uptodate>
+    </target>
+
+    <target name="sql" depends="sql.depends" description="Generate the sql version of the OoaofOoa model" unless="sql.buildNotNeeded">
+        <echo>Generating ${sql.output} ...</echo>
+        <copy file="../org.xtuml.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
+        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}">
+            <arg line="xtumlmc_cleanse_for_BridgePoint ../org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa sql/ooaofooa.sql" />
+        </exec>
+        <delete file="${sql.input}/Globals.xtuml" />
+    </target>
+
+    <property name="abstract.output" value="src/org/xtuml/bp/io/xmi/translate/processors/ModelClassAbstractProcessor.java" />
+
+    <target name="generate_processors.depends">
+        <uptodate property="processors.buildNotNeeded" targetfile="${abstract.output}">
+            <srcfiles dir="sql" includes="${java.sql.dep}" />
+            <srcfiles dir="arc" includes="*.arc" />
+        </uptodate>
+    </target>
+    <target name="generate_processors" depends="generate_processors.depends">
+        <echo>Generating abstract xtuml processors</echo>
+        <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}">
+            <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+            <env key="CHAIN_UTIL_DIR" value="${chain_util_path}" />
+            <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+            <arg line="xtumlmc_gen_erate -qim -nopersist
+          -import ${mcj_path}/ooa_schema.sql
+          -import sql/ooaofooa.sql
+          -arch arc/generate_abstract_processors.arc
+          -arch arc/generate_sql_processors.arc" />
+        </exec>
+    </target>
+
+    <target name="clean_sql">
+        <delete file="${sql.output}" />
+    </target>
+
+    <target name="clean_processors">
+        <echo>Removing generated java source files ...</echo>
+        <delete verbose="true">
+            <fileset dir="src/main/java/org/xtuml/bp/io/xmi/translate/processors/generated" includes="**/*.java" />
+            <fileset dir="src/main/java/org/xtuml/bp/io/xmi/translate/processors/generated/impl" includes="**/*.java" />
+        </delete>
+    </target>
+</project>
