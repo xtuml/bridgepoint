@@ -10,7 +10,9 @@
    <launcherArgs>
       <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
       -Dbridgepoint.GenerateFunctionsFromList=disabled
-      -Xss4m
+      -Dosgi.requiredJavaVersion=11
+      -Xmx1024m
+      -Xms512m
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
