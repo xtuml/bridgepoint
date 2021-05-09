@@ -13,6 +13,11 @@ Transformations required to translate EA models to xtuml.
     <trigger name="type" type="ctext" src="type" />
   </xmitransformation>
 
+  <!-- <xmitransformation modelelement="operation" xmipattern="ownedoperation" recurse="true">
+    <trigger name="type" type="attrval" attr="type" />
+    <trigger name="type" type="ctext" src="type" />
+  </xmitransformation> -->
+
   <xmitransformation modelelement="diagram" xmipattern="diagram" recurse="true">
     <trigger name="represents" type="cattrval" src="model" attr="owner" />
   </xmitransformation>

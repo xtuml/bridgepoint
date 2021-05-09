@@ -103,7 +103,7 @@ other part of SDMetrics.
     <attribute name="visibility">Visibility of the operation (public, private, protected, package).</attribute>
     <attribute name="abstract">Boolean indicating if operation is abstract.</attribute>
     <attribute name="isquery">Boolean indicating if operation is a query that does not change the classifier's state.</attribute>
-    <attribute name="ownedparameters" type="ref" multiplicity="many" mapping="O_TPARM">The parameters of the operation.</attribute>
+    <attribute name="ownedparameters" type="ref" multiplicity="many" mapping="class:O_TPARM, interface:C_PP, function:S_SPARM">The parameters of the operation.</attribute>
   </modelelement>
   <modelelement name="parameter">
     <attribute name="kind">The direction of the parameter: in (default), out, inout, return.</attribute>

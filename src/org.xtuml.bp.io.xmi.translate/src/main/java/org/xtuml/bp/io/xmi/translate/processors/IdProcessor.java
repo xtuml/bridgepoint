@@ -2,14 +2,8 @@ package org.xtuml.bp.io.xmi.translate.processors;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import com.sdmetrics.model.ModelElement;
-
-import org.xtuml.bp.io.xmi.translate.processors.sql.InstanceReferenceDataTypeProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ModelClassProcessorSQL;
 
 public class IdProcessor {
 
