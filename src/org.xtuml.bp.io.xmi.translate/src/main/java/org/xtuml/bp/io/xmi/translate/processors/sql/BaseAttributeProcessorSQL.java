@@ -21,4 +21,9 @@ public class BaseAttributeProcessorSQL extends AbstractBaseAttributeProcessor {
     public List<String> getValues(ModelElement element) {
         return List.of(getAttr_ID(), getObj_ID());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

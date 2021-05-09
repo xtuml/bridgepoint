@@ -4,7 +4,7 @@
 
 ### Dependencies
 
-At this point the tool has some parts generated, this generation depends on the ooaofooa. This allows the translator to keep in sync with iterations of the metamodel. You can clone just the bp.core project as a sibling to this project.
+At this point the tool has some parts generated, this generation depends on the ooaofooa and the ooaofgraphics. This allows the translator to keep in sync with iterations of the xtuml metamodels. You must clone org.xtuml.bp.core and org.xtuml.bp.ui.canvas projects as siblings to this project.
 
 ### Packaging
 

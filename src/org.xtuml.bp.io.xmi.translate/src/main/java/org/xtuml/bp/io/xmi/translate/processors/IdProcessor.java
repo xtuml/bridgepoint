@@ -76,15 +76,15 @@ public class IdProcessor {
 
 	private static String convertToXtuml(String name) {
 		switch (name) {
-		case "UUID":
-			return "unique_id";
-		case "int":
-			return "integer";
-		case "double":
-		case "float":
-			return "real";
-		case "String":
-			return "string";
+			case "UUID":
+				return "unique_id";
+			case "int":
+				return "integer";
+			case "double":
+			case "float":
+				return "real";
+			case "String":
+				return "string";
 		}
 		return name;
 	}
@@ -95,6 +95,10 @@ public class IdProcessor {
 			return id.toString();
 		}
 		return null;
+	}
+
+	public static UUID UUID() {
+		return UUID.randomUUID();
 	}
 
 }

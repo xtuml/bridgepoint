@@ -79,4 +79,9 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
     public List<String> getValues(ModelElement modelElement) {
         return List.of(getDT_ID(), getDom_ID(), getName(), getDescrip(), getDefaultValue());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

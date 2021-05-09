@@ -4,7 +4,10 @@
 .for each obj in objs
 package org.xtuml.bp.io.xmi.translate.processors.generated.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.sdmetrics.model.ModelElement;
 
@@ -56,28 +59,47 @@ public class $Cr{obj.Name}ProcessorSQL extends Abstract$Cr{obj.Name}Processor {
   .end for
 
     @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
+
+    @Override
     public List<String> getValues(ModelElement element) {
-        return List.of(
-  .assign count = 0;
-  .for each attr in attrs
-    .select one prevAttr related by attr->O_ATTR[R103.'succeeds']
-    .if (empty prevAttr)
-      .while (not_empty attr)
-        .invoke persistent = attr_is_persistent(attr)
-        .if(persistent.result)
-          .if(count == 0)
-          get${attr.Name}()
-          .else
-          , get${attr.Name}()
-          .end if
-        .end if
-        .assign count = count + 1
-        .select one nextAttr related by attr->O_ATTR[R103.'precedes']
-        .assign attr = nextAttr
-      .end while
+  .if(((cardinality attrs) == 0) or ((cardinality attrs) == 1))
+    .if((cardinality attrs) == 1)
+      .select any attr related by obj->O_ATTR[R102];
+      .invoke persistent = attr_is_persistent(attr)
+      .if(persistent.result)
+        return List.of(get${attr.Name}());
+      .else
+        return new ArrayList<>();      
+      .end if
+    .else
+        return new ArrayList<>();
     .end if
-  .end for
-        );
+  .else
+        return Stream.of(
+    .assign count = 0;
+    .for each attr in attrs
+      .select one prevAttr related by attr->O_ATTR[R103.'succeeds']
+      .if (empty prevAttr)
+        .while (not_empty attr)
+          .invoke persistent = attr_is_persistent(attr)
+          .if(persistent.result)
+            .if(count == 0)
+          get${attr.Name}()
+            .else
+          , get${attr.Name}()
+            .end if
+          .end if
+          .assign count = count + 1
+          .select one nextAttr related by attr->O_ATTR[R103.'precedes']
+          .assign attr = nextAttr
+        .end while
+      .end if
+    .end for
+        ).collect(Collectors.toList());
+  .end if
     }
 }
   .emit to file "src/main/java/org/xtuml/bp/io/xmi/translate/processors/generated/impl/$Cr{obj.Name}ProcessorSQL.java"

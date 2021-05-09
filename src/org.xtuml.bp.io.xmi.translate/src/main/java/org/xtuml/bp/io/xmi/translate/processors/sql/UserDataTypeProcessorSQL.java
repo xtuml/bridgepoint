@@ -46,4 +46,9 @@ public class UserDataTypeProcessorSQL extends AbstractUserDataTypeProcessor {
     public List<String> getValues(ModelElement element) {
         return List.of(getDT_ID(), getCDT_DT_ID(), getGen_Type(), getDefinition());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

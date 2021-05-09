@@ -13,7 +13,7 @@ public class XMITranslateOptions {
 				.desc("The path to a UML 2 based metamodel.").hasArg().required().build();
 		options.addOption(metaOption);
 		Option transformerOption = Option.builder("t").longOpt("transformer").argName("transformer path")
-				.desc("The path to a SDMetric transformer.").hasArg().required().build();
+				.desc("The path to a SDMetric transformer.").hasArgs().required().build();
 		options.addOption(transformerOption);
 		Option outputOption = Option.builder("out").longOpt("output").argName("output file")
 				.desc("The path to the desired output xtuml file").hasArg().build();
@@ -24,6 +24,9 @@ public class XMITranslateOptions {
 		Option verboseOption = Option.builder("v").longOpt("verbose").argName("enable verbose output")
 				.desc("Enable all output messages").build();
 		options.addOption(verboseOption);
+		Option showTodo = Option.builder("todo").argName("show unimplemented processors")
+				.desc("Show untranslated areas.").build();
+		options.addOption(showTodo);
 		return options;
 	}
 }

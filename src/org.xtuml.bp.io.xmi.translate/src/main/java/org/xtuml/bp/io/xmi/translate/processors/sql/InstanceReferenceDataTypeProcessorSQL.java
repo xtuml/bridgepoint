@@ -32,4 +32,9 @@ public class InstanceReferenceDataTypeProcessorSQL extends AbstractInstanceRefer
     public List<String> getValues(ModelElement element) {
         return List.of(getDT_ID(), getisSet(), getObj_ID());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

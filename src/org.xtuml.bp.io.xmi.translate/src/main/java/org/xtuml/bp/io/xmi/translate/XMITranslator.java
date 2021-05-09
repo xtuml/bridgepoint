@@ -26,9 +26,10 @@ public class XMITranslator {
 		CommandLineParser parser = new DefaultParser();
 		String xmiFile = "";
 		String metamodel = "";
-		String transformer = "";
+		String[] transformers = new String[0];
 		String output = "";
 		boolean verbose = false;
+		boolean todo = false;
 		try {
 			CommandLine cmdLine = parser.parse(options, args);
 			if (cmdLine.getOptions().length == 0) {
@@ -43,7 +44,7 @@ public class XMITranslator {
 				metamodel = cmdLine.getParsedOptionValue("mm").toString();
 			}
 			if (cmdLine.hasOption("t")) {
-				transformer = cmdLine.getParsedOptionValue("t").toString();
+				transformers = cmdLine.getOptionValues("t");
 			}
 			if (cmdLine.hasOption("out")) {
 				output = cmdLine.getParsedOptionValue("out").toString();
@@ -68,6 +69,9 @@ public class XMITranslator {
 			if (cmdLine.hasOption("v")) {
 				verbose = true;
 			}
+			if (cmdLine.hasOption("todo")) {
+				todo = true;
+			}
 		} catch (MissingOptionException e) {
 			System.out.println(e.getMessage() + "\n");
 			HelpFormatter formatter = new HelpFormatter();
@@ -78,11 +82,11 @@ public class XMITranslator {
 			System.exit(2);
 		}
 
-		logger = new XMITranslateLogger(verbose);
+		logger = new XMITranslateLogger(verbose, todo);
 
 		XMITranslate xmiTranslate = new XMITranslate();
 		try {
-			xmiTranslate.loadXMI(metamodel, transformer, xmiFile, output);
+			xmiTranslate.loadXMI(metamodel, transformers, xmiFile, output);
 		} catch (Exception e) {
 			logger.logError("Unable to translate model.", e);
 		}

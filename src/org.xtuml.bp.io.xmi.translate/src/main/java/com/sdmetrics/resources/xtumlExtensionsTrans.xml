@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE xmitransformations SYSTEM 'xmitrans.dtd'>
+
+<!-- xtumlExtensionsTrans.xml
+
+Transformations required to translate EA models to xtuml.
+
+-->
+
+<xmitransformations version="2.0">
+  <xmitransformation modelelement="operation" xmipattern="uml:Operation" recurse="true">
+    <trigger name="type" type="attrval" attr="type" />
+    <trigger name="type" type="ctext" src="type" />
+  </xmitransformation>
+
+  <xmitransformation modelelement="diagram" xmipattern="diagram" recurse="true">
+    <trigger name="represents" type="cattrval" src="model" attr="owner" />
+  </xmitransformation>
+
+
+  <xmitransformation modelelement="diagramelement" requirexmiid="false" xmipattern="element">
+    <trigger name="element" type="attrval" attr="subject" />
+    <trigger name="bounds" type="attrval" attr="geometry" />
+  </xmitransformation>
+
+  <xmitransformation modelelement="providedinterface" xmipattern="provided">
+    <trigger name="name" type="attrval" attr="name" />
+    <trigger name="interfaceid" type="attrval" attr="xmi:idref" />
+  </xmitransformation>
+
+  <xmitransformation modelelement="requiredinterface" xmipattern="required">
+    <trigger name="name" type="attrval" attr="name" />
+    <trigger name="interfaceid" type="attrval" attr="xmi:idref" />
+  </xmitransformation>
+
+</xmitransformations>

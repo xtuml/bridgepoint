@@ -68,4 +68,9 @@ public class ModelClassProcessorSQL extends AbstractModelClassProcessor {
     public List<String> getValues(ModelElement element) {
         return List.of(getObj_ID(), getName(), getNumb(), getKey_Lett(), getDescrip(), getSS_ID());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

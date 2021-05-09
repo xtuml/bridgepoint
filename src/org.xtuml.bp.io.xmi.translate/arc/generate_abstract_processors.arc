@@ -1,5 +1,6 @@
 .// Generate abstract processors for xtuml
 .include "utils.inc"
+.select any ooaofgraphics from instances of EP_PKG where (selected.Name == "ooaofgraphics")
 .select many objs from instances of O_OBJ
 .for each obj in objs
 package org.xtuml.bp.io.xmi.translate.processors.generated;
@@ -21,6 +22,12 @@ public abstract class Abstract$Cr{obj.Name}Processor extends AbstractXtumlTypePr
       .end while
     .end if
   .end for
+  .if(not_empty ooaofgraphics)  
+    @Override
+    public boolean isGraphical() {
+        return true;
+    }
+  .end if
 }
   .emit to file "src/main/java/org/xtuml/bp/io/xmi/translate/processors/generated/Abstract$Cr{obj.Name}Processor.java"
 .end for

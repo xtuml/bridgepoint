@@ -42,4 +42,9 @@ public class PackageProcessorSQL extends AbstractPackageProcessor {
     public List<String> getValues(ModelElement element) {
         return List.of(getPackage_ID(), getSys_ID(), getDirect_Sys_ID(), getName(), getDescrip(), getNum_Rng());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

@@ -36,20 +36,25 @@ public class OperationProcessorSQL extends AbstractOperationProcessor {
 
     @Override
     public String getDT_ID() {
-        /** UML2 treats return type as an owned parameter */
-        String refId = IdProcessor.NULL_ID;
-        Collection<ModelElement> parameters = getModelElement().getOwnedElements();
-        for (ModelElement parameter : parameters) {
-            if (parameter.getName().equals("return")) {
-                ModelElement refAttribute = parameter.getRefAttribute("parametertype");
-                if (refAttribute != null) {
-                    refId = refAttribute.getPlainAttribute("id");
-                } else {
-                    // figure out core type mapping
-                    String global = IdProcessor.getIdForType("void");
-                    if (global != null) {
-                        refId = global;
-                        break;
+        String refId = getModelElement().getPlainAttribute("type");
+        if (refId.equals("")) {
+            refId = IdProcessor.NULL_ID;
+            /** UML2 may treat return type as an owned parameter */
+            Collection<ModelElement> parameters = getModelElement().getOwnedElements();
+            if (parameters != null) {
+                for (ModelElement parameter : parameters) {
+                    if (parameter.getName().equals("return")) {
+                        ModelElement refAttribute = parameter.getRefAttribute("parametertype");
+                        if (refAttribute != null) {
+                            refId = refAttribute.getPlainAttribute("id");
+                        } else {
+                            // figure out core type mapping
+                            String global = IdProcessor.getIdForType("void");
+                            if (global != null) {
+                                refId = global;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -110,5 +115,10 @@ public class OperationProcessorSQL extends AbstractOperationProcessor {
         return List.of(getTfr_ID(), getObj_ID(), getName(), getDescrip(), getDT_ID(), getInstance_Based(),
                 getAction_Semantics_internal(), getSuc_Pars(), getReturn_Dimensions(), getPrevious_Tfr_ID(),
                 getDialect(), getNumb());
+    }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
     }
 }

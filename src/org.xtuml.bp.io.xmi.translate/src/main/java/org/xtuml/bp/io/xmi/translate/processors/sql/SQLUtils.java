@@ -8,6 +8,7 @@ import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.processors.AbstractXtumlTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
+import org.xtuml.bp.io.xmi.translate.processors.XtumlTypeProcessor;
 
 public class SQLUtils {
 
@@ -16,9 +17,13 @@ public class SQLUtils {
                 + "-- BP 7.1 content: StreamData syschar: 3 persistence-version: 7.1.6\n";
     }
 
-    public static boolean requiresPackageableElement(ModelElement element) {
-        if (element == null)
+    public static boolean requiresPackageableElement(XtumlTypeProcessor processor, ModelElement element) {
+        if (element == null) {
             return false;
+        }
+        if (processor.isGraphical()) {
+            return false;
+        }
         ModelElement owner = element.getOwner();
         if (owner == null) {
             // root package
@@ -35,7 +40,7 @@ public class SQLUtils {
         return getInsertStatement(processor, element);
     }
 
-    public static String getInsertStatement(AbstractXtumlTypeProcessor processor, ModelElement element) {
+    public static String getInsertStatement(XtumlTypeProcessor processor, ModelElement element) {
         List<String> values = processor.getValues(element);
         StringBuilder insert = new StringBuilder();
         values.forEach(v -> {
@@ -87,5 +92,20 @@ public class SQLUtils {
         return Arrays.stream(value.split(" ")).map(
                 word -> word.isEmpty() ? word : Character.toTitleCase(word.charAt(0)) + word.substring(1).toLowerCase())
                 .collect(Collectors.joining(""));
+    }
+
+    public static String getProcessorOutput(AbstractXtumlTypeProcessor processor) {
+        StringBuilder inserts = new StringBuilder();
+        ModelElement element = processor.getModelElement();
+        inserts.append(SQLUtils.getInsertStatement(processor, element));
+        if (!processor.handlesPackageableElement() && SQLUtils.requiresPackageableElement(processor, element)) {
+            inserts.append(SQLUtils.createPackageableElement(element));
+        }
+        inserts.append(processor.createSupportingElements());
+        return inserts.toString();
+    }
+
+    public static String booleanValue(boolean val) {
+        return val ? numberValue(1) : numberValue(0);
     }
 }

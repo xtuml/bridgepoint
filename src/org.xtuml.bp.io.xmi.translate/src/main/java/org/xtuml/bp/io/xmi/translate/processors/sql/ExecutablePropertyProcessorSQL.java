@@ -52,4 +52,9 @@ public class ExecutablePropertyProcessorSQL extends AbstractExecutablePropertyPr
     public List<String> getValues(ModelElement element) {
         return List.of(getId(), getInterface_Id(), getDirection(), getName(), getDescrip(), getNumb());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

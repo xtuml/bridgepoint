@@ -30,11 +30,13 @@ public class XMITranslate {
 	public void loadXMI(String xmi, String output)
 			throws ParserConfigurationException, SAXException, XMLParseException {
 		URL mm = getClass().getResource("metamodel2.xml");
-		URL transformer = getClass().getResource("xmiTrans2_0.xml");
-		loadXMI(mm.getFile(), transformer.getFile(), xmi, output);
+		String[] transformers = new String[2];
+		transformers[0] = getClass().getResource("xmiTrans2_0.xml").getFile();
+		transformers[1] = getClass().getResource("xtumlXmiExtension.xml").getFile();
+		loadXMI(mm.getFile(), transformers, xmi, output);
 	}
 
-	void loadXMI(String metamodel, String transformer, String xmi, String output)
+	void loadXMI(String metamodel, String[] transformers, String xmi, String output)
 			throws ParserConfigurationException, SAXException, XMLParseException {
 		XMITranslator.log("Loading XMI document...");
 		xtumlOutput = new StringBuilder();
@@ -51,9 +53,11 @@ public class XMITranslate {
 			parser = new XMLParser();
 			parser.parse(metamodel, mm.getSAXParserHandler());
 		}
-		if (!transformer.equals("")) {
+		if (transformers.length > 0) {
 			trans = new XMITransformations(mm);
-			parser.parse(transformer, trans.getSAXParserHandler());
+			for (int i = 0; i < transformers.length; i++) {
+				parser.parse(transformers[i], trans.getSAXParserHandler());
+			}
 		}
 		if (!xmi.equals("")) {
 			model = new Model(mm);
@@ -64,7 +68,7 @@ public class XMITranslate {
 		while (root.getOwner() != null) {
 			root = root.getOwner();
 		}
-		outputXtuml(root);
+		model.forEach(e -> outputXtuml(e));
 		// if output is specified
 		if (!output.equals("")) {
 			try {
@@ -91,14 +95,10 @@ public class XMITranslate {
 			mapping = getMappingAsRelationalChild(e);
 			if (mapping == null) {
 				XMITranslator.logNoMapping("WARN: No mapping for " + e.getType().getName());
-				return;
 			}
 		}
-		mapToXtuml(e, mapping);
-		if (e.getOwnedElements() != null) {
-			e.getOwnedElements().forEach(child -> {
-				outputXtuml(child);
-			});
+		if (mapping != null) {
+			mapToXtuml(e, mapping);
 		}
 	}
 

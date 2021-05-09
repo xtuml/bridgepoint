@@ -22,4 +22,9 @@ public class HeaderProcessorSQL extends AbstractXtumlTypeProcessor {
         return null;
     }
 
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
+
 }

@@ -87,4 +87,9 @@ public class InterfaceOperationProcessorSQL extends AbstractInterfaceOperationPr
         return List.of(getId(), getDT_ID(), getName(), getDescrip(), getDirection(), getReturn_Dimensions(),
                 getPrevious_Id());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

@@ -96,4 +96,8 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
         }
     }
 
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

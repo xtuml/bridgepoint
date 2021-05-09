@@ -63,4 +63,9 @@ public class ComponentProcessorSQL extends AbstractComponentProcessor {
         return List.of(getId(), getPackage_ID(), getNestedComponent_Id(), getName(), getDescrip(), getMult(),
                 getRoot_Package_ID(), getisRealized(), getRealized_Class_Path(), getKey_Lett());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

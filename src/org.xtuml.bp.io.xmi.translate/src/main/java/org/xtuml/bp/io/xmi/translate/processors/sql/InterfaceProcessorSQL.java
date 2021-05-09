@@ -32,4 +32,9 @@ public class InterfaceProcessorSQL extends AbstractInterfaceProcessor {
     public List<String> getValues(ModelElement element) {
         return List.of(getId(), getPackage_ID(), getName(), getDescrip());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

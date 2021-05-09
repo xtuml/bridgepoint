@@ -102,4 +102,9 @@ public class AttributeProcessorSQL extends AbstractAttributeProcessor {
         return List.of(getAttr_ID(), getObj_ID(), getPAttr_ID(), getName(), getDescrip(), getPrefix(), getRoot_Nam(),
                 getPfx_Mode(), getDT_ID(), getDimensions(), getDefaultValue());
     }
+
+    @Override
+    public String getProcessorOutput() {
+        return SQLUtils.getProcessorOutput(this);
+    }
 }

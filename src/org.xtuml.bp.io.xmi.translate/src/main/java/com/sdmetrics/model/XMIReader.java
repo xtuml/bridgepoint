@@ -65,10 +65,10 @@ import com.sdmetrics.util.SAXHandler;
 public class XMIReader extends SAXHandler {
 
 	/**
-	 * Message handler for progress messages of the XMI parser. Reading a large
-	 * XMI file can take some time (several tens of seconds). Therefore, the XMI
-	 * reader continuously emits progress messages. You can use these messages
-	 * to convey to the user that the application is still alive.
+	 * Message handler for progress messages of the XMI parser. Reading a large XMI
+	 * file can take some time (several tens of seconds). Therefore, the XMI reader
+	 * continuously emits progress messages. You can use these messages to convey to
+	 * the user that the application is still alive.
 	 */
 	public interface ProgressMessageHandler {
 		/**
@@ -89,11 +89,11 @@ public class XMIReader extends SAXHandler {
 	/** Stack of model element being processed. */
 	private XMIContextStack stack;
 	/** Running id for artificial XMI IDs that the reader creates. */
-	//	private int artificialIDCounter;
+	// private int artificialIDCounter;
 	/**
-	 * Temporarily stores links via the "linkbackattr" attribute. These links
-	 * can be registered with the model elements only after the entire XMI file
-	 * has been read and all model elements are known.
+	 * Temporarily stores links via the "linkbackattr" attribute. These links can be
+	 * registered with the model elements only after the entire XMI file has been
+	 * read and all model elements are known.
 	 */
 	private List<DeferredRelation> deferredRelationsList;
 
@@ -109,17 +109,17 @@ public class XMIReader extends SAXHandler {
 
 	/**
 	 * Hash map holding all model elements. Key is the XMI ID, value the model
-	 * element. Used to collect the model elements while parsing the XMI file,
-	 * and cross-referencing them by their XMI ID.
+	 * element. Used to collect the model elements while parsing the XMI file, and
+	 * cross-referencing them by their XMI ID.
 	 */
 	private HashMap<String, ModelElement> xmiIDMap;
 
 	/**
 	 * Cache of string values used for attributes values of model elements. The
-	 * attribute value strings in a UML model contain a fair amount of
-	 * redundancy, XML parsers however will return distinct string objects for
-	 * equal string. Therefore, we cache those string values during parsing and
-	 * replace duplicates with the cached version.
+	 * attribute value strings in a UML model contain a fair amount of redundancy,
+	 * XML parsers however will return distinct string objects for equal string.
+	 * Therefore, we cache those string values during parsing and replace duplicates
+	 * with the cached version.
 	 */
 	private HashMap<String, String> stringCache;
 
@@ -131,6 +131,7 @@ public class XMIReader extends SAXHandler {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param trans The XMI transformations to use.
 	 * @param model The model that will contain the extracted model elements.
 	 */
@@ -168,21 +169,20 @@ public class XMIReader extends SAXHandler {
 		stringCache = new HashMap<>(2048);
 		elementsExtracted = 0;
 		nestingLevel = 0;
-//		artificialIDCounter = 0;
+		// artificialIDCounter = 0;
 	}
 
 	/**
-	 * Processes the opening tag of an XML element in the XMI source file.
-	 * Depending on the parser state, this either creates a new model element,
-	 * or adds information from a child or grandchild node of the XMI tree to
-	 * the current model element.
+	 * Processes the opening tag of an XML element in the XMI source file. Depending
+	 * on the parser state, this either creates a new model element, or adds
+	 * information from a child or grandchild node of the XMI tree to the current
+	 * model element.
 	 * 
-	 * @throws SAXException An error occurred during the evaluation of a
-	 *         conditional XMI transformation.
+	 * @throws SAXException An error occurred during the evaluation of a conditional
+	 *                      XMI transformation.
 	 */
 	@Override
-	public void startElement(String uri, String local, String raw,
-			Attributes attrs) throws SAXException {
+	public void startElement(String uri, String local, String raw, Attributes attrs) throws SAXException {
 		nestingLevel++;
 
 		if (stack.isAcceptingNewElements()) {
@@ -212,9 +212,9 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Processes the closing tag of an XML element. If the end of the definition
-	 * of the model element on the top of the stack has been reached, add this
-	 * element to the {@link Model}.
+	 * Processes the closing tag of an XML element. If the end of the definition of
+	 * the model element on the top of the stack has been reached, add this element
+	 * to the {@link Model}.
 	 */
 	@Override
 	public void endElement(String uri, String local, String raw) {
@@ -223,8 +223,7 @@ public class XMIReader extends SAXHandler {
 			if (stack.activeTriggerTypeEquals(CTEXT)) {
 				// add the character data to the current model element
 				ModelElement element = stack.getModelElement();
-				setModelAttributeValue(element, stack.getActiveTrigger().name,
-						ctextBuffer.toString());
+				setModelAttributeValue(element, stack.getActiveTrigger().name, ctextBuffer.toString());
 				ctextBuffer.setLength(0);
 			}
 			// any currently active trigger is expired by now.
@@ -238,8 +237,7 @@ public class XMIReader extends SAXHandler {
 
 			// if element is its own "owner" (Visio XMI exporter), delete its
 			// context info
-			String contextID = element
-					.getPlainAttribute(MetaModelElement.CONTEXT);
+			String contextID = element.getPlainAttribute(MetaModelElement.CONTEXT);
 			if (contextID.equals(element.getXMIID())) {
 				contextID = "";
 			}
@@ -251,8 +249,7 @@ public class XMIReader extends SAXHandler {
 				if (parent != null) {
 					contextID = parent.getXMIID();
 				}
-				setModelAttributeValue(element, MetaModelElement.CONTEXT,
-						contextID);
+				setModelAttributeValue(element, MetaModelElement.CONTEXT, contextID);
 			}
 
 			// now we can add the element to the model
@@ -263,9 +260,9 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Performs the post-processing after the entire XMI file has been read.
-	 * Process the elements on the deferredRelations list, and cross-references
-	 * all model element links.
+	 * Performs the post-processing after the entire XMI file has been read. Process
+	 * the elements on the deferredRelations list, and cross-references all model
+	 * element links.
 	 */
 	@Override
 	public void endDocument() {
@@ -279,8 +276,7 @@ public class XMIReader extends SAXHandler {
 
 			// set attribute of target element to point back to the source
 			if (target.getType().hasAttribute(defRel.linkBackAttr)) {
-				setModelAttributeValue(target, defRel.linkBackAttr,
-						defRel.sourceElement.getXMIID());
+				setModelAttributeValue(target, defRel.linkBackAttr, defRel.sourceElement.getXMIID());
 			}
 		}
 
@@ -301,16 +297,14 @@ public class XMIReader extends SAXHandler {
 	 * process it accordingly.
 	 * 
 	 * @param xmlElement Name of the XML element.
-	 * @param attrs The attributes of the XML element.
+	 * @param attrs      The attributes of the XML element.
 	 * @return <code>true</code> if a new model element was created, else
 	 *         <code>false</code>.
-	 * @throws SAXException An error occurred evaluating the condition
-	 *         expression of a conditional XMI transformation.
+	 * @throws SAXException An error occurred evaluating the condition expression of
+	 *                      a conditional XMI transformation.
 	 */
-	private boolean checkAndProcessNewElement(String xmlElement,
-			Attributes attrs) throws SAXException {
-		XMITransformation trans = transformations.getTransformation(xmlElement,
-				attrs);
+	private boolean checkAndProcessNewElement(String xmlElement, Attributes attrs) throws SAXException {
+		XMITransformation trans = transformations.getTransformation(xmlElement, attrs);
 
 		if (trans == null) {
 			// XML element defines xmi:type or xsi:type attribute, e.g.:
@@ -333,10 +327,8 @@ public class XMIReader extends SAXHandler {
 			XMITransformation currentTrans = stack.getXMITransformation();
 			if (currentTrans != null) {
 				for (XMITrigger trigger : currentTrans.getTriggerList()) {
-					if (trigger.type == XMI2ASSOC && trigger.src != null
-							&& trigger.attr.equals(xmlElement)) {
-						trans = transformations.getTransformation(trigger.src,
-								attrs);
+					if (trigger.type == XMI2ASSOC && trigger.src != null && trigger.attr.equals(xmlElement)) {
+						trans = transformations.getTransformation(trigger.src, attrs);
 						break;
 					}
 				}
@@ -356,8 +348,7 @@ public class XMIReader extends SAXHandler {
 		} else {
 			// Ignore the XML element if it has an XMI idref specified and is not
 			// explicitly allowed to.
-			if (!trans.allowsXMIIDRef() 
-					&& findAttributeIndex(attrs, "xmi.idref", "xmi:idref") >= 0) {
+			if (!trans.allowsXMIIDRef() && findAttributeIndex(attrs, "xmi.idref", "xmi:idref") >= 0) {
 				return false;
 			}
 		}
@@ -367,14 +358,14 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Finds the index of an XML attribute that can be specified using one of
-	 * two alternative names.
+	 * Finds the index of an XML attribute that can be specified using one of two
+	 * alternative names.
 	 * 
 	 * @param attrs SAX attributes of an XML element
 	 * @param attr1 First name used for the attribute.
 	 * @param attr2 Alternative name used for the attribute.
-	 * @return Index of the attribute, or -1 if the attribute is not contained
-	 *         under either name
+	 * @return Index of the attribute, or -1 if the attribute is not contained under
+	 *         either name
 	 */
 	private int findAttributeIndex(Attributes attrs, String attr1, String attr2) {
 		int idindex = attrs.getIndex(attr1);
@@ -383,15 +374,14 @@ public class XMIReader extends SAXHandler {
 
 	/**
 	 * Processes a new model element in the XMI file. Creates a new
-	 * {@link ModelElement}, processes the XML elements, and pushes the new
-	 * model element on the context stack.
+	 * {@link ModelElement}, processes the XML elements, and pushes the new model
+	 * element on the context stack.
 	 * 
-	 * @param trans XMI transformations to apply for the model element.
+	 * @param trans      XMI transformations to apply for the model element.
 	 * @param xmlElement The name of the XML element in the XMI file.
-	 * @param attrs The XML attributes of the XML element.
+	 * @param attrs      The XML attributes of the XML element.
 	 */
-	private void processNewElement(XMITransformation trans, String xmlElement,
-			Attributes attrs) {
+	private void processNewElement(XMITransformation trans, String xmlElement, Attributes attrs) {
 		ModelElement element = new ModelElement(trans.getType());
 		processAttrTriggers(element, trans, attrs);
 
@@ -413,11 +403,10 @@ public class XMIReader extends SAXHandler {
 	 * element that defines the model element.
 	 * 
 	 * @param element The new model element.
-	 * @param trans XMI transformation to use for the new model element.
-	 * @param attrs XML attributes defining the model element.
+	 * @param trans   XMI transformation to use for the new model element.
+	 * @param attrs   XML attributes defining the model element.
 	 */
-	private void processAttrTriggers(ModelElement element,
-			XMITransformation trans, Attributes attrs) {
+	private void processAttrTriggers(ModelElement element, XMITransformation trans, Attributes attrs) {
 		MetaModelElement type = trans.getType();
 
 		for (XMITrigger trigger : trans.getTriggerList()) {
@@ -433,8 +422,7 @@ public class XMIReader extends SAXHandler {
 				if (xmlAttrValue != null) {
 					if (type.isSetAttribute(trigger.name)) {
 						// tokenize the XML attribute values and add each one
-						StringTokenizer t = 
-								new StringTokenizer(xmlAttrValue);
+						StringTokenizer t = new StringTokenizer(xmlAttrValue);
 						while (t.hasMoreTokens()) {
 							String nextID = t.nextToken();
 							setModelElementAttribute(element, nextID, trigger);
@@ -452,15 +440,14 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Sets a cross-reference attribute value and registers the "linkbackattr"
-	 * on the "deferred relations" list, if defined.
+	 * Sets a cross-reference attribute value and registers the "linkbackattr" on
+	 * the "deferred relations" list, if defined.
 	 * 
 	 * @param sourceElement The source element of the cross-reference.
-	 * @param targetXMIID XMI ID of the target element.
-	 * @param trigger The trigger that produced the target element XMIID.
+	 * @param targetXMIID   XMI ID of the target element.
+	 * @param trigger       The trigger that produced the target element XMIID.
 	 */
-	private void setModelElementAttribute(ModelElement sourceElement,
-			String targetXMIID, XMITrigger trigger) {
+	private void setModelElementAttribute(ModelElement sourceElement, String targetXMIID, XMITrigger trigger) {
 		setModelAttributeValue(sourceElement, trigger.name, targetXMIID);
 		if (trigger.linkback != null) {
 			DeferredRelation defRel = new DeferredRelation();
@@ -472,35 +459,30 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Processes "cattrval", "gcattrval", and "xmi2assoc" triggers of the owner
-	 * of a new model element.
+	 * Processes "cattrval", "gcattrval", and "xmi2assoc" triggers of the owner of a
+	 * new model element.
 	 * 
 	 * @param xmlElement Name of the XML element defining the new model element.
-	 * @param xmiID XMI ID of the new model element.
+	 * @param xmiID      XMI ID of the new model element.
 	 */
 	private void processRelationTriggers(String xmlElement, String xmiID) {
 		// Process any matching "cattrval" or "xmi2assoc" triggers of the
 		// current model element
 		if ((nestingLevel == stack.getNestingLevel() + 1) && !stack.isEmpty()) {
-			for (XMITrigger trigger : stack.getXMITransformation()
-					.getTriggerList()) {
+			for (XMITrigger trigger : stack.getXMITransformation().getTriggerList()) {
 				if ((trigger.type == CATTRVAL && trigger.src.equals(xmlElement))
-						|| (trigger.type == XMI2ASSOC && trigger.attr
-								.equals(xmlElement))) {
+						|| (trigger.type == XMI2ASSOC && trigger.attr.equals(xmlElement))) {
 					// Add relation to the new element from the owner
 					// model element on the stack
-					setModelElementAttribute(stack.getModelElement(), xmiID,
-							trigger);
+					setModelElementAttribute(stack.getModelElement(), xmiID, trigger);
 				}
 			}
 		}
 
 		// process active "gcattr" trigger, if any, as long as they are not for
 		// the context attribute
-		if ((nestingLevel == stack.getNestingLevel() + 2)
-				&& stack.activeTriggerTypeEquals(GCATTRVAL)
-				&& !MetaModelElement.CONTEXT
-						.equals(stack.getActiveTrigger().name)) {
+		if ((nestingLevel == stack.getNestingLevel() + 2) && stack.activeTriggerTypeEquals(GCATTRVAL)
+				&& !MetaModelElement.CONTEXT.equals(stack.getActiveTrigger().name)) {
 			processGCATTRElement(xmiID);
 		}
 	}
@@ -509,16 +491,16 @@ public class XMIReader extends SAXHandler {
 	 * Checks an XML child element of a model element for pertinent data.
 	 * 
 	 * @param xmlElement The name of the XML child element to process.
-	 * @param attrs The XML attributes of the XML child element.
+	 * @param attrs      The XML attributes of the XML child element.
 	 */
 	private void processXMLFirstLevelChild(String xmlElement, Attributes attrs) {
 
 		// Go through list of triggers for current model element, checking if
 		// one is defined for the current XMI Element.
+		List<XMITrigger> triggerList = stack.getXMITransformation().getTriggerList();
 		for (XMITrigger trigger : stack.getXMITransformation().getTriggerList()) {
 			if ((trigger.type == CATTRVAL && trigger.src.equals(xmlElement))
-					|| (trigger.type == XMI2ASSOC && trigger.attr
-							.equals(xmlElement))) {
+					|| (trigger.type == XMI2ASSOC && trigger.attr.equals(xmlElement))) {
 				// Process cattr or xmi2assoc trigger, for example:
 				// XMI Source: <containedNode xmi:idref='xmi35'/>
 				// Trigger: <trigger name="nodes" type="cattrval"
@@ -527,18 +509,16 @@ public class XMIReader extends SAXHandler {
 				// attr="containedNode" />
 				int attrIndex;
 				if (trigger.type == XMI2ASSOC) {
-					attrIndex = findAttributeIndex(attrs, "xmi:idref",
-							"xmi.idref");
+					attrIndex = findAttributeIndex(attrs, "xmi:idref", "xmi.idref");
 				} else {
 					attrIndex = attrs.getIndex(trigger.attr);
 				}
 				if (attrIndex >= 0) {
 					String attrValue = attrs.getValue(attrIndex);
-					setModelElementAttribute(stack.getModelElement(),
-							attrValue, trigger);
+					setModelElementAttribute(stack.getModelElement(), attrValue, trigger);
 				}
-			} else if ((trigger.type == GCATTRVAL || trigger.type == CTEXT 
-					|| trigger.type == REFLIST)	&& trigger.src.equals(xmlElement)) {
+			} else if ((trigger.type == GCATTRVAL || trigger.type == CTEXT || trigger.type == REFLIST)
+					&& trigger.src.equals(xmlElement)) {
 				// Set current trigger for processing subsequent character text
 				// or grandchild XML elements
 				stack.setActiveTrigger(trigger);
@@ -577,8 +557,7 @@ public class XMIReader extends SAXHandler {
 
 		// Insert attribute value of interest.
 		if (type.hasAttribute(trigger.name) && attrValue != null) {
-			setModelElementAttribute(stack.getModelElement(), attrValue,
-					trigger);
+			setModelElementAttribute(stack.getModelElement(), attrValue, trigger);
 		}
 		// Done processing. If attribute is single-valued, expire trigger.
 		if (!type.isSetAttribute(trigger.name)) {
@@ -587,13 +566,12 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Processes an XML element that is a member of a "reflist". Creates a new
-	 * model element that is owned by the current model element on the top of
-	 * the stack.
+	 * Processes an XML element that is a member of a "reflist". Creates a new model
+	 * element that is owned by the current model element on the top of the stack.
 	 * <p>
 	 * Note: the reflist trigger is deprecated and only supported for backwards
-	 * compatibility. New XMITransformation files should use the
-	 * "[gc][c]relation" triggers.
+	 * compatibility. New XMITransformation files should use the "[gc][c]relation"
+	 * triggers.
 	 * 
 	 * @param attrs Attributes of the reflist element.
 	 * @return <code>true</code> if the XML element was processed successfully,
@@ -638,12 +616,11 @@ public class XMIReader extends SAXHandler {
 	 * Replaces the string value with a cached copy if the value has been used
 	 * before.
 	 * 
-	 * @param element The model element
+	 * @param element       The model element
 	 * @param attributeName Name of the attribute to set
-	 * @param value Value for the attribute
+	 * @param value         Value for the attribute
 	 */
-	private void setModelAttributeValue(ModelElement element,
-			String attributeName, String value) {
+	private void setModelAttributeValue(ModelElement element, String attributeName, String value) {
 		String cachedValue = stringCache.get(value);
 		if (cachedValue == null && value != null) {
 			cachedValue = value;
@@ -656,7 +633,7 @@ public class XMIReader extends SAXHandler {
 	/**
 	 * Adds a new model element to the model.
 	 * 
-	 * @param xmiID XMI ID of the model element.
+	 * @param xmiID   XMI ID of the model element.
 	 * @param element The model element to add.
 	 */
 	private void addModelElement(String xmiID, ModelElement element) {
@@ -668,9 +645,7 @@ public class XMIReader extends SAXHandler {
 		// issue a progress message every 1000 elements
 		if (messageHandler != null) {
 			if ((elementsExtracted % 1000) == 0) {
-				messageHandler
-						.reportXMIProgress("Reading UML model. Elements processed: "
-								+ elementsExtracted);
+				messageHandler.reportXMIProgress("Reading UML model. Elements processed: " + elementsExtracted);
 			}
 		}
 	}
@@ -695,8 +670,7 @@ public class XMIReader extends SAXHandler {
 		}
 
 		if (messageHandler != null) {
-			messageHandler.reportXMIProgress("Processing "
-					+ extendingElementCount + " model extensions");
+			messageHandler.reportXMIProgress("Processing " + extendingElementCount + " model extensions");
 		}
 
 		// Iterate over all element types with an extension reference
@@ -715,10 +689,9 @@ public class XMIReader extends SAXHandler {
 					model.removeElement(extended);
 					xmiIDMap.put(extendedID, extending);
 				} else {
-					extending.setAttribute(MetaModelElement.NAME,
-							extended.getName());
-					extending.setAttribute(MetaModelElement.CONTEXT, extended
-							.getPlainAttribute(MetaModelElement.CONTEXT));
+					extending.setAttribute(MetaModelElement.NAME, extended.getName());
+					extending.setAttribute(MetaModelElement.CONTEXT,
+							extended.getPlainAttribute(MetaModelElement.CONTEXT));
 				}
 			}
 		}
@@ -726,13 +699,12 @@ public class XMIReader extends SAXHandler {
 
 	/**
 	 * Replaces string-valued XMI IDs of cross-reference attribute values with
-	 * references to the respective model element instances. Called after all
-	 * model elements have been added.
+	 * references to the respective model element instances. Called after all model
+	 * elements have been added.
 	 */
 	private void doCrossreferencing() {
 		if (messageHandler != null) {
-			messageHandler.reportXMIProgress("Crossreferencing "
-					+ elementsExtracted + " model elements");
+			messageHandler.reportXMIProgress("Crossreferencing " + elementsExtracted + " model elements");
 		}
 
 		for (MetaModelElement type : model.getMetaModel()) {
@@ -748,21 +720,20 @@ public class XMIReader extends SAXHandler {
 	}
 
 	/**
-	 * Performs the cross-referencing for a single attribute. 
-	 * @param type Type of the element with the cross-reference attribute.
+	 * Performs the cross-referencing for a single attribute.
+	 * 
+	 * @param type     Type of the element with the cross-reference attribute.
 	 * @param attrName Name of the cross-reference attribute.
 	 */
 	private void crossReferenceAttribute(MetaModelElement type, String attrName) {
 		boolean isMultivalued = type.isSetAttribute(attrName);
 		for (ModelElement element : model.getElements(type)) {
 			if (isMultivalued) {
-				Collection<?> oldStringReferences = element
-						.getSetAttribute(attrName);
+				Collection<?> oldStringReferences = element.getSetAttribute(attrName);
 				if (oldStringReferences.isEmpty()) {
 					continue;
 				}
-				HashSet<ModelElement> newElementReferences = new HashSet<>(
-						oldStringReferences.size());
+				HashSet<ModelElement> newElementReferences = new HashSet<>(oldStringReferences.size());
 				for (Object xmiID : oldStringReferences) {
 					ModelElement referencedElement = xmiIDMap.get(xmiID);
 					if (referencedElement != null) {
@@ -772,8 +743,7 @@ public class XMIReader extends SAXHandler {
 				}
 				element.setSetAttribute(attrName, newElementReferences);
 			} else {
-				ModelElement referencedElement = xmiIDMap
-						.get(element.getPlainAttribute(attrName));
+				ModelElement referencedElement = xmiIDMap.get(element.getPlainAttribute(attrName));
 				if (referencedElement != null) {
 					referencedElement.addRelation(attrName, element);
 				}
