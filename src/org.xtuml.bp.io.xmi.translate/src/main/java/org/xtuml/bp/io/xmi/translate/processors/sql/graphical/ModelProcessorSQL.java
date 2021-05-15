@@ -1,23 +1,27 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql.graphical;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.sdmetrics.model.ModelElement;
 
-import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractModelProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class ModelProcessorSQL extends AbstractModelProcessor {
-    private static String diagramId = IdProcessor.NULL_ID;
+
+    @Override
+    public String createSupportingElements() {
+        DiagramProcessorSQL diagramProcessor = new DiagramProcessorSQL();
+        diagramProcessor.setModelElement(getModelElement());
+        diagramProcessor.setKeyLetters("DIM_DIA");
+        return SQLUtils.getInsertStatement(diagramProcessor, getModelElement());
+    }
 
     @Override
     public String getdiagramId() {
-        diagramId = UUID.randomUUID().toString();
-        return SQLUtils.idValue(diagramId.toString());
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 
     @Override

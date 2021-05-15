@@ -15,7 +15,12 @@ public class InterfaceProcessorSQL extends AbstractInterfaceProcessor {
 
     @Override
     public String getPackage_ID() {
-        return SQLUtils.idValue(IdProcessor.NULL_ID);
+        // xtUML does not support interface definition in a component
+        if(getModelElement().getOwner().getType().getMapping().equals("C_C")) {
+        return SQLUtils.idValue(getModelElement().getOwner().getOwner().getPlainAttribute("id"));
+        } else {
+            return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
+        }
     }
 
     @Override
