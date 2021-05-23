@@ -54,14 +54,22 @@ public class SQLUtils {
     public static String stringValue(String value) {
         StringBuilder builder = new StringBuilder();
         builder.append("\t");
-        builder.append("'" + value + "'");
+        builder.append("'" + encodeString(value) + "'");
         builder.append(",");
         builder.append("\n");
         return builder.toString();
     }
 
+    private static String encodeString(String value) {
+        return value.replaceAll("'", "''");
+    }
+
     public static String idValue(String value) {
-        String id = IdProcessor.process(value);
+        return idValue(value, null);
+    }
+
+    public static String idValue(String value, String keyLetters) {
+        String id = IdProcessor.process(value, keyLetters);
         StringBuilder builder = new StringBuilder();
         builder.append("\t");
         builder.append('"' + id + '"');

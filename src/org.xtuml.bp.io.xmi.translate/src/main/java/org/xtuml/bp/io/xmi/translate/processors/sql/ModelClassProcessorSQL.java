@@ -56,7 +56,7 @@ public class ModelClassProcessorSQL extends AbstractModelClassProcessor {
 
     @Override
     public String getObj_ID() {
-        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override

@@ -49,6 +49,7 @@ package org.xtuml.bp.ui.explorer;
 //
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -57,6 +58,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.MultipleOccurrenceElement;
 import org.xtuml.bp.core.sorter.*;
+import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 import org.xtuml.bp.ui.explorer.adapters.*;
 
 public class ${provider_name} implements ITreeContentProvider {
@@ -91,10 +93,19 @@ public class ${provider_name} implements ITreeContentProvider {
     // Singleton model, nothing to do
   }
   .select many tree_nodes from instances of T_TNS
-  /**
-   * @see ITreeContentProvider#getChildren(Object)
-   */
-  public Object[] getChildren(Object parentElement) {
+	@Override
+	public Object[] getChildren(Object parentElement) {
+		Object[] children = getDefaultChildren(parentElement);
+		if (parentElement instanceof NonRootModelElement && ((NonRootModelElement) parentElement).getPE() != null) {
+			Comment_c[] comments = Comment_c.getManyPE_CsOnR8009(((NonRootModelElement) parentElement).getPE());
+			if (comments.length > 0) {
+				children = Stream.of(children, comments).flatMap(Stream::of).toArray(Object[]::new);
+			}
+		}
+		return children;
+	}
+
+  public Object[] getDefaultChildren(Object parentElement) {
   	if(parentElement instanceof MultipleOccurrenceElement) {
 		parentElement = ((MultipleOccurrenceElement) parentElement).getElement();
 	}
@@ -120,6 +131,9 @@ public class ${provider_name} implements ITreeContentProvider {
     if (element instanceof Ooaofooa) {
       return RootAdapter.getInstance().getParent(element);
     }
+    if (element instanceof Comment_c) {
+    	return SupertypeSubtypeUtil.getSubtypes(PackageableElement_c.getOnePE_PEOnR8009((Comment_c) element)).get(0);
+    }
   .for each node in tree_nodes
     .select any node_class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
     .invoke result = get_class_name(node_class)
@@ -140,6 +154,12 @@ public class ${provider_name} implements ITreeContentProvider {
     if (element instanceof Ooaofooa) {
       return RootAdapter.getInstance().hasChildren(element);
     }
+	if(element instanceof NonRootModelElement && ((NonRootModelElement) element).getPE() != null) {
+		Comment_c comment = Comment_c.getOnePE_COnR8009(((NonRootModelElement) element).getPE());
+		if(comment != null) {
+			 return true;
+		}
+	}
   .for each node in tree_nodes
     .select any node_class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
     .invoke result = get_class_name(node_class)

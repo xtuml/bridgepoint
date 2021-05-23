@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.XMITranslator;
+
 public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
 
     private String keyLetters;
@@ -35,9 +37,20 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
 
     @Override
     public String process(ModelElement element, String keyLetters) {
+        if (keyLetters.equals("PE_C")) {
+            // ignore anything that does not have an owner
+            if (element.getOwner() == null) {
+                return "";
+            }
+        }
         setModelElement(element);
         setKeyLetters(keyLetters);
-        return getProcessorOutput();
+        if (ignoreTranslation()) {
+            XMITranslator.logSkipped("SKIPPING tranlsation for: " + keyLetters);
+            return "";
+        } else {
+            return getProcessorOutput();
+        }
     }
 
     public abstract String getProcessorOutput();
@@ -46,6 +59,11 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
 
     @Override
     public boolean isGraphical() {
+        return false;
+    }
+
+    @Override
+    public boolean ignoreTranslation() {
         return false;
     }
 }

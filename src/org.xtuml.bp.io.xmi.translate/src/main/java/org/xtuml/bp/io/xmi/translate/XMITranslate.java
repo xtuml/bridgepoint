@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -25,7 +27,8 @@ import com.sdmetrics.util.XMLParser.XMLParseException;
  */
 public class XMITranslate {
 
-	private StringBuilder xtumlOutput = new StringBuilder();;
+	private StringBuilder xtumlOutput = new StringBuilder();
+	public static Map<ModelElement, String> graphicElements = new HashMap<>();
 
 	public void loadXMI(String xmi, String output)
 			throws ParserConfigurationException, SAXException, XMLParseException {
@@ -69,6 +72,8 @@ public class XMITranslate {
 			root = root.getOwner();
 		}
 		model.forEach(e -> outputXtuml(e));
+		// process graphics after collecting ooaofooa data
+		processGraphics();
 		// if output is specified
 		if (!output.equals("")) {
 			try {
@@ -86,6 +91,12 @@ public class XMITranslate {
 		XMITranslator.printReport(output);
 	}
 
+	private void processGraphics() {
+		graphicElements.forEach((e, m) -> {
+			mapToXtuml(e, m);
+		});
+	}
+
 	private void outputXtuml(ModelElement e) {
 		if (e == null)
 			return;
@@ -98,7 +109,11 @@ public class XMITranslate {
 			}
 		}
 		if (mapping != null) {
-			mapToXtuml(e, mapping);
+			if (mapping.equals("GD_GE") || mapping.equals("GD_MD")) {
+				graphicElements.put(e, mapping);
+			} else {
+				mapToXtuml(e, mapping);
+			}
 		}
 	}
 

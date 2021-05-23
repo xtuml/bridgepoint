@@ -163,10 +163,17 @@ for each elemInSystem in elemInSystems
   delete object instance elemInSystem;
 end for;
 
+select many comments related by self->PE_C[R8009];
+for each comment in comments
+  unrelate self from comment across R8009;
+  comment.dispose();
+end for;
+
 delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("69115024-26db-4ec7-a090-987abb80ca2a",
@@ -266,6 +273,7 @@ end if;',
 	1,
 	'',
 	"d7f10c92-2026-4f6c-ad30-77958a473334",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("00dac2a1-caf9-4d41-8c24-494fd0168d84",
@@ -340,6 +348,7 @@ self.Visibility = Visibility::Public;',
 	1,
 	'',
 	"69115024-26db-4ec7-a090-987abb80ca2a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("dc5721d8-8df7-447e-9506-ae986463cffa",
@@ -367,6 +376,7 @@ return result;',
 	1,
 	'',
 	"48405ea7-e3a7-457c-abef-a418bed792e4",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("bb4965fa-ee05-41d9-8ea1-c3b280bac4e3",
@@ -421,6 +431,7 @@ return "";',
 	1,
 	'',
 	"dc5721d8-8df7-447e-9506-ae986463cffa",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
@@ -455,6 +466,7 @@ return false;',
 	1,
 	'',
 	"bb4965fa-ee05-41d9-8ea1-c3b280bac4e3",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("46610d3e-390f-4ea1-8a2f-28dcb879cba4",
@@ -549,6 +561,7 @@ return GD::NULL_UNIQUE_ID();
 	1,
 	'',
 	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("89cf7aeb-b829-4ba0-bcb6-45c9081c1402",
@@ -612,6 +625,7 @@ return false;
 	1,
 	'',
 	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5fe668e6-8b39-47ba-add1-04c84d11679d",
@@ -657,6 +671,7 @@ return result;',
 	1,
 	'',
 	"f254751a-7399-41fe-a8dc-adcb041c6500",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("3f2c851b-510d-4b9b-9ebe-3a32468b32ed",
@@ -674,6 +689,7 @@ return self.Visibility;',
 	1,
 	'',
 	"594fd456-5547-4e59-913e-e4f510347efd",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("cada8912-c244-4001-8c77-ae1fc60554d0",
@@ -709,6 +725,7 @@ end if;',
 	1,
 	'',
 	"3f2c851b-510d-4b9b-9ebe-3a32468b32ed",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("693704ac-0356-4cc1-a89a-faada5ccba80",
@@ -746,6 +763,7 @@ end if;',
 	1,
 	'',
 	"91c4b396-788e-436e-b4b6-c3ee58d7ebf3",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("a1cdcca2-3364-4f8b-b8af-8556646d952f",
@@ -799,6 +817,7 @@ return GD::NULL_UNIQUE_ID();
 	1,
 	'',
 	"99b167be-1bb9-441f-97de-56e64f5fe01d",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("ebc3668f-db87-4bd4-b515-afe0473caba1",
@@ -836,6 +855,7 @@ end if;',
 	1,
 	'',
 	"f132abfa-7093-47bb-bdd7-950a0a3803c1",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("3e34693a-b3b7-45f3-8e93-88cbb4bdead5",
@@ -873,6 +893,7 @@ end if;',
 	1,
 	'',
 	"a620d162-0a29-4967-b0c3-38efc21a4473",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("bdaf9a1b-2b4e-44ea-a409-d3c98fe46b13",
@@ -930,6 +951,7 @@ return false;',
 	1,
 	'',
 	"1bc3f9c0-ddce-4805-b000-53b660c731a7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0dec1fb0-c8b9-404d-9db3-f40d6b038b31",
@@ -1085,7 +1107,32 @@ end if;
 	1,
 	'',
 	"39234bd4-7c4b-4acb-ba0a-3941999ac9d1",
+	0,
 	0);
+INSERT INTO O_TFR
+	VALUES ("ecd06ef9-d85d-430b-9ad6-bb28281cd541",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'addComment',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'create object instance comment of PE_C;
+relate comment to self across R8009;
+comment.body = param.body;',
+	1,
+	'',
+	"e680b8a3-b89e-4acc-b2c9-89aa2112a148",
+	0,
+	1);
+INSERT INTO O_TPARM
+	VALUES ("222b69b8-b07e-4a51-adaa-d3e7b49dbe62",
+	"ecd06ef9-d85d-430b-9ad6-bb28281cd541",
+	'body',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");

@@ -349,7 +349,7 @@ other part of SDMetrics.
 
   <!-- comments, stereotypes  -->
   <modelelement name="stereotype" />
-  <modelelement name="comment">
+  <modelelement name="comment" mapping="PE_C">
     <attribute name="body">The comment text.</attribute>
   </modelelement>
 

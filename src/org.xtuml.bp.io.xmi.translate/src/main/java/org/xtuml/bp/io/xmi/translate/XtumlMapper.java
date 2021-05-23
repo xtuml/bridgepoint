@@ -9,6 +9,7 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.RequirementProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ComponentProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.AttributeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.CommentProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.DataTypeProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.HeaderProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceOperationProcessorSQL;
@@ -38,7 +39,7 @@ public class XtumlMapper {
 					entry("C_I", new InterfaceProcessorSQL()), entry("C_IO", new InterfaceOperationProcessorSQL()),
 					entry("O_TFR", new OperationProcessorSQL()), entry("C_P", new ProvisionProcessorSQL()),
 					entry("C_R", new RequirementProcessorSQL()), entry("O_TPARM", new OperationParameterProcessorSQL()),
-					entry("C_PP", new PropertyParameterProcessorSQL())));
+					entry("C_PP", new PropertyParameterProcessorSQL()), entry("PE_C", new CommentProcessorSQL())));
 	static Map<MapperType, Map<String, XtumlTypeProcessor>> graphicalMappers = Map.of(MapperType.SQL,
 			Map.of("GD_MD", new ModelProcessorSQL(), "GD_GE", new GraphicalElementProcessorSQL()));
 

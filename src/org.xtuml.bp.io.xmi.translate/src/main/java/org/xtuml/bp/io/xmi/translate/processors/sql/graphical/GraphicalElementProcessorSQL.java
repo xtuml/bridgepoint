@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractGraphicalElementProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
@@ -31,7 +33,8 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     @Override
     public String getOOA_Type() {
-        return SQLUtils.stringValue("101");
+        int ooaType = getOoaTypeFromOoaId();
+        return SQLUtils.numberValue(ooaType);
     }
 
     @Override
@@ -92,6 +95,34 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         Float w = right - x > 0 ? right - x : 100f;
         Float h = bottom - y > 0 ? bottom - y : 100f;
         return new Rectangle(x, y, w, h);
+    }
+
+    private int getOoaTypeFromOoaId() {
+        String keyLetters = IdProcessor.elementIdKeyLetts
+                .get(UUID.fromString(IdProcessor.process(getModelElement().getPlainAttribute("element"), null)));
+        if (keyLetters == null) {
+            keyLetters = "";
+        }
+        switch (keyLetters) {
+            case "C_C":
+                return 98;
+            case "C_I":
+                return 96;
+            case "O_OBJ":
+                return 21;
+            case "PE_C":
+                return 210;
+            case "S_UDT":
+                return 51;
+            default:
+                break;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean ignoreTranslation() {
+        return getOoaTypeFromOoaId() == 0;
     }
 
     @Override

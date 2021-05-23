@@ -4154,6 +4154,62 @@ INSERT INTO S_BRG
 	0,
 	'',
 	0);
+INSERT INTO S_BRG
+	VALUES ("d79a44aa-4179-422f-98da-79cdfa169b68",
+	"b648f8f8-7be4-47ca-97fb-05830dc194e7",
+	'drawNote',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("ec4fcec4-b4a3-4274-8020-645761bd33c8",
+	"d79a44aa-4179-422f-98da-79cdfa169b68",
+	'context',
+	"231cb314-a496-47fb-aee2-1317be81deb5",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b767cdd4-8b14-4163-bdec-f0eb4d5fa150",
+	"d79a44aa-4179-422f-98da-79cdfa169b68",
+	'h',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"ec4fcec4-b4a3-4274-8020-645761bd33c8",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a714faa6-9620-46e4-a767-bd386fe4c60e",
+	"d79a44aa-4179-422f-98da-79cdfa169b68",
+	'w',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"b767cdd4-8b14-4163-bdec-f0eb4d5fa150",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2cb11884-aa9a-4439-b5ae-eec7f4472ebb",
+	"d79a44aa-4179-422f-98da-79cdfa169b68",
+	'x',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"a714faa6-9620-46e4-a767-bd386fe4c60e",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b73b1950-90a3-40ba-a8f4-08270a591a48",
+	"d79a44aa-4179-422f-98da-79cdfa169b68",
+	'y',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"2cb11884-aa9a-4439-b5ae-eec7f4472ebb",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b648f8f8-7be4-47ca-97fb-05830dc194e7",
 	1,

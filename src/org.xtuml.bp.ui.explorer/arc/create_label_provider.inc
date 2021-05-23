@@ -114,6 +114,10 @@ ${nav_string.body}\
     }
   .end for
   
+  	if(element instanceof Comment_c) {
+  		return ((Comment_c) element).Get_name();
+  	}
+
     return "Unknown Model Element";
   }
   /**

@@ -7067,6 +7067,80 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("2f5c9004-d7cc-4ebe-b3ee-2486fb58d756",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCommentCount',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select many comments related by self->PE_PE[R8000.''contains'']->PE_C[R8009.''referenced by''];
+count = cardinality comments;
+// add our comments as well
+select many selfComments related by self->PE_PE[R8001]->PE_C[R8009.''referenced by''];
+return count + cardinality selfComments;',
+	1,
+	'',
+	"e42c84d5-a4b6-43e1-b44e-d6ff5a13b769",
+	0,
+	0);
+INSERT INTO O_TFR
+	VALUES ("65f6dd7f-3e50-40a0-8d25-b279addda559",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'getCommentId',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many comments related by self->PE_PE[R8000.''contains'']->PE_C[R8009.''referenced by''];
+count = -1;
+for each comment in comments
+  count = count + 1;
+  if(count == param.index)
+    return comment.Comment_ID;  
+  end if;
+end for;
+// add our comments as well
+select many selfComments related by self->PE_PE[R8001]->PE_C[R8009.''referenced by''];
+for each comment in selfComments
+  count = count + 1;
+  if(count == param.index)
+  	return comment.Comment_ID;
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"2f5c9004-d7cc-4ebe-b3ee-2486fb58d756",
+	0,
+	0);
+INSERT INTO O_TPARM
+	VALUES ("89f42b05-071d-49c8-917f-3c3eb1041ab2",
+	"65f6dd7f-3e50-40a0-8d25-b279addda559",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("eb7d70cb-8ed4-469d-977c-a286177257f0",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'newComment',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'create object instance comment of PE_C;
+// all comments created through this flow
+// will be for this package, they may later
+// get associated with another element 
+select one pe related by self->PE_PE[R8001];
+relate comment to pe across R8009;',
+	1,
+	'',
+	"65f6dd7f-3e50-40a0-8d25-b279addda559",
+	0,
+	1);
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");

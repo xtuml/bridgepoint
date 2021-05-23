@@ -8806,6 +8806,26 @@ INSERT INTO PE_PE
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("3fdd6ad2-45a0-4332-ab66-658bc165a1e9",
+	"00000000-0000-0000-0000-000000000000",
+	'PE_C_Delete',
+	'ContextMenuFunction: TRUE',
+	'select many comments from instances of PE_C where USER::selectOne(id:selected.Comment_ID);
+for each comment in comments
+  comment.dispose();
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0,
+	0);
+INSERT INTO PE_PE
+	VALUES ("3fdd6ad2-45a0-4332-ab66-658bc165a1e9",
+	1,
+	"42d5848f-dabe-43e1-9ac4-b840f2789360",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("42d5848f-dabe-43e1-9ac4-b840f2789360",
 	1,

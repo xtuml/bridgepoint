@@ -10,6 +10,7 @@ public class IdProcessor {
 	public static final String NULL_ID = "00000000-0000-0000-0000-000000000000";
 
 	static Map<String, UUID> createdUUIDs = new HashMap<>();
+	public static Map<UUID, String> elementIdKeyLetts = new HashMap<>();
 
 	static Map<String, String> globalTypes = Map.ofEntries(
 			new AbstractMap.SimpleEntry<String, String>("void", "ba5eda7a-def5-0000-0000-000000000000"),
@@ -35,7 +36,7 @@ public class IdProcessor {
 		globalTypes.forEach((k, v) -> addId(v));
 	}
 
-	public static String process(String value) {
+	public static String process(String value, String keyLetters) {
 		if (value.startsWith("EAJava__")) {
 			value = value.replaceAll("EAJava__", "");
 			value = value.substring(0, value.length() - 1);
@@ -50,10 +51,16 @@ public class IdProcessor {
 			return value;
 		}
 		if (uuid != null) {
+			if (keyLetters != null) {
+				elementIdKeyLetts.put(uuid, keyLetters);
+			}
 			return uuid.toString();
 		} else {
 			uuid = UUID.randomUUID();
 			createdUUIDs.put(value, uuid);
+			if (keyLetters != null) {
+				elementIdKeyLetts.put(uuid, keyLetters);
+			}
 			return uuid.toString();
 		}
 	}

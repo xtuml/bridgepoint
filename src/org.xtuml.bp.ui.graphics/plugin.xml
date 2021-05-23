@@ -672,6 +672,24 @@
             </dependsOn>
          </symbol>
          <symbol
+               class="org.xtuml.bp.core.Comment_c"
+               createMethod="Newcomment"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Comment"
+               icon="newcomment.gif"
+               name="Comment"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+         </symbol>
+         <symbol
                class="org.xtuml.bp.core.UserDataType_c"
                createMethod="Newdatatype"
                defaultHeight="150"
@@ -2496,6 +2514,7 @@
                   r="191">
             </color>
             <validSymbol name="Package" />
+            <validSymbol name="Comment" />
             <validSymbol name="User Data Type" 			tool_category="Types"/>
             <validSymbol name="Constant Specification" 	tool_category="Types"/>
             <validSymbol name="Structured Data Type" 	tool_category="Types"/>
@@ -2554,6 +2573,11 @@
                Bridge_NumElements="Getudtcount"
                Bridge_GetElementID="Getudtid"
                /> 
+            <autoReconcile
+            	targetSymbol="Comment"
+            	Bridge_NumElements="Getcommentcount"
+            	Bridge_GetElementID="Getcommentid"
+            />
             <autoReconcile
                targetSymbol="Actor"
                Bridge_NumElements="Getactorcount"

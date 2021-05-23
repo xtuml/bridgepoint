@@ -89,10 +89,13 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 		}
 		UIUtil.refresh(null);
 		Selection.getInstance().setSelection(fPreviousSelection);
-		if (fImporter.getErrorMessage().equals(""))
+		if (fImporter.getErrorMessage().equals("")) {
 			return true;
-		else
+		} else {
+			// log the error message here
+			org.xtuml.bp.io.core.CorePlugin.logError(fImporter.getErrorMessage(), null);
 			return false;
+		}
 	}
 
 	IStructuredSelection fPreviousSelection = null;

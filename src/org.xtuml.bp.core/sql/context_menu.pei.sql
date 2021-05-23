@@ -84,6 +84,8 @@ INSERT INTO CME VALUES ('Rename', '',                         'SQ_PP', '',      
 INSERT INTO CME VALUES ('Delete', '',                         'S_UDT', '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_UDT', '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'S_EDT', '',                 true );
+-- For comments there is a separate edit comment action, so no rename here
+INSERT INTO CME VALUES ('Delete', '',						  'PE_C',  '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'S_EDT', '',                 true );
 INSERT INTO CME VALUES ('New',    'Enumerator',               'S_EDT', 'S_ENUM',           false , '', '', false, '', false, false, '' ,'->S_ENUM[R27]');
 INSERT INTO CME VALUES ('Delete', '',                   'S_ENUM',   '',                      true );

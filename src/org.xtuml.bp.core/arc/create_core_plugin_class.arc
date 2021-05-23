@@ -639,6 +639,10 @@ public class CorePlugin extends AbstractUIPlugin {
     else if (objectName.equals("Terminator_cRequired")) {
     	descriptor = getImageDescriptor("metadata/Terminator.gif");
     }
+    .elif (class_name.body == "Comment_c")
+    else if (objectName.equals("Comment_c")) {
+        descriptor = getImageDescriptor("metadata/Comment.gif");
+    }
     .else
       .if (first tree_nodes)
             if (objectName.equals("${class_name.body}")) {

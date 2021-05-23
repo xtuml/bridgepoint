@@ -51,6 +51,7 @@ import org.xtuml.bp.core.ClassInstanceParticipant_c;
 import org.xtuml.bp.core.ClassMonitor_c;
 import org.xtuml.bp.core.ClassParticipant_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
+import org.xtuml.bp.core.Comment_c;
 import org.xtuml.bp.core.CommunicationLink_c;
 import org.xtuml.bp.core.ComponentParticipant_c;
 import org.xtuml.bp.core.ComponentReference_c;
@@ -539,6 +540,21 @@ public class Cl_c {
             }
     		return result;
 	  	}
+    	else if (Ooa_type == Ooatype_c.Comment) {
+    		Object result = modelRoot.getInstanceList(Comment_c.class).get(Ooa_id);
+            if (result == null) {
+                class Comment_query_c implements ClassQueryInterface_c {
+                    public boolean evaluate(Object selected) {
+                        return ((Comment_c) selected).getComment_id().equals(
+                            Ooa_id);
+                    }
+                }
+                result = Comment_c.CommentInstance(modelRoot,
+                        new Comment_query_c());
+            }
+    		return result;
+
+    	}
     	else if (Ooa_type == Ooatype_c.Component) {
     		Object result = modelRoot.getInstanceList(Component_c.class).get(Ooa_id);
             if (result == null) {

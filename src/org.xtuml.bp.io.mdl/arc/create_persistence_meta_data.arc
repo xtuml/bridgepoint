@@ -598,6 +598,11 @@ public class ${class_name} extends AbstractPersistenceHierarchyMetaData{
      * @return the Root model element of the component in which the 'element' exists
      */
     public NonRootModelElement getComponentRootModelElement (NonRootModelElement element){
+        // pre-special case, if we are a comment then our parent is a PE
+        // get that first then proceed with next special case
+        if(element instanceof Comment_c) {
+          element = PackageableElement_c.getOnePE_PEOnR8009((Comment_c) element);
+        }
         // special case for PEs as their parent is not where they are stored
         // they are persisted with their subtype
         if(element instanceof PackageableElement_c) {

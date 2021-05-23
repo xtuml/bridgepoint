@@ -813,6 +813,18 @@ INSERT INTO S_ENUM
 	'',
 	"71b14676-25f7-49a8-a3f5-e834aa0bca09",
 	"58053f57-4cd1-4660-b028-385008e1c578");
+INSERT INTO S_ENUM
+	VALUES ("ab126c2c-5677-49a1-933c-556cb7375a50",
+	'Note',
+	'',
+	"71b14676-25f7-49a8-a3f5-e834aa0bca09",
+	"0eff5f90-e2bf-415d-8954-87e5c30fff56");
+INSERT INTO S_ENUM
+	VALUES ("1f56444c-fa27-4f8a-b4b8-a9c5476d6fad",
+	'Wrap',
+	'',
+	"71b14676-25f7-49a8-a3f5-e834aa0bca09",
+	"ab126c2c-5677-49a1-933c-556cb7375a50");
 INSERT INTO PE_PE
 	VALUES ("71b14676-25f7-49a8-a3f5-e834aa0bca09",
 	1,
@@ -1547,6 +1559,12 @@ INSERT INTO S_ENUM
 	'Value:209',
 	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	"a3b8251c-8306-41bc-8d0c-dfe777f1be5b");
+INSERT INTO S_ENUM
+	VALUES ("b9397eea-0027-449d-b4aa-8b01e7e98ff7",
+	'Comment',
+	'Value:210',
+	"89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
+	"7c65edb8-99e5-45fd-9f7a-444c95d2e71a");
 INSERT INTO PE_PE
 	VALUES ("89cd32c4-a73f-44f5-ac4f-6468ce4ae2bb",
 	1,

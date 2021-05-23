@@ -10,7 +10,7 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractComponentProce
 public class ComponentProcessorSQL extends AbstractComponentProcessor {
     @Override
     public String getId() {
-        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override

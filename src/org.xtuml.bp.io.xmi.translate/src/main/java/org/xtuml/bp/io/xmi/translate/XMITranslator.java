@@ -112,4 +112,8 @@ public class XMITranslator {
 		logger.printOutput(fileOut);
 	}
 
+	public static void logSkipped(String string) {
+		logger.logSkipped(string);
+	}
+
 }

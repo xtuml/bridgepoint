@@ -37,18 +37,39 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
 
     @Override
     public String getPackage_ID() {
-        return getModelElement().getOwner() == null
-                || !getModelElement().getOwner().getType().getName().equals("package")
-                        ? SQLUtils.idValue(IdProcessor.NULL_ID)
-                        : SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
+        // if a top level package, return null
+        if (getModelElement().getOwner() == null) {
+            return SQLUtils.idValue(IdProcessor.NULL_ID);
+        }
+        // if this element's owner is not a package, but the parent is a component
+        // the hiearchy will not be supported in xtuml. We look for the component's
+        // parent in that case
+        if (getModelElement().getOwner().getType().getMapping().equals("C_C")) {
+            if (!getModelElement().getType().getMapping().equals("EP_PKG")) {
+                return SQLUtils.idValue(getModelElement().getOwner().getOwner().getPlainAttribute("id"));
+            } else {
+                // valid in component, set null id here
+                return SQLUtils.idValue(IdProcessor.NULL_ID);
+            }
+        }
+        // otherwise owner is package
+        return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
     }
 
     @Override
     public String getComponent_ID() {
-        return getModelElement().getOwner() == null
-                || !getModelElement().getOwner().getType().getName().equals("component")
-                        ? SQLUtils.idValue(IdProcessor.NULL_ID)
-                        : SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
+        // if a top level package, return null
+        if (getModelElement().getOwner() == null) {
+            return SQLUtils.idValue(IdProcessor.NULL_ID);
+        }
+        // only package is supported as a child to component in xtuml
+        if (getModelElement().getOwner().getType().getMapping().equals("C_C")) {
+            if (getModelElement().getType().getMapping().equals("EP_PKG")) {
+                return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
+            }
+        }
+        // otherwise parent is not a component, or this is not supported
+        return SQLUtils.idValue(IdProcessor.NULL_ID);
     }
 
     @Override
@@ -81,18 +102,18 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
      */
     private int getType(String mapping) {
         switch (mapping) {
-        case "S_SYNC":
-            return 1;
-        case "C_C":
-            return 2;
-        case "S_DT":
-            return 3;
-        case "EP_PKG":
-            return 7;
-        case "O_OBJ":
-            return 4;
-        default:
-            return 0;
+            case "S_SYNC":
+                return 1;
+            case "C_C":
+                return 2;
+            case "S_DT":
+                return 3;
+            case "EP_PKG":
+                return 7;
+            case "O_OBJ":
+                return 4;
+            default:
+                return 0;
         }
     }
 

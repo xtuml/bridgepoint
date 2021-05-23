@@ -383,6 +383,22 @@ This file is the plugin manifest for the BridgePoint core plugin.
 					class="org.xtuml.bp.core.ui.actions.RangeContributionItem"
 							id="org.xtuml.bp.core.ui.actions.range.dynamic">
 				</dynamic>
+				<menu
+					id="org.xtuml.bp.core.ui.actions.comment"
+							label="Add Comment...">
+				</menu>
+				<dynamic
+					class="org.xtuml.bp.core.ui.actions.AddCommentContributionItem"
+							id="org.xtuml.bp.core.ui.actions.comment.dynamic">
+				</dynamic>
+				<menu
+					id="org.xtuml.bp.core.ui.actions.comment.edit"
+							label="Edit Comment...">
+				</menu>
+				<dynamic
+					class="org.xtuml.bp.core.ui.actions.EditCommentContributionItem"
+							id="org.xtuml.bp.core.ui.actions.comment.edit.dynamic">
+				</dynamic>
 			</menuContribution>
     <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
       <separator 
