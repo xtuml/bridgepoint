@@ -74,10 +74,10 @@ other part of SDMetrics.
     <attribute name="ownedoperations" type="ref" multiplicity="many">The operations of the element.</attribute>
     <attribute name="generalizations" type="ref" multiplicity="many">The generalizations owned by the element.</attribute>
   </modelelement>
-  <modelelement name="enumeration" mapping="S_ENUM" parent="datatype">
+  <modelelement name="enumeration" parent="datatype" mapping="S_EDT">
     <attribute name="ownedliterals" type="ref" multiplicity="many">The literals of the enumeration.</attribute>
   </modelelement>
-  <modelelement name="enumerationliteral" />
+  <modelelement name="enumerationliteral" mapping="S_ENUM" />
   <modelelement name="primitivetype" parent="datatype" />
 
   <modelelement name="connector">
@@ -191,8 +191,8 @@ other part of SDMetrics.
 
 
   <!-- use case model -->
-  <modelelement name="actor" parent="class" />
-  <modelelement name="usecase" parent="class">
+  <modelelement name="actor" parent="class" mapping="SQ_AP" />
+  <modelelement name="usecase" parent="class" mapping="IA_UCP">
     <attribute name="includes" type="ref" multiplicity="many">The include relationships owned by the use case.</attribute>
     <attribute name="extends" type="ref" multiplicity="many">The extend relationships owned by the use case.</attribute>
     <attribute name="extensionpoints" type="ref" multiplicity="many">The extension points owned by the use case.</attribute>
@@ -358,6 +358,7 @@ other part of SDMetrics.
   <modelelement name="diagram" mapping="GD_MD">
     <attribute name="type" type="data">The type of diagram (class diagram, sequence diagram, etc).</attribute>
     <attribute name="represents">The element that this diagram represents elements for.</attribute>
+    <attribute name="parentAsRepresents">In the case of a nested diagram (like state machine under package) use the parent attr as the represents.</attribute>
   </modelelement>
 
   <modelelement name="diagramelement" mapping="GD_GE">

@@ -114,6 +114,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 return 210;
             case "S_UDT":
                 return 51;
+            case "IA_UCP":
+                return 85;
+            case "SQ_AP":
+                return 65;
             default:
                 break;
         }

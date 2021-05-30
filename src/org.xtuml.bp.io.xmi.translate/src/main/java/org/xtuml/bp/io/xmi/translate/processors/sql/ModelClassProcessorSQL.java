@@ -30,8 +30,8 @@ public class ModelClassProcessorSQL extends AbstractModelClassProcessor {
     @Override
     public String getName() {
         return SQLUtils.stringValue(getModelElement().getName().equals("")
-                ? getModelElement().getPlainAttribute("id") + " - Potential Imported Class"
-                : getModelElement().getName());
+                ? "UML Classifier | Container with swimlane - " + getModelElement().getPlainAttribute("id")
+                : getModelElement().getName().trim());
     }
 
     @Override

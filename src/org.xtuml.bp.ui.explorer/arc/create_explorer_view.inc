@@ -68,6 +68,7 @@ import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.*;
 import org.xtuml.bp.core.common.*;
 import org.xtuml.bp.core.ui.*;
+import org.xtuml.bp.core.ui.actions.*;
 import org.xtuml.bp.core.util.*;
 import org.xtuml.bp.ui.explorer.dnd.OrderedElementDragSourceListener;
 import org.xtuml.bp.ui.explorer.dnd.OrderedElementDropTargetListener;
@@ -848,6 +849,11 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 		// something other than itself
 		current = EditorUtil.getElementToEdit(current);
 		
+		// TODO: Need to abstract this into the extension point
+		if (current instanceof Comment_c) {
+			EditCommentAction.openEditor();
+		}
+
     String name = current.getClass().getName();
     //
     // Get the registry

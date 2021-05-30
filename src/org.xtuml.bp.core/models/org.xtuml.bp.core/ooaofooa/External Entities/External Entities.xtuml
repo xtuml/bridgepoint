@@ -3272,6 +3272,47 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../Component/Component.xtuml');
+INSERT INTO S_BRG
+	VALUES ("d84af4cc-c200-408b-9b7e-16719938f444",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'shortenText',
+	'Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'    	String[] lines = p_Text.split("\n");
+    	String lineToShorten = lines[0];
+    	String substring = lineToShorten.substring(0, p_Length);
+    	return substring + (substring.length() == p_Length ? p_Trailing : "");',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("6b42c586-728e-4a07-b087-4a99c23a5e3b",
+	"d84af4cc-c200-408b-9b7e-16719938f444",
+	'text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("01a44b6e-aeda-4d44-8c33-84f474490e4b",
+	"d84af4cc-c200-408b-9b7e-16719938f444",
+	'length',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"6b42c586-728e-4a07-b087-4a99c23a5e3b",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e672fd9d-e348-484a-a103-503667af350c",
+	"d84af4cc-c200-408b-9b7e-16719938f444",
+	'trailing',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"01a44b6e-aeda-4d44-8c33-84f474490e4b",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,

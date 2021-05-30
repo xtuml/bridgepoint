@@ -48,7 +48,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -65,7 +64,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.osgi.framework.Bundle;
-
+import org.xtuml.bp.core.Comment_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
@@ -75,6 +74,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.dialogs.ScrolledTextDialog;
+import org.xtuml.bp.core.ui.dialogs.TextEditorDialog;
 
 /**
  * Utility methods related to this product's UI.
@@ -805,5 +805,23 @@ public class UIUtil
 			// nothing to do
 		}
 
+	}
+
+	public static int openCommentEditDialog(Object element) {
+		return openCommentEditDialog(element, -1, -1);
+	}
+	
+	public static int openCommentEditDialog(Object element, int x, int y) {
+		if (element instanceof Comment_c) {
+			Comment_c comment = (Comment_c) element;
+			TextEditorDialog dialog = new TextEditorDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(),
+					"Edit Comment", new String[] { "Save", "Cancel" }, comment.getBody(), x, y);
+			int result = dialog.open();
+			if (result == 0) {
+				comment.setBody(dialog.getContent());
+				return result;
+			}
+		}
+		return -1;
 	}
 }

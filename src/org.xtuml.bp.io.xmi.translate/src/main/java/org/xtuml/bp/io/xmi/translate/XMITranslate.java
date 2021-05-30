@@ -95,6 +95,7 @@ public class XMITranslate {
 		graphicElements.forEach((e, m) -> {
 			mapToXtuml(e, m);
 		});
+		XMITranslator.logTodo("\nTranslated " + graphicElements.size() + " graphical elements.");
 	}
 
 	private void outputXtuml(ModelElement e) {

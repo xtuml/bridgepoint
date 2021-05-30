@@ -1,6 +1,7 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.sdmetrics.model.ModelElement;
 
@@ -33,11 +34,24 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
             PackageableElementProcessorSQL peProcessor = new PackageableElementProcessorSQL(dtId);
             peProcessor.setKeyLetters("PE_PE");
             peProcessor.setModelElement(getModelElement());
-            UserDataTypeProcessorSQL udtProcessor = new UserDataTypeProcessorSQL(dtId);
-            udtProcessor.setKeyLetters("S_UDT");
-            udtProcessor.setModelElement(getModelElement());
-            return SQLUtils.getInsertStatement(peProcessor, getModelElement()) + "\n"
-                    + SQLUtils.getInsertStatement(udtProcessor, getModelElement());
+            if (getModelElement().getOwnedElements() != null) {
+                Optional<ModelElement> coreType = getModelElement().getOwnedElements().stream()
+                        .filter(o -> o.getType().getName().equals("primitivetype")).findAny();
+                if (coreType.isPresent()) {
+                    // TODO: associate with core type
+                }
+                Optional<ModelElement> edt = getModelElement().getOwnedElements().stream()
+                        .filter(o -> o.getType().getName().equals("enumeration")).findAny();
+                if (edt.isPresent()) {
+                    // S_EDT handle by its own processor
+                    return "";
+                }
+                UserDataTypeProcessorSQL udtProcessor = new UserDataTypeProcessorSQL(dtId);
+                udtProcessor.setKeyLetters("S_UDT");
+                udtProcessor.setModelElement(getModelElement());
+                return SQLUtils.getInsertStatement(peProcessor, getModelElement()) + "\n"
+                        + SQLUtils.getInsertStatement(udtProcessor, getModelElement());
+            }
         }
         return "";
     }
@@ -47,7 +61,7 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
         if (this.id != null) {
             return SQLUtils.idValue(this.id);
         }
-        // see if a references has already created an id
+        // see if a reference has already created an id
         String id = IdProcessor.getId(getModelElement().getName());
         if (id != null) {
             return SQLUtils.preprocessedIdValue(id);

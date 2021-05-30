@@ -96,6 +96,10 @@ public class XMITranslator {
 		logger.log(msg);
 	}
 
+	public static void logTodo(String msg) {
+		logger.logTodo(msg);
+	}
+
 	public static void logError(String msg, Exception e) {
 		logger.logError(msg, e);
 	}

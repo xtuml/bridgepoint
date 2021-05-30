@@ -1,6 +1,8 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql.graphical;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,7 +15,7 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String createSupportingElements() {
-        DiagramProcessorSQL diagramProcessor = new DiagramProcessorSQL();
+        DiagramProcessorSQL diagramProcessor = new DiagramProcessorSQL(false);
         diagramProcessor.setModelElement(getModelElement());
         diagramProcessor.setKeyLetters("DIM_DIA");
         return SQLUtils.getInsertStatement(diagramProcessor, getModelElement());
@@ -26,7 +28,22 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String getModel_Type() {
-        return SQLUtils.numberValue(112);
+        int typeMapping = 0;
+        String type = getModelElement().getPlainAttribute("type");
+        switch (type) {
+            case "Logical":
+            case "CompositeStructure":
+            case "Use Case":
+                typeMapping = 112;
+                break;
+            case "Statechart":
+                typeMapping = 8;
+                break;
+            default:
+                typeMapping = 0;
+                break;
+        }
+        return SQLUtils.numberValue(typeMapping);
     }
 
     @Override

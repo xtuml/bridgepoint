@@ -352,9 +352,11 @@ public class ModelStreamProcessor {
 					new Class[0]);
 			NonRootModelElement represents = (NonRootModelElement) method
 					.invoke(modelClass, new Object[0]);
-			modelClass.updateModelRoot((ModelRoot) OoaofgraphicsUtil
-					.getGraphicsRoot(represents.getModelRoot().getId(),
-							OoaofgraphicsUtil.getGraphicsClass()));
+			if(represents != null) {
+				modelClass.updateModelRoot((ModelRoot) OoaofgraphicsUtil
+						.getGraphicsRoot(represents.getModelRoot().getId(),
+								OoaofgraphicsUtil.getGraphicsClass()));
+			}
 		} catch (SecurityException e) {
 			CorePlugin
 					.logError("Unable to look for getRepresents() method.", e);

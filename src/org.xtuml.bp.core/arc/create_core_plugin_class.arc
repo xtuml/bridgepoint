@@ -639,10 +639,6 @@ public class CorePlugin extends AbstractUIPlugin {
     else if (objectName.equals("Terminator_cRequired")) {
     	descriptor = getImageDescriptor("metadata/Terminator.gif");
     }
-    .elif (class_name.body == "Comment_c")
-    else if (objectName.equals("Comment_c")) {
-        descriptor = getImageDescriptor("metadata/Comment.gif");
-    }
     .else
       .if (first tree_nodes)
             if (objectName.equals("${class_name.body}")) {
@@ -676,6 +672,9 @@ public class CorePlugin extends AbstractUIPlugin {
                 //else  /* bidirectional */
                        //descriptor = getImageDescriptor("metadata/bidirectionalSignal.gif");       
             }  
+            else if (objectName.equals("Comment_c")) {
+        		descriptor = getImageDescriptor("metadata/Comment.gif");
+    		}
             else {
                 if(returnDefaultOnFail) {
                 	descriptor = getImageDescriptor("${default_image}");

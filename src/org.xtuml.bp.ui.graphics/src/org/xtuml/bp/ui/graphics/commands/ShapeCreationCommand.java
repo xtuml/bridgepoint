@@ -24,7 +24,7 @@ import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.preference.IPreferenceStore;
-
+import org.xtuml.bp.core.Comment_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ImportedClass_c;
@@ -143,15 +143,25 @@ public class ShapeCreationCommand extends Command implements IExecutionValidatio
 					|| (classType == ComponentReference_c.class)) {
 				return true;
 			} else {
-				boolean performRename = UIUtil.inputDialog(null, "Element Creation",
-						"Enter the name:", oldName, UIUtil.newRenameValidator((ModelElement) createdElement.getRepresents()));
-				if (performRename) {
-					String proposedName = UIUtil.inputDialogResult;			
-					RenameActionUtil.setElementName((NonRootModelElement) createdElement.getRepresents(), proposedName);
-					((NonRootModelElement) createdElement.getRepresents()).setComponent(null);
-					return true;
-				} else {
+				// TODO: extend configuration support to allow specifying
+				// post creation action
+				if(createdElement.getRepresents() instanceof Comment_c) {
+					int returnValue = UIUtil.openCommentEditDialog(createdElement.getRepresents());
+					if(returnValue == 0) {
+						return true;
+					}
 					return false;
+				} else {
+					boolean performRename = UIUtil.inputDialog(null, "Element Creation",
+							"Enter the name:", oldName, UIUtil.newRenameValidator((ModelElement) createdElement.getRepresents()));
+					if (performRename) {
+						String proposedName = UIUtil.inputDialogResult;			
+						RenameActionUtil.setElementName((NonRootModelElement) createdElement.getRepresents(), proposedName);
+						((NonRootModelElement) createdElement.getRepresents()).setComponent(null);
+						return true;
+					} else {
+						return false;
+					}
 				}
 			}
 		} else {

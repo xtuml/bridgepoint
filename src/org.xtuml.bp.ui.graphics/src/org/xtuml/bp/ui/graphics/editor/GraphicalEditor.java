@@ -126,6 +126,7 @@ import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
+import org.xtuml.bp.core.Comment_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -147,6 +148,7 @@ import org.xtuml.bp.core.common.TransactionException;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.ui.RenameAction;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.ui.actions.EditCommentAction;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
@@ -1088,6 +1090,10 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				}
 			}
 
+			// TODO: Need to abstract this into the extension point
+			if (current instanceof Comment_c) {
+				EditCommentAction.openEditor();
+			}
 			// if a mouse event was given, and the selected element is a
 			// model-class
 			if (location != null && current instanceof ModelClass_c) {

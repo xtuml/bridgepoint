@@ -7,6 +7,7 @@ public class XMITranslateLogger {
 
     private boolean verbose;
     private List<String> standardLog = new ArrayList<>();
+    private List<String> todoLog = new ArrayList<>();
     private List<String> processorsNotImplemented = new ArrayList<>();
     private List<String> noMapping = new ArrayList<>();
     private List<String> skipped = new ArrayList<>();
@@ -29,6 +30,10 @@ public class XMITranslateLogger {
         standardLog.add(msg);
     }
 
+    public void logTodo(String msg) {
+        todoLog.add(msg);
+    }
+
     public void logNoMapping(String msg) {
         noMapping.add(msg);
     }
@@ -49,6 +54,7 @@ public class XMITranslateLogger {
             System.out.println("\n");
             System.out.println("Elements marked as skipping translation:\n");
             skipped.stream().distinct().forEach(p -> System.out.println("  " + p));
+            todoLog.forEach(System.out::print);
             System.out.println("\n");
             System.out.println("\nTranslation complete.\n");
             return;

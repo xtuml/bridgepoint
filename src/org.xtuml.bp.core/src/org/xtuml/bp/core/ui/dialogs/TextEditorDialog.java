@@ -14,6 +14,8 @@ public class TextEditorDialog extends MessageDialog {
 
 	private StyledText editArea;
 	private String result = "";
+	private int x = -1;
+	private int y = -1;
 
 	public TextEditorDialog(Shell parentShell, String title) {
 		this(parentShell, title, new String[] {"Add", "Cancel"}, "");
@@ -24,10 +26,18 @@ public class TextEditorDialog extends MessageDialog {
 		this.result = content;
 	}
 
+	public TextEditorDialog(Shell parentShell, String title, String[] buttons, String content, int x, int y) {
+		super(parentShell, title, null, "", MessageDialog.NONE, 0, buttons);
+		this.result = content;
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		parent.setLayout(new GridLayout(1, true));
 		editArea = new StyledText(parent, SWT.V_SCROLL | SWT.WRAP | SWT.BORDER);
+		editArea.setMargins(5, 5, 5, 5);
 		editArea.setText(result);
 		GridData gridData = new GridData(GridData.FILL_BOTH);
 		gridData.horizontalIndent = 5;
@@ -38,10 +48,17 @@ public class TextEditorDialog extends MessageDialog {
 	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		Rectangle parentBounds = shell.getParent().getBounds();
-		int x = parentBounds.x + (parentBounds.width / 2) - 200;
-		int y = parentBounds.y + (parentBounds.height / 2) - 150;
-		shell.setBounds(x, y, 400, 300);
+		int x = -1;
+		int y = -1;
+		if(this.x != -1 || this.y != -1) {
+			x = this.x;
+			y = this.y;
+		} else {
+			Rectangle parentBounds = shell.getParent().getBounds();
+			x = parentBounds.x + (parentBounds.width / 2) - 200;
+			y = parentBounds.y + (parentBounds.height / 2) - 150;
+		}
+		shell.setBounds(x, y, 600, 500);
 	}
 
 	@Override

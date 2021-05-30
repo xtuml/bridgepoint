@@ -20,6 +20,8 @@ Transformations required to translate EA models to xtuml.
 
   <xmitransformation modelelement="diagram" xmipattern="diagram" recurse="true">
     <trigger name="represents" type="cattrval" src="model" attr="owner" />
+    <trigger name="parentAsRepresents" type="cattrval" src="model" attr="parent" />
+    <trigger name="type" type="cattrval" src="properties" attr="type" />
   </xmitransformation>
 
 
