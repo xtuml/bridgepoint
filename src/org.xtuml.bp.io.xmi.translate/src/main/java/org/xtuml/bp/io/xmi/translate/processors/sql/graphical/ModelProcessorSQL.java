@@ -13,6 +13,8 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class ModelProcessorSQL extends AbstractModelProcessor {
 
+    static Set<String> created = new HashSet<>();
+
     @Override
     public String createSupportingElements() {
         DiagramProcessorSQL diagramProcessor = new DiagramProcessorSQL(false);
@@ -48,12 +50,40 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String getOOA_ID() {
+        String representsAsParent = getModelElement().getPlainAttribute("parentAsRepresents");
+        if (!representsAsParent.equals("")) {
+            // Special case for component diagrams, they are not supported as such
+            // in xtuml. It was decided that rather place the contents in a child package
+            // of the component, we will create a package along side the component itself.
+            // This choice was made as component children are encapsulated by the component
+            // where it seems this not the desired behaivor of these diagrams
+            if (getModelElement().getPlainAttribute("type").equals("CompositeStructure")) {
+                // use the represents
+                return SQLUtils.idValue(getModelElement().getPlainAttribute("represents"));
+            }
+            return SQLUtils.idValue(representsAsParent);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("represents"));
     }
 
     @Override
     public String getOOA_Type() {
-        return SQLUtils.numberValue(108);
+        int typeMapping = 0;
+        String type = getModelElement().getPlainAttribute("type");
+        switch (type) {
+            case "Logical":
+            case "CompositeStructure":
+            case "Use Case":
+                typeMapping = 108;
+                break;
+            case "Statechart":
+                typeMapping = 40;
+                break;
+            default:
+                typeMapping = 0;
+                break;
+        }
+        return SQLUtils.numberValue(typeMapping);
     }
 
     @Override

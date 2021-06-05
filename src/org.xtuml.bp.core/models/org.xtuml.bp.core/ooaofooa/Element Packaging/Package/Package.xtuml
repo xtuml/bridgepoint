@@ -7074,11 +7074,22 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
-	'select many comments related by self->PE_PE[R8000.''contains'']->PE_C[R8009.''referenced by''];
+	'/**
+
+We need to figure out the proper way to handle this, right now this logic will
+create a comment graphic in two places:
+
+1. On the diagram that hosts the referred to element
+2. On the diagram representing the referred to element
+
+select many comments related by self->PE_PE[R8000.''contains'']->PE_C[R8009.''referenced by''];
 count = cardinality comments;
 // add our comments as well
 select many selfComments related by self->PE_PE[R8001]->PE_C[R8009.''referenced by''];
-return count + cardinality selfComments;',
+return count + cardinality selfComments;
+
+*/
+return 0;',
 	1,
 	'',
 	"e42c84d5-a4b6-43e1-b44e-d6ff5a13b769",

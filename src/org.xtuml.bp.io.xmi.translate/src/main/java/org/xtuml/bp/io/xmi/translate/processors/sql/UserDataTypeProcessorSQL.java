@@ -24,7 +24,7 @@ public class UserDataTypeProcessorSQL extends AbstractUserDataTypeProcessor {
         if (this.id != null) {
             return SQLUtils.preprocessedIdValue(this.id);
         }
-        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override

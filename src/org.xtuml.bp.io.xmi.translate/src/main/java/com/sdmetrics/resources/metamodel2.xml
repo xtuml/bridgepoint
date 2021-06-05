@@ -208,7 +208,7 @@ other part of SDMetrics.
 
 
   <!-- state machines -->
-  <modelelement name="statemachine">
+  <modelelement name="statemachine" mapping="SM_ISM">
     <attribute name="regions" type="ref" multiplicity="many">The top-level regions owned by the state machine.</attribute>
     <attribute name="isprotocol">Boolean indicating if this is a protocol state machine</attribute>
     <attribute name="connectionpoints" type="ref" multiplicity="many">The connection points of the state machine.</attribute>
@@ -218,7 +218,7 @@ other part of SDMetrics.
     <attribute name="subvertices" type="ref" multiplicity="many">The states contained in the region.</attribute>
     <attribute name="transitions" type="ref" multiplicity="many">The transitions contained in the region.</attribute>
   </modelelement>
-  <modelelement name="state">
+  <modelelement name="state" mapping="SM_STATE">
     <attribute name="kind">The kind of state: '' (empty), final, initial, deepHistory, shallowHistory, join, fork, choice, junction, entryPoint, exitPoint, terminate.</attribute>
     <attribute name="regions" type="ref" multiplicity="many">The regions of the composite or concurrent state.</attribute>
     <attribute name="entry" type="ref" multiplicity="many">The entry activities of the state.</attribute>

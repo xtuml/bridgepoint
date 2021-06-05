@@ -17,6 +17,7 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.DataTypeProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.EnumerationDataTypeProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.EnumeratorProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.HeaderProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.InstanceStateMachineProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceOperationProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ModelClassProcessorSQL;
@@ -26,6 +27,7 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.PackageProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.PropertyParameterProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ProvisionProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.RequirementProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.StateMachineStateProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.UseCaseParticipantProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.ModelProcessorSQL;
@@ -45,7 +47,9 @@ public class XtumlMapper {
 			entry("C_R", new RequirementProcessorSQL()), entry("O_TPARM", new OperationParameterProcessorSQL()),
 			entry("C_PP", new PropertyParameterProcessorSQL()), entry("PE_C", new CommentProcessorSQL()),
 			entry("S_EDT", new EnumerationDataTypeProcessorSQL()), entry("S_ENUM", new EnumeratorProcessorSQL()),
-			entry("IA_UCP", new UseCaseParticipantProcessorSQL()), entry("SQ_AP", new ActorParticipantProcessorSQL())));
+			entry("IA_UCP", new UseCaseParticipantProcessorSQL()), entry("SQ_AP", new ActorParticipantProcessorSQL()),
+			entry("SM_ISM", new InstanceStateMachineProcessorSQL()),
+			entry("SM_STATE", new StateMachineStateProcessorSQL())));
 	static Map<MapperType, Map<String, XtumlTypeProcessor>> graphicalMappers = Map.of(MapperType.SQL,
 			Map.of("GD_MD", new ModelProcessorSQL(), "GD_GE", new GraphicalElementProcessorSQL()));
 

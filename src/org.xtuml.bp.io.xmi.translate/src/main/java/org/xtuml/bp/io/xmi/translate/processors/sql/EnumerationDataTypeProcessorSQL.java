@@ -9,7 +9,7 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractEnumerationDat
 public class EnumerationDataTypeProcessorSQL extends AbstractEnumerationDataTypeProcessor {
     @Override
     public String getDT_ID() {
-        return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
+        return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override
