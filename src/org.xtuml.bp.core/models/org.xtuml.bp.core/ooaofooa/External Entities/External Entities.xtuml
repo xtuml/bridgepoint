@@ -3281,8 +3281,8 @@ INSERT INTO S_BRG
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'    	String[] lines = p_Text.split("\n");
     	String lineToShorten = lines[0];
-    	String substring = lineToShorten.substring(0, p_Length);
-    	return substring + (substring.length() == p_Length ? p_Trailing : "");',
+    	String substring = lineToShorten.length() < p_Length ? lineToShorten : lineToShorten.substring(0, p_Length);
+    	return substring + (p_Text.length() > p_Length ? p_Trailing : "");',
 	0,
 	'',
 	0);

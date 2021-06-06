@@ -31,4 +31,8 @@ public class Rectangle {
     public Float getY() {
         return y;
     }
+
+    public Point getMidPoint() {
+        return new Point(x + w / 2, y + h / 2);
+    }
 }

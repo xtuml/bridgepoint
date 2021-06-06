@@ -203,19 +203,6 @@ delete object instance self;',
 	"82e964fd-1503-4baf-963a-59782a543b59",
 	0,
 	1);
-INSERT INTO O_TFR
-	VALUES ("251dddf9-a330-4aa9-993c-ce8b99ea05b9",
-	"f3cfcb7a-ed3a-4d2c-af88-1607a9c6ffa5",
-	'isLinked',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000001",
-	1,
-	'',
-	3,
-	'',
-	"68c47e43-6c30-48ac-9141-8dba8f486388",
-	0,
-	2);
 INSERT INTO O_REF
 	VALUES ("f3cfcb7a-ed3a-4d2c-af88-1607a9c6ffa5",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

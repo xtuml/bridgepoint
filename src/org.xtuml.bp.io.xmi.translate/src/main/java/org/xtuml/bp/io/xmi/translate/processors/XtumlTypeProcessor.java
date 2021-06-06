@@ -24,6 +24,6 @@ public interface XtumlTypeProcessor {
 
 	boolean isGraphical();
 
-	boolean ignoreTranslation();
+	IgnoreType ignoreTranslation();
 
 }

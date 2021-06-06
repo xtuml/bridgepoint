@@ -10,6 +10,7 @@ import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.processors.XtumlTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ActorParticipantProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.AssociationProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.AttributeProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.CommentProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ComponentProcessorSQL;
@@ -49,7 +50,7 @@ public class XtumlMapper {
 			entry("S_EDT", new EnumerationDataTypeProcessorSQL()), entry("S_ENUM", new EnumeratorProcessorSQL()),
 			entry("IA_UCP", new UseCaseParticipantProcessorSQL()), entry("SQ_AP", new ActorParticipantProcessorSQL()),
 			entry("SM_ISM", new InstanceStateMachineProcessorSQL()),
-			entry("SM_STATE", new StateMachineStateProcessorSQL())));
+			entry("SM_STATE", new StateMachineStateProcessorSQL()), entry("R_REL", new AssociationProcessorSQL())));
 	static Map<MapperType, Map<String, XtumlTypeProcessor>> graphicalMappers = Map.of(MapperType.SQL,
 			Map.of("GD_MD", new ModelProcessorSQL(), "GD_GE", new GraphicalElementProcessorSQL()));
 

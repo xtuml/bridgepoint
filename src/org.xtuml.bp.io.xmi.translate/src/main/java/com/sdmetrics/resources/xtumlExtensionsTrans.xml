@@ -40,4 +40,14 @@ Transformations required to translate EA models to xtuml.
     <trigger name="interfaceid" type="attrval" attr="xmi:idref" />
   </xmitransformation>
 
+  <!-- collect value of liternal integer (used for bounds in association) -->
+  <xmitransformation modelelement="literalinteger" xmipattern="uml:LiteralInteger">
+    <trigger name="value" type="attrval" attr="value" />
+    <trigger name="value" type="ctext" src="value" />
+  </xmitransformation>
+  <!-- collect value of limited unnatural integer (used for bounds in association) -->
+  <xmitransformation modelelement="literalunlimitednatural" xmipattern="uml:LiteralUnlimitedNatural">
+    <trigger name="value" type="attrval" attr="value" />
+    <trigger name="value" type="ctext" src="value" />
+  </xmitransformation>
 </xmitransformations>

@@ -38,8 +38,10 @@ public class ModelClassProcessorSQL extends AbstractModelClassProcessor {
     public String getNumb() {
         if (lastElement != null && lastElement.getOwner() == getModelElement().getOwner()) {
             count++;
+            lastElement = getModelElement();
         } else {
             count = 1;
+            lastElement = getModelElement();
         }
         return SQLUtils.numberValue(count);
     }

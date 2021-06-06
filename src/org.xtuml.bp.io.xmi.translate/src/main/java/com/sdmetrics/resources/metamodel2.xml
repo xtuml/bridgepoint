@@ -119,7 +119,7 @@ other part of SDMetrics.
   <!-- <modelelement name="model" mapping="EP_PKG" /> -->
 
   <!-- relationships: association, generalization, ... -->
-  <modelelement name="association">
+  <modelelement name="association" mapping="R_REL">
     <attribute name="memberends" type="ref" multiplicity="many">The member ends of the association.</attribute>
     <attribute name="ownedends" type="ref" multiplicity="many">The owned ends of the association (not navigable association ends).</attribute>
     <attribute name="generalizations" type="ref" multiplicity="many">The generalizations owned by the association.</attribute>
@@ -317,10 +317,14 @@ other part of SDMetrics.
   <modelelement name="opaqueexpression" />
   <modelelement name="instancevalue" />
   <modelelement name="literalboolean" />
-  <modelelement name="literalinteger" />
+  <modelelement name="literalinteger">
+    <attribute name="value">Integer value.</attribute>
+  </modelelement>
   <modelelement name="literalreal" />
   <modelelement name="literalstring" />
-  <modelelement name="literalunlimitednatural" />
+  <modelelement name="literalunlimitednatural">
+    <attribute name="value">Value of signed integer.</attribute>
+  </modelelement>
   <modelelement name="literalnull" />
 
 

@@ -45,8 +45,10 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
         }
         setModelElement(element);
         setKeyLetters(keyLetters);
-        if (ignoreTranslation()) {
-            XMITranslator.logSkipped("SKIPPING tranlsation for: " + keyLetters);
+        if (ignoreTranslation() != IgnoreType.NOT_IGNORED) {
+            if (ignoreTranslation() == IgnoreType.NOT_HANDLED) {
+                XMITranslator.logSkipped("SKIPPING translation for: " + getKeyLetters());
+            }
             return "";
         } else {
             return getProcessorOutput();
@@ -63,7 +65,7 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
     }
 
     @Override
-    public boolean ignoreTranslation() {
-        return false;
+    public IgnoreType ignoreTranslation() {
+        return IgnoreType.NOT_IGNORED;
     }
 }

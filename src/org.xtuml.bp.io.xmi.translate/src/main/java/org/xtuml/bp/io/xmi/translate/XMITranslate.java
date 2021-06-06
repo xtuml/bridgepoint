@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 import org.xtuml.bp.io.xmi.translate.XtumlMapper.MapperType;
+import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
 
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.MetaModelElement.MetaModelElementAttribute;
@@ -92,8 +93,28 @@ public class XMITranslate {
 	}
 
 	private void processGraphics() {
+		// process shapes first to allow for DIM_CON setup
 		graphicElements.forEach((e, m) -> {
-			mapToXtuml(e, m);
+			if (m.equals("GD_GE")) {
+				GraphicalElementProcessorSQL processor = new GraphicalElementProcessorSQL();
+				processor.setKeyLetters("GD_GE");
+				processor.setModelElement(e);
+				if (processor.isShape()) {
+					mapToXtuml(e, m);
+				}
+			} else {
+				mapToXtuml(e, m);
+			}
+		});
+		graphicElements.forEach((e, m) -> {
+			if (m.equals("GD_GE")) {
+				GraphicalElementProcessorSQL processor = new GraphicalElementProcessorSQL();
+				processor.setKeyLetters("GD_GE");
+				processor.setModelElement(e);
+				if (!processor.isShape()) {
+					mapToXtuml(e, m);
+				}
+			}
 		});
 		XMITranslator.logTodo("\nTranslated " + graphicElements.size() + " graphical elements.");
 	}
