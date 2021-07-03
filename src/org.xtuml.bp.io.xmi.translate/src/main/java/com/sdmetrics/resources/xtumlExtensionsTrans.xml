@@ -22,11 +22,12 @@ Transformations required to translate EA models to xtuml.
     <trigger name="represents" type="cattrval" src="model" attr="owner" />
     <trigger name="parentAsRepresents" type="cattrval" src="model" attr="parent" />
     <trigger name="type" type="cattrval" src="properties" attr="type" />
+    <trigger name="owner" type="cattrval" src="model" attr="owner" />
   </xmitransformation>
-
 
   <xmitransformation modelelement="diagramelement" requirexmiid="false" xmipattern="element">
     <trigger name="element" type="attrval" attr="subject" />
+    <trigger name="actualElement" type="xmi2assoc" attr="subject" />
     <trigger name="bounds" type="attrval" attr="geometry" />
   </xmitransformation>
 
@@ -40,14 +41,10 @@ Transformations required to translate EA models to xtuml.
     <trigger name="interfaceid" type="attrval" attr="xmi:idref" />
   </xmitransformation>
 
-  <!-- collect value of liternal integer (used for bounds in association) -->
-  <xmitransformation modelelement="literalinteger" xmipattern="uml:LiteralInteger">
-    <trigger name="value" type="attrval" attr="value" />
-    <trigger name="value" type="ctext" src="value" />
+  <!-- collect the lower and upper bounds for associations -->
+  <xmitransformation modelelement="association" xmipattern="uml:Association" recurse="true">
+    <trigger name="lowerBounds" type="gcattrval" src="ownedEnd.lowerValue" attr="value" />
+    <trigger name="upperBounds" type="gcattrval" src="ownedEnd.upperValue" attr="value" />
   </xmitransformation>
-  <!-- collect value of limited unnatural integer (used for bounds in association) -->
-  <xmitransformation modelelement="literalunlimitednatural" xmipattern="uml:LiteralUnlimitedNatural">
-    <trigger name="value" type="attrval" attr="value" />
-    <trigger name="value" type="ctext" src="value" />
-  </xmitransformation>
+
 </xmitransformations>

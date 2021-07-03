@@ -23,10 +23,15 @@ public class ConnectionInformation {
     private String endEle = IdProcessor.NULL_ID;
     private GraphconnectorProcessorSQL startCon = null;
     private GraphconnectorProcessorSQL endCon = null;
+    private int ooaType = 0;
 
-    public ConnectionInformation(String assocId, String startEle) {
+    private String ooaId;
+
+    public ConnectionInformation(String assocId, String startEle, int ooaType, String ooaId) {
         this.assocId = assocId;
         this.startEle = startEle;
+        this.ooaType = ooaType;
+        this.ooaId = ooaId;
         connectionMap.put(assocId, this);
         // configure a map for start ele to connection for GD_CON
         List<ConnectionInformation> geConnections = connectionToStartGeMap.get(startEle);
@@ -35,6 +40,14 @@ public class ConnectionInformation {
             connectionToStartGeMap.put(startEle, geConnections);
         }
         geConnections.add(this);
+    }
+
+    public int getOoaType() {
+        return ooaType;
+    }
+
+    public void setOoaType(int ooaType) {
+        this.ooaType = ooaType;
     }
 
     public String getAssocId() {
@@ -78,5 +91,12 @@ public class ConnectionInformation {
 
     public void setEndCon(GraphconnectorProcessorSQL endCon) {
         this.endCon = endCon;
+    }
+
+    public String getOoaId() {
+        if (ooaId != null) {
+            return ooaId;
+        }
+        return null;
     }
 }

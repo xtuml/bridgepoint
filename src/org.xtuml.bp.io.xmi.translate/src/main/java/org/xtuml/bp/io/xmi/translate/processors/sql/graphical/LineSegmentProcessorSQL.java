@@ -14,21 +14,24 @@ public class LineSegmentProcessorSQL extends AbstractLineSegmentProcessor {
 
     private String startWay;
     private String endWay;
+    private String Id;
+    private String conId;
 
-    public LineSegmentProcessorSQL(String startWay, String endWay) {
+    public LineSegmentProcessorSQL(String conId, String startWay, String endWay) {
+        this.conId = conId;
         this.startWay = startWay;
         this.endWay = endWay;
+        this.Id = IdProcessor.UUID().toString();
     }
 
     @Override
     public String getelementId() {
-        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
+        return SQLUtils.idValue(Id);
     }
 
     @Override
     public String getconn_elementId() {
-        // TODO: Support anchors on line segments
-        return SQLUtils.idValue(IdProcessor.NULL_ID);
+        return SQLUtils.idValue(conId);
     }
 
     @Override

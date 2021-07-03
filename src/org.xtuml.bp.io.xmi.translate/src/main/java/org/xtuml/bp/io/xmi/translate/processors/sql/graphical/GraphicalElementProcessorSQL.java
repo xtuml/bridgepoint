@@ -1,9 +1,11 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql.graphical;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,9 +15,15 @@ import com.sdmetrics.model.ModelElement;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractGraphicalElementProcessor;
+import org.xtuml.bp.io.xmi.translate.processors.sql.ImportedClassProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProcessor {
+
+    String elementId;
+    String importedClassSQL = "";
+    UUID importedClassId;
+    static Set<String> createdGraphicalElements = new HashSet<>();
 
     @Override
     public String getelementId() {
@@ -29,11 +37,24 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     @Override
     public String getOOA_ID() {
+        if (importedClassId != null) {
+            return SQLUtils.idValue(importedClassId.toString());
+        }
+        ConnectionInformation information = ConnectionInformation.connectionMap
+                .get(getModelElement().getPlainAttribute("element"));
+        if (information != null) {
+            if (information.getOoaId() != null) {
+                return SQLUtils.idValue(information.getOoaId());
+            }
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("element"));
     }
 
     @Override
     public String getOOA_Type() {
+        if (importedClassId != null) {
+            return SQLUtils.numberValue(23);
+        }
         int ooaType = getOoaTypeFromOoaId();
         return SQLUtils.numberValue(ooaType);
     }
@@ -49,6 +70,31 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     }
 
     @Override
+    public void preprocess(ModelElement element, String keyletters) {
+        /* handle imported class cases */
+        if (createdGraphicalElements.contains(element.getPlainAttribute("element")) && getOoaTypeFromOoaId() == 21) {
+            // create the imported class entry
+            ImportedClassProcessorSQL importedClassProcessorSQL = new ImportedClassProcessorSQL(
+                    getModelElement().getOwner().getRefAttribute("owner").getPlainAttribute("id"));
+            importedClassProcessorSQL.setModelElement(getModelElement().getRefAttribute("actualElement"));
+            importedClassProcessorSQL.setKeyLetters("O_IOBJ");
+            importedClassSQL = importedClassProcessorSQL.process(importedClassProcessorSQL.getModelElement(),
+                    importedClassProcessorSQL.getKeyLetters());
+            importedClassId = importedClassProcessorSQL.getImportedClassId();
+        }
+        ConnectionInformation information = ConnectionInformation.connectionMap
+                .get(getModelElement().getPlainAttribute("element"));
+        if (information != null) {
+            if (information.getOoaId() != null) {
+                elementId = information.getOoaId() + UUID.randomUUID().toString();
+            }
+        }
+        if (elementId == null) {
+            elementId = element.getPlainAttribute("id");
+        }
+    }
+
+    @Override
     public String getProcessorOutput() {
         return SQLUtils.getProcessorOutput(this);
     }
@@ -58,10 +104,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         String boundsString = getModelElement().getPlainAttribute("bounds");
         if (isShape()) {
             Rectangle rect = getBoundsFromString(boundsString);
-            GraphelementProcessorSQL graphelementProcessorSQL = new GraphelementProcessorSQL(rect.x, rect.y);
+            GraphelementProcessorSQL graphelementProcessorSQL = new GraphelementProcessorSQL(rect.x, rect.y, null);
             graphelementProcessorSQL.setModelElement(getModelElement());
             graphelementProcessorSQL.setKeyLetters("DIM_GE");
-            GraphnodeProcessorSQL graphnodeProcessorSQL = new GraphnodeProcessorSQL(rect.w, rect.h);
+            GraphnodeProcessorSQL graphnodeProcessorSQL = new GraphnodeProcessorSQL(rect.w, rect.h, null);
             graphnodeProcessorSQL.setModelElement(getModelElement());
             graphnodeProcessorSQL.setKeyLetters("DIM_ND");
             DiagramelementProcessorSQL diagramelementProcessorSQL = new DiagramelementProcessorSQL();
@@ -73,8 +119,8 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
             NoncontainingShapeProcessorSQL noncontainingShapeProcessorSQL = new NoncontainingShapeProcessorSQL();
             noncontainingShapeProcessorSQL.setModelElement(getModelElement());
             noncontainingShapeProcessorSQL.setKeyLetters("GD_NCS");
-            StringBuilder builder = new StringBuilder(
-                    SQLUtils.getInsertStatement(graphelementProcessorSQL, getModelElement()));
+            StringBuilder builder = new StringBuilder(importedClassSQL);
+            builder.append(SQLUtils.getInsertStatement(graphelementProcessorSQL, getModelElement()));
             // setup DIM_CON
             List<ConnectionInformation> startConnections = ConnectionInformation.connectionToStartGeMap
                     .get(getModelElement().getPlainAttribute("element"));
@@ -108,6 +154,14 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                     .append(SQLUtils.getInsertStatement(noncontainingShapeProcessorSQL, getModelElement())).toString();
             return builder.toString();
         } else {
+            ConnectorDescription descrip = getPolylineFromString(boundsString);
+            System.out.println(descrip);
+            DiagramelementProcessorSQL diagramelementProcessorSQL = new DiagramelementProcessorSQL();
+            diagramelementProcessorSQL.setModelElement(getModelElement());
+            diagramelementProcessorSQL.setKeyLetters("DIM_ELE");
+            GraphelementProcessorSQL graphelementProcessorSQL = new GraphelementProcessorSQL(0f, 0f, null);
+            graphelementProcessorSQL.setModelElement(getModelElement());
+            graphelementProcessorSQL.setKeyLetters("DIM_GE");
             ConnectorProcessorSQL connectorProcessorSQL = new ConnectorProcessorSQL();
             connectorProcessorSQL.setModelElement(getModelElement());
             connectorProcessorSQL.setKeyLetters("GD_CON");
@@ -132,18 +186,35 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                     endWayPointProcessorSQL.setKeyLetters("DIM_WAY");
                     endWayPointProcessorSQL.setModelElement(getModelElement());
                     LineSegmentProcessorSQL lineSegProcessorSQL = new LineSegmentProcessorSQL(
-                            startWaypointProcessorSQL.getId(), endWayPointProcessorSQL.getId());
+                            getModelElement().getPlainAttribute("id"), startWaypointProcessorSQL.getId(),
+                            endWayPointProcessorSQL.getId());
                     lineSegProcessorSQL.setKeyLetters("GD_LS");
                     lineSegProcessorSQL.setModelElement(getModelElement());
+                    // setup floating text
+                    FloatingTextProcessorSQL startText = new FloatingTextProcessorSQL(0);
+                    startText.setKeyLetters("GD_CTXT");
+                    startText.setModelElement(getModelElement());
+                    // setup floating text
+                    FloatingTextProcessorSQL middleText = new FloatingTextProcessorSQL(1);
+                    middleText.setKeyLetters("GD_CTXT");
+                    middleText.setModelElement(getModelElement());
+                    // setup floating text
+                    FloatingTextProcessorSQL endText = new FloatingTextProcessorSQL(2);
+                    endText.setKeyLetters("GD_CTXT");
+                    endText.setModelElement(getModelElement());
                     builder.append(SQLUtils.getInsertStatement(lineSegProcessorSQL, getModelElement()))
                             .append(SQLUtils.getInsertStatement(startWaypointProcessorSQL, getModelElement()))
-                            .append(SQLUtils.getInsertStatement(endWayPointProcessorSQL, getModelElement()));
+                            .append(SQLUtils.getInsertStatement(endWayPointProcessorSQL, getModelElement()))
+                            .append(startText.getProcessorOutput()).append(middleText.getProcessorOutput())
+                            .append(endText.getProcessorOutput());
                 }
             }
             GraphedgeProcessorSQL graphEdgeProcessor = new GraphedgeProcessorSQL(startId, endId);
             graphEdgeProcessor.setModelElement(getModelElement());
             graphEdgeProcessor.setKeyLetters("DIM_ED");
-            return builder.append(SQLUtils.getInsertStatement(connectorProcessorSQL, getModelElement()))
+            return builder.append(SQLUtils.getInsertStatement(diagramelementProcessorSQL, getModelElement()))
+                    .append(SQLUtils.getInsertStatement(graphelementProcessorSQL, getModelElement()))
+                    .append(SQLUtils.getInsertStatement(connectorProcessorSQL, getModelElement()))
                     .append(SQLUtils.getInsertStatement(graphEdgeProcessor, getModelElement())).toString();
         }
     }
@@ -166,6 +237,55 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         return new Rectangle(x, y, w, h);
     }
 
+    private ConnectorDescription getPolylineFromString(String boundsString) {
+        String[] attributes = boundsString.split(";");
+        List<Point> points = new ArrayList<>();
+        Point start = new Point();
+        Point end = new Point();
+        Edge edge = Edge.Center;
+        for (int i = 0; i < attributes.length; i++) {
+            String attribute = attributes[i];
+            if (attribute.contains("SX")) {
+                float startX = Float.parseFloat(attribute.split("=")[1]);
+                start.x = startX;
+            }
+            if (attribute.contains("SY")) {
+                float startY = Float.parseFloat(attribute.split("=")[1]);
+                start.y = startY;
+            }
+            if (attribute.contains("EX")) {
+                float endX = Float.parseFloat(attribute.split("=")[1]);
+                end.x = endX;
+            }
+            if (attribute.contains("EY")) {
+                float endY = Float.parseFloat(attribute.split("=")[1]);
+                end.y = endY;
+            }
+            if (attribute.contains("EDGE")) {
+                int value = Integer.valueOf(attribute.split("=")[1]);
+                switch (value) {
+                    case 1:
+                        edge = Edge.Top;
+                        break;
+                    case 2:
+                        edge = Edge.Right;
+                        break;
+                    case 3:
+                        edge = Edge.Bottom;
+                        break;
+                    case 4:
+                        edge = Edge.Left;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        points.add(start);
+        points.add(end);
+        return new ConnectorDescription(new Polyline(points), edge);
+    }
+
     public boolean isShape() {
         String keyLetters = IdProcessor.elementIdKeyLetts
                 .get(UUID.fromString(IdProcessor.process(getModelElement().getPlainAttribute("element"), null)));
@@ -174,6 +294,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         }
         switch (keyLetters) {
             case "R_REL":
+                return false;
+            case "R_SUPER":
+                return false;
+            case "R_SUB":
                 return false;
         }
         return true;
@@ -206,6 +330,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 return 41;
             case "R_REL":
                 return 24;
+            case "R_SUB":
+                return 35;
+            case "R_SUPER":
+                return 36;
             default:
                 break;
         }
@@ -213,7 +341,18 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     }
 
     @Override
+    public void postprocess(ModelElement element, String keyletters) {
+        createdGraphicalElements.add(element.getPlainAttribute("element"));
+        importedClassId = null;
+        importedClassSQL = "";
+    }
+
+    @Override
     public IgnoreType ignoreTranslation() {
+        // EA has model class elements on statecharts, that is not supported in xtuml
+        if (!getModelElement().getOwner().getPlainAttribute("type").equals("Logical") && getOoaTypeFromOoaId() == 21) {
+            return IgnoreType.NOT_HANDLED;
+        }
         return getOoaTypeFromOoaId() == 0 ? IgnoreType.NOT_HANDLED : IgnoreType.NOT_IGNORED;
     }
 

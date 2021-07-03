@@ -36,6 +36,16 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
     };
 
     @Override
+    public void preprocess(ModelElement element, String keyletters) {
+        return;
+    }
+
+    @Override
+    public void postprocess(ModelElement element, String keyletters) {
+        return;
+    }
+
+    @Override
     public String process(ModelElement element, String keyLetters) {
         if (keyLetters.equals("PE_C")) {
             // ignore anything that does not have an owner
@@ -51,13 +61,21 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
             }
             return "";
         } else {
-            return getProcessorOutput();
+            preprocess(element, keyLetters);
+            String result = getProcessorOutput();
+            postprocess(element, keyLetters);
+            return result;
         }
     }
 
     public abstract String getProcessorOutput();
 
     public abstract List<String> getValues(ModelElement modelElement);
+
+    @Override
+    public boolean forcePackageableElement() {
+        return false;
+    }
 
     @Override
     public boolean isGraphical() {

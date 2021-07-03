@@ -12,6 +12,8 @@ import ooaofooa.datatypes.Visibility;
 public class PackageableElementProcessorSQL extends AbstractPackageableElementProcessor {
 
     private String id;
+    private String packageId;
+    private int type = -1;
 
     public PackageableElementProcessorSQL() {
 
@@ -19,6 +21,17 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
 
     public PackageableElementProcessorSQL(String id) {
         this.id = id;
+    }
+
+    public PackageableElementProcessorSQL(String id, String packageId) {
+        this.id = id;
+        this.packageId = packageId;
+    }
+
+    public PackageableElementProcessorSQL(String id, String packageId, int type) {
+        this.id = id;
+        this.packageId = packageId;
+        this.type = type;
     }
 
     @Override
@@ -37,6 +50,9 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
 
     @Override
     public String getPackage_ID() {
+        if (packageId != null) {
+            return SQLUtils.idValue(packageId);
+        }
         // if a top level package, return null
         if (getModelElement().getOwner() == null) {
             return SQLUtils.idValue(IdProcessor.NULL_ID);
@@ -58,6 +74,9 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
 
     @Override
     public String getComponent_ID() {
+        if (packageId != null) {
+            return SQLUtils.idValue(IdProcessor.NULL_ID);
+        }
         // if a top level package, return null
         if (getModelElement().getOwner() == null) {
             return SQLUtils.idValue(IdProcessor.NULL_ID);
@@ -74,6 +93,9 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
 
     @Override
     public String gettype() {
+        if (type != -1) {
+            return SQLUtils.numberValue(type);
+        }
         return SQLUtils.numberValue(getType(getModelElement().getType().getMapping()));
     }
 

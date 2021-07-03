@@ -24,6 +24,9 @@ public class SQLUtils {
         if (processor.isGraphical()) {
             return false;
         }
+        if (processor.forcePackageableElement()) {
+            return true;
+        }
         ModelElement owner = element.getOwner();
         if (owner == null) {
             // root package

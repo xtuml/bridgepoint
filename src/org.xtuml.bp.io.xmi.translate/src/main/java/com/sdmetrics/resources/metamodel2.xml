@@ -123,11 +123,13 @@ other part of SDMetrics.
     <attribute name="memberends" type="ref" multiplicity="many">The member ends of the association.</attribute>
     <attribute name="ownedends" type="ref" multiplicity="many">The owned ends of the association (not navigable association ends).</attribute>
     <attribute name="generalizations" type="ref" multiplicity="many">The generalizations owned by the association.</attribute>
+    <attribute name="lowerBounds"></attribute>
+    <attribute name="upperBounds"></attribute>
   </modelelement>
 
   <modelelement name="associationclass" parent="association" />
 
-  <modelelement name="generalization">
+  <modelelement name="generalization" mapping="R_SUB">
     <attribute name="general" type="ref">Link to the parent in the generalization.</attribute>
   </modelelement>
 
@@ -226,7 +228,7 @@ other part of SDMetrics.
     <attribute name="doactivity" type="ref" multiplicity="many">The do-activities of the state.</attribute>
     <attribute name="connectionpoints" type="ref" multiplicity="many">The connection points of the state.</attribute>
   </modelelement>
-  <modelelement name="transition">
+  <modelelement name="transition" mapping="SM_TXN">
     <attribute name="kind" type="data">The kind of transition: external, internal, or local.</attribute>
     <attribute name="isprotocol">Boolean indicating if this is a protocol transition.</attribute>
     <attribute name="transsource" type="ref">The source state of the transition.</attribute>
@@ -317,14 +319,10 @@ other part of SDMetrics.
   <modelelement name="opaqueexpression" />
   <modelelement name="instancevalue" />
   <modelelement name="literalboolean" />
-  <modelelement name="literalinteger">
-    <attribute name="value">Integer value.</attribute>
-  </modelelement>
+  <modelelement name="literalinteger" />
   <modelelement name="literalreal" />
   <modelelement name="literalstring" />
-  <modelelement name="literalunlimitednatural">
-    <attribute name="value">Value of signed integer.</attribute>
-  </modelelement>
+  <modelelement name="literalunlimitednatural" />
   <modelelement name="literalnull" />
 
 
@@ -363,10 +361,12 @@ other part of SDMetrics.
     <attribute name="type" type="data">The type of diagram (class diagram, sequence diagram, etc).</attribute>
     <attribute name="represents">The element that this diagram represents elements for.</attribute>
     <attribute name="parentAsRepresents">In the case of a nested diagram (like state machine under package) use the parent attr as the represents.</attribute>
+    <attribute name="owner" type="ref">Element containing information about the owner</attribute>
   </modelelement>
 
   <modelelement name="diagramelement" mapping="GD_GE">
-    <attribute name="element">The element that is shown on the diagram.</attribute>
+    <attribute name="element">The element id that is shown on the diagram.</attribute>
+    <attribute name="actualElement" type="ref">Reference to the actual element to be showing on the diagram.</attribute>
     <attribute name="bounds">The elements bounds.</attribute>
   </modelelement>
 

@@ -99,7 +99,9 @@ public class IdProcessor {
 	}
 
 	public static UUID UUID() {
-		return UUID.randomUUID();
+		UUID random = UUID.randomUUID();
+		createdUUIDs.put(random.toString(), random);
+		return random;
 	}
 
 }

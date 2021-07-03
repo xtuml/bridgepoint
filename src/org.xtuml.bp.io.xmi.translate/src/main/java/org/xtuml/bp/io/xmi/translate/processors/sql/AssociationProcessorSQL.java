@@ -20,13 +20,37 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
     static int count = 1;
     static ModelElement owner;
 
+    public AssociationProcessorSQL() {
+    }
+
+    /**
+     * Constructor for creation through subtype (R_SUBSUP)
+     */
+    String assocId;
+    int numb = -1;
+    String descrip;
+    String subKeyLetters;
+
+    public AssociationProcessorSQL(String assocId, int numb, String descrip, String subKeyLetters) {
+        this.assocId = assocId;
+        this.numb = numb;
+        this.descrip = descrip;
+        this.subKeyLetters = subKeyLetters;
+    }
+
     @Override
     public String getRel_ID() {
+        if (assocId != null) {
+            return SQLUtils.idValue(assocId, subKeyLetters);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override
     public String getNumb() {
+        if (numb != -1) {
+            return SQLUtils.numberValue(numb);
+        }
         // EA captures a name only, but it may include the number?
         // we attempt to extract the number from that
         // otherwise fallback on incrementing numbering
@@ -48,6 +72,9 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
 
     @Override
     public String getDescrip() {
+        if (descrip != null) {
+            return SQLUtils.stringValue(descrip);
+        }
         return SQLUtils.stringValue("EA Element: " + getModelElement().getFullName());
     }
 
@@ -67,6 +94,11 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
         SimpleAssociationProcessorSQL simpProcessor = new SimpleAssociationProcessorSQL();
         simpProcessor.setModelElement(getModelElement());
         simpProcessor.setKeyLetters("R_SIMP");
+        String lowerBound = getModelElement().getPlainAttribute("lowerBounds");
+        String upperBound = getModelElement().getPlainAttribute("upperBounds");
+        if (!lowerBound.equals("") || !upperBound.equals("")) {
+            System.out.println();
+        }
         processors.add(simpProcessor);
         // process each side
         ends.stream().forEach(e -> {
@@ -77,12 +109,6 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
                         owningClass.getPlainAttribute("id"), getModelElement().getPlainAttribute("id"));
                 cia.setKeyLetters("R_OIR");
                 processors.add(cia);
-                Collection<ModelElement> boundCollection = element.getOwnedElements();
-                if (boundCollection != null && boundCollection.size() > 0) {
-                    ModelElement[] bounds = boundCollection.toArray(new ModelElement[0]);
-                    String lowerBound = bounds[0].getPlainAttribute("value");
-                    String upperBound = bounds[1].getPlainAttribute("value");
-                }
                 ClassAsSimpleParticipantProcessorSQL part = new ClassAsSimpleParticipantProcessorSQL(
                         owningClass.getPlainAttribute("id"), getModelElement().getPlainAttribute("id"), cia.getId(), 0,
                         0, element.getName());
@@ -99,7 +125,7 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
                     information.setEndEle(owningClass.getPlainAttribute("id"));
                 } else {
                     new ConnectionInformation(getModelElement().getPlainAttribute("id"),
-                            owningClass.getPlainAttribute("id"));
+                            owningClass.getPlainAttribute("id"), 24, null);
                 }
             }
         });

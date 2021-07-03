@@ -43,7 +43,7 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
                 Optional<ModelElement> edt = getModelElement().getOwnedElements().stream()
                         .filter(o -> o.getType().getName().equals("enumeration")).findAny();
                 if (edt.isPresent()) {
-                    // S_EDT handle by its own processor
+                    // S_EDT handled by its own processor
                     return "";
                 }
                 UserDataTypeProcessorSQL udtProcessor = new UserDataTypeProcessorSQL(dtId);

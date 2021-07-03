@@ -13,10 +13,12 @@ public class GraphnodeProcessorSQL extends AbstractGraphnodeProcessor {
 
     private Float width = 100f;
     private Float height = 100f;
+    private String Id;
 
-    public GraphnodeProcessorSQL(Float width, Float height) {
+    public GraphnodeProcessorSQL(Float width, Float height, String Id) {
         this.width = width;
         this.height = height;
+        this.Id = Id;
     }
 
     @Override
@@ -31,6 +33,9 @@ public class GraphnodeProcessorSQL extends AbstractGraphnodeProcessor {
 
     @Override
     public String getelementId() {
+        if (Id != null) {
+            return SQLUtils.idValue(Id);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 

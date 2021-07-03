@@ -16,6 +16,10 @@ public interface XtumlTypeProcessor {
 
 	void setModelElement(ModelElement element);
 
+	void preprocess(ModelElement modelElement, String keyletters);
+
+	void postprocess(ModelElement modelElement, String keyletters);
+
 	String process(ModelElement modelElement, String keyletters);
 
 	default String createSupportingElements() {
@@ -25,5 +29,7 @@ public interface XtumlTypeProcessor {
 	boolean isGraphical();
 
 	IgnoreType ignoreTranslation();
+
+	boolean forcePackageableElement();
 
 }

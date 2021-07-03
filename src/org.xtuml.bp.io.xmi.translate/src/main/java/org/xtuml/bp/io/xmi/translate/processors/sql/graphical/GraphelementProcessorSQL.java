@@ -14,10 +14,12 @@ public class GraphelementProcessorSQL extends AbstractGraphelementProcessor {
 
     private float x = 0f;
     private float y = 0f;
+    private String Id;
 
-    public GraphelementProcessorSQL(float x, float y) {
+    public GraphelementProcessorSQL(float x, float y, String Id) {
         this.x = x;
         this.y = y;
+        this.Id = Id;
     }
 
     @Override
@@ -32,6 +34,9 @@ public class GraphelementProcessorSQL extends AbstractGraphelementProcessor {
 
     @Override
     public String getelementId() {
+        if (Id != null) {
+            return SQLUtils.idValue(Id);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 

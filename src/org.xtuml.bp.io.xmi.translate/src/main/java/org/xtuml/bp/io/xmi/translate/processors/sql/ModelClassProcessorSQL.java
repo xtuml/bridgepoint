@@ -1,6 +1,8 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.sdmetrics.model.ModelElement;
 
@@ -10,6 +12,7 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractModelClassProc
 public class ModelClassProcessorSQL extends AbstractModelClassProcessor {
     static int count = 1;
     static ModelElement lastElement;
+    static Set<String> createdClasses = new HashSet<>();
 
     @Override
     public String createSupportingElements() {
