@@ -137,7 +137,9 @@ other part of SDMetrics.
 		<trigger name="generalizations" type="xmi2assoc" src="uml:Generalization" attr="generalization" />
 	</xmitransformation>
 
-	<xmitransformation modelelement="associationclass" xmipattern="uml:AssociationClass" recurse="true" />
+	<xmitransformation modelelement="associationclass" xmipattern="uml:AssociationClass" recurse="true">
+		<trigger name="ownedattributes" type="xmi2assoc" src="uml:Property" attr="ownedAttribute" />
+	</xmitransformation>
 
 	<xmitransformation modelelement="generalization" xmipattern="uml:Generalization">
 		<trigger name="general" type="xmi2assoc" attr="general" />

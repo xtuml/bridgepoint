@@ -119,7 +119,7 @@ other part of SDMetrics.
   <!-- <modelelement name="model" mapping="EP_PKG" /> -->
 
   <!-- relationships: association, generalization, ... -->
-  <modelelement name="association" mapping="R_REL">
+  <modelelement name="association" mapping="connection?O_OBJ-O_OBJ:R_REL,connection?IA_UCP-Any:UC_UCA">
     <attribute name="memberends" type="ref" multiplicity="many">The member ends of the association.</attribute>
     <attribute name="ownedends" type="ref" multiplicity="many">The owned ends of the association (not navigable association ends).</attribute>
     <attribute name="generalizations" type="ref" multiplicity="many">The generalizations owned by the association.</attribute>
@@ -127,7 +127,9 @@ other part of SDMetrics.
     <attribute name="upperBounds"></attribute>
   </modelelement>
 
-  <modelelement name="associationclass" parent="association" />
+  <modelelement name="associationclass" parent="association" mapping="O_OBJ">
+    <attribute mapping="O_ATTR" name="ownedattributes" type="ref" multiplicity="many">The attributes of the element.</attribute>
+  </modelelement>
 
   <modelelement name="generalization" mapping="R_SUB">
     <attribute name="general" type="ref">Link to the parent in the generalization.</attribute>

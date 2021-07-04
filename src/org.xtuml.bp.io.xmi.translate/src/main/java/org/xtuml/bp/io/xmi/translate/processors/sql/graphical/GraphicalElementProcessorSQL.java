@@ -207,6 +207,43 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                             .append(SQLUtils.getInsertStatement(endWayPointProcessorSQL, getModelElement()))
                             .append(startText.getProcessorOutput()).append(middleText.getProcessorOutput())
                             .append(endText.getProcessorOutput());
+                } else {
+                    if (information.endsOnWs()) {
+                        // create linesegment and start waypoint
+                        startId = information.getStartCon().getId();
+                        // create line segment and waypoints
+                        WaypointProcessorSQL startWaypointProcessorSQL = new WaypointProcessorSQL(startCon.x,
+                                startCon.y, IdProcessor.NULL_ID);
+                        startWaypointProcessorSQL.setKeyLetters("DIM_WAY");
+                        startWaypointProcessorSQL.setModelElement(getModelElement());
+                        WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(startCon.x,
+                                startCon.y - 100, startWaypointProcessorSQL.getId());
+                        endWayPointProcessorSQL.setKeyLetters("DIM_WAY");
+                        endWayPointProcessorSQL.setModelElement(getModelElement());
+                        LineSegmentProcessorSQL lineSegProcessorSQL = new LineSegmentProcessorSQL(
+                                getModelElement().getPlainAttribute("id"), startWaypointProcessorSQL.getId(),
+                                endWayPointProcessorSQL.getId());
+                        lineSegProcessorSQL.setKeyLetters("GD_LS");
+                        lineSegProcessorSQL.setModelElement(getModelElement());
+                        // setup floating text
+                        FloatingTextProcessorSQL startText = new FloatingTextProcessorSQL(0);
+                        startText.setKeyLetters("GD_CTXT");
+                        startText.setModelElement(getModelElement());
+                        // setup floating text
+                        FloatingTextProcessorSQL middleText = new FloatingTextProcessorSQL(1);
+                        middleText.setKeyLetters("GD_CTXT");
+                        middleText.setModelElement(getModelElement());
+                        // setup floating text
+                        FloatingTextProcessorSQL endText = new FloatingTextProcessorSQL(2);
+                        endText.setKeyLetters("GD_CTXT");
+                        endText.setModelElement(getModelElement());
+                        builder.append(SQLUtils.getInsertStatement(lineSegProcessorSQL, getModelElement()))
+                                .append(SQLUtils.getInsertStatement(startWaypointProcessorSQL, getModelElement()))
+                                .append(SQLUtils.getInsertStatement(endWayPointProcessorSQL, getModelElement()))
+                                .append(startText.getProcessorOutput()).append(middleText.getProcessorOutput())
+                                .append(endText.getProcessorOutput());
+
+                    }
                 }
             }
             GraphedgeProcessorSQL graphEdgeProcessor = new GraphedgeProcessorSQL(startId, endId);
@@ -299,6 +336,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 return false;
             case "R_SUB":
                 return false;
+            case "SM_TXN":
+                return false;
+            case "UC_UCA":
+                return false;
         }
         return true;
     }
@@ -306,6 +347,14 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     private int getOoaTypeFromOoaId() {
         String keyLetters = IdProcessor.elementIdKeyLetts
                 .get(UUID.fromString(IdProcessor.process(getModelElement().getPlainAttribute("element"), null)));
+        ConnectionInformation information = ConnectionInformation.connectionMap
+                .get(getModelElement().getPlainAttribute("element"));
+        if (information != null) {
+            // allow connection information to override
+            if (information.getOoaType() != -1) {
+                return information.getOoaType();
+            }
+        }
         if (keyLetters == null) {
             keyLetters = "";
         }
@@ -334,6 +383,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 return 35;
             case "R_SUPER":
                 return 36;
+            case "SM_TXN":
+                return 42;
+            case "UC_UCA":
+                return 87;
             default:
                 break;
         }

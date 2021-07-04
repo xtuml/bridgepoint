@@ -1,8 +1,8 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql.graphical;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -12,8 +12,6 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractModelProcessor
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class ModelProcessorSQL extends AbstractModelProcessor {
-
-    static Set<String> created = new HashSet<>();
 
     @Override
     public String createSupportingElements() {

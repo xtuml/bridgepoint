@@ -18,21 +18,23 @@ public class ConnectionInformation {
     public static Map<String, List<ConnectionInformation>> connectionToStartGeMap = new HashMap<>();
     public static Map<String, List<ConnectionInformation>> connectionToEndGeMap = new HashMap<>();
 
-    private String assocId = IdProcessor.NULL_ID;
+    private String representsId = IdProcessor.NULL_ID;
     private String startEle = IdProcessor.NULL_ID;
     private String endEle = IdProcessor.NULL_ID;
     private GraphconnectorProcessorSQL startCon = null;
     private GraphconnectorProcessorSQL endCon = null;
-    private int ooaType = 0;
+    private int ooaType = -1;
+    private boolean startsOnWs = false;
+    private boolean endsOnWs = false;
 
     private String ooaId;
 
-    public ConnectionInformation(String assocId, String startEle, int ooaType, String ooaId) {
-        this.assocId = assocId;
+    public ConnectionInformation(String representsId, String startEle, int ooaType, String ooaId) {
+        this.representsId = representsId;
         this.startEle = startEle;
         this.ooaType = ooaType;
         this.ooaId = ooaId;
-        connectionMap.put(assocId, this);
+        connectionMap.put(representsId, this);
         // configure a map for start ele to connection for GD_CON
         List<ConnectionInformation> geConnections = connectionToStartGeMap.get(startEle);
         if (geConnections == null) {
@@ -40,6 +42,22 @@ public class ConnectionInformation {
             connectionToStartGeMap.put(startEle, geConnections);
         }
         geConnections.add(this);
+    }
+
+    public boolean endsOnWs() {
+        return endsOnWs;
+    }
+
+    public void setEndsOnWs(boolean endsOnWs) {
+        this.endsOnWs = endsOnWs;
+    }
+
+    public boolean startsOnWs() {
+        return startsOnWs;
+    }
+
+    public void setStartsOnWs(boolean startsOnWs) {
+        this.startsOnWs = startsOnWs;
     }
 
     public int getOoaType() {
@@ -50,8 +68,8 @@ public class ConnectionInformation {
         this.ooaType = ooaType;
     }
 
-    public String getAssocId() {
-        return assocId;
+    public String getRepresentsId() {
+        return representsId;
     }
 
     public void setStartEle(String startEle) {

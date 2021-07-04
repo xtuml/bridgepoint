@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
+import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractStateMachineStateProcessor;
 
 public class StateMachineStateProcessorSQL extends AbstractStateMachineStateProcessor {
@@ -41,8 +42,14 @@ public class StateMachineStateProcessorSQL extends AbstractStateMachineStateProc
 
     @Override
     public String getFinal() {
-        // TODO: need to see if we can determine final value
-        return SQLUtils.numberValue(0);
+        String kind = getModelElement().getPlainAttribute("kind");
+        return SQLUtils.numberValue(kind.equals("final") ? 1 : 0);
+    }
+
+    @Override
+    public IgnoreType ignoreTranslation() {
+        String kind = getModelElement().getPlainAttribute("kind");
+        return kind.equals("initial") ? IgnoreType.HANDLED : IgnoreType.NOT_IGNORED;
     }
 
     @Override
