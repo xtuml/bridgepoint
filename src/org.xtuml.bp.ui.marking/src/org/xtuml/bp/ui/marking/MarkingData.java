@@ -44,7 +44,7 @@ public class MarkingData {
 		public String path;
 		public String value;
 		public NonRootModelElement nrme;
-		
+
 		public Mark() {
 			markable_name = new String("");
 			feature_name = new String("");
@@ -53,26 +53,26 @@ public class MarkingData {
 			nrme = null;
 		}
 	}
-	
+
 	private IProject project;
-    
+
     private static final String DELIM = ",";
 
     private static final String FEATURE_FILE = "/gen/features.mark";
     private static final String MARKINGS_FILE = "/gen/application.mark";
-    
+
     // Map of Element Types and a vector of associated features
     private HashMap<String, Vector<String>> featureMap;
-    
+
     // Ordered map of fully-pathed application model elements and an ordered map of associated feature/value pairs
     private LinkedHashMap<String, LinkedHashMap<String,Mark>> markingsMap;
-    
+
 	public MarkingData(IProject project) {
 		this.project = project;
-	
+
 		// Read in the feature map
 		populateFeatures();
-		
+
 		// Read in the markings
 		populateMarkings();
 	}
@@ -82,26 +82,26 @@ public class MarkingData {
 	private void populateFeatures() {
 		featureMap = new HashMap<String, Vector<String>>();
 		Scanner inFile = new Scanner("");
-		
+
 		try {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + FEATURE_FILE));
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			// With the change to add the marking listener the data may be attempted to be loaded on a 
+			// With the change to add the marking listener the data may be attempted to be loaded on a
 			// project without the .mark files.  This may be fine as not all projects use this style of
 			// marking.  So we don't do anything when the file is not found.
 		}
-		
+
 		while ( inFile.hasNext() ) {
 			String elementType = inFile.next().trim();
 			if ( elementType.startsWith("#") || elementType.isEmpty() ) {
 				inFile.nextLine().trim();  // Throw away rest of line in case there are delimiters in the comment
-				continue; 
+				continue;
 			}
-			
+
 			String featureName = inFile.next().trim();
 			Vector<String> list;
-			
+
 			if ( featureMap.containsKey(elementType) ) {
 				// The element type has already been seen, add the feature to the list
 				list = featureMap.get(elementType);
@@ -112,7 +112,7 @@ public class MarkingData {
 			}
 			list.add(featureName);
 		}
-		
+
 		inFile.close();
 	}
 
@@ -121,16 +121,16 @@ public class MarkingData {
 	private void populateMarkings() {
 		markingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
 		Scanner inFile = new Scanner("");
-		
+
 		try {
 			inFile = new Scanner(new FileReader(project.getLocation().toString() + MARKINGS_FILE));
 			inFile.useDelimiter(",|\\r|\\n");
 		} catch (FileNotFoundException fnfe) {
-			// With the change to add the marking listener the data may be attempted to be loaded on a 
+			// With the change to add the marking listener the data may be attempted to be loaded on a
 			// project without the .mark files.  This may be fine as not all projects use this style of
 			// marking.  So we don't do anything when the file is not found.
 		}
-		
+
 		while ( inFile.hasNext() ) {
 			String modelElement = inFile.next().trim();
 			String featureName = inFile.next().trim();
@@ -139,7 +139,7 @@ public class MarkingData {
 			featureValue = featureValue.replaceFirst(",", "");
 			updateFeature(modelElement, featureName, featureValue, elementType);
 		}
-		
+
 		inFile.close();
 	}
 
@@ -153,7 +153,7 @@ public class MarkingData {
 		Iterator<String> featureSetIter = featureSet.iterator();
 		String invalidElements = "";
 		String msg = "";
-		
+
 		while (featureSetIter.hasNext()) {
 			String ooaClassName = featureSetIter.next();
 			ooaClassName = ooaClassName.replaceAll(" ", "");
@@ -163,22 +163,22 @@ public class MarkingData {
 				invalidElements = invalidElements + ooaClassName + "\n";
 			}
 		}
-		
+
 		if ( !invalidElements.isEmpty() ) {
-			msg = "The features marking data contains the following invalid element types. You must\n" + 
+			msg = "The features marking data contains the following invalid element types. You must\n" +
 					"correct these errors in order to edit application marks: \n\n" + invalidElements;
 		}
-		
+
 		if ( msg.isEmpty() ) {
 			if ( featureMap.isEmpty() ) {
 				msg = "The gen/features.mark file does not contain any model compiler features. You must\n" +
-					  "specify valid features to proceed.  For more information see the documentation at:\n\n" + 
+					  "specify valid features to proceed.  For more information see the documentation at:\n\n" +
 					  "Help > BridgePoint UML Suite Help > Reference > User Interface > Marking Editor.\n";
 			}
 		}
 		return msg;
 	}
-	
+
 	/**
 	 * Modify the user-specified value for an application mark
 	 *
@@ -212,36 +212,36 @@ public class MarkingData {
 	}
 
 	/**
-	 * A mark is uniquely identified by its path and the combined referential 
-	 * composed of the feature name and markable name.  This function is used to 
+	 * A mark is uniquely identified by its path and the combined referential
+	 * composed of the feature name and markable name.  This function is used to
 	 * "make" the combined referential string for the internal data structure used
 	 * to store and order the marks.
 	 */
 	public static String getCombinedRef(String f, String m) {
 		return f+"###"+m;
 	}
-	
+
 	/**
-	 * Iterate through all the marks and update model path keys. 
+	 * Iterate through all the marks and update model path keys.
     * Retains marks with '*' data as is.
-    * Retries added for possible model loading race conditions. This only 
+    * Retries added for possible model loading race conditions. This only
     * applies to attribute changes.
 	 *
     * @param deltaToHandle - the change data to use for retries.
-    * 
-	 * @return Flag indicating if the markings had to be updated or not 
+    *
+	 * @return Flag indicating if the markings had to be updated or not
 	 */
    public boolean recalculatePathKeys(IModelDelta deltaToHandle) {
 		LinkedHashMap<String,Mark> newMarkList;
 		LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
 		boolean marksUpdated = false;
-		
+
 		for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
 			Set<Map.Entry<String, Mark>> featureEntrySet = elementEntry.getValue().entrySet();
          String newPath;
          String currentPath = elementEntry.getKey();
 
-         Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next(); 
+         Map.Entry<String, Mark> firstfeatureEntry = featureEntrySet.iterator().next();
          // Handle '*' in path as a special case per Ciera requirements.
          if (currentPath.equals("*")) {
              newPath = currentPath;
@@ -249,7 +249,7 @@ public class MarkingData {
         		    ((AttributeChangeModelDelta) deltaToHandle).getOldValue() != null &&
                      !(currentPath.matches(".*\\b" +
                          // Issue:12203 matches() will produce an error, if there are opening curly brackets in the oldAttributeValue string.
-                       ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString().replace("{", "\\{") + 
+                       ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString().replace("{", "\\{") +
                        "\\b.*")) ) {
              // Attribute change with attribute not in path.
              newPath = currentPath;
@@ -259,20 +259,19 @@ public class MarkingData {
 			// for this model element and update them.
 			// Use the mark's nrme to get the updated path and see if it matches elementEntry.getKey()
             newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
-            // Due to the possibility of a race condition between the model update causing this transaction and 
-            // this transaction handling, additional steps need to be taken to ensure the return of the 
+            // Due to the possibility of a race condition between the model update causing this transaction and
+            // this transaction handling, additional steps need to be taken to ensure the return of the
             // previous call wasn't due to being out of sync with the model.
             if ((newPath == null) || newPath.isEmpty()) {
                // Is this mark involved in the current transaction as an attribute change?
-               if ( deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+               if ( deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) {
                   AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
                   String oldAttributeValue = change.getOldValue().toString();
                   String newAttributeValue = change.getNewValue().toString();
                   // This change would have to affect the path to return a null NRME, so check the path.
                   String modelElement = firstfeatureEntry.getValue().path;
                   // Issue:12203 matches() will produce an error, if there are opening curly brackets in the oldAttributeValue string.
-                  String oldA = oldAttributeValue.replace("{", "\\{");
-                  if (modelElement.matches(".*\\b" + oldA + "\\b.*")) {
+                  if (modelElement.matches(".*\\b" + oldAttributeValue.replace("{", "\\{") + "\\b.*")) {
                      // There can be more than one match in the path, so we have to change each until a
                      // valid nrme is found.
                      NonRootModelElement newNrme = null;
@@ -290,7 +289,7 @@ public class MarkingData {
                          }
                      }
                      newPath = MarkingData.getPathkey(newNrme, project);
-                  } 
+                  }
                }
             }
          }
@@ -299,35 +298,35 @@ public class MarkingData {
 				marksUpdated = true;
 				continue;
 			} else if ( newPath.equals(currentPath)) {
-				// This element's path is not affected, short circuit and copy across the whole 
+				// This element's path is not affected, short circuit and copy across the whole
 				// mark list to newMarkingsMap and move on
 				newMarkingsMap.put(newPath, elementEntry.getValue());
 				continue;
 			} else {
-				// This element's path _is_ changed, iterate through each mark and update the path 
+				// This element's path _is_ changed, iterate through each mark and update the path
 				// in the mark and store under the new path in the newMarkingsMap
 				marksUpdated = true;
 				newMarkList = new LinkedHashMap<String,Mark>();
 				newMarkingsMap.put(newPath, newMarkList);
-						
+
 				for ( Map.Entry<String, Mark> featureEntry : featureEntrySet) {
 					Mark origMark = featureEntry.getValue();
-					Mark mark = new Mark(); 
-					mark.markable_name = origMark.markable_name; 
-					mark.feature_name = origMark.feature_name; 
-					mark.path = newPath; 
-					mark.value = origMark.value; 
-					mark.nrme = origMark.nrme; 
+					Mark mark = new Mark();
+					mark.markable_name = origMark.markable_name;
+					mark.feature_name = origMark.feature_name;
+					mark.path = newPath;
+					mark.value = origMark.value;
+					mark.nrme = origMark.nrme;
 					newMarkList.put(featureEntry.getKey(), mark);
 				}
 			}
 		}
-		
+
 		// Use the newly updated map of markings
 		if (marksUpdated) {
 			markingsMap = newMarkingsMap;
 		}
-		
+
 		return marksUpdated;
 	}
 
@@ -342,7 +341,7 @@ public class MarkingData {
    {
       LinkedHashMap<String, LinkedHashMap<String,Mark>> newMarkingsMap = new LinkedHashMap<String, LinkedHashMap<String,Mark>>();
       boolean marksUpdated = false;
-      
+
       for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
          LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
          for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) {
@@ -353,8 +352,7 @@ public class MarkingData {
             }
             String markValue = featureEntry.getValue().value;
             // Issue:12203 matches() will produce an error, if there are opening curly brackets in the oldAttributeValue string.
-            String oldA = oldAttributeValue.replace("{", "\\{");
-            if (  markValue.matches(".*\\b" + oldA + "\\b.*") && 
+            if (  markValue.matches(".*\\b" + oldAttributeValue.replace("{", "\\{") + "\\b.*") &&
                  (featureEntry.getValue().path.equals("*") || nrmeOfChange.equals(nrmeCurrent)) && !oldAttributeValue.equals("") ) {
                marksUpdated = true;
                Mark origMark = featureEntry.getValue();
@@ -385,7 +383,7 @@ public class MarkingData {
 	public void persist() {
 		try {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(project.getFullPath().append(MARKINGS_FILE));
-			
+
 			StringJoiner markingContentBuilder = new StringJoiner("\n");
 			// Persist the markings
 			for (Map.Entry<String, LinkedHashMap<String,Mark>> elementEntry : markingsMap.entrySet()) {
@@ -399,7 +397,7 @@ public class MarkingData {
 			file.setContents(bias, IFile.DEPTH_ONE, new NullProgressMonitor());
 		} catch (CoreException e) {
 			CorePlugin.logError("Error persisting to " + MARKINGS_FILE, e);
-		}        
+		}
 	}
 
 	/**
@@ -423,7 +421,7 @@ public class MarkingData {
 	}
 
 	/**
-	 * Returns an ordered collection of marks for a given 
+	 * Returns an ordered collection of marks for a given
 	 * application model instance.  Makes sure we return a clean/unique set
 	 * of marks that avoids path collisions by using the element type to resolve
 	 * ambiguities.
@@ -435,7 +433,7 @@ public class MarkingData {
 	public LinkedHashMap<String,Mark> getMarks(String modelElement, String elemType) {
 		LinkedHashMap<String,Mark> uncleanMarks = markingsMap.get(modelElement);
 		LinkedHashMap<String,Mark> uniqueMarks = new LinkedHashMap<String,Mark>();
-		
+
 		if ( uncleanMarks == null ) {
 			return null;
 		} else {
@@ -450,15 +448,15 @@ public class MarkingData {
 	}
 
 	/**
-	 * Returns an collection of marks for a given application model instance using 
-	 * a NonRootModelElement to find matches. 
+	 * Returns an collection of marks for a given application model instance using
+	 * a NonRootModelElement to find matches.
 	 *
-	 * @param nrme A NonRootModelElement instance to match against 
+	 * @param nrme A NonRootModelElement instance to match against
 	 * @return LinkedHashMap<String,Mark> collection of feature/value pairs
 	 */
 	public LinkedHashMap<String,Mark> getMarks(NonRootModelElement nrme) {
 		LinkedHashMap<String,Mark> marks = new LinkedHashMap<String,Mark>();
-		
+
 		for (Map.Entry<String, LinkedHashMap<String,Mark>> entry : markingsMap.entrySet())
 		{
 			marks = entry.getValue();
@@ -476,9 +474,9 @@ public class MarkingData {
 		String signature = new String("");
 		if (inst == null) { return ""; }
 		String pathkey = ((NonRootModelElement) inst).getPath();
-		
-		// If we're dealing with anything other than a package under the system and the path comes back as 
-		// just the element name, this means the instance is being deleted and does not currently have a 
+
+		// If we're dealing with anything other than a package under the system and the path comes back as
+		// just the element name, this means the instance is being deleted and does not currently have a
 		// valid path.
 		if ( !(inst instanceof Package_c) ||
 				((inst instanceof Package_c) && ( SystemModel_c.getOneS_SYSOnR1401((Package_c)inst) == null))) {
@@ -500,7 +498,7 @@ public class MarkingData {
 		} else if (inst instanceof TerminatorService_c) {
 			signature = ((TerminatorService_c) inst).Getsignature(1);
 		}
-		
+
 		if (!signature.isEmpty()) {
 			signature = signature.replaceAll(", ", " ");
 			String[] pathPieces = pathkey.split("::");
@@ -515,7 +513,7 @@ public class MarkingData {
 		pathkey = pathkey.replaceFirst(project.getName() + "::", "");
 		return pathkey;
 	}
-	
+
 	/*
 	 * Gather and return a collection of all the application model instances of a requested type
 	 * (i.e. OOA metamodel class like Attribute, Model Class, Function, etc) from all the model roots
@@ -541,13 +539,13 @@ public class MarkingData {
 				Collections.addAll(allInstances, instances);
 			}
 		} catch (ClassNotFoundException | NoSuchMethodException | NullPointerException | SecurityException |
-				IllegalAccessException | IllegalArgumentException | InvocationTargetException | 
+				IllegalAccessException | IllegalArgumentException | InvocationTargetException |
 				ExceptionInInitializerError e) {
 			CorePlugin.logError(e.toString(), e);
 		}
 		return allInstances;
 	}
-	
+
 	public static NonRootModelElement getNRMEForMark(String path, String elementType, IProject project) {
 		ArrayList<Object> instances = MarkingData.getInstancesForType(elementType, project);
 		for (Object candidate: instances) {
