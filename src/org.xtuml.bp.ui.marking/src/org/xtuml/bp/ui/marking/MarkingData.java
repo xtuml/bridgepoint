@@ -248,7 +248,8 @@ public class MarkingData {
          } else if ( (deltaToHandle.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) &&
         		    ((AttributeChangeModelDelta) deltaToHandle).getOldValue() != null &&
                      !(currentPath.matches(".*\\b" +
-                       ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString() + 
+                         // Issue:12203 matches() will produce an error, if there are opening curly brackets in the oldAttributeValue string.
+                       ((AttributeChangeModelDelta)deltaToHandle).getOldValue().toString().replace("{", "\\{") + 
                        "\\b.*")) ) {
              // Attribute change with attribute not in path.
              newPath = currentPath;
@@ -269,7 +270,9 @@ public class MarkingData {
                   String newAttributeValue = change.getNewValue().toString();
                   // This change would have to affect the path to return a null NRME, so check the path.
                   String modelElement = firstfeatureEntry.getValue().path;
-                  if (modelElement.matches(".*\\b" + oldAttributeValue + "\\b.*")) {
+                  // Issue:12203 matches() will produce an error, if there are opening curly brackets in the oldAttributeValue string.
+                  String oldA = oldAttributeValue.replace("{", "\\{");
+                  if (modelElement.matches(".*\\b" + oldA + "\\b.*")) {
                      // There can be more than one match in the path, so we have to change each until a
                      // valid nrme is found.
                      NonRootModelElement newNrme = null;
@@ -349,7 +352,9 @@ public class MarkingData {
                 nrmeCurrent = getNRMEForMark(featureEntry.getValue().path, featureEntry.getValue().markable_name, this.project);
             }
             String markValue = featureEntry.getValue().value;
-            if (  markValue.matches(".*\\b" + oldAttributeValue + "\\b.*") && 
+            // Issue:12203 matches() will produce an error, if there are opening curly brackets in the oldAttributeValue string.
+            String oldA = oldAttributeValue.replace("{", "\\{");
+            if (  markValue.matches(".*\\b" + oldA + "\\b.*") && 
                  (featureEntry.getValue().path.equals("*") || nrmeOfChange.equals(nrmeCurrent)) && !oldAttributeValue.equals("") ) {
                marksUpdated = true;
                Mark origMark = featureEntry.getValue();
