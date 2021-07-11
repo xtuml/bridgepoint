@@ -72,7 +72,11 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     @Override
     public void preprocess(ModelElement element, String keyletters) {
         /* handle imported class cases */
-        if (createdGraphicalElements.contains(element.getPlainAttribute("element")) && getOoaTypeFromOoaId() == 21) {
+        // if the graphic package and element package do not match, create an imported
+        // class
+        String actualElePkgId = element.getRefAttribute("actualElement").getOwner().getPlainAttribute("id");
+        String graphPkgId = element.getOwner().getRefAttribute("owner").getPlainAttribute("id");
+        if (!actualElePkgId.equals(graphPkgId) && getOoaTypeFromOoaId() == 21) {
             // create the imported class entry
             ImportedClassProcessorSQL importedClassProcessorSQL = new ImportedClassProcessorSQL(
                     getModelElement().getOwner().getRefAttribute("owner").getPlainAttribute("id"));
@@ -345,8 +349,8 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     }
 
     private int getOoaTypeFromOoaId() {
-        String keyLetters = IdProcessor.elementIdKeyLetts
-                .get(UUID.fromString(IdProcessor.process(getModelElement().getPlainAttribute("element"), null)));
+        String representsId = getModelElement().getPlainAttribute("element");
+        String keyLetters = IdProcessor.elementIdKeyLetts.get(UUID.fromString(IdProcessor.process(representsId, null)));
         ConnectionInformation information = ConnectionInformation.connectionMap
                 .get(getModelElement().getPlainAttribute("element"));
         if (information != null) {
@@ -396,6 +400,7 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     @Override
     public void postprocess(ModelElement element, String keyletters) {
         createdGraphicalElements.add(element.getPlainAttribute("element"));
+        elementId = "";
         importedClassId = null;
         importedClassSQL = "";
     }
@@ -403,7 +408,9 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     @Override
     public IgnoreType ignoreTranslation() {
         // EA has model class elements on statecharts, that is not supported in xtuml
-        if (!getModelElement().getOwner().getPlainAttribute("type").equals("Logical") && getOoaTypeFromOoaId() == 21) {
+        String type = getModelElement().getOwner().getPlainAttribute("type");
+        int ooaType = getOoaTypeFromOoaId();
+        if (!type.equals("Logical") && ooaType == 21) {
             return IgnoreType.NOT_HANDLED;
         }
         return getOoaTypeFromOoaId() == 0 ? IgnoreType.NOT_HANDLED : IgnoreType.NOT_IGNORED;

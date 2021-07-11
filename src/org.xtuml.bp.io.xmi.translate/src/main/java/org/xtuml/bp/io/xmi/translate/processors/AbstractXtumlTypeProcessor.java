@@ -55,8 +55,9 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
         }
         setModelElement(element);
         setKeyLetters(keyLetters);
-        if (ignoreTranslation() != IgnoreType.NOT_IGNORED) {
-            if (ignoreTranslation() == IgnoreType.NOT_HANDLED) {
+        IgnoreType ignoreType = ignoreTranslation();
+        if (ignoreType != IgnoreType.NOT_IGNORED) {
+            if (ignoreType == IgnoreType.NOT_HANDLED) {
                 XMITranslator.logSkipped("SKIPPING translation for: " + getKeyLetters());
             }
             return "";

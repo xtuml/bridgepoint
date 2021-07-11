@@ -100,6 +100,10 @@ public class XMITranslate {
 				processor.setKeyLetters("GD_GE");
 				processor.setModelElement(e);
 				if (processor.isShape()) {
+					String plainAttribute = e.getPlainAttribute("element");
+					if (plainAttribute.equals("EAID_D5F06649_48DF_438b_9D79_C42F73745EA8")) {
+						System.out.println("Test");
+					}
 					mapToXtuml(e, m);
 				}
 			} else {

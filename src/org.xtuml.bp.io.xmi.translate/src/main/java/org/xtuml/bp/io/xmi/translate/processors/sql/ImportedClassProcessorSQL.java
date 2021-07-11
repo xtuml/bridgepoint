@@ -21,7 +21,9 @@ public class ImportedClassProcessorSQL extends AbstractImportedClassProcessor {
 
     @Override
     public String getIObj_ID() {
-        return SQLUtils.idValue(importedClassId.toString(), getKeyLetters());
+        // DO NOT use the keyletter argument here, imported classes
+        // are handled via the graphical element location
+        return SQLUtils.idValue(importedClassId.toString());
     }
 
     public UUID getImportedClassId() {
@@ -30,7 +32,7 @@ public class ImportedClassProcessorSQL extends AbstractImportedClassProcessor {
 
     @Override
     public String getObj_ID() {
-        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 
     @Override
