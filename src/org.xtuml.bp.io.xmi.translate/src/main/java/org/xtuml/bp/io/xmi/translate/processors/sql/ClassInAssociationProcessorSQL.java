@@ -43,6 +43,11 @@ public class ClassInAssociationProcessorSQL extends AbstractClassInAssociationPr
     }
 
     @Override
+    public boolean handlesPackageableElement() {
+        return true;
+    }
+
+    @Override
     public String getProcessorOutput() {
         return SQLUtils.getProcessorOutput(this);
     }

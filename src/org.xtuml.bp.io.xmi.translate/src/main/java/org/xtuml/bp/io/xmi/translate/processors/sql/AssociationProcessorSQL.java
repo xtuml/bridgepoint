@@ -30,6 +30,7 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
     int numb = -1;
     String descrip;
     String subKeyLetters;
+    private boolean ignoreSupporting = false;
 
     public AssociationProcessorSQL(String assocId, int numb, String descrip, String subKeyLetters) {
         this.assocId = assocId;
@@ -39,9 +40,25 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
     }
 
     @Override
+    public void preprocess(ModelElement element, String keyletters) {
+        owner = element.getOwner();
+    }
+
+    /**
+     * Creation via R_ASSR, this prevents automatic creation of simple association
+     * 
+     * @param assocId
+     * @param descrip
+     */
+    public AssociationProcessorSQL(String assocId, ModelElement owner) {
+        this.assocId = assocId;
+        this.ignoreSupporting = true;
+    }
+
+    @Override
     public String getRel_ID() {
         if (assocId != null) {
-            return SQLUtils.idValue(assocId, subKeyLetters);
+            return SQLUtils.idValue(assocId, subKeyLetters != null ? subKeyLetters : getKeyLetters());
         }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
@@ -58,7 +75,11 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
         if (name.startsWith("R")) {
             String numb = name.substring(1, name.length());
             if (numb.chars().allMatch(Character::isDigit)) {
-                return SQLUtils.numberValue(Integer.parseInt(numb));
+                int number = Integer.parseInt(numb);
+                if (number > count) {
+                    count = number + 1;
+                }
+                return SQLUtils.numberValue(number);
             }
         }
         if (owner != null && owner == getModelElement().getOwner()) {
@@ -85,6 +106,9 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
 
     @Override
     public String createSupportingElements() {
+        if (ignoreSupporting) {
+            return "";
+        }
         // processors to output for
         List<AbstractXtumlTypeProcessor> processors = new ArrayList<>();
         // look at the member ends for the associated classes
@@ -153,6 +177,11 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
             ignore = datatypeAssoc || subsupAssoc || onlyOneSide;
         }
         return ignore ? IgnoreType.HANDLED : IgnoreType.NOT_IGNORED;
+    }
+
+    @Override
+    public boolean handlesPackageableElement() {
+        return ignoreSupporting;
     }
 
     @Override

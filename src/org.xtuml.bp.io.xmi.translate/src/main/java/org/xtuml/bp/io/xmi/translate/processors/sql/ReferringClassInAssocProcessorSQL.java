@@ -37,6 +37,11 @@ public class ReferringClassInAssocProcessorSQL extends AbstractReferringClassInA
     }
 
     @Override
+    public boolean handlesPackageableElement() {
+        return true;
+    }
+
+    @Override
     public String getProcessorOutput() {
         return SQLUtils.getProcessorOutput(this);
     }
