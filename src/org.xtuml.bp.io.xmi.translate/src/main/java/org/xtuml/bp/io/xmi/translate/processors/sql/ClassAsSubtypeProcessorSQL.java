@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.XMITranslate;
 import org.xtuml.bp.io.xmi.translate.processors.AbstractXtumlTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractClassAsSubtypeProcessor;
-import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.ConnectionInformation;
 
 public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor {
 
@@ -63,7 +63,6 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
         ModelElement supertype = getModelElement().getRefAttribute("general");
         String supertypeOutput = "";
         List<AbstractXtumlTypeProcessor> processors = new ArrayList<>();
-        ModelElement subtype = getModelElement().getOwner();
         String supertypeId = supertype.getPlainAttribute("id");
         if (!createdSupertypes.contains(supertypeId)) {
             String pkgId = getModelElement().getOwner().getOwner().getPlainAttribute("id");
@@ -74,7 +73,8 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
             SubtypeSupertypeAssociationProcessorSQL subSup = new SubtypeSupertypeAssociationProcessorSQL();
             subSup.setModelElement(getModelElement());
             subSup.setKeyLetters("R_SUBSUP");
-            AssociationProcessorSQL superAssocProcessorSQL = new AssociationProcessorSQL(assocId, 0,
+            int numb = getAssociationNumber();
+            AssociationProcessorSQL superAssocProcessorSQL = new AssociationProcessorSQL(assocId, numb,
                     "EA Element: " + getModelElement().getFullName(), "R_SUPER");
             superAssocProcessorSQL.setKeyLetters("R_REL");
             ClassInAssociationProcessorSQL superCia = new ClassInAssociationProcessorSQL(supertypeId, assocId);
@@ -85,8 +85,6 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
             ReferredToClassInAssocProcessorSQL rto = new ReferredToClassInAssocProcessorSQL(supertypeId, assocId,
                     superCia.getId());
             rto.setKeyLetters("R_RTO");
-            // setup for graphics later, supertype start and end null
-            new ConnectionInformation(assocId, supertypeId, 36, null);
             supertypeOutput = SQLUtils.getInsertStatement(subSup, getModelElement())
                     + SQLUtils.getInsertStatement(superAssocProcessorSQL, null)
                     + SQLUtils.getInsertStatement(superCia, null) + SQLUtils.getInsertStatement(superProcessor, null)
@@ -94,10 +92,6 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
             supertypeAssoc.put(supertypeId, assocId);
             createdSupertypes.add(supertypeId);
         }
-        // setup for graphics later, subtype start and end supertype
-        ConnectionInformation subInfo = new ConnectionInformation(getModelElement().getPlainAttribute("id"),
-                subtype.getPlainAttribute("id"), 35, cia.getId());
-        subInfo.setEndEle(assocId);
         cia.setKeyLetters("R_OIR");
         processors.add(cia);
         ReferringClassInAssocProcessorSQL referringProcessor = new ReferringClassInAssocProcessorSQL(classId, assocId,
@@ -108,6 +102,16 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
         processors.forEach(p -> joiner.add(p.getProcessorOutput()));
         joiner.add(supertypeOutput.toString());
         return joiner.toString();
+    }
+
+    private int getAssociationNumber() {
+        ModelElement eaDiagramConnector = XMITranslate.eaDiagramConnectors
+                .get(getModelElement().getPlainAttribute("id"));
+        if (eaDiagramConnector.getName().startsWith("R")) {
+            String assocNumbString = eaDiagramConnector.getName().replace("R", "");
+            return Integer.valueOf(assocNumbString);
+        }
+        return 0;
     }
 
     @Override

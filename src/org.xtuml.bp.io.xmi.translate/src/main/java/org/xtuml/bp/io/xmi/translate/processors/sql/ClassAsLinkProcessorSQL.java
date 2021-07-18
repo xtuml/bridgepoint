@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.XMITranslate;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractClassAsLinkProcessor;
-import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.ConnectionInformation;
 
 public class ClassAsLinkProcessorSQL extends AbstractClassAsLinkProcessor {
     private String assocId = IdProcessor.NULL_ID;
@@ -60,8 +60,8 @@ public class ClassAsLinkProcessorSQL extends AbstractClassAsLinkProcessor {
         LinkedAssociationProcessorSQL linkedAssociationProcessorSQL = new LinkedAssociationProcessorSQL(assocId);
         linkedAssociationProcessorSQL.setKeyLetters("R_ASSOC");
         supporting.append(linkedAssociationProcessorSQL.getProcessorOutput());
-        AssociationProcessorSQL associationProcessorSQL = new AssociationProcessorSQL(assocId,
-                getModelElement().getOwner());
+        AssociationProcessorSQL associationProcessorSQL = new AssociationProcessorSQL(assocId, getAssociationNumber(),
+                "", "R_ASSR");
         associationProcessorSQL.setModelElement(getModelElement());
         associationProcessorSQL.setKeyLetters("R_REL");
         supporting.append(associationProcessorSQL.getProcessorOutput());
@@ -70,6 +70,16 @@ public class ClassAsLinkProcessorSQL extends AbstractClassAsLinkProcessor {
         packageableElementProcessorSQL.setKeyLetters("PE_PE");
         supporting.append(packageableElementProcessorSQL.getProcessorOutput());
         return supporting.toString();
+    }
+
+    private int getAssociationNumber() {
+        ModelElement eaDiagramConnector = XMITranslate.eaDiagramConnectors
+                .get(getModelElement().getPlainAttribute("id"));
+        if (eaDiagramConnector.getName().startsWith("R")) {
+            String assocNumbString = eaDiagramConnector.getName().replace("R", "");
+            return Integer.valueOf(assocNumbString);
+        }
+        return 0;
     }
 
     @Override

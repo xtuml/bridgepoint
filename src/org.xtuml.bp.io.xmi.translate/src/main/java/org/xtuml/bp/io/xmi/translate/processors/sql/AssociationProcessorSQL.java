@@ -37,22 +37,12 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
         this.numb = numb;
         this.descrip = descrip;
         this.subKeyLetters = subKeyLetters;
+        ignoreSupporting = true;
     }
 
     @Override
     public void preprocess(ModelElement element, String keyletters) {
         owner = element.getOwner();
-    }
-
-    /**
-     * Creation via R_ASSR, this prevents automatic creation of simple association
-     * 
-     * @param assocId
-     * @param descrip
-     */
-    public AssociationProcessorSQL(String assocId, ModelElement owner) {
-        this.assocId = assocId;
-        this.ignoreSupporting = true;
     }
 
     @Override

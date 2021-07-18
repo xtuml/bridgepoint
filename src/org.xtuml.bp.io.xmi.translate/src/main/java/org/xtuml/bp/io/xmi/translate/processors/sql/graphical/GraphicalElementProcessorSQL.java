@@ -125,32 +125,38 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
             noncontainingShapeProcessorSQL.setKeyLetters("GD_NCS");
             StringBuilder builder = new StringBuilder(importedClassSQL);
             builder.append(SQLUtils.getInsertStatement(graphelementProcessorSQL, getModelElement()));
-            // setup DIM_CON
-            List<ConnectionInformation> startConnections = ConnectionInformation.connectionToStartGeMap
-                    .get(getModelElement().getPlainAttribute("element"));
-            if (startConnections != null) {
-                startConnections.forEach(conn -> {
-                    GraphconnectorProcessorSQL graphCon = new GraphconnectorProcessorSQL(
-                            getModelElement().getPlainAttribute("id"), rect.getMidPoint().x, rect.getMidPoint().y);
-                    graphCon.setKeyLetters("DIM_CON");
-                    if (conn.getStartEle().equals(getModelElement().getPlainAttribute("element"))) {
-                        conn.setStartCon(graphCon);
-                    }
-                    builder.append(SQLUtils.getInsertStatement(graphCon, getModelElement()));
-                });
-            }
-            List<ConnectionInformation> endConnections = ConnectionInformation.connectionToEndGeMap
-                    .get(getModelElement().getPlainAttribute("element"));
-            if (endConnections != null) {
-                endConnections.forEach(conn -> {
-                    GraphconnectorProcessorSQL graphCon = new GraphconnectorProcessorSQL(
-                            getModelElement().getPlainAttribute("id"), rect.getMidPoint().x, rect.getMidPoint().y);
-                    graphCon.setKeyLetters("DIM_CON");
-                    if (conn.getEndEle().equals(getModelElement().getPlainAttribute("element"))) {
-                        conn.setEndCon(graphCon);
-                    }
-                    builder.append(SQLUtils.getInsertStatement(graphCon, getModelElement()));
-                });
+            // do not setup dim con unless in same package
+            String actualElePkgId = getModelElement().getRefAttribute("actualElement").getOwner()
+                    .getPlainAttribute("id");
+            String graphPkgId = getModelElement().getOwner().getRefAttribute("owner").getPlainAttribute("id");
+            if (actualElePkgId.equals(graphPkgId) || getOoaTypeFromOoaId() != 21) {
+                // setup DIM_CON
+                List<ConnectionInformation> startConnections = ConnectionInformation.connectionToStartGeMap
+                        .get(getModelElement().getPlainAttribute("element"));
+                if (startConnections != null) {
+                    startConnections.forEach(conn -> {
+                        GraphconnectorProcessorSQL graphCon = new GraphconnectorProcessorSQL(
+                                getModelElement().getPlainAttribute("id"), rect.getMidPoint().x, rect.getMidPoint().y);
+                        graphCon.setKeyLetters("DIM_CON");
+                        if (conn.getStartEle().equals(getModelElement().getPlainAttribute("element"))) {
+                            conn.setStartCon(graphCon);
+                        }
+                        builder.append(SQLUtils.getInsertStatement(graphCon, getModelElement()));
+                    });
+                }
+                List<ConnectionInformation> endConnections = ConnectionInformation.connectionToEndGeMap
+                        .get(getModelElement().getPlainAttribute("element"));
+                if (endConnections != null) {
+                    endConnections.forEach(conn -> {
+                        GraphconnectorProcessorSQL graphCon = new GraphconnectorProcessorSQL(
+                                getModelElement().getPlainAttribute("id"), rect.getMidPoint().x, rect.getMidPoint().y);
+                        graphCon.setKeyLetters("DIM_CON");
+                        if (conn.getEndEle().equals(getModelElement().getPlainAttribute("element"))) {
+                            conn.setEndCon(graphCon);
+                        }
+                        builder.append(SQLUtils.getInsertStatement(graphCon, getModelElement()));
+                    });
+                }
             }
             builder.append(SQLUtils.getInsertStatement(graphnodeProcessorSQL, getModelElement()))
                     .append(SQLUtils.getInsertStatement(diagramelementProcessorSQL, getModelElement()))
@@ -246,7 +252,6 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                                 .append(SQLUtils.getInsertStatement(endWayPointProcessorSQL, getModelElement()))
                                 .append(startText.getProcessorOutput()).append(middleText.getProcessorOutput())
                                 .append(endText.getProcessorOutput());
-
                     }
                 }
             }
@@ -273,8 +278,8 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         Float y = values.get("Top") != null ? Float.valueOf(values.get("Top")) : 0f;
         Float right = values.get("Right") != null ? Float.valueOf(values.get("Right")) : 0f;
         Float bottom = values.get("Bottom") != null ? Float.valueOf(values.get("Bottom")) : 0f;
-        Float w = right - x > 0 ? right - x : 100f;
-        Float h = bottom - y > 0 ? bottom - y : 100f;
+        Float w = right - x > 0 ? right - x : 0f;
+        Float h = bottom - y > 0 ? bottom - y : 0f;
         return new Rectangle(x, y, w, h);
     }
 
@@ -328,24 +333,16 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     }
 
     public boolean isShape() {
-        String keyLetters = IdProcessor.elementIdKeyLetts
-                .get(UUID.fromString(IdProcessor.process(getModelElement().getPlainAttribute("element"), null)));
-        if (keyLetters == null) {
-            keyLetters = "";
+        return isShape(getModelElement());
+    }
+
+    public boolean isShape(ModelElement element) {
+        // create through another GD_GE, currently only connectors
+        if (getModelElement() == null) {
+            return false;
         }
-        switch (keyLetters) {
-            case "R_REL":
-                return false;
-            case "R_SUPER":
-                return false;
-            case "R_SUB":
-                return false;
-            case "SM_TXN":
-                return false;
-            case "UC_UCA":
-                return false;
-        }
-        return true;
+        Rectangle bounds = getBoundsFromString(getModelElement().getPlainAttribute("bounds"));
+        return bounds.w != 0 && bounds.h != 0;
     }
 
     private int getOoaTypeFromOoaId() {
@@ -384,13 +381,18 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
             case "R_REL":
                 return 24;
             case "R_SUB":
-                return 35;
+                // graphics created in class as subtype
+                return 0;
             case "R_SUPER":
-                return 36;
+                // graphics created in class as subtype
+                return 0;
             case "SM_TXN":
                 return 42;
             case "UC_UCA":
                 return 87;
+            case "R_ASSR":
+                // graphics created in class as link processor
+                return 0;
             default:
                 break;
         }

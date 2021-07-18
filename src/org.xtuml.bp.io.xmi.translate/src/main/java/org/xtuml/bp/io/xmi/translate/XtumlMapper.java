@@ -15,7 +15,9 @@ import org.xtuml.bp.io.xmi.translate.processors.XtumlTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ActorParticipantProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.AssociationProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.AttributeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.ClassAsLinkProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ClassAsSubtypeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.ClassInstanceParticipantProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.CommentProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ComponentProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.DataTypeProcessorSQL;
@@ -25,6 +27,7 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.HeaderProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InstanceStateMachineProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceOperationProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.LifespanProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.ModelClassProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.OperationParameterProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.OperationProcessorSQL;
@@ -58,28 +61,37 @@ public class XtumlMapper {
 			entry("SM_ISM", new InstanceStateMachineProcessorSQL()),
 			entry("SM_STATE", new StateMachineStateProcessorSQL()), entry("R_REL", new AssociationProcessorSQL()),
 			entry("R_SUB", new ClassAsSubtypeProcessorSQL()), entry("SM_TXN", new TransitionProcessorSQL()),
-			entry("UC_UCA", new UseCaseAssociationProcessorSQL())));
+			entry("UC_UCA", new UseCaseAssociationProcessorSQL()), entry("R_ASSR", new ClassAsLinkProcessorSQL()),
+			entry("SQ_LS", new LifespanProcessorSQL()), entry("SQ_CIP", new ClassInstanceParticipantProcessorSQL())));
 	static Map<MapperType, Map<String, XtumlTypeProcessor>> graphicalMappers = Map.of(MapperType.SQL,
 			Map.of("GD_MD", new ModelProcessorSQL(), "GD_GE", new GraphicalElementProcessorSQL()));
 
 	public static String process(MapperType type, ModelElement e, String mapping) {
-		// mapping can be either a single key_lett value or an array of values
-		String actualMapping = getMappingToUse(e, mapping);
-		Map<String, XtumlTypeProcessor> processors = mappers.get(type);
-		XtumlTypeProcessor xtumlTypeProcessor = processors.get(actualMapping);
-		if (xtumlTypeProcessor == null) {
-			// check for graphical processor
-			processors = graphicalMappers.get(type);
-			xtumlTypeProcessor = processors.get(actualMapping);
+		// in some cases an EA entry needs more than one processor called
+		// one such case is with association class, we need to create the O_OBJ
+		// and the R_ASSR
+		StringBuilder completeResult = new StringBuilder();
+		String[] mappings = mapping.split("\\+");
+		for (int i = 0; i < mappings.length; i++) {
+			String m = mappings[i];
+			// mapping can be either a single key_lett value or an array of values
+			String actualMapping = getMappingToUse(e, m);
+			Map<String, XtumlTypeProcessor> processors = mappers.get(type);
+			XtumlTypeProcessor xtumlTypeProcessor = processors.get(actualMapping);
+			if (xtumlTypeProcessor == null) {
+				// check for graphical processor
+				processors = graphicalMappers.get(type);
+				xtumlTypeProcessor = processors.get(actualMapping);
+			}
+			if (xtumlTypeProcessor == null) {
+				XMITranslator.logNoProcessor("TODO: Implement processor for " + actualMapping);
+			} else {
+				String result = xtumlTypeProcessor.process(e, actualMapping);
+				XMITranslator.log(result);
+				completeResult.append(result);
+			}
 		}
-		if (xtumlTypeProcessor == null) {
-			XMITranslator.logNoProcessor("TODO: Implement processor for " + actualMapping);
-			return "";
-		} else {
-			String result = xtumlTypeProcessor.process(e, actualMapping);
-			XMITranslator.log(result);
-			return result;
-		}
+		return completeResult.toString();
 	}
 
 	/**
@@ -93,6 +105,7 @@ public class XtumlMapper {
 	 * 
 	 * # overloaded asssociation
 	 * mapping="connection?O_OBJ-O_OBJ:R_REL,connection?IA_UCP-Any:UC_UCA"
+	 * 
 	 */
 	private static String getMappingToUse(ModelElement e, String mapping) {
 		String[] mappings = mapping.split(",");

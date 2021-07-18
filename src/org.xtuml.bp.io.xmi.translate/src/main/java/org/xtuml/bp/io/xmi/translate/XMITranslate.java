@@ -30,6 +30,7 @@ public class XMITranslate {
 
 	private StringBuilder xtumlOutput = new StringBuilder();
 	public static Map<ModelElement, String> graphicElements = new HashMap<>();
+	public static Map<String, ModelElement> eaDiagramConnectors = new HashMap<>();
 
 	public void loadXMI(String xmi, String output)
 			throws ParserConfigurationException, SAXException, XMLParseException {
@@ -72,6 +73,7 @@ public class XMITranslate {
 		while (root.getOwner() != null) {
 			root = root.getOwner();
 		}
+		model.forEach(e -> cacheSupportingElements(e));
 		model.forEach(e -> outputXtuml(e));
 		// process graphics after collecting ooaofooa data
 		processGraphics();
@@ -100,10 +102,6 @@ public class XMITranslate {
 				processor.setKeyLetters("GD_GE");
 				processor.setModelElement(e);
 				if (processor.isShape()) {
-					String plainAttribute = e.getPlainAttribute("element");
-					if (plainAttribute.equals("EAID_D5F06649_48DF_438b_9D79_C42F73745EA8")) {
-						System.out.println("Test");
-					}
 					mapToXtuml(e, m);
 				}
 			} else {
@@ -123,9 +121,21 @@ public class XMITranslate {
 		XMITranslator.logTodo("\nTranslated " + graphicElements.size() + " graphical elements.");
 	}
 
+	private void cacheSupportingElements(ModelElement e) {
+		// cache diagram connectors for graphic creation
+		if (e.getType().getName().equals("diagramConnector")) {
+			String associationClass = e.getPlainAttribute("associationClass");
+			if (!associationClass.equals("")) {
+				eaDiagramConnectors.put(associationClass, e);
+			}
+			eaDiagramConnectors.put(e.getPlainAttribute("subject"), e);
+		}
+	}
+
 	private void outputXtuml(ModelElement e) {
-		if (e == null)
+		if (e == null) {
 			return;
+		}
 		String mapping = e.getType().getMapping();
 		if (mapping == null) {
 			// see if a relational child

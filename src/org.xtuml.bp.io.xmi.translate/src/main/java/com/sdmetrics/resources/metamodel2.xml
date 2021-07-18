@@ -127,7 +127,7 @@ other part of SDMetrics.
     <attribute name="upperBounds"></attribute>
   </modelelement>
 
-  <modelelement name="associationclass" parent="association" mapping="O_OBJ">
+  <modelelement name="associationclass" parent="association" mapping="O_OBJ+R_ASSR">
     <attribute mapping="O_ATTR" name="ownedattributes" type="ref" multiplicity="many">The attributes of the element.</attribute>
   </modelelement>
 
@@ -162,12 +162,12 @@ other part of SDMetrics.
     <attribute name="fragments" type="ref" multiplicity="many">The message occurrence specifications and combined fragments of the interaction.</attribute>
   </modelelement>
 
-  <modelelement name="instancespecification">
+  <modelelement name="instancespecification" mapping="SQ_CIP">
     <attribute name="classifier" type="ref" multiplicity="many">Links to the classifiers that this entity is an instance of.</attribute>
     <attribute name="deployments" type="ref" multiplicity="many">The deployments where this instance specification is the target.</attribute>
   </modelelement>
 
-  <modelelement name="lifeline">
+  <modelelement name="lifeline" mapping="SQ_LS">
     <attribute name="represents" type="ref">The interaction participant that this lifeline represents.</attribute>
   </modelelement>
 
@@ -369,8 +369,13 @@ other part of SDMetrics.
   <modelelement name="diagramelement" mapping="GD_GE">
     <attribute name="element">The element id that is shown on the diagram.</attribute>
     <attribute name="actualElement" type="ref">Reference to the actual element to be showing on the diagram.</attribute>
+    <attribute name="diagramConnector" type="ref">EA connector instance</attribute>
     <attribute name="bounds">The elements bounds.</attribute>
   </modelelement>
 
-
+  <!-- Support EA extensions -->
+  <modelelement name="diagramConnector">
+    <attribute name="subject" type="data"></attribute>
+    <attribute name="associationClass"></attribute>
+  </modelelement>
 </sdmetricsmetamodel>
