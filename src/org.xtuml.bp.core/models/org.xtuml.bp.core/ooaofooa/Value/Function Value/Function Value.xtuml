@@ -30,6 +30,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("b72d48d4-084b-4e53-a0b7-61830cf695f4",
@@ -50,32 +51,34 @@ if (not_empty statement)
 else
   select one fn related by self->S_SYNC[R827];
   pathMsg = "<No Path Available - Empty instance>";
-    if (not_empty body)
-      pathMsg = body.getPath();
-    end if;
-	USER::logError(msg:"Error executing Function: " +
+  if (not_empty body)
+     pathMsg = body.getPath();
+  end if;
+  USER::logError(msg:"Error executing Function: " +
 			     fn.Name + ". No function OAL found, returning default value.",path:pathMsg);
   select one dt related by fn->S_DT[R25];
   select any stack_frame from instances of I_STF where
                                 selected.Stack_Frame_ID == param.stack_frame_id; 
   if empty stack_frame
-    pathMsg = "<No Path Available - Empty instance>";
-    if (not_empty body)
-      pathMsg = body.getPath();
-    end if;
 	USER::logError(msg:"Internal error in Function Invocation.execute: Could not get stack frame.",path:pathMsg);
   else 
     select one stack related by stack_frame->I_STACK[R2943]; 
     select any result related by stack_frame->I_VSF[R2951] where
                                              selected.Value_ID == self.Value_ID;
-    // Return the default result
+  // Return the default result
     select one rtVal related by result->RV_RVL[R3305];
+    if ( empty rtVal )
+      create object instance rtVal of RV_RVL;
+      relate rtVal to result across R3305;
+      rtVal.createSimpleValue();
+    end if;
     rtVal.setValue(value:dt.getDefaultValue());
   end if;
 end if;',
 	1,
 	'',
 	"a554dbfd-eedf-48e5-9a01-98782897bf10",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1c16ed7b-9e9a-4ed8-b645-5bba13a07865",
@@ -201,6 +204,7 @@ return true;',
 	1,
 	'',
 	"b72d48d4-084b-4e53-a0b7-61830cf695f4",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e819a990-7240-48f4-ae5a-31fc02035d35",
