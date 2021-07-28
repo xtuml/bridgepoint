@@ -157,45 +157,48 @@ ${rel_nav.body}\
     int resultSize = 0;
   .//
   .// We need to return a set of instances for each item that is specified
-  .// as a child of the element represented by this adapter.
+  .// as a child of the element represented by this adapter. (unless suppressed)
   .//
   .assign isSpecialCase = false
   .assign childCount = 0
   .for each spec in child_specs
-    .select one child related by spec->T_TNS[R1001]
-    .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
-    .assign query = spec.WhereClause
-    .assign resultName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
-    .assign childCount = childCount + 1
-    .invoke rel_nav = generate_backward_rel_chain_nav_with_query(tree_node.Key_Lett, spec.ParentChildRelChain, "many", "arg", resultName, true, query)
+    .assign skip = spec.SuppressDisplay
+    .if ( not skip )
+      .select one child related by spec->T_TNS[R1001]
+      .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
+      .assign query = spec.WhereClause
+      .assign resultName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
+      .assign childCount = childCount + 1
+      .invoke rel_nav = generate_backward_rel_chain_nav_with_query(tree_node.Key_Lett, spec.ParentChildRelChain, "many", "arg", resultName, true, query)
 ${rel_nav.body}\
-    .if ( not child.Sorted )
-      .assign alpha_sort = false
-      .select any child_class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
-      .//
-      .select any attr related by child_class->O_ATTR[R102] where ( selected.Name == "Name" )
-      .if ( not_empty attr )
-        .assign alpha_sort = true
-      .else
-        .select any op related by child_class->O_TFR[R115] where ( selected.Name == "get_name" )
-        .if ( not_empty op )
+      .if ( not child.Sorted )
+        .assign alpha_sort = false
+        .select any child_class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
+        .//
+        .select any attr related by child_class->O_ATTR[R102] where ( selected.Name == "Name" )
+        .if ( not_empty attr )
           .assign alpha_sort = true
+        .else
+          .select any op related by child_class->O_TFR[R115] where ( selected.Name == "get_name" )
+          .if ( not_empty op )
+            .assign alpha_sort = true
+          .end if
+        .end if
+        .//
+        .if ( alpha_sort )
+    	        ${provider_name}.sort(${resultName});
         .end if
       .end if
-      .//
-      .if ( alpha_sort )
-    	        ${provider_name}.sort(${resultName});
-      .end if
-    .end if
-    .if ((tree_node.Key_Lett == "SM_ISM") and (child.Key_Lett == "SM_EVT"))
+      .if ((tree_node.Key_Lett == "SM_ISM") and (child.Key_Lett == "SM_EVT"))
         ${resultName} = removeNonLocalEvents(${resultName});
-    .end if
-    .if ((tree_node.Key_Lett == "I_EXE") and (child.Key_Lett != "C_PO"))
+      .end if
+      .if ((tree_node.Key_Lett == "I_EXE") and (child.Key_Lett != "C_PO"))
     if (((ComponentInstance_c)arg).getRealizedby() == null) {
       resultSize += ${resultName}.length;
     }
-    .else
+      .else
     resultSize += ${resultName}.length;
+      .end if
     .end if
   .end for
   .if ( not isSpecialCase )
@@ -206,26 +209,29 @@ ${rel_nav.body}\
   .end if
   .assign childCount = 0
   .for each spec in child_specs
-    .select one child related by spec->T_TNS[R1001]
-    .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
-    .assign resultName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
-    .assign childCount = childCount + 1
-    .if ( child.Sorted )
-      .select any child_class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
-      .invoke gcn = get_class_name(child_class)
-      .assign child_class_name = "${gcn.body}"
+	 .assign skip = spec.SuppressDisplay
+    .if ( not skip )
+      .select one child related by spec->T_TNS[R1001]
+      .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
+      .assign resultName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
+      .assign childCount = childCount + 1
+      .if ( child.Sorted )
+        .select any child_class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
+        .invoke gcn = get_class_name(child_class)
+        .assign child_class_name = "${gcn.body}"
     ${child_class_name}Sorter sorter${child.Key_Lett} = new ${child_class_name}Sorter();
     sorter${child.Key_Lett}.sort(${resultName});
-    .end if
-    .if ((tree_node.Key_Lett == "I_EXE") and (child.Key_Lett != "C_PO"))
+      .end if
+      .if ((tree_node.Key_Lett == "I_EXE") and (child.Key_Lett != "C_PO"))
     if (((ComponentInstance_c)arg).getRealizedby() == null) {
-    .end if
+      .end if
     for (int i = 0 ; i < ${resultName}.length ; i++) {
       result[count] = ${resultName}[i];
       count++;
     }
-    .if ((tree_node.Key_Lett == "I_EXE") and (child.Key_Lett != "C_PO"))
+      .if ((tree_node.Key_Lett == "I_EXE") and (child.Key_Lett != "C_PO"))
     }
+      .end if
     .end if
   .end for
     return result;

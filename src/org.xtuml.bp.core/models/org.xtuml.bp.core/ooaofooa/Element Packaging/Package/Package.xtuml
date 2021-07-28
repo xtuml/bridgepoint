@@ -4246,7 +4246,12 @@ INSERT INTO O_TFR
 // Initialize classes ready for Verifier execution
 select any compInst from instances of I_EXE where
                                selected.Execution_Engine_ID == param.compInstID;
-select many classes related by self->PE_PE[R8000]->O_OBJ[R8001];
+package = self;
+if (self.isAssigned())
+  select one package related by self->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+end if;
+
+select many classes related by package->PE_PE[R8000]->O_OBJ[R8001];
 for each clazz in classes
   create object instance cie of CSME_CIE;
   relate cie to compInst across R2960;
@@ -4256,7 +4261,7 @@ end for;
 select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
 for each package in packages
   package.initializeClasses(compInstID:param.compInstID);
-end for;',
+end for;d for;',
 	1,
 	'',
 	"331a19c3-da40-4501-bb7e-af49068dacef",
@@ -4330,25 +4335,32 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Package.ownsExecutableElementsOrChildOwnsExecutableElements()
-select any func related by self->PE_PE[R8000]->S_SYNC[R8001];
+
+package = self;
+if (package.isAssigned())  // preserve value of ''self''
+  select one package related by package->EP_PKGREF[R1402.''refers to'']->EP_PKG[R1402.''refers to''];
+end if;
+
+select any func related by package->PE_PE[R8000]->S_SYNC[R8001];
 if not_empty func
   return true; 
 end if;
-select any modelClass related by self->PE_PE[R8000]->O_OBJ[R8001];
+select any modelClass related by package->PE_PE[R8000]->O_OBJ[R8001];
 if not_empty modelClass
   return true; 
 end if;
-select any comp related by self->PE_PE[R8000]->C_C[R8001];
+select any comp related by package->PE_PE[R8000]->C_C[R8001];
 if not_empty comp
   return true; 
 end if;
-select any compR related by self->PE_PE[R8000]->CL_IC[R8001];
+select any compR related by package->PE_PE[R8000]->CL_IC[R8001];
 if not_empty compR
   return true; 
 end if;
+
 select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
-for each childPkg in packages
-  if childPkg.ownsExecutableElementsOrChildOwnsExecutableElements()
+for each package in packages
+  if package.ownsExecutableElementsOrChildOwnsExecutableElements()
     return true;
   end if;
 end for;
