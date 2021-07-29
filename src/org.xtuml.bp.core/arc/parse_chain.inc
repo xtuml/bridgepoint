@@ -73,7 +73,7 @@
       .if (not_empty nav.rel)
         .invoke result = get_nav_func_name(nav.class, nav.rel, p_nav_card) .//Creates the function call to get related instances
         .assign nav_func_name = "${result.body}"
-${cn.body}.${nav_func_name}${nav.phrase}(\
+    ${cn.body}.${nav_func_name}${nav.phrase}(
         .assign num_parens = num_parens + 1
       .end if
     .end if
@@ -303,7 +303,7 @@ ${nav_string.body}
           .invoke ccn = get_class_name(cur_class)
           .invoke result = get_nav_func_name(cur_class, nav.rel, "one")
           .assign nav_func_name = "${result.body}"
-${ccn.body}.${nav_func_name}${nav.phrase}(\
+    ${ccn.body}.${nav_func_name}${nav.phrase}(
           .//
           .// Note we don't assign the newly parsed key letter until after
           .// emitting the call. This is because the navigation is being 

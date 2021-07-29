@@ -4261,7 +4261,7 @@ end for;
 select many packages related by self->PE_PE[R8000]->EP_PKG[R8001];
 for each package in packages
   package.initializeClasses(compInstID:param.compInstID);
-end for;d for;',
+end for;',
 	1,
 	'',
 	"331a19c3-da40-4501-bb7e-af49068dacef",
