@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.XMITranslate;
 import org.xtuml.bp.io.xmi.translate.XMITranslator;
 
 public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
@@ -58,7 +59,7 @@ public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
         IgnoreType ignoreType = ignoreTranslation();
         if (ignoreType != IgnoreType.NOT_IGNORED) {
             if (ignoreType == IgnoreType.NOT_HANDLED) {
-                XMITranslator.logSkipped("SKIPPING translation for: " + getKeyLetters());
+                XMITranslate.logger.logSkipped("SKIPPING translation for: " + getKeyLetters());
             }
             return "";
         } else {

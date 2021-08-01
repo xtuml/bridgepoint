@@ -16,12 +16,21 @@ public class WaypointProcessorSQL extends AbstractWaypointProcessor {
     private Float y;
     private String prevId;
     private String Id;
+    private String geId;
 
     public WaypointProcessorSQL(Float x, Float y, String prevId) {
         this.x = x;
         this.y = y;
         this.prevId = prevId;
         this.Id = IdProcessor.UUID().toString();
+    }
+
+    public WaypointProcessorSQL(Float x, Float y, String prevId, String geId) {
+        this.x = x;
+        this.y = y;
+        this.prevId = prevId;
+        this.Id = IdProcessor.UUID().toString();
+        this.geId = geId;
     }
 
     public String getId() {
@@ -45,6 +54,9 @@ public class WaypointProcessorSQL extends AbstractWaypointProcessor {
 
     @Override
     public String getedge_elementId() {
+        if (geId != null) {
+            return SQLUtils.idValue(geId);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 

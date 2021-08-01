@@ -84,40 +84,12 @@ public class XMITranslator {
 
 		logger = new XMITranslateLogger(verbose, todo);
 
-		XMITranslate xmiTranslate = new XMITranslate();
+		XMITranslate xmiTranslate = new XMITranslate(logger);
 		try {
 			xmiTranslate.loadXMI(metamodel, transformers, xmiFile, output);
 		} catch (Exception e) {
 			logger.logError("Unable to translate model.", e);
 		}
-	}
-
-	public static void log(String msg) {
-		logger.log(msg);
-	}
-
-	public static void logTodo(String msg) {
-		logger.logTodo(msg);
-	}
-
-	public static void logError(String msg, Exception e) {
-		logger.logError(msg, e);
-	}
-
-	public static void logNoProcessor(String string) {
-		logger.logNoProcessor(string);
-	}
-
-	public static void logNoMapping(String string) {
-		logger.logNoMapping(string);
-	}
-
-	public static void printReport(String fileOut) {
-		logger.printOutput(fileOut);
-	}
-
-	public static void logSkipped(String string) {
-		logger.logSkipped(string);
 	}
 
 }

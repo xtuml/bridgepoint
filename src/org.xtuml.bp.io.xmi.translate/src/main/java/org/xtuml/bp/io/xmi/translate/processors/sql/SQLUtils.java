@@ -9,6 +9,7 @@ import com.sdmetrics.model.ModelElement;
 import org.xtuml.bp.io.xmi.translate.processors.AbstractXtumlTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.XtumlTypeProcessor;
+import org.xtuml.bp.io.xmi.translate.processors.sql.packages.supporting.PackageableElementProcessorSQL;
 
 public class SQLUtils {
 

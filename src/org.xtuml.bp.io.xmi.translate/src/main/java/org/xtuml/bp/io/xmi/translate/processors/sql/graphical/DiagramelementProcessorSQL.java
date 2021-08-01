@@ -11,8 +11,20 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractDiagramelement
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class DiagramelementProcessorSQL extends AbstractDiagramelementProcessor {
+    private String geId;
+
+    public DiagramelementProcessorSQL() {
+    }
+
+    public DiagramelementProcessorSQL(String geId) {
+        this.geId = geId;
+    }
+
     @Override
     public String getelementId() {
+        if (geId != null) {
+            return SQLUtils.idValue(geId);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 

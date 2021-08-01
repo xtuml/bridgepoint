@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Model Plug-in
 Bundle-SymbolicName: org.xtuml.bp.io.mdl; singleton:=true
 Bundle-Version: 7.1.0.qualifier
-Bundle-ClassPath: mdl.jar
+Bundle-ClassPath: mdl.jar,
+ lib/XMITranslate.jar
 Bundle-Activator: org.xtuml.bp.io.mdl.MdlPlugin
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.io.mdl,

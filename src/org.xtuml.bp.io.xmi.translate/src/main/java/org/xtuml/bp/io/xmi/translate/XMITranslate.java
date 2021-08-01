@@ -3,13 +3,20 @@ package org.xtuml.bp.io.xmi.translate;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.io.IOUtils;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xtuml.bp.io.xmi.translate.XtumlMapper.MapperType;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
@@ -29,26 +36,46 @@ import com.sdmetrics.util.XMLParser.XMLParseException;
 public class XMITranslate {
 
 	private StringBuilder xtumlOutput = new StringBuilder();
+	static Map<ModelElement, String> afterGraphicsElements = new HashMap<>();
 	public static Map<ModelElement, String> graphicElements = new HashMap<>();
 	public static Map<String, ModelElement> eaDiagramConnectors = new HashMap<>();
+	public static List<String> supportedExtensions = new ArrayList<>() {
+		{
+			add("*.xmi");
+			add("*.xml");
+		}
+	};
 
-	public void loadXMI(String xmi, String output)
-			throws ParserConfigurationException, SAXException, XMLParseException {
-		URL mm = getClass().getResource("metamodel2.xml");
-		String[] transformers = new String[2];
-		transformers[0] = getClass().getResource("xmiTrans2_0.xml").getFile();
-		transformers[1] = getClass().getResource("xtumlXmiExtension.xml").getFile();
-		loadXMI(mm.getFile(), transformers, xmi, output);
+	static List<String> afterGraphics = new ArrayList<>() {
+		{
+			add("R_ASSR");
+			add("R_SUB");
+		}
+	};
+	public static ILogger logger;
+
+	public XMITranslate(ILogger pLogger) {
+		logger = pLogger;
 	}
 
-	void loadXMI(String metamodel, String[] transformers, String xmi, String output)
-			throws ParserConfigurationException, SAXException, XMLParseException {
-		XMITranslator.log("Loading XMI document...");
+	public String loadXMI(String xmi)
+			throws ParserConfigurationException, SAXException, XMLParseException, IOException {
+		InputStream mm = getClass().getClassLoader().getResourceAsStream("metamodel2.xml");
+		InputStream[] transformers = new InputStream[2];
+		transformers[0] = getClass().getClassLoader().getResourceAsStream("xmiTrans2_0.xml");
+		transformers[1] = getClass().getClassLoader().getResourceAsStream("xtumlExtensionsTrans.xml");
+		return loadXMI(mm, transformers, xmi, "");
+	}
+
+	String loadXMI(Object metamodel, Object[] transformers, String xmi, String output)
+			throws ParserConfigurationException, SAXException, XMLParseException, IOException {
+		logger.log("Loading XMI document...");
 		xtumlOutput = new StringBuilder();
 		/* apply any header specified */
 		xtumlOutput.append(XtumlMapper.process(MapperType.SQL, null, "HEADER"));
 		MetaModel mm = null;
 		XMLParser parser = null;
+		SAXParser saxParser = null;
 		XMITransformations trans = null;
 		Model model = null;
 		XMIReader reader = null;
@@ -56,12 +83,26 @@ public class XMITranslate {
 		if (!metamodel.equals("")) {
 			mm = new MetaModel();
 			parser = new XMLParser();
-			parser.parse(metamodel, mm.getSAXParserHandler());
+			if (metamodel instanceof InputStream) {
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				spf.setValidating(false);
+				spf.setNamespaceAware(false);
+				saxParser = spf.newSAXParser();
+				InputSource source = new InputSource((InputStream) metamodel);
+				saxParser.parse(source, mm.getSAXParserHandler());
+			} else {
+				parser.parse((String) metamodel, mm.getSAXParserHandler());
+			}
 		}
 		if (transformers.length > 0) {
 			trans = new XMITransformations(mm);
 			for (int i = 0; i < transformers.length; i++) {
-				parser.parse(transformers[i], trans.getSAXParserHandler());
+				if (transformers[i] instanceof String) {
+					parser.parse((String) transformers[i], trans.getSAXParserHandler());
+				} else if (transformers[i] instanceof InputStream) {
+					InputSource source = new InputSource((InputStream) transformers[i]);
+					saxParser.parse(source, trans.getSAXParserHandler());
+				}
 			}
 		}
 		if (!xmi.equals("")) {
@@ -77,6 +118,8 @@ public class XMITranslate {
 		model.forEach(e -> outputXtuml(e));
 		// process graphics after collecting ooaofooa data
 		processGraphics();
+		// process elements that require all graphics processed first
+		processAfterGraphics();
 		// if output is specified
 		if (!output.equals("")) {
 			try {
@@ -91,7 +134,8 @@ public class XMITranslate {
 				System.err.println(e.getMessage());
 			}
 		}
-		XMITranslator.printReport(output);
+		logger.printReport(output);
+		return xtumlOutput.toString();
 	}
 
 	private void processGraphics() {
@@ -118,7 +162,15 @@ public class XMITranslate {
 				}
 			}
 		});
-		XMITranslator.logTodo("\nTranslated " + graphicElements.size() + " graphical elements.");
+		logger.logTodo("\nTranslated " + graphicElements.size() + " graphical elements.");
+	}
+
+	private void processAfterGraphics() {
+		afterGraphicsElements.forEach((e, m) -> {
+			// remove from catch list
+			afterGraphics.remove(m);
+			mapToXtuml(e, m);
+		});
 	}
 
 	private void cacheSupportingElements(ModelElement e) {
@@ -141,7 +193,7 @@ public class XMITranslate {
 			// see if a relational child
 			mapping = getMappingAsRelationalChild(e);
 			if (mapping == null) {
-				XMITranslator.logNoMapping("WARN: No mapping for " + e.getType().getName());
+				logger.logNoMapping("WARN: No mapping for " + e.getType().getName());
 			}
 		}
 		if (mapping != null) {

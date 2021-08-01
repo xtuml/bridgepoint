@@ -3,7 +3,9 @@ package org.xtuml.bp.io.xmi.translate.logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMITranslateLogger {
+import org.xtuml.bp.io.xmi.translate.ILogger;
+
+public class XMITranslateLogger implements ILogger {
 
     private boolean verbose;
     private List<String> standardLog = new ArrayList<>();
@@ -76,5 +78,10 @@ public class XMITranslateLogger {
 
     public void logSkipped(String string) {
         skipped.add(string);
+    }
+
+    @Override
+    public void printReport(String output) {
+        printOutput(output);
     }
 }

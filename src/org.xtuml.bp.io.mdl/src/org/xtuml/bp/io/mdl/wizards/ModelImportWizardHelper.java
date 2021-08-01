@@ -55,34 +55,34 @@ public class ModelImportWizardHelper {
         }
     }
     
-    public IModelImport doImportPhase1(ModelStreamProcessor fProcessor, SystemModel_c fSystem, File fInputFile,
-            IProgressMonitor monitor)
-                    throws FileNotFoundException, IOException {
-        fProcessor.setDestinationElement(fSystem);
-        // otherwise read the file contents into a string and
-        // pass into a byte array stream importer
-        FileInputStream fis = new FileInputStream(fInputFile);
-        byte[] fileBytes = new byte[Long.valueOf(fInputFile.length())
-                .intValue()];
-        fis.read(fileBytes);
-        fis.close();
-        String contents = new String(fileBytes);
-        fProcessor.setContents(contents);
-        ByteArrayInputStream is = new ByteArrayInputStream(fileBytes);
-        Ooaofooa.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME)
-                .clearDatabase(monitor);
-        IModelImport fImporter = CorePlugin.getStreamImportFactory().create(
-                is,
-                Ooaofooa.getInstance(
-                        Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),
-                true, fSystem.getPersistableComponent().getFile().getFullPath());
-          fProcessor.runImporter(fImporter, monitor);
+	public IModelImport doImportPhase1(ModelStreamProcessor processor, SystemModel_c system, File file,
+			IProgressMonitor monitor) throws IOException {
+		// otherwise read the file contents into a string and
+		// pass into a byte array stream importer
+		FileInputStream fis = new FileInputStream(file);
+		byte[] fileBytes = new byte[Long.valueOf(file.length()).intValue()];
+		fis.read(fileBytes);
+		fis.close();
+		return doImportPhase1(processor, system, fileBytes, monitor);
+	}
 
-        fProcessor.processFirstStep(monitor);
-        handleImportedGraphicalElements(fSystem, fProcessor);
-        fProcessor.processSecondStep(monitor);
-        return fImporter;
-    }
+	public IModelImport doImportPhase1(ModelStreamProcessor fProcessor, SystemModel_c fSystem, byte[] bytes,
+			IProgressMonitor monitor) throws FileNotFoundException, IOException {
+		fProcessor.setDestinationElement(fSystem);
+		String contents = new String(bytes);
+		fProcessor.setContents(contents);
+		ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+		Ooaofooa.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME).clearDatabase(monitor);
+		IModelImport fImporter = CorePlugin.getStreamImportFactory().create(is,
+				Ooaofooa.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false), true,
+				fSystem.getPersistableComponent().getFile().getFullPath());
+		fProcessor.runImporter(fImporter, monitor);
+
+		fProcessor.processFirstStep(monitor);
+		handleImportedGraphicalElements(fSystem, fProcessor);
+		fProcessor.processSecondStep(monitor);
+		return fImporter;
+	}
 
     public void handleImportedGraphicalElements(SystemModel_c fSystem, ModelStreamProcessor fProcessor) {
 		Model_c systemModel = getSystemModel(fSystem);

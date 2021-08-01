@@ -10,8 +10,18 @@ import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractModelProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
+import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.supporting.GraphicalModel;
 
 public class ModelProcessorSQL extends AbstractModelProcessor {
+
+    public static Map<GraphicalModel, String> createdModels = new HashMap<>();
+
+    @Override
+    public void postprocess(ModelElement element, String keyletters) {
+        GraphicalModel graphicalModel = new GraphicalModel(getModelElement().getPlainAttribute("represents"),
+                getType());
+        createdModels.put(graphicalModel, getModelElement().getPlainAttribute("id"));
+    }
 
     @Override
     public String createSupportingElements() {
@@ -28,6 +38,10 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String getModel_Type() {
+        return SQLUtils.numberValue(getType());
+    }
+
+    private int getType() {
         int typeMapping = 0;
         String type = getModelElement().getPlainAttribute("type");
         switch (type) {
@@ -43,7 +57,7 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
                 typeMapping = 0;
                 break;
         }
-        return SQLUtils.numberValue(typeMapping);
+        return typeMapping;
     }
 
     @Override

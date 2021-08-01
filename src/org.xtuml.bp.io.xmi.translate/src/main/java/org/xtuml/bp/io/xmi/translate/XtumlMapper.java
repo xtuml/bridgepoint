@@ -12,35 +12,35 @@ import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.XtumlTypeProcessor;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ActorParticipantProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.AssociationProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.AttributeProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ClassAsLinkProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ClassAsSubtypeProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ClassInstanceParticipantProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.CommentProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ComponentProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.DataTypeProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.EnumerationDataTypeProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.EnumeratorProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.HeaderProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.InstanceStateMachineProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceOperationProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.InterfaceProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.LifespanProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ModelClassProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.OperationParameterProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.OperationProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.PackageProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.PropertyParameterProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ProvisionProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.RequirementProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.StateMachineStateProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.TransitionProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.UseCaseAssociationProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.UseCaseParticipantProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.association.AssociationProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.association.ClassAsLinkProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.association.ClassAsSubtypeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.classes.AttributeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.classes.ModelClassProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.classes.OperationParameterProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.classes.OperationProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.components.ComponentProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.components.InterfaceOperationProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.components.InterfaceProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.components.PropertyParameterProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.components.ProvisionProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.components.RequirementProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.ModelProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.ActorParticipantProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.ClassInstanceParticipantProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.LifespanProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.machines.InstanceStateMachineProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.machines.StateMachineStateProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.machines.TransitionProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.packages.PackageProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.types.DataTypeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.types.EnumerationDataTypeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.types.EnumeratorProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.usecase.UseCaseAssociationProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.usecase.UseCaseParticipantProcessorSQL;
 
 public class XtumlMapper {
 
@@ -74,6 +74,11 @@ public class XtumlMapper {
 		String[] mappings = mapping.split("\\+");
 		for (int i = 0; i < mappings.length; i++) {
 			String m = mappings[i];
+			if (XMITranslate.afterGraphics.contains(m)) {
+				// save these for later
+				XMITranslate.afterGraphicsElements.put(e, m);
+				continue;
+			}
 			// mapping can be either a single key_lett value or an array of values
 			String actualMapping = getMappingToUse(e, m);
 			Map<String, XtumlTypeProcessor> processors = mappers.get(type);
@@ -84,10 +89,10 @@ public class XtumlMapper {
 				xtumlTypeProcessor = processors.get(actualMapping);
 			}
 			if (xtumlTypeProcessor == null) {
-				XMITranslator.logNoProcessor("TODO: Implement processor for " + actualMapping);
+				XMITranslate.logger.logNoProcessor("TODO: Implement processor for " + actualMapping);
 			} else {
 				String result = xtumlTypeProcessor.process(e, actualMapping);
-				XMITranslator.log(result);
+				XMITranslate.logger.log(result);
 				completeResult.append(result);
 			}
 		}

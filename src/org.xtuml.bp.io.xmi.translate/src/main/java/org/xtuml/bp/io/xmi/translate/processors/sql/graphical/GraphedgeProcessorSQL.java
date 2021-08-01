@@ -11,10 +11,17 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class GraphedgeProcessorSQL extends AbstractGraphedgeProcessor {
 
+    private String geId;
     private String firstConId;
     private String lastConId;
 
     public GraphedgeProcessorSQL(String firstConId, String lastConId) {
+        this.firstConId = firstConId;
+        this.lastConId = lastConId;
+    }
+
+    public GraphedgeProcessorSQL(String geId, String firstConId, String lastConId) {
+        this.geId = geId;
         this.firstConId = firstConId;
         this.lastConId = lastConId;
     }
@@ -31,6 +38,9 @@ public class GraphedgeProcessorSQL extends AbstractGraphedgeProcessor {
 
     @Override
     public String getelementId() {
+        if (geId != null) {
+            return SQLUtils.idValue(geId);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 

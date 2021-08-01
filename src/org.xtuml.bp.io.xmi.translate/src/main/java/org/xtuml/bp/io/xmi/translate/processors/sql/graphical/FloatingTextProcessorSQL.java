@@ -14,10 +14,17 @@ public class FloatingTextProcessorSQL extends AbstractFloatingTextProcessor {
 
     private String Id;
     private Integer end;
+    private String geId;
 
     public FloatingTextProcessorSQL(Integer end) {
         this.Id = IdProcessor.UUID().toString();
         this.end = end;
+    }
+
+    public FloatingTextProcessorSQL(int end, String geId) {
+        this.Id = IdProcessor.UUID().toString();
+        this.end = end;
+        this.geId = geId;
     }
 
     @Override
@@ -27,6 +34,9 @@ public class FloatingTextProcessorSQL extends AbstractFloatingTextProcessor {
 
     @Override
     public String getconn_elementId() {
+        if (geId != null) {
+            return SQLUtils.idValue(geId);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 
@@ -48,6 +58,8 @@ public class FloatingTextProcessorSQL extends AbstractFloatingTextProcessor {
     @Override
     public String createSupportingElements() {
         // Floating text is a DIM_ND itself
+        DiagramelementProcessorSQL diagramelementProcessorSQL = new DiagramelementProcessorSQL(Id);
+        diagramelementProcessorSQL.setKeyLetters("DIM_ELE");
         GraphelementProcessorSQL graphelementProcessorSQL = new GraphelementProcessorSQL(0f, 0f, Id);
         graphelementProcessorSQL.setKeyLetters("DIM_GE");
         GraphnodeProcessorSQL graphnodeProcessorSQL = new GraphnodeProcessorSQL(0f, 0f, Id);

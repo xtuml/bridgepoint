@@ -61,4 +61,8 @@ public class LineSegmentProcessorSQL extends AbstractLineSegmentProcessor {
                 .of(getelementId(), getconn_elementId(), getPrevious_elementId(), getstart_Way_ID(), getend_Way_ID())
                 .collect(Collectors.toList());
     }
+
+    public String getId() {
+        return Id;
+    }
 }

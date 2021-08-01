@@ -2,10 +2,8 @@ package org.xtuml.bp.io.xmi.translate.processors.sql.graphical;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,28 +13,54 @@ import com.sdmetrics.model.ModelElement;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractGraphicalElementProcessor;
-import org.xtuml.bp.io.xmi.translate.processors.sql.ImportedClassProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
+import org.xtuml.bp.io.xmi.translate.processors.sql.classes.supporting.ImportedClassProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.supporting.ConnectionInformation;
 
 public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProcessor {
 
-    String elementId;
+    String elementId = "";
     String importedClassSQL = "";
     UUID importedClassId;
-    static Set<String> createdGraphicalElements = new HashSet<>();
+    private String represents;
+    private Integer ooaType;
+    private boolean skipSupporting;
+    private String diagramId;
+    public static Map<String, GraphicalElement> createdGraphicalElements = new HashMap<>();
+
+    public GraphicalElementProcessorSQL() {
+    }
+
+    public GraphicalElementProcessorSQL(String geId, String represents, String diagramId, int type) {
+        this.elementId = geId;
+        this.represents = represents;
+        this.ooaType = type;
+        this.diagramId = diagramId;
+        skipSupporting = true;
+    }
 
     @Override
     public String getelementId() {
+        // only do this for those coming through the second constructor
+        if (!elementId.equals("") && skipSupporting) {
+            return SQLUtils.idValue(elementId);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 
     @Override
     public String getdiagramId() {
+        if (diagramId != null) {
+            return SQLUtils.idValue(diagramId);
+        }
         return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
     }
 
     @Override
     public String getOOA_ID() {
+        if (represents != null) {
+            return SQLUtils.idValue(represents);
+        }
         if (importedClassId != null) {
             return SQLUtils.idValue(importedClassId.toString());
         }
@@ -52,6 +76,9 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     @Override
     public String getOOA_Type() {
+        if (ooaType != null) {
+            return SQLUtils.numberValue(ooaType);
+        }
         if (importedClassId != null) {
             return SQLUtils.numberValue(23);
         }
@@ -105,6 +132,9 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     @Override
     public String createSupportingElements() {
+        if (skipSupporting) {
+            return "";
+        }
         String boundsString = getModelElement().getPlainAttribute("bounds");
         if (isShape()) {
             Rectangle rect = getBoundsFromString(boundsString);
@@ -265,6 +295,118 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         }
     }
 
+    public static ConnectorModel createConnector(String represents, String start, String end, String diagramId,
+            int ooaType) {
+        StringBuilder builder = new StringBuilder();
+        String geId = IdProcessor.UUID().toString();
+        GraphicalElement startGE = GraphicalElementProcessorSQL.createdGraphicalElements.get(start);
+        GraphicalElement endGE = GraphicalElementProcessorSQL.createdGraphicalElements.get(end);
+        GraphicalElementProcessorSQL connectionGE = new GraphicalElementProcessorSQL(geId, represents, diagramId,
+                ooaType);
+        connectionGE.setKeyLetters("GD_GE");
+        DiagramelementProcessorSQL diagramelementProcessorSQL = new DiagramelementProcessorSQL(geId);
+        diagramelementProcessorSQL.setKeyLetters("DIM_ELE");
+        GraphelementProcessorSQL graphelementProcessorSQL = new GraphelementProcessorSQL(0f, 0f, geId);
+        graphelementProcessorSQL.setKeyLetters("DIM_GE");
+        ConnectorProcessorSQL connectorProcessorSQL = new ConnectorProcessorSQL(geId);
+        connectorProcessorSQL.setKeyLetters("GD_CON");
+        builder.append(connectionGE.getProcessorOutput()).append(diagramelementProcessorSQL.getProcessorOutput())
+                .append(graphelementProcessorSQL.getProcessorOutput())
+                .append(connectorProcessorSQL.getProcessorOutput());
+        // create DIM_CON
+        GraphconnectorProcessorSQL startCon = new GraphconnectorProcessorSQL(startGE.getId(),
+                startGE.getRect().getMidPoint().x, startGE.getRect().getMidPoint().y);
+        startCon.setKeyLetters("DIM_CON");
+        if (end == null) {
+            // whitespace
+            // create line segment and waypoints
+            WaypointProcessorSQL startWaypointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y,
+                    IdProcessor.NULL_ID, geId);
+            startWaypointProcessorSQL.setKeyLetters("DIM_WAY");
+            WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y - 100,
+                    startWaypointProcessorSQL.getId(), geId);
+            endWayPointProcessorSQL.setKeyLetters("DIM_WAY");
+            LineSegmentProcessorSQL lineSegProcessorSQL = new LineSegmentProcessorSQL(geId,
+                    startWaypointProcessorSQL.getId(), endWayPointProcessorSQL.getId());
+            lineSegProcessorSQL.setKeyLetters("GD_LS");
+            // if start is connector, create a GD_AOS
+            if (startGE.isConnector()) {
+                AnchorOnSegmentProcessorSQL aos = new AnchorOnSegmentProcessorSQL(startCon.getId(),
+                        lineSegProcessorSQL.getId());
+                aos.setKeyLetters("GD_AOS");
+                builder.append(aos.getProcessorOutput());
+            }
+            // setup floating text
+            FloatingTextProcessorSQL startText = new FloatingTextProcessorSQL(0, geId);
+            startText.setKeyLetters("GD_CTXT");
+            // setup floating text
+            FloatingTextProcessorSQL middleText = new FloatingTextProcessorSQL(1, geId);
+            middleText.setKeyLetters("GD_CTXT");
+            // setup floating text
+            FloatingTextProcessorSQL endText = new FloatingTextProcessorSQL(2, geId);
+            endText.setKeyLetters("GD_CTXT");
+            GraphedgeProcessorSQL graphEdgeProcessor = new GraphedgeProcessorSQL(geId, startCon.getId(), "");
+            graphEdgeProcessor.setKeyLetters("DIM_ED");
+            builder.append(graphEdgeProcessor.getProcessorOutput()).append(lineSegProcessorSQL.getProcessorOutput())
+                    .append(startWaypointProcessorSQL.getProcessorOutput())
+                    .append(endWayPointProcessorSQL.getProcessorOutput()).append(startText.getProcessorOutput())
+                    .append(middleText.getProcessorOutput()).append(endText.getProcessorOutput());
+            // add this graphic to created list
+            // add this graphic to created list
+            createdGraphicalElements.put(represents, new GraphicalElement(geId, represents,
+                    new Rectangle(startCon.x, startCon.y, 1F, (startCon.y - 100) - startCon.y), ooaType));
+        } else {
+            GraphconnectorProcessorSQL endCon = new GraphconnectorProcessorSQL(endGE.getId(),
+                    endGE.getRect().getMidPoint().x, endGE.getRect().getMidPoint().y);
+            endCon.setKeyLetters("DIM_CON");
+            // create line segment and waypoints
+            WaypointProcessorSQL startWaypointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y,
+                    IdProcessor.NULL_ID, geId);
+            startWaypointProcessorSQL.setKeyLetters("DIM_WAY");
+            WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(endCon.x, endCon.y,
+                    startWaypointProcessorSQL.getId(), geId);
+            endWayPointProcessorSQL.setKeyLetters("DIM_WAY");
+            LineSegmentProcessorSQL lineSegProcessorSQL = new LineSegmentProcessorSQL(geId,
+                    startWaypointProcessorSQL.getId(), endWayPointProcessorSQL.getId());
+            lineSegProcessorSQL.setKeyLetters("GD_LS");
+            // if start is connector, create a GD_AOS
+            if (startGE.isConnector()) {
+                AnchorOnSegmentProcessorSQL aos = new AnchorOnSegmentProcessorSQL(startCon.getId(),
+                        lineSegProcessorSQL.getId());
+                aos.setKeyLetters("GD_AOS");
+                builder.append(aos.getProcessorOutput());
+            }
+            // if end is connector, create a GD_AOS
+            if (endGE.isConnector()) {
+                AnchorOnSegmentProcessorSQL aos = new AnchorOnSegmentProcessorSQL(endCon.getId(),
+                        lineSegProcessorSQL.getId());
+                aos.setKeyLetters("GD_AOS");
+                builder.append(aos.getProcessorOutput());
+            }
+            // setup floating text
+            FloatingTextProcessorSQL startText = new FloatingTextProcessorSQL(0, geId);
+            startText.setKeyLetters("GD_CTXT");
+            // setup floating text
+            FloatingTextProcessorSQL middleText = new FloatingTextProcessorSQL(1, geId);
+            middleText.setKeyLetters("GD_CTXT");
+            // setup floating text
+            FloatingTextProcessorSQL endText = new FloatingTextProcessorSQL(2, geId);
+            endText.setKeyLetters("GD_CTXT");
+            GraphedgeProcessorSQL graphEdgeProcessor = new GraphedgeProcessorSQL(geId, startCon.getId(),
+                    endCon.getId());
+            graphEdgeProcessor.setKeyLetters("DIM_ED");
+            builder.append(graphEdgeProcessor.getProcessorOutput()).append(lineSegProcessorSQL.getProcessorOutput())
+                    .append(startWaypointProcessorSQL.getProcessorOutput())
+                    .append(endWayPointProcessorSQL.getProcessorOutput()).append(startText.getProcessorOutput())
+                    .append(middleText.getProcessorOutput()).append(endText.getProcessorOutput())
+                    .append(endCon.getProcessorOutput());
+            // add this graphic to created list
+            createdGraphicalElements.put(represents, new GraphicalElement(geId, represents,
+                    new Rectangle(startCon.x, startCon.y, endCon.x - startCon.x, endCon.y - startCon.y), ooaType));
+        }
+        return new ConnectorModel(builder.append(startCon.getProcessorOutput()).toString(), represents);
+    }
+
     private Rectangle getBoundsFromString(String boundsString) {
         String[] attributes = boundsString.split(";");
         Map<String, String> values = new HashMap<>();
@@ -401,10 +543,16 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     @Override
     public void postprocess(ModelElement element, String keyletters) {
-        createdGraphicalElements.add(element.getPlainAttribute("element"));
+        createdGraphicalElements.put(element.getPlainAttribute("element"),
+                new GraphicalElement(element.getPlainAttribute("id"), element.getPlainAttribute("element"),
+                        getBoundsFromString(element.getPlainAttribute("bounds")), getOoaTypeFromOoaId()));
         elementId = "";
         importedClassId = null;
         importedClassSQL = "";
+        ooaType = null;
+        diagramId = null;
+        represents = null;
+        skipSupporting = false;
     }
 
     @Override

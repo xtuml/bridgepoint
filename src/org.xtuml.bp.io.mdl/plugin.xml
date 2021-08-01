@@ -35,6 +35,16 @@
             Import model data from a xtUML model file
          </description>
       </wizard>
+      <wizard
+            category="org.xtuml.bp.importWizards.category"
+            class="org.xtuml.bp.io.mdl.wizards.XMIImportWizard"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
+            id="org.xtuml.bp.XMIImportWizard"
+            name="XMI Model">
+         <description>
+            Import model data from an EA XMI source
+         </description>
+      </wizard>
    </extension>
 
 </plugin>
