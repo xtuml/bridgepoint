@@ -2,7 +2,7 @@
 This work is licensed under the Creative Commons CC0 License
 ---
 
-# Verifier support for Interface message parameters of type `inst_ref` and `inst_ref-set`
+## Verifier support for Interface message parameters of type `inst_ref` and `inst_ref-set`
 
 ### xtUML Project Design Note
 
@@ -20,6 +20,7 @@ This work aims to remedy that.
 ### 2. document References
 
 https://support.onefact.net/issues/12222
+
 https://support.onefact.net/issues/12191
 
 ### 3. Background
