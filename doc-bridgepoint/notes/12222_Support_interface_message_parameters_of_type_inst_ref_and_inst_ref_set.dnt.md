@@ -41,7 +41,7 @@ The code which processes parameter setup for invocation of either Interface Oper
 where the parameter is a reference and arrange for creation of a replica instance and copying of attribute values.
 
 In parameter setup, the receiving parameter must be established as a reference type which can be associated with one or more Local 
-instance-in-reference (L_IIR) instances: cardinality differs between `inst_ref` and `iunst_ref_set`. The replica instance(s) muyst be created
+instance-in-reference (L_IIR) instances: cardinality differs between `inst_ref` and `inst_ref_set`. The replica instance(s) must be created
 and related to the execution context. Attribute values must be copied. Note that `current_state` is represented by an association rather 
 than an attribute.
 
@@ -54,8 +54,13 @@ determine what modifications are required.
 ### 7. Design Comments
 
 Interface Operation parameters are handled somewhat differently than Signal parameters; two code segments exist which are very similar 
-but not identical in two different places. For now, the choiuce has been to replicate the elaboration of these code segments rather than 
+but not identical in two different places. For now, the choice has been to replicate the elaboration of these code segments rather than 
 attempt any re-factoring.
+
+See 
+SignalInvocation::setupParameterValues()
+
+ComponentInstance::transferValueToTarget()
 
 ### 8. Documentation
 
@@ -64,5 +69,6 @@ None
 ### 9. Unit Test
 
 A test which exercises a variety of data-passing scenarios has been implemented and run successfully.
+See models/VamdMC/VerifierTest/Verify12222
 
 ### End
