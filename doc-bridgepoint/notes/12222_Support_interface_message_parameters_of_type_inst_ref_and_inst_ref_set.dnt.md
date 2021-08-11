@@ -20,6 +20,7 @@ This work aims to remedy that.
 ### 2. document References
 
 https://support.onefact.net/issues/12222
+https://support.onefact.net/issues/12191
 
 ### 3. Background
 
@@ -29,15 +30,23 @@ When an instance is referenced as a parameter value in a send message - interfac
 should be created and added to the instance population in the context of the receiving component. All attribute values, including 
 `current_state` if appropriate, but excluding any instance referencing attribute values should be copied to the newly-created instance.
 
+Note: there is no requirement to treat receipt of a duplicate instance in any special way. It is the responsibility of the reciever 
+to detect such a case and handle it appropriately.
+
 
 ### 5. Analysis
 
 The code which processes parameter setup for invocation of either Interface Operation or Signal must be elaborated to detect the case 
-where the parameter is a reference and arrange foir creation of a replica instance and copying of attribute values.
+where the parameter is a reference and arrange for creation of a replica instance and copying of attribute values.
 
+In parameter setup, the receiving parameter must be established as a reference type which can be associated with one or more Local 
+instance-in-reference (L_IIR) instances: cardinality differs between `inst_ref` and `iunst_ref_set`. The replica instance(s) muyst be created
+and related to the execution context. Attribute values must be copied. Note that `current_state` is represented by an association rather 
+than an attribute.
 
 
 ### 6. Design
+
 A combination of code analysis by examination, tracing of behavior with a debugger, and experimenting with code changes will be used to 
 determine what modifications are required.
 
