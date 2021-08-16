@@ -593,17 +593,17 @@ else
     for each arg in args
       select any prop_param related by ep->C_PP[R4006] where
                                                       selected.Name == arg.Name;
-      // Create a new local value in the new stack frame for each argument
+      // for each argument, update the new local value in the new stack frame 
       loc_id = outer_block.newLocalValue(stack_frame_id:new_id);
     
       // Find the new local value in the new stack frame
-      select any local related by outer_block->I_BSF[R2923]->
-                                 L_LCL[R3000] where selected.Local_ID == loc_id;
+      select any local related by outer_block->I_BSF[R2923]->L_LCL[R3000] 
+       where selected.Local_ID == loc_id;
       select one local_val related by local->L_LVL[R3001];
       select one act_val related by arg->V_VAL[R800];
       if not_empty prop_param and prop_param.By_Ref == 0
-        select any result related by stack_frame->I_VSF[R2951] where
-                                          selected.Value_ID == act_val.Value_ID;
+        select any result related by stack_frame->I_VSF[R2951] 
+         where selected.Value_ID == act_val.Value_ID;
         select one rtVal related by result->RV_RVL[R3305];
         create object instance lrtVal of RV_RVL;
         relate lrtVal to local across R3306;
@@ -614,53 +614,58 @@ else
         if ( empty iref )
           lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
         else
-          // Create a replica in the receiving context
+          // inst_ref or inst_ref_set: must create replica instance(s) in the receiving context
+          // Identify the object type to replicate, and corresponding class-in-engine
           select one srcObj related by iref->O_OBJ[R123.''provides reference datatype for''];
           select any cie related by srcObj->CSME_CIE[R2961]
            where (selected.Execution_Engine_ID == engine.Execution_Engine_ID);
-          create object instance newInst of I_INS;
-          relate newInst to cie across R2962.''instance of'';
-          relate newInst to engine across R2957.''created by'';
-          newInst.initialize(initializeState:true);  // default attribute values
+          // create and relate local reference for new local instance-in-reference(s)
           create object instance smplv of RV_SMV;
           relate smplv to lrtVal across R3300;
           create object instance newRef of RV_IRV;
           relate newRef to smplv across R3308;
-          create object instance instInRef of L_IIR;
-          relate newInst to instInRef across R3013.''is referenced by'';
-          // Prepare to copy attribute values: find the source instance.
-          // While R3311 may be many, in this case - inst_ref - it should be one
-          select any srcLiir related by rtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311.''has members''];
-          select one srcInst related by srcLiir->I_INS[R3013.''references''];
-          select many srcAttrs related by srcInst->I_AVL[R2909.''has characteristic abstracted by''];
-          for each srcAttr in srcAttrs
-          	select one attrDef related by srcAttr->O_ATTR[R2910.''is instance of''];
-          	select one ref related by attrDef->O_RATTR[R106];
-          	if ( not empty ref )  // do not copy referential values
-          	  continue;
-          	end if;
-          	attrName = attrDef.Name;
-          	select many newAttrs related by newInst->I_AVL[R2909.''has characteristic abstracted by''];
-          	for each newAttr in newAttrs
-          	  select one newAttrDef related by newAttr->O_ATTR[R2910.''is instance of''];
-          	  if ( attrName == newAttrDef.Name )
-          	  	select one srcrtVal related by srcAttr->RV_RVL[R3304];
-          	  	select one newrtVal related by newAttr->RV_RVL[R3304];
-          	  	newrtVal.copyValue(from:srcrtVal.RuntimeValue_ID);
-          	  	break;
-          	  end if;
-          	end for;
-          end for;
-          // take care of ''current-state'' if necessary
-          select one currstate related by srcInst->SM_STATE[R2915];
-          if ( not empty currstate )
-          	select one instate related by newInst->SM_STATE[R2915];
-          	unrelate newInst from instate across R2915;
-          	select one stateMachine related by cie->O_OBJ[R2961]->SM_ISM[R518]->SM_SM[R517];  
-            select any state related by stateMachine->SM_STATE[R501.''is decomposed into'']
-             where ( selected.Numb == currstate.Numb );
-            relate newInst to state across R2915.''occupies'';
-          end if;     
+          // multiplicity returned here depends on inst_ref vs. inst_ref_set
+          select many srcLiirs related by rtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311.''has members''];
+          for each srcLiir in srcLiirs
+            create object instance instInRef of L_IIR;
+            relate instInRef to newRef across R3311.''is part of''; // add to local reference
+            create object instance newInst of I_INS;
+            relate newInst to instInRef across R3013.''is referenced by'';
+            relate newInst to cie across R2962.''instance of'';
+            relate newInst to engine across R2957.''created by'';
+            newInst.initialize(initializeState:true);  // set default attribute values
+            // prepare to copy attribute values from source, as appropriate
+            select one srcInst related by srcLiir->I_INS[R3013.''references''];
+            select many srcAttrs related by srcInst->I_AVL[R2909.''has characteristic abstracted by''];
+            select many newAttrs related by newInst->I_AVL[R2909.''has characteristic abstracted by''];
+            for each srcAttr in srcAttrs
+           	  select one attrDef related by srcAttr->O_ATTR[R2910.''is instance of''];
+              select one ref related by attrDef->O_RATTR[R106];
+          	  if ( not empty ref )  // do not copy referential values
+          	    continue;
+              end if;
+          	  attrName = attrDef.Name;
+          	  for each newAttr in newAttrs
+          	    select one newAttrDef related by newAttr->O_ATTR[R2910.''is instance of''];
+          	    if ( attrName == newAttrDef.Name )
+          	  	  select one srcrtVal related by srcAttr->RV_RVL[R3304];
+            	  select one newrtVal related by newAttr->RV_RVL[R3304];
+            	  newrtVal.copyValue(from:srcrtVal.RuntimeValue_ID);
+          	  	  break;
+          	    end if;
+          	  end for;
+            end for;
+            // take care of ''current-state'' if necessary
+            select one currstate related by srcInst->SM_STATE[R2915];
+            if ( not empty currstate )
+              select one instate related by newInst->SM_STATE[R2915];  // initialized default
+              unrelate newInst from instate across R2915;
+              select one stateMachine related by cie->O_OBJ[R2961]->SM_ISM[R518]->SM_SM[R517];  
+              select any state related by stateMachine->SM_STATE[R501.''is decomposed into'']
+               where ( selected.Numb == currstate.Numb );
+              relate newInst to state across R2915.''occupies'';
+            end if;
+          end for;    
         end if;
       else  // assuming by ref
         relate local_val to act_val across R3010;

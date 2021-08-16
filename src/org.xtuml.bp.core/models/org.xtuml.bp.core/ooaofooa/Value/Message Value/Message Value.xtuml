@@ -37,6 +37,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("61c63f0d-a7c5-4e06-b7bf-0a5efb652535",
@@ -414,6 +415,63 @@ if engineIsResolvable
           select one dt related by operation_param->S_DT[R4007];
           relate lrtVal to dt across R3307;
           lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+          select one iref related by dt->S_IRDT[R17];  // inst_ref param?
+          if ( empty iref )
+            lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+          else
+            // inst_ref or inst_ref_set: must create replica instance(s) in the receiving context
+            // Identify the object type to replicate, and corresponding class-in-engine
+            select one srcObj related by iref->O_OBJ[R123.''provides reference datatype for''];
+            select any cie related by srcObj->CSME_CIE[R2961]
+             where (selected.Execution_Engine_ID == engine.Execution_Engine_ID);
+            // create and relate local reference for new local instance-in-reference(s)
+            create object instance smplv of RV_SMV;
+            relate smplv to lrtVal across R3300;
+            create object instance newRef of RV_IRV;
+            relate newRef to smplv across R3308;
+            // multiplicity returned here depends on inst_ref vs. inst_ref_set
+            select many srcLiirs related by rtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311.''has members''];
+            for each srcLiir in srcLiirs
+              create object instance instInRef of L_IIR;
+              relate instInRef to newRef across R3311.''is part of''; // add to local reference
+              create object instance newInst of I_INS;
+              relate newInst to instInRef across R3013.''is referenced by'';
+              relate newInst to cie across R2962.''instance of'';
+              relate newInst to engine across R2957.''created by'';
+              newInst.initialize(initializeState:true);  // set default attribute values
+              // prepare to copy attribute values from source, as appropriate
+              select one srcInst related by srcLiir->I_INS[R3013.''references''];
+              select many srcAttrs related by srcInst->I_AVL[R2909.''has characteristic abstracted by''];
+              select many newAttrs related by newInst->I_AVL[R2909.''has characteristic abstracted by''];
+              for each srcAttr in srcAttrs
+                select one attrDef related by srcAttr->O_ATTR[R2910.''is instance of''];
+                select one ref related by attrDef->O_RATTR[R106];
+                if ( not empty ref )  // do not copy referential values
+          	      continue;
+                end if;
+                attrName = attrDef.Name;
+          	    for each newAttr in newAttrs
+          	      select one newAttrDef related by newAttr->O_ATTR[R2910.''is instance of''];
+          	      if ( attrName == newAttrDef.Name )
+          	  	    select one srcrtVal related by srcAttr->RV_RVL[R3304];
+                    select one newrtVal related by newAttr->RV_RVL[R3304];
+                    newrtVal.copyValue(from:srcrtVal.RuntimeValue_ID);
+                    break;
+                  end if;
+                end for;
+              end for;
+              // take care of ''current-state'' if necessary
+              select one currstate related by srcInst->SM_STATE[R2915];
+              if ( not empty currstate )
+                select one instate related by newInst->SM_STATE[R2915];  // initialized default
+                unrelate newInst from instate across R2915;
+                select one stateMachine related by cie->O_OBJ[R2961]->SM_ISM[R518]->SM_SM[R517];  
+                select any state related by stateMachine->SM_STATE[R501.''is decomposed into'']
+                 where ( selected.Numb == currstate.Numb );
+                relate newInst to state across R2915.''occupies'';
+              end if;
+            end for;    
+          end if;
         else  // assuming by ref
           relate local_val to act_val across R3010;
         end if;
@@ -502,6 +560,7 @@ end if;
 	1,
 	'',
 	"c4089314-a72d-447d-96b5-7cdaa2e31585",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b19e1f83-088c-40c7-9845-840060056629",
@@ -699,6 +758,7 @@ return true;',
 	1,
 	'',
 	"61c63f0d-a7c5-4e06-b7bf-0a5efb652535",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c28dbd53-1fec-440a-b219-a5044855fcb9",
