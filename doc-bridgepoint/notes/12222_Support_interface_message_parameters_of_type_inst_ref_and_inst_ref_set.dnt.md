@@ -53,14 +53,16 @@ determine what modifications are required.
 
 ### 7. Design Comments
 
-Interface Operation parameters are handled somewhat differently than Signal parameters; two code segments exist which are very similar 
-but not identical in two different places. For now, the choice has been to replicate the elaboration of these code segments rather than 
-attempt any re-factoring.
+Interface Operation parameters are handled somewhat differently than Signal parameters. Furthermore Interface Operations which have a return 
+value are treated differently; three code segments exist which are similar but not identical. For now, the choice has been to separately 
+elaborate these code segments to handle instance replication rather than attempt any re-factoring.
 
 See 
 SignalInvocation::setupParameterValues()
 
 ComponentInstance::transferValueToTarget()
+
+Value::Message Value.getValue()
 
 ### 8. Documentation
 
