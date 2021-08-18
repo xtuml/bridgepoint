@@ -24,6 +24,7 @@ return markable;',
 	1,
 	'',
 	"32a47463-cf43-484e-972e-7a6e3ff3cd58",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("9178cc87-b061-444c-9afd-4bb7848f5353",
@@ -56,6 +57,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("506d4040-7b2b-43c1-81f0-61385370b244",
