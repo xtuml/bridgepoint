@@ -44,7 +44,7 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
     @Override
     public String getVisibility() {
         // TODO: figure out scope
-        return SQLUtils.numberValue(0);
+        return SQLUtils.numberValue(1);
     }
 
     @Override

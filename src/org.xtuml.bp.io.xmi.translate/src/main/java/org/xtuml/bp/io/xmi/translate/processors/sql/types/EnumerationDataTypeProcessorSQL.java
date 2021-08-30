@@ -10,14 +10,14 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 public class EnumerationDataTypeProcessorSQL extends AbstractEnumerationDataTypeProcessor {
     @Override
     public String getDT_ID() {
-        return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"), getKeyLetters());
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override
     public String createSupportingElements() {
         DataTypeProcessorSQL dtProcessor = new DataTypeProcessorSQL();
         dtProcessor.setKeyLetters("S_DT");
-        dtProcessor.setModelElement(getModelElement().getOwner());
+        dtProcessor.setModelElement(getModelElement());
         return SQLUtils.getInsertStatement(dtProcessor, getModelElement());
     }
 

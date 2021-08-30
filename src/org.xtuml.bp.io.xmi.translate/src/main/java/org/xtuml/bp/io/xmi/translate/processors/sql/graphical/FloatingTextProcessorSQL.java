@@ -65,7 +65,8 @@ public class FloatingTextProcessorSQL extends AbstractFloatingTextProcessor {
         GraphnodeProcessorSQL graphnodeProcessorSQL = new GraphnodeProcessorSQL(0f, 0f, Id);
         graphnodeProcessorSQL.setKeyLetters("DIM_ND");
         StringBuilder builder = new StringBuilder();
-        return builder.append(SQLUtils.getInsertStatement(graphelementProcessorSQL, getModelElement()))
+        return builder.append(SQLUtils.getInsertStatement(diagramelementProcessorSQL, getModelElement()))
+                .append(SQLUtils.getInsertStatement(graphelementProcessorSQL, getModelElement()))
                 .append(SQLUtils.getInsertStatement(graphnodeProcessorSQL, getModelElement())).toString();
     }
 

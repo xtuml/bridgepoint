@@ -296,7 +296,7 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     }
 
     public static ConnectorModel createConnector(String represents, String start, String end, String diagramId,
-            int ooaType) {
+            int ooaType, float yOffset) {
         StringBuilder builder = new StringBuilder();
         String geId = IdProcessor.UUID().toString();
         GraphicalElement startGE = GraphicalElementProcessorSQL.createdGraphicalElements.get(start);
@@ -323,7 +323,7 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
             WaypointProcessorSQL startWaypointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y,
                     IdProcessor.NULL_ID, geId);
             startWaypointProcessorSQL.setKeyLetters("DIM_WAY");
-            WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y - 100,
+            WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y + yOffset,
                     startWaypointProcessorSQL.getId(), geId);
             endWayPointProcessorSQL.setKeyLetters("DIM_WAY");
             LineSegmentProcessorSQL lineSegProcessorSQL = new LineSegmentProcessorSQL(geId,
@@ -352,9 +352,8 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                     .append(endWayPointProcessorSQL.getProcessorOutput()).append(startText.getProcessorOutput())
                     .append(middleText.getProcessorOutput()).append(endText.getProcessorOutput());
             // add this graphic to created list
-            // add this graphic to created list
             createdGraphicalElements.put(represents, new GraphicalElement(geId, represents,
-                    new Rectangle(startCon.x, startCon.y, 1F, (startCon.y - 100) - startCon.y), ooaType));
+                    new Rectangle(startCon.x, startCon.y, 1F, (startCon.y + yOffset) - startCon.y), ooaType));
         } else {
             GraphconnectorProcessorSQL endCon = new GraphconnectorProcessorSQL(endGE.getId(),
                     endGE.getRect().getMidPoint().x, endGE.getRect().getMidPoint().y);

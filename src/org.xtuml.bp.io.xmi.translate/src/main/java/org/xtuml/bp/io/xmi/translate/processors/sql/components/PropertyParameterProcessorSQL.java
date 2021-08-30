@@ -31,7 +31,25 @@ public class PropertyParameterProcessorSQL extends AbstractPropertyParameterProc
         ModelElement paramtypeElement = getModelElement().getRefAttribute("parametertype");
         // TODO: look into null param type (likely need a different way of traversing)
         if (paramtypeElement == null) {
-            return SQLUtils.idValue(IdProcessor.NULL_ID);
+            // TODO: Find correct way to handle unknown type
+            // One example that is problematic is with the messages.xml model. There is a
+            // fieldTypeName property parameter
+            // that is set to a type of MetadataFieldTypeSequence, which is not a type in
+            // the provided model. This style entry
+            // does exist, maybe we should read the aliasparamsTo ?
+            // <style value="aliasparams=fieldTypeName,
+            // fieldTypeDescription;aliasparamsTO=MetadataFieldTypeSequence, String;" />
+            // String typeId =
+            // XMITranslate.eaPropertyParameterTypes.get(getModelElement().getPlainAttribute("id"));
+            // if (typeId != null) {
+            // return SQLUtils.idValue(typeId);
+            // }
+            // for now just return an integer, BPs default
+            return SQLUtils.preprocessedIdValue(IdProcessor.getCoreType("integer"));
+        }
+        // if a class, we need to use the name as the id
+        if (paramtypeElement.getType().getName().equals("class")) {
+            return SQLUtils.idValue(paramtypeElement.getName().trim());
         }
         return SQLUtils.idValue(paramtypeElement.getPlainAttribute("id"));
     }

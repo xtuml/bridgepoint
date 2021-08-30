@@ -22,6 +22,7 @@ package org.xtuml.bp.io.mdl.wizards;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -38,18 +39,21 @@ import org.eclipse.ui.PlatformUI;
 import org.xml.sax.SAXException;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.ui.actions.PublishSynchronizationChanges;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.xmi.translate.ILogger;
 import org.xtuml.bp.io.xmi.translate.XMITranslate;
+import org.xtuml.bp.ui.canvas.GraphicsReconcilerLauncher;
 
 import com.sdmetrics.util.XMLParser.XMLParseException;
 
 /**
- * This wizard imports model data from an external XMI source.  Currently EA is
+ * This wizard imports model data from an external XMI source. Currently EA is
  * supported, other XMI milegae may vary.
  */
 public class XMIImportWizard extends Wizard implements IImportWizard {
@@ -59,13 +63,13 @@ public class XMIImportWizard extends Wizard implements IImportWizard {
 		@Override
 		public void log(String arg0) {
 		}
-		
+
 	}
-	
+
 	public XMIImportWizard() {
 		importHelper = new ModelImportWizardHelper();
 	}
-	
+
 	private String xtumlContent = "";
 
 	@Override
@@ -81,7 +85,7 @@ public class XMIImportWizard extends Wizard implements IImportWizard {
 		// Run xmi.translate here
 		XMITranslate translate = new XMITranslate(new NullLogger());
 		try {
-			xtumlContent  = translate.loadXMI(fInputFile.getAbsolutePath());
+			xtumlContent = translate.loadXMI(fInputFile.getAbsolutePath());
 		} catch (ParserConfigurationException | SAXException | XMLParseException | IOException e) {
 			CorePlugin.logError("Unable to load XMI file", e);
 			return false;
@@ -98,12 +102,28 @@ public class XMIImportWizard extends Wizard implements IImportWizard {
 
 			});
 		} catch (InvocationTargetException e) {
-			org.xtuml.bp.io.core.CorePlugin.logError(
-					"Unable to run import operation.", e);
+			org.xtuml.bp.io.core.CorePlugin.logError("Unable to run import operation.", e);
 		} catch (InterruptedException e) {
-			org.xtuml.bp.io.core.CorePlugin.logError(
-					"Unable to run import operation.", e);
+			org.xtuml.bp.io.core.CorePlugin.logError("Unable to run import operation.", e);
 		}
+		// XMI Translation does not create all elements, it could but
+		// since this functionality is already supported we call these
+		// now
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(fSystem);
+		GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(
+				List.of(Selection.getInstance().getSelectedNonRootModelElements()));
+		reconciler.runReconciler(false, true);
+		// disable report
+		boolean showReport = CorePlugin.getDefault().getPreferenceStore()
+				.getBoolean(BridgePointPreferencesStore.SHOW_SYNC_REPORT);
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.SHOW_SYNC_REPORT, false);
+		PublishSynchronizationChanges syncInterface = new PublishSynchronizationChanges();
+		syncInterface.disableNoReferenceDialog();
+		syncInterface.selectionChanged(null, Selection.getInstance().getSelection());
+		syncInterface.run(null);
+		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.SHOW_SYNC_REPORT,
+				showReport);
 		UIUtil.refresh(null);
 		Selection.getInstance().setSelection(fPreviousSelection);
 		if (fImporter == null) {
@@ -123,11 +143,11 @@ public class XMIImportWizard extends Wizard implements IImportWizard {
 	private XMIImportPage fImportPage;
 
 	public File fInputFile;
-	
+
 	private SystemModel_c fSystem;
 
 	private ModelImportWizardHelper importHelper;
-	
+
 	public IModelImport fImporter;
 
 	private ModelStreamProcessor fProcessor = new ModelStreamProcessor();
@@ -135,13 +155,11 @@ public class XMIImportWizard extends Wizard implements IImportWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		fPreviousSelection = Selection.getInstance().getStructuredSelection();
 		setWindowTitle("Import");
-		setDefaultPageImageDescriptor(CorePlugin
-				.getImageDescriptor("importsql_wiz.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(CorePlugin.getImageDescriptor("importsql_wiz.gif")); //$NON-NLS-1$
 	}
 
 	public void addPages() {
-		fImportPage = new XMIImportPage("XMI Model", Selection
-				.getInstance().getStructuredSelection());
+		fImportPage = new XMIImportPage("XMI Model", Selection.getInstance().getStructuredSelection());
 		addPage(fImportPage);
 	}
 
@@ -151,81 +169,71 @@ public class XMIImportWizard extends Wizard implements IImportWizard {
 	 * @see org.eclipse.jface.wizard.IWizard#getDialogSettings()
 	 */
 	public IDialogSettings getDialogSettings() {
-		return org.xtuml.bp.io.core.CorePlugin.getDefault()
-				.getDialogSettings();
+		return org.xtuml.bp.io.core.CorePlugin.getDefault().getDialogSettings();
 	}
 
 	public boolean importModel(SystemModel_c system) {
 		fSystem = system;
 		ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
 
-			try {
-				// turn off model change listeners
-				ModelRoot.disableChangeNotification();
-				ImportStreamStatus iss = new ImportStreamStatus();
-				if (getContainer() == null) {
-					// for unit tests to prevent displaying progress dialogs
-					iss.run(new NullProgressMonitor());
-				} else {
-					dialog.run(true, false, iss);
-				}
-			} catch (InterruptedException e) {
-				org.xtuml.bp.io.core.CorePlugin.logError(
-						"Internal error: import was interrupted", e); //$NON-NLS-1$
-				return false;
-			} catch (InvocationTargetException e) {
-				org.xtuml.bp.io.core.CorePlugin.logError(
-						"Internal error: plugin.doLoad not found", e); //$NON-NLS-1$
-				return false;
-			} 
-			finally {
-				ModelRoot.enableChangeNotification();	
+		try {
+			// turn off model change listeners
+			ModelRoot.disableChangeNotification();
+			ImportStreamStatus iss = new ImportStreamStatus();
+			if (getContainer() == null) {
+				// for unit tests to prevent displaying progress dialogs
+				iss.run(new NullProgressMonitor());
+			} else {
+				dialog.run(true, false, iss);
 			}
+		} catch (InterruptedException e) {
+			org.xtuml.bp.io.core.CorePlugin.logError("Internal error: import was interrupted", e); //$NON-NLS-1$
+			return false;
+		} catch (InvocationTargetException e) {
+			org.xtuml.bp.io.core.CorePlugin.logError("Internal error: plugin.doLoad not found", e); //$NON-NLS-1$
+			return false;
+		} finally {
+			ModelRoot.enableChangeNotification();
+		}
 
 		return true;
 	}
 
 	private class ImportStreamStatus implements IRunnableWithProgress {
 		String fMessage;
-		
-		public void run(final IProgressMonitor monitor)
-				throws InvocationTargetException, InterruptedException {
+
+		public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 			try {
-			    fImporter = importHelper.doImportPhase1(fProcessor, fSystem, xtumlContent.getBytes(), monitor);
+				fImporter = importHelper.doImportPhase1(fProcessor, fSystem, xtumlContent.getBytes(), monitor);
 				if (fImportPage.parseOnImport()) {
 					// this must be run on the display thread
-					PlatformUI.getWorkbench().getDisplay().syncExec(
-							new Runnable() {
+					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
-								public void run() {
-									fProcessor.runParseOnImportedElements(
-											fSystem.getTransactionManager(),
-											monitor);
-								}
+						public void run() {
+							fProcessor.runParseOnImportedElements(fSystem.getTransactionManager(), monitor);
+						}
 
-							});
+					});
 				}
-                // Make sure that all events in the asynchronous event queue
-                // are dispatched.
+				// Make sure that all events in the asynchronous event queue
+				// are dispatched.
 				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-                    public void run() {
-                        // do nothing
-                    }
-                });
+					public void run() {
+						// do nothing
+					}
+				});
 
 				// . . . . before trying to force persistence.
 				// since this process is not contained within a
 				// transaction we must force persistence of the
 				// imported elements
-			    importHelper.doImportPhase2(fProcessor, fSystem, monitor, fMessage, fImporter);
+				importHelper.doImportPhase2(fProcessor, fSystem, monitor, fMessage, fImporter);
 
 			} catch (IOException e) {
-				org.xtuml.bp.io.core.CorePlugin.logError(
-						"There was an exception loading the give source file.",
-						e);
+				org.xtuml.bp.io.core.CorePlugin.logError("There was an exception loading the give source file.", e);
 			}
 		}
 
 	}
-	
+
 }

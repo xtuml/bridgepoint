@@ -20,6 +20,7 @@
 		<module>../../src/org.xtuml.bp.compare</module>
 		<module>../../src/org.xtuml.bp.core</module>
 		<module>../../src/org.xtuml.bp.io.core</module>
+		<module>../../src/org.xtuml.bp.io.xmi.translate</module>
 		<module>../../src/org.xtuml.bp.io.mdl</module>
 		<module>../../src/org.xtuml.bp.model.compare</module>
 		<module>../../src/org.xtuml.bp.ui.canvas</module>

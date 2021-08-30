@@ -24,6 +24,17 @@ Transformations required to translate EA models to xtuml.
     <trigger name="associationClass" type="cattrval" src="extendedProperties" attr="associationclass" />
   </xmitransformation>
 
+  <xmitransformation modelelement="eaStub" xmipattern="EAStub" requirexmiid="false" allowxmiidref="true" recurse="true">
+    <trigger name="eaId" type="attrval" attr="xmi:idref" />
+    <trigger name="eaType" type="attrval" attr="UMLType" />
+    <trigger name="eaName" type="attrval" attr="name" />
+  </xmitransformation>
+
+  <xmitransformation modelelement="eaPropertyParameter" xmipattern="parameter" requirexmiid="false" allowxmiidref="true" recurse="true">
+    <trigger name="eaId" type="attrval" attr="xmi:idref" />
+    <trigger name="eaType" type="cattrval" src="properties" attr="type" />
+  </xmitransformation>
+
   <xmitransformation modelelement="diagram" xmipattern="diagram" recurse="true">
     <trigger name="represents" type="cattrval" src="model" attr="owner" />
     <trigger name="parentAsRepresents" type="cattrval" src="model" attr="parent" />

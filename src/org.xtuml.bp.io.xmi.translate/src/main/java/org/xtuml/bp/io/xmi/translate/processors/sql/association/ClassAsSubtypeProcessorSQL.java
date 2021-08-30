@@ -102,7 +102,7 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
                     superCia.getId());
             rto.setKeyLetters("R_RTO");
             ConnectorModel superConnector = GraphicalElementProcessorSQL.createConnector(assocId, supertypeId, null,
-                    diagramId, 36);
+                    diagramId, 36, 100f);
             // cache super connector for other subtypes
             superConnectors.put(assocId, superConnector);
             supertypeOutput = SQLUtils.getInsertStatement(subSup, getModelElement())
@@ -124,7 +124,7 @@ public class ClassAsSubtypeProcessorSQL extends AbstractClassAsSubtypeProcessor 
         joiner.add(supertypeOutput.toString());
         /* Create the subtype connectors now */
         ConnectorModel subConnector = GraphicalElementProcessorSQL.createConnector(cia.getId(), cia.getClassId(),
-                superConnector.getKey(), diagramId, 35);
+                superConnector.getKey(), diagramId, 35, 0f);
         joiner.add(subConnector.getSql());
         return joiner.toString();
     }

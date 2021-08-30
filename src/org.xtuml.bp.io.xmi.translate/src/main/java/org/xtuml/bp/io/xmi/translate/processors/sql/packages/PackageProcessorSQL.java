@@ -1,16 +1,35 @@
 package org.xtuml.bp.io.xmi.translate.processors.sql.packages;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractPackageProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
+import org.xtuml.bp.io.xmi.translate.processors.sql.packages.supporting.PackageableElementProcessorSQL;
 
 public class PackageProcessorSQL extends AbstractPackageProcessor {
+
+    private String pkgId;
+    private String name;
+    private String descrip;
+
+    public PackageProcessorSQL() {
+    }
+
+    public PackageProcessorSQL(String pkgId, String name, String descrip) {
+        this.pkgId = pkgId;
+        this.name = name;
+        this.descrip = descrip;
+    }
+
     @Override
     public String getPackage_ID() {
+        if (this.pkgId != null) {
+            return SQLUtils.idValue(pkgId);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 
@@ -26,11 +45,17 @@ public class PackageProcessorSQL extends AbstractPackageProcessor {
 
     @Override
     public String getName() {
+        if (this.name != null) {
+            return SQLUtils.stringValue(this.name);
+        }
         return SQLUtils.stringValue(getModelElement().getName());
     }
 
     @Override
     public String getDescrip() {
+        if (this.descrip != null) {
+            return SQLUtils.stringValue(this.descrip);
+        }
         return SQLUtils.stringValue("EA Element " + getModelElement().getFullName());
     }
 
@@ -47,5 +72,20 @@ public class PackageProcessorSQL extends AbstractPackageProcessor {
     @Override
     public String getProcessorOutput() {
         return SQLUtils.getProcessorOutput(this);
+    }
+
+    public static String[] createPackage(String name, String description) {
+        String pkgId = IdProcessor.UUID().toString();
+        PackageProcessorSQL packageProcessorSQL = new PackageProcessorSQL(pkgId, name, description);
+        packageProcessorSQL.setKeyLetters("EP_PKG");
+        PackageableElementProcessorSQL packageableElementProcessorSQL = new PackageableElementProcessorSQL(pkgId,
+                IdProcessor.NULL_ID, 7);
+        packageableElementProcessorSQL.setKeyLetters("PE_PE");
+        StringJoiner result = new StringJoiner("\n").add(SQLUtils.getProcessorOutput(packageProcessorSQL))
+                .add(SQLUtils.getProcessorOutput(packageableElementProcessorSQL));
+        String[] pkgInfo = new String[2];
+        pkgInfo[0] = result.toString();
+        pkgInfo[1] = pkgId;
+        return pkgInfo;
     }
 }

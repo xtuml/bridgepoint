@@ -79,7 +79,15 @@ public class AttributeProcessorSQL extends AbstractAttributeProcessor {
         ModelElement refAttribute = getModelElement().getRefAttribute("propertytype");
         String refId = IdProcessor.NULL_ID;
         if (refAttribute != null) {
-            refId = refAttribute.getPlainAttribute("id");
+            // look for name based creation first
+            refId = IdProcessor.getId(refAttribute.getName());
+            if (refId == null) {
+                refId = refAttribute.getPlainAttribute("id");
+                // store a name based one as well
+                IdProcessor.addId(refAttribute.getName(), IdProcessor.process(refId, "S_DT"));
+            } else {
+                return SQLUtils.preprocessedIdValue(refId);
+            }
         } else {
             // figure out core type mapping
             String global = IdProcessor.getIdForType("integer");

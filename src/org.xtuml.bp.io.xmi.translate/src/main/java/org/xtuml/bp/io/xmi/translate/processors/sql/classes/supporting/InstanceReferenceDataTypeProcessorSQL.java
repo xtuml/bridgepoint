@@ -4,14 +4,28 @@ import java.util.List;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractInstanceReferenceDataTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
+import org.xtuml.bp.io.xmi.translate.processors.sql.packages.supporting.PackageableElementProcessorSQL;
 
 public class InstanceReferenceDataTypeProcessorSQL extends AbstractInstanceReferenceDataTypeProcessor {
     private String id;
+    private String pkgId;
+    private int type;
 
-    public InstanceReferenceDataTypeProcessorSQL(String id) {
+    public InstanceReferenceDataTypeProcessorSQL(String id, String pkgId, int type) {
         this.id = id;
+        this.pkgId = pkgId;
+        this.type = type;
+    }
+
+    @Override
+    public String createSupportingElements() {
+        PackageableElementProcessorSQL packageableElementProcessorSQL = new PackageableElementProcessorSQL(
+                IdProcessor.process(this.id, null), this.pkgId, this.type);
+        packageableElementProcessorSQL.setKeyLetters("PE_PE");
+        return SQLUtils.getProcessorOutput(packageableElementProcessorSQL);
     }
 
     @Override

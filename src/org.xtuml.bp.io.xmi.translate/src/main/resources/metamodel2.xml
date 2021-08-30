@@ -78,7 +78,7 @@ other part of SDMetrics.
     <attribute name="ownedliterals" type="ref" multiplicity="many">The literals of the enumeration.</attribute>
   </modelelement>
   <modelelement name="enumerationliteral" mapping="S_ENUM" />
-  <modelelement name="primitivetype" parent="datatype" />
+  <modelelement name="primitivetype" parent="datatype" mapping="S_DT" />
 
   <modelelement name="connector">
     <attribute name="ends" type="ref" multiplicity="many">The connector ends of the connector.</attribute>
@@ -377,5 +377,14 @@ other part of SDMetrics.
   <modelelement name="diagramConnector">
     <attribute name="subject" type="data"></attribute>
     <attribute name="associationClass"></attribute>
+  </modelelement>
+  <modelelement name="eaStub">
+    <attribute name="eaId" type="data"></attribute>
+    <attribute name="eaType"></attribute>
+    <attribute name="eaName"></attribute>
+  </modelelement>
+  <modelelement name="eaPropertyParameter">
+    <attribute name="eaId" type="data"></attribute>
+    <attribute name="eaType"></attribute>
   </modelelement>
 </sdmetricsmetamodel>

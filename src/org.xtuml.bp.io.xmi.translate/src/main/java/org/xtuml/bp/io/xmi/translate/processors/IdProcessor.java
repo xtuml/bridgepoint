@@ -36,15 +36,24 @@ public class IdProcessor {
 		globalTypes.forEach((k, v) -> addId(v));
 	}
 
-	public static String process(String value, String keyLetters) {
+	public static String getTypeName(String value) {
 		if (value.startsWith("EAJava__")) {
 			value = value.replaceAll("EAJava__", "");
 			value = value.substring(0, value.length() - 1);
 			value = value.replaceAll("_", " ");
 		}
+		return value;
+	}
+
+	public static String process(String value, String keyLetters) {
+		value = getTypeName(value);
 		if (value.startsWith("EAJava_")) {
 			value = value.replaceAll("EAJava_", "");
-			return getIdForType(value);
+			value = value.replaceAll("__", "");
+			String coreType = getIdForType(value);
+			if (coreType != null) {
+				return coreType;
+			}
 		}
 		UUID uuid = createdUUIDs.get(value);
 		if (value.equals(NULL_ID.toString())) {
@@ -91,6 +100,7 @@ public class IdProcessor {
 	}
 
 	public static String getId(String name) {
+		name = getTypeName(name);
 		UUID id = createdUUIDs.get(name);
 		if (id != null) {
 			return id.toString();
@@ -102,6 +112,14 @@ public class IdProcessor {
 		UUID random = UUID.randomUUID();
 		createdUUIDs.put(random.toString(), random);
 		return random;
+	}
+
+	public static void addId(String name, String id) {
+		createdUUIDs.put(name, UUID.fromString(id));
+	}
+
+	public static String getCoreType(String id) {
+		return globalTypes.get(id);
 	}
 
 }

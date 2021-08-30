@@ -87,9 +87,9 @@ public class ClassAsLinkProcessorSQL extends AbstractClassAsLinkProcessor {
         String diagramId = ModelProcessorSQL.createdModels.get(graphicalModel);
         ConnectorModel mainConnector = GraphicalElementProcessorSQL.createConnector(assocId,
                 classAsAssociatedOneSideProcessorSQL.getClassId(), classAsAssociatedOtherSideProcessorSQL.getClassId(),
-                diagramId, 24);
+                diagramId, 24, 0f);
         ConnectorModel linkConnector = GraphicalElementProcessorSQL.createConnector(assocId, assrCia.getClassId(),
-                assocId, diagramId, 34);
+                assocId, diagramId, 34, 0f);
         supporting.append(mainConnector.getSql()).append(linkConnector.getSql());
         return supporting.toString();
     }

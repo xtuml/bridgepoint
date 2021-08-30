@@ -44,6 +44,7 @@ import org.xtuml.bp.core.util.UIUtil;
 public class PublishSynchronizationChanges implements IActionDelegate {
 
 	private ISelection selection;
+	private boolean disableNoRefDialog;
 
 	@Override
 	public void run(IAction action) {
@@ -55,21 +56,21 @@ public class PublishSynchronizationChanges implements IActionDelegate {
 			system.Collectreferencesforsynchronization(references, Synchronizationtype_c.Push);
 		}
 		List<ElementChange> changes = PullSynchronizationChanges.collectChanges(references);
-		if(changes.size() == 0) {
-			UIUtil.openInformation(PlatformUI.getWorkbench()
-					.getDisplay().getActiveShell(), "Synchronization",
-					"No references were found to be unsynchronized.");
+		if (changes.size() == 0) {
+			if (!disableNoRefDialog) {
+				UIUtil.openInformation(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Synchronization",
+						"No references were found to be unsynchronized.");
+			}
 			return;
 		}
 		boolean result = PullSynchronizationChanges.displayRemovalChanges(changes);
-		if(!result) {
+		if (!result) {
 			return;
 		}
 		TransactionManager manager = TransactionManager.getSingleton();
 		Transaction transaction = null;
 		try {
-			transaction = manager.startTransaction("Synchronize references",
-					Ooaofooa.getDefaultInstance());
+			transaction = manager.startTransaction("Synchronize references", Ooaofooa.getDefaultInstance());
 			for (ElementChange change : changes) {
 				change.getElementChanged().Synchronize();
 			}
@@ -80,7 +81,7 @@ public class PublishSynchronizationChanges implements IActionDelegate {
 			}
 			return;
 		}
-		if(!canceled) {
+		if (!canceled) {
 			PullSynchronizationChanges.displayChanges(changes);
 			UIUtil.refresh(null);
 		}
@@ -89,6 +90,10 @@ public class PublishSynchronizationChanges implements IActionDelegate {
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = selection;
+	}
+
+	public void disableNoReferenceDialog() {
+		this.disableNoRefDialog = true;
 	}
 
 }

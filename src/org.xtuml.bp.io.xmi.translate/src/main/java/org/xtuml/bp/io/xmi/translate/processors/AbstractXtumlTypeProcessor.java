@@ -5,7 +5,6 @@ import java.util.List;
 import com.sdmetrics.model.ModelElement;
 
 import org.xtuml.bp.io.xmi.translate.XMITranslate;
-import org.xtuml.bp.io.xmi.translate.XMITranslator;
 
 public abstract class AbstractXtumlTypeProcessor implements XtumlTypeProcessor {
 

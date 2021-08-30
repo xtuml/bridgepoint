@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +12,6 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.commons.io.IOUtils;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xtuml.bp.io.xmi.translate.XtumlMapper.MapperType;
-import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
 
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.MetaModelElement.MetaModelElementAttribute;
@@ -30,6 +22,13 @@ import com.sdmetrics.model.XMITransformations;
 import com.sdmetrics.util.XMLParser;
 import com.sdmetrics.util.XMLParser.XMLParseException;
 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xtuml.bp.io.xmi.translate.XtumlMapper.MapperType;
+import org.xtuml.bp.io.xmi.translate.processors.sql.packages.PackageProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.types.DataTypeProcessorSQL;
+
 /**
  * Translate UML2 compatible XMI to xtUML
  */
@@ -39,6 +38,8 @@ public class XMITranslate {
 	static Map<ModelElement, String> afterGraphicsElements = new HashMap<>();
 	public static Map<ModelElement, String> graphicElements = new HashMap<>();
 	public static Map<String, ModelElement> eaDiagramConnectors = new HashMap<>();
+	public static Map<String, String> eaPropertyParameterTypes = new HashMap<>();
+	public static Map<String, ModelElement> eaStubTypes = new HashMap<>();
 	public static List<String> supportedExtensions = new ArrayList<>() {
 		{
 			add("*.xmi");
@@ -115,6 +116,7 @@ public class XMITranslate {
 			root = root.getOwner();
 		}
 		model.forEach(e -> cacheSupportingElements(e));
+		model.forEach(e -> createSupportingElements(e));
 		model.forEach(e -> outputXtuml(e));
 		// process graphics after collecting ooaofooa data
 		processGraphics();
@@ -182,6 +184,32 @@ public class XMITranslate {
 			}
 			eaDiagramConnectors.put(e.getPlainAttribute("subject"), e);
 		}
+		if (e.getType().getName().equals("eaPropertyParameter")) {
+			String eaType = e.getPlainAttribute("eaType");
+			if (!eaType.equals("")) {
+				eaPropertyParameterTypes.put(e.getPlainAttribute("eaId"), eaType);
+			}
+		}
+	}
+
+	static String pkgId = null;
+
+	private void createSupportingElements(ModelElement e) {
+		if (e.getType().getName().equals("eaStub")) {
+			if (pkgId == null) {
+				String[] packageInfo = PackageProcessorSQL.createPackage("EAStub_Types",
+						"Enterprise Architecture has certain types marked as EAStub entries.  These may be intended as core types, but creating a UDT here.");
+				xtumlOutput.append(packageInfo[0]);
+				pkgId = packageInfo[1];
+			}
+			String umlType = e.getPlainAttribute("eaType");
+			if (umlType.equals("DataType")) {
+				String dataType = DataTypeProcessorSQL.createDataType(e.getPlainAttribute("id"),
+						e.getPlainAttribute("name"),
+						"EAStub { Type: " + umlType + ", Name: " + e.getPlainAttribute("name") + "}", pkgId);
+				xtumlOutput.append(dataType);
+			}
+		}
 	}
 
 	private void outputXtuml(ModelElement e) {
@@ -189,7 +217,7 @@ public class XMITranslate {
 			return;
 		}
 		String mapping = e.getType().getMapping();
-		if (mapping == null) {
+		if (mapping == null && !e.getType().getName().equals("eaStub")) {
 			// see if a relational child
 			mapping = getMappingAsRelationalChild(e);
 			if (mapping == null) {

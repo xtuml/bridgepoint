@@ -33,7 +33,7 @@ public class EnumeratorProcessorSQL extends AbstractEnumeratorProcessor {
 
     @Override
     public String getEDT_DT_ID() {
-        return SQLUtils.idValue(getModelElement().getOwner().getOwner().getPlainAttribute("id"));
+        return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
     }
 
     @Override

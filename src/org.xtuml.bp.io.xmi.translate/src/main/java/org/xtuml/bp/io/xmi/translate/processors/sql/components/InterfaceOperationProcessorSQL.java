@@ -35,8 +35,14 @@ public class InterfaceOperationProcessorSQL extends AbstractInterfaceOperationPr
             if (parameter.getName().equals("return")) {
                 ModelElement refAttribute = parameter.getRefAttribute("parametertype");
                 if (refAttribute != null) {
-                    refId = refAttribute.getPlainAttribute("id");
-                    break;
+                    // look for name based creation first
+                    refId = IdProcessor.getId(refAttribute.getName());
+                    if (refId == null) {
+                        refId = refAttribute.getPlainAttribute("id");
+                        break;
+                    } else {
+                        return SQLUtils.preprocessedIdValue(refId);
+                    }
                 } else {
                     // figure out core type mapping
                     String global = IdProcessor.getIdForType("void");
