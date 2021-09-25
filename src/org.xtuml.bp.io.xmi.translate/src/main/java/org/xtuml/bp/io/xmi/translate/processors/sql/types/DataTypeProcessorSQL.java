@@ -160,7 +160,7 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
         peProcessor.setKeyLetters("PE_PE");
         UserDataTypeProcessorSQL udtProcessor = new UserDataTypeProcessorSQL(IdProcessor.process(id, "S_DT"));
         udtProcessor.setKeyLetters("S_UDT");
-        StringJoiner result = new StringJoiner("\n").add(SQLUtils.getProcessorOutput(dataTypeProcessorSQL))
+        StringJoiner result = new StringJoiner("").add(SQLUtils.getProcessorOutput(dataTypeProcessorSQL))
                 .add(SQLUtils.getProcessorOutput(peProcessor)).add(SQLUtils.getProcessorOutput(udtProcessor));
         return result.toString();
     }

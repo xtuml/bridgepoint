@@ -14,7 +14,7 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.components.supporting.PortPr
 public class ProvisionProcessorSQL extends AbstractProvisionProcessor {
     @Override
     public String getProvision_Id() {
-        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
+        return SQLUtils.idValue(getModelElement().getPlainAttribute("id"), getKeyLetters());
     }
 
     @Override

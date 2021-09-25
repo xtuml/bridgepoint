@@ -148,7 +148,7 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
                 }
             }
         });
-        StringJoiner joiner = new StringJoiner("\n");
+        StringJoiner joiner = new StringJoiner("");
         processors.forEach(p -> joiner.add(p.getProcessorOutput()));
         return joiner.toString();
     }

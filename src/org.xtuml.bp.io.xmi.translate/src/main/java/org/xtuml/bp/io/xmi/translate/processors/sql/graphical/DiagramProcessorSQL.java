@@ -13,6 +13,11 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 public class DiagramProcessorSQL extends AbstractDiagramProcessor {
 
     private boolean selfCreated = false;
+    private String diagramId;
+
+    public DiagramProcessorSQL(String diagramId) {
+        this.diagramId = diagramId;
+    }
 
     public DiagramProcessorSQL(boolean selfCreated) {
         this.selfCreated = selfCreated;
@@ -20,6 +25,9 @@ public class DiagramProcessorSQL extends AbstractDiagramProcessor {
 
     @Override
     public String getdiagramId() {
+        if (diagramId != null) {
+            return SQLUtils.idValue(diagramId);
+        }
         if (selfCreated) {
             // creating a root package diagram
             return SQLUtils.idValue(getModelElement().getPlainAttribute("id") + "_self");

@@ -8,6 +8,7 @@ import com.sdmetrics.model.ModelElement;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractPackageProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
+import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.supporting.SequenceUtil;
 import org.xtuml.bp.io.xmi.translate.processors.sql.packages.supporting.PackageableElementProcessorSQL;
 
 public class PackageProcessorSQL extends AbstractPackageProcessor {
@@ -70,6 +71,33 @@ public class PackageProcessorSQL extends AbstractPackageProcessor {
     }
 
     @Override
+    public String createSupportingElements() {
+        if (getModelElement() == null) {
+            // do not process for direct package creations
+            return "";
+        }
+        // in some cases it may be the best option
+        // to create certain package types here
+        //
+        // Create Sequence Packages here
+        if (isSequence()) {
+            SequenceUtil util = new SequenceUtil();
+            return util.createSequence(getModelElement());
+        }
+        return "";
+    }
+
+    private boolean isSequence() {
+        String type = getModelElement().getType().getName();
+        switch (type) {
+            case "interaction":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
     public String getProcessorOutput() {
         return SQLUtils.getProcessorOutput(this);
     }
@@ -81,7 +109,7 @@ public class PackageProcessorSQL extends AbstractPackageProcessor {
         PackageableElementProcessorSQL packageableElementProcessorSQL = new PackageableElementProcessorSQL(pkgId,
                 IdProcessor.NULL_ID, 7);
         packageableElementProcessorSQL.setKeyLetters("PE_PE");
-        StringJoiner result = new StringJoiner("\n").add(SQLUtils.getProcessorOutput(packageProcessorSQL))
+        StringJoiner result = new StringJoiner("").add(SQLUtils.getProcessorOutput(packageProcessorSQL))
                 .add(SQLUtils.getProcessorOutput(packageableElementProcessorSQL));
         String[] pkgInfo = new String[2];
         pkgInfo[0] = result.toString();

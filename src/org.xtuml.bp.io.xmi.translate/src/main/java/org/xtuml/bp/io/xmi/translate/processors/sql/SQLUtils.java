@@ -34,7 +34,8 @@ public class SQLUtils {
             return true;
         }
         return owner != null && (owner.getType().getName().equals("model")
-                || owner.getType().getName().equals("package") || owner.getType().getName().equals("component"));
+                || owner.getType().getName().equals("package") || owner.getType().getName().equals("component")
+                || element.getType().getName().equals("interaction"));
     }
 
     public static String createPackageableElement(ModelElement element) {

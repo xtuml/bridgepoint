@@ -59,13 +59,18 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
         // if this element's owner is not a package, but the parent is a component
         // the hiearchy will not be supported in xtuml. We look for the component's
         // parent in that case
-        if (getModelElement().getOwner().getType().getMapping().equals("C_C")) {
+        if (getModelElement().getOwner().getType().getMapping() != null
+                && getModelElement().getOwner().getType().getMapping().equals("C_C")) {
             if (!getModelElement().getType().getMapping().equals("EP_PKG")) {
                 return SQLUtils.idValue(getModelElement().getOwner().getOwner().getPlainAttribute("id"));
             } else {
                 // valid in component, set null id here
                 return SQLUtils.idValue(IdProcessor.NULL_ID);
             }
+        }
+        // for collaborations we must look two levels up
+        if (getModelElement().getOwner().getType().getName().equals("collaboration")) {
+            return SQLUtils.idValue(getModelElement().getOwner().getOwner().getOwner().getPlainAttribute("id"));
         }
         // otherwise owner is package
         return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
@@ -81,7 +86,8 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
             return SQLUtils.idValue(IdProcessor.NULL_ID);
         }
         // only package is supported as a child to component in xtuml
-        if (getModelElement().getOwner().getType().getMapping().equals("C_C")) {
+        if (getModelElement().getOwner().getType().getMapping() != null
+                && getModelElement().getOwner().getType().getMapping().equals("C_C")) {
             if (getModelElement().getType().getMapping().equals("EP_PKG")) {
                 return SQLUtils.idValue(getModelElement().getOwner().getPlainAttribute("id"));
             }
@@ -122,6 +128,9 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
      * static int EXCEPTION = 24; public final static int DEPL = 25;
      */
     private int getType(String mapping) {
+        if (getModelElement().getType().getName().equals("instancespecification")) {
+            return 14;
+        }
         switch (mapping) {
             case "S_SYNC":
                 return 1;

@@ -16,6 +16,7 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractGraphicalEleme
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 import org.xtuml.bp.io.xmi.translate.processors.sql.classes.supporting.ImportedClassProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.supporting.ConnectionInformation;
+import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.supporting.InteractionParticipantProcessorSQL;
 
 public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProcessor {
 
@@ -71,7 +72,20 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 return SQLUtils.idValue(information.getOoaId());
             }
         }
+        if (isInteractionParticipant()) {
+            return SQLUtils.idValue(getInteractionParticipantOoaId());
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("element"));
+    }
+
+    private String getInteractionParticipantOoaId() {
+        if (getModelElement().getRefAttribute("actualElement") != null
+                && getModelElement().getRefAttribute("actualElement").getType().getName().equals("comment")) {
+            return getModelElement().getPlainAttribute("element");
+        }
+        return getModelElement().getPlainAttribute("element")
+                + getModelElement().getOwner().getPlainAttribute("parentAsRepresents")
+                + InteractionParticipantProcessorSQL.PARTICIPANT_SUFFIX;
     }
 
     @Override
@@ -82,8 +96,30 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         if (importedClassId != null) {
             return SQLUtils.numberValue(23);
         }
+        if (isInteractionParticipant()) {
+            return SQLUtils.numberValue(getInteractionParticipantOoaType());
+        }
         int ooaType = getOoaTypeFromOoaId();
         return SQLUtils.numberValue(ooaType);
+    }
+
+    private boolean isInteractionParticipant() {
+        return getModelElement().getOwner().getPlainAttribute("type").equals("Sequence");
+    }
+
+    private int getInteractionParticipantOoaType() {
+        int type = getOoaTypeFromOoaId();
+        switch (type) {
+            case 98:
+                // component participant
+                return 107;
+            case 210:
+                return 210;
+            case 0:
+                return 0;
+            default:
+                return type;
+        }
     }
 
     @Override
@@ -137,7 +173,14 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         }
         String boundsString = getModelElement().getPlainAttribute("bounds");
         if (isShape()) {
-            Rectangle rect = getBoundsFromString(boundsString);
+            Rectangle originalRect = getBoundsFromString(boundsString);
+            Rectangle rect = new Rectangle(originalRect.x, originalRect.y, originalRect.w, originalRect.h);
+            // SPECIAL CASE: For participants with a lifeline the bounds
+            // inlclude the shape and connector (no real connector)
+            // use 10%
+            if (getOoaTypeFromOoaId() == 107 || getOoaTypeFromOoaId() == 63) {
+                rect.h = rect.h * .1F;
+            }
             GraphelementProcessorSQL graphelementProcessorSQL = new GraphelementProcessorSQL(rect.x, rect.y, null);
             graphelementProcessorSQL.setModelElement(getModelElement());
             graphelementProcessorSQL.setKeyLetters("DIM_GE");
@@ -188,6 +231,7 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                     });
                 }
             }
+            createRequiredConnectors(rect);
             builder.append(SQLUtils.getInsertStatement(graphnodeProcessorSQL, getModelElement()))
                     .append(SQLUtils.getInsertStatement(diagramelementProcessorSQL, getModelElement()))
                     .append(SQLUtils.getInsertStatement(shapeProcessorSQL, getModelElement()))
@@ -293,6 +337,9 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                     .append(SQLUtils.getInsertStatement(connectorProcessorSQL, getModelElement()))
                     .append(SQLUtils.getInsertStatement(graphEdgeProcessor, getModelElement())).toString();
         }
+    }
+
+    private void createRequiredConnectors(Rectangle rect) {
     }
 
     public static ConnectorModel createConnector(String represents, String start, String end, String diagramId,
@@ -488,7 +535,10 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     private int getOoaTypeFromOoaId() {
         String representsId = getModelElement().getPlainAttribute("element");
-        String keyLetters = IdProcessor.elementIdKeyLetts.get(UUID.fromString(IdProcessor.process(representsId, null)));
+        if (isInteractionParticipant()) {
+            representsId = getInteractionParticipantOoaId();
+        }
+        String keyLetters = IdProcessor.elementIdKeyLetts.get(UUID.fromString(IdProcessor.process(representsId)));
         ConnectionInformation information = ConnectionInformation.connectionMap
                 .get(getModelElement().getPlainAttribute("element"));
         if (information != null) {
@@ -519,6 +569,12 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 return 52;
             case "SM_STATE":
                 return 41;
+            case "SQ_LS":
+                return 57;
+            case "SQ_COP":
+                return 107;
+            case "SQ_CP":
+                return 63;
             case "R_REL":
                 return 24;
             case "R_SUB":
@@ -562,7 +618,11 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         if (!type.equals("Logical") && ooaType == 21) {
             return IgnoreType.NOT_HANDLED;
         }
-        return getOoaTypeFromOoaId() == 0 ? IgnoreType.NOT_HANDLED : IgnoreType.NOT_IGNORED;
+        if (ooaType == 0 && isInteractionParticipant()) {
+            // try interaction participants
+            ooaType = getInteractionParticipantOoaType();
+        }
+        return ooaType == 0 ? IgnoreType.NOT_HANDLED : IgnoreType.NOT_IGNORED;
     }
 
     @Override

@@ -45,6 +45,10 @@ public class IdProcessor {
 		return value;
 	}
 
+	public static String process(String id) {
+		return process(id, null);
+	}
+
 	public static String process(String value, String keyLetters) {
 		value = getTypeName(value);
 		if (value.startsWith("EAJava_")) {

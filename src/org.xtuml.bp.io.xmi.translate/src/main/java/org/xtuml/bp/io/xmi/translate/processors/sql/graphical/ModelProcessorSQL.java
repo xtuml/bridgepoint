@@ -15,6 +15,19 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.supporting.Graphic
 public class ModelProcessorSQL extends AbstractModelProcessor {
 
     public static Map<GraphicalModel, String> createdModels = new HashMap<>();
+    private String represents;
+    private String type;
+    private String id;
+
+    public ModelProcessorSQL() {
+
+    }
+
+    public ModelProcessorSQL(String id, String represents, String type) {
+        this.id = id;
+        this.represents = represents;
+        this.type = type;
+    }
 
     @Override
     public void postprocess(ModelElement element, String keyletters) {
@@ -25,7 +38,12 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String createSupportingElements() {
-        DiagramProcessorSQL diagramProcessor = new DiagramProcessorSQL(false);
+        DiagramProcessorSQL diagramProcessor = null;
+        if (id != null) {
+            diagramProcessor = new DiagramProcessorSQL(id);
+        } else {
+            diagramProcessor = new DiagramProcessorSQL(false);
+        }
         diagramProcessor.setModelElement(getModelElement());
         diagramProcessor.setKeyLetters("DIM_DIA");
         return SQLUtils.getInsertStatement(diagramProcessor, getModelElement());
@@ -33,6 +51,9 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String getdiagramId() {
+        if (id != null) {
+            return SQLUtils.idValue(id);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 
@@ -43,11 +64,14 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     private int getType() {
         int typeMapping = 0;
-        String type = getModelElement().getPlainAttribute("type");
+        if (type == null) {
+            type = getModelElement().getPlainAttribute("type");
+        }
         switch (type) {
             case "Logical":
             case "CompositeStructure":
             case "Use Case":
+            case "Sequence":
                 typeMapping = 112;
                 break;
             case "Statechart":
@@ -62,6 +86,9 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
 
     @Override
     public String getOOA_ID() {
+        if (represents != null) {
+            return SQLUtils.idValue(represents);
+        }
         String representsAsParent = getModelElement().getPlainAttribute("parentAsRepresents");
         if (!representsAsParent.equals("")) {
             // Special case for component diagrams, they are not supported as such
@@ -81,11 +108,14 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
     @Override
     public String getOOA_Type() {
         int typeMapping = 0;
-        String type = getModelElement().getPlainAttribute("type");
+        if (type == null) {
+            type = getModelElement().getPlainAttribute("type");
+        }
         switch (type) {
             case "Logical":
             case "CompositeStructure":
             case "Use Case":
+            case "Sequence":
                 typeMapping = 108;
                 break;
             case "Statechart":

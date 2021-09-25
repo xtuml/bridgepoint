@@ -30,8 +30,6 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.components.RequirementProces
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.ModelProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.ActorParticipantProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.ClassInstanceParticipantProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.interaction.LifespanProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.machines.InstanceStateMachineProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.machines.StateMachineStateProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.machines.TransitionProcessorSQL;
@@ -42,7 +40,7 @@ import org.xtuml.bp.io.xmi.translate.processors.sql.types.EnumeratorProcessorSQL
 import org.xtuml.bp.io.xmi.translate.processors.sql.usecase.UseCaseAssociationProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.usecase.UseCaseParticipantProcessorSQL;
 
-public class XtumlMapper {
+public class XtumlSQLMapper {
 
 	static enum MapperType {
 		SQL,
@@ -61,8 +59,7 @@ public class XtumlMapper {
 			entry("SM_ISM", new InstanceStateMachineProcessorSQL()),
 			entry("SM_STATE", new StateMachineStateProcessorSQL()), entry("R_REL", new AssociationProcessorSQL()),
 			entry("R_SUB", new ClassAsSubtypeProcessorSQL()), entry("SM_TXN", new TransitionProcessorSQL()),
-			entry("UC_UCA", new UseCaseAssociationProcessorSQL()), entry("R_ASSR", new ClassAsLinkProcessorSQL()),
-			entry("SQ_LS", new LifespanProcessorSQL()), entry("SQ_CIP", new ClassInstanceParticipantProcessorSQL())));
+			entry("UC_UCA", new UseCaseAssociationProcessorSQL()), entry("R_ASSR", new ClassAsLinkProcessorSQL())));
 	static Map<MapperType, Map<String, XtumlTypeProcessor>> graphicalMappers = Map.of(MapperType.SQL,
 			Map.of("GD_MD", new ModelProcessorSQL(), "GD_GE", new GraphicalElementProcessorSQL()));
 

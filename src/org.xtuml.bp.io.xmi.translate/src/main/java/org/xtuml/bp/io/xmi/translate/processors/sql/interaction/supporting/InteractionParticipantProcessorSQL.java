@@ -11,8 +11,21 @@ import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractInteractionPar
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
 
 public class InteractionParticipantProcessorSQL extends AbstractInteractionParticipantProcessor {
+    public static final String PARTICIPANT_SUFFIX = "_PART";
+    private String id;
+
+    public InteractionParticipantProcessorSQL() {
+    }
+
+    public InteractionParticipantProcessorSQL(String id) {
+        this.id = id;
+    }
+
     @Override
     public String getPart_ID() {
+        if (id != null) {
+            return SQLUtils.idValue(id);
+        }
         return SQLUtils.idValue(getModelElement().getPlainAttribute("id"));
     }
 

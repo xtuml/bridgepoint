@@ -24,7 +24,7 @@ import com.sdmetrics.util.XMLParser.XMLParseException;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xtuml.bp.io.xmi.translate.XtumlMapper.MapperType;
+import org.xtuml.bp.io.xmi.translate.XtumlSQLMapper.MapperType;
 import org.xtuml.bp.io.xmi.translate.processors.sql.packages.PackageProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.types.DataTypeProcessorSQL;
@@ -73,7 +73,7 @@ public class XMITranslate {
 		logger.log("Loading XMI document...");
 		xtumlOutput = new StringBuilder();
 		/* apply any header specified */
-		xtumlOutput.append(XtumlMapper.process(MapperType.SQL, null, "HEADER"));
+		xtumlOutput.append(XtumlSQLMapper.process(MapperType.SQL, null, "HEADER"));
 		MetaModel mm = null;
 		XMLParser parser = null;
 		SAXParser saxParser = null;
@@ -234,7 +234,7 @@ public class XMITranslate {
 	}
 
 	private void mapToXtuml(ModelElement e, String mapping) {
-		xtumlOutput.append(XtumlMapper.process(MapperType.SQL, e, mapping));
+		xtumlOutput.append(XtumlSQLMapper.process(MapperType.SQL, e, mapping));
 	}
 
 	private String getMappingAsRelationalChild(ModelElement e) {
