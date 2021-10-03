@@ -88,7 +88,7 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
             return SQLUtils.idValue(this.id);
         }
         // see if a reference has already created an id
-        String id = IdProcessor.getId(getAdjustedName());
+        String id = IdProcessor.getId(getModelElement().getName());
         if (id != null) {
             return SQLUtils.preprocessedIdValue(id);
         }
@@ -105,11 +105,7 @@ public class DataTypeProcessorSQL extends AbstractDataTypeProcessor {
         if (this.name != null) {
             return SQLUtils.stringValue(this.name);
         }
-        return SQLUtils.stringValue(getAdjustedName());
-    }
-
-    private String getAdjustedName() {
-        return getModelElement().getName().replaceAll("\\{", "").replaceAll("\\}", "");
+        return SQLUtils.stringValue(getModelElement().getName());
     }
 
     @Override

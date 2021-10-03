@@ -73,7 +73,7 @@ public class PackageProcessorSQL extends AbstractPackageProcessor {
     @Override
     public String createSupportingElements() {
         if (getModelElement() == null) {
-            // do not process for direct package creations
+            // do not process further for direct package creations
             return "";
         }
         // in some cases it may be the best option

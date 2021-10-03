@@ -131,6 +131,9 @@ public class PackageableElementProcessorSQL extends AbstractPackageableElementPr
         if (getModelElement().getType().getName().equals("instancespecification")) {
             return 14;
         }
+        if (getModelElement().getType().getName().equals("message")) {
+            return 17;
+        }
         switch (mapping) {
             case "S_SYNC":
                 return 1;

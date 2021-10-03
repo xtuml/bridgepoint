@@ -71,6 +71,16 @@ public class XtumlSQLMapper {
 		String[] mappings = mapping.split("\\+");
 		for (int i = 0; i < mappings.length; i++) {
 			String m = mappings[i];
+			// Sequence Diagrams and their graphical elements
+			// are created through the root package, we need
+			// to ensure that the GD_MD instances have been
+			// created first
+			if (!XMITranslate.processing.contains(e) && m.equals("EP_PKG")
+					&& e.getType().getName().equals("interaction")) {
+				// save these for later
+				XMITranslate.afterGraphicsElements.put(e, m);
+				continue;
+			}
 			if (XMITranslate.afterGraphics.contains(m)) {
 				// save these for later
 				XMITranslate.afterGraphicsElements.put(e, m);

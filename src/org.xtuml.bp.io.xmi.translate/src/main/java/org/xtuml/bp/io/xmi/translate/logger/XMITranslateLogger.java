@@ -13,6 +13,7 @@ public class XMITranslateLogger implements ILogger {
     private List<String> processorsNotImplemented = new ArrayList<>();
     private List<String> noMapping = new ArrayList<>();
     private List<String> skipped = new ArrayList<>();
+    private List<String> debug = new ArrayList<>();
     private boolean todo;
 
     public XMITranslateLogger(boolean verbose, boolean todo) {
@@ -28,18 +29,22 @@ public class XMITranslateLogger implements ILogger {
         }
     }
 
+    @Override
     public void log(String msg) {
         standardLog.add(msg);
     }
 
+    @Override
     public void logTodo(String msg) {
         todoLog.add(msg);
     }
 
+    @Override
     public void logNoMapping(String msg) {
         noMapping.add(msg);
     }
 
+    @Override
     public void logNoProcessor(String msg) {
         processorsNotImplemented.add(msg);
     }
@@ -72,14 +77,24 @@ public class XMITranslateLogger implements ILogger {
             if (!fileOut.equals("")) {
                 System.out.println("\n\nTranslation written to " + fileOut + "\n");
             }
+            System.out.println("### Debugging Information ###\n");
+            debug.forEach(System.out::println);
         }
         System.out.println("\nTranslation complete.\n");
     }
 
+    @Override
     public void logSkipped(String string) {
         skipped.add(string);
     }
 
+    @Override
+    public void debug(String string) {
+        if(string != null && !debug.contains(string)) {
+    	    debug.add(string);
+        }
+    }
+    
     @Override
     public void printReport(String output) {
         printOutput(output);

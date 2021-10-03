@@ -21,6 +21,7 @@ public class XMITranslator {
 	public static XMITranslateLogger logger;
 
 	public static void main(String[] args) {
+		System.setProperty("file.encoding", "UTF-16");
 		// create the parser
 		Options options = XMITranslateOptions.options();
 		CommandLineParser parser = new DefaultParser();

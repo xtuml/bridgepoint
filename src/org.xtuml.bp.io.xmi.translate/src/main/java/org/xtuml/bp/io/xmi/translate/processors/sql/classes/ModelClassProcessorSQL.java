@@ -10,8 +10,8 @@ import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractModelClassProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
-import org.xtuml.bp.io.xmi.translate.processors.sql.classes.supporting.InstanceReferenceDataTypeProcessorSQL;
 import org.xtuml.bp.io.xmi.translate.processors.sql.types.DataTypeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.types.supporting.InstanceReferenceDataTypeProcessorSQL;
 
 public class ModelClassProcessorSQL extends AbstractModelClassProcessor {
     static int count = 1;

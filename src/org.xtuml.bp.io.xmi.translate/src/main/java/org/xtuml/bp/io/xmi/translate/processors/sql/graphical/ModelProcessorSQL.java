@@ -34,6 +34,9 @@ public class ModelProcessorSQL extends AbstractModelProcessor {
         GraphicalModel graphicalModel = new GraphicalModel(getModelElement().getPlainAttribute("represents"),
                 getType());
         createdModels.put(graphicalModel, getModelElement().getPlainAttribute("id"));
+        represents = null;
+        type = null;
+        id = null;
     }
 
     @Override

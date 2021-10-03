@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:thecustomprofile="http://www.sparxsystems.com/profiles/thecustomprofile/1.0" xmlns:EAUML="http://www.sparxsystems.com/profiles/EAUML/1.0">
 	<xmi:Documentation exporter="Enterprise Architect" exporterVersion="6.5" exporterID="1554" />
 	<uml:Model xmi:type="uml:Model" name="EA_Model" visibility="public">
@@ -5879,7 +5879,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System logs the deprecation of the respective Message Type." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="7" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_1F156B43_CE3E_4123_8C90_DD1DCAC50EBE" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=604;PtStartY=-420;PtEndX=609;PtEndY=-435;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={0A77F885-F100-4471-8DE6-998009FE99DE}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={3028DD22-81D0-4176-8B37-9ABF2CE58B52}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -5945,7 +5945,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System changes the readiness state of the respective &lt;b&gt;Message Type&lt;/b&gt; and logs this operation against the Message Designer." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="9" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_14A2B4C4_4E2E_4291_A2E6_2A09C930CC03" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=1;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=965;PtStartY=-547;PtEndX=970;PtEndY=-562;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={963DC34A-D71D-4e36-8BF0-33BE7F4077FB}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={5EF978B4-6AC9-4103-9A2F-E4830F7F103B}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -5978,7 +5978,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System changes the readiness state of the respective Message Type and logs this operation against the Message Designer." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_14A2B4C4_4E2E_4291_A2E6_2A09C930CC03" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=2;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=965;PtStartY=-402;PtEndX=970;PtEndY=-417;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={815C9186-5DB2-4e2e-94CD-5E07C3A60078}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={9D90F3BD-3559-492b-A23E-A4894BFA8625}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6180,7 +6180,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System deprecates the respective Message Type by triggering a change in it's state." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_1F156B43_CE3E_4123_8C90_DD1DCAC50EBE" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=604;PtStartY=-385;PtEndX=609;PtEndY=-400;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={922588D6-6CC0-4120-B6E9-E4734FADFE48}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={F7EC30CD-04F5-4ebb-B34E-EC3A9DE4DE5F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6213,7 +6213,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_D587ACD9_70CF_47c4_AC33_A2C7CFD8457A" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=17;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-317;PtEndX=859;PtEndY=-317;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={0B037D3F-502E-4053-A81A-391148407951}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={07E0C2F6-8087-4b78-968E-A1417998DEC4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6246,7 +6246,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System updates the selected &lt;b&gt;Simple Message Metadata Field Type&lt;/b&gt; and then logs this action." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_94C53593_83B4_46b0_AAAF_E82A3C2851A0" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=9;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-581;PtEndX=855;PtEndY=-581;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={A056A6DF-CB3B-4d95-A365-29594A6F24C8}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={0B9369DA-A5C9-4656-A44C-B57F8FB6CCA2}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6279,7 +6279,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="16" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_D587ACD9_70CF_47c4_AC33_A2C7CFD8457A" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=13;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-958;PtEndX=859;PtEndY=-958;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={CB8CE855-AD18-4f0d-A15D-8CC8F10A95B0}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={12FB021B-32EE-45e0-8372-C28CAB51446F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6312,7 +6312,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System updates the &lt;b&gt;Metadata Type Specificatio&lt;/b&gt;n as specified by the Message Designer and logs this as having been done." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="14" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_44B2A269_EC6D_4b4b_962A_E1E375346A90" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=836;PtStartY=-1006;PtEndX=921;PtEndY=-1006;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={16E19FE9-2917-4afc-B5BE-323174B68FF5}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={1DACAC70-0483-4d64-ACF6-5316DC7C3238}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6345,7 +6345,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="9" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_1A950342_9F0A_454e_926D_71560B8E7A36" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=531;PtStartY=-568;PtEndX=629;PtEndY=-568;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={73D2DCC6-31A5-4e6a-B035-6006593B1A4C}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={27F0F2E5-4498-4047-A5FA-E53FACAC1E0C}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6378,7 +6378,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="2" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;ForceActivation=1;ExtendActivationUp=1;Initiate=0;" virtualInheritance="0" diagram="EAID_14A2B4C4_4E2E_4291_A2E6_2A09C930CC03" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=888;PtStartY=-200;PtEndX=955;PtEndY=-200;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={1F7EA4DF-6582-4f18-BEBE-139868534EFD}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={2EDE0145-C37F-4e68-A60E-EF0746D8A333}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6446,7 +6446,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="9" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_9543FDC8_E040_451a_A132_F54C534BC1B5" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=17;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=843;PtStartY=-604;PtEndX=935;PtEndY=-604;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={466C0CB8-5A88-466a-B425-5E32D001595D}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={4EA8633C-3F9B-4810-9E26-7E756FC7BC95}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6479,7 +6479,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_1A950342_9F0A_454e_926D_71560B8E7A36" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=16;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=531;PtStartY=-404;PtEndX=629;PtEndY=-404;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={09A082CF-CC3E-4df2-A643-3CA87571C9F3}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={5140FC71-FC1E-4f1a-B287-470782BA8BA4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6512,7 +6512,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="20" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_D587ACD9_70CF_47c4_AC33_A2C7CFD8457A" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=17;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-1096;PtEndX=859;PtEndY=-1096;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={C86C8BD9-B630-4cb6-8316-211E683BDD97}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={5325B3A3-052B-4318-B180-1FFEC14903C5}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6580,7 +6580,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="3" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_9745352D_059A_44ec_AE20_E438870899A4" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=567;PtStartY=-222;PtEndX=748;PtEndY=-222;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={AE679BB6-0744-4439-B665-12DD3564541B}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={6B189CA5-10A6-418a-BF22-CAA37401CC28}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6613,7 +6613,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="9" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_94C53593_83B4_46b0_AAAF_E82A3C2851A0" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=9;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-752;PtEndX=855;PtEndY=-752;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={03FBAA2F-9ADE-4e24-BA5C-8D5AA07BF5C0}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={728E55E9-DF7D-456b-8F76-486911539E12}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6646,7 +6646,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="2" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_07138C50_36DC_4cb9_9C3F_4030506F3324" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=531;PtStartY=-210;PtEndX=679;PtEndY=-210;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={F526E83D-C067-4970-9F3D-6D924C31AB1D}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={7573DB54-ED26-409d-9628-ADD5EF47F885}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6679,7 +6679,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System creates new Message Metadata Specification and logs the creation of this by the Message Designer." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="10" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_EEB54E6A_F703_46c7_9557_D963D4325674" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=6;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=628;PtStartY=-644;PtEndX=685;PtEndY=-644;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={E302E7BC-DD73-4362-B33F-C5B7F5380205}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={75B0DFB4-B2E4-44f4-B116-8DF2744C75B5}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6712,7 +6712,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="2" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_1F156B43_CE3E_4123_8C90_DD1DCAC50EBE" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=8;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=522;PtStartY=-189;PtEndX=593;PtEndY=-189;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={24E5979D-DCC8-4e80-BE15-A06B17255827}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={7AE266D4-98BC-4bfe-A331-1009A51E7886}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6745,7 +6745,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System creates new Message Type and initiates logging of its creation by the Message Designer." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="22" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_9543FDC8_E040_451a_A132_F54C534BC1B5" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=6;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=843;PtStartY=-1370;PtEndX=935;PtEndY=-1370;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={11C853D9-9D59-4c15-AE98-7694D4CF2FD2}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={7E6CD0C7-EF37-4482-8327-6EAA259D614D}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6778,7 +6778,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="10" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_D587ACD9_70CF_47c4_AC33_A2C7CFD8457A" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=18;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-531;PtEndX=859;PtEndY=-531;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={867B8C77-AD00-410b-AB8D-C3A61B4D52B3}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={9B881F7D-F34D-494f-82F8-1626F22D63E6}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6811,7 +6811,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="10" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_44B2A269_EC6D_4b4b_962A_E1E375346A90" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=836;PtStartY=-789;PtEndX=921;PtEndY=-789;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={3FFC5F88-9A73-42e2-B071-D9C151DB9F67}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={A8328E49-C70F-4452-9732-DCB9317BA686}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6844,7 +6844,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_9745352D_059A_44ec_AE20_E438870899A4" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=8;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=685;PtStartY=-344;PtEndX=748;PtEndY=-344;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={F89D9A08-BB3C-4b21-AEFD-0599EE3D85D3}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={B5F51887-D390-4365-80D8-F8CDFB53FD49}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6912,7 +6912,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System creates a new &lt;b&gt;Message Metadata Field Type&lt;/b&gt; of the appropriate form (Simple or Complex) together with any associated properties and then initiates logging of this operation by the respective Message Designer." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="12" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_1A950342_9F0A_454e_926D_71560B8E7A36" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=6;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=531;PtStartY=-668;PtEndX=629;PtEndY=-668;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={EC69059B-EAA9-4178-8DFD-3228F430CC52}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={CD849343-83DA-4787-B8EC-81B4C2F9D15E}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6945,7 +6945,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation value="System updates the Message Type as specified by the Message Designer and logs this as having been done." />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="31" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_D587ACD9_70CF_47c4_AC33_A2C7CFD8457A" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-1835;PtEndX=859;PtEndY=-1835;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={B16AC1A7-620A-4a70-8028-204F013F8234}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={D459BA61-5CBF-4723-AAC0-D6337525063E}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -6978,7 +6978,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="13" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_9543FDC8_E040_451a_A132_F54C534BC1B5" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=21;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=843;PtStartY=-798;PtEndX=935;PtEndY=-798;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={37BDE636-F7C6-44e7-ADA4-D76D244F9ABA}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={D5F1A550-9C3D-4cda-8DE1-01615C8E20CC}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -7011,7 +7011,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="5" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_9543FDC8_E040_451a_A132_F54C534BC1B5" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=12;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=843;PtStartY=-326;PtEndX=935;PtEndY=-326;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={03F34AC8-8C99-4282-B388-044B587D0C69}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={D86C60E5-C22E-43d5-8F2A-7F29AE27D05E}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -7044,7 +7044,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="6" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_EEB54E6A_F703_46c7_9557_D963D4325674" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=0;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=628;PtStartY=-456;PtEndX=685;PtEndY=-456;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={3434AF0B-5E01-4968-BBD6-B4A1945742D1}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={E5EC9E64-302D-4904-895B-B2D764EEAC08}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -7110,7 +7110,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="5" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_8F1150B5_20A8_4c30_8EF9_EFF2CA6B86EA" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=9;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=546;PtStartY=-345;PtEndX=603;PtEndY=-345;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={CC01260C-19D0-43f9-8D78-0825B6891AA3}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={FCFA8F22-0599-471f-9455-5DA110F6A8F3}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
@@ -7143,7 +7143,7 @@
 				<properties ea_type="Sequence" stereotype="internal" direction="Source -&gt; Destination" />
 				<documentation />
 				<appearance linemode="1" linecolor="-1" linewidth="0" seqno="3" headStyle="0" lineStyle="0" />
-				<labels mb=" &#xA;�internal�" />
+				<labels mb="«internal»" />
 				<extendedProperties stateflags="Activation=0;" virtualInheritance="0" diagram="EAID_D587ACD9_70CF_47c4_AC33_A2C7CFD8457A" privatedata1="Synchronous" privatedata2="retval=void;" privatedata3="Call" privatedata4="0" privatedata5="SX=0;SY=12;EX=0;EY=0;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;" sequence_points="PtStartX=788;PtStartY=-215;PtEndX=859;PtEndY=-215;" />
 				<style />
 				<xrefs value="$XREFPROP=$XID={43FCB768-CF8E-42c7-8327-2A7318427217}$XID;$NAM=Stereotypes$NAM;$TYP=connector property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=internal;GUID={061456DA-3D00-4507-91A9-55AD5436A782};@ENDSTEREO;$DES;$CLT={FEF56379-F1B6-4a20-A615-C9D6857E29BE}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />

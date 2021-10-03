@@ -156,18 +156,18 @@ other part of SDMetrics.
     <attribute name="ownedbehaviors" type="ref" multiplicity="many">Behavior specifications owned by the collaboration.</attribute>
   </modelelement>
 
-  <modelelement name="interaction" parent="class">
+  <modelelement name="interaction" parent="class" mapping="EP_PKG">
     <attribute name="lifelines" type="ref" multiplicity="many">The lifelines involved in the interaction.</attribute>
     <attribute name="messages" type="ref" multiplicity="many">The messages sent within the interaction.</attribute>
     <attribute name="fragments" type="ref" multiplicity="many">The message occurrence specifications and combined fragments of the interaction.</attribute>
   </modelelement>
 
-  <modelelement name="instancespecification" mapping="SQ_CIP">
+  <modelelement name="instancespecification">
     <attribute name="classifier" type="ref" multiplicity="many">Links to the classifiers that this entity is an instance of.</attribute>
     <attribute name="deployments" type="ref" multiplicity="many">The deployments where this instance specification is the target.</attribute>
   </modelelement>
 
-  <modelelement name="lifeline" mapping="SQ_LS">
+  <modelelement name="lifeline">
     <attribute name="represents" type="ref">The interaction participant that this lifeline represents.</attribute>
   </modelelement>
 
@@ -377,6 +377,18 @@ other part of SDMetrics.
   <modelelement name="diagramConnector">
     <attribute name="subject" type="data"></attribute>
     <attribute name="associationClass"></attribute>
+    <attribute name="mbLabel"></attribute>
+    <attribute name="mtLabel"></attribute>
+    <attribute name="connectorSource" type="ref" multiplicity="one"></attribute>
+    <attribute name="connectorTarget" type="ref" multiplicity="one"></attribute>
+  </modelelement>
+  <modelelement name="connectorSource">
+    <attribute name="multiplicity"></attribute>
+    <attribute name="role"></attribute>
+  </modelelement>
+  <modelelement name="connectorTarget">
+    <attribute name="multiplicity"></attribute>
+    <attribute name="role"></attribute>
   </modelelement>
   <modelelement name="eaStub">
     <attribute name="eaId" type="data"></attribute>

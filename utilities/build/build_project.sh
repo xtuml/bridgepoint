@@ -70,6 +70,17 @@ fi
 buildMaven=""
 function checkTimestamp {
 ret_val=0
+  if [ "$project" == "org.xtuml.bp.io.xmi.translate" ]; then
+    # xmi.translate is spring boot project and has a different
+    # style of dependency with io.mdl.  We need to update a jar
+    # in io.mdl for any changes to java.  Trigger a build here.
+    find $projectDir -name "*.java" -print0 | while read -d $'' file; do
+	if [ "$timestampFile" -ot "$file" ]; then
+	  echo "File: $file has been modified triggering maven build."
+	  return 1
+	fi
+	done
+  fi
   find $projectDir -name "*.xtuml" -print0 | while read -d $'' file; do
   if [ "$timestampFile" -ot "$file" ]; then
     echo "File: $file has been modified triggering maven build."

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,13 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xtuml.bp.io.xmi.translate.XtumlSQLMapper.MapperType;
+import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.packages.PackageProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.types.DataTypeProcessorSQL;
 
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.MetaModelElement.MetaModelElementAttribute;
@@ -22,32 +30,37 @@ import com.sdmetrics.model.XMITransformations;
 import com.sdmetrics.util.XMLParser;
 import com.sdmetrics.util.XMLParser.XMLParseException;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xtuml.bp.io.xmi.translate.XtumlSQLMapper.MapperType;
-import org.xtuml.bp.io.xmi.translate.processors.sql.packages.PackageProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.graphical.GraphicalElementProcessorSQL;
-import org.xtuml.bp.io.xmi.translate.processors.sql.types.DataTypeProcessorSQL;
-
 /**
  * Translate UML2 compatible XMI to xtUML
  */
 public class XMITranslate {
 
 	private StringBuilder xtumlOutput = new StringBuilder();
+	static List<ModelElement> processing = new ArrayList<>();
 	static Map<ModelElement, String> afterGraphicsElements = new HashMap<>();
 	public static Map<ModelElement, String> graphicElements = new HashMap<>();
 	public static Map<String, ModelElement> eaDiagramConnectors = new HashMap<>();
 	public static Map<String, String> eaPropertyParameterTypes = new HashMap<>();
 	public static Map<String, ModelElement> eaStubTypes = new HashMap<>();
+
 	public static List<String> supportedExtensions = new ArrayList<>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		{
-			add("*.xmi");
 			add("*.xml");
+			add("*.xmi");
 		}
 	};
 
 	static List<String> afterGraphics = new ArrayList<>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		{
 			add("R_ASSR");
 			add("R_SUB");
@@ -128,7 +141,7 @@ public class XMITranslate {
 				File file = new File(output).getAbsoluteFile();
 				File parent = file.getParentFile();
 				parent.mkdirs();
-				FileWriter xtumlWriter = new FileWriter(file);
+				FileWriter xtumlWriter = new FileWriter(file, Charset.forName("UTF-8"));
 				xtumlWriter.write(xtumlOutput.toString());
 				xtumlWriter.close();
 			} catch (IOException e) {
@@ -169,8 +182,9 @@ public class XMITranslate {
 
 	private void processAfterGraphics() {
 		afterGraphicsElements.forEach((e, m) -> {
-			// remove from catch list
+			// remove from list
 			afterGraphics.remove(m);
+			processing.add(e);
 			mapToXtuml(e, m);
 		});
 	}

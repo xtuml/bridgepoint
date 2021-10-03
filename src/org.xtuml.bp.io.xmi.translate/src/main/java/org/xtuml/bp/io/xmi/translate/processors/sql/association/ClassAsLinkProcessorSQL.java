@@ -50,7 +50,8 @@ public class ClassAsLinkProcessorSQL extends AbstractClassAsLinkProcessor {
 
     @Override
     public String getMult() {
-        return SQLUtils.numberValue(1);
+    	//TODO: Not sure if this is supported, cannot tell from sample data
+        return SQLUtils.numberValue(0);
     }
 
     @Override

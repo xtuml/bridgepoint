@@ -21,7 +21,19 @@ Transformations required to translate EA models to xtuml.
   <xmitransformation modelelement="diagramConnector" xmipattern="connector" requirexmiid="false" allowxmiidref="true" recurse="true">
     <trigger name="subject" type="attrval" attr="xmi:idref" />
     <trigger name="name" type="attrval" attr="name" />
+    <trigger name="mbLabel" type="cattrval" src="labels" attr="mb" />
+    <trigger name="mtLabel" type="cattrval" src="labels" attr="mt" />
     <trigger name="associationClass" type="cattrval" src="extendedProperties" attr="associationclass" />
+  </xmitransformation>
+  
+  <xmitransformation modelelement="connectorSource" xmipattern="source" requirexmiid="false" allowxmiidref="true" recurse="true">
+  	<trigger name="multiplicity" type="cattrval" src="type" attr="multiplicity" />
+  	<trigger name="role" type="cattrval" src="role" attr="name" />
+  </xmitransformation>
+  
+   <xmitransformation modelelement="connectorTarget" xmipattern="target" requirexmiid="false" allowxmiidref="true" recurse="true">
+  	<trigger name="multiplicity" type="cattrval" src="type" attr="multiplicity" />
+  	<trigger name="role" type="cattrval" src="role" attr="name" />
   </xmitransformation>
 
   <xmitransformation modelelement="eaStub" xmipattern="EAStub" requirexmiid="false" allowxmiidref="true" recurse="true">

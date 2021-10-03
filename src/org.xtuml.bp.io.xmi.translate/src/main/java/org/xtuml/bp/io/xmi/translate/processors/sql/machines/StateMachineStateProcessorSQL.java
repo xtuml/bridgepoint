@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.sdmetrics.model.ModelElement;
-
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
 import org.xtuml.bp.io.xmi.translate.processors.generated.AbstractStateMachineStateProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.sql.SQLUtils;
+import org.xtuml.bp.io.xmi.translate.processors.sql.machines.supporting.ActionHomeProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.machines.supporting.ActionProcessorSQL;
+import org.xtuml.bp.io.xmi.translate.processors.sql.machines.supporting.MooreActionHomeProcessorSQL;
+
+import com.sdmetrics.model.ModelElement;
 
 public class StateMachineStateProcessorSQL extends AbstractStateMachineStateProcessor {
 
@@ -53,7 +56,26 @@ public class StateMachineStateProcessorSQL extends AbstractStateMachineStateProc
         return kind.equals("initial") ? IgnoreType.HANDLED : IgnoreType.NOT_IGNORED;
     }
 
+    
     @Override
+	public String createSupportingElements() {
+    	StringBuilder supporting = new StringBuilder();
+    	ActionProcessorSQL actionProcessorSQL = new ActionProcessorSQL();
+    	actionProcessorSQL.setModelElement(getModelElement());
+    	actionProcessorSQL.setKeyLetters("SM_ACT");
+    	supporting.append(actionProcessorSQL.getProcessorOutput());
+    	MooreActionHomeProcessorSQL mooreActionHomeProcessorSQL = new MooreActionHomeProcessorSQL(actionProcessorSQL.getActionId());
+    	mooreActionHomeProcessorSQL.setModelElement(getModelElement());
+    	mooreActionHomeProcessorSQL.setKeyLetters("SM_MOAH");
+    	supporting.append(mooreActionHomeProcessorSQL.getProcessorOutput());
+		ActionHomeProcessorSQL actionHomeProcessorSQL = new ActionHomeProcessorSQL(actionProcessorSQL.getActionId());
+		actionHomeProcessorSQL.setKeyLetters("SM_AH");
+		actionHomeProcessorSQL.setModelElement(getModelElement());
+		supporting.append(actionHomeProcessorSQL.getProcessorOutput());
+		return supporting.toString();
+	}
+
+	@Override
     public String getProcessorOutput() {
         return SQLUtils.getProcessorOutput(this);
     }

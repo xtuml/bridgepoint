@@ -41,6 +41,7 @@ public class IdProcessor {
 			value = value.replaceAll("EAJava__", "");
 			value = value.substring(0, value.length() - 1);
 			value = value.replaceAll("_", " ");
+			value = "{" + value + "}";
 		}
 		return value;
 	}

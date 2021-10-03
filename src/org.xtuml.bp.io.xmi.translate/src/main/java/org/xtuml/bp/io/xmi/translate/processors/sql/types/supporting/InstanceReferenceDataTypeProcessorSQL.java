@@ -1,4 +1,4 @@
-package org.xtuml.bp.io.xmi.translate.processors.sql.classes.supporting;
+package org.xtuml.bp.io.xmi.translate.processors.sql.types.supporting;
 
 import java.util.List;
 

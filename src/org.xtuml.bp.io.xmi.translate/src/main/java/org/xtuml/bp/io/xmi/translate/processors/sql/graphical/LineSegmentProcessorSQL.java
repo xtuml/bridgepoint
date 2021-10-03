@@ -16,6 +16,7 @@ public class LineSegmentProcessorSQL extends AbstractLineSegmentProcessor {
     private String endWay;
     private String Id;
     private String conId;
+    private String prevElementId = IdProcessor.NULL_ID;
 
     public LineSegmentProcessorSQL(String conId, String startWay, String endWay) {
         this.conId = conId;
@@ -36,8 +37,14 @@ public class LineSegmentProcessorSQL extends AbstractLineSegmentProcessor {
 
     @Override
     public String getPrevious_elementId() {
-        // TODO: Support ordering of multiple line segments
-        return SQLUtils.idValue(IdProcessor.NULL_ID);
+        // most connectors only have one line segment at this
+        // time, in the case where there are multiple they
+        // are self created and use the set method
+        return SQLUtils.idValue(prevElementId);
+    }
+
+    public void setPrevious_elementId(String prevElementId) {
+        this.prevElementId = prevElementId;
     }
 
     @Override
@@ -65,4 +72,16 @@ public class LineSegmentProcessorSQL extends AbstractLineSegmentProcessor {
     public String getId() {
         return Id;
     }
+
+    public void setStartWay(String startWay) {
+        this.startWay = startWay;
+    }
+
+    public void setEndWay(String endWay) {
+        this.endWay = endWay;
+    }
+
+	public String getEndWay() {
+		return this.endWay;
+	}
 }

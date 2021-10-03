@@ -37,6 +37,14 @@ public class WaypointProcessorSQL extends AbstractWaypointProcessor {
         return Id;
     }
 
+    public Float getX() {
+        return x;
+    }
+
+    public Float getY() {
+        return y;
+    }
+
     @Override
     public String getWay_ID() {
         return SQLUtils.idValue(Id);
@@ -79,5 +87,17 @@ public class WaypointProcessorSQL extends AbstractWaypointProcessor {
     public List<String> getValues(ModelElement element) {
         return Stream.of(getWay_ID(), getpositionX(), getpositionY(), getedge_elementId(), getpolyLine_elementId(),
                 getprevious_Way_ID()).collect(Collectors.toList());
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void setPrevId(String prevId) {
+        this.prevId = prevId;
     }
 }

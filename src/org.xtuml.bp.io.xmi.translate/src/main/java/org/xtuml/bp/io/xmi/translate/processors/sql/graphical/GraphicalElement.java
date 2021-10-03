@@ -30,6 +30,10 @@ public class GraphicalElement {
     }
 
     public boolean isConnector() {
-        return type == 24 || type == 36 || type == 35 || type == 34;
+        return type == 24 || type == 36 || type == 35 || type == 34 || type == 57;
+    }
+
+    public boolean isLifespan() {
+        return type == 57;
     }
 }

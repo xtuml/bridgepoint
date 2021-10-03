@@ -22,4 +22,8 @@ public interface ILogger {
 	default void logNoProcessor(String string) {
 		log(string);
 	}
+	
+	default void debug(String string) {
+		log(string);
+	}
 }

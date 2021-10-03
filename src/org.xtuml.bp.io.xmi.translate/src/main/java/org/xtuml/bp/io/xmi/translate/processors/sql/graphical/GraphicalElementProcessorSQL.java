@@ -33,11 +33,16 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
     }
 
     public GraphicalElementProcessorSQL(String geId, String represents, String diagramId, int type) {
+        this(geId, represents, diagramId, type, true);
+    }
+
+    public GraphicalElementProcessorSQL(String geId, String represents, String diagramId, int type,
+            boolean skipSupporting) {
         this.elementId = geId;
         this.represents = represents;
         this.ooaType = type;
         this.diagramId = diagramId;
-        skipSupporting = true;
+        this.skipSupporting = skipSupporting;
     }
 
     @Override
@@ -238,8 +243,9 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                     .append(SQLUtils.getInsertStatement(noncontainingShapeProcessorSQL, getModelElement())).toString();
             return builder.toString();
         } else {
-            ConnectorDescription descrip = getPolylineFromString(boundsString);
-            System.out.println(descrip);
+        	// TODO: try and figure out if connector description can be used
+        	// for routing
+            // ConnectorDescription descrip = getPolylineFromString(boundsString);
             DiagramelementProcessorSQL diagramelementProcessorSQL = new DiagramelementProcessorSQL();
             diagramelementProcessorSQL.setModelElement(getModelElement());
             diagramelementProcessorSQL.setKeyLetters("DIM_ELE");
@@ -344,10 +350,26 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     public static ConnectorModel createConnector(String represents, String start, String end, String diagramId,
             int ooaType, float yOffset) {
+    	// capture the lowest Y for reflexive creation
+    	Float lastYDiff = 0F;
         StringBuilder builder = new StringBuilder();
         String geId = IdProcessor.UUID().toString();
         GraphicalElement startGE = GraphicalElementProcessorSQL.createdGraphicalElements.get(start);
         GraphicalElement endGE = GraphicalElementProcessorSQL.createdGraphicalElements.get(end);
+        Float startX = startGE.getRect().getMidPoint().x;
+        Float startY = startGE.getRect().getMidPoint().y;
+        Float endX = 0F;
+        Float endY = 0F;
+        if (endGE != null) {
+            endX = endGE.getRect().getMidPoint().x;
+            endY = endGE.getRect().getMidPoint().y;
+        }
+        if (startGE.isLifespan() && (endGE != null && endGE.isLifespan())) {
+            startX = startGE.getRect().x;
+            startY = startGE.getRect().y + 50F;
+            endX = endGE.getRect().x;
+            endY = endGE.getRect().y + 50F;
+        }
         GraphicalElementProcessorSQL connectionGE = new GraphicalElementProcessorSQL(geId, represents, diagramId,
                 ooaType);
         connectionGE.setKeyLetters("GD_GE");
@@ -361,8 +383,7 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
                 .append(graphelementProcessorSQL.getProcessorOutput())
                 .append(connectorProcessorSQL.getProcessorOutput());
         // create DIM_CON
-        GraphconnectorProcessorSQL startCon = new GraphconnectorProcessorSQL(startGE.getId(),
-                startGE.getRect().getMidPoint().x, startGE.getRect().getMidPoint().y);
+        GraphconnectorProcessorSQL startCon = new GraphconnectorProcessorSQL(startGE.getId(), startX, startY);
         startCon.setKeyLetters("DIM_CON");
         if (end == null) {
             // whitespace
@@ -402,19 +423,54 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
             createdGraphicalElements.put(represents, new GraphicalElement(geId, represents,
                     new Rectangle(startCon.x, startCon.y, 1F, (startCon.y + yOffset) - startCon.y), ooaType));
         } else {
-            GraphconnectorProcessorSQL endCon = new GraphconnectorProcessorSQL(endGE.getId(),
-                    endGE.getRect().getMidPoint().x, endGE.getRect().getMidPoint().y);
+            GraphconnectorProcessorSQL endCon = new GraphconnectorProcessorSQL(endGE.getId(), endX, endY);
             endCon.setKeyLetters("DIM_CON");
             // create line segment and waypoints
-            WaypointProcessorSQL startWaypointProcessorSQL = new WaypointProcessorSQL(startCon.x, startCon.y,
-                    IdProcessor.NULL_ID, geId);
+            WaypointProcessorSQL startWaypointProcessorSQL = new WaypointProcessorSQL(startCon.x,
+                    startCon.y + (startGE.isLifespan() ? yOffset : 0F), IdProcessor.NULL_ID, geId);
+            if(startGE.isLifespan()) {
+            	startCon.y = startWaypointProcessorSQL.getY();
+            }
             startWaypointProcessorSQL.setKeyLetters("DIM_WAY");
-            WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(endCon.x, endCon.y,
-                    startWaypointProcessorSQL.getId(), geId);
+            WaypointProcessorSQL endWayPointProcessorSQL = new WaypointProcessorSQL(endCon.x,
+                    endCon.y + (endGE.isLifespan() ? yOffset : 0F), startWaypointProcessorSQL.getId(), geId);
             endWayPointProcessorSQL.setKeyLetters("DIM_WAY");
             LineSegmentProcessorSQL lineSegProcessorSQL = new LineSegmentProcessorSQL(geId,
                     startWaypointProcessorSQL.getId(), endWayPointProcessorSQL.getId());
             lineSegProcessorSQL.setKeyLetters("GD_LS");
+            // if this is a reflexive, and the two waypoints have the same y adjust 
+            if (startGE.isLifespan() && startWaypointProcessorSQL.getX().equals(endWayPointProcessorSQL.getX())) {
+            	// Reuse the line segment to be the first in the reflexive line
+            	// adjust the end waypoint to extend left of the line
+                endWayPointProcessorSQL.setX(endWayPointProcessorSQL.getX() - 20F);
+                // create a the third waypoint in the reflexive, associate its previous
+                // as the existing end waypoint, extend it down a bit
+                WaypointProcessorSQL third = new WaypointProcessorSQL(startWaypointProcessorSQL.getX() - 20F,
+                        startWaypointProcessorSQL.getY() + 30F, endWayPointProcessorSQL.getId(), geId);
+                third.setKeyLetters("DIM_WAY");
+                // create the second line segment between the end waypoint and the third waypoint
+                LineSegmentProcessorSQL secondSeg = new LineSegmentProcessorSQL(geId,
+                        endWayPointProcessorSQL.getId(), third.getId());
+                // set the second segments previous to the first segment
+                secondSeg.setPrevious_elementId(lineSegProcessorSQL.getId());
+                secondSeg.setKeyLetters("GD_LS");
+                // create a fourth waypoint associate its previous as the third
+                // this will be the same x as the start and same y as the third
+                WaypointProcessorSQL lastWaypoint = new WaypointProcessorSQL(startWaypointProcessorSQL.getX(),
+                        third.getY(), third.getId(), geId);
+                lastWaypoint.setKeyLetters("DIM_WAY");
+                // create the last segment between the third and last waypoint
+                LineSegmentProcessorSQL lastSeg = new LineSegmentProcessorSQL(geId, third.getId(),
+                        lastWaypoint.getId());
+                lastSeg.setKeyLetters("GD_LS");
+                // associate the second seg as the prev
+                lastSeg.setPrevious_elementId(secondSeg.getId());
+                // finally adjust the end con to match the last waypoint
+                endCon.y = lastWaypoint.getY();
+                lastYDiff = lastWaypoint.getY() - startWaypointProcessorSQL.getY();
+                builder.append(third.getProcessorOutput()).append(secondSeg.getProcessorOutput())
+                        .append(lastWaypoint.getProcessorOutput()).append(lastSeg.getProcessorOutput());
+            }
             // if start is connector, create a GD_AOS
             if (startGE.isConnector()) {
                 AnchorOnSegmentProcessorSQL aos = new AnchorOnSegmentProcessorSQL(startCon.getId(),
@@ -450,7 +506,7 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
             createdGraphicalElements.put(represents, new GraphicalElement(geId, represents,
                     new Rectangle(startCon.x, startCon.y, endCon.x - startCon.x, endCon.y - startCon.y), ooaType));
         }
-        return new ConnectorModel(builder.append(startCon.getProcessorOutput()).toString(), represents);
+        return new ConnectorModel(builder.append(startCon.getProcessorOutput()).toString(), represents, lastYDiff);
     }
 
     private Rectangle getBoundsFromString(String boundsString) {
@@ -598,9 +654,15 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
 
     @Override
     public void postprocess(ModelElement element, String keyletters) {
-        createdGraphicalElements.put(element.getPlainAttribute("element"),
-                new GraphicalElement(element.getPlainAttribute("id"), element.getPlainAttribute("element"),
-                        getBoundsFromString(element.getPlainAttribute("bounds")), getOoaTypeFromOoaId()));
+        Rectangle rect = getBoundsFromString(element.getPlainAttribute("bounds"));
+        // SPECIAL CASE: For participants with a lifeline the bounds
+        // inlclude the shape and connector (no real connector)
+        // use 10%
+        if (getOoaTypeFromOoaId() == 107 || getOoaTypeFromOoaId() == 63) {
+            rect.h = rect.h * .1F;
+        }
+        createdGraphicalElements.put(element.getPlainAttribute("element"), new GraphicalElement(
+                element.getPlainAttribute("id"), element.getPlainAttribute("element"), rect, getOoaTypeFromOoaId()));
         elementId = "";
         importedClassId = null;
         importedClassSQL = "";
@@ -615,6 +677,12 @@ public class GraphicalElementProcessorSQL extends AbstractGraphicalElementProces
         // EA has model class elements on statecharts, that is not supported in xtuml
         String type = getModelElement().getOwner().getPlainAttribute("type");
         int ooaType = getOoaTypeFromOoaId();
+        // do not create Participants on sequence diagrams
+        // they will be manually created along with their
+        // represented elements
+        if (isInteractionParticipant()) {
+            return IgnoreType.NOT_HANDLED;
+        }
         if (!type.equals("Logical") && ooaType == 21) {
             return IgnoreType.NOT_HANDLED;
         }

@@ -82,6 +82,11 @@ public class ClassParticipantProcessorSQL extends AbstractClassParticipantProces
     }
 
     @Override
+    public boolean handlesPackageableElement() {
+        return true;
+    }
+
+    @Override
     public List<String> getValues(ModelElement element) {
         return Stream.of(getPart_ID(), getObj_ID(), getLabel(), getInformalName(), getDescrip(), getisFormal())
                 .collect(Collectors.toList());

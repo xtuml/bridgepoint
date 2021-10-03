@@ -3,10 +3,17 @@ package org.xtuml.bp.io.xmi.translate.processors.sql.graphical;
 public class ConnectorModel {
     private String key;
     private String sql;
+    private Float lastYDiff;
 
     public ConnectorModel(String sql, String geId) {
         this.setKey(geId);
         this.sql = sql;
+    }
+    
+    public ConnectorModel(String sql, String geId, Float lastYDiff) {
+    	this.setKey(geId);
+    	this.sql = sql;
+    	this.lastYDiff = lastYDiff;
     }
 
     public String getKey() {
@@ -44,4 +51,12 @@ public class ConnectorModel {
     public int hashCode() {
         return getKey().hashCode();
     }
+
+	public Float getLastYDiff() {
+		return lastYDiff;
+	}
+
+	public void setLastYDiff(Float lastYDiff) {
+		this.lastYDiff = lastYDiff;
+	}
 }

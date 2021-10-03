@@ -3,12 +3,14 @@ package org.xtuml.bp.io.xmi.translate.processors.sql.association;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.sdmetrics.model.ModelElement;
 
+import org.xtuml.bp.io.xmi.translate.XMITranslate;
 import org.xtuml.bp.io.xmi.translate.processors.AbstractXtumlTypeProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IdProcessor;
 import org.xtuml.bp.io.xmi.translate.processors.IgnoreType;
@@ -119,18 +121,41 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
             System.out.println();
         }
         processors.add(simpProcessor);
+        ModelElement connector = XMITranslate.eaDiagramConnectors.get(getModelElement().getPlainAttribute("id"));
+        Optional<ModelElement> source = connector.getOwnedElements().stream().filter(me -> {
+			return me.getType().getName().equals("connectorSource");
+        }).findFirst();
+        Optional<ModelElement> target = connector.getOwnedElements().stream().filter(me -> {
+			return me.getType().getName().equals("connectorTarget");
+        }).findFirst();
+        String sourceCard = "";
+        String sourceRole = "";
+        String targetCard = "";
+        if(source.isPresent()) {
+        	sourceCard = source.get().getPlainAttribute("multiplicity");
+        	sourceRole = source.get().getPlainAttribute("role");
+        }
+        if(target.isPresent()) {
+        	targetCard = target.get().getPlainAttribute("multiplicity");
+        }
+        int sourceCond = getCondFromString(sourceCard);
+        int sourceMult = getMultFromString(sourceCard);
+        int targetCond = getCondFromString(targetCard);
+        int targetMult = getMultFromString(targetCard);
+        final String finalSourceRole = sourceRole;
         // process each side
         ends.stream().forEach(e -> {
             ModelElement element = (ModelElement) e;
             ModelElement owningClass = element.getRefAttribute("propertytype");
+            boolean isSource = finalSourceRole.equals(element.getName());
             if (owningClass != null) {
                 ClassInAssociationProcessorSQL cia = new ClassInAssociationProcessorSQL(
                         owningClass.getPlainAttribute("id"), getModelElement().getPlainAttribute("id"));
                 cia.setKeyLetters("R_OIR");
                 processors.add(cia);
                 ClassAsSimpleParticipantProcessorSQL part = new ClassAsSimpleParticipantProcessorSQL(
-                        owningClass.getPlainAttribute("id"), getModelElement().getPlainAttribute("id"), cia.getId(), 0,
-                        0, element.getName());
+                        owningClass.getPlainAttribute("id"), getModelElement().getPlainAttribute("id"), cia.getId(), isSource ? sourceMult : targetMult,
+                        isSource ? targetCond : sourceCond, element.getName());
                 part.setKeyLetters("R_PART");
                 processors.add(part);
                 ReferredToClassInAssocProcessorSQL rto = new ReferredToClassInAssocProcessorSQL(
@@ -153,7 +178,15 @@ public class AssociationProcessorSQL extends AbstractAssociationProcessor {
         return joiner.toString();
     }
 
-    @Override
+    private int getMultFromString(String cardinality) {
+		return cardinality.contains("*") ? 1 : 0;
+	}
+
+	private int getCondFromString(String cardinality) {
+		return (cardinality.equals("*") || cardinality.contains("0")) ? 0 : 1;
+	}
+
+	@Override
     public IgnoreType ignoreTranslation() {
         IgnoreType ignoreType = super.ignoreTranslation();
         boolean ignore = ignoreType == IgnoreType.NOT_HANDLED;
