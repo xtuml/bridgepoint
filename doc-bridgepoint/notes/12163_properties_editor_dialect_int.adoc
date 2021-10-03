@@ -1,0 +1,72 @@
+= Properties action language editor using invalid dialect
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Issue <<dr-1>> shows that opening an ASL activity via the Properties view
+results in syntax error markers due to the wrong action language dialect
+interpreting the activity.
+
+== 2 Introduction and Background
+
+As new action language handlers are added, there are multiple areas in the java
+code where handling needs to be added. The addition of MASL never updated the
+area addressed by this bug fix, so there was no direction to modify it when ASL
+followed.
+
+No model of editing was found, but the various org.xtuml.bp.ui.text java
+packages follow a similar format and use the same base eclipse classes.
+
+== 3 Requirements
+
+=== 3.1 Opening an action language editor from the Properties view uses the correct action langauge dialect.
+
+== 4 Work Required
+
+=== 4.1 Add dialects to ActivityPropertyDescriptor::openActivityEditor
+
+Internal to openActivityEditor, an IWorkplaceRunnable is created with a run 
+method; inside the run method, dialect checks were added to create the
+appropriate IActionDelegate type.
+
+== 5 Implementation Comments
+
+The IActionDelegate types are named, Show<dialect>Action, except for OAL, which
+uses the generic "Activity" label. This means some OAL specific parts are in
+org.xtuml.bp.ui.text.activity and some are in org.xtuml.bp.ui.text.editor.oal.
+
+org.xtuml.bp.ui.text.asl appears to be the best template for adding new action
+languages.
+
+There should be some refactoring to remove the duplication of code in opening an
+action lnaguage editor. The most complete sequence is in
+ExplorerView::handleOpen, but most of the sequence is duplicated in
+Show<dialect>Action::enableEditor methods and
+ActivityPropertyDescriptor::openActivityEditor. A handleOpen method in
+AbstractModelElementTextEditor might be a good approach.
+
+This would have been easier to prevent and detect, if editing were modeled.
+
+== 6 Unit Test
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  12163_properties_editor
+
+----
+src/org.xtuml.bp.ui.properties/src/org/xtuml/bp/ui/properties/ActivityPropertyDescriptor.java
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12163[12163 syntax markers when pasting ASL into terminator service body]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

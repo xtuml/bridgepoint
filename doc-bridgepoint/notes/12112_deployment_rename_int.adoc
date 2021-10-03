@@ -56,7 +56,20 @@ It was noted that there are other package elements (i.e., elements
 with keyletters) that aren't updating default keyletters.
 
 == 6 Unit Test
-ContextMenuTestsGenerics::testContextMenuRenameActionOnD_DEPL
+
+Core Test : RenameTest2Generics.java was updated to add the unit tests.
+Model testRename1 was modified to add a Deployment for rename.
+
+=== 6.1 Test Defaulted Key Letters Get Renamed On Element Rename
+
+. Ensure the key letter value matches the element name sans spaces.
+. Rename the element and check for the key letter value to match the new name
+  sans spaces.
+
+=== 6.2 Test Non-Defaulted Key Letters Don't Get Renamed On Element Rename
+
+. Ensure the key letter value doesn't match the element name.
+. Rename the element and check for the key letter value to not have changed.
 
 == 7 User Documentation
 
