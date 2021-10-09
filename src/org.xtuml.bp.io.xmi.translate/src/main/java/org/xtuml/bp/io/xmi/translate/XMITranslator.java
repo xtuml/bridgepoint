@@ -25,7 +25,7 @@ public class XMITranslator {
 		// create the parser
 		Options options = XMITranslateOptions.options();
 		CommandLineParser parser = new DefaultParser();
-		String xmiFile = "";
+		String[] xmiFiles = new String[0];
 		String metamodel = "";
 		String[] transformers = new String[0];
 		String output = "";
@@ -39,7 +39,7 @@ public class XMITranslator {
 				System.exit(1);
 			}
 			if (cmdLine.hasOption("x")) {
-				xmiFile = cmdLine.getParsedOptionValue("x").toString();
+				xmiFiles = cmdLine.getOptionValues("x");
 			}
 			if (cmdLine.hasOption("mm")) {
 				metamodel = cmdLine.getParsedOptionValue("mm").toString();
@@ -85,11 +85,18 @@ public class XMITranslator {
 
 		logger = new XMITranslateLogger(verbose, todo);
 
-		XMITranslate xmiTranslate = new XMITranslate(logger);
-		try {
-			xmiTranslate.loadXMI(metamodel, transformers, xmiFile, output);
-		} catch (Exception e) {
-			logger.logError("Unable to translate model.", e);
+		XMITranslate xmiTranslate = new XMITranslate(verbose || todo ? logger : (msg) -> {});
+		for(String xmiFile: xmiFiles) {
+			try {
+				String xtuml = xmiTranslate.loadXMI(metamodel, transformers, xmiFile, output);
+				// output the xtuml model unless todo, verbose are enabled or an output file is given
+				// in the case of todo we are less worried about the output
+				if(!todo && !verbose && output.equals("")) {
+					System.out.print(xtuml);
+				}
+			} catch (Exception e) {
+				logger.logError("Unable to translate model.", e);
+			}
 		}
 	}
 

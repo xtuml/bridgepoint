@@ -75,7 +75,59 @@
                     <include>xtumlmc_build</include>
                   </includes>
                 </resource>
-              </resources>              
+              </resources>
+              <!-- Add XMI translator binary -->
+              <outputDirectory>${basedir}/linux.all/tools/io/xmi</outputDirectory>
+              <resources>
+              	<resource>
+                	<directory>../../src/org.xtuml.bp.io.xmi.translate</directory>
+                	<includes>
+                		<include>XMITranslate.sh</include>
+                	</includes>
+                </resource>
+              </resources>
+            </configuration>            
+          </execution>
+          <!-- Add XMI dependencies -->
+          <execution>
+            <id>copy-xmi-deps-linux</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/linux.all/tools/io/xmi/lib</outputDirectory>
+              <resources>
+              	<resource>
+                	<directory>../../src/org.xtuml.bp.io.xmi.translate/target</directory>
+                	<includes>
+                		<include>XMITranslate.jar</include>
+                		<include>deps/*.jar</include>
+                	</includes>
+                </resource>
+              </resources>
+            </configuration>            
+          </execution>
+          <!-- Add XMI metamodel and transformations -->
+          <execution>
+            <id>copy-xmi-mm-linux</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/linux.all/tools/io/xmi/mm</outputDirectory>
+              <resources>
+              	<resource>
+                	<directory>../../src/org.xtuml.bp.io.xmi.translate/src/main/resources</directory>
+                	<includes>
+                		<include>metamodel.dtd</include>
+                		<include>metamodel2.xml</include>
+                		<include>xmiTrans2_0.xml</include>
+                		<include>xtumlExtensionsTrans.xml</include>
+                	</includes>
+                </resource>
+              </resources>
             </configuration>            
           </execution>
 
@@ -115,7 +167,59 @@
                     <include>x2m</include>
                   </includes>
                 </resource>
-              </resources>              
+              </resources>      
+              <!-- Add XMI translator binary -->
+              <outputDirectory>${basedir}/mac.all/tools/io/xmi</outputDirectory>
+              <resources>
+              	<resource>
+                	<directory>../../src/org.xtuml.bp.io.xmi.translate</directory>
+                	<includes>
+                		<include>XMITranslate.sh</include>
+                	</includes>
+                </resource>
+              </resources>        
+            </configuration>            
+          </execution>
+          <!-- Add XMI dependencies -->
+          <execution>
+            <id>copy-xmi-deps-mac</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/mac.all/tools/io/xmi/lib</outputDirectory>
+              <resources>
+              	<resource>
+                	<directory>../../src/org.xtuml.bp.io.xmi.translate/target</directory>
+                	<includes>
+                		<include>XMITranslate.jar</include>
+                		<include>deps/*.jar</include>
+                	</includes>
+                </resource>
+              </resources>
+            </configuration>            
+          </execution>
+          <!-- Add XMI metamodel and transformations -->
+          <execution>
+            <id>copy-xmi-mm-mac</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/mac.all/tools/io/xmi/mm</outputDirectory>
+              <resources>
+              	<resource>
+                	<directory>../../src/org.xtuml.bp.io.xmi.translate/src/main/resources</directory>
+                	<includes>
+                		<include>metamodel.dtd</include>
+                		<include>metamodel2.xml</include>
+                		<include>xmiTrans2_0.xml</include>
+                		<include>xtumlExtensionsTrans.xml</include>
+                	</includes>
+                </resource>
+              </resources>
             </configuration>            
           </execution>
 

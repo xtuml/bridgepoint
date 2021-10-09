@@ -66,7 +66,7 @@ public class XMITranslateLogger implements ILogger {
             System.out.println("\nTranslation complete.\n");
             return;
         }
-        if (verbose || fileOut.equals("")) {
+        if (verbose) {
             System.out.println("Translation outcome below.\n\n");
             System.out.println("Elements found without a mapping:\n");
             noMapping.forEach(System.out::print);

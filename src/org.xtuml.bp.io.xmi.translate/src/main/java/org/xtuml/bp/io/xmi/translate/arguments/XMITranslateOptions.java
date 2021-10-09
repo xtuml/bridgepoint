@@ -7,7 +7,7 @@ public class XMITranslateOptions {
 	public static Options options() {
 		Options options = new Options();
 		Option xmiOption = Option.builder("x").longOpt("xmi").argName("file path")
-				.desc("The path to a UML 2 compatible XMI document.").hasArg().required().build();
+				.desc("The path to a UML 2 compatible XMI document.").hasArgs().required().build();
 		options.addOption(xmiOption);
 		Option metaOption = Option.builder("mm").longOpt("metamodel").argName("metamodel path")
 				.desc("The path to a UML 2 based metamodel.").hasArg().required().build();
