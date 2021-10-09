@@ -9,14 +9,6 @@
 
 	<name>org.xtuml.bp.io.xmi.translate</name>
 
-	<repositories>
-		<repository>
-			<id>sdmetrics-opencore</id>
-			<name>SDMetrics Open Core</name>
-			<url>file://${project.basedir}/../SDMetricsOpenCore/dist/lib/SDMetricsOpenCore.jar</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -115,7 +107,7 @@
 				<executions>
 					<execution>
 						<id>copy-libraries</id>
-						<phase>validate</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>copy</goal>
 						</goals>

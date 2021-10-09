@@ -31,7 +31,7 @@ import com.sdmetrics.util.XMLParser;
 import com.sdmetrics.util.XMLParser.XMLParseException;
 
 /**
- * Translate UML2 compatible XMI to xtUML
+ * Translate UML2 compatible XMI to xtUML SQL
  */
 public class XMITranslate {
 
@@ -67,6 +67,8 @@ public class XMITranslate {
 		}
 	};
 	public static ILogger logger;
+	/* keep track of applied header in case of multiple input files */
+	private boolean headerApplied = false;
 
 	public XMITranslate(ILogger pLogger) {
 		logger = pLogger;
@@ -85,8 +87,11 @@ public class XMITranslate {
 			throws ParserConfigurationException, SAXException, XMLParseException, IOException {
 		logger.log("Loading XMI document...");
 		xtumlOutput = new StringBuilder();
-		/* apply any header specified */
-		xtumlOutput.append(XtumlSQLMapper.process(MapperType.SQL, null, "HEADER"));
+		if(!headerApplied) {
+			/* apply SQL header */
+			xtumlOutput.append(XtumlSQLMapper.process(MapperType.SQL, null, "HEADER"));
+			headerApplied = true;
+		}
 		MetaModel mm = null;
 		XMLParser parser = null;
 		SAXParser saxParser = null;
@@ -135,21 +140,6 @@ public class XMITranslate {
 		processGraphics();
 		// process elements that require all graphics processed first
 		processAfterGraphics();
-		// if output is specified
-		if (!output.equals("")) {
-			try {
-				File file = new File(output).getAbsoluteFile();
-				File parent = file.getParentFile();
-				parent.mkdirs();
-				FileWriter xtumlWriter = new FileWriter(file, Charset.forName("UTF-8"));
-				xtumlWriter.write(xtumlOutput.toString());
-				xtumlWriter.close();
-			} catch (IOException e) {
-				System.err.println("Unable to export translated model.");
-				System.err.println(e.getMessage());
-			}
-		}
-		logger.printReport(output);
 		return xtumlOutput.toString();
 	}
 

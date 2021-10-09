@@ -57,7 +57,7 @@ public class ModelImportWizardHelper {
     
 	public IModelImport doImportPhase1(ModelStreamProcessor processor, SystemModel_c system, File file,
 			IProgressMonitor monitor) throws IOException {
-		// otherwise read the file contents into a string and
+		// read the file contents into a string and
 		// pass into a byte array stream importer
 		FileInputStream fis = new FileInputStream(file);
 		byte[] fileBytes = new byte[Long.valueOf(file.length()).intValue()];

@@ -96,4 +96,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.xtuml.bp.io.xmi</groupId>
+			<artifactId>org.xtuml.bp.io.xmi.translate</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

@@ -1,6 +1,11 @@
 package org.xtuml.bp.io.xmi.translate;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 import org.apache.commons.cli.CommandLine;
@@ -64,6 +69,8 @@ public class XMITranslator {
 					if (response.equals("n")) {
 						System.out.println("Run again with a different output");
 						System.exit(0);
+					} else {
+						Files.delete(Path.of(output));
 					}
 				}
 			}
@@ -81,21 +88,43 @@ public class XMITranslator {
 		} catch (ParseException e) {
 			System.err.println("Unable to parse command line options.\n" + e.getMessage());
 			System.exit(2);
+		} catch (IOException e) {
+			System.err.println("Unable to remove existing file with overwrite set to true.");
+			System.exit(3);
 		}
 
 		logger = new XMITranslateLogger(verbose, todo);
 
 		XMITranslate xmiTranslate = new XMITranslate(verbose || todo ? logger : (msg) -> {});
 		for(String xmiFile: xmiFiles) {
-			try {
-				String xtuml = xmiTranslate.loadXMI(metamodel, transformers, xmiFile, output);
-				// output the xtuml model unless todo, verbose are enabled or an output file is given
-				// in the case of todo we are less worried about the output
-				if(!todo && !verbose && output.equals("")) {
-					System.out.print(xtuml);
+			if(!xmiFile.equals("\n")) {
+				try {
+					String xtuml = xmiTranslate.loadXMI(metamodel, transformers, xmiFile, output);
+					// if output is specified
+					if (!output.equals("")) {
+						try {
+							File file = new File(output).getAbsoluteFile();
+							File parent = file.getParentFile();
+							parent.mkdirs();
+							FileWriter xtumlWriter = new FileWriter(file, Charset.forName("UTF-8"), true);
+							xtumlWriter.write(xtuml.toString());
+							xtumlWriter.close();
+						} catch (IOException e) {
+							System.err.println("Unable to export translated model.");
+							System.err.println(e.getMessage());
+						}
+					}
+					if(verbose || todo) {
+						logger.printReport(output);
+					}
+					// output the xtuml model unless todo, verbose are enabled or an output file is given
+					// in the case of todo we are less worried about the output
+					if(!todo && !verbose && output.equals("")) {
+						System.out.print(xtuml);
+					}
+				} catch (Exception e) {
+					logger.logError("Unable to translate model.", e);
 				}
-			} catch (Exception e) {
-				logger.logError("Unable to translate model.", e);
 			}
 		}
 	}
