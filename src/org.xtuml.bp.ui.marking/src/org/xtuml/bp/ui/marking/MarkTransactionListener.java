@@ -34,8 +34,9 @@ public class MarkTransactionListener implements ITransactionListener {
                 String s1 = "Action_Semantics";
                 String s2 = "Action_Semantics_internal";
                 String s3 = "Descrip";
-                if ( change.attributeName.equals(s1) || change.attributeName.equals(s2) || change.attributeName.equals(s3) )
-                    continue;
+                if ( change.getAttributeName().equals(s1) || change.getAttributeName().equals(s2) || change.getAttributeName().equals(s3) ) {
+                    continue; // Skip to next change.
+                }
             	if ( (deltaKind == Modeleventnotification_c.DELTA_NEW) ||
             		 (deltaKind == Modeleventnotification_c.DELTA_DELETE) ||
             		 (deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) ||
