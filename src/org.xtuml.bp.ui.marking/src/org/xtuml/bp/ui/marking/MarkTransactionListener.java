@@ -29,6 +29,13 @@ public class MarkTransactionListener implements ITransactionListener {
             IModelDelta[] modelDeltas = transaction.getDeltas(modelRoots[i]);
             for (IModelDelta deltaToHandle : modelDeltas) {
             	int deltaKind = deltaToHandle.getKind();
+                AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                // If the changed attribute is freeform text (activity or description), skip it.  These are not markable.  12203
+                String s1 = "Action_Semantics";
+                String s2 = "Action_Semantics_internal";
+                String s3 = "Descrip";
+                if ( change.attributeName.equals(s1) || change.attributeName.equals(s2) || change.attributeName.equals(s3) )
+                    continue;
             	if ( (deltaKind == Modeleventnotification_c.DELTA_NEW) ||
             		 (deltaKind == Modeleventnotification_c.DELTA_DELETE) ||
             		 (deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) ||
@@ -44,7 +51,6 @@ public class MarkTransactionListener implements ITransactionListener {
                         // Update a mark value change here, as recalculatePathKeys doesn't handle it.
                         boolean valueDataUpdated = false;
                         if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
-                           AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
                            valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(),
                         		   	change.getOldValue() != null ? change.getOldValue().toString() : "");
                         }
