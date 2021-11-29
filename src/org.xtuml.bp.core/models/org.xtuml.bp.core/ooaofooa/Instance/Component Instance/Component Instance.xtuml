@@ -24,6 +24,7 @@ end if;',
 	1,
 	'',
 	"891f3115-cdef-4798-bf2b-46e560344b88",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8ac2fe50-86fb-4e6e-80ae-49b7492df666",
@@ -43,6 +44,7 @@ relate stack to self across R2930;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("98e3902f-8710-4673-846b-02298947645f",
@@ -59,6 +61,7 @@ return self.Next_Unique_ID;',
 	1,
 	'',
 	"5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("891f3115-cdef-4798-bf2b-46e560344b88",
@@ -76,6 +79,7 @@ end if;',
 	1,
 	'',
 	"515919c8-d356-4644-b3f3-ed464623126c",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("e9557967-0146-4c9f-af73-6ac883c37119",
@@ -176,6 +180,7 @@ self.Running = false;',
 	1,
 	'',
 	"b8590eb2-2e59-4d2e-902f-f1ed17287c60",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88",
@@ -190,6 +195,7 @@ return GD::int_to_string(value:self.Next_Instance_ID);',
 	1,
 	'',
 	"8d230335-b01b-4405-95c4-c60c39919633",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("515919c8-d356-4644-b3f3-ed464623126c",
@@ -362,6 +368,7 @@ self.InitializeArchitecture();',
 	1,
 	'',
 	"98e3902f-8710-4673-846b-02298947645f",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("6331aaf9-11c3-4f2f-b3cf-523dc906d56a",
@@ -505,6 +512,7 @@ delete object instance self;',
 	1,
 	'',
 	"8ac2fe50-86fb-4e6e-80ae-49b7492df666",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8d230335-b01b-4405-95c4-c60c39919633",
@@ -540,6 +548,7 @@ return 1;',
 	1,
 	'',
 	"6331aaf9-11c3-4f2f-b3cf-523dc906d56a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("9cf93079-6161-4b95-893e-b8bf5e20ed1d",
@@ -572,6 +581,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"e9557967-0146-4c9f-af73-6ac883c37119",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("55e52e78-33ed-43a7-9c33-60e8f505c061",
@@ -588,6 +598,7 @@ return this;',
 	0,
 	'',
 	"9cf93079-6161-4b95-893e-b8bf5e20ed1d",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -613,6 +624,7 @@ synchronized(this) {
 	0,
 	'',
 	"55e52e78-33ed-43a7-9c33-60e8f505c061",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
@@ -636,6 +648,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"4b7db2eb-8a6e-44e1-80bf-7acd24059d60",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("214d24db-a6e8-4978-9bc5-5e00ce0e9ee5",
@@ -668,6 +681,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0980a3bf-2487-4ba2-98fb-a2961d64528b",
@@ -695,6 +709,7 @@ return result;',
 	1,
 	'',
 	"e3bc1f84-f9bc-4411-8326-625e7de35207",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
@@ -931,6 +946,7 @@ end if;
 	1,
 	'',
 	"7fc7042f-3019-4ae7-a2be-7689c7e86765",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("ae129118-8175-49d4-8da9-c4dc6d7d2094",
@@ -1034,6 +1050,7 @@ return GD::NULL_UNIQUE_ID();',
 	1,
 	'',
 	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1827d7ba-a31a-4917-bf52-02fb8f32c3c5",
@@ -1095,14 +1112,76 @@ select any local related by outer_block->I_BSF[R2923]->
 select one local_val related by local->L_LVL[R3001];
 select one act_val related by arg->V_VAL[R800];
 if not_empty prop_param and prop_param.By_Ref == 0
-  select any result related by localStackFrame->I_VSF[R2951] where
-                                          selected.Value_ID == act_val.Value_ID;
+  select any result related by localStackFrame->I_VSF[R2951]
+   where selected.Value_ID == act_val.Value_ID;
   select one rtVal related by result->RV_RVL[R3305];
   create object instance lrtVal of RV_RVL;
   relate lrtVal to local across R3306;
   select one dt related by prop_param->S_DT[R4007];
   relate lrtVal to dt across R3307;
-  lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+  select one iref related by dt->S_IRDT[R17];  // inst_ref param?
+  if ( empty iref )
+    lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+  else
+    // inst_ref or inst_ref_set: must create replica instance(s) in the receiving context
+    // Find the component instance which is the receiving execution context.
+    select any targetStackFrame from instances of I_STF 
+     where selected.Stack_Frame_ID == param.stack_frame_id;
+    select one engine related by targetStackFrame->I_ICQE[R2966]
+                                                 ->I_STACK[R2966.''is enqueued with'']
+                                                 ->I_EXE[R2930.''is controlled by''];
+    // Identify the object type to replicate, and corresponding class-in-engine
+    select one srcObj related by iref->O_OBJ[R123.''provides reference datatype for''];
+    select any cie related by srcObj->CSME_CIE[R2961]
+     where (selected.Execution_Engine_ID == engine.Execution_Engine_ID);
+    // create and relate local reference for new local instance-in-reference(s)
+    create object instance smplv of RV_SMV;
+    relate smplv to lrtVal across R3300;
+    create object instance newRef of RV_IRV;
+    relate newRef to smplv across R3308;
+    // multiplicity returned here depends on inst_ref vs. inst_ref_set
+    select many srcLiirs related by rtVal->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311.''has members''];
+    for each srcLiir in srcLiirs
+      create object instance instInRef of L_IIR;
+      relate instInRef to newRef across R3311.''is part of''; // add to local reference
+      create object instance newInst of I_INS;
+      relate newInst to instInRef across R3013.''is referenced by'';
+      relate newInst to cie across R2962.''instance of'';
+      relate newInst to engine across R2957.''created by'';
+      newInst.initialize(initializeState:true);  // set default attribute values
+      // prepare to copy attribute values from source, as appropriate
+      select one srcInst related by srcLiir->I_INS[R3013.''references''];
+      select many srcAttrs related by srcInst->I_AVL[R2909.''has characteristic abstracted by''];
+      select many newAttrs related by newInst->I_AVL[R2909.''has characteristic abstracted by''];
+      for each srcAttr in srcAttrs
+        select one attrDef related by srcAttr->O_ATTR[R2910.''is instance of''];
+        select one ref related by attrDef->O_RATTR[R106];
+        if ( not empty ref )  // do not copy referential values
+          continue;
+        end if;
+        attrName = attrDef.Name;
+        for each newAttr in newAttrs
+          select one newAttrDef related by newAttr->O_ATTR[R2910.''is instance of''];
+          if ( attrName == newAttrDef.Name )
+            select one srcrtVal related by srcAttr->RV_RVL[R3304];
+            select one newrtVal related by newAttr->RV_RVL[R3304];
+            newrtVal.copyValue(from:srcrtVal.RuntimeValue_ID);
+            break;
+          end if;
+        end for;
+      end for;
+      // take care of ''current-state'' if necessary
+      select one currstate related by srcInst->SM_STATE[R2915];
+      if ( not empty currstate )
+        select one instate related by newInst->SM_STATE[R2915];  // initialized default
+        unrelate newInst from instate across R2915;
+        select one stateMachine related by cie->O_OBJ[R2961]->SM_ISM[R518]->SM_SM[R517];  
+        select any state related by stateMachine->SM_STATE[R501.''is decomposed into'']
+         where ( selected.Numb == currstate.Numb );
+        relate newInst to state across R2915.''occupies'';
+      end if;
+    end for;    
+  end if;
 else  // assuming by ref
   relate local_val to act_val across R3010;
 end if;
@@ -1114,6 +1193,7 @@ localStackFrame.popValue(value_id:arg.Value_ID);
 	1,
 	'',
 	"86425309-1fd4-4c69-b961-a8553df6592d",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1989dfbc-2c27-40b5-82e2-d17c402890aa",
