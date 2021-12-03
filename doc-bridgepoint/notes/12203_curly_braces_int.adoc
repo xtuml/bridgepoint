@@ -1,0 +1,95 @@
+= ASL Curly Braces Cause Java Exception
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note documents a fix to the marking editor which was discovered by
+editing ASL action language.
+
+== 2 Introduction and Background
+
+BridgePoint supports editing OAL, MASL, ASL and soon-to-be other action
+languages.  The character sets used in these action languages differ.
+Curly braces are supported in ASL, and the use of these curly braces
+uncovered a latent error in the marking editor.
+
+The marking editor maintains consistency between the marks in the
+'application.mark' file and the referenced names of the model elements
+through a model change (transaction) listener.  Each time the model is
+changed and a transaction ends, the marking editor is notified and sorts
+through the model changes looking for something that may affect a marked
+element.
+
+This process is a little heavy handed, because it interrogates every
+string changed by every edit every time.  And the method it uses to find
+changes is brute force; it simply compares every delta to every mark.
+This includes changes to string attributes which contain multiple lines of
+text such as element descriptions and bodies of action language.
+
+Element descriptions and bodies of action language are not markable.  So,
+the short-term solution to this problem is to stop interrogating these
+fields for marking name changes.
+
+== 3 Requirements
+
+=== 3.1 Avoid Java Exception
+
+Avoid the Java exception by avoiding the scanning (using regex techniques)
+of large bodies of text which are not markable anyway.
+
+== 4 Work Required
+
+In the transaction listener, stop interrogating model change deltas to
+attributes with names "Action_Semantics", "Action_Semantics_internal" and
+"Desrip".
+
+== 5 Implementation Comments
+
+=== 5.1 inconsistent capitalization
+
+The first attempt at the fix failed.  When traced, it was discovered that
+the name of the 'Action_Semantics' attribute as stored in the change delta
+is 'Action_semantics'.  It was noted that there is potential inconsistency
+in the code base on the capitalization of this attribute name.  So, the
+solution was modified to ignore case during the comparison.
+
+=== 5.2 performance considerations
+
+The transaction listener in the marking editor was described in this note
+as heavy handed.  Upon further investigation, this is an understatement.
+This transaction listener interrogates every change for every edit in all
+situations, even when there is no marking data even no marking file.
+
+<<dr-2>> has been raised to track a fix for this performance problem.
+
+== 6 Unit Test
+
+Run the reproduction test supplied by the user which is attached to the
+issue.
+
+== 7 User Documentation
+
+N/A
+
+== 8 Code Changes
+
+- fork/repository:  cortlandstarrett/bridepoint
+- branch:  12203_curly_braces
+
+----
+ doc-bridgepoint/notes/12203_curly_braces_int.adoc               | 83 ++++++++++++++++++++++++++++++++++++++++
+ .../src/org/xtuml/bp/ui/marking/MarkTransactionListener.java    |  9 ++++-
+ 2 files changed, 91 insertions(+), 1 deletion(-)
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12203[12203 - curly braces in ASL cause java exception]
+. [[dr-2]] https://support.onefact.net/issues/12327[12327 - Make marking change transaction listener smarter.]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
