@@ -24,45 +24,43 @@ public class MarkTransactionListener implements ITransactionListener {
     public void transactionEnded(Transaction transaction) {
     	if (transaction.getType().equals(Transaction.AUTORECONCILE_TYPE)) { return; }
     	
+        // If the changed attribute is freeform text (activity or description), skip it.  These are not markable.  12203
+        String s1 = "Action_Semantics"; String s2 = "Action_Semantics_internal"; String s3 = "Descrip";
         ModelRoot[] modelRoots = transaction.getParticipatingModelRoots(Ooaofooa.class);
         for (int i = 0; i < modelRoots.length; i++ ){
             IModelDelta[] modelDeltas = transaction.getDeltas(modelRoots[i]);
             for (IModelDelta deltaToHandle : modelDeltas) {
-            	int deltaKind = deltaToHandle.getKind();
-                AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
-                // If the changed attribute is freeform text (activity or description), skip it.  These are not markable.  12203
-                String s1 = "Action_Semantics";
-                String s2 = "Action_Semantics_internal";
-                String s3 = "Descrip";
-                if ( change.getAttributeName().equalsIgnoreCase(s1) || change.getAttributeName().equalsIgnoreCase(s2) || change.getAttributeName().equalsIgnoreCase(s3) ) {
-                    continue; // Skip to next change.
-                }
-            	if ( (deltaKind == Modeleventnotification_c.DELTA_NEW) ||
-            		 (deltaKind == Modeleventnotification_c.DELTA_DELETE) ||
-            		 (deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) ||
-            		 (deltaKind == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) ||
-            		 isDataTypeChange(deltaToHandle)
-            	   ) {
-            		NonRootModelElement nrme = ((NonRootModelElement) deltaToHandle.getModelElement());
-            		NonRootModelElement sys_nrme = nrme.getRoot();
-            		if (sys_nrme instanceof SystemModel_c) {
-            			IProject project = (IProject) ((SystemModel_c) sys_nrme).getAdapter(IProject.class);
-            			if ( project != null ) {
-            				MarkingData md = MarkingDataManager.getMarkingData(project);
-                        // Update a mark value change here, as recalculatePathKeys doesn't handle it.
-                        boolean valueDataUpdated = false;
-                        if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
-                           valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(),
-                        		   	change.getOldValue() != null ? change.getOldValue().toString() : "");
+                int deltaKind = deltaToHandle.getKind();
+                if ( (deltaKind == Modeleventnotification_c.DELTA_NEW) ||
+                     (deltaKind == Modeleventnotification_c.DELTA_DELETE) ||
+                     (deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE) ||
+                     (deltaKind == Modeleventnotification_c.DELTA_MODEL_ELEMENT_MOVE) ||
+                     isDataTypeChange(deltaToHandle)
+                   ) {
+                    NonRootModelElement nrme = ((NonRootModelElement) deltaToHandle.getModelElement());
+                    NonRootModelElement sys_nrme = nrme.getRoot();
+                    if (sys_nrme instanceof SystemModel_c) {
+                        IProject project = (IProject) ((SystemModel_c) sys_nrme).getAdapter(IProject.class);
+                        if ( project != null ) {
+                            MarkingData md = MarkingDataManager.getMarkingData(project);
+                            // Update a mark value change here, as recalculatePathKeys doesn't handle it.
+                            boolean valueDataUpdated = false;
+                            if ( deltaKind == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE ) { 
+                                AttributeChangeModelDelta change = (AttributeChangeModelDelta)deltaToHandle;
+                                if ( change.getAttributeName().equalsIgnoreCase(s1) || change.getAttributeName().equalsIgnoreCase(s2) || change.getAttributeName().equalsIgnoreCase(s3) ) {
+                                    continue; // Skip to next change.
+                                }
+                                valueDataUpdated = md.updateValueData(nrme, change.getNewValue().toString(),
+                                change.getOldValue() != null ? change.getOldValue().toString() : "");
+                            }
+                            boolean pathDataUpdated = md.recalculatePathKeys(deltaToHandle);
+                            if (valueDataUpdated || pathDataUpdated) {
+                                // If the marks were updated then persist them
+                                md.persist();
+                            }
                         }
-                        boolean pathDataUpdated = md.recalculatePathKeys(deltaToHandle);
-                        if (valueDataUpdated || pathDataUpdated) {
-            					// If the marks were updated then persist them
-            					md.persist();
-            				}
-            			}
-            		}
-            	}
+                    }
+                }
             }
         }
     }
