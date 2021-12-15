@@ -1,0 +1,708 @@
+= Textual Specification of xtUML
+
+== 1 Abstract
+
+This document defines the textual representation of the xtUML modeling language.
+
+== 2 Introduction and Background
+
+2.1 Motivation
+
+It has long been a goal to migrate away from instance-based persistence of
+xtUML models as SQL insert statments and to a semantic text based format. There
+are several benefits to this, but here are two of the most important:
+
+- Human readable/editable without a dedicated tool
+- Diff/mergable
+
+Additionally, having a textual language lowers the barrier to participation
+from the rest of the community for both modeling and tool development.
+ 
+In order to persist to a text format, a textual specification is required. The
+following document aims to define such a specification. The specification is
+based on the exsting MASL language (TODO ref) with some modification and
+extensions for constructs that do not exist in MASL. In order to produce a
+concise language devoid of useless clutter, some editorial license will be
+taken to remove capabilities supported by the current xtUML metamodel when
+appropriate. Deviations from standard MASL and omissions from the xtUML
+metamodel will be called out explicitly by this document.
+
+2.2 Terms
+
+Throughout this document the terms "spec" and "specification" shall be
+understood to refer to the textual specification of xtUML.
+
+Some terms differ between MASL and xtUML method implementations. For the sake
+of clarity in this document, the xtUML terms will be preferred but the
+following can be regarded as synonyms:
+
+- component = domain
+- class = object
+- deployment = MASL "project"
+- port = terminator
+- relationship = association
+- TODO are there more?
+
+2.3 Implementations
+
+There are many details that are critical to an implementation of the language
+by a tool but are not an official part of the specification. This document
+will provide suggestions for implementation in these cases.
+
+== 3 Requirements
+
+=== 3.1 A specification shall be created to define the textual representation of xtUML models
+==== 3.1.1 The spec shall not include a specification of action language within executable bodies
+==== 3.1.2 The spec shall accomodate the existence of multiple action language dialects and allow for flexibility in action language selection
+
+=== 3.2 The spec shall support existing MASL models with minimal modification
+==== 3.2.1 Required modifications of MASL models shall be able to be easily automated
+==== 3.2.2 Required modifications of MASL models shall be explicitly called out in the spec
+
+=== 3.3 The spec shall not include specifications of existing informal model diagrams (e.g. sequence diagram, use case, etc.)
+
+== 4 Analysis
+
+=== 4.1 General structure
+
+An xtUML model is defined by a loosely associated group of model elements.
+Rather than individual "projects". This allows the modeler to split up model
+elements into projects as is convenient for packaging purposes.
+
+==== 4.1.1 Filesystem organization
+
+Structural model elements are defined within `.xtuml` files. MASL file
+extesions (`.mod`, `.int`) are recognized for backwards compatibility. Action
+bodies are defined within files with an extention which specifies the action
+language dialect (e.g `.oal`, `.masl`, `.asl`). MASL file extensions are
+recognized for backwards compatibility and are assumed to be MASL. A file name
+may be based on the principal element contained with in it, however the file
+name is not semantically relevant and is at the discretion of the tool
+implementation.
+
+It is not recommended to mix action dialects within a model, but it is not
+restricted by this spec.
+
+There is no concept of a "project". Typically a group of related model elements
+will be packaged together in a group of files within a single filesystem tree,
+however, a model may be expressed by a flat group of files or files may be
+referenced from disconnected filesystem trees. An entire model may be defined
+within one file. The directory structure is at the discretion of the tool and
+is not a part of the spec.
+
+Logically, a group of model files behaves as though all files have been
+concatenated together before parsing. There is no restriction of the order in
+which root model elements are defined.
+
+==== 4.1.2 Suggested tree structure
+
+The suggested implementation of tree structure is as follows:
+
+- All structural files use the `.xtuml` extension.
+- File names are defined by the simple name (TODO see naming below) of the
+  principal element within the file
+- Pacakges and components are defined in a separate file within a directory of
+  the same name.
+- State machines are defined in a separate file within the directory in which
+  the containing class is defined. State machine files are named after the
+  simple name of the class plus "StateMachine".  Classes are not defined in
+  their own file.
+- A single action body file is defined for each package, component, class, and
+  state machine. For packages, components, and state machines, the file is
+  named the same as the `.xtuml` file but with an extension appropriate for the
+  dialect.  For classes, the file is named after the class.
+- Action body files are excluded if there are no exectable model elements
+  defined within the container or if there are no non-empty bodies within the
+  container.
+
+Note: this structure is similar to current BridgePoint persistence, however
+classes do not get their own files.
+
+See the following example:
+```
+EclipseProject/
+|─ gen/
+|─ models/
+|  |─ package1/
+|     |─ component1/
+|     |  |─ package2/
+|     |  |  |─ classA.oal
+|     |  |  |─ classAStateMachine.oal
+|     |  |  |─ classAStateMachine.xtuml
+|     |  |  |─ package2.oal
+|     |  |  |─ package2.xtuml
+|     |  |─ component1.oal
+|     |  |─ component1.xtuml
+|     |─ package1.xtuml
+|─ .project
+```
+
+==== 4.1.3 Types of model elements and containment
+
+4.1.3.1 Root model elements
+
+Root model elements are elements that may be defined at the root of the model
+element tree. Root model elements are not contained by any other element. Root
+model elements are:
+
+- Package
+- Component
+- Deployment
+
+4.1.3.2 Parse roots and discontiguous definitions
+
+It should be understood that "root model elements" are different than the
+related concept of parse roots. Root elements are semantically at the root of
+the model element tree, however parse roots a syntactically at the root within
+a file. All root model elements are also parse roots. Additionally,
+discontiguous definitions allow a modeler or tool to define non-root elements
+in separate files.
+
+All packageable elements as well as state machines can be defined in a separate
+file using a discontiguous definition. See the example below:
+
+```
+within package1::component1::classA is
+  statemachine is
+    ...
+  end statemachine;
+end;
+```
+
+Packageable elements defined by a discontiguous definition must also be
+declared within the referenced containing package or component. Discontiguous
+state machine definitions do not need to be declared. This is to improve the
+readability of the model when organized into a tree structure.
+
+`OuterPackage.xtuml`
+```
+package OuterPackage is
+  package InnerPackage;
+end package;
+```
+
+`InnerPackage.xtuml`
+```
+within OuterPackage is
+  package InnerPackage is
+    ...
+  end package;
+end;
+```
+
+4.1.3.3 Packageable elements
+
+Packageable model elements are elements which may be defined within a package
+or component. Packageable model elements may be included in a component by
+package reference or direct definition. Packageable model elements are:
+
+- Package
+- Component
+- Interface
+- Satisfaction
+- Deployment
+- Class
+- Relationship
+- Function
+- External Entity
+- Type
+- Constant Group
+- Exception
+
+4.1.3.4 Containment
+
+Model elements may be contained within other components. For example, a package
+may contain class definitions; an operation may contain parameters. An element
+is said to be contained by another element if it is directly defined within the
+containing element, or if it is contained by a third element which is itself
+contained by the containing element (indirect containment).
+
+Package references allow packages to be reused in multiple components. A
+package reference is a package itself which contains all elements contained by
+the referred to package. The elements defined within a package that is included
+by reference are contained within multiple multiple branches of the model
+element tree.
+
+==== 4.1.4 Element visibility
+
+The component is the unit of visibility. Elements defined within a component
+may not reference elements defined outside the component unless they are
+defined within a package which is imported into the component through a package
+reference.
+
+Elements not defined directly within any component may reference any other
+elements not defined within a component.
+
+Within a component, all elements are visible to all other elements.
+
+If components are nested, the same visibility boundary applies and the inner
+component must include any reference dependencies by package reference.
+
+Action statements have the visibility of the component in which they are
+defined or imported.
+
+Packages are completely transparent and do not affect element visibility.
+
+4.1.4.1 Dependent reference graphs
+
+If an element references another element in a different branch of the model
+element tree, a reference dependency is formed.  As soon as an element is
+included in a component via package reference, it is simultaniously defined
+inside and outside the component and therefore must satisfy visibility
+requirements in both contexts. Any elements on which it has reference
+dependency must also be included in the component otherwise a reference error
+exists. Reference dependencies create a graph. All elements connected by this
+dependency graph must be included in a component together.
+
+Consider the following example:
+
+Two subsystem packages are modelled for a domain. `robotic arm` models the
+motion of a robotic arm. `configuration` models a data-driven scheme for
+configuring deployed robotic arms. The `Arm` class in the `robotic arm`
+subsystem has relationship `R1` to the `Initial Position` class within the
+`configuration` subsystem. `R1` itself is defined within the `robotic arm`
+subsystem. `R1` class has created a reference dependency from the `robotic arm`
+subsystem package to the `configuration` subsystem package. Note that these
+dependencies are directional in nature. It would be invalid to include `robotic
+arm` in a component without also including `configuration`, however it would be
+valid to include `configuration` without `robotic arm`.
+
+Note: There is currently no warning for this situation in BridgePoint and it is
+a common failure mode in generating code which makes use of package references.
+
+4.1.4.2 Component visibility exceptions
+
+Public functions are an exception to the component-level visibility rule.
+Functions defined as public may be invoked by action language statements in
+other components as long as the referred to component is visible to the
+component containing the action statement.
+
+Satisfactions may reference ports within visible components.
+
+==== 4.1.5 Element naming
+
+All model elements have a unique name which can be used to refer to the
+element. Most elements can have a simple name. Some elements can additionally
+have an extended name. Some named elements may have no name.
+
+The simple name is an identifier composed of alphanumeric characters and
+underscores. Simple names may not contain spaces or start with numerical
+digits. The simple name is analagous to key letters for classes and external
+entities, but generalized for all elements.
+
+Extended names are composed of a string of characters enclosed in single
+quotes. There is no restrictions on characters within extended names except
+they may not include single quotes or line breaks.
+
+The following elements support extended names:
+
+- Package
+- Component
+- Interface
+- Deployment
+- Class
+- External Entity
+- Constant Group
+- State
+- Event
+
+An element name may be specified in two ways. Simple name only as follows:
+```
+class Dog is
+  ...
+```
+
+Extended name with simple name as follows:
+```
+class 'Dog Owner'[DogOwner] is
+  ...
+```
+
+4.1.5.1 Naming special cases
+
+Satisfactions may defined with no simple name, however a simple name may be
+required to reference a satisfaction by marking.
+
+The simple name for a class identifier is implied to be "I" followed by the
+index of the identifier according to the order defined.  Indices start at 2
+since the preferred identifer is considered to be "I1" (TODO see below).
+
+State machines and state event matrices are unnamed. Since each class
+definition can define no more than one state machine and each state machine
+must define exactly one matrix, the name of the class is sufficient to
+reference the state machine or matrix (TODO see below).
+
+4.1.5.2 Duplicate names
+
+Elements may not have identical simple names in the same container. For
+example, a component may not define both a pacakge and a port with the simple
+name "UI". Action body overloading is an exception to this rule (TODO see below).
+
+Elements which are contained in different containers may have identical simple
+names.
+
+Root model elements which are not defined within any container must have unique
+simple names among other root model elements. To facilitate reuse, it is
+recommended to avoid generic names for root model elements as such could lead
+to name collisions when combining projects.
+
+Non-unique names are generally discouraged although not strictly prohibited by
+this spec. Some action languages may produce errors if elements of the same
+kind have the same name within one visibility scope.
+
+4.1.5.3 Referencing elements by name
+
+Named references to model elements always use the simple name of the element.
+
+The extended name may be used for display and debugging, but is never used for
+any semantic purpose.
+
+Every element has a fully qualified name defined as a sequence of name segments
+separated by double colons (`::`). The fully qualified name starts with the
+simple name of the root element in the containment tree and continues down the
+branch until the element is reached.
+
+For example, the parameter `param1` in the following example:
+```
+package package1 is
+  component component1 is
+    package package2 is
+      function foo(param1: in integer);
+    end package;
+  end component;
+end package;
+```
+
+has a fully qualified name: `package1::component1::package2::foo::param1`.
+
+Note: some elements may have more than one valid fully qualified name if they
+are included by a package reference.
+
+Named elements may always be referenced by their fully qualified name.
+
+Named elements in the same scope may be referenced by simple name only
+
+If a name conflict exists in the scope, an element may need to be
+referenced by partially qualified name.
+
+For compatibility with MASL, state machine events may be referenced with a
+partially qualified name consisting of a reference to the defining class
+followed by a dot (`.`) and the name of the element.
+
+==== 4.1.5 Executable model elements
+
+TODO
+
+=== 4.2 Model element detail
+
+==== 4.2.1 Package
+
+Packages may be defined locally:
+
+```
+package MyPackage is
+
+  ...
+
+end package;
+```
+
+Packages may be defined by reference:
+
+```
+package MyPackageReference is Some::Other::Package;
+```
+
+==== 4.2.2 Component
+
+Components encapsulate a cohesive unit of behavior in the model and define
+clear interfaces for communication with other components.
+
+Components may be defined locally or by reference just like packages.
+
+```
+component Tracking is
+  ...
+end component;
+```
+
+```
+component Tracking is Library::Tracking;
+```
+
+Note: `domain` is a lexical synonym for `component`
+
+4.2.2.1 Port
+
+Ports are defined directly within a component. They may not be imported into
+other components. Ports may be "provided" or "required". If not specified,
+ports are "required". A port may implement an interface or it may define
+messages directly. TODO see interface section for more detail on messages.
+
+```
+provided port LOC implements LocationProvider;
+```
+
+Direct declaration of messages:
+```
+required port UserRegistration is
+  ...
+end port;
+```
+
+Note: `terminator` is a lexical synonym for `port`
+
+4.2.2.2 Port reference
+
+Port references represent the delegation of a port from an outer component to a
+nested inner component. Once delegated, the reference of the outer port by an
+action language statement results in an error. If "required"/"provided" is
+specified, it must match the referred to port. If not specified, it is
+considered to be inherited from the referred to port.
+
+```
+port Display is Calculator::Display;
+```
+
+==== 4.2.3 Interface
+
+Interfaces define an abstract set of messages which will be implemented by a port.
+
+```
+interface LocationProvider is
+  ...
+end interface
+```
+
+4.2.3.1 Message
+
+Messages may be "to provider" or "from provider". "to provider" messages are
+received by "provided" ports which implement this interface. "from provider"
+messages are received by "required" ports which implement this interface. If
+not specified, messages are "to provider".
+
+Messages may define contracts to enforce constraints on execution. Messages
+which define a return type may specify a duration for which to wait for a
+response.  Messages which do not define a return type may specify a
+directionally opposite message from the same interface that it expects to
+receive as a response and a duration within which to expect that message. In
+both cases, a user defined exception may be specified to be raised if the
+contract is violated. If no exception is specified, the target architecture is
+responsible for taking appropriate action if the contract is violated. If no
+duration is provided for messages which define a return type, the target
+architecture is responsible for defining blocking behavior.
+
+Standard message
+```
+message distanceChanged(distance: real) from provider;
+```
+
+Message with return value and timeout contract
+```
+message getLoggedInUsers() return set of string within @P5S@ raises DatabaseTimeout;
+```
+
+Message with expected response and timeout contract
+```
+message login(username: string, password: string) to provider expects loginResult within @P5S@ raises LoginTimeout;
+message loginResult(successful: boolean, message: string) from provider;
+```
+
+Note: to maintain compatibility with MASL, the `service` keyword may be used in place of `message`.
+
+==== 4.2.4 Satisfaction
+
+A satisfaction defines a connection between a required and a provided port in
+two components. Multiple satisfactions may be defined referencing a single
+provided port (multiple requiring ports to one provided port). Satisfactions
+may be defined between a provided and required port on the same component.
+Satisfactions may be unnamed, however, a name is required for them to be
+referenced by marking.
+
+```
+satisfaction is Tracking::LOC -(o- Location::LOC;
+satisfaction is Tracking::UI  -(o- UI::UI;
+satisfaction is Tracking::HRl -(o- HeartRateMonitor::HR;
+```
+
+Note: It is not required for components to be defined in the same package as a
+satisfaction which references them. Tools which have diagrams of satisfactions
+may need to create a reference to the component in the package.
+
+==== 4.2.5 Deployment
+
+Deployments provide an informal system modeling mechanism by overriding
+required message implementations within a domain.
+
+TODO deployments are defined just like MASL
+
+Note: `project` is lexical synonym for `deployment` for MASL compatibility
+
+==== 4.2.3 Class
+
+```
+'class' Name 'is'
+
+  ClassItem*
+
+'end' 'class' ';'
+```
+
+Items which may be defined in a class are:
+
+- Attribute
+- Identifier
+- Operation
+- Event
+- State
+- State machine
+
+`object` is a lexer synonym for `class`.
+
+TODO classes are defined just like MASL; copy spec here at some point
+
+TODO attribute default values also support the `=` symbol (along with MASL `:=` assign
+
+==== 4.4.5 Relationship (association)
+
+Relationships may be simple, associative (linked), or subtype/supertype.
+Relationships do not support extended names and the name of a relationship must
+be with the character 'R' followed by an integer:
+
+```
+RelationshipName: 'R' ('1'..'9') ('0'..'9')*;
+```
+
+TODO relationships are defined just like MASL; copy spec here at some point
+
+TODO Role phrases may be specified as an identifier or a single quoted literal.
+
+Note: It is not required for classes to be defined in the same package as a
+relationship which references them. Tools which have diagrams of relationships
+will need to create a reference to the class in the package.
+
+==== 4.4.6 Function
+
+Functions represent synchronous execution within a component. Functions may be
+public or private. Public functions are exposed to other action bodies in
+external components. Private functions are only available to action bodies
+within the defining component. If unspecified, functions are assumed to be private.
+
+Functions may or may not have a return type.
+
+Parameters may be "in" or "out" parameters. "in" parameters are passed by value
+to the function body and are not assignable.  "out" parameters are passed by
+reference to the function body and may be re-assigned by statements within the
+function. If unspecified, parameters are "in".
+
+```
+('public' | 'private' | /* not specified */) ('function' | 'service') Name '(' FormalParameter* ')' ( 'return' TypeReference )? ';'
+```
+
+FormalParameter:
+```
+Name ':' ('in' | 'out' | /* not specified */) TypeReference
+```
+
+Note: to maintain compatibility with MASL the `service` keyword may replace `function`
+
+==== 4.4.7 Type
+
+Named types may be defined by the user and included within components.
+
+TODO types are defined just like MASL; copy spec here at some point
+
+TODO MASL supports default values for enumerators and structure members... allow this?
+
+Note: Not all types represented in this spec are currently supported in xtUML
+
+Note: The implementation is responsible to decide what action language dialect
+is used to evaluate constant expressions used as constraints.
+
+==== 4.4.8 Constant specification
+
+Symbolic constants are gathered into constant groups. Constants may be defined
+by a constant expression in action language or a blob of target language code.
+For normal constants the implementation is responsible to decide what action
+language dialect is used to evaluate the constant expressions. Normal constants
+are cross platform and can be checked at compile time.
+
+```
+'constant' 'group' 'is'
+  Constant*
+'end 'constant' 'group' ';'
+```
+
+Normal constant:
+```
+Name '=' ConstantExpression ';'
+```
+
+Native constant:
+```
+'native' Name '=' NativeConstantExpression ';'
+```
+
+`NativeConstantExpression` is a single quoted string literal.
+
+==== 4.4.9 Exception
+
+TODO exceptions are defined just like MASL; copy spec here at some point
+
+==== 4.4.13 External entity
+
+External entities represent a named group of bridge operations typically to
+provide utility services such as logging or math functions. External entity
+bridges are considered to be synchronous and will cause execution to pause.  If
+asynchronous behavior is desired, the external entity should be modeled as a
+component.
+
+```
+'external' Name 'is'
+  Bridge*
+'end' 'external' ';'
+```
+
+Bridge:
+```
+'bridge' Name '(' FormalParameter* ')' ( 'return' TypeReference )? ';'
+```
+
+=== 4.5 Element descriptions
+
+Descriptions may be prepended on any packageable or non-packageable element.
+Descriptions follow the MASL format and are defined by lines starting with the
+`//!` character sequence.
+
+```
+'//!' ~('\n'|'\r')* '\r'? '\n';
+```
+
+TODO descriptions for lower level elements e.g. individual constants,
+parameters, state event matrix cells
+
+=== 4.x Grammars
+
+TODO
+
+== 5 Document References
+
+TODO
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/NNNNN[NNNNN - headline]
+. [[dr-2]] ...
+. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
+TODO
+- talk about action body definitions
+- talk about builtin type references
+- talk about descriptions
