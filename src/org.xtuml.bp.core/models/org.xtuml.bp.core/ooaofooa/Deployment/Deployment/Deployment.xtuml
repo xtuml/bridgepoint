@@ -415,7 +415,7 @@ create object instance term of D_TERM;
 relate term to self across R1650;
 term.Domain_Name = c_c.Name;
 term.Terminator_Name = c_po.Name;
-term.Domain_Key_Lett = c_c.Key_Lett;
+term.Key_Lett = c_c.Key_Lett;
 term.Descrip = "";
 term.Provider = false;
 if(not_empty existing_term and existing_term.Implementation_System != "")
@@ -842,6 +842,36 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../Deployment.xtuml');
+INSERT INTO O_TFR
+	VALUES ("312a569a-0e1c-4d02-95bd-ea1d42208633",
+	"591815c2-2b96-4e7d-9d76-435b98b2b555",
+	'rename',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'if(OS::remove_spaces(s:self.Name) == self.Key_Lett)
+  self.Key_Lett = OS::remove_spaces(s:param.new_name);
+end if;
+select many terms related by self->D_TERM[R1650] where selected.Domain_Name == self.Name;
+for each term in terms
+  term.Domain_Name = param.new_name;
+end for;
+self.Name = param.new_name;
+',
+	1,
+	'',
+	"878f52cc-11e3-443d-bafa-a983f951b9db",
+	0,
+	1);
+INSERT INTO O_TPARM
+	VALUES ("2f7eb4b7-de5a-4bfd-a49c-9372fde36ebb",
+	"312a569a-0e1c-4d02-95bd-ea1d42208633",
+	'new_name',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_REF
 	VALUES ("591815c2-2b96-4e7d-9d76-435b98b2b555",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",

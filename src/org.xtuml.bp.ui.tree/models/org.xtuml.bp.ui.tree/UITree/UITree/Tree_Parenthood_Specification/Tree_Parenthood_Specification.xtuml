@@ -176,6 +176,24 @@ selecting a child.',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("d69c0913-8cc6-4f9f-9497-193679e66f65",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_BATTR
+	VALUES ("d69c0913-8cc6-4f9f-9497-193679e66f65",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_ATTR
+	VALUES ("d69c0913-8cc6-4f9f-9497-193679e66f65",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"34cda9b4-ee60-4279-bdc7-02b8a00eba58",
+	'SuppressDisplay',
+	'Do not follow this navigation when compiling displayable items.',
+	'',
+	'SuppressDisplay',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");

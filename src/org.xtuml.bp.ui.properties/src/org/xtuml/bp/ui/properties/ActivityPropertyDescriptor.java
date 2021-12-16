@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
@@ -35,6 +36,8 @@ import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.ui.text.activity.ShowActivityAction;
+import org.xtuml.bp.ui.text.asl.ShowASLAction;
+import org.xtuml.bp.ui.text.masl.ShowMASLAction;
 
 public class ActivityPropertyDescriptor extends PropertyDescriptor
 {
@@ -134,15 +137,22 @@ public class ActivityPropertyDescriptor extends PropertyDescriptor
     
         try
         {
+          final int eDialect = dialect;
           IWorkspaceRunnable r = new IWorkspaceRunnable()
           {
             public void run(IProgressMonitor monitor) throws CoreException
             {
                 IStructuredSelection ss = new StructuredSelection(inst);
-                ShowActivityAction saa = new ShowActivityAction();
+                IActionDelegate iad;
+                if ( eDialect == Actiondialect_c.asl )
+                  iad = new ShowASLAction();
+                else if ( eDialect == Actiondialect_c.masl )
+                  iad = new ShowMASLAction();
+                else // if ( eDialect == Actiondialect_c.oal )
+                  iad = new ShowActivityAction();
                 Action a = new Action(){};
-                saa.selectionChanged(a, ss);
-                saa.run( a );
+                iad.selectionChanged(a, ss);
+                iad.run( a );
             }
           };
           CorePlugin.getWorkspace().run(r, null);

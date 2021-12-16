@@ -35,6 +35,7 @@ end while;
 	1,
 	'',
 	"f690053d-5f24-40ef-bfee-ee02396ffa82",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e9f8029b-e5a2-4787-b36c-c85603887a2f",
@@ -95,6 +96,7 @@ end for;',
 	1,
 	'',
 	"8b10470c-1967-4506-9545-030a91275fe0",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d623c5ba-aaef-457b-9476-6ba8d15e785e",
@@ -152,6 +154,7 @@ return feature;',
 	1,
 	'',
 	"6236b28d-3b1e-4ae8-82f6-aeae0fcb28f8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1d95bba7-11d0-4540-ae95-c33c5938b49a",
@@ -184,6 +187,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("2232e914-1392-4ee8-8bb0-1947058f895a",

@@ -30,6 +30,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("7023a849-b776-4b71-bbbf-2fd9306abcb0",
@@ -57,6 +58,7 @@ return mark;
 	1,
 	'',
 	"96d5b8fb-afe9-4c91-8416-6f6549b6359e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("21061b9d-43ff-41fc-9c59-944c71aadc26",
@@ -136,6 +138,7 @@ end while;',
 	1,
 	'',
 	"498afae1-5a3d-47af-8277-d1d853131505",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("9ebc3d4b-1b55-439d-bb85-b1a7ab31c00a",
@@ -196,6 +199,7 @@ end for;',
 	1,
 	'',
 	"c43e8dde-c7b5-469f-98fa-a48d4c2498c4",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5f3e9330-3747-4b0d-b53d-6aebb452068f",
