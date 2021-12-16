@@ -29,6 +29,7 @@ Export-Package: org.xtuml.bp.ui.graphics.actions,
  org.xtuml.bp.ui.graphics.listeners,
  org.xtuml.bp.ui.graphics.outline,
  org.xtuml.bp.ui.graphics.parts,
+ org.xtuml.bp.ui.graphics.persistence,
  org.xtuml.bp.ui.graphics.print,
  org.xtuml.bp.ui.graphics.providers,
  org.xtuml.bp.ui.graphics.tools

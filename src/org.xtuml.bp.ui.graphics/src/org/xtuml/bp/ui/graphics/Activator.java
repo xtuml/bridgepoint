@@ -1,7 +1,14 @@
 
 package org.xtuml.bp.ui.graphics;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -15,16 +22,18 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.ui.graphics.factories.AdapterFactory;
 import org.xtuml.bp.ui.graphics.listeners.GraphicalPasteListener;
 import org.xtuml.bp.ui.graphics.listeners.GraphicsModelTransactionListener;
+import org.xtuml.bp.ui.graphics.listeners.WriteTransactionListener;
 import org.xtuml.bp.ui.graphics.parts.ConnectorEditPart;
 import org.xtuml.bp.ui.graphics.parts.DiagramEditPart;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
 import org.xtuml.bp.ui.graphics.parts.TextEditPart;
+import org.xtuml.bp.ui.graphics.persistence.IGraphicalLoader;
+import org.xtuml.bp.ui.graphics.persistence.IGraphicalWriter;
 import org.xtuml.bp.ui.graphics.utilities.ElementMap;
 
 /**
@@ -41,6 +50,12 @@ public class Activator extends AbstractUIPlugin {
 	private GraphicsModelTransactionListener fTransactionLister;
 
 	private GraphicalPasteListener pasteListener;
+
+	private IGraphicalWriter extensionWriter;
+
+	private IGraphicalLoader extensionLoader;
+
+	private WriteTransactionListener fWriteTransactionLister;
 
 	private static ElementMap elementMap = new ElementMap();
 
@@ -61,10 +76,13 @@ public class Activator extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 		fTransactionLister = new GraphicsModelTransactionListener();
+		fWriteTransactionLister = new WriteTransactionListener();
 		TransactionManager.getSingleton().addTransactionListener(fTransactionLister);
+		TransactionManager.getSingleton().addTransactionListener(fWriteTransactionLister, true);
 		pasteListener = new GraphicalPasteListener();
 		CorePlugin.addPasteListener(pasteListener);
 		registerAdapters();
+		configurePersistenceExtensions();
 	}
 
 	public static ElementMap getElementMap() {
@@ -79,6 +97,41 @@ public class Activator extends AbstractUIPlugin {
 		Platform.getAdapterManager().registerAdapters(factory, TextEditPart.class);
 	}
 
+	private void configurePersistenceExtensions() throws CoreException {
+		IExtensionRegistry reg = Platform.getExtensionRegistry();
+		IExtensionPoint extPt = reg.getExtensionPoint("org.xtuml.bp.ui.graphics.persistence"); //$NON-NLS-1$
+		Optional<IConfigurationElement> potentialWriter = Stream.of(extPt.getExtensions())
+				.flatMap(ext -> Stream.of(ext.getConfigurationElements()).filter(ce -> ce.getName().equals("writer")))
+				.findFirst();
+		if (potentialWriter.isPresent()) {
+			IConfigurationElement configElement = potentialWriter.get();
+			Object writer =  configElement.createExecutableExtension("class");
+			if(writer instanceof IGraphicalWriter) {
+				extensionWriter = (IGraphicalWriter) writer;
+				extensionWriter.initialize();
+			}
+		}
+		Optional<IConfigurationElement> potentialLoader = Stream.of(extPt.getExtensions())
+				.flatMap(ext -> Stream.of(ext.getConfigurationElements()).filter(ce -> ce.getName().equals("loader")))
+				.findFirst();
+		if (potentialLoader.isPresent()) {
+			IConfigurationElement loaderConfig = potentialLoader.get();
+			Object loader = loaderConfig.createExecutableExtension("class");
+			if(loader instanceof IGraphicalLoader) {
+				extensionLoader = (IGraphicalLoader) loader;
+				extensionLoader.initialize();
+			}
+		}
+	}
+	
+	public IGraphicalWriter getRegisteredWriter() {
+		return extensionWriter;
+	}
+	
+	public IGraphicalLoader getRegisteredLoader() {
+		return extensionLoader;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -90,6 +143,8 @@ public class Activator extends AbstractUIPlugin {
 		plugin = null;
 		TransactionManager.getSingleton().removeTransactionListener(fTransactionLister);
 		fTransactionLister = null;
+		TransactionManager.getSingleton().removeTransactionListener(fWriteTransactionLister);
+		fWriteTransactionLister = null;
 		CorePlugin.removePasteListener(pasteListener);
 		super.stop(context);
 	}
