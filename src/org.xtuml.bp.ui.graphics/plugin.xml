@@ -2,7 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.xtuml.bp.ui.graphics.editorTab" name="Graphical Editor Tab" schema="schema/editorTab.exsd"/>
-   <extension-point id="org.xtuml.bp.ui.graphics.persistence" name="Graphical Persistence" schema="schema/org.xtuml.bp.ui.graphics.persistence.exsd"/>
    <extension
          point="org.eclipse.ui.editors">
       <editor

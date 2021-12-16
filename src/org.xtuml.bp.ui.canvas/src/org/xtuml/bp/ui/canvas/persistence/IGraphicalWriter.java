@@ -1,4 +1,4 @@
-package org.xtuml.bp.ui.graphics.persistence;
+package org.xtuml.bp.ui.canvas.persistence;
 
 import org.xtuml.bp.core.common.NonRootModelElement;
 

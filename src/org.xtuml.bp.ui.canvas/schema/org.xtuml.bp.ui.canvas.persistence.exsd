@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.xtuml.bp.ui.graphics" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.xtuml.bp.ui.canvas" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.xtuml.bp.ui.graphics" id="org.xtuml.bp.ui.graphics.persistence" name="Graphical Persistence"/>
+         <meta.schema plugin="org.xtuml.bp.ui.canvas" id="org.xtuml.bp.ui.canvas.persistence" name="Graphical Persistence"/>
       </appinfo>
       <documentation>
          This extension point can be used to hook into the graphical persistence mechanisms.
@@ -37,7 +37,7 @@ The extension point can define a writer, and a loader.  The writer is responsibl
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.xtuml.bp.ui.graphics.persistence.IGraphicalWriter"/>
+                  <meta.attribute kind="java" basedOn=":org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -47,7 +47,7 @@ The extension point can define a writer, and a loader.  The writer is responsibl
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.xtuml.bp.ui.graphics.persistence.IGraphicalLoader"/>
+                  <meta.attribute kind="java" basedOn=":org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader"/>
                </appinfo>
             </annotation>
          </attribute>

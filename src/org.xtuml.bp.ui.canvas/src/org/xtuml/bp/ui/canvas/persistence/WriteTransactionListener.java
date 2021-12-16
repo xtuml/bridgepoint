@@ -1,6 +1,7 @@
-package org.xtuml.bp.ui.graphics.listeners;
+package org.xtuml.bp.ui.canvas.persistence;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -9,16 +10,15 @@ import org.xtuml.bp.core.common.ITransactionListener;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.graphics.Activator;
-import org.xtuml.bp.ui.graphics.persistence.IGraphicalWriter;
 
 public class WriteTransactionListener implements ITransactionListener {
 
 	@Override
 	public void transactionEnded(Transaction transaction) {
-		IGraphicalWriter writer = Activator.getDefault().getRegisteredWriter();
-		if (writer != null) {
+		List<IGraphicalWriter> writers = CanvasPlugin.getDefault().getConfiguredWriters();
+		writers.forEach(writer -> {
 			// we are interested in Ooaofgraphics changes only
 			Set<PersistableModelComponent> collectedComponents = new HashSet<>();
 			IModelDelta[] deltas = transaction.getDeltas(Ooaofgraphics.getDefaultInstance());
@@ -34,6 +34,6 @@ public class WriteTransactionListener implements ITransactionListener {
 					writer.write(component.getRootModelElement());
 				});
 			}
-		}
+		});
 	}
 }

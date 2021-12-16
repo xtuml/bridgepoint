@@ -40,9 +40,8 @@ import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
-import org.xtuml.bp.ui.graphics.Activator;
-import org.xtuml.bp.ui.graphics.persistence.IGraphicalLoader;
 
 public class GraphicalEditorInput extends FileEditorInput
     implements IEditorInput, IPersistableElement {
@@ -57,7 +56,8 @@ public class GraphicalEditorInput extends FileEditorInput
   }
 
   public static GraphicalEditorInput createInstance(Object c_input) throws PartInitException {
-	IGraphicalLoader loader = Activator.getDefault().getRegisteredLoader();
+	// only support loading by one loader, use the first
+	IGraphicalLoader loader = CanvasPlugin.getDefault().getConfiguredLoaders().get(0);
 	if(loader != null) {
 		loader.load(c_input);
 	}
