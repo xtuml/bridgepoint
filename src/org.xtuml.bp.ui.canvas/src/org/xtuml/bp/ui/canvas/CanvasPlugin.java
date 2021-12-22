@@ -32,11 +32,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -67,6 +64,8 @@ import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.persistence.WriteTransactionListener;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 
@@ -76,8 +75,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	private ResourceBundle resourceBundle;
 	private CanvasModelListener modelChangeListener;
 	private CanvasTransactionListener transactionListener;
-	private List<IGraphicalWriter> configuredWriters = new ArrayList<>();
-	private List<IGraphicalLoader> configuredLoaders = new ArrayList<>();
+	private PersistenceExtensionRegistry persistenceExtensionRegistry = new PersistenceExtensionRegistry();
 	private WriteTransactionListener writeTransactionListener;
 	private static boolean isActivated;
 	// note this method is used to draw the entire text
@@ -136,40 +134,51 @@ public class CanvasPlugin extends AbstractUIPlugin {
 		}
 	}
 
-	private void configurePersistenceExtensions() {
+	public PersistenceExtensionRegistry getPersistenceExtensionRegistry() {
+		return persistenceExtensionRegistry;
+	}
+	
+	private void configurePersistenceExtensions() throws CoreException {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		IExtensionPoint extPt = reg.getExtensionPoint("org.xtuml.bp.ui.canvas.persistence"); //$NON-NLS-1$
-		List<IConfigurationElement> writers = Stream.of(extPt.getExtensions())
-				.flatMap(ext -> Stream.of(ext.getConfigurationElements()).filter(ce -> ce.getName().equals("writer")))
-				.collect(Collectors.toList());
-		writers.forEach(configElement -> {
-			try {
-				Object writer = configElement.createExecutableExtension("class");
-				if (writer instanceof IGraphicalWriter) {
-					IGraphicalWriter extensionWriter = (IGraphicalWriter) writer;
-					extensionWriter.initialize();
-					configuredWriters.add(extensionWriter);
+		for(IExtension extension : extPt.getExtensions()) {
+			IGraphicalWriter extensionWriter = null;
+			IGraphicalLoader extensionLoader = null;
+			String resourceExtension = "";
+			String identity = extension.getUniqueIdentifier();
+			for(IConfigurationElement configElement: extension.getConfigurationElements()) {
+				switch(configElement.getName()) {
+				case "resourceExtension":
+					resourceExtension = configElement.getAttribute("name");
+					break;
+				case "writer":
+					Object writer = configElement.createExecutableExtension("class");
+					if (writer instanceof IGraphicalWriter) {
+						extensionWriter = (IGraphicalWriter) writer;
+						extensionWriter.initialize();
+					}
+					break;
+				case "loader":
+					Object loader = configElement.createExecutableExtension("class");
+					if (loader instanceof IGraphicalLoader) {
+						extensionLoader = (IGraphicalLoader) loader;
+						extensionLoader.initialize();
+					}
+					break;				
+				default:
+					break;
 				}
-			} catch (CoreException e) {
-				logError("Unable to instantiate registered writer.", e);
 			}
-		});
-		List<IConfigurationElement> loaders = Stream.of(extPt.getExtensions())
-				.flatMap(ext -> Stream.of(ext.getConfigurationElements()).filter(ce -> ce.getName().equals("loader")))
-				.collect(Collectors.toList());
-		loaders.forEach(loaderConfig -> {
-			try {
-				Object loader = loaderConfig.createExecutableExtension("class");
-				if (loader instanceof IGraphicalLoader) {
-					IGraphicalLoader extensionLoader = (IGraphicalLoader) loader;
-					extensionLoader.initialize();
-					configuredLoaders.add(extensionLoader);
-				}
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			// must have a writer, may not have a loader
+			if(extensionWriter != null) {
+				PersistenceExtension pe = new PersistenceExtension();
+				pe.setWriter(extensionWriter);
+				pe.setLoader(extensionLoader);
+				pe.setResourceExtension(resourceExtension);
+				pe.setIdentity(identity);
+				persistenceExtensionRegistry.addPersistenceExtension(pe);
 			}
-		});
+		};
 	}
 
 	public static void initializeCanvases() {
@@ -973,12 +982,5 @@ public class CanvasPlugin extends AbstractUIPlugin {
 		return result;
 	}
 
-	public List<IGraphicalWriter> getConfiguredWriters() {
-		return configuredWriters;
-	}
-	
-	public List<IGraphicalLoader> getConfiguredLoaders() {
-		return configuredLoaders;
-	}
 
 }

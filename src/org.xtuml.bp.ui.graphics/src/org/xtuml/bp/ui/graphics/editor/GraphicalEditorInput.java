@@ -1,4 +1,5 @@
 package org.xtuml.bp.ui.graphics.editor;
+import java.util.Optional;
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -41,6 +42,8 @@ import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 
 public class GraphicalEditorInput extends FileEditorInput
@@ -57,9 +60,12 @@ public class GraphicalEditorInput extends FileEditorInput
 
   public static GraphicalEditorInput createInstance(Object c_input) throws PartInitException {
 	// only support loading by one loader, use the first
-	IGraphicalLoader loader = CanvasPlugin.getDefault().getConfiguredLoaders().get(0);
-	if(loader != null) {
-		loader.load(c_input);
+	PersistenceExtensionRegistry persistenceExtensionRegistry = CanvasPlugin.getDefault()
+			.getPersistenceExtensionRegistry();
+	Optional<PersistenceExtension> potentialPe = persistenceExtensionRegistry.getExtensions().stream()
+			.filter(pe -> pe.getLoader() != null).findFirst();
+	if (potentialPe.isPresent()) {
+		potentialPe.get().getLoader().load(c_input);
 	}
     ModelSpecification_c[] modelSpecs = ModelSpecification_c.ModelSpecificationInstances(Ooaofgraphics.getDefaultInstance());
     for (int i = 0; i < modelSpecs.length; i++) {

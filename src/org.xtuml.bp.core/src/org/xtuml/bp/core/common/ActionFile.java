@@ -150,7 +150,7 @@ public class ActionFile {
 	
 	// get the component file path from the action file path
 	public static IPath getComponentPath( IPath path ) {
-		if ( null != path ) {
+		if ( null != path && !path.getFileExtension().equals("xtg") ) {
 			return path.removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
 		}
 		else {

@@ -22,6 +22,8 @@
 //
 package org.xtuml.bp.ui.graphics.listeners;
 
+import java.util.Optional;
+
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -50,6 +52,8 @@ import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.ModelTool_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
@@ -230,6 +234,14 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 	}
 
 	private Model_c getModelFor(NonRootModelElement modelElement) {
+		// first assure we are loaded by a registered loader
+		PersistenceExtensionRegistry persistenceExtensionRegistry = CanvasPlugin.getDefault()
+				.getPersistenceExtensionRegistry();
+		Optional<PersistenceExtension> potentialPe = persistenceExtensionRegistry.getExtensions().stream()
+				.filter(pe -> pe.getLoader() != null).findFirst();
+		if(potentialPe.isPresent()) {
+			potentialPe.get().getLoader().load(modelElement);
+		}
 		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics
 				.getInstance(modelElement.getModelRoot().getId()));
 		for(int i = 0; i < models.length; i++) {

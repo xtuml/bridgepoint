@@ -1,7 +1,6 @@
 package org.xtuml.bp.ui.canvas.persistence;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -17,8 +16,10 @@ public class WriteTransactionListener implements ITransactionListener {
 
 	@Override
 	public void transactionEnded(Transaction transaction) {
-		List<IGraphicalWriter> writers = CanvasPlugin.getDefault().getConfiguredWriters();
-		writers.forEach(writer -> {
+		PersistenceExtensionRegistry persistenceExtensionRegistry = CanvasPlugin.getDefault()
+				.getPersistenceExtensionRegistry();
+		persistenceExtensionRegistry.registeredExtensions.stream().forEach(pe -> {
+			IGraphicalWriter writer = pe.getWriter();
 			// we are interested in Ooaofgraphics changes only
 			Set<PersistableModelComponent> collectedComponents = new HashSet<>();
 			IModelDelta[] deltas = transaction.getDeltas(Ooaofgraphics.getDefaultInstance());

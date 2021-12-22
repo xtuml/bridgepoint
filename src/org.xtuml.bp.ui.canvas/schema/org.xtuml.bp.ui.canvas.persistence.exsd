@@ -14,6 +14,9 @@ The extension point can define a writer, and a loader.  The writer is responsibl
 
    <element name="persistence">
       <complexType>
+         <choice>
+            <element ref="resourceExtension"/>
+         </choice>
          <attribute name="id" type="string">
             <annotation>
                <documentation>
@@ -49,6 +52,18 @@ The extension point can define a writer, and a loader.  The writer is responsibl
                <appinfo>
                   <meta.attribute kind="java" basedOn=":org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader"/>
                </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="resourceExtension">
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
             </annotation>
          </attribute>
       </complexType>
