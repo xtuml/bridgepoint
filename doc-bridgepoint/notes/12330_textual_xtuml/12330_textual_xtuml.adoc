@@ -6,28 +6,93 @@ This document defines the textual representation of the xtUML modeling language.
 
 == 2 Introduction and Background
 
-2.1 Motivation
+===== 2.1 Motivation
 
 It has long been a goal to migrate away from instance-based persistence of
-xtUML models as SQL insert statments and to a semantic text based format. There
+xtUML models as SQL insert statements and to a semantic text based format. There
 are several benefits to this, but here are two of the most important:
 
 - Human readable/editable without a dedicated tool
-- Diff/mergable
+- Diff/mergeable
 
 Additionally, having a textual language lowers the barrier to participation
 from the rest of the community for both modeling and tool development.
  
 In order to persist to a text format, a textual specification is required. The
 following document aims to define such a specification. The specification is
-based on the exsting MASL language (TODO ref) with some modification and
-extensions for constructs that do not exist in MASL. In order to produce a
-concise language devoid of useless clutter, some editorial license will be
-taken to remove capabilities supported by the current xtUML metamodel when
-appropriate. Deviations from standard MASL and omissions from the xtUML
+based on the existing MASL language (<<dr-2>>, <<dr-3>>, <<dr-4>>) with some
+modification and extensions for constructs that do not exist in MASL. In order
+to produce a concise language devoid of useless clutter, some editorial license
+will be taken to remove capabilities supported by the current xtUML metamodel
+when appropriate. Deviations from standard MASL and omissions from the xtUML
 metamodel will be called out explicitly by this document.
 
-2.2 Terms
+===== _From the author_
+
+More broadly speaking, the Shlaer-Mellor community has long been lacking a
+definitive _practical_ reference to the method.
+
+We have the original books and papers to refer to, however pragmatically
+speaking, the only thing that matters is the editing tools and model compilers
+that practitioners are using -- everything else is theoretical. Additionally,
+there are modeled constructs being used in the real world (in some cases for
+more than 2 decades) which are not directly addressed in the existing
+literature. 
+
+BridgePoint along with associated model compilers is one of the most prominent
+toolsets in the community and the reference material is lacking at best.
+Frankly, the best way to understand the semantics of a particular modeling
+construct is to look at the tool source code or ask one of the maintainers to
+look for you.
+
+iUML, ASL, and MASL have existed in the UK community for quite some time, but
+unfortunately, iUML is no longer under active development and the language
+reference and backend tools for MASL are difficult to keep up to date due to IP
+challenges.
+
+For these reasons, it is my strong belief that the community needs a language
+specification for xtUML -- a practical handbook that bridges the conecpts found
+in the method literature to the practical implementations of editors and model
+compilers.  It is my vision that this specification will not only enrich the
+xtUML language with the best qualities of MASL and xtUML, textual and
+graphical, but also provide an avenue by which the communities can converge.
+
+I believe the most important assets to the Shlaer-mellor community are:
+
+1. The original method literature including the more recent deliberations of
+   the OOA method team.
+2. A metamodel which captures the rules of the language and is not polluted by
+   a particular tool implementation.
+3. A textual notation for model semantics with language reference manual
+4. A textual notation for graphical layout
+5. A reference implementation which includes runtime behavior
+
+Although many different versions of 2-5 could be produced by separate groups or
+teams without violating the method, I think it is in the best interest of the
+community to pool our efforts and collaborate on one set of these assets.
+
+This analysis primarily focuses on #3. #2 is a natural fallout from this work
+and once a textual specification is agreed upon, a metamodel may be represented
+in that language -- independent of any one existing tool.
+
+As I have been writing this document I have been wrestling with a two key challenges:
+
+1. How to support MASL as it exists today while providing a way to move forward
+   with convergence
+2. How to enable persistence of the existing BridgePoint metamodel in the short
+   term while looking forward to a future version of BridgePoint based on a
+   revised metamodel
+
+Progress must be incremental. Because of this reality, there are several parts
+of this language included for compatibility with MASL which I would like to see
+deprecated in the future as we move toward convergence. In general I believe
+the practice of fully supporting all parties results in overly complex and
+bloated implementations.  Additionally, there will be some parts of this spec
+that are unable to be supported by the tooling in the short term. I would like
+to see those features added and changes made in BridgePoint as the language
+gains traction.
+
+===== 2.2 Terms
 
 Throughout this document the terms "spec" and "specification" shall be
 understood to refer to the textual specification of xtUML.
@@ -41,9 +106,13 @@ following can be regarded as synonyms:
 - deployment = MASL "project"
 - port = terminator
 - relationship = association
-- TODO are there more?
 
-2.3 Implementations
+Additionally, MASL uses the keyword `service` to signify executable elements in
+classes, domains, and ports. xtUML defines `operation`, `function`, and
+`message` to differentiate these three types of executable element
+respectively, but `service` should be considered a synonym for each. 
+
+===== 2.3 Implementations
 
 There are many details that are critical to an implementation of the language
 by a tool but are not an official part of the specification. This document
@@ -51,15 +120,21 @@ will provide suggestions for implementation in these cases.
 
 == 3 Requirements
 
-=== 3.1 A specification shall be created to define the textual representation of xtUML models
-==== 3.1.1 The spec shall not include a specification of action language within executable bodies
-==== 3.1.2 The spec shall accomodate the existence of multiple action language dialects and allow for flexibility in action language selection
+==== 3.1 A specification shall be created to define the textual representation of xtUML models
 
-=== 3.2 The spec shall support existing MASL models with minimal modification
-==== 3.2.1 Required modifications of MASL models shall be able to be easily automated
-==== 3.2.2 Required modifications of MASL models shall be explicitly called out in the spec
+**3.1.1 The spec shall not include a specification of action language within executable bodies**
 
-=== 3.3 The spec shall not include specifications of existing informal model diagrams (e.g. sequence diagram, use case, etc.)
+**3.1.2 The spec shall accommodate the existence of multiple action language dialects and allow for flexibility in action language selection**
+
+==== 3.2 The spec shall support existing MASL models with minimal modification
+
+**3.2.1 Required modifications of MASL models shall be able to be easily automated**
+
+**3.2.2 Required modifications of MASL models shall be explicitly called out in the spec**
+
+==== 3.3 The spec shall not include specifications of existing informal model diagrams (e.g. sequence diagram, use case, etc.)
+
+==== 3.4 The spec shall not include specifications of graphical layout
 
 == 4 Analysis
 
@@ -69,11 +144,11 @@ An xtUML model is defined by a loosely associated group of model elements.
 Rather than individual "projects". This allows the modeler to split up model
 elements into projects as is convenient for packaging purposes.
 
-==== 4.1.1 Filesystem organization
+==== 4.1.1 File system organization
 
 Structural model elements are defined within `.xtuml` files. MASL file
-extesions (`.mod`, `.int`) are recognized for backwards compatibility. Action
-bodies are defined within files with an extention which specifies the action
+extensions (`.mod`, `.int`) are recognized for backwards compatibility. Action
+bodies are defined within files with an extension which specifies the action
 language dialect (e.g `.oal`, `.masl`, `.asl`). MASL file extensions are
 recognized for backwards compatibility and are assumed to be MASL. A file name
 may be based on the principal element contained with in it, however the file
@@ -84,9 +159,9 @@ It is not recommended to mix action dialects within a model, but it is not
 restricted by this spec.
 
 There is no concept of a "project". Typically a group of related model elements
-will be packaged together in a group of files within a single filesystem tree,
+will be packaged together in a group of files within a single file system tree,
 however, a model may be expressed by a flat group of files or files may be
-referenced from disconnected filesystem trees. An entire model may be defined
+referenced from disconnected file system trees. An entire model may be defined
 within one file. The directory structure is at the discretion of the tool and
 is not a part of the spec.
 
@@ -99,19 +174,19 @@ which root model elements are defined.
 The suggested implementation of tree structure is as follows:
 
 - All structural files use the `.xtuml` extension.
-- File names are defined by the simple name (TODO see naming below) of the
+- File names are defined by the simple name (<<_4_1_5_element_naming>>) of the
   principal element within the file
-- Pacakges and components are defined in a separate file within a directory of
+- Packages and components are defined in a separate file within a directory of
   the same name.
 - State machines are defined in a separate file within the directory in which
   the containing class is defined. State machine files are named after the
-  simple name of the class plus "StateMachine".  Classes are not defined in
+  simple name of the class plus "StateMachine". Classes are not defined in
   their own file.
 - A single action body file is defined for each package, component, class, and
   state machine. For packages, components, and state machines, the file is
   named the same as the `.xtuml` file but with an extension appropriate for the
-  dialect.  For classes, the file is named after the class.
-- Action body files are excluded if there are no exectable model elements
+  dialect. For classes, the file is named after the class.
+- Action body files are excluded if there are no executable model elements
   defined within the container or if there are no non-empty bodies within the
   container.
 
@@ -139,7 +214,7 @@ EclipseProject/
 
 ==== 4.1.3 Types of model elements and containment
 
-4.1.3.1 Root model elements
+===== 4.1.3.1 Root model elements
 
 Root model elements are elements that may be defined at the root of the model
 element tree. Root model elements are not contained by any other element. Root
@@ -149,7 +224,7 @@ model elements are:
 - Component
 - Deployment
 
-4.1.3.2 Parse roots and discontiguous definitions
+===== 4.1.3.2 Parse roots and discontiguous definitions
 
 It should be understood that "root model elements" are different than the
 related concept of parse roots. Root elements are semantically at the root of
@@ -190,7 +265,7 @@ within OuterPackage is
 end;
 ```
 
-4.1.3.3 Packageable elements
+===== 4.1.3.3 Packageable elements
 
 Packageable model elements are elements which may be defined within a package
 or component. Packageable model elements may be included in a component by
@@ -209,7 +284,7 @@ package reference or direct definition. Packageable model elements are:
 - Constant Group
 - Exception
 
-4.1.3.4 Containment
+===== 4.1.3.4 Containment
 
 Model elements may be contained within other components. For example, a package
 may contain class definitions; an operation may contain parameters. An element
@@ -243,11 +318,11 @@ defined or imported.
 
 Packages are completely transparent and do not affect element visibility.
 
-4.1.4.1 Dependent reference graphs
+===== 4.1.4.1 Dependent reference graphs
 
 If an element references another element in a different branch of the model
-element tree, a reference dependency is formed.  As soon as an element is
-included in a component via package reference, it is simultaniously defined
+element tree, a reference dependency is formed. As soon as an element is
+included in a component via package reference, it is simultaneously defined
 inside and outside the component and therefore must satisfy visibility
 requirements in both contexts. Any elements on which it has reference
 dependency must also be included in the component otherwise a reference error
@@ -270,7 +345,7 @@ valid to include `configuration` without `robotic arm`.
 Note: There is currently no warning for this situation in BridgePoint and it is
 a common failure mode in generating code which makes use of package references.
 
-4.1.4.2 Component visibility exceptions
+===== 4.1.4.2 Component visibility exceptions
 
 Public functions are an exception to the component-level visibility rule.
 Functions defined as public may be invoked by action language statements in
@@ -287,7 +362,7 @@ have an extended name. Some named elements may have no name.
 
 The simple name is an identifier composed of alphanumeric characters and
 underscores. Simple names may not contain spaces or start with numerical
-digits. The simple name is analagous to key letters for classes and external
+digits. The simple name is analogous to key letters for classes and external
 entities, but generalized for all elements.
 
 Extended names are composed of a string of characters enclosed in single
@@ -318,25 +393,27 @@ class 'Dog Owner'[DogOwner] is
   ...
 ```
 
-4.1.5.1 Naming special cases
+===== 4.1.5.1 Naming special cases
 
 Satisfactions may defined with no simple name, however a simple name may be
 required to reference a satisfaction by marking.
 
 The simple name for a class identifier is implied to be "I" followed by the
-index of the identifier according to the order defined.  Indices start at 2
-since the preferred identifer is considered to be "I1" (TODO see below).
+index of the identifier according to the order defined. Indices start at 2
+since the preferred identifier is considered to be "I1"
+(see <<_4_2_6_2_identifier>>).
 
 State machines and state event matrices are unnamed. Since each class
 definition can define no more than one state machine and each state machine
 must define exactly one matrix, the name of the class is sufficient to
-reference the state machine or matrix (TODO see below).
+reference the state machine or matrix (see <<_4_2_6_4_state_machine>>).
 
-4.1.5.2 Duplicate names
+===== 4.1.5.2 Duplicate names
 
 Elements may not have identical simple names in the same container. For
-example, a component may not define both a pacakge and a port with the simple
-name "UI". Action body overloading is an exception to this rule (TODO see below).
+example, a component may not define both a package and a port with the simple
+name "UI". Action body overloading is an exception to this rule
+(see <<_4_1_6_2_overloading_executable_model_elements>>).
 
 Elements which are contained in different containers may have identical simple
 names.
@@ -350,7 +427,7 @@ Non-unique names are generally discouraged although not strictly prohibited by
 this spec. Some action languages may produce errors if elements of the same
 kind have the same name within one visibility scope.
 
-4.1.5.3 Referencing elements by name
+===== 4.1.5.3 Referencing elements by name
 
 Named references to model elements always use the simple name of the element.
 
@@ -389,9 +466,188 @@ For compatibility with MASL, state machine events may be referenced with a
 partially qualified name consisting of a reference to the defining class
 followed by a dot (`.`) and the name of the element.
 
-==== 4.1.5 Executable model elements
+==== 4.1.6 Executable model elements
 
-TODO
+Executable model elements contain action language and may be executed by the
+system. The following are executable model elements:
+
+- Message
+- Function
+- Bridge
+- Operation
+- Derived Attribute
+- State Entry Action
+- Transition Action
+
+Action bodies are expected to be defined files separate from the structural
+models and handled by a parser/loader specific to the action language used. The
+action language parser is responsible for loading individual action bodies and
+associating them with executable model elements declared in the structural
+model.
+
+If an executable element is declared and has a return type but no action body
+is defined, execution of that element will result in the default value of the
+return type being immediately returned to the caller.
+
+State entry actions and transition actions cannot return values.
+
+===== 4.1.6.1 Parameters
+
+Messages, functions, bridges, operations, state entry actions, and transition
+actions may take parameters.
+
+Parameters may be "in" or "out" parameters. "in" parameters are passed by value
+to the function body and are not assignable. "out" parameters are passed by
+reference to the function body and may be re-assigned by statements within the
+function. If unspecified, parameters are "in".
+
+"out" parameters are not valid for state entry actions or transition actions.
+
+Although events are not executable elements, they carry parameters. Events may
+not be overloaded. The parameters of an event determine the parameters of state
+entry actions and transtion actions which they induce (See
+<<_4_2_6_4_5_same_data_rule>>).
+
+===== 4.1.6.2 Overloading executable model elements
+
+Messages, functions, bridges, and operations may be overloaded. An executable
+model element is overloaded if more than one element of the same type exists in
+scope with the same name. Overloaded executable elements are identified by
+signature. The signature is defined as the name of the element followed by the
+parameter types in the order they are defined. Executable elements with the
+same parameters but different return types are considered to have the same
+signature. Executable elements with the same parameter types but different
+parameter names or modes ("in"/"out") are considered to have the same
+signature:
+
+For example:
+```
+external LOG is
+  bridge LogInfo(message: string, value: integer);   // signature: "LogInfo(string, integer)"
+  bridge LogInfo(message: string, value: real);      // signature: "LogInfo(string, real)"
+  bridge LogInfo(message: string, value: string);    // signature: "LogInfo(string, string)"
+end external;
+```
+
+=== 4.1.7 Type system
+
+The type system is based on the MASL type system. Types are specified for typed
+model elements by referencing existing types in the system. Type references may
+simply name a type or they may modify the type in some way. User defined types
+may be created to extend existing types or create brand new ones. See
+<<_4_2_10_type>> for details on defining new types.
+
+===== 4.1.7.1 Builtin types
+
+The following types are included with the language and are visible from any
+scope. It is not valid to redefine builtin types.
+
+- boolean
+- integer
+- real
+- timestamp
+- duration
+- string
+- character
+- timer
+- device
+- event
+
+Note: the `event` type will be supported, but is deprecated and should not be
+used in new models.
+
+Integer, real, timestamp, and duration are all considered numeric types. User
+defined enumeration types are also considered to be numeric.
+
+===== 4.1.7.2 Instance types
+
+All classes have a corresponding type which can be referenced as follows:
+
+```
+instance of Foo
+```
+
+All instance types are subtypes of the logical `instance` type. `instance`
+itself is not usable as a type.
+
+===== 4.1.7.3 Collection types
+
+There are 5 types of collection types:
+
+- set
+- sequence
+- array
+- bag
+- dictionary
+
+The following table compares the collection types according to their properties.
+
+|===
+| | is ordered | allows duplicates | fixed length
+
+| set
+| no
+| no
+| no
+
+| sequence
+| yes
+| yes
+| no
+
+| array
+| yes
+| yes
+| yes
+
+| bag
+| no
+| yes
+| no
+
+| dictionary
+| no
+| no
+| no
+|===
+
+A dictionary is a collection of key/value pairs. Dictionaries may have
+duplicate values, but only one value for each unique key. If not specified, the
+key type is "string"
+
+===== 4.1.7.4 Type conversions
+
+TODO Need to get more understanding of the MASL type system to define this
+section.
+
+TODO what to do about "anonymous"?
+
+===== 4.1.7.5 Type features
+
+Valid operations between types and accessible features of types (e.g. "length")
+are defined by the action language implementation.
+
+=== 4.1.8 Constant expressions
+
+Some structural elements may be initialized by constant expressions (e.g.
+attributes, enumerators, structure members). Constant expressions may also be
+used in types (for example type constraints).
+
+Constant expressions are expressed in MASL syntax.
+
+Constant expressions may be any of the following expression types or
+combinations of the following expression types:
+
+- Named references (e.g. enumerator name)
+- Range expression
+- Binary operations (including logical, relational, concatenation, and arithmetic operations)
+- Unary operations (including logical and numerical negation, absolute value)
+- Literal value
+
+Constant expressions may be marked "unchecked". When marked unchecked, named
+references in the expression will not be checked against the model. This can be
+useful in situations when the constant value is defined in an external library
+rather than the model itself (e.g. in a header file).
 
 === 4.2 Model element detail
 
@@ -432,12 +688,12 @@ component Tracking is Library::Tracking;
 
 Note: `domain` is a lexical synonym for `component`
 
-4.2.2.1 Port
+===== 4.2.2.1 Port
 
 Ports are defined directly within a component. They may not be imported into
 other components. Ports may be "provided" or "required". If not specified,
 ports are "required". A port may implement an interface or it may define
-messages directly. TODO see interface section for more detail on messages.
+messages directly. See <<_4_2_3_1_message>> for more detail on messages.
 
 ```
 provided port LOC implements LocationProvider;
@@ -452,7 +708,7 @@ end port;
 
 Note: `terminator` is a lexical synonym for `port`
 
-4.2.2.2 Port reference
+===== 4.2.2.2 Port reference
 
 Port references represent the delegation of a port from an outer component to a
 nested inner component. Once delegated, the reference of the outer port by an
@@ -474,7 +730,7 @@ interface LocationProvider is
 end interface
 ```
 
-4.2.3.1 Message
+===== 4.2.3.1 Message
 
 Messages may be "to provider" or "from provider". "to provider" messages are
 received by "provided" ports which implement this interface. "from provider"
@@ -482,15 +738,15 @@ messages are received by "required" ports which implement this interface. If
 not specified, messages are "to provider".
 
 Messages may define contracts to enforce constraints on execution. Messages
-which define a return type may specify a duration for which to wait for a
-response.  Messages which do not define a return type may specify a
-directionally opposite message from the same interface that it expects to
-receive as a response and a duration within which to expect that message. In
-both cases, a user defined exception may be specified to be raised if the
-contract is violated. If no exception is specified, the target architecture is
-responsible for taking appropriate action if the contract is violated. If no
-duration is provided for messages which define a return type, the target
-architecture is responsible for defining blocking behavior.
+which define a return type or "out" parameters may specify a duration for which
+to wait for a response. Messages which do not define a return type or "out"
+parameters may specify a directionally opposite message from the same interface
+that it expects to receive as a response and a duration within which to expect
+that message. In both cases, a user defined exception may be specified to be
+raised if the contract is violated. If no exception is specified, the target
+architecture is responsible for taking appropriate action if the contract is
+violated. If no duration is provided for messages which define a return type,
+the target architecture is responsible for defining blocking behavior.
 
 Standard message
 ```
@@ -534,175 +790,1333 @@ may need to create a reference to the component in the package.
 Deployments provide an informal system modeling mechanism by overriding
 required message implementations within a domain.
 
-TODO deployments are defined just like MASL
+A deployment may contain many component declarations. Component declarations
+within a deployment must reference existing component definitions in the scope.
+
+Inside the component declarations, many ports may be defined. Ports defined
+within deployments may not implement interfaces or reference other ports.
+
+Any message declaration defined in a deployment port with the same signature as
+a message in the referred to component will override the implementation of the
+message in the component at runtime. Not all messages in the component port
+must be redefined in the deployment port. Any message not overridden by the
+deployment will execute the semantics defined in the component.
+
+Deployments have a visibility scope which is the combination of all the
+visibility scopes of referenced components. That is to say elements (e.g.
+types) defined in any referred to component are visible to action bodies in any
+deployment port message.
+
+```
+deployment calculator is
+
+  component keypad is
+    port keyIO is
+      message key(code: integer);
+      message clear();
+    end port;
+  end component;
+
+  component ALU is
+    port disp is
+      message result(value: real);
+      message error(message: string);
+    end port;
+  end component;
+
+end deployment;
+```
 
 Note: `project` is lexical synonym for `deployment` for MASL compatibility
 
-==== 4.2.3 Class
+==== 4.2.6 Class
 
-```
-'class' Name 'is'
-
-  ClassItem*
-
-'end' 'class' ';'
-```
-
-Items which may be defined in a class are:
+Classes define the data which make up an object and the actions which give them
+dynamic behavior. The following types of elements may be defined within a
+class:
 
 - Attribute
 - Identifier
 - Operation
-- Event
-- State
 - State machine
 
-`object` is a lexer synonym for `class`.
+===== 4.2.6.1 Attribute
 
-TODO classes are defined just like MASL; copy spec here at some point
+Attribute definitions consist of a name, an optional set of modifiers, an
+optional set of attribute references, a type specification, and an optional
+default value.
 
-TODO attribute default values also support the `=` symbol (along with MASL `:=` assign
+```
+name: preferred string = "No name";
+```
 
-==== 4.4.5 Relationship (association)
+===== 4.2.6.1.1 Attribute modifiers
+
+`preferred` designates this attribute as part of the default instance
+identifier for the class. A class must have at least one attribute marked as
+`preferred`.
+
+`unique` gives a hint to the architecture that the value of this attribute is
+expected to be given at creation by some value generator. The uniqueness of the
+value provided is up to the architecture implementation, however it should be
+at least unique enough to identify an instance within a component instance
+population. That is to say it is safe for a modeler to use a `unique` attribute
+as the sole `preferred` identifier attribute for a class. `unique` attributes
+may not have default values defined in the model.
+
+`derived` indicates that the value of an attribute is determined by an
+executable action body which is evaluated at the time of access. `derived`
+attributes may not participate in instance identifiers or be marked `unique`.
+`derived` attributes may not have default values defined in the model.
+
+===== 4.2.6.1.2 Attribute references
+
+Attributes may specify any number of references to attributes in related
+classes. An attribute reference is defined by the relationship name followed by
+an optional dot-separated list of specifiers, followed by the foreign attribute
+name. The specifiers may be the referred to class name or the directional role
+phrase and the class name. Only as many specifiers as are required to uniquely
+represent the navigation from this class to the referred to class are needed.
+
+```
+owner_name: referential (R1.'is owned by'.Person.name) string;
+```
+
+The values of a referential attribute and the referred to attribute must match.
+Multiple attribute references may be defined for a single local attribute. If
+multiple references are defined, the value must match the values of all
+attributes referenced. An attempt to access the value of a referential
+attribute across a non-participating relationship will result in an error.
+Referential attributes may not define default values.
+
+Referred to attributes must be part of an identifier in the class where they
+are defined. All referential attributes which reference through the same
+navigation spec must refer to attributes which are part of the same identifier
+in the foreign class. Not all identifier attributes must be referenced if one
+is.
+
+===== 4.2.6.2 Identifier
+
+Additional instance identifiers may be defined within a class. Each additional
+identifier specifies a group of attributes which taken together uniquely
+identify an instance of that class in the population.
+
+```
+identifier is (first_name, last_name);
+```
+
+Identifiers are named by the order they appear in the class with the first
+secondary identifier being "I2" and so on.
+
+===== 4.2.6.3 Operation
+
+Synchronous executable bodies may be defined within a class. Operations can
+instance or class based. If not specified, operations are instance based.
+Class based operations are semantically similar to domain functions, however it
+is often advantageous to define them on the class if their behavior is
+logically associated with that class.
+
+Instance based operations are passed a reference to an instance of the class at
+runtime. The action language implementation must define the proper way to
+access this reference.
+
+Instance based operations may be deferred. A deferred operation must specify a
+subtype/supertype relationship of which it is the supertype by name. When a
+deferred operation is invoked, the subtype is selected across the specified
+relationship and the operation in the subtype with the same signature is
+invoked. If the subtype operation does not exist, the body in the supertype
+class is executed. If neither body exists, default behavior is followed as
+specified in <<_4_1_6_executable_model_elements>>.
+
+===== 4.2.6.4 State Machine
+
+A class can have at most one state machine. State machines can be specified as
+`class` or `instance`. If not specified, state machines are `instance`.
+Instance state machines define the behavior of each individual instance of the
+class whereas class state machines define the behavior of the class as a whole.
+
+===== 4.2.6.4.1 States
+
+States are defined within state machines. Parameters may be specified for the state entry action,
+however it is not required in most cases (see <<_4_2_6_4_5_same_data_rule>>). In addition to the states defined
+within the state machine, every state machine has a logical initial state
+called the "null state". Class state machines are in the "null state" at system
+startup and instance state machines are in the "null state" when a new instance
+of a class is created.
+
+.TODO do we keep `terminal` states? What is the purpose? Ideas:
+- Transitions out of terminal states are invalid (don't really like this one)
+- Instance delete fails unless in terminal state? (seems overly restrictive)
+
+===== 4.2.6.4.2 Events
+
+Events are defined within state machines. Events are defined along with the
+parameter data which they can carry. "out" parameters are not allowed for events.
+
+===== 4.2.6.4.3 State/Event Matrix
+
+The state event matrix defines the transition behavior of a state machine. It
+is structured as a table and consists of a header row which declares all the
+relevant events and a transition row for each possible initial state.
+
+There must be a transition row for every state declared in the state machine
+and a transition row for the "null state" (designated by the keyword
+"non_existent"). The header row must contain a reference to every event defined
+in the state machine. Each cell of the table must specify the result of
+receiving particular event while in the particular state. A transition result
+can be specified by naming the destination state of the transition. A
+non-transition result can be specified by either "cannot_happen" or "ignore".
+At runtime, a "cannot_happen" results in an error being raised and "ignore"
+results in no action (although the ignore may be logged by the architecture).
+
+```
+matrix is
+
+  |              | Completed     | Evaluate      | Pause         | evaluationComplete |
+  | ------------ | ------------- | ------------- | ------------- | ------------------ |
+  | non_existent | cannot_happen | Executing     | cannot_happen | cannot_happen      |
+  | Executing    | Completed     | cannot_happen | Paused        | cannot_happen      |
+  | Completed    | ignore        | ignore        | cannot_happen | cannot_happen      |
+  | Paused       | Completed     | Evaluating    | cannot_happen | cannot_happen      |
+  | Evaluating   | cannot_happen | cannot_happen | cannot_happen | Executing          |
+
+end matrix;
+```
+
+===== 4.2.6.4.4 Polymorphic Event Handling
+
+For instance state machines that are contained by a class participating as a
+subtype, the state/event matrix header must also include a column for each
+event defined in any supertype state machines.  In these cases, the event may
+need to be referenced by partially qualified name with the class and state
+names.
+
+There are two styles of polymorphic event handling: abstract and concrete. In
+the abstract idiom, a supertype event may only be handled in one "layer" of a
+subtype/supertype hierarchy.  If an event is referenced in a subtype state
+machine, it may not be referenced in the supertype state machine and it _must_
+be referenced in the state machine of all sibling subtypes. At runtime, if the
+event is generated to a supertype instance, it is "passed through" to the
+subtype state machine with no effect on the supertype. When the subtype
+transition is complete, the event ceases to exist and is not passed down to any
+subtypes lower in the hierarchy (if they exist).
+
+In the concrete idiom, a supertype event must be handled in all instance state
+machines in the hierarchy.
+At runtime, the event is handled sequentially by each instance in the hierarchy
+from top to bottom. Any resulting transition or state entry actions are
+executed in sequence and the current state is changed to the destination state
+of the transition. If any state machine in the hierarchy produces a
+"cannot_happen", an error is raised and transitions of subtype instances lower
+in the hierarchy are not evaluated.
+
+.TODO what is the actual behavior in MASL?
+- If there is a "cannot_happen" does that exeception get raised before any
+  actions are executed or is it possible to execute a few and then fail?
+- When does the transition for each state machine occur? After each action, or
+  all at once at the end?
+
+It is not recommended to mix these idioms in a single model. It is encouraged
+for tools to either adopt one idiom or provide a preference switch to assure
+consistent usage of one idiom within a model.
+
+===== 4.2.6.4.5 Same data rule
+
+State entry action parameters and transition action parameters are defined by
+the events which induce them.  Transition action parameters exactly match those
+of the event which causes the transition.  If only one event (or multiple
+events with identical signatures) results in entry to a particular state, the
+state parameters exactly match those of the event which results in transition
+to that state.  If more than one event with differing signatures result in
+transition to a particular state, the modeler must provide a signature for the
+state entry action. The signature of the state must only include a set of
+parameters which is a subset of the intersection of the parameters in the
+events. For example, consider the following state and events:
+
+```
+state resetting(new_position: real);
+
+event motion_complete(new_position: real);
+event motion_failure(code: integer, message: string, new_position: real);
+```
+
+Both the `motion_complete` and `motion_failure` events may result in transition
+to the `resetting` state. The individual transition action for the
+`motion_failure` transition may implement some additional handling (e.g.
+logging the failure, generating events for subsequent recovery), however the
+`resetting` state action must only define a signature which includes parameters
+shared by both events. It would be equally valid if the `resetting` state
+declared no parameters and simply ignored the data passed by the events.  Since
+events may have multiple parameters of the same type, when defining a state
+signature, the parameter types _and_ names must match corresponding parameters
+in each of the event signatures.
+
+===== 4.2.6.4.6 Deprecation of asynchronous instance creation
+
+This specification implicitly proposes the deprecation of asynchronous creation
+of instances through creation events.  In existing xtUML/OAL implementations,
+generating a creation event to the class allows the creation of the instance to
+be deferred to the architecture and then after creation an event delivered to
+the newly created instance.  This provides some benefit to analysis as it
+avoids convoluted state machine patterns and produces a diagram that more
+accurately shows what the modeler intends. In existing xtUML/OAL
+implementations, instances are created in the lowest number state by default.
+The entry action of the state is not executed upon creation.  This leads to
+modelers defining transitions to self in the lowest number state to "kick"
+things off or alternatively creating a nonsense "Init" state which contains no
+actions. Both of these patterns are awkward ways to express what the modeler
+wants. Introduction of the default "null state" allows the modeler to express
+in the diagram the same as a creation event (line comes out of the canvas to a
+state) while simplifying the semantics of the rest of the state machine (no
+longer a distinction between creation/normal states or creation/normal events,
+no need to generate events to a class).
+
+In MASL, there is no default state and the current state must be specified in
+an instance creation expression.  Creation events work similarly to xtUML/OAL,
+however the modeler must create the instance manually within the creation state
+action (it is not created automatically by the architecture). This is driven by
+the fact that MASL expects the modeler to also provide the initial values of
+any identifying attributes of a class at creation of the instance. It is a
+mistake to define the initial state within the action language. The initial
+state is crucial to the behavior of an instance and should be evident from the
+state machine diagram. The proposed implementation with the "null state" as
+default solves this problem.
+
+The grammar notation will still accept the designation of events and states as
+"creation" and may still be supported by backend code generators for some time.
+
+===== 4.2.6.4.7 MASL compatibility
+
+To maintain MASL compatibility, states, events, and MASL-style transition
+tables may be defined at the class level. See the MASL language reference for
+details (<<dr-2>>, <<dr-3>>).
+
+Designation of a start state is still supported by the grammar for
+compatibility, but not an official part of this spec.
+
+==== 4.2.7 Relationship
 
 Relationships may be simple, associative (linked), or subtype/supertype.
 Relationships do not support extended names and the name of a relationship must
-be with the character 'R' followed by an integer:
+be with the character 'R' followed by a positive integer:
+
+Simple relationships are defined by a pair of opposing "half relationships"
+defining the relationship from both directions. Each direction can have a
+multiplicity of "one" or "many" and may be "conditionally" or "unconditionally"
+associated. Role phrases may be defined as an identifier comprised of
+alphanumeric characters and underscores or a single quoted string of
+characters. Role phrases are optional for non-reflexive associations.
 
 ```
-RelationshipName: 'R' ('1'..'9') ('0'..'9')*;
+relationship R1 is TrackLog conditionally 'has first' one TrackPoint,
+                   TrackPoint conditionally 'is start of' one TrackLog;
 ```
 
-TODO relationships are defined just like MASL; copy spec here at some point
+Associative relationships are defined the same as simple relationships with the
+addition of a declaration of the associating class. The multiplicity of the
+associator may be "one" or "many". If not specified, it is assumed to be "one".
 
-TODO Role phrases may be specified as an identifier or a single quoted literal.
+```
+relationship R2 is Seller conditionally 'sells to' many Buyer,
+                   Buyer conditionally 'purchases from' many Seller
+                   using many BillOfSale;
+```
+
+Subtype/supertype associations are defined by naming the supertype class and
+listing the subtype classes.
+
+```
+relationship R3 is Pet is_a (Dog, Cat, Fish);
+```
 
 Note: It is not required for classes to be defined in the same package as a
 relationship which references them. Tools which have diagrams of relationships
 will need to create a reference to the class in the package.
 
-==== 4.4.6 Function
+==== 4.2.8 Function
 
-Functions represent synchronous execution within a component. Functions may be
-public or private. Public functions are exposed to other action bodies in
-external components. Private functions are only available to action bodies
-within the defining component. If unspecified, functions are assumed to be private.
+Functions represent a group of action statements synchronously executed within
+a component. They provide a mechanism for packaging common behavior that is not
+related to a specific class. They can also be used to expose behavior to other
+components.
 
-Functions may or may not have a return type.
+Functions may be public or private. Public functions are exposed to action
+bodies in other components. Private functions are only available to action
+bodies within the defining component. If unspecified, functions are assumed to
+be private.
 
-Parameters may be "in" or "out" parameters. "in" parameters are passed by value
-to the function body and are not assignable.  "out" parameters are passed by
-reference to the function body and may be re-assigned by statements within the
-function. If unspecified, parameters are "in".
+Functions may or may not return a value.
 
 ```
-('public' | 'private' | /* not specified */) ('function' | 'service') Name '(' FormalParameter* ')' ( 'return' TypeReference )? ';'
-```
-
-FormalParameter:
-```
-Name ':' ('in' | 'out' | /* not specified */) TypeReference
+function getDistance(fromLat: real, fromLong: real, toLat: real, toLong: real) return real;
 ```
 
 Note: to maintain compatibility with MASL the `service` keyword may replace `function`
 
-==== 4.4.7 Type
-
-Named types may be defined by the user and included within components.
-
-TODO types are defined just like MASL; copy spec here at some point
-
-TODO MASL supports default values for enumerators and structure members... allow this?
-
-Note: Not all types represented in this spec are currently supported in xtUML
-
-Note: The implementation is responsible to decide what action language dialect
-is used to evaluate constant expressions used as constraints.
-
-==== 4.4.8 Constant specification
-
-Symbolic constants are gathered into constant groups. Constants may be defined
-by a constant expression in action language or a blob of target language code.
-For normal constants the implementation is responsible to decide what action
-language dialect is used to evaluate the constant expressions. Normal constants
-are cross platform and can be checked at compile time.
-
-```
-'constant' 'group' 'is'
-  Constant*
-'end 'constant' 'group' ';'
-```
-
-Normal constant:
-```
-Name '=' ConstantExpression ';'
-```
-
-Native constant:
-```
-'native' Name '=' NativeConstantExpression ';'
-```
-
-`NativeConstantExpression` is a single quoted string literal.
-
-==== 4.4.9 Exception
-
-TODO exceptions are defined just like MASL; copy spec here at some point
-
-==== 4.4.13 External entity
+==== 4.2.9 External entity
 
 External entities represent a named group of bridge operations typically to
 provide utility services such as logging or math functions. External entity
-bridges are considered to be synchronous and will cause execution to pause.  If
-asynchronous behavior is desired, the external entity should be modeled as a
-component.
+bridges are considered to be synchronous and will cause execution to pause
+until they return. This does not preclude implementations of bridges from
+kicking off asynchronous behavior using operating system mechanisms such as
+threading or multiprocessing, however bridges themselves must run to completion
+before modeled execution continues.
+
+If asynchronous behavior is desired, it is recommended to model model the
+behavior as a component rather than use an external entity.
 
 ```
-'external' Name 'is'
-  Bridge*
-'end' 'external' ';'
+external LOG is
+  bridge LogInfo(message: string);
+  bridge LogFailure(message: string);
+  ...
+end external;
 ```
 
-Bridge:
+==== 4.2.10 Type
+
+In addition to the builtin types (See <<_4_1_7_type_system>>), named types may
+be defined by the user and included within components.
+
+The following types may be defined:
+
+- Structure types
+- Enumeration types
+- Constrained type reference
+- Unconstrained array
+
+===== 4.2.10.1 Structure types
+
+Structure types are defined by a set of structure members. Each structure
+member must have a specified type. Each structure member may have a default
+value.
+
 ```
-'bridge' Name '(' FormalParameter* ')' ( 'return' TypeReference )? ';'
+type Response is structure
+  code: integer;
+  message: string = "";
+end structure;
 ```
 
-=== 4.5 Element descriptions
+===== 4.2.10.2 Enumeration types
 
-Descriptions may be prepended on any packageable or non-packageable element.
-Descriptions follow the MASL format and are defined by lines starting with the
-`//!` character sequence.
+Enumeration types are defined by a named set of enumerators. Each enumerator
+value may have an assigned value. Assigned values for enumerators must be
+integers. If values are assigned to an enumerator, all enumerators in the type
+must have a value assigned. Enumerators within the same type may not be
+assigned the same value.
 
 ```
-'//!' ~('\n'|'\r')* '\r'? '\n';
+type Colors is enum (RED, GREEN, BLUE);
 ```
 
-TODO descriptions for lower level elements e.g. individual constants,
-parameters, state event matrix cells
+===== 4.2.10.3 Named type references
 
-=== 4.x Grammars
+Type references may be aliased by declaring a type which refers to the existing
+type.
 
-TODO
+```
+type Speed is real;
+```
+
+```
+type Paragraph is sequence of string;
+```
+
+===== 4.2.10.4 Constrained type references
+
+Existing types may be further constrained by defining a new type which
+references the existing type and applies a constraint.
+
+===== 4.2.10.4.1 Range constraint
+
+Range constraints specify an allowed range for numeric types. Ranges are
+specified by two constant numeric expressions separated by double dots (`..`).
+Ranges are inclusive.
+
+TODO BridgePoint supports ranges for numeric UDTs. BridgePoint also only allows
+inclusive ranges. Is there any reason to support exclusive ranges?
+
+```
+type Rating is integer range 1 .. 5;
+```
+
+===== 4.2.10.4.2 Digits constraint
+
+TODO need to understand better
+
+===== 4.2.10.4.3 Delta constraint
+
+TODO need to understand better
+
+===== 4.2.10.5 Unconstrained array types
+
+Unconstrained array types can be defined to allow arrays without specific
+bounds. The bounds of an unconstrained array are determined at runtime. For
+example, a parameter may be defined as an unconstrained array type. When an
+argument is passed to the executable body, the size of the array is determined.
+
+TODO understand this type better.
+
+===== 4.2.10.6 Defining default values
+
+For simple named type references and constrained type references the default
+value of the type can be defined using the assign operator. If not specified,
+the default value is the same as the parent type.
+
+```
+type Percentage is real = 100.0;
+```
+
+Note: Not all types represented in this spec are currently supported in BridgePoint
+
+==== 4.2.11 Constant specification
+
+Symbolic constants are gathered into constant groups. Constants may be defined
+by a MASL constant expression.  The data type of the constant is implied to be
+the type resulting from evaluation of the constant expression, however a type
+can also be explicitly assigned.
+
+Constants assigned an unchecked value must have an explicitly assigned type.
+
+
+```
+constant group 'Speed Constants'[SPD] is
+  SpeedAveragingWindow = 5;
+  SecondsPerHour = 3600;
+  ClockRate: integer = unchecked CLOCKRATE;
+end constant group;
+```
+
+==== 4.2.12 Exception
+
+Named exceptions can be defined by the modeler. These exceptions can be
+referenced in action bodies (as supported by the action language) or assigned
+to port message contracts.
+
+```
+exception DiscReadError;
+```
+
+=== 4.3 Comments and element descriptions
+
+Comments may be added to files. Comments are not semantically significant and
+should be disregarded by the parser. Comments are any characters following the
+`//` character sequence up to and including a line break. Comments are also any
+characters between the character sequences `/\*` and `*/`
+
+Descriptions are special comments which come immediately before the elements
+they describe and serve to provide extra information about the element.
+
+
+Descriptions are any characters following the
+`//!` character sequence up to and including a line break. Descriptions are also any
+characters between the character sequences `/\*!` and `*/`
+
+Descriptions for some elements may be embedded in the descriptions for their
+containing element.
+
+TODO e.g. parameters; I picture something similar to JavaDoc, docstring or
+doxygen
+
+Describable elements are:
+
+- Package
+- Component
+- Port
+- Interface
+- Message
+- Satisfaction
+- Deployment
+- Class
+- Attribute
+- Identifier
+- Operation
+- State Machine
+- State
+- Event
+- State/Event Matrix
+- Relationship
+- Function
+- External Entity
+- Bridge
+- Type Declaration
+- Structure Member
+- Enumerator
+- Constant Group
+- Constant
+- Exception
+
+=== 4.4 Additional MASL compatibility notes
+
+The "private" qualifier on executable elements (MASL services) is no longer
+supported and is completely ignored in the reference parser.
+
+The "public" qualifier is only supported for functions and _must_ be removed
+from other services for MASL to be compatible
+
+Pragmas are not supported by this spec and must be removed from MASL. It is
+possible for a tool such as BridgePoint to implement an independent marking
+editor which would insert pragmas for MASL backends (similar to how it is done
+today).
+
+=== 4.5 Grammars
+
+==== 4.5.1 Parser Grammar
+
+```
+parser grammar XtumlParser;
+
+options {tokenVocab=XtumlLexer;}
+
+
+//---------------------------------------------------------
+// Root Definitions
+//---------------------------------------------------------
+target                          : ( componentDefinition
+                                  | deploymentDefinition
+                                  | packageDefinition
+                                  | discontiguousDefinition
+                                  )+
+                                ;
+
+discontiguousDefinition         : WITHIN elementReference IS
+                                    ( packageableElement | stateMachineDefinition )+
+                                  END SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Element Naming
+//---------------------------------------------------------
+elementName                     : Identifier;
+
+extendedElementName             : elementName
+                                | extendedName=SingleQuoteLiteral LBRACKET simpleName=Identifier RBRACKET
+                                ;
+
+qualifiedName                   : nameSegment=Identifier ( DCOLON nameSegment=Identifier )*
+                                ;
+
+elementReference                : qualifiedName ( DOT unqualifiedElementReference )?
+                                ;
+
+unqualifiedElementReference     : Identifier;
+
+
+//---------------------------------------------------------
+// Parameterization
+//---------------------------------------------------------
+parameterList                   : formalParameter ( COMMA formalParameter )*
+                                ;
+
+formalParameter                 : elementName COLON parameterMode typeReference
+                                ;
+
+parameterMode              : IN
+                                | OUT
+                                | /* Not specified */
+                                ;
+
+
+//---------------------------------------------------------
+// Element Description
+//---------------------------------------------------------
+description                     : Description+
+                                | BlockDescription
+                                ;
+
+
+//---------------------------------------------------------
+// Packageable Elements
+//---------------------------------------------------------
+packageableElement              : packageDefinition
+                                | componentDefinition
+                                | interfaceDefinition
+                                | satisfactionDefinition
+                                | deploymentDefinition
+                                | classDefinition
+                                | relationshipDefinition
+                                | functionDeclaration
+                                | externalEntityDefinition
+                                | typeDeclaration
+                                | constantGroup
+                                | exceptionDeclaration
+                                ;
+
+
+//---------------------------------------------------------
+// Package Definition
+//---------------------------------------------------------
+packageDefinition               : description?
+                                  ( localPackageDefinition
+                                  | packageReferenceDefinition
+                                  )
+                                ;
+
+packageReference                : elementReference;
+
+localPackageDefinition          : PACKAGE extendedElementName ( IS
+                                    packageableElement*
+                                  END PACKAGE? )? SEMI
+                                ;
+
+packageReferenceDefinition      : PACKAGE extendedElementName IS packageReference SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Component Definition
+//---------------------------------------------------------
+componentDefinition             : description?
+                                  ( localComponentDefinition
+                                  | componentReferenceDefinition
+                                  )
+                                ;
+
+componentReference              : elementReference;
+
+localComponentDefinition        : COMPONENT extendedElementName ( IS
+                                    ( packageableElement
+                                    | portDefinition
+                                    )*
+                                  END COMPONENT? )? SEMI
+                                ;
+
+componentReferenceDefinition    : COMPONENT extendedElementName IS componentReference SEMI
+                                ;
+
+portDefinition                  : description?
+                                  ( directPortDefinition
+                                  | portInterfaceImplementation
+                                  | delegatedPortReference
+                                  )
+                                ;
+
+portReference                   : elementReference;
+
+portType                        : REQUIRED
+                                | PROVIDED
+                                | /* Not specified */
+                                ;
+
+directPortDefinition            : portType PORT elementName IS
+                                    messageDeclaration*
+                                  END PORT? SEMI
+                                ;
+
+portInterfaceImplementation     : portType PORT elementName IMPLEMENTS interfaceReference SEMI
+                                ;
+
+delegatedPortReference          : portType PORT elementName IS portReference SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Interface Definition
+//---------------------------------------------------------
+interfaceDefinition             : description? INTERFACE extendedElementName ( IS
+                                    messageDeclaration*
+                                  END INTERFACE? )? SEMI
+                                ;
+
+interfaceReference              : elementReference;
+
+messageDirection                : TO PROVIDER
+                                | FROM PROVIDER
+                                | /* Not specified */
+                                ;
+
+contractDeclaration             : responseContractDeclaration
+                                | returnContractDeclaration
+                                ;
+
+responseContractDeclaration     : EXPECTS messageReference
+                                  WITHIN DurationLiteral
+                                  ( RAISES exceptionReference )?
+                                ;
+
+returnContractDeclaration       : WITHIN DurationLiteral
+                                  ( RAISES exceptionReference )?
+                                ;
+
+messageDeclaration              : description? (MESSAGE | SERVICE) elementName LPAREN
+                                    parameterList?
+                                  RPAREN ( RETURN typeReference )?
+                                  messageDirection
+                                  contractDeclaration?
+                                  SEMI
+                                ;
+
+messageReference                : elementReference;
+
+
+//---------------------------------------------------------
+// Satisfaction Definition
+//---------------------------------------------------------
+satisfactionDefinition          : description? SATISFACTION elementName? ( IS
+                                  ( provider=portReference SATISFIES_REQUIREMENT requirer=portReference
+                                  | requirer=portReference SATISFIES_PROVISION provider=portReference
+                                  ) ) SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Deployment Definition
+//---------------------------------------------------------
+deploymentDefinition            : description? DEPLOYMENT extendedElementName ( IS
+                                    deploymentComponentDefinition*
+                                  END DEPLOYMENT? )? SEMI
+                                ;
+
+deploymentComponentDefinition   : description? COMPONENT componentReference IS
+                                    portDefinition*
+                                  END COMPONENT? SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Class Definition
+//---------------------------------------------------------
+classDefinition                 : description? CLASS extendedElementName ( IS
+                                    classElement*
+                                  END CLASS? )? SEMI
+                                ;
+
+classReference                  : elementReference;
+
+localClassReference             : unqualifiedElementReference;
+
+classElement                    : attributeDefinition
+                                | identifierDefinition
+                                | operationDeclaration
+                                | stateMachineDefinition
+                                | maslClassElement
+                                ;
+
+attributeDefinition             : description? elementName COLON
+                                  attributeModifiers
+                                  attributeReferentials?
+                                  typeReference
+                                  ( ASSIGN defaultValue=constantExpression )?
+                                  SEMI
+                                ;
+
+localAttributeReference         : unqualifiedElementReference;
+
+attributeModifiers              : ( PREFERRED? UNIQUE? )
+                                | DERIVED
+                                ;
+
+attributeReferentials           : REFERENTIAL LPAREN
+                                    attributeReferential ( COMMA attributeReferential )*
+                                  RPAREN
+                                ;
+
+attributeReferential            : relationshipSpec DOT localAttributeReference
+                                ;
+
+relationshipSpec                : relationshipName ( DOT classOrRole ( DOT className=localClassReference )? )?
+                                ;
+
+classOrRole                     : localClassReference
+                                | rolePhrase
+                                ;
+
+identifierDefinition            : description? IDENTIFIER IS LPAREN
+                                    localAttributeReference ( COMMA localAttributeReference )*
+                                  RPAREN SEMI
+                                ;
+
+operationDeclaration            : description? operationModifiers (OPERATION | SERVICE) elementName LPAREN
+                                    parameterList?
+                                  RPAREN ( RETURN typeReference )? SEMI
+                                ;
+
+operationModifiers              : ( INSTANCE? operationDeferral? )
+                                | CLASS
+                                ;
+
+operationDeferral               : DEFERRED LPAREN relationshipName RPAREN
+                                ;
+
+
+//---------------------------------------------------------
+// State Machine Definition
+//---------------------------------------------------------
+stateMachineDefinition          : description? STATEMACHINE IS
+                                    ( stateDeclaration
+                                    | eventDefinition
+                                    | stateEventMatrix
+                                    )*
+                                  END STATEMACHINE? SEMI
+                                ;
+
+stateMachineType                : INSTANCE
+                                | CLASS
+                                | ASSIGNER  // for MASL compatibility
+                                | /* Not specified */
+                                ;
+
+stateDeclaration                : description? stateType STATE extendedElementName ( LPAREN
+                                    modelessParameterList?
+                                  RPAREN )? SEMI
+                                ;
+
+localStateReference             : unqualifiedElementReference;
+
+stateType                       : START
+                                | CREATION
+                                | TERMINAL
+                                | /* Normal */
+                                ;
+
+modelessParameterList           : modelessFormalParameter ( COMMA modelessFormalParameter )*
+                                ;
+
+modelessFormalParameter         : elementName COLON typeReference
+                                ;
+
+eventDefinition                 : description? eventType EVENT extendedElementName LPAREN
+                                    modelessParameterList?
+                                  RPAREN SEMI
+                                ;
+
+eventReference                  : elementReference;
+
+eventType                       : CREATION
+                                | /* Normal */
+                                ;
+
+stateEventMatrix                : description? MATRIX IS
+                                    matrixEvents
+                                    PIPE ( HorizontalDivider PIPE )+
+                                    matrixRow+
+                                  END MATRIX? SEMI
+                                ;
+
+matrixEvents                    : PIPE /* blank space */ PIPE ( eventReference PIPE )+
+                                ;
+
+matrixRow                       : PIPE startState PIPE ( endState PIPE )+
+                                ;
+
+startState                      : NON_EXISTENT
+                                | localStateReference
+                                ;
+
+endState                        : IGNORE
+                                | CANNOT_HAPPEN
+                                | localStateReference
+                                ;
+
+
+//---------------------------------------------------------
+// Relationship Definition
+//---------------------------------------------------------
+relationshipDefinition          : description? RELATIONSHIP relationshipName ( IS
+                                  ( simpleRelationshipDefinition
+                                  | assocRelationshipDefinition
+                                  | subsuperRelationshipDefinition
+                                  ) )? SEMI
+                                ;
+
+relationshipName                : RelationshipName;
+
+conditionality                  : CONDITIONALLY
+                                | UNCONDITIONALLY
+                                ;
+
+rolePhrase                      : Identifier
+                                | SingleQuoteLiteral
+                                ;
+
+multiplicity                    : ONE
+                                | MANY
+                                ;
+
+halfRelationshipDefinition      : from=classReference conditionality rolePhrase? multiplicity to=classReference
+                                ;
+
+simpleRelationshipDefinition    : forward=halfRelationshipDefinition COMMA
+                                  backward=halfRelationshipDefinition
+                                ;
+
+assocRelationshipDefinition     : forward=halfRelationshipDefinition COMMA
+                                  backward=halfRelationshipDefinition
+                                  USING multiplicity? assr=classReference
+                                ;
+
+subsuperRelationshipDefinition  : supertype=classReference IS_A LPAREN
+                                    sub+=classReference ( COMMA sub+=classReference )*
+                                  RPAREN
+                                ;
+
+
+//---------------------------------------------------------
+// Function Declaration
+//---------------------------------------------------------
+functionDeclaration             : description? PUBLIC? (FUNCTION | SERVICE) elementName LPAREN
+                                    parameterList?
+                                  RPAREN ( RETURN typeReference )? SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// External Entity Definition
+//---------------------------------------------------------
+externalEntityDefinition        : description? EXTERNAL extendedElementName ( IS
+                                    bridgeDeclaration*
+                                  END EXTERNAL? )? SEMI
+                                ;
+
+bridgeDeclaration               : description? BRIDGE elementName LPAREN
+                                    parameterList?
+                                  RPAREN ( RETURN typeReference )? SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Type Declaration
+//---------------------------------------------------------
+typeDeclaration                 : description? TYPE elementName ( IS typeDefinition )? SEMI
+                                ;
+
+typeDefinition                  : structureTypeDefinition
+                                | enumerationTypeDefinition
+                                | instanceTypeReference
+                                | collectionTypeReference
+                                | constrainedTypeReference
+                                | unconstrainedArray
+                                ;
+
+typeReference                   : ANONYMOUS?
+                                  (namedTypeReference
+                                  | instanceTypeReference
+                                  | collectionTypeReference
+                                  )
+                                ;
+
+structureTypeDefinition         : STRUCTURE
+                                    structureMemberDefinition+
+                                  END STRUCTURE?;
+
+structureMemberDefinition       : description? elementName COLON typeReference ( ASSIGN constantExpression )? SEMI
+                                ;
+
+enumerationTypeDefinition       : ENUM LPAREN
+                                    enumerator ( COMMA enumerator )*
+                                  RPAREN
+                                ;
+
+enumerator                      : description? elementName ( ASSIGN constantExpression )?;
+
+namedTypeReference              : elementReference;
+
+instanceTypeReference           : INSTANCE OF classReference
+                                ;
+
+collectionTypeReference         : setTypeReference
+                                | sequenceTypeReference
+                                | arrayTypeReference
+                                | bagTypeReference
+                                | dictionaryTypeReference
+                                ;
+
+setTypeReference                : SET OF typeReference
+                                ;
+
+sequenceTypeReference           : SEQUENCE ( LPAREN constantExpression RPAREN )? OF typeReference
+                                ;
+
+arrayTypeReference              : ARRAY arrayBounds OF typeReference
+                                ;
+
+arrayBounds                     : LPAREN constantExpression RPAREN
+                                ;
+
+bagTypeReference                : BAG OF typeReference
+                                ;
+
+dictionaryTypeReference         : DICTIONARY ( ( keyType=namedTypeReference )? OF typeReference )?
+                                ;
+
+constrainedTypeReference        : namedTypeReference typeConstraint? ( ASSIGN constantExpression )?
+                                ;
+
+typeConstraint                  : arrayBounds
+                                | rangeConstraint
+                                | deltaConstraint
+                                | digitsConstraint
+                                ;
+
+rangeConstraint                 : RANGE constantExpression
+                                ;
+
+deltaConstraint                 : DELTA constantExpression rangeConstraint
+                                ;
+
+digitsConstraint                : DIGITS constantExpression rangeConstraint
+                                ;
+
+unconstrainedArray              : ARRAY LPAREN indexType=namedTypeReference RANGE LTGT RPAREN OF typeReference
+                                ;
+
+
+//---------------------------------------------------------
+// Constant Group
+//---------------------------------------------------------
+constantGroup                   : description? CONSTANT GROUP extendedElementName ( IS
+                                    constantDefinition*
+                                  END ( CONSTANT GROUP )? )? SEMI
+                                ;
+
+constantDefinition              : description? elementName ( COLON typeReference )? ASSIGN constantExpression SEMI
+                                ;
+
+
+//---------------------------------------------------------
+// Exception Declaration
+//---------------------------------------------------------
+exceptionDeclaration            : description? EXCEPTION elementName SEMI
+                                ;
+
+exceptionReference              : elementReference;
+
+
+//---------------------------------------------------------
+// Constant Expressions TODO
+//---------------------------------------------------------
+constantExpression              : UNCHECKED?
+                                  ( IntegerLiteral
+                                  | StringLiteral
+                                  | RealLiteral
+                                  | DurationLiteral
+                                  | TimestampLiteral
+                                  | Identifier ( DOT Identifier )?
+                                  )
+                                ;
+
+
+//---------------------------------------------------------
+// MASL Compatibility
+//---------------------------------------------------------
+maslClassElement                : stateDeclarationInClass
+                                | eventDefinitionInClass
+                                | transitionTableInClass
+                                ;
+
+stateDeclarationInClass         : description? stateMachineType stateType STATE extendedElementName LPAREN
+                                    parameterList?
+                                  RPAREN SEMI
+                                ;
+
+eventDefinitionInClass          : description? stateMachineType eventDefinition
+                                ;
+
+transitionTableInClass          : description? stateMachineType transitionTable
+                                ;
+
+transitionTable                 : description? MATRIX IS
+                                    transitionRow+
+                                  END MATRIX? SEMI
+                                ;
+
+transitionRow                   : startState LPAREN
+                                    transitionCell ( COMMA transitionCell )*
+                                  RPAREN SEMI
+                                ;
+
+transitionCell                  : eventReference FAT_ARROW endState
+                                ;
+```
+
+==== 4.5.2 Lexer Grammar
+
+```
+lexer grammar XtumlLexer;
+
+// Keywords
+ANONYMOUS                       : 'anonymous';
+ARRAY                           : 'array';
+ASSIGNER                        : 'assigner';
+BAG                             : 'bag';
+BRIDGE                          : 'bridge';
+CANNOT_HAPPEN                   : 'cannot_happen' | 'Cannot_Happen';
+CLASS                           : 'class' | 'object';
+COMPONENT                       : 'component' | 'domain';
+CONDITIONALLY                   : 'conditionally';
+CONSTANT                        : 'constant';
+CREATION                        : 'creation';
+DEFERRED                        : 'deferred';
+DELTA                           : 'delta';
+DEPLOYMENT                      : 'deployment' | 'project';
+DERIVED                         : 'derived';
+DICTIONARY                      : 'dictionary';
+DIGITS                          : 'digits';
+END                             : 'end';
+ENUM                            : 'enum';
+EVENT                           : 'event';
+EXCEPTION                       : 'exception';
+EXPECTS                         : 'expects';
+EXTERNAL                        : 'external';
+FROM                            : 'from';
+FUNCTION                        : 'function';
+GROUP                           : 'group';
+IDENTIFIER                      : 'identifier';
+IGNORE                          : 'ignore' | 'Ignore';
+IMPLEMENTS                      : 'implements';
+INSTANCE                        : 'instance';
+INTERFACE                       : 'interface';
+IN                              : 'in';
+IS_A                            : 'is_a';
+IS                              : 'is';
+MANY                            : 'many';
+MATRIX                          : 'matrix' | 'transition';
+MESSAGE                         : 'message';
+NON_EXISTENT                    : 'non_existent' | 'Non_Existent';
+OF                              : 'of';
+ONE                             : 'one';
+OPERATION                       : 'operation';
+OUT                             : 'out';
+PACKAGE                         : 'package';
+PORT                            : 'port' | 'terminator';
+PREFERRED                       : 'preferred';
+PRIVATE                         : 'private' -> skip;  // ignore all private declarations
+PROVIDED                        : 'provided';
+PROVIDER                        : 'provider';
+PUBLIC                          : 'public';
+RAISES                          : 'raises';
+RANGE                           : 'range';
+REFERENTIAL                     : 'referential';
+RELATIONSHIP                    : 'relationship';
+REQUIRED                        : 'required';
+RETURN                          : 'return';
+SATISFACTION                    : 'satisfaction';
+SEQUENCE                        : 'sequence';
+SERVICE                         : 'service';
+SET                             : 'set';
+START                           : 'start';
+STATEMACHINE                    : 'statemachine';
+STATE                           : 'state';
+STRUCTURE                       : 'structure';
+TERMINAL                        : 'terminal';
+TO                              : 'to';
+TYPE                            : 'type';
+UNCHECKED                       : 'unchecked';
+UNCONDITIONALLY                 : 'unconditionally';
+UNIQUE                          : 'unique';
+USING                           : 'using';
+WITHIN                          : 'within';
+
+
+// Symobls
+SATISFIES_PROVISION             : '-(o-';
+SATISFIES_REQUIREMENT           : '-o)-';
+DCOLON                          : '::';
+FAT_ARROW                       : '=>';
+LTGT                            : '<>';
+ASSIGN                          : '=' | ':=';
+COLON                           : ':';
+COMMA                           : ',';
+DOT                             : '.';
+LBRACKET                        : '[';
+RBRACKET                        : ']';
+LPAREN                          : '(';
+RPAREN                          : ')';
+PIPE                            : '|';
+SEMI                            : ';';
+
+
+// Dynamic symbols
+HorizontalDivider               : '-' '-'+;
+
+
+// Numeric Literals
+IntegerLiteral                  :  '-'? Digit Digit? '#' BasedDigit+
+                                |  '-'? Digit+
+                                ;
+
+
+RealLiteral                     : '-'? Digit+
+                                  ( ('.' Digit+)
+                                  | UnbasedExponent
+                                  )
+                                | '-'? '.' Digit+ UnbasedExponent?
+                                | '-'? Digit Digit? '#'
+                                  ( BasedDigit+
+                                      ( ('.' BasedDigit)
+                                      | BasedExponent
+                                      )
+                                  | '.' BasedDigit+ BasedExponent?
+                                  )
+                                ;
+
+
+fragment UnbasedExponent        : ('e'|'E')('+'|'-')? Digit+
+                                ;
+
+
+fragment BasedExponent          : '#' ('+'|'-')? Digit+
+                                ;
+
+
+fragment Digit                  : '0'..'9';
+fragment BasedDigit             : '0'..'9' | 'a'..'z' | 'A'..'Z';
+fragment Letter                 : 'A'..'Z' | 'a'..'z';
+
+// Character and String Literals
+DurationLiteral                 : '@P' ( ~('@' | ' ' | '\t' | '\f' | '\n' | '\r') )* '@'
+                                ;
+
+TimestampLiteral                : '@' ( ~('@' | ' ' | '\t' | '\f' | '\n' | '\r') )* '@'
+                                ;
+
+CharacterLiteral                : '\'' ( EscapeSequence | ~('\''|'\\') )  '\''
+                                ;
+
+StringLiteral                   : '"' ( EscapeSequence | ~('\\'|'"') )* '"'
+                                ;
+
+fragment EscapeSequence         : '\\' ('b'|'t'|'n'|'f'|'r'|'"'|'\''|'\\')
+                                | UnicodeEscape
+                                | OctalEscape
+                                ;
+
+fragment OctalEscape            : '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+                                | '\\' ('0'..'7') ('0'..'7')
+                                | '\\' ('0'..'7')
+                                ;
+
+fragment UnicodeEscape          : '\\' 'u' HexDigit HexDigit HexDigit HexDigit;
+fragment HexDigit               : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+
+
+// Identifiers and Names
+RelationshipName                : 'R' ('1'..'9') Digit*;
+Identifier                      : ( Letter | '_' ) ( Letter | Digit | '_' )*;
+SingleQuoteLiteral              : '\'' ~( '\'' | '\n' | '\r' )* '\'';
+
+
+// Comments and Whitespace
+Description                     : '//!' ~('\n'|'\r')* '\r'? '\n';
+Comment                         : '//' ~('\n'|'\r')* '\r'? '\n' -> skip;
+BlockDescription                : '/*!' .*? '*/';
+BlockComment                    : '/*' .*? '*/' -> skip;
+Whitespace                      : (' ' | '\t' | '\f' | '\n' | '\r' )+ -> skip;
+```
 
 == 5 Document References
 
-TODO
-
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
-
-. [[dr-1]] https://support.onefact.net/issues/NNNNN[NNNNN - headline]
-. [[dr-2]] ...
-. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+. [[dr-1]] https://support.onefact.net/issues/12330[12330 - Create proposal for textual specification of xtUML structural semantics]
+. [[dr-2]] https://raw.githubusercontent.com/xtuml/bridgepoint/master/src/org.xtuml.bp.doc/Reference/MASL/LanguageReference/current/maslrefman.pdf[MASL language reference (current)]
+. [[dr-3]] https://raw.githubusercontent.com/xtuml/bridgepoint/master/src/org.xtuml.bp.doc/Reference/MASL/LanguageReference/legacy/maslrefman.pdf[MASL language reference (legacy)]
+. [[dr-4]] https://github.com/xtuml/masl[MASL C++ model compiler and software architecture]
 
 ---
 
 This work is licensed under the Creative Commons CC0 License
 
 ---
-
-TODO
-- talk about action body definitions
-- talk about builtin type references
-- talk about descriptions
