@@ -22,8 +22,6 @@
 //
 package org.xtuml.bp.ui.graphics.listeners;
 
-import java.util.Optional;
-
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -52,8 +50,6 @@ import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.ModelTool_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditor;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput;
@@ -198,19 +194,21 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 	}
 
 	public void modelElementReloaded(ModelChangedEvent event) {
-		if (m_editor != null && m_editor.getCanvas() != null
-				&& !m_editor.getCanvas().isDisposed()) {
-			// if the event concerns the element the editor is editing
+		if (m_editor != null && m_editor.getCanvas() != null && !m_editor.getCanvas().isDisposed()) {
+			// if the event concerns the element the editor is editing, or is a reloaded
+			// version of
+			// our model
 			Object editorData = m_editor.getModel().getRepresents();
-			if (event.getModelElement().equals(editorData)) {
+			if (event.getModelElement().equals(editorData) || (event.getModelElement() instanceof Model_c
+					&& ((Model_c) event.getModelElement()).getRepresents().equals(editorData))) {
 				// try to locate the reloaded content of our editor,
 				// and point our editor to it
 				Model_c newModel = getModelFor((NonRootModelElement) event.getNewModelElement());
-				if(newModel != null) {
+				if (newModel != null) {
 					CanvasPlugin.setGraphicalRepresents(newModel);
 					m_editor.updateModel(newModel);
 					IEditorInput editorInput = m_editor.getEditorInput();
-					if(editorInput instanceof GraphicalEditorInput) {
+					if (editorInput instanceof GraphicalEditorInput) {
 						((GraphicalEditorInput) editorInput).setInput(newModel);
 					}
 				} else {
@@ -223,9 +221,8 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 			}
 			// if the model tools are empty, we need to recreate them as well
 			// as the GEF related tools
-			ModelTool_c[] tools = ModelTool_c.getManyCT_MTLsOnR100(m_editor
-					.getModel());
-			if(tools.length == 0) {
+			ModelTool_c[] tools = ModelTool_c.getManyCT_MTLsOnR100(m_editor.getModel());
+			if (tools.length == 0) {
 				m_editor.refreshPalette();
 			}
 			CanvasPlugin.setGraphicalRepresents(m_editor.getModel());
@@ -234,13 +231,8 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 	}
 
 	private Model_c getModelFor(NonRootModelElement modelElement) {
-		// first assure we are loaded by a registered loader
-		PersistenceExtensionRegistry persistenceExtensionRegistry = CanvasPlugin.getDefault()
-				.getPersistenceExtensionRegistry();
-		Optional<PersistenceExtension> potentialPe = persistenceExtensionRegistry.getExtensions().stream()
-				.filter(pe -> pe.getLoader() != null).findFirst();
-		if(potentialPe.isPresent()) {
-			potentialPe.get().getLoader().load(modelElement);
+		if(modelElement instanceof Model_c) {
+			return (Model_c) modelElement;
 		}
 		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics
 				.getInstance(modelElement.getModelRoot().getId()));

@@ -66,6 +66,7 @@ import org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionResourceListener;
 import org.xtuml.bp.ui.canvas.persistence.WriteTransactionListener;
 import org.xtuml.bp.ui.canvas.references.ReferencePathNameChangeListener;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
@@ -77,7 +78,9 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	private CanvasModelListener modelChangeListener;
 	private CanvasTransactionListener transactionListener;
 	private PersistenceExtensionRegistry persistenceExtensionRegistry = new PersistenceExtensionRegistry();
+	private PersistenceExtensionResourceListener persistenceResourceListener;
 	private WriteTransactionListener writeTransactionListener;
+	private ReferencePathNameChangeListener referencePathListener;
 	private static boolean isActivated;
 	// note this method is used to draw the entire text
 	// contents for shapes, preventing any truncating or
@@ -177,6 +180,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
 				pe.setLoader(extensionLoader);
 				pe.setResourceExtension(resourceExtension);
 				pe.setIdentity(identity);
+				persistenceResourceListener.addExtension(extensionLoader, resourceExtension);
 				persistenceExtensionRegistry.addPersistenceExtension(pe);
 			}
 		};
@@ -712,10 +716,12 @@ public class CanvasPlugin extends AbstractUIPlugin {
 		transactionListener = new CanvasTransactionListener();
 		TransactionManager.getSingleton().addTransactionListener(transactionListener);
 		// Listener supporting registered writers
+		persistenceResourceListener = new PersistenceExtensionResourceListener();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(persistenceResourceListener);
 		writeTransactionListener = new WriteTransactionListener();
 		TransactionManager.getSingleton().addTransactionListener(writeTransactionListener, true);
 		// Listeners for managed paths
-		ReferencePathNameChangeListener referencePathListener = new ReferencePathNameChangeListener();
+		referencePathListener = new ReferencePathNameChangeListener();
 		Ooaofooa.getDefaultInstance().addModelChangeListener(referencePathListener);
 		TransactionManager.getSingleton().addTransactionListener(referencePathListener, true);
 	}
@@ -820,9 +826,10 @@ public class CanvasPlugin extends AbstractUIPlugin {
 			super.stop(context);
 
 			Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
-
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(persistenceResourceListener);
 			TransactionManager.getSingleton().removeTransactionListener(transactionListener);
 			TransactionManager.getSingleton().removeTransactionListener(writeTransactionListener);
+			TransactionManager.getSingleton().removeTransactionListener(referencePathListener);
 			writeTransactionListener = null;
 		}
 	}
