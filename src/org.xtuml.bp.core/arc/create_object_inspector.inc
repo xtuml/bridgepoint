@@ -363,6 +363,14 @@ ${rel_nav.body}\
 		}
 		return CorePlugin.getImageFor("${tree_node.Icon}");
 	}
+
+    /**
+     * Return naming attribute
+     */
+    @Override
+    public String getNamingAttribute(Object element) {
+    	return "${tree_node.NamingAttribute}";
+    }
 .end function
 .//
 .//

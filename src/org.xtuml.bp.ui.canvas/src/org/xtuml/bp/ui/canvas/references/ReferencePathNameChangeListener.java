@@ -1,0 +1,128 @@
+package org.xtuml.bp.ui.canvas.references;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import org.xtuml.bp.core.Gd_c;
+import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.common.Activepoller_c;
+import org.xtuml.bp.core.common.AttributeChangeModelDelta;
+import org.xtuml.bp.core.common.IModelDelta;
+import org.xtuml.bp.core.common.ITransactionListener;
+import org.xtuml.bp.core.common.ModelChangeAdapter;
+import org.xtuml.bp.core.common.ModelChangedEvent;
+import org.xtuml.bp.core.common.ModelElement;
+import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.common.Transaction;
+import org.xtuml.bp.core.paths.ElementNameChangeListener;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
+import org.xtuml.bp.ui.canvas.Objectreference_c;
+import org.xtuml.bp.ui.canvas.Objectreferenceidentifyingattribute_c;
+import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.ui.canvas.Referencepath_c;
+import org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter;
+
+public class ReferencePathNameChangeListener extends ModelChangeAdapter
+		implements ElementNameChangeListener, ITransactionListener {
+
+	private static Map<Object, Referencepath_c> managing = new HashMap<>();
+
+	@Override
+	public void nameChanged(ModelElement modelElement, Object newValue, Object oldValue) {
+		NonRootModelElement nrme = (NonRootModelElement) modelElement;
+		/**
+		 * Capture any paths that reference the element with name changed
+		 */
+		for (Object managed : managing.keySet()) {
+			Referencepath_c path = managing.get(managed);
+			Objectreference_c[] objectRefs = Objectreference_c.getManyR_ORsOnR500(path,
+					or -> ((Objectreference_c) or).getElement_id().equals(nrme.Get_ooa_id()));
+			for (Objectreference_c objectRef : objectRefs) {
+				/**
+				 * Update the old/new values for the identifying attribute and collect this
+				 * path's root pmc
+				 */
+				Objectreferenceidentifyingattribute_c oria = Objectreferenceidentifyingattribute_c
+						.getOneR_ORIAOnR501(objectRef);
+				oria.Attributechanged(true, (String) newValue, (String) oldValue);
+				Activepoller_c.Oneshot();
+			}
+		}
+	}
+
+	@Override
+	public void modelElementDeleted(ModelChangedEvent event, IModelDelta delta) {
+		// clean up path references
+		Referencepath_c path = managing.get(delta.getModelElement());
+		if (path != null) {
+			path.Dispose();
+		}
+	}
+
+	@Override
+	public boolean isBatchedNotificationEnabled() {
+		return false;
+	}
+
+	public static void remove(Referencepath_c path) {
+		managing.remove(path.getElement());
+	}
+
+	public static void add(Referencepath_c path) {
+		managing.put(path.getElement(), path);
+	}
+
+	@Override
+	public void transactionEnded(Transaction transaction) {
+		// we want to update graphical files after xtuml persistence
+		IModelDelta[] deltas = transaction.getDeltas(Ooaofgraphics.getDefaultInstance());
+		if (deltas != null) {
+			List<NonRootModelElement> written = new ArrayList<>();
+			Stream.of(deltas)
+					.filter(d -> d.getKind() == Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE
+							&& d.getModelElement() instanceof Objectreferenceidentifyingattribute_c
+							&& ((AttributeChangeModelDelta) d).getAttributeName().equals("Value"))
+					.forEach(delta -> {
+						Objectreferenceidentifyingattribute_c oria = (Objectreferenceidentifyingattribute_c) delta
+								.getModelElement();
+						Referencepath_c path = Referencepath_c
+								.getOneR_RPOnR500(Objectreference_c.getManyR_ORsOnR501(oria));
+						if (path != null) {
+							NonRootModelElement pathElement = (NonRootModelElement) path.getElement();
+							// get the last object ref identifying attribute
+							Objectreference_c ref = Objectreference_c.getOneR_OROnR500(path, or -> ((Objectreference_c) or).getPrevious_id().equals(Gd_c.Null_unique_id()));
+							Objectreferenceidentifyingattribute_c lastAttrId = Objectreferenceidentifyingattribute_c.getOneR_ORIAOnR501(ref);
+							while(ref != null) {
+								lastAttrId = Objectreferenceidentifyingattribute_c.getOneR_ORIAOnR501(ref);
+								ref = Objectreference_c.getOneR_OROnR503Succeeds(ref);
+							}
+							boolean requiresFileRename = lastAttrId == oria;
+							/**
+							 * Rewrite all path's root pmc asscoiated graphics
+							 */
+							CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> {
+								IGraphicalWriter writer = pe.getWriter();
+								if (writer != null) {
+									if (!requiresFileRename && !written.contains(path.getElement())) {
+										writer.write(pathElement);
+										written.add(pathElement);
+									}
+									if(requiresFileRename && !written.contains(path.getElement())) {
+										writer.nameChange((NonRootModelElement) path.getElement(), oria.getPrevious_value());
+										writer.write((NonRootModelElement) path.getElement());
+										written.add((NonRootModelElement) path.getElement());
+										writer.write(PersistenceManager.getHierarchyMetaData().getParent(pathElement));
+										written.add(PersistenceManager.getHierarchyMetaData().getParent(pathElement));
+									}
+								}
+							});
+						}
+					});
+		}
+	}
+
+}

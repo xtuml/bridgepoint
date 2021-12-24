@@ -757,4 +757,9 @@ public class PackageInspector extends BaseModelClassInspector {
     public int getTreeDifferenceSlot(Object element) {
         return slot_class.getTreeDifferenceSlot(element);
     }
+
+	@Override
+	public String getNamingAttribute(Object element) {
+		return "Name";
+	}
 }

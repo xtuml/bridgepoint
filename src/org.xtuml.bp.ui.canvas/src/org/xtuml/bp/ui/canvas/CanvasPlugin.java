@@ -67,6 +67,7 @@ import org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.persistence.WriteTransactionListener;
+import org.xtuml.bp.ui.canvas.references.ReferencePathNameChangeListener;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 
 
@@ -710,6 +711,13 @@ public class CanvasPlugin extends AbstractUIPlugin {
 		Ooaofooa.getDefaultInstance().addModelChangeListener(modelChangeListener);
 		transactionListener = new CanvasTransactionListener();
 		TransactionManager.getSingleton().addTransactionListener(transactionListener);
+		// Listener supporting registered writers
+		writeTransactionListener = new WriteTransactionListener();
+		TransactionManager.getSingleton().addTransactionListener(writeTransactionListener, true);
+		// Listeners for managed paths
+		ReferencePathNameChangeListener referencePathListener = new ReferencePathNameChangeListener();
+		Ooaofooa.getDefaultInstance().addModelChangeListener(referencePathListener);
+		TransactionManager.getSingleton().addTransactionListener(referencePathListener, true);
 	}
 
 	private static void addClientClassDependency(ElementSpecification_c es, final String className) {
@@ -795,8 +803,6 @@ public class CanvasPlugin extends AbstractUIPlugin {
 			initializeCanvases();
 			hookListeners();
 			configurePersistenceExtensions();
-			writeTransactionListener = new WriteTransactionListener();
-			TransactionManager.getSingleton().addTransactionListener(writeTransactionListener, true);
 			CanvasPlugin.isActivated = true;
 		} else {
 			CanvasPlugin.isActivated = false;
