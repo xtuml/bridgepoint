@@ -231,7 +231,13 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 
 	@Override
 	public String getNamingAttribute(Object element) {
-		return getInspector(element.getClass()).getNamingAttribute(element);
+		IModelClassInspector inspector = getInspector(element.getClass());
+		if(inspector != null) {
+			return inspector.getNamingAttribute(element);
+		}
+		// clients will need to worry about cases where a naming
+		// attribute is not present (should be ignorable)
+		return "";
 	}	
 }
 .end function
