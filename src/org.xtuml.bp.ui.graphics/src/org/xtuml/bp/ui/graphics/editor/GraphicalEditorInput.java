@@ -65,7 +65,9 @@ public class GraphicalEditorInput extends FileEditorInput
 	Optional<PersistenceExtension> potentialPe = persistenceExtensionRegistry.getExtensions().stream()
 			.filter(pe -> pe.getLoader() != null).findFirst();
 	if (potentialPe.isPresent()) {
-		potentialPe.get().getLoader().load(c_input);
+		Model_c reloaded = potentialPe.get().getLoader().load(c_input);
+		// update any graphical editor inputs that match
+		Ooaofgraphics.getDefaultInstance().fireModelElementReloaded(reloaded, reloaded);
 	}
     ModelSpecification_c[] modelSpecs = ModelSpecification_c.ModelSpecificationInstances(Ooaofgraphics.getDefaultInstance());
     for (int i = 0; i < modelSpecs.length; i++) {

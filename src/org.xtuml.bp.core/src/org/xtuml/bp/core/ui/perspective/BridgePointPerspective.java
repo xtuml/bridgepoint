@@ -29,6 +29,7 @@ public class BridgePointPerspective implements IPerspectiveFactory {
   IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, 0.30f,  //$NON-NLS-1$
      editorArea);
   topLeft.addView(ID_MGC_BP_EXPLORER);
+  topLeft.addView(IPageLayout.ID_PROJECT_EXPLORER);
   topLeft.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 
   // Bottom right: Problem List view and Property Sheet view
@@ -47,6 +48,7 @@ public class BridgePointPerspective implements IPerspectiveFactory {
   top.addView("org.eclipse.gef.ui.palette_view");
 
   layout.addShowViewShortcut(ID_MGC_BP_EXPLORER);
+  layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
   layout.addShowViewShortcut(IPageLayout.ID_BOOKMARKS);
   layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
   layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
