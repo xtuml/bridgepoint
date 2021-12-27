@@ -55,4 +55,9 @@ public class ReferencePathManagement {
 		Referencepath_c referencePath = createOrGetReferencePath(nrme);
 		return referencePath.getPath();
 	}
+
+	public static Referencepath_c getPath(String represents) {
+		return Referencepath_c.ReferencepathInstance(Ooaofgraphics.getDefaultInstance(),
+				rp -> ((Referencepath_c) rp).getPath().equals(represents));
+	}
 }

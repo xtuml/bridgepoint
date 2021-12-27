@@ -58,68 +58,68 @@ public class WriteTransactionListener implements ITransactionListener {
 						// path
 						boolean triggersWrite = false;
 						NonRootModelElement modelElement = null;
-						RelationshipChangeModelDelta rcmd = (RelationshipChangeModelDelta) delta;
-						if (rcmd.getModelElement() instanceof ComponentReference_c) {
-							if (rcmd.getRelationName().equals("4201")) {
-								triggersWrite = true;
-							}
-						}
-						// look at interface ref formalization
-						if (rcmd.getModelElement() instanceof InterfaceReference_c) {
-							if (rcmd.getRelationName().equals("4012")) {
-								triggersWrite = true;
-								// we need the component container for graphics
-								modelElement = ((NonRootModelElement) delta.getModelElement()).getPersistableComponent()
-										.getParent().getRootModelElement();
-							}
-						}
-						// look at participant formalization
-						if (rcmd.getModelElement() instanceof PackageParticipant_c) {
-							if (rcmd.getRelationName().equals("956")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof ClassParticipant_c) {
-							if (rcmd.getRelationName().equals("939")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof ClassInstanceParticipant_c) {
-							if (rcmd.getRelationName().equals("934")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof ComponentParticipant_c) {
-							if (rcmd.getRelationName().equals("955")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof ExternalEntityParticipant_c) {
-							if (rcmd.getRelationName().equals("933")) {
-								triggersWrite = true;
-							}
-						}
-						// look at event assignment
-						if (rcmd.getDestinationModelElement() instanceof Transition_c) {
-							if (rcmd.getRelationName().equals("507")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof CreationTransition_c) {
-							if (rcmd.getRelationName().equals("509")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof SynchronousMessage_c) {
-							if (rcmd.getRelationName().equals("1020")) {
-								triggersWrite = true;
-							}
-						}
-						if (rcmd.getModelElement() instanceof AsynchronousMessage_c) {
-							if (rcmd.getRelationName().equals("1019")) {
-								triggersWrite = true;
-							}
-						}
+//						RelationshipChangeModelDelta rcmd = (RelationshipChangeModelDelta) delta;
+//						if (rcmd.getModelElement() instanceof ComponentReference_c) {
+//							if (rcmd.getRelationName().equals("4201")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						// look at interface ref formalization
+//						if (rcmd.getModelElement() instanceof InterfaceReference_c) {
+//							if (rcmd.getRelationName().equals("4012")) {
+//								triggersWrite = true;
+//								// we need the component container for graphics
+//								modelElement = ((NonRootModelElement) delta.getModelElement()).getPersistableComponent()
+//										.getParent().getRootModelElement();
+//							}
+//						}
+//						// look at participant formalization
+//						if (rcmd.getModelElement() instanceof PackageParticipant_c) {
+//							if (rcmd.getRelationName().equals("956")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof ClassParticipant_c) {
+//							if (rcmd.getRelationName().equals("939")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof ClassInstanceParticipant_c) {
+//							if (rcmd.getRelationName().equals("934")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof ComponentParticipant_c) {
+//							if (rcmd.getRelationName().equals("955")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof ExternalEntityParticipant_c) {
+//							if (rcmd.getRelationName().equals("933")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						// look at event assignment
+//						if (rcmd.getDestinationModelElement() instanceof Transition_c) {
+//							if (rcmd.getRelationName().equals("507")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof CreationTransition_c) {
+//							if (rcmd.getRelationName().equals("509")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof SynchronousMessage_c) {
+//							if (rcmd.getRelationName().equals("1020")) {
+//								triggersWrite = true;
+//							}
+//						}
+//						if (rcmd.getModelElement() instanceof AsynchronousMessage_c) {
+//							if (rcmd.getRelationName().equals("1019")) {
+//								triggersWrite = true;
+//							}
+//						}
 						if (triggersWrite) {
 							if (modelElement == null) {
 								modelElement = (NonRootModelElement) delta.getModelElement();

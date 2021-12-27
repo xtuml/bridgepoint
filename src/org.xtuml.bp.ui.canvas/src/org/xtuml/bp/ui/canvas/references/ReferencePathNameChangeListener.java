@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.common.Activepoller_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
@@ -93,14 +92,8 @@ public class ReferencePathNameChangeListener extends ModelChangeAdapter
 								.getOneR_RPOnR500(Objectreference_c.getManyR_ORsOnR501(oria));
 						if (path != null) {
 							NonRootModelElement pathElement = (NonRootModelElement) path.getElement();
-							// get the last object ref identifying attribute
-							Objectreference_c ref = Objectreference_c.getOneR_OROnR500(path, or -> ((Objectreference_c) or).getPrevious_id().equals(Gd_c.Null_unique_id()));
-							Objectreferenceidentifyingattribute_c lastAttrId = Objectreferenceidentifyingattribute_c.getOneR_ORIAOnR501(ref);
-							while(ref != null) {
-								lastAttrId = Objectreferenceidentifyingattribute_c.getOneR_ORIAOnR501(ref);
-								ref = Objectreference_c.getOneR_OROnR503Succeeds(ref);
-							}
-							boolean requiresFileRename = lastAttrId == oria;
+							boolean requiresFileRename = pathElement.getPersistableComponent()
+									.getRootModelElement() == pathElement;
 							/**
 							 * Rewrite all path's root pmc asscoiated graphics
 							 */
@@ -111,8 +104,9 @@ public class ReferencePathNameChangeListener extends ModelChangeAdapter
 										writer.write(pathElement);
 										written.add(pathElement);
 									}
-									if(requiresFileRename && !written.contains(path.getElement())) {
-										writer.nameChange((NonRootModelElement) path.getElement(), oria.getPrevious_value());
+									if (requiresFileRename && !written.contains(path.getElement())) {
+										writer.nameChange((NonRootModelElement) path.getElement(),
+												oria.getPrevious_value());
 										writer.write((NonRootModelElement) path.getElement());
 										written.add((NonRootModelElement) path.getElement());
 										writer.write(PersistenceManager.getHierarchyMetaData().getParent(pathElement));

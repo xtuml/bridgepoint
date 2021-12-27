@@ -1,5 +1,7 @@
 package org.xtuml.bp.core.paths;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -13,6 +15,8 @@ import org.xtuml.bp.core.common.IModelDelta;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.ModelElement;
+import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.RelationshipChangeModelDelta;
 import org.xtuml.bp.core.inspector.ModelInspector;
 
 public class ElementNameChangeManagement extends ModelChangeAdapter {
@@ -50,6 +54,17 @@ public class ElementNameChangeManagement extends ModelChangeAdapter {
 		if (attributeChange.getAttributeName().equals(namingAttribute)) {
 			fireNameChange(attributeChange.getModelElement(), attributeChange.getNewValue(),
 					attributeChange.getOldValue());
+		}
+	}
+
+	List<String> identifyingAssociations = List.of("4201", "4012", "956", "939", "934", "955", "933", "507", "509",
+			"1020", "1019");
+
+	@Override
+	public void modelElementRelationChanged(ModelChangedEvent event, IModelDelta delta) {
+		RelationshipChangeModelDelta rDelta = (RelationshipChangeModelDelta) delta;
+		if (identifyingAssociations.contains(rDelta.getRelationName())) {
+			fireNameChange(rDelta.getModelElement(), ((NonRootModelElement) rDelta.getModelElement()).Get_name(), "");
 		}
 	}
 
