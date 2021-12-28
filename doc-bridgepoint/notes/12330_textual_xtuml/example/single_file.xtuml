@@ -1,0 +1,519 @@
+package Tracking is
+
+  component Tracking is
+
+    package ConstantSpecifications is
+    
+      constant group GoalAchievement is
+        evaluationPeriod = 3000000;
+      end constant group;
+    
+      constant group GoalSpecConstants is
+        GoalSpecOrigin = 1;
+      end constant group;
+    
+      constant group HeartRateConstants is
+        HeartRateAveragingWindow = 5;
+        HeartRateSamplingPeriod = 3;
+      end constant group;
+    
+      constant group Speed is
+        SpeedAveragingWindow = 5;
+        SecondsPerHour = 3600;
+      end constant group;
+    
+      constant group WorkoutTimerConstants is
+        timerPeriod = 1;
+      end constant group;
+    
+    end package;
+
+    package DistanceUtil is
+      function getDistance(fromLat: real, fromLong: real, toLat: real, toLong: real) return real;
+    end package;
+
+    package functions is
+      function heartRateChanged(heartRate: integer);
+      function lapResetPressed();
+      function lightPressed();
+      function locationChanged(latitude: real, longitude: real);
+      function modePressed();
+      function newGoalSpec(spanType: GoalSpan, criteriaType: GoalCriteria, span: real, maximum: real, minimum: real, sequenceNumber: integer);
+      function setTargetPressed();
+      function startStopPressed();
+    end package;
+
+    package TargetTesting is
+      function GoalTest_1();
+      function Initialize();
+    end package;
+
+    package Tracking is
+
+      relationship R1 is TrackLog conditionally 'has first' one TrackPoint,
+                         TrackPoint conditionally 'is start of' one TrackLog;
+
+      relationship R2 is TrackPoint conditionally follows one TrackPoint,
+                         TrackPoint conditionally preceeds one TrackPoint;
+
+      relationship R3 is TrackLog conditionally 'has last' one TrackPoint,
+                         TrackPoint conditionally 'is last for' one TrackLog;
+
+      relationship R5 is TrackLog conditionally 'has laps defined by' many LapMarker,
+                         LapMarker unconditionally 'marks end of lap in' one TrackLog;
+
+      relationship R7 is WorkoutSession unconditionally 'current status indicated on' one Display,
+                         Display unconditionally 'indicates current status of' one WorkoutSession;
+
+      relationship R8 is WorkoutSession unconditionally 'is timed by' one WorkoutTimer,
+                         WorkoutTimer unconditionally 'acts as the stopwatch for' one WorkoutSession;
+
+      relationship R4 is WorkoutSession unconditionally 'captures path in' one TrackLog,
+                         TrackLog unconditionally 'represents path for' one WorkoutSession;
+
+      relationship R6 is WorkoutSession conditionally 'tracks heart rate over time as' many HeartRateSample,
+                         HeartRateSample unconditionally 'was collected during' one WorkoutSession;
+
+      relationship R9 is GoalSpec conditionally specifies many Goal,
+                         Goal unconditionally one GoalSpec;
+
+      relationship R10 is WorkoutSession conditionally includes many GoalSpec,
+                          GoalSpec unconditionally 'included in' one WorkoutSession;
+
+      relationship R11 is WorkoutSession conditionally 'is currently executing' one Goal,
+                          Goal conditionally 'is currently executing within' one WorkoutSession;
+
+      relationship R12 is Goal conditionally 'has recorded' many Achievement,
+                          Achievement unconditionally 'specifies achievement of' one Goal;
+
+      relationship R13 is WorkoutSession conditionally 'has executed' many Goal,
+                          Goal unconditionally 'was executed within' one WorkoutSession;
+
+      relationship R14 is Goal conditionally 'has open' one Achievement,
+                          Achievement conditionally 'is open for' one Goal;
+
+      class 'Workout Session' [WorkoutSession] is
+
+        startTime: preferred timestamp;
+        accumulatedDistance: real;
+
+        operation addHeartRateSample(heartRate: integer);
+        operation clearHeartRateSamples();
+        class operation initialize();
+        operation reset();
+        operation getCurrentSpeed() return real;
+        operation getCurrentPace() return real;
+        operation getCurrentHeartRate() return integer;
+
+      end class;
+
+      class 'Workout Timer' [WorkoutTimer] is
+
+        session_startTime: preferred referential(R8.'acts as the stopwatch for'.WorkoutSession.startTime) timestamp;
+        time: integer;
+        timer: timer;
+
+        operation activate();
+        operation deactivate();
+        operation initialize();
+
+      end class;
+
+      class 'Track Point' [TrackPoint] is
+
+        time: preferred integer;
+        longitude: real;
+        latitude: real;
+        session_startTime: preferred referential(R1.'is start of'.TrackLog.session_startTime,
+                                                 R3.'is last for'.TrackLog.session_startTime,
+                                                 R2.preceeds.TrackPoint.session_startTime) timestamp;
+        next_time: referential(R2.preceeds.TrackPoint.time) integer;
+
+        statemachine is
+
+           state stopped;
+           state running;
+           state paused;
+           state processingStart;
+           state resetLap;
+
+           event startStopPressed();
+           event lapResetPressed();
+           event tick();
+           event pause();
+           event resume();
+           event startTimer();
+           event lapResetComplete();
+
+           matrix is
+
+            |                 | startStopPressed | lapResetPressed | tick          | pause         | resume        | startTimer    | lapResetComplete |
+            | --------------- | ---------------- | --------------- | ------------- | ------------- | ------------- | ------------- | ---------------- |
+            | stopped         | processingStart  | ignore          | ignore        | cannot_happen | cannot_happen | cannot_happen | cannot_happen    |
+            | running         | paused           | resetLap        | running       | cannot_happen | cannot_happen | cannot_happen | cannot_happen    |
+            | paused          | processingStart  | stopped         | ignore        | cannot_happen | cannot_happen | cannot_happen | cannot_happen    |
+            | processingStart | cannot_happen    | cannot_happen   | cannot_happen | cannot_happen | cannot_happen | running       | cannot_happen    |
+            | resetLap        | cannot_happen    | cannot_happen   | cannot_happen | cannot_happen | cannot_happen | cannot_happen | running          |
+
+          end matrix;
+
+        end statemachine;
+
+      end class;
+
+      class 'Track Log' [TrackLog] is
+
+        session_startTime: preferred referential(R4.'represents path for'.WorkoutSession.startTime) timestamp;
+
+        operation addTrackPoint();
+        operation clearTrackPoints();
+        operation addLapMarker();
+        operation clearLapMarkers();
+        operation updateDisplay();
+
+      end class;
+
+      class 'Lap Marker' [LapMarker] is
+
+        session_startTime: preferred referential(R5.'marks end of lap in'.TrackLog.session_startTime) timestamp;
+        lapTime: preferred integer;
+
+      end class;
+
+      class 'Heart Rate Sample' [HeartRateSample] is
+
+        session_startTime: preferred referential(R6.'was collected during'.WorkoutSession.startTime) timestamp;
+        time: preferred integer;
+        heartRate: integer;
+
+      end class;
+
+      class 'Goal Spec' [GoalSpec] is
+
+        minimum: real;
+        maximum: real;
+        span: real;
+        criteriaType: GoalCriteria;
+        spanType: GoalSpan;
+        sequenceNumber: preferred integer;
+        session_startTime: preferred referential(R10.'included in'.WorkoutSession.startTime) timestamp;
+        last_goal_ID: integer;
+
+      end class;
+
+      class Goal is
+
+        session_startTime: preferred referential(R9.'specified by'.GoalSpec.session_startTime,
+                                                 R11.'is currently executing within'.WorkoutSession.startTime,
+                                                 R13.'was executed within'.WorkoutSession.startTime) timestamp;
+        spec_sequenceNumber: preferred referential(R9.'specified by'.GoalSpec.sequenceNumber) integer;
+        disposition: GoalDisposition;
+        startingPoint: real;
+        ID: preferred integer;
+        evaluationTimer: timer;
+
+        class operation initialize(sequenceNumber: integer);
+        operation calculateStart();
+        operation evaluateAchievement() return GoalDisposition;
+        operation evaluateCompletion();
+        class operation nextGoal();
+
+        statemachine is
+
+          state Executing;
+          state Completed;
+          state Paused;
+          state Evaluating;
+
+          event Completed();
+          event Evaluate();
+          event Pause();
+          event evaluationComplete();
+
+          matrix is
+
+            |            | Completed     | Evaluate      | Pause         | evaluationComplete |
+            | ---------- | ------------- | ------------- | ------------- | ------------------ |
+            | Executing  | Completed     | Executing     | Paused        | cannot_happen      |
+            | Completed  | ignore        | ignore        | cannot_happen | cannot_happen      |
+            | Paused     | Completed     | Evaluating    | cannot_happen | cannot_happen      |
+            | Evaluating | cannot_happen | cannot_happen | cannot_happen | Executing          |
+
+          end matrix;
+
+        end statemachine;
+
+      end class;
+
+      class Display is
+
+        session_startTime: preferred referential(R7.'indicates current status of'.WorkoutSession.startTime) timestamp;
+
+        class operation goalDispositionIndicator() return Indicator;
+
+        statemachine is
+
+          state displayDistance;
+          state displaySpeed;
+          state displayPace;
+          state displayHeartRate;
+          state displayLapCount;
+
+          event modeChange();
+          event refresh();
+
+          matrix is
+
+            |                  | modeChange       | refresh          |
+            | ---------------- | ---------------- | ---------------- |
+            | displayDistance  | displaySpeed     | displayDistance  |
+            | displaySpeed     | displayPace      | displaySpeed     |
+            | displayPace      | displayHeartRate | displayPace      |
+            | displayHeartRate | displayLapCount  | displayHeartRate |
+            | displayLapCount  | displayDistance  | displayLapCount  |
+
+          end matrix;
+
+        end statemachine;
+
+      end class;
+
+      class Achievement is
+
+        session_startTime: preferred referential(R12.'specifies achievement of'.Goal.session_startTime,
+                                                 R14.'is open for'.Goal.session_startTime) timestamp;
+        spec_sequenceNumber: preferred referential(R12.'specifies achievement of'.Goal.spec_sequenceNumber,
+                                                   R14.'is open for'.Goal.spec_sequenceNumber) integer;
+        goal_ID: preferred referential(R12.'specifies achievement of'.Goal.ID,
+                                       R14.'is open for'.Goal.ID) integer;
+        startTime: preferred integer;
+        endTime: integer;
+
+        operation close();
+
+      end class;
+
+    end package;
+  
+    package Shared is Tracking::Shared;
+    package HRMShared is HeartRateMonitor::Shared;
+    package LocationShared is Location::Shared;
+    package UIShared is UI::Shared;
+  
+    required port HR implements HRMShared::HeartRateProvider;
+    required port LOC implements LocationShared::LocationProvider;
+    required port UI implements UIShared::UI;
+  
+  end component;
+
+  package Shared is
+    type GoalCriteria is enum (HeartRate, Pace);
+    type GoalDisposition is enum (Achieving, Increase, Decrease);
+    type GoalSpan is enum (Distance, Time);
+    type Indicator is enum (Blank, Down, Flat, Up);
+    type Unit is enum (km, meters, minPerKm, miles, yards, feet, minPerMile, mph, bpm, laps);
+  end package;
+
+end package;
+
+package HeartRateMonitor is
+
+  component HeartRateMonitor is
+
+    package functions is
+      function registerListener();
+      function unregisterListener();
+    end package;
+
+    package HeartRateMonitor is
+
+      constant group HeartRateConstants is
+        HeartRateAveragingWindow = 5;
+        HeartRateSamplingPeriod = 3;
+      end constant group;
+
+      class 'Heart Rate Monitor' [HeartRateMonitor] is
+
+        id: preferred integer;
+        recentHeartRate: integer;
+        timer: timer;
+
+        class operation initialize();
+
+        statemachine is
+
+          state idle;
+          state monitoring;
+          state Registering;
+          state Unregistering;
+
+          event timeout();
+          event registerComplete();
+          event unregisterComplete();
+          event registerListener();
+          event unregisterListener();
+
+          matrix is
+
+            |               | timeout       | registerComplete | unregisterComplete | registerListener | unregisterListener |
+            | ------------- | ------------- | ---------------- | ------------------ | ---------------- | ------------------ |
+            | idle          | cannot_happen | cannot_happen    | cannot_happen      | Registering      | cannot_happen      |
+            | monitoring    | monitoring    | cannot_happen    | cannot_happen      | cannot_happen    | Unregistering      |
+            | Registering   | cannot_happen | monitoring       | cannot_happen      | cannot_happen    | cannot_happen      |
+            | Unregistering | cannot_happen | cannot_happen    | idle               | cannot_happen    | cannot_happen      |
+
+          end matrix;
+
+        end statemachine;
+
+      end class;
+
+    end package;
+
+    package Shared is HeartRateMonitor::Shared;
+
+    provided port HR implements HeartRateMonitor;
+
+  end component;
+
+  package Shared is
+
+    interface HeartRateMonitor is
+      message registerListener() to provider;
+      message unregisterListener() to provider;
+      message heartRateChanged(heartRate: integer) from provider;
+    end interface;
+
+  end package;
+
+end package;
+
+package Location is
+
+  component Location is
+
+    package functions is
+      function registerListener();
+      function unregisterListener();
+    end package;
+
+    package Location is
+
+      class GPS is
+
+        id: preferred integer;
+        currentLatitude: real;
+        currentLongitude: real;
+        motionSegments: integer;
+        timer: timer;
+
+        class operation initialize();
+
+        statemachine is
+
+          state idle;
+          state locating;
+          state registeringListener;
+          state unregistering;
+
+          event tick();
+          event registeringComplete();
+          event registerListener();
+          event unregisterListener();
+          event unregisterComplete();
+
+          matrix is
+
+           |                     | tick          | registeringComplete | registerListener    | unregisterListener | unregisterListener | unregisterComplete |
+           | ------------------- | ------------- | ------------------- | ------------------- | ------------------ | ------------------ | ------------------ |
+           | idle                | cannot_happen | cannot_happen       | registeringListener | cannot_happen      | cannot_happen      | cannot_happen      |
+           | locating            | locating      | cannot_happen       | cannot_happen       | cannot_happen      | unregistering      | cannot_happen      |
+           | registeringListener | cannot_happen | locating            | cannot_happen       | cannot_happen      | cannot_happen      | cannot_happen      |
+           | unregistering       | cannot_happen | cannot_happen       | cannot_happen       | cannot_happen      | cannot_happen      | idle               |
+
+          end matrix;
+
+        end statemachine;
+
+      end class;
+
+      class 'Simulated GPS' [simulatedGPS] is
+
+        id: preferred integer;
+        initialLatitude: real;
+        initialLongitude: real;
+        latitudeIncrement: real;
+        longitudeIncrement: real;
+        updatePeriod: integer;
+
+        class operation initialize();
+
+      end class;
+
+    end package;
+
+    package Shared is Location::Shared;
+
+    provided port LOC implements LocationProvider;
+
+  end component;
+
+  package Shared is
+
+    interface LocationProvider is
+      message registerListener() to provider;
+      message unregisterListener() to provider;
+      message locationChanged(latitude: real, longitude: real) from provider;
+    end interface;
+
+  end package;
+
+end package;
+
+package UI is
+
+  component UI is
+
+    package functions is
+      function setData(value: real, unit: Unit);
+      function setIndicator(indicator: Indicator);
+      function setTime(time: integer);
+    end package;
+    
+    package TrackingShared is Tracking::Shared;
+    package Shared is UI::Shared;
+
+    provided port UI implements UI;
+
+  end component;
+
+  package Shared is
+
+    interface UI is
+      message setTime(time: integer) to provider;
+      message setData(value: real, unit: Unit) to provider;
+      message setIndicator(indicator: Indicator) to provider;
+      message setTargetPressed() from provider;
+      message startStopPressed() from provider;
+      message lapResetPressed() from provider;
+      message lightPressed() from provider;
+      message modePressed() from provider;
+      message newGoalSpec(spanType: GoalSpan, criteriaType: GoalCriteria, span: real, maximum: real, minimum: real, sequenceNumber: integer) from provider;
+    end interface;
+
+  end package;
+
+end package;
+
+package 'GPS Watch' [GPS_Watch] is
+
+  component Tracking is Tracking::Tracking;
+  component Location is Location::Location;
+  component HeartRateMonitor is HeartRateMonitor::HeartRateMonitor;
+  component UI is UI::UI;
+
+  satisfaction is Tracking::LOC -(o- Location::LOC;
+  satisfaction is Tracking::UI  -(o- UI::UI;
+  satisfaction is Tracking::HRl -(o- HeartRateMonitor::HR;
+
+end package;

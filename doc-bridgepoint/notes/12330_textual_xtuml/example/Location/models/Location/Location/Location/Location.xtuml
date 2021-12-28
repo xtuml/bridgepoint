@@ -1,0 +1,32 @@
+within Location::Location is
+
+  package Location is
+
+    class GPS is
+
+      id: preferred integer;
+      currentLatitude: real;
+      currentLongitude: real;
+      motionSegments: integer;
+      timer: timer;
+
+      class operation initialize();
+
+    end class;
+
+    class 'Simulated GPS' [simulatedGPS] is
+
+      id: preferred integer;
+      initialLatitude: real;
+      initialLongitude: real;
+      latitudeIncrement: real;
+      longitudeIncrement: real;
+      updatePeriod: integer;
+
+      class operation initialize();
+
+    end class;
+
+  end package;
+
+end;

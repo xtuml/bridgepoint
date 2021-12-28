@@ -1,0 +1,13 @@
+within UI is
+
+  component UI is
+    
+    package functions;
+    package TrackingShared is Tracking::Shared;
+    package Shared is UI::Shared;
+
+    provided port UI implements UI;
+
+  end component;
+
+end;

@@ -1,0 +1,11 @@
+within UI::UI is
+
+  package functions is
+
+    function setData(value: real, unit: Unit);
+    function setIndicator(indicator: Indicator);
+    function setTime(time: integer);
+
+  end package;
+
+end;

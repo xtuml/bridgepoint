@@ -1,0 +1,13 @@
+within Tracking is
+
+  package Shared is
+  
+    type GoalCriteria is enum (HeartRate, Pace);
+    type GoalDisposition is enum (Achieving, Increase, Decrease);
+    type GoalSpan is enum ( Distance, Time);
+    type Indicator is enum (Blank, Down, Flat, Up);
+    type Unit is enum (km, meters, minPerKm, miles, yards, feet, minPerMile, mph, bpm, laps);
+  
+  end package;
+
+end;

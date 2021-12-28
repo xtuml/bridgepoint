@@ -1,0 +1,23 @@
+within Tracking::Tracking is
+
+  package functions is
+  
+    function heartRateChanged(heartRate: integer);
+  
+    function lapResetPressed();
+  
+    function lightPressed();
+  
+    function locationChanged(latitude: real, longitude: real);
+  
+    function modePressed();
+  
+    function newGoalSpec(spanType: GoalSpan, criteriaType: GoalCriteria, span: real, maximum: real, minimum: real, sequenceNumber: integer);
+  
+    function setTargetPressed();
+  
+    function startStopPressed();
+  
+  end package;
+
+end;

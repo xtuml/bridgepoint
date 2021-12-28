@@ -1,0 +1,6 @@
+package Location is
+
+  package Location;
+  package Shared;
+
+end package;

@@ -1,0 +1,16 @@
+within Location is
+
+  package Shared is
+
+    interface LocationProvider is
+
+      message registerListener() to provider;
+      message unregisterListener() to provider;
+
+      message locationChanged(latitude: real, longitude: real) from provider;
+
+    end interface;
+
+  end package;
+
+end;
