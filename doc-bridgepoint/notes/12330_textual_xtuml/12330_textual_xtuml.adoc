@@ -2,15 +2,16 @@
 
 == 1 Abstract
 
-This document defines the textual representation of the xtUML modeling language.
+This document defines the textual representation of the xtUML modeling
+language.
 
 == 2 Introduction and Background
 
 ===== 2.1 Motivation
 
 It has long been a goal to migrate away from instance-based persistence of
-xtUML models as SQL insert statements and to a semantic text based format. There
-are several benefits to this, but here are two of the most important:
+xtUML models as SQL insert statements and to a semantic text based format.
+There are several benefits to this, but here are two of the most important:
 
 - Human readable/editable without a dedicated tool
 - Diff/mergeable
@@ -75,7 +76,8 @@ This analysis primarily focuses on #3. #2 is a natural fallout from this work
 and once a textual specification is agreed upon, a metamodel may be represented
 in that language -- independent of any one existing tool.
 
-As I have been writing this document I have been wrestling with a two key challenges:
+As I have been writing this document I have been wrestling with a two key
+challenges:
 
 1. How to support MASL as it exists today while providing a way to move forward
    with convergence
@@ -174,7 +176,7 @@ which root model elements are defined.
 The suggested implementation of tree structure is as follows:
 
 - All structural files use the `.xtuml` extension.
-- File names are defined by the simple name (<<_4_1_5_element_naming>>) of the
+- File names are defined by the simple name (<<4.1.5 Element naming>>) of the
   principal element within the file
 - Packages and components are defined in a separate file within a directory of
   the same name.
@@ -295,8 +297,7 @@ contained by the containing element (indirect containment).
 Package references allow packages to be reused in multiple components. A
 package reference is a package itself which contains all elements contained by
 the referred to package. The elements defined within a package that is included
-by reference are contained within multiple multiple branches of the model
-element tree.
+by reference are contained within multiple branches of the model element tree.
 
 ==== 4.1.4 Element visibility
 
@@ -395,25 +396,25 @@ class 'Dog Owner'[DogOwner] is
 
 ===== 4.1.5.1 Naming special cases
 
-Satisfactions may defined with no simple name, however a simple name may be
+Satisfactions may be defined with no simple name, however a simple name may be
 required to reference a satisfaction by marking.
 
 The simple name for a class identifier is implied to be "I" followed by the
 index of the identifier according to the order defined. Indices start at 2
 since the preferred identifier is considered to be "I1"
-(see <<_4_2_6_2_identifier>>).
+(see <<4.2.6.2 Identifier>>).
 
 State machines and state event matrices are unnamed. Since each class
 definition can define no more than one state machine and each state machine
 must define exactly one matrix, the name of the class is sufficient to
-reference the state machine or matrix (see <<_4_2_6_4_state_machine>>).
+reference the state machine or matrix (see <<4.2.6.4 State Machine>>).
 
 ===== 4.1.5.2 Duplicate names
 
 Elements may not have identical simple names in the same container. For
 example, a component may not define both a package and a port with the simple
 name "UI". Action body overloading is an exception to this rule
-(see <<_4_1_6_2_overloading_executable_model_elements>>).
+(see <<4.1.6.2 Overloading executable model elements>>).
 
 Elements which are contained in different containers may have identical simple
 names.
@@ -457,7 +458,7 @@ are included by a package reference.
 
 Named elements may always be referenced by their fully qualified name.
 
-Named elements in the same scope may be referenced by simple name only
+Named elements in the same scope may be referenced by simple name only.
 
 If a name conflict exists in the scope, an element may need to be
 referenced by partially qualified name.
@@ -506,7 +507,7 @@ function. If unspecified, parameters are "in".
 Although events are not executable elements, they carry parameters. Events may
 not be overloaded. The parameters of an event determine the parameters of state
 entry actions and transtion actions which they induce (See
-<<_4_2_6_4_5_same_data_rule>>).
+<<4.2.6.4.5 Same data rule>>).
 
 ===== 4.1.6.2 Overloading executable model elements
 
@@ -535,7 +536,7 @@ The type system is based on the MASL type system. Types are specified for typed
 model elements by referencing existing types in the system. Type references may
 simply name a type or they may modify the type in some way. User defined types
 may be created to extend existing types or create brand new ones. See
-<<_4_2_10_type>> for details on defining new types.
+<<4.2.10 Type>> for details on defining new types.
 
 ===== 4.1.7.1 Builtin types
 
@@ -580,7 +581,8 @@ There are 5 types of collection types:
 - bag
 - dictionary
 
-The following table compares the collection types according to their properties.
+The following table compares the collection types according to their
+properties.
 
 |===
 | | is ordered | allows duplicates | fixed length
@@ -640,7 +642,8 @@ combinations of the following expression types:
 
 - Named references (e.g. enumerator name)
 - Range expression
-- Binary operations (including logical, relational, concatenation, and arithmetic operations)
+- Binary operations (including logical, relational, concatenation, and
+  arithmetic operations)
 - Unary operations (including logical and numerical negation, absolute value)
 - Literal value
 
@@ -693,7 +696,7 @@ Note: `domain` is a lexical synonym for `component`
 Ports are defined directly within a component. They may not be imported into
 other components. Ports may be "provided" or "required". If not specified,
 ports are "required". A port may implement an interface or it may define
-messages directly. See <<_4_2_3_1_message>> for more detail on messages.
+messages directly. See <<4.2.3.1 Message>> for more detail on messages.
 
 ```
 provided port LOC implements LocationProvider;
@@ -722,7 +725,8 @@ port Display is Calculator::Display;
 
 ==== 4.2.3 Interface
 
-Interfaces define an abstract set of messages which will be implemented by a port.
+Interfaces define an abstract set of messages which will be implemented by a
+port.
 
 ```
 interface LocationProvider is
@@ -764,7 +768,8 @@ message login(username: string, password: string) to provider expects loginResul
 message loginResult(successful: boolean, message: string) from provider;
 ```
 
-Note: to maintain compatibility with MASL, the `service` keyword may be used in place of `message`.
+Note: to maintain compatibility with MASL, the `service` keyword may be used in
+place of `message`.
 
 ==== 4.2.4 Satisfaction
 
@@ -910,7 +915,7 @@ secondary identifier being "I2" and so on.
 
 ===== 4.2.6.3 Operation
 
-Synchronous executable bodies may be defined within a class. Operations can
+Synchronous executable bodies may be defined within a class. Operations can be
 instance or class based. If not specified, operations are instance based.
 Class based operations are semantically similar to domain functions, however it
 is often advantageous to define them on the class if their behavior is
@@ -926,7 +931,7 @@ deferred operation is invoked, the subtype is selected across the specified
 relationship and the operation in the subtype with the same signature is
 invoked. If the subtype operation does not exist, the body in the supertype
 class is executed. If neither body exists, default behavior is followed as
-specified in <<_4_1_6_executable_model_elements>>.
+specified in <<4.1.6 Executable model elements>>.
 
 ===== 4.2.6.4 State Machine
 
@@ -937,12 +942,13 @@ class whereas class state machines define the behavior of the class as a whole.
 
 ===== 4.2.6.4.1 States
 
-States are defined within state machines. Parameters may be specified for the state entry action,
-however it is not required in most cases (see <<_4_2_6_4_5_same_data_rule>>). In addition to the states defined
-within the state machine, every state machine has a logical initial state
-called the "null state". Class state machines are in the "null state" at system
-startup and instance state machines are in the "null state" when a new instance
-of a class is created.
+States are defined within state machines. Parameters may be specified for the
+state entry action, however it is not required in most cases (see
+<<4.2.6.4.5 Same data rule>>). In addition to the states defined within the
+state machine, every state machine has a logical initial state called the "null
+state". Class state machines are in the "null state" at system startup and
+instance state machines are in the "null state" when a new instance of a class
+is created.
 
 .TODO do we keep `terminal` states? What is the purpose? Ideas:
 - Transitions out of terminal states are invalid (don't really like this one)
@@ -951,7 +957,8 @@ of a class is created.
 ===== 4.2.6.4.2 Events
 
 Events are defined within state machines. Events are defined along with the
-parameter data which they can carry. "out" parameters are not allowed for events.
+parameter data which they can carry. "out" parameters are not allowed for
+events.
 
 ===== 4.2.6.4.3 State/Event Matrix
 
@@ -1151,7 +1158,8 @@ Functions may or may not return a value.
 function getDistance(fromLat: real, fromLong: real, toLat: real, toLong: real) return real;
 ```
 
-Note: to maintain compatibility with MASL the `service` keyword may replace `function`
+Note: to maintain compatibility with MASL the `service` keyword may replace
+`function`
 
 ==== 4.2.9 External entity
 
@@ -1176,7 +1184,7 @@ end external;
 
 ==== 4.2.10 Type
 
-In addition to the builtin types (See <<_4_1_7_type_system>>), named types may
+In addition to the builtin types (See <<4.1.7 Type system>>), named types may
 be defined by the user and included within components.
 
 The following types may be defined:
@@ -1269,7 +1277,8 @@ the default value is the same as the parent type.
 type Percentage is real = 100.0;
 ```
 
-Note: Not all types represented in this spec are currently supported in BridgePoint
+Note: Not all types represented in this spec are currently supported in
+BridgePoint
 
 ==== 4.2.11 Constant specification
 
@@ -1310,9 +1319,9 @@ Descriptions are special comments which come immediately before the elements
 they describe and serve to provide extra information about the element.
 
 
-Descriptions are any characters following the
-`//!` character sequence up to and including a line break. Descriptions are also any
-characters between the character sequences `/\*!` and `*/`
+Descriptions are any characters following the `//!` character sequence up to
+and including a line break. Descriptions are also any characters between the
+character sequences `/\*!` and `*/`
 
 Descriptions for some elements may be embedded in the descriptions for their
 containing element.
@@ -1361,9 +1370,24 @@ possible for a tool such as BridgePoint to implement an independent marking
 editor which would insert pragmas for MASL backends (similar to how it is done
 today).
 
-=== 4.5 Grammars
+== 5 Document References
 
-==== 4.5.1 Parser Grammar
+. [[dr-1]] https://support.onefact.net/issues/12330[12330 - Create proposal for textual specification of xtUML structural semantics]
+. [[dr-2]] https://raw.githubusercontent.com/xtuml/bridgepoint/master/src/org.xtuml.bp.doc/Reference/MASL/LanguageReference/current/maslrefman.pdf[MASL language reference (current)]
+. [[dr-3]] https://raw.githubusercontent.com/xtuml/bridgepoint/master/src/org.xtuml.bp.doc/Reference/MASL/LanguageReference/legacy/maslrefman.pdf[MASL language reference (legacy)]
+. [[dr-4]] https://github.com/xtuml/masl[MASL C++ model compiler and software architecture]
+
+== Appendix A: Example model
+
+For visualization purposes, the GPS Watch example has been converted into
+textual xtUML as defined in this document.  A version of the model split into a
+tree structure utilizing discontiguous definitions has been created along with
+the same model defined in a single `.xtuml` file.  Both can be found in the
+link:./example[example] folder.
+
+== Appendix B: Grammars
+
+=== B.1 Parser Grammar
 
 ```
 parser grammar XtumlParser;
@@ -1932,7 +1956,7 @@ transitionCell                  : eventReference FAT_ARROW endState
                                 ;
 ```
 
-==== 4.5.2 Lexer Grammar
+=== B.2 Lexer Grammar
 
 ```
 lexer grammar XtumlLexer;
@@ -2107,13 +2131,6 @@ BlockDescription                : '/*!' .*? '*/';
 BlockComment                    : '/*' .*? '*/' -> skip;
 Whitespace                      : (' ' | '\t' | '\f' | '\n' | '\r' )+ -> skip;
 ```
-
-== 5 Document References
-
-. [[dr-1]] https://support.onefact.net/issues/12330[12330 - Create proposal for textual specification of xtUML structural semantics]
-. [[dr-2]] https://raw.githubusercontent.com/xtuml/bridgepoint/master/src/org.xtuml.bp.doc/Reference/MASL/LanguageReference/current/maslrefman.pdf[MASL language reference (current)]
-. [[dr-3]] https://raw.githubusercontent.com/xtuml/bridgepoint/master/src/org.xtuml.bp.doc/Reference/MASL/LanguageReference/legacy/maslrefman.pdf[MASL language reference (legacy)]
-. [[dr-4]] https://github.com/xtuml/masl[MASL C++ model compiler and software architecture]
 
 ---
 

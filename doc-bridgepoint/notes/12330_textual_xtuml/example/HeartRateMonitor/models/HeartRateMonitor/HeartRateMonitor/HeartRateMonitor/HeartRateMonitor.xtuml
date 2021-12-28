@@ -1,0 +1,22 @@
+within HeartRateMonitor::HeartRateMonitor is
+
+  package HeartRateMonitor is
+
+    constant group HeartRateConstants is
+      HeartRateAveragingWindow = 5;
+      HeartRateSamplingPeriod = 3;
+    end constant group;
+
+    class 'Heart Rate Monitor' [HeartRateMonitor] is
+
+      id: preferred integer;
+      recentHeartRate: integer;
+      timer: timer;
+
+      class operation initialize();
+
+    end class;
+
+  end package;
+
+end;

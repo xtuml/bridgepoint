@@ -1,0 +1,12 @@
+package 'GPS Watch' [GPS_Watch] is
+
+  component Tracking is Tracking::Tracking;
+  component Location is Location::Location;
+  component HeartRateMonitor is HeartRateMonitor::HeartRateMonitor;
+  component UI is UI::UI;
+
+  satisfaction is Tracking::LOC -(o- Location::LOC;
+  satisfaction is Tracking::UI  -(o- UI::UI;
+  satisfaction is Tracking::HRl -(o- HeartRateMonitor::HR;
+
+end package;

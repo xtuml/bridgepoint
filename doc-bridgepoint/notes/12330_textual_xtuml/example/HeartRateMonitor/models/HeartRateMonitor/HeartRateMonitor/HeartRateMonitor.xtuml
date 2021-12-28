@@ -1,0 +1,13 @@
+within HeartRateMonitor is
+
+  component HeartRateMonitor is
+
+    package functions;
+    package HeartRateMonitor;
+    package Shared is HeartRateMonitor::Shared;
+
+    provided port HR implements HeartRateMonitor;
+
+  end component;
+
+end;

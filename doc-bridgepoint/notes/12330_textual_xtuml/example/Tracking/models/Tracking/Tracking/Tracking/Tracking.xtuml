@@ -1,0 +1,170 @@
+within Tracking::Tracking is
+
+  package Tracking is
+
+    relationship R1 is TrackLog conditionally 'has first' one TrackPoint,
+                       TrackPoint conditionally 'is start of' one TrackLog;
+
+    relationship R2 is TrackPoint conditionally follows one TrackPoint,
+                       TrackPoint conditionally preceeds one TrackPoint;
+
+    relationship R3 is TrackLog conditionally 'has last' one TrackPoint,
+                       TrackPoint conditionally 'is last for' one TrackLog;
+
+    relationship R5 is TrackLog conditionally 'has laps defined by' many LapMarker,
+                       LapMarker unconditionally 'marks end of lap in' one TrackLog;
+
+    relationship R7 is WorkoutSession unconditionally 'current status indicated on' one Display,
+                       Display unconditionally 'indicates current status of' one WorkoutSession;
+
+    relationship R8 is WorkoutSession unconditionally 'is timed by' one WorkoutTimer,
+                       WorkoutTimer unconditionally 'acts as the stopwatch for' one WorkoutSession;
+
+    relationship R4 is WorkoutSession unconditionally 'captures path in' one TrackLog,
+                       TrackLog unconditionally 'represents path for' one WorkoutSession;
+
+    relationship R6 is WorkoutSession conditionally 'tracks heart rate over time as' many HeartRateSample,
+                       HeartRateSample unconditionally 'was collected during' one WorkoutSession;
+
+    relationship R9 is GoalSpec conditionally specifies many Goal,
+                       Goal unconditionally one GoalSpec;
+
+    relationship R10 is WorkoutSession conditionally includes many GoalSpec,
+                        GoalSpec unconditionally 'included in' one WorkoutSession;
+
+    relationship R11 is WorkoutSession conditionally 'is currently executing' one Goal,
+                        Goal conditionally 'is currently executing within' one WorkoutSession;
+
+    relationship R12 is Goal conditionally 'has recorded' many Achievement,
+                        Achievement unconditionally 'specifies achievement of' one Goal;
+
+    relationship R13 is WorkoutSession conditionally 'has executed' many Goal,
+                        Goal unconditionally 'was executed within' one WorkoutSession;
+
+    relationship R14 is Goal conditionally 'has open' one Achievement,
+                        Achievement conditionally 'is open for' one Goal;
+
+    class 'Workout Session' [WorkoutSession] is
+
+      startTime: preferred timestamp;
+      accumulatedDistance: real;
+
+      operation addHeartRateSample(heartRate: integer);
+      operation clearHeartRateSamples();
+      class operation initialize();
+      operation reset();
+      operation getCurrentSpeed() return real;
+      operation getCurrentPace() return real;
+      operation getCurrentHeartRate() return integer;
+
+    end class;
+
+    class 'Workout Timer' [WorkoutTimer] is
+
+      session_startTime: preferred referential(R8.'acts as the stopwatch for'.WorkoutSession.startTime) timestamp;
+      time: integer;
+      timer: timer;
+
+      operation activate();
+      operation deactivate();
+      operation initialize();
+
+    end class;
+
+    class 'Track Point' [TrackPoint] is
+
+      time: preferred integer;
+      longitude: real;
+      latitude: real;
+      session_startTime: preferred referential(R1.'is start of'.TrackLog.session_startTime,
+                                               R3.'is last for'.TrackLog.session_startTime,
+                                               R2.preceeds.TrackPoint.session_startTime) timestamp;
+      next_time: referential(R2.preceeds.TrackPoint.time) integer;
+
+    end class;
+
+    class 'Track Log' [TrackLog] is
+
+      session_startTime: preferred referential(R4.'represents path for'.WorkoutSession.startTime) timestamp;
+
+      operation addTrackPoint();
+      operation clearTrackPoints();
+      operation addLapMarker();
+      operation clearLapMarkers();
+      operation updateDisplay();
+
+    end class;
+
+    class 'Lap Marker' [LapMarker] is
+
+      session_startTime: preferred referential(R5.'marks end of lap in'.TrackLog.session_startTime) timestamp;
+      lapTime: preferred integer;
+
+    end class;
+
+    class 'Heart Rate Sample' [HeartRateSample] is
+
+      session_startTime: preferred referential(R6.'was collected during'.WorkoutSession.startTime) timestamp;
+      time: preferred integer;
+      heartRate: integer;
+
+    end class;
+
+    class 'Goal Spec' [GoalSpec] is
+
+      minimum: real;
+      maximum: real;
+      span: real;
+      criteriaType: GoalCriteria;
+      spanType: GoalSpan;
+      sequenceNumber: preferred integer;
+      session_startTime: preferred referential(R10.'included in'.WorkoutSession.startTime) timestamp;
+      last_goal_ID: integer;
+
+    end class;
+
+    class Goal is
+
+      session_startTime: preferred referential(R9.'specified by'.GoalSpec.session_startTime,
+                                               R11.'is currently executing within'.WorkoutSession.startTime,
+                                               R13.'was executed within'.WorkoutSession.startTime) timestamp;
+      spec_sequenceNumber: preferred referential(R9.'specified by'.GoalSpec.sequenceNumber) integer;
+      disposition: GoalDisposition;
+      startingPoint: real;
+      ID: preferred integer;
+      evaluationTimer: timer;
+
+      class operation initialize(sequenceNumber: integer);
+      operation calculateStart();
+      operation evaluateAchievement() return GoalDisposition;
+      operation evaluateCompletion();
+      class operation nextGoal();
+
+    end class;
+
+    class Display is
+
+      session_startTime: preferred referential(R7.'indicates current status of'.WorkoutSession.startTime) timestamp;
+
+      class operation goalDispositionIndicator() return Indicator;
+
+    end class;
+
+    class Achievement is
+
+      session_startTime: preferred referential(R12.'specifies achievement of'.Goal.session_startTime,
+                                               R14.'is open for'.Goal.session_startTime) timestamp;
+      spec_sequenceNumber: preferred referential(R12.'specifies achievement of'.Goal.spec_sequenceNumber,
+                                                 R14.'is open for'.Goal.spec_sequenceNumber) integer;
+      goal_ID: preferred referential(R12.'specifies achievement of'.Goal.ID,
+                                     R14.'is open for'.Goal.ID) integer;
+      startTime: preferred integer;
+      endTime: integer;
+
+      operation close();
+
+    end class;
+
+  end package;
+
+end;

@@ -1,0 +1,28 @@
+within Tracking::Tracking::Tracking::Display is
+
+  statemachine is
+
+    state displayDistance;
+    state displaySpeed;
+    state displayPace;
+    state displayHeartRate;
+    state displayLapCount;
+
+    event modeChange();
+    event refresh();
+
+    matrix is
+
+      |                  | modeChange       | refresh          |
+      | ---------------- | ---------------- | ---------------- |
+      | displayDistance  | displaySpeed     | displayDistance  |
+      | displaySpeed     | displayPace      | displaySpeed     |
+      | displayPace      | displayHeartRate | displayPace      |
+      | displayHeartRate | displayLapCount  | displayHeartRate |
+      | displayLapCount  | displayDistance  | displayLapCount  |
+
+    end matrix;
+
+  end statemachine;
+
+end;

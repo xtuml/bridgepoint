@@ -1,0 +1,33 @@
+within Tracking::Tracking::Tracking::Display is
+
+  statemachine is
+
+     state stopped;
+     state running;
+     state paused;
+     state processingStart;
+     state resetLap;
+
+     event startStopPressed();
+     event lapResetPressed();
+     event tick();
+     event pause();
+     event resume();
+     event startTimer();
+     event lapResetComplete();
+
+     matrix is
+
+      |                 | startStopPressed | lapResetPressed | tick          | pause         | resume        | startTimer    | lapResetComplete |
+      | --------------- | ---------------- | --------------- | ------------- | ------------- | ------------- | ------------- | ---------------- |
+      | stopped         | processingStart  | ignore          | ignore        | cannot_happen | cannot_happen | cannot_happen | cannot_happen    |
+      | running         | paused           | resetLap        | running       | cannot_happen | cannot_happen | cannot_happen | cannot_happen    |
+      | paused          | processingStart  | stopped         | ignore        | cannot_happen | cannot_happen | cannot_happen | cannot_happen    |
+      | processingStart | cannot_happen    | cannot_happen   | cannot_happen | cannot_happen | cannot_happen | running       | cannot_happen    |
+      | resetLap        | cannot_happen    | cannot_happen   | cannot_happen | cannot_happen | cannot_happen | cannot_happen | running          |
+
+    end matrix;
+
+  end statemachine;
+
+end;

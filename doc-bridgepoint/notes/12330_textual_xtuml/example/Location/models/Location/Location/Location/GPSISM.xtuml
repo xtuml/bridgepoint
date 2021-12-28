@@ -1,0 +1,29 @@
+within Location::Location::Location::GPS is
+
+  statemachine is
+
+    state idle;
+    state locating;
+    state registeringListener;
+    state unregistering;
+
+    event tick();
+    event registeringComplete();
+    event registerListener();
+    event unregisterListener();
+    event unregisterComplete();
+
+    matrix is
+
+     |                     | tick          | registeringComplete | registerListener    | unregisterListener | unregisterListener | unregisterComplete |
+     | ------------------- | ------------- | ------------------- | ------------------- | ------------------ | ------------------ | ------------------ |
+     | idle                | cannot_happen | cannot_happen       | registeringListener | cannot_happen      | cannot_happen      | cannot_happen      |
+     | locating            | locating      | cannot_happen       | cannot_happen       | cannot_happen      | unregistering      | cannot_happen      |
+     | registeringListener | cannot_happen | locating            | cannot_happen       | cannot_happen      | cannot_happen      | cannot_happen      |
+     | unregistering       | cannot_happen | cannot_happen       | cannot_happen       | cannot_happen      | cannot_happen      | idle               |
+
+    end matrix;
+
+  end statemachine;
+
+end;

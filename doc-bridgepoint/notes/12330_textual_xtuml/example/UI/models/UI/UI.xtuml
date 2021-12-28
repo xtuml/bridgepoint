@@ -1,0 +1,6 @@
+package UI is
+
+  package UI;
+  package Shared;
+
+end package;

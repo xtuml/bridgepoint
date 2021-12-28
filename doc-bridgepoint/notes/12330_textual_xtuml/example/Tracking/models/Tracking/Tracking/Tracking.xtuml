@@ -1,0 +1,21 @@
+within Tracking is
+
+  component Tracking is
+  
+    package ConstantSpecifications;
+    package DistanceUtil;
+    package functions;
+    package TargetTesting;
+    package Tracking;
+    package Shared is Tracking::Shared;
+    package HRMShared is HeartRateMonitor::Shared;
+    package LocationShared is Location::Shared;
+    package UIShared is UI::Shared;
+  
+    required port HR implements HRMShared::HeartRateProvider;
+    required port LOC implements LocationShared::LocationProvider;
+    required port UI implements UIShared::UI;
+  
+  end component;
+
+end;

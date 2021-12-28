@@ -1,0 +1,6 @@
+package HeartRateMonitor is
+
+  package HeartRateMonitor;
+  package Shared;
+
+end package;
