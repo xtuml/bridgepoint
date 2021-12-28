@@ -101,7 +101,7 @@ public class ReferencePathNameChangeListener extends ModelChangeAdapter
 								IGraphicalWriter writer = pe.getWriter();
 								if (writer != null) {
 									if (!requiresFileRename && !written.contains(path.getElement())) {
-										writer.write(pathElement);
+										writer.write(pathElement.getPersistableComponent().getRootModelElement());
 										written.add(pathElement);
 									}
 									if (requiresFileRename && !written.contains(path.getElement())) {

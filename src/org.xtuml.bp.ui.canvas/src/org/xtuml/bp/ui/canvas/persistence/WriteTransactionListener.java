@@ -130,41 +130,41 @@ public class WriteTransactionListener implements ITransactionListener {
 							}
 						}
 					}
-					if (delta instanceof AttributeChangeModelDelta) {
-						boolean triggersWrite = false;
-						NonRootModelElement modelElement = null;
-						// communication link name change will create a path element
-						// we need to write it on first name change
-						AttributeChangeModelDelta attrDelta = (AttributeChangeModelDelta) delta;
-						if (attrDelta.getModelElement() instanceof CommunicationLink_c
-								&& attrDelta.getAttributeName().equals("Numb")) {
-							triggersWrite = true;
-						}
-						if (attrDelta.getModelElement() instanceof SynchronousMessage_c
-								&& attrDelta.getAttributeName().equals("Informalname")) {
-							triggersWrite = true;
-						}
-						if (attrDelta.getModelElement() instanceof AsynchronousMessage_c
-								&& attrDelta.getAttributeName().equals("Informalname")) {
-							triggersWrite = true;
-						}
-						if (attrDelta.getModelElement() instanceof ReturnMessage_c
-								&& attrDelta.getAttributeName().equals("Name")) {
-							triggersWrite = true;
-						}
-						if (attrDelta.getModelElement() instanceof Association_c && attrDelta.getAttributeName().equals("Numb")) {
-							triggersWrite = true;
-						}
-						if (triggersWrite) {
-							if(modelElement == null) {
-								modelElement = (NonRootModelElement) delta.getModelElement();
-							}
-							PersistableModelComponent pmc = modelElement.getPersistableComponent();
-							if (pmc != null) {
-								collectedComponents.add(pmc);
-							}
-						}
-					}
+//					if (delta instanceof AttributeChangeModelDelta) {
+//						boolean triggersWrite = false;
+//						NonRootModelElement modelElement = null;
+//						// communication link name change will create a path element
+//						// we need to write it on first name change
+//						AttributeChangeModelDelta attrDelta = (AttributeChangeModelDelta) delta;
+//						if (attrDelta.getModelElement() instanceof CommunicationLink_c
+//								&& attrDelta.getAttributeName().equals("Numb")) {
+//							triggersWrite = true;
+//						}
+//						if (attrDelta.getModelElement() instanceof SynchronousMessage_c
+//								&& attrDelta.getAttributeName().equals("Informalname")) {
+//							triggersWrite = true;
+//						}
+//						if (attrDelta.getModelElement() instanceof AsynchronousMessage_c
+//								&& attrDelta.getAttributeName().equals("Informalname")) {
+//							triggersWrite = true;
+//						}
+//						if (attrDelta.getModelElement() instanceof ReturnMessage_c
+//								&& attrDelta.getAttributeName().equals("Name")) {
+//							triggersWrite = true;
+//						}
+//						if (attrDelta.getModelElement() instanceof Association_c && attrDelta.getAttributeName().equals("Numb")) {
+//							triggersWrite = true;
+//						}
+//						if (triggersWrite) {
+//							if(modelElement == null) {
+//								modelElement = (NonRootModelElement) delta.getModelElement();
+//							}
+//							PersistableModelComponent pmc = modelElement.getPersistableComponent();
+//							if (pmc != null) {
+//								collectedComponents.add(pmc);
+//							}
+//						}
+//					}
 				});
 			}
 			collectedComponents.forEach(component -> {

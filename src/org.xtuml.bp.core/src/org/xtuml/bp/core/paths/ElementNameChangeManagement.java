@@ -64,7 +64,7 @@ public class ElementNameChangeManagement extends ModelChangeAdapter {
 	public void modelElementRelationChanged(ModelChangedEvent event, IModelDelta delta) {
 		RelationshipChangeModelDelta rDelta = (RelationshipChangeModelDelta) delta;
 		if (identifyingAssociations.contains(rDelta.getRelationName())) {
-			fireNameChange(rDelta.getModelElement(), ((NonRootModelElement) rDelta.getModelElement()).Get_name(), "");
+			fireNameChange(rDelta.getDestinationModelElement(), ((NonRootModelElement) rDelta.getDestinationModelElement()).Get_name(), "");
 		}
 	}
 
