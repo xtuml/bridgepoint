@@ -1,8 +1,6 @@
 package org.xtuml.bp.ui.canvas.references;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
@@ -12,8 +10,6 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Referencepath_c;
 
 public class ReferencePathManagement {
-
-	private static Map<String, Integer> instanceCounter = new HashMap<>();
 
 	public static Referencepath_c createOrGetReferencePath(NonRootModelElement represents) {
 		Referencepath_c referencePath = Referencepath_c.ReferencepathInstance(Ooaofgraphics.getDefaultInstance(),
@@ -73,13 +69,6 @@ public class ReferencePathManagement {
 			if(child instanceof NonRootModelElement) {
 				NonRootModelElement nrme = (NonRootModelElement) child;
 				String id = nrme.getPath();
-				if(id.equals(parent.getPath())) {
-					String className = nrme.getClass().getSimpleName().replaceAll("_c", "");
-					// use class name
-					int next = instanceCounter.get(className);
-					id = className;
-					instanceCounter.put(className, next + 1);
-				}
 				if(id.equals(represents)) {
 					return nrme;
 				} else {

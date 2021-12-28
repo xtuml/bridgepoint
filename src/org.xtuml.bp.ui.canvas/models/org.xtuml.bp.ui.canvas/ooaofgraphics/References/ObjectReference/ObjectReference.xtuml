@@ -28,6 +28,10 @@ select one prev related by self->R_OR[R503.''precedes''];
 if(not_empty prev)
   unrelate self from prev across R503.''precedes'';
 end if;
+select one next related by self->R_OR[R503.''succeeds''];
+if(not_empty next)
+  unrelate self from next across R503.''succeeds'';
+end if;
 delete object instance self;',
 	1,
 	'',
