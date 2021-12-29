@@ -29,5 +29,6 @@
 		<module>../../src/org.xtuml.bp.ui.text</module>
 
 		<module>../../src/org.xtuml.bp.xtext.masl.parent</module>
+                <module>../../../org.xtuml.canvas.language/src/org.xtuml.canvas.language.parent</module>
 	</modules>
 </project>
