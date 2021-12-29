@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.IFile;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.common.Activepoller_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
@@ -39,7 +40,7 @@ public class ReferencePathNameChangeListener extends ModelChangeAdapter
 		for (Object managed : managing.keySet()) {
 			Referencepath_c path = managing.get(managed);
 			Objectreference_c[] objectRefs = Objectreference_c.getManyR_ORsOnR500(path,
-					or -> ((Objectreference_c) or).getElement_id().equals(nrme.Get_ooa_id()));
+					or -> ((Objectreference_c) or).getElement().equals(nrme));
 			for (Objectreference_c objectRef : objectRefs) {
 				/**
 				 * Update the old/new values for the identifying attribute and collect this
@@ -90,18 +91,22 @@ public class ReferencePathNameChangeListener extends ModelChangeAdapter
 								.getModelElement();
 						Referencepath_c path = Referencepath_c
 								.getOneR_RPOnR500(Objectreference_c.getManyR_ORsOnR501(oria));
+						Objectreference_c ref = Objectreference_c.getOneR_OROnR501(oria);
 						if (path != null) {
 							NonRootModelElement pathElement = (NonRootModelElement) path.getElement();
-							boolean requiresFileRename = pathElement.getPersistableComponent()
-									.getRootModelElement() == pathElement;
+							// if this identifying attribute's element matches the path element we need
+							// to rename the graphics file if the element is also the root of the PMC
+							boolean requiresFileRename = pathElement.equals(ref.getElement())
+									&& pathElement.getPersistableComponent().getRootModelElement() == pathElement;
 							/**
-							 * Rewrite all path's root pmc asscoiated graphics
+							 * Rewrite the graphical data that is associated with the element name change
 							 */
 							CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> {
 								IGraphicalWriter writer = pe.getWriter();
 								if (writer != null) {
 									if (!requiresFileRename && !written.contains(path.getElement())) {
-										writer.write(pathElement.getPersistableComponent().getRootModelElement());
+										writer.write(((NonRootModelElement) path.getElement()).getPersistableComponent()
+												.getRootModelElement());
 										written.add(pathElement);
 									}
 									if (requiresFileRename && !written.contains(path.getElement())) {
@@ -109,6 +114,7 @@ public class ReferencePathNameChangeListener extends ModelChangeAdapter
 												oria.getPrevious_value());
 										writer.write((NonRootModelElement) path.getElement());
 										written.add((NonRootModelElement) path.getElement());
+										// write the parent as well
 										writer.write(PersistenceManager.getHierarchyMetaData().getParent(pathElement));
 										written.add(PersistenceManager.getHierarchyMetaData().getParent(pathElement));
 									}

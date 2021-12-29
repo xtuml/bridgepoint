@@ -164,14 +164,21 @@ INSERT INTO O_ATTR
 	VALUES ("c516e16d-4290-4f8b-83e9-4412ab179986",
 	"9017912f-1049-44b2-bff6-71c9844b5ff6",
 	"6da87109-4a7a-4bcc-be5c-9d7097db1151",
-	'element_id',
+	'element',
 	'',
 	'',
-	'element_id',
+	'element',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000005",
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
 	'',
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"9017912f-1049-44b2-bff6-71c9844b5ff6");

@@ -129,7 +129,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	"31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
+	"ac90a774-cf36-4940-9cef-c187daaf8b7a",
 	'element',
 	'',
 	'',
@@ -145,6 +145,46 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("ac90a774-cf36-4940-9cef-c187daaf8b7a",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'path = "";
+
+select any ref related by self->R_OR[R500] where (selected.previous_id == OS::NULL_UNIQUE_ID());
+while(not_empty ref)
+  select many idAttrs related by ref->R_ORIA[R501];
+  for each idAttr in idAttrs
+  	if(ref.previous_id == OS::NULL_UNIQUE_ID())
+  	  path = idAttr.value;
+  	else
+  	  if(idAttr.previous_value != "")
+        path = path + "::" + idAttr.previous_value;
+      else
+      	path = path + "::" + idAttr.value;
+      end if;
+    end if;
+  end for;
+  select one ref related by ref->R_OR[R503.''succeeds''];
+end while;
+
+self.previousPath = path;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("ac90a774-cf36-4940-9cef-c187daaf8b7a",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ATTR
+	VALUES ("ac90a774-cf36-4940-9cef-c187daaf8b7a",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	"31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
+	'previousPath',
+	'',
+	'',
+	'previousPath',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");

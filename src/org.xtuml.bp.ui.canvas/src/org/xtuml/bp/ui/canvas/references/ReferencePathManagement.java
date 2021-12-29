@@ -33,7 +33,7 @@ public class ReferencePathManagement {
 			if(last != null) {
 				ref.relateAcrossR503ToPrecedes(last);
 			}
-			ref.setElement_id(element.Get_ooa_id());
+			ref.setElement(element);
 			Objectreferenceidentifyingattribute_c oria = new Objectreferenceidentifyingattribute_c(
 					Ooaofgraphics.getDefaultInstance());
 			oria.setValue(part);
@@ -78,6 +78,10 @@ public class ReferencePathManagement {
 					}
 				}
 			}
+		}
+		if(parent.getPath().equals(represents)) {
+			// looking at a container, need to return self
+			return parent;
 		}
 		return null;
 	}
