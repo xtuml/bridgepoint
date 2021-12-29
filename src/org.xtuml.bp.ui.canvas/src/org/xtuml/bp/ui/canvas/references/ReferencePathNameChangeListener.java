@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.eclipse.core.resources.IFile;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.common.Activepoller_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
