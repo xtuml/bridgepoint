@@ -2,10 +2,4 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.xtuml.bp.ui.canvas.persistence" name="Graphical Persistence" schema="schema/org.xtuml.bp.ui.canvas.persistence.exsd"/>
-   <extension
-         point="org.xtuml.bp.core.ElementNameChangeListeners">
-      <elementNameChangeListener
-            listener="org.xtuml.bp.ui.canvas.references.ReferencePathNameChangeListener">
-      </elementNameChangeListener>
-   </extension>
 </plugin>

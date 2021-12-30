@@ -270,6 +270,16 @@ public class Cl_c {
         }
           return result;
         }
+    
+    public static String Getnamefrompath(Object element) {
+    	if(element instanceof NonRootModelElement) {
+    		NonRootModelElement nrme = (NonRootModelElement) element;
+    		String[] parts = nrme.getPath().split("::");
+    		return parts[parts.length - 1];
+    	}
+    	return "";
+    }
+    
     public static boolean Disablecropping() {
     	return CanvasPlugin.disableCropping;
     }

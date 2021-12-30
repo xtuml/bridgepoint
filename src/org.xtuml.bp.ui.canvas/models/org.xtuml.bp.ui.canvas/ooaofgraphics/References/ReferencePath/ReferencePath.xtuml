@@ -20,52 +20,12 @@ for each reference in references
   unrelate reference from self across R500;
   reference.dispose();
 end for;
-self.removeFromListener();
 delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	2);
-INSERT INTO O_TFR
-	VALUES ("597badbb-25b6-43b8-aaac-1f2ae82e8795",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	'removeFromListener',
-	'Translate:native',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'    	 ReferencePathNameChangeListener.remove(this);',
-	0,
-	'',
-	"c0c4323c-1f34-482a-8b79-8288cd90f2cb",
-	0,
-	3);
-INSERT INTO O_TFR
-	VALUES ("af8de46a-39cf-4adc-baa0-e2131fa9801e",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	'addToListener',
-	'Translate:native',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'        ReferencePathNameChangeListener.add(this);',
-	0,
-	'',
-	"597badbb-25b6-43b8-aaac-1f2ae82e8795",
-	0,
-	4);
-INSERT INTO O_TFR
-	VALUES ("ee89077a-2956-4188-971c-8f35e2dba26b",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	'initialize',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'self.addToListener();',
-	1,
-	'',
-	"af8de46a-39cf-4adc-baa0-e2131fa9801e",
-	0,
-	5);
 INSERT INTO O_DBATTR
 	VALUES ("31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
@@ -73,14 +33,11 @@ INSERT INTO O_DBATTR
 
 select any ref related by self->R_OR[R500] where (selected.previous_id == OS::NULL_UNIQUE_ID());
 while(not_empty ref)
-  select many idAttrs related by ref->R_ORIA[R501];
-  for each idAttr in idAttrs
-  	if(ref.previous_id == OS::NULL_UNIQUE_ID())
-  	  path = idAttr.value;
-  	else
-      path = path + "::" + idAttr.value;
-    end if;
-  end for;
+  if(ref.previous_id == OS::NULL_UNIQUE_ID())
+  	path = CL::getNameFromPath(element: ref.element);
+  else
+    path = path + "::" + CL::getNameFromPath(element: ref.element);
+  end if;
   select one ref related by ref->R_OR[R503.''succeeds''];
 end while;
 
@@ -120,16 +77,26 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO O_NBATTR
+INSERT INTO O_DBATTR
 	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'select any next related by self->R_OR[R500.''constructed with'']
+	where (selected.previous_id == OS::NULL_UNIQUE_ID());
+ref = next;
+while(not_empty next)
+	ref = next;
+	select one next related by next->R_OR[R503.''succeeds''];
+end while;
+self.element = ref.element;',
+	1,
+	0);
 INSERT INTO O_BATTR
 	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
 INSERT INTO O_ATTR
 	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	"ac90a774-cf36-4940-9cef-c187daaf8b7a",
+	"31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
 	'element',
 	'',
 	'',
@@ -145,46 +112,6 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO O_DBATTR
-	VALUES ("ac90a774-cf36-4940-9cef-c187daaf8b7a",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	'path = "";
-
-select any ref related by self->R_OR[R500] where (selected.previous_id == OS::NULL_UNIQUE_ID());
-while(not_empty ref)
-  select many idAttrs related by ref->R_ORIA[R501];
-  for each idAttr in idAttrs
-  	if(ref.previous_id == OS::NULL_UNIQUE_ID())
-  	  path = idAttr.value;
-  	else
-  	  if(idAttr.previous_value != "")
-        path = path + "::" + idAttr.previous_value;
-      else
-      	path = path + "::" + idAttr.value;
-      end if;
-    end if;
-  end for;
-  select one ref related by ref->R_OR[R503.''succeeds''];
-end while;
-
-self.previousPath = path;',
-	1,
-	0);
-INSERT INTO O_BATTR
-	VALUES ("ac90a774-cf36-4940-9cef-c187daaf8b7a",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
-INSERT INTO O_ATTR
-	VALUES ("ac90a774-cf36-4940-9cef-c187daaf8b7a",
-	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
-	"31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
-	'previousPath',
-	'',
-	'',
-	'previousPath',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000004",
-	'',
-	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");

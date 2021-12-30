@@ -9,5 +9,5 @@
 .//====================================================================
 .//
 .function get_imports
-  .assign attr_import = "import org.xtuml.bp.core.*;\nimport org.eclipse.swt.graphics.GC;\nimport org.xtuml.bp.ui.canvas.references.ReferencePathNameChangeListener;"
+  .assign attr_import = "import org.xtuml.bp.core.*;\nimport org.eclipse.swt.graphics.GC;\n"
 .end function

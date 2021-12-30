@@ -65,10 +65,10 @@ import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
+import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionLoadListener;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionResourceListener;
 import org.xtuml.bp.ui.canvas.persistence.WriteTransactionListener;
-import org.xtuml.bp.ui.canvas.references.ReferencePathNameChangeListener;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 
 
@@ -80,7 +80,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	private PersistenceExtensionRegistry persistenceExtensionRegistry = new PersistenceExtensionRegistry();
 	private PersistenceExtensionResourceListener persistenceResourceListener;
 	private WriteTransactionListener writeTransactionListener;
-	private ReferencePathNameChangeListener referencePathListener;
+	private PersistenceExtensionLoadListener persistenceExtensionLoadListener;
 	private static boolean isActivated;
 	// note this method is used to draw the entire text
 	// contents for shapes, preventing any truncating or
@@ -720,10 +720,8 @@ public class CanvasPlugin extends AbstractUIPlugin {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(persistenceResourceListener);
 		writeTransactionListener = new WriteTransactionListener();
 		TransactionManager.getSingleton().addTransactionListener(writeTransactionListener, true);
-		// Listeners for managed paths
-		referencePathListener = new ReferencePathNameChangeListener();
-		Ooaofooa.getDefaultInstance().addModelChangeListener(referencePathListener);
-		TransactionManager.getSingleton().addTransactionListener(referencePathListener, true);
+		persistenceExtensionLoadListener = new PersistenceExtensionLoadListener();
+		Ooaofooa.getDefaultInstance().addModelChangeListener(persistenceExtensionLoadListener);
 	}
 
 	private static void addClientClassDependency(ElementSpecification_c es, final String className) {
@@ -829,7 +827,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(persistenceResourceListener);
 			TransactionManager.getSingleton().removeTransactionListener(transactionListener);
 			TransactionManager.getSingleton().removeTransactionListener(writeTransactionListener);
-			TransactionManager.getSingleton().removeTransactionListener(referencePathListener);
+			Ooaofooa.getDefaultInstance().removeModelChangeListener(persistenceExtensionLoadListener);
 			writeTransactionListener = null;
 		}
 	}

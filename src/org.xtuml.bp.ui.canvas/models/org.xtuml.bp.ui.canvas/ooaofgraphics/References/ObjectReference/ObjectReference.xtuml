@@ -19,11 +19,6 @@ INSERT INTO O_TFR
 if(not_empty path)
   unrelate self from path across R500;
 end if;
-select many orias related by self->R_ORIA[R501];
-for each oria in orias
-  unrelate self from oria across R501;
-  oria.dispose();
-end for;
 select one prev related by self->R_OR[R503.''precedes''];
 if(not_empty prev)
   unrelate self from prev across R503.''precedes'';
@@ -145,7 +140,7 @@ INSERT INTO O_RATTR
 INSERT INTO O_ATTR
 	VALUES ("bf778583-3899-452e-951b-e55988d574a0",
 	"9017912f-1049-44b2-bff6-71c9844b5ff6",
-	"c516e16d-4290-4f8b-83e9-4412ab179986",
+	"2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
 	'previous_id',
 	'',
 	'previous_',
@@ -179,6 +174,24 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_BATTR
+	VALUES ("2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_ATTR
+	VALUES ("2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"c516e16d-4290-4f8b-83e9-4412ab179986",
+	'lastName',
+	'',
+	'',
+	'lastName',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"9017912f-1049-44b2-bff6-71c9844b5ff6");

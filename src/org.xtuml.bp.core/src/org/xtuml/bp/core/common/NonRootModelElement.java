@@ -924,7 +924,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	}
 
 	public String Get_name() {
-		return super.toString();
+		return "";
 	}
 
 	@Override
