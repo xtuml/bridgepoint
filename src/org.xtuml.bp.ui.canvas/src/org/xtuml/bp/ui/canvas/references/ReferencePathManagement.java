@@ -11,6 +11,7 @@ import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InteractionParticipant_c;
+import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Lifespan_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -26,16 +27,24 @@ import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
 public class ReferencePathManagement {
 
 	static Map<String, Referencepath_c> managed = new HashMap<>();
-	
+
 	public static Referencepath_c createOrGetReferencePath(NonRootModelElement represents) {
 		Referencepath_c referencePath = managed.get(represents.getPath());
 		if (referencePath == null) {
 			referencePath = new Referencepath_c(Ooaofgraphics.getDefaultInstance());
-			managed.put(represents.getPath(), referencePath);
 		} else {
 			return referencePath;
 		}
-		String[] parts = represents.getPath().split("::");
+		String representsPath = represents.getPath();
+		String[] parts = representsPath.split("::");
+		if (represents.getName().contains("::")) {
+			// do not traverse path names
+			String path = getRepresentedParent(represents).getPath();
+			String[] parentParts = path.split("::");
+			parts = new String[parentParts.length + 1];
+			System.arraycopy(parentParts, 0, parts, 0, parts.length - 1);
+			parts[parentParts.length] = represents.getName();
+		}
 		int count = parts.length;
 		Objectreference_c last = null;
 		for (String part : parts) {
@@ -57,6 +66,8 @@ public class ReferencePathManagement {
 			last = ref;
 			count--;
 		}
+		// always store represents path, regardless of path name
+		managed.put(represents.getPath(), referencePath);
 		return referencePath;
 	}
 
@@ -66,34 +77,30 @@ public class ReferencePathManagement {
 			return element;
 		}
 		try {
-			try {
-				parent = getSupertypeParent(parent);
-				parent = getParentAsSubtype(element, parent);
-				if (parent.getClass().getMethod("getName", new Class[0]).invoke(parent, new Object[0]).equals("")) {
-					parent = getRepresentedParent(parent);
-					if (parent != null) {
-						return parent;
-					}
+			parent = getSupertypeParent(parent);
+			parent = getParentAsSubtype(element, parent);
+			if (parent.getClass().getMethod("getName", new Class[0]).invoke(parent, new Object[0]).equals("")) {
+				parent = getRepresentedParent(parent);
+				if (parent != null) {
+					return parent;
 				}
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			return parent;
-		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+				| SecurityException e) {
+			CanvasPlugin.logError("Unable to check element for getName method.", e);
 		}
 		return null;
 	}
 
 	/**
 	 * Unique case for interaction part -> lifespan
+	 * 
 	 * @param parent
 	 * @return
 	 */
 	private static NonRootModelElement getParentAsSubtype(NonRootModelElement element, NonRootModelElement parent) {
-		if(element instanceof Lifespan_c) {
+		if (element instanceof Lifespan_c) {
 			NonRootModelElement lifespanParent = InteractionParticipant_c.getOneSQ_POnR940((Lifespan_c) element);
 			return SupertypeSubtypeUtil.getSubtypes(lifespanParent).get(0);
 		}
@@ -101,14 +108,20 @@ public class ReferencePathManagement {
 	}
 
 	private static NonRootModelElement getSupertypeParent(NonRootModelElement parent) {
-		if(parent instanceof DataType_c) {
+		if (parent instanceof DataType_c) {
+			return PersistenceManager.getHierarchyMetaData().getParent(parent);
+		}
+		if (parent instanceof InterfaceReference_c) {
 			return PersistenceManager.getHierarchyMetaData().getParent(parent);
 		}
 		return parent;
 	}
-	
+
 	private static NonRootModelElement getRepresentedElement(NonRootModelElement represents) {
-		if(represents instanceof DataType_c) {
+		if (represents instanceof DataType_c) {
+			return SupertypeSubtypeUtil.getSubtypes(represents).get(0);
+		}
+		if (represents instanceof InterfaceReference_c) {
 			return SupertypeSubtypeUtil.getSubtypes(represents).get(0);
 		}
 		return represents;
@@ -124,7 +137,8 @@ public class ReferencePathManagement {
 
 	public static String getPath(NonRootModelElement nrme) {
 		Referencepath_c referencePath = createOrGetReferencePath(nrme);
-		return referencePath.getPath();
+		String path = referencePath.getPath();
+		return path;
 	}
 
 	public static Referencepath_c getPath(String represents, NonRootModelElement parent) {
@@ -141,8 +155,11 @@ public class ReferencePathManagement {
 		Collection<?> children = PersistenceManager.getHierarchyMetaData().getChildren(parent, false);
 		for (Object child : children) {
 			if (child instanceof NonRootModelElement) {
-				NonRootModelElement nrme = (NonRootModelElement) child;
+				NonRootModelElement nrme = getRepresentedElement((NonRootModelElement) child);
 				String id = nrme.getPath();
+				if(nrme.getName().contains("::")) {
+					id = parent.getPath() + "::" + nrme.getName();
+				}
 				if (id.equals(represents)) {
 					return getRepresentedElement(nrme);
 				} else {

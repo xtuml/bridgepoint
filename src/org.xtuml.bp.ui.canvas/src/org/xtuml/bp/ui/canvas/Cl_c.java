@@ -272,12 +272,12 @@ public class Cl_c {
         }
     
     public static String Getnamefrompath(Object element) {
-    	if(element instanceof NonRootModelElement) {
-    		NonRootModelElement nrme = (NonRootModelElement) element;
-    		String[] parts = nrme.getPath().split("::");
+    	if(((NonRootModelElement) element).getName().equals("")) {
+    		String path = ((NonRootModelElement) element).getPath();
+    		String[] parts = path.split("::");
     		return parts[parts.length - 1];
     	}
-    	return "";
+    	return ((NonRootModelElement) element).getName();
     }
     
     public static boolean Disablecropping() {
