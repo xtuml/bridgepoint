@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.common.AttributeChangeModelDelta;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.IModelDelta;
@@ -120,6 +122,17 @@ public class WriteTransactionListener implements ITransactionListener {
 														((NonRootModelElement) path.getElement())
 																.getPersistableComponent(),
 														previousName);
+												// in the case of a Provision/Requirement we must also
+												// write the package as formalization state changes path
+												// references
+												if (pathElement instanceof Provision_c
+														|| pathElement instanceof Requirement_c) {
+													WriteComponent parentWrite = new WriteComponent(
+															pathElement.getFirstParentComponent()
+																	.getFirstParentPackage().getPersistableComponent(),
+															"");
+													collectedWrites.add(parentWrite);
+												}
 												collectedWrites.add(write);
 												// update last
 												objRef.setLastname(Cl_c.Getname(objRef.getElement()));
