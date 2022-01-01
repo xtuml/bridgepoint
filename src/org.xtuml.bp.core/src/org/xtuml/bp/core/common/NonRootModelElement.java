@@ -303,7 +303,15 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 					if (path.isEmpty()) {
 						path = parent.getName();
 					} else {
-						path = parent.getName() + "::" + path;
+						String name = parent.getName();
+						if (name.equals("")) {
+							// handle elements with a potential of no name
+							String className = parent.getClass().getSimpleName().replaceAll("_c", "");
+							// use class name
+							int index = getInstanceList().indexOf(this) + 1;
+							name = className + index;
+						}
+						path = name + "::" + path;
 					}
 				}
 				parent = (NonRootModelElement) inspector.getParent(parent);

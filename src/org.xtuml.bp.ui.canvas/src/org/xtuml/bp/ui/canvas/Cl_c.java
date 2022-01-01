@@ -272,7 +272,12 @@ public class Cl_c {
         }
     
     public static String Getnamefrompath(Object element) {
-    	if(((NonRootModelElement) element).getName().equals("")) {
+    	boolean usePath = ((NonRootModelElement) element).getName().equals("");
+    	// ISM, ASM need the end of path
+    	if(element instanceof InstanceStateMachine_c || element instanceof ClassStateMachine_c) {
+    		usePath = true; 
+    	}
+    	if(usePath) {
     		String path = ((NonRootModelElement) element).getPath();
     		String[] parts = path.split("::");
     		return parts[parts.length - 1];
