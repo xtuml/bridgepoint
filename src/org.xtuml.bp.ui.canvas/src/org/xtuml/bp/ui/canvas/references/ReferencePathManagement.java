@@ -30,7 +30,10 @@ public class ReferencePathManagement {
 
 	public static Referencepath_c createOrGetReferencePath(NonRootModelElement represents) {
 		Referencepath_c referencePath = managed.get(represents.getPath());
-		if (referencePath == null) {
+		if (referencePath == null || Objectreference_c.getManyR_ORsOnR500(referencePath).length == 0) {
+			if(referencePath != null) {
+				managed.remove(represents.getPath());
+			}
 			referencePath = new Referencepath_c(Ooaofgraphics.getDefaultInstance());
 		} else {
 			return referencePath;
@@ -119,7 +122,13 @@ public class ReferencePathManagement {
 
 	private static NonRootModelElement getRepresentedElement(NonRootModelElement represents) {
 		if (represents instanceof DataType_c) {
-			return SupertypeSubtypeUtil.getSubtypes(represents).get(0);
+			// TODO: this shows a problem with the Point UDT in
+			// ooagraphics, not fixed yet but leaving this TODO for
+			// reference.
+			List<NonRootModelElement> subtypes = SupertypeSubtypeUtil.getSubtypes(represents);
+			if(subtypes.size() > 0) {
+				return subtypes.get(0);
+			}
 		}
 		if (represents instanceof InterfaceReference_c) {
 			return SupertypeSubtypeUtil.getSubtypes(represents).get(0);
@@ -157,9 +166,9 @@ public class ReferencePathManagement {
 			if (child instanceof NonRootModelElement) {
 				NonRootModelElement nrme = getRepresentedElement((NonRootModelElement) child);
 				String id = nrme.getPath();
-				if(nrme.getName().contains("::")) {
+				if (nrme.getName().contains("::")) {
 					id = parent.getPath() + "::" + nrme.getName();
-				}
+				} 
 				if (id.equals(represents)) {
 					return getRepresentedElement(nrme);
 				} else {
@@ -190,7 +199,7 @@ public class ReferencePathManagement {
 		}
 	}
 
-	private static boolean elementHasDiagramRepresentation(NonRootModelElement loadedElement) {
+	public static boolean elementHasDiagramRepresentation(NonRootModelElement loadedElement) {
 		if (loadedElement instanceof Package_c || loadedElement instanceof InstanceStateMachine_c
 				|| loadedElement instanceof ClassStateMachine_c || loadedElement instanceof Component_c
 				|| loadedElement instanceof SystemModel_c) {

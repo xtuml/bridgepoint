@@ -75,20 +75,23 @@ public class WriteTransactionListener implements ITransactionListener {
 				Stream.of(coreDeltas).forEach(delta -> {
 					// interested in additions and removals
 					if (delta instanceof BaseModelDelta) {
-						// collect the owning PMC for the changed element
-						collectedWrites.add(new WriteComponent(
-								((NonRootModelElement) delta.getModelElement()).getPersistableComponent(), ""));
-						// if a deletion clean up path references
-						if (delta.getKind() == Modeleventnotification_c.DELTA_DELETE) {
-							// if this object is used anywhere in a path the path is no good
-							Objectreference_c[] refs = Objectreference_c.ObjectreferenceInstances(
-									Ooaofgraphics.getDefaultInstance(),
-									ref -> ((Objectreference_c) ref).getElement() == delta.getModelElement());
-							Stream.of(refs).forEach(ref -> {
-								Referencepath_c path = Referencepath_c.getOneR_RPOnR500(ref);
-								ReferencePathManagement.removePath(path);
-								path.Dispose();
-							});
+						if (ReferencePathManagement
+								.elementHasDiagramRepresentation((NonRootModelElement) delta.getModelElement())) {
+							// collect the owning PMC for the changed element
+							collectedWrites.add(new WriteComponent(
+									((NonRootModelElement) delta.getModelElement()).getPersistableComponent(), ""));
+							// if a deletion clean up path references
+							if (delta.getKind() == Modeleventnotification_c.DELTA_DELETE) {
+								// if this object is used anywhere in a path the path is no good
+								Objectreference_c[] refs = Objectreference_c.ObjectreferenceInstances(
+										Ooaofgraphics.getDefaultInstance(),
+										ref -> ((Objectreference_c) ref).getElement() == delta.getModelElement());
+								Stream.of(refs).forEach(ref -> {
+									Referencepath_c path = Referencepath_c.getOneR_RPOnR500(ref);
+									ReferencePathManagement.removePath(path);
+									path.Dispose();
+								});
+							}
 						}
 					}
 					// interested in attr/rel changes if paths are modified as a result
@@ -100,18 +103,27 @@ public class WriteTransactionListener implements ITransactionListener {
 											// collect
 											String previousName = "";
 											NonRootModelElement pathElement = (NonRootModelElement) path.getElement();
-											boolean requiresFileRename = pathElement.equals(objRef.getElement())
-													&& pathElement.getPersistableComponent()
-															.getRootModelElement() == pathElement;
-											if (requiresFileRename) {
-												previousName = objRef.getLastname();
+											// if the elements pmc is gone, this is an unrelate before delete
+											// just ignore
+											if (pathElement.getPersistableComponent() != null) {
+												String lastname = objRef.getLastname();
+												String[] parts = pathElement.getPath().split("::");
+												String pathElementName = parts[parts.length - 1];
+												boolean requiresFileRename = pathElement.equals(objRef.getElement())
+														&& pathElement.getPersistableComponent()
+																.getRootModelElement() == pathElement
+														&& !objRef.getLastname().equals(pathElementName);
+												if (requiresFileRename) {
+													previousName = objRef.getLastname();
+												}
+												WriteComponent write = new WriteComponent(
+														((NonRootModelElement) path.getElement())
+																.getPersistableComponent(),
+														previousName);
+												collectedWrites.add(write);
+												// update last
+												objRef.setLastname(Cl_c.Getname(objRef.getElement()));
 											}
-											WriteComponent write = new WriteComponent(
-													((NonRootModelElement) path.getElement()).getPersistableComponent(),
-													previousName);
-											collectedWrites.add(write);
-											// update last
-											objRef.setLastname(Cl_c.Getname(objRef.getElement()));
 										}
 									});
 								});
@@ -121,7 +133,7 @@ public class WriteTransactionListener implements ITransactionListener {
 			}
 			collectedWrites.forEach(write -> {
 				if (!write.previousName.equals("")) {
-					// udate file name
+					// update file name
 					writer.nameChange((NonRootModelElement) write.component.getRootModelElement(), write.previousName);
 					writer.write(write.component.getRootModelElement());
 					// write the parent as well

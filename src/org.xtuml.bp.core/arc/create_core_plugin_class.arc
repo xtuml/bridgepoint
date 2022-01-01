@@ -115,7 +115,6 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.ActionFile;
 import org.xtuml.bp.core.common.DependencyData;
 import org.xtuml.bp.core.common.IDependencyProvider;
-import org.xtuml.bp.core.paths.ElementNameChangeManagement;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.AbstractStreamExportFactory;
@@ -205,9 +204,6 @@ public class CorePlugin extends AbstractUIPlugin {
 			}
 		}
 		loadGlobals();
-		// setup name change management
-		ElementNameChangeManagement nameManagement = new ElementNameChangeManagement();
-		Ooaofooa.getDefaultInstance().addModelChangeListener(nameManagement);
 	}
 
 	private void loadGlobals() {
