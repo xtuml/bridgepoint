@@ -10,7 +10,10 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
@@ -51,9 +54,13 @@ public class PersistenceExtensionResourceListener implements IResourceChangeList
 						IGraphicalLoader loader = extensions.get(resource.getFileExtension());
 						PersistableModelComponent pmc = PersistenceManager.findOrCreateComponent(new Path(resource
 								.getFullPath().toString().replaceAll(resource.getFileExtension(), Ooaofooa.MODELS_EXT)));
-						Model_c reloaded = loader.load(pmc.getRootModelElement());
-						// update any graphical editor inputs that match
-						Ooaofgraphics.getDefaultInstance().fireModelElementReloaded(reloaded, reloaded);
+						String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
+								.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
+						if(MessageDialogWithToggle.ALWAYS.equals(textualSerialization)) {
+							Model_c reloaded = loader.load(pmc.getRootModelElement());
+							// update any graphical editor inputs that match
+							Ooaofgraphics.getDefaultInstance().fireModelElementReloaded(reloaded, reloaded);
+						}
 						return true;
 					}
 					return false;

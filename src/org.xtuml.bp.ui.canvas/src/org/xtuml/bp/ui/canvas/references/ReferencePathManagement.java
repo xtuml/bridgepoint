@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
@@ -117,7 +120,11 @@ public class ReferencePathManagement {
 		if (persistenceExtension != null) {
 			// if the element has a diagram, load it
 			if (elementHasDiagramRepresentation(loadedElement)) {
-				persistenceExtension.getLoader().load(loadedElement);
+				String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
+						.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
+				if(MessageDialogWithToggle.ALWAYS.equals(textualSerialization)) {
+					persistenceExtension.getLoader().load(loadedElement);
+				}
 			}
 		}
 	}

@@ -46,7 +46,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String GRADIENT_BASE_COLOR = PREFIX + "gradient_base_color"; //$NON-NLS-1$
     public static final String EXPORT_OAL = PREFIX + "export_oal"; //$NON-NLS-1$
     public static final String SINGLE_FILE_EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
-    public static final String PERSIST_GRAPHICAL_INSTANCES = PREFIX + "persiste_graphical_instances"; //$NON-NLS-1$
+    public static final String PERSIST_GRAPHICAL_INSTANCES = PREFIX + "persist_graphical_instances"; //$NON-NLS-1$
     public static final String GRAPHICS_TEXTUAL_SERIALIZATION = PREFIX + "graphics_textual_serialization"; //$NON-NLS-1$
     public static final String MESSAGE_DIRECTION = PREFIX + "message_direction";
     public static final String ACTIVITY_PERSISTENCE = PREFIX + "activity_persistence";
