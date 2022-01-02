@@ -292,7 +292,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
      </page>
      <page class="org.xtuml.bp.core.ui.preferences.ExportPreferences"
            id="org.xtuml.bp.core.ui.preferences.ExportPreferences"
-           name="Model Export"
+           name="Model Persistence"
            category="org.xtuml.bp.core.root">
      </page>
      <page class="org.xtuml.bp.core.ui.preferences.MessageDirectionPreferences"

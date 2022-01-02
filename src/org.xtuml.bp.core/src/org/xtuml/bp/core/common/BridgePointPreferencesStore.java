@@ -45,7 +45,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String INVERT_GRADIENTS = PREFIX + "invert_gradients"; //$NON-NLS-1$
     public static final String GRADIENT_BASE_COLOR = PREFIX + "gradient_base_color"; //$NON-NLS-1$
     public static final String EXPORT_OAL = PREFIX + "export_oal"; //$NON-NLS-1$
-    public static final String EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
+    public static final String SINGLE_FILE_EXPORT_GRAPHICS = PREFIX + "export_graphics"; //$NON-NLS-1$
+    public static final String PERSIST_GRAPHICAL_INSTANCES = PREFIX + "persiste_graphical_instances"; //$NON-NLS-1$
+    public static final String GRAPHICS_TEXTUAL_SERIALIZATION = PREFIX + "graphics_textual_serialization"; //$NON-NLS-1$
     public static final String MESSAGE_DIRECTION = PREFIX + "message_direction";
     public static final String ACTIVITY_PERSISTENCE = PREFIX + "activity_persistence";
     public static final String DEFAULT_ACTION_LANGUAGE_DIALECT = PREFIX + "default_action_language_dialect";
@@ -96,7 +98,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	public static final String PERSIST_ACTIVITY_FILES = "persist_activity_files";
 	public static final String NO_PERSIST_ACTIVITY_FILES = "no_persist_activity_files";
 			
-    public Class getModelClass() {
+    public Class<?> getModelClass() {
         return BridgePointPreferencesModel.class;
     }
 
@@ -120,7 +122,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(INVERT_GRADIENTS, prefs.invertGradients);
         store.setValue(GRADIENT_BASE_COLOR, prefs.gradientBaseColor);
         store.setValue(EXPORT_OAL, prefs.exportOAL);
-        store.setValue(EXPORT_GRAPHICS, prefs.exportGraphics);
+        store.setValue(SINGLE_FILE_EXPORT_GRAPHICS, prefs.singleFileExportGraphics);
+        store.setValue(PERSIST_GRAPHICAL_INSTANCES, prefs.persistGraphicalInstances);
+        store.setValue(GRAPHICS_TEXTUAL_SERIALIZATION, prefs.graphicsTextualSerialization);
         store.setValue(MESSAGE_DIRECTION, prefs.messageDirection); 
         store.setValue(ACTIVITY_PERSISTENCE, prefs.activityPersistenceAsFiles);
         store.setValue(DEFAULT_ACTION_LANGUAGE_DIALECT, prefs.defaultActionLanguageDialect); 
@@ -208,8 +212,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         }
         prefs.exportOAL =
             store.getString(BridgePointPreferencesStore.EXPORT_OAL);
-        prefs.exportGraphics =
-            store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
+        prefs.singleFileExportGraphics =
+            store.getString(BridgePointPreferencesStore.SINGLE_FILE_EXPORT_GRAPHICS);
+        prefs.persistGraphicalInstances =
+        	store.getString(BridgePointPreferencesStore.PERSIST_GRAPHICAL_INSTANCES);
+        prefs.graphicsTextualSerialization =
+            	store.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
         prefs.messageDirection =
             store.getString(BridgePointPreferencesStore.MESSAGE_DIRECTION);
         prefs.activityPersistenceAsFiles =
@@ -310,7 +318,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableModelIntegrityCheck = true;
         prefs.emitRTOData = true;        
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
-        prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
+        prefs.singleFileExportGraphics = MessageDialogWithToggle.ALWAYS;
+        prefs.persistGraphicalInstances = MessageDialogWithToggle.ALWAYS;
+        prefs.graphicsTextualSerialization = MessageDialogWithToggle.NEVER;
         prefs.messageDirection = TO_PROVIDER;
         prefs.activityPersistenceAsFiles = PERSIST_ACTIVITY_FILES;
         prefs.defaultActionLanguageDialect = Actiondialect_c.oal;

@@ -101,7 +101,7 @@ public class WriteTransactionListener implements ITransactionListener {
 						Stream.of(Referencepath_c.ReferencepathInstances(Ooaofgraphics.getDefaultInstance()))
 								.forEach(path -> {
 									Stream.of(Objectreference_c.getManyR_ORsOnR500(path)).forEach(objRef -> {
-										if (!Cl_c.Getname(objRef.getElement()).equals(objRef.getLastname())) {
+										if (!Cl_c.Getnamefrompath(objRef.getElement()).equals(objRef.getLastname())) {
 											// collect
 											String previousName = "";
 											NonRootModelElement pathElement = (NonRootModelElement) path.getElement();
@@ -135,7 +135,7 @@ public class WriteTransactionListener implements ITransactionListener {
 												}
 												collectedWrites.add(write);
 												// update last
-												objRef.setLastname(Cl_c.Getname(objRef.getElement()));
+												objRef.setLastname(Cl_c.Getnamefrompath(objRef.getElement()));
 											}
 										}
 									});

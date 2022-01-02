@@ -116,7 +116,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
         	m_exportGraphics = false;
     	} else if (USER_PREFERENCE.equals(exportGraphics)) {
 			IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-	        String option = store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
+	        String option = store.getString(BridgePointPreferencesStore.SINGLE_FILE_EXPORT_GRAPHICS);
 	        if (option.equals(MessageDialogWithToggle.NEVER)) {
 	        	m_exportGraphics = false;
 	        } else {
