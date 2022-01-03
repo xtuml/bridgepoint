@@ -61,14 +61,6 @@ public class ReferencePathManagement {
 		return (NonRootModelElement) elementInspector.getParent(element);
 	}
 
-	public static void deleteReferencePath(String path) {
-		Referencepath_c referencePath = Referencepath_c.ReferencepathInstance(Ooaofgraphics.getDefaultInstance(),
-				rp -> ((Referencepath_c) rp).getPath().equals(path));
-		if (referencePath != null) {
-			referencePath.Dispose();
-		}
-	}
-
 	public static String getPath(NonRootModelElement nrme) {
 		Referencepath_c referencePath = createOrGetReferencePath(nrme);
 		String path = referencePath.getPath();
@@ -139,7 +131,7 @@ public class ReferencePathManagement {
 	}
 
 	public static void removePath(Referencepath_c path) {
-		managed.remove(path.getPath());
+		managed.remove(path.getLastpath());
 	}
 
 	public static void removePath(String path) {

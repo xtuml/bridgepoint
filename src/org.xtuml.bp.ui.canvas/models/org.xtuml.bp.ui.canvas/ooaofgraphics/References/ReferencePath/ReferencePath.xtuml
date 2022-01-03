@@ -112,6 +112,39 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("e2b3c295-6190-48ea-b108-65a149c93c37",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'path = "";
+
+select any ref related by self->R_OR[R500] where (selected.previous_id == OS::NULL_UNIQUE_ID());
+while(not_empty ref)
+  if(ref.previous_id == OS::NULL_UNIQUE_ID())
+  	path = ref.lastName;
+  else
+    path = path + "::" + ref.lastName;
+  end if;
+  select one ref related by ref->R_OR[R503.''succeeds''];
+end while;
+
+self.lastPath = path;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("e2b3c295-6190-48ea-b108-65a149c93c37",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ATTR
+	VALUES ("e2b3c295-6190-48ea-b108-65a149c93c37",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	"af90e500-c0bf-4d10-80bf-cffa328ff19c",
+	'lastPath',
+	'',
+	'',
+	'lastPath',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
