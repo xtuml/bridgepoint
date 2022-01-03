@@ -57,7 +57,7 @@ public class PersistenceExtensionResourceListener implements IResourceChangeList
 						String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
 								.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
 						if(MessageDialogWithToggle.ALWAYS.equals(textualSerialization)) {
-							Model_c reloaded = loader.load(pmc.getRootModelElement());
+							Model_c reloaded = loader.reload(pmc.getRootModelElement());
 							// update any graphical editor inputs that match
 							Ooaofgraphics.getDefaultInstance().fireModelElementReloaded(reloaded, reloaded);
 						}

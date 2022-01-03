@@ -108,7 +108,6 @@ public class WriteTransactionListener implements ITransactionListener {
 											// if the elements pmc is gone, this is an unrelate before delete
 											// just ignore
 											if (pathElement.getPersistableComponent() != null) {
-												String lastname = objRef.getLastname();
 												String[] parts = pathElement.getPath().split("::");
 												String pathElementName = parts[parts.length - 1];
 												boolean requiresFileRename = pathElement.equals(objRef.getElement())

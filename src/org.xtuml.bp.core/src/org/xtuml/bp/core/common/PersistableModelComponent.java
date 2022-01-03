@@ -311,7 +311,7 @@ public class PersistableModelComponent implements Comparable {
      * @return Returns the PersistableModelComponent instances that are children
      *         of this instance that are in memory (not on disk).
      */
-    public Collection getChildren() {
+    public Collection<PersistableModelComponent> getChildren() {
         return PersistenceManager.getChildrenOf(this);
     }
 
