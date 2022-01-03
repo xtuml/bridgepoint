@@ -1,0 +1,22 @@
+within UI is
+
+  package Shared is
+
+    interface UI is
+      
+      message setTime(time: integer) to provider;
+      message setData(value: real, unit: Unit) to provider;
+      message setIndicator(indicator: Indicator) to provider;
+
+      message setTargetPressed() from provider;
+      message startStopPressed() from provider;
+      message lapResetPressed() from provider;
+      message lightPressed() from provider;
+      message modePressed() from provider;
+      message newGoalSpec(spanType: GoalSpan, criteriaType: GoalCriteria, span: real, maximum: real, minimum: real, sequenceNumber: integer) from provider;
+
+    end interface;
+
+  end package;
+
+end;

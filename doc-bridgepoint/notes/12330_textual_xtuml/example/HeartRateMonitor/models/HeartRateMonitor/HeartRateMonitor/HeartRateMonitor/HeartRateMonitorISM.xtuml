@@ -1,0 +1,29 @@
+within HeartRateMonitor::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor is
+
+  statemachine is
+
+    state idle;
+    state monitoring;
+    state Registering;
+    state Unregistering;
+
+    event timeout();
+    event registerComplete();
+    event unregisterComplete();
+    event registerListener();
+    event unregisterListener();
+
+    matrix is
+
+      |               | timeout       | registerComplete | unregisterComplete | registerListener | unregisterListener |
+      | ------------- | ------------- | ---------------- | ------------------ | ---------------- | ------------------ |
+      | idle          | cannot_happen | cannot_happen    | cannot_happen      | Registering      | cannot_happen      |
+      | monitoring    | monitoring    | cannot_happen    | cannot_happen      | cannot_happen    | Unregistering      |
+      | Registering   | cannot_happen | monitoring       | cannot_happen      | cannot_happen    | cannot_happen      |
+      | Unregistering | cannot_happen | cannot_happen    | idle               | cannot_happen    | cannot_happen      |
+
+    end matrix;
+
+  end statemachine;
+
+end;

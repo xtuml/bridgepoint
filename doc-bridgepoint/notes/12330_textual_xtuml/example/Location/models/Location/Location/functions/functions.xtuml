@@ -1,0 +1,11 @@
+within Location::Location is
+
+  package functions is
+
+    function registerListener();
+
+    function unregisterListener();
+
+  end package;
+
+end;

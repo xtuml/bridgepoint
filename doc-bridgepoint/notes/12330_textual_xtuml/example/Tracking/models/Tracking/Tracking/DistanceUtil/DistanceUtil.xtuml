@@ -1,0 +1,9 @@
+within Tracking::Tracking is
+
+  package DistanceUtil is
+  
+    function getDistance(fromLat: real, fromLong: real, toLat: real, toLong: real) return real;
+  
+  end package;
+
+end;

@@ -1,0 +1,71 @@
+= Textual Specification of xtUML
+
+xtUML Project Review Minutes
+
+ Reviewed: 12330_textual_xtuml.adoc eb7e050ce Dec 8 21
+ Present: Cort, Levi
+
+  - "modification and extensions" plural
+  - Cort calls out function = service, Levi points out that it is only one way
+  - 3.1.1 Clarify that mutliple dialects can exist; requirement to explicitly allow support of other dialects
+    - add reference to existing action languages
+  - xtUML metamodel does not support everything in the spec (example, types)
+  - add reference to seperate spec of graphics
+  - mention lack of support for informal diagrams (add requirement)
+  - "with in" = "within"
+  - "All action body files..." not finished
+  - Cort calls out that BP currently has state machine and  class files
+    - Levi notes that as written, the spec doesn't allow for classes and state machines in their own files
+    - Cort says he likes breaking up by class
+    - We'll talk more about packaging
+    - Levi wants to consider if it would be good to allow any packageable element to be a root element
+      - Cort agrees
+  - Root model elements are base production rule entry points (reference grammar)
+  - Cort brings up non-packabeable elements inconsistency
+    - attribute is a non-packable element of a class for example
+    - remove "Non-packageable element" from the spec -- it's not needed
+  - "Model elements may be contained within other elements"...
+  - 4.1.1 is all about containment
+  - Levi says we need to clarify wording later after all content is reviewed
+  - "within" keyword switch two boxes (section 4.1.1)
+  - strike "Non-packaeable elements defined within a component may not..." section 4.2
+  - state that packages do not restrict visibility
+  - typo "public functions." section 4.2.1
+  - Levi notes a need to add more section markers to paragraphs
+  - How the extended name is displayed is up to the tooling 4.3
+  - 4.3.1 Line 1 - wording is confusing
+  - fully qualified name  starts with the "root element" not "root component"
+  - 4.3.1 wording is confusing overall
+  - scope = visibility context
+  - packages are used to group elements into separate diagrams (subsystems)
+  - 4.4.2 "Package" -> "A package"
+  - Cort is thinking about containment and the "within" keyword in the context of package references
+  - 4.4.2: don't like wording of note
+  - For use in BP, we will need to create a default system and root package; also need to create a default package within components
+  - Bigger distinction between examples and grammar snippets
+  - "lexer" -> "lexical"
+  - Levi notes, need to add class declarations for compatibility with MASL
+  - Levi notes need to have MASL export still (compatibility mode)
+  - 4.4.7 note "xtUML" -> "BridgePoint"
+  - 4.4.8 don't explicitly say it's target langauge code
+  - Cort says "signal" should be "message" 
+    - Levi says he wants to get rid of the distinction between signal and operation
+  - signal default is "to provider"
+  - Cort likes the contracts, wants to get Colin involved
+  - Ports can't be imported via package reference but can be imported via delegations
+  - "external" is a keyword in ASL; consider a different keyword
+  - consider "strict" mode
+    - discussion came from need for "end <blank>;" versus "end;"
+    - also consider curly braces instead of "is/end"
+  - probably have the reversed version of the satisfaction symbol
+  - consider needing component references for importing nested components
+    - could use package reference
+  - support multi-line comments and descriptions
+
+ Major observations were recorded, a re-review is required.
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

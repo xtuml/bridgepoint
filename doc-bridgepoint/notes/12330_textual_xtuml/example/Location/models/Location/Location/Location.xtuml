@@ -1,0 +1,13 @@
+within Location is
+
+  component Location is
+    
+    package functions;
+    package Location;
+    package Shared is Location::Shared;
+
+    provided port LOC implements LocationProvider;
+
+  end component;
+
+end;

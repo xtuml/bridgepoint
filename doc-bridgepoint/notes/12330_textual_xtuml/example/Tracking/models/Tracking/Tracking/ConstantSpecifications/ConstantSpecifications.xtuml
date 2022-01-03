@@ -1,0 +1,29 @@
+within Tracking::Tracking is
+
+  package ConstantSpecifications is
+  
+    constant group GoalAchievement is
+      evaluationPeriod = 3000000;
+    end constant group;
+  
+    constant group GoalSpecConstants is
+      GoalSpecOrigin = 1;
+    end constant group;
+  
+    constant group HeartRateConstants is
+      HeartRateAveragingWindow = 5;
+      HeartRateSamplingPeriod = 3;
+    end constant group;
+  
+    constant group Speed is
+      SpeedAveragingWindow = 5;
+      SecondsPerHour = 3600;
+    end constant group;
+  
+    constant group WorkoutTimerConstants is
+      timerPeriod = 1;
+    end constant group;
+  
+  end package;
+
+end;

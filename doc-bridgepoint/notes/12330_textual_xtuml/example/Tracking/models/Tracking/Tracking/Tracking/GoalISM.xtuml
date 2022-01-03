@@ -1,0 +1,28 @@
+within Tracking::Tracking::Tracking::Display is
+
+  statemachine is
+
+    state Executing;
+    state Completed;
+    state Paused;
+    state Evaluating;
+
+    event Completed();
+    event Evaluate();
+    event Pause();
+    event evaluationComplete();
+
+    matrix is
+
+      |            | Completed     | Evaluate      | Pause         | evaluationComplete |
+      | ---------- | ------------- | ------------- | ------------- | ------------------ |
+      | Executing  | Completed     | Executing     | Paused        | cannot_happen      |
+      | Completed  | ignore        | ignore        | cannot_happen | cannot_happen      |
+      | Paused     | Completed     | Evaluating    | cannot_happen | cannot_happen      |
+      | Evaluating | cannot_happen | cannot_happen | cannot_happen | Executing          |
+
+    end matrix;
+
+  end statemachine;
+
+end;

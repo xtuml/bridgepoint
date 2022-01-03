@@ -1,0 +1,16 @@
+within HeartRateMonitor is
+
+  package Shared is
+
+    interface HeartRateMonitor is
+
+      message registerListener() to provider;
+      message unregisterListener() to provider;
+
+      message heartRateChanged(heartRate: integer) from provider;
+
+    end interface;
+
+  end package;
+
+end;

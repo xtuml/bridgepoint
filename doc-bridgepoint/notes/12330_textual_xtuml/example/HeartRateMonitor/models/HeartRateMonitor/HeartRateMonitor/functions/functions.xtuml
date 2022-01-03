@@ -1,0 +1,11 @@
+within HeartRateMonitor::HeartRateMonitor is
+
+  package functions is
+
+    function registerListener();
+
+    function unregisterListener();
+
+  end package;
+
+end;
