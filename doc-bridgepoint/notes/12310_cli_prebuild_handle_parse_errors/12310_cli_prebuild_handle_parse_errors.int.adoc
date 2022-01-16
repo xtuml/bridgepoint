@@ -33,8 +33,8 @@ If the prebuild command specifies that a parse shall not occur, an additional ch
 
 == 6 Unit Test
 
-\_- Run Parse All tests
-\_R All tests pass
+_- Run Parse All tests  +
+_R All tests pass
 
 == 7 User Documentation
 
@@ -62,9 +62,6 @@ src/org.xtuml.bp.core/src/org/xtuml/bp/core/activity/errors/ErrorCollector.java
 ---
 
 == 9 Document References
-
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
 
 . [[dr-1]] https://support.onefact.net/issues/12310[12310 - headline]
 
