@@ -32,7 +32,9 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.activity.errors.ErrorCollector;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
+import org.xtuml.bp.core.common.IAllActivityModifier;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.CoreUtil;
@@ -49,6 +51,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 	public static boolean ignoreMissingPMCErrors = false;
 
     private Ooaofgraphics m_graphicsModelRoot = null;
+	protected ErrorCollector errorCollector;
 
     /**
      * Used to specify that export option should be true.
@@ -125,6 +128,10 @@ public abstract class CoreExport implements IRunnableWithProgress {
     	} else {
     		m_exportGraphics = true;
     	}
+    }
+    
+    public void setErrorCollector(ErrorCollector errorCollector) {
+    	this.errorCollector = errorCollector;
     }
     
     public boolean exportOAL() {
@@ -292,6 +299,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 					}
 						
 					if (aam != null) {
+						aam.addErrorCollector(errorCollector);
 						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					}
 					

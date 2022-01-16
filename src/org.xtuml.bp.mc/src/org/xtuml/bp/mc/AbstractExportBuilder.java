@@ -31,6 +31,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.activity.errors.ActivityError;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
@@ -50,6 +51,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
     private List<NonRootModelElement> m_elements;
     private List<SystemModel_c> m_exportedSystems;
     private IProject project = null;
+    private List<ActivityError> activityErrors = new ArrayList<>();
 
     protected AbstractExportBuilder() {
         m_elements = new ArrayList<NonRootModelElement>();
@@ -296,6 +298,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
                 exporter.setExportOAL(CoreExport.YES);
                 exporter.setExportGraphics(CoreExport.NO);
                 if (parseOnExport) {
+                    // add an activity error collector
+                    exporter.setErrorCollector(error -> {
+                    	activityErrors.add(error);
+                    });
                     // Perform a parse-all to assure the model is up to date
                     exporter.parseAllForExport(m_elements.toArray(new NonRootModelElement[m_elements.size()]), monitor);
                 }
@@ -366,6 +372,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         }
 
         return m_exportedSystems;
+    }
+    
+    public List<ActivityError> getActivityErrors() {
+    	return activityErrors;
     }
     
     public File getPrebuilderOutputFile() {

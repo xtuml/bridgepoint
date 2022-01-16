@@ -24,6 +24,8 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.StateMachineState_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
+import org.xtuml.bp.core.activity.errors.ActivityError;
+import org.xtuml.bp.core.common.IAllActivityModifier;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.util.ContainerUtil;
@@ -213,6 +215,10 @@ public class TextParser extends OalParser {
 
 		if (reportError && ( m_contentAssistLine == 0 || m_contentAssistCol == 0 ) ) {
 			System.out.println("Parse error: " + parserMessage + "line: " + parserLineNumber);
+			ActivityError error = new ActivityError();
+			error.setMessage(parserMessage);
+			error.setLine(parserLineNumber);
+			IAllActivityModifier.errorCollectors.forEach(collector -> collector.collect(error));
 		}
 	}
 };

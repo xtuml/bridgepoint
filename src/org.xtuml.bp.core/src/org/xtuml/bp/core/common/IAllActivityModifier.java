@@ -22,6 +22,11 @@
 
 package org.xtuml.bp.core.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.xtuml.bp.core.activity.errors.ErrorCollector;
+
 public interface IAllActivityModifier {
 
     public static final int PARSE = 0;
@@ -35,4 +40,12 @@ public interface IAllActivityModifier {
     public void processAllActivities(int op);
 
     public void clearActionPlaceholder(Object o_input);
+    
+    // allow error collection
+    List<ErrorCollector> errorCollectors = new ArrayList<>();
+    default void addErrorCollector(ErrorCollector collector) {
+    	if(collector != null) {
+    		errorCollectors.add(collector);
+    	}
+    }
 }

@@ -41,7 +41,7 @@ public class Build implements IApplication {
 						CoreUtil.IsRunningHeadless = true;
 						ErrorDialog.AUTOMATED_MODE = true;  // This should be what the --launcher.suppressErrors 
 						                                    // command-line option does.  Setting it here also.
-						workbenchAdvisor.performCLIBuild();
+						return workbenchAdvisor.performCLIBuild();
 					}
 				} else {
 			    	workbenchAdvisor.createAndRunWorkbench();
