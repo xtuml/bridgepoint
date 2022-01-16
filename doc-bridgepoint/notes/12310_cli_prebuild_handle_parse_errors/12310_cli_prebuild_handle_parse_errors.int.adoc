@@ -63,7 +63,7 @@ src/org.xtuml.bp.core/src/org/xtuml/bp/core/activity/errors/ErrorCollector.java
 
 == 9 Document References
 
-. [[dr-1]] https://support.onefact.net/issues/12310[12310 - headline]
+. [[dr-1]] https://support.onefact.net/issues/12310[12310 - Let bridgepoint return exit status != 0 if it detects a parse error during prebuild]
 
 ---
 
