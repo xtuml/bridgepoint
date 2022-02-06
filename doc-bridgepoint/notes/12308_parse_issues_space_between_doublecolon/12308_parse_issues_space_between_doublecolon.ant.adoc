@@ -1,0 +1,138 @@
+= Calling functions immediately after use of enumeration literals gives parse error
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+This note outlines the reasons for the parse error, along with a workaround to the problem.  
+
+== 2 Introduction and Background
+
+Example Model:
+
+----
+System ::
+  Package ::
+    SubPackage_Lvl1::
+      SubPackage_Lvl2::
+        Enumerator::
+          A
+          B
+    Protocol_T ::
+      TCP
+      UDP
+    Ping(protocol: Protocol_T)
+----
+
+Example OAL:
+
+[source, c]
+----
+if param.Protocol == Protocol_T::TCP
+  Parse_Errors = False;
+  ::Ping( Protocol: Protocol_T::UDP );
+end if;
+
+if param.Protocol == Protocol_T::TCP
+  // This gives parse errors
+  ::Ping( Protocol: Protocol_T::UDP );
+end if;
+----
+
+== 3 Requirements
+
+=== 3.1 Understand and document the problem
+=== 3.2 Suggest approaches to work around the problem
+
+== 4 Analysis
+
+=== 4.1 The problem
+The OAL parser uses the double-colon token to begin function invocations as well as for scoped pathing.  The example OAL given in the background shows a combined use of scoped pathing, through minimal scoping of Enumerator -> Enumeration, and function invocation.
+
+The OAL grammar rule for scoping allows for an infinite depth, separated by the double-colon token:
+
+[source, c]
+----
+Package::SubPackage_Lvl1::SubPackage_Lvl2::Enumerator::A
+----
+
+The scoped path rule is defined as:
+[source,c]
+----
+scoped_access
+   :
+   (
+        scoped_path
+        scoped_data_type
+        TOK_DOUBLECOLON!
+        scoped_member
+    )
+  ;
+scoped_path
+  :
+    (
+      ( scoped_path_segment scoped_path_segment )=>
+        scoped_path_segment
+    )*
+  ;
+
+----
+
+This grammar rule consumes and tosses whitespace, including comments.  Therefore access to a scoped path, followed by any whitespace and a function invocation will cause the parser to try and treat the function invocation as a path extension.  This is shown clearly in the example OAL found in the background.  The first examples marked as parsing without error works as the scope path is terminated by a new assignment block.  Where the second example parsers with error as it is looking for a scoped_path of:
+
+[source,c]
+----
+Protocol_T::TCP::Ping
+----
+
+
+=== 4.2 Closing the scope
+In this issues' example of the parse scoping path issue, we have use of an if test.  With that the scoping path can be closed by including parenthesis around the binary operation:
+
+[source, c]
+----
+if ( param.Protocol == Protocol_T::TCP )
+  // Scope is terminated by the parenthesis closure
+  // No parse error
+  ::Ping( Protocol: Protocol_T::UDP );
+end if;
+----
+
+The OAL parser currently does not require parenthesis for unary or binary operations.
+
+Here are some other cases that would need some consideration:
+
+[source,c]
+----
+// start scoped path assignment, will cause a parse error
+a = Package1::Package_Lvl1::Package_Lvl2::Enumerator::A
+::Ping()
+// workaround
+::Ping()
+a = ...
+// , or if to be used in the function
+::Ping(a: Package1::Package_Lvl1::Package_Lvl2::Enumerator::A)
+----
+
+=== 4.3
+There is not a good way to address this without changing the behavior of unary/binary operations, or adding some complex semantic predicate.  As the additional example shows enforcing parenthesis for unary/binary operation will not solve each case.
+
+Another approach to address this may be to change the function invocation approach.  Using an alternative token to the double-colon.  This would however have a very wide impact and is not desirable.
+
+== 5 Work Required
+
+None.
+
+== 6 Acceptance Test
+
+None.
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12308[12308 - Calling functions immediately after use of enumeration literals gives parse error]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
