@@ -55,44 +55,52 @@ select one tfr related by self->O_TFR[R829];
 // Is this, perhaps, deferred?
 select one deferral related by tfr->O_DEF[R126];
 if ( not_empty deferral )
-  discard = self.setupParamsDeferred(stack_frame_id: param.stack_frame_id);
-  return;
-end if;
-
-select one body related by self->O_TFR[R829]->ACT_OPB[R696]->ACT_ACT[R698];
-select any statement related by body->ACT_BLK[R666]->ACT_SMT[R602];
-if (not_empty statement)
-  // Setup the parameter values within the newly created stack frame
-  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id);  
-
-else
-  select one op related by self->O_TFR[R829];
-  select one clazz related by op->O_OBJ[R115];
-  pathMsg = "<No Path Available - Empty instance>";
-  if (not_empty body)
-    pathMsg = body.getPath();
-  end if;
-  USER::logError(msg:"Error executing Operation: " +
-						clazz.Name + "::" + op.Name +
-						  ". No operation OAL found, returning default value.",path:pathMsg);
-  select one dt related by op->S_DT[R116];
-  select any stack_frame from instances of I_STF where
-                                selected.Stack_Frame_ID == param.stack_frame_id; 
-  if empty stack_frame
-	USER::logError(msg:"Internal error in Operation Invocation.execute: " +
-                                                  "Could not get stack frame.",path:pathMsg);
+  // Explore the deferral - find the appropriate subtype operation for execution.
+  select one ihandle related by self->V_VAR[R830]->V_INT[R814];
+  superinstance = deferral.get_superclass_instance( stack_frame_id:param.stack_frame_id, instance_handle:ihandle );
+  subinstance = deferral.get_subtype_instance( superclass_instance:superinstance );
+  if ( not_empty subinstance )
+    discard = self.setupParamsDeferred (stack_frame_id:param.stack_frame_id,
+                                      superclass_instance:superinstance,
+                                      subclass_instance:subinstance );
   else
-    select one stack related by stack_frame->I_STACK[R2943]; 
-    select any result related by stack_frame->I_VSF[R2951] where
-                                             selected.Value_ID == self.Value_ID;
-    // Return the default result
-    select one rtVal related by result->RV_RVL[R3305];
-    if ( empty rtVal )
-      create object instance rtVal of RV_RVL;
-      relate rtVal to result across R3305;
-      rtVal.createSimpleValue();
-    end if;
-    rtVal.setValue(value:dt.getDefaultValue());
+	  USER::logError(msg:"Cannot find subtype for deferred operation ", path:"Operation Value: " + tfr.Name );
+  end if;
+else
+	select one body related by self->O_TFR[R829]->ACT_OPB[R696]->ACT_ACT[R698];
+	select any statement related by body->ACT_BLK[R666]->ACT_SMT[R602];
+	if (not_empty statement)
+	  // Setup the parameter values within the newly created stack frame
+	  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id);  
+	else
+	  select one op related by self->O_TFR[R829];
+	  select one clazz related by op->O_OBJ[R115];
+	  pathMsg = "<No Path Available - Empty instance>";
+	  if (not_empty body)
+	    pathMsg = body.getPath();
+	  end if;
+	  USER::logError(msg:"Error executing Operation: " +
+							clazz.Name + "::" + op.Name +
+							  ". No operation OAL found, returning default value.",path:pathMsg);
+	  select one dt related by op->S_DT[R116];
+	  select any stack_frame from instances of I_STF where
+	                                selected.Stack_Frame_ID == param.stack_frame_id; 
+	  if empty stack_frame
+		USER::logError(msg:"Internal error in Operation Invocation.execute: " +
+	                                                  "Could not get stack frame.",path:pathMsg);
+	  else
+	    select one stack related by stack_frame->I_STACK[R2943]; 
+	    select any result related by stack_frame->I_VSF[R2951] where
+	                                             selected.Value_ID == self.Value_ID;
+	    // Return the default result
+	    select one rtVal related by result->RV_RVL[R3305];
+	    if ( empty rtVal )
+	      create object instance rtVal of RV_RVL;
+	      relate rtVal to result across R3305;
+	      rtVal.createSimpleValue();
+	    end if;
+	    rtVal.setValue(value:dt.getDefaultValue());
+	  end if;
   end if;
 end if;',
 	1,
@@ -284,76 +292,43 @@ INSERT INTO O_TFR
 	1,
 	'// Invocation:Operation Value.setupParameterValues()
 
-select one tfr related by self->O_TFR[R829];
-select one deferral related by tfr->O_DEF[R126];
+superinstance = param.superclass_instance;
+subinst = param.subclass_instance;
+select one subtyp related by subinst->CSME_CIE[R2962.''instance of'']
+                                    ->O_OBJ[R2961.''represents class in engine''];
+select one operation related by self->O_TFR[R829];
+select any subtfr related by subtyp->O_TFR[R115.''may contain'']
+ where ( selected.Name == operation.Name );
 
-select one supertyp related by tfr->O_OBJ[R115.''is associated with''];
-select any stack_frame from instances of I_STF
- where ( selected.Stack_Frame_ID == param.stack_frame_id );
-  
-select one target_var related by self->V_VAR[R830];
-select any target_local related by target_var->V_INT[R814]->L_LCR[R3004]->L_LCL[R3001] 
- where selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
-select any target_inst related by target_local->L_LCR[R3001]->L_LCL[R3001]->RV_RVL[R3306]
-                                              ->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]
-                                              ->I_INS[R3013];
-superinstance = target_inst;
-  
-select any subtfr from instances of O_TFR where
- ( selected.Name == tfr.Name ); // get any one, just in case...
-select any subinst from  instances of I_INS where ( false );  // decl
-
-select one subtyp_assoc related by deferral->R_REL[R126.''defers execution to subtypes across''];
-select many rellnks related by subtyp_assoc->I_LNK[R2904.''has instances''];
-for each rellnk in rellnks
-  select one inst related by rellnk->I_LIP[R2902.''has formalizing participant'']->I_INS[R2958];
-  if ( inst == superinstance )
-    select one subinst related by rellnk->I_LIP[R2901.''has participant'']->I_INS[R2958];
-    if ( not_empty subinst )
-      select one subtyp related by subinst->CSME_CIE[R2962.''instance of'']->O_OBJ[R2961.''represents class in engine''];
-      select any subtfr related by subtyp->O_TFR[R115.''may contain'']
-  	   where ( selected.Name == tfr.Name );
-    end if;
+// Determine if the subclass actually implements the deferred operation.
+// If not, default to the superclass - and determine which instance is to be ''self''
+// 
+select one body related by subtfr->ACT_OPB[R696]->ACT_ACT[R698];
+select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
+selfinstance = superinstance; // tentatively..
+if (not_empty statement) //  .. there is a deferred operation in the subclass
+  operation = subtfr;
+  selfinstance = subinst;
+else
+  select one body related by operation->ACT_OPB[R696]->ACT_ACT[R698];
+  select one deferral related by operation->O_DEF[R126];
+  if ( deferral.required != 1 ) // warning: using superclass even though deferral is ''required''
+    USER::logError(msg:"Deferral is not optional for operation: ", path:operation.Name );
   end if;
-end for;
+end if;
 
-// another approach..
-select many lnkps related by superinstance->I_LIP[R2958];
-for each lnkp in lnkps
-  select one formrel related by lnkp->I_LNK[R2901]->R_REL[R2904.''is instance of''];
-  if ( empty formrel )
-    select one prel related by lnkp->I_LNK[R2902]->R_REL[R2904.''is instance of'']; // out of interest
-    if ( not_empty prel )
-      if ( prel.Numb == subtyp_assoc.Numb )
-  	  	n = prel.Numb;
-      end if;
-    end if;
-  end if;
-  if ( not_empty formrel )
-	if ( formrel.Numb == subtyp_assoc.Numb )
-      select one subinstance related by lnkp->I_INS[R2958];
-      select one subtyp related by subinstance->CSME_CIE[R2962.''instance of'']->O_OBJ[R2961.''represents class in engine''];
-      select any subtfr related by subtyp->O_TFR[R115.''may contain'']
-       where ( selected.Name == tfr.Name );
-      break;
-    end if;
-  end if;
-end for;
-
-select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
-//select one operation related by self->O_TFR[R829];
-operation = subtfr;
+select one body related by operation->ACT_OPB[R696]->ACT_ACT[R698];                                                                                                                                                                 
 select many operation_parameters related by operation->O_TPARM[R117];
 select many args related by self->V_PAR[R811];
 // Grab the stack frame(should be the new top stack frame)
-select any stack_frame from instances of I_STF where
-                                selected.Stack_Frame_ID == param.stack_frame_id;
+select any stack_frame from instances of I_STF
+ where selected.Stack_Frame_ID == param.stack_frame_id;
 if empty stack_frame
   //Invalid stack frame ID!
   pathMsg = "<No Path Available - Empty instance>";
-    if (not_empty body)
-      pathMsg = body.getPath();
-    end if;
+  if (not_empty body)
+    pathMsg = body.getPath();
+  end if;
 	USER::logError(msg:"Error in Operation Value.setupParameterValues: " +
                   "Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
   select any stack from instances of I_STACK;
@@ -364,27 +339,26 @@ select one stack related by stack_frame->I_STACK[R2929];
 if empty stack
   //Invalid stack frame ID!
   pathMsg = "<No Path Available - Empty instance>";
-    if (not_empty body)
-      pathMsg = body.getPath();
-    end if;
+  if (not_empty body)
+    pathMsg = body.getPath();
+  end if;
 	USER::logError(msg:"Error in Operation Value.setupParameterValues: " +
                                "Failure to retieve stack. Using random stack.",path:pathMsg);
   select any stack from instances of I_STACK;
   select one new_stack_frame related by stack->I_STF[R2929];
 end if;
-select one outer_block related by operation->ACT_OPB[R696]->
-                                                   ACT_ACT[R698]->ACT_BLK[R666];
+select one outer_block related by operation->ACT_OPB[R696]->ACT_ACT[R698]->ACT_BLK[R666];
 if not_empty outer_block
   for each actual_parameter in args
     // Seach for a operation parameter with same name as the actual parameter
-    select any operation_param related by operation->O_TPARM[R117] where
-                                         selected.Name == actual_parameter.Name;
+    select any operation_param related by operation->O_TPARM[R117]
+     where selected.Name == actual_parameter.Name;
     if (empty operation_param)
       pathMsg = "<No Path Available - Empty instance>";
-    if (not_empty body)
-      pathMsg = body.getPath();
-    end if;
-	USER::logError(msg:"Error in Operation Value.setupParameterValues: " +
+      if (not_empty body)
+        pathMsg = body.getPath();
+      end if;
+      USER::logError(msg:"Error in Operation Value.setupParameterValues: " +
                             "did not find a corresponding operation parameter",path:pathMsg);
     else
       // We have found the matching operation parameter and actual parameter
@@ -393,8 +367,8 @@ if not_empty outer_block
       if (operation_param.By_Ref == 0)  // by value
         select one act_val related by actual_parameter->V_VAL[R800];
         act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
-        select any result related by stack_frame->I_VSF[R2951] where
-                                          selected.Value_ID == act_val.Value_ID;
+        select any result related by stack_frame->I_VSF[R2951] 
+         where selected.Value_ID == act_val.Value_ID;
         select one rtVal related by result->RV_RVL[R3305];
         if (empty rtVal)
           // result requires computation.
@@ -405,63 +379,42 @@ if not_empty outer_block
   end for;
   // If we get here, all computation of arguments was completed,
   //  prepare for execution of the bridge
-  select one body related by operation->ACT_OPB[R696]->ACT_ACT[R698];
+  //select one body related by operation->ACT_OPB[R696]->ACT_ACT[R698]; got it already
   sf = body.createStackFrame(stack_id:stack.Stack_ID,
-                 invoking_stack_frame_or_component_id: GD::NULL_UNIQUE_ID(),
-                                                                enqueue: false);
-  select any new_stack_frame from instances of I_STF where
-                                                  selected.Stack_Frame_ID == sf;
+                             invoking_stack_frame_or_component_id: GD::NULL_UNIQUE_ID(),
+                             enqueue: false);
+  select any new_stack_frame from instances of I_STF
+   where selected.Stack_Frame_ID == sf;
   // Create a self operator if needed
-  select many self_ih_vars related by outer_block->V_VAR[R823] where
-                                     GD::toLower(value:selected.Name) == "self";
-  if (not_empty self_ih_vars)
-    // The self operator is used in the executing block,
-    // so find it and relate it to the newly created local
-    // Create a local reference for the self operator
-    select one target_var related by self->V_VAR[R830];
-    if (not_empty target_var)
-      // The operation must be instance based, find the local instance . . . .
-      select any target_local related by target_var->V_INT[R814]->
-                                        L_LCR[R3004]->L_LCL[R3001] where
-                          selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
-      select any target_inst related by target_local->L_LCR[R3001]->
-                                            L_LCL[R3001]->RV_RVL[R3306]->
-                       RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
-      for each self_ih_var in self_ih_vars
-        // Create a new local reference
-        loc_id = outer_block.newLocalReference(stack_frame_id: sf);
-        select any local_ref related by outer_block->I_BSF[R2923]->
-                   L_LCL[R3000]->L_LCR[R3001] where selected.Local_ID == loc_id;
-        if (not_empty subinst) // !!!!!!!!!!!!!!!!!
-          local_ref.addInstance(inst_id:subinst.Inst_ID);
-        end if;
-        // Now relate the local reference to the ''self'' instance handle
-        select one self_ih related by self_ih_var->V_INT[R814];
-        relate self_ih to local_ref across R3004;
-      end for;
-      relate new_stack_frame to target_inst across R2954;
-    else
-      pathMsg = "<No Path Available - Empty instance>";
-    if (not_empty body)
-      pathMsg = body.getPath();
-    end if;
-	USER::logError(msg:"Error in Operation Value.setupParameterValues: " +
-                                      "Could not find a target self variable.",path:pathMsg);
-    end if;
-  end if;
+  select many self_ih_vars related by outer_block->V_VAR[R823]
+   where GD::toLower(value:selected.Name) == "self";
+  // If the self operator is used in the executing block,
+  // find each use and relate it to the newly created local
+  // Create a local reference for the self operator 
+  for each self_ih_var in self_ih_vars
+    // Create a new local reference
+    loc_id = outer_block.newLocalReference(stack_frame_id: sf);
+    select any local_ref related by outer_block->I_BSF[R2923]->L_LCL[R3000]->L_LCR[R3001]
+     where selected.Local_ID == loc_id;
+    local_ref.addInstance(inst_id:selfinstance.Inst_ID);
+    // Now relate the local reference to the ''self'' instance handle
+    select one self_ih related by self_ih_var->V_INT[R814];
+    relate self_ih to local_ref across R3004;
+  end for;
+
   for each arg in args
-    select any operation_param related by operation->O_TPARM[R117] where
-                                         selected.Name == arg.Name;
+    select any operation_param related by operation->O_TPARM[R117]
+     where selected.Name == arg.Name;
     // Create a new local value in the new stack frame for each argument
     loc_id = outer_block.newLocalValue(stack_frame_id: sf);
     // Find the new local value and set it with the actual parameter value
-    select any local related by outer_block->I_BSF[R2923]->
-                                 L_LCL[R3000] where selected.Local_ID == loc_id;
+    select any local related by outer_block->I_BSF[R2923]->L_LCL[R3000] 
+     where selected.Local_ID == loc_id;
     select one lvl related by local->L_LVL[R3001];
     select one act_val related by arg->V_VAL[R800];
     if not_empty operation_param and operation_param.By_Ref == 0
-      select any result related by stack_frame->I_VSF[R2951] where
-                                          selected.Value_ID == act_val.Value_ID;
+      select any result related by stack_frame->I_VSF[R2951]
+       where selected.Value_ID == act_val.Value_ID;
       select one rtVal related by result->RV_RVL[R3305];
       create object instance lrtVal of RV_RVL;
       relate lrtVal to local across R3306;
@@ -498,6 +451,31 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c3174461-e112-4b5b-bccb-8ddde3cb121c",
+	"c2b1b1fc-e778-4dc6-807c-934013a98921",
+	'superclass_instance',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	0,
+	'',
+	"7c16b09e-ba94-4cab-9e9b-fba12c1853dd",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Instance>',
+	'',
+	'',
+	'../../Instance/Instance.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("420f9f53-db85-4f6e-80e4-42cca5ae2cb3",
+	"c2b1b1fc-e778-4dc6-807c-934013a98921",
+	'subclass_instance',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	0,
+	'',
+	"c3174461-e112-4b5b-bccb-8ddde3cb121c",
 	'');
 INSERT INTO O_REF
 	VALUES ("2e044ba2-e455-4a61-bf36-6f8a383ad315",

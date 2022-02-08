@@ -10763,6 +10763,46 @@ INSERT INTO PE_PE
 	"e060f94c-3f82-463e-9d98-d20315b7c196",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("db5f6713-b12c-41c3-a4cd-b3a63409e7c8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Instance Handle>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("db5f6713-b12c-41c3-a4cd-b3a63409e7c8",
+	0,
+	"97baa2ef-fc0b-46e7-8d55-caccba4cb123");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("97baa2ef-fc0b-46e7-8d55-caccba4cb123",
+	'Instance Handle',
+	816,
+	'V_INT',
+	'This class represents an instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Instance Handle/Instance Handle.xtuml');
+INSERT INTO PE_PE
+	VALUES ("db5f6713-b12c-41c3-a4cd-b3a63409e7c8",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("0d92dcbf-6b7c-4d14-a00f-996bb448114a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Instance Handle>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("0d92dcbf-6b7c-4d14-a00f-996bb448114a",
+	1,
+	"97baa2ef-fc0b-46e7-8d55-caccba4cb123");
+INSERT INTO PE_PE
+	VALUES ("0d92dcbf-6b7c-4d14-a00f-996bb448114a",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("13230ce2-4f54-4d1a-a030-cf088346c5eb");
 INSERT INTO R_REL
@@ -11539,14 +11579,6 @@ INSERT INTO R_OIR
 	"beefba5b-63ae-4c27-863c-bda06a675a06",
 	"604012a9-bdad-40c5-a7f9-fb3c6d2af0cd",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("97baa2ef-fc0b-46e7-8d55-caccba4cb123",
-	'Instance Handle',
-	816,
-	'V_INT',
-	'This class represents an instance.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Instance Handle/Instance Handle.xtuml');
 INSERT INTO R_SUB
 	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
 	"beefba5b-63ae-4c27-863c-bda06a675a06",

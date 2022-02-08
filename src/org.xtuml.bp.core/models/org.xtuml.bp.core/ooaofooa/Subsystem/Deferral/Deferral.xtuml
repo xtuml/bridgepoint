@@ -24,7 +24,98 @@ return name;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
+INSERT INTO O_TFR
+	VALUES ("e3f36900-e753-4aa9-a782-3260e5e3702a",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	'get_superclass_instance',
+	'',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	1,
+	'// Find and return the instance that ''owns'' the operation to be executed.
+select any stack_frame from instances of I_STF
+ where ( selected.Stack_Frame_ID == param.stack_frame_id );
+insth = param.instance_handle; 
+select any target_local related by insth->L_LCR[R3004]->L_LCL[R3001] 
+ where selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
+select any superinstance related by target_local->L_LCR[R3001]->L_LCL[R3001]->RV_RVL[R3306]
+                                                ->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]
+                                                ->I_INS[R3013];
+return superinstance;',
+	1,
+	'',
+	"7d4218cb-d42a-47a7-a685-e4d3a38bc004",
+	0,
+	1);
+INSERT INTO O_TPARM
+	VALUES ("7e76f202-83f0-414a-b072-95171ec6ef38",
+	"e3f36900-e753-4aa9-a782-3260e5e3702a",
+	'stack_frame_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("20a10aca-de3a-4ba6-be91-3b80f0e75dad",
+	"e3f36900-e753-4aa9-a782-3260e5e3702a",
+	'instance_handle',
+	"db5f6713-b12c-41c3-a4cd-b3a63409e7c8",
+	0,
+	'',
+	"7e76f202-83f0-414a-b072-95171ec6ef38",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("db5f6713-b12c-41c3-a4cd-b3a63409e7c8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Instance Handle>',
+	'',
+	'',
+	'../../Value/Value.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Instance>',
+	'',
+	'',
+	'../../Instance/Instance.xtuml');
+INSERT INTO O_TFR
+	VALUES ("01d7f1cd-7c4d-406e-8d92-de16c8b06478",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	'get_subtype_instance',
+	'',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	1,
+	'// Find and return the instance of the subclass for the deferred operation.
+superinstance = param.superclass_instance;  
+select any subinst from instances of I_INS where ( false );  // decl
+select one subtyp_assoc related by self->R_REL[R126.''defers execution to subtypes across''];
+select many rellnks related by subtyp_assoc->I_LNK[R2904.''has instances''];
+for each rellnk in rellnks
+  select one inst related by rellnk->I_LIP[R2902.''has formalizing participant'']->I_INS[R2958];
+  if ( inst == superinstance )
+    select one subinst related by rellnk->I_LIP[R2901.''has participant'']->I_INS[R2958];
+    if ( not_empty subinst )
+      break;
+    end if;
+  end if;
+end for;
+return subinst;',
+	1,
+	'',
+	"e3f36900-e753-4aa9-a782-3260e5e3702a",
+	0,
+	2);
+INSERT INTO O_TPARM
+	VALUES ("f0bfe21a-ed5f-46fa-9f73-f2c98229afd7",
+	"01d7f1cd-7c4d-406e-8d92-de16c8b06478",
+	'superclass_instance',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_REF
 	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
