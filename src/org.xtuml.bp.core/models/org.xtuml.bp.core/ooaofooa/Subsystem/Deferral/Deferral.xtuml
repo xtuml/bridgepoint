@@ -33,11 +33,11 @@ INSERT INTO O_TFR
 	'',
 	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
 	1,
-	'// Find and return the instance that ''owns'' the operation to be executed.
+	'// Find and return the instance of the superclass that declared the deferred operation.
 select any stack_frame from instances of I_STF
  where ( selected.Stack_Frame_ID == param.stack_frame_id );
-insth = param.instance_handle; 
-select any target_local related by insth->L_LCR[R3004]->L_LCL[R3001] 
+ihandle = param.instance_handle; 
+select any target_local related by ihandle->L_LCR[R3004]->L_LCL[R3001] 
  where selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
 select any superinstance related by target_local->L_LCR[R3001]->L_LCL[R3001]->RV_RVL[R3306]
                                                 ->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]
@@ -65,7 +65,7 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"7e76f202-83f0-414a-b072-95171ec6ef38",
-	'');
+	'Instance of the invoking element - an operation_invocation or an operation_value');
 INSERT INTO S_DT_PROXY
 	VALUES ("db5f6713-b12c-41c3-a4cd-b3a63409e7c8",
 	"00000000-0000-0000-0000-000000000000",
@@ -115,7 +115,209 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'The superclass instance for which a subtype instance is to be retrieved.');
+INSERT INTO O_TFR
+	VALUES ("b041ebb2-de16-4a0e-b6f8-5cf386d85c67",
+	"dc721b26-4e27-4d57-a1c8-03da343208d2",
+	'setupParameterValues',
+	'Initializes the parameters passing to an Operation Invocation',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'// Subsystem Deferral setupParameters for deferred operation
+
+superinstance = param.superclass_instance;
+subinst = param.subclass_instance;
+select one subtyp related by subinst->CSME_CIE[R2962.''instance of'']
+                                    ->O_OBJ[R2961.''represents class in engine''];
+select one operation related by self->O_TFR[R126.''delegates execution of''];
+select any subtfr related by subtyp->O_TFR[R115.''may contain'']
+ where ( selected.Name == operation.Name );
+
+// Determine if the subclass actually implements the deferred operation.
+// If not, default to the superclass - and determine which instance is to be ''self''
+// 
+select one body related by subtfr->ACT_OPB[R696]->ACT_ACT[R698];
+select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
+selfinstance = superinstance; // tentatively..
+if (not_empty statement) //  .. a deferred operation is implemented in the subclass
+  operation = subtfr;
+  selfinstance = subinst;
+else
+  select one body related by operation->ACT_OPB[R696]->ACT_ACT[R698];
+  select one deferral related by operation->O_DEF[R126];
+  if ( deferral.required != 1 ) // warning: using superclass even though deferral is ''required''
+    USER::logError(msg:"Deferral is not optional for operation: ", path:subtyp.Name + "." + operation.Name );
+  end if;
+end if;
+
+select many operation_parameters related by operation->O_TPARM[R117];
+args = param.operation_params;
+// Grab the stack frame(should be the new top stack frame)
+select any stack_frame from instances of I_STF 
+ where (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+  if (not_empty body)
+    pathMsg = body.getPath();
+  end if;
+	USER::logError(msg:"Deferral.setupParameterValues: " +
+                  "Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one stack_frame related by stack->I_STF[R2929];
+end if;
+// Grab the stack as well
+select one stack related by stack_frame->I_STACK[R2929];
+if (empty stack)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+  if (not_empty body)
+    pathMsg = body.getPath();
+  end if;
+	USER::logError(msg:"Deferral.setupParameterValues: " +
+                               "Failure to retrieve stack. Using random stack.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one new_stack_frame related by stack->I_STF[R2929];
+end if;
+
+select one outer_block related by body->ACT_BLK[R666.''has committed outer''];
+if not_empty outer_block
+  for each arg in args
+    // Seach for a operation parameter with the same name as the actual parameter
+    select any operation_param related by operation->O_TPARM[R117] 
+     where selected.Name == arg.Name;
+    if (empty operation_param)
+      pathMsg = "<No Path Available - Empty instance>";
+      if (not_empty body)
+        pathMsg = body.getPath();
+      end if;
+	    USER::logError(msg:"Deferral.setupParameterValues: "+
+                            "did not find a corresponding operation parameter",path:pathMsg);
+    else
+      //We have found the matching operation parameter and actual parameter
+      //Now set the value of the parameter value related to the operation parameter to the actual parameter''s value
+      if (operation_param.By_Ref == 0)  // by value
+        select one act_val related by arg->V_VAL[R800];
+        act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+        select any result related by stack_frame->I_VSF[R2951]
+         where selected.Value_ID == act_val.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        if (empty rtVal)
+          // result requires computation. Return and let the new stack frame execute
+          return false;
+        end if;
+      end if;
+    end if;
+  end for;
+  // If we get here, all computation of arguments was completed,
+  //  prepare for execution of the operation
+  sf = body.createStackFrame(stack_id:stack.Stack_ID,
+                             invoking_stack_frame_or_component_id: GD::NULL_UNIQUE_ID(), 
+                             enqueue: false);
+  select any new_stack_frame from instances of I_STF
+   where selected.Stack_Frame_ID == sf;
+  relate new_stack_frame to selfinstance across R2954;
+  // Create a self operator if needed
+  select many self_ih_vars related by outer_block->V_VAR[R823]
+   where GD::toLower(value:selected.Name) == "self";
+  // If the self operator is used in the executing block,
+  // find each use and relate it to the newly created local
+  // Create a local reference for the self operator 
+  for each self_ih_var in self_ih_vars
+    // Create a new local reference
+    loc_id = outer_block.newLocalReference(stack_frame_id: sf);
+    select any local_ref related by outer_block->I_BSF[R2923]->L_LCL[R3000]->L_LCR[R3001]
+     where selected.Local_ID == loc_id;
+    local_ref.addInstance(inst_id:selfinstance.Inst_ID);
+    // Now relate the local reference to the ''self'' instance handle
+    select one self_ih related by self_ih_var->V_INT[R814];
+    relate self_ih to local_ref across R3004;
+  end for;
+     
+  for each arg in args
+    select any operation_param related by operation->O_TPARM[R117] 
+     where selected.Name == arg.Name;
+    // Create a new local value in the new stack frame for each argument
+    loc_id = outer_block.newLocalValue(stack_frame_id: sf);
+    // Find the new local value and set it with the actual parameter value
+    select any local related by outer_block->I_BSF[R2923]->L_LCL[R3000] 
+     where selected.Local_ID == loc_id;
+    select one lvl related by local->L_LVL[R3001];
+    select one act_val related by arg->V_VAL[R800];
+    if not_empty operation_param and operation_param.By_Ref == 0
+      select any result related by stack_frame->I_VSF[R2951] 
+       where selected.Value_ID == act_val.Value_ID;
+      select one rtVal related by result->RV_RVL[R3305];
+      create object instance lrtVal of RV_RVL;
+      relate lrtVal to local across R3306;
+      select one dt related by operation_param->S_DT[R118];
+      relate lrtVal to dt across R3307;
+      lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+    else  // assuming by ref
+      relate lvl to act_val across R3010;
+    end if;
+    // Relate the new local value to the operation parameter so that
+    // it can be found when the parameter value is referenced.
+    relate operation_param to local across R3008;
+    stack_frame.popValue(value_id:arg.Value_ID);
+  end for;
+else
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Deferral.setupParameterValues: " +
+                                       "did not find an outer operation block",path:pathMsg);     
+end if;
+return true;',
+	1,
+	'',
+	"01d7f1cd-7c4d-406e-8d92-de16c8b06478",
+	0,
+	0);
+INSERT INTO O_TPARM
+	VALUES ("f943ff5a-2b45-4979-bf1c-e6869533bf06",
+	"b041ebb2-de16-4a0e-b6f8-5cf386d85c67",
+	'stack_frame_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("83567fa4-0a83-48c6-b841-b673f4d57ad2",
+	"b041ebb2-de16-4a0e-b6f8-5cf386d85c67",
+	'superclass_instance',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	0,
+	'',
+	"f943ff5a-2b45-4979-bf1c-e6869533bf06",
+	'The superclass instance involved in this invocation of a deferred operation.');
+INSERT INTO O_TPARM
+	VALUES ("d02b5282-9fca-400e-87ae-ba4040edc23d",
+	"b041ebb2-de16-4a0e-b6f8-5cf386d85c67",
+	'subclass_instance',
+	"78e6c6b9-c0b8-4dca-8bb3-57c5bcb7a501",
+	0,
+	'',
+	"83567fa4-0a83-48c6-b841-b673f4d57ad2",
+	'The superclass instance identified in this invocation of a deferred operation.');
+INSERT INTO O_TPARM
+	VALUES ("aeb7e17c-ae84-4851-bee6-bf5c3225fd3b",
+	"b041ebb2-de16-4a0e-b6f8-5cf386d85c67",
+	'operation_params',
+	"8e374302-a943-4964-8c39-9a7779662dba",
+	0,
+	'',
+	"d02b5282-9fca-400e-87ae-ba4040edc23d",
+	'The set of parameter values presented to this invocation of a deferred operation.');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e374302-a943-4964-8c39-9a7779662dba",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Actual Parameter>',
+	'',
+	'',
+	'../../Value/Value.xtuml');
 INSERT INTO O_REF
 	VALUES ("dc721b26-4e27-4d57-a1c8-03da343208d2",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
