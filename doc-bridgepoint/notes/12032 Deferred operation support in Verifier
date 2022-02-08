@@ -1,0 +1,24 @@
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
+# Verifier support for deferred operations in OAL
+### xtUML Project Design Note
+
+### 1. Abstract
+
+Many of the tool chain components support operations which are realized in subtypes.
+Support this capability in Verifier
+
+### 2. Document References
+
+<a id="2.1"></a>2.1 [#10129 support deferred operations in OAL](https://support.onefact.net/issues/10129)
+<a id="2.2"></a>2.2 [#12032 Verifier: Support deferred (polymorphic) operations](https://support.onefact.net/issues/12032)  
+
+
+### 3. Background
+
+3.1 Terminology
+
