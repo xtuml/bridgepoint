@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.xtuml.canvas.language
+Bundle-ManifestVersion: 2
+Bundle-Name: org.xtuml.canvas.language
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtuml.canvas.language; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ org.eclipse.core.resources;bundle-version="3.13.700",
+ org.xtuml.bp.core;bundle-version="7.1.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: org.xtuml.canvas.language.canvas.util,
+ org.xtuml.canvas.language.parser.antlr.internal,
+ org.xtuml.canvas.language.scoping,
+ org.xtuml.canvas.language.serializer,
+ org.xtuml.canvas.language.generator,
+ org.xtuml.canvas.language.canvas.impl,
+ org.xtuml.canvas.language.validation,
+ org.xtuml.canvas.language,
+ org.xtuml.canvas.language.services,
+ org.xtuml.canvas.language.canvas,
+ org.xtuml.canvas.language.parser.antlr,
+ org.xtuml.canvas.language.formatting2
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.ui.resource

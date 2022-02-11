@@ -31,6 +31,7 @@ import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DecisionMergeNode_c;
 import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.Exception_c;
 import org.xtuml.bp.core.Extend_c;
 import org.xtuml.bp.core.ExternalEntityParticipant_c;
 import org.xtuml.bp.core.ExternalEntity_c;
@@ -105,6 +106,8 @@ public class PackageInspector extends BaseModelClassInspector {
                 .getManyO_OBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000((Package_c) arg));
 
         sort(v_class);
+        Exception_c[] v_exception = Exception_c.getManyS_EXPsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000((Package_c) arg));
+        sort(v_exception);
         Function_c[] v_function = Function_c
                 .getManyS_SYNCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000((Package_c) arg));
 
@@ -287,6 +290,9 @@ public class PackageInspector extends BaseModelClassInspector {
         }
         for (int i = 0; i < v_function.length; i++) {
             result.add(new ObjectElement("v_function", ObjectElement.RELATION_ROLE_ELEMENT, v_function[i], arg, false));
+        }
+        for (int i = 0; i < v_exception.length; i++) {
+            result.add(new ObjectElement("v_exception", ObjectElement.RELATION_ROLE_ELEMENT, v_exception[i], arg, false));
         }
         for (int i = 0; i < v_externalentity.length; i++) {
             result.add(new ObjectElement("v_externalentity", ObjectElement.RELATION_ROLE_ELEMENT, v_externalentity[i],
@@ -757,4 +763,9 @@ public class PackageInspector extends BaseModelClassInspector {
     public int getTreeDifferenceSlot(Object element) {
         return slot_class.getTreeDifferenceSlot(element);
     }
+
+	@Override
+	public String getNamingAttribute(Object element) {
+		return "Name";
+	}
 }

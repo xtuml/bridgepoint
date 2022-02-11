@@ -10,6 +10,8 @@ Export-Package: org.xtuml.bp.ui.canvas,
  org.xtuml.bp.ui.canvas.cells,
  org.xtuml.bp.ui.canvas.cells.providers,
  org.xtuml.bp.ui.canvas.inspector,
+ org.xtuml.bp.ui.canvas.persistence,
+ org.xtuml.bp.ui.canvas.references,
  org.xtuml.bp.ui.canvas.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,

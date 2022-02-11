@@ -15,7 +15,6 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.TransactionManager;
 import org.xtuml.bp.ui.graphics.factories.AdapterFactory;

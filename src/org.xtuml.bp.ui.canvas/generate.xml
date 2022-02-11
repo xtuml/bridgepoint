@@ -291,7 +291,9 @@
 
    <property name="cvs_java_files" value="preferences/*,Canvas*.java, GCDelegate.java, Gr_c.java,
     ModelContentOutlinePage.java, ShowCanvasAction.java, Cl_c.java, ToolAction.java,
-    ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/ConnectorUtil.java, util/GraphicalElementUtil.java, util/GraphicsUtil.java, util/GraphNodeUtil.java, IEditorTabFactory.java, GraphicsReconcilerLauncher.java" />
+    ICanvasHelpContextIds.java, OoaofgraphicsBase.java, util/ConnectorUtil.java, util/GraphicalElementUtil.java, util/GraphicsUtil.java,
+   	util/GraphNodeUtil.java, IEditorTabFactory.java, GraphicsReconcilerLauncher.java,
+   	persistence/*.java, references/*.java" />
 
    <target name="format_java" description="Format the generated java source">
       <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask">

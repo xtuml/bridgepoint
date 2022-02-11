@@ -228,6 +228,17 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
         }
 		return 0;
 	}	
+
+	@Override
+	public String getNamingAttribute(Object element) {
+		IModelClassInspector inspector = getInspector(element.getClass());
+		if(inspector != null) {
+			return inspector.getNamingAttribute(element);
+		}
+		// clients will need to worry about cases where a naming
+		// attribute is not present (should be ignorable)
+		return "";
+	}	
 }
 .end function
 .if(inspector_package == "org.xtuml.bp.core.inspector")
@@ -257,6 +268,7 @@ public interface ${inspector_interface_name}{
 	Object[] getReferentialDetails(Class<?> referentialClass, Object arg);
 	Image getImage(Object arg);
 	int getTreeDifferenceSlot(Object element);
+	String getNamingAttribute(Object element);
 }
  .emit to file "${rel_path}/${inspector_dir}/${inspector_interface_name}.java"
  .//
