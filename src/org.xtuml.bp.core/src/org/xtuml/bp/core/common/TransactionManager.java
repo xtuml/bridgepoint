@@ -324,6 +324,14 @@ public class TransactionManager {
 	public boolean disableDialog = false;
 
 	/**
+	 * Currently used only in tests, when we have collected
+	 * something but the test did not clear and future tests
+	 * are not interested
+	 */
+	public void clearAffectedModelElements() {
+		affectedComponents.clear();
+	}
+	/**
 	 * This method checks whether or not a transaction can complete. It checks
 	 * each affected component to see if any are read-only, if it finds any that
 	 * are it shows a dialog to the user letting them make the choice of whether
