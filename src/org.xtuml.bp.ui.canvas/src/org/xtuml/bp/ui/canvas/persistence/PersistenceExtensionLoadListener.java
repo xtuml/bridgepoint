@@ -2,7 +2,10 @@ package org.xtuml.bp.ui.canvas.persistence;
 
 import java.util.stream.Stream;
 
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Gd_c;
+import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -20,12 +23,24 @@ public class PersistenceExtensionLoadListener extends ModelChangeAdapter {
 
 	@Override
 	public void modelElementLoaded(ModelChangedEvent event) {
+		// do nothing if textual persistence is not enabled
+		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
+				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
+		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
+			return;
+		}
 		NonRootModelElement loadedElement = (NonRootModelElement) event.getModelElement();
 		ReferencePathManagement.initializeElement(loadedElement);
 	}
 	
 	@Override
 	public void modelElementUnloaded(ModelChangedEvent event) {
+		// do nothing if textual persistence is not enabled
+		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
+				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
+		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
+			return;
+		}
 		Stream.of(Objectreference_c.ObjectreferenceInstances(Ooaofgraphics.getDefaultInstance())).forEach(ref -> {
 			if(event.getModelElement() == ref.getElement()) {
 				Referencepath_c path = Referencepath_c.getOneR_RPOnR500(ref);

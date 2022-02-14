@@ -36,6 +36,12 @@ public class PersistenceExtensionResourceListener implements IResourceChangeList
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
+		// do nothing if textual persistence is not enabled
+		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
+				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
+		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
+			return;
+		}
 		// do not want to do anything in response to normal brigepoint ops
 		if ( !ComponentResourceListener.ignoreResourceChanges() && !ComponentResourceListener.isIgnoreResourceChangesMarkerSet()) {
 			if (event.getType() != IResourceChangeEvent.POST_CHANGE)
