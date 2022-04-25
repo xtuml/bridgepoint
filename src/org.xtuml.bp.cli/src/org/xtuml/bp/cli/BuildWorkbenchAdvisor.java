@@ -28,8 +28,8 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		runner.start();
 	}
 
-	protected void performCLIBuild() {
-	    executor.performCLIBuild();
+	protected int performCLIBuild() {
+	    return executor.performCLIBuild();
 	}
 	
 	public boolean getPrebuilderOnly() {

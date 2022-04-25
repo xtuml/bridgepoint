@@ -40,9 +40,14 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.editors.providers.MetaModelContentProvider;
+import org.xtuml.bp.core.editors.providers.MetaModelLabelProvider;
 import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 import org.xtuml.bp.debug.ui.model.BPThread;
+import org.xtuml.bp.ui.canvas.Objectreference_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
+import org.xtuml.bp.ui.canvas.Referencepath_c;
+import org.xtuml.bp.ui.explorer.ModelLabelProvider;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -63,7 +68,8 @@ public class BPInstancePopulationView extends ViewPart {
 	private TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
 	private Action action1;
-	
+	private MetaModelContentProvider mmContentProvider = new MetaModelContentProvider();
+	private ModelLabelProvider mmLabelProvider = new ModelLabelProvider();
 	// The number of instance lists to show in each root
 	private final int MAX_NUMBER_OF_LISTS = 25;
 
@@ -375,7 +381,10 @@ public class BPInstancePopulationView extends ViewPart {
 					result.add(new BPInstanceListTree(list,(BPModelRootTree)parent));
 				}
 			} else if (parent instanceof BPInstanceListTree) {
-				// Nothing to do here, no children				
+				BPInstanceListTree tree = (BPInstanceListTree) parent;
+				return tree.instanceList.toArray();
+			} else if (parent instanceof Referencepath_c) {
+				return Objectreference_c.getManyR_ORsOnR500(((Referencepath_c) parent));
 			} else if (parent instanceof BPSummaryTree) {
 				BPSummaryTree thisParent = (BPSummaryTree)parent;
 				
@@ -451,6 +460,14 @@ public class BPInstancePopulationView extends ViewPart {
 				return label;
 		    } else if (obj instanceof BPSummaryTree) {
 				return "Summary";
+		    } else if (obj instanceof Referencepath_c) {
+		    	return ((Referencepath_c) obj).getPath();
+		    } else if (obj instanceof Objectreference_c) {
+		    	return mmLabelProvider.getText(((Objectreference_c) obj).getElement());
+		    } else if(obj instanceof NonRootModelElement) {
+				return mmLabelProvider.getText(obj);
+		    } else if (obj instanceof NonRootModelElement) {
+		    	return ((NonRootModelElement) obj).getName();
 		    } else if (obj instanceof BPSummaryTreeItem) {
 				String label = ((BPSummaryTreeItem) obj).instanceList.getType().getName() + " - "
 				+ ((BPSummaryTreeItem) obj).instanceList.toArray().length;
@@ -474,6 +491,12 @@ public class BPInstancePopulationView extends ViewPart {
 				imageKey = ISharedImages.IMG_OBJ_FOLDER;
 			} else if (obj instanceof BPSummaryTreeItem) {
 				imageKey = ISharedImages.IMG_OBJ_ELEMENT;
+			} else if (obj instanceof Referencepath_c) {
+				imageKey = ISharedImages.IMG_ETOOL_HOME_NAV;
+			} else if (obj instanceof Objectreference_c) {
+				return mmLabelProvider.getImage(((Objectreference_c) obj).getElement());
+			} else if(obj instanceof NonRootModelElement) {
+				return mmLabelProvider.getImage(obj);
 			} else {
 				System.out
 						.println("Unexpected tree element in ViewLabelProvider.getText() for \"obj.toString()\"");

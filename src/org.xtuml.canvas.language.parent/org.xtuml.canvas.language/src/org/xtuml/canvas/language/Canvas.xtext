@@ -1,0 +1,175 @@
+grammar org.xtuml.canvas.language.Canvas with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate canvas "http://www.xtuml.org/canvas/language/Canvas"
+
+Model:
+	render=ModelRender
+	properties=ModelProperties?
+	elements+=GraphicalElement*;
+
+ModelRender:
+	'render' ':' importURI=STRING;
+
+ModelProperties:
+	'properties' ':'
+	'viewport' ':' point=Point
+	'zoom' ':' zoom=FLOAT;
+
+GraphicalElement:
+	Shapes | Connectors;
+
+Shapes:
+	{Shapes} 'shapes' ':' (shapes+=Shape)*;
+
+Shape:
+	{Shape} 'shape' ':' name=ID
+	container=Container?
+	'render' ':' type=TypeLabel represents=STRING
+	bounds=Bounds text=FloatingText?;
+Container:
+	'container';
+
+FloatingTexts:
+	{FloatingTexts} 'texts' ':' (texts+=FloatingText)*;
+
+FloatingText:
+	{FloatingText} 'text' ':'
+	bounds=Bounds
+	end=EnumEnd;
+
+EnumEnd:
+	'where' ':' where=('start' | 'end' | 'middle' | 'end_fixed' | 'start_fixed' | 'none' | 'floating' |
+	'additional');
+
+Connectors:
+	{Connectors} 'connectors' ':' (connectors+=Connector)*;
+
+Connector:
+	'connector' ':' name=ID
+	'render' ':' type=TypeLabel represents=STRING
+	polyline=Polyline
+	anchors=Anchors? texts=FloatingTexts;
+
+Anchors:
+	'anchors' ':' startAnchor=StartAnchor endAnchor=EndAnchor;
+
+StartAnchor:
+	'start' ':' point=PointDefinition anchor=Anchor?;
+
+EndAnchor:
+	'end' ':' point=PointDefinition anchor=Anchor?;
+
+Anchor:
+	ShapeAnchorElement | ConnectorAnchorElement;
+
+ShapeAnchorElement:
+	'shape' ':' element=[Shape];
+
+ConnectorAnchorElement:
+	'connector' ':' element=[Connector];
+
+Polyline:
+	{Polyline} 'polyline' ':' segments+=Segment*;
+
+Segment:
+	'segment' ':' 'start' ':' startPoint=Point 'end' ':' endPoint=Point;
+
+Point:
+	'x' ':' x=FLOAT 'y' ':' y=FLOAT;
+
+PointDefinition:
+	'point' ':'
+	'x' ':' x=FLOAT 'y' ':' y=FLOAT;
+
+Bounds:
+	'bounds' ':'
+	'x' ':' x=FLOAT
+	'y' ':' y=FLOAT
+	'width' ':' w=FLOAT
+	'height' ':' h=FLOAT;
+
+TypeLabel:
+	OOAType;
+	
+terminal FLOAT returns ecore::EFloat: '-' ? INT '.' INT;
+
+OOAType:
+	'access_path' |
+	'association' |
+	'associative_link' |
+	'class' |
+	'communication_path' |
+	'data_type' |
+	'derived_access_path' |
+	'derived_communication_path' |
+	'ee' |
+	'enumeration_data_type' |
+	'imported_class' |
+	'none' |
+	'state' |
+	'state_machine' |
+	'subsystem' |
+	'transition' |
+	'user_data_type' |
+	'subtype' |
+	'supertype' |
+	'creation_transition' |
+	'sequence' |
+	'lifeline' |
+	'timing_mark' |
+	'time_span' |
+	'synchronous_message' |
+	'class_instance_participant' |
+	'external_entity_participant' |
+	'class_participant' |
+	'actor' |
+	'asynchronous_message' |
+	'return_message' |
+	'communication' |
+	'communication_link' |
+	'communication_return_message' |
+	'communication_asynchronous_message' |
+	'communication_synchronous_message' |
+	'use_case' |
+	'use_case_diagram' |
+	'use_case_binary_association' |
+	'generalization' |
+	'include' |
+	'extend' |
+	'fork_join' |
+	'activity' |
+	'initial_node' |
+	'activity_edge' |
+	'activity_final_node' |
+	'flow_final_node' |
+	'generic_action' |
+	'decision_merge_node' |
+	'object_node' |
+	'accept_event_action' |
+	'send_signal_action' |
+	'accept_time_event_action' |
+	'partition' |
+	'component' |
+	'provided_interface' |
+	'required_interface' |
+	'interface' |
+	'system_model' |
+	'structured_data_type' |
+	'component_reference' |
+	'component_diagram' |
+	'delegation' |
+	'component_container' |
+	'imported_provided_interface' |
+	'imported_required_interface' |
+	'component_participant' |
+	'package' |
+	'constant_specification' |
+	'package_participant' |
+	'shape' |
+	'connector' |
+	'diagram' |
+	'exception' |
+	'satisfaction' |
+	'deployment';
