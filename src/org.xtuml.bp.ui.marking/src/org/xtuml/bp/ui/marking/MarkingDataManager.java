@@ -1,6 +1,7 @@
 package org.xtuml.bp.ui.marking;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.xtuml.bp.core.XtUMLNature;
@@ -29,6 +30,10 @@ public class MarkingDataManager {
 			projectMarkingData.put(project, md);
 		}
 		return md;
+	}
+
+	public static void removeMarkingData(List<IProject> projects) {
+		projects.forEach(p -> projectMarkingData.remove(p));
 	}
 	
 }

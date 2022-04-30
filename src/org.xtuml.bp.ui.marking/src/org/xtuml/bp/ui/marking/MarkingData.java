@@ -43,14 +43,26 @@ public class MarkingData {
 		public String feature_name;
 		public String path;
 		public String value;
-		public NonRootModelElement nrme;
+		private NonRootModelElement _nrme;
 		
 		public Mark() {
 			markable_name = new String("");
 			feature_name = new String("");
 			path = new String("");
 			value = new String("");
-			nrme = null;
+			_nrme = null;
+		}
+		
+		public NonRootModelElement getNrme() {
+			// reloads will break the cached NRME
+			// rather than setup a listener for this
+			// we simply use the hash lookup to get the
+			// current element
+			return (NonRootModelElement) _nrme.getModelRoot().getInstanceList(_nrme.getClass()).get(_nrme.getInstanceKey());
+		}
+
+		public void setNrme(NonRootModelElement nrme) {
+			this._nrme = nrme;
 		}
 	}
 	
@@ -149,6 +161,11 @@ public class MarkingData {
 	 * @return String - An error message if issues were found, otherwise empty string
 	 */
 	public String validateFeatures() {
+		// doesn't hurt to populate here, incase the features file was added
+		// after the project creation
+		if(featureMap.isEmpty()) {
+			populateFeatures();
+		}
 		Set<String> featureSet = featureMap.keySet();
 		Iterator<String> featureSetIter = featureSet.iterator();
 		String invalidElements = "";
@@ -204,9 +221,9 @@ public class MarkingData {
 		mark.path = modelElement;
 		mark.value = newValue;
       if (modelElement.equals("*")) {
-          mark.nrme = null;
+          mark.setNrme(null);
       } else {
-		mark.nrme = MarkingData.getNRMEForMark(modelElement, elemType, this.project);
+		mark.setNrme(MarkingData.getNRMEForMark(modelElement, elemType, this.project));
       }
 		markList.put(getCombinedRef(featureName, elemType), mark);
 	}
@@ -257,7 +274,7 @@ public class MarkingData {
 			// are OK and we skip further processing.  If it's not OK, we must iterate through all the marks
 			// for this model element and update them.
 			// Use the mark's nrme to get the updated path and see if it matches elementEntry.getKey()
-            newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().nrme, project);
+            newPath = MarkingData.getPathkey((NonRootModelElement) firstfeatureEntry.getValue().getNrme(), project);
             // Due to the possibility of a race condition between the model update causing this transaction and 
             // this transaction handling, additional steps need to be taken to ensure the return of the 
             // previous call wasn't due to being out of sync with the model.
@@ -314,7 +331,7 @@ public class MarkingData {
 					mark.feature_name = origMark.feature_name; 
 					mark.path = newPath; 
 					mark.value = origMark.value; 
-					mark.nrme = origMark.nrme; 
+					mark.setNrme(origMark.getNrme()); 
 					newMarkList.put(featureEntry.getKey(), mark);
 				}
 			}
@@ -344,7 +361,7 @@ public class MarkingData {
          LinkedHashMap<String,Mark> newMarkList = new LinkedHashMap<String,Mark>();
          for ( Map.Entry<String, Mark> featureEntry : elementEntry.getValue().entrySet() ) {
             // Check for model loading/mark loading race condition.
-            NonRootModelElement nrmeCurrent = featureEntry.getValue().nrme;
+            NonRootModelElement nrmeCurrent = featureEntry.getValue().getNrme();
             if ( (null == nrmeCurrent) && !featureEntry.getValue().path.equals("*") ){
                 nrmeCurrent = getNRMEForMark(featureEntry.getValue().path, featureEntry.getValue().markable_name, this.project);
             }
@@ -358,7 +375,7 @@ public class MarkingData {
                mark.feature_name = origMark.feature_name;
                mark.path = origMark.path;
                mark.value = markValue.replace(oldAttributeValue, newAttributeValue);
-               mark.nrme = origMark.nrme;
+               mark.setNrme(origMark.getNrme());
                newMarkList.put(featureEntry.getKey(), mark);
             } else {
                // Unchanged entry
@@ -391,7 +408,11 @@ public class MarkingData {
 				}
 			}
 			ByteArrayInputStream bias = new ByteArrayInputStream(markingContentBuilder.toString().getBytes());
-			file.setContents(bias, IFile.DEPTH_ONE, new NullProgressMonitor());
+			if(!file.exists()) {
+				file.create(bias, true, new NullProgressMonitor());
+			} else {
+				file.setContents(bias, IFile.DEPTH_ONE, new NullProgressMonitor());
+			}
 		} catch (CoreException e) {
 			CorePlugin.logError("Error persisting to " + MARKINGS_FILE, e);
 		}        
@@ -459,7 +480,7 @@ public class MarkingData {
 			marks = entry.getValue();
 			for (Map.Entry<String, Mark> markEntry : marks.entrySet())
 			{
-				if ( markEntry.getValue().nrme == nrme ) {
+				if ( markEntry.getValue().getNrme() == nrme ) {
 					return getMarks(markEntry.getKey(), markEntry.getValue().markable_name);
 				}
 			}
