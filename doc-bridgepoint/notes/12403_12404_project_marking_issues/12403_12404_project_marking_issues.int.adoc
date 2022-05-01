@@ -1,0 +1,152 @@
+= Multiple bug fixes for project markings
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes implementation changes that address issues reported in 12403
+and 12404.
+
+== 2 Introduction and Background
+
+There are multiple issues reported around the persistence of the project marking
+files.
+
+<<dr-1>> mentions:
+
+"Project markings are removed in different scenarios"
+
+<<dr-2>> mentions:
+
+"Marking editor does not always write application.mark after adding a mark"
+
+== 3 Requirements
+
+3.1 Marking files are not emptied unexpectedly
+3.2 Feature files created on initial configuration
+3.3 Marking map cleaned on project removal
+3.4 Marking map recreated on project open
+
+== 4 Work Required
+
+4.1 Marking files are not emptied unexpected
+
+The Mark element holds a reference to the marked
+NonRootModelElement. On model reloads, through things like
+configuration management, this reference can become
+disconnected from its parent. This causes the MarkingData
+logic to consider this a removal as the element's path is only
+the element name. To address this access to the NRME reference
+is changed such that it must go through a get operation. This
+operation is designed to dynamically retrieve the current NRME
+via the hashmap lookup support found in the ModelRoot.
+
+4.2 Feature files created on initial configuration
+
+Creation of feature.marking after project creation is not
+recognized by the already populated feature map. The cost of
+attempting to populate the features (which looks for and reads
+the feature.marking file) is small. This call is added when
+opening the Marking Dialog if the feature map is empty.
+
+4.3, 4.4 Marking map, project removal and recreation on project open
+
+Marking information is cached in a map on workspace startup
+for each project. Nothing was done to handle the case where
+a project was closed and reopened, or deleted. This can lead
+to data synchronization issues. A resource listener is added
+to remove the entry for a closed project key, and recreate from
+disk on open. The same removal is done for project deletions.
+
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+- Using the example model from <<dr-1>>
+
+- Testing 4.1
+
+_- Create a new package under the test component
+_- Replace the project with latest
+_- Create a new function under the new package
+_- Open the marking editor and choose Function > init
+_R Markings are present, scenario 1 and startup true
+_- Choose the new function in the marking editor
+_- Add a value for scenario and startup
+_- Close the editor
+_- Check the contents of the marking file on disk
+_R There are four marking entries
+
+- Testing 4.3, 4.4
+
+_- Delete and reimport the test model from <<dr-1>>
+_- Create a new package under the test component
+_- Replace the project with latest
+_- Create a new function under the new package
+_- Open the marking editor and choose Function > init
+_R Markings are present, scenario 1 and startup true
+_- Choose the new function in the marking editor
+_- Add a value for scenario and startup
+_- Close the editor
+_- Check the contents of the marking file on disk
+_R There are four marking entries
+_- Replace with the latest
+_- Close the project
+_- Check the application.mark file
+_R Three original entries are present
+_- Open the project
+_- Open the marking editor
+_- Choose each function
+_R All original functions have intended values
+_R New function created before replace has empty values
+_- Create another new package and function
+_- Open the marking editor
+_R Markings are present for original functions
+_- Set values for the newer function
+_- Exit the marking editor
+_- Check the application.mark file on disk
+_R File contents has all expected markings
+
+- Testing 4.2
+
+_- Create a new project
+_- Create a package and one function
+_- Create a new features file with:
+
+```
+Function,scenario
+Function,startup
+```
+_- Open the marking editor
+_- Set a value for scenario and startup
+_- Exit the marking editor
+_R The application.mark file exists on disk
+_R The application.mark file has the entries added for the test function
+
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  fmay-software/bridgepoint
+- branch:  onefact_12403_12404
+
+----
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/Activator.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkResourceListener.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingData.java
+src/org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingDataManager.java
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12403[12403 - Project markings are removed in different scenarios]
+. [[dr-2]] https://support.onefact.net/issues/12403[12403 - Project markings are removed in different scenarios]
+
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
