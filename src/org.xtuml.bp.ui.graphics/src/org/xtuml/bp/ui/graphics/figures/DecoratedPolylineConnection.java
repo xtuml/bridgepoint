@@ -194,7 +194,11 @@ public class DecoratedPolylineConnection extends PolylineConnection implements
 		} else {
 			// ensure black for line color, as the hidden layer
 			// when shown for some reason switches to white
-			g.setForegroundColor(ColorConstants.black);
+			if(Activator.getDefault().isDarkTheme()) {
+				g.setForegroundColor(ColorConstants.white);
+			} else {
+				g.setForegroundColor(ColorConstants.black);
+			}
 		}
 		// if the client says this element is to be highlighted
 		// do that here

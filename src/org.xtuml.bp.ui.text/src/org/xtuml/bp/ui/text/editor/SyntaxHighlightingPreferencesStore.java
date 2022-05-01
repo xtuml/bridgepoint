@@ -29,7 +29,7 @@ import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
-
+import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.preference.BasePlugin;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 import org.xtuml.bp.ui.preference.IPreferenceModelStore;
@@ -53,7 +53,7 @@ public class SyntaxHighlightingPreferencesStore implements IPreferenceModelStore
     private static String TOKEN_FOREGROUND = PREFIX + "token_foreground";
     private static String TOKEN_IS_BOLD = PREFIX + "token_is_bold";
 
-    public Class getModelClass() {
+    public Class<?> getModelClass() {
         return SyntaxHighlightingPreferences.class;
     }
 
@@ -125,7 +125,7 @@ public class SyntaxHighlightingPreferencesStore implements IPreferenceModelStore
 
         return prefs;
     }
-
+    
     public void restoreModelDefaults(IPreferenceModel model) {
 
         if (model == null)
@@ -135,37 +135,39 @@ public class SyntaxHighlightingPreferencesStore implements IPreferenceModelStore
         }
 
         SyntaxHighlightingPreferences prefs = (SyntaxHighlightingPreferences) model;
+        
+        boolean dark = UIUtil.isDarkTheme();
 
         prefs.setBackgroundRGB(OALEditorConstants.DEFAULT_BACKGROUND, OALEditorConstants.DEFAULT_BACKGROUND_ISSYSTEMDEFAULT);
 
         prefs.setTextAttribute(
             ActionLanguageTokenTypes.TOKEN_TYPE_single_line_comment,
             OALEditorConstants.DEFAULT_LABEL_SINGLE_LINE_COMMENT,
-            OALEditorConstants.DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT,
+            dark ? OALEditorConstants.DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT_DARK : OALEditorConstants.DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT_LIGHT,
             null,
             OALEditorConstants.DEFAULT_STYLE_SINGLE_LINE_COMMENT);
         prefs.setTextAttribute(
             ActionLanguageTokenTypes.TOKEN_TYPE_multi_line_comment,
             OALEditorConstants.DEFAULT_LABEL_MULTI_LINE_COMMENT,
-            OALEditorConstants.DEFAULT_FOREGROUND_MULTI_LINE_COMMENT,
+            dark ? OALEditorConstants.DEFAULT_FOREGROUND_MULTI_LINE_COMMENT_DARK : OALEditorConstants.DEFAULT_FOREGROUND_MULTI_LINE_COMMENT_LIGHT,
             null,
             OALEditorConstants.DEFAULT_STYLE_MULTI_LINE_COMMENT);
         prefs.setTextAttribute(
             ActionLanguageTokenTypes.TOKEN_TYPE_string,
             OALEditorConstants.DEFAULT_LABEL_STRING,
-            OALEditorConstants.DEFAULT_FOREGROUND_STRING,
+            dark ? OALEditorConstants.DEFAULT_FOREGROUND_STRING_DARK : OALEditorConstants.DEFAULT_FOREGROUND_STRING_LIGHT,
             null,
             OALEditorConstants.DEFAULT_STYLE_STRING);
         prefs.setTextAttribute(
             ActionLanguageTokenTypes.TOKEN_TYPE_keyword,
             OALEditorConstants.DEFAULT_LABEL_KEYWORD,
-            OALEditorConstants.DEFAULT_FOREGROUND_KEYWORD,
+            dark ? OALEditorConstants.DEFAULT_FOREGROUND_KEYWORD_DARK : OALEditorConstants.DEFAULT_FOREGROUND_KEYWORD_LIGHT,
             null,
             OALEditorConstants.DEFAULT_STYLE_KEYWORD);
         prefs.setTextAttribute(
             ActionLanguageTokenTypes.TOKEN_TYPE_other,
             OALEditorConstants.DEFAULT_LABEL_OTHER,
-            OALEditorConstants.DEFAULT_FOREGROUND_OTHER,
+            dark ? OALEditorConstants.DEFAULT_FOREGROUND_OTHER_DARK : OALEditorConstants.DEFAULT_FOREGROUND_OTHER_LIGHT,
             null,
             OALEditorConstants.DEFAULT_STYLE_OTHER);
     }

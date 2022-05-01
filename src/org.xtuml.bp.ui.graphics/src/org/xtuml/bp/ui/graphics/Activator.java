@@ -17,6 +17,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.TransactionManager;
+import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.graphics.factories.AdapterFactory;
 import org.xtuml.bp.ui.graphics.listeners.GraphicalPasteListener;
 import org.xtuml.bp.ui.graphics.listeners.GraphicsModelTransactionListener;
@@ -118,6 +119,10 @@ public class Activator extends AbstractUIPlugin {
 		}
 	}
 
+	public boolean isDarkTheme() {
+		return UIUtil.isDarkTheme();
+	}
+	
 	ColorRegistry colorRegistry = JFaceResources.getColorRegistry();
 	public Color getColor(int red, int green, int blue) {
 		String symbolicName = red + ":" + green + ":" + blue;

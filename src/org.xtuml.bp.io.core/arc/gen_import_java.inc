@@ -505,7 +505,7 @@ public class ${class_name} extends CoreImport
             IPath projLoc = null;
                 projLoc = file.getProject().getLocation();
                 if (projLoc.isPrefixOf(curPath)) {
-                    projRelPath = curPath.removeFirstSegments(projLoc.segmentCount() - 1);
+                    projRelPath = file.getFullPath();
                 }
         }
     }
