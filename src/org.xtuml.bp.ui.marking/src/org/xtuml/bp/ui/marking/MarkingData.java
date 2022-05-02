@@ -17,6 +17,7 @@ import java.util.StringJoiner;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -70,8 +71,9 @@ public class MarkingData {
     
     private static final String DELIM = ",";
 
-    private static final String FEATURE_FILE = "/gen/features.mark";
-    private static final String MARKINGS_FILE = "/gen/application.mark";
+    private static final String GEN_FOLDER = "/gen";
+    private static final String FEATURE_FILE = GEN_FOLDER + "/features.mark";
+    private static final String MARKINGS_FILE = GEN_FOLDER + "/application.mark";
     
     // Map of Element Types and a vector of associated features
     private HashMap<String, Vector<String>> featureMap;
@@ -409,6 +411,10 @@ public class MarkingData {
 			}
 			ByteArrayInputStream bias = new ByteArrayInputStream(markingContentBuilder.toString().getBytes());
 			if(!file.exists()) {
+                IFolder genFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(project.getFullPath().append(GEN_FOLDER));
+                if (!genFolder.exists()) {
+                    genFolder.create(false, false, new NullProgressMonitor());
+                }
 				file.create(bias, true, new NullProgressMonitor());
 			} else {
 				file.setContents(bias, IFile.DEPTH_ONE, new NullProgressMonitor());
