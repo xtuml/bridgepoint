@@ -413,7 +413,7 @@ public class MarkingData {
 			if(!file.exists()) {
                 IFolder genFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(project.getFullPath().append(GEN_FOLDER));
                 if (!genFolder.exists()) {
-                    genFolder.create(false, false, new NullProgressMonitor());
+                    genFolder.create(true, false, new NullProgressMonitor());
                 }
 				file.create(bias, true, new NullProgressMonitor());
 			} else {
