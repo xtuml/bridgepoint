@@ -76,9 +76,6 @@ public class ShapeImageFigure extends RectangleFigure implements IMapMode {
 			return;
 		}
 		Color defaultColor = specification.getInternal();
-		if(Activator.getDefault().isDarkTheme()) {
-			defaultColor = Activator.getDefault().getColor(81, 86, 88);
-		}
 		Linecolorstyle_c lcs = null;
 		Fillcolorstyle_c fcs = Fillcolorstyle_c
 				.getOneSTY_FCSOnR400(Elementstyle_c

@@ -185,7 +185,7 @@ public class DiagramEditPart extends AbstractGraphicalEditPart implements
 		if(mdlSpec == null) {
 			return ColorConstants.white;
 		}
-		return Activator.getDefault().isDarkTheme() ? Activator.getDefault().getColor(47,47,47) : mdlSpec.getBackground();
+		return mdlSpec.getBackground();
 	}
 
 	@Override
