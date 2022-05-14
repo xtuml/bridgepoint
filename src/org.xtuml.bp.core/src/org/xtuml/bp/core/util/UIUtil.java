@@ -806,29 +806,4 @@ public class UIUtil
 		}
 
 	}
-
-	public static boolean isDarkTheme() {
-		// get the current workbench theme, set defaults accordingly
-		// NOTE, we could import the swt css libraries but they are not
-		// considered API and access is discouraged. Instead of adding
-		// the dependencies we just use reflection, worse case is we
-		// revert to light mode
-		if(CoreUtil.IsRunningHeadless) {
-			return false;
-		}
-		Object data = PlatformUI.getWorkbench().getDisplay().getData("org.eclipse.e4.ui.css.swt.theme");
-		if (data != null) {
-			try {
-				Method currentTheme = data.getClass().getMethod("getActiveTheme", new Class[0]);
-				Object theme = currentTheme.invoke(data, new Object[0]);
-				Method getLabel = theme.getClass().getMethod("getLabel", new Class[0]);
-				String label = (String) getLabel.invoke(theme, new Object[0]);
-				return label.equals("Dark");
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
-				// ignore
-			}
-		}
-		return false;
-	}
 }

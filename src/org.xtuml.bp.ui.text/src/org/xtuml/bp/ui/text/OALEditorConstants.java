@@ -35,16 +35,11 @@ public class OALEditorConstants {
     public static final RGB DEFAULT_BACKGROUND = new RGB(255,255,255);
     public static final boolean DEFAULT_BACKGROUND_ISSYSTEMDEFAULT = true;
     
-    public static final RGB DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT_LIGHT = new RGB(63, 127, 95);
-    public static final RGB DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT_DARK = new RGB(255, 163, 72);
-    public static final RGB DEFAULT_FOREGROUND_MULTI_LINE_COMMENT_LIGHT = new RGB(63, 127, 95);
-    public static final RGB DEFAULT_FOREGROUND_MULTI_LINE_COMMENT_DARK = new RGB(205, 171, 143);
-    public static final RGB DEFAULT_FOREGROUND_KEYWORD_LIGHT = new RGB(127, 0, 85);
-    public static final RGB DEFAULT_FOREGROUND_KEYWORD_DARK = new RGB(87, 227, 137);
-    public static final RGB DEFAULT_FOREGROUND_STRING_LIGHT = new RGB(42, 0, 255);
-    public static final RGB DEFAULT_FOREGROUND_STRING_DARK = new RGB(248, 228, 92);
-    public static final RGB DEFAULT_FOREGROUND_OTHER_LIGHT = new RGB(0,0,0);
-    public static final RGB DEFAULT_FOREGROUND_OTHER_DARK = new RGB(255, 255, 255);
+    public static final RGB DEFAULT_FOREGROUND_SINGLE_LINE_COMMENT = new RGB(63, 127, 95);
+    public static final RGB DEFAULT_FOREGROUND_MULTI_LINE_COMMENT = new RGB(63, 127, 95);
+    public static final RGB DEFAULT_FOREGROUND_KEYWORD = new RGB(127, 0, 85);
+    public static final RGB DEFAULT_FOREGROUND_STRING = new RGB(42, 0, 255);
+    public static final RGB DEFAULT_FOREGROUND_OTHER = new RGB(0,0,0);
     
     public static final int  DEFAULT_STYLE_SINGLE_LINE_COMMENT = SWT.NULL;
     public static final int  DEFAULT_STYLE_MULTI_LINE_COMMENT = SWT.BOLD;
