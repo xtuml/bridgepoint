@@ -1,0 +1,87 @@
+= Do not synchronize terminator and service descriptions with component variants
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This not describes a change that removes description synchonization between component elements and there associated terminators.
+
+== 2 Introduction and Background
+
+The initial deployment design called for copying over Interface Reference descriptions to the Terminator descriptions at creation time.  This same description synchronization was also added for Interface Operations and Signals to the associated Terminator Service.
+
+The customer requirement has evolved such that the descriptions remain separated from each other.
+
+== 3 Requirements
+
+3.1 Do not synchronize component element's descriptions with the deployment related elements created.
+
+== 4 Work Required
+
+4.1 Remove description copy in Deployment::createTerminatorFromPort
+
+There are two places which set the description for the terminator based on the original Requirement and Provision.  These also have an additional not empty check that was unnecessary.  In both places the not empty test and the description assignment are removed.
+
+4.2 Remove description copy in Terminator::createServiceFromOperationOrSignal
+
+There are four places that copy the description from the component related element to the terminator service.  One for each type of operation and signal (provided/required).
+
+If of these four locations just require the description assignment line to be removed.
+
+4.3 Terminator::importFunctionAsTerminator
+
+This operation was investigated.  It also copies the function description to the Terminator Service.  The requirement for this is a bit different as the function serves as more of a direct copy.  In the WASL workflow this import operation is used to support scenarios.
+
+No changes were made here.
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+```
+_- Create a new project with a component and an interface
+_- Add a signal and an operation to the interface
+_- Add a provided and required interface to the component and formalize to the interface
+_- Add a description to the provided and required interface on the component
+_- Add a description to each required/provided signal/operation
+_- Add a new project with a deployment
+_- Right click the deployment and choose Import terminators from component...
+_R Two terminator services are created, along with four terminator services
+_R No element under the deployment has a description
+_- Add a new operation to the interface
+_- Add a description to the new operation
+_- Create new interface
+_- Create a new provided interface and formalize it to the new interface
+_- Add a description to the interface
+_- Run the Import terminators from component... action again
+_R A new terminator is added along with two new terminator services
+_R No element unser the deployment has a description
+```
+
+== 7 User Documentation
+
+No user documentation changes.
+
+== 8 Code Changes
+
+- fork/repository:  fmay-software/bridgepoint
+- branch:  master
+
+----
+doc-bridgepoint/notes/12377_do_not_copy_descriptions/12377_do_not_copy_descriptions.int.adoc
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/
+    Deployment/Deployment/Deployment.xtuml
+org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/
+    Deployment/Terminator/Terminator.xtuml
+
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12377[12377 - Deployments - Import Terminators - description fields are being appended rather than replaced]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

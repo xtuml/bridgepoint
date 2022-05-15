@@ -40,25 +40,21 @@ service.Implementation_Scope = ImplementationScope::Domain;
 
 // populate details from message implementation
 if ( not_empty spr_ro )
-  service.Descrip = spr_ro.Descrip;
   service.Action_Semantics_internal = spr_ro.Action_Semantics_internal;
   service.Suc_Pars = spr_ro.Suc_Pars;
   service.Dialect = spr_ro.Dialect;
   service.Numb = spr_ro.Numb;
 elif ( not_empty spr_rs )
-  service.Descrip = spr_rs.Descrip;
   service.Action_Semantics_internal = spr_rs.Action_Semantics_internal;
   service.Suc_Pars = spr_rs.Suc_Pars;
   service.Dialect = spr_rs.Dialect;
   service.Numb = spr_rs.Numb;
 elif ( not_empty spr_po )
-  service.Descrip = spr_po.Descrip;
   service.Action_Semantics_internal = "";
   service.Suc_Pars = spr_po.Suc_Pars;
   service.Dialect = ActionDialect::none;
   service.Numb = spr_po.Numb;
 elif ( not_empty spr_ps )
-  service.Descrip = spr_ps.Descrip;
   service.Action_Semantics_internal = "";
   service.Suc_Pars = spr_ps.Suc_Pars;
   service.Dialect = ActionDialect::none;
