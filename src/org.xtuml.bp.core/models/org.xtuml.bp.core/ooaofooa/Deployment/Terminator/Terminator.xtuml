@@ -476,7 +476,6 @@ if(not_empty comp)
 	end if;
 	
 	// populate details from function implementation
-	service.Descrip = func.Descrip;
 	service.Action_Semantics_internal = func.Action_Semantics_internal;
 	service.Suc_Pars = func.Suc_Pars;
 	service.Dialect = func.Dialect;

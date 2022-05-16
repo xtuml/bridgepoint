@@ -32,7 +32,7 @@ If of these four locations just require the description assignment line to be re
 
 This operation was investigated.  It also copies the function description to the Terminator Service.  The requirement for this is a bit different as the function serves as more of a direct copy.  In the WASL workflow this import operation is used to support scenarios.
 
-No changes were made here.
+This behavior is no longer desired by the customer.  This functionality is removed.
 
 == 5 Implementation Comments
 
@@ -56,6 +56,15 @@ _- Add a description to the interface
 _- Run the Import terminators from component... action again
 _R A new terminator is added along with two new terminator services
 _R No element unser the deployment has a description
+
+_- Create a component with a package named scenarios
+_- Add a function under the scenarios package and add a description
+_- Create an interface with an operation
+_- Create a required interface and formalize it to the interface
+_- Create a new deployment and Import terminators from that component
+_- Right click on the Deployment and import the function as a scenario
+_R A Terminator is created for the scenario
+_R No descriptions are added to the deployment elements
 ```
 
 == 7 User Documentation
