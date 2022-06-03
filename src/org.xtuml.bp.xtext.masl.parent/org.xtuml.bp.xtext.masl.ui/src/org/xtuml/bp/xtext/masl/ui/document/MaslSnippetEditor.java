@@ -175,10 +175,13 @@ public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentP
     this.setPartName(_name);
     final String prefix = maslDocumentProvider.getPrefix(input);
     final String editable = maslDocumentProvider.getEditable(input);
+    this.getSourceViewer().resetVisibleRegion();
     ISourceViewer _sourceViewer = this.getSourceViewer();
     int _length = prefix.length();
-    int _length_1 = editable.length();
-    _sourceViewer.setVisibleRegion(_length, _length_1);
+    int _length_1 = this.getSourceViewer().getVisibleRegion().getLength();
+    int _length_2 = prefix.length();
+    int _minus = (_length_1 - _length_2);
+    _sourceViewer.setVisibleRegion(_length, _minus);
     boolean _notEquals = (!Objects.equal(this.signatureLabel, null));
     if (_notEquals) {
       String _header = maslDocumentProvider.getHeader(input);
