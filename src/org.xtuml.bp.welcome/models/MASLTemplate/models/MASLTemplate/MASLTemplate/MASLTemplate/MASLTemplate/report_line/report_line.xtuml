@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'mID',
 	0,
-	"a2781680-0894-4851-81fe-014df94b0a33",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a2781680-0894-4851-81fe-014df94b0a33",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../types/types.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("48160d1e-f102-406d-aaf8-be0f8a87c841",
 	"d5c093d8-1c97-478a-8baa-e7ebcdf16e62");
@@ -47,16 +40,9 @@ INSERT INTO O_ATTR
 	'',
 	'department',
 	0,
-	"12b9f762-c15a-4cdd-9ca0-5f9792d4d836",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("12b9f762-c15a-4cdd-9ca0-5f9792d4d836",
-	"00000000-0000-0000-0000-000000000000",
-	'string',
-	'',
-	'',
-	'../../../../types/types.xtuml');
 INSERT INTO O_REF
 	VALUES ("d5c093d8-1c97-478a-8baa-e7ebcdf16e62",
 	"2d2c8bc0-df65-483c-bd7f-c9dd1b015861",

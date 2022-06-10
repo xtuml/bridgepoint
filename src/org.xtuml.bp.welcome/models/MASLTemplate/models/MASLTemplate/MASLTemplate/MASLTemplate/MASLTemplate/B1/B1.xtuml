@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'bID',
 	0,
-	"a2781680-0894-4851-81fe-014df94b0a33",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a2781680-0894-4851-81fe-014df94b0a33",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../types/types.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d50a67d5-64ff-4921-8e00-97f2ee7346e5",
 	"e3c778a9-247c-434a-9cb7-6b179b3e1b7f");
@@ -47,7 +40,7 @@ INSERT INTO O_ATTR
 	'',
 	'i',
 	0,
-	"a2781680-0894-4851-81fe-014df94b0a33",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
