@@ -10,7 +10,8 @@ INSERT INTO C_EP
 	"15e99221-9a1b-4f64-8337-a4048e2d2950",
 	-1,
 	'terminator_svc_1',
-	'');
+	'',
+	0);
 INSERT INTO C_IO
 	VALUES ("0e10f1d1-7547-400b-8d86-17b2ad2cf494",
 	"ba5eda7a-def5-0000-0000-000000000000",

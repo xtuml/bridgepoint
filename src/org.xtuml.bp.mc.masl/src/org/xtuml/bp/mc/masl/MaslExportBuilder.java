@@ -232,7 +232,8 @@ public class MaslExportBuilder extends AbstractExportBuilder {
                 MaslExporterPreferences prefs = new MaslExporterPreferences(getProject());
                 boolean skipFormat = refreshBuild || !prefs.isFormatOutput();
                 boolean skipActionLanguage = refreshBuild || !prefs.isEmitActivities();
-                runExport(project, projPath, destPath, export_type, names, skipFormat, skipActionLanguage);
+                boolean cleanBuild = !refreshBuild && prefs.isCleanBuild();
+                runExport(project, projPath, destPath, export_type, names, skipFormat, skipActionLanguage, cleanBuild);
                 project.refreshLocal(IResource.DEPTH_INFINITE, null);
             } catch (IOException | RuntimeException | CoreException | InterruptedException e) {
                 CorePlugin.logError("Error.  MASL export failed: " + e.getMessage(), e);
@@ -253,10 +254,10 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     }
 
     private void runExport(IProject project, String projPath, String outDir, int type, String[] names,
-            boolean skipFormat, boolean skipActionLanguage)
+            boolean skipFormat, boolean skipActionLanguage, boolean cleanBuild)
             throws IOException, RuntimeException, CoreException, InterruptedException {
         Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(outDir)
-                .setPrebuild(false).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage);
+                .setPrebuild(false).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild);
         if (MASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }
