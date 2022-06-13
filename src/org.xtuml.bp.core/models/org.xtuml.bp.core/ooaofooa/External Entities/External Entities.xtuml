@@ -3162,7 +3162,7 @@ INSERT INTO S_BRG
 	'Parses a single MASL file specified by the input filename and produces an array of
 SMASL lines. An iterator over the lines is returned.
 
-Import:java.io.IOException; import java.lang.ProcessBuilder.Redirect; import java.util.Scanner; import java.util.List; import java.util.ArrayList; java.io.BufferedReader; java.io.InputStreamReader; java.util.stream.Collectors
+Import:java.io.IOException; import java.lang.ProcessBuilder.Redirect; import java.util.Scanner; import java.util.List; import java.util.ArrayList; import java.io.BufferedReader; import java.io.InputStreamReader; import java.util.stream.Collectors
 Translate:native',
 	0,
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
