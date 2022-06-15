@@ -177,7 +177,7 @@ empty_statement
 for_statement
   :
     "for"!   
-    "each"! local_variable[true] "in"! inst_ref_set_var
+    "each"! local_variable[true] "in"! inst_ref_set_var ( "loop"! )?
       block[false]
     "end"!  "for"!
   ;
