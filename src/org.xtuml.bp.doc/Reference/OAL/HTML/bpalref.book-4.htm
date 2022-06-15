@@ -140,7 +140,7 @@ each</EM>
  loop allows for the iteration over a set of instance handles in an instance handle set.</P>
 <H3 CLASS="Heading2">
 <A NAME="50536509_pgfId-516185"></A>Syntax</H3>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516188"></A><EM CLASS="Code">for each &lt;instance handle&gt; in &lt;instance handle set&gt; // Note no semi-colon	</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516188"></A><EM CLASS="Code">for each &lt;instance handle&gt; in &lt;instance handle set&gt; loop</EM>
 <A NAME="50536509_marker-516186"></A><A NAME="50536509_marker-516187"></A></PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516189"></A><EM CLASS="Code">  &lt;statements&gt;</EM>
 </PRE>
@@ -181,7 +181,7 @@ each</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516207"></A><EM CLASS="Code">select many children from instances of C;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516208"></A><EM CLASS="Code">for each child in children</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516208"></A><EM CLASS="Code">for each child in children loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516209"></A><EM CLASS="Code">  generate C1:'time for bed' () to child;</EM>
 </PRE>
@@ -281,7 +281,7 @@ break</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516252"></A><EM CLASS="Code">  breakout = FALSE;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516253"></A><EM CLASS="Code">  for each a in aset</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516253"></A><EM CLASS="Code">  for each a in aset loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516254"></A><EM CLASS="Code">    // If this a has name equal to &quot;Jeff&quot;, break out of </EM>
 </PRE>
@@ -335,7 +335,7 @@ continue</EM>
 <A NAME="50536509_pgfId-516277"></A>Example</H3>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516278"></A><EM CLASS="Code">// Create and relate a B to each A, except for As with ID of 13.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516279"></A><EM CLASS="Code">for each a in aset</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516279"></A><EM CLASS="Code">for each a in aset loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516280"></A><EM CLASS="Code">  // If a.ID is 13, don't create and relate a B to it and</EM>
 </PRE>
@@ -363,7 +363,7 @@ continue</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516293"></A><EM CLASS="Code">select many children from instances of C;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516294"></A><EM CLASS="Code">for each child in children</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516294"></A><EM CLASS="Code">for each child in children loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518443"></A><EM CLASS="Code">  if (child.age &lt;= 5) then</EM>
 </PRE>
