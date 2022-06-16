@@ -1,0 +1,192 @@
+= Calling functions immediately after use of enumeration literals gives parse error
+
+== 1 Abstract
+
+An ambiguity in the OAL grammar causes parse errors in certain situations. This
+change removes the ambiguity so the parse errors are resolved.
+
+== 2 Introduction and Background
+
+The problem occurs when a function invocation is the first statement within an
+"if", "elif", or "while" block. Consider the following example:
+
+  if param.Protocol == TCP
+    // This gives parse errors
+    ::Ping();
+  end if;
+
+Note that if comments are removed and whitespace is rearranged, the code could
+look like this:
+
+  if param.Protocol == TCP::Ping()
+    ;
+  end if;
+
+Because there is not syntactical token separating the conditional expression and
+the start of the block, the parser cannot distinguish between a symbolic
+constant reference and a bridge or class operation invocation. The parser will
+consume the tokens `TCP`, `::`, and `Ping` and then report that it cannot find a
+class or EE that matches the key letters `TCP`.
+
+Scoped paths for datatypes were introduced by issue #10177 (See <<dr-2>>). This
+further broadened this issue. Since that time, enumerated type references became
+vulnerable as the parser tries to consume as many alternating identifiers and
+double colons as possible.
+
+There needs to be a syntactical separator between the condition expression in an
+"if"/"elif"/"while" statement and the start of the inner code block.
+
+== 3 Requirements
+
+=== 3.1 The OAL grammar shall be updated to remove the ambiguity
+
+=== 3.2 The change shall be backwards compatible with existing OAL
+==== 3.2.1 A definite timeline shall be set for implementation of a permanent solution
+
+== 4 Work Required
+
+=== 4.1 "if" and "elif" statements
+
+The current grammar for "if" statements is as follows (edited for readability):
+
+  if_statement:
+    "if" expr
+      block
+      (
+        "elif" expr
+          block
+      )*
+      (
+        "else"
+          block
+      )?
+    "end" "if"
+  ;
+
+The grammar shall be modified to be like this:
+
+  if_statement:
+    "if" expr ( "then" )?
+      block
+      (
+        "elif" expr ( "then" )?
+          block
+      )*
+      (
+        "else"
+          block
+      )?
+    "end" "if"
+  ;
+
+Note that the "else" clause of an "if" statement is not vulnerable to this
+problem because it does not include a condition expression.
+
+=== 4.2 "while" statements
+
+The current grammar for "while" statements is as follows (edited for readability):
+
+  while_statement:
+    "while" expr
+      block
+    "end" "while"
+  ;
+
+
+The grammar shall be modified to be like this:
+
+  while_statement:
+    "while" expr ( "loop" )?
+      block
+    "end" "while"
+  ;
+
+=== 4.3 "for" statements
+
+Technically, "for" statements are not vulnerable to this issue and no update is
+required to resolve grammar abiguity. The reason is that the grammar specifies
+that only a local variable is allowed as the "collection" part of the statement.
+This is an unfortunate limitation and prevents modelers from duing things like
+looping over sets passed as parameters or returned by invocations without first
+assigning to a local variable. In order to keep consistency with "while" loops
+as well as think account for a future where "for" statements may be extended to
+support other collection expressions, the "loop" keyword will also be added to
+"for" statements.
+
+The current grammar for "for" statements is as follows (edited for readability):
+
+  for_statement:
+    "for" "each" local_variable "in" inst_ref_set_var
+      block
+    "end" "for"  
+  ;
+
+The grammar shall be modified to be like this:
+
+  for_statement:
+    "for" "each" local_variable "in" inst_ref_set_var ( "loop" )?
+      block
+    "end" "for"  
+  ;
+
+=== 4.4 `pyxtuml` prebuilder
+
+There are currently two OAL parsers actively used by the community. The
+BridgePoint parser is used within BridgePoint for the editing experience (error
+markers, content assist, etc.), creating instances to be used in model
+execution with Verifier, and export for model compilation.
+
+The prebuild function of `pyxtuml` is also being used as the primary OAL parser
+for Ciera and Ciera-based model compilers. The `pyxtuml` prebuilder must be
+updated with the new grammar as well.
+
+=== 4.5 Upgrade path
+
+The new grammar rules proposed in the previous sections contain the `?` modifier
+which designates the keyword as optional to the parser. All old models will
+continue to parse normally. We recommend that modelers start using the "then"
+and "loop" keywords for new models. The next release of BridgePoint Pro
+(scheduled for Fall 2022) will contain the parser with backwards compatibility,
+however some time after the release the BridgePoint development team will change
+the grammar to make the new keywords required for all future releases. The team
+will also provide a tool to upgrade existing OAL models. This upgrade will be
+tracked by issue #12527 (See <<dr-3>>).
+
+== 5 Implementation Comments
+
+None.
+
+== 6 Unit Test
+
+6.1 Confirm resolution of parse errors
+
+The example in the main issue shall be recreated to demonstrate that the parse
+errors originally reported have been resolved.
+
+6.2 Backwards compatibility test
+
+The GPS Watch model shall be imported into a workspace and be shown to parse
+without errors. This test shall be repeated with the `pyxtuml` prebuild utility.
+
+6.3 Model compilation test
+
+The GPS Watch shall be upgraded to use the new keywords. MC-3020 and Ciera shall
+be used to generate code and prove that no functionality has been changed.
+
+== 7 User Documentation
+
+The OAL reference manual in the BridgePoint help shall be updated. The keywords
+shall not be denoted as optional in the manual as it is not preferred to leave
+them out.
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12308[#12308 Calling functions immediately after use of enumeration literals gives parse error]
+. [[dr-2]] https://support.onefact.net/issues/10177[#10177 Not possible to specify datatypes with the same name at different levels]
+. [[dr-3]] https://support.onefact.net/issues/12527[#12527 Make "then" and "loop" keywords required]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
