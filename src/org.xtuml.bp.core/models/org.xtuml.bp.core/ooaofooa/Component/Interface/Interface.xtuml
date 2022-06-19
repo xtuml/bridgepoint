@@ -995,8 +995,13 @@ if (not_empty function)
     end for;
   end if;
   
-  select many sparams related by function->S_SPARM[R24.''defines''];
-  for each sparam in sparams 
+  select any sparam related by function->S_SPARM[R24.''defines''];
+  select one prev_sparam related by sparam->S_SPARM[R54.''succeeds''];
+  while ( not_empty prev_sparam )
+    sparam = prev_sparam;
+    select one prev_sparam related by sparam->S_SPARM[R54.''succeeds''];
+  end while;
+  while ( not_empty sparam )
     select one sparamDT related by sparam->S_DT[R26.''is typed by ''];
   
     iop.newParameter();
@@ -1022,7 +1027,8 @@ if (not_empty function)
       unrelate newParam from newParamDefaultDataType across R4007;
       relate newParam to sparamDT across R4007;
     end if;
-  end for;
+    select one sparam related by sparam->S_SPARM[R54.''precedes''];
+  end while;
 
   // If a new operartion was created, hook-up 
   // the operation that was just created to this interface
