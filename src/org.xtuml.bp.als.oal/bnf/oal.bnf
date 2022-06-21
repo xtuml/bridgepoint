@@ -177,7 +177,7 @@ empty_statement
 for_statement
   :
     "for"!   
-    "each"! local_variable[true] "in"! inst_ref_set_var
+    "each"! local_variable[true] "in"! inst_ref_set_var ( "loop"! )?
       block[false]
     "end"!  "for"!
   ;
@@ -193,12 +193,12 @@ generate_statement
 if_statement
   :
     "if"!   { ifStatementRemember(upperRule_iD, rule_begin_id); }
-    expr
+    expr ( "then"! )?
       block[false]
     (
       (
         "elif"!   { rememberLocation(LT(0)); }   
-        expr
+        expr ( "then"! )?
       block[false]
       )+
     )?
@@ -302,7 +302,7 @@ unrelate_statement
 while_statement
   :
     "while"!    
-      expr
+      expr ( "loop"! )?
       block[false]
     "end"! "while"!
   ;
