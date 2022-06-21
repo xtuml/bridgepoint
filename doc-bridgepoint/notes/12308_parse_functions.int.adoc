@@ -40,7 +40,7 @@ There needs to be a syntactical separator between the condition expression in an
 
 === 3.1 The OAL grammar shall be updated to remove the ambiguity
 
-=== 3.2 The change shall be backwards compatible with existing OAL
+=== 3.2 The change shall be reasonably backwards compatible with existing OAL
 ==== 3.2.1 A definite timeline shall be set for implementation of a permanent solution
 
 == 4 Work Required
@@ -151,6 +151,12 @@ however some time after the release the BridgePoint development team will change
 the grammar to make the new keywords required for all future releases. The team
 will also provide a tool to upgrade existing OAL models. This upgrade will be
 tracked by issue #12527 (See <<dr-3>>).
+
+As a consequence of using `then` and `loop` as keywords, these words will no
+longer be valid identifiers and cannot be used as names of elements and
+variables. This work will _not_ attempt to avoid this incompatibility and old
+models that make use of these words will need to be upgraded before they can be
+parsed again.
 
 == 5 Implementation Comments
 
