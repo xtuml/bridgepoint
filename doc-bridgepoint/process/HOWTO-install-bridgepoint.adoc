@@ -1,0 +1,198 @@
+= HOWTO install and run BridgePoint
+
+== Overview
+
+BridgePoint is free and open source software available to download, modify and
+redistribute. The source code can be found on
+link:https://github.com/xtuml/bridgepoint/[GitHub].
+
+link:https://onefact.net/[One Fact] is the primary contributor to the code base and provides the
+community with prepackaged distributions for MacOS, Windows, and Linux ready for
+use.  The primary source of information about BridgePoint is link:https://xtuml.org/[xtuml.org].
+
+BridgePoint is a Java application based on the https://eclipse.org/[Eclipse] platform and therefore
+Java is required for BridgePoint to run. A Java runtime environment is not
+included with the distribution. Use the following
+instructions to download and install Java and BridgePoint.
+
+NOTE: Since BridgePoint is implemented as a prepackaged set of plugins on top of
+the Eclipse platform, there are times in this guide where BridgePoint is
+referred to as "Eclipse" when discussing some of the more generic aspects of the
+application that apply to all Eclipse applications.
+
+=== Filesystem Locations Overview
+
+While installing and using BridgePoint, it is important to understand the
+three primary locations where information is stored on your computer,
+*installation*, *workspace* and *project*.  It is important to keep the
+locations of these three directories separated and distinct from one
+another.
+
+The 'installation' location is where BridgePoint is installed.  This can be
+considered read-only and is only written when installing a new version of
+BridgePoint.  Below, it is recommended that this folder be named `xtuml`.
+Expect that eventually you may have more than one version of BridgePoint
+installed in this directory.
+
+As explained below, the 'workspace' is where Eclipse keeps metadata about
+your Eclipse installation and your projects.  It is recommended to name
+this folder `ws` and understand that several workspaces will be created in
+this folder.  Name your workspaces according to the task at hand.
+
+A 'project' is where model data, documentation and other source code are
+stored.  Usually projects are maintained in a version control system like
+git.  Most BridgePoint users maintain their models in git repositories.
+A project will thus reside within a git repository, which is separate and
+distinct from a workspace.  Projects are "imported" into workspaces, but
+this is a logical operation, and the project data remains stored
+physically separate from the workspace.  The name of a project is also the
+name of the model in BridgePoint, and it is the name of the folder
+containing the model data.
+
+== BridgePoint Installation
+
+=== Install Java
+
+Java 11 or greater is required to properly run BridgePoint, however versions of
+Java greater than 11 have not been thoroughly tested. 
+
+==== Debian/Ubuntu Linux
+
+  sudo apt-get install openjdk-11-jre
+
+==== MacOS
+
+  brew install openjdk@11         # x86
+  brew install --cask temurin11   # arm64
+
+NOTE: BridgePoint for MacOS is distributed as an x86 binary and thus requires an
+x86 version of Java.
+link:https://adoptium.net/temurin/releases/?version=11[Temurin 11] distributed
+by Adoptium is tested and proven to work on the M series Apple architecture.
+
+==== Windows
+
+Download the Amazon Corretto 11 MSI installer from
+link:https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html[this webpage]
+and run to install Java.
+
+TIP: If you require multiple versions of Java to be used at once on your
+machine, link:https://github.com/jenv/jenv[jenv] is a nice tool which simplifies
+management of multiple Java versions.
+
+=== Download BridgePoint
+
+Release versions of BridgePoint are created periodically (roughly twice a year)
+and delivered directly to BridgePoint Pro customers. These builds undergo a more
+rigorous testing cycle and are suitable for large companies that require
+stability.
+
+The latest "nightly build" of BridgePoint is available for download
+link:https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html[here].
+Although the nightly build is not as thoroughly tested as BridgePoint Pro
+releases, it tends to be sufficient for the needs of most users. It is always a
+good idea to keep an eye on the link:https://support.onefact.net[issue tracker]
+and the link:https://hangouts.google.com/group/vMohZ9oW08xR7wSd2[community chat]
+for potential problems and their solutions.
+
+To get started, download the correct version for your platform from the "xtUML
+Modeler Version Links" section of the
+link:https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html[download page].
+
+=== Install BridgePoint
+
+To install BridgePoint, unzip the archive in the desired install location. We
+recommend `$HOME/xtuml` on MacOS and Linux and `C:\xtuml` on Windows, however
+the install location is up to user preference.
+
+NOTE: On Windows, we recommend against using the built in zip utility. We
+recommend link:https://www.7-zip.org/[7zip] as an alternative.
+
+TIP: It may be convenient to create a shortcut/link to the `bridgepoint`
+executable and save it on the Desktop or Start Menu. The location of the
+executable is `<install_location>/BridgePoint/bridgepoint` on Linux and Windows
+and `<install_location>/BridgePoint.app/Contents/MacOS/bridgepoint` on MacOS.
+
+== Running BridgePoint
+
+=== Launch BridgePoint
+
+To launch BridgePoint, double click on the `bridgepoint` executable located at
+`<install_location>/BridgePoint/bridgepoint` on Linux and Windows and
+`<install_location>/BridgePoint.app/Contents/MacOS/bridgepoint` on MacOS.
+
+
+==== Troubleshooting
+
+If BridgePoint fails to launch, it may be that Eclipse cannot find your JRE
+installation. See
+link:./HOWTO-configure-bp-jre.adoc[this guide] 
+to manually configure the JRE for BridgePoint
+
+=== Select a workspace
+
+Upon launch, BridgePoint will prompt the user to select a workspace location.
+
+Eclipse operates on a "workspace" model. The workspace is a directory on your
+local filesystem which contains all of the relevant information while working in
+the tool. It contains global preference information as well as metadata
+about the imported projects. It is common to have multiple workspaces for
+different groups of projects.
+
+We recommend prefixing all workspaces with a consistent location such as
+`$HOME/ws/` on MacOS/Linux and `C:\Users\<username>\ws\` on Windows, however
+workspace location is up to user preference.
+
+=== Checking BridgePoint version
+
+To check the BridgePoint version, follow these steps:
+
+. Navigate to the "BridgePoint" > "About BridgePoint" menu (MacOS) or the
+  "Help" > "About BridgePoint UML" menu (Linux, Windows).
+. Click on the link:images/21_about.png[green chip icon].
+. The link:images/22_version.png[BridgePoint version] is the first 3 numbers
+  separated by dots. The build ID is listed below. The build ID is specified by
+  the timestamp at the time of build and is unique to each build of BridgePoint.
+
+=== Configuring a workspace for MASL models
+
+By default, BridgePoint is preconfigured to edit xtUML/OAL models. There is no
+restriction to editing models that will be exported as MASL in the default
+configuration, however there are a handful of settings that streamline the
+experience.
+
+==== Configure by importing the template domain
+
+The easiest way to configure the workspace settings is to import that MASL
+template domain from the welcome page.
+
+. If you are in the workbench, navigate back to the welcome page by selecting
+link:images/23_welcome.png["Help" > "Welcome"].
+. Select "Quick Start"
+. Scroll to the bottom and select the link:images/24_masl_domain.png["MASL Domain"]
+option.
+. After the project imports, a link:images/25_masl_prefs.png[pop up] should
+appear which asks if you wish to set the default workspace settings for MASL.
+Select OK.
+
++
+NOTE: If the pop up does not appear, it indicates that your workspace settings
+are already set up for editing MASL.
+
+==== Configure manually
+
+Each of the preferences can also be configured manually.
+
+. Open the preferences by navigating to "Window > Preferences" (Windows, Linux)
+or "BridgePoint" > "Preferences" (MacOS).
+. In the "xtUML" > "Action Language" section, set the
+link:images/26_dialect.png["Default action language dialect"] to "MASL".
+. In the "xtUML" section, check the box next to
+link:images/27_identifiers.png["Enable restricted identifier naming for model elements"].
+. There is no UI to configure the preference to allow concrete polymorphic
+events. It can be configured however by adding the following line to the
+`<workspace_location>/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.xtuml.bp.core.prefs`
+file:
+
+  bridgepoint_prefs_allow_concrete_polys=true
+
