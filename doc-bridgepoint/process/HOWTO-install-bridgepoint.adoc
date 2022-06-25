@@ -6,7 +6,7 @@ BridgePoint is free and open source software available to download, modify and
 redistribute. The source code can be found on
 link:https://github.com/xtuml/bridgepoint/[GitHub].
 
-link:https://onefact.net/[One Fact] is the primary contributor to the code base and provides the
+A team at link:https://onefact.net/[One Fact] contributes to the code base and provides the
 community with prepackaged distributions for MacOS, Windows, and Linux ready for
 use.  The primary source of information about BridgePoint is link:https://xtuml.org/[xtuml.org].
 
@@ -104,6 +104,12 @@ link:https://s3.amazonaws.com/xtuml-releases/nightly-build/buildfiles.html[downl
 To install BridgePoint, unzip the archive in the desired install location. We
 recommend `$HOME/xtuml` on MacOS and Linux and `C:\xtuml` on Windows, however
 the install location is up to user preference.
+
+NOTE: On MacOS, a GateKeeper feature may block execution of (unsigned)
+applications downloaded from the net.  Run the following command to avoid
+a message indicating your application is 'Damaged'.
+
+  sudo xattr -cr BridgePoint.app
 
 NOTE: On Windows, we recommend against using the built in zip utility. We
 recommend link:https://www.7-zip.org/[7zip] as an alternative.
