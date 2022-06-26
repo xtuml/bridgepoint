@@ -32,6 +32,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c0ce17f1-4db3-4189-ab3b-57b254f4a047",
@@ -105,121 +106,55 @@ select any destination related by destination_local_reference->
                            L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
                                       RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
 select one relationship_spec related by self->R_REL[R653];
+select one simprel related by relationship_spec->R_SIMP[R206];
 
 // Compute the sense of the relation, if any
 reflexive = relationship_spec.is_reflexive();
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 
+relatingFwd = true;
 
-select any srcIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-select any dstIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
+select any srcIil from instances of I_LIP where (false); // decl
+select any dstIil from instances of I_LIP where (false);
 
-srcMultiplicity = 0;
-if not_empty source
-  // create the link participation
+if not_empty source and not_empty destination
+	// create the link participations
   create object instance srcIil of I_LIP;
   relate srcIil to source across R2958;
   relate srcIil to relationship_spec across R2959;
-  
-  select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-  select many srcClassInAssociations related by sourceClass->
-                             R_OIR[R201] where selected.Rel_ID == srcIil.Rel_ID;
-  select any srcRgo related by srcClassInAssociations->R_RGO[R203];
-  if reflexive
-    select one form related by srcRgo->
-                             R_FORM[R205] where selected.Txt_Phrs != rel_phrase;
-    select one srcRgo related by form->R_RGO[R205];
-    // If the rel phrase matches, srcRgo will be empty above. If not, srcRgo
-    // will be unchanged and we will proceed to test the correct end.
-  end if;
-  if not_empty srcRgo  // There can only be one
-    select one form related by srcRgo->R_FORM[R205];
-    if not_empty form
-      srcMultiplicity = form.Mult;
-      // No need to test for subype as below,
-      // because we''re not setting relatingFwd here.
-    end if;
-  else
-    select any srcPart related by srcClassInAssociations->
-                                                      R_RTO[R203]->R_PART[R204];
-    if reflexive
-      select any srcPart related by srcClassInAssociations->
-                R_RTO[R203]->R_PART[R204] where selected.Txt_Phrs != rel_phrase;
-    end if;
-    if not_empty srcPart
-      srcMultiplicity = srcPart.Mult;
-    end if;
-  end if;
-end if;
-relatingFwd = true;
-dstMultiplicity = 0;
-if not_empty destination
-  // create the link participation
   create object instance dstIil of I_LIP;
   relate dstIil to destination across R2958;
   relate dstIil to relationship_spec across R2959;
-  
+
+  select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
   select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
-  select many dstClassInAssociations related by destClass->
-                             R_OIR[R201] where selected.Rel_ID == dstIil.Rel_ID;
-  select any dstRgo related by dstClassInAssociations->R_RGO[R203];
-  if reflexive
-    select one form related by dstRgo->
-                             R_FORM[R205] where selected.Txt_Phrs == rel_phrase;
-    select one dstRgo related by form->R_RGO[R205];
-    // If the rel phrase matches, dstRgo will be unchanged above. If not,
-    // dstRgo will be empty and we will proceed to test the correct end.
-    // This test does not interfere with subtype detection below, because
-    // subtype/supertype associations cannot be reflexive.
-  end if;
-  if not_empty dstRgo  // There can only be one
-    select one form related by dstRgo->R_FORM[R205];
-    if not_empty form
-      // The destination is playing the role of formalizer in this association,
-      // so we are relating backwards across the association.
-      relatingFwd = false;
-      dstMultiplicity = form.Mult;
+  
+  if relationship_spec.isFormalized()
+    if not_empty simprel
+      select one form related by simprel->R_FORM[R208];
+      select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+      if reflexive 
+        if form.Txt_Phrs == rel_phrase
+          relatingFwd = false;
+        end if;
+      else
+	      if rgoclass != sourceClass
+	        relatingFwd = false;
+	      end if;
+      end if;
     else
-      select one subType related by  dstRgo->R_SUB[R205];
-      if not_empty subType
-        // Multiplicity is already correct: exactly one.
+      select one superclass related by relationship_spec->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      if superclass != destClass
         relatingFwd = false;
       end if;
     end if;
-  else
-    select any dstPart related by dstClassInAssociations->
-                                                      R_RTO[R203]->R_PART[R204];
-    if reflexive
-      select any dstPart related by dstClassInAssociations->
-                R_RTO[R203]->R_PART[R204] where selected.Txt_Phrs == rel_phrase;
-    end if;
-    if not_empty dstPart
-      dstMultiplicity = dstPart.Mult;
-      if not relationship_spec.isFormalized()
-        // If we''re not formalized, then we assume the first participant
-        // found is going to play the role of the formalizer. Thus, if
-        // the destination rto participant is playing the formalizer
-        // role, then we are relating backwards across the association.
-        select any informalPart related by relationship_spec->
-                                                     R_SIMP[R206]->R_PART[R207];
-        if dstPart == informalPart
-          relatingFwd = false; // The participant is playing a formalizer role.
-        end if;
-      end if;
-    // else it''s a supertype, we''re relating forward, no action needed.
-    end if;
   end if;
-end if;
-if (reflexive == true and relatingFwd == false)
-  swap = srcMultiplicity;
-  srcMultiplicity = dstMultiplicity;
-  dstMultiplicity = swap;
 end if;
 
 populationError = false;
 if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
+  srcMultiplicity = 0;
+  dstMultiplicity = 0;
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_relate_audit"); 
   if auditSev != 0  // 0 == Ignore
     message = "";
@@ -231,39 +166,54 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       end if;
       message = message + " being related on";
     else
-      if dstMultiplicity == 0 // 0 == Multiplicity one
-        linkCard = 0;
-        if relatingFwd
-          select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality fromLinks;
+      select many srcClassInAssociations related by source->CSME_CIE[R2962]->O_OBJ[R2961]->R_OIR[R201] 
+       where selected.Rel_ID == relationship_spec.Rel_ID;
+      select many dstClassInAssociations related by destination->CSME_CIE[R2962]->O_OBJ[R2961]->R_OIR[R201]
+       where selected.Rel_ID == relationship_spec.Rel_ID;
+      if not_empty simprel
+        if relationship_spec.isFormalized()
+          // which ''side'' is the formalizer and which the participant?
+          select any srcRgo related by srcClassInAssociations->R_RGO[R203];
+          if not empty srcRgo
+            select one rForm related by srcRgo->R_FORM[R205];
+            select any rPart related by dstClassInAssociations->R_RTO[R203]->R_PART[R204];
+            srcMultiplicity = rForm.Mult;
+            dstMultiplicity = rPart.Mult;
+          else
+            select any rPart related by srcClassInAssociations->R_RTO[R203]->R_PART[R204];
+            select any rForm related by dstClassInAssociations->R_RTO[R203]->R_PART[R204];
+            srcMultiplicity = rPart.Mult;
+            dstMultiplicity = rForm.Mult;
+          end if;
         else
-          select many toLinks related by source->I_LIP[R2958]->I_LNK[R2902]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality toLinks;
+          // if simple association is not formalized, editor supplies 2 parts;
+          select any rPart related by srcClassInAssociations->R_RTO[R203]->R_PART[R204];
+          srcMultiplicity = rPart.Mult;
+          select any rPart related by dstClassInAssociations->R_RTO[R203]->R_PART[R204];
+          dstMultiplicity = rPart.Mult;
         end if;
-        if linkCard > 0 
-          populationError = true;
-          message = "Already related on";
-        end if; // Link cardinality > 1
-      end if; // Destination multiplicity is ''one''
-      if srcMultiplicity == 0 // 0 == Multiplicity one
-        linkCard = 0;
-        if relatingFwd
-          select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality toLinks;
-        else
-          select many fromLinks related by destination->I_LIP[R2958]
-             ->I_LNK[R2901] where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality fromLinks;
-        end if;
-        if linkCard > 0 
-          populationError = true;
-          message = "Already related on";
-        end if; // Link cardinality > 1
-      end if; // Source multiplicity is ''one''
-    end if; // instances are not deleted
+      // else, subtype-supertype must have multiplictity 1 on both sides
+      end if;
+      select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
+                        where (selected.Rel_ID == relationship_spec.Rel_ID);
+      fromLinkNum = cardinality fromLinks;
+      select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
+                        where (selected.Rel_ID == relationship_spec.Rel_ID);
+      toLinkNum = cardinality toLinks;
+      
+      if not relatingFwd
+        swap = fromLinkNum;
+        fromLinkNum = toLinkNum;
+        toLinkNum = swap;
+      end if;
+      message = "Already related on";  // in case there is an error..
+      if srcMultiplicity == 0 and fromLinkNum > 0
+        populationError = true;
+      end if;
+      if dstMultiplicity == 0 and toLinkNum > 0
+        populationError = true;
+      end if;
+    end if;
     if populationError
       severity = "Warning";
       assocPhrase = "";
@@ -291,6 +241,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
     end if; // population error detected
   end if; // audit is do not ignore
 end if; // audit enabled
+
 if not populationError
   // Relate the given source and destination handles from the statement to link
   // Create a link for this association
@@ -311,6 +262,7 @@ end if;
 	1,
 	'',
 	"c382ce11-7f77-4dcf-a6e7-cc621362f1eb",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("8b4cbc89-ecfe-469e-abc6-565d91bd3ccf",
