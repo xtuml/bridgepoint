@@ -231,10 +231,10 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       end if;
 
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and fromLinkNum > 0
+      if srcMultiplicity == 0 and toLinkNum > 0
         populationError = true;
       end if;
-      if dstMultiplicity == 0 and toLinkNum > 0
+      if dstMultiplicity == 0 and fromLinkNum > 0
         populationError = true;
       end if;
       if r_assr.Mult == 0 and assocLinkNum > 0
