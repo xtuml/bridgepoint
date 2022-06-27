@@ -9,6 +9,7 @@ INSERT INTO C_C
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	0,
+	'',
 	'');
 INSERT INTO GD_MD
 	VALUES ("4c7f43ee-d032-44f3-90c9-721512074ecb",
@@ -124,7 +125,7 @@ INSERT INTO GD_CON
 INSERT INTO GD_CTXT
 	VALUES ("9d3ce589-640b-4dec-9f3e-802b4c87d9d8",
 	"d5998806-b89d-4075-8088-cb3ce59f6f03",
-	1,
+	0,
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
@@ -143,7 +144,7 @@ INSERT INTO DIM_ELE
 INSERT INTO GD_CTXT
 	VALUES ("f0ef6525-a5ad-4067-b617-da3f9beaf1e1",
 	"d5998806-b89d-4075-8088-cb3ce59f6f03",
-	3,
+	2,
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
@@ -162,7 +163,7 @@ INSERT INTO DIM_ELE
 INSERT INTO GD_CTXT
 	VALUES ("e5221b10-13d5-413e-8c0b-c5920f833f39",
 	"d5998806-b89d-4075-8088-cb3ce59f6f03",
-	2,
+	1,
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
@@ -224,7 +225,7 @@ INSERT INTO GD_CON
 INSERT INTO GD_CTXT
 	VALUES ("3bbbf5aa-b937-42ba-887f-7d7d10238133",
 	"c3f83df6-051e-47d6-bb37-705456c6869b",
-	1,
+	0,
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
@@ -243,7 +244,7 @@ INSERT INTO DIM_ELE
 INSERT INTO GD_CTXT
 	VALUES ("5eb1f7e3-c1da-4d37-a848-85cda64a87c5",
 	"c3f83df6-051e-47d6-bb37-705456c6869b",
-	3,
+	2,
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
@@ -262,7 +263,7 @@ INSERT INTO DIM_ELE
 INSERT INTO GD_CTXT
 	VALUES ("5a06082b-2842-41ef-8f67-de263a825133",
 	"c3f83df6-051e-47d6-bb37-705456c6869b",
-	2,
+	1,
 	0.000000,
 	0.000000);
 INSERT INTO DIM_ND
@@ -347,7 +348,8 @@ INSERT INTO C_PO
 	"7139f370-e39b-4f59-ab48-9ab496642a27",
 	'MASLTemplate',
 	0,
-	0);
+	0,
+	'');
 INSERT INTO C_IR
 	VALUES ("d5e54ae2-e8bf-41ab-969b-4ddbdffae2b1",
 	"a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
@@ -369,6 +371,7 @@ INSERT INTO SPR_PO
 	'',
 	'',
 	1,
+	0,
 	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("ffd58301-1fcf-4376-bc16-5ea0a2629c93",
@@ -376,19 +379,24 @@ INSERT INTO C_EP_PROXY
 	-1,
 	'public_service_1',
 	'',
+	0,
 	'../Shared/MASLTemplate/MASLTemplate.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("a5673f9b-0720-4b50-8f2f-b0121f67bd9b",
 	"00000000-0000-0000-0000-000000000000",
 	'MASLTemplate',
-	'',
+	'In the xtUML MASL idiom, there is an widely-visibile interface with the same 
+name as a component (domain).  This interface exposes to the outside world the 
+public domain services.  This interface contains messages with signatures that
+are identical to each of the public domain services. ',
 	'../Shared/MASLTemplate/MASLTemplate.xtuml');
 INSERT INTO C_PO
 	VALUES ("ac376a28-f294-4e10-9f4e-e38ee12ec574",
 	"7139f370-e39b-4f59-ab48-9ab496642a27",
 	'TermA',
 	0,
-	0);
+	0,
+	'');
 INSERT INTO C_IR
 	VALUES ("533acbe9-6b27-4b71-9c1a-c941947682fb",
 	"15e99221-9a1b-4f64-8337-a4048e2d2950",
@@ -410,13 +418,15 @@ INSERT INTO SPR_RO
 	'',
 	'',
 	3,
-	1);
+	1,
+	0);
 INSERT INTO C_EP_PROXY
 	VALUES ("0e10f1d1-7547-400b-8d86-17b2ad2cf494",
 	"15e99221-9a1b-4f64-8337-a4048e2d2950",
 	-1,
 	'terminator_svc_1',
 	'',
+	0,
 	'../Shared/MASLTemplateExTerminator/MASLTemplateExTerminator.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("15e99221-9a1b-4f64-8337-a4048e2d2950",

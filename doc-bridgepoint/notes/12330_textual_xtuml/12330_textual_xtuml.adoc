@@ -230,7 +230,7 @@ model elements are:
 
 It should be understood that "root model elements" are different than the
 related concept of parse roots. Root elements are semantically at the root of
-the model element tree, however parse roots a syntactically at the root within
+the model element tree, however parse roots are syntactically at the root within
 a file. All root model elements are also parse roots. Additionally,
 discontiguous definitions allow a modeler or tool to define non-root elements
 in separate files.
@@ -367,7 +367,7 @@ digits. The simple name is analogous to key letters for classes and external
 entities, but generalized for all elements.
 
 Extended names are composed of a string of characters enclosed in single
-quotes. There is no restrictions on characters within extended names except
+quotes. There is no restriction on characters within extended names except
 they may not include single quotes or line breaks.
 
 The following elements support extended names:
@@ -480,7 +480,7 @@ system. The following are executable model elements:
 - State Entry Action
 - Transition Action
 
-Action bodies are expected to be defined files separate from the structural
+Action bodies are expected to be defined in files separate from the structural
 models and handled by a parser/loader specific to the action language used. The
 action language parser is responsible for loading individual action bodies and
 associating them with executable model elements declared in the structural
@@ -970,7 +970,7 @@ There must be a transition row for every state declared in the state machine
 and a transition row for the "null state" (designated by the keyword
 "non_existent"). The header row must contain a reference to every event defined
 in the state machine. Each cell of the table must specify the result of
-receiving particular event while in the particular state. A transition result
+receiving the particular event while in the particular state. A transition result
 can be specified by naming the destination state of the transition. A
 non-transition result can be specified by either "cannot_happen" or "ignore".
 At runtime, a "cannot_happen" results in an error being raised and "ignore"
@@ -1105,7 +1105,7 @@ compatibility, but not an official part of this spec.
 
 Relationships may be simple, associative (linked), or subtype/supertype.
 Relationships do not support extended names and the name of a relationship must
-be with the character 'R' followed by a positive integer:
+begin with the character 'R' followed by a positive integer:
 
 Simple relationships are defined by a pair of opposing "half relationships"
 defining the relationship from both directions. Each direction can have a

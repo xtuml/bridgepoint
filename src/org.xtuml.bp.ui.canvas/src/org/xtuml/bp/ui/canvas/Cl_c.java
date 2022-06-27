@@ -270,6 +270,22 @@ public class Cl_c {
         }
           return result;
         }
+    
+    public static String Getnamefrompath(Object element) {
+    	boolean usePath = ((NonRootModelElement) element).getName().equals("");
+    	// ISM, ASM need the end of path
+		if (element instanceof InstanceStateMachine_c || element instanceof ClassStateMachine_c
+				|| element instanceof SynchronousMessage_c || element instanceof AsynchronousMessage_c) {
+			usePath = true;
+		}
+    	if(usePath) {
+    		String path = ((NonRootModelElement) element).getPath();
+    		String[] parts = path.split("::");
+    		return parts[parts.length - 1];
+    	}
+    	return ((NonRootModelElement) element).getName();
+    }
+    
     public static boolean Disablecropping() {
     	return CanvasPlugin.disableCropping;
     }

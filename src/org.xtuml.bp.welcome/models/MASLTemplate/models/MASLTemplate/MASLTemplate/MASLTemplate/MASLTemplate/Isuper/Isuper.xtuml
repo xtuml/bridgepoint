@@ -20,7 +20,8 @@ is set to MASL.',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
-	5);
+	5,
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("6ba06230-ebbc-46c6-b19a-e070f7dec1b4",
 	"b9628126-22b5-489e-acfc-7870b4f9a21a");
@@ -36,16 +37,9 @@ INSERT INTO O_ATTR
 	'',
 	'iID',
 	0,
-	"a2781680-0894-4851-81fe-014df94b0a33",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a2781680-0894-4851-81fe-014df94b0a33",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../types/types.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("90c84cd9-ba48-48a3-a838-0fab14b9a81a",
 	"b9628126-22b5-489e-acfc-7870b4f9a21a");
@@ -61,7 +55,7 @@ INSERT INTO O_ATTR
 	'',
 	'common',
 	0,
-	"a2781680-0894-4851-81fe-014df94b0a33",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID

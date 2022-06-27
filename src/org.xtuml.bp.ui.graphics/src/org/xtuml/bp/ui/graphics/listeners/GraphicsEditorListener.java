@@ -194,19 +194,21 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 	}
 
 	public void modelElementReloaded(ModelChangedEvent event) {
-		if (m_editor != null && m_editor.getCanvas() != null
-				&& !m_editor.getCanvas().isDisposed()) {
-			// if the event concerns the element the editor is editing
+		if (m_editor != null && m_editor.getCanvas() != null && !m_editor.getCanvas().isDisposed()) {
+			// if the event concerns the element the editor is editing, or is a reloaded
+			// version of
+			// our model
 			Object editorData = m_editor.getModel().getRepresents();
-			if (event.getModelElement().equals(editorData)) {
+			if (event.getModelElement() != null && (event.getModelElement().equals(editorData) || (event.getModelElement() instanceof Model_c
+					&& ((Model_c) event.getModelElement()).getRepresents().equals(editorData)))) {
 				// try to locate the reloaded content of our editor,
 				// and point our editor to it
 				Model_c newModel = getModelFor((NonRootModelElement) event.getNewModelElement());
-				if(newModel != null) {
+				if (newModel != null) {
 					CanvasPlugin.setGraphicalRepresents(newModel);
 					m_editor.updateModel(newModel);
 					IEditorInput editorInput = m_editor.getEditorInput();
-					if(editorInput instanceof GraphicalEditorInput) {
+					if (editorInput instanceof GraphicalEditorInput) {
 						((GraphicalEditorInput) editorInput).setInput(newModel);
 					}
 				} else {
@@ -219,9 +221,8 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 			}
 			// if the model tools are empty, we need to recreate them as well
 			// as the GEF related tools
-			ModelTool_c[] tools = ModelTool_c.getManyCT_MTLsOnR100(m_editor
-					.getModel());
-			if(tools.length == 0) {
+			ModelTool_c[] tools = ModelTool_c.getManyCT_MTLsOnR100(m_editor.getModel());
+			if (tools.length == 0) {
 				m_editor.refreshPalette();
 			}
 			CanvasPlugin.setGraphicalRepresents(m_editor.getModel());
@@ -230,6 +231,9 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 	}
 
 	private Model_c getModelFor(NonRootModelElement modelElement) {
+		if(modelElement instanceof Model_c) {
+			return (Model_c) modelElement;
+		}
 		Model_c[] models = Model_c.ModelInstances(Ooaofgraphics
 				.getInstance(modelElement.getModelRoot().getId()));
 		for(int i = 0; i < models.length; i++) {

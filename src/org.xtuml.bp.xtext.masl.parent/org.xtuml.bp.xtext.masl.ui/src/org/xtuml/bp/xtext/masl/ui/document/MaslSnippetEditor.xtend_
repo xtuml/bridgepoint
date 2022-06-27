@@ -80,7 +80,8 @@ class MaslSnippetEditor extends XtextEditor {
 		partName = input.name
 		val prefix = maslDocumentProvider.getPrefix(input)
 		val editable = maslDocumentProvider.getEditable(input)
-		sourceViewer.setVisibleRegion(prefix.length, editable.length)
+		sourceViewer.resetVisibleRegion();
+		sourceViewer.setVisibleRegion(prefix.length, sourceViewer.visibleRegion.length - prefix.length)
 		if(signatureLabel != null) {
 			signatureLabel.text = maslDocumentProvider.getHeader(input)
 			signatureLabel.parent.layout(true)

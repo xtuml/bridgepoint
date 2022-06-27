@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
-
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.BridgePointPreferencesModel;
 import org.xtuml.bp.core.ui.ICoreHelpContextIds;
@@ -45,9 +44,15 @@ public class ExportPreferences extends PreferencePage implements
     private Group exportOALGroup;
     private Button exportOALYesRadio;
     private Button exportOALNoRadio;
-    private Group exportGraphicsGroup;
-    private Button exportGraphicsYesRadio;
-    private Button exportGraphicsNoRadio;
+    private Group singleFileExportGroup;
+    private Button singleFileExportGraphicsYesRadio;
+    private Button singleFileExportGraphicsNoRadio;
+    private Group standardSerializationExportGroup;
+    private Button standardSerializationExportGraphicsYesRadio;
+    private Button standardSerializationExportGraphicsNoRadio;
+    private Group graphicsTextualSerializationExportGroup;
+    private Button graphicsTextualSerializationTextualExportGraphicsYesRadio;
+    private Button graphicsTextualSerializationTextualExportGraphicsNoRadio;
     protected IPreferenceModel model;
     
 	@Override
@@ -65,7 +70,7 @@ public class ExportPreferences extends PreferencePage implements
 
 	    // Create the "Export OAL?" group box and set its layout
 	    exportOALGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
-	    GridLayout bkLayout = new GridLayout(2, true);
+	    GridLayout bkLayout = new GridLayout(3, true);
 	    exportOALGroup.setLayout(bkLayout);
 
 	    GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -74,7 +79,7 @@ public class ExportPreferences extends PreferencePage implements
 	    exportOALGroup.setLayoutData(data);
 
 	    // The "Export OAL?" group box data
-	    exportOALGroup.setText("Export OAL");
+	    exportOALGroup.setText("Single File Export OAL");
 
 	    exportOALYesRadio = new Button(exportOALGroup, SWT.RADIO | SWT.LEFT);
 	    exportOALYesRadio.setText("&Yes");
@@ -83,21 +88,50 @@ public class ExportPreferences extends PreferencePage implements
 	    exportOALNoRadio.setText("&No");
 	    exportOALNoRadio.setLayoutData(new GridData());
 
-	    // Create the "Export Graphics?" group box and set its layout
-	    exportGraphicsGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
-	    exportGraphicsGroup.setLayout(bkLayout);
-	    exportGraphicsGroup.setLayoutData(data);
+	    // Create the "Single File Export" group box and set its layout
+	    singleFileExportGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+	    singleFileExportGroup.setLayout(bkLayout);
+	    singleFileExportGroup.setLayoutData(data);
 
-	    // The "Export Graphics?" group box data
-	    exportGraphicsGroup.setText("Export Graphics");
+	    singleFileExportGroup.setText("Single File Export Graphical Instances");
 
-	    exportGraphicsYesRadio = new Button(exportGraphicsGroup, SWT.RADIO | SWT.LEFT);
-	    exportGraphicsYesRadio.setText("&Yes");
-	    exportGraphicsYesRadio.setLayoutData(new GridData());
+	    singleFileExportGraphicsYesRadio = new Button(singleFileExportGroup, SWT.RADIO | SWT.LEFT);
+	    singleFileExportGraphicsYesRadio.setText("&Yes");
+	    singleFileExportGraphicsYesRadio.setLayoutData(new GridData());
 
-	    exportGraphicsNoRadio = new Button(exportGraphicsGroup, SWT.RADIO | SWT.LEFT);
-	    exportGraphicsNoRadio.setText("&No");
-	    exportGraphicsNoRadio.setLayoutData(new GridData());
+	    singleFileExportGraphicsNoRadio = new Button(singleFileExportGroup, SWT.RADIO | SWT.LEFT);
+	    singleFileExportGraphicsNoRadio.setText("&No");
+	    singleFileExportGraphicsNoRadio.setLayoutData(new GridData());
+	    
+	    // Create the "Standard Serialization" group box and set its layout
+	    standardSerializationExportGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+	    standardSerializationExportGroup.setLayout(bkLayout);
+	    standardSerializationExportGroup.setLayoutData(data);
+
+	    standardSerializationExportGroup.setText("Graphical Instance Serialization");
+	    
+	    standardSerializationExportGraphicsYesRadio = new Button(standardSerializationExportGroup, SWT.RADIO | SWT.LEFT);
+	    standardSerializationExportGraphicsYesRadio.setText("&Yes");
+	    standardSerializationExportGraphicsYesRadio.setLayoutData(new GridData());
+
+	    standardSerializationExportGraphicsNoRadio = new Button(standardSerializationExportGroup, SWT.RADIO | SWT.LEFT);
+	    standardSerializationExportGraphicsNoRadio.setText("&No");
+	    standardSerializationExportGraphicsNoRadio.setLayoutData(new GridData());
+	    
+	    // Create the "Standard Serialization" group box and set its layout
+	    graphicsTextualSerializationExportGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+	    graphicsTextualSerializationExportGroup.setLayout(bkLayout);
+	    graphicsTextualSerializationExportGroup.setLayoutData(data);
+	    
+	    graphicsTextualSerializationExportGroup.setText("Graphics Textual Serialization");
+	    
+	    graphicsTextualSerializationTextualExportGraphicsYesRadio = new Button(graphicsTextualSerializationExportGroup, SWT.RADIO | SWT.LEFT);
+	    graphicsTextualSerializationTextualExportGraphicsYesRadio.setText("&Yes");
+	    graphicsTextualSerializationTextualExportGraphicsYesRadio.setLayoutData(new GridData());
+
+	    graphicsTextualSerializationTextualExportGraphicsNoRadio = new Button(graphicsTextualSerializationExportGroup, SWT.RADIO | SWT.LEFT);
+	    graphicsTextualSerializationTextualExportGraphicsNoRadio.setText("&No");
+	    graphicsTextualSerializationTextualExportGraphicsNoRadio.setLayoutData(new GridData());
 
 	    model = new BridgePointPreferencesModel();
 	    model.getStore().loadModel(getPreferenceStore(), null, model);
@@ -137,12 +171,28 @@ public class ExportPreferences extends PreferencePage implements
             bpPrefs.exportOAL = MessageDialogWithToggle.NEVER;
         }
 
-        if (exportGraphicsYesRadio.getSelection()) {
-            bpPrefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
-        } else if (exportGraphicsNoRadio.getSelection()) {
-            bpPrefs.exportGraphics = MessageDialogWithToggle.NEVER;
+        if (singleFileExportGraphicsYesRadio.getSelection()) {
+            bpPrefs.singleFileExportGraphics = MessageDialogWithToggle.ALWAYS;
+        } else if (singleFileExportGraphicsNoRadio.getSelection()) {
+            bpPrefs.singleFileExportGraphics = MessageDialogWithToggle.NEVER;
         } else {
-            bpPrefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
+            bpPrefs.singleFileExportGraphics = MessageDialogWithToggle.ALWAYS;
+        }
+        
+        if (standardSerializationExportGraphicsYesRadio.getSelection()) {
+            bpPrefs.persistGraphicalInstances = MessageDialogWithToggle.ALWAYS;
+        } else if (standardSerializationExportGraphicsNoRadio.getSelection()) {
+            bpPrefs.persistGraphicalInstances = MessageDialogWithToggle.NEVER;
+        } else {
+            bpPrefs.persistGraphicalInstances = MessageDialogWithToggle.ALWAYS;
+        }
+        
+        if (graphicsTextualSerializationTextualExportGraphicsYesRadio.getSelection()) {
+            bpPrefs.graphicsTextualSerialization = MessageDialogWithToggle.ALWAYS;
+        } else if (graphicsTextualSerializationTextualExportGraphicsNoRadio.getSelection()) {
+            bpPrefs.graphicsTextualSerialization = MessageDialogWithToggle.NEVER;
+        } else {
+            bpPrefs.graphicsTextualSerialization = MessageDialogWithToggle.NEVER;
         }
 
         model.getStore().saveModel(getPreferenceStore(), model);
@@ -175,16 +225,36 @@ public class ExportPreferences extends PreferencePage implements
             exportOALYesRadio.setSelection(false);
             exportOALNoRadio.setSelection(true);
         }
-        if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.ALWAYS)) {
-            exportGraphicsYesRadio.setSelection(true);
-            exportGraphicsNoRadio.setSelection(false);
-        } else if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.NEVER)) {
-            exportGraphicsYesRadio.setSelection(false);
-            exportGraphicsNoRadio.setSelection(true);
+        if (bpPrefs.singleFileExportGraphics.equals(MessageDialogWithToggle.ALWAYS)) {
+            singleFileExportGraphicsYesRadio.setSelection(true);
+            singleFileExportGraphicsNoRadio.setSelection(false);
+        } else if (bpPrefs.singleFileExportGraphics.equals(MessageDialogWithToggle.NEVER)) {
+            singleFileExportGraphicsYesRadio.setSelection(false);
+            singleFileExportGraphicsNoRadio.setSelection(true);
         } else {
-            exportGraphicsYesRadio.setSelection(true);
-            exportGraphicsNoRadio.setSelection(false);
-        }    
+            singleFileExportGraphicsYesRadio.setSelection(true);
+            singleFileExportGraphicsNoRadio.setSelection(false);
+        }   
+        if (bpPrefs.persistGraphicalInstances.equals(MessageDialogWithToggle.ALWAYS)) {
+            standardSerializationExportGraphicsYesRadio.setSelection(true);
+            standardSerializationExportGraphicsNoRadio.setSelection(false);
+        } else if (bpPrefs.persistGraphicalInstances.equals(MessageDialogWithToggle.NEVER)) {
+        	standardSerializationExportGraphicsYesRadio.setSelection(false);
+        	standardSerializationExportGraphicsNoRadio.setSelection(true);
+        } else {
+        	standardSerializationExportGraphicsYesRadio.setSelection(true);
+            standardSerializationExportGraphicsNoRadio.setSelection(false);
+        }  
+        if (bpPrefs.graphicsTextualSerialization.equals(MessageDialogWithToggle.ALWAYS)) {
+            graphicsTextualSerializationTextualExportGraphicsYesRadio.setSelection(true);
+            graphicsTextualSerializationTextualExportGraphicsNoRadio.setSelection(false);
+        } else if (bpPrefs.graphicsTextualSerialization.equals(MessageDialogWithToggle.NEVER)) {
+        	graphicsTextualSerializationTextualExportGraphicsYesRadio.setSelection(false);
+        	graphicsTextualSerializationTextualExportGraphicsNoRadio.setSelection(true);
+        } else {
+        	graphicsTextualSerializationTextualExportGraphicsYesRadio.setSelection(false);
+            graphicsTextualSerializationTextualExportGraphicsNoRadio.setSelection(true);
+        }  
     }
 
 }

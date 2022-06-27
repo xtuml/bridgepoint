@@ -26,6 +26,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.activity.errors.ActivityError;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
@@ -49,6 +50,7 @@ public class McJavaBuilder extends AbstractExportBuilder {
     private String[] m_splitPoints = new String[0];
     private List<String> m_dontParse = new ArrayList<String>();
     private List<String> m_parseOnly = new ArrayList<String>();
+    private List<ActivityError> activityErrors = new ArrayList<>();
 
     public McJavaBuilder() {
         m_elements = new ArrayList<NonRootModelElement>();
@@ -148,6 +150,7 @@ public class McJavaBuilder extends AbstractExportBuilder {
         String errorMsg = "Unable to export to destination file.";
         boolean exportSucceeded = false;
         Exception exception = null;
+        
 
         if (!m_sourceProject.isEmpty()) {
             system = SystemModel_c.SystemModelInstance(Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -183,6 +186,11 @@ public class McJavaBuilder extends AbstractExportBuilder {
 
             if (m_exporter instanceof CoreExport) {
                 CoreExport exporter = (CoreExport) m_exporter;
+                
+                // collect activity errors
+                exporter.setErrorCollector(error -> {
+                	activityErrors.add(error);
+                });
 
                 exporter.setExportOAL(CoreExport.YES);
                 exporter.setExportGraphics(CoreExport.NO);
@@ -354,6 +362,10 @@ public class McJavaBuilder extends AbstractExportBuilder {
         } else {
             etpsSubsequentPasses.get(splitPointsFound - 1).addAll(deferred);
         }
+    }
+    
+    public List<ActivityError> getActivityErrors() {
+    	return activityErrors;
     }
 
 }

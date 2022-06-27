@@ -1843,6 +1843,26 @@ INSERT INTO S_BRG
 	0,
 	'',
 	0);
+INSERT INTO S_BRG
+	VALUES ("a40d1f2a-7233-4dc0-8917-30c1ecdd6590",
+	"f168c92b-6d64-4ecb-a677-5a1d7cce8352",
+	'getNameFromPath',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("4bed6704-2dc1-46e7-8d4e-14de8e47114c",
+	"a40d1f2a-7233-4dc0-8917-30c1ecdd6590",
+	'element',
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("f168c92b-6d64-4ecb-a677-5a1d7cce8352",
 	1,

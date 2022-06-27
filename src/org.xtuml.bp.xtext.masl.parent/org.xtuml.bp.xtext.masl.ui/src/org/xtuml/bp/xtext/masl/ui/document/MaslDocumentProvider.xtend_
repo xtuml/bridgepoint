@@ -146,5 +146,12 @@ class MaslDocumentProvider extends XtextDocumentProvider {
 		}
 		
 	}
+
+  override protected void doSynchronize(Object element, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
+	  // Only synchronize if the document is not "dirty"
+	  if (!mustSaveDocument(element)) {
+		  super.doSynchronize(element, monitor);
+	  }
+  }
 	
 }

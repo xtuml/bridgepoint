@@ -1,0 +1,82 @@
+= Disappearing MASL
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+For Windows users editing MASL activities, sometimes the last few lines of text
+are cut off including the "end service;" tag. The workaround is to add several
+blank lines to the end of the activity to assure that all of the modeler's
+actions remain visible.
+
+== 2 Introduction and Background
+
+This was presumed to be related to the difference in *NIX-style versus
+Windows-style line endings, however it was reproducible in activities that
+contained only Unix style line endings.
+
+== 3 Requirements
+
+=== 3.1 No disappearing MASL
+
+All MASL including the end tag, should show in the editor buffer while the
+buffer is open. This should work the same on all supported platforms.
+
+== 4 Analysis
+
+4.1 The MASL loader
+
+The first place to check was in the MASL loader. It had been noted in the issue
+as part of the original quick analysis that the loader was expecting literal
+`\n` characters instead of accomodating cross platform line break rules. On
+inspection however, it was determined that in all cases (with and without
+`CRLF`s in the activity), the full action body was being properly loaded into
+memory.
+
+4.2 MASL editor document provider
+
+The next place to look was in the MASL editor plugin which is part of the Xtext
+group of plugins. When constructing the editor for MASL, the plugin
+strategically sets the visible region of the document to hide the signature
+which is not intended to be directly editable in text. The signature is also
+shown as a read-only label at the top of the buffer for reference.
+
+Previously, this region was set by calling `setVisibleRegion` on the
+`ITextViewer` instance. This method takes an integer offset and integer length.
+The offset and length were calculated by taking the length of the non-editable
+region (the signature) and the length of the editable region (the actual MASL
+actions) and using these for the offset and length respectively.
+
+I experimented here and found that if I changed this calculation to instead use
+the length of the prefix as the offset (as before), but use the entire length
+of the document and subtract the length of the prefix to calculate the visible
+region length, I was able to resolve the issue. Now the length of the editiable
+portion is not even part of the calculation at all.
+
+== 5 Work Required
+
+Change the calculation as described in the previous section.
+
+== 6 Implementation Comments
+
+I cannot entirely explain why this fixed the issue, however my hypothesis is
+that there is a descrepency between the string length calculation (counting
+chracters) and the way "length" is interpreted in the Windows implementation of
+`ItextViewer`. I was not able to find any documentation or other bug reports to
+support the hypothesis, but removing the editable portion from the length
+calculation seemed to have fiexed the issue and in general it makes good sense
+to avoid relying on the human input text.
+
+== 7 Acceptance Test
+
+The solution will be tested by an active team which is using BridgePoint on Windows and MacOS.
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12373[#12373 Disappearing MASL on Windows]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

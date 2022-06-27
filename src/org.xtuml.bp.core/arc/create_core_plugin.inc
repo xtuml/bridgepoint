@@ -292,7 +292,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
      </page>
      <page class="org.xtuml.bp.core.ui.preferences.ExportPreferences"
            id="org.xtuml.bp.core.ui.preferences.ExportPreferences"
-           name="Model Export"
+           name="Model Persistence"
            category="org.xtuml.bp.core.root">
      </page>
      <page class="org.xtuml.bp.core.ui.preferences.MessageDirectionPreferences"
@@ -448,7 +448,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
   <extension-point id="model-compilers" name="xtUML Model Compilers" schema="schema/model-compilers.exsd" /> 
   <extension-point id="code-builders" name="xtUML Code Builders" schema="schema/code-builders.exsd" /> 
   <extension-point id="renameParticipants" name="xtUML Rename Refactoring Participants"  schema="schema/renameParticipants.exsd" />
-
+  <extension-point id="ElementNameChangeListeners" name="Element Name Change Listeners" schema="schema/ElementNameChangeListeners.exsd"/>
 </plugin>
 .end function
 .//

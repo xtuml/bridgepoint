@@ -9,6 +9,7 @@ package org.xtuml.bp.core.common;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.stream.Stream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,12 +151,16 @@ public class ActionFile {
 	
 	// get the component file path from the action file path
 	public static IPath getComponentPath( IPath path ) {
-		if ( null != path ) {
+		if ( null != path && isActionExtension(path) ) {
 			return path.removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
 		}
 		else {
 			return null;
 		}
+	}
+
+	private static boolean isActionExtension(IPath path) {
+		return Stream.of(ActionFile.getAvailableDialects()).anyMatch(d -> d.equals(path.getFileExtension()));
 	}
 
 	public static IPath getComponentPath( IFile file ) {

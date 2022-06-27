@@ -56,7 +56,8 @@ public class BuildExecutor implements Executor {
     /**
      * Perform the CLI build
      */
-    protected void performCLIBuild() {
+    protected int performCLIBuild() {
+    	int result = 0;
         // Set the console environment for CDT so build output is echoed to stdout
         if (System.getProperty("org.eclipse.cdt.core.console") == null) {
             System.setProperty("org.eclipse.cdt.core.console", "org.eclipse.cdt.core.systemConsole");
@@ -101,7 +102,7 @@ public class BuildExecutor implements Executor {
                     if (debug) {
                         System.out.println("Removing all builders except the MC pre-builder for: " + project.getName());
                     }
-                    prebuildOnly(project);
+                   result = prebuildOnly(project);
                 } else {
                     performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
                 }
@@ -123,6 +124,7 @@ public class BuildExecutor implements Executor {
         } catch (Exception e) {
             BPCLIPreferences.logError(e.getMessage(), e);
         }
+        return result;
     }
     
     /**
@@ -234,7 +236,7 @@ public class BuildExecutor implements Executor {
      * @throws IOException
      * @throws BPCLIException
      */
-    private void prebuildOnly(final IProject project) throws CoreException, IOException, RuntimeException, InterruptedException, BPCLIException {
+    private int prebuildOnly(final IProject project) throws CoreException, IOException, RuntimeException, InterruptedException, BPCLIException {
         try {
             PersistenceManager.getDefaultInstance(); // causes initialization
         } catch (Exception e) {
@@ -268,6 +270,7 @@ public class BuildExecutor implements Executor {
         }
 
         // for mc-java based project, MC Java export builder will be used, Otherwise, we are using the bp.mc.c.source plugin to instantiate the ExportBuilder
+        int activityErrors = 0;
         if (exportBuilderCommand != null) {
 
             Map<String, String> arguments = exportBuilderCommand.getArguments();
@@ -280,7 +283,7 @@ public class BuildExecutor implements Executor {
                 destPath.toFile().mkdir();
             }
             jeb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
-
+            activityErrors = jeb.getActivityErrors().size();
         }else{
             
             PreBuilder pb = PreBuilder.getDefault();
@@ -290,7 +293,9 @@ public class BuildExecutor implements Executor {
                 destPath.toFile().mkdirs();
             }
             pb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
+            activityErrors = pb.getActivityErrors().size();
         }
+        return doNotParse ? 0 : activityErrors;
     }
     
     public boolean getPrebuilderOnly() {

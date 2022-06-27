@@ -49,7 +49,7 @@ import antlr.TokenStreamSelector;
 public abstract class CoreImport implements IModelImport {
     public boolean m_success;
 
-    public boolean m_actionSuccess;
+    public boolean m_actionSuccess = true;
 
     public String m_errorMessage;
 

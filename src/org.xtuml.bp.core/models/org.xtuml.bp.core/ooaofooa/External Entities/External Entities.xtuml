@@ -3162,26 +3162,34 @@ INSERT INTO S_BRG
 	'Parses a single MASL file specified by the input filename and produces an array of
 SMASL lines. An iterator over the lines is returned.
 
-Import:java.io.IOException; import java.lang.ProcessBuilder.Redirect; import java.util.Scanner; import java.util.List; import java.util.ArrayList
+Import:java.io.IOException; import java.lang.ProcessBuilder.Redirect; import java.util.Scanner; import java.util.List; import java.util.ArrayList; import java.io.BufferedReader; import java.io.InputStreamReader; import java.util.stream.Collectors
 Translate:native',
 	0,
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'try {
-	final String javaExe = System.getProperty("java.home") + "/bin/java";
-    final String toolsDir = System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin/";
+    final String javaExe = System.getProperty("java.home") + "/bin/java";
+    final String toolsDir = System.getProperty("eclipse.home.location").replaceFirst("file:", "")
+            + "/tools/mc/bin/";
     final String parserJar = toolsDir + "MASLParser.jar";
     final String antlrJar = toolsDir + "antlr-3.5.2-complete.jar";
-    final String classpath = String.join(":", new String[] {parserJar, antlrJar});
-	Process proc = new ProcessBuilder().redirectOutput(Redirect.PIPE).command(javaExe, "-cp", classpath, "MaslImportParser", "-f", "target", p_Filename).start();
-	Scanner sc = new Scanner(proc.getInputStream());
-	List<String> smasl = new ArrayList<>();
-	while (sc.hasNextLine()) {
-	    smasl.add(sc.nextLine());
-	}
-	sc.close();
-	return smasl.iterator();
-} catch (IOException e) { 
-	e.printStackTrace();
+    final String classpath = String.join(":", new String[] { parserJar, antlrJar });
+    Process proc = new ProcessBuilder().redirectOutput(Redirect.PIPE)
+            .command(javaExe, "-cp", classpath, "MaslImportParser", "-a", "MASL", "-f", "target", p_Filename)
+            .start();
+    List<String> smasl = new ArrayList<>();
+    try (Scanner sc = new Scanner(proc.getInputStream())) {
+        while (sc.hasNextLine()) {
+            smasl.add(sc.nextLine());
+        }
+    }
+    String errorMessage = new BufferedReader(new InputStreamReader(proc.getErrorStream())).lines()
+            .collect(Collectors.joining("\n"));
+    if (!"".equals(errorMessage)) {
+        CorePlugin.logError("Failed to parse MASL:\n" + errorMessage, new Throwable());
+    }
+    return smasl.iterator();
+} catch (IOException e) {
+    CorePlugin.logError("I/O exception during MASL parse", e);
 }
 return null;',
 	0,

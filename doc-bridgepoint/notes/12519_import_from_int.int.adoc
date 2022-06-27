@@ -1,0 +1,58 @@
+= Cannot Import Termintaors from `.int` File
+
+== 1 Abstract
+
+MASL support for deployments includes the ability to import terminator service
+definitions from MASL domain interfaces (`.int` files). At some point this
+capability was lost and it simply fails without any error message.
+
+== 2 Introduction and Background
+
+The original work to introduce this feature was done as part of issue #10525
+(<<dr-2>>). The design note for that work (<<dr-3>>) would be good background
+reading.
+
+Much later, as part of support for ASL, the parser was updated to include a new
+command line flag `-a` to specify the model architecture (this was done as part
+of issue #11380 -- see <<dr-4>>). Since the original design of #10525 relied on
+creating a shell command in a separate process for the execution of the parser,
+the change in usage caused the import from file mechanism to break.
+
+== 3 Requirements
+
+=== 3.1 "Import terminators from file" shall be repaired to work as it had been originally designed
+
+== 4 Work Required
+
+Add the "-a MASL" arguments to the shell command in `Utilities::parseMASLFile`
+
+== 5 Implementation Comments
+
+The lack of any error message for this failure was disturbing. While I was in
+the area, I changed the implementation to capture standard error output from the forked
+process wrap it in an error that appears in the error log.
+
+At first I thought I could use the exit code, but it turns out that the
+MASL parser returns 0 even if there is an incorrect usage error. Capturing
+standard error output seems to work reliably.
+
+== 6 Unit Test
+
+Validate that import terminators from file menu item works again.
+
+== 7 User Documentation
+
+None.
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12519[12519 - Cannot import terminators from .int file]
+. [[dr-2]] https://support.onefact.net/issues/10525[10525 - Implement deployments]
+. [[dr-3]] link:10525_deployments/10525_deployments_dnt.md[#10525 Design Note]
+. [[dr-4]] https://support.onefact.net/issues/11380[11380 - import activities]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

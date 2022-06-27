@@ -1,5 +1,6 @@
 package org.xtuml.bp.ui.marking;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.xtuml.bp.core.common.TransactionManager;
@@ -16,6 +17,8 @@ public class Activator extends AbstractUIPlugin {
 	private static Activator plugin;
 	
 	private static MarkTransactionListener marktransactionListener;
+
+	private static MarkResourceListener markResourceListener;
 	
 	/**
 	 * The constructor
@@ -34,6 +37,9 @@ public class Activator extends AbstractUIPlugin {
 		
 		marktransactionListener = new MarkTransactionListener() {}; 
 		TransactionManager.getSingleton().addTransactionListener(marktransactionListener);
+		
+		markResourceListener = new MarkResourceListener();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(markResourceListener);
 	}
 
 	/*
@@ -42,6 +48,10 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
+		
+		TransactionManager.getSingleton().removeTransactionListener(marktransactionListener);
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(markResourceListener);
+		
 		super.stop(context);
 	}
 
