@@ -136,43 +136,20 @@ select any associative related by associative_local_reference->
                        L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
                                       RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
 select one relationship_spec related by self->R_REL[R654];
-reflexive = false;
 relatingFwd = true;
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
-if (relationship_spec.is_reflexive())
-  reflexive = true;
-end if;
 select one assoc related by relationship_spec->R_ASSOC[R206];
 
-select any srcIil from instances of I_LIP where false;  // decl
-select any dstIil from instances of I_LIP where false;
-select any assocIil from instances of I_LIP where false;
 if(not_empty source) and (not_empty destination) and (not_empty associative)
-  create object instance srcIil of I_LIP;
-  relate srcIil to source across R2958;
-  relate srcIil to relationship_spec across R2959;
-  create object instance dstIil of I_LIP;
-  relate dstIil to destination across R2958;
-  relate dstIil to relationship_spec across R2959;
-
-  select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-  select one dstClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
 
   select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
   select one dstClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
   
   if relationship_spec.isFormalized()
-    select one rgoClass related by assoc->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
     select one r_aoth related by assoc->R_AOTH[R210];
     form_phrase = r_aoth.Txt_Phrs;
-    if reflexive 
-      if form_phrase != rel_phrase
-          relatingFwd = false;
-      end if;
-    else
-      if rgoClass != srcClass
+    if form_phrase != rel_phrase
         relatingFwd = false;
-      end if;
     end if;
   end if;
 end if;
@@ -195,22 +172,13 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       populationError = true;
       message = "Empty link instance being related on";
     else
-      select many srcClassInAssociations related by source->CSME_CIE[R2962]->O_OBJ[R2961]->R_OIR[R201] 
-       where selected.Rel_ID == relationship_spec.Rel_ID;
-      select many dstClassInAssociations related by destination->CSME_CIE[R2962]->O_OBJ[R2961]->R_OIR[R201]
-       where selected.Rel_ID == relationship_spec.Rel_ID;
-      select many assocClassInAssociations related by associative->CSME_CIE[R2962]->O_OBJ[R2961]->R_OIR[R201] 
-       where selected.Rel_ID == relationship_spec.Rel_ID;
       select one r_aone related by assoc->R_AONE[R209];
       select one r_aoth related by assoc->R_AOTH[R210];
       srcMultiplicity = r_aone.Mult;
       dstMultiplicity = r_aoth.Mult;
-      if relationship_spec.isFormalized()
-        select any srcpart related by srcClassInAssociations->R_RTO[R203]->R_AONE[R204];
-	      if empty srcpart
-	        srcMultiplicity = r_aoth.Mult;
-	        dstMultiplicity = r_aone.Mult;
-	      end if;
+      if not relatingFwd
+        srcMultiplicity = r_aoth.Mult;
+        dstMultiplicity = r_aone.Mult;
       end if;
         
       select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
@@ -219,25 +187,24 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       toLinkNum = cardinality toLinks;
+      select many altfromLinks related by source->I_LIP[R2958]->I_LNK[R2902]
+                        where (selected.Rel_ID == relationship_spec.Rel_ID);
+      altfromLinkNum = cardinality altfromLinks;
+      select many alttoLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
+                        where (selected.Rel_ID == relationship_spec.Rel_ID);
+      alttoLinkNum = cardinality alttoLinks;
       select many assocLinks related by associative->I_LIP[R2958]->I_LNK[R2903]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       assocLinkNum = cardinality assocLinks;
-      select one r_assr related by assoc->R_ASSR[R211];
-
-      if not relatingFwd
-        swap = fromLinkNum;
-        fromLinkNum = toLinkNum;
-        toLinkNum = swap;
-      end if;
 
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and toLinkNum > 0
+      if srcMultiplicity == 0 and ( toLinkNum > 0 or alttoLinkNum > 0 )
         populationError = true;
       end if;
-      if dstMultiplicity == 0 and fromLinkNum > 0
+      if dstMultiplicity == 0 and ( fromLinkNum > 0 or altfromLinkNum > 0 )
         populationError = true;
       end if;
-      if r_assr.Mult == 0 and assocLinkNum > 0
+      if assocLinkNum > 0
         populationError = true;
       end if;
 
@@ -267,7 +234,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
                         relationship_spec.get_name() + assocPhrase + postFixMsg;
         USER::logError(msg:logMessage,path:body.getPath());
       end if; // Population error detected
-    end if; // Link cardinality > 1
+    end if; // not empty instance(s)
   end if; // audit is do not ignore
 end if; // audit enabled
 
@@ -275,9 +242,14 @@ if not populationError
   // Relate the given source and destination handles from the statement to our link
   // Create a link for this association
   create object instance link of I_LNK;
-
-  // Relate that link to our association
   relate relationship_spec to link across R2904;
+
+  create object instance srcIil of I_LIP;
+  relate srcIil to source across R2958;
+  relate srcIil to relationship_spec across R2959;
+  create object instance dstIil of I_LIP;
+  relate dstIil to destination across R2958;
+  relate dstIil to relationship_spec across R2959;
 
   if (relatingFwd)
     relate link to srcIil across R2901;

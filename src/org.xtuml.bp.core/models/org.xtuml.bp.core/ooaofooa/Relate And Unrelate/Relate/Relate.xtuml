@@ -114,17 +114,7 @@ rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 
 relatingFwd = true;
 
-select any srcIil from instances of I_LIP where (false); // decl
-select any dstIil from instances of I_LIP where (false);
-
 if not_empty source and not_empty destination
-	// create the link participations
-  create object instance srcIil of I_LIP;
-  relate srcIil to source across R2958;
-  relate srcIil to relationship_spec across R2959;
-  create object instance dstIil of I_LIP;
-  relate dstIil to destination across R2958;
-  relate dstIil to relationship_spec across R2959;
 
   select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
   select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
@@ -132,17 +122,18 @@ if not_empty source and not_empty destination
   if relationship_spec.isFormalized()
     if not_empty simprel
       select one form related by simprel->R_FORM[R208];
-      select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
       if reflexive 
         if form.Txt_Phrs == rel_phrase
           relatingFwd = false;
         end if;
       else
+        select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
 	      if rgoclass != sourceClass
 	        relatingFwd = false;
 	      end if;
       end if;
     else
+      // not simple; must be sub-super
       select one superclass related by relationship_spec->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
       if superclass != destClass
         relatingFwd = false;
@@ -172,16 +163,13 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
        where selected.Rel_ID == relationship_spec.Rel_ID;
       if not_empty simprel
         if relationship_spec.isFormalized()
-          // which ''side'' is the formalizer and which the participant?
-          select any srcRgo related by srcClassInAssociations->R_RGO[R203];
-          if not empty srcRgo
-            select one rForm related by srcRgo->R_FORM[R205];
-            select any rPart related by dstClassInAssociations->R_RTO[R203]->R_PART[R204];
+          // determine ''source'' and ''destination'' multiplicities
+          select one rForm related by simprel->R_FORM[R208];
+          select any rPart related by simprel->R_PART[R207];
+          if relatingFwd
             srcMultiplicity = rForm.Mult;
             dstMultiplicity = rPart.Mult;
           else
-            select any rPart related by srcClassInAssociations->R_RTO[R203]->R_PART[R204];
-            select any rForm related by dstClassInAssociations->R_RTO[R203]->R_PART[R204];
             srcMultiplicity = rPart.Mult;
             dstMultiplicity = rForm.Mult;
           end if;
@@ -192,7 +180,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
           select any rPart related by dstClassInAssociations->R_RTO[R203]->R_PART[R204];
           dstMultiplicity = rPart.Mult;
         end if;
-      // else, subtype-supertype must have multiplictity 1 on both sides
+      // else, subtype-supertype must have multiplicity 1 (i.e. value=0) on both sides
       end if;
       select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
                         where (selected.Rel_ID == relationship_spec.Rel_ID);
@@ -200,17 +188,19 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
                         where (selected.Rel_ID == relationship_spec.Rel_ID);
       toLinkNum = cardinality toLinks;
+
+      select many altfromLinks related by source->I_LIP[R2958]->I_LNK[R2902]
+                        where (selected.Rel_ID == relationship_spec.Rel_ID);
+      altfromLinkNum = cardinality altfromLinks;
+      select many alttoLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
+                        where (selected.Rel_ID == relationship_spec.Rel_ID);
+      alttoLinkNum = cardinality alttoLinks;
       
-      if not relatingFwd
-        swap = fromLinkNum;
-        fromLinkNum = toLinkNum;
-        toLinkNum = swap;
-      end if;
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and toLinkNum > 0
+      if srcMultiplicity == 0 and ( toLinkNum > 0 or alttoLinkNum > 0 )
         populationError = true;
       end if;
-      if dstMultiplicity == 0 and fromLinkNum > 0
+      if dstMultiplicity == 0 and ( fromLinkNum > 0 or altfromLinkNum > 0 )
         populationError = true;
       end if;
     end if;
@@ -243,12 +233,16 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
 end if; // audit enabled
 
 if not populationError
-  // Relate the given source and destination handles from the statement to link
-  // Create a link for this association
   create object instance link of I_LNK;
-
-  // Relate that link to our association
   relate relationship_spec to link across R2904;
+
+    // create the link participations
+  create object instance srcIil of I_LIP;
+  relate srcIil to source across R2958;
+  relate srcIil to relationship_spec across R2959;
+  create object instance dstIil of I_LIP;
+  relate dstIil to destination across R2958;
+  relate dstIil to relationship_spec across R2959;
 
   if (relatingFwd)
     relate link to srcIil across R2901;
