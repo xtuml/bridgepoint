@@ -429,9 +429,6 @@ select any empty_spr_rs from instances of SPR_RS where false;
 select any empty_spr_po from instances of SPR_PO where false;
 select any empty_spr_ps from instances of SPR_PS where false;
 if (not_empty c_r)
-  if ( not_empty c_r )
-    term.Descrip = c_r.Descrip;
-  end if;
 
   // for each message, create a terminator service
   select many spr_ros related by c_r->SPR_REP[R4500]->SPR_RO[R4502];
@@ -444,9 +441,6 @@ if (not_empty c_r)
   end for;
 elif (not_empty c_p)
   term.Terminator_Name = "";
-  if ( not_empty c_p )
-    term.Descrip = c_p.Descrip;
-  end if;
   term.Provider = true;
 
   // for each message, create a terminator service

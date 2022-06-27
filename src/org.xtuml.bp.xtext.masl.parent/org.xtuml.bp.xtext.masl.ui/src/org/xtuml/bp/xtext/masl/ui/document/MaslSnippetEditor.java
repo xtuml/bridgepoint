@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.IDocumentProviderExtension;
 import org.eclipse.ui.texteditor.IElementStateListener;
 import org.eclipse.xtext.ui.IImageHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -51,17 +52,21 @@ public class MaslSnippetEditor extends XtextEditor {
 			public void modelElementReloaded(ModelChangedEvent event) {
 				NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput())
 						.getModelElement();
-				NonRootModelElement newElement = (NonRootModelElement) event.getNewModelElement();
-				if (modelElement.getPersistableComponent().equals(newElement.getPersistableComponent())) {
+				NonRootModelElement loadedElement = (NonRootModelElement) event.getNewModelElement();
+				NonRootModelElement newElement = (NonRootModelElement) modelElement.getModelRoot()
+						.getInstanceList(modelElement.getClass()).get(modelElement.getInstanceKey());
+				if (modelElement.getPersistableComponent().equals(loadedElement.getPersistableComponent())) {
 					try {
+						IEditorInput input = null;
 						if (TypeDefinitionEditorInput.isSupported(modelElement)) {
-							setInput(TypeDefinitionEditorInputFactory.getDefaultInstance()
-									.createInstance(modelElement.getModelRoot().getInstanceList(modelElement.getClass())
-											.get(modelElement.getInstanceKey())));
+							input = TypeDefinitionEditorInputFactory.getDefaultInstance().createInstance(newElement);
 						} else {
-							setInput(
-									MASLEditorInputFactory.getDefaultInstance().createInstance(modelElement.getModelRoot()
-											.getInstanceList(modelElement.getClass()).get(modelElement.getInstanceKey())));
+							input = MASLEditorInputFactory.getDefaultInstance().createInstance(newElement);
+						}
+						if (modelElement.equals(newElement)) {
+							setInput(input);
+						} else if (!getDocumentProvider().mustSaveDocument(input)) {
+							((IDocumentProviderExtension) getDocumentProvider()).synchronize(input);
 						}
 						updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(),
 								(AbstractModelElementPropertyEditorInput) getEditorInput());
@@ -175,10 +180,13 @@ public void updateLabelAndVisibleRegion(final MaslDocumentProvider maslDocumentP
     this.setPartName(_name);
     final String prefix = maslDocumentProvider.getPrefix(input);
     final String editable = maslDocumentProvider.getEditable(input);
+    this.getSourceViewer().resetVisibleRegion();
     ISourceViewer _sourceViewer = this.getSourceViewer();
     int _length = prefix.length();
-    int _length_1 = editable.length();
-    _sourceViewer.setVisibleRegion(_length, _length_1);
+    int _length_1 = this.getSourceViewer().getVisibleRegion().getLength();
+    int _length_2 = prefix.length();
+    int _minus = (_length_1 - _length_2);
+    _sourceViewer.setVisibleRegion(_length, _minus);
     boolean _notEquals = (!Objects.equal(this.signatureLabel, null));
     if (_notEquals) {
       String _header = maslDocumentProvider.getHeader(input);

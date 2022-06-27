@@ -1,0 +1,175 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'ReferencePath',
+	3,
+	'R_RP',
+	'Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("c0c4323c-1f34-482a-8b79-8288cd90f2cb",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many references related by self->R_OR[R500];
+for each reference in references
+  unrelate reference from self across R500;
+  reference.dispose();
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	2);
+INSERT INTO O_DBATTR
+	VALUES ("31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'path = "";
+
+select any ref related by self->R_OR[R500] where (selected.previous_id == OS::NULL_UNIQUE_ID());
+while(not_empty ref)
+  if(ref.previous_id == OS::NULL_UNIQUE_ID())
+  	path = CL::getNameFromPath(element: ref.element);
+  else
+    path = path + "::" + CL::getNameFromPath(element: ref.element);
+  end if;
+  select one ref related by ref->R_OR[R503.''succeeds''];
+end while;
+
+self.path = path; ',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ATTR
+	VALUES ("31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	"caf0b799-2531-4854-a31d-3dc7b823047d",
+	'path',
+	'',
+	'',
+	'path',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_BATTR
+	VALUES ("caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ATTR
+	VALUES ("caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	"00000000-0000-0000-0000-000000000000",
+	'id',
+	'',
+	'',
+	'id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'select any next related by self->R_OR[R500.''constructed with'']
+	where (selected.previous_id == OS::NULL_UNIQUE_ID());
+ref = next;
+while(not_empty next)
+	ref = next;
+	select one next related by next->R_OR[R503.''succeeds''];
+end while;
+self.element = ref.element;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ATTR
+	VALUES ("af90e500-c0bf-4d10-80bf-cffa328ff19c",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	"31f2386e-091c-41aa-8eb6-7d5ccf77b8ba",
+	'element',
+	'',
+	'',
+	'element',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("e2b3c295-6190-48ea-b108-65a149c93c37",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'path = "";
+
+select any ref related by self->R_OR[R500] where (selected.previous_id == OS::NULL_UNIQUE_ID());
+while(not_empty ref)
+  if(ref.previous_id == OS::NULL_UNIQUE_ID())
+  	path = ref.lastName;
+  else
+    path = path + "::" + ref.lastName;
+  end if;
+  select one ref related by ref->R_OR[R503.''succeeds''];
+end while;
+
+self.lastPath = path;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("e2b3c295-6190-48ea-b108-65a149c93c37",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ATTR
+	VALUES ("e2b3c295-6190-48ea-b108-65a149c93c37",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	"af90e500-c0bf-4d10-80bf-cffa328ff19c",
+	'lastPath',
+	'',
+	'',
+	'lastPath',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_OIDA
+	VALUES ("caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	0,
+	'id');
+INSERT INTO O_ID
+	VALUES (1,
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO O_ID
+	VALUES (2,
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1");
+INSERT INTO PE_PE
+	VALUES ("d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	1,
+	"8f88ddae-bdb2-40df-89dc-8b05f03285e4",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("8f88ddae-bdb2-40df-89dc-8b05f03285e4",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'References',
+	'',
+	500,
+	'../References.xtuml');

@@ -1,0 +1,110 @@
+= Add 'clean' to MASL export
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+The MASL exporter currently does not remove any files during export. This is
+fine most of the time, however it can sometimes result in unexpected behavior.
+This change will add a mechanism to clean the output directory before export.
+
+== 2 Introduction and Background
+
+None.
+
+== 3 Requirements
+
+=== 3.1 A mechanism shall be added to remove all files from the target export directory before export
+
+==== 3.1.1 The mechanism shall work in Eclipse and on through the CLI
+
+==== 3.1.2 The mechanism shall be configurable (default on)
+
+== 4 Work Required
+
+=== 4.1 `Xtuml2Masl.java`
+
+The core export behavior is implemented in the `Xtuml2Masl` class. Both the
+Eclipse plugin and the CLI script invoke this class. A recursive tree removal is
+implemented here and a new configuration parameter is added. On the command
+line, it can be skipped by adding the `-xc` option.
+
+=== 4.2 Preferences
+
+A new checkbox was added to the MASL export preferences. This option can be
+enabled/disabled on a per project basis via the project preferences. The default
+is "checked".
+
+== 5 Implementation Comments
+
+Since I was using the MASL template domain as the test model, I took the
+opportunity to do a bit of upgrade. I made the folloinwg maintenance changes:
+
+. Removed all of the previously configured builders (none of them were used and some where defunct).
+. Added the MASL export builder.
+. Removed all types from the `types` package which are duplicates of built in
+xtUML types (e.g. string, integer).
+. Updated the example type `ex_type` to be a native xtUML structured type rather
+than using the type definition field.
+. Performed "Load and Persist" to upgrade all the SQL to match the latest
+schema.
+
+== 6 Unit Test
+
+=== 6.1 Eclipse test (with clean)
+
+. Import the MASL template project in a fresh workspace
+. Create a domain function called "foo"
+. Generate MASL. *Confirm that "foo.svc" appears in the output location*
+. Remove "foo".
+. Generate MASL again. *Confirm that "foo.svc" no longer appears in the output
+location*
+
+=== 6.2 CLI test (with clean)
+
+. Re-add the "foo" function
+. Generate MASL. *Confirm that "foo.svc" appears in the output location*
+. Remove "foo" again.
+. Generate MASL from the command line using the following command from the
+project directory:
+
+  <path_to_bp_home>/tools/mc/bin/xtuml2masl -i . -d MASLTemplate -o masl/
+
+. *Confirm that "foo.svc" no longer appears in the output location*
+
+=== 6.3 Eclipse test (without clean)
+
+. Back in Eclipse, navigate to the project properties "xtUML Project > MASL
+Exporter"
+. Uncheck the "Remove old files before export (clean)" checkbox
+. Re-add the "foo" function
+. Generate MASL. *Confirm that "foo.svc" appears in the output location*
+. Remove "foo" again.
+. Generate MASL again. *Confirm that "foo.svc" still appears in the output
+location*
+
+=== 6.4 CLI test (without clean)
+
+. Re-add the "foo" function
+. Generate MASL. *Confirm that "foo.svc" appears in the output location*
+. Remove "foo" again.
+. Generate MASL from the command line using the following command from the
+project directory:
+
+  <path_to_bp_home>/tools/mc/bin/xtuml2masl -xc -i . -d MASLTemplate -o masl/
+
+. *Confirm that "foo.svc" still appears in the output location*
+
+== 7 User Documentation
+
+None.
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12502[#12502 Consider adding a 'clean' option to the xtuml2masl flow]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

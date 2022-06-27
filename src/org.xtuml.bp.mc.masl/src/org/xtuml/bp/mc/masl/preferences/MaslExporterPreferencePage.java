@@ -35,6 +35,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
     private Button automaticallySelectButton;
     Button enableFormatButton;
     Button emitActionLanguageButton;
+    Button cleanBuildButton;
     Text outputFolderTextbox;
 
     @Override
@@ -108,6 +109,12 @@ public class MaslExporterPreferencePage extends PropertyPage {
         emitActionLanguageButton = new Button(outputControlGroup, SWT.CHECK);
         emitActionLanguageButton.setText("Emit activity definition files");
 
+        cleanBuildButton = new Button(outputControlGroup, SWT.CHECK);
+        cleanBuildButton.setText("Remove old files before export (clean)");
+
+        @SuppressWarnings("unused")
+        final Label blankLabel = new Label(outputControlGroup, SWT.NONE);
+
         Label outputFolderLabel = new Label(outputControlGroup, SWT.NONE);
         outputFolderLabel.setText("Output destination:");
         outputFolderTextbox = new Text(outputControlGroup, SWT.LEFT | SWT.BORDER);
@@ -149,6 +156,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         prefs.setAutoSelectElements(automaticallySelectButton.getSelection());
         prefs.setFormatOutput(enableFormatButton.getSelection());
         prefs.setEmitActivities(emitActionLanguageButton.getSelection());
+        prefs.setCleanBuild(cleanBuildButton.getSelection());
         prefs.setOutputDestination(outputFolderTextbox.getText());
         prefs.savePreferences();
     }
@@ -183,6 +191,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         }
         enableFormatButton.setSelection(prefs.isFormatOutput());
         emitActionLanguageButton.setSelection(prefs.isEmitActivities());
+        cleanBuildButton.setSelection(prefs.isCleanBuild());
         outputFolderTextbox.setText(prefs.getOutputDestination());
     }
 

@@ -1,0 +1,222 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("9017912f-1049-44b2-bff6-71c9844b5ff6",
+	'ObjectReference',
+	1,
+	'R_OR',
+	'Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("0b19ce3a-3bb2-416c-8aa5-ed957bf2cbe8",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	'dispose',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one path related by self->R_RP[R500];
+if(not_empty path)
+  unrelate self from path across R500;
+end if;
+select one prev related by self->R_OR[R503.''precedes''];
+if(not_empty prev)
+  unrelate self from prev across R503.''precedes'';
+end if;
+select one next related by self->R_OR[R503.''succeeds''];
+if(not_empty next)
+  unrelate self from next across R503.''succeeds'';
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	1);
+INSERT INTO O_NBATTR
+	VALUES ("4371466f-a39f-4b7b-b85f-e468b322601b",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_BATTR
+	VALUES ("4371466f-a39f-4b7b-b85f-e468b322601b",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_ATTR
+	VALUES ("4371466f-a39f-4b7b-b85f-e468b322601b",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"00000000-0000-0000-0000-000000000000",
+	'id',
+	'',
+	'',
+	'id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	0,
+	"caf0b799-2531-4854-a31d-3dc7b823047d",
+	"5939ddcf-32ef-4493-890e-d1be1a941b72",
+	"3cbac1d8-e20e-4250-b3bb-e7c4ab2a2bb8",
+	"f9ce3b91-4b4d-4b77-b61e-ce30cc29b614",
+	"6da87109-4a7a-4bcc-be5c-9d7097db1151",
+	"a3af229e-12e3-4e13-9b0e-2680aeb457d0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'ReferencePath',
+	'id',
+	'R500.''segment of''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"5939ddcf-32ef-4493-890e-d1be1a941b72",
+	"3cbac1d8-e20e-4250-b3bb-e7c4ab2a2bb8",
+	'../References.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	0,
+	"5939ddcf-32ef-4493-890e-d1be1a941b72",
+	"f9ce3b91-4b4d-4b77-b61e-ce30cc29b614",
+	'../References.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("6da87109-4a7a-4bcc-be5c-9d7097db1151",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	1,
+	'id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("caf0b799-2531-4854-a31d-3dc7b823047d",
+	"d0473d33-292c-49e6-a57e-bc4de2c2a9f1",
+	'../ReferencePath/ReferencePath.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("6da87109-4a7a-4bcc-be5c-9d7097db1151",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"4371466f-a39f-4b7b-b85f-e468b322601b",
+	'path_id',
+	'',
+	'path_',
+	'id',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	0,
+	"4371466f-a39f-4b7b-b85f-e468b322601b",
+	"cec46e56-5964-4b24-b872-f76708177760",
+	"f848b85b-fb1d-4fec-b61f-e41902e57530",
+	"57f15f93-91c5-4d89-bdad-40a927ea9fcf",
+	"bf778583-3899-452e-951b-e55988d574a0",
+	"2b72d113-2e9b-4dae-b7c5-c0509bcabe4b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'ObjectReference',
+	'id',
+	'R503.''precedes''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"cec46e56-5964-4b24-b872-f76708177760",
+	"f848b85b-fb1d-4fec-b61f-e41902e57530",
+	'../References.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4371466f-a39f-4b7b-b85f-e468b322601b",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	0,
+	"cec46e56-5964-4b24-b872-f76708177760",
+	"57f15f93-91c5-4d89-bdad-40a927ea9fcf",
+	'../References.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bf778583-3899-452e-951b-e55988d574a0",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"4371466f-a39f-4b7b-b85f-e468b322601b",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	1,
+	'id');
+INSERT INTO O_ATTR
+	VALUES ("bf778583-3899-452e-951b-e55988d574a0",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	'previous_id',
+	'',
+	'previous_',
+	'id',
+	1,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c516e16d-4290-4f8b-83e9-4412ab179986",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_BATTR
+	VALUES ("c516e16d-4290-4f8b-83e9-4412ab179986",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_ATTR
+	VALUES ("c516e16d-4290-4f8b-83e9-4412ab179986",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"6da87109-4a7a-4bcc-be5c-9d7097db1151",
+	'element',
+	'',
+	'',
+	'element',
+	0,
+	"68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("68dedb08-fd5a-420e-9ec7-e7985ad0c856",
+	"00000000-0000-0000-0000-000000000000",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_BATTR
+	VALUES ("2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_ATTR
+	VALUES ("2e3f4c6f-f5b1-494a-a3f9-1d5529117a28",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	"c516e16d-4290-4f8b-83e9-4412ab179986",
+	'lastName',
+	'',
+	'',
+	'lastName',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_OIDA
+	VALUES ("4371466f-a39f-4b7b-b85f-e468b322601b",
+	"9017912f-1049-44b2-bff6-71c9844b5ff6",
+	0,
+	'id');
+INSERT INTO O_ID
+	VALUES (1,
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO O_ID
+	VALUES (2,
+	"9017912f-1049-44b2-bff6-71c9844b5ff6");
+INSERT INTO PE_PE
+	VALUES ("9017912f-1049-44b2-bff6-71c9844b5ff6",
+	1,
+	"8f88ddae-bdb2-40df-89dc-8b05f03285e4",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("8f88ddae-bdb2-40df-89dc-8b05f03285e4",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'References',
+	'',
+	500,
+	'../References.xtuml');

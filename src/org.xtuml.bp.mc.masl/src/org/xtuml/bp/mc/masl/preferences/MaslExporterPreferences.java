@@ -19,12 +19,14 @@ public class MaslExporterPreferences {
     private static final boolean AUTO_SELECT_ELEMENTS_DEFAULT = true;
     private static final boolean FORMAT_OUTPUT_DEFAULT = true;
     private static final boolean EMIT_ACTIVITIES_DEFAULT = true;
+    private static final boolean CLEAN_BUILD_DEFAULT = true;
     private static final String OUTPUT_DESTINATION_DEFAULT = "masl/";
 
     // preference keys
     private static final String AUTO_SELECT_ELEMENTS_KEY = "auto_select_elements";
     private static final String FORMAT_OUTPUT_KEY = "format_output";
     private static final String EMIT_ACTIVITIES_KEY = "emit_activities";
+    private static final String CLEAN_BUILD_KEY = "clean_build";
     private static final String OUTPUT_DESTINATION_KEY = "output_desitnation";
     private static final String SELECTED_BUILD_ELEMENTS_KEY = "selected_build_elements";
 
@@ -33,6 +35,7 @@ public class MaslExporterPreferences {
     private boolean autoSelectElements;
     private boolean formatOutput;
     private boolean emitActivities;
+    private boolean cleanBuild;
     private String outputDestination;
     List<UUID> selectedBuildElements;
 
@@ -65,6 +68,14 @@ public class MaslExporterPreferences {
         this.emitActivities = emitActivities;
     }
 
+    public boolean isCleanBuild() {
+        return cleanBuild;
+    }
+
+    public void setCleanBuild(boolean cleanBuild) {
+        this.cleanBuild = cleanBuild;
+    }
+
     public String getOutputDestination() {
         return outputDestination;
     }
@@ -85,6 +96,7 @@ public class MaslExporterPreferences {
         autoSelectElements = AUTO_SELECT_ELEMENTS_DEFAULT;
         formatOutput = FORMAT_OUTPUT_DEFAULT;
         emitActivities = EMIT_ACTIVITIES_DEFAULT;
+        cleanBuild = CLEAN_BUILD_DEFAULT;
         outputDestination = OUTPUT_DESTINATION_DEFAULT;
         selectedBuildElements = new ArrayList<>();
     }
@@ -107,6 +119,12 @@ public class MaslExporterPreferences {
             this.emitActivities = EMIT_ACTIVITIES_DEFAULT;
         } else {
             this.emitActivities = Boolean.getBoolean(emitActivities);
+        }
+        String cleanBuild = internalPrefs.get(CLEAN_BUILD_KEY, "None");
+        if ("None".equals(cleanBuild)) {
+            this.cleanBuild = CLEAN_BUILD_DEFAULT;
+        } else {
+            this.cleanBuild = Boolean.getBoolean(cleanBuild);
         }
         String outputDestination = internalPrefs.get(OUTPUT_DESTINATION_KEY, "None");
         if ("None".equals(outputDestination)) {
@@ -134,6 +152,9 @@ public class MaslExporterPreferences {
             }
             if (emitActivities != EMIT_ACTIVITIES_DEFAULT) {
                 internalPrefs.putBoolean(EMIT_ACTIVITIES_KEY, emitActivities);
+            }
+            if (cleanBuild != CLEAN_BUILD_DEFAULT) {
+                internalPrefs.putBoolean(CLEAN_BUILD_KEY, cleanBuild);
             }
             if (!outputDestination.equals(OUTPUT_DESTINATION_DEFAULT)) {
                 internalPrefs.put(OUTPUT_DESTINATION_KEY, outputDestination);

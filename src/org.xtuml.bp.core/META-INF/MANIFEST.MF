@@ -9,6 +9,7 @@ Bundle-Vendor: xtUML.org
 Bundle-Localization: plugin
 Export-Package: lib,
  org.xtuml.bp.core,
+ org.xtuml.bp.core.activity.errors,
  org.xtuml.bp.core.common,
  org.xtuml.bp.core.inspector,
  org.xtuml.bp.core.search,

@@ -543,7 +543,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
      * @param path IPath that will be interogated to see if it is the models folder.
      * @return True if the given resource is a system component, false if it is not.
      */
-    private boolean isModelsFolder(IPath path) {
+    public static boolean isModelsFolder(IPath path) {
     	boolean isModels = false;
 	    if(path.segmentCount() == 2){
 	        if(path.segment(1).equalsIgnoreCase(Ooaofooa.MODELS_DIRNAME)){
@@ -846,6 +846,9 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 
     private static boolean isComponentActionFile(IPath p){
         IPath path = ActionFile.getComponentPath(p);
+        if(path == null) {
+        	return false;
+        }
         if(Ooaofooa.MODELS_EXT.equalsIgnoreCase(path.getFileExtension())){
             int size = path.segmentCount();
             if(path.removeFileExtension().lastSegment().equals(path.segment(size-2))){
@@ -861,7 +864,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
     public static boolean getIgnoreResourceChanges() {
         return ignoreResourceChanges;
     }
-    private static boolean ignoreResourceChanges() {
+    public static boolean ignoreResourceChanges() {
         return ignoreResourceChanges;
     }
     

@@ -1,0 +1,95 @@
+= Unsaved editor changes in a MASL editor are wiped out by a structural change
+
+== 1 Abstract
+
+From the issue description:
+
+> While editing a domain service if the user makes a change to the model before
+> saving the editor change the editor change is lost, the editor is reset to what
+> is was before the structure change.
+
+== 2 Introduction and Background
+
+xtUML elements are stored in `.xtuml` files. Related elements are grouped
+together in a tree-like structure under a "root" element which determines the
+file boundaries. Root elements include the project itself, packages, components,
+classes, and state machines.
+
+MASL activity bodies are stored in separate `.masl` files which correspond to
+the `.xtuml` file which contains the definition and signature of the activity
+element itself. At load time, each individual action body is parsed and injected
+into the in-memory xtUML instances.
+
+When the user makes a change to a model element, the transaction manager
+initiates a persist operation on only the root elements which have been
+affected. This results in the writing of the `.xtuml` file for that model root
+and the `.masl` file if any child elements contain MASL action bodies.
+
+Ideally, if an unsaved MASL buffer is open and the structural model changes, the
+buffer should be unaffected unless the signature of the particular body is
+affected. In that case, the user should be notified and given the option to save
+the contents and continue or to cancel the edit operation.
+
+One complicating factor is the rename/refactor behavior of the MASL plugin. When
+a structural element changes, the MASL plugin finds all references to the
+element in the MASL activities and replaces the old names with the new element
+name. This means that a buffer can theoretically be affected by a change in
+almost any other model root. This was introduced to make sure that any
+open buffers get refreshed after a rename/refactor operation or another model
+load (such as from disk). See issue #9354 (<<dr-2>>).
+
+There is no easy way to determine if a particular action body has changed as the
+result of a model load, so without getting into the weeds of rename/refactor and
+persistence, it would be difficult to synchronize only buffers with new changes.
+Given this this restriction, there are two potential solutions to this problem:
+
+1. Force unsaved MASL buffers to persist before they are synchronized
+2. Skip synchronization of unsaved MASL buffers
+
+Both of these solutions have the downside that they lose any changes to the
+bodies that may be part of the model load (e.g. editing the `.masl` file outside
+of Eclipse or rename/refactor). Essentially, the tool would always prefer the
+current editor contents over changes on disk. This is a worthwhile trade-off as
+it should be relatively rare and the impact is limited to only the current
+unsaved MASL buffers.
+
+The second option shall be implemented and all unsaved MASL buffers shall remain
+untouched after a model load due to file changes outside Eclipse or a refactor
+operation.
+
+== 3 Requirements
+
+=== 3.1 Changes in unsaved MASL buffers shall not be discarded after a structural model element change
+
+== 4 Work Required
+
+4.1 Conditionalize the `doSynchronize` method in the `MaslDocumentProvider` so
+that if the document is unsaved, the synchronization operation is skipped.
+
+4.2 Update the `MaslSnippetEditor` model change listener to prevent reloading
+the document if the model element does not change and the document is unsaved.
+
+== 5 Implementation Comments
+
+None.
+
+== 6 Test
+
+Testing shall be performed ad hoc by modelers who are actively working on MASL
+projects. The testers shall be encouraged to try a variety of combinations of
+structural changes with unsaved MASL activity buffers.
+
+== 7 User Documentation
+
+None.
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/9198[#9198 Unsaved editor changes in a masl editor are wiped out by a structural change]
+. [[dr-2]] https://support.onefact.net/issues/9354[#9354 Attribute rename in masl project fails]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

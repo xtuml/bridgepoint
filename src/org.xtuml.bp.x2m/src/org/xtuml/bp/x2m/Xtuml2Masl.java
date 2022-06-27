@@ -10,15 +10,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+ 
 public class Xtuml2Masl {
 
     private static final int KILL_TIMEOUT = 2000;
@@ -41,6 +44,7 @@ public class Xtuml2Masl {
     private boolean prebuild;
     private boolean skipFormat;
     private boolean skipActionLanguage;
+    private boolean cleanBuild;
 
     public Xtuml2Masl() {
         validate = false;
@@ -50,6 +54,7 @@ public class Xtuml2Masl {
         architecture = "MASL";
         skipFormat = false;
         skipActionLanguage = false;
+        cleanBuild = true;
         projectLocation = "";
         name = "";
         isDomain = true;
@@ -64,6 +69,30 @@ public class Xtuml2Masl {
         File outDirFile = new File(outDir);
         if (!outDirFile.exists()) {
             outDirFile.mkdirs();
+        }
+        // if clean is enabled, delete the contents first
+        if (cleanBuild) {
+            Path outputPath = Path.of(outDirFile.getPath(), name);
+            if (Files.exists(outputPath)) {
+                Files.walkFileTree(Path.of(outDirFile.getPath(), name), new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                        Files.delete(file);
+                        return FileVisitResult.CONTINUE;
+                    }
+
+                    @Override
+                    public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
+                        if (e == null) {
+                            Files.delete(dir);
+                            return FileVisitResult.CONTINUE;
+                        } else {
+                            // directory iteration failed
+                            throw e;
+                        }
+                    }
+                });
+            }
         }
         // create the gen/code_generation directory if it does not exist
         File genDirFile = new File(projectLocation + File.separator + CODE_GEN_FOLDER);
@@ -268,6 +297,11 @@ public class Xtuml2Masl {
         return this;
     }
 
+    public Xtuml2Masl setCleanBuild(boolean cleanBuild) {
+        this.cleanBuild = cleanBuild;
+        return this;
+    }
+
     private static void connectStreams(boolean close, InputStream in, OutputStream... outs) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         List<BufferedWriter> bufferedWriters = new ArrayList<>();
@@ -328,7 +362,7 @@ public class Xtuml2Masl {
 
     private static void printUsage() {
         System.err.println(
-                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -d <domain component> [-o <output directory>] [-a <architecture>]\n\txtuml2masl [-v | -V] [-xf] [-xl] -i <eclipse project> -p <project package> [-o <output directory>] [-a <architecture>]");
+                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] [-xc] -i <eclipse project> -d <domain component> [-o <output directory>] [-a <architecture>]\n\txtuml2masl [-v | -V] [-xf] [-xl] [-xc] -i <eclipse project> -p <project package> [-o <output directory>] [-a <architecture>]");
     }
 
     private static class BuildElement {
@@ -349,6 +383,7 @@ public class Xtuml2Masl {
         boolean prebuild = false;
         boolean skipFormatter = false;
         boolean skipActionLanguage = false;
+        boolean cleanBuild = true;
         String outDir = "";
         String architecture = "MASL"; // default to MASL
         List<String> inputs = new ArrayList<>();
@@ -377,6 +412,9 @@ public class Xtuml2Masl {
                                                                    // MASL activities
                 skipActionLanguage = true;
                 directive = "";
+            } else if ("-xc".equals(arg) && cleanBuild) { // if we encounter flag indicating to skip clean
+                cleanBuild = false;
+                directive = "";
             } else if ("-i".equals(directive)) { // add an input
                 inputs.add(arg);
             } else if ("-p".equals(directive)) { // add a project name
@@ -394,7 +432,7 @@ public class Xtuml2Masl {
         }
 
         Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
-                .setSkipActionLanguage(skipActionLanguage).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
+                .setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
                     .setIsDomain(buildElements.get(i).isDomain);
