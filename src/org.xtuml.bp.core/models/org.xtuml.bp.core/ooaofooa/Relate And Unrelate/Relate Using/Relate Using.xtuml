@@ -136,22 +136,21 @@ select any associative related by associative_local_reference->
                        L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
                                       RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
 select one relationship_spec related by self->R_REL[R654];
-relatingFwd = true;
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 select one assoc related by relationship_spec->R_ASSOC[R206];
 
 if(not_empty source) and (not_empty destination) and (not_empty associative)
 
-  select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-  select one dstClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
-  
   if relationship_spec.isFormalized()
     select one r_aoth related by assoc->R_AOTH[R210];
     form_phrase = r_aoth.Txt_Phrs;
     if form_phrase != rel_phrase
-        relatingFwd = false;
+	    swap = source;
+	    source = destination;
+	    destination = swap;
     end if;
   end if;
+
 end if;
           
 populationError = false;
@@ -176,10 +175,6 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       select one r_aoth related by assoc->R_AOTH[R210];
       srcMultiplicity = r_aone.Mult;
       dstMultiplicity = r_aoth.Mult;
-      if not relatingFwd
-        srcMultiplicity = r_aoth.Mult;
-        dstMultiplicity = r_aone.Mult;
-      end if;
         
       select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
@@ -187,12 +182,14 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       toLinkNum = cardinality toLinks;
+      
       select many altfromLinks related by source->I_LIP[R2958]->I_LNK[R2902]
                         where (selected.Rel_ID == relationship_spec.Rel_ID);
       altfromLinkNum = cardinality altfromLinks;
       select many alttoLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
                         where (selected.Rel_ID == relationship_spec.Rel_ID);
       alttoLinkNum = cardinality alttoLinks;
+
       select many assocLinks related by associative->I_LIP[R2958]->I_LNK[R2903]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       assocLinkNum = cardinality assocLinks;
@@ -251,14 +248,9 @@ if not populationError
   relate dstIil to destination across R2958;
   relate dstIil to relationship_spec across R2959;
 
-  if (relatingFwd)
-    relate link to srcIil across R2901;
-    relate link to dstIil across R2902;
-  else
-    relate link to dstIil across R2901;
-    relate link to srcIil across R2902;
-  end if;
-  // Relate the given source and destination handles from the statement to our link
+  relate link to srcIil across R2901;
+  relate link to dstIil across R2902;
+  
   create object instance assocIil of I_LIP;
   relate assocIil to associative across R2958;
   relate assocIil to relationship_spec across R2959;
