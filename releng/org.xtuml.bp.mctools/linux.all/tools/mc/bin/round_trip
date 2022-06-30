@@ -1,0 +1,338 @@
+#!/bin/bash
+#
+#  This utility is used to run the full round trip (convert, import,
+#  export, diff) on MASL/WASL domains.  The diff report that is produced helps
+#  users validate that the BridgePoint MASL/WASL flow works.
+#
+#  Please note that the BridgePoint CLI Import uses a graphical eclipse workbench which
+#  will capture focus as this script runs.  To run this script completely headlessly,
+#  install the xvfb package for your distribution and call this script using xvfb-run.
+#
+#   ./round_trip -d <domain source directory(s) ...> -p <project soruce directory> [-o <output directory>] [-a <architecture>] [-c]
+#   xvfb-run ./round_trip -d <domain source directory(s) ...> -p <project soruce directory> [-o <output directory>] [-a <architecture>] [-c]
+
+# USAGE
+print_usage () {
+    echo "Usage:"
+    echo "        round_trip -d <domain source directory(s) ...> -p <project soruce directory> [-o <output directory>] [-a <architecture>] [-r] [-c]";
+    echo " ";
+    echo "  - Up to twenty domains may be specified. If a project is specified, only the project is diff'd.";
+    echo "  - Consider installing xvfb and calling this script with xvfb-run to execute headlessly. See info in this script's header.";
+    echo "  - Specify the '-c' flag to enable and produce code coverage statistics.";
+    echo "  - Specify the '-r' flag to force exit and relaunch of BridgePoint before export.";
+    echo "  - Specify '-a <architecture>' to select a specific architecture (WASL) for model testing; MASL is the default.";
+    echo "  - Specify the '-depl' flag to indicate the test is against a deployment.";
+    echo "  - Specify '-reconcileGraphics' to enable graphical data creation on import.";
+    echo -e "\n";
+}
+
+# set up paths
+TMP="/tmp"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [[ "$OSTYPE" == "cygwin" ]]; then
+    DIR=`cygpath -w $DIR`
+    TMP="."
+fi
+export PATH=$DIR:$PATH
+
+# abort
+LOCAL_CLI="false"
+abort () {
+    if [[ "true" == $LOCAL_CLI ]]; then
+        echo "Aborting..."
+        CLI.sh Launch -abort
+        exit 1
+    fi
+}
+trap abort SIGINT SIGTERM
+
+# input variables
+DOM_DIRS=()
+PROJ_DIR=
+OUT_DIR=
+RELAUNCH=
+COVERAGE=
+ARCHITECTURE="MASL" # Default to MASL.
+DEPL="false"
+RECONCILE_GRAPHICS="false"
+
+# parse arguments
+DIRECTIVE=
+for arg in $@; do
+    if [[ $arg == "-d" || $arg == "-p" || $arg == "-o" || $arg == "-a" ]]; then # set the directive
+        DIRECTIVE=$arg
+    elif [[ $arg == "-r" ]]; then                                   # relaunch BP before export
+        RELAUNCH=$arg
+    elif [[ $arg == "-depl" ]]; then                                # deployments are not converted 
+        DEPL="true"
+    elif [[ $arg == "-reconcileGraphics" ]]; then                   # enable graphical reconciliation
+        RECONCILE_GRAPHICS="true"
+    elif [[ $arg == "-c" ]]; then                                   # produce coverage statistics
+        COVERAGE=$arg
+    elif [[ $DIRECTIVE == "-d" ]]; then                             # add a domain dir
+        DOM_DIRS+=($arg)
+    elif [[ $DIRECTIVE == "-p" ]]; then                             # add a project dir
+        PROJ_DIR=$arg
+    elif [[ $DIRECTIVE == "-o" && $OUT_DIR == "" ]]; then           # only can set the output directory once
+        OUT_DIR=$arg
+    elif [[ $DIRECTIVE == "-a" ]]; then                             # set expected architecture
+        ARCHITECTURE=$arg
+    else
+        print_usage
+        exit 1
+    fi
+done
+
+# check if we have any domains to convert
+if [[ ${#DOM_DIRS[@]} == 0 ]]; then
+    print_usage
+    exit 1
+fi
+
+# if no out directory was given, give the current working directory
+if [[ $OUT_DIR == "" ]]; then OUT_DIR=.; fi
+
+# echo Args:
+#echo PROJ_DIR=$PROJ_DIR
+#echo DOM_DIRS=${DOM_DIRS[*]}
+#echo OUT_DIR=$OUT_DIR
+
+# make the output directory if there is one
+if [[ $OUT_DIR != "" ]]; then
+    if ! mkdir -p $OUT_DIR; then
+        echo "-round_trip:  ERROR could not create directory '$OUT_DIR'" 1>&2
+        exit 1
+    fi
+fi
+
+###########################
+# Setup
+###########################
+export WORKSPACE=$TMP/importwork
+
+# If there is not already an eclipse instance started, start one
+CLI.sh Launch -checkRunning
+if [[ $? != 0 ]]; then
+    echo "Launching an Eclipse command line instance..."
+    CLI.sh Launch
+    LOCAL_CLI="true"
+fi
+
+###########################
+# Convert
+###########################
+CONVERTDIR=$TMP/convertdir
+# process domains
+for domain in ${DOM_DIRS[*]}; do
+    domname=$(basename $domain)
+    rm -rf $CONVERTDIR/$domname
+    # if we are not handling deployment
+    if [ $DEPL == "false" ]; then
+      masl2xtuml -a $ARCHITECTURE -d $domain -o $CONVERTDIR
+    else
+      # otherwise just copy
+      cp -r $domain $CONVERTDIR
+    fi
+done
+# process project
+if [[ $PROJ_DIR != "" ]]; then
+  projname=$(basename $PROJ_DIR)
+  rm -rf $CONVERTDIR/$projname
+  # if we are not handling deployment
+  if [ $DEPL == "false" ]; then
+    masl2xtuml -a $ARCHITECTURE -p $PROJ_DIR -o $CONVERTDIR
+  else
+    # otherwise just copy
+    cp -r $PROJ_DIR $CONVERTDIR
+  fi
+fi
+
+###########################
+# Import, Export, Diff
+###########################
+MODELOUTDIR=$TMP/modelout
+# Set reconcile graphics option
+RECONCILE_GRAPHICS_OPTION=""
+if [ $RECONCILE_GRAPHICS == "true" ]; then
+  RECONCILE_GRAPHICS_OPTION="-reconcileGraphics"
+fi
+
+domNum=0
+for domain in ${DOM_DIRS[*]}; do
+    echo -e "\n\n=========================================================="
+    echo "Processing domain $domain"
+    domname=$(basename $domain)
+
+    ((domNum+=1))
+    domProj=d$domNum
+
+    echo "Round trip is now importing"
+    CLI.sh Import -file $CONVERTDIR/$domname/$domname.xtuml -targetProject $domProj -deleteExisting $RECONCILE_GRAPHICS_OPTION > $TMP/import_log_$domProj.txt 2>&1
+    if [[ ! -e $WORKSPACE/$domProj/models/$domProj/types/types.xtuml ]]; then
+      # First import did not work. Import again.
+      echo "Failed to import first time through.  Importing again."
+      CLI.sh Import -file $CONVERTDIR/$domname/$domname.xtuml -targetProject $domProj -deleteExisting $RECONCILE_GRAPHICS_OPTION >> $TMP/import_log_$domProj.txt 2>&1
+    fi
+
+    if [[ -f $CONVERTDIR/$domname/features.mark ]]; then
+        mkdir -p $WORKSPACE/$domProj/gen/
+        cp $CONVERTDIR/$domname/features.mark $WORKSPACE/$domProj/gen/
+    fi
+    if [[ -f $CONVERTDIR/$domname/application.mark ]]; then
+        mkdir -p $WORKSPACE/$domProj/gen/
+        cp $CONVERTDIR/$domname/application.mark $WORKSPACE/$domProj/gen/
+    fi
+
+    # If there was a project specified, do not export and diff domains
+    if [[ $PROJ_DIR == "" ]]; then
+      # The component name (from the .mod file) may not be the same as the domain folder we
+      # used during the processing.  So we calculate it from the .mod file name.
+      # If no convert, we will not have masl output to determine
+      # naming
+      if [ $DEPL == "false" ]; then
+        compfile=$(ls $domain/*.mod)
+        compname=$(basename -s .mod $compfile)
+        echo "Converting $compname from xtUML to" $ARCHITECTURE
+        if [[ -d $MODELOUTDIR ]]; then
+          rm -rf $MODELOUTDIR
+        fi
+        mkdir -p $MODELOUTDIR/$compname
+
+        # Copy extra .int files to the output.  Note that we do this _before_ running 
+        # xtuml2masl so that xtuml2masl will overwrite the int for the domain being converted,
+        # which we want to happen so that we are checking the int created by the x2m process.
+        if [[ "MASL" == $ARCHITECTURE ]]; then
+          cp $domain/*.int $MODELOUTDIR/$compname
+        fi
+      fi
+
+      # Optionally relaunch BridgePoint before export
+      if [[ $RELAUNCH != "" ]]; then
+        CLI.sh Launch -exit
+        CLI.sh Launch
+      fi
+
+      CMD="-d $compname"
+      if [[ $DEPL == "true" ]]; then
+        compname=$domname
+        CMD="-p $domname"
+      fi
+
+      if [[ "WASL" == $ARCHITECTURE ]]; then
+        echo "xtuml2masl $COVERAGE -i $WORKSPACE/$domProj/ $CMD -o $MODELOUTDIR -a $ARCHITECTURE -xf"
+        xtuml2masl $COVERAGE -i $WORKSPACE/$domProj/ $CMD -o $MODELOUTDIR -a $ARCHITECTURE -xf
+      else
+        xtuml2masl $COVERAGE -i $WORKSPACE/$domProj/ -d $compname -o $MODELOUTDIR -a $ARCHITECTURE
+      fi
+
+      # Now diff
+      echo "Diff'ing input and output."
+      if [[ "WASL" == $ARCHITECTURE ]]; then
+        ls $MODELOUTDIR/$compname
+        echo "wasldiff $domain/WASL $MODELOUTDIR/$compname > $TMP/diff_report.txt"
+        wasldiff $domain/WASL $MODELOUTDIR/$compname > $TMP/diff_report.txt
+      else
+        masldiff $domain $MODELOUTDIR/$compname > $TMP/diff_report.txt
+      fi
+      mv $TMP/diff_report.txt $MODELOUTDIR/$compname/diff_report.txt
+      if [[ -d $OUT_DIR/$compname ]]; then
+         rm -rf $OUT_DIR/$compname
+      fi
+      mv $MODELOUTDIR/$compname $OUT_DIR
+      mv left.diff $OUT_DIR/$compname
+      mv right.diff $OUT_DIR/$compname
+
+      if [[ -f $OUT_DIR/$compname/diff_report.txt ]]; then
+        if [[ -s $OUT_DIR/$compname/diff_report.txt ]]; then
+          echo -e "\nDiff report is in $OUT_DIR/$compname/diff_report.txt"
+        else
+          echo -e "\nThe output is identical to the input."
+        fi
+      fi
+    fi
+done
+
+if [[ $PROJ_DIR != "" ]]; then
+    echo -e "\n\n=========================================================="
+    echo "Processing project $PROJ_DIR"
+    projname=$(basename $PROJ_DIR)
+
+    echo "Round trip is now importing"
+    CLI.sh Import -file $CONVERTDIR/$projname/$projname.xtuml -targetProject p1 -deleteExisting -allowIPRs > $TMP/import_log_p1.txt 2>&1
+    if [[ ! -e $WORKSPACE/p1/models/p1/types/types.xtuml ]]; then
+      # First import didn't work. Import again.
+      echo "Failed to import first time through.  Importing again."
+      CLI.sh Import -file $CONVERTDIR/$projname/$projname.xtuml -targetProject p1 -deleteExisting -allowIPRs >> $TMP/import_log_p1.txt 2>&1
+    fi
+
+    if [[ -f $CONVERTDIR/$projname/features.mark ]]; then
+        mkdir -p $WORKSPACE/p1/gen/
+        cp $CONVERTDIR/$projname/features.mark $WORKSPACE/p1/gen/
+    fi
+    if [[ -f $CONVERTDIR/$projname/application.mark ]]; then
+        mkdir -p $WORKSPACE/p1/gen/
+        cp $CONVERTDIR/$projname/application.mark $WORKSPACE/p1/gen/
+    fi
+
+    # The component name (from the .prj file) may not be the same as the project folder we
+    # used during the processing.  So we calculate it from the .prj file name.
+    # If no convert, we will not have masl output to determine
+    # naming
+    if [ $DEPL == "false" ]; then
+      compfile=$(ls $PROJ_DIR/*.prj)
+      compname=$(basename -s .prj $compfile)
+      echo "Converting $compname from xtUML to " $ARCHITECTURE
+      if [[ -d $MODELOUTDIR ]]; then
+        rm -rf $MODELOUTDIR
+      fi
+      mkdir -p $MODELOUTDIR/$compname
+
+      # Copy extra INT files from the original source to the output dir 
+      if [[ "MASL" == $ARCHITECTURE ]]; then
+        echo "Copying $PROJ_DIR/*.int to $MODELOUTDIR/$compname"
+        cp $PROJ_DIR/*.int $MODELOUTDIR/$compname
+      fi
+    fi
+
+    # Optionally relaunch BridgePoint before export
+    if [[ $RELAUNCH != "" ]]; then
+      CLI.sh Launch -exit
+      CLI.sh Launch
+    fi
+
+    if [[ "WASL" == $ARCHITECTURE ]]; then
+      xtuml2wasl $COVERAGE -P -i $WORKSPACE/p1 -p $compname -o $MODELOUTDIR -a $ARCHITECTURE -xf
+    else
+      xtuml2masl $COVERAGE -P -i $WORKSPACE/p1 -p $compname -o $MODELOUTDIR -a $ARCHITECTURE
+    fi
+
+    # Now diff
+    echo "Diff'ing input and output."
+    if [[ "WASL" == $ARCHITECTURE ]]; then
+      wasldiff $PROJ_DIR/WASL $MODELOUTDIR/$compname > $MODELOUTDIR/$compname/diff_report.txt
+    else
+      masldiff $PROJ_DIR $MODELOUTDIR/$compname > $MODELOUTDIR/$compname/diff_report.txt
+    fi
+    if [[ -d $OUT_DIR/$compname ]]; then
+       rm -rf $OUT_DIR/$compname
+    fi
+    mv $MODELOUTDIR/$compname $OUT_DIR
+    mv left.diff $OUT_DIR/$compname
+    mv right.diff $OUT_DIR/$compname
+
+    if [[ -f $OUT_DIR/$compname/diff_report.txt ]]; then
+      if [[ -s $OUT_DIR/$compname/diff_report.txt ]]; then
+        echo -e "\nDiff report is in $OUT_DIR/$compname/diff_report.txt"
+      else
+        echo -e "\nThe output is identical to the input."
+      fi
+    fi
+fi
+
+# if a local eclipse instance was started, shut it down
+if [[ $LOCAL_CLI == "true" ]]; then
+    CLI.sh Launch -exit
+fi
+
+echo -e "\n"
+

@@ -138,20 +138,6 @@ select any associative related by associative_local_reference->
 select one relationship_spec related by self->R_REL[R654];
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 select one assoc related by relationship_spec->R_ASSOC[R206];
-
-if(not_empty source) and (not_empty destination) and (not_empty associative)
-
-  if relationship_spec.isFormalized()
-    select one r_aoth related by assoc->R_AOTH[R210];
-    form_phrase = r_aoth.Txt_Phrs;
-    if form_phrase != rel_phrase
-	    swap = source;
-	    source = destination;
-	    destination = swap;
-    end if;
-  end if;
-
-end if;
           
 populationError = false;
 srcMultiplicity = 0;
@@ -183,22 +169,15 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       toLinkNum = cardinality toLinks;
       
-      select many altfromLinks related by source->I_LIP[R2958]->I_LNK[R2902]
-                        where (selected.Rel_ID == relationship_spec.Rel_ID);
-      altfromLinkNum = cardinality altfromLinks;
-      select many alttoLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
-                        where (selected.Rel_ID == relationship_spec.Rel_ID);
-      alttoLinkNum = cardinality alttoLinks;
-
       select many assocLinks related by associative->I_LIP[R2958]->I_LNK[R2903]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       assocLinkNum = cardinality assocLinks;
 
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and ( toLinkNum > 0 or alttoLinkNum > 0 )
+      if srcMultiplicity == 0 and toLinkNum > 0
         populationError = true;
       end if;
-      if dstMultiplicity == 0 and ( fromLinkNum > 0 or altfromLinkNum > 0 )
+      if dstMultiplicity == 0 and fromLinkNum > 0
         populationError = true;
       end if;
       if assocLinkNum > 0
@@ -247,7 +226,6 @@ if not populationError
   create object instance dstIil of I_LIP;
   relate dstIil to destination across R2958;
   relate dstIil to relationship_spec across R2959;
-
   relate link to srcIil across R2901;
   relate link to dstIil across R2902;
   
