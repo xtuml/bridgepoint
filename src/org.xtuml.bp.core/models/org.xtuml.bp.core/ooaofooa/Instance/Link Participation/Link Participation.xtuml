@@ -115,13 +115,13 @@ if not_empty assoc
     if(not_empty simp)
       if (not assoc.isFormalized())
         select many parts related by simp->R_PART[R207];
-	      for each part in parts
-	        // in the case of an unformalized association we have two parts
-	        phrase = part.Txt_Phrs;
+        for each part in parts
+          // in the case of an unformalized association we have two parts
+          phrase = part.Txt_Phrs;
           if(not_empty origin) // take the first..
-	          break;
-	        end if;
-	      end for;
+            break;
+          end if;
+        end for;
       else
         if(not_empty origin)
           select one form related by simp->R_FORM[R208];
@@ -148,11 +148,10 @@ if not_empty assoc
     end if;
   end if;
   if(phrase != "")
-    self.Label = assoc.get_name() + "."
-                                     + Util::getTic() + phrase + Util::getTic();
+    self.Label = assoc.get_name() + "." + Util::getTic() + phrase + Util::getTic();
   else
     // sub-super association - no phrase used.
-  	self.Label = assoc.get_name();
+    self.Label = assoc.get_name();
   end if;
 else
   self.Label = "Unknown Association";
