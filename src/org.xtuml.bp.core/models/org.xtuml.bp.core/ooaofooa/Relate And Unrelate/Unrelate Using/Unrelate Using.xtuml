@@ -36,6 +36,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("eba0269c-caa5-4e5d-aab3-f5384da17734",
@@ -44,7 +45,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Relate and Unlrelate:Unrelate Using(ACT_URU).execute()
+	'// Relate and Unrelate:Unrelate Using(ACT_URU).execute()
 select one body related by self->V_VAR[R622]->ACT_BLK[R823]->ACT_ACT[R601];
 // unrelate <source instance handle> from <destination instance handle> 
 // across <relationship specification> using <associative instance handle>; 
@@ -61,7 +62,7 @@ if (empty stack_frame)
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Unrelate Using.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  USER::logError(msg:"Error in Unrelate Using.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
     select any stack from instances of I_STACK;
     select one stack_frame related by stack->I_STF[R2929];
 end if;
@@ -136,50 +137,16 @@ select any associative related by associative_local_reference->
                                       RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
 select one relationship_spec related by self->R_REL[R656];
 
-select many links related by relationship_spec->I_LNK[R2904];
-select any matchingLink related by relationship_spec->I_LNK[R2904] where
-                                       selected.Link_ID == GD::NULL_UNIQUE_ID();
-for each link in links
-  select one sourceParticipant related by link->I_LIP[R2901]->I_INS[R2958];
-  select one destinationParticipant related by link->I_LIP[R2902]->I_INS[R2958];
-  select one associativeParticipant related by link->I_LIP[R2903]->I_INS[R2958];
-  if(not_empty associative)
-    // See if this is a link between our source and destination
-    if ( associativeParticipant == associative )
-      // There is exactly one associative instance per link.
-      // We can therefore unambiguously remove the link
-      matchingLink = link;
-      // See if this is a link between our source and destination
-    end if;
-  elif ( sourceParticipant == source )
-    if(not_empty destination)
-      if ( destinationParticipant == destination )
-        matchingLink = link;
-      end if;
-    else
-      // the destination is empty and the source matched, remove the link
-      link.dispose();
-      // incomplete match, this may not be our link. Keep looking.
-    end if;
-  elif ( destinationParticipant == destination )
-    if(not_empty source)
-      if ( sourceParticipant == source )
-        // Found the link. Now destroy it.
-        matchingLink = link;
-      end if;
-    else
-      // the source is empty and the desination matched, remove the link
-      link.dispose();
-      // incomplete match, this may not be our link. Keep looking.
-    end if;
-  end if;
-end for;
+select any assocIil related by associative->I_LIP[R2958] where selected.Rel_ID == relationship_spec.Rel_ID;
+select one relLink related by assocIil->I_LNK[R2903];
+
 halting = false;
+// if configured in preferences, check existence/multiplicities
 if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_unrelate_audit"); 
   if auditSev != 0  // 0 == Ignore
     severity = "";
-    if empty matchingLink
+    if empty relLink
       severity = "Warning";
       assocPhrase = "";
       if (self.relationship_phrase != "")
@@ -208,13 +175,14 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   end if; // audit is do not ignore
 end if; // audit enabled
 if not halting
-  if not_empty matchingLink
-    matchingLink.dispose();
+  if not_empty relLink
+    relLink.dispose();
   end if;
 end if;',
 	1,
 	'',
 	"e71c3aa5-fb2a-49fd-8efd-852821144ed9",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e9f3901d-09fd-47c3-bf3c-2d6fe3f24b1f",

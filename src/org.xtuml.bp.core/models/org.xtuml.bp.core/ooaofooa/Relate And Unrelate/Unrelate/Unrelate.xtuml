@@ -32,6 +32,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ca16c48a-0c48-46f8-a6ad-53f683806b02",
@@ -40,10 +41,10 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Relate and Unlrelate:Unrelate(ACT_UNR).execute()
+	'// Relate and Unrelate:Unrelate(ACT_UNR).execute()
 select one body related by self->V_VAR[R620]->ACT_BLK[R823]->ACT_ACT[R601];
 // unrelate <source instance handle> to <destination instance handle> across
-// <relationship spectification>
+// <relationship specification>
 
 select one source_handle related by self->V_VAR[R620]->V_INT[R814];
 select one destination_handle related by self->V_VAR[R621]->V_INT[R814];
@@ -51,14 +52,14 @@ select one destination_handle related by self->V_VAR[R621]->V_INT[R814];
 // Grab the stack frame
 select any stack_frame from instances of I_STF where (selected.Stack_Frame_ID == param.stack_frame_id);
 if (empty stack_frame)
-	//Invalid stack frame ID!
-	pathMsg = "<No Path Available - Empty instance>";
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Relate And Unrelate.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
-	select any stack from instances of I_STACK;
-	select one stack_frame related by stack->I_STF[R2929];
+  USER::logError(msg:"Error in Relate And Unrelate.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one stack_frame related by stack->I_STF[R2929];
 end if;
 
 // Set value to this block with the right type so we can use it later.  The value here is useless.
@@ -112,101 +113,87 @@ select one relationship_spec related by self->R_REL[R655];
 // Compute the sense of the relation, if any
 reflexive = relationship_spec.is_reflexive();
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
+select one simprel related by relationship_spec->R_SIMP[R206];
 
-select any srcIil related by source->I_LIP[R2958] where
-                                    selected.Rel_ID == relationship_spec.Rel_ID;
-select any dstIil related by destination->I_LIP[R2958] where
-                                    selected.Rel_ID == relationship_spec.Rel_ID;
-swap = false;
-if not_empty destination
-  select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
-  select many dstClassInAssociations related by destClass->
-                             R_OIR[R201] where selected.Rel_ID == dstIil.Rel_ID;
-  select any dstRgo related by dstClassInAssociations->R_RGO[R203];
-  if reflexive
-    select one form related by dstRgo->
-                             R_FORM[R205] where selected.Txt_Phrs == rel_phrase;
-    select one dstRgo related by form->R_RGO[R205];
-    // If the rel phrase matches, dstRgo will be unchanged above. If not,
-    // dstRgo will be empty and we will proceed to test the correct end.
-    // This test does not interfere with subtype detection below, because
-    // subtype/supertype associations cannot be reflexive.
-  end if;
-  if not_empty dstRgo  // There can only be one
-    select one form related by dstRgo->R_FORM[R205];
-    if not_empty form
-      // The destination is playing the role of formalizer in this association,
-      // so we are relating backwards across the association.
-      swap = true;
+unrelatingFwd = true;
+
+if not_empty source and not_empty destination
+  // attempt to order the unrelate as ''from->to'' for consistency
+  if not_empty simprel
+    if relationship_spec.isFormalized()
+      if reflexive
+        select one form related by simprel->R_FORM[R208];
+        if form.Txt_Phrs == rel_phrase
+          unrelatingFwd = false;
+        end if;
+      else;
+        select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
+        select one form related by simprel->R_FORM[R208];
+        select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+        if rgoclass != sourceClass
+          unrelatingFwd = false;
+        end if;
+      end if;
     else
-      select one subType related by  dstRgo->R_SUB[R205];
-      if not_empty subType
-        swap = true;
+      // try to make arbitrary, repeatable choice of direction of ''unrelate''
+      if rel_phrase != ""
+        select many rParts related by simprel->R_PART[R207];
+        for each rPart in rParts
+          if rPart.Txt_Phrs == rel_phrase  // pick the first of the 2 to act as ''formalizer''
+            unrelatingFwd = false;
+          end if;
+          break;
+        end for;
       end if;
     end if;
   else
-    select any dstPart related by dstClassInAssociations->
-                                                      R_RTO[R203]->R_PART[R204];
-    if reflexive
-      select any dstPart related by dstClassInAssociations->
-                R_RTO[R203]->R_PART[R204] where selected.Txt_Phrs == rel_phrase;
-    end if;
-    if not_empty dstPart
-      if not relationship_spec.isFormalized()
-        // If we''re not formalized, then we assume the first participant
-        // found is going to play the role of the formalizer. Thus, if
-        // the destination rto participant is playing the formalizer
-        // role, then we are relating backwards across the association.
-        select any informalPart related by relationship_spec->
-                                                     R_SIMP[R206]->R_PART[R207];
-        if dstPart == informalPart
-          swap = true;
-        end if;
-      end if;
-    // else it''s a supertype, we''re relating forward, no action needed.
+    // not simple; must be sub-super
+    select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
+    select one superclass related by relationship_spec->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+    if superclass != destClass
+      unrelatingFwd = false;
     end if;
   end if;
+  if not unrelatingFwd
+    swap = source;
+    source = destination;
+    destination = swap;
+    unrelatingFwd = true;
+  end if;
 end if;
-if(swap)
-  temp = source;
-  source = destination;
-  destination = temp;
-end if;
-select many links related by relationship_spec->I_LNK[R2904];
-select any matchingLink related by relationship_spec->I_LNK[R2904] where
-                                       selected.Link_ID == GD::NULL_UNIQUE_ID();
-for each link in links
-  // See if this is a link between our source and destination
-  select one sourceParticipant related by link->I_LIP[R2901]->I_INS[R2958];
-  select one destinationParticipant related by link->I_LIP[R2902]->I_INS[R2958];
-  if ( sourceParticipant == source )
-    if(not_empty destination)
-      if ( destinationParticipant == destination )
-        matchingLink = link;
-	  end if;
-	else
-      // the destination is empty and the source matched, remove the link
-      link.dispose();
-      // incomplete match, this may not be our link. Keep looking.
-    end if;
-  elif ( destinationParticipant == destination )
-    if(not_empty source)
-      if ( sourceParticipant == source )
-        matchingLink = link;      
+
+select any relLink from instances of I_LNK where false;
+select many Iils related by source->I_LIP[R2958] where selected.Rel_ID == relationship_spec.Rel_ID;
+for each Iil in Iils
+  select one relLink related by Iil->I_LNK[R2901];
+  if not_empty relLink
+    select one dst related by relLink->I_LIP[R2902]->I_INS[R2958];
+    if not_empty dst
+      if dst == destination
+        break;
       end if;
-    else
-      // the source is empty and the desination matched, remove the link
-      link.dispose();
-      // incomplete match, this may not be our link. Keep looking.
+    end if;
+  else
+    // must be related ''backwards''
+    select one relLink related by Iil->I_LNK[R2902];
+    if not_empty relLink
+      select one dst related by relLink->I_LIP[R2901]->I_INS[R2958];
+      if not_empty dst
+        if dst == destination
+          break;
+        end if;
+      end if;
     end if;
   end if;
 end for;
+
 halting = false;
+// if configured in preferences, check link existence
 if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_unrelate_audit"); 
   if auditSev != 0  // 0 == Ignore
     severity = "";
-    if empty matchingLink
+    if empty relLink
       severity = "Warning";
       assocPhrase = "";
       if (self.relationship_phrase != "")
@@ -235,13 +222,14 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   end if; // audit is do not ignore
 end if; // audit enabled
 if not halting
-  if not_empty matchingLink
-    matchingLink.dispose();
+  if not_empty relLink
+    relLink.dispose();
   end if;
 end if;',
 	1,
 	'',
 	"6277f449-2f4b-44fe-ae2f-b0a3076218ec",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("fa473b56-9f58-4084-af4c-2874990b8584",
