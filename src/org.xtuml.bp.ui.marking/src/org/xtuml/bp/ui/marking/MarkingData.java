@@ -59,7 +59,10 @@ public class MarkingData {
 			// rather than setup a listener for this
 			// we simply use the hash lookup to get the
 			// current element
-			return (NonRootModelElement) _nrme.getModelRoot().getInstanceList(_nrme.getClass()).get(_nrme.getInstanceKey());
+			if ( null == _nrme ) 
+			  return null;
+			else
+			  return (NonRootModelElement) _nrme.getModelRoot().getInstanceList(_nrme.getClass()).get(_nrme.getInstanceKey());
 		}
 
 		public void setNrme(NonRootModelElement nrme) {
