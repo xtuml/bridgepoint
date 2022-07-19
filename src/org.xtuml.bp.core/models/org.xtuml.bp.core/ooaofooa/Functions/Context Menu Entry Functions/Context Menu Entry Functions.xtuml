@@ -8420,7 +8420,7 @@ LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
 a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 
-// Is associavitve
+// Is associative
 select one assoc related by r_rel->R_ASSOC[R206];
 is_associative = not_empty assoc;
 associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative", disabled:false);
@@ -8446,27 +8446,29 @@ if (0 < num_options)
   while ( i < (num_options-1) )
     j = 0;
     while ( j < (num_options-i-1) )
-      s1 = associative_class_options[j]; s2 = associative_class_options[j+1];
+      s1 = associative_class_options[j]; 
+      s2 = associative_class_options[j+1];
       if ( s1 > s2 )
         s = associative_class_options[j];
         associative_class_options[j] = associative_class_options[j+1];
         associative_class_options[j+1] = s;
       end if;
-      s3 = associative_class_options[j];
-      if not_empty assr
-        if (assr.Name == s3)
-          default_selection = j;
-        else
-          s3 = associative_class_options[j + 1];
-          if (assr.Name == s3)
-            s3 = associative_class_options[j + 1];
-          end if;
-        end if;
-      end if;
       j = j + 1;
     end while;
     i = i + 1;
   end while;
+  // now sorted.. see if we have an already chosen associative
+  if not_empty assr
+    i = 0;
+    while ( i < (num_options) )
+      s = associative_class_options[i];
+      if assr.Name == s
+        default_selection = i;
+        break;
+      end if;
+      i = i + 1;
+    end while;
+  end if;
 end if;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
