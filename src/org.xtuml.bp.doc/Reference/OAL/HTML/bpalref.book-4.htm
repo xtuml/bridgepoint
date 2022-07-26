@@ -16,21 +16,19 @@
 <A NAME="50536509_pgfId-516139"></A><A NAME="50536509_marker-517918"></A>If Construct</H2>
 <H3 CLASS="Heading2">
 <A NAME="50536509_pgfId-516921"></A>Syntax</H3>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516143"></A><EM CLASS="Code">// Note that there is no semi-colon following the </EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518420"></A><EM CLASS="Code">// &quot;if &lt;boolean expression&gt;&quot; then</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518420"></A><EM CLASS="Code">// &quot;if &lt;boolean expression&gt;&quot;</EM>
-</PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516316"></A><EM CLASS="Code">if &lt;boolean expression&gt;	</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516316"></A><EM CLASS="Code">if &lt;boolean expression&gt; then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516144"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if &lt;boolean expression&gt; is TRUE</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516146"></A><EM CLASS="Code">end if;</EM>
 <A NAME="50536509_marker-517921"></A></PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516149"></A><EM CLASS="Code">if (&lt;boolean expression&gt;)	</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516149"></A><EM CLASS="Code">if (&lt;boolean expression&gt;) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516150"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if above boolean expression evaluates to TRUE </EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516152"></A><EM CLASS="Code">elif (&lt;boolean expression&gt;) 	</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516152"></A><EM CLASS="Code">elif (&lt;boolean expression&gt;) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543290"></A><EM CLASS="Code">  &lt;statements&gt;  // Executed if above boolean expression evaluates to TRUE</EM>
 </PRE>
@@ -76,15 +74,15 @@ if/elif/else </EM>
 construct:</P>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516170"></A><EM CLASS="Code">// Assign x with a different number for each name.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516171"></A><EM CLASS="Code">if (name == &quot;John&quot;)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516171"></A><EM CLASS="Code">if (name == &quot;John&quot;) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516172"></A><EM CLASS="Code">  x = 1;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516173"></A><EM CLASS="Code">elif (name == &quot;Bill&quot;)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516173"></A><EM CLASS="Code">elif (name == &quot;Bill&quot;) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516174"></A><EM CLASS="Code">  x = 2;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516175"></A><EM CLASS="Code">elif (name == &quot;Michael&quot;)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516175"></A><EM CLASS="Code">elif (name == &quot;Michael&quot;) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516176"></A><EM CLASS="Code">  x = 3;</EM>
 </PRE>
@@ -108,7 +106,7 @@ if</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517810"></A><EM CLASS="Code">delta = self.destination - self.current_position;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517811"></A><EM CLASS="Code">if ( delta == 0 )</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517811"></A><EM CLASS="Code">if ( delta == 0 ) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517812"></A><EM CLASS="Code">  generate C2:there to self;</EM>
 </PRE>
@@ -118,7 +116,7 @@ if</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517815"></A><EM CLASS="Code">    where (selected.current_position == &quot;down&quot;);</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543302"></A><EM CLASS="Code">  if (not_empty probe)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543302"></A><EM CLASS="Code">  if (not_empty probe) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543299"></A><EM CLASS="Code">    generate C2:there to self;</EM>
 </PRE>
@@ -142,7 +140,7 @@ each</EM>
  loop allows for the iteration over a set of instance handles in an instance handle set.</P>
 <H3 CLASS="Heading2">
 <A NAME="50536509_pgfId-516185"></A>Syntax</H3>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516188"></A><EM CLASS="Code">for each &lt;instance handle&gt; in &lt;instance handle set&gt; // Note no semi-colon	</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516188"></A><EM CLASS="Code">for each &lt;instance handle&gt; in &lt;instance handle set&gt; loop</EM>
 <A NAME="50536509_marker-516186"></A><A NAME="50536509_marker-516187"></A></PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516189"></A><EM CLASS="Code">  &lt;statements&gt;</EM>
 </PRE>
@@ -183,7 +181,7 @@ each</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516207"></A><EM CLASS="Code">select many children from instances of C;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516208"></A><EM CLASS="Code">for each child in children</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516208"></A><EM CLASS="Code">for each child in children loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516209"></A><EM CLASS="Code">  generate C1:'time for bed' () to child;</EM>
 </PRE>
@@ -199,7 +197,7 @@ TRUE</EM>
 .</P>
 <H3 CLASS="Heading2">
 <A NAME="50536509_pgfId-516218"></A>Syntax</H3>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516220"></A><EM CLASS="Code">while (&lt;boolean expression&gt;) // Note no semi-colon </EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516220"></A><EM CLASS="Code">while (&lt;boolean expression&gt;) loop</EM>
 <A NAME="50536509_marker-516219"></A></PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516221"></A><EM CLASS="Code">  &lt;statements&gt;</EM>
 </PRE>
@@ -237,7 +235,7 @@ TRUE</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516234"></A><EM CLASS="Code">i = 1;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516235"></A><EM CLASS="Code">while (i &lt;= 20)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516235"></A><EM CLASS="Code">while (i &lt;= 20) loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516236"></A><EM CLASS="Code">  create object instance d of DOOR;</EM>
 </PRE>
@@ -279,17 +277,17 @@ break</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518461"></A><EM CLASS="Code">// creating.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516251"></A><EM CLASS="Code">while (CTL::create())</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516251"></A><EM CLASS="Code">while (CTL::create()) loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516252"></A><EM CLASS="Code">  breakout = FALSE;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516253"></A><EM CLASS="Code">  for each a in aset</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516253"></A><EM CLASS="Code">  for each a in aset loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516254"></A><EM CLASS="Code">    // If this a has name equal to &quot;Jeff&quot;, break out of </EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518463"></A><EM CLASS="Code">    // for each loop.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516255"></A><EM CLASS="Code">    if (a.name == &quot;Jeff&quot;)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516255"></A><EM CLASS="Code">    if (a.name == &quot;Jeff&quot;) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516256"></A><EM CLASS="Code">      breakout = TRUE;</EM>
 </PRE>
@@ -307,7 +305,7 @@ break</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543243"></A><EM CLASS="Code">  // If &quot;Jeff&quot; was found, break out of while loop also.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543246"></A><EM CLASS="Code">  if (breakout)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543246"></A><EM CLASS="Code">  if (breakout) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516265"></A><EM CLASS="Code">    break;</EM>
 </PRE>
@@ -337,13 +335,13 @@ continue</EM>
 <A NAME="50536509_pgfId-516277"></A>Example</H3>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516278"></A><EM CLASS="Code">// Create and relate a B to each A, except for As with ID of 13.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516279"></A><EM CLASS="Code">for each a in aset</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516279"></A><EM CLASS="Code">for each a in aset loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516280"></A><EM CLASS="Code">  // If a.ID is 13, don't create and relate a B to it and</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-517828"></A><EM CLASS="Code">  // continue to the next.</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516281"></A><EM CLASS="Code">  if (a.ID == 13)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516281"></A><EM CLASS="Code">  if (a.ID == 13) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516282"></A><EM CLASS="Code">    continue;</EM>
 </PRE>
@@ -365,15 +363,15 @@ continue</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516293"></A><EM CLASS="Code">select many children from instances of C;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516294"></A><EM CLASS="Code">for each child in children</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-516294"></A><EM CLASS="Code">for each child in children loop</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518443"></A><EM CLASS="Code">  if (child.age &lt;= 5)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518443"></A><EM CLASS="Code">  if (child.age &lt;= 5) then</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518444"></A><EM CLASS="Code">    while (child.awake)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518444"></A><EM CLASS="Code">    while (child.awake) loop</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518445"></A><EM CLASS="Code">      generate C1:'time for bed' () to child;</EM>
 </PRE>
-<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543356"></A><EM CLASS="Code">      if (not lights.out)</EM>
+<PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-543356"></A><EM CLASS="Code">      if (not lights.out) then</EM>
 </PRE>
 <PRE CLASS="Indent-Tight"><A NAME="50536509_pgfId-518449"></A><EM CLASS="Code">        generate C2:'turn off lights' () to child;</EM>
 </PRE>

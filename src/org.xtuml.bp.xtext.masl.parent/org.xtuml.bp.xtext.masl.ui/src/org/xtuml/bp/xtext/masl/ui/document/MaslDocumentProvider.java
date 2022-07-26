@@ -264,4 +264,13 @@ public class MaslDocumentProvider extends XtextDocumentProvider {
       ((AbstractModelElementPropertyEditorInput) this.bridgePointSave_inputElement).setPropertyValue(this.bridgePointSave_elementDefinition);
     }
   }
+  
+  @Override
+  protected void doSynchronize(final Object element, final IProgressMonitor monitor) throws CoreException {
+    boolean _mustSaveDocument = this.mustSaveDocument(element);
+    boolean _not = (!_mustSaveDocument);
+    if (_not) {
+      super.doSynchronize(element, monitor);
+    }
+  }
 }

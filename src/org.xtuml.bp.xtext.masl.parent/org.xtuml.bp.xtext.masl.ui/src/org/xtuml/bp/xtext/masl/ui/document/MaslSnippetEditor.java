@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.IDocumentProviderExtension;
 import org.eclipse.ui.texteditor.IElementStateListener;
 import org.eclipse.xtext.ui.IImageHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -51,17 +52,21 @@ public class MaslSnippetEditor extends XtextEditor {
 			public void modelElementReloaded(ModelChangedEvent event) {
 				NonRootModelElement modelElement = ((AbstractModelElementEditorInput) getEditorInput())
 						.getModelElement();
-				NonRootModelElement newElement = (NonRootModelElement) event.getNewModelElement();
-				if (modelElement.getPersistableComponent().equals(newElement.getPersistableComponent())) {
+				NonRootModelElement loadedElement = (NonRootModelElement) event.getNewModelElement();
+				NonRootModelElement newElement = (NonRootModelElement) modelElement.getModelRoot()
+						.getInstanceList(modelElement.getClass()).get(modelElement.getInstanceKey());
+				if (modelElement.getPersistableComponent().equals(loadedElement.getPersistableComponent())) {
 					try {
+						IEditorInput input = null;
 						if (TypeDefinitionEditorInput.isSupported(modelElement)) {
-							setInput(TypeDefinitionEditorInputFactory.getDefaultInstance()
-									.createInstance(modelElement.getModelRoot().getInstanceList(modelElement.getClass())
-											.get(modelElement.getInstanceKey())));
+							input = TypeDefinitionEditorInputFactory.getDefaultInstance().createInstance(newElement);
 						} else {
-							setInput(
-									MASLEditorInputFactory.getDefaultInstance().createInstance(modelElement.getModelRoot()
-											.getInstanceList(modelElement.getClass()).get(modelElement.getInstanceKey())));
+							input = MASLEditorInputFactory.getDefaultInstance().createInstance(newElement);
+						}
+						if (modelElement.equals(newElement)) {
+							setInput(input);
+						} else if (!getDocumentProvider().mustSaveDocument(input)) {
+							((IDocumentProviderExtension) getDocumentProvider()).synchronize(input);
 						}
 						updateLabelAndVisibleRegion((MaslDocumentProvider) getDocumentProvider(),
 								(AbstractModelElementPropertyEditorInput) getEditorInput());
