@@ -2,6 +2,7 @@ package org.xtuml.canvas.language.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
@@ -33,6 +34,7 @@ import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
+import org.xtuml.bp.ui.canvas.Linecolorstyle_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
@@ -62,6 +64,8 @@ import org.xtuml.canvas.language.canvas.Shape;
 import org.xtuml.canvas.language.canvas.ShapeAnchorElement;
 import org.xtuml.canvas.language.canvas.Shapes;
 import org.xtuml.canvas.language.canvas.StartAnchor;
+import org.xtuml.canvas.language.canvas.StyleItem;
+import org.xtuml.canvas.language.canvas.Styles;
 import org.xtuml.canvas.language.io.utils.EnumUtils;
 import org.xtuml.canvas.language.ui.CanvasUiModule;
 import org.xtuml.canvas.language.ui.internal.LanguageActivator;
@@ -204,6 +208,7 @@ public class CanvasWriter implements IGraphicalWriter {
 		connector.setPolyline(createPolyline(con));
 		connector.setAnchors(anchors);
 		createText(con, connector);
+		createStyles(conEle, connector::setStyles);
 		return connector;
 	}
 
@@ -228,7 +233,7 @@ public class CanvasWriter implements IGraphicalWriter {
 		});
 		connector.setTexts(floatingTexts);
 	}
-
+	
 	private void createText(Shape_c shp, Shape shape) {
 		FloatingText_c text = FloatingText_c.getOneGD_CTXTOnR27(shp);
 		if (text != null) {
@@ -245,6 +250,25 @@ public class CanvasWriter implements IGraphicalWriter {
 			end.setWhere(EnumUtils.endFor(text.getEnd()));
 			floatingText.setEnd(end);
 			shape.setText(floatingText);
+		}
+	}
+	
+	private void createStyles(GraphicalElement_c ge, Consumer<Styles> setter) {
+		Fillcolorstyle_c fillColor = Fillcolorstyle_c.getOneSTY_FCSOnR400(Elementstyle_c.getManySTY_SsOnR401(ge));
+		Linecolorstyle_c lineColor = Linecolorstyle_c.getOneSTY_LCSOnR400(Elementstyle_c.getManySTY_SsOnR401(ge));
+		if (fillColor != null || lineColor != null) {
+			Styles styles = factory.createStyles();
+			if (fillColor != null) {
+				StyleItem fillItem = factory.createStyleItem();
+				fillItem.setFill_color(String.format("#%02x%02x%02x", fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue()));
+				styles.getStyle_items().add(fillItem);
+			}
+			if (lineColor != null) {
+				StyleItem lineItem = factory.createStyleItem();
+				lineItem.setLine_color(String.format("#%02x%02x%02x", lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue()));
+				styles.getStyle_items().add(lineItem);
+			}
+			setter.accept(styles);
 		}
 	}
 
@@ -296,6 +320,7 @@ public class CanvasWriter implements IGraphicalWriter {
 			shape.setContainer("container");
 		}
 		createText(shp, shape);
+		createStyles(ele, shape::setStyles);
 		return shape;
 	}
 
