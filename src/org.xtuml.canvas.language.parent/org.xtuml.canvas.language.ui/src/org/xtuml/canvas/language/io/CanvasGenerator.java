@@ -29,7 +29,9 @@ import org.xtuml.bp.ui.canvas.FloatingText_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
+import org.xtuml.bp.ui.canvas.Graphicalelementinlayer_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
+import org.xtuml.bp.ui.canvas.Layer_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.Linecolorstyle_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
@@ -47,6 +49,7 @@ import org.xtuml.canvas.language.canvas.Connector;
 import org.xtuml.canvas.language.canvas.ConnectorAnchorElement;
 import org.xtuml.canvas.language.canvas.Connectors;
 import org.xtuml.canvas.language.canvas.FloatingText;
+import org.xtuml.canvas.language.canvas.Layer;
 import org.xtuml.canvas.language.canvas.Model;
 import org.xtuml.canvas.language.canvas.ModelPropertiesItem;
 import org.xtuml.canvas.language.canvas.Segment;
@@ -179,6 +182,14 @@ public class CanvasGenerator implements IGraphicalLoader {
 				}
 			}
 			xtModel.Initializetools();
+			if (model.getLayers() != null) {
+				for (Layer layer : model.getLayers().getLayers()) {
+					Layer_c l = new Layer_c(xtModel.getModelRoot());
+					l.setLayer_name(layer.getName());
+					l.setVisible(!layer.isInvisible());
+					l.relateAcrossR34To(xtModel);
+				}
+			}
 			createGraphicalElements(xtModel, model, parentElement);
 		}
 		if (rewrite) {
@@ -267,6 +278,9 @@ public class CanvasGenerator implements IGraphicalLoader {
 			Graphnode_c node = Graphnode_c.getOneDIM_NDOnR301(graphEle);
 			node.setWidth(shape.getBounds().getW());
 			node.setHeight(shape.getBounds().getH());
+			if (shape.getLayers() != null) {
+				assignLayers(xtModel, ge, shape.getLayers());
+			}
 			if (shape.getStyles() != null) {
 				createStyles(ge, shape.getStyles());
 			}
@@ -290,6 +304,17 @@ public class CanvasGenerator implements IGraphicalLoader {
 				lineColor.setBlue(Integer.parseInt(styleItem.getLine_color().substring(5, 7), 16));
 			}
 			style.relateAcrossR401To(ge);
+		}
+	}
+	
+	private void assignLayers(Model_c xtModel, GraphicalElement_c ge, Iterable<String> layers) {
+		for (String layer : layers) {
+			Layer_c l = Layer_c.getOneGD_LAYOnR34(xtModel, o -> ((Layer_c) o).Get_name().equals(layer));
+			if (l != null) {
+				Graphicalelementinlayer_c eil = new Graphicalelementinlayer_c(ge.getModelRoot());
+				ge.relateAcrossR35To(eil);
+				l.relateAcrossR35To(eil);
+			}
 		}
 	}
 
@@ -352,6 +377,9 @@ public class CanvasGenerator implements IGraphicalLoader {
 					updateTextPosition(txt, potentialtext.get());
 				}
 			});
+			if (connector.getLayers() != null) {
+				assignLayers(xtModel, graphicalElem, connector.getLayers());
+			}
 			if (connector.getStyles() != null) {
 				createStyles(graphicalElem, connector.getStyles());
 			}

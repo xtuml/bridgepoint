@@ -7,7 +7,8 @@ generate canvas "http://www.xtuml.org/canvas/language/Canvas"
 Model:
 	render=ModelRender
 	properties=ModelProperties?
-	elements+=GraphicalElement*;
+	elements+=GraphicalElement*
+	layers=Layers?;
 
 ModelRender:
 	'render' ':' importURI=STRING;
@@ -39,7 +40,9 @@ Shape:
 	{Shape} 'shape' ':' name=ID
 	container=Container?
 	'render' ':' type=TypeLabel represents=STRING
-	bounds=Bounds text=FloatingText? styles=Styles?;
+	bounds=Bounds text=FloatingText?
+	( 'layers' ':' '[' layers+=ID (',' layers+=ID)* ']' )?
+	styles=Styles?;
 
 Container:
 	'container';
@@ -63,7 +66,9 @@ Connector:
 	'connector' ':' name=ID
 	'render' ':' type=TypeLabel represents=STRING
 	polyline=Polyline
-	anchors=Anchors? texts=FloatingTexts styles=Styles?;
+	anchors=Anchors? texts=FloatingTexts
+	( 'layers' ':' '[' layers+=ID (',' layers+=ID)* ']' )?
+	styles=Styles?;
 
 Anchors:
 	'anchors' ':' startAnchor=StartAnchor endAnchor=EndAnchor;
@@ -105,6 +110,13 @@ Bounds:
 
 TypeLabel:
 	OOAType;
+	
+Layers:
+    'layers' ':'
+    layers+=Layer+;
+    
+Layer:
+    'layer' ':' name=ID invisible?='*'?;
 	
 terminal FLOAT returns ecore::EFloat: '-' ? INT '.' INT;
 terminal fragment HEX_DIGIT: ('0'..'9'|'a'..'f'|'A'..'F');

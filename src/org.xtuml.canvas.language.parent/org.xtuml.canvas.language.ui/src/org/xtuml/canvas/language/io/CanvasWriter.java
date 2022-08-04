@@ -2,6 +2,7 @@ package org.xtuml.canvas.language.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -33,6 +34,7 @@ import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
+import org.xtuml.bp.ui.canvas.Layer_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
 import org.xtuml.bp.ui.canvas.Linecolorstyle_c;
 import org.xtuml.bp.ui.canvas.Model_c;
@@ -52,6 +54,8 @@ import org.xtuml.canvas.language.canvas.EnumEnd;
 import org.xtuml.canvas.language.canvas.FloatingText;
 import org.xtuml.canvas.language.canvas.FloatingTexts;
 import org.xtuml.canvas.language.canvas.GraphicalElement;
+import org.xtuml.canvas.language.canvas.Layer;
+import org.xtuml.canvas.language.canvas.Layers;
 import org.xtuml.canvas.language.canvas.Model;
 import org.xtuml.canvas.language.canvas.ModelProperties;
 import org.xtuml.canvas.language.canvas.ModelPropertiesItem;
@@ -157,6 +161,17 @@ public class CanvasWriter implements IGraphicalWriter {
 			model.setProperties(properties);
 		}
 		this.diagramRepresents = diagramRepresents;
+		Layer_c[] layers = Layer_c.getManyGD_LAYsOnR34(xtModel);
+		if (layers.length > 0) {
+			Layers ls = factory.createLayers();
+			for (Layer_c layer : layers) {
+				Layer l = factory.createLayer();
+				l.setName(layer.Get_name());
+				l.setInvisible(!layer.getVisible());
+				ls.getLayers().add(l);
+			}
+			model.setLayers(ls);
+		}
 		populateModel();
 		r.getContents().add(model);
 		SaveOptions.Builder options = SaveOptions.newBuilder();
@@ -208,6 +223,9 @@ public class CanvasWriter implements IGraphicalWriter {
 		connector.setPolyline(createPolyline(con));
 		connector.setAnchors(anchors);
 		createText(con, connector);
+		Stream.of(Layer_c.getManyGD_LAYsOnR35(conEle))
+			.sorted(Comparator.comparing(Layer_c::Get_name))
+			.forEach(layer -> connector.getLayers().add(layer.Get_name()));
 		createStyles(conEle, connector::setStyles);
 		return connector;
 	}
@@ -320,6 +338,9 @@ public class CanvasWriter implements IGraphicalWriter {
 			shape.setContainer("container");
 		}
 		createText(shp, shape);
+		Stream.of(Layer_c.getManyGD_LAYsOnR35(ele))
+			.sorted(Comparator.comparing(Layer_c::Get_name))
+			.forEach(layer -> shape.getLayers().add(layer.Get_name()));
 		createStyles(ele, shape::setStyles);
 		return shape;
 	}
