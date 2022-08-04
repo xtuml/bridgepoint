@@ -23,6 +23,11 @@ import org.xtuml.canvas.language.canvas.StartAnchor
 import org.xtuml.canvas.language.canvas.EndAnchor
 import org.xtuml.canvas.language.canvas.FloatingText
 import org.xtuml.canvas.language.canvas.Bounds
+import org.xtuml.canvas.language.canvas.Layers
+import org.xtuml.canvas.language.canvas.Layer
+import org.xtuml.canvas.language.canvas.ModelPropertiesItem
+import org.xtuml.canvas.language.canvas.Styles
+import org.xtuml.canvas.language.canvas.StyleItem
 
 class CanvasFormatter extends AbstractFormatter2 {
 
@@ -42,6 +47,7 @@ class CanvasFormatter extends AbstractFormatter2 {
 		regionFor.keyword("render").prepend[newLines = 2]
 		format(it.properties, document)
 		it.elements.forEach[format]
+		it.layers.format
 	}
 	var calculated = newHashMap()
 	def String getSpacing(int level) {
@@ -53,12 +59,27 @@ class CanvasFormatter extends AbstractFormatter2 {
 		return result as String
 	}
 
-	def void format(ModelProperties it, extension IFormattableDocument document) {
+	def dispatch void format(ModelProperties it, extension IFormattableDocument document) {
+	    it.propertyItems.forEach[format]
+	}
+
+	def dispatch void format(ModelPropertiesItem it, extension IFormattableDocument document) {
 		regionFor.keyword("viewport").prepend[space = '\n' + getSpacing(1)]
 		regionFor.keyword("zoom").prepend[space = '\n' + getSpacing(1)]
+		regionFor.keyword("background_color").prepend[space = '\n' + getSpacing(1)]
 	}
 	
-	def void format(GraphicalElement element, extension IFormattableDocument document) {
+	def dispatch void format(Styles it, extension IFormattableDocument document) {
+		regionFor.keyword("styles").prepend[space = '\n' + getSpacing(2)]
+	    it.style_items.forEach[format]
+	}
+
+	def dispatch void format(StyleItem it, extension IFormattableDocument document) {
+		regionFor.keyword("fill_color").prepend[space = '\n' + getSpacing(3)]
+		regionFor.keyword("line_color").prepend[space = '\n' + getSpacing(3)]
+	}
+	
+	def dispatch void format(GraphicalElement element, extension IFormattableDocument document) {
 		if(element instanceof Shapes) {
 			(element as Shapes).shapes.forEach[format]
 		}
@@ -70,16 +91,20 @@ class CanvasFormatter extends AbstractFormatter2 {
 	def dispatch void format(Shape it, extension IFormattableDocument document) {
 		regionFor.keyword("shape").prepend[space = '\n' + getSpacing(1)]
 		regionFor.keyword("render").prepend[space = '\n' + getSpacing(2)]
+		regionFor.keyword("layers").prepend[space = '\n' + getSpacing(2)]
 		format(it.bounds, 2, document)
 		it.text.regionFor.keyword("text").prepend[space = '\n' + getSpacing(2)]
+		it.styles.format
 	}
 
 	def dispatch void format(Connector it, extension IFormattableDocument document) {
 		regionFor.keyword("connector").prepend[space = '\n' + getSpacing(1)]
 		regionFor.keyword("render").prepend[space = '\n' + getSpacing(2)]
+		regionFor.keyword("layers").prepend[space = '\n' + getSpacing(2)]
 		it.polyline.format
 		it.anchors.format
 		it.texts.format
+		it.styles.format
 	}
 	
 	def dispatch void format(Polyline it, extension IFormattableDocument document) {
@@ -125,9 +150,18 @@ class CanvasFormatter extends AbstractFormatter2 {
 		it.regionFor.keyword("where").prepend[space = '\n' + getSpacing(4)]
 	}
 	
-	def dispatch void format(Bounds it, int spacing, extension IFormattableDocument document) {
+	def void format(Bounds it, int spacing, extension IFormattableDocument document) {
 		regionFor.keyword("bounds").prepend[space = '\n' + getSpacing(spacing)]
 //		regionFor.keywords("x", "y", "width", "height").forEach[prepend[space = '\n' + getSpacing(spacing + 1)]]
+	}
+	
+	def dispatch void format(Layers it, extension IFormattableDocument document) {
+	    regionFor.keyword("layers").prepend[newLines = 2]
+	    it.layers.forEach[format]
+	}
+	
+	def dispatch void format(Layer it, extension IFormattableDocument document) {
+	    regionFor.keyword("layer").prepend[space = '\n' + getSpacing(1)]
 	}
 	
 }
