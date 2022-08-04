@@ -24,6 +24,8 @@ import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.Diagram_c;
+import org.xtuml.bp.ui.canvas.Elementstyle_c;
+import org.xtuml.bp.ui.canvas.Fillcolorstyle_c;
 import org.xtuml.bp.ui.canvas.FloatingText_c;
 import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
@@ -50,6 +52,7 @@ import org.xtuml.canvas.language.canvas.FloatingTexts;
 import org.xtuml.canvas.language.canvas.GraphicalElement;
 import org.xtuml.canvas.language.canvas.Model;
 import org.xtuml.canvas.language.canvas.ModelProperties;
+import org.xtuml.canvas.language.canvas.ModelPropertiesItem;
 import org.xtuml.canvas.language.canvas.ModelRender;
 import org.xtuml.canvas.language.canvas.Point;
 import org.xtuml.canvas.language.canvas.PointDefinition;
@@ -127,13 +130,26 @@ public class CanvasWriter implements IGraphicalWriter {
 		modelRender.setImportURI(ReferencePathManagement.getPath(diagramRepresents));
 		model.setRender(modelRender);
 		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(xtModel);
-		if (diagram != null && diagram.getViewportx() != 0 && diagram.getViewporty() != 0) {
+		Fillcolorstyle_c backgroundColor = Fillcolorstyle_c.getOneSTY_FCSOnR400(Elementstyle_c.getManySTY_SsOnR402(xtModel));
+		if ((diagram != null && diagram.getViewportx() != 0 && diagram.getViewporty() != 0) ||
+				(backgroundColor != null)) {
 			ModelProperties properties = factory.createModelProperties();
-			properties.setZoom((int) diagram.getZoom());
-			Point viewport = factory.createPoint();
-			viewport.setX((int) diagram.getViewportx());
-			viewport.setY((int) diagram.getViewporty());
-			properties.setPoint(viewport);
+			if (diagram != null && diagram.getViewportx() != 0 && diagram.getViewporty() != 0) {
+				ModelPropertiesItem pointItem = factory.createModelPropertiesItem();
+				Point viewport = factory.createPoint();
+				viewport.setX((int) diagram.getViewportx());
+				viewport.setY((int) diagram.getViewporty());
+				pointItem.setPoint(viewport);
+				properties.getPropertyItems().add(pointItem);
+				ModelPropertiesItem zoomItem = factory.createModelPropertiesItem();
+				zoomItem.setZoom((int) diagram.getZoom());
+				properties.getPropertyItems().add(zoomItem);
+			}
+			if (backgroundColor != null) {
+				ModelPropertiesItem colorItem = factory.createModelPropertiesItem();
+				colorItem.setColor(String.format("#%02x%02x%02x", backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue()));
+				properties.getPropertyItems().add(colorItem);
+			}
 			model.setProperties(properties);
 		}
 		this.diagramRepresents = diagramRepresents;

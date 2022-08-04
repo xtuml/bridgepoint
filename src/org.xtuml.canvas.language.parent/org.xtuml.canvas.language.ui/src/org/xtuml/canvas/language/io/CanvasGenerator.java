@@ -23,6 +23,8 @@ import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.Diagram_c;
 import org.xtuml.bp.ui.canvas.ElementSpecification_c;
+import org.xtuml.bp.ui.canvas.Elementstyle_c;
+import org.xtuml.bp.ui.canvas.Fillcolorstyle_c;
 import org.xtuml.bp.ui.canvas.FloatingText_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
@@ -45,6 +47,7 @@ import org.xtuml.canvas.language.canvas.ConnectorAnchorElement;
 import org.xtuml.canvas.language.canvas.Connectors;
 import org.xtuml.canvas.language.canvas.FloatingText;
 import org.xtuml.canvas.language.canvas.Model;
+import org.xtuml.canvas.language.canvas.ModelPropertiesItem;
 import org.xtuml.canvas.language.canvas.Segment;
 import org.xtuml.canvas.language.canvas.Shape;
 import org.xtuml.canvas.language.canvas.ShapeAnchorElement;
@@ -146,9 +149,22 @@ public class CanvasGenerator implements IGraphicalLoader {
 			Diagram_c xtDiagram = new Diagram_c(destinationRoot);
 			xtModel.relateAcrossR18To(xtDiagram);
 			if (model.getProperties() != null) {
-				xtDiagram.setViewportx(model.getProperties().getPoint().getX());
-				xtDiagram.setViewporty(model.getProperties().getPoint().getY());
-				xtDiagram.setZoom(model.getProperties().getZoom());
+				for (ModelPropertiesItem item : model.getProperties().getPropertyItems()) {
+					if (item.getColor() != null) {
+						Elementstyle_c style = new Elementstyle_c(destinationRoot);
+						Fillcolorstyle_c backgroundColor = new Fillcolorstyle_c(destinationRoot);
+						backgroundColor.relateAcrossR400To(style);
+						backgroundColor.setRed(Integer.parseInt(item.getColor().substring(1, 3), 16));
+						backgroundColor.setGreen(Integer.parseInt(item.getColor().substring(3, 5), 16));
+						backgroundColor.setBlue(Integer.parseInt(item.getColor().substring(5, 7), 16));
+						xtModel.relateAcrossR402To(style);
+					} else if (item.getPoint() != null) {
+						xtDiagram.setViewportx(item.getPoint().getX());
+						xtDiagram.setViewporty(item.getPoint().getY());
+					} else {
+						xtDiagram.setZoom(item.getZoom());
+					}
+				}
 			}
 			xtModel.setRepresents(parentElement);
 			ModelSpecification_c[] modelSpecs = ModelSpecification_c

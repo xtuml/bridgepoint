@@ -14,9 +14,21 @@ ModelRender:
 
 ModelProperties:
 	'properties' ':'
-	'viewport' ':' point=Point
-	'zoom' ':' zoom=FLOAT;
-
+	propertyItems+=ModelPropertiesItem+;
+	
+ModelPropertiesItem:
+	('viewport' ':' point=Point) |
+	('zoom' ':' zoom=FLOAT) |
+	('background_color' ':' color=COLOR);
+	
+Styles:
+    'styles' ':'
+    style_items+=StyleItem+;
+    
+StyleItem:
+    ('line_color' ':' line_color=COLOR) |
+    ('fill_color' ':' fill_color=COLOR);
+	
 GraphicalElement:
 	Shapes | Connectors;
 
@@ -27,7 +39,8 @@ Shape:
 	{Shape} 'shape' ':' name=ID
 	container=Container?
 	'render' ':' type=TypeLabel represents=STRING
-	bounds=Bounds text=FloatingText?;
+	bounds=Bounds text=FloatingText? styles=Styles?;
+
 Container:
 	'container';
 
@@ -50,7 +63,7 @@ Connector:
 	'connector' ':' name=ID
 	'render' ':' type=TypeLabel represents=STRING
 	polyline=Polyline
-	anchors=Anchors? texts=FloatingTexts;
+	anchors=Anchors? texts=FloatingTexts styles=Styles?;
 
 Anchors:
 	'anchors' ':' startAnchor=StartAnchor endAnchor=EndAnchor;
@@ -94,6 +107,8 @@ TypeLabel:
 	OOAType;
 	
 terminal FLOAT returns ecore::EFloat: '-' ? INT '.' INT;
+terminal fragment HEX_DIGIT: ('0'..'9'|'a'..'f'|'A'..'F');
+terminal COLOR returns ecore::EString: '#' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT;
 
 OOAType:
 	'access_path' |
