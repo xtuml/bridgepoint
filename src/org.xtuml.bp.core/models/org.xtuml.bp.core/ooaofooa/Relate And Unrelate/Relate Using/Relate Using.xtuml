@@ -36,6 +36,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4baf3667-1fcf-4cd7-a123-d2ef93ab9a2c",
@@ -44,7 +45,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// Relate and Unlrelate:Relate Using(ACT_RU).execute()
+	'// Relate and Unrelate:Relate Using(ACT_RU).execute()
 select one body related by self->V_VAR[R617]->ACT_BLK[R823]->ACT_ACT[R601];
 // relate <source instance handle> to <destination instance handle> 
 // across <relationship specification> using <associative instance handle>;
@@ -61,7 +62,7 @@ if (empty stack_frame)
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Relate And Unrelate.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  USER::logError(msg:"Error in Relate And Unrelate.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
     select any stack from instances of I_STACK;
     select one stack_frame related by stack->I_STF[R2929];
 end if;
@@ -123,7 +124,6 @@ for each block_in_stack_frame in block_in_stack_frames
   end if;
 end for;
 
-
 // Now that we know the correct block in stack frame to use for both the source and destination instances.  Get them.
 select any source related by source_local_reference->
                        L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
@@ -135,119 +135,42 @@ select any associative related by associative_local_reference->
                        L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
                                       RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
 select one relationship_spec related by self->R_REL[R654];
-
-// Compute the sense of the relation, if any
-reflexive = false;
-relatingFwd = true;
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
-if (relationship_spec.is_reflexive())
-  reflexive = true;
-  select one aone related by self->R_REL[R654]->R_ASSOC[R206]->R_AONE[R209];
-  if (aone.Txt_Phrs == rel_phrase)
-    relatingFwd = false;
-  end if;
-end if;
-
-select any srcIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty source)
-  create object instance srcIil of I_LIP;
-  relate srcIil to source across R2958;
-  relate srcIil to relationship_spec across R2959;
-end if;
-
-select any dstIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty destination)
-  create object instance dstIil of I_LIP;
-  relate dstIil to destination across R2958;
-  relate dstIil to relationship_spec across R2959;
-end if;
-
-select any assocIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty associative)
-  create object instance assocIil of I_LIP;
-  relate assocIil to associative across R2958;
-  relate assocIil to relationship_spec across R2959;
-end if;
+reflexive = relationship_spec.is_reflexive();
 
 select one assoc related by relationship_spec->R_ASSOC[R206];
+relatingFwd = true;  // tentative assumption..
 
-srcMultiplicity = 0;
-dstMultiplicity = 0;
-
-select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-select one dstClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
-if (srcClass == dstClass)
-	select one aone related by assoc->R_AONE[R209];
-	if not_empty aone
-  		srcMultiplicity = aone.Mult;
-	end if;
-	select one aoth related by assoc->R_AOTH[R210];
-	if not_empty aoth
-  		dstMultiplicity = aoth.Mult;
-	end if;
-else
-    select any classInAssoc related by srcClass->R_OIR[R201] where selected.Rel_ID == relationship_spec.Rel_ID;
-	select one referredClass related by classInAssoc->R_RTO[R203];
-	select one referreingClass related by classInAssoc->R_RGO[R203];
-
-	if not_empty referredClass 
-		select one aone related by referredClass->R_AONE[R204];
-		select one aoth related by referredClass->R_AOTH[R204];
-		if not_empty aone
-			srcMultiplicity = aone.Mult;
-		elif not_empty aoth
-			srcMultiplicity = aoth.Mult;
-		end if; 
-		 
-	elif not empty referreingClass 
-	end if;
-
-    select any classInAssoc related by dstClass->R_OIR[R201] where selected.Rel_ID == relationship_spec.Rel_ID;
-	select one referredClass related by classInAssoc->R_RTO[R203];
-	select one referreingClass related by classInAssoc->R_RGO[R203];
-
-	if not_empty referredClass 
-		select one aone related by referredClass->R_AONE[R204];
-		select one aoth related by referredClass->R_AOTH[R204];
-		if not_empty aone
-			dstMultiplicity = aone.Mult;
-		elif not_empty aoth
-			dstMultiplicity = aoth.Mult;
-		end if; 
-	elif not empty referreingClass 
-	end if;
-end if;	 
-
-
-linkMultiplicity = 0;
-select one assr related by assoc->R_ASSR[R211];
-if not_empty assr
-  linkMultiplicity = assr.Mult;
-end if;
-if not_empty destination
-  select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
-  select many dstClassInAssociations related by destClass->
-                             R_OIR[R201] where selected.Rel_ID == dstIil.Rel_ID;
-  select any aone related by dstClassInAssociations->R_RTO[R203]->R_AONE[R204];
+if not_empty source and not_empty destination
+  // Variables ''source'' and ''destination'' refer to lexical order in current statement.
+  // Use the association structure to order the relate as ''from->to'' for consistency
+  // If a ''backward'' relate is detected, swap ''source'' for ''destination''.
+  // This establishes consistency for R2901/R2902 linkage creation.
+  // It also simplifies multiplicity error checking.
   if reflexive
-    select any aone related by dstClassInAssociations->
-                R_RTO[R203]->R_AONE[R204] where selected.Txt_Phrs == rel_phrase;
+    select one raone related by assoc->R_AONE[R209.''relates''];
+    if raone.Txt_Phrs == rel_phrase
+      relatingFwd = false;
+    end if;
+  else
+    select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
+    select one aoneClass related by assoc->R_AONE[R209]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+    if srcClass != aoneClass
+      relatingFwd = false;
+    end if;
   end if;
-  if not_empty aone
-    relatingFwd = false;
+  if not relatingFwd
+    swap = source;
+    source = destination;
+    destination = swap;
   end if;
 end if;
-if (reflexive == true and relatingFwd == false)
-  swap = srcMultiplicity;
-  srcMultiplicity = dstMultiplicity;
-  dstMultiplicity = swap;
-end if;
-
+          
 populationError = false;
+// if configured in preferences, check existence/multiplicities
 if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
+  srcMultiplicity = 0;
+  dstMultiplicity = 0;
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_relate_audit"); 
   if auditSev != 0  // 0 == Ignore
     message = "";
@@ -262,38 +185,33 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       populationError = true;
       message = "Empty link instance being related on";
     else
-      if dstMultiplicity == 0 // 0 == Multiplicity one
-        linkCard = 0;
-        if relatingFwd
-          select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
+      select one r_aone related by assoc->R_AONE[R209];
+      select one r_aoth related by assoc->R_AOTH[R210];
+      srcMultiplicity = r_aone.Mult;
+      dstMultiplicity = r_aoth.Mult;
+        
+      select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality fromLinks;
-        else
-          select many toLinks related by source->I_LIP[R2958]->I_LNK[R2902]
+      fromLinkNum = cardinality fromLinks;
+      select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality toLinks;
-        end if;
-        if linkCard > 0
-          populationError = true;
-          message = "Already related on";
-        end if; // Link cardinality > 1
-      end if; // Destination multiplicity is ''one''
-      if srcMultiplicity == 0 // 0 == Multiplicity one
-        linkCard = 0;
-        if relatingFwd
-          select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
+      toLinkNum = cardinality toLinks;
+      
+      select many assocLinks related by associative->I_LIP[R2958]->I_LNK[R2903]
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality toLinks;
-        else
-          select many fromLinks related by destination->I_LIP[R2958]
-             ->I_LNK[R2901] where (selected.Rel_ID == relationship_spec.Rel_ID);
-          linkCard = cardinality fromLinks;
-        end if;
-        if linkCard > 0 
-          populationError = true;
-          message = "Already related on";
-        end if; // Link cardinality > 1
-      end if; // Source multiplicity is ''one''
+      assocLinkNum = cardinality assocLinks;
+
+      message = "Already related on";  // in case there is an error..
+      if srcMultiplicity == 0 and toLinkNum > 0
+        populationError = true;
+      end if;
+      if dstMultiplicity == 0 and fromLinkNum > 0
+        populationError = true;
+      end if;
+      if assocLinkNum > 0
+        populationError = true;
+      end if;
+
       if populationError
         severity = "Warning";
         assocPhrase = "";
@@ -320,31 +238,34 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
                         relationship_spec.get_name() + assocPhrase + postFixMsg;
         USER::logError(msg:logMessage,path:body.getPath());
       end if; // Population error detected
-    end if; // Link cardinality > 1
+    end if; // not empty instance(s)
   end if; // audit is do not ignore
 end if; // audit enabled
-if not populationError
-  // Relate the given source and destination handles from the statement to our link
-  // Create a link for this association
-  create object instance link of I_LNK;
 
-  // Relate that link to our association
+if not populationError
+  // set up the association linkages
+  create object instance link of I_LNK;
   relate relationship_spec to link across R2904;
 
-  if (relatingFwd)
-    relate link to srcIil across R2901;
-    relate link to dstIil across R2902;
-  else
-    relate link to dstIil across R2901;
-    relate link to srcIil across R2902;
-  end if;
-  // Relate the given source and destination handles from the statement to our link
+  create object instance srcIil of I_LIP;
+  relate srcIil to source across R2958;
+  relate srcIil to relationship_spec across R2959;
+  create object instance dstIil of I_LIP;
+  relate dstIil to destination across R2958;
+  relate dstIil to relationship_spec across R2959;
+  relate link to srcIil across R2901;
+  relate link to dstIil across R2902;
+  
+  create object instance assocIil of I_LIP;
+  relate assocIil to associative across R2958;
+  relate assocIil to relationship_spec across R2959;
   relate link to assocIil across R2903;
 end if;
 ',
 	1,
 	'',
 	"94609695-fa7d-4263-9a54-bc3e275859e0",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("80141c8f-f086-4d5d-a151-b6800cb67fbf",
