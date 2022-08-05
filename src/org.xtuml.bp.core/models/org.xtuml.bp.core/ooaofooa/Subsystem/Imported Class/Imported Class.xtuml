@@ -258,7 +258,11 @@ INSERT INTO O_TFR
 	1,
 	'select one obj related by self->O_OBJ[R101];
 if (not_empty obj)
-return obj.Name;
+  if self.Ref_Num > 1
+    return obj.Name + " " + GD::int_to_string(value:self.Ref_Num);
+  else
+    return obj.Name;
+  end if;
 else 
 return "Unassigned Imported Class";
 end if;
@@ -922,7 +926,7 @@ for each oir in oirs
     oir.dispose();
   end if;
 end for;
-',
+self.Ref_Num = 0;',
 	1,
 	'',
 	"398d015a-3d16-49a7-a385-0589b3c4a99e",
@@ -1160,6 +1164,28 @@ INSERT INTO O_ATTR
 	'SS_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d823e776-c213-4ad0-b900-ecad579eed27",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_BATTR
+	VALUES ("d823e776-c213-4ad0-b900-ecad579eed27",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_ATTR
+	VALUES ("d823e776-c213-4ad0-b900-ecad579eed27",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"a879a86d-1c33-416d-a958-aa38606276ae",
+	'Ref_Num',
+	'The reference number is a positive integer which uniquely identifies multiple
+instances of Imported Class in the same packages which are referring to the same
+class. If the Imported Class is unassigned, the value will be 0. If the Imported
+Class is the only reference to an external class within the package, the value
+will be 1. For additional references to the same class the value will be > 1.',
+	'',
+	'Ref_Num',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
