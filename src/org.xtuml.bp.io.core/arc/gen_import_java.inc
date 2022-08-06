@@ -893,6 +893,7 @@ public class ${class_name} extends CoreImport
             helper.removeSupertypePackageableElement(loadedInstances);
             helper.addPortReferenceInstances(loadedInstances);
             helper.upgradeEEsForIsRealized();
+            helper.upgradeImportedClasses(loadedInstances);
           }
           finally {
             mr.enableDeltaCollection();

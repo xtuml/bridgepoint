@@ -52,6 +52,7 @@ import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.GlobalElementInSystem_c;
+import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ImportedProvisionInSatisfaction_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedReference_c;
@@ -2677,4 +2678,29 @@ public class ImportHelper
       }
     }
   }
+  
+	public void upgradeImportedClasses(List<NonRootModelElement> loadedInstances) {
+		loadedInstances.stream().filter(ImportedClass_c.class::isInstance).map(ImportedClass_c.class::cast)
+				.forEach(iobj -> {
+					ModelClass_c o_obj = ModelClass_c.getOneO_OBJOnR101(iobj);
+					if (o_obj != null && iobj.getRef_num() == 0) {
+						iobj.setRef_num(1);
+						for (ImportedClass_c existing_iobj : ImportedClass_c.getManyO_IOBJsOnR8001(
+								PackageableElement_c.getManyPE_PEsOnR8000(
+										Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(iobj))),
+								o -> {
+									final ImportedClass_c selected = (ImportedClass_c) o;
+									return !selected.getIobj_id().equals(iobj.getIobj_id())
+											&& selected.getObj_id().equals(o_obj.getObj_id());
+								})) {
+							if (existing_iobj.getRef_num() >= iobj.getRef_num()) {
+								iobj.setRef_num(existing_iobj.getRef_num() + 1);
+							}
+
+						}
+					}
+
+				});
+	}
+
 }

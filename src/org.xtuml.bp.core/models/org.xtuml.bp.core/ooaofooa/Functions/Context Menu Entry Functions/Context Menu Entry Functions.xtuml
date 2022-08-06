@@ -6054,6 +6054,14 @@ if not_empty element
                                             USER::selectOne(id:selected.Obj_ID);
   if not_empty selectedObj
     unrelate element from existingElement across R101;
+    element.Ref_Num = 1;
+    select many existing_refs related by element->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]
+      where selected.IObj_ID != element.IObj_ID and selected.Obj_ID == selectedObj.Obj_ID;
+    for each existing_ref in existing_refs
+      if existing_ref.Ref_Num >= element.Ref_Num
+        element.Ref_Num = existing_ref.Ref_Num + 1;
+      end if;
+    end for;
     relate element to selectedObj across R101;
 end if;
 end if;',
