@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -335,7 +338,8 @@ public class McJavaBuilder extends AbstractExportBuilder {
         List<NonRootModelElement> deferred = new ArrayList<NonRootModelElement>();
         int splitPointsFound = 0;
         Package_c[] subPackages = Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(etp));
-        for (Package_c pkg : subPackages) {
+		for (Package_c pkg : Stream.of(subPackages).sorted(Comparator.comparing(Package_c::getName))
+				.collect(Collectors.toList())) {
             // Split point is effective even if packages are excluded
             for (String splitPoint : m_splitPoints) {
                 if (pkg.getName().equals(splitPoint)) {
