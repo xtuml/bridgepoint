@@ -30146,7 +30146,7 @@ INSERT INTO PE_PE
 INSERT INTO S_SYNC
 	VALUES ("cbb0bc9b-1552-41dc-8169-5b3abf047f55",
 	"00000000-0000-0000-0000-000000000000",
-	'If_statement_expr5_content_assist',
+	'If_statement_expr6_content_assist',
 	'ParserValidateFunction: TRUE',
 	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
 	"ba5eda7a-def5-0000-0000-000000000000",
@@ -39160,6 +39160,362 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO PE_PE
 	VALUES ("e2a98593-0290-4973-b7c6-f9b86c595613",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	"00000000-0000-0000-0000-000000000000",
+	'If_statement_strlit_then3_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0,
+	0);
+INSERT INTO S_SPARM
+	VALUES ("4f00bc82-b235-40a4-b985-d7348fc09ac2",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a132e8ec-2bdd-4c43-914d-dc58e1be4f1a",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"4f00bc82-b235-40a4-b985-d7348fc09ac2",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("72b595e4-9fe1-48dd-9450-dd61a532987a",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"a132e8ec-2bdd-4c43-914d-dc58e1be4f1a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f2a8e839-959b-4d44-95bc-e23bd5e9b980",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"72b595e4-9fe1-48dd-9450-dd61a532987a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("742fa147-5124-47b1-842d-3a78932fffba",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'b1_expr1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f2a8e839-959b-4d44-95bc-e23bd5e9b980",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7a812765-50ed-40a4-ad74-992667fc333e",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'b2_block2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"742fa147-5124-47b1-842d-3a78932fffba",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6d0f4322-c10f-4b6b-9264-41d36c4ff2f4",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'b3_expr3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7a812765-50ed-40a4-ad74-992667fc333e",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f10c008a-7328-477e-accd-78e2c22f9152",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'b4_block4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"6d0f4322-c10f-4b6b-9264-41d36c4ff2f4",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0940681d-3358-4bad-a5f8-71845c022f64",
+	"a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	'b5_block5_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"f10c008a-7328-477e-accd-78e2c22f9152",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a7f6cef8-54be-4b24-a9ad-f11776fd1073",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	"00000000-0000-0000-0000-000000000000",
+	'If_statement_strlit_then7_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0,
+	0);
+INSERT INTO S_SPARM
+	VALUES ("e0a33761-910d-45c6-bd0b-047bc37d1960",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("df28b0fd-fcbb-4881-8f0b-f0eead324d9d",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"e0a33761-910d-45c6-bd0b-047bc37d1960",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("34f4be21-f0b4-4938-9ac8-100637f333bd",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"df28b0fd-fcbb-4881-8f0b-f0eead324d9d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("9f49e17d-e5fe-4005-9048-715b1f1d0a55",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"34f4be21-f0b4-4938-9ac8-100637f333bd",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1b92c3e7-9378-4309-9c38-b99a2c1c0048",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'b1_expr1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7cf5515a-8d4f-42a3-a476-f948964d8416",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("72353403-64d9-45df-be44-d67d5558c539",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'b2_block2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1b92c3e7-9378-4309-9c38-b99a2c1c0048",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("cb9d07c7-345f-407c-8031-2db7fb54b261",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'b3_expr3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"72353403-64d9-45df-be44-d67d5558c539",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("fa6b5251-1a17-4b75-af69-14ee279a4c63",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'b4_block4_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"cb9d07c7-345f-407c-8031-2db7fb54b261",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("3f45c282-f441-4700-a0af-3b6c87a939bd",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'b5_block5_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"fa6b5251-1a17-4b75-af69-14ee279a4c63",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("7cf5515a-8d4f-42a3-a476-f948964d8416",
+	"e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	'b0_loop3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"9f49e17d-e5fe-4005-9048-715b1f1d0a55",
+	'');
+INSERT INTO PE_PE
+	VALUES ("e55e32c0-890e-4050-9ce8-af13ee6d6c4e",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	"00000000-0000-0000-0000-000000000000",
+	'For_statement_strlit_loop_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0,
+	0);
+INSERT INTO S_SPARM
+	VALUES ("b58fce47-6f35-41ad-951c-3784882113ea",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c9b66350-74a6-4f2a-97a7-d9e8f4ee75b5",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"b58fce47-6f35-41ad-951c-3784882113ea",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2faf9b2a-05c6-45b5-b10b-0d63a452c3c6",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"c9b66350-74a6-4f2a-97a7-d9e8f4ee75b5",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("437f3a3e-6baf-4acd-b251-69553a2a9f71",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"2faf9b2a-05c6-45b5-b10b-0d63a452c3c6",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("01e3c181-bfd6-4856-895d-d318ccce00bb",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'b1_local_variable1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"437f3a3e-6baf-4acd-b251-69553a2a9f71",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("bacafd4c-1ab2-4775-81d2-8da6a90a7cd6",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'b2_inst_ref_set_var2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"01e3c181-bfd6-4856-895d-d318ccce00bb",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("95b64133-6aad-40fc-953f-30c6a53e3e1d",
+	"7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	'b3_block3_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"bacafd4c-1ab2-4775-81d2-8da6a90a7cd6",
+	'');
+INSERT INTO PE_PE
+	VALUES ("7d0977da-0585-4a2c-afd5-9a999a48fa87",
+	1,
+	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("45147753-0979-4468-b40e-0cb191089685",
+	"00000000-0000-0000-0000-000000000000",
+	'While_statement_strlit_loop_content_assist',
+	'ParserValidateFunction: TRUE',
+	'::statement_content_assist( a1_rule_token:param.a1_rule_token );',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'',
+	0,
+	0);
+INSERT INTO S_SPARM
+	VALUES ("7fa18f33-dbe6-4f5a-a1cc-269a7774ab84",
+	"45147753-0979-4468-b40e-0cb191089685",
+	'a1_rule_token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("96adfa7f-3f8c-4c85-a089-cc103002effd",
+	"45147753-0979-4468-b40e-0cb191089685",
+	'a2_upper_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"7fa18f33-dbe6-4f5a-a1cc-269a7774ab84",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("be6bd95f-2e8c-4aad-bfab-cd6b4128b10a",
+	"45147753-0979-4468-b40e-0cb191089685",
+	'a3_rule_begin_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"96adfa7f-3f8c-4c85-a089-cc103002effd",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("90b3f6f6-81c8-44b3-8324-8b818968830d",
+	"45147753-0979-4468-b40e-0cb191089685",
+	'a4_rule_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"be6bd95f-2e8c-4aad-bfab-cd6b4128b10a",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1fbd5da9-8454-44df-ae10-d2f2626c4735",
+	"45147753-0979-4468-b40e-0cb191089685",
+	'b1_expr1_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"90b3f6f6-81c8-44b3-8324-8b818968830d",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("150c9870-a2e6-485e-a3fc-7cf3ed1db3cd",
+	"45147753-0979-4468-b40e-0cb191089685",
+	'b2_block2_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"1fbd5da9-8454-44df-ae10-d2f2626c4735",
+	'');
+INSERT INTO PE_PE
+	VALUES ("45147753-0979-4468-b40e-0cb191089685",
 	1,
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
 	"00000000-0000-0000-0000-000000000000",
