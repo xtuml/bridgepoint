@@ -1,0 +1,340 @@
+= Relationships
+
+== Relationship Specifications
+
+A relationship specification identifies exactly which relationship is 
+required to be created, navigated, or deleted.
+
+=== Syntax
+
+----
+R<number>
+r<number>
+R<number>.<relationship phrase> 
+r<number>.<relationship phrase>
+----
+
+`+<number>+` is the number of the relationship as 
+shown on the class diagram (e.g., R1). 
+
+`+<relationship phrase>+` is the text that appears at the destination 
+end of the relationship, enclosed in tick marks and contained on a single line.
+
+=== Note
+
+Either `+R+` or `+r+` may be used when referring to a relationship.
+
+=== Examples
+
+----
+r5
+R10.'owns'
+r10.'is owned by'
+R22.'uses'
+R1.'Is rotated by'
+R1.'Contains'
+R2.'Is assigned to'
+----
+
+== Creating an Instance of a Relationship
+
+=== Syntax
+
+----
+relate <source instance handle> to <destination instance handle> across <relationship specification>; 
+
+relate <source instance handle> to <destination instance handle> across <relationship specification> using <associative instance handle>; 
+----
+
+`+<source instance handle>+` is the handle of the first class instance to be related.
+
+`+<destination instance handle>+` is the handle of the second class instance to be related.
+
+`+<relationship specification>+` is the specification of the relationship from the source class to the destination class. This can be any of the forms described in the previous section.
+
+`+<associative instance handle>+` is the handle of an existing class instance that is used as the associative class instance for this relationship instance.
+
+=== Notes
+
+The relationship specification should be framed as if navigating from source class to destination class.
+
+The source, destination, and associative instance handles may be `+self+`.
+
+If an attempt is made to relate two instances via the same relationship more than once, this is regarded as a run time error by the BridgePoint Verifier unless the relationship is (M:M)-M.
+
+The `+using <associative instance>+` form is used when an associative relationship is being instantiated. The associative instance must have already been created before the relationship is instantiated.
+
+=== Examples
+
+----
+select any dp_inst from instances of DP;
+select any d_inst from instances of D;
+relate dp_inst to d_inst across R1;
+ 
+ 
+select any a_inst from instances of A;
+select any b_inst from instances of B;
+create object instance c_inst of C;
+relate a_inst to b_inst across R1 using c_inst;
+ 
+ 
+// State 3. "Assigning Probe to Row"
+select any row from instances of ROW
+  where ( selected.needs_probe == true );
+select any probe from instances of SP
+  where ( selected.available == true );
+probe.available = false;
+row.needs_probe = false;
+create object instance assignment of PA;
+relate row to probe across R2 using assignment;
+generate PA_A3:probe_assigned() to PA class;
+generate ROW2:probe_assigned() to row;
+----
+
+== Deleting an Instance of a Relationship
+
+=== Syntax
+
+----
+unrelate <source instance handle> from <destination instance handle> across <relationship specification>;
+
+unrelate <source instance handle> from <destination instance handle> across <relationship specification> using <associative instance handle>;
+----
+
+`+<source instance handle>+` is the handle of the first class instance to be unrelated.
+
+`+<destination instance handle>+` is the handle of the second class instance to be unrelated.
+
+`+<relationship specification>+` is the specification of the relationship from the source to the destination class.
+
+`+<associative instance handle>+` is the handle of the associative class instance that captures the relationship instance.
+
+=== Notes
+
+The relationship specification should be framed as if navigating from the source class to the destination class.
+
+An attempt to unrelate two instances that are not related by the specified relationship is regarded as a run time error by the BridgePoint Verifier.
+
+The source, destination, and associative instance handles may be `+self+`.
+
+If an associative relationship is unrelated then the associative class instance(s) will not be deleted. The analyst must specify this explicitly.
+
+If an unconditional relationship is deleted, instances of participating classes will not automatically be deleted to remain consistent 
+with the Class Diagram. It is the responsibility of the analyst to ensure that 
+the Class Diagram is respected. This applies equally to super/subtype relationships.
+
+=== Examples
+
+----
+unrelate a_inst from b_inst across R1;
+unrelate a_inst from b_inst across R1 using c_inst;
+delete object instance c_inst;
+----
+
+== Relationship Navigation
+
+Relationship navigation is the function whereby relationships specified on 
+the Class Diagram are read in order to determine the instance or set of 
+instances that are related to an instance of interest.
+
+=== Syntax
+
+----
+select one <instance handle> related by <start> -> <relationship link> -> ... <relationship link>;
+
+select any <instance handle> related by <start> -> <relationship link> -> ... <relationship link>;
+
+select many <instance handle set> related by <start> -> <relationship link> -> ... <relationship link>;
+
+select one <instance handle> related by <start> -> <relationship link> -> ... <relationship link> where <where expression>;
+
+select any <instance handle> related by <start> -> <relationship link> -> ... <relationship link> where <where expression>;
+
+select many <instance handle set> related by <start> -> <relationship link> -> ... <relationship link> where <where expression>;
+----
+
+`+<start>+` is an `+<instance handle set>+` or `+<instance handle>+` obtained from a previous select statement.
+
+`+<relationship link>+` is a `+<keyletter>[<relationship specification>]+` , where the square brackets are literal 
+and do not indicate optional text.
+
+`+<keyletter>+` is the keyletter of the class reached by the specified relationship.
+
+`+<relationship specification>+` is the specification of the relationship from the source to the destination class.
+
+`+<where expression>+` is a type of boolean expression using the `+selected+` keyword.
+
+=== Notes
+
+A relationship link chain is the sequence of `+<relationship link>+` 's used to specify the path 
+from the starting instance or set of instances to the destination.
+
+Use the `+select one+` form if at most one instance handle can be returned by navigating 
+the relationship link chain.
+
+Use the `+select any+` or `+select many+` form if more than one instance handle 
+can be returned by navigating the relationship link chain. `+select any+` returns 
+a single instance, and `+select many+` returns all instances that meet the 
+selection criteria.
+
+The `+select any+` form returns the instance handle of an arbitrary instance of 
+the class at the end of the relationship link chain.
+
+The `+select many+` form returns an instance handle set containing all the 
+instances of the class at the end of the relationship link chain.
+
+The `+select any ... where+` form returns the instance handle of an arbitrary 
+instance of the class at the end of the relationship link chain that fulfills 
+the `+<where expression>+` criteria.
+
+The `+select many ... where+` form returns an instance handle set containing 
+all the instances of the class at the end of the instance chain that fulfill 
+the `+<where expression>+` criteria.
+
+The relationship phrases in the relationship link chain must be given in the 
+direction of navigation.
+
+If the starting `+<instance handle>+` or `+<instance handle set>+` is empty, 
+then the result will be considered a run time error.
+
+The returned `+<instance handle>+` or `+<instance handle set>+` can be empty 
+if any of the relationships in the chain are conditional in the direction of 
+navigation.
+
+If the optional `+where+` clause is added, the returned instance or set of 
+instances will meet the criteria of `+<where expression>+` . This implies 
+that the returned `+<instance handle>+` or `+<instance handle set>+` may be 
+empty if no instance(s) matched.
+
+=== Example I
+
+----
+select one cat related by owner->C[R1];
+select any dog related by owner->D[R2];
+select many dogs related by owner->D[R2];
+ 
+select any assignment from instances of PA here ( selected.probe_ID == self.probe_ID );
+select any dog related by owner->D[R2] where ( selected.name == "Fido" );
+select many dogs related by owner->D[R2] where selected.color == "black";
+----
+
+=== Example II
+
+----
+select any student from instances of STU;
+select many major_courses_offered related by student->PROF[R34]->DEPT[R23]->COUR[R40];
+----
+
+==  Asymmetric Reflexive Relationship
+
+An asymmetric reflexive relationship is a powerful construct for expressing many 
+different common abstractions.  However, the syntax for establishing, removing, 
+and traversing links across these relationships is not always intuitive.  
+Examples follow.
+
+=== Simple Asymmetric Reflexive
+
+Consider the class model below with three instances of 
+`+LaneBoundary+`:  `+leftMost+`, `+middle+`, and `+rightMost+`.
+
+image::simple_asymm_reflex.png[]
+
+The following actions relate the instances appropriately:
+
+----
+relate leftMost to middle across R2.'is left of and adjacent to';
+relate rightMost to middle across R2.'is right of and adjacent to';
+----
+
+The following actions find instances correctly, although that may 
+not appear obvious at first glance; remember, the middle lane boundary 
+is to the _right_ of the leftmost one.
+
+----
+select one leftMost related by middle->LaneBoundary[R2.'is right of and adjacent to'];
+select one rightMost related by middle->LaneBoundary[R2.'is left of and adjacent to'];
+select one middle related by leftMost->LaneBoundary[R2.'is left of and adjacent to'];
+select one middle related by rightMost->LaneBoundary[R2.'is right of and adjacent to']
+----
+
+The following actions unrelate the instances as expected:
+
+----
+unrelate leftMost from middle across R2.'is left of and adjacent to';
+unrelate rightMost from middle across R2.'is right of and adjacent to';
+----
+
+=== Associative Asymmetric Reflexive
+
+Consider the class model below with three instances of 
+`+LaneBoundary+`:  `+leftMost+`, `+middle+`, and `+rightMost+`, 
+and two instances of `+Lane+`: `+left+` and `+right+`.
+
+image::assoc_asymm_reflex.png[]
+
+The following actions relate the instances appropriately:
+
+----
+relate leftMost to middle across R2.'is left of and adjacent to' using left;
+relate rightMost to middle across R2.'is right of and adjacent to' using right;
+----
+
+Traversing from one instance of `+LaneBoundary+` to another is done in the 
+same way as for the simple asymmetric reflexive case. The following actions 
+traverse from instances of `+Lane+` to instances of `+LaneBoundary+`:
+
+----
+select one leftMost related by left->LaneBoundary[R2.'is right of and adjacent to'];
+select one middle related by left->LaneBoundary[R2.'is left of and adjacent to'];
+select one middle related by right->LaneBoundary[R2.'is right of and adjacent to'];
+select one rightMost related by right->LaneBoundary[R2.'is left of and adjacent to'];
+----
+
+And, these actions traverse from instances of `+LaneBoundary+` to instances 
+of `+Lane+`:
+
+----
+select one left related by leftMost->Lane[R2.'is left of and adjacent to'];
+select one left related by middle->Lane[R2.'is right of and adjacent to'];
+select one right related by middle->Lane[R2.'is left of and adjacent to'];
+select one right related by rightMost->Lane[R2.'is right of and adjacent to'];
+----
+
+The following actions unrelate the instances as expected:
+
+----
+unrelate leftMost from middle across R2.'is left of and adjacent to' using left;
+unrelate rightMost from middle across R2.'is right of and adjacent to' using right;
+----
+
+=== Remembering the Syntax
+
+The `+relate+` and `+unrelate+` statements follow a pattern of `+<firstHandle> 
+<phrase> <secondHandle>+`:
+
+----
+relate leftMost to middle across R2.'is left of and adjacent to';
+unrelate rightMost from middle across R2.'is right of and adjacent to';
+----
+
+The `+select+` statement follows a pattern of `+<secondHandle> <phrase> <firstHandle>+`.
+In the examples below, `+leftMost+`, `+middle+`, and `+rightMost+` are instances of 
+`+LaneBoundary+` while `+right+` is an instance of `+Lane+`:
+
+----
+select one leftMost related by middle->LaneBoundary[R2.'is right of and adjacent to'];
+select one rightMost related by right->LaneBoundary[R2.'is left of and adjacent to'];
+select one right related by middle->Lane[R2.'is left of and adjacent to'];
+----
+
+It may be useful to visualize the decomposed version of a reflexive relationship 
+when trying to determine which phrase to use.
+
+image::split_assoc.png[]
+
+In the decomposed class diagram, it is easy to see that to find an instance 
+of a `+LeftLaneBoundary+`, given an instance of a `+RightLaneBoundary+` or an 
+instance of a `+Lane+`, the `+select+` statement must employ 
+the `+‘is right of and adjacent to’+` phrase.  Similarly, finding an 
+instance of a `+RightLaneBoundary+`, given an instance of `+LeftLaneBoundary+` 
+or an instance of `+Lane+` requires the `+‘is left of and adjacent to’+` phrase.

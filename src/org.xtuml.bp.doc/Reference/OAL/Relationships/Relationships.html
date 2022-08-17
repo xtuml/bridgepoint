@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Relationships</title>
+<link rel="stylesheet" href="./../../../asciidoctor-default.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Relationships</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_relationship_specifications">Relationship Specifications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A relationship specification identifies exactly which relationship is
+required to be created, navigated, or deleted.</p>
+</div>
+<div class="sect2">
+<h3 id="_syntax">Syntax</h3>
+<div class="listingblock">
+<div class="content">
+<pre>R&lt;number&gt;
+r&lt;number&gt;
+R&lt;number&gt;.&lt;relationship phrase&gt;
+r&lt;number&gt;.&lt;relationship phrase&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>&lt;number&gt;</code> is the number of the relationship as
+shown on the class diagram (e.g., R1).</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;relationship phrase&gt;</code> is the text that appears at the destination
+end of the relationship, enclosed in tick marks and contained on a single line.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_note">Note</h3>
+<div class="paragraph">
+<p>Either <code>R</code> or <code>r</code> may be used when referring to a relationship.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_examples">Examples</h3>
+<div class="listingblock">
+<div class="content">
+<pre>r5
+R10.'owns'
+r10.'is owned by'
+R22.'uses'
+R1.'Is rotated by'
+R1.'Contains'
+R2.'Is assigned to'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_an_instance_of_a_relationship">Creating an Instance of a Relationship</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_syntax_2">Syntax</h3>
+<div class="listingblock">
+<div class="content">
+<pre>relate &lt;source instance handle&gt; to &lt;destination instance handle&gt; across &lt;relationship specification&gt;;
+
+relate &lt;source instance handle&gt; to &lt;destination instance handle&gt; across &lt;relationship specification&gt; using &lt;associative instance handle&gt;;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>&lt;source instance handle&gt;</code> is the handle of the first class instance to be related.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;destination instance handle&gt;</code> is the handle of the second class instance to be related.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;relationship specification&gt;</code> is the specification of the relationship from the source class to the destination class. This can be any of the forms described in the previous section.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;associative instance handle&gt;</code> is the handle of an existing class instance that is used as the associative class instance for this relationship instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notes">Notes</h3>
+<div class="paragraph">
+<p>The relationship specification should be framed as if navigating from source class to destination class.</p>
+</div>
+<div class="paragraph">
+<p>The source, destination, and associative instance handles may be <code>self</code>.</p>
+</div>
+<div class="paragraph">
+<p>If an attempt is made to relate two instances via the same relationship more than once, this is regarded as a run time error by the BridgePoint Verifier unless the relationship is (M:M)-M.</p>
+</div>
+<div class="paragraph">
+<p>The <code>using &lt;associative instance&gt;</code> form is used when an associative relationship is being instantiated. The associative instance must have already been created before the relationship is instantiated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_examples_2">Examples</h3>
+<div class="listingblock">
+<div class="content">
+<pre>select any dp_inst from instances of DP;
+select any d_inst from instances of D;
+relate dp_inst to d_inst across R1;
+
+
+select any a_inst from instances of A;
+select any b_inst from instances of B;
+create object instance c_inst of C;
+relate a_inst to b_inst across R1 using c_inst;
+
+
+// State 3. "Assigning Probe to Row"
+select any row from instances of ROW
+  where ( selected.needs_probe == true );
+select any probe from instances of SP
+  where ( selected.available == true );
+probe.available = false;
+row.needs_probe = false;
+create object instance assignment of PA;
+relate row to probe across R2 using assignment;
+generate PA_A3:probe_assigned() to PA class;
+generate ROW2:probe_assigned() to row;</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deleting_an_instance_of_a_relationship">Deleting an Instance of a Relationship</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_syntax_3">Syntax</h3>
+<div class="listingblock">
+<div class="content">
+<pre>unrelate &lt;source instance handle&gt; from &lt;destination instance handle&gt; across &lt;relationship specification&gt;;
+
+unrelate &lt;source instance handle&gt; from &lt;destination instance handle&gt; across &lt;relationship specification&gt; using &lt;associative instance handle&gt;;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>&lt;source instance handle&gt;</code> is the handle of the first class instance to be unrelated.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;destination instance handle&gt;</code> is the handle of the second class instance to be unrelated.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;relationship specification&gt;</code> is the specification of the relationship from the source to the destination class.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;associative instance handle&gt;</code> is the handle of the associative class instance that captures the relationship instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notes_2">Notes</h3>
+<div class="paragraph">
+<p>The relationship specification should be framed as if navigating from the source class to the destination class.</p>
+</div>
+<div class="paragraph">
+<p>An attempt to unrelate two instances that are not related by the specified relationship is regarded as a run time error by the BridgePoint Verifier.</p>
+</div>
+<div class="paragraph">
+<p>The source, destination, and associative instance handles may be <code>self</code>.</p>
+</div>
+<div class="paragraph">
+<p>If an associative relationship is unrelated then the associative class instance(s) will not be deleted. The analyst must specify this explicitly.</p>
+</div>
+<div class="paragraph">
+<p>If an unconditional relationship is deleted, instances of participating classes will not automatically be deleted to remain consistent
+with the Class Diagram. It is the responsibility of the analyst to ensure that
+the Class Diagram is respected. This applies equally to super/subtype relationships.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_examples_3">Examples</h3>
+<div class="listingblock">
+<div class="content">
+<pre>unrelate a_inst from b_inst across R1;
+unrelate a_inst from b_inst across R1 using c_inst;
+delete object instance c_inst;</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_relationship_navigation">Relationship Navigation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Relationship navigation is the function whereby relationships specified on
+the Class Diagram are read in order to determine the instance or set of
+instances that are related to an instance of interest.</p>
+</div>
+<div class="sect2">
+<h3 id="_syntax_4">Syntax</h3>
+<div class="listingblock">
+<div class="content">
+<pre>select one &lt;instance handle&gt; related by &lt;start&gt; -&gt; &lt;relationship link&gt; -&gt; ... &lt;relationship link&gt;;
+
+select any &lt;instance handle&gt; related by &lt;start&gt; -&gt; &lt;relationship link&gt; -&gt; ... &lt;relationship link&gt;;
+
+select many &lt;instance handle set&gt; related by &lt;start&gt; -&gt; &lt;relationship link&gt; -&gt; ... &lt;relationship link&gt;;
+
+select one &lt;instance handle&gt; related by &lt;start&gt; -&gt; &lt;relationship link&gt; -&gt; ... &lt;relationship link&gt; where &lt;where expression&gt;;
+
+select any &lt;instance handle&gt; related by &lt;start&gt; -&gt; &lt;relationship link&gt; -&gt; ... &lt;relationship link&gt; where &lt;where expression&gt;;
+
+select many &lt;instance handle set&gt; related by &lt;start&gt; -&gt; &lt;relationship link&gt; -&gt; ... &lt;relationship link&gt; where &lt;where expression&gt;;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>&lt;start&gt;</code> is an <code>&lt;instance handle set&gt;</code> or <code>&lt;instance handle&gt;</code> obtained from a previous select statement.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;relationship link&gt;</code> is a <code>&lt;keyletter&gt;[&lt;relationship specification&gt;]</code> , where the square brackets are literal
+and do not indicate optional text.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;keyletter&gt;</code> is the keyletter of the class reached by the specified relationship.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;relationship specification&gt;</code> is the specification of the relationship from the source to the destination class.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;where expression&gt;</code> is a type of boolean expression using the <code>selected</code> keyword.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notes_3">Notes</h3>
+<div class="paragraph">
+<p>A relationship link chain is the sequence of <code>&lt;relationship link&gt;</code> 's used to specify the path
+from the starting instance or set of instances to the destination.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>select one</code> form if at most one instance handle can be returned by navigating
+the relationship link chain.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>select any</code> or <code>select many</code> form if more than one instance handle
+can be returned by navigating the relationship link chain. <code>select any</code> returns
+a single instance, and <code>select many</code> returns all instances that meet the
+selection criteria.</p>
+</div>
+<div class="paragraph">
+<p>The <code>select any</code> form returns the instance handle of an arbitrary instance of
+the class at the end of the relationship link chain.</p>
+</div>
+<div class="paragraph">
+<p>The <code>select many</code> form returns an instance handle set containing all the
+instances of the class at the end of the relationship link chain.</p>
+</div>
+<div class="paragraph">
+<p>The <code>select any ... where</code> form returns the instance handle of an arbitrary
+instance of the class at the end of the relationship link chain that fulfills
+the <code>&lt;where expression&gt;</code> criteria.</p>
+</div>
+<div class="paragraph">
+<p>The <code>select many ... where</code> form returns an instance handle set containing
+all the instances of the class at the end of the instance chain that fulfill
+the <code>&lt;where expression&gt;</code> criteria.</p>
+</div>
+<div class="paragraph">
+<p>The relationship phrases in the relationship link chain must be given in the
+direction of navigation.</p>
+</div>
+<div class="paragraph">
+<p>If the starting <code>&lt;instance handle&gt;</code> or <code>&lt;instance handle set&gt;</code> is empty,
+then the result will be considered a run time error.</p>
+</div>
+<div class="paragraph">
+<p>The returned <code>&lt;instance handle&gt;</code> or <code>&lt;instance handle set&gt;</code> can be empty
+if any of the relationships in the chain are conditional in the direction of
+navigation.</p>
+</div>
+<div class="paragraph">
+<p>If the optional <code>where</code> clause is added, the returned instance or set of
+instances will meet the criteria of <code>&lt;where expression&gt;</code> . This implies
+that the returned <code>&lt;instance handle&gt;</code> or <code>&lt;instance handle set&gt;</code> may be
+empty if no instance(s) matched.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_i">Example I</h3>
+<div class="listingblock">
+<div class="content">
+<pre>select one cat related by owner-&gt;C[R1];
+select any dog related by owner-&gt;D[R2];
+select many dogs related by owner-&gt;D[R2];
+
+select any assignment from instances of PA here ( selected.probe_ID == self.probe_ID );
+select any dog related by owner-&gt;D[R2] where ( selected.name == "Fido" );
+select many dogs related by owner-&gt;D[R2] where selected.color == "black";</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_ii">Example II</h3>
+<div class="listingblock">
+<div class="content">
+<pre>select any student from instances of STU;
+select many major_courses_offered related by student-&gt;PROF[R34]-&gt;DEPT[R23]-&gt;COUR[R40];</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_asymmetric_reflexive_relationship">Asymmetric Reflexive Relationship</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An asymmetric reflexive relationship is a powerful construct for expressing many
+different common abstractions.  However, the syntax for establishing, removing,
+and traversing links across these relationships is not always intuitive.
+Examples follow.</p>
+</div>
+<div class="sect2">
+<h3 id="_simple_asymmetric_reflexive">Simple Asymmetric Reflexive</h3>
+<div class="paragraph">
+<p>Consider the class model below with three instances of
+<code>LaneBoundary</code>:  <code>leftMost</code>, <code>middle</code>, and <code>rightMost</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="simple_asymm_reflex.png" alt="simple asymm reflex">
+</div>
+</div>
+<div class="paragraph">
+<p>The following actions relate the instances appropriately:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>relate leftMost to middle across R2.'is left of and adjacent to';
+relate rightMost to middle across R2.'is right of and adjacent to';</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following actions find instances correctly, although that may
+not appear obvious at first glance; remember, the middle lane boundary
+is to the <em>right</em> of the leftmost one.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>select one leftMost related by middle-&gt;LaneBoundary[R2.'is right of and adjacent to'];
+select one rightMost related by middle-&gt;LaneBoundary[R2.'is left of and adjacent to'];
+select one middle related by leftMost-&gt;LaneBoundary[R2.'is left of and adjacent to'];
+select one middle related by rightMost-&gt;LaneBoundary[R2.'is right of and adjacent to']</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following actions unrelate the instances as expected:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>unrelate leftMost from middle across R2.'is left of and adjacent to';
+unrelate rightMost from middle across R2.'is right of and adjacent to';</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_associative_asymmetric_reflexive">Associative Asymmetric Reflexive</h3>
+<div class="paragraph">
+<p>Consider the class model below with three instances of
+<code>LaneBoundary</code>:  <code>leftMost</code>, <code>middle</code>, and <code>rightMost</code>,
+and two instances of <code>Lane</code>: <code>left</code> and <code>right</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assoc_asymm_reflex.png" alt="assoc asymm reflex">
+</div>
+</div>
+<div class="paragraph">
+<p>The following actions relate the instances appropriately:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>relate leftMost to middle across R2.'is left of and adjacent to' using left;
+relate rightMost to middle across R2.'is right of and adjacent to' using right;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Traversing from one instance of <code>LaneBoundary</code> to another is done in the
+same way as for the simple asymmetric reflexive case. The following actions
+traverse from instances of <code>Lane</code> to instances of <code>LaneBoundary</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>select one leftMost related by left-&gt;LaneBoundary[R2.'is right of and adjacent to'];
+select one middle related by left-&gt;LaneBoundary[R2.'is left of and adjacent to'];
+select one middle related by right-&gt;LaneBoundary[R2.'is right of and adjacent to'];
+select one rightMost related by right-&gt;LaneBoundary[R2.'is left of and adjacent to'];</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And, these actions traverse from instances of <code>LaneBoundary</code> to instances
+of <code>Lane</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>select one left related by leftMost-&gt;Lane[R2.'is left of and adjacent to'];
+select one left related by middle-&gt;Lane[R2.'is right of and adjacent to'];
+select one right related by middle-&gt;Lane[R2.'is left of and adjacent to'];
+select one right related by rightMost-&gt;Lane[R2.'is right of and adjacent to'];</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following actions unrelate the instances as expected:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>unrelate leftMost from middle across R2.'is left of and adjacent to' using left;
+unrelate rightMost from middle across R2.'is right of and adjacent to' using right;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_remembering_the_syntax">Remembering the Syntax</h3>
+<div class="paragraph">
+<p>The <code>relate</code> and <code>unrelate</code> statements follow a pattern of <code>&lt;firstHandle&gt;
+&lt;phrase&gt; &lt;secondHandle&gt;</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>relate leftMost to middle across R2.'is left of and adjacent to';
+unrelate rightMost from middle across R2.'is right of and adjacent to';</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>select</code> statement follows a pattern of <code>&lt;secondHandle&gt; &lt;phrase&gt; &lt;firstHandle&gt;</code>.
+In the examples below, <code>leftMost</code>, <code>middle</code>, and <code>rightMost</code> are instances of
+<code>LaneBoundary</code> while <code>right</code> is an instance of <code>Lane</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>select one leftMost related by middle-&gt;LaneBoundary[R2.'is right of and adjacent to'];
+select one rightMost related by right-&gt;LaneBoundary[R2.'is left of and adjacent to'];
+select one right related by middle-&gt;Lane[R2.'is left of and adjacent to'];</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It may be useful to visualize the decomposed version of a reflexive relationship
+when trying to determine which phrase to use.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="split_assoc.png" alt="split assoc">
+</div>
+</div>
+<div class="paragraph">
+<p>In the decomposed class diagram, it is easy to see that to find an instance
+of a <code>LeftLaneBoundary</code>, given an instance of a <code>RightLaneBoundary</code> or an
+instance of a <code>Lane</code>, the <code>select</code> statement must employ
+the <code>‘is right of and adjacent to’</code> phrase.  Similarly, finding an
+instance of a <code>RightLaneBoundary</code>, given an instance of <code>LeftLaneBoundary</code>
+or an instance of <code>Lane</code> requires the <code>‘is left of and adjacent to’</code> phrase.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+</div>
+</div>
+</body>
+</html>
