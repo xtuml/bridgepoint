@@ -8329,12 +8329,43 @@ select one b_aoth related by b_oir->R_RTO[R203]->R_AOTH[R204];
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
 
-phrases_required = a_class.Obj_ID == b_class.Obj_ID or PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases");
+
+phrases_required = PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases");
+is_reflexive = r_rel.is_reflexive();
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+
+// A to B phrase
+default_a_phrase = "";
+if (not_empty b_part)
+  default_a_phrase = b_part.Txt_Phrs;
+elif (not_empty b_form)
+  default_a_phrase = b_form.Txt_Phrs;
+elif (not_empty b_aone)
+  default_a_phrase = b_aone.Txt_Phrs;
+elif (not_empty b_aoth)
+  default_a_phrase = b_aoth.Txt_Phrs;
+end if;
+
+// B to A phrase
+default_b_phrase = "";
+if (not_empty a_part)
+  default_b_phrase = a_part.Txt_Phrs;
+elif (not_empty a_form)
+  default_b_phrase = a_form.Txt_Phrs;
+elif (not_empty a_aone)
+  default_b_phrase = a_aone.Txt_Phrs;
+elif (not_empty a_aoth)
+  default_b_phrase = a_aoth.Txt_Phrs;
+end if;
+
+is_symmetric = r_rel.is_symmetric(); 
+is_symmetric = USER::getCheckbox(default:is_symmetric, prompt:"Symmetric", disabled:false);
+LAYOUT::setLayout(field_name:"is_symmetric", row_num:"1", width:"1", height:"1");
+USER::dependsOn(field1:"is_symmetric", field2:"rel_num", inverse:false, comparison:"v_is_reflexive");
 
 // A label
 a_label1 = USER::getLabel(label:a_class.Name);
@@ -8350,18 +8381,8 @@ end if;
 a_cond = USER::getToggle(option1:default_a_cond, option2:other_a_cond, prompt:"");
 LAYOUT::setLayout(field_name:"a_cond", row_num:"2", width:"1", height:"1");
 
-// A to B phrase
-default_a_phrase = "";
-if (not_empty b_part)
-  default_a_phrase = b_part.Txt_Phrs;
-elif (not_empty b_form)
-  default_a_phrase = b_form.Txt_Phrs;
-elif (not_empty b_aone)
-  default_a_phrase = b_aone.Txt_Phrs;
-elif (not_empty b_aoth)
-  default_a_phrase = b_aoth.Txt_Phrs;
-end if;
-a_phrase = USER::getText(default:default_a_phrase, prompt:"", require_value:phrases_required, validate_name:true);
+get_phrase = phrases_required OR is_reflexive;
+a_phrase = USER::getText(default:default_a_phrase, prompt:"", require_value:get_phrase, validate_name:true);
 LAYOUT::setLayout(field_name:"a_phrase", row_num:"2", width:"2", height:"1");
 
 // A to B multiplicity
@@ -8381,6 +8402,7 @@ LAYOUT::setLayout(field_name:"b_label1", row_num:"2", width:"1", height:"1");
 // B label
 b_label2 = USER::getLabel(label:b_class.Name);
 LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
+USER::dependsOn(field1:"b_label2", field2:"is_symmetric", inverse:true, comparison:"");
 
 // B to A conditionality
 default_b_cond = "Conditionally";
@@ -8391,20 +8413,11 @@ if ((not_empty a_part and a_part.Cond == 0) or (not_empty a_form and a_form.Cond
 end if;
 b_cond = USER::getToggle(option1:default_b_cond, option2:other_b_cond, prompt:"");
 LAYOUT::setLayout(field_name:"b_cond", row_num:"3", width:"1", height:"1");
+USER::dependsOn(field1:"b_cond", field2:"is_symmetric", inverse:true, comparison:"");
 
-// B to A phrase
-default_b_phrase = "";
-if (not_empty a_part)
-  default_b_phrase = a_part.Txt_Phrs;
-elif (not_empty a_form)
-  default_b_phrase = a_form.Txt_Phrs;
-elif (not_empty a_aone)
-  default_b_phrase = a_aone.Txt_Phrs;
-elif (not_empty a_aoth)
-  default_b_phrase = a_aoth.Txt_Phrs;
-end if;
-b_phrase = USER::getText(default:default_b_phrase, prompt:"", require_value:phrases_required, validate_name:true);
+b_phrase = USER::getText(default:default_b_phrase, prompt:"", require_value:get_phrase, validate_name:true);
 LAYOUT::setLayout(field_name:"b_phrase", row_num:"3", width:"2", height:"1");
+USER::dependsOn(field1:"b_phrase", field2:"is_symmetric", inverse:true, comparison:"");
 
 // B to A multiplicity
 default_b_mult = "One";
@@ -8415,10 +8428,12 @@ if ((not_empty a_part and a_part.Mult == 1) or (not_empty a_form and a_form.Mult
 end if;
 b_mult = USER::getToggle(option1:default_b_mult, option2:other_b_mult, prompt:"");
 LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
+USER::dependsOn(field1:"b_mult", field2:"is_symmetric", inverse:true, comparison:"");
 
 // A label
 a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
+USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparison:"");
 
 // Is associative
 select one assoc related by r_rel->R_ASSOC[R206];
@@ -8515,7 +8530,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
     default_selection = default_selection - 1;
   end if;
 end if;
-part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection, reload_options:true);
+part_class = USER::getDropdown(options:participant, prompt:"Use identifier from ", default_selection:default_selection, reload_options:true);
 LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"associative_rel", inverse:true, comparison:"");
 
@@ -8582,7 +8597,7 @@ USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comp
 USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Edit the association
-select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
+//select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
 
 
 if (associative_rel)
@@ -8600,7 +8615,8 @@ if (associative_rel)
                               a_oir:a_oir,
                               b_oir:b_oir,
                               assoc_class:associative_class,
-                              assoc_formalized:formalize_assoc);
+                              assoc_formalized:formalize_assoc,
+                              symmetric:is_symmetric);
 else
   r_rel.editAssociation(rel_num:rel_num,
                               a_cond:a_cond,
@@ -8616,7 +8632,8 @@ else
                               a_oir:a_oir,
                               b_oir:b_oir,
                               assoc_class:associative_class,
-                              assoc_formalized:formalize_assoc);
+                              assoc_formalized:formalize_assoc,
+                              symmetric:is_symmetric);
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
