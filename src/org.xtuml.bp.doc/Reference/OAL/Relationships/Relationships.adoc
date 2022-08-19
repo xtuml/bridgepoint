@@ -195,7 +195,7 @@ The relationship phrases in the relationship link chain must be given in the
 direction of navigation.
 
 If the starting `+<instance handle>+` or `+<instance handle set>+` is empty, 
-then the result will be considered a run time error.
+then the result is guaranteed to be empty.
 
 The returned `+<instance handle>+` or `+<instance handle set>+` can be empty 
 if any of the relationships in the chain are conditional in the direction of 
