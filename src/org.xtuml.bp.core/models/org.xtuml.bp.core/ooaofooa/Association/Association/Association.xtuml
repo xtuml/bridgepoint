@@ -958,14 +958,10 @@ assoc_class = param.assoc_class;
 assoc_formalized = param.assoc_formalized;
 sym = param.symmetric;
 
-if b_phrase != ""
-  sym = false;
-else
-  if sym
-    b_phrase = "";
-    b_cond = a_cond;
-    b_mult = a_mult;
-  end if;
+if sym  // ensure no redundant phrase; match cond & mult both sides
+  b_phrase = "";
+  b_cond = a_cond;
+  b_mult = a_mult;
 end if;
 
 // Get classes involved in binary relationship

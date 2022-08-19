@@ -8362,8 +8362,8 @@ elif (not_empty a_aoth)
   default_b_phrase = a_aoth.Txt_Phrs;
 end if;
 
-is_symmetric = r_rel.is_symmetric(); 
-is_symmetric = USER::getCheckbox(default:is_symmetric, prompt:"Symmetric", disabled:false);
+symmetric = r_rel.is_symmetric(); // get existing value for use as default
+is_symmetric = USER::getCheckbox(default:symmetric, prompt:"Symmetric", disabled:false);
 LAYOUT::setLayout(field_name:"is_symmetric", row_num:"1", width:"1", height:"1");
 USER::dependsOn(field1:"is_symmetric", field2:"rel_num", inverse:false, comparison:"v_is_reflexive");
 
