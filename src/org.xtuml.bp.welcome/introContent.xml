@@ -4,7 +4,8 @@
 <!-- Root Page as fully expanded -->
   <page alt-style="css/root_swt.properties" style="css/root.css" id="root" style-id="page">
     <title style-id="intro-header">Welcome to BridgePoint UML</title>
-    <title style-id="intro-message">Application modeling for embedded systems</title>
+    <title style-id="intro-message">UML Editor, Verifier and Model Compiler</title>
+    <title style-id="intro-message">Model it. Verify it. Compile it. Run it!</title>
     <group id="links-background">
       <group id="page-links">
         <anchor id="top"/>
