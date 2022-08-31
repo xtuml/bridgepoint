@@ -41,9 +41,21 @@ can be attempted in hopes of finding a target.
 
 == 6 Design Comments
 
-Modifying the CME for Binary Associations required override of a redundant but 
+Modifying the CME for Binary Associations requires override of a redundant but 
 mandatory field dependency with a check on association reflexivity for 
-visibilty.
+visibilty of the 'Symmetric' checkbox.
+
+Visibility of the input fields for the second role phrase, conditionality and 
+multiplicity must, in turn, depend on the absence of a checked value for symmetry.
+
+An added paramter to the editAssociation operation carries a boolean denoting 
+the selection or otherwise of symmetry; if true, the second role phrase is 
+erased and the conditionality and multiplicity for the referred-to side of the 
+association are copied from the referring values.
+
+The 'Select' logic in Verifier explicitly looks for the absence of one role 
+phrase when navigating a reflexive association. If detected, then the direction 
+of navigation is inferred and the direction of navigation my be reversed.
 
 == 7 User Documentation
 
