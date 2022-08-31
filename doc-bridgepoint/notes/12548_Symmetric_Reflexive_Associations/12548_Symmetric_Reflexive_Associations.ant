@@ -9,7 +9,7 @@ These should differ (not enforced, at present) so that navigation in either
 direction can be readily specified by choice of phrase in a 'select' statement.
 
 For a symmetric reflexive association, however, only one phrase, multiplicity and 
-conditionality should describe the association. This will require mdification to 
+conditionality should describe the association. This will require modification to 
 association editing, association implementation and selection logic.
 
 As this feature will affect Model Compilers and Verifier, it is anticipated that, 
@@ -32,17 +32,17 @@ correct results.
 
 == 3 Requirements
 
- Spport creation of a reflexive association with only one each of role phrase, 
-mutiplicity and conditionality.
- Support such symmetric reflexives with and without associative classes.
- Support 'select' navigation acroos a symmetric reflexive in either direction 
+ Support creation of a reflexive association with only one each of: role phrase, 
+mutiplicity, conditionality.
+ Support such symmetric reflexive associations with and without associative classes.
+ Support 'select' navigation across a symmetric reflexive in either direction 
 using the same role phrase.
  
 == 4 Analysis
 
-The meta-model association data structure (Package Association) does not 
+The meta-model association data structure (Package: Association) does not 
 offer explicit support for the concept of reflexive associations, still 
-less symmetric. Their nature must be deduced by recognizing that the 
+less symmetric. The reflexive nature must be deduced by recognizing that both  
 participants are of the same class. 
 
 For formalized associations, there are distinct classes representing the 

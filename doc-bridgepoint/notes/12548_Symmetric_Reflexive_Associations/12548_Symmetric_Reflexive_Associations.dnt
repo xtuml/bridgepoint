@@ -1,0 +1,63 @@
+= Symmetric Reflexive Associations
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+Detailed description of strategy to implement the enhancement 
+described in the associated analysis note.
+
+
+== 2 Introduction and Background
+
+
+
+
+
+
+
+== 3 Requirements
+
+
+== 4 Analysis
+
+
+== 5 Design
+
+The key insight is to recognize that the Binary Association editor, when 
+populating the meta-model data structure which implements associations, uses 
+role phrase placement in the participant representative classes, formalized or 
+not, to determine the 'direction' of the realized association - i.e from 
+referring to referred-to participant or vice-versa.
+
+If the association editor dialog, and its data recipient, the editAssociation 
+operation, suppress the role phrase on one side for symmetric reflexives, then 
+navigation for 'select' statements can recognize this circumstance.
+
+If, in the context of a reflexive association, an attempted navigation in 
+the assumed 'forward' sense fails to find a target, and a missing role phrase 
+is detected - which implies a symmetric association - then a 'backward' navigation 
+can be attempted in hopes of finding a target.
+
+== 6 Design Comments
+
+Modifying the CME for Binary Associations required override of a redundant but 
+mandatory field dependency with a check on association reflexivity for 
+visibilty.
+
+== 7 User Documentation
+
+
+== 8 Unit Test
+
+
+== 9 Document References
+
+
+. [[dr-1]] https://support.onefact.net/issues/12548]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
