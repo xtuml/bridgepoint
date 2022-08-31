@@ -1,0 +1,101 @@
+= Symmetric Reflexive Associations
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+The BridgePoint editor requires that role phrases be used on reflexive associations.
+These should differ (not enforced, at present) so that navigation in either 
+direction can be readily specified by choice of phrase in a 'select' statement.
+
+For a symmetric reflexive association, however, only one phrase, multiplicity and 
+conditionality should describe the association. This will require mdification to 
+association editing, association implementation and selection logic.
+
+As this feature will affect Model Compilers and Verifier, it is anticipated that, 
+initially, Verifier will be enhanced in parallel with the Editor to provide an 
+execution environment for acceptance testing.
+
+== 2 Introduction and Background
+
+This work explores what must be done to support navigation when only one role 
+phrase is available, what must be modified in 'select' logic and how the 
+association editor dialog must be enhanced.
+
+Consider the association that declares that territories may be adjacent 
+to one another:
+ If CA is related to AZ across R1.'is adjacent to',
+ then both:
+  select any territory related by CA->[R1.'is adjacent to'], and
+  select any territory related by AZ->[R1.'is adjacent to'] must yield 
+correct results.
+
+== 3 Requirements
+
+ Spport creation of a reflexive association with only one each of role phrase, 
+mutiplicity and conditionality.
+ Support such symmetric reflexives with and without associative classes.
+ Support 'select' navigation acroos a symmetric reflexive in either direction 
+using the same role phrase.
+ 
+== 4 Analysis
+
+The meta-model association data structure (Package Association) does not 
+offer explicit support for the concept of reflexive associations, still 
+less symmetric. Their nature must be deduced by recognizing that the 
+participants are of the same class. 
+
+For formalized associations, there are distinct classes representing the 
+referring participant and the referred-to participant. For non-formalized  
+associations, the association editor allows the ordering of the fields 
+presented in the dialog to implicitly define a referring/referred-to 
+distinction. This directionality between referring and referred-to classes 
+is captured in the placement of the role phrases within the meta-model data 
+structure.
+
+To support symmetric reflexive associations, placement of the single role 
+phrase can be used to define the 'forward' direction - i.e from referring 
+class to referred-to class; by convention, the phrase is stored in the 
+referred-to representative  Supressing any retention of a role phrase in 
+the referring representative is a sufficient measure to distinguish the 
+association as symmetric and provide the distinction needed to recognize 
+a 'backward' navigation.
+
+
+== 5 Work Required
+
+The Association editor dialog should be modified to present a 'Symmetric' check 
+box when, and only when, reflexive associations are selected for edit. When 
+checked, the superfluous fields for the second role phrase, multiplicty selection 
+and conditionality choice should be suppressed.
+
+The meta-model 'Association' data structure which represents reflexive associations 
+should be populated in a way that allows resolution of navigation 'direction' when 
+only one role phrase is available.
+
+The 'Select' logic should be modified to interpret the appropriately populated 
+association data structure, supporting navigation in either direction.
+
+The editAssociation operation, which receives and processes the data values 
+gathered by the CME dialog, should be modified to suppress the unwanted second 
+role phrase and to propagate the mutiplicity and conditionality choices to the 
+'un-edited' side of the association.
+
+
+== 6 Acceptance Test
+
+As this is a new feature enhancement, specific tests must be developed.
+
+
+== 7 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/12548]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
