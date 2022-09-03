@@ -255,14 +255,14 @@ if (empty inst_in_where)
         if association.isFormalized()
           select one form related by srel->R_FORM[R208];
           select any part related by srel->R_PART[R207];
+          if form.Txt_Phrs == ""
+            is_symmetric = true;
+          end if;
           if form.Txt_Phrs == targetPhrase
             traverseFwd = false;
             checkFwd = false;
           else
             traverseBack = false;
-          end if;
-          if form.Txt_Phrs == "" or part.Txt_Phrs == ""
-            is_symmetric = true;
           end if;
         else
           select many parts related by srel->R_PART[R207];
@@ -270,33 +270,30 @@ if (empty inst_in_where)
           for each candidatePart in parts
             if (partCount == 1)
               fromPart = candidatePart;
-              if (candidatePart.Txt_Phrs == targetPhrase)
+              if fromPart.Txt_Phrs == ""
+                is_symmetric = true;
+              end if;
+              if (fromPart.Txt_Phrs == targetPhrase)
                 traverseFwd = false;
                 checkFwd = false;
               else
                 traverseBack = false;
               end if;
-            else //(candidatePart.Txt_Phrs == sourcePhrase)
-              part = candidatePart;
-              if (part.Txt_Phrs == targetPhrase) and (fromPart.Txt_Phrs == "")
-                is_symmetric = true;
-              end if;
             end if;
-            partCount = partCount + 1;
+            break;
           end for;
         end if;
       else
         select one aone related by association->R_ASSOC[R206]->R_AONE[R209];
         select one aoth related by association->R_ASSOC[R206]->R_AOTH[R210];
-        
+        if aone.Txt_Phrs == ""
+          is_symmetric = true;
+        end if;
         if (aone.Txt_Phrs == targetPhrase)
           traverseFwd = false;
           checkFwd = false;
         else
           traverseBack = false;
-        end if;
-        if aone.Txt_Phrs == "" or aoth.Txt_Phrs == ""
-          is_symmetric = true;
         end if;
       end if;
     else // not reflexive

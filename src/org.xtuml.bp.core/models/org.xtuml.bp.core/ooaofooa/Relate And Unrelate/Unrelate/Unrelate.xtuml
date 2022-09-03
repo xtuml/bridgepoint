@@ -116,6 +116,7 @@ rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 select one simprel related by relationship_spec->R_SIMP[R206];
 
 unrelatingFwd = true;
+is_symmetric = false;
 
 if not_empty source and not_empty destination
   // attempt to order the unrelate as ''from->to'' for consistency
@@ -123,6 +124,9 @@ if not_empty source and not_empty destination
     if relationship_spec.isFormalized()
       if reflexive
         select one form related by simprel->R_FORM[R208];
+        if form.Txt_Phrs == ""
+          is_symmetric = true;
+        end if;
         if form.Txt_Phrs == rel_phrase
           unrelatingFwd = false;
         end if;
@@ -130,21 +134,25 @@ if not_empty source and not_empty destination
         select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
         select one form related by simprel->R_FORM[R208];
         select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+        if form.Txt_Phrs == ""
+          is_symmetric = true;
+        end if;
         if rgoclass != sourceClass
           unrelatingFwd = false;
         end if;
       end if;
     else
       // try to make arbitrary, repeatable choice of direction of ''unrelate''
-      if rel_phrase != ""
-        select many rParts related by simprel->R_PART[R207];
-        for each rPart in rParts
-          if rPart.Txt_Phrs == rel_phrase  // pick the first of the 2 to act as ''formalizer''
-            unrelatingFwd = false;
-          end if;
-          break;
-        end for;
-      end if;
+      select many rParts related by simprel->R_PART[R207];
+      for each rPart in rParts
+        if reflexive and rPart.Txt_Phrs == ""
+          is_symmetric = true;
+        end if;
+        if rPart.Txt_Phrs == rel_phrase  // pick the first of the 2 to act as ''formalizer''
+          unrelatingFwd = false;
+        end if;
+        break;
+      end for;
     end if;
   else
     // not simple; must be sub-super
@@ -174,13 +182,15 @@ for each Iil in Iils
       end if;
     end if;
   else
-    // must be related ''backwards''
-    select one relLink related by Iil->I_LNK[R2902];
-    if not_empty relLink
-      select one dst related by relLink->I_LIP[R2901]->I_INS[R2958];
-      if not_empty dst
-        if dst == destination
-          break;
+    // in symmetric case, may be related ''backwards'' but cannot determine; try it.
+    if is_symmetric
+      select one relLink related by Iil->I_LNK[R2902];
+      if not_empty relLink
+        select one dst related by relLink->I_LIP[R2901]->I_INS[R2958];
+        if not_empty dst
+          if dst == destination
+            break;
+          end if;
         end if;
       end if;
     end if;
