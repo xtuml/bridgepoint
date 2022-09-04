@@ -54,7 +54,7 @@ INSERT INTO T_TNS VALUES (22, '',                       'CL_IC',  '', 'Name', ''
 INSERT INTO T_TNS VALUES (23,  'field_default_obj.gif', 'I_EXE',   '', 'Label', '', 'Component Reference Instances', false);
 INSERT INTO T_TNS VALUES (24, '',                       'I_LIP',  '', 'Label', '', 'Associations', false);
 INSERT INTO T_TNS VALUES (26,  '', 'S_SPARM', '', 'Name', '', 'Function Parameters', true);
-INSERT INTO T_TNS VALUES (27,  '', 'EP_PKG', '', 'Name', '', 'Packages', false);
+INSERT INTO T_TNS VALUES (27,  '', 'EP_PKG', '', 'Label', '', 'Packages', false);
 
 INSERT INTO T_TPS VALUES (4,  21, '->O_OBJ[R2961]->O_TFR[R115]', '', 'getInstance_based() == 0');
 INSERT INTO T_TPS VALUES (5,  9,  '->SM_STATE[R2915]');
