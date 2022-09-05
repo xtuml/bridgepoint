@@ -116,14 +116,16 @@ if not_empty assoc
       for each part in parts
         // in the case of an unformalized association we have two parts
         phrase = part.Txt_Phrs;
-        if(not_empty origin) // take the first, else the second..
-          break;
+        if(not_empty origin) // take the first, else the second...
+          if not (assoc.is_reflexive() and phrase == "") //... unless symmetric!
+            break;
+          end if;
         end if;
       end for;
     else
       // formalized
-      if(not_empty origin)
-        select one form related by simprel->R_FORM[R208];
+      select one form related by simprel->R_FORM[R208];
+      if(not_empty origin) and not (assoc.is_reflexive() and form.Txt_Phrs == "")
         phrase  = form.Txt_Phrs;
       else
         select any part related by simprel->R_PART[R207];
@@ -133,12 +135,12 @@ if not_empty assoc
   else
     select one linked related by assoc->R_ASSOC[R206];
     if(not_empty linked)
-      if(empty origin)
+      select one aone related by linked->R_AONE[R209];
+      if(not empty origin) and not (assoc.is_reflexive() and aone.Txt_Phrs == "")
+        phrase = aone.Txt_Phrs;
+      else
         select one aoth related by linked->R_AOTH[R210];
         phrase = aoth.Txt_Phrs;
-      else
-        select one aone related by linked->R_AONE[R209];
-        phrase = aone.Txt_Phrs;
      end if;
     end if;
   end if;

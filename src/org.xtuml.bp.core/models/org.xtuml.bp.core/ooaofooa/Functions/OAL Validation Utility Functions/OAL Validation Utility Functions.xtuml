@@ -7714,7 +7714,12 @@ if ( not_empty act and not_empty left_obj )
           new_item.display_text = new_item.display_text + o_obj.Name;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
           new_item.needs_space = false;
-          list.addProposal( Proposal_ID:new_item.Proposal_ID );
+          if r_rel.is_symmetric() and phrase == ""
+            delete object instance new_item;
+            continue;
+          else
+            list.addProposal( Proposal_ID:new_item.Proposal_ID );
+          end if;
         end if;
       end if;
     end for;
@@ -8730,7 +8735,12 @@ if ( not_empty act )
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      list.addProposal( Proposal_ID:new_item.Proposal_ID );
+      if r_rel.is_symmetric() and phrase == ""
+        delete object instance new_item;
+        continue;
+      else
+        list.addProposal( Proposal_ID:new_item.Proposal_ID );
+      end if;
     end for;
   end if;
 end if;',

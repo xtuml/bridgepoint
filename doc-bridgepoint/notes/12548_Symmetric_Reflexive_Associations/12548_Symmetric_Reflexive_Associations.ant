@@ -23,17 +23,28 @@ phrase is available, what must be modified in 'select' logic and how the
 association editor dialog must be enhanced.
 
 Consider the association that declares that territories may be adjacent 
-to one another:
- If CA is related to AZ across R1.'is adjacent to',
+to one another, as in:
+  relate CA to AZ across R1.'is adjacent to';
  then both:
-  select any territory related by CA->[R1.'is adjacent to'], and
-  select any territory related by AZ->[R1.'is adjacent to'] must yield 
-correct results.
+  select any territory related by CA->Territory[R1.'is adjacent to']; and
+  select any territory related by AZ->Territory[R1.'is adjacent to'];
+ must yield correct results.
+ Note that the association can be navigated in either direction regardless of 
+the order in which the association was instantiated. That is, 
+  relate AZ to CA across R1.'is adjacent to';
+ is equivalent to the first 'relate' shown above. 
 
 == 3 Requirements
 
- Support creation of a reflexive association with only one each of: role phrase, 
+=== 3.1 Association Editor dialog
+ Support creation of a symmetric reflexive association with only one each of: role phrase, 
 mutiplicity, conditionality.
+
+==== 3.1.1 Present a checkbox to select for symmetry only when the association is reflexive.
+==== 3.1.2 If symmetric is selected, suppress the labels, conditionality, multiplicy and phrase
+fields associated with 
+
+
  Support such symmetric reflexive associations with and without associative classes.
  Support 'select' navigation across a symmetric reflexive in either direction 
 using the same role phrase.
@@ -56,7 +67,7 @@ structure.
 To support symmetric reflexive associations, placement of the single role 
 phrase can be used to define the 'forward' direction - i.e from referring 
 class to referred-to class; by convention, the phrase is stored in the 
-referred-to representative  Supressing any retention of a role phrase in 
+referred-to representative.  Supressing any retention of a role phrase in 
 the referring representative is a sufficient measure to distinguish the 
 association as symmetric and provide the distinction needed to recognize 
 a 'backward' navigation.
