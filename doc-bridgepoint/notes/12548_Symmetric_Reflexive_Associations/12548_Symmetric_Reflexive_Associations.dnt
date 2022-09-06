@@ -7,22 +7,20 @@ xtUML Project Design Note
 Detailed description of strategy to implement the enhancement 
 described in the associated analysis note.
 
-
 == 2 Introduction and Background
 
-
-
-
-
-
+This discussion presumes that associations are defined using the BridgePoint 
+Edit Association Dialog as modified to support symmetric associations.
+If any other tooling is used to construct association definitions, it is 
+assumed that they will insist on role phrases for both 'sides' of a reflexive 
+as has been the case prior to this work. Any such are not affected by this 
+enhancement.
 
 == 3 Requirements
 
+See the related analysis note.
 
 == 4 Analysis
-
-
-== 5 Design
 
 The key insight is to recognize that the Binary Association editor, when 
 populating the meta-model data structure which implements associations, uses 
@@ -31,31 +29,68 @@ not, to determine the 'direction' of the realized association - i.e from
 referring to referred-to participant or vice-versa.
 
 If the association editor dialog, and its data recipient, the editAssociation 
-operation, suppress the role phrase on one side for symmetric reflexives, then 
-navigation for 'select' statements can recognize this circumstance.
+operation, suppress the role phrase on the 'From' side for symmetric reflexives, 
+then navigation for 'select' statements can recognize this circumstance.
 
 If, in the context of a reflexive association, an attempted navigation in 
 the assumed 'forward' sense fails to find a target, and a missing role phrase 
-is detected - which implies a symmetric association - then a 'backward' navigation 
-can be attempted in hopes of finding a target.
+is detected - which implies a symmetric association - then it is reasonable to 
+try a 'backward' navigation in the hope of finding a target.
+
+== 5 Design
+
+Adopting the selective suppression of the role phrase allows the addition of a 
+is_symmetric() operation on the Association class. A reflexive association data 
+structure which has an empty 'From' side role phrase can only be constructed 
+by an Edit Association Dialog which recognizes the 'Symmetric' choice.
+
+=== 5.1 Edit Association Dialog.
+A checkbox labelled 'Symmetric", added to the Context Menu Entry Function 
+(R_REL_BinaryEditAssociation), has visibility depend on reflexivity of the 
+association. In turn, the visibility of all fields associated with the 'To' 
+side of the association is made dependent on the value of that checkbox.
+
+An added parameter to the editAssociation operation, which receives the data 
+from the Edit dialog, carries a boolean denoting the selection or otherwise of 
+symmetry; if true, the second role phrase is erased from the association data 
+structure and the conditionality and multiplicity for the referred-to side of the 
+association are copied from the referring side values.
+
+=== 5.2 Relate (Using) and Unrelate (Using)
+As clarified by issue 12253, the 'execute' operations for these classes use a 
+comparison of the role phrase supplied in a statement with the phrases stored in 
+the association data structure to determine the 'direction' of the operation.
+If the supplied phrase matches the 'From' side phrase, the association is deemed 
+to be 'backward'. This test will always fail if the 'From' side phrase is null, 
+as is the case in the proposed design. 
+==== 5.2.1
+Relate of a symmetric association will always establish the links as 'From' the 
+first presented instance 'To' the second instance.
+==== 5.2.2
+Unrelate of a symmetric association will initially seek the second instance by 
+following the expected 'forward' direction links. If the instance is not matched, 
+the 'backward' links are navigated in an attempt to match.
+
+=== 5.3 Select
+If a symmetric association traversal is encountered in a navigation, linkages in 
+both directions from the instance presented as the left side of the navigation are 
+followed as required for select one, select any, select many.
+
+=== 5.4 Verifier display
+Both Session Explorer and Variables display invoke the derived attribute 'Label' of 
+Link Participation class. Unmodified, this would return a relationship number 
+without any role phrase for the 'From' side of a symmetric reflexive. Accordingly, 
+when this case is detected, the activity 'borrows' the common role phrase from the 
+'To' side.
+
+=== 5.5 Content assist
+OAL Validation Functions 'relate_across_content_assist(), rel_chain_content_assist() 
+supply the proposed strings presented in the content assist list dialog. These are 
+modified to suppress adding the unwanted relationship numbers with no phrase when 
+the symmetric case is recognized.
+
 
 == 6 Design Comments
-
-Modifying the CME for Binary Associations requires override of a redundant but 
-mandatory field dependency with a check on association reflexivity for 
-visibilty of the 'Symmetric' checkbox.
-
-Visibility of the input fields for the second role phrase, conditionality and 
-multiplicity must, in turn, depend on the absence of a checked value for symmetry.
-
-An added paramter to the editAssociation operation carries a boolean denoting 
-the selection or otherwise of symmetry; if true, the second role phrase is 
-erased and the conditionality and multiplicity for the referred-to side of the 
-association are copied from the referring values.
-
-The 'Select' logic in Verifier explicitly looks for the absence of one role 
-phrase when navigating a reflexive association. If detected, then the direction 
-of navigation is inferred and the direction of navigation my be reversed.
 
 == 7 User Documentation
 

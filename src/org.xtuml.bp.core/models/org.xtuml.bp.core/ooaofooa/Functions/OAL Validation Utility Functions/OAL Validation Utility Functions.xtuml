@@ -7686,7 +7686,11 @@ if ( not_empty act and not_empty left_obj )
   for each r_oir in r_oirs
     select many foreign_oirs related by r_oir->R_REL[R201]->R_OIR[R201] where ( selected.OIR_ID != r_oir.OIR_ID );
     for each foreign_oir in foreign_oirs
+      phrase = foreign_oir.get_text_phrase();
       select one r_rel related by foreign_oir->R_REL[R201];
+      if r_rel.is_symmetric() and phrase == ""
+        continue;  // do not add the non-role-phrase side of this symmetric association to the proposal list for the chain continuation.
+      end if;
       mult = ::get_right_object_multiplicity( a1_left:r_oir.OIR_ID, a2_rel:r_rel.Rel_ID, a3_right:foreign_oir.OIR_ID );
       select one foreign_sub related by foreign_oir->R_RGO[R203]->R_SUB[R205];
       select one r_sub related by r_oir->R_RGO[R203]->R_SUB[R205];
@@ -7698,7 +7702,6 @@ if ( not_empty act and not_empty left_obj )
           new_item.type = ProposalTypes::Association;
           new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
           new_item.display_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
-          phrase = foreign_oir.get_text_phrase();
           if ( "" != phrase )
             if ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) )
               new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
@@ -7714,12 +7717,7 @@ if ( not_empty act and not_empty left_obj )
           new_item.display_text = new_item.display_text + o_obj.Name;
           new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
           new_item.needs_space = false;
-          if r_rel.is_symmetric() and phrase == ""
-            delete object instance new_item;
-            continue;
-          else
-            list.addProposal( Proposal_ID:new_item.Proposal_ID );
-          end if;
+          list.addProposal( Proposal_ID:new_item.Proposal_ID );
         end if;
       end if;
     end for;
@@ -8720,12 +8718,15 @@ if ( not_empty act )
       relate list to act across R1603;
     end if;
     for each oir in right_oirs
+      phrase = oir.get_text_phrase();
       select one r_rel related by oir->R_REL[R201];
+      if r_rel.is_symmetric() and phrase == ""
+        continue;  // do not add the non-role-phrase side of this symmetric association to the proposal list for relationship selection.
+      end if;
       select one o_obj related by oir->O_OBJ[R201];
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Association;
       new_item.replacement_text = "R" + GD::int_to_string( value:r_rel.Numb );
-      phrase = oir.get_text_phrase();
       if ( "" != phrase and ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) ) )
         new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
       end if;
@@ -8735,12 +8736,7 @@ if ( not_empty act )
       end if;
       new_item.cursor_position = GD::strlen( s:new_item.replacement_text );
       new_item.needs_space = true;
-      if r_rel.is_symmetric() and phrase == ""
-        delete object instance new_item;
-        continue;
-      else
-        list.addProposal( Proposal_ID:new_item.Proposal_ID );
-      end if;
+      list.addProposal( Proposal_ID:new_item.Proposal_ID );
     end for;
   end if;
 end if;',
