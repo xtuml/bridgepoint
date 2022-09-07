@@ -10,7 +10,7 @@ described in the associated analysis note.
 == 2 Introduction and Background
 
 This discussion presumes that associations are defined using the BridgePoint 
-Edit Association Dialog as modified to support symmetric associations.
+Edit Binary Association Dialog as modified to support symmetric associations.
 If any other tooling is used to construct association definitions, it is 
 assumed that they will insist on role phrases for both 'sides' of a reflexive 
 as has been the case prior to this work. Any such are not affected by this 
@@ -28,7 +28,7 @@ role phrase placement in the participant representative classes, formalized or
 not, to determine the 'direction' of the realized association - i.e from 
 referring to referred-to participant or vice-versa.
 
-If the association editor dialog, and its data recipient, the editAssociation 
+If the association editor dialog, and its data recipient, the 'editAssociation' 
 operation, suppress the role phrase on the 'From' side for symmetric reflexives, 
 then navigation for 'select' statements can recognize this circumstance.
 
@@ -44,12 +44,22 @@ is_symmetric() operation on the Association class. A reflexive association data
 structure which has an empty 'From' side role phrase can only be constructed 
 by an Edit Association Dialog which recognizes the 'Symmetric' choice.
 
-=== 5.1 Edit Association Dialog.
-A checkbox labelled 'Symmetric", added to the Context Menu Entry Function 
-(R_REL_BinaryEditAssociation), has visibility depend on reflexivity of the 
-association. In turn, the visibility of all fields associated with the 'To' 
-side of the association is made dependent on the value of that checkbox.
+=== 5.1 Edit Binary Association Dialog.
+==== 5.1.1
+Unmodified, the dialog presents each participant class with a set of fields to 
+specify mutiplicity, conditionality and role phrase. The 'forward direction' of the 
+association is 'From' the first participant class 'To' the second, determined 
+by the origin and destination of the association line drawn on the canvas. This 
+sense of 'direction' is captured in the data structure defining the association.
 
+==== 5.1.2
+A checkbox labeled 'Symmetric", added to the Context Menu Entry Function 
+(R_REL_BinaryEditAssociation), has its visibility depend on the reflexivity of the 
+association being edited. In turn, the visibility of all fields associated with 
+the 'To' side of the association are made dependent on the value of that checkbox 
+selection.
+
+==== 5.1.3
 An added parameter to the editAssociation operation, which receives the data 
 from the Edit dialog, carries a boolean denoting the selection or otherwise of 
 symmetry; if true, the second role phrase is erased from the association data 
@@ -62,35 +72,50 @@ comparison of the role phrase supplied in a statement with the phrases stored in
 the association data structure to determine the 'direction' of the operation.
 If the supplied phrase matches the 'From' side phrase, the association is deemed 
 to be 'backward'. This test will always fail if the 'From' side phrase is null, 
-as is the case in the proposed design. 
+as is the case in the proposed design for symmetric reflexives. So, symmetric 
+associations will never distinguish a 'backwards' traversal, regardless of the 
+order of proffered participants. But, if complementary operations on the association 
+recognize the symmetry, this is not an issue.
+
 ==== 5.2.1
-Relate of a symmetric association will always establish the links as 'From' the 
-first presented instance 'To' the second instance.
+A 'Relate' statement specifying a symmetric association will always establish the 
+association linkage as 'From' the first presented instance in the statement 'To' 
+the second instance.
+
 ==== 5.2.2
 Unrelate of a symmetric association will initially seek the second instance by 
-following the expected 'forward' direction links. If the instance is not matched, 
-the 'backward' links are navigated in an attempt to match.
+following the expected 'forward' direction linkage from the first presented. If 
+the expected instance is not matched, the 'backward' linkage is navigated in an 
+attempt to match.
 
 === 5.3 Select
 If a symmetric association traversal is encountered in a navigation, linkages in 
-both directions from the instance presented as the left side of the navigation are 
-followed as required for select one, select any, select many.
+both directions from each instance presented as the left side of the symmetric 
+association are followed, as appropriately, to satisfy the selection type - 
+select one, select any, select many.
 
 === 5.4 Verifier display
-Both Session Explorer and Variables display invoke the derived attribute 'Label' of 
+When displaying instance data, Verifier invokes the derived attribute 'Label' of 
 Link Participation class. Unmodified, this would return a relationship number 
 without any role phrase for the 'From' side of a symmetric reflexive. Accordingly, 
 when this case is detected, the activity 'borrows' the common role phrase from the 
 'To' side.
 
 === 5.5 Content assist
-OAL Validation Functions 'relate_across_content_assist(), rel_chain_content_assist() 
-supply the proposed strings presented in the content assist list dialog. These are 
-modified to suppress adding the unwanted relationship numbers with no phrase when 
+OAL Validation Functions 'relate_across_content_assist() and rel_chain_content_assist() 
+supply the proposed strings presented in the content assist list dialog. These functions 
+are modified to suppress adding the unwanted 'relationship-number-with-no-phrase' when 
 the symmetric case is recognized.
 
-
 == 6 Design Comments
+
+Verifier uses relationships R2901 and R2902 between 'Instance' and 'Link Participant' 
+classes to implement associations with a sense of direction: R2901 relates the link to 
+the 'From' participant instance; R2902 links to the 'To' participant instance.
+
+When 'unrelating' an associative reflexive association, it matters not the direction; 
+a pair of linkages must be severed, both R2901 and R2902.
+
 
 == 7 User Documentation
 
@@ -107,4 +132,4 @@ the symmetric case is recognized.
 
 This work is licensed under the Creative Commons CC0 License
 
----
+--
