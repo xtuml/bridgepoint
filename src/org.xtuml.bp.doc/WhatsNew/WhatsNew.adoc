@@ -1,59 +1,32 @@
-= What's New in BridgePoint 7.1
-
-NOTE: This is an engineering build of BridgePoint 7.1.  Release highlights for build 7.0 follow.
+= What's New in BridgePoint 7.2
 
 == Release Highlights
-* Eclipse 2020
-* Java 11 
-* Enhanced Integration with Ciera Java Model Compiler
-* Epoch Time
-* ASL Action Language Editing 
+* Textual graphics persistence
+* CLI produces non-zero exit code for failed command line pre-builds
+* Support for MASL structure and enumeration type export
+* MASL export "clean" option
+* `pyrsl` version upgrade
+* Miscellaneous revisions to documentation
+* Bug fixes:
+  ** Parse failure on function call within "if" blocks
+  ** Unsaved MASL editor changes lost on structural change
+  ** Marking editor fixes
+  ** Miscellaneous verifier bug fixes
 
 '''
 
-=== Eclipse 2020 and Java 11
+=== Textual Graphics
 
-The Eclipse version underneath BridgePoint has been upgraded in this release to
-Eclipse 2020-06.  The previous version of Eclipse was 4.7 (_Oxygen_) which
-was released in 2017.  This brings BridgePoint up to a modern version of
-Eclipse.  Recent updates to Eclipse have focused on performance.  The user will
-find BridgePoint opens more quickly and feels more "snappy".  More information
-about Eclipse 2020-06 may be found link:https://www.eclipse.org/eclipseide/2020-06/[at this link].
+BridgePoint now supports persistence of graphical instances in a human-readable
+textual format. Textual persistence of graphics can be enabled on a per
+workspace basis.
 
-Simultaneously, BridgePoint is upgraded to support and use Java 11.  BridgePoint now
-uses a Java 11 JRE/JDK from the system; it is no longer inside the BridgePoint installation. 
-These changes provide user experience and security improvements.  However,
-the user is now responsible to install and maintain Java.  Find specifics to configuring
-the Java Virtual Machine (JVM) in the https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md[FAQ].
+. Go to Preferences > xtUML > Model Persistence
+. Select "Yes" under "Graphics Textual Serialization" to enable persisting
+graphics as text
 
-=== Enhanced Integration with Ciera Java Model Compiler
-
-Significant investment into _Ciera_ is included in this release of BridgePoint
-and in the Ciera model compiler proper.  BridgePoint + Ciera represent a
-solid model-based Java development combination.
-
-Ciera is hosted on GitHub, https://github.com/xtuml/ciera[github.com/xtuml/ciera].
-
-=== Epoch Time
-
-The Time (TIM) External Entity (EE) has been enhanced to include support
-for several new bridge operations which can manipulate time.  The base of
-the epoch can now be modified.  Time can be advanced as well as set arbitrarily.
-Binary comparison operations are now permitted on time values.  Read the original
-specification for project https://onefact.net/wp-content/uploads/2020/05/Panda11939SRS.pdf[Panda].
-
-Model Verifier, the interpretive runtime model simulator/debugger is updated
-to support the new epoch time bridge operations.  The _Ciera_ Java model
-compiler is extended to support the enhanced time operations.
-
-In the BridgePoint model editor, the updated Time (TIM) EE is included in the
-package context menu which allows users to import the built-in external entities.
-
-=== Preliminary ASL Support
-
-ASL is now an editable dialect of action language in BridgePoint.  ASL can
-be selected as a dialect for any action semantics buffer in an xtUML model.
-
-Model conversion, import/export and additional support for ASL are coming
-soon in an upcoming release.
-
+BridgePoint continues to support serializing graphical instances as SQL insert
+statements. Select your preference in "Graphical Instance Serialization". If
+graphical instances are persisted as both SQL insert statements and text files,
+the data in the SQL insert statements will take precedence over the text files
+and the text files will be ignored.
