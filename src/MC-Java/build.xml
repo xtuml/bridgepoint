@@ -30,6 +30,8 @@
    <echotimestamp/>
    <echo>Building from: gen/code_generation/${param1}-${param6}.sql</echo>
    <copy file="gen/code_generation/${param1}-${param6}.sql" tofile="gen/code_generation/${param1}-${param6}.xtuml"/>
+   <copy file="gen/code_generation/${param1}-splits.sql" tofile="sql/${param1}-splits.sql" failonerror="false"/>
+   <touch file="sql/${param1}-splits.sql"/>
    <exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
          <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param6}.sql" />
    </exec>
@@ -53,6 +55,7 @@
          <env key="PTC_MCC_SS_END" value="${param5}" />
          <env key="PTC_MCC_SS_ONLY" value="${param7}" />
          <env key="PTC_MCC_CLASS_ONLY" value="${param8}" />
+         <env key="PTC_MCC_PASS_INDEX" value="${param6}" />
          <env key="VERIFY_SELECTS" value="${verify_selects}" />
          <env key="PTC_MCC_ROOT" value="${param1}" />
          <env key="PROJECT_ROOT" value="${mcjava.project.root}" />
@@ -62,8 +65,10 @@
             -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/file_io.pei.sql
             -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/ooa.pei.sql
             -import ${param3}/ooa_schema.sql
+            -import ${param3}/split_schema.sql
             -d 0
             -import sql/${param1}-${param6}.sql
+            -import sql/${param1}-splits.sql
             -arch ${param3}/verify_selects.arc
             -arch ${param3}/java.arc" />
    </exec>
@@ -129,6 +134,7 @@
         <arg line="xtumlmc_gen_erate -qim -nopersist
             -import ${mcj_path}/../org.xtuml.bp.io.core/sql/file_io_schema.sql
             -import ${param3}/ooa_schema.sql
+            -import ${param3}/split_schema.sql
             -import ${mcj_path}/../org.xtuml.bp.io.mdl/sql/ooa.pei.sql
             -import sql/${param1}.sql
             -arch ${param3}/verify_selects.arc

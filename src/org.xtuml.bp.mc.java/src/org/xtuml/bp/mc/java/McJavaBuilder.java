@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -230,7 +231,11 @@ public class McJavaBuilder extends AbstractExportBuilder {
                 if (m_outputFile.exists() && !append) {
                     m_outputFile.delete();
                 }
-                exporter.parseAllForExport(etpsPass1.toArray(new NonRootModelElement[etpsPass1.size()]), monitor);
+				CorePlugin.getDefault().getLog()
+						.log(new Status(IStatus.INFO, "org.xtuml.bp.mc.java",
+								"Parsing for export into '" + m_outputFile.getName() + "': " + etpsPass1.stream()
+										.map(NonRootModelElement::getName).collect(Collectors.joining(", "))));
+				exporter.parseAllForExport(etpsPass1.toArray(new NonRootModelElement[etpsPass1.size()]), monitor);
 
                 m_exporter.run(monitor);
                 m_outputFile.createNewFile();
@@ -254,6 +259,10 @@ public class McJavaBuilder extends AbstractExportBuilder {
                     if (m_outputFile.exists() && !append) {
                         m_outputFile.delete();
                     }
+					CorePlugin.getDefault().getLog()
+							.log(new Status(IStatus.INFO, "org.xtuml.bp.mc.java",
+									"Parsing for export into '" + m_outputFile.getName() + "': " + etpsSubsequentPass.stream()
+											.map(NonRootModelElement::getName).collect(Collectors.joining(", "))));
                     exporter.parseAllForExport(
                             etpsSubsequentPass.toArray(new NonRootModelElement[etpsSubsequentPass.size()]), monitor);
                     m_exporter.run(monitor);
@@ -290,6 +299,41 @@ public class McJavaBuilder extends AbstractExportBuilder {
                         }
                     }
                 }
+                
+				// output the splits file
+				if (etpsSubsequentPasses.size() > 0) {
+					destFileName = destDir + m_rootPkgName + "-splits.sql";
+					m_outputFile = new File(destFileName);
+					if (m_outputFile.exists()) {
+						m_outputFile.delete();
+					}
+					m_outStream = new ByteArrayOutputStream();
+					Set<String> paths = new HashSet<>();
+					for (NonRootModelElement etp : etpsPass1) {
+            if (etp instanceof Package_c) {
+						  paths.add(etp.getName());
+            }
+					}
+					for (String path : paths) {
+						m_outStream.write(String.format("INSERT INTO PACKAGE_IN_SPLIT VALUES(\"%s\", \"%d\");\n", path, 1).getBytes());
+					}
+					for (int i = 0; i < etpsSubsequentPasses.size(); i++) {
+						paths = new HashSet<>();
+						for (NonRootModelElement etp : etpsSubsequentPasses.get(i)) {
+              if (etp instanceof Package_c) {
+                paths.add(etp.getName());
+              }
+						}
+						for (String path : paths) {
+							m_outStream
+									.write(String.format("INSERT INTO PACKAGE_IN_SPLIT VALUES(\"%s\", \"%d\");\n", path, i + 2).getBytes());
+						}
+					}
+					m_outputFile.createNewFile();
+					fos = new FileOutputStream(m_outputFile, false);
+					fos.write(m_outStream.toByteArray());
+					fos.close();
+				}
             } else {
                 throw new RuntimeException("Failed to obtain a CoreExport instance.");
             }
