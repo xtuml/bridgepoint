@@ -1,0 +1,3 @@
+src-gen/META-INF/
+src/org/xtuml/bp/xtext/masl/ide/MASLIdeModule.xtend
+src/org/xtuml/bp/xtext/masl/ide/MASLIdeSetup.xtend

@@ -4,3 +4,4 @@ __file.txt
 ___file.txt
 ____file.txt
 target/
+.tycho-consumer-pom.xml
