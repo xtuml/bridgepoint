@@ -6,7 +6,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationsDialog;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.Action;
@@ -463,7 +463,7 @@ public class CanvasUtilities {
 	
 	public static void waitForTransaction() {
 		try {
-			Platform.getJobManager().join(TransactionManager.FAMILY_TRANSACTION, null);
+			Job.getJobManager().join(TransactionManager.FAMILY_TRANSACTION, null);
 		} catch (OperationCanceledException e) {
 			// fail(e.getMessage());
 		} catch (InterruptedException e) {
