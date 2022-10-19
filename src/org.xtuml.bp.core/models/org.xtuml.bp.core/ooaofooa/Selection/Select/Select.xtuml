@@ -252,7 +252,7 @@ if (empty inst_in_where)
     if (association.is_reflexive()) // Reflexive case
       select one srel related by association->R_SIMP[R206];
       if not_empty srel
-        if association.isFormalized()
+        if association.isFormalized()  // formalized, simple reflexive
           select one form related by srel->R_FORM[R208];
           select any part related by srel->R_PART[R207];
           if form.Txt_Phrs == ""
@@ -264,7 +264,7 @@ if (empty inst_in_where)
           else
             traverseBack = false;
           end if;
-        else
+        else                           // unformalized, simple reflexive
           select many parts related by srel->R_PART[R207];
           partCount = 1;
           for each candidatePart in parts
@@ -284,6 +284,7 @@ if (empty inst_in_where)
           end for;
         end if;
       else
+        // reflexive, therefore must be associative - formalized or not
         select one aone related by association->R_ASSOC[R206]->R_AONE[R209];
         select one aoth related by association->R_ASSOC[R206]->R_AOTH[R210];
         if aone.Txt_Phrs == ""
@@ -317,11 +318,13 @@ if (empty inst_in_where)
           select one cia related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
         end if;
         if cia == source_class
+          traverseFwd = false;
           checkFwd = false;
         end if;
       else
         select one cia related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
         if cia == source_class
+          traverseFwd = false;
           checkFwd = false;
         end if;
       end if;
@@ -341,7 +344,10 @@ if (empty inst_in_where)
           select one link related by linkp->I_LNK[R2903];
           if (traverseFwd)
             select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
-            if empty inst_dest and is_symmetric
+            if is_symmetric  
+              if ( not_empty inst_dest)
+                selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
+              end if;
               select one inst_dest related by link->I_LIP[R2901]->I_INS[R2958];
             end if;
           else
@@ -359,7 +365,10 @@ if (empty inst_in_where)
         for each linkp in linkps
           if (traverseFwd)
             select one inst_dest related by linkp->I_LNK[R2901]->I_LIP[R2902]->I_INS[R2958];
-            if empty inst_dest and is_symmetric
+            if is_symmetric
+              if ( not_empty inst_dest)
+                selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
+              end if;
               select one inst_dest related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
             end if;
           else
