@@ -64,7 +64,10 @@ An added parameter to the editAssociation operation, which receives the data
 from the Edit dialog, carries a boolean denoting the selection or otherwise of 
 symmetry; if true, the second role phrase is erased from the association data 
 structure and the conditionality and multiplicity for the referred-to side of the 
-association are copied from the referring side values.
+association are copied from the referring side values. When displaying a symmetric 
+association on the class diagram, the role phrase, multiplicity and conditionality 
+are displayed only once. See the flavors of get_connector_text().
+
 
 === 5.2 Relate (Using) and Unrelate (Using)
 As clarified by issue 12253, the 'execute' operations for these classes use a 
@@ -100,6 +103,14 @@ Link Participation class. Unmodified, this would return a relationship number
 without any role phrase for the 'From' side of a symmetric reflexive. Accordingly, 
 when this case is detected, the activity 'borrows' the common role phrase from the 
 'To' side.
+
+Additionally, as discussed above, it is not possible to determine whether a symmetric 
+association has been related 'forward' or backward'; when listing the values of an 
+instance in the 'Variables' display, navigating a symmetric association needs special 
+attention. Links in both directions should be followed, but those links which lead 
+back to the instance being displayed should be skipped. Furthermore, the results of 
+both forward and backward navigations should be combined in one list of related 
+instances. See "Symmetrics" processing in BPValue.java and BPVariable.java.
 
 === 5.5 Content assist
 OAL Validation Functions 'relate_across_content_assist() and rel_chain_content_assist() 

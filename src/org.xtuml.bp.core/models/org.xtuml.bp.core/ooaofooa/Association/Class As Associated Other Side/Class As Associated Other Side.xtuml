@@ -19,10 +19,6 @@ Bridge:GD',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
-select one r_rel related by self->R_ASSOC[R210]->R_REL[R206];
-if r_rel.is_symmetric()  // this is the redundant side for mult/cond annotation
-  return "";
-end if;
 if (param.at == End::Start OR param.at == End::End)
   result = self.Txt_Phrs;
 elif (param.at == End::Start_Fixed OR param.at == End::End_Fixed)

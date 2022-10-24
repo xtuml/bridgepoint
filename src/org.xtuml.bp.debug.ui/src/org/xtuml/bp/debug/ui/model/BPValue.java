@@ -265,20 +265,21 @@ public class BPValue extends BPDebugElement implements IValue {
 									instanceLinks));
 					
 					if (firstInstance.length == 0) {
-						ArrayList<Instance_c> validInsts = new ArrayList<Instance_c>();
+						// Symmetric reflexive has no sense of 'direction'.
+						// Collect all links in both directions, but filter out those
+						// in the 'wrong' direction - i.e. pointing back to the
+						// instance for which related instances are being gathered.
 						Instance_c theInst = (Instance_c)this.var.instance;
+						ArrayList<Instance_c> validInsts = new ArrayList<Instance_c>();
 						
 					    Instance_c[] first = Instance_c.getManyI_INSsOnR2958(
-							LinkParticipation_c .getManyI_LIPsOnR2901(
-										instanceLinks));
+							LinkParticipation_c .getManyI_LIPsOnR2901(instanceLinks));
 						for (Instance_c inst : first) {
 				 		    	if (inst != theInst)
 				 		    		validInsts.add(inst);
 				 		}
-					    
 						Instance_c[] second  = Instance_c .getManyI_INSsOnR2958(
-								LinkParticipation_c .getManyI_LIPsOnR2902(
-										instanceLinks));
+								LinkParticipation_c .getManyI_LIPsOnR2902(instanceLinks));
 						for (Instance_c inst : second) {
 			 		    	if (inst != theInst)
 			 		    		validInsts.add(inst);
@@ -413,17 +414,18 @@ public class BPValue extends BPDebugElement implements IValue {
 			StateMachineState_c currentState = StateMachineState_c.getOneSM_STATEOnR2915(inst);
 
 			// collect associations based on instance relation direction
+			
+			// Symmetric reflexive cases need to be filtered out for special treatment...
 			ArrayList<Link_c> validLinks = new ArrayList<Link_c>();
 			ArrayList<Link_c> symLinks = new ArrayList<Link_c>();
 
 			Link_c[] originLinks = Link_c.getManyI_LNKsOnR2901(LinkParticipation_c .getManyI_LIPsOnR2958(inst));
 			for (Link_c rellnk : originLinks) {
 				Association_c rel = Association_c.getOneR_RELOnR2904(rellnk);
-				if (rel.Is_symmetric()) {
+				if (rel.Is_symmetric())
 					symLinks.add(rellnk);
-				} else {
+				else
 					validLinks.add(rellnk);
-				}
 			}
 			// Link_c instance used later in order to determine which links related to each association belongs to this instance
 			Link_c[] OLinks = validLinks.toArray(new Link_c[validLinks.size()]);
@@ -433,11 +435,10 @@ public class BPValue extends BPDebugElement implements IValue {
 			Link_c[] destLinks = Link_c.getManyI_LNKsOnR2902(LinkParticipation_c .getManyI_LIPsOnR2958(inst));
 			for (Link_c rellnk : destLinks) {
 				Association_c rel = Association_c.getOneR_RELOnR2904(rellnk);
-				if (rel.Is_symmetric()) {
+				if (rel.Is_symmetric())
 					symLinks.add(rellnk);
-				} else {
+				else
 					validLinks.add(rellnk);
-				}
 			}
 			// Link_c instance used later in order to determine which links related to each association belongs to this instance
 			Link_c[] DLinks = validLinks.toArray(new Link_c[validLinks.size()]);
@@ -591,26 +592,24 @@ public class BPValue extends BPDebugElement implements IValue {
 													instanceLinks));
 
 							} else if (name.equals("Symmetrics")) {
+								// see earlier comment in getValueString().
 								Link_c[] instanceLinks = this.var.getInstanceLinksForAnAssociation();
 								firstInstance = Instance_c .getManyI_INSsOnR2958(
 										LinkParticipation_c .getManyI_LIPsOnR2903(
 												instanceLinks));
 								
 								if (firstInstance.length == 0) {
-									ArrayList<Instance_c> validInsts = new ArrayList<Instance_c>();
 									Instance_c theInst = (Instance_c)this.var.instance;
+									ArrayList<Instance_c> validInsts = new ArrayList<Instance_c>();
 									
 								    Instance_c[] first = Instance_c.getManyI_INSsOnR2958(
-										LinkParticipation_c .getManyI_LIPsOnR2901(
-													instanceLinks));
+										LinkParticipation_c .getManyI_LIPsOnR2901(instanceLinks));
 									for (Instance_c inst : first) {
 							 		    	if (inst != theInst)
 							 		    		validInsts.add(inst);
 							 		}
-								    
 									Instance_c[] second  = Instance_c .getManyI_INSsOnR2958(
-											LinkParticipation_c .getManyI_LIPsOnR2902(
-													instanceLinks));
+											LinkParticipation_c .getManyI_LIPsOnR2902(instanceLinks));
 									for (Instance_c inst : second) {
 						 		    	if (inst != theInst)
 						 		    		validInsts.add(inst);
