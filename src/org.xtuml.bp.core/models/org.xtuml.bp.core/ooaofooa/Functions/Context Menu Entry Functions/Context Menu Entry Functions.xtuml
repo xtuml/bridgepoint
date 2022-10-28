@@ -8330,6 +8330,7 @@ select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
 
 
+formalize_required = PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
 phrases_required = PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases");
 is_reflexive = r_rel.is_reflexive();
 
@@ -8435,14 +8436,14 @@ a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparison:"");
 
-// Is associative
-select one assoc related by r_rel->R_ASSOC[R206];
-is_associative = not_empty assoc;
+// Only display ''Associative'' checkbox to allow disable - enable does not work: see issue 11699
+select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+is_associative = not_empty assr;
 associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative", disabled:false);
 LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"associative_rel", field2:"rel_num", inverse:false, comparison:"v_is_associative");
 
 // Associative class
-select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
 select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 associative_classes = associative_classes + associative_imported_classes;
@@ -8485,32 +8486,47 @@ if (0 < num_options)
     end while;
   end if;
 end if;
-assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
-select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class);
-if (empty associative_class)
-  select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Name == assoc_class);
-end if;
-USER::dependsOn(field1:"assoc_class", field2:"associative_rel", inverse:false, comparison:"");
 
-// Participating class
+//assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
+//do not display drop down menu - see issue 11699
+assoc_class_name = "";
+if not_empty assr
+  assoc_class_name = assr.Name;
+end if;
+assoc_label1 = USER::getLabel(label:"Associative class: ");
+LAYOUT::setLayout(field_name:"assoc_label1", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"assoc_label1", field2:"associative_rel", inverse:false, comparison:"");
+
+assoc_label2 = USER::getLabel(label:assoc_class_name);
+LAYOUT::setLayout(field_name:"assoc_label2", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"assoc_label2", field2:"associative_rel", inverse:false, comparison:"");
+
+select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class_name);
+if (empty associative_class)
+  select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Name == assoc_class_name);
+end if;
+
+// Look for possible non-associative formalizing choices
 b_to_a_part = "";
 select many a_ident_attrs related by a_class->O_ID[R104]->O_OIDA[R105];
-if (not_empty a_ident_attrs and b_mult == "One")
+if not_empty a_ident_attrs and (b_mult == "One" or (is_symmetric and a_mult == "One"))
   b_to_a_part = a_class.Name;
-  if (a_class.Obj_ID == b_class.Obj_ID)
+  if is_reflexive
     b_to_a_part = b_phrase + " " + b_to_a_part;
   end if;
 end if;
 
 a_to_b_part = "";
 select many b_ident_attrs related by b_class->O_ID[R104]->O_OIDA[R105];
-if (not_empty b_ident_attrs and a_mult == "One")
-  a_to_b_part = b_class.Name;
-  if (a_class.Obj_ID == b_class.Obj_ID)
-    a_to_b_part = a_phrase + " " + a_to_b_part;
+if not is_symmetric
+  if (not_empty b_ident_attrs and a_mult == "One")
+    a_to_b_part = b_class.Name;
+    if is_reflexive
+      a_to_b_part = a_phrase + " " + a_to_b_part;
+    end if;
   end if;
 end if;
+
 participant[2] = a_to_b_part;
 participant[1] = b_to_a_part;
 if (a_cond == "Unconditionally" and b_cond == "Conditionally")  // prefer the unconditional one
@@ -8524,17 +8540,30 @@ if (r_rel.isFormalized() and not_empty a_form)
 elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 1;
 end if;
-if (PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"))
+if (formalize_required)
   participant[0] = "";
   if (default_selection > 0)
     default_selection = default_selection - 1;
   end if;
 end if;
-part_class = USER::getDropdown(options:participant, prompt:"Use identifier from ", default_selection:default_selection, reload_options:true);
-LAYOUT::setLayout(field_name:"part_class", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"part_class", field2:"associative_rel", inverse:true, comparison:"");
 
-// Identifier in A class
+can_formalize = true;
+if (empty a_ident_attrs and empty b_ident_attrs)
+  can_formalize = false;
+end if;
+if (a_mult == "Many" and b_mult == "Many")
+  if not is_associative
+    can_formalize = false;
+  end if;
+end if;
+
+// Formalize check box?
+formal = (r_rel.isFormalized() or formalize_required) and can_formalize;
+formalize = USER::getCheckbox(default:formal, prompt:"Formalized", disabled:formalize_required);
+LAYOUT::setLayout(field_name:"formalize", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"formalize", field2:"rel_num", inverse:false, comparison:"v_can_formalize");
+
+// Identifier(s) in A class
 select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 a_ident_default_selection = 0;
 num_options = cardinality a_idents;
@@ -8551,12 +8580,8 @@ for each a_ident in a_idents
   end if;
   i = i + 1;
 end for;
-a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident1", field2:"associative_rel", inverse:true, comparison:"");
-USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_b_to_a_part.equals(v_part_class)");
 
-// Identifier in B class
+// Identifier(s) in B class ( this could be simplified for reflexive case.. AM @@TODO )
 select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 b_ident_default_selection = 0;
 num_options = cardinality b_idents;
@@ -8573,34 +8598,51 @@ for each b_ident in b_idents
   end if;
   i = i + 1;
 end for;
+
+// Non-associative formalization choices...
+formalize_ident = formalize and not is_associative;
+part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection, reload_options:true);
+LAYOUT::setLayout(field_name:"part_class", row_num:"5", width:"2", height:"1");
+USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
+
+a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
+USER::dependsOn(field1:"a_ident1", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
+USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_b_to_a_part.equals(v_part_class)");
+
 b_ident1 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident1", field2:"associative_rel", inverse:true, comparison:"");
+USER::dependsOn(field1:"b_ident1", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
 USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_a_to_b_part.equals(v_part_class)");
 
-// Formalize associative
-assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
-formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
-LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"formalize_assoc", field2:"associative_rel", inverse:false, comparison:"");
+
+// Associative formalization choices...
+formalize_assoc = formalize and is_associative;
+formalize_non_assoc_reflexive = formalize_assoc and not is_reflexive;
 
 // Identifier in A class
-a_ident2 = USER::getDropdown(options:a_ident_options, prompt:a_class.Name + " identifier", default_selection:a_ident_default_selection, reload_options:false);
+a_label_f = USER::getLabel(label:a_class.Name);
+LAYOUT::setLayout(field_name:"a_label_f", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_label_f", field2:"formalize", inverse:false, comparison:"v_formalize_assoc");
+
+a_ident2 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident2", field2:"associative_rel", inverse:false, comparison:"");
-USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
+USER::dependsOn(field1:"a_ident2", field2:"formalize", inverse:false, comparison:"v_formalize_assoc");
+//USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Identifier in B class
-b_ident2 = USER::getDropdown(options:b_ident_options, prompt:b_class.Name + " identifier", default_selection:b_ident_default_selection, reload_options:false);
+b_label_f = USER::getLabel(label:b_class.Name);
+LAYOUT::setLayout(field_name:"b_label_f", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"b_label_f", field2:"formalize", inverse:false, comparison:"v_formalize_non_assoc_reflexive");
+
+b_ident2 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident2", field2:"associative_rel", inverse:false, comparison:"");
-USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
+USER::dependsOn(field1:"b_ident2", field2:"formalize", inverse:false, comparison:"v_formalize_non_assoc_reflexive");
+//USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Edit the association
-//select one ep_pkg related by a_class->PE_PE[R8001]->EP_PKG[R8000];
 
-
-if (associative_rel)
+if (is_associative)
   r_rel.editAssociation(rel_num:rel_num,
                               a_cond:a_cond,
                               a_phrase:a_phrase,
@@ -8609,7 +8651,7 @@ if (associative_rel)
                               b_phrase:b_phrase,
                               b_mult:b_mult,
                               part_class:part_class,
-                              migrate_to_assoc: associative_rel,
+                              migrate_to_assoc: is_associative,
                               a_ident:a_ident2,
                               b_ident:b_ident2,
                               a_oir:a_oir,
@@ -8626,7 +8668,7 @@ else
                               b_phrase:b_phrase,
                               b_mult:b_mult,
                               part_class:part_class,
-                              migrate_to_assoc: associative_rel,
+                              migrate_to_assoc: is_associative,
                               a_ident:a_ident1,
                               b_ident:b_ident1,
                               a_oir:a_oir,
