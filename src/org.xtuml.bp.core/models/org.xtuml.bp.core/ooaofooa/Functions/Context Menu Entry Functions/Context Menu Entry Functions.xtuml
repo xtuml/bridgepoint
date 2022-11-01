@@ -3116,7 +3116,9 @@ select any one_id related by one_obj->O_ID[R104]
 select any oth_id related by oth_obj->O_ID[R104]
     where USER::selectOne(id:selected.Obj_ID) and
        O_ID::hasAttributes(obj_id: selected.Obj_ID, oid_id: selected.Oid_ID );
-
+if rel.is_symmetric()
+  oth_id = one_id;
+end if;
 if ( not_empty one_id and not_empty oth_id )
   a_rel.formalize( one_id: one_id.Oid_ID, oth_id: oth_id.Oid_ID );
 end if;
@@ -8448,6 +8450,9 @@ select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->P
 select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 associative_classes = associative_classes + associative_imported_classes;
 default_selection = 0;
+
+/* This code is temporarily disabled until such time as the canvas represents the creation or modification
+of associative links. See issue #11699
 num_options = cardinality associative_classes;
 associative_class_options[num_options] = "";
 if (0 < num_options)
@@ -8486,9 +8491,10 @@ if (0 < num_options)
     end while;
   end if;
 end if;
+assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
+do not display drop down menu - see issue 11699
+*/
 
-//assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
-//do not display drop down menu - see issue 11699
 assoc_class_name = "";
 if not_empty assr
   assoc_class_name = assr.Name;
@@ -8508,8 +8514,8 @@ end if;
 
 // Look for possible non-associative formalizing choices
 b_to_a_part = "";
-select many a_ident_attrs related by a_class->O_ID[R104]->O_OIDA[R105];
-if not_empty a_ident_attrs and (b_mult == "One" or (is_symmetric and a_mult == "One"))
+select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
+if not_empty a_idents and (b_mult == "One" or (is_symmetric and a_mult == "One"))
   b_to_a_part = a_class.Name;
   if is_reflexive
     b_to_a_part = b_phrase + " " + b_to_a_part;
@@ -8517,9 +8523,9 @@ if not_empty a_ident_attrs and (b_mult == "One" or (is_symmetric and a_mult == "
 end if;
 
 a_to_b_part = "";
-select many b_ident_attrs related by b_class->O_ID[R104]->O_OIDA[R105];
+select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 if not is_symmetric
-  if (not_empty b_ident_attrs and a_mult == "One")
+  if (not_empty b_idents and a_mult == "One")
     a_to_b_part = b_class.Name;
     if is_reflexive
       a_to_b_part = a_phrase + " " + a_to_b_part;
@@ -8527,28 +8533,19 @@ if not is_symmetric
   end if;
 end if;
 
-participant[2] = a_to_b_part;
-participant[1] = b_to_a_part;
+participants[1] = a_to_b_part;
+participants[0] = b_to_a_part;
 if (a_cond == "Unconditionally" and b_cond == "Conditionally")  // prefer the unconditional one
-  participant[2] = b_to_a_part;
-  participant[1] = a_to_b_part;
+  participants[1] = b_to_a_part;
+  participants[0] = a_to_b_part;
 end if;
-participant[0] = "Not formalized";
 default_selection = 0;
 if (r_rel.isFormalized() and not_empty a_form)
-  default_selection = 2;
-elif (r_rel.isFormalized() and not_empty b_form)
   default_selection = 1;
-end if;
-if (formalize_required)
-  participant[0] = "";
-  if (default_selection > 0)
-    default_selection = default_selection - 1;
-  end if;
 end if;
 
 can_formalize = true;
-if (empty a_ident_attrs and empty b_ident_attrs)
+if (empty a_idents and empty b_idents)
   can_formalize = false;
 end if;
 if (a_mult == "Many" and b_mult == "Many")
@@ -8564,13 +8561,12 @@ LAYOUT::setLayout(field_name:"formalize", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"formalize", field2:"rel_num", inverse:false, comparison:"v_can_formalize");
 
 // Identifier(s) in A class
-select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 a_ident_default_selection = 0;
-num_options = cardinality a_idents;
-if (num_options < 1)
-  num_options = 1;
+a_num_options = cardinality a_idents;
+if (a_num_options < 1)
+  a_num_options = 1;
 end if;
-a_ident_options[num_options-1] = "";
+a_ident_options[a_num_options-1] = "";
 i = 0;
 for each a_ident in a_idents
   a_ident_options[i] = a_ident.get_name();
@@ -8581,14 +8577,13 @@ for each a_ident in a_idents
   i = i + 1;
 end for;
 
-// Identifier(s) in B class ( this could be simplified for reflexive case.. AM @@TODO )
-select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
+// Identifier(s) in B class
 b_ident_default_selection = 0;
-num_options = cardinality b_idents;
-if (num_options < 1)
-  num_options = 1;
+b_num_options = cardinality b_idents;
+if (b_num_options < 1)
+  b_num_options = 1;
 end if;
-b_ident_options[num_options-1] = "";
+b_ident_options[b_num_options-1] = "";
 i = 0;
 for each b_ident in b_idents
   b_ident_options[i] = b_ident.get_name();
@@ -8601,19 +8596,32 @@ end for;
 
 // Non-associative formalization choices...
 formalize_ident = formalize and not is_associative;
-part_class = USER::getDropdown(options:participant, prompt:"Use identifier from", default_selection:default_selection, reload_options:true);
-LAYOUT::setLayout(field_name:"part_class", row_num:"5", width:"2", height:"1");
+
+part_class = USER::getDropdown(options:participants, prompt:"Use identifier of", default_selection:default_selection, reload_options:true);
+LAYOUT::setLayout(field_name:"part_class", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
+USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_can_formalize");  // in case multiplicy changes...
+
+use_a_class = false;
+use_b_class = false;
+if part_class == a_class.Name or is_reflexive
+  use_a_class = true;
+end if;
+if not is_reflexive  
+  if part_class == b_class.Name
+    use_b_class = true;
+  end if;
+end if;
 
 a_ident1 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"a_ident1", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"a_ident1", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident1", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
-USER::dependsOn(field1:"a_ident1", field2:"part_class", inverse:false, comparison:"v_b_to_a_part.equals(v_part_class)");
+USER::dependsOn(field1:"a_ident1", field2:"formalize", inverse:false, comparison:"v_use_a_class");
 
 b_ident1 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"b_ident1", row_num:"5", width:"1", height:"1");
+LAYOUT::setLayout(field_name:"b_ident1", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident1", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
-USER::dependsOn(field1:"b_ident1", field2:"part_class", inverse:false, comparison:"v_a_to_b_part.equals(v_part_class)");
+USER::dependsOn(field1:"b_ident1", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
 
 // Associative formalization choices...
@@ -8628,7 +8636,6 @@ USER::dependsOn(field1:"a_label_f", field2:"formalize", inverse:false, compariso
 a_ident2 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_ident2", field2:"formalize", inverse:false, comparison:"v_formalize_assoc");
-//USER::dependsOn(field1:"a_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Identifier in B class
 b_label_f = USER::getLabel(label:b_class.Name);
@@ -8638,9 +8645,12 @@ USER::dependsOn(field1:"b_label_f", field2:"formalize", inverse:false, compariso
 b_ident2 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_ident2", field2:"formalize", inverse:false, comparison:"v_formalize_non_assoc_reflexive");
-//USER::dependsOn(field1:"b_ident2", field2:"formalize_assoc", inverse:false, comparison:"");
 
 // Edit the association
+
+if not formalize
+  part_class = "Not formalized";
+end if;
 
 if (is_associative)
   r_rel.editAssociation(rel_num:rel_num,
