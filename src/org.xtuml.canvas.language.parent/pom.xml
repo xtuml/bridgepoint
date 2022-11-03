@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.xtuml.bp</groupId>
 		<artifactId>org.xtuml.bp.releng.parent.generation</artifactId>
-		<version>7.2.0-SNAPSHOT</version>
+		<version>7.2.1-SNAPSHOT</version>
 		<relativePath>../../../bridgepoint/releng/org.xtuml.bp.releng.parent.generation/</relativePath>
 	</parent>
 	<groupId>org.xtuml.canvas.language</groupId>
