@@ -10,7 +10,9 @@ described in the associated analysis note.
 == 2 Introduction and Background
 
 This discussion presumes that associations are defined using the BridgePoint 
-Edit Binary Association Dialog as modified to support symmetric associations.
+Edit Binary Association Dialog as modified to support symmetric reflexive 
+associations.
+
 If any other tooling is used to construct association definitions, it is 
 assumed that they will insist on role phrases for both 'sides' of a reflexive 
 as has been the case prior to this work. Any such are not affected by this 
@@ -23,21 +25,26 @@ See the related analysis note.
 == 4 Analysis
 
 The key insight is to recognize that the Binary Association editor, when 
-populating the meta-model data structure which implements associations, uses 
-role phrase placement in the participant representative classes, formalized or 
-not, to determine the 'direction' of the realized association - i.e from 
+populating the meta-model data structure which implements reflexive associations, 
+uses role phrase placement in the participant representative classes, formalized 
+or not, to determine the 'direction' of the realized association - i.e from 
 referring to referred-to participant (forward) or vice-versa (backward). The 
-forward direction is established the how the association connector is drawn 
+forward direction is established by the how the association connector is drawn 
 on the canvas - from the referring class to the referred-to class.
 
 If the association editor dialog, and its data recipient, the 'editAssociation' 
-operation, suppress the role phrase on the 'From' side for symmetric reflexives, 
-then navigation for 'select' statements can recognize this circumstance.
+operation, suppress the role phrase on the 'From' side for symmetric reflexive
+associations, this circumstance can be recognized by relate, unrelate, select 
+and navigation.
 
-If, in the context of a reflexive association, an attempted navigation in 
-the assumed 'forward' sense fails to find a target, and a missing role phrase 
-is detected - which implies a symmetric association - then it is reasonable to 
-try a 'backward' navigation in the hope of finding a target.
+In the case of 'relate' a link is established as if it were 'forward' with respect 
+to the instance order in the relate statement.
+
+If, then, in the context of a reflexive association, an attempted operation in 
+an assumed 'forward' sense - based on instance ordering in a statement - fails to 
+find a target, and a missing role phrase is detected - which implies a symmetric 
+association - then it is reasonable to try a 'backward' navigation in the hope of 
+finding a target.
 
 This strategy must also be adopted by Verifier when displaying related instances 
 either in Session Explorer or in the Variables view.
@@ -53,10 +60,10 @@ by an Edit Association Dialog which recognizes the 'Symmetric' choice.
 
 ==== 5.1.1
 Unmodified, the dialog presents each participant class with a set of fields to 
-specify mutiplicity, conditionality and role phrase. The 'forward direction' of the 
-association is 'From' the first participant class 'To' the second, determined 
-by the origin and destination of the association line drawn on the canvas. This 
-sense of 'direction' is captured in the data structure defining the association.
+specify multiplicity, conditionality and role phrase. The 'forward direction' of 
+the association is 'From' the first participant class 'To' the second, determined 
+by the origin and destination of the association connector  drawn on the canvas. 
+This sense of 'direction' is captured in the data structure defining the association.
 
 ==== 5.1.2
 A checkbox labeled 'Symmetric", added to the Context Menu Entry Function 
@@ -74,6 +81,12 @@ association are copied from the referring side values. When displaying a symmetr
 association on the class diagram, the role phrase, multiplicity and conditionality 
 are displayed only once. See the flavors of get_connector_text().
 
+=== 5.1.4
+While modifying the Binary association editor, some opportunities were seen to 
+streamline the user interaction, reducing the number of clicks. Controls for 
+selection of formalizing classes and identifiers are only displayed where 
+formalization exists, or is possible and selected, upon which the controls are 
+populated with the existing or anticipated choices - often only one.
 
 === 5.2 Relate (Using) and Unrelate (Using).
 
@@ -84,8 +97,8 @@ If the supplied phrase matches the 'From' side phrase, the association is deemed
 to be 'backward'. This test will always fail if the 'From' side phrase is null, 
 as is the case in the proposed design for symmetric reflexives. So, symmetric 
 associations will never distinguish a 'backwards' traversal, regardless of the 
-order of proffered participants. But, if complementary operations on the association 
-recognize the symmetry, this is not an issue.
+order of proffered participants in a staement. But, if complementary operations 
+on the association recognize the symmetry, this is not an issue.
 
 ==== 5.2.1
 A 'Relate' statement specifying a symmetric association will always establish the 
@@ -103,13 +116,17 @@ If a symmetric association traversal is encountered in a navigation, linkages in
 both directions from each instance presented as the left side of the symmetric 
 association are followed, as appropriately, to satisfy the selection type - 
 select one, select any, select many.
+==== 5.3.1 From associative navigation
+With only one role phrase, navigation from an associative instance cannot be 
+directed; OAL validation [process_related_by] is modified to allow 'any'/'many' 
+navigation in this case, regardless of declared multiplicity of the association.
 
 === 5.4 Verifier display.
 
 When displaying instance data, Verifier invokes the derived attribute 'Label' of 
 Link Participation class. Unmodified, this would return a relationship number 
 without any role phrase for the 'From' side of a symmetric reflexive. Accordingly, 
-when this case is detected, the activity 'borrows' the common role phrase from the 
+when this case is detected, the activity 'borrows' the shared role phrase from the 
 'To' side.
 
 Additionally, as discussed above, it is not possible to determine whether a symmetric 
@@ -135,14 +152,18 @@ the 'From' participant instance; R2902 links to the 'To' participant instance. A
 sense of 'direction' can be determined for a symmetric reflexive 'Relate' the sense is 
 determined by the ordering of the instance references in the statement. 
 
-When 'unrelating' an associative reflexive association, it matters not the direction; 
-a pair of linkages must be severed, both R2901 and R2902.
+When 'unrelating' an associative symmetric reflexive association, it matters not the 
+direction; a pair of linkages must be severed, both R2901 and R2902.
 
 
 == 7 User Documentation
 
+No additional documentation is required; a symmetric reflexive association does not 
+present the challenge to usage that an asymmetric reflexive presents.
 
 == 8 Unit Test
+
+
 
 
 == 9 Document References

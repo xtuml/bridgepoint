@@ -8619,22 +8619,22 @@ if formalize
 end if;
 
 // Identifier in A class
-a_label_f = USER::getLabel(label:a_class.Name);
-LAYOUT::setLayout(field_name:"a_label_f", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_label_f", field2:"formalize", inverse:false, comparison:"v_use_a_class");
+a_label = USER::getLabel(label:a_class.Name);
+LAYOUT::setLayout(field_name:"a_label", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_label", field2:"formalize", inverse:false, comparison:"v_use_a_class");
 
-a_ident2 = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"a_ident2", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_ident2", field2:"formalize", inverse:false, comparison:"v_use_a_class");
+a_id_choice = USER::getDropdown(options:a_ident_options, prompt:"Identifier", default_selection:a_ident_default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"a_id_choice", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_id_choice", field2:"formalize", inverse:false, comparison:"v_use_a_class");
 
 // Identifier in B class
-b_label_f = USER::getLabel(label:b_class.Name);
-LAYOUT::setLayout(field_name:"b_label_f", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"b_label_f", field2:"formalize", inverse:false, comparison:"v_use_b_class");
+b_label = USER::getLabel(label:b_class.Name);
+LAYOUT::setLayout(field_name:"b_label", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"b_label", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
-b_ident2 = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"b_ident2", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"b_ident2", field2:"formalize", inverse:false, comparison:"v_use_b_class");
+b_id_choice = USER::getDropdown(options:b_ident_options, prompt:"Identifier", default_selection:b_ident_default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"b_id_choice", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
 // Edit the association
 
@@ -8658,8 +8658,8 @@ r_rel.editAssociation(rel_num:rel_num,
                       b_mult:b_mult,
                       part_class:part_class,
                       migrate_to_assoc: is_associative,
-                      a_ident:a_ident2,
-                      b_ident:b_ident2,
+                      a_ident:a_id_choice,
+                      b_ident:b_id_choice,
                       a_oir:a_oir,
                       b_oir:b_oir,
                       assoc_class:associative_class,
