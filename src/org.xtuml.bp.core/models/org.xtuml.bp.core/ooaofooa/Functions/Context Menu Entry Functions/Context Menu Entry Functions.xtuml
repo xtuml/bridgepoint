@@ -8440,10 +8440,10 @@ USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparis
 
 // Only display ''Associative'' checkbox to allow disable - enable does not work: see issue 11699
 select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-is_associative = not_empty assr;
-associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative", disabled:false);
-LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"associative_rel", field2:"rel_num", inverse:false, comparison:"v_is_associative");
+has_associative = not_empty assr;
+is_associative = USER::getCheckbox(default:has_associative, prompt:"Associative", disabled:false);
+LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_is_associative");
 
 // Associative class
 select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
@@ -8501,11 +8501,11 @@ if not_empty assr
 end if;
 assoc_label1 = USER::getLabel(label:"Associative class: ");
 LAYOUT::setLayout(field_name:"assoc_label1", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"assoc_label1", field2:"associative_rel", inverse:false, comparison:"");
+USER::dependsOn(field1:"assoc_label1", field2:"is_associative", inverse:false, comparison:"");
 
 assoc_label2 = USER::getLabel(label:assoc_class_name);
 LAYOUT::setLayout(field_name:"assoc_label2", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"assoc_label2", field2:"associative_rel", inverse:false, comparison:"");
+USER::dependsOn(field1:"assoc_label2", field2:"is_associative", inverse:false, comparison:"");
 
 // Determine possible non-associative formalizing choices
 b_to_a_part = "";
