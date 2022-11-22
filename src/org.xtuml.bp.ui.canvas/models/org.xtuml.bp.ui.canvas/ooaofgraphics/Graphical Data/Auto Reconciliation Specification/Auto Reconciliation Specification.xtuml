@@ -565,7 +565,7 @@ while (j < connectorCount)
     select any side2_GD_GE related by model->GD_GE[R1] where selected.elementId==side2_GD_GEId;
     if (not empty side2_GD_GE and (side2_GD_GE.connectors_created_during_reconciliation))
       // do not allow the rendered simple asssociation connector to inhibit render of link
-      if (param.passNumber != 3)
+      if (not ((param.passNumber == 3) and (self.Target_OOA_Type == OOAType::AssociativeLink)))
         connectorAlreadyCreated = true;
       end if;
     end if;
