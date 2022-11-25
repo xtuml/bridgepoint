@@ -8438,27 +8438,31 @@ a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparison:"");
 
-// Only display ''Associative'' checkbox to allow disable - enable does not work: see issue 11699
-select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-has_associative = not_empty assr;
-is_associative = USER::getCheckbox(default:has_associative, prompt:"Associative", disabled:false);
-LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_is_associative");
-
-// Associative class
-select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
-select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
-associative_classes = associative_classes + associative_imported_classes;
+// Associative relationship? - some functional changes here: see issue #11699 comment history on why associative re-assignment is disabled.
+select one associative_class related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+select many candidate_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
+select many candidate_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
+candidate_classes = candidate_classes + candidate_imported_classes;
+num_options = 0;
 default_selection = 0;
-
-/* This code is temporarily disabled until such time as the canvas correctly represents the creation or modification of associative links. See issue #11699
-num_options = cardinality associative_classes;
-associative_class_options[num_options] = "";
-if (0 < num_options)
-  associative_class_options[num_options-1] = "";
+show_candidates = false;
+assoc_class_name = "";
+has_associative = false;
+if (empty associative_class)
+  num_options = cardinality candidate_classes;  // the array is sized at first use
+  if num_options > 0
+    show_candidates = true;
+  end if;
+else
+  assoc_class_name = associative_class.Name;
+  has_associative = true;
+end if;
+candidate_class_options[num_options] = "";
+if (show_candidates)
+  candidate_class_options[num_options-1] = "";
   i = num_options - 1;
-  for each associative_class in associative_classes
-    associative_class_options[i] = associative_class.Name;
+  for each candidate_class in candidate_classes
+    candidate_class_options[i] = candidate_class.Name;
     i = i - 1;
   end for;
   // Bubble sort list of associative classes.
@@ -8466,46 +8470,59 @@ if (0 < num_options)
   while ( i < (num_options-1) )
     j = 0;
     while ( j < (num_options-i-1) )
-      s1 = associative_class_options[j]; 
-      s2 = associative_class_options[j+1];
+      s1 = candidate_class_options[j]; 
+      s2 = candidate_class_options[j+1];
       if ( s1 > s2 )
-        s = associative_class_options[j];
-        associative_class_options[j] = associative_class_options[j+1];
-        associative_class_options[j+1] = s;
+        s = candidate_class_options[j];
+        candidate_class_options[j] = candidate_class_options[j+1];
+        candidate_class_options[j+1] = s;
       end if;
       j = j + 1;
     end while;
     i = i + 1;
   end while;
   // now sorted.. see if we have an already chosen associative
-  if not_empty assr
+  // Note: the following is clearly redundant given the preceeding choice.
+  // - however, if re-assignment is subsequently fixed, this will be relevant.
+  if has_associative
     i = 0;
     while ( i < (num_options) )
-      s = associative_class_options[i];
-      if assr.Name == s
+      s = candidate_class_options[i];
+      if candidate_class.Name == s
         default_selection = i;
         break;
       end if;
       i = i + 1;
     end while;
   end if;
+else
+  candidate_class_options[0] = assoc_class_name;
 end if;
-assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
-do not display drop down menu - see issue 11699
-*/
 
-// Is this an associative relationship? - see reference to issue #11699; offer to allow undo of associative, but not to create
-assoc_class_name = "";
-if not_empty assr
-  assoc_class_name = assr.Name;
-end if;
+// display associative check box if either: is associative, to allow uncheck; not associative and there exist candidate associative classes
+show_associative = has_associative or show_candidates;
+is_associative = USER::getCheckbox(default:has_associative, prompt:"Associative", disabled:false);
+LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_show_associative");
+
+// offer associative candidates to simple association? - see issue #11699: only allow undo of associative, but not re-assign associative class
+assoc_classname = USER::getDropdown(options:candidate_class_options, prompt:"Select associative", default_selection:default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"assoc_classname", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"assoc_classname", field2:"rel_num", inverse:false, comparison:"v_show_candidates");
+for each associative_class in candidate_classes
+  if (assoc_classname == associative_class.Name)
+    break;
+  end if;
+end for;
+
+// if this an established associative relationship, label and display the associative class; otherwise wait until the edit is committed.
 assoc_label1 = USER::getLabel(label:"Associative class: ");
 LAYOUT::setLayout(field_name:"assoc_label1", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"assoc_label1", field2:"is_associative", inverse:false, comparison:"");
+USER::dependsOn(field1:"assoc_label1", field2:"is_associative", inverse:false, comparison:"v_has_associative");
 
 assoc_label2 = USER::getLabel(label:assoc_class_name);
 LAYOUT::setLayout(field_name:"assoc_label2", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"assoc_label2", field2:"is_associative", inverse:false, comparison:"");
+USER::dependsOn(field1:"assoc_label2", field2:"is_associative", inverse:false, comparison:"v_has_associative");
 
 // Determine possible non-associative formalizing choices
 b_to_a_part = "";
@@ -8637,11 +8654,6 @@ LAYOUT::setLayout(field_name:"b_id_choice", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
 // Edit the association
-
-select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Name == assoc_class_name);
-if (empty associative_class)
-  select any associative_class related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Name == assoc_class_name);
-end if;
 
 if not formalize
   part_class = "Not formalized";
