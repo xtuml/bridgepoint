@@ -8331,6 +8331,9 @@ select one b_aoth related by b_oir->R_RTO[R203]->R_AOTH[R204];
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
 
+// Note: (to the uninitiated) this code is parsed and reorganized as wizard pages; it is not executed linearly.
+// Dialog field presentation cannot be controlled by if..else logic; all USER::getXXX() must be properly populated
+// Dialog field visibility is dependent on USER::dependsOn() field2 status, overriden by any comparison logic. See #11554 notes.
 
 formalize_required = PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
 phrases_required = PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases");
@@ -8365,12 +8368,13 @@ elif (not_empty a_aoth)
   default_b_phrase = a_aoth.Txt_Phrs;
 end if;
 
+// reflexive associations may be symmetric: only one set of multiplicity, conditionality and rolephrase apply.
 symmetric = r_rel.is_symmetric(); // get existing value for use as default
 is_symmetric = USER::getCheckbox(default:symmetric, prompt:"Symmetric", disabled:false);
 LAYOUT::setLayout(field_name:"is_symmetric", row_num:"1", width:"1", height:"1");
 USER::dependsOn(field1:"is_symmetric", field2:"rel_num", inverse:false, comparison:"v_is_reflexive");
 
-// A label
+// A class label
 a_label1 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
 
@@ -8398,11 +8402,11 @@ end if;
 a_mult = USER::getToggle(option1:default_a_mult, option2:other_a_mult, prompt:"");
 LAYOUT::setLayout(field_name:"a_mult", row_num:"2", width:"1", height:"1");
 
-// B label
+// A to B class label
 b_label1 = USER::getLabel(label:b_class.Name);
 LAYOUT::setLayout(field_name:"b_label1", row_num:"2", width:"1", height:"1");
 
-// B label
+// B class label
 b_label2 = USER::getLabel(label:b_class.Name);
 LAYOUT::setLayout(field_name:"b_label2", row_num:"3", width:"1", height:"1");
 USER::dependsOn(field1:"b_label2", field2:"is_symmetric", inverse:true, comparison:"");
@@ -8433,39 +8437,41 @@ b_mult = USER::getToggle(option1:default_b_mult, option2:other_b_mult, prompt:""
 LAYOUT::setLayout(field_name:"b_mult", row_num:"3", width:"1", height:"1");
 USER::dependsOn(field1:"b_mult", field2:"is_symmetric", inverse:true, comparison:"");
 
-// A label
+// B to A class label
 a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparison:"");
 
 // Associative relationship? - some functional changes here: see issue #11699 comment history on why associative re-assignment is disabled.
-select one associative_class related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-select many candidate_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
-select many candidate_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
-candidate_classes = candidate_classes + candidate_imported_classes;
-num_options = 0;
+// A simple binary association my migrate to associative (linked) if an available class is selected to fulfill that role.
+// An associative (linked) can migrate to simple binary by unchecking; but change of associative class is disallowed, pending graphics fix.
+num_options = 1;  // decl - but see decrement for array sizing - zero-based vs. count
+show_candidates = true;  // tentatively
 default_selection = 0;
-show_candidates = false;
 assoc_class_name = "";
 has_associative = false;
-if (empty associative_class)
-  num_options = cardinality candidate_classes;  // the array is sized at first use
-  if num_options > 0
-    show_candidates = true;
-  end if;
-else
+select many candidate_classes from instances of O_OBJ where false;  // decl
+select one associative_class related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+if (not_empty associative_class) 
+  show_candidates = false;
   assoc_class_name = associative_class.Name;
   has_associative = true;
+else
+  select many candidate_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
+  select many candidate_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
+  candidate_classes = candidate_classes + candidate_imported_classes;
+  if (not_empty candidate_classes)
+    num_options = cardinality candidate_classes;
+  end if;
 end if;
-candidate_class_options[num_options] = "";
-if (show_candidates)
-  candidate_class_options[num_options-1] = "";
+candidate_class_options[num_options-1] = "";  // size the zero-based array - even if not to be displayed; it must exist to satisfy getDropdown(..) below
+if (not_empty candidate_classes)
   i = num_options - 1;
   for each candidate_class in candidate_classes
     candidate_class_options[i] = candidate_class.Name;
     i = i - 1;
   end for;
-  // Bubble sort list of associative classes.
+  // Bubble sort list of candidate classes.
   i = 0;
   while ( i < (num_options-1) )
     j = 0;
@@ -8488,7 +8494,7 @@ if (show_candidates)
     i = 0;
     while ( i < (num_options) )
       s = candidate_class_options[i];
-      if candidate_class.Name == s
+      if (s == assoc_class_name)
         default_selection = i;
         break;
       end if;
@@ -8496,7 +8502,8 @@ if (show_candidates)
     end while;
   end if;
 else
-  candidate_class_options[0] = assoc_class_name;
+  show_candidates = false;
+  candidate_class_options[0] = assoc_class_name;  // if re-assign gets fixed
 end if;
 
 // display associative check box if either: is associative, to allow uncheck; not associative and there exist candidate associative classes
@@ -8506,16 +8513,16 @@ LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1
 USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_show_associative");
 
 // offer associative candidates to simple association? - see issue #11699: only allow undo of associative, but not re-assign associative class
-assoc_classname = USER::getDropdown(options:candidate_class_options, prompt:"Select associative", default_selection:default_selection, reload_options:false);
-LAYOUT::setLayout(field_name:"assoc_classname", row_num:"4", width:"1", height:"1");
-USER::dependsOn(field1:"assoc_classname", field2:"rel_num", inverse:false, comparison:"v_show_candidates");
+assoc_candidate = USER::getDropdown(options:candidate_class_options, prompt:"Select associative", default_selection:default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"assoc_candidate", row_num:"4", width:"1", height:"1");
+USER::dependsOn(field1:"assoc_candidate", field2:"rel_num", inverse:false, comparison:"v_show_candidates");
 for each associative_class in candidate_classes
-  if (assoc_classname == associative_class.Name)
+  if (assoc_candidate == associative_class.Name)
     break;
   end if;
 end for;
 
-// if this an established associative relationship, label and display the associative class; otherwise wait until the edit is committed.
+// only if this an established associative relationship, label and display the associative class; otherwise it may be a dropdown selection - see above
 assoc_label1 = USER::getLabel(label:"Associative class: ");
 LAYOUT::setLayout(field_name:"assoc_label1", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"assoc_label1", field2:"is_associative", inverse:false, comparison:"v_has_associative");
@@ -8568,7 +8575,7 @@ if (a_mult == "Many" and b_mult == "Many")
   end if;
 end if;
 
-// Present Formalize check box if appropriate
+// Present Formalize check box if appropriate - either is formalized, or could be formalized
 formal = (r_rel.isFormalized() or formalize_required) and can_formalize;
 formalize = USER::getCheckbox(default:formal, prompt:"Formalized", disabled:formalize_required);
 LAYOUT::setLayout(field_name:"formalize", row_num:"5", width:"1", height:"1");
@@ -8653,7 +8660,7 @@ b_id_choice = USER::getDropdown(options:b_ident_options, prompt:"Identifier", de
 LAYOUT::setLayout(field_name:"b_id_choice", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
-// Edit the association
+// Edit the association - implement the dialog choices in the association structure
 
 if not formalize
   part_class = "Not formalized";
