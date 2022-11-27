@@ -8483,7 +8483,9 @@ if (0 < num_options)
     end while;
   end if;
 else
-  associative_class_options[0] = assr.Name;
+  if (not_empty assr)
+    associative_class_options[0] = assr.Name;
+  end if;
 end if;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_class", row_num:"4", width:"1", height:"1");
