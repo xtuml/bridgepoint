@@ -4,8 +4,9 @@ xtUML Project Design Note
 
 == 1 Abstract
 
-Detailed description of strategy to implement the enhancement 
-described in the associated analysis note.
+Detailed description of strategy to implement the enhancement described 
+in the associated analysis note. As unforeseen issues unfolded during 
+implementation, they have been incorporated in this document.
 
 == 2 Introduction and Background
 
@@ -83,10 +84,17 @@ are displayed only once. See the flavors of get_connector_text().
 
 === 5.1.4
 While modifying the Binary association editor, some opportunities were seen to 
-streamline the user interaction, reducing the number of clicks. Controls for 
-selection of formalizing classes and identifiers are only displayed where 
-formalization exists, or is possible and selected, upon which the controls are 
-populated with the existing or anticipated choices - often only one.
+streamline the user interaction, reducing the number of clicks. 
+==== 5.1.4.1 Controls for selection of formalizing classes and identifiers are 
+only displayed where formalization exists, or is possible and selected, upon 
+which the controls are populated with the existing or anticipated choices - 
+often only one. 
+==== 5.1.4.2 Controls for associative class selection are presented only when 
+editing a simple binary association and there exist possible associative 
+candidate class(es)
+==== 5.1.4.3 If an association is already designated as associative, the 
+associative class is displayed, but not subject to edit (see issue #11699).
+Unchecking the checkbox  will migrate the association to simple binary.
 
 === 5.2 Relate (Using) and Unrelate (Using).
 
@@ -170,7 +178,7 @@ present the challenge to usage that an asymmetric reflexive presents.
 
 
 . [[dr-1]] https://support.onefact.net/issues/12548]
-. [[dr-2]] 
+. [[dr-2]] https://support.onefact.net/issues/11699]
 
 ---
 
