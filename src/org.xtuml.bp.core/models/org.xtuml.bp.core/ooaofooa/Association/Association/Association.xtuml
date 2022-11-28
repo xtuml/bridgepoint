@@ -51,6 +51,7 @@ return false;
 	1,
 	'',
 	"15004697-1285-4784-abdd-2656dbe48e0b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("3468a483-ad95-4bef-a1fd-dff54913df1c",
@@ -99,6 +100,7 @@ return result;',
 	1,
 	'',
 	"b384bf80-e350-4849-8785-08972c8a941f",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b211da5a-e170-4a0f-9b9e-eb9929e0c991",
@@ -174,6 +176,7 @@ end if;
 	1,
 	'',
 	"ff2c304d-24e6-4537-a300-4d98bda1f98c",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("bd937227-54e0-4504-af3a-24c8fe479aaa",
@@ -221,6 +224,7 @@ return Style::None;',
 	1,
 	'',
 	"41ee4306-47d1-45b2-a4c5-91600a0e3391",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c60a9535-7e3c-458d-b084-da45e9dd6f54",
@@ -252,6 +256,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"3468a483-ad95-4bef-a1fd-dff54913df1c",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ff2c304d-24e6-4537-a300-4d98bda1f98c",
@@ -347,6 +352,7 @@ delete object instance self;',
 	1,
 	'',
 	"bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("e6b6826c-de26-4157-b77b-e9d823fbe22d",
@@ -391,6 +397,7 @@ select one component related by packageableElem->C_C[R8003];
 	1,
 	'',
 	"4dda3954-20f5-4ead-a502-54311c7021cf",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("41ee4306-47d1-45b2-a4c5-91600a0e3391",
@@ -405,6 +412,7 @@ Bridge:GD',
 	1,
 	'',
 	"53927fcd-62fa-49fa-8e8e-ab2bd10fc757",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("bc8567f0-7a5f-432b-a22b-450f0d48dc1a",
@@ -484,6 +492,7 @@ return false;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("2b70ac9f-18b4-4308-9f05-80ac4fea6c9a",
@@ -528,6 +537,7 @@ return false;',
 	1,
 	'',
 	"e6b6826c-de26-4157-b77b-e9d823fbe22d",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c3bfb50e-3989-4fda-b43d-6276ecc2a301",
@@ -553,7 +563,8 @@ end if;
 ',
 	1,
 	'',
-	"fa5d215d-a278-476e-b996-a38e36ca414b",
+	"628c6b0b-408a-4f31-b7d9-2049636e23d9",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("7db37c64-90c7-45f2-b8f3-82411f18525a",
@@ -570,6 +581,7 @@ return this;',
 	0,
 	'',
 	"c3bfb50e-3989-4fda-b43d-6276ecc2a301",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -608,6 +620,7 @@ end for;',
 	1,
 	'',
 	"7db37c64-90c7-45f2-b8f3-82411f18525a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("2dd6e6e3-5e2f-465e-8d0b-125c0912c492",
@@ -621,6 +634,7 @@ return package.getPath(path:"") + "::" + self.get_name();',
 	1,
 	'',
 	"6efa13c2-a742-41dc-8538-975276af3443",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("564c0e16-6ce2-4864-880a-b9231370a188",
@@ -633,6 +647,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"2dd6e6e3-5e2f-465e-8d0b-125c0912c492",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("fa50f390-f898-48d7-a9dd-02c23b73bb3f",
@@ -671,6 +686,7 @@ return cuttable;',
 	1,
 	'',
 	"564c0e16-6ce2-4864-880a-b9231370a188",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
@@ -810,6 +826,7 @@ return true;',
 	1,
 	'',
 	"fa50f390-f898-48d7-a9dd-02c23b73bb3f",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("201576fb-05de-4a71-a031-581901d88999",
@@ -896,6 +913,7 @@ return cardinality_text;',
 	1,
 	'',
 	"d1d1a2e2-12ae-44ea-9cb3-e490457ab30d",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("2cfadbe5-9b95-43e2-8f80-9e2fd0c74de9",
@@ -938,6 +956,13 @@ a_oir = param.a_oir;
 b_oir = param.b_oir;
 assoc_class = param.assoc_class;
 assoc_formalized = param.assoc_formalized;
+sym = param.symmetric;
+
+if sym  // ensure no redundant phrase; match cond & mult both sides
+  b_phrase = "";
+  b_cond = a_cond;
+  b_mult = a_mult;
+end if;
 
 // Get classes involved in binary relationship
 select one a_class related by a_oir->O_OBJ[R201];
@@ -1212,6 +1237,7 @@ end if;',
 	1,
 	'',
 	"e48e4ea1-7a6e-4e3e-abed-04faba1a0d56",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0cc3841f-8b79-490d-a49a-d2a7b9c66725",
@@ -1362,6 +1388,15 @@ INSERT INTO O_TPARM
 	'',
 	"6b5d0124-17ae-4821-870a-b776d0c38336",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("035cd130-0c72-49ef-994f-d30613d3c15e",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'symmetric',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"4a2a9e4f-80aa-45d5-b7c3-e72d5de559fd",
+	'');
 INSERT INTO O_TFR
 	VALUES ("7e702f2d-f714-4c51-b383-2be831f205f1",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
@@ -1392,6 +1427,7 @@ end if;',
 	1,
 	'',
 	"25e72586-4980-4217-b43b-c45aacc395cd",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("7e33a5f7-188c-480b-9a9a-0c2eeba26f99",
@@ -1427,6 +1463,53 @@ INSERT INTO O_TPARM
 	'',
 	"7e33a5f7-188c-480b-9a9a-0c2eeba26f99",
 	'');
+INSERT INTO O_TFR
+	VALUES ("628c6b0b-408a-4f31-b7d9-2049636e23d9",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'is_symmetric',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'// Role phrases are mandatory on reflexive associations - except when symmetric.
+// The Binary Association editor disallows the second role phrase (b_part) in this case.
+// This test must allow for a newly-created association, when no phrases exist.
+symmetric = false;
+if self.is_reflexive()
+  select one srel related by self->R_SIMP[R206];
+  if not_empty srel
+    if self.isFormalized()
+      select one form related by srel->R_FORM[R208.''relates''];
+      select any part related by srel->R_PART[R207.''relates''];
+      if form.Txt_Phrs != "" and part.Txt_Phrs == ""
+        symmetric = true;
+      end if;
+    else
+      select any part1 related by srel->R_PART[R207.''relates'']
+       where selected.Txt_Phrs != "";
+      select any part2 related by srel->R_PART[R207.''relates'']
+       where selected.Txt_Phrs == "";
+      if not_empty part1 and not_empty part2
+        symmetric = true;
+      end if;
+    end if;
+  else
+    select one arel related by self->R_ASSOC[R206];
+    if ( not_empty arel )
+      select one aone related by arel->R_AONE[R209];
+      select one aoth related by arel->R_AOTH[R210];
+      if aone.Txt_Phrs == "" and aoth.Txt_Phrs != ""
+        symmetric = true;
+      end if;
+    end if;
+  end if;
+end if;  
+return symmetric;
+',
+	1,
+	'',
+	"fa5d215d-a278-476e-b996-a38e36ca414b",
+	0,
+	1);
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
 	"fccf477f-dde6-4d1a-9020-5effbe338738");

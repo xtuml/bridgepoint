@@ -2859,16 +2859,44 @@ ParserUtilityFunction: TRUE
   select one irv related by var->V_INT[R814];
   select one irsv related by var->V_INS[R814];
   select one link related by sel->ACT_LNK[R637];
-  last_link = link;
   mult = "one";
   if ( not_empty irsv )
     mult = "many";
   end if;
+  select any last_link from instances of ACT_LNK where false;
   while ( not_empty link )
-    last_link = link;
     if ( link.Mult == Multiplicity::Many )
       mult = "many";
     end if;
+    if ( mult == "one" )
+      select one rel related by link->R_REL[R681.''specifies traversal of''];
+      select one assoc related by rel->R_ASSOC[R206];
+      if ( not_empty assoc )
+        if ( rel.is_symmetric() )
+          // selecting from the associative of a symmetric reflexive has special multiplicity
+          // even if the association multiplicity is "one'', allow "many"/"any" in that case.
+          select one assocobj related by assoc->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+          select any fromobj from instances of O_OBJ where false;  // decl
+          if ( empty last_link ) // look for start variable class - instance or set
+            select one startval related by link->ACT_SEL[R637]->V_VAL[R613.''starting point''];
+            select one svar related by startval->V_IRF[R801]->V_VAR[R808.''refers to''];
+            select one insth related by svar->V_INT[R814];
+            if ( not_empty insth )
+              select one fromobj related by insth->O_OBJ[R818.''refers to''];
+            else
+              select one insts related by svar->V_INS[R814];
+              select one fromobj related by insts->O_OBJ[R819.''refers to''];
+            end if;
+          else  // look for preceeding class in navigation chain
+            select one fromobj related by last_link->O_OBJ[R678.''specifies instances of''];
+          end if;
+          if ( fromobj == assocobj )  // selecting from associative class to ''reflexed'' class; allow ''many''.
+            mult = "many";
+          end if;
+        end if;
+      end if;
+    end if;
+    last_link = link;
     select one link related by last_link->ACT_LNK[R604.''precedes''];
   end while;
 
@@ -7686,7 +7714,11 @@ if ( not_empty act and not_empty left_obj )
   for each r_oir in r_oirs
     select many foreign_oirs related by r_oir->R_REL[R201]->R_OIR[R201] where ( selected.OIR_ID != r_oir.OIR_ID );
     for each foreign_oir in foreign_oirs
+      phrase = foreign_oir.get_text_phrase();
       select one r_rel related by foreign_oir->R_REL[R201];
+      if r_rel.is_symmetric() and phrase == ""
+        continue;  // do not add the non-role-phrase side of this symmetric association to the proposal list for the chain continuation.
+      end if;
       mult = ::get_right_object_multiplicity( a1_left:r_oir.OIR_ID, a2_rel:r_rel.Rel_ID, a3_right:foreign_oir.OIR_ID );
       select one foreign_sub related by foreign_oir->R_RGO[R203]->R_SUB[R205];
       select one r_sub related by r_oir->R_RGO[R203]->R_SUB[R205];
@@ -7698,7 +7730,6 @@ if ( not_empty act and not_empty left_obj )
           new_item.type = ProposalTypes::Association;
           new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
           new_item.display_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
-          phrase = foreign_oir.get_text_phrase();
           if ( "" != phrase )
             if ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) )
               new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
@@ -8715,12 +8746,15 @@ if ( not_empty act )
       relate list to act across R1603;
     end if;
     for each oir in right_oirs
+      phrase = oir.get_text_phrase();
       select one r_rel related by oir->R_REL[R201];
+      if r_rel.is_symmetric() and phrase == ""
+        continue;  // do not add the non-role-phrase side of this symmetric association to the proposal list for relationship selection.
+      end if;
       select one o_obj related by oir->O_OBJ[R201];
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Association;
       new_item.replacement_text = "R" + GD::int_to_string( value:r_rel.Numb );
-      phrase = oir.get_text_phrase();
       if ( "" != phrase and ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) ) )
         new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
       end if;
