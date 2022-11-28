@@ -8446,14 +8446,14 @@ USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparis
 // A simple binary association my migrate to associative (linked) if an available class is selected to fulfill that role.
 // An associative (linked) can migrate to simple binary by unchecking; but change of associative class is disallowed, pending graphics fix.
 num_options = 1;  // decl - but see decrement for array sizing - zero-based vs. count
-show_candidates = true;  // tentatively
+valid_candidates = true;  // tentatively
 default_selection = 0;
 assoc_class_name = "";
 has_associative = false;
 select many candidate_classes from instances of O_OBJ where false;  // decl
 select one associative_class related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
 if (not_empty associative_class) 
-  show_candidates = false;
+  valid_candidates = false;
   assoc_class_name = associative_class.Name;
   has_associative = true;
 else
@@ -8502,17 +8502,18 @@ if (not_empty candidate_classes)
     end while;
   end if;
 else
-  show_candidates = false;
+  valid_candidates = false;
   candidate_class_options[0] = assoc_class_name;  // if re-assign gets fixed
 end if;
 
 // display associative check box if either: is associative, to allow uncheck; not associative and there exist candidate associative classes
-show_associative = has_associative or show_candidates;
+show_associative = has_associative or valid_candidates;
 is_associative = USER::getCheckbox(default:has_associative, prompt:"Associative", disabled:false);
 LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_show_associative");
 
-// offer associative candidates to simple association? - see issue #11699: only allow undo of associative, but not re-assign associative class
+// offer associative candidates to simple association, if valid - see issue #11699
+show_candidates = is_associative and valid_candidates;
 assoc_candidate = USER::getDropdown(options:candidate_class_options, prompt:"Select associative", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_candidate", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"assoc_candidate", field2:"rel_num", inverse:false, comparison:"v_show_candidates");
