@@ -41,6 +41,7 @@ return OS::NULL_UNIQUE_ID();',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("42d98f22-42d8-42d9-bcdb-0c595e38daa3",
@@ -125,6 +126,7 @@ end if;
 	1,
 	'',
 	"7c49d5b8-f700-44f4-8348-1fdcf662c1a5",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("965be58d-e2e1-4b02-a7a2-f2fddb250d11",
@@ -188,6 +190,7 @@ return OS::NULL_UNIQUE_ID();',
 	1,
 	'',
 	"01e90c90-3e42-4325-9395-f04aa3dcdeec",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("4d74bdcf-fec2-4fe9-be56-75e7e582a41f",
@@ -268,6 +271,7 @@ end for;',
 	1,
 	'',
 	"bb127757-3046-42f0-8eaa-58bc50d7f658",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f245eb89-4c4e-47a6-9a78-6ec44ade0c95",
@@ -340,6 +344,7 @@ end while;
 	1,
 	'',
 	"c02376d4-138e-44c1-8e19-e42d4e5bdff4",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f2156974-c155-4272-9b85-288b824e669f",
@@ -559,10 +564,13 @@ while (j < connectorCount)
     // want to create this same connector again.
     select any side2_GD_GE related by model->GD_GE[R1] where selected.elementId==side2_GD_GEId;
     if (not empty side2_GD_GE and (side2_GD_GE.connectors_created_during_reconciliation))
-      connectorAlreadyCreated = true;
+      // do not allow the rendered simple asssociation connector to inhibit render of link
+      if (not ((param.passNumber == 3) and (self.Target_OOA_Type == OOAType::AssociativeLink)))
+        connectorAlreadyCreated = true;
+      end if;
     end if;
     
-    if (CL::traceGraphicsCreationIsEnabled()) 
+    if (CL::traceGraphicsCreationIsEnabled())
       // get side2''s name
 	  side2_ElementName = "";
 	  if (not empty side2_GD_GE) 
@@ -687,6 +695,7 @@ return OS::NULL_UNIQUE_ID();
 	1,
 	'',
 	"d4306342-68fd-418b-9c81-c7573bdd3a9b",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("cd5179d3-74a4-498f-9076-7ef3c9076490",
@@ -954,6 +963,7 @@ return reprocess;
 	1,
 	'',
 	"998fe17d-8e1a-4ed6-9b5b-cca166288747",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1a45fe35-90f8-4600-a05b-b32b762cdc9f",
@@ -1109,6 +1119,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"35593d44-4cf2-4d7a-ac20-1f39b82f20db",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("59e275c9-55e2-46b6-aadc-6488129b4721",
@@ -1268,6 +1279,7 @@ end if;',
 	1,
 	'',
 	"8ffad301-a127-4be7-a504-064da8b3f9dc",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("359667d7-e97c-4387-b488-8efdb1cbffdc",

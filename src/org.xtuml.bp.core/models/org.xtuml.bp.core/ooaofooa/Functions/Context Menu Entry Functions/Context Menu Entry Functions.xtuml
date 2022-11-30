@@ -8434,13 +8434,16 @@ is_associative = not_empty assoc;
 associative_rel = USER::getCheckbox(default:is_associative, prompt:"Associative", disabled:false);
 LAYOUT::setLayout(field_name:"associative_rel", row_num:"4", width:"1", height:"1");
 
-// Associative class
+// Associative class - some functional changes here: see issue #11699 comment history on why associative re-assignment is disabled.
+num_options = 0;
 select one assr related by r_rel->R_ASSOC[R206]->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
 select many associative_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_OBJ[R8001] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 select many associative_imported_classes related by r_rel->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8000]->O_IOBJ[R8001]->O_OBJ[R101] where (selected.Obj_ID != a_class.Obj_ID and selected.Obj_ID != b_class.Obj_ID);
 associative_classes = associative_classes + associative_imported_classes;
 default_selection = 0;
-num_options = cardinality associative_classes;
+if (empty assr)
+  num_options = cardinality associative_classes;  // just size the array at first use
+end if;
 associative_class_options[num_options] = "";
 if (0 < num_options)
   associative_class_options[num_options-1] = "";
@@ -8466,6 +8469,8 @@ if (0 < num_options)
     i = i + 1;
   end while;
   // now sorted.. see if we have an already chosen associative
+  // Note: the following is clearly redundant given the preceeding choice.
+  // - however, if re-assignment is subsequently fixed, this will be relevant.
   if not_empty assr
     i = 0;
     while ( i < (num_options) )
@@ -8476,6 +8481,10 @@ if (0 < num_options)
       end if;
       i = i + 1;
     end while;
+  end if;
+else
+  if (not_empty assr)
+    associative_class_options[0] = assr.Name;
   end if;
 end if;
 assoc_class = USER::getDropdown(options:associative_class_options, prompt:"Associative class", default_selection:default_selection, reload_options:false);
