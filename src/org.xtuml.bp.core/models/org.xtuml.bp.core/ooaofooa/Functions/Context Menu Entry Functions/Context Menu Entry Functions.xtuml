@@ -8520,7 +8520,8 @@ is_associative = USER::getCheckbox(default:has_associative, prompt:"Associative"
 LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1");
 USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_show_associative");
 
-// offer associative candidates to simple association, if valid - see issue #11699
+// offer associative candidates only to simple association, if valid - see ''valid_cadidates'' logic,above
+// do not offer reassign of associative class to established associative: - see issue #11699
 show_candidates = is_associative and valid_candidates;
 assoc_candidate = USER::getDropdown(options:candidate_class_options, prompt:"Select associative", default_selection:default_selection, reload_options:false);
 LAYOUT::setLayout(field_name:"assoc_candidate", row_num:"4", width:"1", height:"1");
@@ -8584,7 +8585,7 @@ if (a_mult == "Many" and b_mult == "Many")
   end if;
 end if;
 
-// Present Formalize check box if appropriate - either is formalized, or could be formalized
+// If appropriate, present Formalized check box - either ''is formalized,'' or could be formalized
 formal = (r_rel.isFormalized() or formalize_required) and can_formalize;
 formalize = USER::getCheckbox(default:formal, prompt:"Formalized", disabled:formalize_required);
 LAYOUT::setLayout(field_name:"formalize", row_num:"5", width:"1", height:"1");
@@ -8631,7 +8632,7 @@ formalize_ident = formalize and not is_associative;
 part_class = USER::getDropdown(options:participants, prompt:"Use identifier of", default_selection:default_selection, reload_options:true);
 LAYOUT::setLayout(field_name:"part_class", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_formalize_ident");
-USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_can_formalize");  // in case multiplicy changes...
+USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_can_formalize");  // in case multiplicity changes...
 
 // establish possible visibilty of class(es) identifier choices
 use_a_class = false;

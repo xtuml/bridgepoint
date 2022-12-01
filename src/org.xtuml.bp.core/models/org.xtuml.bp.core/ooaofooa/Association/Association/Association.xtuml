@@ -1470,9 +1470,14 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
-	'// Role phrases are mandatory on reflexive associations - except when symmetric.
-// The Binary Association editor disallows the second role phrase (b_part) in this case.
-// This test must allow for a newly-created association, when no phrases exist.
+	'// Two (different, but not editor-enforced) role phrases are mandatory on asymmetric reflexive 
+// associations for selective navigation. In principle, a symmetric reflexive does not require 
+// a phrase. However, this test for symmetry relies on the placement of the single phrase; 
+// allowing no phrase would make the symmetric case indistinguishable from a newly-created 
+// association, when no phrases are yet assigned. 
+// [A ''never_edited'' status for Association could disambiguate; but, phrases surface meaning.]
+// The Binary Association editor suppresses the second phrase (b_part) in the symmetric case.
+
 symmetric = false;
 if self.is_reflexive()
   select one srel related by self->R_SIMP[R206];

@@ -80,11 +80,12 @@ symmetry; if true, the second role phrase is erased from the association data
 structure and the conditionality and multiplicity for the referred-to side of the 
 association are copied from the referring side values. When displaying a symmetric 
 association on the class diagram, the role phrase, multiplicity and conditionality 
-are displayed only once. See the flavors of get_connector_text().
+are displayed only once. See the flavors of get_connector_text() invoked by the 
+various classes in the association.
 
 === 5.1.4
-While modifying the Binary association editor, some opportunities were seen to 
-streamline the user interaction, reducing the number of clicks. 
+While modifying the Binary association editor (5.1.2), some opportunities were seen 
+to streamline the user interaction, reducing the number of clicks. 
 ==== 5.1.4.1 Controls for selection of formalizing classes and identifiers are 
 only displayed where formalization exists, or is possible and selected, upon 
 which the controls are populated with the existing or anticipated choices - 
@@ -94,7 +95,14 @@ editing a simple binary association and there exist possible associative
 candidate class(es)
 ==== 5.1.4.3 If an association is already designated as associative, the 
 associative class is displayed, but not subject to edit (see issue #11699).
-Unchecking the checkbox  will migrate the association to simple binary.
+Unchecking the checkbox will migrate the association to simple binary on finish.
+
+=== 5.1.5
+The association editor does not offer the opportunity to prefix attributes as 
+the stand-alone 'formalize' editors do. With the exception of linked reflexive 
+associations, no effort was made to allow these stand-alone editors work with 
+symmetric reflexives. Prefixing is only one way of modifying referential 
+attributes; editing the names in 'properties' is more versatile.
 
 === 5.2 Relate (Using) and Unrelate (Using).
 
@@ -126,7 +134,7 @@ association are followed, as appropriately, to satisfy the selection type -
 select one, select any, select many.
 ==== 5.3.1 From associative navigation
 With only one role phrase, navigation from an associative instance cannot be 
-directed; OAL validation [process_related_by] is modified to allow 'any'/'many' 
+directed; OAL validation [process_related_by()] is modified to allow 'any'/'many' 
 navigation in this case, regardless of declared multiplicity of the association.
 
 === 5.4 Verifier display.
@@ -163,6 +171,11 @@ determined by the ordering of the instance references in the statement.
 When 'unrelating' an associative symmetric reflexive association, it matters not the 
 direction; a pair of linkages must be severed, both R2901 and R2902.
 
+The mandated use of role phrases for reflexive associations is driven by the need to 
+specify navigation direction for the asymmetric case. There is no such need for the 
+symmetric case, however the test for symmetry must distinguish between a newly-created 
+association - which has no phrases yet - and a symmetric which has just one; hence, 
+a phrase is required. Adding an 'edited' status to the Association could disambiguate.
 
 == 7 User Documentation
 
