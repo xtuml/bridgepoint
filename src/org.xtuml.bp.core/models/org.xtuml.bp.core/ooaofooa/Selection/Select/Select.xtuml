@@ -244,8 +244,6 @@ if (empty inst_in_where)
       end if;
     end if; // not empty association class
     traverseFwd = true;
-    checkFwd = true; // separate flag until we clean up traverse forward/back.
-    traverseBack = true;
     targetPhrase = GD::strip_tics(value:chain_link.Rel_Phrase);
     is_symmetric = false;  // this may be a special case
 
@@ -257,12 +255,10 @@ if (empty inst_in_where)
           select any part related by srel->R_PART[R207];
           if form.Txt_Phrs == ""
             is_symmetric = true;
-          end if;
-          if form.Txt_Phrs == targetPhrase
-            traverseFwd = false;
-            checkFwd = false;
           else
-            traverseBack = false;
+            if form.Txt_Phrs == targetPhrase
+              traverseFwd = false;
+            end if;
           end if;
         else                           // unformalized, simple reflexive
           select many parts related by srel->R_PART[R207];
@@ -272,12 +268,10 @@ if (empty inst_in_where)
               fromPart = candidatePart;
               if fromPart.Txt_Phrs == ""
                 is_symmetric = true;
-              end if;
-              if (fromPart.Txt_Phrs == targetPhrase)
-                traverseFwd = false;
-                checkFwd = false;
               else
-                traverseBack = false;
+                if (fromPart.Txt_Phrs == targetPhrase)
+                  traverseFwd = false;
+                end if;
               end if;
             end if;
             break;
@@ -292,9 +286,6 @@ if (empty inst_in_where)
         end if;
         if (aone.Txt_Phrs == targetPhrase)
           traverseFwd = false;
-          checkFwd = false;
-        else
-          traverseBack = false;
         end if;
       end if;
     else // not reflexive
@@ -319,13 +310,11 @@ if (empty inst_in_where)
         end if;
         if cia == source_class
           traverseFwd = false;
-          checkFwd = false;
         end if;
       else
         select one cia related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
         if cia == source_class
           traverseFwd = false;
-          checkFwd = false;
         end if;
       end if;
     end if; // end reflexive - non-reflexive case
@@ -389,7 +378,7 @@ if (empty inst_in_where)
       if auditSev != 0  // 0 == Ignore
         if cardinality selection_inst_refs == 0;
           cond = 0;
-          if checkFwd
+          if traverseFwd
             if not_empty aoth
               cond = aoth.Cond;
             elif not_empty part
