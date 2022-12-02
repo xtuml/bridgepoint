@@ -60,20 +60,23 @@ by an Edit Association Dialog which recognizes the 'Symmetric' choice.
 === 5.1 Edit Binary Association Dialog.
 
 ==== 5.1.1
+
 Unmodified, the dialog presents each participant class with a set of fields to 
 specify multiplicity, conditionality and role phrase. The 'forward direction' of 
 the association is 'From' the first participant class 'To' the second, determined 
 by the origin and destination of the association connector  drawn on the canvas. 
 This sense of 'direction' is captured in the data structure defining the association.
 
-==== 5.1.2
+==== 5.1.2 Symmetric Reflexive
+
 A checkbox labeled 'Symmetric", added to the Context Menu Entry Function 
 (R_REL_BinaryEditAssociation), has its visibility depend on the reflexivity of the 
 association being edited. In turn, the visibility of all fields associated with 
 the 'To' side of the association are made dependent on the value of that checkbox 
 selection.
 
-==== 5.1.3
+==== 5.1.3 Association::editAsssociation()
+
 An added parameter to the editAssociation operation, which receives the data 
 from the Edit dialog, carries a boolean denoting the selection or otherwise of 
 symmetry; if true, the second role phrase is erased from the association data 
@@ -83,28 +86,39 @@ association on the class diagram, the role phrase, multiplicity and conditionali
 are displayed only once. See the flavors of get_connector_text() invoked by the 
 various classes in the association.
 
-=== 5.1.4
+=== 5.1.4 Editor modifications
+
 While modifying the Binary association editor (5.1.2), some opportunities were seen 
 to streamline the user interaction, reducing the number of clicks. 
-==== 5.1.4.1 Controls for selection of formalizing classes and identifiers are 
+
+==== 5.1.4.1 Formalization
+
+Controls for selection of formalizing classes and identifiers are 
 only displayed where formalization exists, or is possible and selected, upon 
 which the controls are populated with the existing or anticipated choices - 
 often only one. 
-==== 5.1.4.2 Controls for associative class selection are presented only when 
+
+==== 5.1.4.2 Associative class
+
+Controls for associative class selection are presented only when 
 editing a simple binary association and there exist possible associative 
 candidate class(es)
-==== 5.1.4.3 If an association is already designated as associative, the 
+
+==== 5.1.4.3
+
+If an association is already designated as associative, the 
 associative class is displayed, but not subject to edit (see issue #11699 <<dr-3>>).
 Unchecking the checkbox will migrate the association to simple binary on finish.
 
 === 5.1.5
+
 The association editor does not offer the opportunity to prefix attributes as 
 the stand-alone 'formalize' editors do. With the exception of linked reflexive 
 associations, no effort was made to allow these stand-alone editors work with 
 symmetric reflexives. Prefixing is only one way of modifying referential 
 attributes; editing the names in 'properties' is more versatile.
 
-=== 5.2 Relate (Using) and Unrelate (Using).
+=== 5.2 Relate (Using) and Unrelate (Using)
 
 As clarified by issue 12253 <<dr-4>>, the 'execute' operations for these classes use a 
 comparison of the role phrase supplied in a statement with the phrases stored in 
@@ -116,28 +130,33 @@ associations can never distinguish a 'backwards' traversal, regardless of the
 order of proffered participants in a statement. But, as subsequent operations 
 on the association can recognize the symmetric case, this is not relevant.
 
-==== 5.2.1
+==== 5.2.1 Relate
+
 A 'Relate' statement specifying a symmetric association will always establish the 
 association linkage as 'From' the first presented instance in the statement 'To' 
 the second instance.
 
-==== 5.2.2
+==== 5.2.2 Unrelate
+
 Unrelate of a symmetric association will initially seek the second instance by 
 following the expected 'forward' direction linkage from the first presented. If 
 the expected instance is not matched, the 'backward' linkage is navigated in an 
 attempt to match.
 
 === 5.3 Select
+
 If a symmetric association traversal is encountered in a navigation, linkages in 
 both directions from each instance presented as the left side of the symmetric 
 association are followed, as appropriately, to satisfy the selection type - 
 select one, select any, select many.
+
 ==== 5.3.1 From associative navigation
+
 With only one role phrase, navigation from an associative instance cannot be 
 directed; OAL validation [process_related_by()] is modified to allow 'any'/'many' 
 navigation in this case, regardless of declared multiplicity of the association.
 
-=== 5.4 Verifier display.
+=== 5.4 Verifier display
 
 When displaying instance data, Verifier invokes the derived attribute 'Label' of 
 Link Participation class. Unmodified, this would return a relationship number 

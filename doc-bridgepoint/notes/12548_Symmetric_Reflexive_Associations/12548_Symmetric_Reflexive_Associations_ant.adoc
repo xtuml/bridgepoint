@@ -43,34 +43,74 @@ the order in which the association was instantiated. That is, +
 == 3 Requirements
 
 === 3.1 Association Editor dialog
-Support creation of symmetric reflexive associations, with or without an associative class. 
-==== 3.1.1 Present a checkbox to select for symmetry only when the association is reflexive.
-==== 3.1.2 If symmetry is selected, suppress the second, now redundant, set of fields: labels, 
+
+Support creation of symmetric reflexive associations, with or without an associative class.
+
+==== 3.1.1
+
+Present a checkbox to select for symmetry only when the association is reflexive.
+
+==== 3.1.2
+
+If symmetry is selected, suppress the second, now redundant, set of fields: labels, 
 conditionality, multiplicity and phrase specification.
+
 === 3.2 Relate and Unrelate semantics
- Support for relate and unrelate in either direction, without concern for the ordering of the 
-instance variables in the statement. 
-==== 3.2.1 When two instances are related symetrically, either instance can be selected from 
+
+Support for relate and unrelate in either direction, without concern for the ordering of the 
+instance variables in the statement.
+
+==== 3.2.1
+
+When two instances are related symetrically, either instance can be selected from 
 the other using the same role phrase.
-==== 3.2.2 When two instances are related symetrically, they may be unrelated from one another 
+==== 3.2.2
+
+When two instances are related symetrically, they may be unrelated from one another 
 in either direction using the same role phrase.
+
 === 3.3 Navigation
-==== 3.3.1 Relationship navigation must allow for 'fan-out' across symmetric reflexive 
+
+==== 3.3.1
+
+Relationship navigation must allow for 'fan-out' across symmetric reflexive 
 associations with multiplicity, recognizing that links may have been established in either 
 direction.
-==== 3.3.2 Navigation from an associative class instance must allow for either or both 
+
+==== 3.3.2
+
+Navigation from an associative class instance must allow for either or both 
 related instances to be retrieved using the single available role phrase.
+
 === 3.4 Content assist
- Suppress the presentation of a symmetric relationship number with an empty role phrase
-==== 3.4.1 For relate and unrelate, only one instance of a symmetric association number, 
+
+Suppress the presentation of a symmetric relationship number with an empty role phrase
+
+==== 3.4.1
+
+For relate and unrelate, only one instance of a symmetric association number, 
 decorated with a role phrase, shall be offered.
-==== 3.4.2 When creating a relationship chain including a symmetric association only one 
+
+==== 3.4.2
+
+When creating a relationship chain including a symmetric association only one 
 instance of a symmetric association number, decorated with a role phrase, shall be offered.
+
 === 3.5 Verifier display
- Any display of an instance of a symmetric association shall include the role phrase.
-==== 3.5.1 Session Explorer shall display a role phrase for symmetric associations.
-==== 3.5.2 Variables display shall show a role phrase for symmetric associations.
-==== 3.5.3 Variables display shall show all instances related across a symmetric reflexive 
+
+Any display of an instance of a symmetric association shall include the role phrase.
+
+==== 3.5.1
+
+Session Explorer shall display a role phrase for symmetric associations.
+
+==== 3.5.2
+
+Variables display shall show a role phrase for symmetric associations.
+
+==== 3.5.3
+
+Variables display shall show all instances related across a symmetric reflexive 
 in a single list.
 
 == 4 Analysis
