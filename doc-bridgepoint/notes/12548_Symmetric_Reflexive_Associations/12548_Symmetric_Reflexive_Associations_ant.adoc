@@ -29,21 +29,21 @@ phrase is available; what must be modified in 'select' logic; and how the
 association editor dialog must be enhanced.
 
 Consider the association that declares that territories may be adjacent 
-to one another, as in:
-  relate CA to AZ across R1.'is adjacent to';
- then both:
-  select any territory related by CA->Territory[R1.'is adjacent to']; and
-  select any territory related by AZ->Territory[R1.'is adjacent to'];
- must yield correct results.
+to one another, as in: +
+  relate CA to AZ across R1.'is adjacent to'; +
+ then both: +
+  select any territory related by CA->Territory[R1.'is adjacent to']; and +
+  select any territory related by AZ->Territory[R1.'is adjacent to']; +
+ must yield correct results. +
  Note that the association can be navigated in either direction regardless of 
-the order in which the association was instantiated. That is, 
-  relate AZ to CA across R1.'is adjacent to';
+the order in which the association was instantiated. That is, +
+  relate AZ to CA across R1.'is adjacent to'; +
  is equivalent to the first 'relate' shown above. 
 
 == 3 Requirements
 
 === 3.1 Association Editor dialog
- Support creation of symmetric reflexive associations, with or without an associative class. 
+Support creation of symmetric reflexive associations, with or without an associative class. 
 ==== 3.1.1 Present a checkbox to select for symmetry only when the association is reflexive.
 ==== 3.1.2 If symmetry is selected, suppress the second, now redundant, set of fields: labels, 
 conditionality, multiplicity and phrase specification.
