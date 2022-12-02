@@ -126,9 +126,10 @@ if not_empty source and not_empty destination
         select one form related by simprel->R_FORM[R208];
         if form.Txt_Phrs == ""
           is_symmetric = true;
-        end if;
-        if form.Txt_Phrs == rel_phrase
-          unrelatingFwd = false;
+        else
+          if form.Txt_Phrs == rel_phrase
+            unrelatingFwd = false;
+          end if;
         end if;
       else;
         select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
@@ -136,9 +137,10 @@ if not_empty source and not_empty destination
         select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
         if form.Txt_Phrs == ""
           is_symmetric = true;
-        end if;
-        if rgoclass != sourceClass
-          unrelatingFwd = false;
+        else
+          if rgoclass != sourceClass
+            unrelatingFwd = false;
+          end if;
         end if;
       end if;
     else
@@ -147,9 +149,10 @@ if not_empty source and not_empty destination
       for each rPart in rParts
         if reflexive and rPart.Txt_Phrs == ""
           is_symmetric = true;
-        end if;
-        if rPart.Txt_Phrs == rel_phrase  // pick the first of the 2 to act as ''formalizer''
-          unrelatingFwd = false;
+        else
+          if rPart.Txt_Phrs == rel_phrase  // pick the first of the 2 to act as ''formalizer''
+            unrelatingFwd = false;
+          end if;
         end if;
         break;
       end for;

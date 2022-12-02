@@ -173,9 +173,10 @@ direction; a pair of linkages must be severed, both R2901 and R2902.
 
 The mandated use of role phrases for reflexive associations is driven by the need to 
 specify navigation direction for the asymmetric case. There is no such need for the 
-symmetric case, however the test for symmetry must distinguish between a newly-created 
-association - which has no phrases yet - and a symmetric which has just one; hence, 
-a phrase is required. Adding an 'edited' status to the Association could disambiguate.
+symmetric case. However, without changes to the ooaofooa:Association structure, the test 
+for symmetry would be unable distinguish between a newly-created reflexive association, 
+which has no asymmetric phrases yet assigned, and a symmetric reflexive, if no phrase 
+were present; hence, a phrase is required.
 
 == 7 User Documentation
 
@@ -184,7 +185,10 @@ present the challenge to usage that an asymmetric reflexive presents.
 
 == 8 Unit Test
 
+The test document for the Association editor has been updated to reflect the modified 
+behavior: models/test/edit_assoc/test.adoc.
 
+A functional test model, SymmetricReflexives, has been added to models/VandMC_testing.
 
 
 == 9 Document References
