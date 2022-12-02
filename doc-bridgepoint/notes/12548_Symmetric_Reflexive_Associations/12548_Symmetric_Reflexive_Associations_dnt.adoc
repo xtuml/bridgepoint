@@ -1,0 +1,225 @@
+= Symmetric Reflexive Associations
+
+xtUML Project Design Note
+
+== 1 Abstract
+
+Detailed description of strategy to implement the enhancement described 
+in the associated analysis note. As unforeseen issues unfolded during 
+implementation, they have been incorporated in this document.
+
+== 2 Introduction and Background
+
+This discussion presumes that associations are defined using the BridgePoint 
+Edit Binary Association Dialog as modified to support symmetric reflexive 
+associations.
+
+If any other tooling is used to construct association definitions, it is 
+assumed that they will insist on role phrases for both 'sides' of a reflexive 
+as has been the case prior to this work. Any such are not affected by this 
+enhancement.
+
+== 3 Requirements
+
+See the related analysis note <<dr-1>> and issue <<dr-2>>.
+
+== 4 Analysis
+
+The key insight is to recognize that the Binary Association editor, when 
+populating the meta-model data structure which implements reflexive associations, 
+uses role phrase placement in the participant representative classes, formalized 
+or not, to determine the 'direction' of the realized association - i.e from 
+referring to referred-to participant (forward) or vice-versa (backward). The 
+forward direction is established by the how the association connector is drawn 
+on the canvas - from the referring class to the referred-to class.
+
+If the association editor dialog, and its data recipient, the 'editAssociation' 
+operation, suppress the role phrase on the 'From' side for symmetric reflexive
+associations, this circumstance can be recognized by relate, unrelate, select 
+and navigation.
+
+In the case of 'relate' a link is established as if it were 'forward' with respect 
+to the instance order in the relate statement.
+
+If, then, in the context of a reflexive association, an attempted operation in 
+an assumed 'forward' sense - based on instance ordering in a statement - fails to 
+find a target, and a missing role phrase is detected - which implies a symmetric 
+association - then it is reasonable to try a 'backward' navigation in the hope of 
+finding a target.
+
+This strategy must also be adopted by Verifier when displaying related instances 
+either in Session Explorer or in the Variables view.
+
+== 5 Design
+
+Adopting the selective suppression of the role phrase allows the addition of a 
+is_symmetric() operation on the Association class. A reflexive association data 
+structure which has an empty 'From' side role phrase can only be constructed 
+by an Edit Association Dialog which recognizes the 'Symmetric' choice.
+
+=== 5.1 Edit Binary Association Dialog.
+
+==== 5.1.1
+
+Unmodified, the dialog presents each participant class with a set of fields to 
+specify multiplicity, conditionality and role phrase. The 'forward direction' of 
+the association is 'From' the first participant class 'To' the second, determined 
+by the origin and destination of the association connector  drawn on the canvas. 
+This sense of 'direction' is captured in the data structure defining the association.
+
+==== 5.1.2 Symmetric Reflexive
+
+A checkbox labeled 'Symmetric", added to the Context Menu Entry Function 
+(R_REL_BinaryEditAssociation), has its visibility depend on the reflexivity of the 
+association being edited. In turn, the visibility of all fields associated with 
+the 'To' side of the association are made dependent on the value of that checkbox 
+selection.
+
+==== 5.1.3 Association::editAsssociation()
+
+An added parameter to the editAssociation operation, which receives the data 
+from the Edit dialog, carries a boolean denoting the selection or otherwise of 
+symmetry; if true, the second role phrase is erased from the association data 
+structure and the conditionality and multiplicity for the referred-to side of the 
+association are copied from the referring side values. When displaying a symmetric 
+association on the class diagram, the role phrase, multiplicity and conditionality 
+are displayed only once. See the flavors of get_connector_text() invoked by the 
+various classes in the association.
+
+=== 5.1.4 Editor modifications
+
+While modifying the Binary association editor (5.1.2), some opportunities were seen 
+to streamline the user interaction, reducing the number of clicks. 
+
+==== 5.1.4.1 Formalization
+
+Controls for selection of formalizing classes and identifiers are 
+only displayed where formalization exists, or is possible and selected, upon 
+which the controls are populated with the existing or anticipated choices - 
+often only one. 
+
+==== 5.1.4.2 Associative class
+
+Controls for associative class selection are presented only when 
+editing a simple binary association and there exist possible associative 
+candidate class(es)
+
+==== 5.1.4.3
+
+If an association is already designated as associative, the 
+associative class is displayed, but not subject to edit (see issue #11699 <<dr-3>>).
+Unchecking the checkbox will migrate the association to simple binary on finish.
+
+=== 5.1.5
+
+The association editor does not offer the opportunity to prefix attributes as 
+the stand-alone 'formalize' editors do. With the exception of linked reflexive 
+associations, no effort was made to allow these stand-alone editors work with 
+symmetric reflexives. Prefixing is only one way of modifying referential 
+attributes; editing the names in 'properties' is more versatile.
+
+=== 5.2 Relate (Using) and Unrelate (Using)
+
+As clarified by issue 12253 <<dr-4>>, the 'execute' operations for these classes use a 
+comparison of the role phrase supplied in a statement with the phrases stored in 
+the association data structure to determine the 'direction' of the operation.
+If the supplied phrase matches the 'From' side phrase, the association is deemed 
+to be 'backward'. This test will always fail if the 'From' side phrase is null, 
+as is the case in the proposed design for symmetric reflexives. So, symmetric 
+associations can never distinguish a 'backwards' traversal, regardless of the 
+order of proffered participants in a statement. But, as subsequent operations 
+on the association can recognize the symmetric case, this is not relevant.
+
+==== 5.2.1 Relate
+
+A 'Relate' statement specifying a symmetric association will always establish the 
+association linkage as 'From' the first presented instance in the statement 'To' 
+the second instance.
+
+==== 5.2.2 Unrelate
+
+Unrelate of a symmetric association will initially seek the second instance by 
+following the expected 'forward' direction linkage from the first presented. If 
+the expected instance is not matched, the 'backward' linkage is navigated in an 
+attempt to match.
+
+=== 5.3 Select
+
+If a symmetric association traversal is encountered in a navigation, linkages in 
+both directions from each instance presented as the left side of the symmetric 
+association are followed, as appropriately, to satisfy the selection type - 
+select one, select any, select many.
+
+==== 5.3.1 From associative navigation
+
+With only one role phrase, navigation from an associative instance cannot be 
+directed; OAL validation [process_related_by()] is modified to allow 'any'/'many' 
+navigation in this case, regardless of declared multiplicity of the association.
+
+=== 5.4 Verifier display
+
+When displaying instance data, Verifier invokes the derived attribute 'Label' of 
+Link Participation class. Unmodified, this would return a relationship number 
+without any role phrase for the 'From' side of a symmetric reflexive. Accordingly, 
+when this case is detected, the activity 'borrows' the shared role phrase from the 
+'To' side.
+
+Additionally, as discussed above, it is not possible to determine whether a symmetric 
+association has been related 'forward' or backward'; when listing the values of an 
+instance in the 'Variables' display, navigating a symmetric association needs special 
+attention. Links in both directions should be followed, but those links which lead 
+back to the instance being displayed should be skipped. Furthermore, the results of 
+both forward and backward navigations should be combined in one list of related 
+instances. See "Symmetrics" processing in BPValue.java and BPVariable.java.
+
+=== 5.5 Content assist
+
+OAL Validation Functions 'relate_across_content_assist() and rel_chain_content_assist() 
+supply the proposed strings presented in the content assist list dialog. These functions 
+are modified to suppress adding the unwanted 'relationship-number-with-no-phrase' when 
+the symmetric case is recognized.
+
+== 6 Design Comments
+
+Verifier uses relationships R2901 and R2902 between 'Instance' and 'Link Participant' 
+classes to implement associations with a sense of direction: R2901 relates the link to 
+the 'From' participant instance; R2902 links to the 'To' participant instance. As no 
+sense of 'direction' can be determined for a symmetric reflexive 'Relate' the sense is 
+determined by the ordering of the instance references in the statement. 
+
+When 'unrelating' an associative symmetric reflexive association, it matters not the 
+direction; a pair of linkages must be severed, both R2901 and R2902.
+
+The mandated use of role phrases for reflexive associations is driven by the need to 
+specify navigation direction for the asymmetric case. There is no such need for the 
+symmetric case. However, without changes to the ooaofooa:Association structure, the test 
+for symmetry would be unable distinguish between a newly-created reflexive association, 
+which has no asymmetric phrases yet assigned, and a symmetric reflexive, if no phrase 
+were present; hence, at this time, a phrase is required.
+
+== 7 User Documentation
+
+No additional documentation is required; a symmetric reflexive association does not 
+present the challenge to usage that an asymmetric reflexive presents.
+
+== 8 Unit Test
+
+The test document for the Association editor has been updated to reflect the modified 
+behavior: models/test/edit_assoc/test.adoc.
+
+A functional test model, SymmetricReflexives, has been added to models/VandMC_testing.
+
+
+== 9 Document References
+
+
+. [[dr-1]] link:12548_Symmetric_Reflexive_Associations_ant.adoc[Symmetric Reflexive analysis note]
+. [[dr-2]] https://support.onefact.net/issues/12548]
+. [[dr-3]] https://support.onefact.net/issues/11699]
+. [[dr-4]] https://support.onefact.net/issues/12253]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+--

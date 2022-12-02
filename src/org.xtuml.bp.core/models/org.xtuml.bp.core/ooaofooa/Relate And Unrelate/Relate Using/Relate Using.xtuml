@@ -149,6 +149,7 @@ if not_empty source and not_empty destination
   // It also simplifies multiplicity error checking.
   if reflexive
     select one raone related by assoc->R_AONE[R209.''relates''];
+    // Note: for symmetric this compare fails: allow to default to Fwd case.
     if raone.Txt_Phrs == rel_phrase
       relatingFwd = false;
     end if;

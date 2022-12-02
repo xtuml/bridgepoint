@@ -3116,7 +3116,9 @@ select any one_id related by one_obj->O_ID[R104]
 select any oth_id related by oth_obj->O_ID[R104]
     where USER::selectOne(id:selected.Obj_ID) and
        O_ID::hasAttributes(obj_id: selected.Obj_ID, oid_id: selected.Oid_ID );
-
+if rel.is_symmetric()
+  oth_id = one_id;
+end if;
 if ( not_empty one_id and not_empty oth_id )
   a_rel.formalize( one_id: one_id.Oid_ID, oth_id: oth_id.Oid_ID );
 end if;

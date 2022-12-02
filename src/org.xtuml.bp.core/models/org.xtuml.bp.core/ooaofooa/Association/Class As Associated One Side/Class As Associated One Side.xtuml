@@ -19,6 +19,10 @@ Bridge:GD',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
+select one r_rel related by self->R_ASSOC[R209]->R_REL[R206];
+if r_rel.is_symmetric()  // this is the redundant side for mult/cond annotation
+  return "";
+end if;
 if (param.at == End::Start OR param.at == End::End)
   result = self.Txt_Phrs;
 elif (param.at == End::Start_Fixed OR param.at == End::End_Fixed)
@@ -28,6 +32,7 @@ return result;',
 	1,
 	'',
 	"4a0b1fe2-d792-41c6-9513-507c468fb2c7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("6362b1b3-4e4e-4294-944f-0383c4c0d1e9",
@@ -63,6 +68,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("74ed4bee-3682-417b-9ac1-c113166a7d6c",
@@ -77,6 +83,7 @@ return obj.Name;
 	1,
 	'',
 	"b9bb7670-ecbe-4d77-849a-03b625361a9e",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("b203a75f-ad75-4e41-9e57-35321e8aef00",
@@ -90,6 +97,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"74ed4bee-3682-417b-9ac1-c113166a7d6c",
+	0,
 	0);
 INSERT INTO O_REF
 	VALUES ("a5e66f08-6e0b-4552-81cb-e0fea282baca",
