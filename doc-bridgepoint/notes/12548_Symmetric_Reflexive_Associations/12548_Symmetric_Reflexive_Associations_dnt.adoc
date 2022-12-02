@@ -21,7 +21,7 @@ enhancement.
 
 == 3 Requirements
 
-See the related analysis note.
+See the related analysis note <<dr-1>> and issue <<dr-2>>.
 
 == 4 Analysis
 
@@ -94,7 +94,7 @@ often only one.
 editing a simple binary association and there exist possible associative 
 candidate class(es)
 ==== 5.1.4.3 If an association is already designated as associative, the 
-associative class is displayed, but not subject to edit (see issue #11699).
+associative class is displayed, but not subject to edit (see issue #11699 <<dr-3>>).
 Unchecking the checkbox will migrate the association to simple binary on finish.
 
 === 5.1.5
@@ -106,15 +106,15 @@ attributes; editing the names in 'properties' is more versatile.
 
 === 5.2 Relate (Using) and Unrelate (Using).
 
-As clarified by issue 12253, the 'execute' operations for these classes use a 
+As clarified by issue 12253 <<dr-4>>, the 'execute' operations for these classes use a 
 comparison of the role phrase supplied in a statement with the phrases stored in 
 the association data structure to determine the 'direction' of the operation.
 If the supplied phrase matches the 'From' side phrase, the association is deemed 
 to be 'backward'. This test will always fail if the 'From' side phrase is null, 
 as is the case in the proposed design for symmetric reflexives. So, symmetric 
-associations will never distinguish a 'backwards' traversal, regardless of the 
-order of proffered participants in a staement. But, if complementary operations 
-on the association recognize the symmetry, this is not an issue.
+associations can never distinguish a 'backwards' traversal, regardless of the 
+order of proffered participants in a statement. But, as subsequent operations 
+on the association can recognize the symmetric case, this is not relevant.
 
 ==== 5.2.1
 A 'Relate' statement specifying a symmetric association will always establish the 
@@ -176,7 +176,7 @@ specify navigation direction for the asymmetric case. There is no such need for 
 symmetric case. However, without changes to the ooaofooa:Association structure, the test 
 for symmetry would be unable distinguish between a newly-created reflexive association, 
 which has no asymmetric phrases yet assigned, and a symmetric reflexive, if no phrase 
-were present; hence, a phrase is required.
+were present; hence, at this time, a phrase is required.
 
 == 7 User Documentation
 
@@ -194,8 +194,10 @@ A functional test model, SymmetricReflexives, has been added to models/VandMC_te
 == 9 Document References
 
 
-. [[dr-1]] https://support.onefact.net/issues/12548]
-. [[dr-2]] https://support.onefact.net/issues/11699]
+. [[dr-1]] link:12548_Symmetric_Reflexive_Associations_ant.adoc[Symmetric Reflexive analysis note]
+. [[dr-2]] https://support.onefact.net/issues/12548]
+. [[dr-3]] https://support.onefact.net/issues/11699]
+. [[dr-4]] https://support.onefact.net/issues/12253]
 
 ---
 
