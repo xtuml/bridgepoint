@@ -118,16 +118,16 @@ select one simprel related by relationship_spec->R_SIMP[R206];
 unrelatingFwd = true;
 is_symmetric = false;
 
-if not_empty source and not_empty destination
+if (not_empty source and not_empty destination)
   // attempt to order the unrelate as ''from->to'' for consistency
-  if not_empty simprel
-    if relationship_spec.isFormalized()
-      if reflexive
+  if (not_empty simprel)
+    if (relationship_spec.isFormalized())
+      if (reflexive)
         select one form related by simprel->R_FORM[R208];
-        if form.Txt_Phrs == ""
+        if (form.Txt_Phrs == "")
           is_symmetric = true;
         else
-          if form.Txt_Phrs == rel_phrase
+          if (form.Txt_Phrs == rel_phrase)
             unrelatingFwd = false;
           end if;
         end if;
@@ -135,10 +135,10 @@ if not_empty source and not_empty destination
         select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
         select one form related by simprel->R_FORM[R208];
         select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-        if form.Txt_Phrs == ""
+        if (form.Txt_Phrs == "")
           is_symmetric = true;
         else
-          if rgoclass != sourceClass
+          if (rgoclass != sourceClass)
             unrelatingFwd = false;
           end if;
         end if;
@@ -147,10 +147,10 @@ if not_empty source and not_empty destination
       // try to make arbitrary, repeatable choice of direction of ''unrelate''
       select many rParts related by simprel->R_PART[R207];
       for each rPart in rParts
-        if reflexive and rPart.Txt_Phrs == ""
+        if (reflexive and rPart.Txt_Phrs == "")
           is_symmetric = true;
         else
-          if rPart.Txt_Phrs == rel_phrase  // pick the first of the 2 to act as ''formalizer''
+          if (rPart.Txt_Phrs == rel_phrase)  // pick the first of the 2 to act as ''formalizer''
             unrelatingFwd = false;
           end if;
         end if;
@@ -161,11 +161,11 @@ if not_empty source and not_empty destination
     // not simple; must be sub-super
     select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
     select one superclass related by relationship_spec->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-    if superclass != destClass
+    if (superclass != destClass)
       unrelatingFwd = false;
     end if;
   end if;
-  if not unrelatingFwd
+  if (not unrelatingFwd)
     swap = source;
     source = destination;
     destination = swap;
@@ -177,21 +177,21 @@ select any relLink from instances of I_LNK where false;
 select many Iils related by source->I_LIP[R2958] where selected.Rel_ID == relationship_spec.Rel_ID;
 for each Iil in Iils
   select one relLink related by Iil->I_LNK[R2901];
-  if not_empty relLink
+  if (not_empty relLink)
     select one dst related by relLink->I_LIP[R2902]->I_INS[R2958];
-    if not_empty dst
-      if dst == destination
+    if (not_empty dst)
+      if (dst == destination)
         break;
       end if;
     end if;
   else
     // in symmetric case, may be related ''backwards'' but cannot determine; try it.
-    if is_symmetric
+    if (is_symmetric)
       select one relLink related by Iil->I_LNK[R2902];
-      if not_empty relLink
+      if (not_empty relLink)
         select one dst related by relLink->I_LIP[R2901]->I_INS[R2958];
-        if not_empty dst
-          if dst == destination
+        if (not_empty dst)
+          if (dst == destination)
             break;
           end if;
         end if;
@@ -234,8 +234,8 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
     end if; // a matching link was not found
   end if; // audit is do not ignore
 end if; // audit enabled
-if not halting
-  if not_empty relLink
+if (not halting)
+  if (not_empty relLink)
     relLink.dispose();
   end if;
 end if;',

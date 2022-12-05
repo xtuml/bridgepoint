@@ -141,26 +141,26 @@ reflexive = relationship_spec.is_reflexive();
 select one assoc related by relationship_spec->R_ASSOC[R206];
 relatingFwd = true;  // tentative assumption..
 
-if not_empty source and not_empty destination
+if (not_empty source and not_empty destination)
   // Variables ''source'' and ''destination'' refer to lexical order in current statement.
   // Use the association structure to order the relate as ''from->to'' for consistency
   // If a ''backward'' relate is detected, swap ''source'' for ''destination''.
   // This establishes consistency for R2901/R2902 linkage creation.
   // It also simplifies multiplicity error checking.
-  if reflexive
+  if (reflexive)
     select one raone related by assoc->R_AONE[R209.''relates''];
     // Note: for symmetric this compare fails: allow to default to Fwd case.
-    if raone.Txt_Phrs == rel_phrase
+    if (raone.Txt_Phrs == rel_phrase)
       relatingFwd = false;
     end if;
   else
     select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
     select one aoneClass related by assoc->R_AONE[R209]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-    if srcClass != aoneClass
+    if (srcClass != aoneClass)
       relatingFwd = false;
     end if;
   end if;
-  if not relatingFwd
+  if (not relatingFwd)
     swap = source;
     source = destination;
     destination = swap;
@@ -243,7 +243,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   end if; // audit is do not ignore
 end if; // audit enabled
 
-if not populationError
+if (not populationError)
   // set up the association linkages
   create object instance link of I_LNK;
   relate relationship_spec to link across R2904;

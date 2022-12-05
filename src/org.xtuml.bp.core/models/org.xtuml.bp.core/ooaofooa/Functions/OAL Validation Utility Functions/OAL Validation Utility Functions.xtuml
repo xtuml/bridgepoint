@@ -2874,7 +2874,7 @@ ParserUtilityFunction: TRUE
       if ( not_empty assoc )
         if ( rel.is_symmetric() )
           // selecting from the associative of a symmetric reflexive has special multiplicity
-          // even if the association multiplicity is "one'', allow "many"/"any" in that case.
+          // even if the association multiplicity is "one", allow "many"/"any" in that case.
           select one assocobj related by assoc->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
           select any fromobj from instances of O_OBJ where false;  // decl
           if ( empty last_link ) // look for start variable class - instance or set

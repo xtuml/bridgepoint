@@ -8498,7 +8498,7 @@ if (not_empty candidate_classes)
   // now sorted.. see if we have an already chosen associative
   // Note: the following is clearly redundant given the preceeding choice.
   // - however, if re-assignment is subsequently fixed, this will be relevant.
-  if has_associative
+  if (has_associative)
     i = 0;
     while ( i < (num_options) )
       s = candidate_class_options[i];
@@ -8544,19 +8544,19 @@ USER::dependsOn(field1:"assoc_label2", field2:"is_associative", inverse:false, c
 // Determine possible non-associative formalizing choices
 b_to_a_part = "";
 select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
-if not_empty a_idents and (b_mult == "One" or (is_symmetric and a_mult == "One"))
+if (not_empty a_idents and (b_mult == "One" or (is_symmetric and a_mult == "One")))
   b_to_a_part = a_class.Name;
-  if is_reflexive
+  if (is_reflexive)
     b_to_a_part = b_phrase + " " + b_to_a_part;
   end if;
 end if;
 
 a_to_b_part = "";
 select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
-if not is_symmetric
+if (not is_symmetric)
   if (not_empty b_idents and a_mult == "One")
     a_to_b_part = b_class.Name;
-    if is_reflexive
+    if (is_reflexive)
       a_to_b_part = a_phrase + " " + a_to_b_part;
     end if;
   end if;
@@ -8580,7 +8580,7 @@ if (empty a_idents and empty b_idents)
   can_formalize = false;
 end if;
 if (a_mult == "Many" and b_mult == "Many")
-  if not is_associative
+  if (not is_associative)
     can_formalize = false;
   end if;
 end if;
@@ -8637,15 +8637,15 @@ USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparis
 // establish possible visibilty of class(es) identifier choices
 use_a_class = false;
 use_b_class = false;
-if formalize
-  if part_class == a_class.Name or is_reflexive
+if (formalize)
+  if (part_class == a_class.Name or is_reflexive)
     use_a_class = true;
   end if;
-  if not is_reflexive  
+  if (not is_reflexive)
     if part_class == b_class.Name
       use_b_class = true;
     end if;
-    if is_associative
+    if (is_associative)
       use_a_class = true;
       use_b_class = true;
     end if;
@@ -8672,7 +8672,7 @@ USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:false, compari
 
 // Edit the association - implement the dialog choices in the association structure
 
-if not formalize
+if (not formalize)
   part_class = "Not formalized";
 end if;
 

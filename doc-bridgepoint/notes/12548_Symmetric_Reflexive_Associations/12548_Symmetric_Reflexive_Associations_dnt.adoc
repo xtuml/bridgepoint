@@ -205,9 +205,9 @@ present the challenge to usage that an asymmetric reflexive presents.
 == 8 Unit Test
 
 The test document for the Association editor has been updated to reflect the modified 
-behavior: models/test/edit_assoc/test.adoc.
+behavior: <<dr-5>>.
 
-A functional test model, SymmetricReflexives, has been added to models/VandMC_testing.
+A functional test model, <<dr-6>> SymmetricReflexives, has been added to models/VandMC_testing.
 
 
 == 9 Document References
@@ -217,6 +217,8 @@ A functional test model, SymmetricReflexives, has been added to models/VandMC_te
 . [[dr-2]] https://support.onefact.net/issues/12548]
 . [[dr-3]] https://support.onefact.net/issues/11699]
 . [[dr-4]] https://support.onefact.net/issues/12253]
+. [[dr-5]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
+. [[dr-6]] https://github.com/xtuml/models/tree/master/VandMC_testing/Symmetrics
 
 ---
 

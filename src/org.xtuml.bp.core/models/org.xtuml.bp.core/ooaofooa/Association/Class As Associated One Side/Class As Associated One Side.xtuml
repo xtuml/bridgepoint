@@ -20,7 +20,8 @@ Bridge:GD',
 	1,
 	'result = "";
 select one r_rel related by self->R_ASSOC[R209]->R_REL[R206];
-if r_rel.is_symmetric()  // this is the redundant side for mult/cond annotation
+if (r_rel.is_symmetric())
+  // this is the redundant side for mult/cond annotation
   return "";
 end if;
 if (param.at == End::Start OR param.at == End::End)

@@ -956,9 +956,11 @@ a_oir = param.a_oir;
 b_oir = param.b_oir;
 assoc_class = param.assoc_class;
 assoc_formalized = param.assoc_formalized;
-sym = param.symmetric;
+symmetric = param.symmetric;
 
-if sym  // ensure no redundant phrase; match cond & mult both sides
+if (symmetric)
+  // delete the redundant 2nd phrase; this is how symmetric reflexives are recognized.
+  // copy the cond & mult values from the ''a'' side for symmetry.
   b_phrase = "";
   b_cond = a_cond;
   b_mult = a_mult;

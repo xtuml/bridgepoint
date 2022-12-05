@@ -21,8 +21,9 @@ Bridge:GD
 	1,
 	'result = "";
 select one r_rel related by self->R_SIMP[R207]->R_REL[R206];
-if r_rel.is_symmetric()
-  if self.Txt_Phrs == ""  // this is the redundant side for mult/cond annotation
+if (r_rel.is_symmetric())
+  if self.Txt_Phrs == ""
+  	// this is the redundant side for mult/cond annotation
     return "";
   end if;
 end if;
