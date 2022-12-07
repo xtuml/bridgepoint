@@ -8579,7 +8579,7 @@ can_formalize = true;
 if (empty a_idents and empty b_idents)
   can_formalize = false;
 end if;
-if (a_mult == "Many" and b_mult == "Many")
+if (a_mult == "Many" and (b_mult == "Many" or is_symmetric))
   if (not is_associative)
     can_formalize = false;
   end if;
