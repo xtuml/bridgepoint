@@ -16,8 +16,8 @@ associations.
 
 If any other tooling is used to construct association definitions, it is 
 assumed that they will insist on role phrases for both 'sides' of a reflexive 
-as has been the case prior to this work. Any such are not affected by this 
-enhancement.
+as has been the case prior to this work. Any such tools are not affected by 
+this work.
 
 == 3 Requirements
 
@@ -27,10 +27,10 @@ See the related analysis note <<dr-1>> and issue <<dr-2>>.
 
 The key insight is to recognize that the Binary Association editor, when 
 populating the meta-model data structure which implements reflexive associations, 
-uses role phrase placement in the participant representative classes, formalized 
-or not, to determine the 'direction' of the realized association - i.e from 
+formalized or not, uses role phrase placement in the participant representative 
+classes to determine the 'direction' of the realized association - i.e from 
 referring to referred-to participant (forward) or vice-versa (backward). The 
-forward direction is established by the how the association connector is drawn 
+forward direction is established by how the association connector is drawn 
 on the canvas - from the referring class to the referred-to class.
 
 If the association editor dialog, and its data recipient, the 'editAssociation' 
@@ -52,14 +52,12 @@ either in Session Explorer or in the Variables view.
 
 == 5 Design
 
-Adopting the selective suppression of the role phrase allows the addition of a 
+Adopting the selective suppression of the role phrase allows the addition of an
 is_symmetric() operation on the Association class. A reflexive association data 
 structure which has an empty 'From' side role phrase can only be constructed 
 by an Edit Association Dialog which recognizes the 'Symmetric' choice.
 
-=== 5.1 Edit Binary Association Dialog.
-
-==== 5.1.1
+=== 5.1 Edit Binary Association Dialog
 
 Unmodified, the dialog presents each participant class with a set of fields to 
 specify multiplicity, conditionality and role phrase. The 'forward direction' of 
@@ -67,7 +65,7 @@ the association is 'From' the first participant class 'To' the second, determine
 by the origin and destination of the association connector  drawn on the canvas. 
 This sense of 'direction' is captured in the data structure defining the association.
 
-==== 5.1.2 Symmetric Reflexive
+==== 5.1.1 Symmetric Reflexive
 
 A checkbox labeled 'Symmetric", added to the Context Menu Entry Function 
 (R_REL_BinaryEditAssociation), has its visibility depend on the reflexivity of the 
@@ -75,7 +73,7 @@ association being edited. In turn, the visibility of all fields associated with
 the 'To' side of the association are made dependent on the value of that checkbox 
 selection.
 
-==== 5.1.3 Association::editAsssociation()
+==== 5.1.2 Association::editAsssociation()
 
 An added parameter to the editAssociation operation, which receives the data 
 from the Edit dialog, carries a boolean denoting the selection or otherwise of 
@@ -86,31 +84,31 @@ association on the class diagram, the role phrase, multiplicity and conditionali
 are displayed only once. See the flavors of get_connector_text() invoked by the 
 various classes in the association.
 
-=== 5.1.4 Editor modifications
+=== 5.1.3 Editor modifications
 
 While modifying the Binary association editor (5.1.2), some opportunities were seen 
 to streamline the user interaction, reducing the number of clicks. 
 
-==== 5.1.4.1 Formalization
+==== 5.1.3.1 Formalization
 
 Controls for selection of formalizing classes and identifiers are 
 only displayed where formalization exists, or is possible and selected, upon 
 which the controls are populated with the existing or anticipated choices - 
 often only one. 
 
-==== 5.1.4.2 Associative class
+==== 5.1.3.2 Associative class
 
 Controls for associative class selection are presented only when 
 editing a simple binary association and there exist possible associative 
 candidate class(es)
 
-==== 5.1.4.3
+==== 5.1.3.3
 
 If an association is already designated as associative, the 
 associative class is displayed, but not subject to edit (see issue #11699 <<dr-3>>).
 Unchecking the checkbox will migrate the association to simple binary on finish.
 
-=== 5.1.5
+=== 5.1.4 Attribute naming
 
 The association editor does not offer the opportunity to prefix attributes as 
 the stand-alone 'formalize' editors do. With the exception of linked reflexive 
@@ -120,15 +118,12 @@ attributes; editing the names in 'properties' is more versatile.
 
 === 5.2 Relate (Using) and Unrelate (Using)
 
-As clarified by issue 12253 <<dr-4>>, the 'execute' operations for these classes use a 
-comparison of the role phrase supplied in a statement with the phrases stored in 
-the association data structure to determine the 'direction' of the operation.
-If the supplied phrase matches the 'From' side phrase, the association is deemed 
-to be 'backward'. This test will always fail if the 'From' side phrase is null, 
-as is the case in the proposed design for symmetric reflexives. So, symmetric 
-associations can never distinguish a 'backwards' traversal, regardless of the 
-order of proffered participants in a statement. But, as subsequent operations 
-on the association can recognize the symmetric case, this is not relevant.
+As clarified by issue 12523 <<dr-4>>, the 'execute' operations for the classes 
+implementing these operations use a comparison of the role phrase supplied in a 
+statement with the phrases stored in the association data structure to determine 
+the 'direction' of the operation.  However, this notional direction is irrelevant 
+for symmetric reflexive associations, as both directions are inspected when necessary 
+to realize the symmetric nature of a link across the association.
 
 ==== 5.2.1 Relate
 
@@ -147,7 +142,7 @@ attempt to match.
 
 If a symmetric association traversal is encountered in a navigation, linkages in 
 both directions from each instance presented as the left side of the symmetric 
-association are followed, as appropriately, to satisfy the selection type - 
+association are followed, as appropriate, to satisfy the selection type - 
 select one, select any, select many.
 
 ==== 5.3.1 From associative navigation
@@ -214,9 +209,9 @@ A functional test model, <<dr-6>> SymmetricReflexives, has been added to models/
 
 
 . [[dr-1]] link:12548_Symmetric_Reflexive_Associations_ant.adoc[Symmetric Reflexive analysis note]
-. [[dr-2]] https://support.onefact.net/issues/12548]
-. [[dr-3]] https://support.onefact.net/issues/11699]
-. [[dr-4]] https://support.onefact.net/issues/12253]
+. [[dr-2]] https://support.onefact.net/issues/12548
+. [[dr-3]] https://support.onefact.net/issues/11699
+. [[dr-4]] https://support.onefact.net/issues/12523
 . [[dr-5]] https://github.com/xtuml/models/blob/master/test/assoc_edit/test.adoc[Association Editor Test Procedure]
 . [[dr-6]] https://github.com/xtuml/models/tree/master/VandMC_testing/Symmetrics
 

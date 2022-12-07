@@ -5,14 +5,14 @@ xtUML Project Analysis Note
 == 1 Abstract
 
 The BridgePoint editor requires that role phrases be used on reflexive associations.
-These should differ (not enforced, at present) so that navigation in either 
-direction can be readily specified by choice of phrase in any statement that 
-initiates or traverses the association.
+These should differ (not enforced, at present: see <<dr-1>> ) so that navigation 
+in either direction can be readily specified by choice of phrase in any statement 
+that relates, unrelates or traverses the association.
 
 So the simple reflexive association between, say, aquaintances, for example, must 
 be burdened with the artificial directional phrases 'knows" and 'is known by'- a 
 poor representation of the true relationship - enforcing a non-symmetrical view of 
-what clearly should be seen as symmetrical.
+what clearly should be seen as symmetrical: see <<dr-2>>.
 
 For a symmetric reflexive association only one set of phrase, multiplicity and 
 conditionality should describe the association. This will require modification to 
@@ -52,39 +52,42 @@ Present a checkbox to select for symmetry only when the association is reflexive
 
 ==== 3.1.2
 
-If symmetry is selected, suppress the second, now redundant, set of fields: labels, 
+If symmetry is selected, suppress the second, now redundant, set of fields: class names, 
 conditionality, multiplicity and phrase specification.
 
 === 3.2 Relate and Unrelate semantics
 
-Support for relate and unrelate in either direction, without concern for the ordering of the 
-instance variables in the statement.
-
 ==== 3.2.1
 
-When two instances are related symetrically, either instance can be selected from 
-the other using the same role phrase.
+When relating two instances symmetrically, lexical ordering of the instance handles 
+within the relate statement is irrelevant; the following are equivalent: +
+  relate CA to AZ across R1.'is adjacent to'; +
+  relate AZ to CA across R1.'is adjacent to'; +
+
 ==== 3.2.2
 
-When two instances are related symetrically, they may be unrelated from one another 
-in either direction using the same role phrase.
+When unrelating two symmetrically related instances, lexical ordering of the 
+instance handles within the unrelate statement is irrelevant.
 
 === 3.3 Navigation
 
 ==== 3.3.1
 
-Relationship navigation must allow for 'fan-out' across symmetric reflexive 
-associations with multiplicity, recognizing that links may have been established in either 
-direction.
+When traversing a symmetric reflexive association, any and all related instance(s) 
+must be reachable regardless of the lexical ordering of the instance handles 
+in the statement(s) that related them
 
 ==== 3.3.2
 
 Navigation from an associative class instance must allow for either or both 
 related instances to be retrieved using the single available role phrase.
 
-=== 3.4 Content assist
+===== 3.3.2.1
 
-Suppress the presentation of a symmetric relationship number with an empty role phrase
+Even if the associative relationship is defined as 1:1, select 'any'/'many' 
+must be allowable when navigating from the associative class instance.
+
+=== 3.4 Content assist
 
 ==== 3.4.1
 
@@ -122,23 +125,14 @@ participants are of the same class.
 
 Associations are defined on the canvas by drawing a connector between classes. 
 The direction in which the connector is drawn defines a referring/referred-to 
-'directionality' for the association. Non-symmetric reflexive associations 
-require differing role phrases to distinguish directionality in relating, 
-unrelating, selecting or navigation. Symmetric reflexive associations can only 
-specify a single role phrase, hence directionality cannot be so inferred.
+'directionality' for the association. For non-reflexive associations the lexical 
+order of instance variables in a relate, unrelate or select statement, compared 
+with that directionality, determines 'forward' or 'backward' direction. 
 
-For formalized relexive associations, there are distinct classes representing 
-the referring participant and the referred-to participant. For non-formalized  
-reflexive associations this directionality between referring and referred-to 
-classes is captured in the placement of the role phrases within two same-class 
-instances in the meta-model data structure.
-
-To support symmetric reflexive associations, placement of the single role 
-phrase can be used to define the 'forward' direction - i.e from referring 
-class to referred-to class; by convention, the phrase is stored in the 
-referred-to representative.  Supressing any retention of a role phrase in 
-the referring representative is a sufficient measure to distinguish the 
-association as symmetric.
+Non-symmetric reflexive associations require differing role phrases to distinguish 
+directionality. Symmetric reflexive associations can only specify a single role 
+phrase, hence directionality cannot be so inferred. The design must allow for this 
+difference in relationship navigation.
 
 == 5 Work Required
 
@@ -164,10 +158,8 @@ As this is a new feature enhancement, specific tests must be developed.
 
 == 7 Document References
 
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
-
-. [[dr-1]] https://support.onefact.net/issues/12548]
+. [[dr-1]] https://support.onefact.net/issues/12567
+. [[dr-2]] https://support.onefact.net/issues/12548
 
 ---
 
