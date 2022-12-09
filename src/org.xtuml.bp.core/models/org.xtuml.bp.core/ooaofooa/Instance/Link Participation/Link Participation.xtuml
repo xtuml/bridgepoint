@@ -109,15 +109,16 @@ INSERT INTO O_DBATTR
 if not_empty assoc
   phrase = "";
   select one origin related by self->I_LNK[R2901];
-  // if origin is specified, we are looking for the ''from'' phrase
-  // but symmetric reflexive has no ''from'' phrase; must be ''borrowed'' from the ''to'' side.
+  // if origin is specified, we are looking for the phrase from the ''from'' side
+  // but symmetric reflexive has no ''from'' phrase; it must be ''borrowed'' from the ''to'' side.
   select one simprel related by assoc->R_SIMP[R206];
   if(not_empty simprel)
     if (not assoc.isFormalized())
       select many parts related by simprel->R_PART[R207];
       for each part in parts
         // in the case of an unformalized association we have two parts:
-        // depending on origin, we take either 1st or 2nd
+        // depending on origin, we take the phrase from either 1st or 2nd part.
+        // except, if symmetric reflexive, always take the 2nd phrase (the 1st is null)
         phrase = part.Txt_Phrs;
         if(not_empty origin) // take the first, else cycle for the second...
           if not (assoc.is_symmetric())  // .. unless symmetric; if it is, wait for the ''to'' side

@@ -959,8 +959,12 @@ assoc_formalized = param.assoc_formalized;
 symmetric = param.symmetric;
 
 if (symmetric)
-  // delete the redundant 2nd phrase; this is how symmetric reflexives are recognized.
+  // delete the 2nd (''b'' side) phrase; 
+  // note: the existence of a blank phrase for a reflexive is how symmetric condition is recognized.
+  // see: Association::is_symmetric()
+  // this condition is tested for in unrelate, select and elsewhere
   // copy the cond & mult values from the ''a'' side for symmetry.
+  // note in each case, below, how the b_phrase is actually stored in the ''a'' side class instance.
   b_phrase = "";
   b_cond = a_cond;
   b_mult = a_mult;
@@ -1479,34 +1483,32 @@ INSERT INTO O_TFR
 // association, when no phrases are yet assigned. 
 // [A ''never_edited'' status for Association could disambiguate; but, phrases surface meaning.]
 // The Binary Association editor suppresses the second phrase (b_part) in the symmetric case.
+// This null phrase is stored in either:
+// - R_FORM (simple, formalized), one of the R_PART instances (simple, unformalized), R_AONE (associative)
+// Note that in each case these represent what was seen as the ''a'' side in the association editor,
+// even though it was the ''b'' phrase that was suppressed [see Assdociation::editAssociation(..)]
 
 symmetric = false;
-if self.is_reflexive()
+if (self.is_reflexive())
   select one srel related by self->R_SIMP[R206];
-  if not_empty srel
-    if self.isFormalized()
+  if (not_empty srel)
+    if (self.isFormalized())
       select one form related by srel->R_FORM[R208.''relates''];
-      select any part related by srel->R_PART[R207.''relates''];
-      if form.Txt_Phrs != "" and part.Txt_Phrs == ""
+      if (form.Txt_Phrs == "")
         symmetric = true;
       end if;
     else
-      select any part1 related by srel->R_PART[R207.''relates'']
-       where selected.Txt_Phrs != "";
-      select any part2 related by srel->R_PART[R207.''relates'']
-       where selected.Txt_Phrs == "";
-      if not_empty part1 and not_empty part2
+      select any part related by srel->R_PART[R207.''relates'']
+       where (selected.Txt_Phrs == "");
+      if (not_empty part)
         symmetric = true;
       end if;
     end if;
   else
-    select one arel related by self->R_ASSOC[R206];
-    if ( not_empty arel )
-      select one aone related by arel->R_AONE[R209];
-      select one aoth related by arel->R_AOTH[R210];
-      if aone.Txt_Phrs == "" and aoth.Txt_Phrs != ""
-        symmetric = true;
-      end if;
+  	// not simple reflexive - must be associative
+    select one aone related by self->R_ASSOC[R206]->R_AONE[R209];
+    if (aone.Txt_Phrs == "")
+      symmetric = true;
     end if;
   end if;
 end if;  

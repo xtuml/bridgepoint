@@ -21,7 +21,8 @@ Bridge:GD',
 	'result = "";
 select one r_rel related by self->R_ASSOC[R209]->R_REL[R206];
 if (r_rel.is_symmetric())
-  // this is the redundant side for mult/cond annotation
+  // a symmetric reflexive omits the phrase in the R_AONE instance (that''s how symmetry is recognized)
+  // return a null string; the connector text will be evaluated from the other side, R_AOTH
   return "";
 end if;
 if (param.at == End::Start OR param.at == End::End)
