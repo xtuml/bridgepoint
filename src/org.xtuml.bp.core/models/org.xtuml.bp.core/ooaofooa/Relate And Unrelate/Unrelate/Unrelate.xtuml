@@ -116,42 +116,44 @@ rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 select one simprel related by relationship_spec->R_SIMP[R206];
 
 unrelatingFwd = true;
-is_symmetric = false;
+is_symmetric = relationship_spec.is_symmetric();
 
 if (not_empty source and not_empty destination)
+  select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
   // attempt to order the unrelate as ''from->to'' for consistency
   if (not_empty simprel)
     if (relationship_spec.isFormalized())
+      select one form related by simprel->R_FORM[R208];
       if (reflexive)
-        select one form related by simprel->R_FORM[R208];
-        if (form.Txt_Phrs == "")  // for a reflexive, this null phrase signals symmetry
-          is_symmetric = true;
-        else
+      	if (not is_symmetric) // if it is, direction is unimportatnt
           if (form.Txt_Phrs == rel_phrase)
             unrelatingFwd = false;
           end if;
         end if;
       else;
-        select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-        select one form related by simprel->R_FORM[R208];
-        select one rgoclass related by form->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+        select one rgoclass related by simprel->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
         if (rgoclass != sourceClass)
           unrelatingFwd = false;
         end if;
       end if;
     else
-      // try to make arbitrary, repeatable choice of direction of ''unrelate''
+    	// unformalized simple binary association
+      // make repeatable choice of direction of ''unrelate'', if not symmetric
       select many rParts related by simprel->R_PART[R207];
       for each rPart in rParts
-        if (reflexive and rPart.Txt_Phrs == "")  // for reflexive, a null phrase signals symmetry
-          is_symmetric = true;
-          break;
-        else
-          if (rPart.Txt_Phrs == rel_phrase)  // pick the first of the 2 to act as ''form''
+        if (reflexive)  // non-symmetric must have a phrase - use it to determine
+      	  if (not is_symmetric)  // if it is, direction is unimportant
+            if (rPart.Txt_Phrs == rel_phrase)  // pick the first of the 2 parts to act as ''form''
+              unrelatingFwd = false;
+            end if;
+          end if;
+        else  // cannot rely on phrase, but classes are distinct
+          select one fromclass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+          if (fromclass != sourceClass)
             unrelatingFwd = false;
           end if;
-          break;
         end if;
+        break;
       end for;
     end if;
   else

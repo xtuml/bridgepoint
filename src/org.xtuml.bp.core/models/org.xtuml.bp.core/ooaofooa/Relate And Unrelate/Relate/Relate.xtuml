@@ -109,6 +109,7 @@ select one relationship_spec related by self->R_REL[R653];
 select one simprel related by relationship_spec->R_SIMP[R206];
 
 reflexive = relationship_spec.is_reflexive();
+symmetric = relationship_spec.is_symmetric();
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 
 relatingFwd = true;  // tentative assumption..
@@ -125,9 +126,10 @@ if (not_empty source and not_empty destination)
       // Abitrarily, ''forward'' relate is taken to be from R_FORM to R_PART
       if (reflexive)  // phrases are mandatory: use them to discriminate
         select one form related by simprel->R_FORM[R208];
-        // Note: for symmetric this compare fails: allow to default to Fwd case.
-        if (form.Txt_Phrs == rel_phrase)
-          relatingFwd = false;
+        if (not symmetric)  // if it is, direction is unimportant
+          if (form.Txt_Phrs == rel_phrase)
+            relatingFwd = false;
+          end if;
         end if;
       else;
         select one rgoclass related by simprel->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
@@ -143,9 +145,10 @@ if (not_empty source and not_empty destination)
       select many rParts related by simprel->R_PART[R207];
       for each rPart in rParts
         if (rel_phrase != "")
-          // Note: for symmetric this compare fails: allow to default to Fwd case.
-          if (rPart.Txt_Phrs == rel_phrase)
-            relatingFwd = false;
+          if (not symmetric) // if it is, direction is unimportant
+            if (rPart.Txt_Phrs == rel_phrase)
+              relatingFwd = false;
+            end if;
           end if;
         else
           // If no phrase, this cannot be reflexive: look at classes involved.
@@ -169,6 +172,7 @@ if (not_empty source and not_empty destination)
     swap = source;
     source = destination;
     destination = swap;
+    relatingFwd = true;  // because we swapped
   end if;
 end if;
 
@@ -216,7 +220,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
         end if;
       // else, subtype-supertype must have multiplicity 1 (i.e. value=0) on both sides
       end if;
-      select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
+      select many fromLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
                         where (selected.Rel_ID == relationship_spec.Rel_ID);
       fromLinkNum = cardinality fromLinks;
       select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
@@ -224,11 +228,20 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       toLinkNum = cardinality toLinks;
       
       message = "Already related on";  // in case there is an error..
-      if (srcMultiplicity == 0 and toLinkNum > 0)
-        populationError = true;
-      end if;
-      if (dstMultiplicity == 0 and fromLinkNum > 0) 
-        populationError = true;
+      
+      if srcMultiplicity == 0 // 0 == Multiplicity one
+        numlnks = 0;
+        if (relatingFwd)
+          numlnks = toLinkNum;
+        else
+          numlnks = fromLinkNum;
+        end if;
+        if (symmetric)
+          numlnks = toLinkNum + fromLinkNum;
+        end if;
+        if (numlnks > 0)
+          populationError = true;
+        end if;
       end if;
     end if;
     

@@ -164,6 +164,7 @@ if (not_empty source and not_empty destination)
     swap = source;
     source = destination;
     destination = swap;
+    relatingFwd = true;  // because we swapped
   end if;
 end if;
           

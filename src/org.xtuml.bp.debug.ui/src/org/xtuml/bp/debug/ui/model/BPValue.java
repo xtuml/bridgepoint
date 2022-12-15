@@ -416,7 +416,8 @@ public class BPValue extends BPDebugElement implements IValue {
 			// collect associations based on instance relation direction
 			
 			// Symmetric reflexive cases need to be filtered out for special treatment...
-			ArrayList<Link_c> validLinks = new ArrayList<Link_c>();
+			ArrayList<Link_c> nonSymOrgLinks = new ArrayList<Link_c>();
+			ArrayList<Link_c> nonSymDstLinks = new ArrayList<Link_c>();
 			ArrayList<Link_c> symLinks = new ArrayList<Link_c>();
 
 			Link_c[] originLinks = Link_c.getManyI_LNKsOnR2901(LinkParticipation_c .getManyI_LIPsOnR2958(inst));
@@ -425,10 +426,10 @@ public class BPValue extends BPDebugElement implements IValue {
 				if (rel.Is_symmetric())
 					symLinks.add(rellnk);
 				else
-					validLinks.add(rellnk);
+					nonSymOrgLinks.add(rellnk);
 			}
 			// Link_c instance used later in order to determine which links related to each association belongs to this instance
-			Link_c[] OLinks = validLinks.toArray(new Link_c[validLinks.size()]);
+			Link_c[] OLinks = nonSymOrgLinks.toArray(new Link_c[nonSymOrgLinks.size()]);
 			Association_c[] originAssocs = Association_c.getManyR_RELsOnR2904(OLinks);
 			IVariable[] originLinksChildern = getChildern(originAssocs, "Origin Of", OLinks, inst);
 
@@ -438,10 +439,10 @@ public class BPValue extends BPDebugElement implements IValue {
 				if (rel.Is_symmetric())
 					symLinks.add(rellnk);
 				else
-					validLinks.add(rellnk);
+					nonSymDstLinks.add(rellnk);
 			}
 			// Link_c instance used later in order to determine which links related to each association belongs to this instance
-			Link_c[] DLinks = validLinks.toArray(new Link_c[validLinks.size()]);
+			Link_c[] DLinks = nonSymDstLinks.toArray(new Link_c[nonSymDstLinks.size()]);
 			Association_c[] destAssocs = Association_c.getManyR_RELsOnR2904(DLinks);
 			IVariable[] destLinksChildern = getChildern(destAssocs, "Destination Of", DLinks, inst);
 
