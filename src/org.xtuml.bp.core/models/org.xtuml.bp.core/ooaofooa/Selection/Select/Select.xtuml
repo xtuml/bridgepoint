@@ -219,8 +219,8 @@ if (empty inst_in_where)
     // Get the association related to this chain link;
     // then, get all the links related to the association
     select one association related by chain_link->R_REL[R681];
-    select one srel related by association->R_SIMP[R206];
-    select one form related by srel->R_FORM[R208];
+    select one simprel related by association->R_SIMP[R206];
+    select one form related by simprel->R_FORM[R208];
     select any part from instances of R_PART where false;  //decl
     fromPart = part;
     select one assocrel related by association->R_ASSOC[R206];
@@ -251,17 +251,17 @@ if (empty inst_in_where)
     if (association.is_reflexive()) 
       // Reflexive case - either simple or associative
       // Phrases must indicate ''direction'' (unless symmetric)
-      if (not_empty srel)
+      if (not_empty simprel)
         if (association.isFormalized())  // formalized, simple reflexive
-          select one form related by srel->R_FORM[R208];
+          select one form related by simprel->R_FORM[R208];
           if (not is_symmetric)  // if it is, direction is unimportant
             if (form.Txt_Phrs == targetPhrase)
               traverseFwd = false;
             end if;
           end if;
-          select any part related by srel->R_PART[R207];
+          select any part related by simprel->R_PART[R207];
         else  // unformalized, simple reflexive
-          select many parts related by srel->R_PART[R207];
+          select many parts related by simprel->R_PART[R207];
           partCount = 1;
           for each candidatePart in parts
             if (partCount == 1)
@@ -287,12 +287,13 @@ if (empty inst_in_where)
       end if;
     else 
       // not reflexive - cannot rely on phrases existing, or being used.
-      if (not_empty srel)
-        if empty form // unformalized
-          select many parts related by srel->R_PART[R207];
+      // examine the source/target classes.
+      if (not_empty simprel)
+        if (empty form) // unformalized
+          select many parts related by simprel->R_PART[R207];
           partCount = 1;
           for each candidatePart in parts
-            if partCount == 1
+            if (partCount == 1)
               fromPart = candidatePart;
             else
               part = candidatePart;
@@ -302,7 +303,7 @@ if (empty inst_in_where)
         else // formalized simple
           select any part related by association->R_SIMP[R206]->R_PART[R207];
         end if;
-        // test distinct R_PART (''to'') class for ''diirection''
+        // test distinct R_PART (''to'') class for ''direction''
         select one cia related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
         if (cia == source_class)
           traverseFwd = false;
@@ -321,7 +322,7 @@ if (empty inst_in_where)
       elif (not_empty super)
         // sub-super - ''forward'' is always sub-to-super; look for reverse
         select one cia related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-        if cia == source_class
+        if (cia == source_class)
           traverseFwd = false;
         end if;
       end if;
@@ -341,7 +342,7 @@ if (empty inst_in_where)
       if (from_assoc)  // navigating from the associative
         for each linkp in linkps
           select one link related by linkp->I_LNK[R2903];
-          if (traverseFwd or is_symmetric)
+          if (traverseFwd or is_symmetric)  // symmetric assumes Fwd - to start with
             select one lip related by link->I_LIP[R2902];
             select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
             if (not_empty inst_dest)
@@ -351,6 +352,8 @@ if (empty inst_in_where)
               end if;
             end if;
           end if;
+          // note that selection from symmetric associative may be any/many
+          // either/both sides wanted, or to allow ''where'' discrimination
           if (not traverseFwd or (is_symmetric and self.cardinality != "one"))
             select one lip related by link->I_LIP[R2901];
             select one inst_dest related by link->I_LIP[R2901]->I_INS[R2958];
@@ -364,7 +367,7 @@ if (empty inst_in_where)
         end for; // each link
       elif (to_assoc)
         for each linkp in linkps
-          if (traverseFwd or is_symmetric)  // symmetric assumes Fwd
+          if (traverseFwd or is_symmetric)  // symmetric assumes Fwd - to start with
             select one link related by linkp->I_LNK[R2901];
           else
             select one link related by linkp->I_LNK[R2902];
@@ -406,23 +409,23 @@ if (empty inst_in_where)
     if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_select_audit"); 
       if auditSev != 0  // 0 == Ignore
-        if cardinality selection_inst_refs == 0;
+        if (cardinality selection_inst_refs == 0)
           cond = 0;
-          if traverseFwd
-            if not_empty aoth
+          if (traverseFwd)
+            if (not_empty aoth)
               cond = aoth.Cond;
-            elif not_empty part
+            elif (not_empty part)
               cond = part.Cond;
             // super case: traversing to supertype, is default unconditional
             end if;
           else // traverse backwards
-            if not_empty aone
+            if (not_empty aone)
               cond = aone.Cond;
-            elif not_empty form
+            elif (not_empty form)
               cond = form.Cond;
-            elif not_empty fromPart
+            elif (not_empty fromPart)
               cond = fromPart.Cond;
-            elif not_empty super
+            elif (not_empty super)
               cond = 1; // traversing from supertype, any subtype is conditional
             end if;
           end if;
@@ -433,7 +436,7 @@ if (empty inst_in_where)
               assocPhrase = " (" + targetPhrase + ")";
             end if;
             postFixMsg = "";
-            if auditSev == 2 // 2 == FATAL
+            if (auditSev == 2) // 2 == FATAL
               severity = "FATAL";
               select one stack related by stack_frame->I_STACK[R2929];
               stack.suspendReason = "Halted on illegal link instance " +
@@ -488,7 +491,7 @@ if (empty inst_in_where)
                       RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
     for each iir in iirs
       select one inst related by iir->I_INS[R3013];
-      if not_empty inst
+      if (not_empty inst)
         // select the full set of which this reference is a member
         select many potentialDuplicates related by iir->
                                                     RV_IRV[R3311]->L_IIR[R3311];
@@ -496,8 +499,8 @@ if (empty inst_in_where)
         for each potentialDuplicate in potentialDuplicates
           select one potentialDuplicateInst related by
                                                potentialDuplicate->I_INS[R3013];
-          if potentialDuplicateInst == inst
-            if originalFound
+          if (potentialDuplicateInst == inst)
+            if (originalFound)
               potentialDuplicate.dispose(); // remove the reference from set
             else
               originalFound = true; // keep first reference to this instance

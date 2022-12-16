@@ -1486,7 +1486,7 @@ INSERT INTO O_TFR
 // This null phrase is stored in either:
 // - R_FORM (simple, formalized), one of the R_PART instances (simple, unformalized), R_AONE (associative)
 // Note that in each case these represent what was seen as the ''a'' side in the association editor,
-// even though it was the ''b'' phrase that was suppressed [see Assdociation::editAssociation(..)]
+// even though it was the ''b'' phrase that was suppressed [see Association::editAssociation(..)]
 
 symmetric = false;
 if (self.is_reflexive())

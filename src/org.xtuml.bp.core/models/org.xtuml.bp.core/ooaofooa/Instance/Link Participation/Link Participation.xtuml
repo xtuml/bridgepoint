@@ -121,7 +121,7 @@ if not_empty assoc
         // except, if symmetric reflexive, always take the 2nd phrase (the 1st is null)
         phrase = part.Txt_Phrs;
         if(not_empty origin) // take the first, else cycle for the second...
-          if not (assoc.is_symmetric())  // .. unless symmetric; if it is, wait for the ''to'' side
+          if (not assoc.is_symmetric())  // .. unless symmetric; if it is, wait for the ''to'' side
             break;
           end if;
         end if;

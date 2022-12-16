@@ -22,7 +22,7 @@ Bridge:GD
 	'result = "";
 select one r_rel related by self->R_SIMP[R207]->R_REL[R206];
 if (r_rel.is_symmetric())
-  if self.Txt_Phrs == ""
+  if (self.Txt_Phrs == "")
   	// simple symmetric reflexives suppress the phrase in one of the R_PART instances
   	// this, then, is the ''empty'' side for phrase/mult/cond annotation of the asssociation.
   	// the association annotation will be evaluated by the other ''side'' R_PART

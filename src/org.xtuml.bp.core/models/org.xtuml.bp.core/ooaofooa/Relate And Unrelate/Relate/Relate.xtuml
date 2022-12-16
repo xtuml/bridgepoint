@@ -229,7 +229,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       
       message = "Already related on";  // in case there is an error..
       
-      if srcMultiplicity == 0 // 0 == Multiplicity one
+      if (srcMultiplicity == 0) // 0 == Multiplicity one
         numlnks = 0;
         if (relatingFwd)
           numlnks = toLinkNum;
