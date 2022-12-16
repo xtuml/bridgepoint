@@ -75,6 +75,7 @@
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.help"/>
       <feature id="org.eclipse.egit"/>
+      <feature id="org.eclipse.jdt"/>
    </features>
 
    <configurations>
