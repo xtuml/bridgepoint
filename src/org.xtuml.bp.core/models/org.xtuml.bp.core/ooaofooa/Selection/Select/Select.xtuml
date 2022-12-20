@@ -245,8 +245,8 @@ if (empty inst_in_where)
       end if;
     end if; // not empty association class
     traverseFwd = true;
-    targetPhrase = GD::strip_tics(value:chain_link.Rel_Phrase);
-    is_symmetric = association.is_symmetric();
+    link_phrase = GD::strip_tics(value:chain_link.Rel_Phrase);
+    symmetric = association.is_symmetric();
 
     if (association.is_reflexive()) 
       // Reflexive case - either simple or associative
@@ -254,22 +254,19 @@ if (empty inst_in_where)
       if (not_empty simprel)
         if (association.isFormalized())  // formalized, simple reflexive
           select one form related by simprel->R_FORM[R208];
-          if (not is_symmetric)  // if it is, direction is unimportant
-            if (form.Txt_Phrs == targetPhrase)
-              traverseFwd = false;
-            end if;
+          if (form.Txt_Phrs == link_phrase and not symmetric) // if symmetric, direction is irrelevant
+            traverseFwd = false;
           end if;
           select any part related by simprel->R_PART[R207];
         else  // unformalized, simple reflexive
+          // Note reliance here on order of returned parts; see issue #12614
           select many parts related by simprel->R_PART[R207];
           partCount = 1;
           for each candidatePart in parts
             if (partCount == 1)
               fromPart = candidatePart;
-              if (not is_symmetric)  // if it is, direction is unimportant
-                if (candidatePart.Txt_Phrs == targetPhrase)
-                  traverseFwd = false;
-                end if;
+              if (candidatePart.Txt_Phrs == link_phrase and not symmetric)
+                traverseFwd = false;
               end if;
             else
               part = candidatePart;
@@ -279,10 +276,8 @@ if (empty inst_in_where)
         end if;
       else
         // still reflexive, therefore must be associative - formalized or not
-        if (not is_symmetric)  // if it is, direction is unimportant
-          if (aone.Txt_Phrs == targetPhrase)  // phrase must exist, and be used
-            traverseFwd = false;
-          end if;
+        if (aone.Txt_Phrs == link_phrase and not symmetric)  // phrase must exist, and be used
+          traverseFwd = false;
         end if;
       end if;
     else 
@@ -290,6 +285,7 @@ if (empty inst_in_where)
       // examine the source/target classes.
       if (not_empty simprel)
         if (empty form) // unformalized
+          // Note reliance here on order of returned parts; see issue #12614
           select many parts related by simprel->R_PART[R207];
           partCount = 1;
           for each candidatePart in parts
@@ -319,14 +315,14 @@ if (empty inst_in_where)
             traverseFwd = false;
           end if;
         end if;
-      elif (not_empty super)
+      else
         // sub-super - ''forward'' is always sub-to-super; look for reverse
         select one cia related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
         if (cia == source_class)
           traverseFwd = false;
         end if;
       end if;
-    end if; // end reflexive - non-reflexive cases
+    end if; // end reflexive/non-reflexive cases - all cases
 
     // Go through all the instances from the previous link in the chain and see
     // if they are related to any of the instances in the current chain link.
@@ -340,9 +336,12 @@ if (empty inst_in_where)
       select any dest_class from instances of O_OBJ where false;  //decl
       select any link from instances of I_LNK where false;        //decl
       if (from_assoc)  // navigating from the associative
+        // Even when navigating from the associative, direction is still relevant.
+        // When the association was defined, a ''from->to'' direction was established
+        // Navigating to the ''to'' (referred-to) class is deemed to be ''Fwd''.
         for each linkp in linkps
           select one link related by linkp->I_LNK[R2903];
-          if (traverseFwd or is_symmetric)  // symmetric assumes Fwd - to start with
+          if (traverseFwd or symmetric)  // symmetric assumes Fwd - to start with
             select one lip related by link->I_LIP[R2902];
             select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
             if (not_empty inst_dest)
@@ -352,9 +351,9 @@ if (empty inst_in_where)
               end if;
             end if;
           end if;
-          // note that selection from symmetric associative may be any/many
-          // either/both sides wanted, or to allow ''where'' discrimination
-          if (not traverseFwd or (is_symmetric and self.cardinality != "one"))
+          // note that selection from symmetric associative is ''any''/''many''
+          // either/both sides wanted; both needed to allow ''where'' discrimination
+          if (not traverseFwd or symmetric)
             select one lip related by link->I_LIP[R2901];
             select one inst_dest related by link->I_LIP[R2901]->I_INS[R2958];
             if (not_empty inst_dest)
@@ -366,13 +365,16 @@ if (empty inst_in_where)
           end if;
         end for; // each link
       elif (to_assoc)
+        // If navigating to the associative class, direction is still relevant.
+        // When the association connector was drawn, a ''from->to'' direction was 
+        // established. Navigating from the ''from'' class is deemed to be ''Fwd''.
         for each linkp in linkps
-          if (traverseFwd or is_symmetric)  // symmetric assumes Fwd - to start with
+          if (traverseFwd or symmetric)  // symmetric assumes Fwd - to start with
             select one link related by linkp->I_LNK[R2901];
           else
             select one link related by linkp->I_LNK[R2902];
           end if;
-          if (empty link and is_symmetric)  // maybe not Fwd after all - try backward
+          if (empty link and symmetric)  // maybe not Fwd after all - try backward
              select one link related by linkp->I_LNK[R2902];
           end if;
           select one inst_dest related by link->I_LIP[R2903]->I_INS[R2958];
@@ -383,12 +385,12 @@ if (empty inst_in_where)
         // If symmetric, link instances can exist in either direction; may have to try both.
         // From asymmetric associative, or subtype selection, must filter by target class.
         for each linkp in linkps
-          if (traverseFwd or is_symmetric)  // symmetric assumes Fwd
+          if (traverseFwd or symmetric)  // symmetric assumes Fwd
             select one inst_dest related by linkp->I_LNK[R2901]->I_LIP[R2902]->I_INS[R2958];
           else
             select one inst_dest related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
           end if;
-          if (empty inst_dest and is_symmetric)  // maybe not Fwd after all - try backward
+          if (empty inst_dest and symmetric)  // maybe not Fwd after all - try backward
             select one inst_dest related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
           end if;
           if ( not_empty inst_dest )
@@ -432,8 +434,8 @@ if (empty inst_in_where)
           if (cond == 0)  // 0 == Unconditional
             severity = "Warning";
             assocPhrase = "";
-            if (targetPhrase != "")
-              assocPhrase = " (" + targetPhrase + ")";
+            if (link_phrase != "")
+              assocPhrase = " (" + link_phrase + ")";
             end if;
             postFixMsg = "";
             if (auditSev == 2) // 2 == FATAL

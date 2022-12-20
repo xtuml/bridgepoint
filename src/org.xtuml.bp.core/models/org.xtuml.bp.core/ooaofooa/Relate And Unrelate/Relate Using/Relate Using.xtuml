@@ -135,10 +135,12 @@ select any associative related by associative_local_reference->
                        L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
                                       RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
 select one relationship_spec related by self->R_REL[R654];
-rel_phrase = GD::strip_tics(value:self.relationship_phrase);
+select one assoc related by relationship_spec->R_ASSOC[R206];
+select one raone related by assoc->R_AONE[R209.''relates''];
+stmt_phrase = GD::strip_tics(value:self.relationship_phrase);
+symmetric = relationship_spec.is_symmetric();
 reflexive = relationship_spec.is_reflexive();
 
-select one assoc related by relationship_spec->R_ASSOC[R206];
 relatingFwd = true;  // tentative assumption..
 
 if (not_empty source and not_empty destination)
@@ -147,15 +149,13 @@ if (not_empty source and not_empty destination)
   // If a ''backward'' relate is detected, swap ''source'' for ''destination''.
   // This establishes consistency for R2901/R2902 linkage creation.
   // It also simplifies multiplicity error checking.
-  if (reflexive)
-    select one raone related by assoc->R_AONE[R209.''relates''];
-    // Note: for symmetric this compare fails: allow to default to Fwd case.
-    if (raone.Txt_Phrs == rel_phrase)
+  if (reflexive and not symmetric)  // if symmetric, direction is irrelevant 
+    if (raone.Txt_Phrs == stmt_phrase)
       relatingFwd = false;
     end if;
   else
     select one srcClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-    select one aoneClass related by assoc->R_AONE[R209]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+    select one aoneClass related by raone->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
     if (srcClass != aoneClass)
       relatingFwd = false;
     end if;
@@ -174,16 +174,16 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   srcMultiplicity = 0;
   dstMultiplicity = 0;
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_relate_audit"); 
-  if auditSev != 0  // 0 == Ignore
+  if (auditSev != 0)  // 0 == Ignore
     message = "";
-    if empty source or empty destination
+    if (empty source or empty destination)
       populationError = true;
       message = "Empty instance";
-      if empty source and empty destination
+      if (empty source and empty destination)
        message = message + "s";
       end if;
       message = message + " being related on";
-    elif empty associative
+    elif (empty associative)
       populationError = true;
       message = "Empty link instance being related on";
     else
@@ -204,27 +204,27 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       assocLinkNum = cardinality assocLinks;
 
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and toLinkNum > 0
+      if (srcMultiplicity == 0 and toLinkNum > 0)
         populationError = true;
       end if;
-      if dstMultiplicity == 0 and fromLinkNum > 0
+      if (dstMultiplicity == 0 and fromLinkNum > 0)
         populationError = true;
       end if;
-      if assocLinkNum > 0
+      if (assocLinkNum > 0)
         populationError = true;
       end if;
 
-      if populationError
+      if (populationError)
         severity = "Warning";
         assocPhrase = "";
-        if (rel_phrase != "")
-          assocPhrase = " (" + rel_phrase + ")";
+        if (stmt_phrase != "")
+          assocPhrase = " (" + stmt_phrase + ")";
         end if;
         postFixMsg = "";
-        if auditSev == 2 // 2 == FATAL
+        if (auditSev == 2) // 2 == FATAL
           severity = "FATAL";
           select one stack related by stack_frame->I_STACK[R2929];
-          if stack.runState == RunStateType::Running
+          if (stack.runState == RunStateType::Running)
             // Only suspend execution if running, i.e. allow stepping over
             stack.suspendReason = "Halted on illegal link instance " +
                   "population on " + relationship_spec.get_name() + assocPhrase;

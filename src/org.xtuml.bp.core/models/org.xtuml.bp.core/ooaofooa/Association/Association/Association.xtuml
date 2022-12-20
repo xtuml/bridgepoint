@@ -1500,8 +1500,12 @@ if (self.is_reflexive())
     else
       select any part related by srel->R_PART[R207.''relates'']
        where (selected.Txt_Phrs == "");
-      if (not_empty part)
-        symmetric = true;
+      if (not_empty part)  // distinguish from newly created, where both are null
+        select any part related by srel->R_PART[R207.''relates'']
+         where (selected.Txt_Phrs != "");
+        if (not_empty part)
+          symmetric = true;
+        end if;
       end if;
     end if;
   else

@@ -110,7 +110,7 @@ select one simprel related by relationship_spec->R_SIMP[R206];
 
 reflexive = relationship_spec.is_reflexive();
 symmetric = relationship_spec.is_symmetric();
-rel_phrase = GD::strip_tics(value:self.relationship_phrase);
+stmt_phrase = GD::strip_tics(value:self.relationship_phrase);
 
 relatingFwd = true;  // tentative assumption..
 
@@ -124,14 +124,12 @@ if (not_empty source and not_empty destination)
     select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
     if (relationship_spec.isFormalized())
       // Abitrarily, ''forward'' relate is taken to be from R_FORM to R_PART
-      if (reflexive)  // phrases are mandatory: use them to discriminate
+      if (reflexive)  // phrases mandatory: use them to discriminate
         select one form related by simprel->R_FORM[R208];
-        if (not symmetric)  // if it is, direction is unimportant
-          if (form.Txt_Phrs == rel_phrase)
-            relatingFwd = false;
-          end if;
+        if (form.Txt_Phrs == stmt_phrase and not symmetric)
+          relatingFwd = false;
         end if;
-      else;
+      else // cannot rely on phrase; but not reflexive, so classes are distinct
         select one rgoclass related by simprel->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
         if (rgoclass != sourceClass)
           relatingFwd = false;
@@ -140,25 +138,22 @@ if (not_empty source and not_empty destination)
     else
       // Unformalized: need to make repeatable choice of direction of ''relate''.
       // Arbitrarily, choose the first of the 2 parts to act as ''from''.
-      // [Note: this relies on repeatable ordering of select/for each; see implementation note]
+      // [Note: this relies on repeatable ordering of select/for each; 
+      // see implementation note for issue #12523]
       // First, try to discriminate based on relationship phrase used in statement.
-      select many rParts related by simprel->R_PART[R207];
-      for each rPart in rParts
-        if (rel_phrase != "")
-          if (not symmetric) // if it is, direction is unimportant
-            if (rPart.Txt_Phrs == rel_phrase)
-              relatingFwd = false;
-            end if;
-          end if;
-        else
-          // If no phrase, this cannot be reflexive: look at classes involved.
-          select one fromClass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-          if (fromClass != sourceClass)
-            relatingFwd = false;
-          end if;
+      // Note reliance on order of returned rPart; see issue #12614
+      select any rPart related by simprel->R_PART[R207];
+      if (stmt_phrase != "" and not symmetric) // if symmetric, direction is irrelevant
+        if (rPart.Txt_Phrs == stmt_phrase)
+          relatingFwd = false;
         end if;
-        break;
-      end for;
+      else
+        // If no phrase, this cannot be reflexive: look at classes involved.
+        select one fromClass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if (fromClass != sourceClass)
+          relatingFwd = false;
+        end if;
+      end if;
     end if;
   else
     // not simple; must be sub-super; ''forward'' means subtype-to-supertype
@@ -202,7 +197,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
         else
           // if simple association is not formalized, editor supplies 2 ''parts''
           // unformalized reflexive: arbitrarily choose ''from'' as first r_part
-          // note: relies on select many/for each repeatability
+          // note: relies on select many/for each repeatability; see issue #12614
           select any srcPart from instances of R_PART where false;
           select any dstPart from instances of R_PART where false;
           select many rParts related by simprel->R_PART[R207];
@@ -248,8 +243,8 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
     if (populationError)
       severity = "Warning";
       assocPhrase = "";
-      if (rel_phrase != "")
-        assocPhrase = " (" + rel_phrase + ")";
+      if (stmt_phrase != "")
+        assocPhrase = " (" + stmt_phrase + ")";
       end if;
       postFixMsg = "";
       if (auditSev == 2) // 2 == FATAL

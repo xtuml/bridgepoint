@@ -112,7 +112,7 @@ select one relationship_spec related by self->R_REL[R655];
 
 // Compute the sense of the relation, if any
 reflexive = relationship_spec.is_reflexive();
-rel_phrase = GD::strip_tics(value:self.relationship_phrase);
+stmt_phrase = GD::strip_tics(value:self.relationship_phrase);
 select one simprel related by relationship_spec->R_SIMP[R206];
 
 unrelatingFwd = true;
@@ -124,11 +124,9 @@ if (not_empty source and not_empty destination)
   if (not_empty simprel)
     if (relationship_spec.isFormalized())
       select one form related by simprel->R_FORM[R208];
-      if (reflexive)
-      	if (not is_symmetric) // if it is, direction is unimportatnt
-          if (form.Txt_Phrs == rel_phrase)
-            unrelatingFwd = false;
-          end if;
+      if (reflexive and not is_symmetric) // if symmetric, direction is irrelevant
+        if (form.Txt_Phrs == stmt_phrase)
+          unrelatingFwd = false;
         end if;
       else;
         select one rgoclass related by simprel->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
@@ -139,25 +137,22 @@ if (not_empty source and not_empty destination)
     else
     	// unformalized simple binary association
       // make repeatable choice of direction of ''unrelate'', if not symmetric
-      select many rParts related by simprel->R_PART[R207];
-      for each rPart in rParts
-        if (reflexive)  // non-symmetric must have a phrase - use it to determine
-      	  if (not is_symmetric)  // if it is, direction is unimportant
-            if (rPart.Txt_Phrs == rel_phrase)  // pick the first of the 2 parts to act as ''form''
-              unrelatingFwd = false;
-            end if;
-          end if;
-        else  // cannot rely on phrase, but classes are distinct
-          select one fromclass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-          if (fromclass != sourceClass)
-            unrelatingFwd = false;
-          end if;
+      // Note reliance on order of returned rPart; see issue #12614
+      select any rPart related by simprel->R_PART[R207];
+      if (reflexive and not is_symmetric)   // 1st part must have a phrase - use it to determine
+        if (rPart.Txt_Phrs == stmt_phrase)  // pick the first of the 2 parts to act as ''form''
+          unrelatingFwd = false;
         end if;
-        break;
-      end for;
+      else  // cannot rely on phrase; but not reflexive, so classes are distinct
+        select one fromclass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if (fromclass != sourceClass)
+          unrelatingFwd = false;
+        end if;
+      end if;
     end if;
   else
-    // not simple; must be sub-super
+    // not simple; must be sub-super (associatives are handled elsewhere)
+    // ''Fwd'' is deemed to be from subclass to superclass
     select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
     select one superclass related by relationship_spec->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
     if (superclass != destClass)
@@ -165,6 +160,7 @@ if (not_empty source and not_empty destination)
     end if;
   end if;
   if (not unrelatingFwd)
+    // exchange source and destination and then treat as ''Fwd''
     swap = source;
     source = destination;
     destination = swap;
