@@ -40,6 +40,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("79fc5397-9b9a-42ba-ab7d-2a410108c688",
@@ -60,6 +61,7 @@ end if;',
 	1,
 	'',
 	"95436e09-fb9c-42fd-a182-4f82be28c2b0",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1f68516c-a8aa-4b5f-85b1-db1d9f0d4a3f",
@@ -87,6 +89,7 @@ end if;',
 	1,
 	'',
 	"79fc5397-9b9a-42ba-ab7d-2a410108c688",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("32bd92a0-8506-414e-aeb0-b830b798c609",
@@ -126,6 +129,7 @@ rtVal.setValue(value:param.value);',
 	1,
 	'',
 	"cc31fe16-bc35-4329-b4cd-699f72aa6c9f",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("925c6567-a628-4273-a0f5-434962944f13",
@@ -164,13 +168,20 @@ if not_empty inst
     rtvID = lcl.createRuntimeValue();
     select one irv related by lcl->RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308];
   end if;
-  create object instance iir of L_IIR;
-  relate irv to iir across R3311;
-  relate inst to iir across R3013;
+  // avoid creating duplicates
+  select any iir related by inst->L_IIR[R3013.''is referenced by'']
+   where (selected.Inst_ID == inst.Inst_ID and 
+           selected.RuntimeValue_ID == irv.RuntimeValue_ID);
+  if (empty iir)
+    create object instance iir of L_IIR;
+    relate irv to iir across R3311;
+    relate inst to iir across R3013;
+  end if;
 end if;',
 	1,
 	'',
 	"9687145a-1962-4083-a9f3-12d1533b4536",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("3e7918b7-e309-44af-bda8-2ea52a3d84d4",
@@ -203,6 +214,7 @@ end for;',
 	1,
 	'',
 	"bb542c89-d44f-4b92-9ba0-7964b3dc2610",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("7b1bb883-fa06-4834-9c7b-475441a8fad5",
@@ -230,6 +242,7 @@ end if;
 	1,
 	'',
 	"6e98295d-9bae-4c05-8f83-6b6e72e104b2",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c53a72e5-db8c-4c80-b3bc-78bddc035202",

@@ -203,12 +203,40 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
                             where (selected.Rel_ID == relationship_spec.Rel_ID);
       assocLinkNum = cardinality assocLinks;
 
+      select one r_assr related by assoc->R_ASSR[R211.''uses a formalizer''];
+      assocMultiplicity = r_assr.Mult;
       message = "Already related on";  // in case there is an error..
-      if (srcMultiplicity == 0 and toLinkNum > 0)
+      if srcMultiplicity == 0 and toLinkNum > 0
         populationError = true;
+        if (assocMultiplicity > 0)  // any existing links to src?
+          select many srcinsts related by toLinks->I_LIP[R2901]->I_INS[R2958];
+          for each srcinst in srcinsts
+            if (srcinst.Inst_ID != source.Inst_ID)
+              populationError = true;
+            end if;
+          end for;
+          select any srcinst related by toLinks->I_LIP[R2902]->I_INS[R2958]
+           where (selected.Inst_ID != source.Inst_ID);  // mult ''one'' - ID must match
+          if (empty srcinst)
+            populationError = false;
+          end if;
+        end if;
       end if;
-      if (dstMultiplicity == 0 and fromLinkNum > 0)
+      if dstMultiplicity == 0 and fromLinkNum > 0
         populationError = true;
+        if (assocMultiplicity > 0)
+          select many dstinsts related by fromLinks->I_LIP[R2901]->I_INS[R2958];
+          for each dstinst in dstinsts
+            if (dstinst.Inst_ID != destination.Inst_ID)
+              populationError = true;
+            end if;
+          end for;
+          select any dstinst related by fromLinks->I_LIP[R2901]->I_INS[R2958]
+           where (selected.Inst_ID != destination.Inst_ID);
+          if (empty dstinst)
+            populationError = false;
+          end if;
+        end if;
       end if;
       if (assocLinkNum > 0)
         populationError = true;
