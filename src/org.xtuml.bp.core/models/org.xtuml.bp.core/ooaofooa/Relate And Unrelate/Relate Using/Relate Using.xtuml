@@ -205,39 +205,58 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
 
       select one r_assr related by assoc->R_ASSR[R211.''uses a formalizer''];
       assocMultiplicity = r_assr.Mult;
+
+      select any existingSrc from instances of I_INS where false; // decl
+      select any existingDst from instances of I_INS where false; // decl
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and toLinkNum > 0
-        populationError = true;
-        if (assocMultiplicity > 0)  // any existing links to src?
-          select many srcinsts related by toLinks->I_LIP[R2901]->I_INS[R2958];
-          for each srcinst in srcinsts
-            if (srcinst.Inst_ID != source.Inst_ID)
-              populationError = true;
-            end if;
-          end for;
-          select any srcinst related by toLinks->I_LIP[R2902]->I_INS[R2958]
-           where (selected.Inst_ID != source.Inst_ID);  // mult ''one'' - ID must match
-          if (empty srcinst)
-            populationError = false;
+
+      if (fromLinkNum > 0)
+        if (srcMultiplicity == 0)
+          if (assocMultiplicity == 0)
+            populationError = true;
+          else
+            select any existingDst related by fromLinks->I_LIP[R2902]->I_INS[R2958]
+             where (selected.Inst_ID != destination.Inst_ID);
+          end if;
+        end if;
+          if (toLinkNum > 0 and assocMultiplicity == 0)  // already linked?
+            populationError = true;
+          end if;
+      end if;
+      if (toLinkNum > 0)
+        if (dstMultiplicity == 0)
+          if (assocMultiplicity == 0)
+            populationError = true;
+          else
+            select any existingSrc related by toLinks->I_LIP[R2901]->I_INS[R2958]
+             where (selected.Inst_ID != source.Inst_ID);
+          end if;
+        else
+          if (fromLinkNum > 0 and assocMultiplicity == 0)
+            populationError = true;
           end if;
         end if;
       end if;
-      if dstMultiplicity == 0 and fromLinkNum > 0
-        populationError = true;
-        if (assocMultiplicity > 0)
-          select many dstinsts related by fromLinks->I_LIP[R2901]->I_INS[R2958];
-          for each dstinst in dstinsts
-            if (dstinst.Inst_ID != destination.Inst_ID)
-              populationError = true;
+      // these will both be empty unless multiple associatives allowed, and one or other
+      // of source/destination has ''one'' mutiplicity and is already related but a 
+      // non-matching instance was proferred for relate.
+      if (not_empty existingSrc or not_empty existingDst)
+        if (symmetric)  // 1:1 - the link directions may just be reversed
+          if (not_empty existingSrc)
+            if (source != destination)
+              populationError = true;  // not reversed: adding other than existing source
             end if;
-          end for;
-          select any dstinst related by fromLinks->I_LIP[R2901]->I_INS[R2958]
-           where (selected.Inst_ID != destination.Inst_ID);
-          if (empty dstinst)
-            populationError = false;
           end if;
+          if (not_empty existingDst)
+            if (destination != source)
+              populationError = true;  // not reversed: adding other than existing destination
+            end if;
+          end if;
+        else
+          populationError = true;
         end if;
       end if;
+      
       if (assocLinkNum > 0)
         populationError = true;
       end if;
