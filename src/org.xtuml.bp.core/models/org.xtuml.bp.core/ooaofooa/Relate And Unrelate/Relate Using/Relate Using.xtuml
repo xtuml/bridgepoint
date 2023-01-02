@@ -137,6 +137,7 @@ select any associative related by associative_local_reference->
 select one relationship_spec related by self->R_REL[R654];
 select one assoc related by relationship_spec->R_ASSOC[R206];
 select one raone related by assoc->R_AONE[R209.''relates''];
+select one raoth related by assoc->R_AOTH[R210.''relates''];
 stmt_phrase = GD::strip_tics(value:self.relationship_phrase);
 symmetric = relationship_spec.is_symmetric();
 reflexive = relationship_spec.is_reflexive();
@@ -149,6 +150,11 @@ if (not_empty source and not_empty destination)
   // If a ''backward'' relate is detected, swap ''source'' for ''destination''.
   // This establishes consistency for R2901/R2902 linkage creation.
   // It also simplifies multiplicity error checking.
+  // Note: the correlation of ''from'' and ''to'' to R_AOTH and R_AONE is the reverse
+  // of what might have been expected, given Simple association formalization practice.
+  // However, it is what it is: see SimpleAsociaton::migrateToLinked.
+  // So, ''source'' and ''destination'' are reverse aligned with a & b parts in editor.
+  // Bear that in mind when struggling to understand to/from linkages.
   if (reflexive and not symmetric)  // if symmetric, direction is irrelevant 
     if (raone.Txt_Phrs == stmt_phrase)
       relatingFwd = false;
@@ -187,72 +193,90 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       populationError = true;
       message = "Empty link instance being related on";
     else
-      select one r_aone related by assoc->R_AONE[R209];
-      select one r_aoth related by assoc->R_AOTH[R210];
-      srcMultiplicity = r_aone.Mult;
-      dstMultiplicity = r_aoth.Mult;
-        
+      // The following is straightforward for non-multiple associative cases:
+      // if either ''side'' multiplicity is ''one'' and a link already exists, a new ''relate'' is an error.
+      // But, for multiple associative contexts, careful matching of existing to/from instances is
+      // needed before allowing Verifier to construct a new link/link_particpation linkage. 
+      // Symmetric reflexives add a twist to such validation, as linkages may be in either direction. 
+      srcMultiplicity = raone.Mult;
+      dstMultiplicity = raoth.Mult;
+      
+      // determine whether each proferred instance is already linked on this association.
       select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+       where (selected.Rel_ID == relationship_spec.Rel_ID);
+      if (empty fromLinks and symmetric)
+        select many fromLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
+         where (selected.Rel_ID == relationship_spec.Rel_ID);
+      end if;
       fromLinkNum = cardinality fromLinks;
       select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+       where (selected.Rel_ID == relationship_spec.Rel_ID);
+      if (empty toLinks and symmetric)
+        select many toLinks related by source->I_LIP[R2958]->I_LNK[R2902]
+         where (selected.Rel_ID == relationship_spec.Rel_ID);
+      end if;
       toLinkNum = cardinality toLinks;
       
       select many assocLinks related by associative->I_LIP[R2958]->I_LNK[R2903]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+       where (selected.Rel_ID == relationship_spec.Rel_ID);
       assocLinkNum = cardinality assocLinks;
 
+      // determine whether multiple associatives are permitted on this association.
       select one r_assr related by assoc->R_ASSR[R211.''uses a formalizer''];
       assocMultiplicity = r_assr.Mult;
 
       select any existingSrc from instances of I_INS where false; // decl
       select any existingDst from instances of I_INS where false; // decl
       message = "Already related on";  // in case there is an error..
-
+      
+      // see if a proffered participant is already linked to other than the 
+      // other proffered participant - or if multiplicity would be contravened.
+      // but do not judge hastily: symmetry may have reversed links.
       if (fromLinkNum > 0)
-        if (srcMultiplicity == 0)
-          if (assocMultiplicity == 0)
-            populationError = true;
-          else
-            select any existingDst related by fromLinks->I_LIP[R2902]->I_INS[R2958]
-             where (selected.Inst_ID != destination.Inst_ID);
-          end if;
+        select any existingDst related by fromLinks->I_LIP[R2902]->I_INS[R2958]
+         where (selected.Inst_ID != destination.Inst_ID);
+        if (dstMultiplicity == 0 and assocMultiplicity == 0)
+          populationError = true;
         end if;
-          if (toLinkNum > 0 and assocMultiplicity == 0)  // already linked?
-            populationError = true;
-          end if;
       end if;
       if (toLinkNum > 0)
-        if (dstMultiplicity == 0)
-          if (assocMultiplicity == 0)
-            populationError = true;
-          else
-            select any existingSrc related by toLinks->I_LIP[R2901]->I_INS[R2958]
-             where (selected.Inst_ID != source.Inst_ID);
-          end if;
-        else
-          if (fromLinkNum > 0 and assocMultiplicity == 0)
-            populationError = true;
-          end if;
+        select any existingSrc related by toLinks->I_LIP[R2901]->I_INS[R2958]
+         where (selected.Inst_ID != source.Inst_ID);
+        if (srcMultiplicity == 0 and assocMultiplicity == 0)
+          populationError = true;
         end if;
       end if;
-      // these will both be empty unless multiple associatives allowed, and one or other
-      // of source/destination has ''one'' mutiplicity and is already related but a 
-      // non-matching instance was proferred for relate.
+      // if either these is not empty, either source or destination is already linked 
+      // but a non-matching instance was proffered for relate.
       if (not_empty existingSrc or not_empty existingDst)
-        if (symmetric)  // 1:1 - the link directions may just be reversed
+        if (symmetric and srcMultiplicity == 0)  // 1:1 - the link directions may just be reversed
           if (not_empty existingSrc)
-            if (source != destination)
+            if (source != existingDst)
               populationError = true;  // not reversed: adding other than existing source
             end if;
           end if;
           if (not_empty existingDst)
-            if (destination != source)
+            if (destination != existingSrc)
               populationError = true;  // not reversed: adding other than existing destination
             end if;
           end if;
         else
+          if (srcMultiplicity == 0 and not_empty existingSrc)
+            populationError = true;
+          end if;
+          if (dstMultiplicity == 0 and not_empty existingDst)
+            populationError = true;
+          end if;
+        end if;
+      end if;
+
+      // check for attempt to add link against allowable associative multiplicity.
+      if ((assocMultiplicity == 0) and (fromLinkNum > 0 and toLinkNum > 0))  // both participants already linked ..
+        select any src related by toLinks->I_LIP[R2901]->I_INS[R2958]
+         where (selected.Inst_ID == source.Inst_ID);
+        select any dst related by fromLinks->I_LIP[R2902]->I_INS[R2958]
+         where (selected.Inst_ID == destination.Inst_ID);
+        if (not_empty src and not_empty dst)  // .. to each other
           populationError = true;
         end if;
       end if;
