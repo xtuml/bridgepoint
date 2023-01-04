@@ -24,14 +24,15 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.resources.IFile;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ActionFile;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -336,6 +337,34 @@ public abstract class CoreImport implements IModelImport {
         }
         return false;
     }
+
+    protected boolean doLoadText(IProgressMonitor pm) {
+        // here's where the code is actually read
+        try {
+            // read the version number from the file, in case
+            // countAndValidateInsertStatements() hasn't been called
+            Reader reader = getInputReader();
+            readHeader();
+
+            performCleanUp(pm);
+
+            XtumlLexer lexer = new XtumlLexer(CharStreams.fromReader(reader));
+
+            pm.beginTask("Importing data...", 1);
+            XtumlParser parser = new XtumlParser(new CommonTokenStream(lexer));
+            // Parse the input expression
+            ParserRuleContext ctx = parser.target();
+            XtumlImportVisitor visitor = new XtumlImportVisitor();
+            visitor.visit(ctx);
+            // TODO error handling
+            pm.done();
+            return true;
+        } catch (IOException e) {
+            m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
+        }
+        return false;
+    }
+ 
     
     protected boolean doLoadActions(IProgressMonitor pm) {
         if ( m_actionFiles == null ) {

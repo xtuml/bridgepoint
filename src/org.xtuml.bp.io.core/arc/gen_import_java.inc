@@ -442,7 +442,7 @@ public class ${class_name} extends CoreImport
     .if (callingProject == "BP")
         .assign helperClass = "ImportBPSqlHelper"
     .end if
-    private ${helperClass} helper = new ${helperClass}(this);
+    protected ${helperClass} helper = new ${helperClass}(this);
 
     .if (callingProject == "NBP")
     /**

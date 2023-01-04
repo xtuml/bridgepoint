@@ -3,7 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint IO Core Plug-in
 Bundle-SymbolicName: org.xtuml.bp.io.core; singleton:=true
 Bundle-Version: 7.5.0.qualifier
-Bundle-ClassPath: core.jar
+Bundle-ClassPath: core.jar,
+ target/dependency/antlr4.jar,
+ target/dependency/antlr4-runtime.jar,
+ target/dependency/antlr-runtime.jar,
+ target/dependency/icu4j.jar,
+ target/dependency/javax.json.jar,
+ target/dependency/org.abego.treelayout.core.jar,
+ target/dependency/ST4.jar
 Bundle-Activator: org.xtuml.bp.io.core.CorePlugin
 Bundle-Vendor: xtUML.org
 Export-Package: org.xtuml.bp.io.core
