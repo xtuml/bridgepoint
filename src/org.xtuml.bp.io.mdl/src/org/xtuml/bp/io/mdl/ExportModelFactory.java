@@ -29,7 +29,7 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 		NonRootModelElement me,
 		String fileName,
 		boolean exportGraphics) throws FileNotFoundException {
-		return new ExportModelComponent((Ooaofooa)me.getModelRoot(), fileName, exportGraphics, me);
+		return new ExportModelText((Ooaofooa)me.getModelRoot(), fileName, exportGraphics, me);
 	}
 	
 	public IRunnableWithProgress create(
@@ -42,13 +42,13 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 
 	public IRunnableWithProgress create(String file, NonRootModelElement element)
 			throws FileNotFoundException {
-		ExportModelComponent emc = new ExportModelComponent(file, element);
+		ExportModelComponent emc = new ExportModelText(file, element);
 		emc.outputCachedIDs = true;
 		return emc;
 	}
 
 	public IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
-		ExportModelComponent emc = new ExportModelComponent(modelRoot, baos, element);
+		ExportModelComponent emc = new ExportModelText(modelRoot, baos, element);
 		emc.outputCachedIDs = true;
 		return emc;
 	}
