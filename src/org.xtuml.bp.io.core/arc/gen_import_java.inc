@@ -555,7 +555,7 @@ public class ${class_name} extends CoreImport
     .if (callingProject == "NBP")
       helper.eesToUpgradeForIsRealized.clear();
     .end if
-        m_success = doLoadSql(pm);
+        m_success = doLoadFile(pm);
         .if(not setComponent)
         finishLoad(pm);
     .end if

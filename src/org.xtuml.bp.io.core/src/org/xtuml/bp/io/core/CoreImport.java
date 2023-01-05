@@ -19,14 +19,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -48,530 +54,557 @@ import antlr.TokenStreamException;
 import antlr.TokenStreamSelector;
 
 public abstract class CoreImport implements IModelImport {
-    public boolean m_success;
-
-    public boolean m_actionSuccess = true;
-
-    public String m_errorMessage;
-
-    protected boolean m_clear_database = true;
-
-    private int m_numInserts = 0;
-
-    private Ooaofooa m_modelRoot = null;
-
-    private Ooaofgraphics m_graphicsModelRoot = null;
-
-    protected String m_fileName;
-
-    File m_inFile;
-
-    File m_actionFile;
-
-    ActionFile m_actionFiles;
-
-    private StringBuffer inputBuffer = null;
-
-    private StringBuffer actionInputBuffer = null;
-
-    public FileHeader m_header = null;
-
-    protected boolean m_templateFile;
-
-    protected NonRootModelElement rootModelElement = null;
-    public static boolean createUniqueIds = true;
-
-    /**
-     * The version string found in BP SQL model files.
-     */
-    public static String bpSqlVersion = "6.1D";
-    
-    public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
-            throws IOException {
-        m_success = false;
-        m_errorMessage = ""; //$NON-NLS-1$
-        m_modelRoot = modelRoot;
-        m_fileName = "";
-        m_clear_database = clearDatabase;
-        m_templateFile = templateFile;
-        read(inStream);
-    }
-
-    public CoreImport(Ooaofooa modelRoot, String inFile, ActionFile actionFile, boolean clearDatabase, boolean templateFile)
-            throws FileNotFoundException {
-        m_success = false;
-        m_errorMessage = ""; //$NON-NLS-1$
-        m_modelRoot = modelRoot;
-        m_fileName = inFile;
-        m_inFile = new File(inFile);
-        m_actionFiles = actionFile;
-        m_clear_database = clearDatabase;
-        m_templateFile = templateFile;
-        if (!m_inFile.exists() || !m_inFile.isFile())
-            throw new FileNotFoundException(inFile + " not found");
-    }
-
-    public CoreImport(IPath inFile, ActionFile actionFile) throws FileNotFoundException {
-        m_success = false;
-        m_errorMessage = ""; //$NON-NLS-1$
-        m_modelRoot = null;
-        m_fileName = inFile.toString();
-        m_inFile = inFile.toFile();
-        m_actionFiles = actionFile;
-
-        if (!m_inFile.exists() || !m_inFile.isFile())
-            throw new FileNotFoundException(inFile + " not found");
-    }
-
-    protected void readHeader() {
-        if (m_header == null) {
-            m_header = new FileHeader();
-            try {
-                if (inputBuffer != null) {
-                    m_header.read(new StringReader(inputBuffer.toString()));
-                } else if (m_inFile != null) {
-                    m_header.read(m_inFile);
-                } else {
-                    IllegalStateException x = new IllegalStateException("Input file or source not set");
-                    x.fillInStackTrace();
-                    throw x;
-                }
-            } catch (IOException e) {
-                IllegalStateException x = new IllegalStateException("Error reading header");
-                x.fillInStackTrace();
-                throw x;
-            }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.xtuml.bp.core.ui.IModelImport#getHeader()
-     */
-    public IFileHeader getHeader() {
-        readHeader();
-        return m_header;
-    }
-
-    public abstract boolean isExpectedContent(String actualContent);
-
-    public abstract boolean isExpectedVersion(String actualVersion);
-
-    public abstract void performCleanUp(IProgressMonitor pm) throws IOException;
-
-    public abstract String processValue(String table, int col_num, String val);
-
-    public abstract void processStatement(Ooaofooa modelRoot, String table, Vector parms, Vector rawParms,
-            int numParms, IProgressMonitor pm);
-
-    public abstract void preprocessStatement(String stmt, BufferedReader is) throws IOException;
-
-    public abstract int postprocessStatements();
-
-    public abstract void processAction( String smasl, int dialect, int startLine, UUID uuid, UUID uuid2 );
-
-    protected Ooaofooa getModelRoot() {
-        return m_modelRoot;
-    }
-
-    protected String getFilename() {
-        return m_fileName;
-    }
-
-    protected void read(File file) throws IOException {
-    	InputStreamReader reader = null;
-        try {
-			reader = new InputStreamReader(new FileInputStream(file),
-					ResourcesPlugin.getEncoding());
-            read(reader);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                }
-            }
-        }
-    }
-
-    protected void read(InputStream inStream) throws IOException {
-    	InputStreamReader reader = new InputStreamReader(inStream);
-        read(reader);
-    }
-
-    protected void read(Reader reader) throws IOException {
-        inputBuffer = new StringBuffer();
-        BufferedReader bufferedReader = new BufferedReader(reader);
-        final int bufferLength = 8192;
-        char[] charBuffer = new char[bufferLength];
-        int readLength;
-        while ((readLength = bufferedReader.read(charBuffer, 0, bufferLength)) > 0) {
-            inputBuffer.append(charBuffer, 0, readLength);
-        }
-    }
-
-    protected void readActions(File file) throws IOException {
-    	InputStreamReader reader = null;
-        try {
-			reader = new InputStreamReader(new FileInputStream(file),
-					ResourcesPlugin.getEncoding());
-            readActions(reader);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                }
-            }
-        }
-    }
-
-    protected void readActions(InputStream inStream) throws IOException {
-    	InputStreamReader reader = new InputStreamReader(inStream);
-        readActions(reader);
-    }
-
-    protected void readActions(Reader reader) throws IOException {
-        actionInputBuffer = new StringBuffer();
-        BufferedReader bufferedReader = new BufferedReader(reader);
-        final int bufferLength = 8192;
-        char[] charBuffer = new char[bufferLength];
-        int readLength;
-        while ((readLength = bufferedReader.read(charBuffer, 0, bufferLength)) > 0) {
-            actionInputBuffer.append(charBuffer, 0, readLength);
-        }
-    }
-
-
-
-    public Reader getInputReader() throws IOException {
-        if (inputBuffer == null)
-            read(m_inFile);
-
-        return new StringReader(inputBuffer.toString());
-    }
-
-    public Reader getActionInputReader() throws IOException {
-        if (actionInputBuffer == null) {
-        	if ( null == m_actionFile ) {
-        		return new StringReader("");
-        	}
-        	else {
-        		readActions(m_actionFile);
-        	}
-        }
-
-        return new StringReader(actionInputBuffer.toString());
-    }
-
-    public int countAndValidateInsertStatements() {
-        int numInserts = 0;
-        try {
-            BufferedReader dis = new BufferedReader(getInputReader());
-            readHeader();
-            String s = dis.readLine();
-            while (s != null) {
-                if (s.toUpperCase().indexOf("INSERT") == 0) //$NON-NLS-1$
-                {
-                    numInserts += 1;
-                    preprocessStatement(s, dis);
-                }
-                s = dis.readLine();
-            }
-            dis.close();
-        } catch (IOException x) {
-            m_errorMessage = x.toString();
-            return PPS_ERROR;
-        }
-
-        if (m_header == null || !m_header.isValid()) {
-            if (m_fileName != null) {
-                m_errorMessage = "The file " + m_fileName;
-            } else {
-                m_errorMessage = "The file";
-            }
-            m_errorMessage += " is not a valid UML model file.";
-            return PPS_ERROR;
-        }
-        int pps = postprocessStatements();
-        m_numInserts = numInserts;
-        if (pps == PPS_OK)
-            return numInserts;
-        else
-            return pps;
-    }
-
-    protected boolean doLoadSql(IProgressMonitor pm) {
-        // here's where the code is actually read
-        try {
-            // read the version number from the file, in case
-            // countAndValidateInsertStatements() hasn't been called
-            Reader reader = getInputReader();
-            readHeader();
-
-            performCleanUp(pm);
-
-            SqlLexer lexer = new SqlLexer(reader);
-
-            // add 401 for the batchRelateAll additions (found by searching for pm.worked(1) in ImportModelComponent
-            pm.beginTask("Importing data...", m_numInserts + 401);
-            SqlParser parser = new SqlParser(lexer, m_modelRoot, this);
-            // Parse the input expression
-            parser.sql_file(pm);
-            if (!parser.m_output.isEmpty())
-            {
-                m_errorMessage = parser.m_output;
-                pm.done();
-                return false;
-            } else {
-                pm.done();
-                return true;
-            }
-        } catch (IOException e) {
-            m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
-        } catch (TokenStreamException e) {
-            m_errorMessage = "Stream exception: " + e; //$NON-NLS-1$
-        } catch (RecognitionException e) {
-            m_errorMessage = "Recog exception: " + e; //$NON-NLS-1$
-        }
-        return false;
-    }
-
-    protected boolean doLoadText(IProgressMonitor pm) {
-        // here's where the code is actually read
-        try {
-            // read the version number from the file, in case
-            // countAndValidateInsertStatements() hasn't been called
-            Reader reader = getInputReader();
-            readHeader();
-
-            performCleanUp(pm);
-
-            XtumlLexer lexer = new XtumlLexer(CharStreams.fromReader(reader));
-
-            pm.beginTask("Importing data...", 1);
-            XtumlParser parser = new XtumlParser(new CommonTokenStream(lexer));
-            // Parse the input expression
-            ParserRuleContext ctx = parser.target();
-            XtumlImportVisitor visitor = new XtumlImportVisitor();
-            visitor.visit(ctx);
-            // TODO error handling
-            pm.done();
-            return true;
-        } catch (IOException e) {
-            m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
-        }
-        return false;
-    }
- 
-    
-    protected boolean doLoadActions(IProgressMonitor pm) {
-        if ( m_actionFiles == null ) {
-            pm.done();
-            return true;
-        }
-        // here's where the code is actually read
-        try {
-            int[] dialects = m_actionFiles.getAvailableDialectCodes();
-
-            // import actions for each dialect
-            for ( int i = 0; i < dialects.length; i++ ) {
-            	m_actionFile = m_actionFiles.getFile(dialects[i]).getLocation().toFile();
-            	if ( !m_actionFile.exists() ) continue;
-
-                Reader reader = getActionInputReader();
-
-                SignatureLexer sig_lexer = new SignatureLexer(reader, this);
-                BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState(), this);
-
-                TokenStreamSelector selector = new TokenStreamSelector();
-                selector.addInputStream(sig_lexer, "main");
-                selector.addInputStream(body_lexer, "bodylexer");
-                selector.select("main");
-
-                pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN );
-                ActionParser parser = new ActionParser(selector, this, dialects[i]);
-                parser.activityDefinitions();
-
-                // reset the input buffer
-                actionInputBuffer = null;
-                if (parser.m_errors || sig_lexer.m_errors || body_lexer.m_errors )
-                {
-                    m_errorMessage = parser.m_output + sig_lexer.m_output + body_lexer.m_output;
-                    pm.done();
-                    return false;
-                } else {
-                    pm.worked(1);
-                }
-            }
-            pm.done();
-            return true;
-        } catch (IOException e) {
-	        m_errorMessage += "IO exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
-        } catch (TokenStreamException e) {
-	        m_errorMessage += "Stream exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
-        } catch (RecognitionException e) {
-	        m_errorMessage += "Recog exception: " + ( m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
-        }
-        return false;
-    }
-
-    static protected String removeTics(String p_input) {
-    	if (p_input == null)
-    		return "";
-        String out = p_input;
-        if (out.startsWith("'")) {
-            out = out.substring(1);
-        }
-        if (out.endsWith("'")) {
-            out = out.substring(0, out.length() - 1);
-        }
-        out = out.replaceAll("''", "'");
-
-        return out;
-    }
-
-    protected Ooaofgraphics getGraphicsModelRoot() {
-        if (m_graphicsModelRoot == null) {
-            m_graphicsModelRoot = Ooaofgraphics.getInstance(m_modelRoot.getId());
-        }
-        return m_graphicsModelRoot;
-    }
-
-    protected void setGraphicalRepresents() {
-        Model_c[] mdls = Model_c.ModelInstances(getGraphicsModelRoot());
-        for (int j = 0; j < mdls.length; j++) {
-            mdls[j].setRepresents(Cl_c.Getinstancefromooa_id(m_modelRoot, mdls[j].getOoa_id(), mdls[j].getOoa_type()));
-        }
-        GraphicalElement_c[] ges = GraphicalElement_c.GraphicalElementInstances(getGraphicsModelRoot());
-        for (int j = 0; j < ges.length; j++) {
-            setGraphicalRepresents(ges[j]);
-        }
-    }
-    
-    protected void setGraphicalRepresents(GraphicalElement_c element) {
-    	element.setRepresents(Cl_c.Getinstancefromooa_id(m_modelRoot, element.getOoa_id(), element.getOoa_type()));
-    }
-
-    private static String defaultDataTypePackageName = Ooaofooa.Getcoredatatypespackagename(null);
-
-    private static String defaultFunctionPackageName = "Functions"; //$NON-NLS-1$
-
-    private static String defaultExternalEntityPackageName = "External Entities"; //$NON-NLS-1$
-
-
-    public NonRootModelElement getRootModelElement() {
-        return rootModelElement;
-    }
-
-    public void finishLoad(IProgressMonitor pm) {
-    }
-
-    public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
-    }
-
-    class FileHeader implements IFileHeader {
-        /**
-         * Prior to persistence version 7.1.1, the product version number found
-         * in the file header is used for fileFormatVersion. After that point,
-         * there is a separate persistence/file format version number in the
-         * header which is used, instead. This number usually starts with the
-         * product number (e.g. "7.1") and adds on a suffix (e.g. ".1").
-         */
-
-        String productVersion;
-
-        String fileFormatVersion;
-
-        String componentType;
-
-        boolean valid = false;
-
-        public String getFileFormatVersion() {
-            return fileFormatVersion;
-        }
-
-        public String getModelComponentType() {
-            return componentType;
-        }
-
-        public String getProductVersion() {
-            return productVersion;
-        }
-
-        public boolean isValid() {
-            return valid;
-        }
-
-        public void read(File file) throws IOException {
-            FileReader reader = null;
-            try {
-                reader = new FileReader(file);
-                read(reader);
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                    }
-                }
-            }
-        }
-
-        // does not close the stream, its responsibility of caller to close
-        // inputstream
-        public void read(InputStream in) throws IOException {
-            read(new InputStreamReader(in));
-        }
-
-        // does not close the stream, its responsibility of caller to close
-        // inputstream
-        public void read(Reader in) throws IOException {
-            read(new BufferedReader(in));
-        }
-
-        public void read(BufferedReader reader) throws IOException {
-        	String headerLine = reader.readLine();
-        	String[] words = null;
-        	while (headerLine != null){
-        		headerLine = headerLine.trim();
-        		// ignore comments
-        		if(headerLine.startsWith("--")){               //$NON-NLS-1$
-        			String[] splitted = headerLine.split(" "); //$NON-NLS-1$
-        			if(splitted.length >= 2 && splitted[1].equals("BP")){                 //$NON-NLS-1$
-        				words = splitted;
-        				break;
-        			}
-        		}else if (headerLine.length() == 0){
-        			// we hit something else which is neither comment or header
-        			// so it is not valid.
-        			throw new IOException("header not present");
-        		}
-        		headerLine = reader.readLine();
-        	}
-
-            if (words == null || words.length < 5) {
-                throw new IOException("Invalid file header");
-            }
-
-            if (words.length >= 9) {
-                productVersion = words[2];
-                fileFormatVersion = words[8];
-            } else {
-                productVersion = words[2];
-                fileFormatVersion = productVersion;
-            }
-
-            componentType = words[4];
-
-            if (isExpectedVersion(productVersion) //$NON-NLS-1$
-                    && words[3].equals("content:") //$NON-NLS-1$
-                    && isExpectedContent(componentType)) {
-                valid = true;
-            }
-        }
-    	@Override
+	public boolean m_success;
+
+	public boolean m_actionSuccess = true;
+
+	public String m_errorMessage;
+
+	protected boolean m_clear_database = true;
+
+	private int m_numInserts = 0;
+
+	private Ooaofooa m_modelRoot = null;
+
+	private Ooaofgraphics m_graphicsModelRoot = null;
+
+	protected String m_fileName;
+
+	File m_inFile;
+
+	File m_actionFile;
+
+	ActionFile m_actionFiles;
+
+	private StringBuffer inputBuffer = null;
+
+	private StringBuffer actionInputBuffer = null;
+
+	public FileHeader m_header = null;
+
+	protected boolean m_templateFile;
+
+	protected NonRootModelElement rootModelElement = null;
+	public static boolean createUniqueIds = true;
+
+	/**
+	 * The version string found in BP SQL model files.
+	 */
+	public static String bpSqlVersion = "6.1D";
+
+	public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
+			throws IOException {
+		m_success = false;
+		m_errorMessage = ""; //$NON-NLS-1$
+		m_modelRoot = modelRoot;
+		m_fileName = "";
+		m_clear_database = clearDatabase;
+		m_templateFile = templateFile;
+		read(inStream);
+	}
+
+	public CoreImport(Ooaofooa modelRoot, String inFile, ActionFile actionFile, boolean clearDatabase,
+			boolean templateFile) throws FileNotFoundException {
+		m_success = false;
+		m_errorMessage = ""; //$NON-NLS-1$
+		m_modelRoot = modelRoot;
+		m_fileName = inFile;
+		m_inFile = new File(inFile);
+		m_actionFiles = actionFile;
+		m_clear_database = clearDatabase;
+		m_templateFile = templateFile;
+		if (!m_inFile.exists() || !m_inFile.isFile())
+			throw new FileNotFoundException(inFile + " not found");
+	}
+
+	public CoreImport(IPath inFile, ActionFile actionFile) throws FileNotFoundException {
+		m_success = false;
+		m_errorMessage = ""; //$NON-NLS-1$
+		m_modelRoot = null;
+		m_fileName = inFile.toString();
+		m_inFile = inFile.toFile();
+		m_actionFiles = actionFile;
+
+		if (!m_inFile.exists() || !m_inFile.isFile())
+			throw new FileNotFoundException(inFile + " not found");
+	}
+
+	protected void readHeader() {
+		if (m_header == null) {
+			m_header = new FileHeader();
+			try {
+				if (inputBuffer != null) {
+					m_header.read(new StringReader(inputBuffer.toString()));
+				} else if (m_inFile != null) {
+					m_header.read(m_inFile);
+				} else {
+					IllegalStateException x = new IllegalStateException("Input file or source not set");
+					x.fillInStackTrace();
+					throw x;
+				}
+			} catch (IOException e) {
+				IllegalStateException x = new IllegalStateException("Error reading header");
+				x.fillInStackTrace();
+				throw x;
+			}
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.xtuml.bp.core.ui.IModelImport#getHeader()
+	 */
+	public IFileHeader getHeader() {
+		readHeader();
+		return m_header;
+	}
+
+	public abstract boolean isExpectedContent(String actualContent);
+
+	public abstract boolean isExpectedVersion(String actualVersion);
+
+	public abstract void performCleanUp(IProgressMonitor pm) throws IOException;
+
+	public abstract String processValue(String table, int col_num, String val);
+
+	public abstract void processStatement(Ooaofooa modelRoot, String table, Vector<String> parms,
+			Vector<String> rawParms, int numParms, IProgressMonitor pm);
+
+	public abstract void preprocessStatement(String stmt, BufferedReader is) throws IOException;
+
+	public abstract int postprocessStatements();
+
+	public abstract void processAction(String smasl, int dialect, int startLine, UUID uuid, UUID uuid2);
+
+	protected Ooaofooa getModelRoot() {
+		return m_modelRoot;
+	}
+
+	protected String getFilename() {
+		return m_fileName;
+	}
+
+	protected void read(File file) throws IOException {
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(new FileInputStream(file), ResourcesPlugin.getEncoding());
+			read(reader);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+	}
+
+	protected void read(InputStream inStream) throws IOException {
+		InputStreamReader reader = new InputStreamReader(inStream);
+		read(reader);
+	}
+
+	protected void read(Reader reader) throws IOException {
+		inputBuffer = new StringBuffer();
+		BufferedReader bufferedReader = new BufferedReader(reader);
+		final int bufferLength = 8192;
+		char[] charBuffer = new char[bufferLength];
+		int readLength;
+		while ((readLength = bufferedReader.read(charBuffer, 0, bufferLength)) > 0) {
+			inputBuffer.append(charBuffer, 0, readLength);
+		}
+	}
+
+	protected void readActions(File file) throws IOException {
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(new FileInputStream(file), ResourcesPlugin.getEncoding());
+			readActions(reader);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+	}
+
+	protected void readActions(InputStream inStream) throws IOException {
+		InputStreamReader reader = new InputStreamReader(inStream);
+		readActions(reader);
+	}
+
+	protected void readActions(Reader reader) throws IOException {
+		actionInputBuffer = new StringBuffer();
+		BufferedReader bufferedReader = new BufferedReader(reader);
+		final int bufferLength = 8192;
+		char[] charBuffer = new char[bufferLength];
+		int readLength;
+		while ((readLength = bufferedReader.read(charBuffer, 0, bufferLength)) > 0) {
+			actionInputBuffer.append(charBuffer, 0, readLength);
+		}
+	}
+
+	public Reader getInputReader() throws IOException {
+		if (inputBuffer == null)
+			read(m_inFile);
+
+		return new StringReader(inputBuffer.toString());
+	}
+
+	public Reader getActionInputReader() throws IOException {
+		if (actionInputBuffer == null) {
+			if (null == m_actionFile) {
+				return new StringReader("");
+			} else {
+				readActions(m_actionFile);
+			}
+		}
+
+		return new StringReader(actionInputBuffer.toString());
+	}
+
+	public int countAndValidateInsertStatements() {
+		int numInserts = 0;
+		try {
+			BufferedReader dis = new BufferedReader(getInputReader());
+			readHeader();
+			// TODO
+		  if (m_header.valid && m_header.componentType.equals("Interface")) {
+			  return 1;
+		  }
+			String s = dis.readLine();
+			while (s != null) {
+				if (s.toUpperCase().indexOf("INSERT") == 0) //$NON-NLS-1$
+				{
+					numInserts += 1;
+					preprocessStatement(s, dis);
+				}
+				s = dis.readLine();
+			}
+			dis.close();
+		} catch (IOException x) {
+			m_errorMessage = x.toString();
+			return PPS_ERROR;
+		}
+
+		if (m_header == null || !m_header.isValid()) {
+			if (m_fileName != null) {
+				m_errorMessage = "The file " + m_fileName;
+			} else {
+				m_errorMessage = "The file";
+			}
+			m_errorMessage += " is not a valid UML model file.";
+			return PPS_ERROR;
+		}
+		int pps = postprocessStatements();
+		m_numInserts = numInserts;
+		if (pps == PPS_OK)
+			return numInserts;
+		else
+			return pps;
+	}
+
+	protected boolean doLoadFile(IProgressMonitor pm) {
+		// here's where the code is actually read
+		try {
+			// read the persistence header
+			readHeader();
+
+			// clean up tasks
+			performCleanUp(pm);
+		
+			// if the version is earlier than 7.3.0, parse as SQL insert statements
+			if (m_header.valid && m_header.componentType.equals("Interface")
+					/* && SemVer.of(m_header.fileFormatVersion).compareTo(SemVer.of("7.3.0")) >= 0 */) {
+				return doLoadText(pm);
+			} else {
+				return doLoadSql(pm);
+			}
+		} catch (NumberFormatException e) {
+			m_errorMessage = "Failed to parse persistence version: " + e;
+		} catch (IOException e) {
+			m_errorMessage = "IO exception: " + e;
+		}
+		return false;
+	}
+
+	protected boolean doLoadSql(IProgressMonitor pm) {
+		try {
+			// read the version number from the file, in case
+			// countAndValidateInsertStatements() hasn't been called
+			Reader reader = getInputReader();
+			SqlLexer lexer = new SqlLexer(reader);
+
+			// add 401 for the batchRelateAll additions (found by searching for pm.worked(1)
+			// in ImportModelComponent
+			pm.beginTask("Importing data...", m_numInserts + 401);
+			SqlParser parser = new SqlParser(lexer, m_modelRoot, this);
+			// Parse the input expression
+			parser.sql_file(pm);
+			if (!parser.m_output.isEmpty()) {
+				m_errorMessage = parser.m_output;
+				pm.done();
+				return false;
+			} else {
+				pm.done();
+				return true;
+			}
+		} catch (IOException e) {
+			m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
+		} catch (TokenStreamException e) {
+			m_errorMessage = "Stream exception: " + e; //$NON-NLS-1$
+		} catch (RecognitionException e) {
+			m_errorMessage = "Recog exception: " + e; //$NON-NLS-1$
+		}
+		return false;
+	}
+	
+	private static Map<String, NonRootModelElement> loadedRootElements = new HashMap<>();
+
+	protected boolean doLoadText(IProgressMonitor pm) {
+		// do not allow loading a file twice
+		if (loadedRootElements.containsKey(m_fileName)) {
+			rootModelElement = loadedRootElements.get(m_fileName);
+			return true;
+		}
+		// here's where the code is actually read
+		try {
+			pm.beginTask("Importing data...", 1);
+
+			// set up the parser
+			Reader reader = getInputReader();
+			XtumlLexer lexer = new XtumlLexer(CharStreams.fromReader(reader));
+			XtumlParser parser = new XtumlParser(new CommonTokenStream(lexer));
+
+			// set up error handling
+			parser.removeErrorListeners();
+			parser.addErrorListener(new BaseErrorListener() {
+				@Override
+				public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+						int charPositionInLine, String msg, org.antlr.v4.runtime.RecognitionException e)
+						throws ParseCancellationException {
+					m_errorMessage = m_fileName + ": line " + line + ":" + charPositionInLine + " " + msg;
+					throw new ParseCancellationException(m_errorMessage);
+				}
+			});
+
+			// parse the file
+			ParserRuleContext ctx = parser.target();
+			XtumlImportVisitor visitor = new XtumlImportVisitor(m_modelRoot);
+			rootModelElement = (NonRootModelElement) visitor.visit(ctx);
+			// TODO error handling
+			pm.done();
+			loadedRootElements.put(m_fileName, rootModelElement);
+			return true;
+		} catch (IOException e) {
+			m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
+		}
+		return false;
+	}
+
+	protected boolean doLoadActions(IProgressMonitor pm) {
+		if (m_actionFiles == null) {
+			pm.done();
+			return true;
+		}
+		// here's where the code is actually read
+		try {
+			int[] dialects = ActionFile.getAvailableDialectCodes();
+
+			// import actions for each dialect
+			for (int i = 0; i < dialects.length; i++) {
+				m_actionFile = m_actionFiles.getFile(dialects[i]).getLocation().toFile();
+				if (!m_actionFile.exists())
+					continue;
+
+				Reader reader = getActionInputReader();
+
+				SignatureLexer sig_lexer = new SignatureLexer(reader, this);
+				BodyLexer body_lexer = new BodyLexer(sig_lexer.getInputState(), this);
+
+				TokenStreamSelector selector = new TokenStreamSelector();
+				selector.addInputStream(sig_lexer, "main");
+				selector.addInputStream(body_lexer, "bodylexer");
+				selector.select("main");
+
+				pm.beginTask("Reading activity data...", IProgressMonitor.UNKNOWN);
+				ActionParser parser = new ActionParser(selector, this, dialects[i]);
+				parser.activityDefinitions();
+
+				// reset the input buffer
+				actionInputBuffer = null;
+				if (parser.m_errors || sig_lexer.m_errors || body_lexer.m_errors) {
+					m_errorMessage = parser.m_output + sig_lexer.m_output + body_lexer.m_output;
+					pm.done();
+					return false;
+				} else {
+					pm.worked(1);
+				}
+			}
+			pm.done();
+			return true;
+		} catch (IOException e) {
+			m_errorMessage += "IO exception: " + (m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
+		} catch (TokenStreamException e) {
+			m_errorMessage += "Stream exception: " + (m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
+		} catch (RecognitionException e) {
+			m_errorMessage += "Recog exception: " + (m_actionFile != null ? m_actionFile.getName() + " " : "") + e;
+		}
+		return false;
+	}
+
+	static protected String removeTics(String p_input) {
+		if (p_input == null)
+			return "";
+		String out = p_input;
+		if (out.startsWith("'")) {
+			out = out.substring(1);
+		}
+		if (out.endsWith("'")) {
+			out = out.substring(0, out.length() - 1);
+		}
+		out = out.replaceAll("''", "'");
+
+		return out;
+	}
+
+	protected Ooaofgraphics getGraphicsModelRoot() {
+		if (m_graphicsModelRoot == null) {
+			m_graphicsModelRoot = Ooaofgraphics.getInstance(m_modelRoot.getId());
+		}
+		return m_graphicsModelRoot;
+	}
+
+	protected void setGraphicalRepresents() {
+		Model_c[] mdls = Model_c.ModelInstances(getGraphicsModelRoot());
+		for (int j = 0; j < mdls.length; j++) {
+			mdls[j].setRepresents(Cl_c.Getinstancefromooa_id(m_modelRoot, mdls[j].getOoa_id(), mdls[j].getOoa_type()));
+		}
+		GraphicalElement_c[] ges = GraphicalElement_c.GraphicalElementInstances(getGraphicsModelRoot());
+		for (int j = 0; j < ges.length; j++) {
+			setGraphicalRepresents(ges[j]);
+		}
+	}
+
+	protected void setGraphicalRepresents(GraphicalElement_c element) {
+		element.setRepresents(Cl_c.Getinstancefromooa_id(m_modelRoot, element.getOoa_id(), element.getOoa_type()));
+	}
+
+	public NonRootModelElement getRootModelElement() {
+		return rootModelElement;
+	}
+
+	public void finishLoad(IProgressMonitor pm) {
+	}
+
+	public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
+	}
+
+	class FileHeader implements IFileHeader {
+		/**
+		 * Prior to persistence version 7.1.1, the product version number found in the
+		 * file header is used for fileFormatVersion. After that point, there is a
+		 * separate persistence/file format version number in the header which is used,
+		 * instead. This number usually starts with the product number (e.g. "7.1") and
+		 * adds on a suffix (e.g. ".1").
+		 */
+
+		String productVersion;
+
+		String fileFormatVersion;
+
+		String componentType;
+
+		boolean valid = false;
+
+		public String getFileFormatVersion() {
+			return fileFormatVersion;
+		}
+
+		public String getModelComponentType() {
+			return componentType;
+		}
+
+		public String getProductVersion() {
+			return productVersion;
+		}
+
+		public boolean isValid() {
+			return valid;
+		}
+
+		public void read(File file) throws IOException {
+			FileReader reader = null;
+			try {
+				reader = new FileReader(file);
+				read(reader);
+			} finally {
+				if (reader != null) {
+					try {
+						reader.close();
+					} catch (IOException e) {
+					}
+				}
+			}
+		}
+
+		// does not close the stream, its responsibility of caller to close
+		// inputstream
+		public void read(InputStream in) throws IOException {
+			read(new InputStreamReader(in));
+		}
+
+		// does not close the stream, its responsibility of caller to close
+		// inputstream
+		public void read(Reader in) throws IOException {
+			read(new BufferedReader(in));
+		}
+
+		public void read(BufferedReader reader) throws IOException {
+			String headerLine = reader.readLine();
+			String[] words = null;
+			while (headerLine != null) {
+				headerLine = headerLine.trim();
+				// ignore comments
+				if (headerLine.startsWith("--")) { //$NON-NLS-1$
+					String[] splitted = headerLine.split(" "); //$NON-NLS-1$
+					if (splitted.length >= 2 && splitted[1].equals("BP")) { //$NON-NLS-1$
+						words = splitted;
+						break;
+					}
+				} else if (headerLine.length() == 0) {
+					// we hit something else which is neither comment or header
+					// so it is not valid.
+					throw new IOException("header not present");
+				}
+				headerLine = reader.readLine();
+			}
+
+			if (words == null || words.length < 5) {
+				throw new IOException("Invalid file header");
+			}
+
+			if (words.length >= 9) {
+				productVersion = words[2];
+				fileFormatVersion = words[8];
+			} else {
+				productVersion = words[2];
+				fileFormatVersion = productVersion;
+			}
+
+			componentType = words[4];
+
+			if (isExpectedVersion(productVersion) // $NON-NLS-1$
+					&& words[3].equals("content:") //$NON-NLS-1$
+					&& isExpectedContent(componentType)) {
+				valid = true;
+			}
+		}
+
+		@Override
 		public SystemModel_c readSystemModel(InputStream in) throws IOException {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			char[] buffer = new char[500];
@@ -584,13 +617,11 @@ public abstract class CoreImport implements IModelImport {
 			while (match_sysID.find()) {
 				String sys_idString = match_sysID.group();
 				UUID sys_id = IdAssigner.createUUIDFromString(sys_idString);
-				InstanceList instances = ((ModelRoot) Ooaofooa
-						.getDefaultInstance())
+				InstanceList instances = ((ModelRoot) Ooaofooa.getDefaultInstance())
 						.getInstanceList(SystemModel_c.class);
 				SystemModel_c source = null;
 				synchronized (instances) {
-					source = (SystemModel_c) instances
-							.get(new Object[] { sys_id });
+					source = (SystemModel_c) instances.get(new Object[] { sys_id });
 					if (source != null) {
 						return source;
 					} else {
@@ -600,15 +631,59 @@ public abstract class CoreImport implements IModelImport {
 			}
 			return null;
 		}
-    }
+	}
+
+	private static final class SemVer implements Comparable<SemVer> {
+
+		private final int major;
+		private final int minor;
+		private final int patch;
+
+		private SemVer(final String version) throws NumberFormatException {
+			final String[] versions = version.split("\\.", 3);
+			major = Integer.parseInt(versions[0]);
+			minor = Integer.parseInt(versions[1]);
+			patch = Integer.parseInt(versions[2]);
+
+		}
+
+		public int getMajor() {
+			return major;
+		}
+
+		public int getMinor() {
+			return minor;
+		}
+
+		public int getPatch() {
+			return patch;
+		}
+
+		@Override
+		public String toString() {
+			return String.format("%d.%d.%d", major, minor, patch);
+		}
+
+		@Override
+		public int compareTo(SemVer o) {
+			final Comparator<SemVer> c = Comparator.comparing(SemVer::getMajor).thenComparing(SemVer::getMinor)
+					.thenComparing(SemVer::getPatch);
+			return c.compare(this, o);
+		}
+
+		public static SemVer of(final String version) throws NumberFormatException {
+			return new SemVer(version);
+		}
+	}
 
 	public boolean getSuccessful() {
 		return m_success;
 	}
 
-        public boolean getActionSuccessful() {
-            return m_actionSuccess;
-        }
-	
-	public void upgradeStreamData(Ooaofooa root) {};
+	public boolean getActionSuccessful() {
+		return m_actionSuccess;
+	}
+
+	public void upgradeStreamData(Ooaofooa root) {
+	};
 }

@@ -586,7 +586,7 @@ ${setSize.body}
   .param boolean setComponent
   .param String callingProject
 /*
-    Since the call to CoreImport.doLoadSql (see the run method
+    Since the call to CoreImport.doLoadFile (see the run method
     above) is done in a different thread, we can't do anything
     that would cause a fireModelChange to occur in that sub-
     thread.  All the UI processing is therefore done by this
