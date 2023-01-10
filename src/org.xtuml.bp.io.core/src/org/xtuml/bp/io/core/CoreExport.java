@@ -14,17 +14,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.als.oal.ParserAllActivityModifier;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -34,9 +37,10 @@ import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.activity.errors.ErrorCollector;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.IAllActivityModifier;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
@@ -154,12 +158,12 @@ public abstract class CoreExport implements IRunnableWithProgress {
     /**
      * A convenience method. See method wrapped.
      */
-    protected String get_file_header(String content, String version) {
-        return get_file_header(content, version, ""); //$NON-NLS-1$
+    protected String get_file_header(String commentLeader, String content, String version) {
+        return get_file_header(commentLeader, content, version, ""); //$NON-NLS-1$
     }
 
-    protected String get_file_header(String content, String version, String persistenceVersion) {
-        return "-- BP " + version + " content: " + content //$NON-NLS-1$//$NON-NLS-2$
+    protected String get_file_header(String commentLeader, String content, String version, String persistenceVersion) {
+        return commentLeader + " BP " + version + " content: " + content //$NON-NLS-1$//$NON-NLS-2$
                 + " syschar: 3" + //$NON-NLS-1$
                 (!persistenceVersion.equals("") ? //$NON-NLS-1$
                         (" persistence-version: " + persistenceVersion) : "") //$NON-NLS-1$//$NON-NLS-2$
@@ -171,6 +175,12 @@ public abstract class CoreExport implements IRunnableWithProgress {
             errorLoggedDuringParse = true;
         }       
     }
+
+	public static boolean persistAsText(final NonRootModelElement element) {
+		IScopeContext projectScope = new ProjectScope(element.getPersistableComponent().getFile().getProject());
+		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		return "text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"));
+	}
 
     /**
 	 * This simply calls the private version of the function with the same name.

@@ -317,8 +317,7 @@ public abstract class CoreImport implements IModelImport {
 			performCleanUp(pm);
 		
 			// if the version is earlier than 7.3.0, parse as SQL insert statements
-			if (m_header.valid && m_header.componentType.equals("Interface")
-					/* && SemVer.of(m_header.fileFormatVersion).compareTo(SemVer.of("7.3.0")) >= 0 */) {
+			if (m_header.valid && m_header.persistenceFormat == PersistenceFormat.TEXT) {
 				return doLoadText(pm);
 			} else {
 				return doLoadSql(pm);
@@ -502,6 +501,10 @@ public abstract class CoreImport implements IModelImport {
 
 	public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
 	}
+	
+	static enum PersistenceFormat {
+		TEXT, SQL
+	}
 
 	class FileHeader implements IFileHeader {
 		/**
@@ -517,9 +520,11 @@ public abstract class CoreImport implements IModelImport {
 		String fileFormatVersion;
 
 		String componentType;
+		
+		PersistenceFormat persistenceFormat;
 
 		boolean valid = false;
-
+		
 		public String getFileFormatVersion() {
 			return fileFormatVersion;
 		}
@@ -569,7 +574,7 @@ public abstract class CoreImport implements IModelImport {
 			while (headerLine != null) {
 				headerLine = headerLine.trim();
 				// ignore comments
-				if (headerLine.startsWith("--")) { //$NON-NLS-1$
+				if (headerLine.startsWith("--") || headerLine.startsWith("//")) { //$NON-NLS-1$
 					String[] splitted = headerLine.split(" "); //$NON-NLS-1$
 					if (splitted.length >= 2 && splitted[1].equals("BP")) { //$NON-NLS-1$
 						words = splitted;
@@ -596,6 +601,14 @@ public abstract class CoreImport implements IModelImport {
 			}
 
 			componentType = words[4];
+			
+			switch(words[0]) {
+			case "//":
+				persistenceFormat = PersistenceFormat.TEXT;
+				break;
+			default:
+				persistenceFormat = PersistenceFormat.SQL;
+			}
 
 			if (isExpectedVersion(productVersion) // $NON-NLS-1$
 					&& words[3].equals("content:") //$NON-NLS-1$

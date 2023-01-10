@@ -47,6 +47,17 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
+	public String get_file_header(NonRootModelElement element) {
+		if (element instanceof Interface_c) {
+			return get_file_header("//",
+					element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
+					"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
+		} else {
+			return super.get_file_header(element);
+		}
+	}
+
+	@Override
 	protected void export_Interface_c(Interface_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {

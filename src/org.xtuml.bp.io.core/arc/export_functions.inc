@@ -712,7 +712,7 @@ throws IOException
       .end if
       .if(not multilevel) .// since we have already taken care of header in run method incase of multilevel export.
         .if ( parent_name == domain_class_name )
-    m_fh.print( get_file_header("domain", "${tool}", org.xtuml.bp.core.CorePlugin.getPersistenceVersion()));  //$$NON-NLS-1$$ //$$NON-NLS-2$$ //$$NON-NLS-3$$
+    m_fh.print( get_file_header("--", "domain", "${tool}", org.xtuml.bp.core.CorePlugin.getPersistenceVersion()));  //$$NON-NLS-1$$ //$$NON-NLS-2$$ //$$NON-NLS-3$$
         .end if
       .end if
       .if (( eo.writePosition == "first" ) or (eo.writePosition == "none"))

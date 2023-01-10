@@ -17,28 +17,18 @@ package org.xtuml.bp.io.mdl;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
-import org.eclipse.core.resources.ProjectScope;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
-import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
+import org.xtuml.bp.io.core.CoreExport;
 
 public class ExportModelFactory extends AbstractModelExportFactory {
 
-	private boolean persistAsText(final NonRootModelElement element) {
-		IScopeContext projectScope = new ProjectScope(element.getPersistableComponent().getFile().getProject());
-		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-		return "text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"));
-	}
-
 	public IRunnableWithProgress create(NonRootModelElement me, String fileName, boolean exportGraphics)
 			throws FileNotFoundException {
-		if (persistAsText(me)) {
+		if (CoreExport.persistAsText(me)) {
 			return new ExportModelText((Ooaofooa) me.getModelRoot(), fileName, exportGraphics, me);
 		} else {
 			return new ExportModelComponent((Ooaofooa) me.getModelRoot(), fileName, exportGraphics, me);
@@ -52,7 +42,7 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 
 	public IRunnableWithProgress create(String file, NonRootModelElement element) throws FileNotFoundException {
 		ExportModelComponent emc;
-		if (persistAsText(element)) {
+		if (CoreExport.persistAsText(element)) {
 			emc = new ExportModelText(file, element);
 		} else {
 			emc = new ExportModelComponent(file, element);
@@ -63,7 +53,7 @@ public class ExportModelFactory extends AbstractModelExportFactory {
 
 	public IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
 		ExportModelComponent emc;
-		if (persistAsText(element)) {
+		if (CoreExport.persistAsText(element)) {
 			emc = new ExportModelText(modelRoot, baos, element);
 		} else {
 			emc = new ExportModelComponent(modelRoot, baos, element);
