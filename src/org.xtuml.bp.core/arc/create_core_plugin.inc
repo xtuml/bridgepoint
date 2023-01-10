@@ -341,6 +341,12 @@ This file is the plugin manifest for the BridgePoint core plugin.
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
      </page>
+     <page
+       name="Persistence"
+       class="org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferencesPage"
+       id="org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferencesPage"
+       category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+     </page>
    </extension>
    <extension id="org.xtuml.bp.core.ui.viewcats"
               name="BridgePoint"

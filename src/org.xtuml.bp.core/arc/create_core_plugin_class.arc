@@ -128,6 +128,7 @@ import org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferen
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferenceNode;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferenceNode;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.ResourceActivityVisitor;
 /**
@@ -1181,6 +1182,8 @@ public class CorePlugin extends AbstractUIPlugin {
 		public static PreferenceManager getProjectPreferenceManager(Preferences projectNode) {
 			PreferenceManager pm = new PreferenceManager();
 			PreferenceNode pn = new BridgePointProjectReferencesPreferenceNode(projectNode);
+			pm.addToRoot(pn);
+			pn = new BridgePointPersistencePreferenceNode(projectNode);
 			pm.addToRoot(pn);
 			pn = new BridgePointProjectActionLanguagePreferenceNode(projectNode);
 			pm.addToRoot(pn);
