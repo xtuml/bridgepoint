@@ -26,9 +26,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -119,7 +124,12 @@ public class PersistableModelComponent implements Comparable {
 
 	// instance of ME when component is loaded otherwise it will be null;
 	private NonRootModelElement componentRootME;
-
+	
+	// This set maintains the list of tree elements that are expanded. After a
+	// reload, the elements can get re-expanded to provide a streamlined
+	// experience for editing the file system itself.
+	private Set<String> expandedElements = new HashSet<>();
+	
 	static synchronized public PersistableModelComponent create(IPath modelFilePath) {
 		PersistableModelComponent result = PersistenceManager.findComponent(modelFilePath);
 		try {
@@ -752,6 +762,7 @@ public class PersistableModelComponent implements Comparable {
 					}
 					Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
 					setRootModelElement(rootME);
+					pruneExpandedElements();
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -1166,7 +1177,7 @@ public class PersistableModelComponent implements Comparable {
 		} else {
 			// Root element type not supported
 		}
-
+	
 		// compare with the imported activities
 		if (!activityCount.equals(importedActivityCount, dialect)) {
 			String path = getActionFile(1).getName();
@@ -1174,5 +1185,35 @@ public class PersistableModelComponent implements Comparable {
 			appendActivityImportFailureMessage(
 					"File: " + path + ": Number of parsed activities does not match number of activities in model.\n");
 		}
+	}
+
+	public void elementExpanded(String path) {
+		expandedElements.add(path);
+	}
+
+	public void elementCollapsed(String path) {
+		expandedElements.remove(path);
+	}
+
+	public void pruneExpandedElements() {
+		final IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
+		@SuppressWarnings("unchecked")
+		final Set<String> containedModelPaths = Stream
+				.concat(Stream.of(getRootModelElement()),
+						((List<NonRootModelElement>) metaData.getChildren(getRootModelElement(), true)).stream())
+				.filter(nrme -> nrme != null)
+				.map(NonRootModelElement::getPath).collect(Collectors.toSet());
+		expandedElements.retainAll(containedModelPaths);
+	}
+	
+	public void clearExpanded(boolean includeChildren) {
+		expandedElements.clear();
+		if (includeChildren) {
+			getChildren().forEach(child -> child.clearExpanded(includeChildren));
+		}
+	}
+
+	public Collection<String> getExpandedElements() {
+		return Collections.unmodifiableCollection(expandedElements);
 	}
 }
