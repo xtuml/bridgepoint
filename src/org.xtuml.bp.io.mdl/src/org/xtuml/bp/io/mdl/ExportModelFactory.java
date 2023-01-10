@@ -17,47 +17,65 @@ package org.xtuml.bp.io.mdl;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
+import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 
 public class ExportModelFactory extends AbstractModelExportFactory {
 
-	public IRunnableWithProgress create(
-		NonRootModelElement me,
-		String fileName,
-		boolean exportGraphics) throws FileNotFoundException {
-		return new ExportModelText((Ooaofooa)me.getModelRoot(), fileName, exportGraphics, me);
+	private boolean persistAsText(final NonRootModelElement element) {
+		IScopeContext projectScope = new ProjectScope(element.getPersistableComponent().getFile().getProject());
+		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		return "text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"));
 	}
-	
-	public IRunnableWithProgress create(
-		Ooaofooa aModelRoot,
-		String fileName,
-		boolean exportGraphics) throws FileNotFoundException {
+
+	public IRunnableWithProgress create(NonRootModelElement me, String fileName, boolean exportGraphics)
+			throws FileNotFoundException {
+		if (persistAsText(me)) {
+			return new ExportModelText((Ooaofooa) me.getModelRoot(), fileName, exportGraphics, me);
+		} else {
+			return new ExportModelComponent((Ooaofooa) me.getModelRoot(), fileName, exportGraphics, me);
+		}
+	}
+
+	public IRunnableWithProgress create(Ooaofooa aModelRoot, String fileName, boolean exportGraphics)
+			throws FileNotFoundException {
 		return new ExportModel(aModelRoot, fileName, exportGraphics);
 	}
-	
 
-	public IRunnableWithProgress create(String file, NonRootModelElement element)
-			throws FileNotFoundException {
-		ExportModelComponent emc = new ExportModelText(file, element);
+	public IRunnableWithProgress create(String file, NonRootModelElement element) throws FileNotFoundException {
+		ExportModelComponent emc;
+		if (persistAsText(element)) {
+			emc = new ExportModelText(file, element);
+		} else {
+			emc = new ExportModelComponent(file, element);
+		}
 		emc.outputCachedIDs = true;
 		return emc;
 	}
 
 	public IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
-		ExportModelComponent emc = new ExportModelText(modelRoot, baos, element);
+		ExportModelComponent emc;
+		if (persistAsText(element)) {
+			emc = new ExportModelText(modelRoot, baos, element);
+		} else {
+			emc = new ExportModelComponent(modelRoot, baos, element);
+		}
 		emc.outputCachedIDs = true;
 		return emc;
 	}
 
 	@Override
-	public IRunnableWithProgress create(Ooaofooa aModelRoot, SystemModel_c sys,
-			boolean exportGraphics) throws FileNotFoundException {
+	public IRunnableWithProgress create(Ooaofooa aModelRoot, SystemModel_c sys, boolean exportGraphics)
+			throws FileNotFoundException {
 		return null;
 	}
-	
-}
 
+}
