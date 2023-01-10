@@ -43,6 +43,7 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -364,11 +365,6 @@ public abstract class CoreImport implements IModelImport {
 	private static Map<String, NonRootModelElement> loadedRootElements = new HashMap<>();
 
 	protected boolean doLoadText(IProgressMonitor pm) {
-		// do not allow loading a file twice
-		if (loadedRootElements.containsKey(m_fileName)) {
-			rootModelElement = loadedRootElements.get(m_fileName);
-			return true;
-		}
 		// here's where the code is actually read
 		try {
 			pm.beginTask("Importing data...", 1);
@@ -502,11 +498,7 @@ public abstract class CoreImport implements IModelImport {
 	public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
 	}
 	
-	static enum PersistenceFormat {
-		TEXT, SQL
-	}
-
-	class FileHeader implements IFileHeader {
+	public class FileHeader implements IFileHeader {
 		/**
 		 * Prior to persistence version 7.1.1, the product version number found in the
 		 * file header is used for fileFormatVersion. After that point, there is a
@@ -535,6 +527,10 @@ public abstract class CoreImport implements IModelImport {
 
 		public String getProductVersion() {
 			return productVersion;
+		}
+		
+		public PersistenceFormat getPersistenceFormat() {
+			return persistenceFormat;
 		}
 
 		public boolean isValid() {

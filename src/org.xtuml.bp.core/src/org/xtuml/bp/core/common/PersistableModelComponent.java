@@ -74,6 +74,7 @@ import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.IModelImport;
+import org.xtuml.bp.core.ui.IModelImport.PersistenceFormat;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.UIUtil;
 
@@ -707,7 +708,15 @@ public class PersistableModelComponent implements Comparable {
 				return;
 			}
 
+			// validate the file (SQL only)
 			int validate_result = importer.countAndValidateInsertStatements();
+
+			// if the file is textual xtUML and this is a reload, clear the database first
+			if (reload && importer.getHeader().isValid()
+					&& importer.getHeader().getPersistenceFormat() == PersistenceFormat.TEXT) {
+				clearDatabase();
+			}
+
 			if (validate_result > 0) {
 				importer.run(monitor);
 				NonRootModelElement rootME = importer.getRootModelElement();
