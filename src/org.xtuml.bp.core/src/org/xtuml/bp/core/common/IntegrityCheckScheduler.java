@@ -58,7 +58,9 @@ public class IntegrityCheckScheduler extends Job {
 	}
 
 	public void addElementToQueue(NonRootModelElement element) {
-		queue.offer(element);
+		if (element != null) {
+			queue.offer(element);
+		}
 	}
 
 	public void stop() {
