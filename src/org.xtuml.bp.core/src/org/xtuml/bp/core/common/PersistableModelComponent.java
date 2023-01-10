@@ -86,166 +86,152 @@ import org.xtuml.bp.core.util.UIUtil;
 
 public class PersistableModelComponent implements Comparable {
 
-    private static final String SYSTEM_MODEL_NAME = "SystemModel";
-    
-    private int status = STATUS_NOTLOADED;
-    
-    public static final int STATUS_NOTLOADED = 0;
+	private static final String SYSTEM_MODEL_NAME = "SystemModel";
 
-    public static final int STATUS_LOADING = 1;
+	private int status = STATUS_NOTLOADED;
 
-    public static final int STATUS_LOADED = 2;
+	public static final int STATUS_NOTLOADED = 0;
 
-    public static final int STATUS_UNLOADING = 3;
+	public static final int STATUS_LOADING = 1;
 
-    public static final int STATUS_PERSISTING = 4;
-    
-    private final String dummyCompareName = "__dummyCompareProj/__dummyFile.xtuml";
-    
-    // Although type can be determined at runtime, this variable is used "only"
-    // when component is not loaded
-    // and component type is determined by reading the header of the file.
-    private String componentType;
+	public static final int STATUS_LOADED = 2;
 
-    private IFile underlyingResource;
-    private ActionFile afm;
+	public static final int STATUS_UNLOADING = 3;
 
-    private boolean activityImportFailures = false;
-    private String activityImportFailureMessage = "";
+	public static final int STATUS_PERSISTING = 4;
 
-    private ActivityCount importedActivityCount = new ActivityCount();
-    private ActivityCount activityCount = new ActivityCount();
+	private final String dummyCompareName = "__dummyCompareProj/__dummyFile.xtuml";
 
-    // instance of ME when component is loaded otherwise it will be null;
-    private NonRootModelElement componentRootME;
-    
-    static synchronized public PersistableModelComponent create(IPath modelFilePath) {
-        PersistableModelComponent result = PersistenceManager.findComponent(modelFilePath);
-        try {
-            if(result==null){
-            result = new PersistableModelComponent(modelFilePath);
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return result;
-    }
-    
-    private PersistableModelComponent(IPath modelFilePath) throws CoreException{
-        if (modelFilePath.getFileExtension() == null
-                || !modelFilePath.getFileExtension()
-                        .equals(Ooaofooa.MODELS_EXT)) {
-            throw new IllegalArgumentException(
-                    "Given file is not a model component file");
-        }
+	// Although type can be determined at runtime, this variable is used "only"
+	// when component is not loaded
+	// and component type is determined by reading the header of the file.
+	private String componentType;
 
-        underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
-                modelFilePath);
-        afm = new ActionFile(modelFilePath);
-        if (PersistenceManager.findComponent(modelFilePath) != null)
-            throw new WorkbenchException(
-                    "Another component with same path already exists");
-        
-        // Following check throws IllegalArgumentException as we want the client
-        // code to avoid
-        // creating a component with file that does not exists.
-        if (!underlyingResource.exists()) {
-            throw new WorkbenchException("Given component file does not exist");
-        }
-        checkComponentConsistancy(null);
+	private IFile underlyingResource;
+	private ActionFile afm;
 
-        // read the header from the path and set the component type.
-        componentType = getComponentType(underlyingResource);
+	private boolean activityImportFailures = false;
+	private String activityImportFailureMessage = "";
 
-        PersistenceManager.addComponent(this);
-        
-		if (isRootComponent()
-				&& !PersistenceManager.getDefaultInstance().isInitializing()
-				&& PersistenceManager
-						.getPersistenceVersionAsInt(PersistenceManager
-								.getPersistenceVersion(this)) < PersistenceManager
-						.getPersistenceVersionAsInt(PersistenceChangeTracker.version_716
-								.getPersistenceVersion())) {
-        	CorePlugin.addProjectForPEUpgrade(underlyingResource.getProject());
-        }
-    
-    }
+	private ActivityCount importedActivityCount = new ActivityCount();
+	private ActivityCount activityCount = new ActivityCount();
 
-    public PersistableModelComponent(NonRootModelElement aComponentRootME,
-            IFile parent) throws CoreException{
-        if (aComponentRootME instanceof SystemModel_c) {
-            throw new IllegalArgumentException(
-                    "this constructor cannot be used for system model");
-        }
+	// instance of ME when component is loaded otherwise it will be null;
+	private NonRootModelElement componentRootME;
 
-        String name = PersistenceManager.getHierarchyMetaData()
-                .getRootElementName(aComponentRootME);
-        IPath modelFilePath = getChildPath(parent.getFullPath(), name);
-        underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
-                modelFilePath);
-        afm = new ActionFile(modelFilePath);
-        checkComponentConsistancy(null);
-        
-        // we don't check if underlying resource exists for the case when the ME
-        // is
-        // being created by the user
-        
-        componentRootME = aComponentRootME;
-        componentType = PersistenceManager.getHierarchyMetaData()
-                .getComponentType(aComponentRootME);
+	static synchronized public PersistableModelComponent create(IPath modelFilePath) {
+		PersistableModelComponent result = PersistenceManager.findComponent(modelFilePath);
+		try {
+			if (result == null) {
+				result = new PersistableModelComponent(modelFilePath);
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return result;
+	}
 
-      setComponent(componentRootME);
-        PersistenceManager.addComponent(this);
-        }
-    PersistableModelComponent(SystemModel_c systemModel, IProject project) throws CoreException{
-        if (!XtUMLNature.hasNature(project)) {
-            throw new IllegalArgumentException(
-                    "Given project does not have xtUML nature");
-        }
-        
-        if(systemModel == null){
-            throw new IllegalArgumentException("System model cannot be null");
-        }
-        
-        underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(
-                getRootComponentPath(systemModel.getName()));
-        afm = new ActionFile(getRootComponentPath(systemModel.getName()));
-         checkComponentConsistancy(null);
-        
-        componentRootME = systemModel;
-        componentType = PersistenceManager.getHierarchyMetaData()
-                .getComponentType(systemModel);
+	private PersistableModelComponent(IPath modelFilePath) throws CoreException {
+		if (modelFilePath.getFileExtension() == null || !modelFilePath.getFileExtension().equals(Ooaofooa.MODELS_EXT)) {
+			throw new IllegalArgumentException("Given file is not a model component file");
+		}
 
-      setComponent(systemModel);
+		underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
+		afm = new ActionFile(modelFilePath);
+		if (PersistenceManager.findComponent(modelFilePath) != null)
+			throw new WorkbenchException("Another component with same path already exists");
 
-        PersistenceManager.addComponent(this);
-    }
-    
-    //special constructor for the compare only
-    //this does not add component to the list and creates a dummy file
-    public PersistableModelComponent(SystemModel_c systemModel) {
-        if (systemModel == null) {
-            throw new IllegalArgumentException("System model cannot be null");
-        }
+		// Following check throws IllegalArgumentException as we want the client
+		// code to avoid
+		// creating a component with file that does not exists.
+		if (!underlyingResource.exists()) {
+			throw new WorkbenchException("Given component file does not exist");
+		}
+		checkComponentConsistancy(null);
 
-        componentRootME = systemModel;
-        componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
-      underlyingResource=ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
-        afm = new ActionFile(new Path(dummyCompareName));
-        setComponent(systemModel);
+		// read the header from the path and set the component type.
+		componentType = getComponentType(underlyingResource);
 
-    }
+		PersistenceManager.addComponent(this);
 
-    public void loadComponentAndChildren(Ooaofooa modelRoot, IProgressMonitor monitor) throws Exception{
-        load(modelRoot, monitor);
-        Collection children = getChildren();
-        for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-            PersistableModelComponent child = (PersistableModelComponent) iterator.next();
-            child.loadComponentAndChildren(modelRoot, monitor);
-        }
-        
-    }
-    
+		if (isRootComponent() && !PersistenceManager.getDefaultInstance().isInitializing()
+				&& PersistenceManager.getPersistenceVersionAsInt(
+						PersistenceManager.getPersistenceVersion(this)) < PersistenceManager.getPersistenceVersionAsInt(
+								PersistenceChangeTracker.version_716.getPersistenceVersion())) {
+			CorePlugin.addProjectForPEUpgrade(underlyingResource.getProject());
+		}
+
+	}
+
+	public PersistableModelComponent(NonRootModelElement aComponentRootME, IFile parent) throws CoreException {
+		if (aComponentRootME instanceof SystemModel_c) {
+			throw new IllegalArgumentException("this constructor cannot be used for system model");
+		}
+
+		String name = PersistenceManager.getHierarchyMetaData().getRootElementName(aComponentRootME);
+		IPath modelFilePath = getChildPath(parent.getFullPath(), name);
+		underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
+		afm = new ActionFile(modelFilePath);
+		checkComponentConsistancy(null);
+
+		// we don't check if underlying resource exists for the case when the ME
+		// is
+		// being created by the user
+
+		componentRootME = aComponentRootME;
+		componentType = PersistenceManager.getHierarchyMetaData().getComponentType(aComponentRootME);
+
+		setComponent(componentRootME);
+		PersistenceManager.addComponent(this);
+	}
+
+	PersistableModelComponent(SystemModel_c systemModel, IProject project) throws CoreException {
+		if (!XtUMLNature.hasNature(project)) {
+			throw new IllegalArgumentException("Given project does not have xtUML nature");
+		}
+
+		if (systemModel == null) {
+			throw new IllegalArgumentException("System model cannot be null");
+		}
+
+		underlyingResource = ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(getRootComponentPath(systemModel.getName()));
+		afm = new ActionFile(getRootComponentPath(systemModel.getName()));
+		checkComponentConsistancy(null);
+
+		componentRootME = systemModel;
+		componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
+
+		setComponent(systemModel);
+
+		PersistenceManager.addComponent(this);
+	}
+
+	// special constructor for the compare only
+	// this does not add component to the list and creates a dummy file
+	public PersistableModelComponent(SystemModel_c systemModel) {
+		if (systemModel == null) {
+			throw new IllegalArgumentException("System model cannot be null");
+		}
+
+		componentRootME = systemModel;
+		componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
+		underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
+		afm = new ActionFile(new Path(dummyCompareName));
+		setComponent(systemModel);
+
+	}
+
+	public void loadComponentAndChildren(Ooaofooa modelRoot, IProgressMonitor monitor) throws Exception {
+		load(modelRoot, monitor);
+		Collection children = getChildren();
+		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			child.loadComponentAndChildren(modelRoot, monitor);
+		}
+
+	}
+
 	public void loadComponentAndChildren(IProgressMonitor monitor, boolean parseOal, boolean reload) {
 		try {
 			NonRootModelElement originalRoot = getRootModelElement();
@@ -267,818 +253,764 @@ public class PersistableModelComponent implements Comparable {
 			child.loadComponentAndChildren(monitor, parseOal, reload);
 		}
 	}
-   
-  public void loadComponentAndChildren(IProgressMonitor monitor) {
-	loadComponentAndChildren(monitor, false, false);
-  }
-  
-    public static IPath getRootComponentPath(String name) {
-        return new Path("/" + name + "/" + Ooaofooa.MODELS_DIRNAME + "/" + name
-                + "/" + name + "." + Ooaofooa.MODELS_EXT);
-    }
-    
-    public boolean isRootComponent(){
-        return SYSTEM_MODEL_NAME.equals(getComponentType());
-    }
 
-    private void delete() {
-        // Don't null out underlyingResource and componentRootME
-        // these will be used to create mementos
-        PersistenceManager.removeComponent(this);
-        }
+	public void loadComponentAndChildren(IProgressMonitor monitor) {
+		loadComponentAndChildren(monitor, false, false);
+	}
 
-    static public PersistableModelComponent findOrCreateInstance(IPath path){
-        PersistableModelComponent pmc = PersistenceManager.findComponent(path);
-        if (pmc == null) {
-            pmc = PersistableModelComponent.create(path);
-        }
-        return pmc;
-    }
+	public static IPath getRootComponentPath(String name) {
+		return new Path(
+				"/" + name + "/" + Ooaofooa.MODELS_DIRNAME + "/" + name + "/" + name + "." + Ooaofooa.MODELS_EXT);
+	}
 
-    public PersistableModelComponent getChild(String name) {
-        return PersistenceManager.findComponent(getChildPath(getFullPath(),
-                name));
-    }
+	public boolean isRootComponent() {
+		return SYSTEM_MODEL_NAME.equals(getComponentType());
+	}
 
-    static public IPath getChildPath(IPath parentPath, String name) {
-        IPath parentDirPath = parentPath.removeLastSegments(1);
-        
-        return parentDirPath.append(name).append(
-                name + "." + Ooaofooa.MODELS_EXT);
-    }
+	private void delete() {
+		// Don't null out underlyingResource and componentRootME
+		// these will be used to create mementos
+		PersistenceManager.removeComponent(this);
+	}
 
-    /**
-     * @return Returns the PersistableModelComponent instances that are children
-     *         of this instance that are in memory (not on disk).
-     */
-    public Collection<PersistableModelComponent> getChildren() {
-        return PersistenceManager.getChildrenOf(this);
-    }
+	static public PersistableModelComponent findOrCreateInstance(IPath path) {
+		PersistableModelComponent pmc = PersistenceManager.findComponent(path);
+		if (pmc == null) {
+			pmc = PersistableModelComponent.create(path);
+		}
+		return pmc;
+	}
 
-    /**
-     * @return Returns the parent.
-     */
-    public PersistableModelComponent getParent() {
-        if (isRootComponent()) {
-            return null;
-        } else {
-            IPath parentPath = getParentDirectoryPath();
-            IPath parentFilePath = parentPath.append(parentPath.lastSegment()
-                    + "." + Ooaofooa.MODELS_EXT);
-            return PersistenceManager.findComponent(parentFilePath);
-        }
-    }
+	public PersistableModelComponent getChild(String name) {
+		return PersistenceManager.findComponent(getChildPath(getFullPath(), name));
+	}
 
-    public String getComponentType() {
-        return componentType;
-    }
+	static public IPath getChildPath(IPath parentPath, String name) {
+		IPath parentDirPath = parentPath.removeLastSegments(1);
 
-    /**
-     * @return Returns the path of the directory containing the parent.
-     */
-    public IPath getParentDirectoryPath() {
-      if (underlyingResource != null)
-        return getFullPath().removeLastSegments(2);
-      else
-        return null;
-    }
+		return parentDirPath.append(name).append(name + "." + Ooaofooa.MODELS_EXT);
+	}
 
-    public IPath getContainingDirectoryPath() {
-        if (underlyingResource != null)
-        return getFullPath().removeLastSegments(1);
-        else
-            return null;
-    }
+	/**
+	 * @return Returns the PersistableModelComponent instances that are children of
+	 *         this instance that are in memory (not on disk).
+	 */
+	public Collection<PersistableModelComponent> getChildren() {
+		return PersistenceManager.getChildrenOf(this);
+	}
 
-    public IPath getFullPath() {
-      if (underlyingResource != null)
-        return underlyingResource.getFullPath();
-      else
-        return null;
-    }
+	/**
+	 * @return Returns the parent.
+	 */
+	public PersistableModelComponent getParent() {
+		if (isRootComponent()) {
+			return null;
+		} else {
+			IPath parentPath = getParentDirectoryPath();
+			IPath parentFilePath = parentPath.append(parentPath.lastSegment() + "." + Ooaofooa.MODELS_EXT);
+			return PersistenceManager.findComponent(parentFilePath);
+		}
+	}
 
-    /**
-     * @return Returns the rootElement.
-     */
-    public NonRootModelElement getRootModelElement() {
-        return componentRootME;
-    }
-    
+	public String getComponentType() {
+		return componentType;
+	}
 
-  public void setRootModelElement(NonRootModelElement modelElement, boolean reload, boolean validate) {
-    // ignore the compare model root
-    if(modelElement != null && modelElement.getModelRoot().getId().equals(Ooaofooa.COMPARE_MODEL_ROOT_NAME))
-      return;
-    IPersistenceHierarchyMetaData metadata = PersistenceManager
-                                                    .getHierarchyMetaData();
-    if (!validate) {
-      componentRootME = modelElement;
-      // Change the type of this PMC if necessary, but only
-      // if the model element is non null, otherwise the type
-      // cannot be determined and should be left as is.
-      if (metadata != null && modelElement != null) {
-        componentType = metadata.getComponentType(modelElement);
-      }
-      return;
-    }
-    
-    if(!metadata.isComponentRoot(modelElement)){
-      Throwable e = new Throwable();
-      e.fillInStackTrace();
-      CorePlugin.logError("Given model element is not a root element", e);
-      return;
-    }
-    
-    if(!metadata.getComponentType(modelElement).equals(getComponentType())){
-      Throwable e = new Throwable();
-      e.fillInStackTrace();
-      CorePlugin.logError(
-          "Cannot set model element as root with type other than "
-          + getComponentType(), e);
-      return;
-    }
-    
-    componentRootME = modelElement;
-    // make sure the PMC and the model element references are consistent
-    if ( modelElement.getPersistableComponent() != this ) {
-      // need to set it to null first so that it will be reassigned
-      modelElement.setComponent(null);
-      modelElement.setComponent(this);
-      // since the model element's component reference pointed to a
-      // different
-      // component, that means we've done a load or reload of the
-      // component, so notify listeners that the model element has been
-      // loaded/reloaded
-      if(reload)
-        Ooaofooa.getDefaultInstance().fireModelElementReloaded(modelElement,
-          null);
-    }   
-  }
-    
-    public void setRootModelElement(NonRootModelElement modelElement){
-      setRootModelElement(modelElement, true, true);
-    }
+	/**
+	 * @return Returns the path of the directory containing the parent.
+	 */
+	public IPath getParentDirectoryPath() {
+		if (underlyingResource != null)
+			return getFullPath().removeLastSegments(2);
+		else
+			return null;
+	}
 
-    public void setRootModelElement(NonRootModelElement modelElement, boolean reload){
-      setRootModelElement(modelElement, reload, true);
-    }
+	public IPath getContainingDirectoryPath() {
+		if (underlyingResource != null)
+			return getFullPath().removeLastSegments(1);
+		else
+			return null;
+	}
 
-    public int getChildrenCount() {
-        return getChildren().size();
-    }
-    
-    public boolean isInChildHierarchy(PersistableModelComponent child){
-        PersistableModelComponent parent = child.getParent();
-        while(parent != null){
-            if(parent == this){
-                return true;
-            }
-            parent = parent.getParent();
-        }
-        return false;
-    }
-    
-    public String getName() {
-      if (underlyingResource != null)
-        return underlyingResource.getFullPath().removeFileExtension().lastSegment();
-      else
-        return null;
-    }
-    
-    /**
-     * This method allows checks to occur on the component, the components
-     * parent, or external references
-     * 
-     * @param externalRef
-     * @return read-only status
-     */
-    public boolean isReadOnly(boolean checkParent, NonRootModelElement element) {
-      // Check this component
-      ResourceAttributes attrs = null;
-      if (underlyingResource != null)
-        attrs = underlyingResource.getResourceAttributes();
-      if(attrs != null) {
-        if(attrs.isReadOnly()) {
-          return true;
-        }
-      }
-      
-      // Check the parent if specified
-      if(checkParent) {
-        PersistableModelComponent parent = this.getParent();
-        if(parent != null) {
-          if (parent.underlyingResource != null)
-              attrs = parent.underlyingResource.getResourceAttributes();
-          if(attrs != null) {
-            if(attrs.isReadOnly()) {
-              return true;
-            }
-          }
-        }
-      }
-      
-      // check external rgos if specified
-      if(element != null) {
-            IPersistenceHierarchyMetaData metaData = PersistenceManager
-                    .getHierarchyMetaData();
-        List externalRGOs = metaData.findExternalRGOs(element);
-        excludeChildRootMEs(externalRGOs);
-            for (Iterator iterator = externalRGOs.iterator(); iterator
-                    .hasNext();) {
-                PersistableModelComponent target = ((NonRootModelElement) iterator
-                        .next()).getPersistableComponent();
-                if ( target != null ) {
-            return target.isReadOnly(false, null);
-        }
-        }
-      }
-      
-      return false;
-    }
-    
-    /**
-     * This method allows checks to occur on the component and the components
-     * parent if specified
-     * 
-     * @param checkParent
-     * @return component read-only status
-     */
-    public boolean isReadOnly(boolean checkParent) {
-      return isReadOnly(checkParent, null);
-    }
-    
-    public boolean isLoaded() {
-        return !(componentRootME == null);
-    }
-    
-    public boolean isOrphaned(){
-        return PersistenceManager.isOrphaned(this);
-        }
+	public IPath getFullPath() {
+		if (underlyingResource != null)
+			return underlyingResource.getFullPath();
+		else
+			return null;
+	}
 
-    public boolean isPersisted() {
-        return getFile().exists();
-    }
+	/**
+	 * @return Returns the rootElement.
+	 */
+	public NonRootModelElement getRootModelElement() {
+		return componentRootME;
+	}
 
-    public IFile getFile() {
-      if (underlyingResource != null)
-        return underlyingResource;
-      else
-        return null;
-    }
+	public void setRootModelElement(NonRootModelElement modelElement, boolean reload, boolean validate) {
+		// ignore the compare model root
+		if (modelElement != null && modelElement.getModelRoot().getId().equals(Ooaofooa.COMPARE_MODEL_ROOT_NAME))
+			return;
+		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
+		if (!validate) {
+			componentRootME = modelElement;
+			// Change the type of this PMC if necessary, but only
+			// if the model element is non null, otherwise the type
+			// cannot be determined and should be left as is.
+			if (metadata != null && modelElement != null) {
+				componentType = metadata.getComponentType(modelElement);
+			}
+			return;
+		}
 
-    public IFile getActionFile( int dialect ) {
-      if (afm != null)
-        return afm.getFile(dialect);
-      else
-        return null;
-    }
+		if (!metadata.isComponentRoot(modelElement)) {
+			Throwable e = new Throwable();
+			e.fillInStackTrace();
+			CorePlugin.logError("Given model element is not a root element", e);
+			return;
+		}
 
-    public ActionFile getActionFiles() {
-        return afm;
-    }
+		if (!metadata.getComponentType(modelElement).equals(getComponentType())) {
+			Throwable e = new Throwable();
+			e.fillInStackTrace();
+			CorePlugin.logError("Cannot set model element as root with type other than " + getComponentType(), e);
+			return;
+		}
 
-    // we need to synchronized with loaded MEs
-    public void refresh() throws CoreException {
-        if (!isLoaded()) {
-            // not loaded, ignore
-            return;
-        }
+		componentRootME = modelElement;
+		// make sure the PMC and the model element references are consistent
+		if (modelElement.getPersistableComponent() != this) {
+			// need to set it to null first so that it will be reassigned
+			modelElement.setComponent(null);
+			modelElement.setComponent(this);
+			// since the model element's component reference pointed to a
+			// different
+			// component, that means we've done a load or reload of the
+			// component, so notify listeners that the model element has been
+			// loaded/reloaded
+			if (reload)
+				Ooaofooa.getDefaultInstance().fireModelElementReloaded(modelElement, null);
+		}
+	}
 
-        IPersistenceHierarchyMetaData metadata = PersistenceManager
-                .getHierarchyMetaData();
-        List childrenMEs = metadata
-                .getChildrenComponentRootModelElements(componentRootME);
+	public void setRootModelElement(NonRootModelElement modelElement) {
+		setRootModelElement(modelElement, true, true);
+	}
 
-        List addedChildren = new Vector();
+	public void setRootModelElement(NonRootModelElement modelElement, boolean reload) {
+		setRootModelElement(modelElement, reload, true);
+	}
 
-        for (int i = 0; i < childrenMEs.size(); i++) {
-            NonRootModelElement child = (NonRootModelElement) childrenMEs
-                    .get(i);
-            String name = metadata.getRootElementName(child);
+	public int getChildrenCount() {
+		return getChildren().size();
+	}
 
-            PersistableModelComponent childComponent = getChild(name);
-            if (childComponent == null) {
-                PersistableModelComponent com = new PersistableModelComponent(
-                        child, componentRootME.getFile());
-                addedChildren.add(com);
-            } else if (childComponent.getRootModelElement() != child) {
-                Throwable e = new Throwable();
-                e.fillInStackTrace();
-                CorePlugin.logError("Component name conflict:"
-                        + childComponent.getFullPath(), e);
-            }
-        }
+	public boolean isInChildHierarchy(PersistableModelComponent child) {
+		PersistableModelComponent parent = child.getParent();
+		while (parent != null) {
+			if (parent == this) {
+				return true;
+			}
+			parent = parent.getParent();
+		}
+		return false;
+	}
 
-        if (addedChildren.size() > 0) {
-            for (Iterator i = addedChildren.iterator(); i.hasNext();) {
-                PersistableModelComponent childComponent = (PersistableModelComponent) i
-                        .next();
-                childComponent.refresh();
-            }
-        }
-    }
-    
-    private boolean persisting = false;
+	public String getName() {
+		if (underlyingResource != null)
+			return underlyingResource.getFullPath().removeFileExtension().lastSegment();
+		else
+			return null;
+	}
 
-    public boolean isPersisting(){
-      return persisting;
-    }
+	/**
+	 * This method allows checks to occur on the component, the components parent,
+	 * or external references
+	 * 
+	 * @param externalRef
+	 * @return read-only status
+	 */
+	public boolean isReadOnly(boolean checkParent, NonRootModelElement element) {
+		// Check this component
+		ResourceAttributes attrs = null;
+		if (underlyingResource != null)
+			attrs = underlyingResource.getResourceAttributes();
+		if (attrs != null) {
+			if (attrs.isReadOnly()) {
+				return true;
+			}
+		}
 
-    public void persist() throws CoreException {
-      persist(new NullProgressMonitor());
-    }
+		// Check the parent if specified
+		if (checkParent) {
+			PersistableModelComponent parent = this.getParent();
+			if (parent != null) {
+				if (parent.underlyingResource != null)
+					attrs = parent.underlyingResource.getResourceAttributes();
+				if (attrs != null) {
+					if (attrs.isReadOnly()) {
+						return true;
+					}
+				}
+			}
+		}
 
-    public void persist(IProgressMonitor monitor) throws CoreException {
-        if (!isLoaded()) {
-            // not loaded, ignore
-            return;
-        }
-        
-        // if the persistence version will change then persist the root component
-        PersistenceManager.updatePersistenceVersion(this);
-        
-        IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		// check external rgos if specified
+		if (element != null) {
+			IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
+			List externalRGOs = metaData.findExternalRGOs(element);
+			excludeChildRootMEs(externalRGOs);
+			for (Iterator iterator = externalRGOs.iterator(); iterator.hasNext();) {
+				PersistableModelComponent target = ((NonRootModelElement) iterator.next()).getPersistableComponent();
+				if (target != null) {
+					return target.isReadOnly(false, null);
+				}
+			}
+		}
 
-        IPath componentParentDirectory = getContainingDirectoryPath();
-        IFolder containingFolder = workspaceRoot
-                .getFolder(componentParentDirectory);
-        if (!containingFolder.exists()) {
-            if (!containingFolder.getParent().exists()) {
-                // the persist is part of a deletion, and the parent has already
-                // been deleted
-                return;
-            }
-            containingFolder.create(true, true, monitor);
-        }
+		return false;
+	}
 
-        IFile file = getFile();
+	/**
+	 * This method allows checks to occur on the component and the components parent
+	 * if specified
+	 * 
+	 * @param checkParent
+	 * @return component read-only status
+	 */
+	public boolean isReadOnly(boolean checkParent) {
+		return isReadOnly(checkParent, null);
+	}
 
-        persisting = true;
-        // create an export-factory and have it perform the persistence
-        AbstractModelExportFactory factory = AbstractModelExportFactory
-                .getInstance();
-        
+	public boolean isLoaded() {
+		return !(componentRootME == null);
+	}
+
+	public boolean isOrphaned() {
+		return PersistenceManager.isOrphaned(this);
+	}
+
+	public boolean isPersisted() {
+		return getFile().exists();
+	}
+
+	public IFile getFile() {
+		if (underlyingResource != null)
+			return underlyingResource;
+		else
+			return null;
+	}
+
+	public IFile getActionFile(int dialect) {
+		if (afm != null)
+			return afm.getFile(dialect);
+		else
+			return null;
+	}
+
+	public ActionFile getActionFiles() {
+		return afm;
+	}
+
+	// we need to synchronized with loaded MEs
+	public void refresh() throws CoreException {
+		if (!isLoaded()) {
+			// not loaded, ignore
+			return;
+		}
+
+		IPersistenceHierarchyMetaData metadata = PersistenceManager.getHierarchyMetaData();
+		List childrenMEs = metadata.getChildrenComponentRootModelElements(componentRootME);
+
+		List addedChildren = new Vector();
+
+		for (int i = 0; i < childrenMEs.size(); i++) {
+			NonRootModelElement child = (NonRootModelElement) childrenMEs.get(i);
+			String name = metadata.getRootElementName(child);
+
+			PersistableModelComponent childComponent = getChild(name);
+			if (childComponent == null) {
+				PersistableModelComponent com = new PersistableModelComponent(child, componentRootME.getFile());
+				addedChildren.add(com);
+			} else if (childComponent.getRootModelElement() != child) {
+				Throwable e = new Throwable();
+				e.fillInStackTrace();
+				CorePlugin.logError("Component name conflict:" + childComponent.getFullPath(), e);
+			}
+		}
+
+		if (addedChildren.size() > 0) {
+			for (Iterator i = addedChildren.iterator(); i.hasNext();) {
+				PersistableModelComponent childComponent = (PersistableModelComponent) i.next();
+				childComponent.refresh();
+			}
+		}
+	}
+
+	private boolean persisting = false;
+
+	public boolean isPersisting() {
+		return persisting;
+	}
+
+	public void persist() throws CoreException {
+		persist(new NullProgressMonitor());
+	}
+
+	public void persist(IProgressMonitor monitor) throws CoreException {
+		if (!isLoaded()) {
+			// not loaded, ignore
+			return;
+		}
+
+		// if the persistence version will change then persist the root component
+		PersistenceManager.updatePersistenceVersion(this);
+
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+
+		IPath componentParentDirectory = getContainingDirectoryPath();
+		IFolder containingFolder = workspaceRoot.getFolder(componentParentDirectory);
+		if (!containingFolder.exists()) {
+			if (!containingFolder.getParent().exists()) {
+				// the persist is part of a deletion, and the parent has already
+				// been deleted
+				return;
+			}
+			containingFolder.create(true, true, monitor);
+		}
+
+		IFile file = getFile();
+
+		persisting = true;
+		// create an export-factory and have it perform the persistence
+		AbstractModelExportFactory factory = AbstractModelExportFactory.getInstance();
+
 		String exportGraphicalInstances = CorePlugin.getDefault().getPreferenceStore()
 				.getString(BridgePointPreferencesStore.PERSIST_GRAPHICAL_INSTANCES);
 		try {
 			IRunnableWithProgress runnable = factory.create(componentRootME, file.getLocation().toString(),
 					MessageDialogWithToggle.ALWAYS.equals(exportGraphicalInstances));
 			runnable.run(monitor);
-        
-            // get Eclipse to notice that the model's file has changed on disk
-            containingFolder.refreshLocal(IFile.DEPTH_ONE,
-                monitor);
-        } catch (CoreException x) {
-            CorePlugin.logError("Could not refresh persisted model file.", x);
-        } catch (Exception e) {
-            CorePlugin.logError("Could not persist model", e);
-        } finally {
-          persisting = false;
-        }
-    }
 
-    public void persistSelfAndChildren() throws CoreException {
-        this.persist();
-        for (Iterator iterator = this.getChildren().iterator(); iterator
-                .hasNext();) {
-            PersistableModelComponent child = (PersistableModelComponent) iterator
-                    .next();
-            child.persistSelfAndChildren();
-        }
-    }
-/**
- * This method loads component only if not already loaded. To reload use 
- * overloaded method.
- * @param monitor
- * @throws CoreException
- */
-    public void load(IProgressMonitor monitor) throws CoreException {
-        if (status == STATUS_LOADING) {
-            // recursive call from some where
-            // any code causing cotrol to reach here should be addressed
-            // probably it requires disabled lazy loading
-            return;
-          }
-        // use the model root defined by the componentRootMe, if it exists
-        // this is important when we are in the middle of a resource rename
-        // for example, when a project is renamed in the Resource Navigator,
-        // cross component links must be updated in the existing model root
-        // not in the newly named one (which is what would happen if
-        // getUniqueID()
-        // was called, because in that case the underlyingResource path has
-        // already been updated, but the model root id hasn't yet)
-        if ( componentRootME != null ) {
-            load((Ooaofooa) componentRootME.getModelRoot(), monitor, false,false);
-        } else {
-            load(Ooaofooa.getInstance(getUniqueID()), monitor, false,false);
-        }
-    }
+			// get Eclipse to notice that the model's file has changed on disk
+			containingFolder.refreshLocal(IFile.DEPTH_ONE, monitor);
+		} catch (CoreException x) {
+			CorePlugin.logError("Could not refresh persisted model file.", x);
+		} catch (Exception e) {
+			CorePlugin.logError("Could not persist model", e);
+		} finally {
+			persisting = false;
+		}
+	}
 
-    public void load(IProgressMonitor monitor, boolean parseOal,boolean reload)
-            throws CoreException {
-        if (status == STATUS_LOADING) {
-            // recursive call from some where
-            // any code causing control to reach here should be addressed
-            // probably it requires disabled lazy loading
-            return;
-          }
-        // see above
-        if ( componentRootME != null ) {
-            load((Ooaofooa) componentRootME.getModelRoot(), monitor, parseOal,reload);
-        } else {
-            load(Ooaofooa.getInstance(getUniqueID()), monitor, parseOal,reload);
-        }
-    }
+	public void persistSelfAndChildren() throws CoreException {
+		this.persist();
+		for (Iterator iterator = this.getChildren().iterator(); iterator.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			child.persistSelfAndChildren();
+		}
+	}
 
-    public void load(Ooaofooa modelRoot, IProgressMonitor monitor)
-            throws CoreException {
-        if (status == STATUS_LOADING) {
-            // recursive call from some where
-            // any code causing cotrol to reach here should be addressed
-            // probably it requires disabled lazy loading
-            return;
-          }
-        load(modelRoot, monitor, false,false);
-    }
-    
-    public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor,
-            boolean parseOal,boolean reload) throws CoreException {
-    	
-        if(!reload && isLoaded())
-        return;
-    	
-        // do not allow load if there is no xtUML nature
-		if (!getFile().getProject().isAccessible()
-				|| !XtUMLNature.hasNature(getFile().getProject())
+	/**
+	 * This method loads component only if not already loaded. To reload use
+	 * overloaded method.
+	 * 
+	 * @param monitor
+	 * @throws CoreException
+	 */
+	public void load(IProgressMonitor monitor) throws CoreException {
+		if (status == STATUS_LOADING) {
+			// recursive call from some where
+			// any code causing cotrol to reach here should be addressed
+			// probably it requires disabled lazy loading
+			return;
+		}
+		// use the model root defined by the componentRootMe, if it exists
+		// this is important when we are in the middle of a resource rename
+		// for example, when a project is renamed in the Resource Navigator,
+		// cross component links must be updated in the existing model root
+		// not in the newly named one (which is what would happen if
+		// getUniqueID()
+		// was called, because in that case the underlyingResource path has
+		// already been updated, but the model root id hasn't yet)
+		if (componentRootME != null) {
+			load((Ooaofooa) componentRootME.getModelRoot(), monitor, false, false);
+		} else {
+			load(Ooaofooa.getInstance(getUniqueID()), monitor, false, false);
+		}
+	}
+
+	public void load(IProgressMonitor monitor, boolean parseOal, boolean reload) throws CoreException {
+		if (status == STATUS_LOADING) {
+			// recursive call from some where
+			// any code causing control to reach here should be addressed
+			// probably it requires disabled lazy loading
+			return;
+		}
+		// see above
+		if (componentRootME != null) {
+			load((Ooaofooa) componentRootME.getModelRoot(), monitor, parseOal, reload);
+		} else {
+			load(Ooaofooa.getInstance(getUniqueID()), monitor, parseOal, reload);
+		}
+	}
+
+	public void load(Ooaofooa modelRoot, IProgressMonitor monitor) throws CoreException {
+		if (status == STATUS_LOADING) {
+			// recursive call from some where
+			// any code causing cotrol to reach here should be addressed
+			// probably it requires disabled lazy loading
+			return;
+		}
+		load(modelRoot, monitor, false, false);
+	}
+
+	public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor, boolean parseOal, boolean reload)
+			throws CoreException {
+
+		if (!reload && isLoaded())
+			return;
+
+		// do not allow load if there is no xtUML nature
+		if (!getFile().getProject().isAccessible() || !XtUMLNature.hasNature(getFile().getProject())
 				|| PersistenceManager.getRootComponent(getFile().getProject()) == null) {
-        	return;
-        }
-        
-    	// do not load if the persistence version is not acceptable
-    	if(!PersistenceManager.isPersistenceVersionAcceptable(this)) {
-    		return;
-    	}
-    	
-    	// Make sure the parent PMC is loaded before trying to load this PMC
-    	PersistableModelComponent parent_pmc = getParent();
-    	if ( null != parent_pmc ) {
-    		if ( !parent_pmc.isLoaded() ) {
-    			parent_pmc.load(monitor, parseOal, reload);
-    		}
-    	}
-    	
-    	// The parent load just above may have caused this child PMC to be loaded.  So check before continuing.
-    	if (!reload && isLoaded()) { return; }
-    	
-        int oldStatus = status;
-      try {
-            status = STATUS_LOADING;    
-        
-            IModelImport importer = createImporter(modelRoot, parseOal);
-        if (importer == null) {
-          // we're trying to load a file in a closed project
-             status=oldStatus;
-          return;
-        }
-        
-        int validate_result = importer.countAndValidateInsertStatements();
-        if (validate_result > 0) {
-          importer.run(monitor);
-          NonRootModelElement rootME = importer.getRootModelElement();
-          
-          if (rootME == null) {
-            CorePlugin.logError("Error while loading model from "
-                            + getFullPath() + " ERROR:"
-                + importer.getErrorMessage(), new Throwable()
-                .fillInStackTrace());
-          }else{
-            importer.finishComponentLoad(monitor, true);
-	    if ( !importer.getActionSuccessful() ) {
-	      CorePlugin.logError("Error while loading model from "
-			      + getFullPath() + " ERROR: "
-		  + importer.getErrorMessage(), null );
-	    }
+			return;
+		}
 
-            // check integrity after load, but not for the compare root
-            if(!rootME.getModelRoot().isCompareRoot()) {
-            	IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
-            }
+		// do not load if the persistence version is not acceptable
+		if (!PersistenceManager.isPersistenceVersionAcceptable(this)) {
+			return;
+		}
 
-            status = STATUS_LOADED;
-            
-            if( !underlyingResource.equals(dummyCompareName)){
-              try{
-                        checkComponentConsistancy(rootME);
-             }catch (CoreException e) {
-                        status = STATUS_NOTLOADED;
-                        PersistenceManager.addInconsistentComponent(this);
-                        deleteSelfAndChildren();
-                        UIUtil.refresh(getRootModelElement());
-                throw new WorkbenchException("Error while loading model from "
-                                + getFullPath(), e);
-              }
-            }
-            Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
-          }
-        }
-      } catch (FileNotFoundException e) {
-        throw new WorkbenchException("Error while loading model from "
-                    + getFullPath(), e);
-      } catch (IOException e) {
-        throw new WorkbenchException("Error while loading model from "
-                    + getFullPath(), e);
-      } catch (InterruptedException e) {
-        throw new WorkbenchException("Error while loading model from "
-                    + getFullPath(), e);
-      } catch (InvocationTargetException e) {
-        throw new WorkbenchException("Error while loading model from "
-                    + getFullPath(), e);
-      } finally {
-            if (status != STATUS_LOADED)
-                status = oldStatus;
-      }
+		// Make sure the parent PMC is loaded before trying to load this PMC
+		PersistableModelComponent parent_pmc = getParent();
+		if (null != parent_pmc) {
+			if (!parent_pmc.isLoaded()) {
+				parent_pmc.load(monitor, parseOal, reload);
+			}
+		}
 
-    }
-    private void checkComponentConsistancy( NonRootModelElement rootME) throws CoreException{
-        String fileNameWithoutExtension = null;        
-        if ( underlyingResource == null){
-            throw new WorkbenchException(
-                    "Component's file does not exist:");
-        }else{ 
-            fileNameWithoutExtension = underlyingResource.getFullPath().removeFileExtension().lastSegment();
-            String folderName = underlyingResource.getFullPath().removeLastSegments(1).lastSegment();
-            if(! fileNameWithoutExtension.equals(folderName)){
-                throw new WorkbenchException(
-                        "Component's Parent folder and file name does not same:"
-                                + getFullPath());
-            }
-        }
-        if(rootME != null){
-            if( ! (rootME instanceof SystemModel_c )) {
-                NonRootModelElement myParentRootME = PersistenceManager.getHierarchyMetaData().getParentComponentRootModelElement(rootME,false);
-                if (myParentRootME != null){// in case of component is being created and not yet relate with others.
-                    PersistableModelComponent myParentPMC = myParentRootME.getPersistableComponent();
-                    if (myParentPMC != getParent()){
-                    	String parentName = "null";
-                    	if (myParentPMC != null) {
-                    		parentName = myParentPMC.getName();
-                    	}
-                    	String childName = "null";
-                    	if (getParent() != null) {
-                    		childName = getParent().getName();
-                    	}
-                        throw new WorkbenchException(
-                                "Component's Parent (" + parentName + ") and child (" + childName + ") ID Mismatch. Full path: " 
-                                + getFullPath());
-                    }
-                }
-            }
-            if (rootME instanceof InstanceStateMachine_c){
-                if( fileNameWithoutExtension != null && ! fileNameWithoutExtension.equals("InstanceStateMachine")){
-                    throw new WorkbenchException(
-                            "Instance State machine must have \"InstanceStateMachine.xtuml\" file name:"
-                            + getFullPath());
-                }
-            }
-            else if (rootME instanceof ClassStateMachine_c ){
-                if( fileNameWithoutExtension != null && ! fileNameWithoutExtension.equals("ClassStateMachine")){
-                    throw new WorkbenchException(
-                            "Class State machine must have \"ClassStateMachine.xtuml\" file name:"
-                            + getFullPath());
-                }
-            }
-            else if(fileNameWithoutExtension != null && ! fileNameWithoutExtension.equals(CoreUtil.getName(rootME))){
-                throw new WorkbenchException(
-                        "Component's file name (" + fileNameWithoutExtension + ") and root model element name (" + CoreUtil.getName(rootME) + ")does not match. Full path: "
-                        + getFullPath());
-            }
-        }
-    }
+		// The parent load just above may have caused this child PMC to be loaded. So
+		// check before continuing.
+		if (!reload && isLoaded()) {
+			return;
+		}
 
-    private IModelImport createImporter(IFile file, Ooaofooa modelRoot,
-            boolean parseOal) throws IOException {
-        if (!file.exists() ) {
-            // can't import file from a closed project or that doesn't exist
-            return null;
-        }
+		int oldStatus = status;
+		try {
+			status = STATUS_LOADING;
 
-        AbstractModelImportFactory factory = CorePlugin.getModelImportFactory();
+			IModelImport importer = createImporter(modelRoot, parseOal);
+			if (importer == null) {
+				// we're trying to load a file in a closed project
+				status = oldStatus;
+				return;
+			}
 
-        if (modelRoot == null) {
-            modelRoot = Ooaofooa.getInstance(getUniqueID());
-        }
-        
-        return factory.create(file, modelRoot, this, parseOal, true, true,
-                false);
-    }
-    
-    private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
-            throws IOException {
+			int validate_result = importer.countAndValidateInsertStatements();
+			if (validate_result > 0) {
+				importer.run(monitor);
+				NonRootModelElement rootME = importer.getRootModelElement();
 
-        return createImporter(getFile(), modelRoot, parseOal);
-    }
-    
-    public PersistableModelComponent getDomainComponent() {
-        PersistableModelComponent component = this;
-        while (!component.getComponentType().equals("Domain")) {
-            component = component.getParent();
-            if (component == null) {
-                return null;
-            }
-        }
-        return component;
-    }
+				if (rootME == null) {
+					CorePlugin.logError(
+							"Error while loading model from " + getFullPath() + " ERROR:" + importer.getErrorMessage(),
+							new Throwable().fillInStackTrace());
+				} else {
+					importer.finishComponentLoad(monitor, true);
+					if (!importer.getActionSuccessful()) {
+						CorePlugin.logError("Error while loading model from " + getFullPath() + " ERROR: "
+								+ importer.getErrorMessage(), null);
+					}
 
-    public String getUniqueID() {
-        IPath path = getContainingDirectoryPath();
-        int segmentCount = path.segmentCount();
-        //projectname/models/system1/domain1
-        if (segmentCount == 3) {
-            // in case of system model
-            return Ooaofooa.getDefaultInstance().getId();
-        } else if (segmentCount < 3) {
-          return path.toString();
-        }
-        
-        //remove all trails except systemmodel and domain
-        path = path.removeLastSegments(segmentCount - 4);
+					// check integrity after load, but not for the compare root
+					if (!rootME.getModelRoot().isCompareRoot()) {
+						IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
+					}
 
-        String unique_id = path.toString() +
-                    // add folder name to id
-                    "/" + path.segment(path.segmentCount() - 1)
-                    // add filename to id
-                    + "." + Ooaofooa.MODELS_EXT;
-        
-        return unique_id; 
-    }
+					status = STATUS_LOADED;
 
-    private String getComponentType(IFile componentFile) throws CoreException {
-        try {
-            IModelImport im = createImporter(componentFile, null, false);
-            if (im == null) {
-                // we're trying to load a file in a closed project
-                return "";
-            }
-            return im.getHeader().getModelComponentType();
-        } catch (FileNotFoundException e) {
-            throw new WorkbenchException(
-                    "Could not determine component type by reading header", e);
-        } catch (IOException e) {
-            throw new WorkbenchException(
-                    "Could not determine component type by reading header", e);
-        }
-    }
-    
-    public  void deleteSelf() {
-        NonRootModelElement saveRootME = componentRootME;
-        clearDatabase();
-        delete();
-        if ( saveRootME != null ) {
-            Ooaofooa.getDefaultInstance().fireModelElementUnloaded(saveRootME);
-			Ooaofooa.getDefaultInstance().fireModelElementDeleted(
-						new BaseModelDelta(
-								Modeleventnotification_c.DELTA_DELETE,
-								saveRootME));
-        }
-    }
+					if (!underlyingResource.equals(dummyCompareName)) {
+						try {
+							checkComponentConsistancy(rootME);
+						} catch (CoreException e) {
+							status = STATUS_NOTLOADED;
+							PersistenceManager.addInconsistentComponent(this);
+							deleteSelfAndChildren();
+							UIUtil.refresh(getRootModelElement());
+							throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+						}
+					}
+					Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+		} catch (IOException e) {
+			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+		} catch (InterruptedException e) {
+			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+		} catch (InvocationTargetException e) {
+			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+		} finally {
+			if (status != STATUS_LOADED)
+				status = oldStatus;
+		}
 
-    public void deleteSelfAndChildren(){
-      if (underlyingResource != null){
-        deleteChildren();
-        deleteSelf();
-      }
-    }
+	}
 
-    public void deleteChildren(){
-        for (Iterator iterator = getChildren().iterator(); iterator.hasNext();) {
-            PersistableModelComponent child = (PersistableModelComponent) iterator
-                    .next();
-            child.deleteSelfAndChildren();
-        }
-    }
+	private void checkComponentConsistancy(NonRootModelElement rootME) throws CoreException {
+		String fileNameWithoutExtension = null;
+		if (underlyingResource == null) {
+			throw new WorkbenchException("Component's file does not exist:");
+		} else {
+			fileNameWithoutExtension = underlyingResource.getFullPath().removeFileExtension().lastSegment();
+			String folderName = underlyingResource.getFullPath().removeLastSegments(1).lastSegment();
+			if (!fileNameWithoutExtension.equals(folderName)) {
+				throw new WorkbenchException("Component's Parent folder and file name does not same:" + getFullPath());
+			}
+		}
+		if (rootME != null) {
+			if (!(rootME instanceof SystemModel_c)) {
+				NonRootModelElement myParentRootME = PersistenceManager.getHierarchyMetaData()
+						.getParentComponentRootModelElement(rootME, false);
+				if (myParentRootME != null) {// in case of component is being created and not yet relate with others.
+					PersistableModelComponent myParentPMC = myParentRootME.getPersistableComponent();
+					if (myParentPMC != getParent()) {
+						String parentName = "null";
+						if (myParentPMC != null) {
+							parentName = myParentPMC.getName();
+						}
+						String childName = "null";
+						if (getParent() != null) {
+							childName = getParent().getName();
+						}
+						throw new WorkbenchException("Component's Parent (" + parentName + ") and child (" + childName
+								+ ") ID Mismatch. Full path: " + getFullPath());
+					}
+				}
+			}
+			if (rootME instanceof InstanceStateMachine_c) {
+				if (fileNameWithoutExtension != null && !fileNameWithoutExtension.equals("InstanceStateMachine")) {
+					throw new WorkbenchException(
+							"Instance State machine must have \"InstanceStateMachine.xtuml\" file name:"
+									+ getFullPath());
+				}
+			} else if (rootME instanceof ClassStateMachine_c) {
+				if (fileNameWithoutExtension != null && !fileNameWithoutExtension.equals("ClassStateMachine")) {
+					throw new WorkbenchException(
+							"Class State machine must have \"ClassStateMachine.xtuml\" file name:" + getFullPath());
+				}
+			} else if (fileNameWithoutExtension != null && !fileNameWithoutExtension.equals(CoreUtil.getName(rootME))) {
+				throw new WorkbenchException(
+						"Component's file name (" + fileNameWithoutExtension + ") and root model element name ("
+								+ CoreUtil.getName(rootME) + ")does not match. Full path: " + getFullPath());
+			}
+		}
+	}
 
-    public synchronized void  clearDatabase() {
-        boolean deletingProxy = false;
-      if(!isLoaded()){
-            // check if the proxy is loaded
-            if (componentRootME != null && componentRootME.isProxy()) {
-                deletingProxy = true;
-            } else {
-                return;
-            }
-      }
-        status=STATUS_UNLOADING;
-        
-        ModelRoot modelRoot = componentRootME.getModelRoot();
-        
-        ModelRoot.disableChangeNotification();
-        
-        try {
-        if (!deletingProxy) {
-            Function_c[] functions = (Function_c[]) PersistenceManager
-                    .getHierarchyMetaData().getActivityModelElements(
-                            componentRootME, Function_c.class);
-          if(functions != null){
-            for (int i = 0; i < functions.length; i++) {
-              Body_c body = Body_c.getOneACT_ACTOnR698(FunctionBody_c
-                  .getOneACT_FNBOnR695(functions[i]));
-                    if(body != null){
-                        body.Dispose();
-                    }
-          }
-          }
-          
-            Bridge_c[] bridges = (Bridge_c[]) PersistenceManager
-                    .getHierarchyMetaData().getActivityModelElements(
-                            componentRootME, Bridge_c.class);
-          if(bridges != null){
-            for (int i = 0; i < bridges.length; i++) {
-              Body_c body = Body_c.getOneACT_ACTOnR698(BridgeBody_c
-                  .getOneACT_BRBOnR697(bridges[i]));
-                    if(body != null){
-                        body.Dispose();
-                    }
-          }
-          }
-          
-            Operation_c[] operations = (Operation_c[]) PersistenceManager
-                    .getHierarchyMetaData().getActivityModelElements(
-                            componentRootME, Operation_c.class);
-          if(operations != null){
-            for (int i = 0; i < operations.length; i++) {
-              Body_c body = Body_c.getOneACT_ACTOnR698(OperationBody_c
-                  .getOneACT_OPBOnR696(operations[i]));
-                    if(body != null){
-                        body.Dispose();
-                    }
-          }
-          }
-          
-            DerivedBaseAttribute_c[] derivedAttributes = (DerivedBaseAttribute_c[]) PersistenceManager
-                    .getHierarchyMetaData().getActivityModelElements(
-                            componentRootME, DerivedBaseAttribute_c.class);
-          if(derivedAttributes != null){
-            for (int i = 0; i < derivedAttributes.length; i++) {
-                    Body_c body = Body_c
-                            .getOneACT_ACTOnR698(DerivedAttributeBody_c
-                  .getOneACT_DABOnR693(derivedAttributes[i]));
-                    if(body != null){
-                        body.Dispose();
-                    }
-          }
-          }
-          
-            StateMachineState_c[] states = (StateMachineState_c[]) PersistenceManager
-                    .getHierarchyMetaData().getActivityModelElements(
-                            componentRootME, StateMachineState_c.class);
-            disposeStates(states);
-        }
-             
-        // unrelate any global elements in system
-        if(componentRootME instanceof SystemModel_c) {
+	private IModelImport createImporter(IFile file, Ooaofooa modelRoot, boolean parseOal) throws IOException {
+		if (!file.exists()) {
+			// can't import file from a closed project or that doesn't exist
+			return null;
+		}
+
+		AbstractModelImportFactory factory = CorePlugin.getModelImportFactory();
+
+		if (modelRoot == null) {
+			modelRoot = Ooaofooa.getInstance(getUniqueID());
+		}
+
+		return factory.create(file, modelRoot, this, parseOal, true, true, false);
+	}
+
+	private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal) throws IOException {
+
+		return createImporter(getFile(), modelRoot, parseOal);
+	}
+
+	public PersistableModelComponent getDomainComponent() {
+		PersistableModelComponent component = this;
+		while (!component.getComponentType().equals("Domain")) {
+			component = component.getParent();
+			if (component == null) {
+				return null;
+			}
+		}
+		return component;
+	}
+
+	public String getUniqueID() {
+		IPath path = getContainingDirectoryPath();
+		int segmentCount = path.segmentCount();
+		// projectname/models/system1/domain1
+		if (segmentCount == 3) {
+			// in case of system model
+			return Ooaofooa.getDefaultInstance().getId();
+		} else if (segmentCount < 3) {
+			return path.toString();
+		}
+
+		// remove all trails except systemmodel and domain
+		path = path.removeLastSegments(segmentCount - 4);
+
+		String unique_id = path.toString() +
+		// add folder name to id
+				"/" + path.segment(path.segmentCount() - 1)
+				// add filename to id
+				+ "." + Ooaofooa.MODELS_EXT;
+
+		return unique_id;
+	}
+
+	private String getComponentType(IFile componentFile) throws CoreException {
+		try {
+			IModelImport im = createImporter(componentFile, null, false);
+			if (im == null) {
+				// we're trying to load a file in a closed project
+				return "";
+			}
+			return im.getHeader().getModelComponentType();
+		} catch (FileNotFoundException e) {
+			throw new WorkbenchException("Could not determine component type by reading header", e);
+		} catch (IOException e) {
+			throw new WorkbenchException("Could not determine component type by reading header", e);
+		}
+	}
+
+	public void deleteSelf() {
+		NonRootModelElement saveRootME = componentRootME;
+		clearDatabase();
+		delete();
+		if (saveRootME != null) {
+			Ooaofooa.getDefaultInstance().fireModelElementUnloaded(saveRootME);
+			Ooaofooa.getDefaultInstance()
+					.fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, saveRootME));
+		}
+	}
+
+	public void deleteSelfAndChildren() {
+		if (underlyingResource != null) {
+			deleteChildren();
+			deleteSelf();
+		}
+	}
+
+	public void deleteChildren() {
+		for (Iterator iterator = getChildren().iterator(); iterator.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			child.deleteSelfAndChildren();
+		}
+	}
+
+	public synchronized void clearDatabase() {
+		boolean deletingProxy = false;
+		if (!isLoaded()) {
+			// check if the proxy is loaded
+			if (componentRootME != null && componentRootME.isProxy()) {
+				deletingProxy = true;
+			} else {
+				return;
+			}
+		}
+		status = STATUS_UNLOADING;
+
+		ModelRoot modelRoot = componentRootME.getModelRoot();
+
+		ModelRoot.disableChangeNotification();
+
+		try {
+			if (!deletingProxy) {
+				Function_c[] functions = (Function_c[]) PersistenceManager.getHierarchyMetaData()
+						.getActivityModelElements(componentRootME, Function_c.class);
+				if (functions != null) {
+					for (int i = 0; i < functions.length; i++) {
+						Body_c body = Body_c.getOneACT_ACTOnR698(FunctionBody_c.getOneACT_FNBOnR695(functions[i]));
+						if (body != null) {
+							body.Dispose();
+						}
+					}
+				}
+
+				Bridge_c[] bridges = (Bridge_c[]) PersistenceManager.getHierarchyMetaData()
+						.getActivityModelElements(componentRootME, Bridge_c.class);
+				if (bridges != null) {
+					for (int i = 0; i < bridges.length; i++) {
+						Body_c body = Body_c.getOneACT_ACTOnR698(BridgeBody_c.getOneACT_BRBOnR697(bridges[i]));
+						if (body != null) {
+							body.Dispose();
+						}
+					}
+				}
+
+				Operation_c[] operations = (Operation_c[]) PersistenceManager.getHierarchyMetaData()
+						.getActivityModelElements(componentRootME, Operation_c.class);
+				if (operations != null) {
+					for (int i = 0; i < operations.length; i++) {
+						Body_c body = Body_c.getOneACT_ACTOnR698(OperationBody_c.getOneACT_OPBOnR696(operations[i]));
+						if (body != null) {
+							body.Dispose();
+						}
+					}
+				}
+
+				DerivedBaseAttribute_c[] derivedAttributes = (DerivedBaseAttribute_c[]) PersistenceManager
+						.getHierarchyMetaData().getActivityModelElements(componentRootME, DerivedBaseAttribute_c.class);
+				if (derivedAttributes != null) {
+					for (int i = 0; i < derivedAttributes.length; i++) {
+						Body_c body = Body_c
+								.getOneACT_ACTOnR698(DerivedAttributeBody_c.getOneACT_DABOnR693(derivedAttributes[i]));
+						if (body != null) {
+							body.Dispose();
+						}
+					}
+				}
+
+				StateMachineState_c[] states = (StateMachineState_c[]) PersistenceManager.getHierarchyMetaData()
+						.getActivityModelElements(componentRootME, StateMachineState_c.class);
+				disposeStates(states);
+			}
+
+			// unrelate any global elements in system
+			if (componentRootME instanceof SystemModel_c) {
 				GlobalElementInSystem_c[] gis = GlobalElementInSystem_c
 						.getManyG_EISsOnR9100((SystemModel_c) componentRootME);
-				for(int i = 0; i < gis.length; i++) {
+				for (int i = 0; i < gis.length; i++) {
 					PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR9100(gis[i]);
 					gis[i].unrelateAcrossR9100From(pe);
 					gis[i].unrelateAcrossR9100From((SystemModel_c) componentRootME);
 					gis[i].delete();
 				}
-        }
-        deleteME(componentRootME);
-        componentRootME = null;
-        modelRoot.clearUnreferencedProxies();
-        }
-        finally {
-            ModelRoot.enableChangeNotification();
-        }
-        status=STATUS_NOTLOADED;
-    }
-     
-    private void disposeStates(StateMachineState_c[] states){
-      if(states == null){
-        return;
-      }
-      
-    for (int i = 0; i < states.length; i++) {
-            Body_c body = Body_c.getOneACT_ACTOnR698(StateActionBody_c
-                    .getOneACT_SABOnR691(Action_c
-          .getOneSM_ACTOnR514(ActionHome_c
-                                    .getOneSM_AHOnR513(MooreActionHome_c
-                                            .getOneSM_MOAHOnR511(states[i])))));
-            if(body != null){
-                body.Dispose();
-            }
-    }
-    }
+			}
+			deleteME(componentRootME);
+			componentRootME = null;
+			modelRoot.clearUnreferencedProxies();
+		} finally {
+			ModelRoot.enableChangeNotification();
+		}
+		status = STATUS_NOTLOADED;
+	}
+
+	private void disposeStates(StateMachineState_c[] states) {
+		if (states == null) {
+			return;
+		}
+
+		for (int i = 0; i < states.length; i++) {
+			Body_c body = Body_c.getOneACT_ACTOnR698(StateActionBody_c.getOneACT_SABOnR691(Action_c.getOneSM_ACTOnR514(
+					ActionHome_c.getOneSM_AHOnR513(MooreActionHome_c.getOneSM_MOAHOnR511(states[i])))));
+			if (body != null) {
+				body.Dispose();
+			}
+		}
+	}
 
 	private void deleteME(NonRootModelElement me) {
 		if (me.getPersistableComponent() != this) {
 			return;
 		}
 
-		IPersistenceHierarchyMetaData metaData = PersistenceManager
-				.getHierarchyMetaData();
+		IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
 
 		List<?> findExternalRGOs = metaData.findExternalRGOs(me, false);
 		boolean hasExternalRGO = !findExternalRGOs.isEmpty();
@@ -1094,147 +1026,143 @@ public class PersistableModelComponent implements Comparable {
 		}
 		me.batchUnrelate();
 	}
-    
-    public void excludeChildRootMEs(List externalRGOs) {
-        Collection children = getChildren();
-        for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-            PersistableModelComponent child = (PersistableModelComponent) iterator
-                    .next();
-            externalRGOs.remove(child.getRootModelElement());
-        }
-    }
-  
-    void setComponent(NonRootModelElement me){
-      me.setComponent(this);
-    }
 
-    public void updateResource(IFile newFile) {
-        updateResource(newFile, getChildren());
-    }
+	public void excludeChildRootMEs(List externalRGOs) {
+		Collection children = getChildren();
+		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			externalRGOs.remove(child.getRootModelElement());
+		}
+	}
 
-    private void updateResource(IFile newFile, Collection children) {
-        // remap component as key(path) has been changed
-        NonRootModelElement thisMe = getRootModelElement();
-        for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-            PersistableModelComponent child = (PersistableModelComponent) iterator
-                    .next();
-            String name = child.getName();
-            IPath newChildPath = getChildPath(newFile.getFullPath(), name);
-            IFile newChildFile = ResourcesPlugin.getWorkspace().getRoot()
-                    .getFile(newChildPath);
-            child.updateResource(newChildFile);
-        }
-        PersistenceManager.removeComponent(this);
-        underlyingResource = newFile;
-        afm.updateFiles(newFile.getFullPath());
-        PersistenceManager.addComponent(this);
-        if (thisMe != null && thisMe.isProxy()) {
-            thisMe.updateContentPath(underlyingResource.getFullPath());
-        }
-    }
-    
-    public static void ensureDataTypesAvailable(ModelRoot modelRoot) {
-        PersistenceManager.ensureAllInstancesLoaded(modelRoot, DataType_c.class);
-    }
-    public int getStatus(){
-        return status;
-    }
-  public void resetComponentForChildren(IPath parentPath,
-                                             String Name, Collection children) {
-      parentPath = parentPath.append("\\" + Name);
-      parentPath = parentPath.addFileExtension(Ooaofooa.MODELS_EXT);
-      IFile newFile = ResourcesPlugin.getWorkspace().getRoot()
-                                                           .getFile(parentPath);
-      for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-        PersistableModelComponent child = (PersistableModelComponent) iterator
-                                                                        .next();
-        String name = child.getName();
-        IPath newChildPath = getChildPath(newFile.getFullPath(), name);
-        IFile newChildFile = ResourcesPlugin.getWorkspace().getRoot()
-                                                         .getFile(newChildPath);
-        child.updateResource(newChildFile);
-      }
-    }
-    public int compareTo(Object o) {
-      PersistableModelComponent pmc = (PersistableModelComponent)o;
-      if (pmc.getFullPath().equals(getFullPath())) {
-        return 0;
-      }
-      if(getFullPath().removeLastSegments(1).isPrefixOf(pmc.getFullPath())) {
-        return 1;
-      }
-      return getFullPath().toString().compareTo(pmc.getFullPath().toString());
-    }
+	void setComponent(NonRootModelElement me) {
+		me.setComponent(this);
+	}
 
-    // methods for handling import assertions
-    public boolean getActivityImportFailures() {
-        return activityImportFailures;
-    }
+	public void updateResource(IFile newFile) {
+		updateResource(newFile, getChildren());
+	}
 
-    public void setActivityImportFailures( boolean failures ) {
-        activityImportFailures = failures;
-    }
+	private void updateResource(IFile newFile, Collection children) {
+		// remap component as key(path) has been changed
+		NonRootModelElement thisMe = getRootModelElement();
+		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			String name = child.getName();
+			IPath newChildPath = getChildPath(newFile.getFullPath(), name);
+			IFile newChildFile = ResourcesPlugin.getWorkspace().getRoot().getFile(newChildPath);
+			child.updateResource(newChildFile);
+		}
+		PersistenceManager.removeComponent(this);
+		underlyingResource = newFile;
+		afm.updateFiles(newFile.getFullPath());
+		PersistenceManager.addComponent(this);
+		if (thisMe != null && thisMe.isProxy()) {
+			thisMe.updateContentPath(underlyingResource.getFullPath());
+		}
+	}
 
-    public String getActivityImportFailureMessage() {
-        return activityImportFailureMessage;
-    }
+	public static void ensureDataTypesAvailable(ModelRoot modelRoot) {
+		PersistenceManager.ensureAllInstancesLoaded(modelRoot, DataType_c.class);
+	}
 
-    public void appendActivityImportFailureMessage( String message ) {
-        activityImportFailureMessage += message;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public void resetActivityImportFailureMessage() {
-        activityImportFailureMessage = "";
-    }
+	public void resetComponentForChildren(IPath parentPath, String Name, Collection children) {
+		parentPath = parentPath.append("\\" + Name);
+		parentPath = parentPath.addFileExtension(Ooaofooa.MODELS_EXT);
+		IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(parentPath);
+		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
+			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
+			String name = child.getName();
+			IPath newChildPath = getChildPath(newFile.getFullPath(), name);
+			IFile newChildFile = ResourcesPlugin.getWorkspace().getRoot().getFile(newChildPath);
+			child.updateResource(newChildFile);
+		}
+	}
 
-    public void incrementImportedActivities( String type, int dialect ) {
-        importedActivityCount.increment( type, dialect );
-    }
+	public int compareTo(Object o) {
+		PersistableModelComponent pmc = (PersistableModelComponent) o;
+		if (pmc.getFullPath().equals(getFullPath())) {
+			return 0;
+		}
+		if (getFullPath().removeLastSegments(1).isPrefixOf(pmc.getFullPath())) {
+			return 1;
+		}
+		return getFullPath().toString().compareTo(pmc.getFullPath().toString());
+	}
 
-    public void incrementActivities( String type, int dialect ) {
-        activityCount.increment( type, dialect );
-    }
+	// methods for handling import assertions
+	public boolean getActivityImportFailures() {
+		return activityImportFailures;
+	}
 
-    public void resetActivityCounts() {
-        importedActivityCount = new ActivityCount();
-        activityCount = new ActivityCount();
-    }
+	public void setActivityImportFailures(boolean failures) {
+		activityImportFailures = failures;
+	}
 
-    public void assertActivityCountMatch( int dialect ) {
-        // count the existing activities
-        if ( componentRootME instanceof SystemModel_c ) {
-            SystemModel_c inst = (SystemModel_c)componentRootME;
-            Ooaofooa.S_syscountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getSys_id() );
-        }
-        else if ( componentRootME instanceof Package_c ) {
-            Package_c inst = (Package_c)componentRootME;
-            Ooaofooa.Ep_pkgcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getPackage_id() );
-        }
-        else if ( componentRootME instanceof ModelClass_c ) {
-            ModelClass_c inst = (ModelClass_c)componentRootME;
-            Ooaofooa.O_objcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getObj_id() );
-        }
-        else if ( componentRootME instanceof Component_c ) {
-            Component_c inst = (Component_c)componentRootME;
-            Ooaofooa.C_ccountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, inst.getId(), dialect );
-        }
-        else if ( componentRootME instanceof InstanceStateMachine_c ) {
-            InstanceStateMachine_c inst = (InstanceStateMachine_c)componentRootME;
-            Ooaofooa.Sm_ismcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getSm_id() );
-        }
-        else if ( componentRootME instanceof ClassStateMachine_c ) {
-            ClassStateMachine_c inst = (ClassStateMachine_c)componentRootME;
-            Ooaofooa.Sm_asmcountactivitiesforimport( componentRootME.getModelRoot(), (Object)this, dialect, inst.getSm_id() );
-        }
-        else {
-            // Root element type not supported
-        }
+	public String getActivityImportFailureMessage() {
+		return activityImportFailureMessage;
+	}
 
-        // compare with the imported activities
-        if( !activityCount.equals( importedActivityCount, dialect ) ) {
-	        String path = getActionFile(1).getName();
-            setActivityImportFailures(true);
-            appendActivityImportFailureMessage("File: " + path + ": Number of parsed activities does not match number of activities in model.\n");
-        }
-    }
+	public void appendActivityImportFailureMessage(String message) {
+		activityImportFailureMessage += message;
+	}
+
+	public void resetActivityImportFailureMessage() {
+		activityImportFailureMessage = "";
+	}
+
+	public void incrementImportedActivities(String type, int dialect) {
+		importedActivityCount.increment(type, dialect);
+	}
+
+	public void incrementActivities(String type, int dialect) {
+		activityCount.increment(type, dialect);
+	}
+
+	public void resetActivityCounts() {
+		importedActivityCount = new ActivityCount();
+		activityCount = new ActivityCount();
+	}
+
+	public void assertActivityCountMatch(int dialect) {
+		// count the existing activities
+		if (componentRootME instanceof SystemModel_c) {
+			SystemModel_c inst = (SystemModel_c) componentRootME;
+			Ooaofooa.S_syscountactivitiesforimport(componentRootME.getModelRoot(), (Object) this, dialect,
+					inst.getSys_id());
+		} else if (componentRootME instanceof Package_c) {
+			Package_c inst = (Package_c) componentRootME;
+			Ooaofooa.Ep_pkgcountactivitiesforimport(componentRootME.getModelRoot(), (Object) this, dialect,
+					inst.getPackage_id());
+		} else if (componentRootME instanceof ModelClass_c) {
+			ModelClass_c inst = (ModelClass_c) componentRootME;
+			Ooaofooa.O_objcountactivitiesforimport(componentRootME.getModelRoot(), (Object) this, dialect,
+					inst.getObj_id());
+		} else if (componentRootME instanceof Component_c) {
+			Component_c inst = (Component_c) componentRootME;
+			Ooaofooa.C_ccountactivitiesforimport(componentRootME.getModelRoot(), (Object) this, inst.getId(), dialect);
+		} else if (componentRootME instanceof InstanceStateMachine_c) {
+			InstanceStateMachine_c inst = (InstanceStateMachine_c) componentRootME;
+			Ooaofooa.Sm_ismcountactivitiesforimport(componentRootME.getModelRoot(), (Object) this, dialect,
+					inst.getSm_id());
+		} else if (componentRootME instanceof ClassStateMachine_c) {
+			ClassStateMachine_c inst = (ClassStateMachine_c) componentRootME;
+			Ooaofooa.Sm_asmcountactivitiesforimport(componentRootME.getModelRoot(), (Object) this, dialect,
+					inst.getSm_id());
+		} else {
+			// Root element type not supported
+		}
+
+		// compare with the imported activities
+		if (!activityCount.equals(importedActivityCount, dialect)) {
+			String path = getActionFile(1).getName();
+			setActivityImportFailures(true);
+			appendActivityImportFailureMessage(
+					"File: " + path + ": Number of parsed activities does not match number of activities in model.\n");
+		}
+	}
 }
