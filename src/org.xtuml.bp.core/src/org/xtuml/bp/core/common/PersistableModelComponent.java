@@ -742,6 +742,7 @@ public class PersistableModelComponent implements Comparable {
 						}
 					}
 					Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
+					setRootModelElement(rootME);
 				}
 			}
 		} catch (FileNotFoundException e) {
