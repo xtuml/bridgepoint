@@ -17,7 +17,7 @@ parameter_list           : parameter ( ',' parameter )*;
 
 parameter                : param_name=name ':' type_name=name;
 
-scoped_name              : name ( '::' name );
+scoped_name              : name ( '::' name )*;
 
 name                     : ID;
 
