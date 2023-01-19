@@ -68,26 +68,34 @@ public class ExportModelText extends ExportModelComponent {
 			Package_c parent_pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(inst));
 			append("%swithin %s is\n\n", getTab(), parent_pkg.getPath());
 			tabDepth++;
-			append("%sinterface %s is\n\n", getTab(), inst.getName()); // TODO sanitize name
+			append("%sinterface %s is\n", getTab(), inst.getName()); // TODO sanitize name
 			tabDepth++;
 
 			// interface operations
 			ExecutableProperty_c[] ExecutableProperty_c4003_1 = ExecutableProperty_c.getManyC_EPsOnR4004(
 					InterfaceOperation_c.getManyC_IOsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
+			if (ExecutableProperty_c4003_1.length > 0) {
+			  append("%s\n", getTab());
+			}
 			for (int ExecutableProperty_c_index = 0; ExecutableProperty_c_index < ExecutableProperty_c4003_1.length; ++ExecutableProperty_c_index) {
 				export_ExecutableProperty_c(ExecutableProperty_c4003_1[ExecutableProperty_c_index], pm, writeAsProxies,
 						isPersistable);
 			}
-			append("%s\n", getTab());
 
 			// interface signals
 			ExecutableProperty_c[] ExecutableProperty_c4003_2 = ExecutableProperty_c.getManyC_EPsOnR4004(
 					InterfaceSignal_c.getManyC_ASsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
+			if (ExecutableProperty_c4003_2.length > 0) {
+			  append("%s\n", getTab());
+			}
 			for (int ExecutableProperty_c_index = 0; ExecutableProperty_c_index < ExecutableProperty_c4003_2.length; ++ExecutableProperty_c_index) {
 				export_ExecutableProperty_c(ExecutableProperty_c4003_2[ExecutableProperty_c_index], pm, writeAsProxies,
 						isPersistable);
 			}
-			append("%s\n", getTab());
+
+			if (ExecutableProperty_c4003_1.length > 0 || ExecutableProperty_c4003_2.length > 0) {
+			  append("%s\n", getTab());
+			}
 
 			tabDepth--;
 			append("%send interface;\n\n", getTab());
@@ -107,6 +115,7 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// build the parameter list
+			// TODO consider parameter order
 			PropertyParameter_c[] PropertyParameter_c4006 = PropertyParameter_c.getManyC_PPsOnR4006(inst);
 			final String parameterList = Stream.of(PropertyParameter_c4006).map(pp -> {
 				buffers.push(new StringBuilder());
