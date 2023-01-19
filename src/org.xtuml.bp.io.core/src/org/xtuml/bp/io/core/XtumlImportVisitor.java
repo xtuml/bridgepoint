@@ -20,13 +20,11 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.io.core.XtumlParser.Message_declarationContext;
-import org.xtuml.bp.io.core.XtumlParser.NameContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
-import org.xtuml.bp.io.core.XtumlParser.Scoped_nameContext;
 import org.xtuml.bp.io.core.XtumlParser.TargetContext;
 
-public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
+public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 
 	private final Ooaofooa modelRoot;
 	private NonRootModelElement currentRoot = null;
@@ -36,12 +34,12 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	}
 
 	@Override
-	public Object visitTarget(TargetContext ctx) {
+	public NonRootModelElement visitTarget(TargetContext ctx) {
 		// find or create package TODO create if does not exist
-		final Package_c parent_pkg = (Package_c) findOrCreateParent((String) visit(ctx.pkg));
+		final Package_c parent_pkg = (Package_c) findOrCreateParent(ctx.pkg.getText());
 
 		// find or create interface
-		final String iface_name = (String) visit(ctx.iface_name);
+		final String iface_name = ctx.iface_name.getText();
 		final UUID iface_id = UUID.nameUUIDFromBytes((parent_pkg.getPath() + "::" + iface_name).getBytes());
 		Interface_c iface = (Interface_c) modelRoot.getInstanceList(Interface_c.class).getGlobal(iface_id);
 		if (iface == null) {
@@ -53,7 +51,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				parent_pkg.getPackage_id(), null, Elementtypeconstants_c.INTERFACE);
 		pe.relateAcrossR8000To(parent_pkg);
 		iface.relateAcrossR8001To(pe);
-		iface.setName((String) visit(ctx.iface_name));
+		iface.setName(ctx.iface_name.getText());
 		currentRoot = iface;
 
 		// link executable properties to interface
@@ -80,11 +78,11 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	}
 
 	@Override
-	public Object visitMessage_declaration(Message_declarationContext ctx) {
+	public NonRootModelElement visitMessage_declaration(Message_declarationContext ctx) {
 		// parse message info
-		final String name = (String) visit(ctx.msg_name);
+		final String name = ctx.msg_name.getText();
 		final UUID msg_id = UUID.nameUUIDFromBytes((currentRoot.getPath() + "::" + name).getBytes());
-		final String typeName = ctx.type_name != null ? (String) visit(ctx.type_name) : null;
+		final String typeName = ctx.type_name != null ? ctx.type_name.getText() : null;
 		final int direction = ctx.to != null ? Ifdirectiontype_c.ClientServer : Ifdirectiontype_c.ServerClient;
 
 		// find or create executable property
@@ -113,7 +111,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		final InterfaceSignal_c c_as = InterfaceSignal_c.getOneC_ASOnR4004(c_ep);
 		if (c_io != null) {
 			final DataType_c dt = DataType_c.DataTypeInstance(Ooaofooa.getDefaultInstance(),
-					selected -> ((DataType_c) selected).getName().equals(visit(ctx.type_name)));
+					selected -> ((DataType_c) selected).getName().equals(ctx.type_name.getText()));
 			c_io.relateAcrossR4008To(dt);
 			c_io.setName(name);
 			c_io.setDirection(direction);
@@ -124,10 +122,10 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 		// link parameters to the message
 		if (ctx.parameter_list() != null) {
-			@SuppressWarnings("unchecked")
-			final List<PropertyParameter_c> c_pps = (List<PropertyParameter_c>) visit(ctx.parameter_list());
-			for (PropertyParameter_c c_pp : c_pps) {
+			PropertyParameter_c c_pp = (PropertyParameter_c) visit(ctx.parameter_list());
+			while (c_pp != null) {
 				c_ep.relateAcrossR4006To(c_pp);
+				c_pp = PropertyParameter_c.getOneC_PPOnR4021Precedes(c_pp);
 			}
 		}
 
@@ -135,36 +133,26 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	}
 
 	@Override
-	public Object visitParameter_list(Parameter_listContext ctx) {
+	public NonRootModelElement visitParameter_list(Parameter_listContext ctx) {
 		// link parameters to each other in order
 		List<PropertyParameter_c> c_pps = ctx.parameter().stream().map(p -> (PropertyParameter_c) visit(p))
 				.collect(Collectors.toList());
 		for (int i = 0; i + 1 < c_pps.size(); i++) {
 			c_pps.get(i).relateAcrossR4021ToPrecedes(c_pps.get(i + 1));
 		}
-		return c_pps;
+		return !c_pps.isEmpty() ? c_pps.get(0) : null;
 	}
 
 	@Override
-	public Object visitParameter(ParameterContext ctx) {
+	public NonRootModelElement visitParameter(ParameterContext ctx) {
 		// create a new parameter
 		PropertyParameter_c c_pp = new PropertyParameter_c(modelRoot);
-		c_pp.setName((String) visit(ctx.param_name));
+		c_pp.setName(ctx.param_name.getText());
 		// link the data type
 		DataType_c dt = DataType_c.DataTypeInstance(Ooaofooa.getDefaultInstance(),
-				selected -> ((DataType_c) selected).getName().equals(visit(ctx.type_name)));
+				selected -> ((DataType_c) selected).getName().equals(ctx.type_name.getText()));
 		c_pp.relateAcrossR4007To(dt);
 		return c_pp;
-	}
-
-	@Override
-	public Object visitScoped_name(Scoped_nameContext ctx) {
-		return ctx.getText();
-	}
-
-	@Override
-	public Object visitName(NameContext ctx) {
-		return ctx.getText();
 	}
 
 	private NonRootModelElement findOrCreateParent(final String path) {

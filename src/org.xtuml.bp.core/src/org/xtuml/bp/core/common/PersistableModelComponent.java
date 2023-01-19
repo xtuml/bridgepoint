@@ -124,12 +124,12 @@ public class PersistableModelComponent implements Comparable {
 
 	// instance of ME when component is loaded otherwise it will be null;
 	private NonRootModelElement componentRootME;
-	
+
 	// This set maintains the list of tree elements that are expanded. After a
 	// reload, the elements can get re-expanded to provide a streamlined
 	// experience for editing the file system itself.
 	private Set<String> expandedElements = new HashSet<>();
-	
+
 	static synchronized public PersistableModelComponent create(IPath modelFilePath) {
 		PersistableModelComponent result = PersistenceManager.findComponent(modelFilePath);
 		try {
@@ -728,8 +728,10 @@ public class PersistableModelComponent implements Comparable {
 			}
 
 			if (validate_result > 0) {
+				System.out.println("LEVI: START loading file: " + getFile());
 				importer.run(monitor);
 				NonRootModelElement rootME = importer.getRootModelElement();
+				System.out.println("LEVI: MIDDLE loading file: " + getFile());
 
 				if (rootME == null) {
 					CorePlugin.logError(
@@ -763,7 +765,9 @@ public class PersistableModelComponent implements Comparable {
 					Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
 					setRootModelElement(rootME);
 					pruneExpandedElements();
+					PersistenceManager.getDefaultInstance().completeSelections();
 				}
+				System.out.println("LEVI: END loading file: " + getFile());
 			}
 		} catch (FileNotFoundException e) {
 			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
@@ -1177,7 +1181,7 @@ public class PersistableModelComponent implements Comparable {
 		} else {
 			// Root element type not supported
 		}
-	
+
 		// compare with the imported activities
 		if (!activityCount.equals(importedActivityCount, dialect)) {
 			String path = getActionFile(1).getName();
@@ -1201,11 +1205,10 @@ public class PersistableModelComponent implements Comparable {
 		final Set<String> containedModelPaths = Stream
 				.concat(Stream.of(getRootModelElement()),
 						((List<NonRootModelElement>) metaData.getChildren(getRootModelElement(), true)).stream())
-				.filter(nrme -> nrme != null)
-				.map(NonRootModelElement::getPath).collect(Collectors.toSet());
+				.filter(nrme -> nrme != null).map(NonRootModelElement::getPath).collect(Collectors.toSet());
 		expandedElements.retainAll(containedModelPaths);
 	}
-	
+
 	public void clearExpanded(boolean includeChildren) {
 		expandedElements.clear();
 		if (includeChildren) {

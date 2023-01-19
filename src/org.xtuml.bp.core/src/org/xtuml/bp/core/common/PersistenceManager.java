@@ -22,12 +22,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -1060,6 +1066,45 @@ public class PersistenceManager {
 				}
 			}
 		});
+	}
+	
+	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
+	
+	public <V extends NonRootModelElement> Future<V> selectAndWait(final Supplier<V> selector) {
+		final FutureSelection<V> f = new FutureSelection<>(selector);
+		synchronized (this) {
+			incompleteSelections.add(f);
+		}
+		if (f.tryComplete()) {
+			synchronized (this) {
+				incompleteSelections.remove(f);
+			}
+		}
+		return f;
+	}
+	
+	public synchronized void completeSelections() {
+		incompleteSelections.forEach(FutureSelection::tryComplete);
+		incompleteSelections.removeAll(incompleteSelections.stream().filter(Future::isDone).collect(Collectors.toList()));
+	}
+	
+	private static final class FutureSelection<V extends NonRootModelElement> extends CompletableFuture<V> {
+		
+		private final Supplier<V> selector;
+		
+		public FutureSelection(final Supplier<V> selector) {
+			this.selector = selector;
+		}
+		
+		public boolean tryComplete() {
+			final V value = selector.get();
+			if (value != null) {
+				return complete(value);
+			} else {
+				return false;
+			}
+		}
+		
 	}
 
 }
