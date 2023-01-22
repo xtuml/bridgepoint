@@ -452,7 +452,6 @@ public class PersistenceManager {
 		PersistableModelComponent[] roots = findRootComponentInstances();
 		for (int i = 0; i < roots.length; ++i) {
 			if (!roots[i].isLoaded()) {
-				boolean load = true;
 				UpgradeRequirement upgradeRequirement = checkForUpgradeRequirement(roots[i]);
 				if (upgradeRequirement.requiresUpgrade) {
 					if (upgradeRequirement.upgradeAtOnce) {
@@ -461,12 +460,7 @@ public class PersistenceManager {
 					} else {
 						// collect for calling later
 						handler.addUpgradeRequirement(upgradeRequirement);
-						load = false;
 					}
-				}
-				if (load) {
-					NullProgressMonitor nullMon = new NullProgressMonitor();
-					roots[i].load(nullMon);
 				}
 			}
 		}
@@ -474,8 +468,13 @@ public class PersistenceManager {
 			handler.performUpgrade();
 		}
 		// Fully load all models
+		List<PersistableModelComponent> loadedPmcs = new ArrayList<>();
 		for (int i = 0; i < roots.length; ++i) {
-			roots[i].loadComponentAndChildren(new NullProgressMonitor());
+			Collection<PersistableModelComponent> loadedRootPmcs = roots[i].loadComponentAndChildren(new NullProgressMonitor());
+			loadedPmcs.addAll(loadedRootPmcs);
+		}
+		for (PersistableModelComponent loadedPmc : loadedPmcs) {
+			loadedPmc.finishLoad(new NullProgressMonitor());
 		}
 		initializing = false;
 

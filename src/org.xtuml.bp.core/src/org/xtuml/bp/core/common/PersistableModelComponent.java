@@ -25,6 +25,7 @@ package org.xtuml.bp.core.common;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -115,6 +116,7 @@ public class PersistableModelComponent implements Comparable {
 
 	private IFile underlyingResource;
 	private ActionFile afm;
+	private IModelImport importer;
 
 	private boolean activityImportFailures = false;
 	private String activityImportFailureMessage = "";
@@ -233,23 +235,31 @@ public class PersistableModelComponent implements Comparable {
 
 	}
 
-	public void loadComponentAndChildren(Ooaofooa modelRoot, IProgressMonitor monitor) throws Exception {
+	public Collection<PersistableModelComponent> loadComponentAndChildren(Ooaofooa modelRoot, IProgressMonitor monitor)
+			throws Exception {
+		List<PersistableModelComponent> loadedPmcs = new ArrayList<>();
 		load(modelRoot, monitor);
-		Collection children = getChildren();
+		loadedPmcs.add(this);
+		Collection<PersistableModelComponent> children = getChildren();
 		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
 			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
-			child.loadComponentAndChildren(modelRoot, monitor);
+			Collection<PersistableModelComponent> loadedChildPmcs = child.loadComponentAndChildren(modelRoot, monitor);
+			loadedPmcs.addAll(loadedChildPmcs);
 		}
+		return Collections.unmodifiableCollection(loadedPmcs);
 
 	}
 
-	public void loadComponentAndChildren(IProgressMonitor monitor, boolean parseOal, boolean reload) {
+	public Collection<PersistableModelComponent> loadComponentAndChildren(IProgressMonitor monitor, boolean parseOal,
+			boolean reload) {
+		List<PersistableModelComponent> loadedPmcs = new ArrayList<>();
 		try {
 			NonRootModelElement originalRoot = getRootModelElement();
 			if (reload) {
 				Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(getRootModelElement());
 			}
 			load(monitor, parseOal, reload);
+			loadedPmcs.add(this);
 			if (reload) {
 				Ooaofooa.getDefaultInstance().fireModelElementReloaded(originalRoot, getRootModelElement());
 			}
@@ -261,12 +271,15 @@ public class PersistableModelComponent implements Comparable {
 		Iterator iterator = children.iterator();
 		while (iterator.hasNext()) {
 			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
-			child.loadComponentAndChildren(monitor, parseOal, reload);
+			Collection<PersistableModelComponent> loadedChildPmcs = child.loadComponentAndChildren(monitor, parseOal,
+					reload);
+			loadedPmcs.addAll(loadedChildPmcs);
 		}
+		return Collections.unmodifiableCollection(loadedPmcs);
 	}
 
-	public void loadComponentAndChildren(IProgressMonitor monitor) {
-		loadComponentAndChildren(monitor, false, false);
+	public Collection<PersistableModelComponent> loadComponentAndChildren(IProgressMonitor monitor) {
+		return loadComponentAndChildren(monitor, false, false);
 	}
 
 	public static IPath getRootComponentPath(String name) {
@@ -711,7 +724,7 @@ public class PersistableModelComponent implements Comparable {
 		try {
 			status = STATUS_LOADING;
 
-			IModelImport importer = createImporter(modelRoot, parseOal);
+			importer = createImporter(modelRoot, parseOal);
 			if (importer == null) {
 				// we're trying to load a file in a closed project
 				status = oldStatus;
@@ -728,46 +741,12 @@ public class PersistableModelComponent implements Comparable {
 			}
 
 			if (validate_result > 0) {
-				System.out.println("LEVI: START loading file: " + getFile());
+				System.out.println("LOADING: " + getFile());
 				importer.run(monitor);
 				NonRootModelElement rootME = importer.getRootModelElement();
-				System.out.println("LEVI: MIDDLE loading file: " + getFile());
-
-				if (rootME == null) {
-					CorePlugin.logError(
-							"Error while loading model from " + getFullPath() + " ERROR:" + importer.getErrorMessage(),
-							new Throwable().fillInStackTrace());
-				} else {
-					importer.finishComponentLoad(monitor, true);
-					if (!importer.getActionSuccessful()) {
-						CorePlugin.logError("Error while loading model from " + getFullPath() + " ERROR: "
-								+ importer.getErrorMessage(), null);
-					}
-
-					// check integrity after load, but not for the compare root
-					if (!rootME.getModelRoot().isCompareRoot()) {
-						IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
-					}
-
-					status = STATUS_LOADED;
-
-					if (!underlyingResource.equals(dummyCompareName)) {
-						try {
-							checkComponentConsistancy(rootME);
-						} catch (CoreException e) {
-							status = STATUS_NOTLOADED;
-							PersistenceManager.addInconsistentComponent(this);
-							deleteSelfAndChildren();
-							UIUtil.refresh(getRootModelElement());
-							throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
-						}
-					}
-					Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
-					setRootModelElement(rootME);
-					pruneExpandedElements();
-					PersistenceManager.getDefaultInstance().completeSelections();
-				}
-				System.out.println("LEVI: END loading file: " + getFile());
+				status = STATUS_LOADED;
+				Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
+				setRootModelElement(rootME);
 			}
 		} catch (FileNotFoundException e) {
 			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
@@ -782,6 +761,31 @@ public class PersistableModelComponent implements Comparable {
 				status = oldStatus;
 		}
 
+	}
+
+	public synchronized void finishLoad(IProgressMonitor monitor) throws CoreException {
+		importer.finishComponentLoad(monitor, true);
+		if (!importer.getActionSuccessful()) {
+			CorePlugin.logError(
+					"Error while loading model from " + getFullPath() + " ERROR: " + importer.getErrorMessage(), null);
+		}
+
+		// check integrity after load, but not for the compare root
+		if (!getRootModelElement().getModelRoot().isCompareRoot()) {
+			IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
+		}
+
+		if (!underlyingResource.equals(dummyCompareName)) {
+			try {
+				checkComponentConsistancy(getRootModelElement());
+			} catch (CoreException e) {
+				status = STATUS_NOTLOADED;
+				PersistenceManager.addInconsistentComponent(this);
+				deleteSelfAndChildren();
+				UIUtil.refresh(getRootModelElement());
+				throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+			}
+		}
 	}
 
 	private void checkComponentConsistancy(NonRootModelElement rootME) throws CoreException {
@@ -1192,7 +1196,7 @@ public class PersistableModelComponent implements Comparable {
 	}
 
 	public void elementExpanded(String path) {
-		expandedElements.add(path);
+		// expandedElements.add(path); TODO temporarily disable this
 	}
 
 	public void elementCollapsed(String path) {

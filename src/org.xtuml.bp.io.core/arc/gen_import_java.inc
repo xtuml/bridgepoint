@@ -558,6 +558,22 @@ public class ${class_name} extends CoreImport
         m_success = doLoadFile(pm);
         .if(not setComponent)
         finishLoad(pm);
+        .else
+      if (m_success) {
+        Ooaofooa modelRoot = getModelRoot();
+        ModelRoot graphicsModelRoot = getGraphicsModelRoot();
+        ModelRoot.disableChangeNotification();
+        try {
+          for (int i = 0; i < loadedInstances.size(); i++) {
+            ((NonRootModelElement) loadedInstances.get(i)).batchRelate(modelRoot, false, true);
+          }
+          for (int i = 0; i < loadedGraphicsInstances.size(); i++) {
+            ((NonRootModelElement) loadedGraphicsInstances.get(i)).batchRelate(graphicsModelRoot, false, true);
+          }
+        } finally {
+          ModelRoot.enableChangeNotification();
+        }
+      }
     .end if
     }
 
