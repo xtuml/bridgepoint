@@ -1373,27 +1373,18 @@ ${gen_RGO_resolution.body}\
     }
   }
 
-  public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
-  {
-        ${class_name} result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
-      return result;  
-  }
-private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
-{
+  public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent) {
     InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
-        synchronized (instances) {
-            for (int i = 0; i < instances.size(); ++i) {
-                ${class_name} x = (${class_name}) instances.get(i);
-                if (test==null || test.evaluate(x)){
-        .if (package.is_root AND  persistent)
-                    if(x.ensureLoaded(loadComponent))
-        .end if
-                    return x;
-            }
+    synchronized (instances) {
+      for (int i = 0; i < instances.size(); ++i) {
+        ${class_name} x = (${class_name}) instances.get(i);
+        if (test==null || test.evaluate(x)){
+          return x;
         }
-        }
-            return null;
-}
+      }
+    }
+    return null;
+  }
   public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test){
      return $cr{object.Name}Instance(modelRoot,test,true);
   }
@@ -1411,9 +1402,6 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
                 for (int i = 0; i < instances.size(); ++i) {
                     ${class_name} x = (${class_name}) instances.get(i);
                     if (test==null ||test.evaluate(x)){
-        .if (package.is_root AND  persistent)
-                        if(x.ensureLoaded(loadComponent))
-        .end if
                         matches.add(x);
                 }
                 }

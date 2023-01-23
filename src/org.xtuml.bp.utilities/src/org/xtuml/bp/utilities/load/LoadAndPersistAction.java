@@ -29,6 +29,7 @@ import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.references.ReferencePathManagement;
@@ -59,7 +60,7 @@ public class LoadAndPersistAction implements IActionDelegate {
 						while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 						NonRootModelElement nrme = iter.next();
 						PersistableModelComponent pmc = nrme.getPersistableComponent();
-						pmc.loadComponentAndChildren(new NullProgressMonitor());
+						PersistenceManager.getDefaultInstance().loadProject(nrme, false, true);
 						monitor.worked(10 / fElements.size());
 						while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 						collectLoadedRootElements(pmc);

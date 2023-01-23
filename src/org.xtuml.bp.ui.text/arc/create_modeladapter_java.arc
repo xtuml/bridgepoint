@@ -203,14 +203,6 @@ public class ${modelAdapterClass}
             {
                 return null;
             }
-            else
-            {
-                PersistenceManager.getDefaultInstance().loadAndFinishComponent(componentPath);
-                PersistableModelComponent pmc = PersistenceManager.findComponent(new Path(componentPath));
-                if (pmc == null) {
-                    return null;
-                }
-            }
         }
         return ${classname}.${instancename}(modelRoot, new ${testclass}(modelElementID));
     }

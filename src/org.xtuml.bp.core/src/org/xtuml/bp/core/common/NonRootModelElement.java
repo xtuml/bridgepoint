@@ -143,9 +143,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		List<NonRootModelElement> rtos = RTOUtil.getRTOs(this);
 		for (NonRootModelElement rto : rtos) {
 			if (rto.isProxy()) {
-				// before going further try to load the proxy
-				rto.loadProxy();
-				if (rto.isProxy()) {
 					// should have been loaded, we have a dangling
 					// reference
 					// first load the entire workspace and then search
@@ -239,7 +236,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 									((SystemModel_c) getRoot()).getSys_id());
 						}
 					}
-				}
 			}
 		}
 	}
@@ -864,23 +860,14 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 	}
 
-	public boolean loadProxy() {
-		boolean result = true;
-		if (isProxy() && (!getModelRoot().getId().equals(Ooaofooa.COMPARE_MODEL_ROOT_NAME)
-				&& !getModelRoot().isCompareRoot())) {
-			result = PersistenceManager.loadAndFinishComponent(m_contentPath);
-		}
-		return result;
-	}
-
-	public void convertFromProxy() {
+	public synchronized void convertFromProxy() {
 		if (isProxy()) {
 			m_contentPath = null;
 			UmlProblem.proxyResolved(this);
 		}
 	}
 
-	public boolean isProxy() {
+	public synchronized boolean isProxy() {
 		return m_contentPath != null;
 	}
 
@@ -897,15 +884,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	public boolean isReferenced() {
 		return PersistenceManager.getHierarchyMetaData().hasExternalRGO(this, false);
 	}
-
-	public boolean ensureLoaded(boolean load) {
-		if (load) {
-			return loadProxy();
-		} else {
-			return !isProxy();
-		}
-	}
-
+	
 	/*
 	 * get Compound Unique ID This method will be implemented in all persistable
 	 * classes and will be used in Markers to identify its marker

@@ -84,8 +84,6 @@ public class ImportScenariosFromComponentOnD_DEPLAction implements IObjectAction
 		// Assign the context selection variable with the action context
 		Object context = selection.iterator().next();
 		Deployment_c v_element = (Deployment_c) context;
-		// ensure that all Functions are loaded
-		PersistenceManager.ensureAllInstancesLoaded(v_element.getModelRoot(), Function_c.class);
 		// now find all the elements that should be shown
 		Function_c[] elements = getElements(v_element);
 		ElementSelectionDialog dialog = new ElementSelectionDialog(

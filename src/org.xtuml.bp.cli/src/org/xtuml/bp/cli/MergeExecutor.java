@@ -23,6 +23,7 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IntegrityChecker;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.Transaction;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.IModelImport;
@@ -263,9 +264,7 @@ public class MergeExecutor implements Executor {
 								.SystemModelInstances(Ooaofooa.getDefaultInstance());
 						for (SystemModel_c system : systems) {
 							if (system.getPersistableComponent() != null) {
-								system.getPersistableComponent()
-										.loadComponentAndChildren(
-												new NullProgressMonitor());
+								PersistenceManager.getDefaultInstance().loadComponentAndChildren(system.getPersistableComponent(), false, false);
 								// check after each system load to prevent any
 								// unnecessary loading
 								realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
@@ -293,7 +292,7 @@ public class MergeExecutor implements Executor {
 						}
 					}
 					if(realElement != null) {
-						realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
+						PersistenceManager.getDefaultInstance().loadProject(realElement, false, false);
 						Package_c firstParentPackage = realElement.getFirstParentPackage();
 						Component_c firstParentComponent = realElement.getFirstParentComponent();
 						NonRootModelElement elementToCheck = null;

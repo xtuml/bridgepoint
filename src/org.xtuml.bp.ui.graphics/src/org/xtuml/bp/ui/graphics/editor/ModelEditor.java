@@ -102,12 +102,6 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 				PersistableModelComponent pmc = PersistenceManager
 						.findOrCreateComponent(path);
 				if(pmc != null && pmc.getComponentType().equals("ModelClass")) { //$NON-NLS-1$
-					if(!pmc.isLoaded())
-						try {
-							pmc.load(new NullProgressMonitor());
-						} catch (CoreException e) {
-							CorePlugin.logError("Unable to load PMC.", e);
-						}
 					setPartName(GraphicsUtil.getCanvasEditorTitle(pmc.getRootModelElement()));
 					result = "Use Model Explorer to edit Model Class descriptions.";
 				}

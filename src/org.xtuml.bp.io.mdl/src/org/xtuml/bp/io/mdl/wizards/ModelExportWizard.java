@@ -82,27 +82,6 @@ public class ModelExportWizard extends Wizard implements IImportWizard {
 		final NonRootModelElement[] selectedElements = Selection.getInstance()
 				.getSelectedNonRootModelElements();
 		
-        IRunnableWithProgress runnableLoader = new IRunnableWithProgress() {
-            public void run(IProgressMonitor monitor) {
-        		// here we force load the selected elements to
-        		// prevent outputting null ids (which can happen
-        		// in certain circumstances) issue 3303 may
-        		// fix this at which point this code can be
-        		// removed
-        		for(int i = 0; i < selectedElements.length; i++) {
-        			PersistableModelComponent component = selectedElements[i]
-        					.getPersistableComponent();
-        			component.loadComponentAndChildren(monitor);
-        		}
-            }
-        };
-        
-		if(getContainer() == null) {
-			runnableLoader.run(new NullProgressMonitor());
-		} else {
-			new ProgressMonitorDialog(getContainer().getShell()).run(true, false, runnableLoader);
-		}
-		
 		for(int i = 0; i < selectedElements.length; i++) {
 			elements.add(selectedElements[i]);
 		}

@@ -235,53 +235,6 @@ public class PersistableModelComponent implements Comparable {
 
 	}
 
-	public Collection<PersistableModelComponent> loadComponentAndChildren(Ooaofooa modelRoot, IProgressMonitor monitor)
-			throws Exception {
-		List<PersistableModelComponent> loadedPmcs = new ArrayList<>();
-		load(modelRoot, monitor);
-		loadedPmcs.add(this);
-		Collection<PersistableModelComponent> children = getChildren();
-		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
-			Collection<PersistableModelComponent> loadedChildPmcs = child.loadComponentAndChildren(modelRoot, monitor);
-			loadedPmcs.addAll(loadedChildPmcs);
-		}
-		return Collections.unmodifiableCollection(loadedPmcs);
-
-	}
-
-	public Collection<PersistableModelComponent> loadComponentAndChildren(IProgressMonitor monitor, boolean parseOal,
-			boolean reload) {
-		List<PersistableModelComponent> loadedPmcs = new ArrayList<>();
-		try {
-			NonRootModelElement originalRoot = getRootModelElement();
-			if (reload) {
-				Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(getRootModelElement());
-			}
-			load(monitor, parseOal, reload);
-			loadedPmcs.add(this);
-			if (reload) {
-				Ooaofooa.getDefaultInstance().fireModelElementReloaded(originalRoot, getRootModelElement());
-			}
-		} catch (CoreException e) {
-			CorePlugin.logError("", e);
-		}
-		// now get the children and load
-		Collection children = getChildren();
-		Iterator iterator = children.iterator();
-		while (iterator.hasNext()) {
-			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
-			Collection<PersistableModelComponent> loadedChildPmcs = child.loadComponentAndChildren(monitor, parseOal,
-					reload);
-			loadedPmcs.addAll(loadedChildPmcs);
-		}
-		return Collections.unmodifiableCollection(loadedPmcs);
-	}
-
-	public Collection<PersistableModelComponent> loadComponentAndChildren(IProgressMonitor monitor) {
-		return loadComponentAndChildren(monitor, false, false);
-	}
-
 	public static IPath getRootComponentPath(String name) {
 		return new Path(
 				"/" + name + "/" + Ooaofooa.MODELS_DIRNAME + "/" + name + "/" + name + "." + Ooaofooa.MODELS_EXT);
@@ -635,62 +588,15 @@ public class PersistableModelComponent implements Comparable {
 		}
 	}
 
-	/**
-	 * This method loads component only if not already loaded. To reload use
-	 * overloaded method.
-	 * 
-	 * @param monitor
-	 * @throws CoreException
-	 */
-	public void load(IProgressMonitor monitor) throws CoreException {
-		if (status == STATUS_LOADING) {
-			// recursive call from some where
-			// any code causing cotrol to reach here should be addressed
-			// probably it requires disabled lazy loading
-			return;
-		}
-		// use the model root defined by the componentRootMe, if it exists
-		// this is important when we are in the middle of a resource rename
-		// for example, when a project is renamed in the Resource Navigator,
-		// cross component links must be updated in the existing model root
-		// not in the newly named one (which is what would happen if
-		// getUniqueID()
-		// was called, because in that case the underlyingResource path has
-		// already been updated, but the model root id hasn't yet)
-		if (componentRootME != null) {
-			load((Ooaofooa) componentRootME.getModelRoot(), monitor, false, false);
-		} else {
-			load(Ooaofooa.getInstance(getUniqueID()), monitor, false, false);
-		}
-	}
-
-	public void load(IProgressMonitor monitor, boolean parseOal, boolean reload) throws CoreException {
+	protected synchronized void load(IProgressMonitor monitor, boolean parseOal, boolean reload) throws CoreException {
 		if (status == STATUS_LOADING) {
 			// recursive call from some where
 			// any code causing control to reach here should be addressed
 			// probably it requires disabled lazy loading
 			return;
 		}
-		// see above
-		if (componentRootME != null) {
-			load((Ooaofooa) componentRootME.getModelRoot(), monitor, parseOal, reload);
-		} else {
-			load(Ooaofooa.getInstance(getUniqueID()), monitor, parseOal, reload);
-		}
-	}
 
-	public void load(Ooaofooa modelRoot, IProgressMonitor monitor) throws CoreException {
-		if (status == STATUS_LOADING) {
-			// recursive call from some where
-			// any code causing cotrol to reach here should be addressed
-			// probably it requires disabled lazy loading
-			return;
-		}
-		load(modelRoot, monitor, false, false);
-	}
-
-	public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor, boolean parseOal, boolean reload)
-			throws CoreException {
+		final Ooaofooa modelRoot = componentRootME != null ? (Ooaofooa) componentRootME.getModelRoot() : Ooaofooa.getInstance(getUniqueID());
 
 		if (!reload && isLoaded())
 			return;
@@ -703,20 +609,6 @@ public class PersistableModelComponent implements Comparable {
 
 		// do not load if the persistence version is not acceptable
 		if (!PersistenceManager.isPersistenceVersionAcceptable(this)) {
-			return;
-		}
-
-		// Make sure the parent PMC is loaded before trying to load this PMC
-		PersistableModelComponent parent_pmc = getParent();
-		if (null != parent_pmc) {
-			if (!parent_pmc.isLoaded()) {
-				parent_pmc.load(monitor, parseOal, reload);
-			}
-		}
-
-		// The parent load just above may have caused this child PMC to be loaded. So
-		// check before continuing.
-		if (!reload && isLoaded()) {
 			return;
 		}
 
@@ -1088,10 +980,6 @@ public class PersistableModelComponent implements Comparable {
 		if (thisMe != null && thisMe.isProxy()) {
 			thisMe.updateContentPath(underlyingResource.getFullPath());
 		}
-	}
-
-	public static void ensureDataTypesAvailable(ModelRoot modelRoot) {
-		PersistenceManager.ensureAllInstancesLoaded(modelRoot, DataType_c.class);
 	}
 
 	public int getStatus() {

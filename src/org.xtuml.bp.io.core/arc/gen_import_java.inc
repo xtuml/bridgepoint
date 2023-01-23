@@ -903,7 +903,6 @@ public class ${class_name} extends CoreImport
             helper.upgradeElementOrder(loadedInstances);
             loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
             helper.fixSatisfactionAssociations(loadedInstances);
-            helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
             loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
             loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
             helper.removeSupertypePackageableElement(loadedInstances);

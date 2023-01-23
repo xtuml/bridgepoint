@@ -134,19 +134,6 @@ public class ClientUtil {
 				|| (object == represents && !skipObjectEqualsRepresentsCheck)) {
 			return null;
 		}
-		// must load the parent as well, as that is where the graphics are stored
-		try {
-			PersistableModelComponent persistableComponent = ((NonRootModelElement) object).getPersistableComponent();
-			if(persistableComponent != null) {
-				if(persistableComponent.getParent() != null) {
-					persistableComponent.getParent()
-							.load(new NullProgressMonitor());
-				}
-			}
-		} catch (CoreException e) {
-			CanvasPlugin.logError(
-					"Unable to load graphics for inheritance object.", e);
-		}
 		UUID elementId = ((NonRootModelElement) object).Get_ooa_id();
 		GraphicalElement_c element = Activator.getElementMap().getElement(elementId);
 		if(element == null && !elementId.equals(Gd_c.Null_unique_id())) {

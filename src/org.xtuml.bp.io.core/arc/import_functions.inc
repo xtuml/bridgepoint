@@ -849,7 +849,6 @@ ${setSize.body}
 		helper.upgradeGraphicalAnchors(loadedGraphicsInstances);
 		helper.configureMessages(loadedGraphicsInstances);
 		helper.fixSatisfactionAssociations(loadedInstances);
-		helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
 		.else
 		helper.upgradeDatatypes(loadedInstances);
 		.end if

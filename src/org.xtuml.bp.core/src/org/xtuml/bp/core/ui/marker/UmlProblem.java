@@ -151,21 +151,6 @@ public class UmlProblem {
         DelayedMarkerJob.addJob(event);
     }
 
-    public static void handleComponentAdded(PersistableModelComponent pmc) {
-        if (pmc.isLoaded()) {
-            // if component is already loaded it has been processed by
-            // ProblemModelChangeListener
-            return;
-        }
-        if (hasXtUMLMarkerAsRTO(pmc.getFile(),null)) {
-            try {
-                pmc.load(new NullProgressMonitor());
-            } catch (CoreException e) {
-
-            }
-        }
-    }
-
     public static void removeXtUMLProblem(NonRootModelElement rgo,
             NonRootModelElement rto) {
     	// do not add the job if either element is in the

@@ -403,8 +403,6 @@ public class ImportHelper
 			// InformalName field
 			String c_p_name = c_p.getInformalname();
 
-			// ensure that all Interfaces are loaded
-			PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
 			// get reachable interfaces
 			Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements(c_p);
 
@@ -446,8 +444,6 @@ public class ImportHelper
 			// InformalName field
 			String c_r_name = c_r.getInformalname();
 
-			// ensure that all Interfaces are loaded
-			PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
 			// get reachable interfaces
 			Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements(c_r);
 
@@ -493,9 +489,6 @@ public class ImportHelper
 		}
 
 		if (temporary_interface) {
-
-			// ensure that all Interfaces are loaded
-			PersistenceManager.ensureAllInstancesLoaded(c_i.getModelRoot(), Interface_c.class);
 
 			// get reachable Interfaces
 			Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(c_i));
@@ -574,8 +567,6 @@ public class ImportHelper
 				}
 			}
 
-			// ensure that all Components are loaded
-			PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
 			// get reachable components
 			Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements(cl_ic);
 
@@ -1437,9 +1428,6 @@ public class ImportHelper
             });
             modelRoot.setRoot(system);
         }
-        PersistenceManager.ensureAllChildInstancesLoaded(modelRoot.getRoot().getPersistableComponent(),
-                modelRoot,
-                Interface_c.class, true);
         
         Interface_c[] intfs = interfaceInstances.toArray(new Interface_c[interfaceInstances.size()]);
         
@@ -2560,38 +2548,6 @@ public class ImportHelper
 		}
 	}
 	
-	/** 
-	 * Older models had S_CDT proxies due to the old R18 association, now that
-	 * the proxy should be an S_DT lazy loading is broken.  This method enforces
-	 * the loading so that S_UDTs are properly hooked up.
-	 * 
-	 * @param loadedElements
-	 */
-	public void loadDataTypesFromCoreTypeProxy(List<NonRootModelElement> loadedElements) {
-		// for every S_CDT
-		for(NonRootModelElement element : loadedElements) {
-			if(element instanceof CoreDataType_c) {
-				// that is a proxy
-				if(element.isProxy()) {
-					// load the proxies file
-					element.loadProxy();
-				}
-			}
-		}
-		// in some cases the loading of the S_DTs will have already occurred but
-		// after the UDT is left as orphaned, here we scan for orphaned UDTs and
-		// call batchRelate after all S_DTs are guaranteed to be loaded
-		for(NonRootModelElement element : loadedElements) {
-			if(element instanceof UserDataType_c) {
-				DataType_c dt = DataType_c.getOneS_DTOnR18((UserDataType_c) element);
-				if(dt == null) {
-					element.batchRelate(element.getModelRoot(), true, true);
-				}
-			}
-		}
-		
-	}
-
 	public List<ExternalEntity_c> eesToUpgradeForIsRealized = new ArrayList<ExternalEntity_c>();
 
 	public void addEEToUpgradeForIsRealized(ExternalEntity_c ee) {

@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -410,29 +411,6 @@ public class PersistenceManager {
 		return target;
 	}
 
-	/**
-	 * Do all processing necessary to ensure component specified by path is
-	 * completely loaded.
-	 * 
-	 * @param path path to component data
-	 * @return true if component loaded successfully
-	 */
-	public static boolean loadAndFinishComponent(String path) {
-		PersistableModelComponent pmc = findOrCreateComponent(new Path(path));
-		try {
-			if (pmc != null && !pmc.isOrphaned()) {
-				if (!pmc.isLoaded()) {
-					NullProgressMonitor nullMon = new NullProgressMonitor();
-					pmc.load(nullMon, false, false);
-					return true;
-				}
-			}
-		} catch (CoreException e) {
-			CorePlugin.logError("Failed to load component data", e);
-		}
-		return false;
-	}
-
 	boolean initializing = true;
 
 	/**
@@ -469,7 +447,9 @@ public class PersistenceManager {
 			handler.performUpgrade();
 		}
 		// Fully load all models
-		loadComponents(List.of(roots), new NullProgressMonitor());
+		for (IProject p : projects) {
+			loadProject(p, false, false);
+		}
 		initializing = false;
 
 		// The following forces the marking plugin to load without creating a hard
@@ -489,13 +469,13 @@ public class PersistenceManager {
 		}
 	}
 
-	private void loadComponents(Collection<PersistableModelComponent> rootPmcs, IProgressMonitor monitor)
+	public void loadComponents(Collection<PersistableModelComponent> rootPmcs, IProgressMonitor monitor, boolean parseOal, boolean reload)
 			throws CoreException {
-		final Collection<PersistableModelComponent> pmcs = rootPmcs.stream().flatMap(pmc -> getDeepChildrenOf(pmc).stream())
-				.collect(Collectors.toList());
+		final Collection<PersistableModelComponent> pmcs = rootPmcs.stream()
+				.flatMap(pmc -> getDeepChildrenOf(pmc).stream()).collect(Collectors.toList());
 		final Collection<Thread> loaders = pmcs.stream().map(pmc -> new Thread(() -> {
 			try {
-				pmc.load(monitor);
+				pmc.load(monitor, parseOal, reload);
 				completeSelections();
 			} catch (CoreException e1) {
 				CorePlugin.logError("Problem component", e1);
@@ -510,9 +490,29 @@ public class PersistenceManager {
 			} catch (InterruptedException e2) {
 			}
 		});
-		
+
 		for (PersistableModelComponent pmc : pmcs) {
 			pmc.finishLoad(monitor);
+		}
+	}
+	
+	public void loadComponentAndChildren(PersistableModelComponent pmc, boolean parseOal, boolean reload) throws CoreException {
+		final Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(pmc);
+		loadComponents(pmcs, new NullProgressMonitor(), parseOal, reload);
+	}
+	
+	public void loadProject(NonRootModelElement containedElement, boolean parseOal, boolean reload) {
+		loadProject(
+		containedElement.getFile().getProject(), parseOal, reload);
+	}
+	
+	public void loadProject(IProject project, boolean parseOal, boolean reload) {
+		if (XtUMLNature.hasNature(project) && project.isSynchronized(IResource.DEPTH_ZERO)) {
+			try {
+				loadComponents(List.of(getRootComponent(project)), new NullProgressMonitor(), parseOal, reload);
+			} catch (CoreException e) {
+				CorePlugin.logError("Could not load project: " + project.getName(), e);
+			}
 		}
 	}
 
@@ -628,7 +628,6 @@ public class PersistenceManager {
 								// do not persist if the component could not be loaded
 								if (PersistenceManager.isPersistenceVersionAcceptable(component)) {
 									component.persist();
-									component.load(monitor, false, true);
 									final PersistableModelComponent finalComp = component;
 									PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 										public void run() {
@@ -735,12 +734,9 @@ public class PersistenceManager {
 
 	public static Collection<PersistableModelComponent> getDeepChildrenOf(PersistableModelComponent component) {
 		IPath parentDirPath = component.getContainingDirectoryPath();
-		Vector<PersistableModelComponent> result = new Vector<PersistableModelComponent>();
+		Set<PersistableModelComponent> result = new HashSet<PersistableModelComponent>();
 		synchronized (Instances) {
-
-			for (Iterator iterator = Instances.tailMap(parentDirPath.toString()).values().iterator(); iterator
-					.hasNext();) {
-				PersistableModelComponent source = (PersistableModelComponent) iterator.next();
+			for (PersistableModelComponent source : Instances.values()) {
 				if (parentDirPath.isPrefixOf(source.getFullPath())) {
 					result.add(source);
 				}
@@ -832,41 +828,6 @@ public class PersistenceManager {
 		}
 	}
 
-	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass) {
-		if (true) return; // TODO
-		ensureAllInstancesLoaded(modelRoot, elementClass, null);
-	}
-
-	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass,
-			PersistableModelComponent ignoredComponent) {
-		if (true) return; // TODO
-		List comps = findAllComponents(modelRoot, elementClass);
-		for (Iterator iter = comps.iterator(); iter.hasNext();) {
-			PersistableModelComponent component = (PersistableModelComponent) iter.next();
-			if (ignoredComponent != null) {
-				// only load cross project if IPRs are enabled
-				NonRootModelElement ignoredRoot = ignoredComponent.getRootModelElement().getRoot();
-				if (ignoredRoot != null) {
-					boolean iprsEnabled = Pref_c.Getsystemboolean(
-							BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, ignoredRoot.getName());
-					if (component.isLoaded() && !iprsEnabled
-							&& !component.getRootModelElement().getRoot().getPersistableComponent().getFullPath()
-									.equals(ignoredRoot.getPersistableComponent().getFullPath())) {
-						return;
-					}
-				}
-			}
-			if (!component.isLoaded() && component.getStatus() != PersistableModelComponent.STATUS_LOADED
-					&& component.getStatus() != PersistableModelComponent.STATUS_LOADING) {
-				try {
-					component.load(new NullProgressMonitor());
-				} catch (CoreException e) {
-					CorePlugin.logError("Can't load component", e);
-				}
-			}
-		}
-	}
-
 	static public List findAllChildComponents(PersistableModelComponent parent, ModelRoot modelRoot, Class childType,
 			boolean deep) {
 		if (parent == null) {
@@ -907,36 +868,6 @@ public class PersistenceManager {
 
 	static public List findAllChildComponents(PersistableModelComponent parent, ModelRoot modelRoot, Class childType) {
 		return findAllChildComponents(parent, modelRoot, childType, false);
-	}
-
-	public static void ensureAllChildInstancesLoaded(PersistableModelComponent parentComponent, ModelRoot modelRoot,
-			Class childClass) {
-		if (true) return; // TODO
-		ensureAllChildInstancesLoaded(parentComponent, modelRoot, childClass, false);
-	}
-
-	public static void ensureAllChildInstancesLoaded(PersistableModelComponent parentComponent, ModelRoot modelRoot,
-			Class childClass, boolean deep) {
-		if (true) return; // TODO
-		List comps = findAllChildComponents(parentComponent, modelRoot, childClass, deep);
-		for (Iterator iter = comps.iterator(); iter.hasNext();) {
-			PersistableModelComponent component = (PersistableModelComponent) iter.next();
-			if (!component.isLoaded()) {
-				try {
-					component.load(new NullProgressMonitor());
-				} catch (CoreException e) {
-					CorePlugin.logError("Can't load component", e);
-				}
-			}
-		}
-	}
-
-	public static void ensureAllChildInstancesLoaded(PersistableModelComponent[] parentComponents, ModelRoot modelRoot,
-			Class ChildClass) {
-		if (true) return; // TODO
-		for (int i = 0; i < parentComponents.length; i++) {
-			ensureAllChildInstancesLoaded(parentComponents[i], modelRoot, ChildClass);
-		}
 	}
 
 	public static int getPersistenceVersionAsInt(String persistenceVersion) {

@@ -297,54 +297,6 @@ public class CoreUtil {
 		  return true;
 	}
 
-	public static void loadWorkspace(IProgressMonitor monitor) throws CoreException {
-		// this will cause initialization if necessary
-		PersistenceManager.getDefaultInstance();
-		// gather all system components, and load
-		// the children
-		IProject[] projects = getProjectsInWorkspace();
-		monitor.subTask("Loading workspace...");
-		for(int i = 0; i < projects.length; i++) {
-			PersistableModelComponent rootComponent = PersistenceManager
-					.getRootComponent(projects[i]);
-			loadComponentAndChildren(monitor, rootComponent);
-			if (monitor.isCanceled()) {
-				// user cancelled, return
-				return;
-			}
-		}
-		monitor.done();
-	}
-	
-	private static void loadComponentAndChildren(IProgressMonitor monitor,
-			PersistableModelComponent component) {
-		if(component == null) {
-			monitor.worked(1);
-			return;
-		}
-		if (monitor.isCanceled()) {
-			return;
-		}
-		if (!component.isLoaded()) {
-			try {
-				monitor.subTask("Loading file: "
-						+ component.getFile().getFullPath());
-				component.load(new NullProgressMonitor());
-			} catch (CoreException e) {
-				CorePlugin.logError("", e);
-			}
-		}
-		monitor.worked(1);
-		// now get the children and load
-		Collection<?> children = component.getChildren();
-		Iterator<?> iterator = children.iterator();
-		while (iterator.hasNext()) {
-			PersistableModelComponent child = (PersistableModelComponent) iterator
-					.next();
-			loadComponentAndChildren(monitor, child);
-		}
-	}
-
 	public static IProject[] getProjectsInWorkspace() throws CoreException {
 		List<IProject> projectList = new ArrayList<IProject>();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot()
