@@ -341,28 +341,6 @@ public static ${locn.body} ${nfn.body}${func_suffix}(ModelRoot modelRoot, ${tocn
   ${locn.body} result = null;
   
   result=find_${nfn.body}${func_suffix}(modelRoot,target,test);
-  if (result==null && (loadComponent)) {
-  .if(isContainment.result)
-     // Containment Relation
-     List comps =  PersistenceManager.findAllChildComponents(target.getPersistableComponent(),modelRoot,${locn.body}.class);
-  .else
-     // not a Containment Relation
-     List comps =  PersistenceManager.findAllComponents(modelRoot,${locn.body}.class);
-  .end if
-    for (int i = 0; i < comps.size(); i++) {
-      PersistableModelComponent component = (PersistableModelComponent) comps.get(i);
-      if (!component.isLoaded()) {
-        try {
-          //component.load(new NullProgressMonitor());
-          result=find_${nfn.body}${func_suffix}(modelRoot,target,test);
-          if(result!=null) return result;
-        } catch (Exception e) {
-          CorePlugin.logError("Error Loading component", e);
-        }
-      }
-    }
-  }
-  
   return result;
   .else
    return find_${nfn.body}${func_suffix}(modelRoot,target,test);
@@ -416,23 +394,6 @@ public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} [] targets,
   .else  
   ModelRoot modelRoot = targets[0].getModelRoot();
   .end if
-  .if ((persistent) and (crossComp))
-  if(loadComponent){
-    .if(isContainment.result)
-     //Containment Relation
-     PersistableModelComponent[] pmcs= new PersistableModelComponent[targets.length];
-            for (int i = 0; i < targets.length; i++) {
-               pmcs[i]=targets[i].getPersistableComponent();
-            }
-	 PersistenceManager.ensureAllChildInstancesLoaded(pmcs,modelRoot, ${locn.body}.class);
-  .else
-     //not a Containment Relation
-	 PersistenceManager.ensureAllInstancesLoaded(modelRoot, ${locn.body}.class);
-  .end if
-  
-  }
-  .end if
- 
    InstanceList instances = modelRoot.getInstanceList(${locn.body}.class);
 
   Vector matches = new Vector();
@@ -514,17 +475,6 @@ public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target, ${g
   ModelRoot modelRoot = ${package.application_root_class}.getDefaultInstance();
   .else  
   ModelRoot modelRoot = target.getModelRoot();
-  .end if
-  .if ((persistent) and (crossComp))
-  if(loadComponent){
-  .if(isContainment.result)
-     //Containment Relation
- 	 PersistenceManager.ensureAllChildInstancesLoaded(target.getPersistableComponent(),modelRoot, ${locn.body}.class);
-  .else
-     //not a Containment Relation
-	 PersistenceManager.ensureAllInstancesLoaded(modelRoot, ${locn.body}.class);
-  .end if
-  }
   .end if
   Vector matches = new Vector();
   .if ( target_is_one )

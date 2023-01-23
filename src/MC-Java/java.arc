@@ -1376,27 +1376,6 @@ ${gen_RGO_resolution.body}\
   public static ${class_name} $cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
   {
         ${class_name} result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
-        .if (package.is_root AND  persistent) .//lazy loading is only for persistable elements
-        if(result==null && loadComponent){
-     List pmcs =  PersistenceManager.findAllComponents(modelRoot,${class_name}.class);
-        for (int i = 0; i < pmcs.size(); i++) {
-            PersistableModelComponent component = (PersistableModelComponent) pmcs
-                ..get(i);
-            if (!component.isLoaded()) {
-                try {
-                    //component.load(new NullProgressMonitor());
-                     result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
-                     if(result!=null) return result;
-                } catch (Exception e) {
-                    CorePlugin.logError("Error Loading component", e);
-                }
-            }
-        }
-        }
-        if(result!=null && loadComponent){
-            result.loadProxy();
-        }
-        .end if
       return result;  
   }
 private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
@@ -1426,11 +1405,6 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
 
   public static ${class_name} [] $cr{object.Name}Instances(ModelRoot modelRoot, ${tcn.body} test, boolean loadComponent)
   { 
-        .if (package.is_root AND  persistent) .//lazy loading is only for persistable elements
-            if(loadComponent){
-               PersistenceManager.ensureAllInstancesLoaded(modelRoot, ${class_name}.class);
-            }
-        .end if 
             InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
             Vector matches = new Vector();
             synchronized (instances) {
