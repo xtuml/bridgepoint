@@ -655,26 +655,28 @@ public class PersistableModelComponent implements Comparable {
 	}
 
 	public synchronized void finishLoad(IProgressMonitor monitor) throws CoreException {
-		importer.finishComponentLoad(monitor, true);
-		if (!importer.getActionSuccessful()) {
-			CorePlugin.logError(
-					"Error while loading model from " + getFullPath() + " ERROR: " + importer.getErrorMessage(), null);
-		}
+		if (importer != null) {
+			importer.finishComponentLoad(monitor, true);
+			if (!importer.getActionSuccessful()) {
+				CorePlugin.logError(
+						"Error while loading model from " + getFullPath() + " ERROR: " + importer.getErrorMessage(), null);
+			}
 
-		// check integrity after load, but not for the compare root
-		if (!getRootModelElement().getModelRoot().isCompareRoot()) {
-			IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
-		}
+			// check integrity after load, but not for the compare root
+			if (!getRootModelElement().getModelRoot().isCompareRoot()) {
+				IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
+			}
 
-		if (!underlyingResource.equals(dummyCompareName)) {
-			try {
-				checkComponentConsistancy(getRootModelElement());
-			} catch (CoreException e) {
-				status = STATUS_NOTLOADED;
-				PersistenceManager.addInconsistentComponent(this);
-				deleteSelfAndChildren();
-				UIUtil.refresh(getRootModelElement());
-				throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+			if (!underlyingResource.equals(dummyCompareName)) {
+				try {
+					checkComponentConsistancy(getRootModelElement());
+				} catch (CoreException e) {
+					status = STATUS_NOTLOADED;
+					PersistenceManager.addInconsistentComponent(this);
+					deleteSelfAndChildren();
+					UIUtil.refresh(getRootModelElement());
+					throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
+				}
 			}
 		}
 	}
