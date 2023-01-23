@@ -741,7 +741,6 @@ public class PersistableModelComponent implements Comparable {
 			}
 
 			if (validate_result > 0) {
-				System.out.println("LOADING: " + getFile());
 				importer.run(monitor);
 				NonRootModelElement rootME = importer.getRootModelElement();
 				status = STATUS_LOADED;

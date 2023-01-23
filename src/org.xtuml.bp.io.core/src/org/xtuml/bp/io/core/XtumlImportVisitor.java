@@ -1,13 +1,22 @@
 package org.xtuml.bp.io.core;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.xtuml.bp.core.ComponentResultSet_c;
+import org.xtuml.bp.core.ComponentVisibility_c;
+import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
+import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
@@ -16,9 +25,11 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.io.core.XtumlParser.Message_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
@@ -29,8 +40,12 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	private final Ooaofooa modelRoot;
 	private NonRootModelElement currentRoot = null;
 
+	private final DataType_c defaultType;
+
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.modelRoot = modelRoot;
+		this.defaultType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
+				.get("ba5eda7a-def5-0000-0000-000000000002");
 	}
 
 	@Override
@@ -148,10 +163,30 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 		// create a new parameter
 		PropertyParameter_c c_pp = new PropertyParameter_c(modelRoot);
 		c_pp.setName(ctx.param_name.getText());
+		c_pp.relateAcrossR4007To(this.defaultType);
+
 		// link the data type
-		DataType_c dt = DataType_c.DataTypeInstance(Ooaofooa.getDefaultInstance(),
-				selected -> ((DataType_c) selected).getName().equals(ctx.type_name.getText()));
-		c_pp.relateAcrossR4007To(dt);
+		try {
+			final DataType_c dt = PersistenceManager.getDefaultInstance().selectAndWait(() -> {
+				System.out.println("Selecting in: " + Thread.currentThread().getName());
+				List<DataType_c> dts = findVisibleElements(
+						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
+						Elementtypeconstants_c.DATATYPE).stream().map(DataType_c::getOneS_DTOnR8001)
+						.filter(d -> d.getName().endsWith(ctx.type_name.getText())).collect(Collectors.toList());
+				if (dts.isEmpty()) {
+					return Optional.empty();
+				} else {
+					if (dts.size() > 1) {
+						// TODO warn!
+					}
+					return Optional.of(dts.get(0));
+				}
+			}).get();
+			c_pp.unrelateAcrossR4007From(DataType_c.getOneS_DTOnR4007(c_pp));
+			c_pp.relateAcrossR4007To(dt);
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO warn!
+		}
 		return c_pp;
 	}
 
@@ -191,6 +226,34 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 		}
 
 		return pkg;
+	}
+
+	private List<PackageableElement_c> findVisibleElements(final PackageableElement_c referencePe,
+			final int elementType) {
+		final Package_c pkg = Package_c.getOneEP_PKGOnR8000(referencePe);
+		final Component_c comp = Component_c.getOneC_COnR8003(referencePe);
+		if (pkg != null) {
+			pkg.Clearscope();
+			pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), elementType);
+			final SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg, candidate -> {
+				final SearchResultSet_c selected = (SearchResultSet_c) candidate;
+				return (selected.getName().equals("") && selected.getType() == elementType);
+			});
+			return List
+					.of(PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results)));
+		} else if (comp != null) {
+			comp.Clearscope();
+			comp.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), "", comp.getId(), elementType);
+			final ComponentResultSet_c results = ComponentResultSet_c.getOnePE_CRSOnR8007(comp, candidate -> {
+				final ComponentResultSet_c selected = (ComponentResultSet_c) candidate;
+				return (selected.getName().equals("") && selected.getType() == elementType);
+			});
+			return List.of(
+					PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
+
+		} else {
+			return Collections.emptyList();
+		}
 	}
 
 }

@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -468,14 +469,7 @@ public class PersistenceManager {
 			handler.performUpgrade();
 		}
 		// Fully load all models
-		List<PersistableModelComponent> loadedPmcs = new ArrayList<>();
-		for (int i = 0; i < roots.length; ++i) {
-			Collection<PersistableModelComponent> loadedRootPmcs = roots[i].loadComponentAndChildren(new NullProgressMonitor());
-			loadedPmcs.addAll(loadedRootPmcs);
-		}
-		for (PersistableModelComponent loadedPmc : loadedPmcs) {
-			loadedPmc.finishLoad(new NullProgressMonitor());
-		}
+		loadComponents(List.of(roots), new NullProgressMonitor());
 		initializing = false;
 
 		// The following forces the marking plugin to load without creating a hard
@@ -492,6 +486,33 @@ public class PersistenceManager {
 		} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
 				| IllegalAccessException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void loadComponents(Collection<PersistableModelComponent> rootPmcs, IProgressMonitor monitor)
+			throws CoreException {
+		final Collection<PersistableModelComponent> pmcs = rootPmcs.stream().flatMap(pmc -> getDeepChildrenOf(pmc).stream())
+				.collect(Collectors.toList());
+		final Collection<Thread> loaders = pmcs.stream().map(pmc -> new Thread(() -> {
+			try {
+				pmc.load(monitor);
+				completeSelections();
+			} catch (CoreException e1) {
+				CorePlugin.logError("Problem component", e1);
+			}
+		}, "PMC: " + pmc.getFile())).map(t -> {
+			t.start();
+			return t;
+		}).collect(Collectors.toList());
+		loaders.forEach(t -> {
+			try {
+				t.join();
+			} catch (InterruptedException e2) {
+			}
+		});
+		
+		for (PersistableModelComponent pmc : pmcs) {
+			pmc.finishLoad(monitor);
 		}
 	}
 
@@ -712,7 +733,7 @@ public class PersistenceManager {
 		return result;
 	}
 
-	public static Collection getDeepChildrenOf(PersistableModelComponent component) {
+	public static Collection<PersistableModelComponent> getDeepChildrenOf(PersistableModelComponent component) {
 		IPath parentDirPath = component.getContainingDirectoryPath();
 		Vector<PersistableModelComponent> result = new Vector<PersistableModelComponent>();
 		synchronized (Instances) {
@@ -812,11 +833,13 @@ public class PersistenceManager {
 	}
 
 	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass) {
+		if (true) return; // TODO
 		ensureAllInstancesLoaded(modelRoot, elementClass, null);
 	}
 
 	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass,
 			PersistableModelComponent ignoredComponent) {
+		if (true) return; // TODO
 		List comps = findAllComponents(modelRoot, elementClass);
 		for (Iterator iter = comps.iterator(); iter.hasNext();) {
 			PersistableModelComponent component = (PersistableModelComponent) iter.next();
@@ -888,11 +911,13 @@ public class PersistenceManager {
 
 	public static void ensureAllChildInstancesLoaded(PersistableModelComponent parentComponent, ModelRoot modelRoot,
 			Class childClass) {
+		if (true) return; // TODO
 		ensureAllChildInstancesLoaded(parentComponent, modelRoot, childClass, false);
 	}
 
 	public static void ensureAllChildInstancesLoaded(PersistableModelComponent parentComponent, ModelRoot modelRoot,
 			Class childClass, boolean deep) {
+		if (true) return; // TODO
 		List comps = findAllChildComponents(parentComponent, modelRoot, childClass, deep);
 		for (Iterator iter = comps.iterator(); iter.hasNext();) {
 			PersistableModelComponent component = (PersistableModelComponent) iter.next();
@@ -908,6 +933,7 @@ public class PersistenceManager {
 
 	public static void ensureAllChildInstancesLoaded(PersistableModelComponent[] parentComponents, ModelRoot modelRoot,
 			Class ChildClass) {
+		if (true) return; // TODO
 		for (int i = 0; i < parentComponents.length; i++) {
 			ensureAllChildInstancesLoaded(parentComponents[i], modelRoot, ChildClass);
 		}
@@ -1066,44 +1092,40 @@ public class PersistenceManager {
 			}
 		});
 	}
-	
+
 	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
-	
-	public <V extends NonRootModelElement> Future<V> selectAndWait(final Supplier<V> selector) {
+
+	public synchronized <V extends NonRootModelElement> Future<V> selectAndWait(final Supplier<Optional<V>> selector) {
 		final FutureSelection<V> f = new FutureSelection<>(selector);
-		synchronized (this) {
+		if (!f.tryComplete()) {
 			incompleteSelections.add(f);
-		}
-		if (f.tryComplete()) {
-			synchronized (this) {
-				incompleteSelections.remove(f);
-			}
 		}
 		return f;
 	}
-	
-	public synchronized void completeSelections() {
+
+	private synchronized void completeSelections() {
 		incompleteSelections.forEach(FutureSelection::tryComplete);
-		incompleteSelections.removeAll(incompleteSelections.stream().filter(Future::isDone).collect(Collectors.toList()));
+		incompleteSelections
+				.removeAll(incompleteSelections.stream().filter(Future::isDone).collect(Collectors.toList()));
 	}
-	
+
 	private static final class FutureSelection<V extends NonRootModelElement> extends CompletableFuture<V> {
-		
-		private final Supplier<V> selector;
-		
-		public FutureSelection(final Supplier<V> selector) {
+
+		private final Supplier<Optional<V>> selector;
+
+		public FutureSelection(final Supplier<Optional<V>> selector) {
 			this.selector = selector;
 		}
-		
+
 		public boolean tryComplete() {
-			final V value = selector.get();
-			if (value != null) {
-				return complete(value);
+			final Optional<V> value = selector.get();
+			if (value.isPresent()) {
+				return complete(value.get());
 			} else {
 				return false;
 			}
 		}
-		
+
 	}
 
 }

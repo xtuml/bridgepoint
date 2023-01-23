@@ -353,7 +353,7 @@ public static ${locn.body} ${nfn.body}${func_suffix}(ModelRoot modelRoot, ${tocn
       PersistableModelComponent component = (PersistableModelComponent) comps.get(i);
       if (!component.isLoaded()) {
         try {
-          component.load(new NullProgressMonitor());
+          //component.load(new NullProgressMonitor());
           result=find_${nfn.body}${func_suffix}(modelRoot,target,test);
           if(result!=null) return result;
         } catch (Exception e) {

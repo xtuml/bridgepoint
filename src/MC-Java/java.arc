@@ -1384,7 +1384,7 @@ ${gen_RGO_resolution.body}\
                 ..get(i);
             if (!component.isLoaded()) {
                 try {
-                    component.load(new NullProgressMonitor());
+                    //component.load(new NullProgressMonitor());
                      result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
                      if(result!=null) return result;
                 } catch (Exception e) {
