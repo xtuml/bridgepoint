@@ -21,13 +21,10 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
@@ -36,12 +33,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -55,16 +54,17 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.IModelImport.IFileHeader;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.core.util.SupertypeSubtypeUtil;
 import org.xtuml.bp.core.util.UIUtil;
@@ -469,8 +469,8 @@ public class PersistenceManager {
 		}
 	}
 
-	public void loadComponents(Collection<PersistableModelComponent> rootPmcs, IProgressMonitor monitor, boolean parseOal, boolean reload)
-			throws CoreException {
+	public void loadComponents(Collection<PersistableModelComponent> rootPmcs, IProgressMonitor monitor,
+			boolean parseOal, boolean reload) throws CoreException {
 		final Collection<PersistableModelComponent> pmcs = rootPmcs.stream()
 				.flatMap(pmc -> getDeepChildrenOf(pmc).stream()).collect(Collectors.toList());
 		final Collection<Thread> loaders = pmcs.stream().map(pmc -> new Thread(() -> {
@@ -495,19 +495,29 @@ public class PersistenceManager {
 			pmc.finishLoad(monitor);
 		}
 	}
-	
-	public void loadComponentAndChildren(PersistableModelComponent pmc, boolean parseOal, boolean reload) throws CoreException {
+
+	public void loadComponentAndChildren(PersistableModelComponent pmc, boolean parseOal, boolean reload)
+			throws CoreException {
 		final Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(pmc);
 		loadComponents(pmcs, new NullProgressMonitor(), parseOal, reload);
 	}
-	
+
 	public void loadProject(NonRootModelElement containedElement, boolean parseOal, boolean reload) {
-		loadProject(
-		containedElement.getFile().getProject(), parseOal, reload);
+		loadProject(containedElement.getFile().getProject(), parseOal, reload);
 	}
-	
+
 	public void loadProject(IProject project, boolean parseOal, boolean reload) {
 		if (XtUMLNature.hasNature(project) && project.isSynchronized(IResource.DEPTH_ZERO)) {
+			// if IPRs are enabled, load other projects first
+			Preferences projectPrefs = new ProjectScope(project)
+					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			boolean iprsEnabled = projectPrefs
+					.getBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
+			if (iprsEnabled) {
+				Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(p -> !p.equals(project))
+						.forEach(p -> loadProject(p, parseOal, reload));
+				;
+			}
 			try {
 				loadComponents(List.of(getRootComponent(project)), new NullProgressMonitor(), parseOal, reload);
 			} catch (CoreException e) {
