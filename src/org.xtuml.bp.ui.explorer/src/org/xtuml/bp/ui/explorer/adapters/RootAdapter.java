@@ -78,6 +78,7 @@ public class RootAdapter implements ITreeContentProvider {
 	 * Returns the children of this node
 	 */
 	public Object[] getChildren(Object arg) {
+		PersistenceManager.getDefaultInstance().loadAllProjects();
 		SystemModel_c[] systems = SystemModel_c.SystemModelInstances(Ooaofooa
 			.getDefaultInstance());
         ModelContentProvider.sort(systems);

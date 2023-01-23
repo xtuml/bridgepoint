@@ -525,6 +525,10 @@ public class PersistenceManager {
 			}
 		}
 	}
+	
+	public void loadAllProjects() {
+		Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).forEach(p -> loadProject(p, false, false));
+	}
 
 	private UpgradeHandler getUpgradeHandler() {
 		return new UpgradeHandler() {
