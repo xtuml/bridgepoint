@@ -264,7 +264,7 @@ public class MergeExecutor implements Executor {
 								.SystemModelInstances(Ooaofooa.getDefaultInstance());
 						for (SystemModel_c system : systems) {
 							if (system.getPersistableComponent() != null) {
-								PersistenceManager.getDefaultInstance().loadComponentAndChildren(system.getPersistableComponent(), false, false);
+								PersistenceManager.getDefaultInstance().loadComponents(PersistenceManager.getDeepChildrenOf(system.getPersistableComponent()), new NullProgressMonitor(), false, false);
 								// check after each system load to prevent any
 								// unnecessary loading
 								realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()

@@ -447,9 +447,7 @@ public class PersistenceManager {
 			handler.performUpgrade();
 		}
 		// Fully load all models
-		for (IProject p : projects) {
-			loadProject(p, false, false);
-		}
+		loadAllProjects();
 		initializing = false;
 
 		// The following forces the marking plugin to load without creating a hard
@@ -469,10 +467,9 @@ public class PersistenceManager {
 		}
 	}
 
-	public void loadComponents(Collection<PersistableModelComponent> rootPmcs, IProgressMonitor monitor,
-			boolean parseOal, boolean reload) throws CoreException {
-		final Collection<PersistableModelComponent> pmcs = rootPmcs.stream()
-				.flatMap(pmc -> getDeepChildrenOf(pmc).stream()).collect(Collectors.toList());
+	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
+			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
+		// Load each PMC in its own thread
 		final Collection<Thread> loaders = pmcs.stream().map(pmc -> new Thread(() -> {
 			try {
 				pmc.load(monitor, parseOal, reload);
@@ -484,6 +481,8 @@ public class PersistenceManager {
 			t.start();
 			return t;
 		}).collect(Collectors.toList());
+
+		// Wait for all PMCs to finish loading
 		loaders.forEach(t -> {
 			try {
 				t.join();
@@ -491,15 +490,10 @@ public class PersistenceManager {
 			}
 		});
 
+		// Perform post load tasks
 		for (PersistableModelComponent pmc : pmcs) {
 			pmc.finishLoad(monitor);
 		}
-	}
-
-	public void loadComponentAndChildren(PersistableModelComponent pmc, boolean parseOal, boolean reload)
-			throws CoreException {
-		final Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(pmc);
-		loadComponents(pmcs, new NullProgressMonitor(), parseOal, reload);
 	}
 
 	public void loadProject(NonRootModelElement containedElement, boolean parseOal, boolean reload) {
@@ -507,25 +501,33 @@ public class PersistenceManager {
 	}
 
 	public void loadProject(IProject project, boolean parseOal, boolean reload) {
-		if (XtUMLNature.hasNature(project) && project.isSynchronized(IResource.DEPTH_ZERO)) {
-			// if IPRs are enabled, load other projects first
-			Preferences projectPrefs = new ProjectScope(project)
-					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-			boolean iprsEnabled = projectPrefs
-					.getBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
-			if (iprsEnabled) {
-				Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(p -> !p.equals(project))
-						.forEach(p -> loadProject(p, parseOal, reload));
-				;
-			}
-			try {
-				loadComponents(List.of(getRootComponent(project)), new NullProgressMonitor(), parseOal, reload);
-			} catch (CoreException e) {
-				CorePlugin.logError("Could not load project: " + project.getName(), e);
-			}
+		try {
+			loadProject(project, new NullProgressMonitor(), parseOal, reload);
+		} catch (CoreException e) {
+			CorePlugin.logError("Failed to load project: " + project.getName(), e);
 		}
 	}
-	
+
+	public void loadProject(IProject project, IProgressMonitor monitor, boolean parseOal, boolean reload)
+			throws CoreException {
+		// Get the list of PMCs to load
+		Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(getRootComponent(project));
+
+		// If IPRs are enabled, include all PMCs from projects in the workspace
+		Preferences projectPrefs = new ProjectScope(project)
+				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		boolean iprsEnabled = projectPrefs.getBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
+				false);
+		if (iprsEnabled) {
+			pmcs = Stream
+					.concat(pmcs.stream(),
+							Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects())
+									.flatMap(p -> getDeepChildrenOf(getRootComponent(project)).stream()))
+					.collect(Collectors.toList());
+		}
+		loadComponents(pmcs, monitor, parseOal, reload);
+	}
+
 	public void loadAllProjects() {
 		Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).forEach(p -> loadProject(p, false, false));
 	}
@@ -1040,18 +1042,22 @@ public class PersistenceManager {
 
 	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
 
-	public synchronized <V extends NonRootModelElement> Future<V> selectAndWait(final Supplier<Optional<V>> selector) {
-		final FutureSelection<V> f = new FutureSelection<>(selector);
-		if (!f.tryComplete()) {
-			incompleteSelections.add(f);
+	public <V extends NonRootModelElement> Future<V> selectAndWait(final Supplier<Optional<V>> selector) {
+		synchronized (incompleteSelections) {
+			final FutureSelection<V> f = new FutureSelection<>(selector);
+			if (!f.tryComplete()) {
+				incompleteSelections.add(f);
+			}
+			return f;
 		}
-		return f;
 	}
 
-	private synchronized void completeSelections() {
-		incompleteSelections.forEach(FutureSelection::tryComplete);
-		incompleteSelections
-				.removeAll(incompleteSelections.stream().filter(Future::isDone).collect(Collectors.toList()));
+	private void completeSelections() {
+		synchronized (incompleteSelections) {
+			incompleteSelections.forEach(FutureSelection::tryComplete);
+			incompleteSelections
+					.removeAll(incompleteSelections.stream().filter(Future::isDone).collect(Collectors.toList()));
+		}
 	}
 
 	private static final class FutureSelection<V extends NonRootModelElement> extends CompletableFuture<V> {

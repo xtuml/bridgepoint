@@ -28,6 +28,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.IActionBars;
@@ -417,12 +418,11 @@ public class Cl_c {
         final UUID Ooa_id,
         final int Ooa_type) {
     	if(Ooa_type == Ooatype_c.SystemModel) {
-    		Object result = modelRoot.getInstanceList(SystemModel_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(SystemModel_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class SystemModel_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((SystemModel_c) selected).getSys_id().equals(
-                            Ooa_id);
+                        return ((SystemModel_c) selected).getSys_id().equals(Ooa_id);
                     }
                 }
                 result = SystemModel_c.SystemModelInstance(modelRoot,
@@ -431,12 +431,11 @@ public class Cl_c {
     		return result;
     	}
 		else if (Ooa_type == Ooatype_c.Package) {
-			Object result = modelRoot.getInstanceList(Package_c.class).get(Ooa_id);
+			Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Package_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class Package_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Package_c) selected).getPackage_id().equals(
-                            Ooa_id);
+                        return ((Package_c) selected).getPackage_id().equals(Ooa_id);
                     }
                 }
                 result = Package_c.PackageInstance(modelRoot,
@@ -445,7 +444,7 @@ public class Cl_c {
     		return result;
 	  	}    	
 		else if(Ooa_type == Ooatype_c.ComponentParticipant) {
-	    	Object result = modelRoot.getInstanceList(ComponentParticipant_c.class).get(Ooa_id);
+	    	Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ComponentParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
 	    	if(result == null) {
 	    		result = ComponentParticipant_c.ComponentParticipantInstance(modelRoot, new ClassQueryInterface_c() {
 				
@@ -458,12 +457,11 @@ public class Cl_c {
 	    	return result;
 	    }
 		else if (Ooa_type == Ooatype_c.ComponentReference) {
-			Object result = modelRoot.getInstanceList(ComponentReference_c.class).get(Ooa_id);
+			Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ComponentReference_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class UsedComponent_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((ComponentReference_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((ComponentReference_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = ComponentReference_c.ComponentReferenceInstance(modelRoot,
@@ -472,12 +470,11 @@ public class Cl_c {
     		return result;
 	  	}
 		else if (Ooa_type == Ooatype_c.ImportedRequiredInterface) {
-			Object result = modelRoot.getInstanceList(ImportedRequirement_c.class).get(Ooa_id);
+			Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ImportedRequirement_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class UsedComponent_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((ImportedRequirement_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((ImportedRequirement_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = ImportedRequirement_c.ImportedRequirementInstance(modelRoot,
@@ -486,12 +483,11 @@ public class Cl_c {
     		return result;
 	  	}
 		else if (Ooa_type == Ooatype_c.ImportedProvidedInterface) {
-			Object result = modelRoot.getInstanceList(ImportedProvision_c.class).get(Ooa_id);
+			Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ImportedProvision_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class UsedComponent_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((ImportedProvision_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((ImportedProvision_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = ImportedProvision_c.ImportedProvisionInstance(modelRoot,
@@ -500,12 +496,11 @@ public class Cl_c {
     		return result;
 	  	}
     	else if (Ooa_type == Ooatype_c.RequiredInterface) {
-    		Object result = modelRoot.getInstanceList(Requirement_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Requirement_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class RequiredInterface_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Requirement_c) selected).getRequirement_id().equals(
-                            Ooa_id);
+                        return ((Requirement_c) selected).getRequirement_id().equals(Ooa_id);
                     }
                 }
                 result = Requirement_c.RequirementInstance(modelRoot,
@@ -514,12 +509,11 @@ public class Cl_c {
     		return result;
 	  	}
     	else if (Ooa_type == Ooatype_c.ProvidedInterface) {
-    		Object result = modelRoot.getInstanceList(Provision_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Provision_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class ProvidedInterface_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Provision_c) selected).getProvision_id().equals(
-                            Ooa_id);
+                        return ((Provision_c) selected).getProvision_id().equals(Ooa_id);
                     }
                 }
                 result = Provision_c.ProvisionInstance(modelRoot,
@@ -528,12 +522,11 @@ public class Cl_c {
     		return result;
 	  	}
     	else if (Ooa_type == Ooatype_c.Delegation) {
-    		Object result = modelRoot.getInstanceList(Delegation_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Delegation_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class ProvidedInterface_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Delegation_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((Delegation_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = Delegation_c.DelegationInstance(modelRoot,
@@ -542,12 +535,11 @@ public class Cl_c {
     		return result;
 	  	}
     	else if (Ooa_type == Ooatype_c.Interface) {
-    		Object result = modelRoot.getInstanceList(Interface_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Interface_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class Interface_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Interface_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((Interface_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = Interface_c.InterfaceInstance(modelRoot,
@@ -556,12 +548,11 @@ public class Cl_c {
     		return result;
 	  	}
     	else if (Ooa_type == Ooatype_c.Component) {
-    		Object result = modelRoot.getInstanceList(Component_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Component_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class Component_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Component_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((Component_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = Component_c.ComponentInstance(modelRoot,
@@ -570,12 +561,11 @@ public class Cl_c {
     		return result;
   		}
     	else if (Ooa_type == Ooatype_c.ComponentContainer) {
-    		Object result = modelRoot.getInstanceList(Component_c.class).get(Ooa_id);
+    		Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Component_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 class Component_query_c implements ClassQueryInterface_c {
                     public boolean evaluate(Object selected) {
-                        return ((Component_c) selected).getId().equals(
-                            Ooa_id);
+                        return ((Component_c) selected).getId().equals(Ooa_id);
                     }
                 }
                 result = Component_c.ComponentInstance(modelRoot,
@@ -584,8 +574,7 @@ public class Cl_c {
     		return result;
   		}
     	else if (Ooa_type == Ooatype_c.EE) {
-            Object result = modelRoot.getInstanceList(ExternalEntity_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ExternalEntity_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of S_EE where (selected.EE_ID == self.OOA_ID)
 	            class ExternalEntity_test21_c implements ClassQueryInterface_c {
@@ -601,8 +590,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Class) {
-            Object result = modelRoot.getInstanceList(ModelClass_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ModelClass_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of O_OBJ where (selected.Obj_ID == self.OOA_ID)
 	            class ModelClass_test21_c implements ClassQueryInterface_c {
@@ -618,8 +606,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ImportedClass) {
-            Object result = modelRoot.getInstanceList(ImportedClass_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ImportedClass_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of O_IOBJ where (selected.IObj_ID == self.OOA_ID)
 	            class ImportedClass_test21_c implements ClassQueryInterface_c {
@@ -635,8 +622,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Association) {
-            Object result = modelRoot.getInstanceList(Association_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Association_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of R_REL where (selected.Rel_ID == self.OOA_ID)
 	            class Association_test21_c implements ClassQueryInterface_c {
@@ -652,7 +638,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.StateMachine) {
-            StateMachine_c sm = (StateMachine_c) modelRoot.getInstanceList(StateMachine_c.class).get(Ooa_id);
+            StateMachine_c sm = (StateMachine_c) Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(StateMachine_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             Object result = InstanceStateMachine_c.getOneSM_ISMOnR517(sm);
             if (result == null) {
             	result = ClassStateMachine_c.getOneSM_ASMOnR517(sm);;
@@ -692,8 +678,7 @@ public class Cl_c {
             // select any represents from instances of SM_TXN where (selected.SMTxn_ID == self.OOA_ID)
             class Transition_test22_c implements ClassQueryInterface_c {
                 public boolean evaluate(Object selected) {
-                    return ((Transition_c) selected).getTrans_id().equals(
-                        Ooa_id);
+                    return ((Transition_c) selected).getTrans_id().equals(Ooa_id);
                 }
             }
 	
@@ -703,15 +688,13 @@ public class Cl_c {
             // select any represents from instances of SM_TXN where (selected.SMTxn_ID == self.OOA_ID)
             class CreationTransition_test22_c implements ClassQueryInterface_c {
                 public boolean evaluate(Object selected) {
-                    return ((CreationTransition_c) selected).getTrans_id().equals(
-                        Ooa_id);
+                    return ((CreationTransition_c) selected).getTrans_id().equals(Ooa_id);
                 }
             }
 	
             return CreationTransition_c.CreationTransitionInstance(modelRoot, new CreationTransition_test22_c());
         } else if (Ooa_type == Ooatype_c.EnumerationDataType) {
-            Object result = modelRoot.getInstanceList(EnumerationDataType_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(EnumerationDataType_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of SM_TXN where (selected.SMTxn_ID == self.OOA_ID)
 	            class EnumerationDataType_test31_c
@@ -728,8 +711,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ConstantSpecification) {
-            Object result = modelRoot.getInstanceList(ConstantSpecification_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ConstantSpecification_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
                 // select any represents from instances of SM_TXN where (selected.SMTxn_ID == self.OOA_ID)
                 class ConstantSpecification_test31_c
@@ -746,8 +728,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.StructuredDataType) {
-            Object result = modelRoot.getInstanceList(StructuredDataType_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(StructuredDataType_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of S_SDT where (selected.DT_ID == self.OOA_ID)
 	            class StructuredDataType_test31_c
@@ -764,8 +745,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Supertype) {
-            Object result = modelRoot.getInstanceList(Association_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Association_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ClassAsSupertype_test26_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object selected) {
@@ -782,15 +762,14 @@ public class Cl_c {
         } else if (Ooa_type == Ooatype_c.Subtype) {
             class ClassAsSubtype_test27_c implements ClassQueryInterface_c {
                 public boolean evaluate(Object selected) {
-                    return ((ClassAsSubtype_c) selected).Get_ooa_id().equals(
-                        Ooa_id);
+                    return ((ClassAsSubtype_c) selected).Get_ooa_id().equals(Ooa_id);
                 }
             }
 	
             return ClassAsSubtype_c.ClassAsSubtypeInstance(modelRoot,
                     new ClassAsSubtype_test27_c());
         } else if (Ooa_type == Ooatype_c.AssociativeLink) {
-        	Association_c assoc = (Association_c) modelRoot.getInstanceList(Association_c.class).get(Ooa_id);
+        	Association_c assoc = (Association_c) Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Association_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             Object result = ClassAsLink_c.getOneR_ASSROnR211(LinkedAssociation_c.getOneR_ASSOCOnR206(assoc));
             if (result == null) {
 	            class ClassAsLink_test28_c implements ClassQueryInterface_c {
@@ -806,8 +785,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.CoreDataType) {
-            Object result = modelRoot.getInstanceList(CoreDataType_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(CoreDataType_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            // select any represents from instances of SM_TXN where (selected.SMTxn_ID == self.OOA_ID)
 	            class CoreDataType_test29_c implements ClassQueryInterface_c {
@@ -823,8 +801,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.UserDataType) {
-            Object result = modelRoot.getInstanceList(UserDataType_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(UserDataType_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class UserDataType_test30_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object selected) {
@@ -839,8 +816,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Lifeline) {
-            Object result = modelRoot.getInstanceList(Lifespan_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Lifespan_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Lifeline_test_30_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object selected) {
@@ -854,8 +830,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.TimingMark) {
-            Object result = modelRoot.getInstanceList(TimingMark_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(TimingMark_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class TimingMark_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -874,8 +849,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.TimeSpan) {
-            Object result = modelRoot.getInstanceList(TimeSpan_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(TimeSpan_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class TimeSpan_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -893,8 +867,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ClassInstanceParticipant) {
-            Object result = modelRoot.getInstanceList(ClassInstanceParticipant_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ClassInstanceParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ClassInstanceParticipant_Query_c
 	                    implements ClassQueryInterface_c {
@@ -914,8 +887,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.SynchronousMessage) {
-            Object result = modelRoot.getInstanceList(SynchronousMessage_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(SynchronousMessage_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class SynchronousMessage_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -934,8 +906,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.AsynchronousMessage) {
-            Object result = modelRoot.getInstanceList(AsynchronousMessage_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(AsynchronousMessage_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class AsynchronousMessage_Query_c
 	                    implements ClassQueryInterface_c {
@@ -955,8 +926,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ReturnMessage) {
-            Object result = modelRoot.getInstanceList(ReturnMessage_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ReturnMessage_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ReturnMessage_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -975,8 +945,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.CommunicationSynchronousMessage) {
-            Object result = modelRoot.getInstanceList(SynchronousMessage_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(SynchronousMessage_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class CommunicationSynchronousMessage_Query_c
 	                    implements ClassQueryInterface_c {
@@ -996,8 +965,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.CommunicationAsynchronousMessage) {
-            Object result = modelRoot.getInstanceList(AsynchronousMessage_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(AsynchronousMessage_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class CommunicationAsynchronousMessage_Query_c
 	                    implements ClassQueryInterface_c {
@@ -1017,8 +985,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.CommunicationReturnMessage) {
-            Object result = modelRoot.getInstanceList(ReturnMessage_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ReturnMessage_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class CommunicationReturnMessage_Query_c
 	                    implements ClassQueryInterface_c {
@@ -1038,8 +1005,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ClassParticipant) {
-            Object result = modelRoot.getInstanceList(ClassParticipant_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ClassParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ClassParticipant_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1058,8 +1024,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ExternalEntityParticipant) {
-            Object result = modelRoot.getInstanceList(ExternalEntityParticipant_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ExternalEntityParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ExternalEntityParticipant_Query_c
 	                    implements ClassQueryInterface_c {
@@ -1080,8 +1045,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Actor) {
-            Object result = modelRoot.getInstanceList(ActorParticipant_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ActorParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Actor_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1100,8 +1064,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.CommunicationLink) {
-            Object result = modelRoot.getInstanceList(CommunicationLink_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(CommunicationLink_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class CommunicationLink_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1120,8 +1083,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.UseCase) {
-            Object result = modelRoot.getInstanceList(UseCaseParticipant_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(UseCaseParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class UseCase_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1140,8 +1102,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.UseCaseBinaryAssociation) {
-            Object result = modelRoot.getInstanceList(BinaryAssociation_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(BinaryAssociation_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class UseCaseBinaryAssociation_Query_c
 	                    implements ClassQueryInterface_c {
@@ -1161,8 +1122,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Include) {
-            Object result = modelRoot.getInstanceList(Include_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Include_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Include_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1179,8 +1139,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Extend) {
-            Object result = modelRoot.getInstanceList(Extend_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Extend_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Extend_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1197,8 +1156,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Generalization) {
-            Object result = modelRoot.getInstanceList(Generalization_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Generalization_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Generalization_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1217,8 +1175,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.Partition) {
-            Object result = modelRoot.getInstanceList(ActivityPartition_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ActivityPartition_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Partition_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1237,8 +1194,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.InitialNode) {
-            Object result = modelRoot.getInstanceList(InitialNode_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(InitialNode_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class InitialNode_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1257,8 +1213,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ForkJoin) {
-            Object result = modelRoot.getInstanceList(ForkJoinNode_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ForkJoinNode_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ForkJoin_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1277,8 +1232,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ActivityEdge) {
-            Object result = modelRoot.getInstanceList(ActivityEdge_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ActivityEdge_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ActivityEdge_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1297,8 +1251,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ActivityFinalNode) {
-            Object result = modelRoot.getInstanceList(ActivityFinalNode_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ActivityFinalNode_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ActivityFinalNode_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1317,8 +1270,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.FlowFinalNode) {
-            Object result = modelRoot.getInstanceList(FlowFinalNode_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(FlowFinalNode_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class FlowFinalNode_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1337,8 +1289,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.GenericAction) {
-            Object result = modelRoot.getInstanceList(ActivityDiagramAction_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ActivityDiagramAction_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class GenericAction_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1357,8 +1308,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.DecisionMergeNode) {
-            Object result = modelRoot.getInstanceList(DecisionMergeNode_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(DecisionMergeNode_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class DecisionMergeNode_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1377,8 +1327,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.AcceptEventAction) {
-            Object result = modelRoot.getInstanceList(AcceptEventAction_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(AcceptEventAction_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class AcceptEventAction_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1397,8 +1346,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.AcceptTimeEventAction) {
-            Object result = modelRoot.getInstanceList(AcceptTimeEventAction_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(AcceptTimeEventAction_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class AcceptTimeEventAction_Query_c
 	                    implements ClassQueryInterface_c {
@@ -1418,8 +1366,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.SendSignalAction) {
-            Object result = modelRoot.getInstanceList(SendSignal_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(SendSignal_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class SendSignalAction_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1437,8 +1384,7 @@ public class Cl_c {
 
             return result;
         } else if (Ooa_type == Ooatype_c.ObjectNode) {
-            Object result = modelRoot.getInstanceList(ObjectNode_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(ObjectNode_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class ObjectNode_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1456,8 +1402,7 @@ public class Cl_c {
             }
             return result;
         } else if (Ooa_type == Ooatype_c.PackageParticipant) {
-            Object result = modelRoot.getInstanceList(PackageParticipant_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(PackageParticipant_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class PackageParticipant_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1475,8 +1420,7 @@ public class Cl_c {
             }
             return result;
         } else if (Ooa_type == Ooatype_c.Exception) {
-            Object result = modelRoot.getInstanceList(Exception_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Exception_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Exception_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1494,8 +1438,7 @@ public class Cl_c {
             }
             return result;
         } else if (Ooa_type == Ooatype_c.Satisfaction) {
-            Object result = modelRoot.getInstanceList(Satisfaction_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Satisfaction_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Satisfaction_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
@@ -1513,8 +1456,7 @@ public class Cl_c {
             }
             return result;
         } else if (Ooa_type == Ooatype_c.Deployment) {
-            Object result = modelRoot.getInstanceList(Deployment_c.class).get(
-                    Ooa_id);
+            Object result = Stream.concat(Stream.of(modelRoot), Stream.of(Ooaofooa.getInstances())).map(mr -> mr.getInstanceList(Deployment_c.class).get(Ooa_id)).filter(o -> o != null).findAny().orElse(null);
             if (result == null) {
 	            class Deployment_Query_c implements ClassQueryInterface_c {
 	                public boolean evaluate(Object candidate) {
