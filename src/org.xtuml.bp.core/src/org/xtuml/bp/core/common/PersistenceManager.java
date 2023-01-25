@@ -470,7 +470,7 @@ public class PersistenceManager {
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
 		// Load each PMC in its own thread
-		final Collection<Thread> loaders = pmcs.stream().map(pmc -> new Thread(() -> {
+		final Collection<Thread> loaders = pmcs.stream().filter(pmc -> !reload && !pmc.isLoaded()).map(pmc -> new Thread(() -> {
 			try {
 				pmc.load(monitor, parseOal, reload);
 				completeSelections();

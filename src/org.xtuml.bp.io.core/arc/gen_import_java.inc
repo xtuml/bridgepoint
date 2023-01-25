@@ -562,6 +562,16 @@ public class ${class_name} extends CoreImport
       if (m_success) {
         Ooaofooa modelRoot = getModelRoot();
         ModelRoot graphicsModelRoot = getGraphicsModelRoot();
+
+        // set up globals
+        if (modelRoot.getId().equals(Ooaofooa.DEFAULT_WORKING_MODELSPACE)
+            && m_component.getRootModelElement() instanceof SystemModel_c) {
+          SystemModel_c system = (SystemModel_c) m_component.getRootModelElement();
+          // We always set them up, even if we don't use them
+          helper.setUpGlobals(system);
+        }
+
+        // batch relate instances
         ModelRoot.disableChangeNotification();
         try {
           for (int i = 0; i < loadedInstances.size(); i++) {
