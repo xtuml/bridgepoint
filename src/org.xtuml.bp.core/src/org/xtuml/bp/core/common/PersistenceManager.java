@@ -473,6 +473,7 @@ public class PersistenceManager {
 		final Collection<Thread> loaders = pmcs.stream().filter(pmc -> !reload && !pmc.isLoaded()).map(pmc -> new Thread(() -> {
 			try {
 				pmc.load(monitor, parseOal, reload);
+				System.out.println("LOADED: " + pmc.getFile());
 				completeSelections();
 			} catch (CoreException e1) {
 				CorePlugin.logError("Problem component", e1);
