@@ -70,13 +70,12 @@ public class OoaofgraphicsBase extends ModelRoot
     
     public void delete() 
     {
-    	instanceListMap.clear();
+    	clearInstanceLists();
         rootInstanceMap.remove(rootId);
     }
 	
     public void batchUnrelateAll() {
-    	for(Object key : instanceListMap.keySet()) {
-    		InstanceList instanceList = instanceListMap.get(key);
+    	for(InstanceList instanceList : getInstanceLists()) {
     		for(NonRootModelElement object : instanceList) {
     			object.batchUnrelate();
     		}

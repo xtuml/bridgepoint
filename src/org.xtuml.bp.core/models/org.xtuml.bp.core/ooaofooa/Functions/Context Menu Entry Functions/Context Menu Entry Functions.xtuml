@@ -7831,6 +7831,8 @@ INSERT INTO S_SYNC
 	'select any is from instances of C_AS where USER::selectOne(id:selected.Id);
 if(not_empty is)
   is.Direction = IFDirectionType::ServerClient;
+  select one ep related by is->C_EP[R4004];
+  ep.Direction = IFDirectionType::ServerClient;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -7851,6 +7853,8 @@ INSERT INTO S_SYNC
 	'select any io from instances of C_IO where USER::selectOne(id:selected.Id);
 if(not_empty io)
   io.Direction = IFDirectionType::ServerClient;
+  select one ep related by io->C_EP[R4004];
+  ep.Direction = IFDirectionType::ServerClient;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -7871,6 +7875,8 @@ INSERT INTO S_SYNC
 	'select any is from instances of C_AS where USER::selectOne(id:selected.Id);
 if(not_empty is)
   is.Direction = IFDirectionType::ClientServer;
+  select one ep related by is->C_EP[R4004];
+  ep.Direction = IFDirectionType::ClientServer;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -7891,6 +7897,8 @@ INSERT INTO S_SYNC
 	'select any io from instances of C_IO where USER::selectOne(id:selected.Id);
 if(not_empty io)
   io.Direction = IFDirectionType::ClientServer;
+  select one ep related by io->C_EP[R4004];
+  ep.Direction = IFDirectionType::ClientServer;
 end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,

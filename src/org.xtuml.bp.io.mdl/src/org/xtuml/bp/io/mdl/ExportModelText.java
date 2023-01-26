@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,6 +22,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 
 public class ExportModelText extends ExportModelComponent {
 
@@ -65,36 +68,37 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			// get parent package
-			Package_c parent_pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(inst));
+			final Package_c parent_pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(inst));
 			append("%swithin %s is\n\n", getTab(), parent_pkg.getPath());
 			tabDepth++;
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
 			append("%sinterface %s is\n", getTab(), inst.getName()); // TODO sanitize name
 			tabDepth++;
 
 			// interface operations
-			ExecutableProperty_c[] ExecutableProperty_c4003_1 = ExecutableProperty_c.getManyC_EPsOnR4004(
+			final ExecutableProperty_c[] c_eps_1 = ExecutableProperty_c.getManyC_EPsOnR4004(
 					InterfaceOperation_c.getManyC_IOsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
-			if (ExecutableProperty_c4003_1.length > 0) {
-			  append("%s\n", getTab());
+			if (c_eps_1.length > 0) {
+				append("%s\n", getTab());
 			}
-			for (int ExecutableProperty_c_index = 0; ExecutableProperty_c_index < ExecutableProperty_c4003_1.length; ++ExecutableProperty_c_index) {
-				export_ExecutableProperty_c(ExecutableProperty_c4003_1[ExecutableProperty_c_index], pm, writeAsProxies,
-						isPersistable);
+			for (ExecutableProperty_c c_ep : c_eps_1) {
+				export_ExecutableProperty_c(c_ep, pm, writeAsProxies, isPersistable);
 			}
 
 			// interface signals
-			ExecutableProperty_c[] ExecutableProperty_c4003_2 = ExecutableProperty_c.getManyC_EPsOnR4004(
+			final ExecutableProperty_c[] c_eps_2 = ExecutableProperty_c.getManyC_EPsOnR4004(
 					InterfaceSignal_c.getManyC_ASsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
-			if (ExecutableProperty_c4003_2.length > 0) {
-			  append("%s\n", getTab());
+			if (c_eps_2.length > 0) {
+				append("%s\n", getTab());
 			}
-			for (int ExecutableProperty_c_index = 0; ExecutableProperty_c_index < ExecutableProperty_c4003_2.length; ++ExecutableProperty_c_index) {
-				export_ExecutableProperty_c(ExecutableProperty_c4003_2[ExecutableProperty_c_index], pm, writeAsProxies,
-						isPersistable);
+			for (ExecutableProperty_c c_ep : c_eps_2) {
+				export_ExecutableProperty_c(c_ep, pm, writeAsProxies, isPersistable);
 			}
 
-			if (ExecutableProperty_c4003_1.length > 0 || ExecutableProperty_c4003_2.length > 0) {
-			  append("%s\n", getTab());
+			if (c_eps_1.length + c_eps_2.length > 0) {
+				append("%s\n", getTab());
 			}
 
 			tabDepth--;
@@ -115,35 +119,40 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// build the parameter list
-			// TODO consider parameter order
-			PropertyParameter_c[] PropertyParameter_c4006 = PropertyParameter_c.getManyC_PPsOnR4006(inst);
-			final String parameterList = Stream.of(PropertyParameter_c4006).map(pp -> {
+			final PropertyParameter_c[] c_pps = PropertyParameter_c.getManyC_PPsOnR4006(inst);
+			new PropertyParameter_cSorter().sort(c_pps);
+			final String parameterList = Stream.of(c_pps).map(c_pp -> {
 				buffers.push(new StringBuilder());
 				try {
-					export_PropertyParameter_c(pp, pm, writeAsProxies, isPersistable);
+					export_PropertyParameter_c(c_pp, pm, writeAsProxies, isPersistable);
 				} catch (IOException e) {
 					throw new UncheckedIOException(e);
 				}
 				return buffers.pop().toString();
 			}).collect(Collectors.joining(", "));
 
-			InterfaceSignal_c InterfaceSignal_c4004 = InterfaceSignal_c.getOneC_ASOnR4004(inst);
-			InterfaceOperation_c InterfaceOperation_c4004 = InterfaceOperation_c.getOneC_IOOnR4004(inst);
-
 			// get the return type if applicable
-			// TODO handle type references, dimensions
-			DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c4004);
-			final String returnTypeRef = returnType != null ? " return " + returnType.getName() : "";
+			final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(inst));
+			final String returnTypeRef = returnType != null ? " return " + getTypeReference(returnType,
+					InterfaceOperation_c.getOneC_IOOnR4004(inst).getReturn_dimensions(), Package_c.getOneEP_PKGOnR8000(
+							PackageableElement_c.getOnePE_PEOnR8001(Interface_c.getOneC_IOnR4003(inst))))
+					: "";
 
 			// get the message direction
-			final String direction = (InterfaceSignal_c4004 != null
-					&& InterfaceSignal_c4004.getDirection() == Ifdirectiontype_c.ClientServer)
-					|| (InterfaceOperation_c4004 != null
-							&& InterfaceOperation_c4004.getDirection() == Ifdirectiontype_c.ClientServer)
-									? "to provider"
-									: "from provider";
+			final String direction = inst.getDirection() == Ifdirectiontype_c.ClientServer ? "to provider"
+					: "from provider";
+
+			// append the description
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			// TODO append parameter descriptions
 
 			// append the message
+			if (inst.getNumb() > 0) {
+				append("%s@message_num(%d);\n", getTab(), inst.getNumb());
+			}
 			append("%smessage %s(%s)%s %s;\n", getTab(), inst.getName(), parameterList, returnTypeRef, direction);
 
 		} else {
@@ -159,13 +168,28 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			// get the parameter type
-			// TODO handle type references, dimensions
-			DataType_c paramType = DataType_c.getOneS_DTOnR4007(inst, true);
-			append("%s: %s", inst.getName(), paramType.getName());
+			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+					getTypeReference(DataType_c.getOneS_DTOnR4007(inst), inst.getDimensions(),
+							Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(
+									Interface_c.getOneC_IOnR4003(ExecutableProperty_c.getOneC_EPOnR4006(inst))))));
 		} else {
 			write_PropertyParameter_c_proxy_sql(inst);
 		}
+	}
+
+	private String getTypeReference(final DataType_c type, final String dims, final Package_c referencePoint) {
+		String ref = "";
+		Matcher m = Pattern.compile("\\[([^\\]]*)\\]").matcher(dims);
+		while (m.find()) {
+			ref += String.format("sequence%s of ", !"".equals(m.group(1)) ? " (" + m.group(1) + ")" : "");
+		}
+		return ref + type.getName(); // TODO get scoped name
+	}
+
+	private String getScopedName(final PackageableElement_c element, final Package_c referencePoint) {
+		// TODO return the smallest scoped name which corresponds to exactly one element
+		// from the given ref point
+		return element.getName();
 	}
 
 	private void append(String format, Object... args) {
