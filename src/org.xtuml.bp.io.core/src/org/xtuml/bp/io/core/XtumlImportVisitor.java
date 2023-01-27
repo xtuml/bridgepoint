@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,19 +17,27 @@ import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
+import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.SearchResultSet_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.util.DimensionsUtil;
+import org.xtuml.bp.io.core.XtumlParser.Array_type_referenceContext;
+import org.xtuml.bp.io.core.XtumlParser.Inst_set_type_referenceContext;
+import org.xtuml.bp.io.core.XtumlParser.Inst_type_referenceContext;
+import org.xtuml.bp.io.core.XtumlParser.Interface_definitionContext;
+import org.xtuml.bp.io.core.XtumlParser.MarkContext;
 import org.xtuml.bp.io.core.XtumlParser.Message_declarationContext;
+import org.xtuml.bp.io.core.XtumlParser.Named_type_referenceContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
 import org.xtuml.bp.io.core.XtumlParser.TargetContext;
@@ -41,17 +48,38 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	private NonRootModelElement currentRoot = null;
 
 	private final DataType_c defaultType;
+	private final DataType_c voidType;
+
+	private static final String MESSAGE_NUM = "message_num";
+
+	// TODO reconsider unique ID strategy
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.modelRoot = modelRoot;
 		this.defaultType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
 				.get("ba5eda7a-def5-0000-0000-000000000002");
+		this.voidType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
+				.get("ba5eda7a-def5-0000-0000-000000000000");
 	}
 
 	@Override
 	public NonRootModelElement visitTarget(TargetContext ctx) {
-		// find or create package TODO create if does not exist
-		final Package_c parent_pkg = (Package_c) findOrCreateParent(ctx.pkg.getText());
+		try {
+			final Package_c parent_pkg = PersistenceManager.getDefaultInstance().selectAndWait(() -> {
+				return Optional.ofNullable(Package_c.PackageInstance(modelRoot,
+						selected -> ((Package_c) selected).getPath().equals(ctx.pkg.getText())));
+			}).get();
+			currentRoot = parent_pkg;
+			return visit(ctx.interface_definition());
+		} catch (InterruptedException | ExecutionException e) {
+			CorePlugin.logError("Failed to find package '" + ctx.pkg.getText() + "'.", e);
+		}
+		return null;
+	}
+
+	@Override
+	public NonRootModelElement visitInterface_definition(Interface_definitionContext ctx) {
+		final Package_c parent_pkg = (Package_c) currentRoot;
 
 		// find or create interface
 		final String iface_name = ctx.iface_name.getText();
@@ -68,6 +96,12 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 		iface.relateAcrossR8001To(pe);
 		iface.setName(ctx.iface_name.getText());
 		currentRoot = iface;
+
+		// set interface description
+		if (ctx.description() != null) {
+			iface.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+					.collect(Collectors.joining(System.lineSeparator())));
+		}
 
 		// link executable properties to interface
 		final List<ExecutableProperty_c> c_eps = ctx.message_declaration().stream()
@@ -97,8 +131,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 		// parse message info
 		final String name = ctx.msg_name.getText();
 		final UUID msg_id = UUID.nameUUIDFromBytes((currentRoot.getPath() + "::" + name).getBytes());
-		final String typeName = ctx.type_name != null ? ctx.type_name.getText() : null;
-		final int direction = ctx.to != null ? Ifdirectiontype_c.ClientServer : Ifdirectiontype_c.ServerClient;
+		final int direction = "to".equals(ctx.direction.getText()) ? Ifdirectiontype_c.ClientServer
+				: Ifdirectiontype_c.ServerClient;
 
 		// find or create executable property
 		ExecutableProperty_c c_ep = (ExecutableProperty_c) modelRoot.getInstanceList(ExecutableProperty_c.class)
@@ -110,30 +144,56 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 			c_ep.convertFromProxy();
 		}
 		c_ep.setDirection(direction);
-		if (typeName != null) {
+		if (ctx.type_reference() != null) {
+			c_ep.unrelateAcrossR4004From(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
 			final InterfaceOperation_c c_io = new InterfaceOperation_c(modelRoot);
-			c_io.relateAcrossR4004To(c_ep);
+			c_io.relateAcrossR4008To(voidType);
+			c_ep.relateAcrossR4004To(c_io);
 		} else {
-			final InterfaceSignal_c c_as = new InterfaceSignal_c(modelRoot);
-			c_as.relateAcrossR4004To(c_ep);
+			c_ep.unrelateAcrossR4004From(InterfaceSignal_c.getOneC_ASOnR4004(c_ep));
+			c_ep.relateAcrossR4004To(new InterfaceSignal_c(modelRoot));
 		}
 
-		// TODO for now, unconditionally delete any existing parameters
-		Stream.of(PropertyParameter_c.getManyC_PPsOnR4006(c_ep)).forEach(PropertyParameter_c::Dispose);
+		// get the message description
+		final String messageDescription = ctx.description() != null ? ctx.description().getText().lines()
+				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "";
+
+		// process marks
+		// TODO eventually, this should tie in with the marking editor, but for
+		// now it is just used to get the message number
+		for (MarkContext mark : ctx.mark()) {
+			if (MESSAGE_NUM.equals(mark.MarkName().getText().substring(1))) {
+				c_ep.setNumb(Integer.parseInt(mark.mark_arguments().mark_argument(0).getText()));
+			}
+		}
 
 		// set subtype specific info
 		final InterfaceOperation_c c_io = InterfaceOperation_c.getOneC_IOOnR4004(c_ep);
 		final InterfaceSignal_c c_as = InterfaceSignal_c.getOneC_ASOnR4004(c_ep);
 		if (c_io != null) {
-			final DataType_c dt = DataType_c.DataTypeInstance(Ooaofooa.getDefaultInstance(),
-					selected -> ((DataType_c) selected).getName().equals(ctx.type_name.getText()));
-			c_io.relateAcrossR4008To(dt);
 			c_io.setName(name);
+			c_io.setDescrip(messageDescription);
 			c_io.setDirection(direction);
+
+			// set return type
+			c_io.unrelateAcrossR4008From(DataType_c.getOneS_DTOnR4008(c_io));
+			c_io.relateAcrossR4008To((DataType_c) Optional.ofNullable(visit(ctx.type_reference())).orElse(voidType));
+
+			// set return dimensions
+			String dim_string = getDimString(ctx.type_reference().array_type_reference());
+			c_io.setReturn_dimensions(dim_string);
+			List<Integer> dims = DimensionsUtil.getDimensionsData(dim_string, c_io);
+			for (int i = 0; i < dims.size(); i++) {
+				c_io.Resizereturn_dimensions(i, dims.get(i), dims.size());
+			}
 		} else {
 			c_as.setName(name);
+			c_as.setDescrip(messageDescription);
 			c_as.setDirection(direction);
 		}
+
+		// delete any existing parameters
+		Stream.of(PropertyParameter_c.getManyC_PPsOnR4006(c_ep)).forEach(PropertyParameter_c::Dispose);
 
 		// link parameters to the message
 		if (ctx.parameter_list() != null) {
@@ -163,69 +223,107 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 		// create a new parameter
 		PropertyParameter_c c_pp = new PropertyParameter_c(modelRoot);
 		c_pp.setName(ctx.param_name.getText());
-		c_pp.relateAcrossR4007To(this.defaultType);
+		c_pp.relateAcrossR4007To(defaultType);
+
+		// set by value/ref
+		c_pp.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);
 
 		// link the data type
+		c_pp.unrelateAcrossR4007From(DataType_c.getOneS_DTOnR4007(c_pp));
+		c_pp.relateAcrossR4007To((DataType_c) Optional.ofNullable(visit(ctx.type_reference())).orElse(defaultType));
+
+		// set the array dimensions
+		String dim_string = getDimString(ctx.type_reference().array_type_reference());
+		c_pp.setDimensions(dim_string);
+		List<Integer> dims = DimensionsUtil.getDimensionsData(dim_string, c_pp);
+		for (int i = 0; i < dims.size(); i++) {
+			c_pp.Resizedimensions(i, dims.get(i), dims.size());
+		}
+
+		return c_pp;
+	}
+
+	@Override
+	public NonRootModelElement visitNamed_type_reference(Named_type_referenceContext ctx) {
 		try {
-			final DataType_c dt = PersistenceManager.getDefaultInstance().selectAndWait(() -> {
-				System.out.println("Selecting in: " + Thread.currentThread().getName());
+			return PersistenceManager.getDefaultInstance().selectAndWait(() -> {
 				List<DataType_c> dts = findVisibleElements(
 						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
 						Elementtypeconstants_c.DATATYPE).stream().map(DataType_c::getOneS_DTOnR8001)
-						.filter(d -> d.getName().endsWith(ctx.type_name.getText())).collect(Collectors.toList());
+						.filter(dt -> dt.getPath().endsWith(ctx.scoped_name().getText())).collect(Collectors.toList());
 				if (dts.isEmpty()) {
 					return Optional.empty();
 				} else {
 					if (dts.size() > 1) {
-						// TODO warn!
+						throw new IllegalArgumentException(
+								"The given path corresponds to more than one unique element");
 					}
 					return Optional.of(dts.get(0));
 				}
 			}).get();
-			c_pp.unrelateAcrossR4007From(DataType_c.getOneS_DTOnR4007(c_pp));
-			c_pp.relateAcrossR4007To(dt);
 		} catch (InterruptedException | ExecutionException e) {
-			// TODO warn!
+			CorePlugin.getDefault().getLog()
+					.warn("Failed to find type '" + ctx.scoped_name().getText() + "' for named type reference.", e);
+			return null;
 		}
-		return c_pp;
 	}
 
-	private NonRootModelElement findOrCreateParent(final String path) {
-		// search for a system model
-		SystemModel_c sys = SystemModel_c.SystemModelInstance(modelRoot,
-				selected -> ((SystemModel_c) selected).getPath().equals(path));
-		if (sys != null) {
-			return sys;
+	@Override
+	public NonRootModelElement visitArray_type_reference(Array_type_referenceContext ctx) {
+		return visit(ctx.type_reference());
+	}
+
+	@Override
+	public NonRootModelElement visitInst_type_reference(Inst_type_referenceContext ctx) {
+		try {
+			return PersistenceManager.getDefaultInstance().selectAndWait(() -> {
+				List<ModelClass_c> objs = findVisibleElements(
+						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
+						Elementtypeconstants_c.CLASS)
+						.stream().map(ModelClass_c::getOneO_OBJOnR8001)
+						.filter(obj -> (Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(obj))
+								.getPath() + "::" + obj.getKey_lett()).endsWith(ctx.scoped_name().getText()))
+						.collect(Collectors.toList());
+				if (objs.isEmpty()) {
+					return Optional.empty();
+				} else {
+					if (objs.size() > 1) {
+						throw new IllegalArgumentException(
+								"The given path corresponds to more than one unique element");
+					}
+					objs.get(0).Newinstancereferencedatatype();
+					return Optional.ofNullable(
+							DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(objs.get(0),
+									selected -> !((InstanceReferenceDataType_c) selected).getIsset())));
+				}
+			}).get();
+		} catch (InterruptedException | ExecutionException e) {
+			CorePlugin.getDefault().getLog()
+					.warn("Failed to find class '" + ctx.scoped_name().getText() + "' for instance type reference.", e);
+			return null;
 		}
+	}
 
-		// search for a package
-		Package_c pkg = Package_c.PackageInstance(modelRoot, selected -> ((Package_c) selected).getPath().equals(path));
-		if (pkg != null) {
-			return pkg;
+	@Override
+	public NonRootModelElement visitInst_set_type_reference(Inst_set_type_referenceContext ctx) {
+		return DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(
+				ModelClass_c.getOneO_OBJOnR123(
+						InstanceReferenceDataType_c.getOneS_IRDTOnR17((DataType_c) visit(ctx.inst_type_reference()))),
+				selected -> ((InstanceReferenceDataType_c) selected).getIsset()));
+	}
+
+	private String getDimString(final Array_type_referenceContext ctx) {
+		String dim_string = "";
+		Array_type_referenceContext array_type_ref = ctx;
+		while (array_type_ref != null) {
+			if (array_type_ref.bound != null) {
+				dim_string += "[" + array_type_ref.bound.getText() + "]";
+			} else {
+				dim_string += "[]";
+			}
+			array_type_ref = array_type_ref.type_reference().array_type_reference();
 		}
-
-		// TODO search for a component?
-
-		// create new package
-		pkg = new Package_c(modelRoot);
-		pkg.setName(path.substring(path.lastIndexOf("::") + 2)); // Note: assumes at least one '::' in the path
-		PackageableElement_c pe = new PackageableElement_c(modelRoot, UUID.randomUUID(), Visibility_c.Public, null,
-				null, Elementtypeconstants_c.PACKAGE);
-		pkg.relateAcrossR8001To(pe);
-
-		// find or create the parent
-		final NonRootModelElement parent = findOrCreateParent(path.substring(0, path.lastIndexOf("::")));
-		if (parent instanceof SystemModel_c) {
-			pkg.relateAcrossR1401To((SystemModel_c) parent);
-			pkg.relateAcrossR1405To((SystemModel_c) parent);
-		} else if (parent instanceof Package_c) {
-			pe.relateAcrossR8000To((Package_c) parent);
-			sys = SystemModel_c.getOneS_SYSOnR1405((Package_c) parent);
-			pkg.relateAcrossR1405To(sys);
-			// } else if (parent instanceof Component_c) { // TODO?
-		}
-
-		return pkg;
+		return dim_string;
 	}
 
 	private List<PackageableElement_c> findVisibleElements(final PackageableElement_c referencePe,
@@ -235,19 +333,17 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 		if (pkg != null) {
 			pkg.Clearscope();
 			pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), elementType);
-			final SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg, candidate -> {
-				final SearchResultSet_c selected = (SearchResultSet_c) candidate;
-				return (selected.getName().equals("") && selected.getType() == elementType);
-			});
+			final SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg,
+					selected -> "".equals(((SearchResultSet_c) selected).getName())
+							&& ((SearchResultSet_c) selected).getType() == elementType);
 			return List
 					.of(PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results)));
 		} else if (comp != null) {
 			comp.Clearscope();
 			comp.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), "", comp.getId(), elementType);
-			final ComponentResultSet_c results = ComponentResultSet_c.getOnePE_CRSOnR8007(comp, candidate -> {
-				final ComponentResultSet_c selected = (ComponentResultSet_c) candidate;
-				return (selected.getName().equals("") && selected.getType() == elementType);
-			});
+			final ComponentResultSet_c results = ComponentResultSet_c.getOnePE_CRSOnR8007(comp,
+					selected -> "".equals(((ComponentResultSet_c) selected).getName())
+							&& ((ComponentResultSet_c) selected).getType() == elementType);
 			return List.of(
 					PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
 

@@ -14,9 +14,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
+import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -178,18 +180,22 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	private String getTypeReference(final DataType_c type, final String dims, final Package_c referencePoint) {
-		String ref = "";
+		String type_ref = "";
 		Matcher m = Pattern.compile("\\[([^\\]]*)\\]").matcher(dims);
 		while (m.find()) {
-			ref += String.format("sequence%s of ", !"".equals(m.group(1)) ? " (" + m.group(1) + ")" : "");
+			type_ref += String.format("sequence%s of ", !"".equals(m.group(1)) ? " (" + m.group(1) + ")" : "");
 		}
-		return ref + type.getName(); // TODO get scoped name
-	}
-
-	private String getScopedName(final PackageableElement_c element, final Package_c referencePoint) {
-		// TODO return the smallest scoped name which corresponds to exactly one element
-		// from the given ref point
-		return element.getName();
+		final InstanceReferenceDataType_c irdt = InstanceReferenceDataType_c.getOneS_IRDTOnR17(type);
+		if (irdt != null) {
+			final ModelClass_c obj = ModelClass_c.getOneO_OBJOnR123(irdt);
+			if (irdt.getIsset()) {
+				type_ref += "set of ";
+			}
+			type_ref += "instance of " + obj.getKey_lett(); // TODO get scoped name
+		} else {
+			type_ref += type.getName(); // TODO get scoped name
+		}
+		return type_ref;
 	}
 
 	private void append(String format, Object... args) {

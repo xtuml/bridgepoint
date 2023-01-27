@@ -635,6 +635,10 @@ public class PersistableModelComponent implements Comparable {
 			if (validate_result > 0) {
 				importer.run(monitor);
 				NonRootModelElement rootME = importer.getRootModelElement();
+				if (rootME == null) {
+          // TODO levi
+					throw new RuntimeException();
+				}
 				status = STATUS_LOADED;
 				Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
 				setRootModelElement(rootME);
