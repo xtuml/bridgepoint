@@ -634,14 +634,17 @@ public class PersistableModelComponent implements Comparable {
 
 			if (validate_result > 0) {
 				importer.run(monitor);
-				NonRootModelElement rootME = importer.getRootModelElement();
-				if (rootME == null) {
-          // TODO levi
-					throw new RuntimeException();
+				if (importer.getSuccessful()) {
+					NonRootModelElement rootME = importer.getRootModelElement();
+					status = STATUS_LOADED;
+					Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
+					setRootModelElement(rootME);
+				} else {
+					status = STATUS_NOTLOADED;
+					PersistenceManager.addInconsistentComponent(this);
+					deleteSelfAndChildren();
+					UIUtil.refresh(getRootModelElement());
 				}
-				status = STATUS_LOADED;
-				Ooaofooa.getDefaultInstance().fireModelElementLoaded(rootME);
-				setRootModelElement(rootME);
 			}
 		} catch (FileNotFoundException e) {
 			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
@@ -659,7 +662,7 @@ public class PersistableModelComponent implements Comparable {
 	}
 
 	public synchronized void finishLoad(IProgressMonitor monitor) throws CoreException {
-		if (importer != null) {
+		if (importer != null && status == STATUS_LOADED) {
 			importer.finishComponentLoad(monitor, true);
 			if (!importer.getActionSuccessful()) {
 				CorePlugin.logError(

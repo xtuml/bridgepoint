@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -43,7 +42,6 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
@@ -387,13 +385,18 @@ public abstract class CoreImport implements IModelImport {
 			});
 
 			// parse the file
-			ParserRuleContext ctx = parser.target();
-			XtumlImportVisitor visitor = new XtumlImportVisitor(m_modelRoot);
-			rootModelElement = (NonRootModelElement) visitor.visit(ctx);
-			// TODO error handling
-			pm.done();
-			loadedRootElements.put(m_fileName, rootModelElement);
-			return true;
+			try {
+				ParserRuleContext ctx = parser.target();
+				XtumlImportVisitor visitor = new XtumlImportVisitor(m_modelRoot);
+				rootModelElement = (NonRootModelElement) visitor.visit(ctx);
+				loadedRootElements.put(m_fileName, rootModelElement);
+				return true;
+			} catch (ParseCancellationException | XtumlLoadException e) {
+				CorePlugin.logError("Failed to load file: " + m_fileName, e);
+				return false;
+			} finally {
+				pm.done();
+			}
 		} catch (IOException e) {
 			m_errorMessage = "IO exception: " + e; //$NON-NLS-1$
 		}
@@ -642,47 +645,10 @@ public abstract class CoreImport implements IModelImport {
 		}
 	}
 
-	private static final class SemVer implements Comparable<SemVer> {
+	public static class XtumlLoadException extends RuntimeException {
 
-		private final int major;
-		private final int minor;
-		private final int patch;
-
-		private SemVer(final String version) throws NumberFormatException {
-			final String[] versions = version.split("\\.", 3);
-			major = Integer.parseInt(versions[0]);
-			minor = Integer.parseInt(versions[1]);
-			patch = Integer.parseInt(versions[2]);
-
-		}
-
-		public int getMajor() {
-			return major;
-		}
-
-		public int getMinor() {
-			return minor;
-		}
-
-		public int getPatch() {
-			return patch;
-		}
-
-		@Override
-		public String toString() {
-			return String.format("%d.%d.%d", major, minor, patch);
-		}
-
-		@Override
-		public int compareTo(SemVer o) {
-			final Comparator<SemVer> c = Comparator.comparing(SemVer::getMajor).thenComparing(SemVer::getMinor)
-					.thenComparing(SemVer::getPatch);
-			return c.compare(this, o);
-		}
-
-		public static SemVer of(final String version) throws NumberFormatException {
-			return new SemVer(version);
-		}
+		private static final long serialVersionUID = 1L;
+		
 	}
 
 	public boolean getSuccessful() {
