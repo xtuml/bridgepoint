@@ -32,9 +32,12 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ActionFile;
@@ -271,9 +274,9 @@ public abstract class CoreImport implements IModelImport {
 			BufferedReader dis = new BufferedReader(getInputReader());
 			readHeader();
 			// TODO
-		  if (m_header.valid && m_header.componentType.equals("Interface")) {
-			  return 1;
-		  }
+			if (m_header.valid && m_header.componentType.equals("Interface")) {
+				return 1;
+			}
 			String s = dis.readLine();
 			while (s != null) {
 				if (s.toUpperCase().indexOf("INSERT") == 0) //$NON-NLS-1$
@@ -314,7 +317,7 @@ public abstract class CoreImport implements IModelImport {
 
 			// clean up tasks
 			performCleanUp(pm);
-		
+
 			// if the version is earlier than 7.3.0, parse as SQL insert statements
 			if (m_header.valid && m_header.persistenceFormat == PersistenceFormat.TEXT) {
 				return doLoadText(pm);
@@ -359,7 +362,7 @@ public abstract class CoreImport implements IModelImport {
 		}
 		return false;
 	}
-	
+
 	private static Map<String, NonRootModelElement> loadedRootElements = new HashMap<>();
 
 	protected boolean doLoadText(IProgressMonitor pm) {
@@ -384,10 +387,14 @@ public abstract class CoreImport implements IModelImport {
 				}
 			});
 
+			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			IPath location = Path.fromOSString(m_inFile.getAbsolutePath());
+			IFile ifile = workspace.getRoot().getFileForLocation(location);
+
 			// parse the file
 			try {
 				ParserRuleContext ctx = parser.target();
-				XtumlImportVisitor visitor = new XtumlImportVisitor(m_modelRoot);
+				XtumlImportVisitor visitor = new XtumlImportVisitor(m_modelRoot, ifile);
 				rootModelElement = (NonRootModelElement) visitor.visit(ctx);
 				loadedRootElements.put(m_fileName, rootModelElement);
 				return true;
@@ -500,7 +507,7 @@ public abstract class CoreImport implements IModelImport {
 
 	public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
 	}
-	
+
 	public class FileHeader implements IFileHeader {
 		/**
 		 * Prior to persistence version 7.1.1, the product version number found in the
@@ -515,11 +522,11 @@ public abstract class CoreImport implements IModelImport {
 		String fileFormatVersion;
 
 		String componentType;
-		
+
 		PersistenceFormat persistenceFormat;
 
 		boolean valid = false;
-		
+
 		public String getFileFormatVersion() {
 			return fileFormatVersion;
 		}
@@ -531,7 +538,7 @@ public abstract class CoreImport implements IModelImport {
 		public String getProductVersion() {
 			return productVersion;
 		}
-		
+
 		public PersistenceFormat getPersistenceFormat() {
 			return persistenceFormat;
 		}
@@ -600,8 +607,8 @@ public abstract class CoreImport implements IModelImport {
 			}
 
 			componentType = words[4];
-			
-			switch(words[0]) {
+
+			switch (words[0]) {
 			case "//":
 				persistenceFormat = PersistenceFormat.TEXT;
 				break;
@@ -648,7 +655,7 @@ public abstract class CoreImport implements IModelImport {
 	public static class XtumlLoadException extends RuntimeException {
 
 		private static final long serialVersionUID = 1L;
-		
+
 	}
 
 	public boolean getSuccessful() {

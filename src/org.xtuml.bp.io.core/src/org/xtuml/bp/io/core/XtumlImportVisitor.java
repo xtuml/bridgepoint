@@ -4,10 +4,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.IResource;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
 import org.xtuml.bp.core.Component_c;
@@ -45,6 +47,7 @@ import org.xtuml.bp.io.core.XtumlParser.TargetContext;
 public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 
 	private final Ooaofooa modelRoot;
+	private final IResource resource;
 	private NonRootModelElement currentRoot = null;
 
 	private final DataType_c defaultType;
@@ -54,8 +57,9 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 
 	// TODO reconsider unique ID strategy
 
-	public XtumlImportVisitor(final Ooaofooa modelRoot) {
+	public XtumlImportVisitor(final Ooaofooa modelRoot, final IResource resource) {
 		this.modelRoot = modelRoot;
+		this.resource = resource;
 		this.defaultType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
 				.get("ba5eda7a-def5-0000-0000-000000000002");
 		this.voidType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
@@ -65,16 +69,17 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	@Override
 	public NonRootModelElement visitTarget(TargetContext ctx) {
 		try {
-			final Package_c parent_pkg = PersistenceManager.getDefaultInstance().selectAndWait(() -> {
+			final Package_c parent_pkg = PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
 				return Optional.ofNullable(Package_c.PackageInstance(modelRoot,
 						selected -> ((Package_c) selected).getPath().equals(ctx.pkg.getText())));
 			}).get();
 			currentRoot = parent_pkg;
 			return visit(ctx.interface_definition());
-		} catch (InterruptedException | ExecutionException e) {
+		} catch (InterruptedException | ExecutionException | CancellationException e) {
 			CorePlugin.logError("Failed to find package '" + ctx.pkg.getText() + "'.", e);
 		}
-		return null;
+		throw new CoreImport.XtumlLoadException();
+		// return null;
 	}
 
 	@Override
@@ -246,7 +251,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	@Override
 	public NonRootModelElement visitNamed_type_reference(Named_type_referenceContext ctx) {
 		try {
-			return PersistenceManager.getDefaultInstance().selectAndWait(() -> {
+			return PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
 				List<DataType_c> dts = findVisibleElements(
 						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
 						Elementtypeconstants_c.DATATYPE).stream().map(DataType_c::getOneS_DTOnR8001)
@@ -261,10 +266,11 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 					return Optional.of(dts.get(0));
 				}
 			}).get();
-		} catch (InterruptedException | ExecutionException e) {
+		} catch (InterruptedException | ExecutionException | CancellationException e) {
 			CorePlugin.getDefault().getLog()
 					.warn("Failed to find type '" + ctx.scoped_name().getText() + "' for named type reference.", e);
-			return null;
+			throw new CoreImport.XtumlLoadException();
+			// return null;
 		}
 	}
 
@@ -276,7 +282,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	@Override
 	public NonRootModelElement visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
-			return PersistenceManager.getDefaultInstance().selectAndWait(() -> {
+			return PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
 				List<ModelClass_c> objs = findVisibleElements(
 						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
 						Elementtypeconstants_c.CLASS)
@@ -297,10 +303,11 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 									selected -> !((InstanceReferenceDataType_c) selected).getIsset())));
 				}
 			}).get();
-		} catch (InterruptedException | ExecutionException e) {
+		} catch (InterruptedException | ExecutionException | CancellationException e) {
 			CorePlugin.getDefault().getLog()
 					.warn("Failed to find class '" + ctx.scoped_name().getText() + "' for instance type reference.", e);
-			return null;
+			throw new CoreImport.XtumlLoadException();
+			// return null;
 		}
 	}
 

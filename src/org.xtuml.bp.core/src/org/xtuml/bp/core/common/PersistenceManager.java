@@ -30,7 +30,10 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -78,6 +81,7 @@ public class PersistenceManager {
 	private static TreeMap<String, PersistableModelComponent> Instances = new TreeMap<String, PersistableModelComponent>();
 	private static TreeMap<String, PersistableModelComponent> InconsistentInstances = new TreeMap<String, PersistableModelComponent>();
 	private static Set<PersistableModelComponent> instanceSet = new HashSet<PersistableModelComponent>();
+	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
 	public static List<IProject> projectsAllowedToLoad = new ArrayList<IProject>();
 	public boolean doNotCreateUniqueName;
 
@@ -470,18 +474,19 @@ public class PersistenceManager {
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
 		// Load each PMC in its own thread
-		final Collection<Thread> loaders = pmcs.stream().filter(pmc -> !reload && !pmc.isLoaded()).map(pmc -> new Thread(() -> {
-			try {
-				pmc.load(monitor, parseOal, reload);
-				System.out.println("LOADED: " + pmc.getFile());
-				completeSelections();
-			} catch (CoreException e1) {
-				CorePlugin.logError("Problem component", e1);
-			}
-		}, "PMC: " + pmc.getFile())).map(t -> {
-			t.start();
-			return t;
-		}).collect(Collectors.toList());
+		final Collection<Thread> loaders = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
+				.map(pmc -> new Thread(() -> {
+					try {
+						pmc.load(monitor, parseOal, reload);
+						System.out.println("LOADED: " + pmc.getFile());
+						completeSelections();
+					} catch (CoreException e1) {
+						CorePlugin.logError("Problem component", e1);
+					}
+				}, "PMC: " + pmc.getFile())).map(t -> {
+					t.start();
+					return t;
+				}).collect(Collectors.toList());
 
 		// Wait for all PMCs to finish loading
 		loaders.forEach(t -> {
@@ -1041,11 +1046,10 @@ public class PersistenceManager {
 		});
 	}
 
-	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
-
-	public <V extends NonRootModelElement> Future<V> selectAndWait(final Supplier<Optional<V>> selector) {
+	public <V extends NonRootModelElement> Future<V> selectAndWait(final IResource resource,
+			final Supplier<Optional<V>> selector) {
 		synchronized (incompleteSelections) {
-			final FutureSelection<V> f = new FutureSelection<>(selector);
+			final FutureSelection<V> f = new FutureSelection<>(resource, selector);
 			if (!f.tryComplete()) {
 				incompleteSelections.add(f);
 			}
@@ -1065,7 +1069,7 @@ public class PersistenceManager {
 
 		private final Supplier<Optional<V>> selector;
 
-		public FutureSelection(final Supplier<Optional<V>> selector) {
+		public FutureSelection(final IResource resource, Supplier<Optional<V>> selector) {
 			this.selector = selector;
 		}
 

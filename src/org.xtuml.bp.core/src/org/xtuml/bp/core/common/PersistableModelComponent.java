@@ -25,16 +25,10 @@ package org.xtuml.bp.core.common;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.Vector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -58,7 +52,6 @@ import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedAttributeBody_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.FunctionBody_c;
@@ -126,11 +119,6 @@ public class PersistableModelComponent implements Comparable {
 
 	// instance of ME when component is loaded otherwise it will be null;
 	private NonRootModelElement componentRootME;
-
-	// This set maintains the list of tree elements that are expanded. After a
-	// reload, the elements can get re-expanded to provide a streamlined
-	// experience for editing the file system itself.
-	private Set<String> expandedElements = new HashSet<>();
 
 	static synchronized public PersistableModelComponent create(IPath modelFilePath) {
 		PersistableModelComponent result = PersistenceManager.findComponent(modelFilePath);
@@ -596,7 +584,8 @@ public class PersistableModelComponent implements Comparable {
 			return;
 		}
 
-		final Ooaofooa modelRoot = componentRootME != null ? (Ooaofooa) componentRootME.getModelRoot() : Ooaofooa.getInstance(getUniqueID());
+		final Ooaofooa modelRoot = componentRootME != null ? (Ooaofooa) componentRootME.getModelRoot()
+				: Ooaofooa.getInstance(getUniqueID());
 
 		if (!reload && isLoaded())
 			return;
@@ -666,7 +655,8 @@ public class PersistableModelComponent implements Comparable {
 			importer.finishComponentLoad(monitor, true);
 			if (!importer.getActionSuccessful()) {
 				CorePlugin.logError(
-						"Error while loading model from " + getFullPath() + " ERROR: " + importer.getErrorMessage(), null);
+						"Error while loading model from " + getFullPath() + " ERROR: " + importer.getErrorMessage(),
+						null);
 			}
 
 			// check integrity after load, but not for the compare root
@@ -1091,32 +1081,4 @@ public class PersistableModelComponent implements Comparable {
 		}
 	}
 
-	public void elementExpanded(String path) {
-		// expandedElements.add(path); TODO temporarily disable this
-	}
-
-	public void elementCollapsed(String path) {
-		expandedElements.remove(path);
-	}
-
-	public void pruneExpandedElements() {
-		final IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
-		@SuppressWarnings("unchecked")
-		final Set<String> containedModelPaths = Stream
-				.concat(Stream.of(getRootModelElement()),
-						((List<NonRootModelElement>) metaData.getChildren(getRootModelElement(), true)).stream())
-				.filter(nrme -> nrme != null).map(NonRootModelElement::getPath).collect(Collectors.toSet());
-		expandedElements.retainAll(containedModelPaths);
-	}
-
-	public void clearExpanded(boolean includeChildren) {
-		expandedElements.clear();
-		if (includeChildren) {
-			getChildren().forEach(child -> child.clearExpanded(includeChildren));
-		}
-	}
-
-	public Collection<String> getExpandedElements() {
-		return Collections.unmodifiableCollection(expandedElements);
-	}
 }
