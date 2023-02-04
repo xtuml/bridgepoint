@@ -145,7 +145,7 @@ public abstract class CoreImport implements IModelImport {
 					throw x;
 				}
 			} catch (IOException e) {
-				IllegalStateException x = new IllegalStateException("Error reading header");
+				IllegalStateException x = new IllegalStateException("Error reading header", e);
 				x.fillInStackTrace();
 				throw x;
 			}

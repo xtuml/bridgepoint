@@ -22,18 +22,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -473,32 +475,55 @@ public class PersistenceManager {
 
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
-		// Load each PMC in its own thread
-		final Collection<Thread> loaders = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
-				.map(pmc -> new Thread(() -> {
+		final Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
+				.collect(Collectors.toSet());
+		if (!pmcsToLoad.isEmpty()) {
+
+			// launch each load in a new thread
+			final ExecutorService es = Executors.newFixedThreadPool(pmcsToLoad.size());
+			final List<Future<?>> loadingPmcs = new ArrayList<>();
+			final Map<PersistableModelComponent, NonRootModelElement> oldElementMap = new HashMap<>();
+			for (PersistableModelComponent pmc : pmcsToLoad) {
+				oldElementMap.put(pmc, pmc.getRootModelElement());
+				if (reload) {
+					Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(oldElementMap.get(pmc));
+				}
+				loadingPmcs.add(es.submit(() -> {
 					try {
 						pmc.load(monitor, parseOal, reload);
 						System.out.println("LOADED: " + pmc.getFile());
 						completeSelections();
-					} catch (CoreException e1) {
-						CorePlugin.logError("Problem component", e1);
+					} catch (CoreException e) {
+						CorePlugin.logError("Problem loading component", e);
 					}
-				}, "PMC: " + pmc.getFile())).map(t -> {
-					t.start();
-					return t;
-				}).collect(Collectors.toList());
-
-		// Wait for all PMCs to finish loading
-		loaders.forEach(t -> {
-			try {
-				t.join();
-			} catch (InterruptedException e2) {
+				}));
 			}
-		});
+			es.shutdown();
 
-		// Perform post load tasks
-		for (PersistableModelComponent pmc : pmcs) {
-			pmc.finishLoad(monitor);
+			// wait for all PMCs to load
+			for (Future<?> loadingPmc : loadingPmcs) {
+				try {
+					loadingPmc.get();
+				} catch (InterruptedException | ExecutionException e) {
+					CorePlugin.logError("Problem loading component", e);
+				}
+			}
+
+			// finish the load for each PMC
+			for (PersistableModelComponent pmc : pmcsToLoad) {
+				try {
+					if (pmc.isLoaded()) {
+						pmc.finishLoad(monitor);
+						if (reload) {
+							Ooaofooa.getDefaultInstance().fireModelElementReloaded(oldElementMap.get(pmc),
+									pmc.getRootModelElement());
+						}
+					}
+				} catch (CoreException e) {
+					CorePlugin.logError("Problem finishing component load", e);
+				}
+			}
+
 		}
 	}
 
@@ -755,12 +780,14 @@ public class PersistenceManager {
 	}
 
 	public static Collection<PersistableModelComponent> getDeepChildrenOf(PersistableModelComponent component) {
-		IPath parentDirPath = component.getContainingDirectoryPath();
 		Set<PersistableModelComponent> result = new HashSet<PersistableModelComponent>();
-		synchronized (Instances) {
-			for (PersistableModelComponent source : Instances.values()) {
-				if (parentDirPath.isPrefixOf(source.getFullPath())) {
-					result.add(source);
+		if (component != null) {
+			IPath parentDirPath = component.getContainingDirectoryPath();
+			synchronized (Instances) {
+				for (PersistableModelComponent source : Instances.values()) {
+					if (parentDirPath.isPrefixOf(source.getFullPath())) {
+						result.add(source);
+					}
 				}
 			}
 		}
