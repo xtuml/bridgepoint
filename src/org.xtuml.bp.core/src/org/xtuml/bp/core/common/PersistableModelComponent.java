@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -650,7 +651,7 @@ public class PersistableModelComponent implements Comparable {
 
 	}
 
-	public synchronized void finishLoad(IProgressMonitor monitor) throws CoreException {
+	protected synchronized void finishLoad(IProgressMonitor monitor) throws CoreException {
 		if (importer != null && status == STATUS_LOADED) {
 			importer.finishComponentLoad(monitor, true);
 			if (!importer.getActionSuccessful()) {
@@ -835,10 +836,13 @@ public class PersistableModelComponent implements Comparable {
 		status = STATUS_UNLOADING;
 
 		ModelRoot modelRoot = componentRootME.getModelRoot();
-
 		ModelRoot.disableChangeNotification();
 
 		try {
+			// update model paths
+			updateModelPath(componentRootME);
+
+			// delete bodies
 			if (!deletingProxy) {
 				Function_c[] functions = (Function_c[]) PersistenceManager.getHierarchyMetaData()
 						.getActivityModelElements(componentRootME, Function_c.class);
@@ -901,7 +905,10 @@ public class PersistableModelComponent implements Comparable {
 					gis[i].delete();
 				}
 			}
+			
+			// delete the root element and children
 			deleteME(componentRootME);
+
 			componentRootME = null;
 			modelRoot.clearUnreferencedProxies();
 		} finally {
@@ -944,6 +951,19 @@ public class PersistableModelComponent implements Comparable {
 			me.delete_unchecked();
 		}
 		me.batchUnrelate();
+	}
+	
+	private void updateModelPath(NonRootModelElement me) {
+		if (me.getPersistableComponent() != this) {
+			return;
+		}
+		IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
+		List<?> children = metaData.getChildren(me, true);
+		for (int i = 0; i < children.size(); i++) {
+			NonRootModelElement child = (NonRootModelElement) children.get(i);
+			updateModelPath(child);
+		}
+		me.updateModelPath();
 	}
 
 	public void excludeChildRootMEs(List externalRGOs) {

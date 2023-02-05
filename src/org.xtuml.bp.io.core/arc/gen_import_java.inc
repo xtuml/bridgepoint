@@ -870,32 +870,14 @@ public class ${class_name} extends CoreImport
     .if((multilevel) and (setComponent))
     public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
         if(m_success){
-            Ooaofooa modelRoot = getModelRoot();
-
-            if (modelRoot.getId().equals(Ooaofooa.DEFAULT_WORKING_MODELSPACE) &&
-                            m_component.getRootModelElement() instanceof SystemModel_c) {
-                    SystemModel_c system = (SystemModel_c) m_component.getRootModelElement();
-               // We always set them up, even if we don't use them
-                    helper.setUpGlobals(system);
-            }
-
             ModelRoot.disableChangeNotification();
           try {
-            for(int i=0; i<loadedInstances.size(); i++){
-                ((NonRootModelElement)loadedInstances.get(i)).batchRelate(modelRoot, false, searchAllRootsForBatchRelate);
-            }
               Ooaofooa mr = Ooaofooa.getDefaultInstance();
               Ooaofgraphics gmr = Ooaofgraphics.getDefaultInstance();
               try {
             mr.disableDeltaCollection();
             gmr.disableDeltaCollection();
             if(m_parseGraphics){
-                ModelRoot graphicsModelRoot = getGraphicsModelRoot();
-
-                for(int i=0; i<loadedGraphicsInstances.size(); i++){
-                    ((NonRootModelElement)loadedGraphicsInstances.get(i)).batchRelate(graphicsModelRoot, false, searchAllRootsForBatchRelate);
-                }
-
                 helper.importPreBP7_1LineSegments();
                 helper.importPreBP7_1Connectors();
                 helper.importPreBP7_1_1ConnectorTexts();

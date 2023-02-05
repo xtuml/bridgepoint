@@ -202,6 +202,9 @@
     .end if
     .invoke paramsText = generate_params( table, callingProject )
     ${paramsText.body}\
+    .if(multilevel)
+        , null\
+    .end if
         );
         .if((not setComponent) and (multilevel))
           .// we want to fire creation events for the stream
@@ -255,6 +258,10 @@
     ${earlyReturnResult.result}
       .end if
     String path = (String)parms.lastElement();
+    .select many col_set related by table->C[R5]
+    .assign num_cols = cardinality col_set
+    .assign num_params = num_cols + 2
+    String modelPath = parms.size() == ${num_params} ? removeTics((String)parms.elementAt(${num_cols})) : null;
     .invoke setSize = backwardCompatibilitySizeAdjustment(table, true)
     .if (setSize.body != "")
 ${setSize.body}
@@ -263,7 +270,7 @@ ${setSize.body}
         ${local_var} ${cn.body}.createProxy(modelRoot,
       .invoke paramsText = generate_params( table, callingProject )
     ${paramsText.body}\
-, removeTics(path), projRelPath);
+, removeTics(path), modelPath, projRelPath);
         if (newInst.isProxy()) {
           loadedInstances.add(newInst);
 		  pm.worked(1);

@@ -88,14 +88,9 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 
 		// find or create interface
 		final String iface_name = ctx.iface_name.getText();
-		final UUID iface_id = UUID.nameUUIDFromBytes((parent_pkg.getPath() + "::" + iface_name).getBytes());
-		Interface_c iface = (Interface_c) modelRoot.getInstanceList(Interface_c.class).getGlobal(iface_id);
-		if (iface == null) {
-			iface = new Interface_c(modelRoot, iface_id, parent_pkg.getPackage_id(), iface_name, "");
-		} else {
-			iface.convertFromProxy();
-		}
-		final PackageableElement_c pe = new PackageableElement_c(modelRoot, iface_id, Visibility_c.Public,
+		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), parent_pkg.getPackage_id(),
+				iface_name, "", parent_pkg.getPath() + "::" + iface_name);
+		final PackageableElement_c pe = new PackageableElement_c(modelRoot, iface.getId(), Visibility_c.Public,
 				parent_pkg.getPackage_id(), null, Elementtypeconstants_c.INTERFACE);
 		pe.relateAcrossR8000To(parent_pkg);
 		iface.relateAcrossR8001To(pe);
@@ -135,20 +130,12 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	public NonRootModelElement visitMessage_declaration(Message_declarationContext ctx) {
 		// parse message info
 		final String name = ctx.msg_name.getText();
-		final UUID msg_id = UUID.nameUUIDFromBytes((currentRoot.getPath() + "::" + name).getBytes());
 		final int direction = "to".equals(ctx.direction.getText()) ? Ifdirectiontype_c.ClientServer
 				: Ifdirectiontype_c.ServerClient;
 
 		// find or create executable property
-		ExecutableProperty_c c_ep = (ExecutableProperty_c) modelRoot.getInstanceList(ExecutableProperty_c.class)
-				.getGlobal(msg_id);
-		if (c_ep == null) {
-			c_ep = new ExecutableProperty_c(modelRoot, msg_id, ((Interface_c) currentRoot).getId(), direction, name, "",
-					0);
-		} else {
-			c_ep.convertFromProxy();
-		}
-		c_ep.setDirection(direction);
+		final ExecutableProperty_c c_ep = ExecutableProperty_c.resolveInstance(modelRoot, UUID.randomUUID(),
+				((Interface_c) currentRoot).getId(), direction, name, "", 0, currentRoot.getPath() + "::" + name);
 		if (ctx.type_reference() != null) {
 			c_ep.unrelateAcrossR4004From(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
 			final InterfaceOperation_c c_io = new InterfaceOperation_c(modelRoot);

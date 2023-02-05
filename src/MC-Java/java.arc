@@ -783,7 +783,7 @@ ${cfcb.body}\
   }
           .if (package.is_eclipse_plugin)
   static public ${class_name} createProxy(ModelRoot modelRoot,
-${cfca.body}, String p_contentPath, IPath p_localPath)
+${cfca.body}, String p_contentPath, String modelPath, IPath p_localPath)
   {
             .if ( object.AdapterName == "IProject" )
         if (!modelRoot.isCompareRoot()
@@ -827,6 +827,17 @@ ${cfca.body}, String p_contentPath, IPath p_localPath)
 ${cfcb.body}\
         }
     }
+    if ( new_inst == null && modelPath != null ) {
+        // try to look the instance up by model path
+        new_inst = $cr{object.Name}Instance(modelRoot, selected -> {
+          try {
+            return ((NonRootModelElement) selected).getPath().equals(modelPath);
+          } catch (NullPointerException e) {
+            // 'getPath' may throw an NPE if the model data is not consistent
+            return false;
+          }
+        });
+    }
     if ( new_inst == null ) {
         // there is no instance matching the id, create a proxy
         // if the resource doesn't exist then this will be a dangling reference
@@ -835,6 +846,7 @@ ${cfcb.body}\
 ${cfca_nt.body}
 );
         new_inst.m_contentPath = contentPath;
+        new_inst.m_modelPath = modelPath;
             .if ( object.AdapterName == "IFile" )
     new_inst.setComponent(null);
             .end if
@@ -844,7 +856,7 @@ ${cfca_nt.body}
 
   static public ${class_name} resolveInstance(ModelRoot modelRoot,
 ${cfca.body}\
-){
+, String modelPath){
             .if ( object.AdapterName == "IProject" )
       if(!modelRoot.isCompareRoot()) {
         modelRoot=((ModelRoot) Ooaofooa.getDefaultInstance());
@@ -879,6 +891,17 @@ ${cfca.body}\
             .end for
             };
         source = (${class_name}) instances.get(key);
+        if (source == null && modelPath != null) {
+          // try to look the instance up by model path
+          source = $cr{object.Name}Instance(modelRoot, selected -> {
+            try {
+              return ((NonRootModelElement) selected).getPath().equals(modelPath);
+            } catch (NullPointerException e) {
+              // 'getPath' may throw an NPE if the model data is not consistent
+              return false;
+            }
+          });
+        }
         if (source != null && !modelRoot.isCompareRoot()) {
            source.convertFromProxy();
            source.batchUnrelate();

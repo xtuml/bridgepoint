@@ -48,10 +48,14 @@ import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.IntegrityManager_c;
+import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.InterfaceSignal_c;
+import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -76,6 +80,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	private ModelRoot m_this_root;
 	private PersistableModelComponent component;
 	protected String m_contentPath;
+	protected String m_modelPath;
 	protected IFile file;
 	private UUID m_id = Gd_c.Null_unique_id();
 
@@ -268,55 +273,60 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	}
 
 	public String getPath() {
-		ModelInspector inspector = new ModelInspector();
-		String path = "";
-		if (!(this instanceof DataType_c)) {
-			// If this is a datatype, the name will be handled by the subtype
-			// via the "parent" handling below.
-			path = getName();
-			if (path.equals("")) {
-				// handle elements with a potential of no name
-				String className = getClass().getSimpleName().replaceAll("_c", "");
-				// use class name
-				int index = getInstanceList().indexOf(this) + 1;
-				path = className + index;
-			}
-		}
-		if (this instanceof ClassStateMachine_c) {
-			path = "Class State Machine";
-		} else if (this instanceof InstanceStateMachine_c) {
-			path = "Instance State Machine";
-		}
-		IModelClassInspector elementInspector = inspector.getInspector(getClass());
-		if (elementInspector != null) {
-			NonRootModelElement parent = (NonRootModelElement) elementInspector.getParent(this);
-			while (parent != null) {
-				if (parent instanceof ClassStateMachine_c) {
-					path = "Class State Machine" + "::" + path;
-				} else if (parent instanceof InstanceStateMachine_c) {
-					path = "Instance State Machine" + "::" + path;
-				} else {
-					if (path.isEmpty()) {
-						path = parent.getName();
-					} else {
-						String name = parent.getName();
-						if (name.equals("")) {
-							// handle elements with a potential of no name
-							String className = parent.getClass().getSimpleName().replaceAll("_c", "");
-							// use class name
-							int index = getInstanceList().indexOf(this) + 1;
-							name = className + index;
-						}
-						path = name + "::" + path;
-					}
-				}
-				parent = (NonRootModelElement) inspector.getParent(parent);
-			}
-		}
 		if (getModelRoot().isCompareRoot()) {
 			return "";
+		} else if (isProxy()) {
+			return m_modelPath;
+		} else {
+			ModelInspector inspector = new ModelInspector();
+			String path = "";
+			if (!(this instanceof DataType_c)) {
+				// If this is a datatype, the name will be handled by the subtype
+				// via the "parent" handling below.
+				path = getName();
+				if (path.equals("")) {
+					// handle elements with a potential of no name
+					String className = getClass().getSimpleName().replaceAll("_c", "");
+					// use class name
+					int index = getInstanceList().indexOf(this) + 1;
+					path = className + index;
+				}
+			}
+			if (this instanceof ClassStateMachine_c) {
+				path = "Class State Machine";
+			} else if (this instanceof InstanceStateMachine_c) {
+				path = "Instance State Machine";
+			} else if (this instanceof ExecutableProperty_c) {
+				path = Interface_c.getOneC_IOnR4003((ExecutableProperty_c) this).getPath() + "::" + getName();
+			}
+			IModelClassInspector elementInspector = inspector.getInspector(getClass());
+			if (elementInspector != null) {
+				NonRootModelElement parent = (NonRootModelElement) elementInspector.getParent(this);
+				while (parent != null) {
+					if (parent instanceof ClassStateMachine_c) {
+						path = "Class State Machine" + "::" + path;
+					} else if (parent instanceof InstanceStateMachine_c) {
+						path = "Instance State Machine" + "::" + path;
+					} else {
+						if (path.isEmpty()) {
+							path = parent.getName();
+						} else {
+							String name = parent.getName();
+							if (name.equals("")) {
+								// handle elements with a potential of no name
+								String className = parent.getClass().getSimpleName().replaceAll("_c", "");
+								// use class name
+								int index = getInstanceList().indexOf(this) + 1;
+								name = className + index;
+							}
+							path = name + "::" + path;
+						}
+					}
+					parent = (NonRootModelElement) inspector.getParent(parent);
+				}
+			}
+			return path;
 		}
-		return path;
 	}
 
 	/**
@@ -839,6 +849,10 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 
 	public void setContentPath(String path) {
 		m_contentPath = path;
+	}
+
+	public void updateModelPath() {
+		m_modelPath = getPath();
 	}
 
 	public void convertToProxy() {
