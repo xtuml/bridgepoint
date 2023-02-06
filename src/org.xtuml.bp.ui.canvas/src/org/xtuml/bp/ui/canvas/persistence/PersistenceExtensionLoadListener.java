@@ -2,13 +2,18 @@ package org.xtuml.bp.ui.canvas.persistence;
 
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.Objectreference_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Referencepath_c;
@@ -23,22 +28,24 @@ public class PersistenceExtensionLoadListener extends ModelChangeAdapter {
 
 	@Override
 	public void modelElementLoaded(ModelChangedEvent event) {
+		NonRootModelElement loadedElement = (NonRootModelElement) event.getModelElement();
+
 		// do nothing if textual persistence is not enabled
-		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
-				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
-		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
+		IScopeContext projectScope = new ProjectScope(loadedElement.getPersistableComponent().getFile().getProject());
+		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		if (!"text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			return;
 		}
-		NonRootModelElement loadedElement = (NonRootModelElement) event.getModelElement();
+
 		ReferencePathManagement.initializeElement(loadedElement);
 	}
 	
 	@Override
 	public void modelElementUnloaded(ModelChangedEvent event) {
 		// do nothing if textual persistence is not enabled
-		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
-				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
-		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
+		IScopeContext projectScope = new ProjectScope(((NonRootModelElement) event.getModelElement()).getPersistableComponent().getFile().getProject());
+		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		if (!"text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			return;
 		}
 		Stream.of(Objectreference_c.ObjectreferenceInstances(Ooaofgraphics.getDefaultInstance())).forEach(ref -> {

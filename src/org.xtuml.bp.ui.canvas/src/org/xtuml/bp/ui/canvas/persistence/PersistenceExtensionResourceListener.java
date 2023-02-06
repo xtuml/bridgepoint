@@ -8,15 +8,21 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ComponentResourceListener;
+import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -36,12 +42,6 @@ public class PersistenceExtensionResourceListener implements IResourceChangeList
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
-		// do nothing if textual persistence is not enabled
-		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
-				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
-		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
-			return;
-		}
 		// do not want to do anything in response to normal brigepoint ops
 		if ( !ComponentResourceListener.ignoreResourceChanges() && !ComponentResourceListener.isIgnoreResourceChangesMarkerSet()) {
 			if (event.getType() != IResourceChangeEvent.POST_CHANGE)
@@ -60,9 +60,9 @@ public class PersistenceExtensionResourceListener implements IResourceChangeList
 						IGraphicalLoader loader = extensions.get(resource.getFileExtension());
 						PersistableModelComponent pmc = PersistenceManager.findOrCreateComponent(new Path(resource
 								.getFullPath().toString().replaceAll(resource.getFileExtension(), Ooaofooa.MODELS_EXT)));
-						String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
-								.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
-						if(MessageDialogWithToggle.ALWAYS.equals(textualSerialization)) {
+						IScopeContext projectScope = new ProjectScope(pmc.getRootModelElement().getPersistableComponent().getFile().getProject());
+						Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+						if ("text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 							Model_c reloaded = loader.reload(pmc.getRootModelElement());
 							// update any graphical editor inputs that match
 							Ooaofgraphics.getDefaultInstance().fireModelElementReloaded(reloaded, reloaded);

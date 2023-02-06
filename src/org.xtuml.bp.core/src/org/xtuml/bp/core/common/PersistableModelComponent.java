@@ -42,7 +42,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.WorkbenchException;
 import org.xtuml.bp.core.ActionHome_c;
@@ -551,11 +550,8 @@ public class PersistableModelComponent implements Comparable {
 		// create an export-factory and have it perform the persistence
 		AbstractModelExportFactory factory = AbstractModelExportFactory.getInstance();
 
-		String exportGraphicalInstances = CorePlugin.getDefault().getPreferenceStore()
-				.getString(BridgePointPreferencesStore.PERSIST_GRAPHICAL_INSTANCES);
 		try {
-			IRunnableWithProgress runnable = factory.create(componentRootME, file.getLocation().toString(),
-					MessageDialogWithToggle.ALWAYS.equals(exportGraphicalInstances));
+			IRunnableWithProgress runnable = factory.create(componentRootME, file.getLocation().toString(), true);
 			runnable.run(monitor);
 
 			// get Eclipse to notice that the model's file has changed on disk

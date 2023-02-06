@@ -7,21 +7,23 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
-import org.xtuml.bp.core.CorePlugin;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.Gd_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
@@ -98,11 +100,12 @@ public class CanvasWriter implements IGraphicalWriter {
 	
 	@Override
 	public void write(NonRootModelElement model, boolean generate) {
-		String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
-				.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
-		if(MessageDialogWithToggle.NEVER.equals(textualSerialization)) {
+		IScopeContext projectScope = new ProjectScope(model.getPersistableComponent().getFile().getProject());
+		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		if (!"text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			return;
 		}
+
 		IFile parentFile = model.getFile();
 		IFile xtGraphFile = parentFile.getParent()
 				.getFile(new Path(parentFile.getName().replaceAll(".xtuml", ".xtumlg")));
