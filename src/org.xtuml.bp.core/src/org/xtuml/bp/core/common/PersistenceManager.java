@@ -31,11 +31,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -86,8 +92,10 @@ public class PersistenceManager {
 	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
 	public static List<IProject> projectsAllowedToLoad = new ArrayList<IProject>();
 	public boolean doNotCreateUniqueName;
+	private ExecutorService loadExecutor;
 
 	private PersistenceManager() {
+		loadExecutor = Executors.newCachedThreadPool();
 	}
 
 	public static PersistenceManager getDefaultInstance() {
@@ -480,32 +488,51 @@ public class PersistenceManager {
 		if (!pmcsToLoad.isEmpty()) {
 
 			// launch each load in a new thread
-			final ExecutorService es = Executors.newFixedThreadPool(pmcsToLoad.size());
-			final List<Future<?>> loadingPmcs = new ArrayList<>();
+			final CompletionService<PersistableModelComponent> loadingPmcs = new ExecutorCompletionService<>(
+					loadExecutor);
 			final Map<PersistableModelComponent, NonRootModelElement> oldElementMap = new HashMap<>();
 			for (PersistableModelComponent pmc : pmcsToLoad) {
 				oldElementMap.put(pmc, pmc.getRootModelElement());
 				if (reload) {
 					Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(oldElementMap.get(pmc));
 				}
-				loadingPmcs.add(es.submit(() -> {
+				loadingPmcs.submit(() -> {
 					try {
 						pmc.load(monitor, parseOal, reload);
-						System.out.println("LOADED: " + pmc.getFile());
-						completeSelections();
 					} catch (CoreException e) {
 						CorePlugin.logError("Problem loading component", e);
 					}
-				}));
+				}, pmc);
 			}
-			es.shutdown();
 
 			// wait for all PMCs to load
-			for (Future<?> loadingPmc : loadingPmcs) {
+			int loadedPmcs = 0;
+			while (loadedPmcs < pmcsToLoad.size()) {
 				try {
-					loadingPmc.get();
-				} catch (InterruptedException | ExecutionException e) {
-					CorePlugin.logError("Problem loading component", e);
+					// wait for a PMC to load
+					final Future<PersistableModelComponent> pmcFuture = loadingPmcs.poll(250, TimeUnit.MILLISECONDS);
+					if (pmcFuture != null) {
+						try {
+							final PersistableModelComponent pmc = pmcFuture.get();
+							System.out.println("DONE LOADING: " + pmc.getFile() + ", " + pmc.isLoaded());
+							loadedPmcs++;
+
+							// try to complete waiting selections
+							completeSelections();
+
+						} catch (ExecutionException | CancellationException e) {
+							CorePlugin.logError("Problem loading component", e);
+						}
+					}
+
+					// if all files are waiting on a selection, cancel them
+					if (incompleteSelections.stream().map(FutureSelection::getResource).distinct()
+							.count() >= (pmcsToLoad.size() - loadedPmcs)) {
+						cancelSelections();
+					}
+
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 
@@ -542,7 +569,7 @@ public class PersistenceManager {
 	public void loadProject(IProject project, IProgressMonitor monitor, boolean parseOal, boolean reload)
 			throws CoreException {
 		// Get the list of PMCs to load
-		Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(getRootComponent(project));
+		Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(getRootComponent(project), true);
 
 		// If IPRs are enabled, include all PMCs from projects in the workspace
 		Preferences projectPrefs = new ProjectScope(project)
@@ -553,7 +580,7 @@ public class PersistenceManager {
 			pmcs = Stream
 					.concat(pmcs.stream(),
 							Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects())
-									.flatMap(p -> getDeepChildrenOf(getRootComponent(project)).stream()))
+									.flatMap(p -> getDeepChildrenOf(getRootComponent(project), true).stream()))
 					.collect(Collectors.toList());
 		}
 		loadComponents(pmcs, monitor, parseOal, reload);
@@ -780,6 +807,11 @@ public class PersistenceManager {
 	}
 
 	public static Collection<PersistableModelComponent> getDeepChildrenOf(PersistableModelComponent component) {
+		return getDeepChildrenOf(component, false);
+	}
+
+	public static Collection<PersistableModelComponent> getDeepChildrenOf(PersistableModelComponent component,
+			boolean includeInconsistentInstances) {
 		Set<PersistableModelComponent> result = new HashSet<PersistableModelComponent>();
 		if (component != null) {
 			IPath parentDirPath = component.getContainingDirectoryPath();
@@ -787,6 +819,15 @@ public class PersistenceManager {
 				for (PersistableModelComponent source : Instances.values()) {
 					if (parentDirPath.isPrefixOf(source.getFullPath())) {
 						result.add(source);
+					}
+				}
+			}
+			if (includeInconsistentInstances) {
+				synchronized (InconsistentInstances) {
+					for (PersistableModelComponent source : InconsistentInstances.values()) {
+						if (parentDirPath.isPrefixOf(source.getFullPath())) {
+							result.add(source);
+						}
 					}
 				}
 			}
@@ -1092,12 +1133,25 @@ public class PersistenceManager {
 		}
 	}
 
+	private void cancelSelections() {
+		synchronized (incompleteSelections) {
+			incompleteSelections.forEach(f -> f.cancel(true));
+			incompleteSelections.clear();
+		}
+	}
+
 	private static final class FutureSelection<V extends NonRootModelElement> extends CompletableFuture<V> {
 
+		private final IResource resource;
 		private final Supplier<Optional<V>> selector;
 
 		public FutureSelection(final IResource resource, Supplier<Optional<V>> selector) {
+			this.resource = resource;
 			this.selector = selector;
+		}
+
+		public IResource getResource() {
+			return resource;
 		}
 
 		public boolean tryComplete() {

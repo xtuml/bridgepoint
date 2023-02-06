@@ -655,6 +655,10 @@ public abstract class CoreImport implements IModelImport {
 	public static class XtumlLoadException extends RuntimeException {
 
 		private static final long serialVersionUID = 1L;
+		
+		public XtumlLoadException(String message, Throwable cause) {
+			super(message, cause);
+		}
 
 	}
 

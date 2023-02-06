@@ -55,8 +55,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 
 	private static final String MESSAGE_NUM = "message_num";
 
-	// TODO reconsider unique ID strategy
-
 	public XtumlImportVisitor(final Ooaofooa modelRoot, final IResource resource) {
 		this.modelRoot = modelRoot;
 		this.resource = resource;
@@ -76,10 +74,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 			currentRoot = parent_pkg;
 			return visit(ctx.interface_definition());
 		} catch (InterruptedException | ExecutionException | CancellationException e) {
-			CorePlugin.logError("Failed to find package '" + ctx.pkg.getText() + "'.", e);
+			throw new CoreImport.XtumlLoadException("Failed to find package '" + ctx.pkg.getText() + "'.", e);
 		}
-		throw new CoreImport.XtumlLoadException();
-		// return null;
 	}
 
 	@Override
@@ -254,10 +250,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 				}
 			}).get();
 		} catch (InterruptedException | ExecutionException | CancellationException e) {
-			CorePlugin.getDefault().getLog()
-					.warn("Failed to find type '" + ctx.scoped_name().getText() + "' for named type reference.", e);
-			throw new CoreImport.XtumlLoadException();
-			// return null;
+			throw new CoreImport.XtumlLoadException(
+					"Failed to find type '" + ctx.scoped_name().getText() + "' for named type reference.", e);
 		}
 	}
 
@@ -291,10 +285,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 				}
 			}).get();
 		} catch (InterruptedException | ExecutionException | CancellationException e) {
-			CorePlugin.getDefault().getLog()
-					.warn("Failed to find class '" + ctx.scoped_name().getText() + "' for instance type reference.", e);
-			throw new CoreImport.XtumlLoadException();
-			// return null;
+			throw new CoreImport.XtumlLoadException(
+					"Failed to find class '" + ctx.scoped_name().getText() + "' for instance type reference.", e);
 		}
 	}
 
