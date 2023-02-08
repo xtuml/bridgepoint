@@ -24,6 +24,7 @@ package org.xtuml.bp.core.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.xtuml.bp.core.Ooaofooa;
@@ -33,6 +34,7 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
 	ModelRoot root;
 	Class type;
     HashMap<BPElementID, NonRootModelElement> instanceMap = new HashMap<BPElementID, NonRootModelElement>();
+    private Map<BPElementID, BPElementID> aliasMap = new HashMap<>();
 
 	public InstanceList(ModelRoot aRoot, Class aType) {
 		super(0);
@@ -60,13 +62,13 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
     	  if(key.equals(IdAssigner.NULL_UUID.toString())) {
     		  return null;
     	  }
-    	  return instanceMap.get(new BPElementID((String)key));
+    	  return getInstanceByIdOrAlias(new BPElementID((String)key));
       }
       if (key instanceof Object[]) {
-        return instanceMap.get(new BPElementID((Object[])key));
+        return getInstanceByIdOrAlias(new BPElementID((Object[])key));
       }
       if (key instanceof UUID) {
-        return instanceMap.get(new BPElementID(new Object[]{key}));
+        return getInstanceByIdOrAlias(new BPElementID(new Object[]{key}));
       }
       return null;
     }
@@ -233,7 +235,7 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
     
     protected synchronized void removeOldKey(Object key, Object object) {
       BPElementID uKey = new BPElementID((Object [])key);
-      if (instanceMap.get(uKey) == object) {
+      if (getInstanceByIdOrAlias(uKey) == object) {
         // It can happen that the wrong object is found, when
         // a model containing old long based ids is used, and the
         // containing instance that guaranteed uniqueness is already
@@ -257,7 +259,7 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
           if (instanceMap.containsValue(object)) {
             Set<BPUUID> keySet = instanceMap.keySet();
             for (BPUUID uKey : keySet) {
-              if (instanceMap.get(uKey) == object) {
+              if (getInstanceByIdOrAlias(uKey) == object) {
                 System.out.println("Actual key: " + uKey);
                 break;
               }
@@ -448,6 +450,36 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
 	
 	public synchronized void removeRange(int from, int to) {
 	  super.removeRange(from, to);
+	}
+	
+	private NonRootModelElement getInstanceByIdOrAlias(BPElementID id) {
+		if (aliasMap.containsKey(id)) {
+			return instanceMap.get(aliasMap.get(id));
+		} else {
+			return instanceMap.get(id);
+		}
+	}
+	
+	public void addAlias(Object id, Object alias) {
+		BPElementID targetId = null;
+		if (id instanceof String) {
+			targetId = new BPElementID((String)id);
+		} else if (id instanceof UUID) {
+			targetId = new BPElementID(new Object[] {id});
+		} else if (id instanceof Object[]) {
+			targetId = new BPElementID((Object[]) id);
+		}
+		BPElementID sourceAlias = null;
+		if (alias instanceof String) {
+			sourceAlias = new BPElementID((String)alias);
+		} else if (alias instanceof UUID) {
+			sourceAlias = new BPElementID(new Object[] {alias});
+		} else if (alias instanceof Object[]) {
+			sourceAlias = new BPElementID((Object[]) alias);
+		}
+		if (sourceAlias != null && targetId != null) {
+			aliasMap.put(sourceAlias, targetId);
+		}
 	}
 }
 

@@ -19,6 +19,7 @@ import org.xtuml.bp.core.ImportedRequirement_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.Diagram_c;
@@ -85,6 +86,7 @@ public class CanvasGenerator implements IGraphicalLoader {
 			IFile xtGraphFile = parentFile.getParent()
 					.getFile(new Path(parentFile.getName().replaceAll(".xtuml", ".xtumlg")));
 			try {
+				PersistenceManager.getDefaultInstance().loadProject(parentFile.getProject(), false, false);
 				return generate(parentElement, Ooaofgraphics.getInstance(parentElement.getModelRoot().getId()),
 						xtGraphFile, false);
 			} catch (IOException | CoreException e) {
@@ -102,6 +104,7 @@ public class CanvasGenerator implements IGraphicalLoader {
 			IFile xtGraphFile = parentFile.getParent()
 					.getFile(new Path(parentFile.getName().replaceAll(".xtuml", ".xtumlg")));
 			try {
+				PersistenceManager.getDefaultInstance().loadProject(parentFile.getProject(), false, false);
 				return generate(parentElement, Ooaofgraphics.getInstance(parentElement.getModelRoot().getId()),
 						xtGraphFile, true);
 			} catch (IOException | CoreException e) {

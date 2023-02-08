@@ -800,16 +800,16 @@ ${cfca.body}, String p_contentPath, String modelPath, IPath p_localPath)
         modelRoot = resolvedModelRoot;
       InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
       ${class_name} new_inst = null;
-      synchronized(instances) {
             .invoke id_result = find_id(object)
             .assign id = id_result.id
             .select many id_attrs related by id->O_OIDA[R105]->O_ATTR[R105]
             .invoke local_key_result = get_unique_instance_key(id_attrs,"p_");
             .if(local_key_result.found_key)
-          Object[] key = ${local_key_result.key};
+      Object[] key = ${local_key_result.key};
+      synchronized(instances) {
           new_inst = (${class_name}) instances.get(key) ;
-            .end if
         }
+            .end if
     String contentPath = PersistenceUtil.resolveRelativePath(
             p_localPath,
             new Path(p_contentPath));
@@ -837,6 +837,13 @@ ${cfcb.body}\
             return false;
           }
         });
+            .invoke foreign_key_result = get_unique_instance_key(id_attrs,"new_inst.");
+            .if(foreign_key_result.found_key)
+        if (new_inst != null) {
+            Object[] targetKey = ${foreign_key_result.key};
+            instances.addAlias(targetKey, key);
+        }
+            .end if
     }
     if ( new_inst == null ) {
         // there is no instance matching the id, create a proxy
@@ -901,6 +908,13 @@ ${cfca.body}\
               return false;
             }
           });
+            .invoke foreign_key_result = get_unique_instance_key(id_attrs,"source.");
+            .if(foreign_key_result.found_key)
+        if (source != null) {
+            Object[] targetKey = ${foreign_key_result.key};
+            instances.addAlias(targetKey, key);
+        }
+            .end if
         }
         if (source != null && !modelRoot.isCompareRoot()) {
            source.convertFromProxy();
