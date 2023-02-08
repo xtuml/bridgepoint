@@ -31,17 +31,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -92,7 +89,7 @@ public class PersistenceManager {
 	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
 	public static List<IProject> projectsAllowedToLoad = new ArrayList<IProject>();
 	public boolean doNotCreateUniqueName;
-	private ExecutorService loadExecutor;
+	private Executor loadExecutor;
 
 	private PersistenceManager() {
 		loadExecutor = Executors.newCachedThreadPool();
@@ -520,7 +517,7 @@ public class PersistenceManager {
 							// try to complete waiting selections
 							completeSelections();
 
-						} catch (ExecutionException | CancellationException e) {
+						} catch (ExecutionException e) {
 							CorePlugin.logError("Problem loading component", e);
 						}
 					}

@@ -2465,9 +2465,14 @@ public class ImportHelper
 		InstanceList peList = root.getInstanceList(PackageableElement_c.class);
 		java.util.ListIterator<NonRootModelElement> it = peList.listIterator();
 		while (it.hasNext()) {
-			gis = new GlobalElementInSystem_c(root);
-			gis.relateAcrossR9100To((PackageableElement_c)it.next());
-			gis.relateAcrossR9100To(system);
+			final PackageableElement_c pe = (PackageableElement_c) it.next();
+			// only link PEs that are global datatypes
+			if (pe.getPackage_id().equals(IdAssigner.NULL_UUID) && pe.getComponent_id().equals(IdAssigner.NULL_UUID)
+					&& root.getInstanceList(DataType_c.class).get(pe.getElement_id()) != null) {
+				gis = new GlobalElementInSystem_c(root);
+				gis.relateAcrossR9100To(pe);
+				gis.relateAcrossR9100To(system);
+			}
 		}
 	  }
 	}
