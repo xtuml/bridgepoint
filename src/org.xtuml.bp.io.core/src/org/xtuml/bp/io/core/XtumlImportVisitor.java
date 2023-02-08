@@ -29,20 +29,22 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.SearchResultSet_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Array_type_referenceContext;
+import org.xtuml.bp.io.core.XtumlParser.Discontiguous_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Inst_set_type_referenceContext;
 import org.xtuml.bp.io.core.XtumlParser.Inst_type_referenceContext;
 import org.xtuml.bp.io.core.XtumlParser.Interface_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.MarkContext;
 import org.xtuml.bp.io.core.XtumlParser.Message_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.Named_type_referenceContext;
+import org.xtuml.bp.io.core.XtumlParser.Package_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
-import org.xtuml.bp.io.core.XtumlParser.TargetContext;
 
 public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 
@@ -54,6 +56,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	private final DataType_c voidType;
 
 	private static final String MESSAGE_NUM = "message_num";
+	private static final String SYSTEM_MODEL = "system_model";
+	private static final String USE_GLOBALS = "use_globals";
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot, final IResource resource) {
 		this.modelRoot = modelRoot;
@@ -65,16 +69,63 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 	}
 
 	@Override
-	public NonRootModelElement visitTarget(TargetContext ctx) {
+	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
+		// TODO handle parent system or parent component
 		try {
-			final Package_c parent_pkg = PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
-				return Optional.ofNullable(Package_c.PackageInstance(modelRoot,
-						selected -> ((Package_c) selected).getPath().equals(ctx.pkg.getText())));
-			}).get();
-			currentRoot = parent_pkg;
-			return visit(ctx.interface_definition());
+			currentRoot = PersistenceManager.getDefaultInstance()
+					.selectAndWait(resource,
+							() -> Stream
+									.of(Stream.of(Package_c.PackageInstances(modelRoot)),
+											Stream.of(SystemModel_c.SystemModelInstances(modelRoot)),
+											Stream.of(Component_c.ComponentInstances(modelRoot)))
+									.flatMap(s -> s)
+									.filter(selected -> selected.getPath().equals(ctx.parent_name.getText())).findAny())
+					.get();
+			return visit(ctx.definition());
 		} catch (InterruptedException | ExecutionException | CancellationException e) {
-			throw new CoreImport.XtumlLoadException("Failed to find package '" + ctx.pkg.getText() + "'.", e);
+			throw new CoreImport.XtumlLoadException("Failed to find package '" + ctx.parent_name.getText() + "'.", e);
+		}
+	}
+
+	@Override
+	public NonRootModelElement visitPackage_definition(Package_definitionContext ctx) {
+		// If we encounter the "system_model" mark, this is a system model
+		// instance. Otherwise it is a regular package.
+		if (ctx.mark().stream().anyMatch(mark -> SYSTEM_MODEL.equals(mark.MarkName().getText().substring(1)))) {
+			// create a system model
+			final SystemModel_c s_sys = SystemModel_c.resolveInstance(modelRoot, UUID.randomUUID(),
+					ctx.pkg_name.getText(), false, ctx.pkg_name.getText());
+			// look for "use_globals=true" in the "@system_model" mark
+			s_sys.setUseglobals(
+					ctx.mark().stream().filter(mark -> SYSTEM_MODEL.equals(mark.MarkName().getText().substring(1)))
+							.flatMap(mark -> mark.mark_arguments().mark_argument().stream())
+							.filter(ma -> ma.mark_name != null && USE_GLOBALS.equals(ma.mark_name.getText()))
+							.anyMatch(ma -> Boolean.parseBoolean(ma.const_expression().getText())));
+			currentRoot = s_sys;
+			ctx.package_item().forEach(this::visit);
+			return s_sys;
+		} else {
+			// create a package
+			/*
+			 * final Package_c parent_pkg = currentRoot instanceof Package_c ? (Package_c)
+			 * currentRoot : null; final SystemModel_c parent_sys = currentRoot instanceof
+			 * SystemModel_c ? (SystemModel_c) currentRoot :
+			 * SystemModel_c.getOneS_SYSOnR1405(parent_pkg); final Package_c pkg =
+			 * Package_c.resolveInstance(modelRoot, UUID.randomUUID(), null,
+			 * parent_sys.getSys_id(), ctx.pkg_name.getText(), "", 0, currentRoot.getPath()
+			 * + "::" + ctx.pkg_name.getText()); pkg.relateAcrossR1405To(parent_sys); if
+			 * (currentRoot instanceof SystemModel_c) { pkg.relateAcrossR1401To(parent_sys);
+			 * } final PackageableElement_c pe = new PackageableElement_c(modelRoot,
+			 * pkg.getPackage_id(), Visibility_c.Public, null, null,
+			 * Elementtypeconstants_c.INTERFACE); pkg.relateAcrossR8001To(pe); if
+			 * (parent_pkg != null) { pe.relateAcrossR8000To(parent_pkg); }
+			 */
+
+			// TODO set description
+			// TODO set number range
+
+			// currentRoot = pkg;
+			return null;
 		}
 	}
 
@@ -90,7 +141,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<NonRootModelElement> {
 				parent_pkg.getPackage_id(), null, Elementtypeconstants_c.INTERFACE);
 		pe.relateAcrossR8000To(parent_pkg);
 		iface.relateAcrossR8001To(pe);
-		iface.setName(ctx.iface_name.getText());
 		currentRoot = iface;
 
 		// set interface description

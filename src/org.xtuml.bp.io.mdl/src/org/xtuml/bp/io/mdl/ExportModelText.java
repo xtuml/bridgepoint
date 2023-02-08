@@ -1,9 +1,9 @@
 package org.xtuml.bp.io.mdl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream; import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Comparator;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +23,7 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 
@@ -53,13 +54,45 @@ public class ExportModelText extends ExportModelComponent {
 
 	@Override
 	public String get_file_header(NonRootModelElement element) {
-		if (element instanceof Interface_c) {
+		// TODO remove this conditional once everything is implemented
+		if (element instanceof Interface_c || element instanceof SystemModel_c) {
 			return get_file_header("//",
 					element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
 					"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
 		} else {
 			return super.get_file_header(element);
 		}
+	}
+	
+	@Override
+	protected void export_SystemModel_c(SystemModel_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s@system_model(use_globals=%s);\n", getTab(), inst.getUseglobals());
+			append("%spackage %s is\n", getTab(), inst.getName()); // TODO sanitize name
+			tabDepth++;
+			
+			final Package_c[] ep_pkgs = Package_c.getManyEP_PKGsOnR1401(inst);
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+			Stream.of(ep_pkgs).sorted(Comparator.comparing(Package_c::getName)).forEach(ep_pkg -> {
+			  append("%spackage %s;\n", getTab(), ep_pkg.getName());
+			});
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+			
+			tabDepth--;
+			append("%send package;\n\n", getTab());
+
+		} else {
+			super.export_SystemModel_c(inst, pm, writeAsProxies, isPersistable);
+		}
+
 	}
 
 	@Override

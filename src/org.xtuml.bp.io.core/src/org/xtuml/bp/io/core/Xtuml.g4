@@ -1,8 +1,28 @@
 grammar Xtuml;
 
-target                   : 'within' pkg=scoped_name 'is'
-                           interface_definition
+target                   : definition
+                           | discontiguous_definition
+                         ;
+
+discontiguous_definition : 'within' parent_name=scoped_name 'is'
+                             definition
                            'end' ';'
+                         ;
+                         
+definition               : package_definition
+                           | interface_definition
+                         ; 
+                         
+package_definition       : description? mark*
+                           'package' pkg_name=name (
+                             'is'
+                               package_item+
+                             'end' 'package'
+                           )? ';'
+                         ;
+                         
+package_item             : package_definition
+                           // | other_package_item...
                          ;
                          
 interface_definition     : description? mark*
@@ -46,7 +66,8 @@ mark                     : MarkName ( '(' mark_arguments ')' )? ';';
                          
 mark_arguments           : mark_argument ( ',' mark_argument )*;
 
-mark_argument            : const_expression;
+mark_argument            : const_expression
+                           | mark_name=ID '=' const_expression;
 
 const_expression         : scoped_name | StringLiteral | IntegerLiteral;  // TODO need to develop this more
 

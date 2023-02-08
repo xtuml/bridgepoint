@@ -273,8 +273,7 @@ public abstract class CoreImport implements IModelImport {
 		try {
 			BufferedReader dis = new BufferedReader(getInputReader());
 			readHeader();
-			// TODO
-			if (m_header.valid && m_header.componentType.equals("Interface")) {
+			if (m_header.valid && m_header.getPersistenceFormat() == PersistenceFormat.TEXT) {
 				return 1;
 			}
 			String s = dis.readLine();
