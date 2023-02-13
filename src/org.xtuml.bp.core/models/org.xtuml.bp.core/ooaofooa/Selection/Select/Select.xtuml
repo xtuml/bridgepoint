@@ -487,30 +487,6 @@ if (empty inst_in_where)
         iir.dispose();
       end if;
     end for;
-  else // self.cardinality == "many"
-    // remove all duplicates from the set
-    select many iirs related by selection_local_reference->L_LCL[R3001]->
-                      RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
-    for each iir in iirs
-      select one inst related by iir->I_INS[R3013];
-      if (not_empty inst)
-        // select the full set of which this reference is a member
-        select many potentialDuplicates related by iir->
-                                                    RV_IRV[R3311]->L_IIR[R3311];
-        originalFound = false;
-        for each potentialDuplicate in potentialDuplicates
-          select one potentialDuplicateInst related by
-                                               potentialDuplicate->I_INS[R3013];
-          if (potentialDuplicateInst == inst)
-            if (originalFound)
-              potentialDuplicate.dispose(); // remove the reference from set
-            else
-              originalFound = true; // keep first reference to this instance
-            end if;
-          end if; // we found a matching instance reference
-        end for; // each potentialDuplicate
-      end if; // inst is empty (iir was already disposed when visited)
-    end for; // each instanceInReference
   end if;
 end if;',
 	1,
