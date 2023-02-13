@@ -109,64 +109,65 @@ select one relationship_spec related by self->R_REL[R653];
 select one simprel related by relationship_spec->R_SIMP[R206];
 
 reflexive = relationship_spec.is_reflexive();
-rel_phrase = GD::strip_tics(value:self.relationship_phrase);
+symmetric = relationship_spec.is_symmetric();
+stmt_phrase = GD::strip_tics(value:self.relationship_phrase);
 
 relatingFwd = true;  // tentative assumption..
 
-if not_empty source and not_empty destination
+if (not_empty source and not_empty destination)
   // Variables ''source'' and ''destination'' refer to lexical order in current statement.
   // By various heuristics, attempt to order the relate as ''from->to'' for consistency
   // If a ''backward'' relate is detected, swap ''source'' for ''destination''.
   // This establishes consistency for R2901/R2902 linkage creation.
   // It also simplifies multiplicity error checking.
-  if not_empty simprel
+  if (not_empty simprel)
     select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
-    if relationship_spec.isFormalized()
+    if (relationship_spec.isFormalized())
       // Abitrarily, ''forward'' relate is taken to be from R_FORM to R_PART
-      if reflexive  // phrases are mandatory: use them to discriminate
+      if (reflexive)  // phrases mandatory: use them to discriminate
         select one form related by simprel->R_FORM[R208];
-        if form.Txt_Phrs == rel_phrase
+        if (form.Txt_Phrs == stmt_phrase and not symmetric)
           relatingFwd = false;
         end if;
-      else;
+      else // cannot rely on phrase; but not reflexive, so classes are distinct
         select one rgoclass related by simprel->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-        if rgoclass != sourceClass
+        if (rgoclass != sourceClass)
           relatingFwd = false;
         end if;
       end if;
     else
       // Unformalized: need to make repeatable choice of direction of ''relate''.
       // Arbitrarily, choose the first of the 2 parts to act as ''from''.
-      // [Note: this relies on repeatable ordering of select/for each; see implementation note]
+      // [Note: this relies on repeatable ordering of select/for each; 
+      // see implementation note for issue #12523]
       // First, try to discriminate based on relationship phrase used in statement.
-      select many rParts related by simprel->R_PART[R207];
-      for each rPart in rParts
-        if rel_phrase != ""
-          if rPart.Txt_Phrs == rel_phrase
-            relatingFwd = false;
-          end if;
-        else
-          // If no phrase, this cannot be reflexive: look at classes involved.
-          select one fromClass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-          if fromClass != sourceClass
-            relatingFwd = false;
-          end if;
+      // Note reliance on order of returned rPart; see issue #12614
+      select any rPart related by simprel->R_PART[R207];
+      if (stmt_phrase != "" and not symmetric) // if symmetric, direction is irrelevant
+        if (rPart.Txt_Phrs == stmt_phrase)
+          relatingFwd = false;
         end if;
-        break;
-      end for;
+      else
+        // If no phrase, this cannot be reflexive: look at classes involved.
+        select one fromClass related by rPart->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if (fromClass != sourceClass)
+          relatingFwd = false;
+        end if;
+      end if;
     end if;
   else
     // not simple; must be sub-super; ''forward'' means subtype-to-supertype
     select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
     select one superclass related by relationship_spec->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-    if superclass != destClass
+    if (superclass != destClass)
       relatingFwd = false;
     end if;
   end if;
-  if not relatingFwd
+  if (not relatingFwd)
     swap = source;
     source = destination;
     destination = swap;
+    relatingFwd = true;  // because we swapped
   end if;
 end if;
 
@@ -176,18 +177,18 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   srcMultiplicity = 0;
   dstMultiplicity = 0;
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_relate_audit"); 
-  if auditSev != 0  // 0 == Ignore
+  if (auditSev != 0)  // 0 == Ignore
     message = "";
-    if empty source or empty destination
+    if (empty source or empty destination)
       populationError = true;
       message = "Empty instance";
-      if empty source and empty destination
-       message = message + "s";
+      if (empty source and empty destination)
+        message = message + "s";
       end if;
       message = message + " being related on";
     else
-      if not_empty simprel
-        if relationship_spec.isFormalized()
+      if (not_empty simprel)
+        if (relationship_spec.isFormalized())
           // determine ''source'' and ''destination'' multiplicities
           select one rForm related by simprel->R_FORM[R208];
           select any rPart related by simprel->R_PART[R207];
@@ -196,13 +197,13 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
         else
           // if simple association is not formalized, editor supplies 2 ''parts''
           // unformalized reflexive: arbitrarily choose ''from'' as first r_part
-          // note: relies on select many/for each repeatability
+          // note: relies on select many/for each repeatability; see issue #12614
           select any srcPart from instances of R_PART where false;
           select any dstPart from instances of R_PART where false;
           select many rParts related by simprel->R_PART[R207];
           i = 1;
           for each rPart in rParts
-            if i == 1
+            if (i == 1)
               srcPart = rPart;  // arbitrarily pick the first
             else
               dstPart = rPart;
@@ -214,7 +215,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
         end if;
       // else, subtype-supertype must have multiplicity 1 (i.e. value=0) on both sides
       end if;
-      select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
+      select many fromLinks related by destination->I_LIP[R2958]->I_LNK[R2901]
                         where (selected.Rel_ID == relationship_spec.Rel_ID);
       fromLinkNum = cardinality fromLinks;
       select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
@@ -222,25 +223,34 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       toLinkNum = cardinality toLinks;
       
       message = "Already related on";  // in case there is an error..
-      if srcMultiplicity == 0 and toLinkNum > 0
-        populationError = true;
-      end if;
-      if dstMultiplicity == 0 and fromLinkNum > 0 
-        populationError = true;
+      
+      if (srcMultiplicity == 0) // 0 == Multiplicity one
+        numlnks = 0;
+        if (relatingFwd)
+          numlnks = toLinkNum;
+        else
+          numlnks = fromLinkNum;
+        end if;
+        if (symmetric)
+          numlnks = toLinkNum + fromLinkNum;
+        end if;
+        if (numlnks > 0)
+          populationError = true;
+        end if;
       end if;
     end if;
     
-    if populationError
+    if (populationError)
       severity = "Warning";
       assocPhrase = "";
-      if (rel_phrase != "")
-        assocPhrase = " (" + rel_phrase + ")";
+      if (stmt_phrase != "")
+        assocPhrase = " (" + stmt_phrase + ")";
       end if;
       postFixMsg = "";
-      if auditSev == 2 // 2 == FATAL
+      if (auditSev == 2) // 2 == FATAL
         severity = "FATAL";
         select one stack related by stack_frame->I_STACK[R2929];
-        if stack.runState == RunStateType::Running
+        if (stack.runState == RunStateType::Running)
           // Only suspend execution if running, i.e. allow stepping over
           stack.suspendReason = "Halted on illegal link instance " +
                   "population on " + relationship_spec.get_name() + assocPhrase;
@@ -258,7 +268,7 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   end if; // audit is do not ignore
 end if; // audit enabled
 
-if not populationError
+if not (populationError)
   create object instance link of I_LNK;
   relate relationship_spec to link across R2904;
 

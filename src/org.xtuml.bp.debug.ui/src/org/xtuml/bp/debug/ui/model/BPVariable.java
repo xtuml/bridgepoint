@@ -181,7 +181,18 @@ public class BPVariable extends BPDebugElement implements IVariable {
     				  return LinkParticipation_c .getOneI_LIPOnR2903( instanceLinks).getLabel();
     			  else 
     				  return lp.getLabel();
-    		  } 
+
+    		  } else if (name.equals("Symmetrics")) {
+    			  // Symmetric reflexive could be linked in either direction - R2901/R2902
+    			  Link_c[] instanceLinks = getInstanceLinksForAnAssociation();
+    			  LinkParticipation_c lp = LinkParticipation_c .getOneI_LIPOnR2901( instanceLinks);
+    			  if (lp == null)
+    	   			  lp = LinkParticipation_c .getOneI_LIPOnR2902( instanceLinks);
+    			  if (lp == null)
+    				  return LinkParticipation_c .getOneI_LIPOnR2903( instanceLinks).getLabel();
+    			  else 
+    				  return lp.getLabel();
+    		  }
     		  else if (name.equals("Associator For")) {
     			  return "R" + ((Association_c)value).getNumb();
 

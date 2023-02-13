@@ -1,0 +1,130 @@
+= Drag and Drop in model explorer
+
+xtUML Project Implementation Note
+
+
+== 1 Abstract
+
+This note describes the changes required to enable drag and drop support in model explorer.
+
+== 2 Introduction and Background
+
+Currently elements can be reordered through Move Up/Down, they can also be cut/copy pasted.  There is no support currently for simply dragging an element or set of elements and dropping them to perform these operations.
+
+== 3 Requirements
+
+See <<dr-1>>.
+
+== 4 Work Required
+=== 4.1 Generate drag and drop supporting methods for ordering assocations
+
+Modify MC-Java/referred_to.inc to include a new function that generates re-ordering methods.  Generate the following methods if the OrderBy: true description marking is present on a reflexive association:
+
+. removeFromOrdering() - Pulls self out of the ordering
+. getElementAt(index: integer) - Gets the element in the ordering at the given index
+. orderingIndexOf() - Returns self's index in the ordering
+. insertIntoOrdering(index: integer) - Adjusts the ordering association to place self at the given index
+. getOrderedElementCount() - Returns the count of elements participating in the ordering
+. canChangeOrder() - Returns true if there are at least two elements in the ordering
+
+For the following elements mark the associations with OrderBy: true:
+
+   - Attribute
+   - Bridge Parameter
+   - Enumerator
+   - Function Parameter
+   - Interface Operation
+   - Interface Signal
+   - Operation
+   - Operation Parameter
+   - Event Parameter
+   - Structure Member
+   - Constant
+   - Terminator Service Parameter
+
+=== 4.2 Add drag and drop support to ui.explorer
+
+Modify create_explorer_view.inc to configure the TreeView to have drag and drop support.  Set the allowed operations as DROP_MOVE and DROP_COPY.
+
+To support the drag and drop operations two new listeners are added, OrderedElementDragSourceListener and OrderedElementDropTargetListener. 
+
+OrderedElementDragSourceListener is responsible for placing textual data in the event to represent the element being dragged.  The data used is:
+
+- Unique key of the element (used to retrieve the element at drop)
+- Class type for the dragged element
+- Parent class type for the dragged element
+- Export stream data of the selected elements
+
+OrderedElementDropTargetListener uses the textual information to locate the details of the element and enable three different types of drop:
+
+. Re-order (if the new container is the existing, and the element being dragged is supported by the re-ordering methods)
+. Move (if the new container supports pasting the element type and is not  the parent)
+. Copy/Paste (if the new  container supports pasting the element type and is not the parent)
+
+On drop OrderedElementDropTargetListener will do one of the following accordingly:
+
+. Call the generated insertIntoOrdering using the index of the element over.
+. Call paste on the container element using the exported stream data, then delete the original
+. Call paste on the container element using the exported stream data, without deleting the original
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+[Manual]
+
+. Drag each of these elements within the same parent:
+   - Attribute
+   - Bridge Parameter
+   - Enumerator
+   - Function Parameter
+   - Interface Operation
+   - Interface Signal
+   - Operation
+   - Operation Parameter
+   - Event Parameter
+   - Structure Member
+   - Constant
+   - Terminator Service Parameter
+. Result: The element's order is changed to match the drop location
+. Drag an element to a new container destination that supports pasting into that location
+. Result: The element is moved to that location
+. Result: The element is removed from that location
+. Hold the copy modifier key (option on OSX) and drag an element to a new container destination that supports pasting into that location
+. Result: The element is copied into that location
+. Result: The original element is left at its original location
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  FMAY-Software/bridgepoint
+- branch:  fmay-dnd
+
+----
+src/MC-Java/referred_to.inc
+
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Component/Component.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Constants/Constants.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Deployment/Deployment.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Domain/Domain.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/State Machine/State Machine.xtuml
+src/org.xtuml.bp.core/models/org.xtuml.bp.core/ooaofooa/Subsystem/Subsystem.xtuml
+
+src/org.xtuml.bp.ui.explorer/arc/create_explorer_view.inc
+src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/dnd/AbstractElementDropTargetListener.java
+src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/dnd/ElementDragSourceListener.java
+src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/dnd/ElementDropTargetListener.java
+src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/dnd/OrderedElementDragSourceListener.java
+src/org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer/dnd/OrderedElementDropTargetListener.java
+----
+
+== 9 Document References
+
+. [[dr-1]] https://fmay-software.github.io/xtUML-DragAndDrop/
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

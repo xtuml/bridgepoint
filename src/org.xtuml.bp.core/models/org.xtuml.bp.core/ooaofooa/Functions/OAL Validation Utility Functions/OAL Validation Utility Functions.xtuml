@@ -2851,106 +2851,140 @@ INSERT INTO S_SYNC
 	'ParserValidateFunction: TRUE
 ParserUtilityFunction: TRUE
 ',
-	'  select any var from instances of V_VAR
-          where (selected.Var_ID == param.a1_local_var );
-  select any stmt from instances of ACT_SMT
-          where (selected.Statement_ID == param.a2_stmt_id );
-  select one sel related by stmt->ACT_SEL[R603];
-  select one irv related by var->V_INT[R814];
-  select one irsv related by var->V_INS[R814];
-  select one link related by sel->ACT_LNK[R637];
-  last_link = link;
-  mult = "one";
-  if ( not_empty irsv )
+	'// traverse a relationship chain, validating each link
+select any var from instances of V_VAR
+        where (selected.Var_ID == param.a1_local_var );
+select any stmt from instances of ACT_SMT
+        where (selected.Statement_ID == param.a2_stmt_id );
+select one sel related by stmt->ACT_SEL[R603];
+select one irv related by var->V_INT[R814];  // instance reference variable subtype
+select one irsv related by var->V_INS[R814]; // instance set reference subtype
+select one link related by sel->ACT_LNK[R637.''starts with''];
+
+mult = "one";  // starting from instance variable?..
+if ( not_empty irsv ) // .. or instance set variable?
+  mult = "many";
+end if;
+
+select any last_link from instances of ACT_LNK where false; // decl
+select any fromclass from instances of O_OBJ where false;  // decl
+
+while ( not_empty link )
+  if ( link.Mult == Multiplicity::Many )
     mult = "many";
   end if;
-  while ( not_empty link )
-    last_link = link;
-    if ( link.Mult == Multiplicity::Many )
-      mult = "many";
+  if ( mult == "one" )
+    select one rel related by link->R_REL[R681.''specifies traversal of''];
+    select one assoc related by rel->R_ASSOC[R206];
+    if ( not_empty assoc and rel.is_symmetric() )
+      // selecting from the associative across a symmetric reflexive requires special treatment
+      // "many"/"any" must be used - even if the association multiplicity is 1:1 - because
+      // either or both ''side'' instances may be being selected. Note that "one'' is disallowed; 
+      // there is not a choice of role phrase to establish ''direction'' of the select.
+      if ( empty last_link ) 
+        // on the first link in the chain
+        // start variable class - either instance or set - is the ''from'' class for this link
+        select one startval related by sel->V_VAL[R613.''starting point''];
+        select one startvar related by startval->V_IRF[R801]->V_VAR[R808.''refers to''];
+        select one insthandle related by startvar->V_INT[R814];
+        if ( not_empty insthandle )
+          select one fromclass related by insthandle->O_OBJ[R818.''refers to''];
+        else
+          select one instset related by startvar->V_INS[R814];
+          select one fromclass related by instset->O_OBJ[R819.''refers to''];
+        end if;
+      else  // get the ''from'' class for this link in the navigation chain
+        select one fromclass related by last_link->O_OBJ[R678.''specifies instances of''];
+      end if;
+      select one assoclass related by assoc->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+      if ( fromclass == assoclass )  // selecting from associative class to ''reflexed'' class;
+        mult = "many";  // allow "any"/"many" selection
+      end if;
     end if;
-    select one link related by last_link->ACT_LNK[R604.''precedes''];
-  end while;
+end if;
+  last_link = link;
+  select one link related by last_link->ACT_LNK[R604.''precedes''];
+end while;
 
-  if ( param.a3_mult == "one" and mult == "many" )
-    if ( not var.Declared )
-      var.dispose();
-    end if;
-    stmt.dispose();
-    ERR::reportParseError( msg: "At least one association has a right class with multiplicity of many.  With SELECT ONE, all right classes must have multiplicity of one",
-        token: param.a4_rule_token );
-  elif ( param.a3_mult == "any" and mult == "one" )
-    if ( not var.Declared )
-      var.dispose();
-    end if;
-    stmt.dispose();
-    ERR::reportParseError( msg: "No right class has multiplicity of many. With SELECT ANY, at least one class must have multiplicity of many",
-        token: param.a4_rule_token );
-  elif ( param.a3_mult == "many" and mult == "one" )
-    if ( not var.Declared )
-      var.dispose();
-    end if;
-    stmt.dispose();
-    ERR::reportParseError( msg: "No right class has multiplicity of many. With SELECT MANY, at least one class must have multiplicity of many",
-        token: param.a4_rule_token );
+if ( param.a3_mult == "one" and mult == "many" )
+  if ( not var.Declared )
+    var.dispose();
   end if;
+  stmt.dispose();
+  ERR::reportParseError( msg: "At least one association has a right class with multiplicity of many.  With SELECT ONE, all right classes must have multiplicity of one",
+      token: param.a4_rule_token );
+elif ( param.a3_mult == "any" and mult == "one" )
+  if ( not var.Declared )
+    var.dispose();
+  end if;
+  stmt.dispose();
+  ERR::reportParseError( msg: "No right class has multiplicity of many. With SELECT ANY, at least one class must have multiplicity of many",
+      token: param.a4_rule_token );
+elif ( param.a3_mult == "many" and mult == "one" )
+  if ( not var.Declared )
+    var.dispose();
+  end if;
+  stmt.dispose();
+  ERR::reportParseError( msg: "No right class has multiplicity of many. With SELECT MANY, at least one class must have multiplicity of many",
+      token: param.a4_rule_token );
+end if;
 
-  select one obj related by last_link->O_OBJ[R678];
-  if ( var.Declared and
-        (param.a3_mult == "any" or param.a3_mult == "one") and empty irv )
-    stmt.dispose();
-    ERR::reportParseError( msg: "Variable ->"+var.Name+"<- does not exist in scope as an object instance variable",
-        token: param.a4_rule_token );
-  elif ( var.Declared and param.a3_mult == "many" and empty irsv )
-    stmt.dispose();
-    ERR::reportParseError( msg: "Variable ->"+var.Name+"<- does not exist in scope as an object instance set variable",
-        token: param.a4_rule_token );
-  else
-    stmt_ok = false;
-    if ( var.Declared )
-      if ( param.a3_mult == "many" )
-        select one irsv_obj related by irsv->O_OBJ[R819];
-        if ( irsv_obj.Obj_ID != obj.Obj_ID )
-          stmt.dispose();
-          ERR::reportParseError( msg: "Variable ->"+var.Name+"<- already exists as a different type",
-            token: param.a4_rule_token );
-        else
-          sel.is_implicit = false;
-          stmt_ok = true;
-        end if;
+select one obj related by last_link->O_OBJ[R678];
+if ( var.Declared and
+      (param.a3_mult == "any" or param.a3_mult == "one") and empty irv )
+  stmt.dispose();
+  ERR::reportParseError( msg: "Variable ->"+var.Name+"<- does not exist in scope as an object instance variable",
+      token: param.a4_rule_token );
+elif ( var.Declared and param.a3_mult == "many" and empty irsv )
+  stmt.dispose();
+  ERR::reportParseError( msg: "Variable ->"+var.Name+"<- does not exist in scope as an object instance set variable",
+      token: param.a4_rule_token );
+else
+  stmt_ok = false;
+  if ( var.Declared )
+    if ( param.a3_mult == "many" )
+      select one irsv_obj related by irsv->O_OBJ[R819];
+      if ( irsv_obj.Obj_ID != obj.Obj_ID )
+        stmt.dispose();
+        ERR::reportParseError( msg: "Variable ->"+var.Name+"<- already exists as a different type",
+          token: param.a4_rule_token );
       else
-        select one irv_obj related by irv->O_OBJ[R818];
-        if ( irv_obj.Obj_ID != obj.Obj_ID )
-          stmt.dispose();
-          ERR::reportParseError( msg: "Variable ->"+var.Name+"<- already exists as a different type",
-            token: param.a4_rule_token );
-        else
-          sel.is_implicit = false;
-          stmt_ok = true;
-        end if;
+        sel.is_implicit = false;
+        stmt_ok = true;
       end if;
     else
-      stmt_ok = true;
-      sel.is_implicit = true;
-      if ( param.a3_mult != "many" )
-        var.migrate_to_int();
-        select one inst_ref related by var->V_INT[R814];
-        relate inst_ref to obj across R818;
-        ::connect_inst_ref_var_to_datatype(p1_is_set:false, p2_var_id:var.Var_ID, p3_obj_id:obj.Obj_ID);
+      select one irv_obj related by irv->O_OBJ[R818];
+      if ( irv_obj.Obj_ID != obj.Obj_ID )
+        stmt.dispose();
+        ERR::reportParseError( msg: "Variable ->"+var.Name+"<- already exists as a different type",
+          token: param.a4_rule_token );
       else
-        var.migrate_to_ins();
-        select one inst_ref_set related by var->V_INS[R814];
-        relate inst_ref_set to obj across R819;
-        ::connect_inst_ref_var_to_datatype(p1_is_set:true, p2_var_id:var.Var_ID, p3_obj_id:obj.Obj_ID);
+        sel.is_implicit = false;
+        stmt_ok = true;
       end if;
-      var.Declared = true;
     end if;
-    if ( stmt_ok )
-      sel.cardinality = param.a3_mult;
-      relate sel to var across R638;
+  else
+    stmt_ok = true;
+    sel.is_implicit = true;
+    if ( param.a3_mult != "many" )
+      var.migrate_to_int();
+      select one inst_ref related by var->V_INT[R814];
+      relate inst_ref to obj across R818;
+      ::connect_inst_ref_var_to_datatype(p1_is_set:false, p2_var_id:var.Var_ID, p3_obj_id:obj.Obj_ID);
+    else
+      var.migrate_to_ins();
+      select one inst_ref_set related by var->V_INS[R814];
+      relate inst_ref_set to obj across R819;
+      ::connect_inst_ref_var_to_datatype(p1_is_set:true, p2_var_id:var.Var_ID, p3_obj_id:obj.Obj_ID);
     end if;
+    var.Declared = true;
   end if;
-  return stmt.Statement_ID;
+  if ( stmt_ok )
+    sel.cardinality = param.a3_mult;
+    relate sel to var across R638;
+  end if;
+end if;
+return stmt.Statement_ID;
 
 ',
 	"ba5eda7a-def5-0000-0000-000000000005",
@@ -7686,7 +7720,11 @@ if ( not_empty act and not_empty left_obj )
   for each r_oir in r_oirs
     select many foreign_oirs related by r_oir->R_REL[R201]->R_OIR[R201] where ( selected.OIR_ID != r_oir.OIR_ID );
     for each foreign_oir in foreign_oirs
+      phrase = foreign_oir.get_text_phrase();
       select one r_rel related by foreign_oir->R_REL[R201];
+      if (r_rel.is_symmetric() and phrase == "")
+        continue;  // do not add the non-role-phrase side of this symmetric association to the proposal list for the chain continuation.
+      end if;
       mult = ::get_right_object_multiplicity( a1_left:r_oir.OIR_ID, a2_rel:r_rel.Rel_ID, a3_right:foreign_oir.OIR_ID );
       select one foreign_sub related by foreign_oir->R_RGO[R203]->R_SUB[R205];
       select one r_sub related by r_oir->R_RGO[R203]->R_SUB[R205];
@@ -7698,7 +7736,6 @@ if ( not_empty act and not_empty left_obj )
           new_item.type = ProposalTypes::Association;
           new_item.replacement_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
           new_item.display_text = "->" + o_obj.Key_Lett + "[R" + GD::int_to_string( value:r_rel.Numb );
-          phrase = foreign_oir.get_text_phrase();
           if ( "" != phrase )
             if ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) )
               new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
@@ -8715,12 +8752,15 @@ if ( not_empty act )
       relate list to act across R1603;
     end if;
     for each oir in right_oirs
+      phrase = oir.get_text_phrase();
       select one r_rel related by oir->R_REL[R201];
+      if (r_rel.is_symmetric() and phrase == "")
+        continue;  // do not add the non-role-phrase side of this symmetric association to the proposal list for relationship selection.
+      end if;
       select one o_obj related by oir->O_OBJ[R201];
       create object instance new_item of P_P;
       new_item.type = ProposalTypes::Association;
       new_item.replacement_text = "R" + GD::int_to_string( value:r_rel.Numb );
-      phrase = oir.get_text_phrase();
       if ( "" != phrase and ( r_rel.is_reflexive() or PREF::getBoolean( name:"bridgepoint_prefs_content_assist_include_role_phrases" ) ) )
         new_item.replacement_text = new_item.replacement_text + "." + Util::getTic() + phrase + Util::getTic();
       end if;
