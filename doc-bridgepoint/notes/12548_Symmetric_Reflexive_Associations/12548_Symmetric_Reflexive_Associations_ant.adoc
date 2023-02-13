@@ -1,0 +1,168 @@
+= Symmetric Reflexive Associations
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+The BridgePoint editor requires that role phrases be used on reflexive associations.
+These should differ (not enforced, at present: see <<dr-1>> ) so that navigation 
+in either direction can be readily specified by choice of phrase in any statement 
+that relates, unrelates or traverses the association.
+
+So the simple reflexive association between, say, aquaintances, for example, must 
+be burdened with the artificial directional phrases 'knows" and 'is known by'- a 
+poor representation of the true relationship - enforcing a non-symmetrical view of 
+what clearly should be seen as symmetrical: see <<dr-2>>.
+
+For a symmetric reflexive association only one set of phrase, multiplicity and 
+conditionality should describe the association. This will require modification to 
+association editing, association implementation and selection logic.
+
+As this feature will affect Model Compilers and Verifier, it is anticipated that,
+initially, Verifier will be enhanced in parallel with the Editor to provide an 
+execution environment for acceptance testing.
+
+== 2 Introduction and Background
+
+This work explores what must be done to support navigation when only one role 
+phrase is available; what must be modified in 'select' logic; and how the 
+association editor dialog must be enhanced.
+
+Consider the association that declares that territories may be adjacent 
+to one another, as in: +
+  relate CA to AZ across R1.'is adjacent to'; +
+ then both: +
+  select any territory related by CA->Territory[R1.'is adjacent to']; and +
+  select any territory related by AZ->Territory[R1.'is adjacent to']; +
+ must yield correct results. +
+ Note that the association can be navigated in either direction regardless of 
+the order in which the association was instantiated. That is, +
+  relate AZ to CA across R1.'is adjacent to'; +
+ is equivalent to the first 'relate' shown above. 
+
+== 3 Requirements
+
+=== 3.1 Association Editor dialog
+
+Support creation of symmetric reflexive associations, with or without an associative class.
+
+==== 3.1.1
+
+Present a checkbox to select for symmetry only when the association is reflexive.
+
+==== 3.1.2
+
+If symmetry is selected, suppress the second, now redundant, set of fields: class names, 
+conditionality, multiplicity and phrase specification.
+
+=== 3.2 Relate and Unrelate semantics
+
+==== 3.2.1
+
+When relating two instances symmetrically, lexical ordering of the instance handles 
+within the relate statement is irrelevant; the following are equivalent: +
+  relate CA to AZ across R1.'is adjacent to'; +
+  relate AZ to CA across R1.'is adjacent to'; +
+
+==== 3.2.2
+
+When unrelating two symmetrically related instances, lexical ordering of the 
+instance handles within the unrelate statement is irrelevant.
+
+=== 3.3 Navigation
+
+==== 3.3.1
+
+When traversing a symmetric reflexive association, any and all related instance(s) 
+must be reachable regardless of the lexical ordering of the instance handles 
+in the statement(s) that related them
+
+==== 3.3.2
+
+Navigation from an associative class instance must allow for either or both 
+related instances to be retrieved using the single available role phrase.
+
+===== 3.3.2.1
+
+Even if the associative relationship is defined as 1:1, select 'any'/'many' 
+must be allowable when navigating from the associative class instance.
+
+=== 3.4 Content assist
+
+==== 3.4.1
+
+For relate and unrelate, only one instance of a symmetric association number, 
+decorated with a role phrase, shall be offered.
+
+==== 3.4.2
+
+When creating a relationship chain including a symmetric association only one 
+instance of a symmetric association number, decorated with a role phrase, shall be offered.
+
+=== 3.5 Verifier display
+
+Any display of an instance of a symmetric association shall include the role phrase.
+
+==== 3.5.1
+
+Session Explorer shall display a role phrase for symmetric associations.
+
+==== 3.5.2
+
+Variables display shall show a role phrase for symmetric associations.
+
+==== 3.5.3
+
+Variables display shall show all instances related across a symmetric reflexive 
+in a single list.
+
+== 4 Analysis
+
+The meta-model association data structure (Package: Association) does not 
+offer explicit support for the concept of reflexive associations, still 
+less symmetric. The reflexive nature must be deduced by recognizing that both  
+participants are of the same class. 
+
+Associations are defined on the canvas by drawing a connector between classes. 
+The direction in which the connector is drawn defines a referring/referred-to 
+'directionality' for the association. For non-reflexive associations the lexical 
+order of instance variables in a relate, unrelate or select statement, compared 
+with that directionality, determines 'forward' or 'backward' direction. 
+
+Non-symmetric reflexive associations require differing role phrases to distinguish 
+directionality. Symmetric reflexive associations can only specify a single role 
+phrase, hence directionality cannot be so inferred. The design must allow for this 
+difference in relationship navigation.
+
+== 5 Work Required
+
+The Association editor dialog should be modified to present a 'Symmetric' 
+check box when, and only when, reflexive associations are selected for edit. 
+When checked, the superfluous fields for the second role phrase, multiplicity 
+selection and conditionality choice should be suppressed.
+
+The relate, unrelate, and select logic must be enhanced to support the symmetric 
+semantics described above.
+
+The content assist feature must suppress non-role-phrase occurrences of symmetric 
+associations in  proposal lists.
+
+Verifier's display logic must provide missing role phrases where needed in 
+Session Explorer, and should not display two 'directions' of a symmetric 
+association when displaying instance variable data.
+
+== 6 Acceptance Test
+
+As this is a new feature enhancement, specific tests must be developed.
+
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12567
+. [[dr-2]] https://support.onefact.net/issues/12548
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

@@ -144,7 +144,7 @@ halting = false;
 // if configured in preferences, check existence/multiplicities
 if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
   auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_unrelate_audit"); 
-  if auditSev != 0  // 0 == Ignore
+  if (auditSev != 0)  // 0 == Ignore
     severity = "";
     if empty relLink
       severity = "Warning";
@@ -153,10 +153,10 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
         assocPhrase = " (" + self.relationship_phrase + ")";
       end if;
       postFixMsg = "";
-      if auditSev == 2 // 2 == FATAL
+      if (auditSev == 2) // 2 == FATAL
         severity = "FATAL";
         select one stack related by stack_frame->I_STACK[R2929];
-        if stack.runState == RunStateType::Running
+        if (stack.runState == RunStateType::Running)
           // Only suspend execution if running, i.e. allow stepping over
           stack.suspendReason = "Halted on illegal link instance " +
                   "population on " + relationship_spec.get_name() + assocPhrase;
@@ -174,8 +174,8 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
     end if; // a matching link was not found
   end if; // audit is do not ignore
 end if; // audit enabled
-if not halting
-  if not_empty relLink
+if not (halting)
+  if (not_empty relLink)
     relLink.dispose();
   end if;
 end if;',

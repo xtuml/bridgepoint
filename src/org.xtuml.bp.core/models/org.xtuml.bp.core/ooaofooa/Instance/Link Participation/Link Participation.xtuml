@@ -109,21 +109,28 @@ INSERT INTO O_DBATTR
 if not_empty assoc
   phrase = "";
   select one origin related by self->I_LNK[R2901];
+  // if origin is specified, we are looking for the phrase from the ''from'' side
+  // but symmetric reflexive has no ''from'' phrase; it must be ''borrowed'' from the ''to'' side.
   select one simprel related by assoc->R_SIMP[R206];
   if(not_empty simprel)
     if (not assoc.isFormalized())
       select many parts related by simprel->R_PART[R207];
       for each part in parts
-        // in the case of an unformalized association we have two parts
+        // in the case of an unformalized association we have two parts:
+        // depending on origin, we take the phrase from either 1st or 2nd part.
+        // except, if symmetric reflexive, always take the 2nd phrase (the 1st is null)
+        // Note reliance on order of returned parts; see issue #12614
         phrase = part.Txt_Phrs;
-        if(not_empty origin) // take the first, else the second..
-          break;
+        if(not_empty origin) // take the first, else cycle for the second...
+          if (not assoc.is_symmetric())  // .. unless symmetric; if it is, wait for the ''to'' side
+            break;
+          end if;
         end if;
       end for;
     else
-      // formalized
-      if(not_empty origin)
-        select one form related by simprel->R_FORM[R208];
+      // must be formalized: if symmetric, need to ''borrow'' the single phrase from R_PART
+      select one form related by simprel->R_FORM[R208];
+      if(not_empty origin) and not (assoc.is_symmetric())
         phrase  = form.Txt_Phrs;
       else
         select any part related by simprel->R_PART[R207];
@@ -133,12 +140,13 @@ if not_empty assoc
   else
     select one linked related by assoc->R_ASSOC[R206];
     if(not_empty linked)
-      if(empty origin)
+      // associative: if symmetric, need to ''borrow'' the single phrase from R_AOTH
+      select one aone related by linked->R_AONE[R209];
+      if(not empty origin) and not (assoc.is_symmetric())
+        phrase = aone.Txt_Phrs;
+      else
         select one aoth related by linked->R_AOTH[R210];
         phrase = aoth.Txt_Phrs;
-      else
-        select one aone related by linked->R_AONE[R209];
-        phrase = aone.Txt_Phrs;
      end if;
     end if;
   end if;
