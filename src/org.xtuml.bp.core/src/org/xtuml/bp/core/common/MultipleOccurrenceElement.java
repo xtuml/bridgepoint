@@ -27,8 +27,6 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
 
-import org.xtuml.bp.core.common.NonRootModelElement;
-
 public class MultipleOccurrenceElement implements IAdaptable {
 
 	// This static map maintains all of the instances of MultipleOccurrenceElement
@@ -61,7 +59,7 @@ public class MultipleOccurrenceElement implements IAdaptable {
 	}
 	
 	public static MultipleOccurrenceElement getElement( NonRootModelElement element, Object parentElement ) {
-		Integer key = new Integer( ( element.hashCode() * 31 ) + parentElement.hashCode() ); // create unique integer hash of two elements
+		int key = ( element.hashCode() * 31 ) + parentElement.hashCode(); // create unique integer hash of two elements
 		if ( multipleOccurrenceElements.containsKey(key) ) {
 			return multipleOccurrenceElements.get(key);
 		}
