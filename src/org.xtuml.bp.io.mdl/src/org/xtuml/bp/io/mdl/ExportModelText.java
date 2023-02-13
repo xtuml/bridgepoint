@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
@@ -45,8 +48,6 @@ import org.xtuml.bp.io.core.ProxyUtil;
 // TODO determine how to sanitize names
 
 public class ExportModelText extends ExportModelComponent {
-
-	private static final String TAB_CHARS = "  ";
 
 	private int tabDepth = 0;
 	private final Stack<StringBuilder> buffers = new Stack<>();
@@ -158,7 +159,7 @@ public class ExportModelText extends ExportModelComponent {
 
 			// ports
 			final Port_c[] c_pos = Port_c.getManyC_POsOnR4010(inst);
-			for (Port_c c_po : c_pos) {
+			for (Port_c c_po : Stream.of(c_pos).sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
 				export_Port_c(c_po, pm, writeAsProxies, isPersistable);
 			}
 
@@ -194,7 +195,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@mult(\"many\");\n", getTab());
 			}
 			if (inst.getDonotshowportoncanvas()) {
-				append("%s@hidegraphic;\n", getTab());
+				append("%s@hide_graphic;\n", getTab());
 			}
 			if (!inst.getKey_lett().isBlank()) {
 				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
@@ -510,9 +511,13 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	private String getTab() {
+		final IPreferenceStore store = EditorsUI.getPreferenceStore();
+		final boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		final String tabChar = spacesForTabs ? " " : "\t";
+		final int tabWidth = spacesForTabs ? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH) : 1;
 		String tab = "";
-		for (int i = 0; i < tabDepth; i++) {
-			tab += TAB_CHARS;
+		for (int i = 0; i < tabDepth * tabWidth; i++) {
+			tab += tabChar;
 		}
 		return tab;
 	}

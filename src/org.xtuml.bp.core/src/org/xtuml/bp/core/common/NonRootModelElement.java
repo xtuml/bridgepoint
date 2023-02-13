@@ -54,11 +54,13 @@ import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.IntegrityManager_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
+import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.Severity_c;
@@ -298,6 +300,9 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				path = "Instance State Machine";
 			} else if (this instanceof ExecutableProperty_c) {
 				path = Interface_c.getOneC_IOnR4003((ExecutableProperty_c) this).getPath() + "::" + getName();
+			} else if (this instanceof InterfaceReference_c) {
+				final InterfaceReference_c c_ir = (InterfaceReference_c) this;
+				path = Port_c.getOneC_POOnR4016(c_ir).getPath() + "::" + c_ir.Interfacename();
 			}
 			IModelClassInspector elementInspector = inspector.getInspector(getClass());
 			if (elementInspector != null) {

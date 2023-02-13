@@ -100,7 +100,7 @@ public class CanvasWriter implements IGraphicalWriter {
 	
 	@Override
 	public void write(NonRootModelElement model, boolean generate) {
-		IScopeContext projectScope = new ProjectScope(model.getPersistableComponent().getFile().getProject());
+		IScopeContext projectScope = new ProjectScope(model.getFile().getProject());
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		if (!"text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			return;

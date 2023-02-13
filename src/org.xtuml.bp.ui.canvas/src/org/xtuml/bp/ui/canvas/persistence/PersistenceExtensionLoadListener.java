@@ -4,11 +4,8 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.osgi.service.prefs.Preferences;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Gd_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ModelChangeAdapter;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -31,7 +28,7 @@ public class PersistenceExtensionLoadListener extends ModelChangeAdapter {
 		NonRootModelElement loadedElement = (NonRootModelElement) event.getModelElement();
 
 		// do nothing if textual persistence is not enabled
-		IScopeContext projectScope = new ProjectScope(loadedElement.getPersistableComponent().getFile().getProject());
+		IScopeContext projectScope = new ProjectScope(loadedElement.getFile().getProject());
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		if (!"text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			return;
@@ -43,7 +40,7 @@ public class PersistenceExtensionLoadListener extends ModelChangeAdapter {
 	@Override
 	public void modelElementUnloaded(ModelChangedEvent event) {
 		// do nothing if textual persistence is not enabled
-		IScopeContext projectScope = new ProjectScope(((NonRootModelElement) event.getModelElement()).getPersistableComponent().getFile().getProject());
+		IScopeContext projectScope = new ProjectScope(((NonRootModelElement) event.getModelElement()).getFile().getProject());
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		if (!"text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			return;

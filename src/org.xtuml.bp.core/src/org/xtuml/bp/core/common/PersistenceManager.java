@@ -483,7 +483,7 @@ public class PersistenceManager {
 		final Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
 				.collect(Collectors.toSet());
 		if (!pmcsToLoad.isEmpty()) {
-
+			
 			// launch each load in a new thread
 			final CompletionService<PersistableModelComponent> loadingPmcs = new ExecutorCompletionService<>(
 					loadExecutor);
@@ -566,7 +566,8 @@ public class PersistenceManager {
 	public void loadProject(IProject project, IProgressMonitor monitor, boolean parseOal, boolean reload)
 			throws CoreException {
 		// Get the list of PMCs to load
-		Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(getRootComponent(project), true);
+		// Don't reload inconsistent PMCs
+		Collection<PersistableModelComponent> pmcs = getDeepChildrenOf(getRootComponent(project), false);
 
 		// If IPRs are enabled, include all PMCs from projects in the workspace
 		Preferences projectPrefs = new ProjectScope(project)
@@ -574,11 +575,10 @@ public class PersistenceManager {
 		boolean iprsEnabled = projectPrefs.getBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
 				false);
 		if (iprsEnabled) {
-			pmcs = Stream
-					.concat(pmcs.stream(),
+			pmcs = 
 							Stream.of(ResourcesPlugin.getWorkspace().getRoot().getProjects())
-									.flatMap(p -> getDeepChildrenOf(getRootComponent(project), true).stream()))
-					.collect(Collectors.toList());
+									.flatMap(p -> getDeepChildrenOf(getRootComponent(p), false).stream())
+					.collect(Collectors.toSet());
 		}
 		loadComponents(pmcs, monitor, parseOal, reload);
 	}

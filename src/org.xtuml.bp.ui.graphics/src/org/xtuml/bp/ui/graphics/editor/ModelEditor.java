@@ -187,8 +187,12 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 	
 	@Override
 	public Image getTitleImage() {
-		Object element = this.fGraphicalEditor.getModel().getRepresents();
-		return CorePlugin.getImageFor(element);
+		if (this.fGraphicalEditor != null) {
+			Object element = this.fGraphicalEditor.getModel().getRepresents();
+			return CorePlugin.getImageFor(element);
+		} else {
+			return null;
+		}
 	}
 	
 	

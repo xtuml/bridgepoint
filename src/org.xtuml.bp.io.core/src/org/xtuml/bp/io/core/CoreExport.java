@@ -177,7 +177,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
     }
 
 	public static boolean persistAsText(final NonRootModelElement element) {
-		IScopeContext projectScope = new ProjectScope(element.getPersistableComponent().getFile().getProject());
+		IScopeContext projectScope = new ProjectScope(element.getFile().getProject());
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		return "text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"));
 	}

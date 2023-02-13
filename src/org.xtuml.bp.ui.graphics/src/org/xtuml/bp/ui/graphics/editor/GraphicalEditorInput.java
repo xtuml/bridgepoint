@@ -65,7 +65,7 @@ public class GraphicalEditorInput extends FileEditorInput
   public static GraphicalEditorInput createInstance(Object c_input) throws PartInitException {
 	// if textual persistence is enabled
 	if (c_input instanceof NonRootModelElement) {
-		IScopeContext projectScope = new ProjectScope(((NonRootModelElement) c_input).getPersistableComponent().getFile().getProject());
+		IScopeContext projectScope = new ProjectScope(((NonRootModelElement) c_input).getFile().getProject());
 		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		if ("text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 			PersistenceExtensionRegistry persistenceExtensionRegistry = CanvasPlugin.getDefault()

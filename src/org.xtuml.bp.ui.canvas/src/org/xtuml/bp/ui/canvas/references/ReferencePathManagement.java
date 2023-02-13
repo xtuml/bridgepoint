@@ -114,7 +114,7 @@ public class ReferencePathManagement {
 		if (persistenceExtension != null) {
 			// if the element has a diagram, load it
 			if (elementHasDiagramRepresentation(loadedElement)) {
-				IScopeContext projectScope = new ProjectScope(loadedElement.getPersistableComponent().getFile().getProject());
+				IScopeContext projectScope = new ProjectScope(loadedElement.getFile().getProject());
 				Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 				if ("text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
 					persistenceExtension.getLoader().load(loadedElement);
