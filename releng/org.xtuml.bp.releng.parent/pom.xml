@@ -20,12 +20,12 @@
 		<repository>
 			<id>2022-06</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/releases/2022-06/</url>
+			<url>https://download.eclipse.org/releases/2022-12/</url>
 		</repository>
 		<repository>
-			<id>4.24-update</id>
+			<id>4.26-update</id>
 			<layout>p2</layout>
-      <url>https://download.eclipse.org/eclipse/updates/4.24/</url>
+      <url>https://download.eclipse.org/eclipse/updates/4.26/</url>
 		</repository>
 		<repository>
 			<id>antlr</id>
@@ -34,9 +34,9 @@
 			<url>https://s3.amazonaws.com/1f-outgoing/antlr_upsite/</url>
 		</repository>
 		<repository>
-			<id>cdt-10.7.0</id>
+			<id>cdt-11.0.0</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/tools/cdt/releases/10.7/</url>
+			<url>https://download.eclipse.org/tools/cdt/releases/11.0/</url>
 		</repository>
 	</repositories>
 	
