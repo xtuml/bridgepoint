@@ -91,7 +91,6 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 			configurer.setShellStyle( SWT.NONE );
 			Point sizeZero = new Point(0, 0);
 			configurer.setInitialSize(sizeZero);
-			configurer.setShowFastViewBars(false);
 			configurer.setShowMenuBar(false);
 			configurer.setShowPerspectiveBar(false);
 			configurer.setShowCoolBar(false);
@@ -103,7 +102,6 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 			ErrorDialog.AUTOMATED_MODE = true;  // This should be what the --launcher.suppressErrors 
 			                                    // command-line option does.  Setting it here also.
 		} else {
-			configurer.setShowFastViewBars(true);
 			configurer.setShowMenuBar(true);
 			configurer.setShowPerspectiveBar(true);
 			configurer.setShowCoolBar(true);			
