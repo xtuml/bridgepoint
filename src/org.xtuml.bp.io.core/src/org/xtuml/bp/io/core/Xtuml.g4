@@ -112,11 +112,11 @@ action_body              : UnparsedActions
 
 // Terminals
 MarkName                 : '@' ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' )*;
-ID                       : ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' )*;
 DescriptionLine          : '//!' ~('\n'|'\r')* '\r'? '\n';
 StringLiteral            : '"' ( ~('\\'|'"') )* '"';
 IntegerLiteral           : '0' | '-'? ( '1' .. '9' ) ( '0' .. '9' )*;
 BooleanLiteral           : 'true' | 'false';
+ID                       : ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' )*;
 
 UnparsedActions          : '@noparse' .*? '@endnoparse';
                          

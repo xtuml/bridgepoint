@@ -32,12 +32,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.xtuml.bp.core.ClassIdentifier_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
@@ -53,10 +55,9 @@ import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.IntegrityManager_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
-import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
@@ -287,11 +288,21 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				// via the "parent" handling below.
 				path = getName();
 				if (path.equals("")) {
+					final NonRootModelElement supertype = SupertypeSubtypeUtil.getSupertype(this);
+					if (supertype != null) {
+						path = supertype.getName();
+					}
+				}
+				if (path.equals("")) {
 					// handle elements with a potential of no name
 					String className = getClass().getSimpleName().replaceAll("_c", "");
 					// use class name
-					int index = getInstanceList().indexOf(this) + 1;
-					path = className + index;
+					final InstanceList il = getInstanceList();
+					synchronized (il) {
+						int index = il.getInstanceMap().keySet().stream().sorted().collect(Collectors.toList())
+								.indexOf(BPElementID.createKey(getInstanceKey()));
+						path = className + index;
+					}
 				}
 			}
 			if (this instanceof ClassStateMachine_c) {
@@ -303,10 +314,22 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			} else if (this instanceof InterfaceReference_c) {
 				final InterfaceReference_c c_ir = (InterfaceReference_c) this;
 				path = Port_c.getOneC_POOnR4016(c_ir).getPath() + "::" + c_ir.Interfacename();
+			} else if (this instanceof ClassIdentifier_c) {
+				final ClassIdentifier_c o_id = (ClassIdentifier_c) this;
+				path = ModelClass_c.getOneO_OBJOnR104(o_id).getPath() + "::" + (o_id.getOid_id() + 1);
 			}
 			IModelClassInspector elementInspector = inspector.getInspector(getClass());
+			NonRootModelElement inst = this;
+			NonRootModelElement supertype = SupertypeSubtypeUtil.getSupertype(inst);
+			if (elementInspector == null && supertype != null) {
+				elementInspector = inspector.getInspector(supertype.getClass());
+				inst = supertype;
+			}
 			if (elementInspector != null) {
-				NonRootModelElement parent = (NonRootModelElement) elementInspector.getParent(this);
+				NonRootModelElement parent = (NonRootModelElement) elementInspector.getParent(inst);
+				if (parent == null && !(inst instanceof SystemModel_c)) {
+					path = "<unknown>::" + path;
+				}
 				while (parent != null) {
 					if (parent instanceof ClassStateMachine_c) {
 						path = "Class State Machine" + "::" + path;
@@ -321,11 +344,19 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 								// handle elements with a potential of no name
 								String className = parent.getClass().getSimpleName().replaceAll("_c", "");
 								// use class name
-								int index = getInstanceList().indexOf(this) + 1;
-								name = className + index;
+								final InstanceList il = getInstanceList();
+								synchronized (il) {
+									int index = il.getInstanceMap().keySet().stream().sorted()
+											.collect(Collectors.toList())
+											.indexOf(BPElementID.createKey(getInstanceKey()));
+									name = className + index;
+								}
 							}
 							path = name + "::" + path;
 						}
+					}
+					if (inspector.getParent(parent) == null && !(parent instanceof SystemModel_c)) {
+						path = "<unknown>::" + path;
 					}
 					parent = (NonRootModelElement) inspector.getParent(parent);
 				}

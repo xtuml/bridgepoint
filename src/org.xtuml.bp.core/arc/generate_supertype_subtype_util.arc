@@ -117,6 +117,26 @@ public class SupertypeSubtypeUtil {
 .end for
   		return subtypes;
 	}
+
+	public static NonRootModelElement getSupertype(NonRootModelElement subtype) {
+.select many objects from instances of O_OBJ
+.for each object in objects
+  .invoke subObjName = get_class_name(object)
+  .assign subClassName = subObjName.body
+  .// select the supertype class
+  .select any sub related by object->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]
+  .if(not_empty sub)
+  			if (subtype instanceof ${subClassName}) {
+    .select one association related by sub->R_SUBSUP[R213]->R_REL[R206]
+    .select one super related by sub->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
+    .invoke supertypeObjName = get_class_name(super)
+    .assign superClassName = supertypeObjName.body
+            return ${superClassName}.getOne${super.Key_Lett}OnR${association.Numb}((${subClassName}) subtype);
+  			}
+  .end if
+.end for
+		return null;
+	}	
 }
 .//
 .emit to file "src/org/xtuml/bp/core/util/SupertypeSubtypeUtil.java"

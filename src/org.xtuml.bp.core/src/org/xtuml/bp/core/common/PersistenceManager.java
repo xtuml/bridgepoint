@@ -483,6 +483,8 @@ public class PersistenceManager {
 		final Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
 				.collect(Collectors.toSet());
 		if (!pmcsToLoad.isEmpty()) {
+
+			System.out.println("Triggered load...");
 			
 			// launch each load in a new thread
 			final CompletionService<PersistableModelComponent> loadingPmcs = new ExecutorCompletionService<>(
@@ -497,7 +499,7 @@ public class PersistenceManager {
 					try {
 						pmc.load(monitor, parseOal, reload);
 					} catch (CoreException e) {
-						CorePlugin.logError("Problem loading component", e);
+						CorePlugin.logError("Problem loading component: " + pmc.getFile(), e);
 					}
 				}, pmc);
 			}
@@ -512,16 +514,17 @@ public class PersistenceManager {
 						try {
 							final PersistableModelComponent pmc = pmcFuture.get();
 							System.out.println("DONE LOADING: " + pmc.getFile() + ", " + pmc.isLoaded());
-							loadedPmcs++;
 
 							// try to complete waiting selections
 							completeSelections();
 
 						} catch (ExecutionException e) {
 							CorePlugin.logError("Problem loading component", e);
+						} finally {
+							loadedPmcs++;
 						}
 					}
-
+					
 					// if all files are waiting on a selection, cancel them
 					if (incompleteSelections.stream().map(FutureSelection::getResource).distinct()
 							.count() >= (pmcsToLoad.size() - loadedPmcs)) {
@@ -547,6 +550,8 @@ public class PersistenceManager {
 					CorePlugin.logError("Problem finishing component load", e);
 				}
 			}
+
+			System.out.println("Done loading.");
 
 		}
 	}

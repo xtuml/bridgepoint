@@ -46,6 +46,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
@@ -122,11 +123,13 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 	}
 
 	private void loadCollectedComponents() {
-		try {
-			PersistenceManager.getDefaultInstance().loadComponents(componentsToLoad, new NullProgressMonitor(), false, true);
-		} catch (CoreException e) {
-			CorePlugin.logError("Unable to load replaced component.", e);
-		}
+		Display.getDefault().asyncExec(() -> {
+			try {
+				PersistenceManager.getDefaultInstance().loadComponents(componentsToLoad, new NullProgressMonitor(), false, true);
+			} catch (CoreException e) {
+				CorePlugin.logError("Unable to load replaced component.", e);
+			}
+		});
 	}
 
 	public boolean visit(IResourceDelta delta) {

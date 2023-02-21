@@ -617,7 +617,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		} else if (ctx.BooleanLiteral() != null) {
 			return Boolean.parseBoolean(ctx.getText());
 		} else {
-			return super.visitConst_expression(ctx);
+			return ctx.getText();
 		}
 	}
 
