@@ -800,15 +800,14 @@ ${cfca.body}, String p_contentPath, String modelPath, IPath p_localPath)
         modelRoot = resolvedModelRoot;
       InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
       ${class_name} new_inst = null;
+      synchronized(instances) {
             .invoke id_result = find_id(object)
             .assign id = id_result.id
             .select many id_attrs related by id->O_OIDA[R105]->O_ATTR[R105]
             .invoke local_key_result = get_unique_instance_key(id_attrs,"p_");
             .if(local_key_result.found_key)
       Object[] key = ${local_key_result.key};
-      synchronized(instances) {
           new_inst = (${class_name}) instances.get(key) ;
-        }
             .end if
     String contentPath = PersistenceUtil.resolveRelativePath(
             p_localPath,
@@ -858,6 +857,7 @@ ${cfca_nt.body}
     new_inst.setComponent(null);
             .end if
     }
+    }
     return new_inst;
   }
 
@@ -877,7 +877,7 @@ ${cfca.body}\
               .assign cached = "CachedValue"
             .end if
     InstanceList instances = modelRoot.getInstanceList(${class_name}.class);
-    ${class_name} source = null;
+    ${class_name} new_inst = null;
     synchronized(instances) {
         Object [] key = {
             .for each id_attr in id_attrs
@@ -897,10 +897,10 @@ ${cfca.body}\
               .end if
             .end for
             };
-        source = (${class_name}) instances.get(key);
-        if (source == null && modelPath != null) {
+        new_inst = (${class_name}) instances.get(key);
+        if (new_inst == null && modelPath != null) {
           // try to look the instance up by model path
-          source = $cr{object.Name}Instance(modelRoot, selected -> {
+          new_inst = $cr{object.Name}Instance(modelRoot, selected -> {
             try {
               return ((NonRootModelElement) selected).getPath().equals(modelPath);
             } catch (NullPointerException e) {
@@ -908,26 +908,26 @@ ${cfca.body}\
               return false;
             }
           });
-            .invoke foreign_key_result = get_unique_instance_key(id_attrs,"source.");
+            .invoke foreign_key_result = get_unique_instance_key(id_attrs,"new_inst.");
             .if(foreign_key_result.found_key)
-        if (source != null) {
+        if (new_inst != null) {
             Object[] targetKey = ${foreign_key_result.key};
             instances.addAlias(targetKey, key);
         }
             .end if
         }
-        if (source != null && !modelRoot.isCompareRoot()) {
-           source.convertFromProxy();
-           source.batchUnrelate();
-            .invoke cfcb_source = create_full_constructor_body(attributes, false, "source.")
+        if (new_inst != null && !modelRoot.isCompareRoot()) {
+           new_inst.convertFromProxy();
+           new_inst.batchUnrelate();
+            .invoke cfcb_source = create_full_constructor_body(attributes, false, "new_inst.")
 ${cfcb_source.body}\
-           return source ;
-        }
-      }
+        } else {
       // there is no instance matching the id
-    ${class_name} new_inst = new ${class_name}(modelRoot,
+    new_inst = new ${class_name}(modelRoot,
 ${cfca_nt.body}
 );
+}
+      }
     return new_inst;
   }
           .end if   .//         .if (package.is_eclipse_plugin)

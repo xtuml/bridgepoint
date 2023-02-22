@@ -39,7 +39,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.ClassIdentifier_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
@@ -63,6 +65,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.Severity_c;
 import org.xtuml.bp.core.StructuredDataType_c;
@@ -317,6 +320,15 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			} else if (this instanceof ClassIdentifier_c) {
 				final ClassIdentifier_c o_id = (ClassIdentifier_c) this;
 				path = ModelClass_c.getOneO_OBJOnR104(o_id).getPath() + "::" + (o_id.getOid_id() + 1);
+			} else if (this instanceof ReferringClassInAssoc_c) {
+				final ReferringClassInAssoc_c r_rgo = (ReferringClassInAssoc_c) this;
+				final ClassInAssociation_c r_oir = ClassInAssociation_c.getOneR_OIROnR203(r_rgo);
+				final Association_c r_rel = Association_c.getOneR_RELOnR201(r_oir);
+				if (r_rel != null) {
+					path = r_rel.getPath() + "::" + r_oir.Get_name();
+				} else {
+					System.out.println("here"); // TODO
+				}
 			}
 			IModelClassInspector elementInspector = inspector.getInspector(getClass());
 			NonRootModelElement inst = this;
