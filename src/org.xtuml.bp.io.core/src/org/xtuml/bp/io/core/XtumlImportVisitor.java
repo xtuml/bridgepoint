@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -106,18 +104,16 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
 		// TODO handle parent system or parent component
 		try {
-			currentRoot = PersistenceManager.getDefaultInstance()
-					.selectAndWait(resource,
-							() -> Stream
-									.of(Stream.of(Package_c.PackageInstances(modelRoot)),
-											Stream.of(SystemModel_c.SystemModelInstances(modelRoot)),
-											Stream.of(Component_c.ComponentInstances(modelRoot)))
-									.flatMap(s -> s)
-									.filter(selected -> selected.getPath().equals(visit(ctx.parent_name))).findAny())
-					.get();
+			currentRoot = PersistenceManager.getDefaultInstance().getSequentialExecutor()
+					.callAndWait(() -> Stream
+							.of(Stream.of(Package_c.PackageInstances(modelRoot)),
+									Stream.of(SystemModel_c.SystemModelInstances(modelRoot)),
+									Stream.of(Component_c.ComponentInstances(modelRoot)))
+							.flatMap(s -> s).filter(selected -> selected.getPath().equals(visit(ctx.parent_name)))
+							.findAny());
 			searchRoot = currentRoot;
 			return (NonRootModelElement) visit(ctx.definition());
-		} catch (InterruptedException | ExecutionException | CancellationException e) {
+		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException("Failed to find package '" + visit(ctx.parent_name) + "'.", e);
 		}
 	}
@@ -155,6 +151,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				IdAssigner.NULL_UUID, comp_name, "", 0, IdAssigner.NULL_UUID, false, "", "",
 				parent_pkg.getPath() + "::" + comp_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8000To(parent_pkg);
 		pe.relateAcrossR8001To(comp);
 		pe.setVisibility(Visibility_c.Public);
 		pe.setType(Elementtypeconstants_c.COMPONENT);
@@ -186,16 +183,38 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		// TODO ensure packages load first?
 		ctx.component_item().forEach(this::visit);
 
-		// link to the parent package last to prevent getting selected before fully
-		// loaded
-		pe.relateAcrossR8000To(parent_pkg);
-
 		return comp;
 	}
 
 	@Override
 	public NonRootModelElement visitPort_definition(Port_definitionContext ctx) {
 		final Component_c comp = (Component_c) currentRoot;
+
+		// find the formalized interface
+		Interface_c iface = null;
+		if (ctx.iface_name != null) {
+			try {
+				iface = (Interface_c) PersistenceManager.getDefaultInstance().getSequentialExecutor()
+						.callAndWait(() -> {
+							List<Interface_c> ifaces = findVisibleElements(searchRoot, Elementtypeconstants_c.INTERFACE)
+									.stream().map(Interface_c::getOneC_IOnR8001)
+									.filter(ifc -> ifc.getPath().endsWith((String) visit(ctx.iface_name)))
+									.collect(Collectors.toList());
+							if (ifaces.isEmpty()) {
+								return Optional.empty();
+							} else {
+								if (ifaces.size() > 1) {
+									throw new IllegalArgumentException(
+											"The given path corresponds to more than one unique element");
+								}
+								return Optional.of(ifaces.get(0));
+							}
+						});
+			} catch (Exception e) {
+				throw new CoreImport.XtumlLoadException(
+						"Failed to find interface '" + visit(ctx.iface_name) + "' for port definition.", e);
+			}
+		}
 
 		// find or create port
 		final String port_name = (String) visit(ctx.port_name);
@@ -204,31 +223,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		port.relateAcrossR4010To(comp);
 		final NonRootModelElement oldRoot = currentRoot;
 		currentRoot = port;
-
-		// find the formalized interface
-		Interface_c iface = null;
-		if (ctx.iface_name != null) {
-			try {
-				iface = (Interface_c) PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
-					List<Interface_c> ifaces = findVisibleElements(searchRoot, Elementtypeconstants_c.INTERFACE)
-							.stream().map(Interface_c::getOneC_IOnR8001)
-							.filter(ifc -> ifc.getPath().endsWith((String) visit(ctx.iface_name)))
-							.collect(Collectors.toList());
-					if (ifaces.isEmpty()) {
-						return Optional.empty();
-					} else {
-						if (ifaces.size() > 1) {
-							throw new IllegalArgumentException(
-									"The given path corresponds to more than one unique element");
-						}
-						return Optional.of(ifaces.get(0));
-					}
-				}).get();
-			} catch (InterruptedException | ExecutionException | CancellationException e) {
-				throw new CoreImport.XtumlLoadException(
-						"Failed to find interface '" + visit(ctx.iface_name) + "' for port definition.", e);
-			}
-		}
 
 		// process marks
 		@SuppressWarnings("unchecked")
@@ -489,7 +483,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	@Override
 	public NonRootModelElement visitNamed_type_reference(Named_type_referenceContext ctx) {
 		try {
-			return PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
+			return PersistenceManager.getDefaultInstance().getSequentialExecutor().callAndWait(() -> {
 				List<DataType_c> dts = findVisibleElements(searchRoot, Elementtypeconstants_c.DATATYPE).stream()
 						.map(DataType_c::getOneS_DTOnR8001)
 						.filter(dt -> dt.getPath().endsWith((String) visit(ctx.scoped_name())))
@@ -503,8 +497,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 					}
 					return Optional.of(dts.get(0));
 				}
-			}).get();
-		} catch (InterruptedException | ExecutionException | CancellationException e) {
+			});
+		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException(
 					"Failed to find type '" + visit(ctx.scoped_name()) + "' for named type reference.", e);
 		}
@@ -518,7 +512,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	@Override
 	public NonRootModelElement visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
-			return PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
+			return PersistenceManager.getDefaultInstance().getSequentialExecutor().callAndWait(() -> {
 				List<ModelClass_c> objs = findVisibleElements(searchRoot, Elementtypeconstants_c.CLASS).stream()
 						.map(ModelClass_c::getOneO_OBJOnR8001)
 						.filter(obj -> (Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(obj))
@@ -536,8 +530,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 							DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(objs.get(0),
 									selected -> !((InstanceReferenceDataType_c) selected).getIsset())));
 				}
-			}).get();
-		} catch (InterruptedException | ExecutionException | CancellationException e) {
+			});
+		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException(
 					"Failed to find class '" + visit(ctx.scoped_name()) + "' for instance type reference.", e);
 		}

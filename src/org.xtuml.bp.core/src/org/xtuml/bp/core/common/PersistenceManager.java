@@ -86,10 +86,10 @@ public class PersistenceManager {
 	private static TreeMap<String, PersistableModelComponent> Instances = new TreeMap<String, PersistableModelComponent>();
 	private static TreeMap<String, PersistableModelComponent> InconsistentInstances = new TreeMap<String, PersistableModelComponent>();
 	private static Set<PersistableModelComponent> instanceSet = new HashSet<PersistableModelComponent>();
-	private Set<FutureSelection<?>> incompleteSelections = new HashSet<>();
 	public static List<IProject> projectsAllowedToLoad = new ArrayList<IProject>();
 	public boolean doNotCreateUniqueName;
 	private Executor loadExecutor;
+	private SequentialExecutor sequentialExecutor = null;
 
 	private PersistenceManager() {
 		loadExecutor = Executors.newCachedThreadPool();
@@ -477,6 +477,10 @@ public class PersistenceManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public SequentialExecutor getSequentialExecutor() {
+		return sequentialExecutor;
+	}
 
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
@@ -484,11 +488,12 @@ public class PersistenceManager {
 				.collect(Collectors.toSet());
 		if (!pmcsToLoad.isEmpty()) {
 
-			System.out.println("Triggered load...");
+			System.out.println("Triggered load... " + pmcsToLoad.size());
 			
 			// launch each load in a new thread
+			sequentialExecutor = new SequentialExecutor(loadExecutor);
 			final CompletionService<PersistableModelComponent> loadingPmcs = new ExecutorCompletionService<>(
-					loadExecutor);
+					sequentialExecutor);
 			final Map<PersistableModelComponent, NonRootModelElement> oldElementMap = new HashMap<>();
 			for (PersistableModelComponent pmc : pmcsToLoad) {
 				oldElementMap.put(pmc, pmc.getRootModelElement());
@@ -503,6 +508,9 @@ public class PersistenceManager {
 					}
 				}, pmc);
 			}
+			
+			// initiate the shutdown of the sequential executor
+			sequentialExecutor.shutdown();
 
 			// wait for all PMCs to load
 			int loadedPmcs = 0;
@@ -513,24 +521,17 @@ public class PersistenceManager {
 					if (pmcFuture != null) {
 						try {
 							final PersistableModelComponent pmc = pmcFuture.get();
-							System.out.println("DONE LOADING: " + pmc.getFile() + ", " + pmc.isLoaded());
-
-							// try to complete waiting selections
-							completeSelections();
-
+							if (pmc.isLoaded()) {
+								System.out.println("LOADED: " + pmc.getFile());
+							} else {
+								System.err.println("FAILED TO LOAD: " + pmc.getFile());
+							}
 						} catch (ExecutionException e) {
 							CorePlugin.logError("Problem loading component", e);
 						} finally {
 							loadedPmcs++;
 						}
 					}
-					
-					// if all files are waiting on a selection, cancel them
-					if (incompleteSelections.stream().map(FutureSelection::getResource).distinct()
-							.count() >= (pmcsToLoad.size() - loadedPmcs)) {
-						cancelSelections();
-					}
-
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -550,6 +551,8 @@ public class PersistenceManager {
 					CorePlugin.logError("Problem finishing component load", e);
 				}
 			}
+			
+			sequentialExecutor = null;
 
 			System.out.println("Done loading.");
 
@@ -1114,58 +1117,6 @@ public class PersistenceManager {
 				}
 			}
 		});
-	}
-
-	public <V extends NonRootModelElement> Future<V> selectAndWait(final IResource resource,
-			final Supplier<Optional<V>> selector) {
-		synchronized (incompleteSelections) {
-			completeSelections();
-			final FutureSelection<V> f = new FutureSelection<>(resource, selector);
-			if (!f.tryComplete()) {
-				incompleteSelections.add(f);
-			}
-			return f;
-		}
-	}
-
-	private void completeSelections() {
-		synchronized (incompleteSelections) {
-			incompleteSelections.forEach(FutureSelection::tryComplete);
-			incompleteSelections
-					.removeAll(incompleteSelections.stream().filter(Future::isDone).collect(Collectors.toList()));
-		}
-	}
-
-	private void cancelSelections() {
-		synchronized (incompleteSelections) {
-			incompleteSelections.forEach(f -> f.cancel(true));
-			incompleteSelections.clear();
-		}
-	}
-
-	private static final class FutureSelection<V extends NonRootModelElement> extends CompletableFuture<V> {
-
-		private final IResource resource;
-		private final Supplier<Optional<V>> selector;
-
-		public FutureSelection(final IResource resource, Supplier<Optional<V>> selector) {
-			this.resource = resource;
-			this.selector = selector;
-		}
-
-		public IResource getResource() {
-			return resource;
-		}
-
-		public boolean tryComplete() {
-			final Optional<V> value = selector.get();
-			if (value.isPresent()) {
-				return complete(value.get());
-			} else {
-				return false;
-			}
-		}
-
 	}
 
 }
