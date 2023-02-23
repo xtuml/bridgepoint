@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CancellationException;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IResource;
-import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
 import org.xtuml.bp.core.Component_c;
@@ -51,6 +51,7 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.util.DimensionsUtil;
+import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
 import org.xtuml.bp.io.core.XtumlParser.Action_bodyContext;
 import org.xtuml.bp.io.core.XtumlParser.Array_type_referenceContext;
 import org.xtuml.bp.io.core.XtumlParser.Component_definitionContext;
@@ -77,6 +78,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	private final Ooaofooa modelRoot;
 	private final IResource resource;
 	private NonRootModelElement currentRoot = null;
+	private NonRootModelElement searchRoot = null;
 
 	private final DataType_c defaultType;
 	private final DataType_c voidType;
@@ -113,6 +115,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 									.flatMap(s -> s)
 									.filter(selected -> selected.getPath().equals(visit(ctx.parent_name))).findAny())
 					.get();
+			searchRoot = currentRoot;
 			return (NonRootModelElement) visit(ctx.definition());
 		} catch (InterruptedException | ExecutionException | CancellationException e) {
 			throw new CoreImport.XtumlLoadException("Failed to find package '" + visit(ctx.parent_name) + "'.", e);
@@ -152,7 +155,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				IdAssigner.NULL_UUID, comp_name, "", 0, IdAssigner.NULL_UUID, false, "", "",
 				parent_pkg.getPath() + "::" + comp_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
-		pe.relateAcrossR8000To(parent_pkg);
 		pe.relateAcrossR8001To(comp);
 		pe.setVisibility(Visibility_c.Public);
 		pe.setType(Elementtypeconstants_c.COMPONENT);
@@ -184,6 +186,10 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		// TODO ensure packages load first?
 		ctx.component_item().forEach(this::visit);
 
+		// link to the parent package last to prevent getting selected before fully
+		// loaded
+		pe.relateAcrossR8000To(parent_pkg);
+
 		return comp;
 	}
 
@@ -204,8 +210,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		if (ctx.iface_name != null) {
 			try {
 				iface = (Interface_c) PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
-					List<Interface_c> ifaces = findVisibleElements(comp, Elementtypeconstants_c.INTERFACE).stream()
-							.map(Interface_c::getOneC_IOnR8001)
+					List<Interface_c> ifaces = findVisibleElements(searchRoot, Elementtypeconstants_c.INTERFACE)
+							.stream().map(Interface_c::getOneC_IOnR8001)
 							.filter(ifc -> ifc.getPath().endsWith((String) visit(ctx.iface_name)))
 							.collect(Collectors.toList());
 					if (ifaces.isEmpty()) {
@@ -263,13 +269,16 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			if (c_p != null) {
 				c_p.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
 						.collect(Collectors.joining(System.lineSeparator())));
-			} else {
+			} else if (c_r != null) {
 				c_r.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
 						.collect(Collectors.joining(System.lineSeparator())));
+			} else {
+				CorePlugin.getDefault().getLog().warn("Could not set description for port: " + port.getName());
 			}
 		}
 
 		// process all message definitions
+		ir.Synchronizesignalsandoperations();
 		ctx.message_definition().forEach(this::visit);
 
 		currentRoot = oldRoot;
@@ -283,87 +292,41 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		// method simply matches by name. Note that this also assumes no overloading.
 
 		final Port_c port = (Port_c) currentRoot;
-
 		final Provision_c c_p = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016(port));
 		final Requirement_c c_r = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016(port));
-
-		final ExecutableProperty_c c_ep = ExecutableProperty_c.getOneC_EPOnR4003(
-				Interface_c.getOneC_IOnR4012(InterfaceReference_c.getOneC_IROnR4016(port)),
-				selected -> ((NonRootModelElement) selected).getName().equals(visit(ctx.msg_name)));
+		final NonRootModelElement[] spr_pos = ProvidedOperation_c
+				.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
+		final NonRootModelElement[] spr_pss = ProvidedSignal_c
+				.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
+		final NonRootModelElement[] spr_ros = RequiredOperation_c
+				.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
+		final NonRootModelElement[] spr_rss = RequiredSignal_c
+				.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
 
 		@SuppressWarnings("unchecked")
 		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
 				: Collections.emptyMap();
 
-		if (c_p != null) {
-			final ProvidedExecutableProperty_c spr_pep = new ProvidedExecutableProperty_c(modelRoot);
-			spr_pep.relateAcrossR4501To(c_ep);
-			spr_pep.relateAcrossR4501To(c_p);
-			if (InterfaceOperation_c.getOneC_IOOnR4004(c_ep) != null) {
-				final ProvidedOperation_c spr_po = new ProvidedOperation_c(modelRoot);
-				spr_po.relateAcrossR4503To(spr_pep);
-				spr_po.setDialect(Actiondialect_c.oal); // TODO always set to OAL
-				if (marks.containsKey(MESSAGE_NUM)) {
-					spr_po.setNumb(marks.get(MESSAGE_NUM).getInteger());
-				}
-				if (marks.containsKey(NOPARSE)) {
-					spr_po.setSuc_pars(Parsestatus_c.doNotParse);
-				} else {
-					spr_po.setSuc_pars(Parsestatus_c.parseInitial);
-				}
-				spr_po.setAction_semantics_internal((String) visit(ctx.action_body()));
-				return spr_po;
-			} else {
-				final ProvidedSignal_c spr_ps = ProvidedSignal_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "",
-						"", Parsestatus_c.OOA_UNINITIALIZED_ENUM, Actiondialect_c.OOA_UNINITIALIZED_ENUM, 0,
-						c_p.getPath() + "::" + c_ep.getName());
-				spr_ps.relateAcrossR4503To(spr_pep);
-				spr_ps.setDialect(Actiondialect_c.oal); // TODO always set to OAL
-				if (marks.containsKey(MESSAGE_NUM)) {
-					spr_ps.setNumb(marks.get(MESSAGE_NUM).getInteger());
-				}
-				if (marks.containsKey(NOPARSE)) {
-					spr_ps.setSuc_pars(Parsestatus_c.doNotParse);
-				} else {
-					spr_ps.setSuc_pars(Parsestatus_c.parseInitial);
-				}
-				spr_ps.setAction_semantics_internal((String) visit(ctx.action_body()));
-				return spr_ps;
+		try {
+			final PortMessage msg = ProxyUtil.newProxy(PortMessage.class,
+					Stream.of(spr_pos, spr_pss, spr_ros, spr_rss).flatMap(a -> Stream.of(a))
+							.filter(m -> visit(ctx.msg_name).equals(m.getName())).findAny().orElseThrow());
+
+			if (marks.containsKey(MESSAGE_NUM)) {
+				msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
 			}
-		} else {
-			final RequiredExecutableProperty_c spr_rep = new RequiredExecutableProperty_c(modelRoot);
-			spr_rep.relateAcrossR4500To(c_ep);
-			spr_rep.relateAcrossR4500To(c_r);
-			if (InterfaceOperation_c.getOneC_IOOnR4004(c_ep) != null) {
-				final RequiredOperation_c spr_ro = new RequiredOperation_c(modelRoot);
-				spr_ro.relateAcrossR4502To(spr_rep);
-				spr_ro.setDialect(Actiondialect_c.oal); // TODO always set to OAL
-				if (marks.containsKey(MESSAGE_NUM)) {
-					spr_ro.setNumb(marks.get(MESSAGE_NUM).getInteger());
-				}
-				if (marks.containsKey(NOPARSE)) {
-					spr_ro.setSuc_pars(Parsestatus_c.doNotParse);
-				} else {
-					spr_ro.setSuc_pars(Parsestatus_c.parseInitial);
-				}
-				spr_ro.setAction_semantics_internal((String) visit(ctx.action_body()));
-				return spr_ro;
+			if (marks.containsKey(NOPARSE)) {
+				msg.setSuc_pars(Parsestatus_c.doNotParse);
 			} else {
-				final RequiredSignal_c spr_rs = new RequiredSignal_c(modelRoot);
-				spr_rs.relateAcrossR4502To(spr_rep);
-				spr_rs.setDialect(Actiondialect_c.oal); // TODO always set to OAL
-				if (marks.containsKey(MESSAGE_NUM)) {
-					spr_rs.setNumb(marks.get(MESSAGE_NUM).getInteger());
-				}
-				if (marks.containsKey(NOPARSE)) {
-					spr_rs.setSuc_pars(Parsestatus_c.doNotParse);
-				} else {
-					spr_rs.setSuc_pars(Parsestatus_c.parseInitial);
-				}
-				spr_rs.setAction_semantics_internal((String) visit(ctx.action_body()));
-				return spr_rs;
+				msg.setSuc_pars(Parsestatus_c.parseInitial);
 			}
+			msg.setAction_semantics_internal((String) visit(ctx.action_body()));
+			return (NonRootModelElement) msg.getBasisObject();
+		} catch (NoSuchElementException e) {
+			CorePlugin.logError("Could not find message in interface with name: " + visit(ctx.msg_name), e);
+			return null;
 		}
+
 	}
 
 	@Override
@@ -375,7 +338,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), parent_pkg.getPackage_id(),
 				iface_name, "", parent_pkg.getPath() + "::" + iface_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
-		pe.relateAcrossR8000To(parent_pkg);
 		pe.relateAcrossR8001To(iface);
 		pe.setVisibility(Visibility_c.Public);
 		pe.setType(Elementtypeconstants_c.INTERFACE);
@@ -406,6 +368,10 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		for (int i = 0; i + 1 < c_ass.size(); i++) {
 			c_ass.get(i).relateAcrossR4020ToPrecedes(c_ass.get(i + 1));
 		}
+
+		// link to the parent package last to prevent getting selected before messages
+		// are loaded
+		pe.relateAcrossR8000To(parent_pkg);
 
 		return iface;
 	}
@@ -524,9 +490,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public NonRootModelElement visitNamed_type_reference(Named_type_referenceContext ctx) {
 		try {
 			return PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
-				List<DataType_c> dts = findVisibleElements(
-						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
-						Elementtypeconstants_c.DATATYPE).stream().map(DataType_c::getOneS_DTOnR8001)
+				List<DataType_c> dts = findVisibleElements(searchRoot, Elementtypeconstants_c.DATATYPE).stream()
+						.map(DataType_c::getOneS_DTOnR8001)
 						.filter(dt -> dt.getPath().endsWith((String) visit(ctx.scoped_name())))
 						.collect(Collectors.toList());
 				if (dts.isEmpty()) {
@@ -554,10 +519,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public NonRootModelElement visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
 			return PersistenceManager.getDefaultInstance().selectAndWait(resource, () -> {
-				List<ModelClass_c> objs = findVisibleElements(
-						PackageableElement_c.getOnePE_PEOnR8001((Interface_c) currentRoot),
-						Elementtypeconstants_c.CLASS)
-						.stream().map(ModelClass_c::getOneO_OBJOnR8001)
+				List<ModelClass_c> objs = findVisibleElements(searchRoot, Elementtypeconstants_c.CLASS).stream()
+						.map(ModelClass_c::getOneO_OBJOnR8001)
 						.filter(obj -> (Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(obj))
 								.getPath() + "::" + obj.getKey_lett()).endsWith((String) visit(ctx.scoped_name())))
 						.collect(Collectors.toList());
@@ -663,6 +626,27 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return dim_string;
 	}
 
+	private List<PackageableElement_c> findVisibleElements(final NonRootModelElement element, final int elementType) {
+		if (element instanceof Package_c) {
+			return findVisibleElements((Package_c) element, elementType);
+		} else if (element instanceof Component_c) {
+			return findVisibleElements((Component_c) element, elementType);
+		} else if (element instanceof PackageableElement_c) {
+			final Package_c pkg = Package_c.getOneEP_PKGOnR8000((PackageableElement_c) element);
+			final Component_c comp = Component_c.getOneC_COnR8003((PackageableElement_c) element);
+			if (pkg != null) {
+				return findVisibleElements(pkg, elementType);
+			} else if (comp != null) {
+				return findVisibleElements(comp, elementType);
+			} else {
+				return Collections.emptyList();
+			}
+
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+
 	private List<PackageableElement_c> findVisibleElements(final Package_c pkg, final int elementType) {
 		pkg.Clearscope();
 		pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), elementType);
@@ -679,19 +663,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				selected -> "".equals(((ComponentResultSet_c) selected).getName())
 						&& ((ComponentResultSet_c) selected).getType() == elementType);
 		return List.of(PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
-	}
-
-	private List<PackageableElement_c> findVisibleElements(final PackageableElement_c referencePe,
-			final int elementType) {
-		final Package_c pkg = Package_c.getOneEP_PKGOnR8000(referencePe);
-		final Component_c comp = Component_c.getOneC_COnR8003(referencePe);
-		if (pkg != null) {
-			return findVisibleElements(pkg, elementType);
-		} else if (comp != null) {
-			return findVisibleElements(comp, elementType);
-		} else {
-			return Collections.emptyList();
-		}
 	}
 
 	private final class Mark extends LinkedHashMap<String, Object> implements Map<String, Object> {
@@ -725,6 +696,16 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			return (int) values().iterator().next();
 		}
 
+	}
+
+	private interface PortMessage extends ProxyInstance {
+		String getName();
+
+		void setSuc_pars(int value);
+
+		void setNumb(int value);
+
+		void setAction_semantics_internal(String value);
 	}
 
 }

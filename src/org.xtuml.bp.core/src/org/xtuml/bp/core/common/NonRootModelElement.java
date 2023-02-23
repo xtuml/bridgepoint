@@ -326,9 +326,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				final Association_c r_rel = Association_c.getOneR_RELOnR201(r_oir);
 				if (r_rel != null) {
 					path = r_rel.getPath() + "::" + r_oir.Get_name();
-				} else {
-					System.out.println("here"); // TODO
-				}
+				} 
 			}
 			IModelClassInspector elementInspector = inspector.getInspector(getClass());
 			NonRootModelElement inst = this;

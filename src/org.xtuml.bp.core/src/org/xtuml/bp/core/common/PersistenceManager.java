@@ -1119,6 +1119,7 @@ public class PersistenceManager {
 	public <V extends NonRootModelElement> Future<V> selectAndWait(final IResource resource,
 			final Supplier<Optional<V>> selector) {
 		synchronized (incompleteSelections) {
+			completeSelections();
 			final FutureSelection<V> f = new FutureSelection<>(resource, selector);
 			if (!f.tryComplete()) {
 				incompleteSelections.add(f);
