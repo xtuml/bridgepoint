@@ -712,16 +712,11 @@ public class CanvasPlugin extends AbstractUIPlugin {
 
 	private void hookListeners() {
 		modelChangeListener = new CanvasModelListener();
-		Ooaofooa.getDefaultInstance().addModelChangeListener(modelChangeListener);
 		transactionListener = new CanvasTransactionListener();
-		TransactionManager.getSingleton().addTransactionListener(transactionListener);
 		// Listener supporting registered writers
 		persistenceResourceListener = new PersistenceExtensionResourceListener();
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(persistenceResourceListener);
 		writeTransactionListener = new WriteTransactionListener();
-		TransactionManager.getSingleton().addTransactionListener(writeTransactionListener, true);
 		persistenceExtensionLoadListener = new PersistenceExtensionLoadListener();
-		Ooaofooa.getDefaultInstance().addModelChangeListener(persistenceExtensionLoadListener);
 	}
 
 	private static void addClientClassDependency(ElementSpecification_c es, final String className) {

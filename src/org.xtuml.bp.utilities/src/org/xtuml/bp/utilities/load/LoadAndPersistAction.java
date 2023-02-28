@@ -57,6 +57,7 @@ public class LoadAndPersistAction implements IActionDelegate {
 					}
 
 					// write textual graphics
+					/*
 					CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> {
 						pmcsToProcess.stream().map(PersistableModelComponent::getRootModelElement)
 								.forEach(modelElement -> {
@@ -68,6 +69,7 @@ public class LoadAndPersistAction implements IActionDelegate {
 									}
 								});
 					});
+					*/
 
 					// write PMCs
 					for (PersistableModelComponent pmc : pmcsToProcess) {

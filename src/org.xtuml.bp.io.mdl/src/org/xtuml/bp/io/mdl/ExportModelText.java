@@ -59,12 +59,12 @@ public class ExportModelText extends ExportModelComponent {
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics,
 			NonRootModelElement instance) throws FileNotFoundException {
-		super(modelRoot, outfileName, false, instance);
+		super(modelRoot, outfileName, true, instance);  // TODO
 	}
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics)
 			throws FileNotFoundException {
-		super(modelRoot, outfileName, false);
+		super(modelRoot, outfileName, true);  // TODO
 	}
 
 	public ExportModelText(String outfileName, NonRootModelElement element) throws FileNotFoundException {
