@@ -4,8 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Set;
 import java.util.Stack;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -15,8 +18,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.xtuml.bp.core.Association_c;
+import org.xtuml.bp.core.AttributeReferenceInClass_c;
+import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BaseAttribute_c;
+import org.xtuml.bp.core.ClassIdentifierAttribute_c;
+import org.xtuml.bp.core.ClassIdentifier_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
@@ -26,6 +37,8 @@ import org.xtuml.bp.core.InterfaceSignal_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.OperationParameter_c;
+import org.xtuml.bp.core.Operation_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Parsestatus_c;
@@ -35,13 +48,21 @@ import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.ReferentialAttribute_c;
+import org.xtuml.bp.core.ReferredToClassInAssoc_c;
+import org.xtuml.bp.core.ReferredToIdentifierAttribute_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
+import org.xtuml.bp.core.Scope_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.sorter.AttributeReferenceInClass_cSorter;
+import org.xtuml.bp.core.sorter.Attribute_cSorter;
+import org.xtuml.bp.core.sorter.OperationParameter_cSorter;
+import org.xtuml.bp.core.sorter.Operation_cSorter;
 import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 import org.xtuml.bp.io.core.ProxyUtil;
 
@@ -74,7 +95,8 @@ public class ExportModelText extends ExportModelComponent {
 	@Override
 	public String get_file_header(NonRootModelElement element) {
 		// TODO remove this conditional once everything is implemented
-		if (element instanceof Interface_c || element instanceof SystemModel_c || element instanceof Component_c) {
+		if (element instanceof Interface_c || element instanceof SystemModel_c || element instanceof Component_c
+				|| element instanceof ModelClass_c) {
 			return get_file_header("//",
 					element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
 					"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
@@ -159,7 +181,8 @@ public class ExportModelText extends ExportModelComponent {
 
 			// ports
 			final Port_c[] c_pos = Port_c.getManyC_POsOnR4010(inst);
-			for (Port_c c_po : Stream.of(c_pos).sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+			for (Port_c c_po : Stream.of(c_pos).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
 				export_Port_c(c_po, pm, writeAsProxies, isPersistable);
 			}
 
@@ -405,11 +428,275 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
-					getTypeReference(DataType_c.getOneS_DTOnR4007(inst), inst.getDimensions(),
-							Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(
-									Interface_c.getOneC_IOnR4003(ExecutableProperty_c.getOneC_EPOnR4006(inst))))));
+					getTypeReference(DataType_c.getOneS_DTOnR4007(inst), inst.getDimensions()));
 		} else {
 			write_PropertyParameter_c_proxy_sql(inst);
+		}
+	}
+
+	protected void export_ModelClass_c(ModelClass_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			tabDepth++;
+
+			// class metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			append("%s@class_num(%d);\n", getTab(), inst.getNumb());
+
+			append("%sclass %s is\n\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			// attributes
+			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(inst,
+					selected -> !"current_state".equals(((Attribute_c) selected).getName()));
+			new Attribute_cSorter().sort(attrs);
+			for (Attribute_c attr : attrs) {
+				export_Attribute_c(attr, pm, writeAsProxies, isPersistable);
+			}
+
+			// identifiers
+			ClassIdentifier_c[] oids = ClassIdentifier_c.getManyO_IDsOnR104(inst,
+					selected -> ClassIdentifierAttribute_c.getOneO_OIDAOnR105((ClassIdentifier_c) selected) != null);
+			Arrays.sort(oids, (a, b) -> a.getOid_id() - b.getOid_id());
+			for (ClassIdentifier_c oid : oids) {
+				export_ClassIdentifier_c(oid, pm, writeAsProxies, isPersistable);
+			}
+
+			// operations
+			Operation_c[] tfrs = Operation_c.getManyO_TFRsOnR115(inst);
+			new Operation_cSorter().sort(tfrs);
+			for (Operation_c tfr : tfrs) {
+				export_Operation_c(tfr, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send class;\n\n", getTab());
+			tabDepth--;
+			append("%send;\n", getTab());
+		} else {
+			write_ModelClass_c_proxy_sql(inst);
+		}
+
+	}
+
+	protected void export_Attribute_c(Attribute_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// attribute metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			final DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c
+					.getOneO_DBATTROnR107(BaseAttribute_c.getOneO_BATTROnR106(inst));
+			if (dbattr != null && dbattr.getSuc_pars() == Parsestatus_c.doNotParse) {
+				append("%s@noparse;\n", getTab());
+			}
+			final ReferentialAttribute_c rattr = ReferentialAttribute_c.getOneO_RATTROnR106(inst);
+			if (rattr != null) {
+				append("%s@ref_mode(\"%s\");\n", getTab(), rattr.getRef_mode() == 0 ? "local" : "referred_to");
+				if (rattr.getRef_mode() != 1) {
+					if (inst.getPfx_mode() == 1) {
+						append("%s@use_prefix(prefix=\"%s\", root_name=\"%s\");\n", getTab(), inst.getPrefix(),
+								inst.getRoot_nam());
+					} else if (inst.getPfx_mode() == 2) {
+						append("%s@use_referred_to_prefix(root_name=\"%s\");\n", getTab(), inst.getRoot_nam());
+					}
+				}
+			}
+
+			// get the attribute type
+			DataType_c type = DataType_c.getOneS_DTOnR114(inst);
+			if ("ba5eda7a-def5-0000-0000-000000000007".equals(type.getDt_id().toString())) {
+				type = DataType_c.getOneS_DTOnR114(Attribute_c.getOneO_ATTROnR106(
+						BaseAttribute_c.getOneO_BATTROnR113(ReferentialAttribute_c.getOneO_RATTROnR106(inst))));
+			}
+			final boolean isUnique = "unique_id".equals(type.getName())
+					&& BaseAttribute_c.getOneO_BATTROnR106(inst) != null;
+			if ("unique_id".equals(type.getName())) {
+				// "unique_id" maps to 'unique integer' in textual xtUML
+				type = (DataType_c) inst.getModelRoot().getInstanceList(DataType_c.class)
+						.getGlobal("ba5eda7a-def5-0000-0000-000000000002");
+			}
+
+			// append the basic attribute definition
+			append("%s%s%s: ", getTab(), isUnique ? "unique " : "", inst.getName());
+
+			// append attribute references
+			AttributeReferenceInClass_c[] refs = AttributeReferenceInClass_c
+					.getManyO_REFsOnR108(ReferentialAttribute_c.getOneO_RATTROnR106(inst));
+			new AttributeReferenceInClass_cSorter().sort(refs);
+			if (refs.length > 0) {
+				append("referential (");
+			}
+			for (AttributeReferenceInClass_c ref : refs) {
+				final ReferredToIdentifierAttribute_c rtida = ReferredToIdentifierAttribute_c.getOneO_RTIDAOnR111(ref);
+				final ClassInAssociation_c oir = ClassInAssociation_c
+						.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR110(rtida));
+				final Association_c rel = Association_c.getOneR_RELOnR201(oir);
+				append("R%d.", rel.getNumb());
+				if (ref.getRobj_id().equals(ref.getObj_id())) {
+					append("%s.", sanitizeName(oir.Get_text_phrase()));
+				}
+				final Attribute_c ref_attr = Attribute_c
+						.getOneO_ATTROnR105(ClassIdentifierAttribute_c.getOneO_OIDAOnR110(rtida));
+				final ModelClass_c obj = ModelClass_c.getOneO_OBJOnR102(ref_attr);
+				append("%s.%s", sanitizeName(obj.getName()), ref_attr.getName());
+				ref = AttributeReferenceInClass_c.getOneO_REFOnR112Precedes(ref);
+				if (ref != null) {
+					append(", ");
+				}
+			}
+			if (refs.length > 0) {
+				append(") ");
+			}
+
+			// append the datatype
+			append("%s", getTypeReference(type, inst.getDimensions()));
+
+			// append the default value if applicable
+			if (BaseAttribute_c.getOneO_BATTROnR106(inst) != null && !isUnique && !inst.getDefaultvalue().isBlank()) {
+				append(" = %s", inst.getDefaultvalue().strip());
+			}
+
+			// handle derived attributes
+			if (dbattr != null) {
+				append(" is\n");
+				tabDepth++;
+				// append the inner actions
+				if (!dbattr.getAction_semantics().isBlank()) {
+					append("%s@noparse\n", getTab()); // TODO
+				}
+				dbattr.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				if (!dbattr.getAction_semantics().isBlank()) {
+					append("%s@endnoparse\n", getTab());
+				}
+				tabDepth--;
+				append("%send", getTab());
+			}
+
+			// complete the attribute
+			append(";\n\n");
+		} else {
+			write_Attribute_c_proxy_sql(inst);
+		}
+
+	}
+
+	protected void export_ClassIdentifier_c(ClassIdentifier_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s%sidentifier is (", getTab(), inst.getOid_id() == 0 ? "preferred " : "");
+			Set<UUID> idAttrIds = Stream.of(ClassIdentifierAttribute_c.getManyO_OIDAsOnR105(inst))
+					.map(ClassIdentifierAttribute_c::getAttr_id).collect(Collectors.toSet());
+			String sep = "";
+			Attribute_c attr = Attribute_c.getOneO_ATTROnR102(
+					ModelClass_c.getOneO_OBJOnR102(Attribute_c.getOneO_ATTROnR105(inst)),
+					selected -> Attribute_c.getOneO_ATTROnR103Succeeds((Attribute_c) selected) == null);
+			while (attr != null) {
+				if (idAttrIds.contains(attr.getAttr_id())) {
+					append("%s%s", sep, attr.getName());
+					sep = ", ";
+				}
+				attr = Attribute_c.getOneO_ATTROnR103Precedes(attr);
+			}
+			append(");\n\n");
+		} else {
+			write_ClassIdentifier_c_proxy_sql(inst);
+		}
+
+	}
+
+	protected void export_Operation_c(Operation_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// operation metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
+				append("%s@noparse;\n", getTab());
+			}
+			if (inst.getNumb() > 0) {
+				append("%s@operation_num(%d);\n", getTab(), inst.getNumb());
+			}
+
+			// TODO deferral required
+			// TODO parameter descriptions
+
+			// build the parameter list
+			final OperationParameter_c[] o_tparms = OperationParameter_c.getManyO_TPARMsOnR117(inst);
+			new OperationParameter_cSorter().sort(o_tparms);
+			final String parameterList = Stream.of(o_tparms).map(o_tparm -> {
+				buffers.push(new StringBuilder());
+				try {
+					export_OperationParameter_c(o_tparm, pm, writeAsProxies, isPersistable);
+				} catch (IOException e) {
+					throw new UncheckedIOException(e);
+				}
+				return buffers.pop().toString();
+			}).collect(Collectors.joining(", "));
+
+			// get the return type
+			final DataType_c returnType = DataType_c.getOneS_DTOnR116(inst);
+
+			// get the deferral relationship if applicable
+			final Association_c def_rel = Association_c.getOneR_RELOnR126(inst);
+
+			append("%s%soperation %s(%s) return %s", getTab(),
+					inst.getInstance_based() == Scope_c.Class ? "class "
+							: (def_rel != null ? ("deferred (R" + def_rel.getNumb() + ") ") : ""),
+					sanitizeName(inst.getName()), parameterList,
+					getTypeReference(returnType, inst.getReturn_dimensions()));
+
+			// append the inner actions
+			if (!inst.getAction_semantics_internal().isBlank()) {
+				append(" is\n");
+				tabDepth++;
+				append("%s@noparse\n", getTab()); // TODO
+				inst.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				append("%s@endnoparse\n", getTab());
+				tabDepth--;
+				append("%send operation", getTab());
+			}
+			append(";\n\n");
+
+		} else {
+			write_Operation_c_proxy_sql(inst);
+		}
+	}
+
+	protected void export_OperationParameter_c(OperationParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+					getTypeReference(DataType_c.getOneS_DTOnR118(inst), inst.getDimensions()));
+		} else {
+			write_OperationParameter_c_proxy_sql(inst);
 		}
 	}
 
@@ -460,11 +747,8 @@ public class ExportModelText extends ExportModelComponent {
 		// get the return type if applicable
 		final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
 		final String returnTypeRef = returnType != null
-				? " return "
-						+ getTypeReference(returnType,
-								InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions(),
-								Package_c.getOneEP_PKGOnR8000(
-										PackageableElement_c.getOnePE_PEOnR8001(Interface_c.getOneC_IOnR4003(c_ep))))
+				? " return " + getTypeReference(returnType,
+						InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
 				: "";
 
 		// get the message direction
@@ -482,7 +766,7 @@ public class ExportModelText extends ExportModelComponent {
 		}
 	}
 
-	private String getTypeReference(final DataType_c type, final String dims, final Package_c referencePoint) {
+	private String getTypeReference(final DataType_c type, final String dims) {
 		String type_ref = "";
 		Matcher m = Pattern.compile("\\[([^\\]]*)\\]").matcher(dims);
 		while (m.find()) {
@@ -512,9 +796,12 @@ public class ExportModelText extends ExportModelComponent {
 
 	private String getTab() {
 		final IPreferenceStore store = EditorsUI.getPreferenceStore();
-		final boolean spacesForTabs = store.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		final boolean spacesForTabs = store
+				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
 		final String tabChar = spacesForTabs ? " " : "\t";
-		final int tabWidth = spacesForTabs ? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH) : 1;
+		final int tabWidth = spacesForTabs
+				? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
+				: 1;
 		String tab = "";
 		for (int i = 0; i < tabDepth * tabWidth; i++) {
 			tab += tabChar;

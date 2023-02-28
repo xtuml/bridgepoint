@@ -6,111 +6,98 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.core.resources.IResource;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
-import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Gd_c;
-import org.xtuml.bp.core.Ifdirectiontype_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
-import org.xtuml.bp.core.InterfaceOperation_c;
-import org.xtuml.bp.core.InterfaceReference_c;
-import org.xtuml.bp.core.InterfaceSignal_c;
-import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
-import org.xtuml.bp.core.Parsestatus_c;
-import org.xtuml.bp.core.Port_c;
-import org.xtuml.bp.core.PropertyParameter_c;
-import org.xtuml.bp.core.ProvidedExecutableProperty_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.ProvidedSignal_c;
-import org.xtuml.bp.core.Provision_c;
-import org.xtuml.bp.core.RequiredExecutableProperty_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.RequiredSignal_c;
-import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.Visibility_c;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
-import org.xtuml.bp.core.util.DimensionsUtil;
-import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
+import org.xtuml.bp.core.common.SequentialExecutor;
+import org.xtuml.bp.io.core.CoreImport.XtumlLoadException;
 import org.xtuml.bp.io.core.XtumlParser.Action_bodyContext;
 import org.xtuml.bp.io.core.XtumlParser.Array_type_referenceContext;
-import org.xtuml.bp.io.core.XtumlParser.Component_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Const_expressionContext;
 import org.xtuml.bp.io.core.XtumlParser.Discontiguous_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Inst_set_type_referenceContext;
 import org.xtuml.bp.io.core.XtumlParser.Inst_type_referenceContext;
-import org.xtuml.bp.io.core.XtumlParser.Interface_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.MarkContext;
 import org.xtuml.bp.io.core.XtumlParser.Mark_argumentContext;
 import org.xtuml.bp.io.core.XtumlParser.MarksContext;
-import org.xtuml.bp.io.core.XtumlParser.Message_declarationContext;
-import org.xtuml.bp.io.core.XtumlParser.Message_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.NameContext;
 import org.xtuml.bp.io.core.XtumlParser.Named_type_referenceContext;
-import org.xtuml.bp.io.core.XtumlParser.Package_definitionContext;
-import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
-import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
-import org.xtuml.bp.io.core.XtumlParser.Port_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Scoped_nameContext;
+import org.xtuml.bp.io.core.XtumlParser.TargetContext;
 
 public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
-	private final Ooaofooa modelRoot;
-	private final IResource resource;
-	private NonRootModelElement currentRoot = null;
-	private NonRootModelElement searchRoot = null;
+	protected final SequentialExecutor executor;
+	protected final Ooaofooa modelRoot;
+	protected final DataType_c integerType;
+	protected final DataType_c voidType;
+	protected final DataType_c uniqueIdType;
 
-	private final DataType_c defaultType;
-	private final DataType_c voidType;
+	protected NonRootModelElement currentRoot = null;
+	protected NonRootModelElement searchRoot = null;
 
-	private static final String MESSAGE_NUM = "message_num";
-	private static final String SYSTEM_MODEL = "system_model";
-	private static final String USE_GLOBALS = "use_globals";
-	private static final String MULTIPLICITY = "mult";
-	private static final String KEY_LETTERS = "key_letters";
-	private static final String REALIZED = "realized";
-	private static final String HIDE_GRAPHIC = "hide_graphic";
-	private static final String INFORMAL_NAME = "informal_name";
-	private static final String NOPARSE = "noparse";
+	public static final String MESSAGE_NUM = "message_num";
+	public static final String OPERATION_NUM = "operation_num";
+	public static final String SYSTEM_MODEL = "system_model";
+	public static final String USE_GLOBALS = "use_globals";
+	public static final String MULTIPLICITY = "mult";
+	public static final String KEY_LETTERS = "key_letters";
+	public static final String REALIZED = "realized";
+	public static final String HIDE_GRAPHIC = "hide_graphic";
+	public static final String INFORMAL_NAME = "informal_name";
+	public static final String NOPARSE = "noparse";
+	public static final String CLASS_NUM = "class_num";
+	public static final String REF_MODE = "ref_mode";
+	public static final String USE_PREFIX = "use_prefix";
+	public static final String USE_REF_PREFIX = "use_referred_to_prefix";
 
-	public XtumlImportVisitor(final Ooaofooa modelRoot, final IResource resource) {
+	public XtumlImportVisitor(final Ooaofooa modelRoot) {
+		this.executor = PersistenceManager.getDefaultInstance().getSequentialExecutor();
 		this.modelRoot = modelRoot;
-		this.resource = resource;
-		this.defaultType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
+		this.integerType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
 				.get("ba5eda7a-def5-0000-0000-000000000002");
 		this.voidType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
 				.get("ba5eda7a-def5-0000-0000-000000000000");
+		this.uniqueIdType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
+				.get("ba5eda7a-def5-0000-0000-000000000005");
+	}
+
+	@Override
+	public NonRootModelElement visitTarget(TargetContext ctx) {
+		final NonRootModelElement rootElement = (NonRootModelElement) super.visitTarget(ctx);
+		if (rootElement == null) {
+			throw new XtumlLoadException("Root element is null.");
+		} else {
+			return rootElement;
+		}
 	}
 
 	@Override
 	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
 		// TODO handle parent system or parent component
 		try {
-			currentRoot = PersistenceManager.getDefaultInstance().getSequentialExecutor()
-					.callAndWait(() -> Stream
-							.of(Stream.of(Package_c.PackageInstances(modelRoot)),
-									Stream.of(SystemModel_c.SystemModelInstances(modelRoot)),
-									Stream.of(Component_c.ComponentInstances(modelRoot)))
-							.flatMap(s -> s).filter(selected -> selected.getPath().equals(visit(ctx.parent_name)))
-							.findAny());
+			currentRoot = executor.callAndWait(() -> Stream
+					.of(Stream.of(Package_c.PackageInstances(modelRoot)),
+							Stream.of(SystemModel_c.SystemModelInstances(modelRoot)),
+							Stream.of(Component_c.ComponentInstances(modelRoot)))
+					.flatMap(s -> s).filter(selected -> selected.getPath().equals(visit(ctx.parent_name))).findAny());
 			searchRoot = currentRoot;
 			return (NonRootModelElement) visit(ctx.definition());
 		} catch (Exception e) {
@@ -119,371 +106,9 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	}
 
 	@Override
-	public NonRootModelElement visitPackage_definition(Package_definitionContext ctx) {
-		// If we encounter the "system_model" mark, this is a system model
-		// instance. Otherwise it is a regular package.
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
-		if (marks.containsKey(SYSTEM_MODEL)) {
-			// create a system model
-			final SystemModel_c s_sys = SystemModel_c.resolveInstance(modelRoot, UUID.randomUUID(),
-					(String) visit(ctx.pkg_name), false, (String) visit(ctx.pkg_name));
-			// look for "use_globals=true" in the "@system_model" mark
-			s_sys.setUseglobals(marks.get(SYSTEM_MODEL).getBoolean(USE_GLOBALS));
-			currentRoot = s_sys;
-			ctx.package_item().forEach(this::visit);
-			return s_sys;
-		} else {
-			// TODO create a package
-			return null;
-		}
-	}
-
-	@Override
-	public NonRootModelElement visitComponent_definition(Component_definitionContext ctx) {
-		// TODO consider components defined directly within other components
-		final Package_c parent_pkg = (Package_c) currentRoot;
-
-		// find or create component
-		final String comp_name = (String) visit(ctx.comp_name);
-		final Component_c comp = Component_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				IdAssigner.NULL_UUID, comp_name, "", 0, IdAssigner.NULL_UUID, false, "", "",
-				parent_pkg.getPath() + "::" + comp_name);
-		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
-		pe.relateAcrossR8000To(parent_pkg);
-		pe.relateAcrossR8001To(comp);
-		pe.setVisibility(Visibility_c.Public);
-		pe.setType(Elementtypeconstants_c.COMPONENT);
-		currentRoot = comp;
-
-		// set component description
-		if (ctx.description() != null) {
-			comp.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
-					.collect(Collectors.joining(System.lineSeparator())));
-		}
-
-		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
-		if (marks.containsKey(MULTIPLICITY) && marks.get(MULTIPLICITY).getString().equals("many")) {
-			comp.setMult(1);
-		}
-		if (marks.containsKey(KEY_LETTERS)) {
-			comp.setKey_lett(marks.get(KEY_LETTERS).getString());
-		}
-		if (marks.containsKey(REALIZED)) {
-			comp.setIsrealized(true);
-			comp.setRealized_class_path(marks.get(REALIZED).getString());
-
-		}
-
-		// load all component items
-		// TODO ensure packages load first?
-		ctx.component_item().forEach(this::visit);
-
-		return comp;
-	}
-
-	@Override
-	public NonRootModelElement visitPort_definition(Port_definitionContext ctx) {
-		final Component_c comp = (Component_c) currentRoot;
-
-		// find the formalized interface
-		Interface_c iface = null;
-		if (ctx.iface_name != null) {
-			try {
-				iface = (Interface_c) PersistenceManager.getDefaultInstance().getSequentialExecutor()
-						.callAndWait(() -> {
-							List<Interface_c> ifaces = findVisibleElements(searchRoot, Elementtypeconstants_c.INTERFACE)
-									.stream().map(Interface_c::getOneC_IOnR8001)
-									.filter(ifc -> ifc.getPath().endsWith((String) visit(ctx.iface_name)))
-									.collect(Collectors.toList());
-							if (ifaces.isEmpty()) {
-								return Optional.empty();
-							} else {
-								if (ifaces.size() > 1) {
-									throw new IllegalArgumentException(
-											"The given path corresponds to more than one unique element");
-								}
-								return Optional.of(ifaces.get(0));
-							}
-						});
-			} catch (Exception e) {
-				throw new CoreImport.XtumlLoadException(
-						"Failed to find interface '" + visit(ctx.iface_name) + "' for port definition.", e);
-			}
-		}
-
-		// find or create port
-		final String port_name = (String) visit(ctx.port_name);
-		final Port_c port = Port_c.resolveInstance(modelRoot, UUID.randomUUID(), comp.getId(), port_name, 0, false, "",
-				comp.getPath() + "::" + port_name);
-		port.relateAcrossR4010To(comp);
-		final NonRootModelElement oldRoot = currentRoot;
-		currentRoot = port;
-
-		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
-		if (marks.containsKey(MULTIPLICITY) && marks.get(MULTIPLICITY).getString().equals("many")) {
-			port.setMult(1);
-		}
-		if (marks.containsKey(KEY_LETTERS)) {
-			port.setKey_lett(marks.get(KEY_LETTERS).getString());
-		}
-		if (marks.containsKey(HIDE_GRAPHIC)) {
-			port.setDonotshowportoncanvas(true);
-		}
-
-		// create the interface reference
-		final String informalName = marks.containsKey(INFORMAL_NAME) ? marks.get(INFORMAL_NAME).getString()
-				: "Unnamed Interface";
-		final InterfaceReference_c ir = InterfaceReference_c.resolveInstance(modelRoot, UUID.randomUUID(),
-				IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, port.getId(),
-				port.getPath() + "::" + (iface != null ? iface.getName() : informalName));
-		ir.relateAcrossR4016To(port);
-		if (iface != null) {
-			ir.relateAcrossR4012To(iface);
-		}
-		Provision_c c_p = null;
-		Requirement_c c_r = null;
-		if (ctx.direction.getText().equals("provided")) {
-			c_p = Provision_c.resolveInstance(modelRoot, UUID.randomUUID(), "", informalName, "", "", ir.getPath());
-			c_p.relateAcrossR4009To(ir);
-		} else {
-			c_r = Requirement_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "", informalName, "", ir.getPath());
-			c_r.relateAcrossR4009To(ir);
-		}
-
-		// set port description
-		if (ctx.description() != null) {
-			if (c_p != null) {
-				c_p.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
-						.collect(Collectors.joining(System.lineSeparator())));
-			} else if (c_r != null) {
-				c_r.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
-						.collect(Collectors.joining(System.lineSeparator())));
-			} else {
-				CorePlugin.getDefault().getLog().warn("Could not set description for port: " + port.getName());
-			}
-		}
-
-		// process all message definitions
-		ir.Synchronizesignalsandoperations();
-		ctx.message_definition().forEach(this::visit);
-
-		currentRoot = oldRoot;
-		return port;
-	}
-
-	@Override
-	public NonRootModelElement visitMessage_definition(Message_definitionContext ctx) {
-
-		// TODO Consider validating that the signature matches. At the moment, this
-		// method simply matches by name. Note that this also assumes no overloading.
-
-		final Port_c port = (Port_c) currentRoot;
-		final Provision_c c_p = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016(port));
-		final Requirement_c c_r = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016(port));
-		final NonRootModelElement[] spr_pos = ProvidedOperation_c
-				.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
-		final NonRootModelElement[] spr_pss = ProvidedSignal_c
-				.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
-		final NonRootModelElement[] spr_ros = RequiredOperation_c
-				.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
-		final NonRootModelElement[] spr_rss = RequiredSignal_c
-				.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
-
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
-
+	public DataType_c visitNamed_type_reference(Named_type_referenceContext ctx) {
 		try {
-			final PortMessage msg = ProxyUtil.newProxy(PortMessage.class,
-					Stream.of(spr_pos, spr_pss, spr_ros, spr_rss).flatMap(a -> Stream.of(a))
-							.filter(m -> visit(ctx.msg_name).equals(m.getName())).findAny().orElseThrow());
-
-			if (marks.containsKey(MESSAGE_NUM)) {
-				msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
-			}
-			if (marks.containsKey(NOPARSE)) {
-				msg.setSuc_pars(Parsestatus_c.doNotParse);
-			} else {
-				msg.setSuc_pars(Parsestatus_c.parseInitial);
-			}
-			msg.setAction_semantics_internal((String) visit(ctx.action_body()));
-			return (NonRootModelElement) msg.getBasisObject();
-		} catch (NoSuchElementException e) {
-			CorePlugin.logError("Could not find message in interface with name: " + visit(ctx.msg_name), e);
-			return null;
-		}
-
-	}
-
-	@Override
-	public NonRootModelElement visitInterface_definition(Interface_definitionContext ctx) {
-		final Package_c parent_pkg = (Package_c) currentRoot;
-
-		// find or create interface
-		final String iface_name = (String) visit(ctx.iface_name);
-		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), parent_pkg.getPackage_id(),
-				iface_name, "", parent_pkg.getPath() + "::" + iface_name);
-		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
-		pe.relateAcrossR8001To(iface);
-		pe.setVisibility(Visibility_c.Public);
-		pe.setType(Elementtypeconstants_c.INTERFACE);
-		currentRoot = iface;
-
-		// set interface description
-		if (ctx.description() != null) {
-			iface.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
-					.collect(Collectors.joining(System.lineSeparator())));
-		}
-
-		// link executable properties to interface
-		final List<ExecutableProperty_c> c_eps = ctx.message_declaration().stream()
-				.map(m -> (ExecutableProperty_c) visit(m)).collect(Collectors.toList());
-		for (ExecutableProperty_c c_ep : c_eps) {
-			c_ep.relateAcrossR4003To(iface);
-		}
-
-		// link individual operations and signals together
-		final List<InterfaceOperation_c> c_ios = c_eps.stream()
-				.map(c_ep -> InterfaceOperation_c.getOneC_IOOnR4004(c_ep)).filter(c_io -> c_io != null)
-				.collect(Collectors.toList());
-		for (int i = 0; i + 1 < c_ios.size(); i++) {
-			c_ios.get(i).relateAcrossR4019ToPrecedes(c_ios.get(i + 1));
-		}
-		final List<InterfaceSignal_c> c_ass = c_eps.stream().map(c_ep -> InterfaceSignal_c.getOneC_ASOnR4004(c_ep))
-				.filter(c_as -> c_as != null).collect(Collectors.toList());
-		for (int i = 0; i + 1 < c_ass.size(); i++) {
-			c_ass.get(i).relateAcrossR4020ToPrecedes(c_ass.get(i + 1));
-		}
-
-		// link to the parent package last to prevent getting selected before messages
-		// are loaded
-		pe.relateAcrossR8000To(parent_pkg);
-
-		return iface;
-	}
-
-	@Override
-	public NonRootModelElement visitMessage_declaration(Message_declarationContext ctx) {
-		// parse message info
-		final String name = (String) visit(ctx.msg_name);
-		final int direction = "to".equals(ctx.direction.getText()) ? Ifdirectiontype_c.ClientServer
-				: Ifdirectiontype_c.ServerClient;
-
-		// find or create executable property
-		final ExecutableProperty_c c_ep = ExecutableProperty_c.resolveInstance(modelRoot, UUID.randomUUID(),
-				((Interface_c) currentRoot).getId(), direction, name, "", 0, currentRoot.getPath() + "::" + name);
-		if (ctx.type_reference() != null) {
-			c_ep.unrelateAcrossR4004From(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
-			final InterfaceOperation_c c_io = new InterfaceOperation_c(modelRoot);
-			c_io.relateAcrossR4008To(voidType);
-			c_ep.relateAcrossR4004To(c_io);
-		} else {
-			c_ep.unrelateAcrossR4004From(InterfaceSignal_c.getOneC_ASOnR4004(c_ep));
-			c_ep.relateAcrossR4004To(new InterfaceSignal_c(modelRoot));
-		}
-
-		// get the message description
-		final String messageDescription = ctx.description() != null ? ctx.description().getText().lines()
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "";
-
-		// process marks
-		// TODO eventually, this should tie in with the marking editor, but for
-		// now it is just used to get the message number
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
-		if (marks.containsKey(MESSAGE_NUM)) {
-			c_ep.setNumb(marks.get(MESSAGE_NUM).getInteger());
-		}
-
-		// set subtype specific info
-		final InterfaceOperation_c c_io = InterfaceOperation_c.getOneC_IOOnR4004(c_ep);
-		final InterfaceSignal_c c_as = InterfaceSignal_c.getOneC_ASOnR4004(c_ep);
-		if (c_io != null) {
-			c_io.setName(name);
-			c_io.setDescrip(messageDescription);
-			c_io.setDirection(direction);
-
-			// set return type
-			c_io.unrelateAcrossR4008From(DataType_c.getOneS_DTOnR4008(c_io));
-			c_io.relateAcrossR4008To((DataType_c) Optional.ofNullable(visit(ctx.type_reference())).orElse(voidType));
-
-			// set return dimensions
-			String dim_string = getDimString(ctx.type_reference().array_type_reference());
-			c_io.setReturn_dimensions(dim_string);
-			List<Integer> dims = DimensionsUtil.getDimensionsData(dim_string, c_io);
-			for (int i = 0; i < dims.size(); i++) {
-				c_io.Resizereturn_dimensions(i, dims.get(i), dims.size());
-			}
-		} else {
-			c_as.setName(name);
-			c_as.setDescrip(messageDescription);
-			c_as.setDirection(direction);
-		}
-
-		// delete any existing parameters
-		Stream.of(PropertyParameter_c.getManyC_PPsOnR4006(c_ep)).forEach(PropertyParameter_c::Dispose);
-
-		// link parameters to the message
-		if (ctx.parameter_list() != null) {
-			PropertyParameter_c c_pp = (PropertyParameter_c) visit(ctx.parameter_list());
-			while (c_pp != null) {
-				c_ep.relateAcrossR4006To(c_pp);
-				c_pp = PropertyParameter_c.getOneC_PPOnR4021Precedes(c_pp);
-			}
-		}
-
-		return c_ep;
-	}
-
-	@Override
-	public NonRootModelElement visitParameter_list(Parameter_listContext ctx) {
-		// link parameters to each other in order
-		List<PropertyParameter_c> c_pps = ctx.parameter().stream().map(p -> (PropertyParameter_c) visit(p))
-				.collect(Collectors.toList());
-		for (int i = 0; i + 1 < c_pps.size(); i++) {
-			c_pps.get(i).relateAcrossR4021ToPrecedes(c_pps.get(i + 1));
-		}
-		return !c_pps.isEmpty() ? c_pps.get(0) : null;
-	}
-
-	@Override
-	public NonRootModelElement visitParameter(ParameterContext ctx) {
-		// create a new parameter
-		PropertyParameter_c c_pp = new PropertyParameter_c(modelRoot);
-		c_pp.setName((String) visit(ctx.param_name));
-		c_pp.relateAcrossR4007To(defaultType);
-
-		// set by value/ref
-		c_pp.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);
-
-		// link the data type
-		c_pp.unrelateAcrossR4007From(DataType_c.getOneS_DTOnR4007(c_pp));
-		c_pp.relateAcrossR4007To((DataType_c) Optional.ofNullable(visit(ctx.type_reference())).orElse(defaultType));
-
-		// set the array dimensions
-		String dim_string = getDimString(ctx.type_reference().array_type_reference());
-		c_pp.setDimensions(dim_string);
-		List<Integer> dims = DimensionsUtil.getDimensionsData(dim_string, c_pp);
-		for (int i = 0; i < dims.size(); i++) {
-			c_pp.Resizedimensions(i, dims.get(i), dims.size());
-		}
-
-		return c_pp;
-	}
-
-	@Override
-	public NonRootModelElement visitNamed_type_reference(Named_type_referenceContext ctx) {
-		try {
-			return PersistenceManager.getDefaultInstance().getSequentialExecutor().callAndWait(() -> {
+			return executor.callAndWait(() -> {
 				List<DataType_c> dts = findVisibleElements(searchRoot, Elementtypeconstants_c.DATATYPE).stream()
 						.map(DataType_c::getOneS_DTOnR8001)
 						.filter(dt -> dt.getPath().endsWith((String) visit(ctx.scoped_name())))
@@ -505,14 +130,14 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	}
 
 	@Override
-	public NonRootModelElement visitArray_type_reference(Array_type_referenceContext ctx) {
-		return (NonRootModelElement) visit(ctx.type_reference());
+	public DataType_c visitArray_type_reference(Array_type_referenceContext ctx) {
+		return (DataType_c) visit(ctx.type_reference());
 	}
 
 	@Override
-	public NonRootModelElement visitInst_type_reference(Inst_type_referenceContext ctx) {
+	public DataType_c visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
-			return PersistenceManager.getDefaultInstance().getSequentialExecutor().callAndWait(() -> {
+			return executor.callAndWait(() -> {
 				List<ModelClass_c> objs = findVisibleElements(searchRoot, Elementtypeconstants_c.CLASS).stream()
 						.map(ModelClass_c::getOneO_OBJOnR8001)
 						.filter(obj -> (Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(obj))
@@ -538,7 +163,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	}
 
 	@Override
-	public NonRootModelElement visitInst_set_type_reference(Inst_set_type_referenceContext ctx) {
+	public DataType_c visitInst_set_type_reference(Inst_set_type_referenceContext ctx) {
 		return DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(
 				ModelClass_c.getOneO_OBJOnR123(
 						InstanceReferenceDataType_c.getOneS_IRDTOnR17((DataType_c) visit(ctx.inst_type_reference()))),
@@ -606,7 +231,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return ctx.name().stream().map(this::visitName).collect(Collectors.joining("::"));
 	}
 
-	private String getDimString(final Array_type_referenceContext ctx) {
+	protected String getDimString(final Array_type_referenceContext ctx) {
 		String dim_string = "";
 		Array_type_referenceContext array_type_ref = ctx;
 		while (array_type_ref != null) {
@@ -620,7 +245,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return dim_string;
 	}
 
-	private List<PackageableElement_c> findVisibleElements(final NonRootModelElement element, final int elementType) {
+	protected List<PackageableElement_c> findVisibleElements(final NonRootModelElement element, final int elementType) {
 		if (element instanceof Package_c) {
 			return findVisibleElements((Package_c) element, elementType);
 		} else if (element instanceof Component_c) {
@@ -641,7 +266,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		}
 	}
 
-	private List<PackageableElement_c> findVisibleElements(final Package_c pkg, final int elementType) {
+	protected List<PackageableElement_c> findVisibleElements(final Package_c pkg, final int elementType) {
 		pkg.Clearscope();
 		pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), elementType);
 		final SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg,
@@ -650,7 +275,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return List.of(PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results)));
 	}
 
-	private List<PackageableElement_c> findVisibleElements(final Component_c comp, final int elementType) {
+	protected List<PackageableElement_c> findVisibleElements(final Component_c comp, final int elementType) {
 		comp.Clearscope();
 		comp.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), "", comp.getId(), elementType);
 		final ComponentResultSet_c results = ComponentResultSet_c.getOnePE_CRSOnR8007(comp,
@@ -659,7 +284,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return List.of(PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
 	}
 
-	private final class Mark extends LinkedHashMap<String, Object> implements Map<String, Object> {
+	protected static final class Mark extends LinkedHashMap<String, Object> implements Map<String, Object> {
 
 		private static final long serialVersionUID = 1L;
 
@@ -690,16 +315,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			return (int) values().iterator().next();
 		}
 
-	}
-
-	private interface PortMessage extends ProxyInstance {
-		String getName();
-
-		void setSuc_pars(int value);
-
-		void setNumb(int value);
-
-		void setAction_semantics_internal(String value);
 	}
 
 }

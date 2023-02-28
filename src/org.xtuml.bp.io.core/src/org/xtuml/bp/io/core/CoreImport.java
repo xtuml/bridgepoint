@@ -32,12 +32,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ActionFile;
@@ -386,14 +383,26 @@ public abstract class CoreImport implements IModelImport {
 				}
 			});
 
-			IWorkspace workspace = ResourcesPlugin.getWorkspace();
-			IPath location = Path.fromOSString(m_inFile.getAbsolutePath());
-			IFile ifile = workspace.getRoot().getFileForLocation(location);
-
 			// parse the file
 			try {
 				ParserRuleContext ctx = parser.target();
-				XtumlImportVisitor visitor = new XtumlImportVisitor(m_modelRoot, ifile);
+				XtumlImportVisitor visitor = null;
+				switch (m_header.getModelComponentType()) {
+				case "Interface":
+					visitor = new InterfaceImportVisitor(m_modelRoot);
+					break;
+				case "Component":
+					visitor = new ComponentImportVisitor(m_modelRoot);
+					break;
+				case "SystemModel":
+					visitor = new SystemModelImportVisitor(m_modelRoot);
+					break;
+				case "ModelClass":
+					visitor = new ModelClassImportVisitor(m_modelRoot);
+					break;
+				default:
+					visitor = new XtumlImportVisitor(m_modelRoot);
+				}
 				rootModelElement = (NonRootModelElement) visitor.visit(ctx);
 				loadedRootElements.put(m_fileName, rootModelElement);
 				return true;
@@ -657,6 +666,10 @@ public abstract class CoreImport implements IModelImport {
 		
 		public XtumlLoadException(String message, Throwable cause) {
 			super(message, cause);
+		}
+		
+		public XtumlLoadException(String message) {
+			super(message);
 		}
 
 	}
