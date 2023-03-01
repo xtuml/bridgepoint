@@ -232,11 +232,15 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		} else {
 			rattr.setRef_mode(1);
 			if (marks.containsKey(USE_PREFIX)) {
-				attr.setRoot_nam(marks.get(USE_PREFIX).getString("prefix"));
+				attr.setPfx_mode(1);
+				attr.setPrefix(marks.get(USE_PREFIX).getString("prefix"));
 				attr.setRoot_nam(marks.get(USE_PREFIX).getString("root_name"));
 			} else if (marks.containsKey(USE_REF_PREFIX)) {
+				attr.setPfx_mode(2);
 				attr.setRoot_nam(marks.get(USE_REF_PREFIX).getString("root_name"));
+				attr.setPrefix(attrName.replace(attr.getRoot_nam(), ""));
 			} else {
+				attr.setPfx_mode(0);
 				attr.setRoot_nam(attrName);
 			}
 		}

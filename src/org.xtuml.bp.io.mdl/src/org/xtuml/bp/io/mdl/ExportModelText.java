@@ -454,11 +454,12 @@ public class ExportModelText extends ExportModelComponent {
 			tabDepth++;
 
 			// attributes
-			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(inst,
-					selected -> !"current_state".equals(((Attribute_c) selected).getName()));
+			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(inst);
 			new Attribute_cSorter().sort(attrs);
 			for (Attribute_c attr : attrs) {
-				export_Attribute_c(attr, pm, writeAsProxies, isPersistable);
+				if (!"current_state".equals(attr.getName())) {
+					export_Attribute_c(attr, pm, writeAsProxies, isPersistable);
+				}
 			}
 
 			// identifiers
@@ -505,7 +506,7 @@ public class ExportModelText extends ExportModelComponent {
 			final ReferentialAttribute_c rattr = ReferentialAttribute_c.getOneO_RATTROnR106(inst);
 			if (rattr != null) {
 				append("%s@ref_mode(\"%s\");\n", getTab(), rattr.getRef_mode() == 0 ? "local" : "referred_to");
-				if (rattr.getRef_mode() != 1) {
+				if (rattr.getRef_mode() != 0) {
 					if (inst.getPfx_mode() == 1) {
 						append("%s@use_prefix(prefix=\"%s\", root_name=\"%s\");\n", getTab(), inst.getPrefix(),
 								inst.getRoot_nam());
@@ -779,6 +780,8 @@ public class ExportModelText extends ExportModelComponent {
 				type_ref += "set of ";
 			}
 			type_ref += "instance of " + obj.getKey_lett(); // TODO get shortest scoped name
+		} else if ("ba5eda7a-def5-0000-0000-00000000000f".equals(type.getDt_id().toString())) {
+			type_ref += "timer";
 		} else {
 			type_ref += type.getName(); // TODO get shortest scoped name
 		}

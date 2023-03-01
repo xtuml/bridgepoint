@@ -107,11 +107,15 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	@Override
 	public DataType_c visitNamed_type_reference(Named_type_referenceContext ctx) {
+		String typeName = (String) visit(ctx.scoped_name());
+		if ("timer".equals(typeName)) {
+			typeName = "inst_ref<Timer>";
+		}
+		final String scopedTypeName = typeName;
 		try {
 			return executor.callAndWait(() -> {
 				List<DataType_c> dts = findVisibleElements(searchRoot, Elementtypeconstants_c.DATATYPE).stream()
-						.map(DataType_c::getOneS_DTOnR8001)
-						.filter(dt -> dt.getPath().endsWith((String) visit(ctx.scoped_name())))
+						.map(DataType_c::getOneS_DTOnR8001).filter(dt -> dt.getPath().endsWith(scopedTypeName))
 						.collect(Collectors.toList());
 				if (dts.isEmpty()) {
 					return Optional.empty();

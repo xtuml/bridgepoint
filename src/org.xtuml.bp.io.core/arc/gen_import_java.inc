@@ -898,6 +898,7 @@ public class ${class_name} extends CoreImport
             helper.addPortReferenceInstances(loadedInstances);
             helper.upgradeEEsForIsRealized();
             helper.upgradeImportedClasses(loadedInstances);
+					  helper.resolveBaseAttributes(getRootModelElement());
           }
           finally {
             mr.enableDeltaCollection();

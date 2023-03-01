@@ -15,14 +15,20 @@
 package org.xtuml.bp.io.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -30,12 +36,14 @@ import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
+import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.ClassIdentifierAttribute_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
@@ -77,6 +85,8 @@ import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.ReferentialAttribute_c;
+import org.xtuml.bp.core.ReferredToIdentifierAttribute_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
@@ -95,7 +105,6 @@ import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
-import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -104,7 +113,6 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
@@ -2662,6 +2670,42 @@ public class ImportHelper
 					}
 
 				});
+	}
+
+	public void resolveBaseAttributes(NonRootModelElement rootModelElement) {
+		// For all loaded referential attributes, attempt to navigate back to
+		// the original base attribute. If a cycle is discoved, this is a
+		// baseless referential and should be ignored.
+		Set<ReferentialAttribute_c> rattrs = Stream.of(rootModelElement).filter(ModelClass_c.class::isInstance)
+				.flatMap(obj -> Stream.of(ReferentialAttribute_c
+						.getManyO_RATTRsOnR106(Attribute_c.getManyO_ATTRsOnR102((ModelClass_c) obj))))
+				.collect(Collectors.toSet());
+		for (ReferentialAttribute_c rattr : rattrs) {
+			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR106(new ReferentialAttribute_c[] { rattr });
+			final Set<Attribute_c> visitedAttrs = new HashSet<>(Set.of(attrs));
+			BaseAttribute_c battr = BaseAttribute_c.getOneO_BATTROnR113(rattr);
+			while (battr == null) {
+				// gather the next set of possible attributes
+				attrs = Attribute_c.getManyO_ATTRsOnR105(ClassIdentifierAttribute_c.getManyO_OIDAsOnR110(
+						ReferredToIdentifierAttribute_c.getManyO_RTIDAsOnR111(AttributeReferenceInClass_c
+								.getManyO_REFsOnR108(ReferentialAttribute_c.getManyO_RATTRsOnR106(attrs)))));
+				// check if any of these attributes have been visited
+				if (Stream.of(attrs).anyMatch(visitedAttrs::contains)) {
+					break;
+				}
+				visitedAttrs.addAll(Set.of(attrs));
+				// find a base attribute
+				battr = BaseAttribute_c.getOneO_BATTROnR106(attrs);
+			}
+			if (battr != null) {
+				rattr.relateAcrossR113To(battr);
+				final DataType_c sameAsBase = (DataType_c) rattr.getModelRoot().getInstanceList(DataType_c.class)
+						.getGlobal("ba5eda7a-def5-0000-0000-000000000007");
+				final Attribute_c attr = Attribute_c.getOneO_ATTROnR106(rattr);
+				attr.unrelateAcrossR114From(DataType_c.getOneS_DTOnR114(attr));
+				attr.relateAcrossR114To(sameAsBase);
+			}
+		}
 	}
 
 }
