@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -16,10 +15,8 @@ import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.Diagram_c;
@@ -71,69 +68,24 @@ public class CanvasGenerator implements IGraphicalLoader {
 	IResourceSetProvider resourceSetProvider;
 
 	CanvasWriter writer = new CanvasWriter();
-	
+
 	static CanvasGenerator singleton = new CanvasGenerator();
 
 	@Override
-	public void initialize() {
+	public Model_c load(NonRootModelElement container, IFile resource) {
+		try {
+			return generate(container, Ooaofgraphics.getInstance(container.getModelRoot().getId()), resource);
+		} catch (IOException | CoreException e) {
+			CanvasUiModule.logError("Unable to generate xtUML graphics.", e);
+			return null;
+		}
 	}
 
-	@Override
-	public Model_c load(Object container) {
-		if (container instanceof NonRootModelElement) {
-			NonRootModelElement parentElement = (NonRootModelElement) container;
-			IFile parentFile = parentElement.getFile();
-			IFile xtGraphFile = parentFile.getParent()
-					.getFile(new Path(parentFile.getName().replaceAll(".xtuml", ".xtumlg")));
-			try {
-				PersistenceManager.getDefaultInstance().loadProject(parentFile.getProject(), false, false);
-				return generate(parentElement, Ooaofgraphics.getInstance(parentElement.getModelRoot().getId()),
-						xtGraphFile, false);
-			} catch (IOException | CoreException e) {
-				CanvasUiModule.logError("Unable to generate xtUML graphics.", e);
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public Model_c reload(Object container) {
-		if (container instanceof NonRootModelElement) {
-			NonRootModelElement parentElement = (NonRootModelElement) container;
-			IFile parentFile = parentElement.getFile();
-			IFile xtGraphFile = parentFile.getParent()
-					.getFile(new Path(parentFile.getName().replaceAll(".xtuml", ".xtumlg")));
-			try {
-				PersistenceManager.getDefaultInstance().loadProject(parentFile.getProject(), false, false);
-				return generate(parentElement, Ooaofgraphics.getInstance(parentElement.getModelRoot().getId()),
-						xtGraphFile, true);
-			} catch (IOException | CoreException e) {
-				CanvasUiModule.logError("Unable to generate xtUML graphics.", e);
-			}
-		}
-		return null;
-	}
-
-	public Model_c generate(NonRootModelElement parentElement, ModelRoot destinationRoot, IFile file, boolean reload)
+	private Model_c generate(NonRootModelElement parentElement, ModelRoot destinationRoot, IFile file)
 			throws IOException, CoreException {
-		boolean rewrite = false;
-		if (!file.exists()) {
-			rewrite = true;
-			writer.write(parentElement, file, false);
-			// if not a new system,
-			if (!(parentElement instanceof SystemModel_c)) {
-				// this is from a pre-canvas-language model
-				// instances will exist already, just need to
-				// write the new graphics file
-				return null;
-			}
-		}
 		Model_c xtModel = Model_c.ModelInstance(Ooaofgraphics.getInstance(parentElement.getModelRoot().getId()),
 				m -> ((Model_c) m).getRepresents() == parentElement);
 		if (xtModel != null) {
-			if(!reload) {
-				return xtModel;
-			}
 			// for now just recreate, should be fast enough, if it
 			// gets to a point were its too slow add updated support
 			ModelRoot.disableChangeNotification();
@@ -194,11 +146,6 @@ public class CanvasGenerator implements IGraphicalLoader {
 				}
 			}
 			createGraphicalElements(xtModel, model, parentElement);
-		}
-		if (rewrite) {
-			// on system creation we write the initial file to process
-			// but need to write the newly created model
-			writer.write(parentElement);
 		}
 		return xtModel;
 	}
@@ -289,7 +236,7 @@ public class CanvasGenerator implements IGraphicalLoader {
 			}
 		}
 	}
-	
+
 	private void createStyles(GraphicalElement_c ge, Styles styles) {
 		for (StyleItem styleItem : styles.getStyle_items()) {
 			Elementstyle_c style = new Elementstyle_c(ge.getModelRoot());
@@ -309,7 +256,7 @@ public class CanvasGenerator implements IGraphicalLoader {
 			style.relateAcrossR401To(ge);
 		}
 	}
-	
+
 	private void assignLayers(Model_c xtModel, GraphicalElement_c ge, Iterable<String> layers) {
 		for (String layer : layers) {
 			Layer_c l = Layer_c.getOneGD_LAYOnR34(xtModel, o -> ((Layer_c) o).Get_name().equals(layer));
@@ -451,14 +398,13 @@ public class CanvasGenerator implements IGraphicalLoader {
 		return startElem;
 	}
 
-
 	private UUID getToolId(Model_c xtModel, NonRootModelElement represents, boolean container) {
 		int typeFromReference = EnumUtils.getTypeFromReference(represents, container);
 		// auto creation elements do not have a tool, use the non-imported variant
-		if(represents instanceof ImportedRequirement_c) {
+		if (represents instanceof ImportedRequirement_c) {
 			typeFromReference = Ooatype_c.RequiredInterface;
 		}
-		if(represents instanceof ImportedProvision_c) {
+		if (represents instanceof ImportedProvision_c) {
 			typeFromReference = Ooatype_c.ProvidedInterface;
 		}
 		ModelTool_c[] tools = ModelTool_c.getManyCT_MTLsOnR100(xtModel);

@@ -108,6 +108,7 @@ public class PersistableModelComponent implements Comparable {
 	private String componentType;
 
 	private IFile underlyingResource;
+	private IFile graphicsFile;
 	private ActionFile afm;
 	private IModelImport importer;
 
@@ -138,6 +139,8 @@ public class PersistableModelComponent implements Comparable {
 		}
 
 		underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
+		graphicsFile = ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(modelFilePath.removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
 		afm = new ActionFile(modelFilePath);
 		if (PersistenceManager.findComponent(modelFilePath) != null)
 			throw new WorkbenchException("Another component with same path already exists");
@@ -172,6 +175,8 @@ public class PersistableModelComponent implements Comparable {
 		String name = PersistenceManager.getHierarchyMetaData().getRootElementName(aComponentRootME);
 		IPath modelFilePath = getChildPath(parent.getFullPath(), name);
 		underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
+		graphicsFile = ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(modelFilePath.removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
 		afm = new ActionFile(modelFilePath);
 		checkComponentConsistancy(null);
 
@@ -197,6 +202,8 @@ public class PersistableModelComponent implements Comparable {
 
 		underlyingResource = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(getRootComponentPath(systemModel.getName()));
+		graphicsFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				underlyingResource.getFullPath().removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
 		afm = new ActionFile(getRootComponentPath(systemModel.getName()));
 		checkComponentConsistancy(null);
 
@@ -218,6 +225,8 @@ public class PersistableModelComponent implements Comparable {
 		componentRootME = systemModel;
 		componentType = PersistenceManager.getHierarchyMetaData().getComponentType(systemModel);
 		underlyingResource = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dummyCompareName));
+		graphicsFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				underlyingResource.getFullPath().removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
 		afm = new ActionFile(new Path(dummyCompareName));
 		setComponent(systemModel);
 
@@ -462,6 +471,13 @@ public class PersistableModelComponent implements Comparable {
 	public IFile getFile() {
 		if (underlyingResource != null)
 			return underlyingResource;
+		else
+			return null;
+	}
+
+	public IFile getGraphicsFile() {
+		if (graphicsFile != null)
+			return graphicsFile;
 		else
 			return null;
 	}
@@ -901,7 +917,7 @@ public class PersistableModelComponent implements Comparable {
 					gis[i].delete();
 				}
 			}
-			
+
 			// delete the root element and children
 			deleteME(componentRootME);
 
@@ -948,7 +964,7 @@ public class PersistableModelComponent implements Comparable {
 		}
 		me.batchUnrelate();
 	}
-	
+
 	private void updateModelPath(NonRootModelElement me) {
 		if (me.getPersistableComponent() != this) {
 			return;
@@ -990,6 +1006,8 @@ public class PersistableModelComponent implements Comparable {
 		}
 		PersistenceManager.removeComponent(this);
 		underlyingResource = newFile;
+		graphicsFile = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				underlyingResource.getFullPath().removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
 		afm.updateFiles(newFile.getFullPath());
 		PersistenceManager.addComponent(this);
 		if (thisMe != null && thisMe.isProxy()) {

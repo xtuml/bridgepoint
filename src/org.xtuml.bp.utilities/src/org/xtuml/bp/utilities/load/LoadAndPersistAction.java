@@ -56,21 +56,6 @@ public class LoadAndPersistAction implements IActionDelegate {
 						monitor.setCanceled(true);
 					}
 
-					// write textual graphics
-					/*
-					CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> {
-						pmcsToProcess.stream().map(PersistableModelComponent::getRootModelElement)
-								.forEach(modelElement -> {
-									if (!monitor.isCanceled()) {
-										pe.getWriter().write(modelElement, true);
-										monitor.worked(1);
-										while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
-											;
-									}
-								});
-					});
-					*/
-
 					// write PMCs
 					for (PersistableModelComponent pmc : pmcsToProcess) {
 						if (succeeded && !monitor.isCanceled()) {

@@ -57,6 +57,7 @@ abstract class OoaofooaBase extends ModelRoot
     public static final String MODELS_DIRNAME = "models";
 
     public static final String MODELS_EXT = "xtuml";
+    public static final String GRAPHICS_EXT = "xtumlg";
     
     public static ILogger log = new TraceLogger("org.xtuml.bp.core/debug");
     private SystemModel_c m_root = null;

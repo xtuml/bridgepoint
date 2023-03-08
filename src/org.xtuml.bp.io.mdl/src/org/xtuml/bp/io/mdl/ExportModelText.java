@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Set;
@@ -25,12 +26,14 @@ import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.ClassIdentifierAttribute_c;
 import org.xtuml.bp.core.ClassIdentifier_c;
 import org.xtuml.bp.core.ClassInAssociation_c;
+import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
@@ -65,6 +68,7 @@ import org.xtuml.bp.core.sorter.OperationParameter_cSorter;
 import org.xtuml.bp.core.sorter.Operation_cSorter;
 import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 import org.xtuml.bp.io.core.ProxyUtil;
+import org.xtuml.bp.ui.canvas.CanvasPlugin;
 
 // TODO determine how to sanitize names
 
@@ -80,16 +84,32 @@ public class ExportModelText extends ExportModelComponent {
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics,
 			NonRootModelElement instance) throws FileNotFoundException {
-		super(modelRoot, outfileName, true, instance);  // TODO
+		super(modelRoot, outfileName, true, instance); // TODO
 	}
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics)
 			throws FileNotFoundException {
-		super(modelRoot, outfileName, true);  // TODO
+		super(modelRoot, outfileName, true); // TODO
 	}
 
 	public ExportModelText(String outfileName, NonRootModelElement element) throws FileNotFoundException {
 		super(outfileName, element);
+	}
+
+	@Override
+	public void run(IProgressMonitor monitor) throws InvocationTargetException {
+		super.run(monitor);
+		// TODO remove this conditional once everything is implemented
+		if (m_inst instanceof Interface_c || m_inst instanceof SystemModel_c || m_inst instanceof Component_c
+				|| m_inst instanceof ModelClass_c) {
+			// write textual graphics if this is a root that contains a diagram
+			if (m_inst instanceof SystemModel_c || m_inst instanceof Component_c
+					|| m_inst instanceof InstanceStateMachine_c || m_inst instanceof ClassStateMachine_c
+					|| m_inst instanceof Package_c) {
+				CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions()
+						.forEach(extension -> extension.getWriter().write(m_inst));
+			}
+		}
 	}
 
 	@Override

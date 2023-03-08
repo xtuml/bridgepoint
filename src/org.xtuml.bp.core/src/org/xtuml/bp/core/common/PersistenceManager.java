@@ -378,6 +378,10 @@ public class PersistenceManager {
 	}
 
 	static public PersistableModelComponent findOrCreateComponent(IPath path) {
+		// if the path is for a graphics file, replace the extension before searching
+		if (path.getFileExtension().equals(Ooaofooa.GRAPHICS_EXT)) {
+			path = path.removeFileExtension().addFileExtension(Ooaofooa.MODELS_EXT);
+		}
 		PersistableModelComponent pmc = findComponent(path);
 		if (pmc == null) {
 			// see if the component exists in the list of inconsistent

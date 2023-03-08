@@ -106,23 +106,6 @@ public class ReferencePathManagement {
 		return null;
 	}
 
-	public static void initializeElement(NonRootModelElement loadedElement) {
-		List<PersistenceExtension> extensions = CanvasPlugin.getDefault().getPersistenceExtensionRegistry()
-				.getExtensions();
-		// only load with first registered extension
-		PersistenceExtension persistenceExtension = extensions.get(0);
-		if (persistenceExtension != null) {
-			// if the element has a diagram, load it
-			if (elementHasDiagramRepresentation(loadedElement)) {
-				IScopeContext projectScope = new ProjectScope(loadedElement.getFile().getProject());
-				Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-				if ("text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
-					persistenceExtension.getLoader().load(loadedElement);
-				}
-			}
-		}
-	}
-
 	public static boolean elementHasDiagramRepresentation(NonRootModelElement loadedElement) {
 		if (loadedElement instanceof Package_c || loadedElement instanceof InstanceStateMachine_c
 				|| loadedElement instanceof ClassStateMachine_c || loadedElement instanceof Component_c

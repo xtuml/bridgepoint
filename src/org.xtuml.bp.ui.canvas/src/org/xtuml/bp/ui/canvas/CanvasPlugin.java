@@ -65,10 +65,7 @@ import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalLoader;
 import org.xtuml.bp.ui.canvas.persistence.IGraphicalWriter;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionLoadListener;
 import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionResourceListener;
-import org.xtuml.bp.ui.canvas.persistence.WriteTransactionListener;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 
 
@@ -78,9 +75,6 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	private CanvasModelListener modelChangeListener;
 	private CanvasTransactionListener transactionListener;
 	private PersistenceExtensionRegistry persistenceExtensionRegistry = new PersistenceExtensionRegistry();
-	private PersistenceExtensionResourceListener persistenceResourceListener;
-	private WriteTransactionListener writeTransactionListener;
-	private PersistenceExtensionLoadListener persistenceExtensionLoadListener;
 	private static boolean isActivated;
 	// note this method is used to draw the entire text
 	// contents for shapes, preventing any truncating or
@@ -159,14 +153,12 @@ public class CanvasPlugin extends AbstractUIPlugin {
 					Object writer = configElement.createExecutableExtension("class");
 					if (writer instanceof IGraphicalWriter) {
 						extensionWriter = (IGraphicalWriter) writer;
-						extensionWriter.initialize();
 					}
 					break;
 				case "loader":
 					Object loader = configElement.createExecutableExtension("class");
 					if (loader instanceof IGraphicalLoader) {
 						extensionLoader = (IGraphicalLoader) loader;
-						extensionLoader.initialize();
 					}
 					break;				
 				default:
@@ -180,7 +172,6 @@ public class CanvasPlugin extends AbstractUIPlugin {
 				pe.setLoader(extensionLoader);
 				pe.setResourceExtension(resourceExtension);
 				pe.setIdentity(identity);
-				persistenceResourceListener.addExtension(extensionLoader, resourceExtension);
 				persistenceExtensionRegistry.addPersistenceExtension(pe);
 			}
 		};
@@ -713,10 +704,6 @@ public class CanvasPlugin extends AbstractUIPlugin {
 	private void hookListeners() {
 		modelChangeListener = new CanvasModelListener();
 		transactionListener = new CanvasTransactionListener();
-		// Listener supporting registered writers
-		persistenceResourceListener = new PersistenceExtensionResourceListener();
-		writeTransactionListener = new WriteTransactionListener();
-		persistenceExtensionLoadListener = new PersistenceExtensionLoadListener();
 	}
 
 	private static void addClientClassDependency(ElementSpecification_c es, final String className) {
@@ -819,11 +806,7 @@ public class CanvasPlugin extends AbstractUIPlugin {
 			super.stop(context);
 
 			Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
-			ResourcesPlugin.getWorkspace().removeResourceChangeListener(persistenceResourceListener);
 			TransactionManager.getSingleton().removeTransactionListener(transactionListener);
-			TransactionManager.getSingleton().removeTransactionListener(writeTransactionListener);
-			Ooaofooa.getDefaultInstance().removeModelChangeListener(persistenceExtensionLoadListener);
-			writeTransactionListener = null;
 		}
 	}
 

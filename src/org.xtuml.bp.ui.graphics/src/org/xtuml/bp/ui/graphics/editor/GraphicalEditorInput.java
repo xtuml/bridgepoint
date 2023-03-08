@@ -1,5 +1,4 @@
 package org.xtuml.bp.ui.graphics.editor;
-import java.util.Optional;
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
 // use this file except in compliance with the License.  You may obtain a copy 
@@ -22,9 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.IEditorInput;
@@ -33,21 +30,16 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
-import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
-import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Cl_c;
 import org.xtuml.bp.ui.canvas.ModelSpecification_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtensionRegistry;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 
 public class GraphicalEditorInput extends FileEditorInput
@@ -63,22 +55,6 @@ public class GraphicalEditorInput extends FileEditorInput
   }
 
   public static GraphicalEditorInput createInstance(Object c_input) throws PartInitException {
-	// if textual persistence is enabled
-	if (c_input instanceof NonRootModelElement) {
-		IScopeContext projectScope = new ProjectScope(((NonRootModelElement) c_input).getFile().getProject());
-		Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-		if ("text".equals(projectNode.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "sql"))) {
-			PersistenceExtensionRegistry persistenceExtensionRegistry = CanvasPlugin.getDefault()
-					.getPersistenceExtensionRegistry();
-			Optional<PersistenceExtension> potentialPe = persistenceExtensionRegistry.getExtensions().stream()
-					.filter(pe -> pe.getLoader() != null).findFirst();
-			if (potentialPe.isPresent()) {
-				Model_c reloaded = potentialPe.get().getLoader().load(c_input);
-				// update any graphical editor inputs that match
-				Ooaofgraphics.getDefaultInstance().fireModelElementReloaded(reloaded, reloaded);
-			}
-		}
-	}
     ModelSpecification_c[] modelSpecs = ModelSpecification_c.ModelSpecificationInstances(Ooaofgraphics.getDefaultInstance());
     for (int i = 0; i < modelSpecs.length; i++) {
       if (modelSpecs[i].getRepresents() == c_input.getClass()) {
