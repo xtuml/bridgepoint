@@ -15,8 +15,6 @@
 package org.xtuml.bp.io.core;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -71,6 +69,7 @@ import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.NewBaseAttribute_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -113,6 +112,7 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.sorter.Attribute_cSorter;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
@@ -2704,6 +2704,33 @@ public class ImportHelper
 				final Attribute_c attr = Attribute_c.getOneO_ATTROnR106(rattr);
 				attr.unrelateAcrossR114From(DataType_c.getOneS_DTOnR114(attr));
 				attr.relateAcrossR114To(sameAsBase);
+			}
+		}
+	}
+
+	public void createCurrentStateAttribute(NonRootModelElement rootElement) {
+		final ModelRoot modelRoot = rootElement.getModelRoot();
+		if (rootElement instanceof ModelClass_c) {
+			final ModelClass_c modelClass = (ModelClass_c) rootElement;
+			Attribute_c currentState = Attribute_c.getOneO_ATTROnR102(modelClass,
+					selected -> "current_state".equals(((Attribute_c) selected).getName()));
+			if (currentState == null) {
+				currentState = new Attribute_c(modelRoot);
+				final BaseAttribute_c battr = new BaseAttribute_c(modelRoot);
+				battr.relateAcrossR106To(currentState);
+				final NewBaseAttribute_c nbattr = new NewBaseAttribute_c(modelRoot);
+				nbattr.relateAcrossR107To(battr);
+				currentState.setRoot_nam("current_state");
+				final DataType_c stateModelType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
+						.getGlobal("ba5eda7a-def5-0000-0000-000000000006");
+				currentState.relateAcrossR114To(stateModelType);
+				final Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(modelClass);
+				if (attrs.length > 0) {
+					new Attribute_cSorter().sort(attrs);
+					attrs[attrs.length - 1].relateAcrossR103ToPrecedes(currentState);
+				}
+				currentState.relateAcrossR102To(modelClass);
+
 			}
 		}
 	}

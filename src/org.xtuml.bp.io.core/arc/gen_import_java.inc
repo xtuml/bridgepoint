@@ -903,6 +903,7 @@ public class ${class_name} extends CoreImport
             helper.upgradeEEsForIsRealized();
             helper.upgradeImportedClasses(loadedInstances);
 					  helper.resolveBaseAttributes(getRootModelElement());
+					  helper.createCurrentStateAttribute(getRootModelElement());
           }
           finally {
             mr.enableDeltaCollection();
