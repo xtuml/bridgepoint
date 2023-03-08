@@ -51,24 +51,18 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
-		// link executable properties to interface
+		// Process the executable properties
 		final List<ExecutableProperty_c> c_eps = ctx.message_definition().stream()
-				.map(m -> (ExecutableProperty_c) visit(m)).collect(Collectors.toList());
-		for (ExecutableProperty_c c_ep : c_eps) {
-			c_ep.relateAcrossR4003To(iface);
-		}
+				.map(this::visitMessage_definition).collect(Collectors.toList());
 
 		// link individual operations and signals together
-		final List<InterfaceOperation_c> c_ios = c_eps.stream()
-				.map(c_ep -> InterfaceOperation_c.getOneC_IOOnR4004(c_ep)).filter(c_io -> c_io != null)
-				.collect(Collectors.toList());
-		for (int i = 0; i + 1 < c_ios.size(); i++) {
-			c_ios.get(i).relateAcrossR4019ToPrecedes(c_ios.get(i + 1));
+		final InterfaceOperation_c[] c_ios = InterfaceOperation_c.getManyC_IOsOnR4004(c_eps.toArray(new ExecutableProperty_c[0]));
+		for (int i = 0; i + 1 < c_ios.length; i++) {
+			c_ios[i].relateAcrossR4019ToPrecedes(c_ios[i + 1]);
 		}
-		final List<InterfaceSignal_c> c_ass = c_eps.stream().map(c_ep -> InterfaceSignal_c.getOneC_ASOnR4004(c_ep))
-				.filter(c_as -> c_as != null).collect(Collectors.toList());
-		for (int i = 0; i + 1 < c_ass.size(); i++) {
-			c_ass.get(i).relateAcrossR4020ToPrecedes(c_ass.get(i + 1));
+		final InterfaceSignal_c[] c_ass = InterfaceSignal_c.getManyC_ASsOnR4004(c_eps.toArray(new ExecutableProperty_c[0]));
+		for (int i = 0; i + 1 < c_ass.length; i++) {
+			c_ass[i].relateAcrossR4020ToPrecedes(c_ass[i + 1]);
 		}
 
 		// link to the parent package last to prevent getting selected before messages
@@ -145,6 +139,9 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 			visit(ctx.parameter_list());
 			currentRoot = iface;
 		}
+		
+		// relate to the interface
+		c_ep.relateAcrossR4003To(iface);
 
 		return c_ep;
 	}
@@ -156,7 +153,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		for (ParameterContext paramCtx : ctx.parameter()) {
 			final PropertyParameter_c c_pp = (PropertyParameter_c) visit(paramCtx);
 			if (prevPp != null) {
-				c_pp.relateAcrossR4021ToPrecedes(prevPp);
+				prevPp.relateAcrossR4021ToPrecedes(c_pp);
 			}
 			prevPp = c_pp;
 		}

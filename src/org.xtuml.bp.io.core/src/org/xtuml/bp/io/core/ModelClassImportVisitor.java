@@ -97,7 +97,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 				.map(Class_itemContext::attribute_definition).filter(Objects::nonNull).collect(Collectors.toList())) {
 			final Attribute_c attr = (Attribute_c) visit(attrCtx);
 			if (prevAttr != null) {
-				attr.relateAcrossR103ToSucceeds(prevAttr);
+				prevAttr.relateAcrossR103ToPrecedes(attr);
 			}
 			prevAttr = attr;
 		}
@@ -136,7 +136,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 				.filter(Objects::nonNull).collect(Collectors.toList())) {
 			final Operation_c tfr = (Operation_c) visit(tfrCtx);
 			if (prevTfr != null) {
-				tfr.relateAcrossR125ToSucceeds(prevTfr);
+				prevTfr.relateAcrossR125ToPrecedes(tfr);
 			}
 			prevTfr = tfr;
 		}
@@ -153,7 +153,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 			for (AttributeReferenceInClass_c ref : pendingRefs.get(rattr).stream().map(this::visitAttribute_reference)
 					.collect(Collectors.toList())) {
 				if (prevRef != null) {
-					ref.relateAcrossR112ToSucceeds(prevRef);
+					prevRef.relateAcrossR112ToPrecedes(ref);
 				}
 				prevRef = ref;
 			}
@@ -496,7 +496,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		for (ParameterContext paramCtx : ctx.parameter()) {
 			final OperationParameter_c o_tparm = (OperationParameter_c) visit(paramCtx);
 			if (prevTparm != null) {
-				o_tparm.relateAcrossR124ToSucceeds(prevTparm);
+				prevTparm.relateAcrossR124ToPrecedes(o_tparm);
 			}
 			prevTparm = o_tparm;
 		}

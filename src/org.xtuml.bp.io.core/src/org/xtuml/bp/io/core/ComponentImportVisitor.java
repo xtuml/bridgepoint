@@ -228,12 +228,15 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 	@Override
 	public PropertyParameter_c visitParameter_list(Parameter_listContext ctx) {
 		// link parameters to each other in order
-		List<PropertyParameter_c> c_pps = ctx.parameter().stream().map(p -> (PropertyParameter_c) visit(p))
-				.collect(Collectors.toList());
-		for (int i = 0; i + 1 < c_pps.size(); i++) {
-			c_pps.get(i).relateAcrossR4021ToPrecedes(c_pps.get(i + 1));
+		PropertyParameter_c prevPp = null;
+		for (ParameterContext paramCtx : ctx.parameter()) {
+			final PropertyParameter_c c_pp = (PropertyParameter_c) visit(paramCtx);
+			if (prevPp != null) {
+				prevPp.relateAcrossR4021ToPrecedes(c_pp);
+			}
+			prevPp = c_pp;
 		}
-		return !c_pps.isEmpty() ? c_pps.get(0) : null;
+		return prevPp;
 	}
 
 	@Override
