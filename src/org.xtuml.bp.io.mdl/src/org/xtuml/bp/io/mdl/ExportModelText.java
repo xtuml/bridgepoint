@@ -112,22 +112,30 @@ import org.xtuml.bp.ui.canvas.CanvasPlugin;
 
 public class ExportModelText extends ExportModelComponent {
 
+	private interface PortMessage {
+		String getAction_semantics();
+
+		int getNumb();
+
+		int getSuc_pars();
+	}
 	private int tabDepth = 0;
 	private final Stack<StringBuilder> buffers = new Stack<>();
+
 	private final IPersistenceHierarchyMetaData metadata = new PersistenceHierarchyMetaData();
 
 	public ExportModelText(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
 		super(modelRoot, baos, element);
 	}
 
-	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics,
-			NonRootModelElement instance) throws FileNotFoundException {
-		super(modelRoot, outfileName, true, instance); // TODO
-	}
-
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics)
 			throws FileNotFoundException {
 		super(modelRoot, outfileName, true); // TODO
+	}
+
+	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics,
+			NonRootModelElement instance) throws FileNotFoundException {
+		super(modelRoot, outfileName, true, instance); // TODO
 	}
 
 	public ExportModelText(String outfileName, NonRootModelElement element) throws FileNotFoundException {
@@ -151,408 +159,20 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
-	public String get_file_header(NonRootModelElement element) {
-		// TODO remove this conditional once everything is implemented
-		if (element instanceof Interface_c || element instanceof SystemModel_c || element instanceof Component_c
-				|| element instanceof ModelClass_c || element instanceof Package_c) {
-			return get_file_header("//",
-					element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
-					"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
-		} else {
-			return super.get_file_header(element);
-		}
-	}
-
-	@Override
-	protected void export_SystemModel_c(SystemModel_c inst, IProgressMonitor pm, boolean writeAsProxies,
+	protected void export_Association_c(Association_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
 			return;
 		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s@system_model(use_globals=%s);\n", getTab(), inst.getUseglobals());
-			append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
-			tabDepth++;
-
-			final Package_c[] ep_pkgs = Package_c.getManyEP_PKGsOnR1401(inst);
-			if (ep_pkgs.length > 0) {
-				append("%s\n", getTab());
-			}
-			Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName)).forEach(ep_pkg -> {
-				append("%spackage %s;\n", getTab(), sanitizeName(ep_pkg.getName()));
-			});
-			if (ep_pkgs.length > 0) {
-				append("%s\n", getTab());
-			}
-
-			tabDepth--;
-			append("%send package;\n\n", getTab());
-
-		} else {
-			super.export_SystemModel_c(inst, pm, writeAsProxies, isPersistable);
-		}
-
-	}
-
-	@Override
-	protected void export_Component_c(Component_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
-			tabDepth++;
-
-			// component metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			if (inst.getMult() == 1) {
-				append("%s@mult(\"many\");\n", getTab());
-			}
-			if (!inst.getKey_lett().isBlank()) {
-				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
-			}
-			if (inst.getIsrealized()) {
-				append("%s@realized");
-				if (!inst.getRealized_class_path().isBlank()) {
-					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
-				}
-				append(";\n");
-			}
-
-			append("%scomponent %s is\n", getTab(), sanitizeName(inst.getName()));
-			tabDepth++;
-
-			// TODO inner components, delegations, satisfactions, etc.
-
-			// declare inner packages
-			final Package_c[] ep_pkgs = Package_c
-					.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(inst));
-			if (ep_pkgs.length > 0) {
-				append("%s\n", getTab());
-			}
-			for (Package_c ep_pkg : Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				append("%spackage %s", getTab(), sanitizeName(ep_pkg.getName()));
-				final Package_c referredToPackage = Package_c
-						.getOneEP_PKGOnR1402RefersTo(PackageReference_c.getOneEP_PKGREFOnR1402RefersTo(ep_pkg));
-				if (referredToPackage != null) {
-					append(" is %s", sanitizePath(referredToPackage.getPath()));
-				}
-				append(";\n");
-			}
-			if (ep_pkgs.length > 0) {
-				append("%s\n", getTab());
-			}
-
-			// ports
-			final Port_c[] c_pos = Port_c.getManyC_POsOnR4010(inst);
-			for (Port_c c_po : Stream.of(c_pos).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_Port_c(c_po, pm, writeAsProxies, isPersistable);
-			}
-
-			tabDepth--;
-			append("%send component;\n\n", getTab());
-			tabDepth--;
-			append("%send;\n", getTab());
-		} else {
-			super.export_Component_c(inst, pm, writeAsProxies, isPersistable);
-		}
-
-	}
-
-	@Override
-	protected void export_Port_c(Port_c inst, IProgressMonitor pm, boolean writeAsProxies, boolean isPersistable)
-			throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			final InterfaceReference_c c_ir = InterfaceReference_c.getOneC_IROnR4016(inst);
-			final Provision_c c_p = Provision_c.getOneC_POnR4009(c_ir);
-			final Requirement_c c_r = Requirement_c.getOneC_ROnR4009(c_ir);
-			final String description = c_p != null ? c_p.getDescrip() : c_r.getDescrip();
-			final String informalName = c_p != null ? c_p.getInformalname() : c_r.getInformalname();
-
-			// port metadata
-			description.strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			if (inst.getMult() == 1) {
-				append("%s@mult(\"many\");\n", getTab());
-			}
-			if (inst.getDonotshowportoncanvas()) {
-				append("%s@hide_graphic;\n", getTab());
-			}
-			if (!inst.getKey_lett().isBlank()) {
-				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
-			}
-			if (!"Unnamed Interface".equals(informalName)) {
-				append("%s@informal_name(\"%s\");\n", getTab(), informalName);
-			}
-
-			append("%s%s port %s", getTab(), c_p != null ? "provided" : "required", sanitizeName(inst.getName()));
-			if (c_ir.Isformal()) {
-				append(" implements %s is\n", c_ir.Interfacename()); // TODO get shortest path to the interface
-				tabDepth++;
-
-				final ProvidedOperation_c[] spr_pos = ProvidedOperation_c
-						.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
-				final ProvidedSignal_c[] spr_pss = ProvidedSignal_c
-						.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
-				final RequiredOperation_c[] spr_ros = RequiredOperation_c
-						.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
-				final RequiredSignal_c[] spr_rss = RequiredSignal_c
-						.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
-
-				if (spr_pos.length + spr_pss.length + spr_ros.length + spr_rss.length > 0) {
-					append("\n");
-				}
-
-				for (ProvidedOperation_c spr_po : Stream.of(spr_pos)
-						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
-					export_ProvidedOperation_c(spr_po, pm, writeAsProxies, isPersistable);
-				}
-				for (ProvidedSignal_c spr_ps : Stream.of(spr_pss)
-						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
-					export_ProvidedSignal_c(spr_ps, pm, writeAsProxies, isPersistable);
-				}
-				for (RequiredOperation_c spr_ro : Stream.of(spr_ros)
-						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
-					export_RequiredOperation_c(spr_ro, pm, writeAsProxies, isPersistable);
-				}
-				for (RequiredSignal_c spr_rs : Stream.of(spr_rss)
-						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
-					export_RequiredSignal_c(spr_rs, pm, writeAsProxies, isPersistable);
-				}
-
-				tabDepth--;
-				append("%send port;\n\n", getTab());
-			} else {
-				append(";\n");
-			}
-
-		} else {
-			write_Port_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_ProvidedSignal_c(ProvidedSignal_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			final ExecutableProperty_c c_ep = ExecutableProperty_c
-					.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(inst));
-
-			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
-
-		} else {
-			write_ProvidedSignal_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_ProvidedOperation_c(ProvidedOperation_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			final ExecutableProperty_c c_ep = ExecutableProperty_c
-					.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(inst));
-
-			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
-
-		} else {
-			write_ProvidedOperation_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_RequiredSignal_c(RequiredSignal_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			final ExecutableProperty_c c_ep = ExecutableProperty_c
-					.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(inst));
-
-			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
-
-		} else {
-			write_RequiredSignal_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_RequiredOperation_c(RequiredOperation_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			final ExecutableProperty_c c_ep = ExecutableProperty_c
-					.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(inst));
-
-			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
-
-		} else {
-			write_RequiredOperation_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_Interface_c(Interface_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
-			tabDepth++;
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			append("%sinterface %s is\n", getTab(), sanitizeName(inst.getName()));
-			tabDepth++;
-
-			// interface operations
-			final ExecutableProperty_c[] c_eps_1 = ExecutableProperty_c.getManyC_EPsOnR4004(
-					InterfaceOperation_c.getManyC_IOsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
-			if (c_eps_1.length > 0) {
-				append("%s\n", getTab());
-			}
-			for (ExecutableProperty_c c_ep : c_eps_1) {
-				export_ExecutableProperty_c(c_ep, pm, writeAsProxies, isPersistable);
-			}
-
-			// interface signals
-			final ExecutableProperty_c[] c_eps_2 = ExecutableProperty_c.getManyC_EPsOnR4004(
-					InterfaceSignal_c.getManyC_ASsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
-			if (c_eps_2.length > 0) {
-				append("%s\n", getTab());
-			}
-			for (ExecutableProperty_c c_ep : c_eps_2) {
-				export_ExecutableProperty_c(c_ep, pm, writeAsProxies, isPersistable);
-			}
-
-			if (c_eps_1.length + c_eps_2.length > 0) {
-				append("%s\n", getTab());
-			}
-
-			tabDepth--;
-			append("%send interface;\n\n", getTab());
-			tabDepth--;
-			append("%send;\n", getTab());
-		} else {
-			super.export_Interface_c(inst, pm, writeAsProxies, isPersistable);
-		}
-	}
-
-	@Override
-	protected void export_ExecutableProperty_c(ExecutableProperty_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			// append the description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			// TODO append parameter descriptions
-
-			// append the message
-			if (inst.getNumb() > 0) {
-				append("%s@message_num(%d);\n", getTab(), inst.getNumb());
-			}
-			append("%s%s;\n", getTab(), getMessageSignature(inst, pm, writeAsProxies, isPersistable));
-
-		} else {
-			super.export_ExecutableProperty_c(inst, pm, writeAsProxies, isPersistable);
-		}
-
-	}
-
-	@Override
-	protected void export_PropertyParameter_c(PropertyParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
-					getTypeReference(DataType_c.getOneS_DTOnR4007(inst), inst.getDimensions()));
-		} else {
-			write_PropertyParameter_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_ModelClass_c(ModelClass_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
-			tabDepth++;
-
-			// class metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
-			append("%s@class_num(%d);\n", getTab(), inst.getNumb());
-
-			append("%sclass %s is\n\n", getTab(), sanitizeName(inst.getName()));
-			tabDepth++;
-
-			// attributes
-			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(inst);
-			new Attribute_cSorter().sort(attrs);
-			for (Attribute_c attr : attrs) {
-				if (!"current_state".equals(attr.getName())) {
-					export_Attribute_c(attr, pm, writeAsProxies, isPersistable);
-				}
-			}
-
-			// identifiers
-			ClassIdentifier_c[] oids = ClassIdentifier_c.getManyO_IDsOnR104(inst,
-					selected -> ClassIdentifierAttribute_c.getOneO_OIDAOnR105((ClassIdentifier_c) selected) != null);
-			Arrays.sort(oids, (a, b) -> a.getOid_id() - b.getOid_id());
-			for (ClassIdentifier_c oid : oids) {
-				export_ClassIdentifier_c(oid, pm, writeAsProxies, isPersistable);
-			}
-
-			// operations
-			Operation_c[] tfrs = Operation_c.getManyO_TFRsOnR115(inst);
-			new Operation_cSorter().sort(tfrs);
-			for (Operation_c tfr : tfrs) {
-				export_Operation_c(tfr, pm, writeAsProxies, isPersistable);
-			}
-
-			tabDepth--;
-			append("%send class;\n\n", getTab());
-			tabDepth--;
-			append("%send;\n", getTab());
-		} else {
-			write_ModelClass_c_proxy_sql(inst);
+		final SimpleAssociation_c r_simp = SimpleAssociation_c.getOneR_SIMPOnR206(inst);
+		final LinkedAssociation_c r_assoc = LinkedAssociation_c.getOneR_ASSOCOnR206(inst);
+		final SubtypeSupertypeAssociation_c r_subsup = SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206(inst);
+		if (r_simp != null) {
+			export_SimpleAssociation_c(r_simp, pm, writeAsProxies, isPersistable);
+		} else if (r_assoc != null) {
+			export_LinkedAssociation_c(r_assoc, pm, writeAsProxies, isPersistable);
+		} else if (r_subsup != null) {
+			export_SubtypeSupertypeAssociation_c(r_subsup, pm, writeAsProxies, isPersistable);
 		}
 
 	}
@@ -667,6 +287,74 @@ public class ExportModelText extends ExportModelComponent {
 
 	}
 
+	protected void export_Bridge_c(Bridge_c inst, IProgressMonitor pm, boolean writeAsProxies, boolean isPersistable)
+			throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			// bridge metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
+				append("%s@noparse;\n", getTab());
+			}
+
+			// TODO parameter descriptions
+
+			// build the parameter list
+			final BridgeParameter_c[] s_bparms = BridgeParameter_c.getManyS_BPARMsOnR21(inst);
+			new BridgeParameter_cSorter().sort(s_bparms);
+			final String parameterList = Stream.of(s_bparms).map(s_bparm -> {
+				buffers.push(new StringBuilder());
+				try {
+					export_BridgeParameter_c(s_bparm, pm, writeAsProxies, isPersistable);
+				} catch (IOException e) {
+					throw new UncheckedIOException(e);
+				}
+				return buffers.pop().toString();
+			}).collect(Collectors.joining(", "));
+
+			// get the return type
+			final DataType_c returnType = DataType_c.getOneS_DTOnR20(inst);
+
+			append("%sbridge %s(%s)", getTab(), sanitizeName(inst.getName()), parameterList);
+			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
+				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
+			}
+
+			// append the inner actions
+			if (!inst.getAction_semantics_internal().isBlank()) {
+				append(" is\n");
+				tabDepth++;
+				append("%s@noparse\n", getTab()); // TODO
+				inst.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				append("%s@endnoparse\n", getTab());
+				tabDepth--;
+				append("%send function", getTab());
+			}
+			append(";\n\n");
+		} else {
+			write_Bridge_c_proxy_sql(inst);
+		}
+	}
+
+	protected void export_BridgeParameter_c(BridgeParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+					getTypeReference(DataType_c.getOneS_DTOnR22(inst), inst.getDimensions()));
+		} else {
+			write_BridgeParameter_c_proxy_sql(inst);
+		}
+	}
+
 	@Override
 	protected void export_ClassIdentifier_c(ClassIdentifier_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
@@ -691,6 +379,572 @@ public class ExportModelText extends ExportModelComponent {
 			append(");\n\n");
 		} else {
 			write_ClassIdentifier_c_proxy_sql(inst);
+		}
+
+	}
+
+	@Override
+	protected void export_Component_c(Component_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			tabDepth++;
+
+			// component metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			if (inst.getMult() == 1) {
+				append("%s@mult(\"many\");\n", getTab());
+			}
+			if (!inst.getKey_lett().isBlank()) {
+				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			}
+			if (inst.getIsrealized()) {
+				append("%s@realized");
+				if (!inst.getRealized_class_path().isBlank()) {
+					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
+				}
+				append(";\n");
+			}
+
+			append("%scomponent %s is\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			// TODO inner components, delegations, satisfactions, etc.
+
+			// declare inner packages
+			final Package_c[] ep_pkgs = Package_c
+					.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(inst));
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+			for (Package_c ep_pkg : Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
+				append("%spackage %s", getTab(), sanitizeName(ep_pkg.getName()));
+				final Package_c referredToPackage = Package_c
+						.getOneEP_PKGOnR1402RefersTo(PackageReference_c.getOneEP_PKGREFOnR1402RefersTo(ep_pkg));
+				if (referredToPackage != null) {
+					append(" is %s", sanitizePath(referredToPackage.getPath()));
+				}
+				append(";\n");
+			}
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+
+			// ports
+			final Port_c[] c_pos = Port_c.getManyC_POsOnR4010(inst);
+			for (Port_c c_po : Stream.of(c_pos).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
+				export_Port_c(c_po, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send component;\n\n", getTab());
+			tabDepth--;
+			append("%send;\n", getTab());
+		} else {
+			super.export_Component_c(inst, pm, writeAsProxies, isPersistable);
+		}
+
+	}
+
+	@Override
+	protected void export_ComponentReference_c(ComponentReference_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// TODO consider multiple references to the same component in a package
+
+			// component reference metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			if (inst.getMult() == 1) {
+				append("%s@mult(\"many\");\n", getTab());
+			}
+			if (!inst.getClassifiername().isBlank()) {
+				append("%s@classifier_name(\"%s\");\n", getTab(), inst.getClassifiername().strip());
+			}
+
+			final Component_c comp = Component_c.getOneC_COnR4201(inst);
+			if (comp != null) {
+				append("%scomponent %s is %s;\n", getTab(), sanitizeName(comp.getName()), sanitizePath(comp.getPath()));
+			} else {
+				append("%scomponent 'Unassigned Imported Component';\n", getTab());
+			}
+		} else {
+			write_ComponentReference_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_ConstantSpecification_c(ConstantSpecification_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			append("%sconstant group %s is\n", getTab(), sanitizeName(inst.getInformalgroupname()));
+			tabDepth++;
+
+			final LiteralSymbolicConstant_c[] cnst_lscs = LiteralSymbolicConstant_c.getManyCNST_LSCsOnR1503(
+					LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1502(SymbolicConstant_c.getManyCNST_SYCsOnR1504(inst)));
+			new LiteralSymbolicConstant_cSorter().sort(cnst_lscs);
+			for (LiteralSymbolicConstant_c cnst_lsc : cnst_lscs) {
+				export_LiteralSymbolicConstant_c(cnst_lsc, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send constant group;\n\n", getTab());
+
+		} else {
+			write_ConstantSpecification_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_DataType_c(DataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(inst);
+			final EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(inst);
+			final UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(inst);
+			if (sdt != null) {
+				export_StructuredDataType_c(sdt, pm, writeAsProxies, isPersistable);
+			} else if (edt != null) {
+				export_EnumerationDataType_c(edt, pm, writeAsProxies, isPersistable);
+			} else if (udt != null) {
+				export_UserDataType_c(udt, pm, writeAsProxies, isPersistable);
+			}
+			// ignore IRDTs and CDTs
+		} else {
+			write_DataType_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_EnumerationDataType_c(EnumerationDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
+
+			// export description
+			dt.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			append("%stype %s is enum (\n", getTab(), sanitizeName(dt.getName()));
+			tabDepth++;
+
+			// process enumerators
+			final Enumerator_c[] enums = Enumerator_c.getManyS_ENUMsOnR27(inst);
+			new Enumerator_cSorter().sort(enums);
+			for (Enumerator_c s_enum : enums) {
+				export_Enumerator_c(s_enum, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%s);\n\n", getTab());
+		} else {
+			write_EnumerationDataType_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_Enumerator_c(Enumerator_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// export description
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			final boolean hasNext = Enumerator_c.getOneS_ENUMOnR56Precedes(inst) != null;
+			append("%s%s%s\n", getTab(), sanitizeName(inst.getName()), hasNext ? ", " : "");
+
+		} else {
+			write_Enumerator_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_Exception_c(Exception_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			append("%sexception %s;\n\n", getTab(), sanitizeName(inst.getName()));
+		} else {
+			write_Exception_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_ExecutableProperty_c(ExecutableProperty_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// append the description
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			// TODO append parameter descriptions
+
+			// append the message
+			if (inst.getNumb() > 0) {
+				append("%s@message_num(%d);\n", getTab(), inst.getNumb());
+			}
+			append("%s%s;\n", getTab(), getMessageSignature(inst, pm, writeAsProxies, isPersistable));
+
+		} else {
+			super.export_ExecutableProperty_c(inst, pm, writeAsProxies, isPersistable);
+		}
+
+	}
+
+	@Override
+	protected void export_ExternalEntity_c(ExternalEntity_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			// EE metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			if (!inst.getKey_lett().isBlank()) {
+				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			}
+			if (inst.getIsrealized()) {
+				append("%s@realized");
+				if (!inst.getRealized_class_path().isBlank()) {
+					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
+				}
+				append(";\n");
+			}
+
+			append("%sexternal %s is\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			// bridges
+			final Bridge_c[] s_brgs = Bridge_c.getManyS_BRGsOnR19(inst);
+			for (Bridge_c s_brg : Stream.of(s_brgs).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
+				export_Bridge_c(s_brg, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send external;\n\n", getTab());
+		} else {
+			write_ExternalEntity_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_Function_c(Function_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// function metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
+				append("%s@noparse;\n", getTab());
+			}
+			if (inst.getNumb() > 0) {
+				append("%s@function_num(%d);\n", getTab(), inst.getNumb());
+			}
+
+			// TODO parameter descriptions
+
+			// build the parameter list
+			final FunctionParameter_c[] s_sparms = FunctionParameter_c.getManyS_SPARMsOnR24(inst);
+			new FunctionParameter_cSorter().sort(s_sparms);
+			final String parameterList = Stream.of(s_sparms).map(s_sparm -> {
+				buffers.push(new StringBuilder());
+				try {
+					export_FunctionParameter_c(s_sparm, pm, writeAsProxies, isPersistable);
+				} catch (IOException e) {
+					throw new UncheckedIOException(e);
+				}
+				return buffers.pop().toString();
+			}).collect(Collectors.joining(", "));
+
+			// get the return type
+			final DataType_c returnType = DataType_c.getOneS_DTOnR25(inst);
+
+			append("%sfunction %s(%s)", getTab(), sanitizeName(inst.getName()), parameterList);
+			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
+				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
+			}
+
+			// append the inner actions
+			if (!inst.getAction_semantics_internal().isBlank()) {
+				append(" is\n");
+				tabDepth++;
+				append("%s@noparse\n", getTab()); // TODO
+				inst.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				append("%s@endnoparse\n", getTab());
+				tabDepth--;
+				append("%send function", getTab());
+			}
+			append(";\n\n");
+		} else {
+			write_Function_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_FunctionParameter_c(FunctionParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+					getTypeReference(DataType_c.getOneS_DTOnR26(inst), inst.getDimensions()));
+		} else {
+			write_FunctionParameter_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_ImportedClass_c(ImportedClass_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%sclass %s", getTab(), sanitizeName(inst.getName()));
+			final ModelClass_c refClass = ModelClass_c.getOneO_OBJOnR101(inst);
+			if (refClass != null) {
+				append(" is %s", sanitizePath(refClass.getPath()));
+			}
+			append(";\n");
+		} else {
+			write_ImportedClass_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_Interface_c(Interface_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			tabDepth++;
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			append("%sinterface %s is\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			// interface operations
+			final ExecutableProperty_c[] c_eps_1 = ExecutableProperty_c.getManyC_EPsOnR4004(
+					InterfaceOperation_c.getManyC_IOsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
+			if (c_eps_1.length > 0) {
+				append("%s\n", getTab());
+			}
+			for (ExecutableProperty_c c_ep : c_eps_1) {
+				export_ExecutableProperty_c(c_ep, pm, writeAsProxies, isPersistable);
+			}
+
+			// interface signals
+			final ExecutableProperty_c[] c_eps_2 = ExecutableProperty_c.getManyC_EPsOnR4004(
+					InterfaceSignal_c.getManyC_ASsOnR4004(ExecutableProperty_c.getManyC_EPsOnR4003(inst)));
+			if (c_eps_2.length > 0) {
+				append("%s\n", getTab());
+			}
+			for (ExecutableProperty_c c_ep : c_eps_2) {
+				export_ExecutableProperty_c(c_ep, pm, writeAsProxies, isPersistable);
+			}
+
+			if (c_eps_1.length + c_eps_2.length > 0) {
+				append("%s\n", getTab());
+			}
+
+			tabDepth--;
+			append("%send interface;\n\n", getTab());
+			tabDepth--;
+			append("%send;\n", getTab());
+		} else {
+			super.export_Interface_c(inst, pm, writeAsProxies, isPersistable);
+		}
+	}
+
+	@Override
+	protected void export_LinkedAssociation_c(LinkedAssociation_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
+
+			// ouptut description
+			r_rel.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			final String relName = String.format("relationship R%d is ", r_rel.getNumb());
+			final String padding = relName.replaceAll(".", " ");
+
+			append("%s%s", getTab(), relName);
+
+			// get 'one' side information
+			final ClassAsAssociatedOneSide_c r_aone = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(inst);
+			final ClassInAssociation_c oneOir = ClassInAssociation_c
+					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_aone));
+			final ModelClass_c oneClass = ModelClass_c.getOneO_OBJOnR201(oneOir);
+			final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR202(oneOir);
+			final String oneName = oneImportedClass != null ? sanitizeName(oneImportedClass.getName())
+					: sanitizeName(oneClass.getName());
+			final String oneCond = r_aone.getCond() == 0 ? "unconditionally" : "conditionally";
+			final String oneMult = r_aone.getMult() == 0 ? "one" : "many";
+			final String onePhrase = r_aone.getTxt_phrs().isBlank() ? "relates to" : sanitizeName(r_aone.getTxt_phrs());
+
+			// get 'other' side information
+			final ClassAsAssociatedOtherSide_c r_aoth = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(inst);
+			final ClassInAssociation_c otherOir = ClassInAssociation_c
+					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_aoth));
+			final ModelClass_c otherClass = ModelClass_c.getOneO_OBJOnR201(otherOir);
+			final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR202(otherOir);
+			final String otherName = otherImportedClass != null ? sanitizeName(otherImportedClass.getName())
+					: sanitizeName(otherClass.getName());
+			final String otherCond = r_aoth.getCond() == 0 ? "unconditionally" : "conditionally";
+			final String otherMult = r_aoth.getMult() == 0 ? "one" : "many";
+			final String otherPhrase = r_aoth.getTxt_phrs().isBlank() ? "relates to"
+					: sanitizeName(r_aoth.getTxt_phrs());
+
+			// get 'link' information
+			final ClassAsLink_c r_assr = ClassAsLink_c.getOneR_ASSROnR211(inst);
+			final ClassInAssociation_c linkOir = ClassInAssociation_c
+					.getOneR_OIROnR203(ReferringClassInAssoc_c.getOneR_RGOOnR205(r_assr));
+			final ModelClass_c linkClass = ModelClass_c.getOneO_OBJOnR201(linkOir);
+			final ImportedClass_c linkImportedClass = ImportedClass_c.getOneO_IOBJOnR202(linkOir);
+			final String linkName = linkImportedClass != null ? sanitizeName(linkImportedClass.getName())
+					: sanitizeName(linkClass.getName());
+			final String linkMult = r_assr.getMult() == 0 ? "one" : "many";
+
+			append("%s %s %s %s %s,\n", oneName, otherCond, otherPhrase, otherMult, otherName);
+			append("%s%s%s %s %s %s %s\n", getTab(), padding, otherName, oneCond, onePhrase, oneMult, oneName);
+			append("%s%susing %s %s;\n\n", getTab(), padding, linkMult, linkName);
+		} else {
+			write_LinkedAssociation_c_proxy_sql(inst);
+		}
+
+	}
+
+	@Override
+	protected void export_LiteralSymbolicConstant_c(LiteralSymbolicConstant_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final SymbolicConstant_c cnst_syc = SymbolicConstant_c
+					.getOneCNST_SYCOnR1502(LeafSymbolicConstant_c.getOneCNST_LFSCOnR1503(inst));
+			cnst_syc.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			final DataType_c type = DataType_c.getOneS_DTOnR1500(cnst_syc);
+			append("%s%s: %s = %s;\n", getTab(), sanitizeName(cnst_syc.getName()), getTypeReference(type),
+					inst.getValue().strip());
+
+		} else {
+			write_LiteralSymbolicConstant_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_ModelClass_c(ModelClass_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			tabDepth++;
+
+			// class metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+			append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			append("%s@class_num(%d);\n", getTab(), inst.getNumb());
+
+			append("%sclass %s is\n\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			// attributes
+			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(inst);
+			new Attribute_cSorter().sort(attrs);
+			for (Attribute_c attr : attrs) {
+				if (!"current_state".equals(attr.getName())) {
+					export_Attribute_c(attr, pm, writeAsProxies, isPersistable);
+				}
+			}
+
+			// identifiers
+			ClassIdentifier_c[] oids = ClassIdentifier_c.getManyO_IDsOnR104(inst,
+					selected -> ClassIdentifierAttribute_c.getOneO_OIDAOnR105((ClassIdentifier_c) selected) != null);
+			Arrays.sort(oids, (a, b) -> a.getOid_id() - b.getOid_id());
+			for (ClassIdentifier_c oid : oids) {
+				export_ClassIdentifier_c(oid, pm, writeAsProxies, isPersistable);
+			}
+
+			// operations
+			Operation_c[] tfrs = Operation_c.getManyO_TFRsOnR115(inst);
+			new Operation_cSorter().sort(tfrs);
+			for (Operation_c tfr : tfrs) {
+				export_Operation_c(tfr, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send class;\n\n", getTab());
+			tabDepth--;
+			append("%send;\n", getTab());
+		} else {
+			write_ModelClass_c_proxy_sql(inst);
 		}
 
 	}
@@ -920,331 +1174,221 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
-	protected void export_DataType_c(DataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
+	protected void export_Port_c(Port_c inst, IProgressMonitor pm, boolean writeAsProxies, boolean isPersistable)
+			throws IOException {
 		if (inst == null) {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			final StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(inst);
-			final EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(inst);
-			final UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(inst);
-			if (sdt != null) {
-				export_StructuredDataType_c(sdt, pm, writeAsProxies, isPersistable);
-			} else if (edt != null) {
-				export_EnumerationDataType_c(edt, pm, writeAsProxies, isPersistable);
-			} else if (udt != null) {
-				export_UserDataType_c(udt, pm, writeAsProxies, isPersistable);
-			}
-			// ignore IRDTs and CDTs
-		} else {
-			write_DataType_c_proxy_sql(inst);
-		}
-	}
 
-	@Override
-	protected void export_StructuredDataType_c(StructuredDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
+			final InterfaceReference_c c_ir = InterfaceReference_c.getOneC_IROnR4016(inst);
+			final Provision_c c_p = Provision_c.getOneC_POnR4009(c_ir);
+			final Requirement_c c_r = Requirement_c.getOneC_ROnR4009(c_ir);
+			final String description = c_p != null ? c_p.getDescrip() : c_r.getDescrip();
+			final String informalName = c_p != null ? c_p.getInformalname() : c_r.getInformalname();
 
-			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
+			// port metadata
+			description.strip().lines().forEach(line -> {
 				append("%s//! %s\n", getTab(), line);
 			});
-
-			append("%stype %s is structure\n", getTab(), sanitizeName(dt.getName()));
-			tabDepth++;
-
-			// process members
-			final StructureMember_c[] mbrs = StructureMember_c.getManyS_MBRsOnR44(inst);
-			new StructureMember_cSorter().sort(mbrs);
-			for (StructureMember_c mbr : mbrs) {
-				export_StructureMember_c(mbr, pm, writeAsProxies, isPersistable);
+			if (inst.getMult() == 1) {
+				append("%s@mult(\"many\");\n", getTab());
+			}
+			if (inst.getDonotshowportoncanvas()) {
+				append("%s@hide_graphic;\n", getTab());
+			}
+			if (!inst.getKey_lett().isBlank()) {
+				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			}
+			if (!"Unnamed Interface".equals(informalName)) {
+				append("%s@informal_name(\"%s\");\n", getTab(), informalName);
 			}
 
-			tabDepth--;
-			append("%send structure;\n\n", getTab());
-		} else {
-			write_StructuredDataType_c_proxy_sql(inst);
+			append("%s%s port %s", getTab(), c_p != null ? "provided" : "required", sanitizeName(inst.getName()));
+			if (c_ir.Isformal()) {
+				append(" implements %s is\n", c_ir.Interfacename()); // TODO get shortest path to the interface
+				tabDepth++;
 
-		}
-	}
+				final ProvidedOperation_c[] spr_pos = ProvidedOperation_c
+						.getManySPR_POsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
+				final ProvidedSignal_c[] spr_pss = ProvidedSignal_c
+						.getManySPR_PSsOnR4503(ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501(c_p));
+				final RequiredOperation_c[] spr_ros = RequiredOperation_c
+						.getManySPR_ROsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
+				final RequiredSignal_c[] spr_rss = RequiredSignal_c
+						.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
 
-	@Override
-	protected void export_StructureMember_c(StructureMember_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			// export description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			final DataType_c type = DataType_c.getOneS_DTOnR45(inst);
-			append("%s%s: %s;\n", getTab(), sanitizeName(inst.getName()), getTypeReference(type, inst.getDimensions()));
-
-		} else {
-			write_StructureMember_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_EnumerationDataType_c(EnumerationDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
-
-			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			append("%stype %s is enum (\n", getTab(), sanitizeName(dt.getName()));
-			tabDepth++;
-
-			// process enumerators
-			final Enumerator_c[] enums = Enumerator_c.getManyS_ENUMsOnR27(inst);
-			new Enumerator_cSorter().sort(enums);
-			for (Enumerator_c s_enum : enums) {
-				export_Enumerator_c(s_enum, pm, writeAsProxies, isPersistable);
-			}
-
-			tabDepth--;
-			append("%s);\n\n", getTab());
-		} else {
-			write_EnumerationDataType_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_Enumerator_c(Enumerator_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			// export description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			final boolean hasNext = Enumerator_c.getOneS_ENUMOnR56Precedes(inst) != null;
-			append("%s%s%s\n", getTab(), sanitizeName(inst.getName()), hasNext ? ", " : "");
-
-		} else {
-			write_Enumerator_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_UserDataType_c(UserDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
-
-			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			// if the 'definition' field is populated, use it and ignore everything else
-			if (!inst.getDefinition().isBlank()) {
-				append("%s@raw_definition\n", getTab());
-				append("%stype %s is ", getTab(), sanitizeName(dt.getName()));
-				final String typeDef = inst.getDefinition().strip().lines()
-						.collect(Collectors.joining(String.format("\n%s", getTab())));
-				append("%s;\n\n", typeDef);
-			} else {
-				final DataType_c type = DataType_c.getOneS_DTOnR18(inst);
-				append("%stype %s is %s", getTab(), sanitizeName(dt.getName()), getTypeReference(type));
-				final Range_c range = Range_c.getOneS_RANGEOnR57(inst);
-				if (range != null) {
-					append(" range %s .. %s", range.getMin(), range.getMax());
+				if (spr_pos.length + spr_pss.length + spr_ros.length + spr_rss.length > 0) {
+					append("\n");
 				}
-				append(";\n\n");
+
+				for (ProvidedOperation_c spr_po : Stream.of(spr_pos)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_ProvidedOperation_c(spr_po, pm, writeAsProxies, isPersistable);
+				}
+				for (ProvidedSignal_c spr_ps : Stream.of(spr_pss)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_ProvidedSignal_c(spr_ps, pm, writeAsProxies, isPersistable);
+				}
+				for (RequiredOperation_c spr_ro : Stream.of(spr_ros)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_RequiredOperation_c(spr_ro, pm, writeAsProxies, isPersistable);
+				}
+				for (RequiredSignal_c spr_rs : Stream.of(spr_rss)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_RequiredSignal_c(spr_rs, pm, writeAsProxies, isPersistable);
+				}
+
+				tabDepth--;
+				append("%send port;\n\n", getTab());
+			} else {
+				append(";\n");
 			}
+
 		} else {
-			write_UserDataType_c_proxy_sql(inst);
+			write_Port_c_proxy_sql(inst);
 		}
 	}
 
+	private void export_PortMessage(PortMessage inst, ExecutableProperty_c c_ep, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		// message metadata
+		if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
+			append("%s@noparse;\n", getTab());
+		}
+		if (inst.getNumb() > 0) {
+			append("%s@message_num(%d);\n", getTab(), inst.getNumb());
+		}
+
+		append("%s%s is\n", getTab(), getMessageSignature(c_ep, pm, writeAsProxies, isPersistable));
+		tabDepth++;
+
+		// append the inner actions
+		if (!inst.getAction_semantics().isBlank()) {
+			append("%s@noparse\n", getTab()); // TODO
+		}
+		inst.getAction_semantics().strip().lines().forEach(line -> {
+			append("%s%s\n", getTab(), line);
+		});
+		if (!inst.getAction_semantics().isBlank()) {
+			append("%s@endnoparse\n", getTab());
+		}
+
+		tabDepth--;
+		append("%send message;\n\n", getTab());
+	}
+
 	@Override
-	protected void export_Exception_c(Exception_c inst, IProgressMonitor pm, boolean writeAsProxies,
+	protected void export_PropertyParameter_c(PropertyParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+					getTypeReference(DataType_c.getOneS_DTOnR4007(inst), inst.getDimensions()));
+		} else {
+			write_PropertyParameter_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_ProvidedOperation_c(ProvidedOperation_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final ExecutableProperty_c c_ep = ExecutableProperty_c
+					.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(inst));
+
+			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
+
+		} else {
+			write_ProvidedOperation_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_ProvidedSignal_c(ProvidedSignal_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final ExecutableProperty_c c_ep = ExecutableProperty_c
+					.getOneC_EPOnR4501(ProvidedExecutableProperty_c.getOneSPR_PEPOnR4503(inst));
+
+			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
+
+		} else {
+			write_ProvidedSignal_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_RequiredOperation_c(RequiredOperation_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final ExecutableProperty_c c_ep = ExecutableProperty_c
+					.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(inst));
+
+			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
+
+		} else {
+			write_RequiredOperation_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_RequiredSignal_c(RequiredSignal_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final ExecutableProperty_c c_ep = ExecutableProperty_c
+					.getOneC_EPOnR4500(RequiredExecutableProperty_c.getOneSPR_REPOnR4502(inst));
+
+			export_PortMessage(ProxyUtil.newProxy(PortMessage.class, inst), c_ep, pm, writeAsProxies, isPersistable);
+
+		} else {
+			write_RequiredSignal_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_Satisfaction_c(Satisfaction_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			// satisfaction description
 			inst.getDescrip().strip().lines().forEach(line -> {
 				append("%s//! %s\n", getTab(), line);
 			});
-			append("%sexception %s;\n\n", getTab(), sanitizeName(inst.getName()));
+
+			final Port_c reqPort = Port_c
+					.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Requirement_c.getOneC_ROnR4002(inst)));
+			final Component_c reqComp = Component_c.getOneC_COnR4010(reqPort);
+			final Port_c provPort = Port_c
+					.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Provision_c.getOneC_POnR4002(inst)));
+			final Component_c provComp = Component_c.getOneC_COnR4010(reqPort);
+
+			append("%ssatisfaction is %s::%s -(o- %s::%s;\n", getTab(), sanitizeName(reqComp.getName()),
+					sanitizeName(reqPort.getName()), sanitizeName(provComp.getName()),
+					sanitizeName(provPort.getName()));
 		} else {
-			write_Exception_c_proxy_sql(inst);
+			write_Satisfaction_c_proxy_sql(inst);
 		}
-	}
-
-	@Override
-	protected void export_ConstantSpecification_c(ConstantSpecification_c inst, IProgressMonitor pm,
-			boolean writeAsProxies, boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			append("%sconstant group %s is\n", getTab(), sanitizeName(inst.getInformalgroupname()));
-			tabDepth++;
-
-			final LiteralSymbolicConstant_c[] cnst_lscs = LiteralSymbolicConstant_c.getManyCNST_LSCsOnR1503(
-					LeafSymbolicConstant_c.getManyCNST_LFSCsOnR1502(SymbolicConstant_c.getManyCNST_SYCsOnR1504(inst)));
-			new LiteralSymbolicConstant_cSorter().sort(cnst_lscs);
-			for (LiteralSymbolicConstant_c cnst_lsc : cnst_lscs) {
-				export_LiteralSymbolicConstant_c(cnst_lsc, pm, writeAsProxies, isPersistable);
-			}
-
-			tabDepth--;
-			append("%send constant group;\n\n", getTab());
-
-		} else {
-			write_ConstantSpecification_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_LiteralSymbolicConstant_c(LiteralSymbolicConstant_c inst, IProgressMonitor pm,
-			boolean writeAsProxies, boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final SymbolicConstant_c cnst_syc = SymbolicConstant_c
-					.getOneCNST_SYCOnR1502(LeafSymbolicConstant_c.getOneCNST_LFSCOnR1503(inst));
-			cnst_syc.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			final DataType_c type = DataType_c.getOneS_DTOnR1500(cnst_syc);
-			append("%s%s: %s = %s;\n", getTab(), sanitizeName(cnst_syc.getName()), getTypeReference(type),
-					inst.getValue().strip());
-
-		} else {
-			write_LiteralSymbolicConstant_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_ImportedClass_c(ImportedClass_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%sclass %s", getTab(), sanitizeName(inst.getName()));
-			final ModelClass_c refClass = ModelClass_c.getOneO_OBJOnR101(inst);
-			if (refClass != null) {
-				append(" is %s", sanitizePath(refClass.getPath()));
-			}
-			append(";\n");
-		} else {
-			write_ImportedClass_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_Association_c(Association_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		final SimpleAssociation_c r_simp = SimpleAssociation_c.getOneR_SIMPOnR206(inst);
-		final LinkedAssociation_c r_assoc = LinkedAssociation_c.getOneR_ASSOCOnR206(inst);
-		final SubtypeSupertypeAssociation_c r_subsup = SubtypeSupertypeAssociation_c.getOneR_SUBSUPOnR206(inst);
-		if (r_simp != null) {
-			export_SimpleAssociation_c(r_simp, pm, writeAsProxies, isPersistable);
-		} else if (r_assoc != null) {
-			export_LinkedAssociation_c(r_assoc, pm, writeAsProxies, isPersistable);
-		} else if (r_subsup != null) {
-			export_SubtypeSupertypeAssociation_c(r_subsup, pm, writeAsProxies, isPersistable);
-		}
-
-	}
-
-	@Override
-	protected void export_LinkedAssociation_c(LinkedAssociation_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
-
-			// ouptut description
-			r_rel.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			final String relName = String.format("relationship R%d is ", r_rel.getNumb());
-			final String padding = relName.replaceAll(".", " ");
-
-			append("%s%s", getTab(), relName);
-
-			// get 'one' side information
-			final ClassAsAssociatedOneSide_c r_aone = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(inst);
-			final ClassInAssociation_c oneOir = ClassInAssociation_c
-					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_aone));
-			final ModelClass_c oneClass = ModelClass_c.getOneO_OBJOnR201(oneOir);
-			final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR202(oneOir);
-			final String oneName = oneImportedClass != null ? sanitizeName(oneImportedClass.getName())
-					: sanitizeName(oneClass.getName());
-			final String oneCond = r_aone.getCond() == 0 ? "unconditionally" : "conditionally";
-			final String oneMult = r_aone.getMult() == 0 ? "one" : "many";
-			final String onePhrase = r_aone.getTxt_phrs().isBlank() ? "relates to" : sanitizeName(r_aone.getTxt_phrs());
-
-			// get 'other' side information
-			final ClassAsAssociatedOtherSide_c r_aoth = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(inst);
-			final ClassInAssociation_c otherOir = ClassInAssociation_c
-					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_aoth));
-			final ModelClass_c otherClass = ModelClass_c.getOneO_OBJOnR201(otherOir);
-			final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR202(otherOir);
-			final String otherName = otherImportedClass != null ? sanitizeName(otherImportedClass.getName())
-					: sanitizeName(otherClass.getName());
-			final String otherCond = r_aoth.getCond() == 0 ? "unconditionally" : "conditionally";
-			final String otherMult = r_aoth.getMult() == 0 ? "one" : "many";
-			final String otherPhrase = r_aoth.getTxt_phrs().isBlank() ? "relates to"
-					: sanitizeName(r_aoth.getTxt_phrs());
-
-			// get 'link' information
-			final ClassAsLink_c r_assr = ClassAsLink_c.getOneR_ASSROnR211(inst);
-			final ClassInAssociation_c linkOir = ClassInAssociation_c
-					.getOneR_OIROnR203(ReferringClassInAssoc_c.getOneR_RGOOnR205(r_assr));
-			final ModelClass_c linkClass = ModelClass_c.getOneO_OBJOnR201(linkOir);
-			final ImportedClass_c linkImportedClass = ImportedClass_c.getOneO_IOBJOnR202(linkOir);
-			final String linkName = linkImportedClass != null ? sanitizeName(linkImportedClass.getName())
-					: sanitizeName(linkClass.getName());
-			final String linkMult = r_assr.getMult() == 0 ? "one" : "many";
-
-			append("%s %s %s %s %s,\n", oneName, otherCond, otherPhrase, otherMult, otherName);
-			append("%s%s%s %s %s %s %s\n", getTab(), padding, otherName, oneCond, onePhrase, oneMult, oneName);
-			append("%s%susing %s %s;\n\n", getTab(), padding, linkMult, linkName);
-		} else {
-			write_LinkedAssociation_c_proxy_sql(inst);
-		}
-
 	}
 
 	@Override
@@ -1316,6 +1460,59 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
+	protected void export_StructuredDataType_c(StructuredDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
+
+			// export description
+			dt.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			append("%stype %s is structure\n", getTab(), sanitizeName(dt.getName()));
+			tabDepth++;
+
+			// process members
+			final StructureMember_c[] mbrs = StructureMember_c.getManyS_MBRsOnR44(inst);
+			new StructureMember_cSorter().sort(mbrs);
+			for (StructureMember_c mbr : mbrs) {
+				export_StructureMember_c(mbr, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send structure;\n\n", getTab());
+		} else {
+			write_StructuredDataType_c_proxy_sql(inst);
+
+		}
+	}
+
+	@Override
+	protected void export_StructureMember_c(StructureMember_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// export description
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			final DataType_c type = DataType_c.getOneS_DTOnR45(inst);
+			append("%s%s: %s;\n", getTab(), sanitizeName(inst.getName()), getTypeReference(type, inst.getDimensions()));
+
+		} else {
+			write_StructureMember_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
 	protected void export_SubtypeSupertypeAssociation_c(SubtypeSupertypeAssociation_c inst, IProgressMonitor pm,
 			boolean writeAsProxies, boolean isPersistable) throws IOException {
 		if (inst == null) {
@@ -1356,271 +1553,91 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
-	protected void export_ComponentReference_c(ComponentReference_c inst, IProgressMonitor pm, boolean writeAsProxies,
+	protected void export_SystemModel_c(SystemModel_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			// TODO consider multiple references to the same component in a package
-
-			// component reference metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			if (inst.getMult() == 1) {
-				append("%s@mult(\"many\");\n", getTab());
-			}
-			if (!inst.getClassifiername().isBlank()) {
-				append("%s@classifier_name(\"%s\");\n", getTab(), inst.getClassifiername().strip());
-			}
-
-			final Component_c comp = Component_c.getOneC_COnR4201(inst);
-			if (comp != null) {
-				append("%scomponent %s is %s;\n", getTab(), sanitizeName(comp.getName()), sanitizePath(comp.getPath()));
-			} else {
-				append("%scomponent 'Unassigned Imported Component';\n", getTab());
-			}
-		} else {
-			write_ComponentReference_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_Satisfaction_c(Satisfaction_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			// satisfaction description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			final Port_c reqPort = Port_c
-					.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Requirement_c.getOneC_ROnR4002(inst)));
-			final Component_c reqComp = Component_c.getOneC_COnR4010(reqPort);
-			final Port_c provPort = Port_c
-					.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Provision_c.getOneC_POnR4002(inst)));
-			final Component_c provComp = Component_c.getOneC_COnR4010(reqPort);
-
-			append("%ssatisfaction is %s::%s -(o- %s::%s;\n", getTab(), sanitizeName(reqComp.getName()),
-					sanitizeName(reqPort.getName()), sanitizeName(provComp.getName()),
-					sanitizeName(provPort.getName()));
-		} else {
-			write_Satisfaction_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_Function_c(Function_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			// function metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
-				append("%s@noparse;\n", getTab());
-			}
-			if (inst.getNumb() > 0) {
-				append("%s@function_num(%d);\n", getTab(), inst.getNumb());
-			}
-
-			// TODO parameter descriptions
-
-			// build the parameter list
-			final FunctionParameter_c[] s_sparms = FunctionParameter_c.getManyS_SPARMsOnR24(inst);
-			new FunctionParameter_cSorter().sort(s_sparms);
-			final String parameterList = Stream.of(s_sparms).map(s_sparm -> {
-				buffers.push(new StringBuilder());
-				try {
-					export_FunctionParameter_c(s_sparm, pm, writeAsProxies, isPersistable);
-				} catch (IOException e) {
-					throw new UncheckedIOException(e);
-				}
-				return buffers.pop().toString();
-			}).collect(Collectors.joining(", "));
-
-			// get the return type
-			final DataType_c returnType = DataType_c.getOneS_DTOnR25(inst);
-
-			append("%sfunction %s(%s)", getTab(), sanitizeName(inst.getName()), parameterList);
-			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
-				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
-			}
-
-			// append the inner actions
-			if (!inst.getAction_semantics_internal().isBlank()) {
-				append(" is\n");
-				tabDepth++;
-				append("%s@noparse\n", getTab()); // TODO
-				inst.getAction_semantics().strip().lines().forEach(line -> {
-					append("%s%s\n", getTab(), line);
-				});
-				append("%s@endnoparse\n", getTab());
-				tabDepth--;
-				append("%send function", getTab());
-			}
-			append(";\n\n");
-		} else {
-			write_Function_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_FunctionParameter_c(FunctionParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
-					getTypeReference(DataType_c.getOneS_DTOnR26(inst), inst.getDimensions()));
-		} else {
-			write_FunctionParameter_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_ExternalEntity_c(ExternalEntity_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			// EE metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			if (!inst.getKey_lett().isBlank()) {
-				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
-			}
-			if (inst.getIsrealized()) {
-				append("%s@realized");
-				if (!inst.getRealized_class_path().isBlank()) {
-					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
-				}
-				append(";\n");
-			}
-
-			append("%sexternal %s is\n", getTab(), sanitizeName(inst.getName()));
+			append("%s@system_model(use_globals=%s);\n", getTab(), inst.getUseglobals());
+			append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
 			tabDepth++;
 
-			// bridges
-			final Bridge_c[] s_brgs = Bridge_c.getManyS_BRGsOnR19(inst);
-			for (Bridge_c s_brg : Stream.of(s_brgs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_Bridge_c(s_brg, pm, writeAsProxies, isPersistable);
+			final Package_c[] ep_pkgs = Package_c.getManyEP_PKGsOnR1401(inst);
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+			Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName)).forEach(ep_pkg -> {
+				append("%spackage %s;\n", getTab(), sanitizeName(ep_pkg.getName()));
+			});
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
 			}
 
 			tabDepth--;
-			append("%send external;\n\n", getTab());
+			append("%send package;\n\n", getTab());
+
 		} else {
-			write_ExternalEntity_c_proxy_sql(inst);
+			super.export_SystemModel_c(inst, pm, writeAsProxies, isPersistable);
 		}
+
 	}
 
-	protected void export_Bridge_c(Bridge_c inst, IProgressMonitor pm, boolean writeAsProxies, boolean isPersistable)
-			throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			// bridge metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
-				append("%s@noparse;\n", getTab());
-			}
-
-			// TODO parameter descriptions
-
-			// build the parameter list
-			final BridgeParameter_c[] s_bparms = BridgeParameter_c.getManyS_BPARMsOnR21(inst);
-			new BridgeParameter_cSorter().sort(s_bparms);
-			final String parameterList = Stream.of(s_bparms).map(s_bparm -> {
-				buffers.push(new StringBuilder());
-				try {
-					export_BridgeParameter_c(s_bparm, pm, writeAsProxies, isPersistable);
-				} catch (IOException e) {
-					throw new UncheckedIOException(e);
-				}
-				return buffers.pop().toString();
-			}).collect(Collectors.joining(", "));
-
-			// get the return type
-			final DataType_c returnType = DataType_c.getOneS_DTOnR20(inst);
-
-			append("%sbridge %s(%s)", getTab(), sanitizeName(inst.getName()), parameterList);
-			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
-				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
-			}
-
-			// append the inner actions
-			if (!inst.getAction_semantics_internal().isBlank()) {
-				append(" is\n");
-				tabDepth++;
-				append("%s@noparse\n", getTab()); // TODO
-				inst.getAction_semantics().strip().lines().forEach(line -> {
-					append("%s%s\n", getTab(), line);
-				});
-				append("%s@endnoparse\n", getTab());
-				tabDepth--;
-				append("%send function", getTab());
-			}
-			append(";\n\n");
-		} else {
-			write_Bridge_c_proxy_sql(inst);
-		}
-	}
-
-	protected void export_BridgeParameter_c(BridgeParameter_c inst, IProgressMonitor pm, boolean writeAsProxies,
+	@Override
+	protected void export_UserDataType_c(UserDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
-					getTypeReference(DataType_c.getOneS_DTOnR22(inst), inst.getDimensions()));
+			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
+
+			// export description
+			dt.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			// if the 'definition' field is populated, use it and ignore everything else
+			if (!inst.getDefinition().isBlank()) {
+				append("%s@raw_definition\n", getTab());
+				append("%stype %s is ", getTab(), sanitizeName(dt.getName()));
+				final String typeDef = inst.getDefinition().strip().lines()
+						.collect(Collectors.joining(String.format("\n%s", getTab())));
+				append("%s;\n\n", typeDef);
+			} else {
+				final DataType_c type = DataType_c.getOneS_DTOnR18(inst);
+				append("%stype %s is %s", getTab(), sanitizeName(dt.getName()), getTypeReference(type));
+				final Range_c range = Range_c.getOneS_RANGEOnR57(inst);
+				if (range != null) {
+					append(" range %s .. %s", range.getMin(), range.getMax());
+				}
+				append(";\n\n");
+			}
 		} else {
-			write_BridgeParameter_c_proxy_sql(inst);
+			write_UserDataType_c_proxy_sql(inst);
 		}
 	}
 
-	private void export_PortMessage(PortMessage inst, ExecutableProperty_c c_ep, IProgressMonitor pm,
-			boolean writeAsProxies, boolean isPersistable) throws IOException {
-		// message metadata
-		if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
-			append("%s@noparse;\n", getTab());
+	@Override
+	public String get_file_header(NonRootModelElement element) {
+		// TODO remove this conditional once everything is implemented
+		if (element instanceof Interface_c || element instanceof SystemModel_c || element instanceof Component_c
+				|| element instanceof ModelClass_c || element instanceof Package_c) {
+			return get_file_header("//",
+					element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
+					"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
+		} else {
+			return super.get_file_header(element);
 		}
-		if (inst.getNumb() > 0) {
-			append("%s@message_num(%d);\n", getTab(), inst.getNumb());
-		}
+	}
 
-		append("%s%s is\n", getTab(), getMessageSignature(c_ep, pm, writeAsProxies, isPersistable));
-		tabDepth++;
-
-		// append the inner actions
-		if (!inst.getAction_semantics().isBlank()) {
-			append("%s@noparse\n", getTab()); // TODO
+	private void append(String format, Object... args) {
+		if (!buffers.empty()) {
+			buffers.peek().append(String.format(format, args));
+		} else {
+			m_fh.printf(format, args);
+			m_fh.flush();
 		}
-		inst.getAction_semantics().strip().lines().forEach(line -> {
-			append("%s%s\n", getTab(), line);
-		});
-		if (!inst.getAction_semantics().isBlank()) {
-			append("%s@endnoparse\n", getTab());
-		}
-
-		tabDepth--;
-		append("%send message;\n\n", getTab());
 	}
 
 	private String getMessageSignature(final ExecutableProperty_c c_ep, final IProgressMonitor pm,
@@ -1641,11 +1658,11 @@ public class ExportModelText extends ExportModelComponent {
 
 		// get the return type if applicable
 		final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
-		final String returnTypeRef = (returnType != null && 
-					!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString()))
-				? " return " + getTypeReference(returnType,
-						InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
-				: "";
+		final String returnTypeRef = (returnType != null
+				&& !"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString()))
+						? " return " + getTypeReference(returnType,
+								InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
+						: "";
 
 		// get the message direction
 		final String direction = c_ep.getDirection() == Ifdirectiontype_c.ClientServer ? "to provider"
@@ -1654,16 +1671,19 @@ public class ExportModelText extends ExportModelComponent {
 		return String.format("message %s(%s)%s %s", c_ep.getName(), parameterList, returnTypeRef, direction);
 	}
 
-	private String sanitizeName(final String name) {
-		if (name.matches(".*\\s.*")) {
-			return "'" + name.replaceAll("\\s+", " ") + "'";
-		} else {
-			return name;
+	private String getTab() {
+		final IPreferenceStore store = EditorsUI.getPreferenceStore();
+		final boolean spacesForTabs = store
+				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		final String tabChar = spacesForTabs ? " " : "\t";
+		final int tabWidth = spacesForTabs
+				? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
+				: 1;
+		String tab = "";
+		for (int i = 0; i < tabDepth * tabWidth; i++) {
+			tab += tabChar;
 		}
-	}
-
-	private String sanitizePath(final String path) {
-		return Stream.of(path.split("::")).map(this::sanitizeName).collect(Collectors.joining("::"));
+		return tab;
 	}
 
 	private String getTypeReference(final DataType_c type) {
@@ -1691,36 +1711,16 @@ public class ExportModelText extends ExportModelComponent {
 		return type_ref;
 	}
 
-	private void append(String format, Object... args) {
-		if (!buffers.empty()) {
-			buffers.peek().append(String.format(format, args));
+	private String sanitizeName(final String name) {
+		if (name.matches(".*\\s.*")) {
+			return "'" + name.replaceAll("\\s+", " ") + "'";
 		} else {
-			m_fh.printf(format, args);
-			m_fh.flush();
+			return name;
 		}
 	}
 
-	private String getTab() {
-		final IPreferenceStore store = EditorsUI.getPreferenceStore();
-		final boolean spacesForTabs = store
-				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
-		final String tabChar = spacesForTabs ? " " : "\t";
-		final int tabWidth = spacesForTabs
-				? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
-				: 1;
-		String tab = "";
-		for (int i = 0; i < tabDepth * tabWidth; i++) {
-			tab += tabChar;
-		}
-		return tab;
-	}
-
-	private interface PortMessage {
-		int getSuc_pars();
-
-		int getNumb();
-
-		String getAction_semantics();
+	private String sanitizePath(final String path) {
+		return Stream.of(path.split("::")).map(this::sanitizeName).collect(Collectors.joining("::"));
 	}
 
 }
