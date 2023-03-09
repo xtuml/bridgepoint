@@ -63,6 +63,7 @@ import org.xtuml.bp.core.ImportedProvisionInSatisfaction_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedReference_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
@@ -2712,9 +2713,10 @@ public class ImportHelper
 		final ModelRoot modelRoot = rootElement.getModelRoot();
 		if (rootElement instanceof ModelClass_c) {
 			final ModelClass_c modelClass = (ModelClass_c) rootElement;
+			final InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR518(modelClass);
 			Attribute_c currentState = Attribute_c.getOneO_ATTROnR102(modelClass,
 					selected -> "current_state".equals(((Attribute_c) selected).getName()));
-			if (currentState == null) {
+			if (ism != null && currentState == null) {
 				currentState = new Attribute_c(modelRoot);
 				final BaseAttribute_c battr = new BaseAttribute_c(modelRoot);
 				battr.relateAcrossR106To(currentState);
