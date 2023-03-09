@@ -736,11 +736,13 @@ public class ExportModelText extends ExportModelComponent {
 			// get the deferral relationship if applicable
 			final Association_c def_rel = Association_c.getOneR_RELOnR126(inst);
 
-			append("%s%soperation %s(%s) return %s", getTab(),
+			append("%s%soperation %s(%s)", getTab(),
 					inst.getInstance_based() == Scope_c.Class ? "class "
 							: (def_rel != null ? ("deferred (R" + def_rel.getNumb() + ") ") : ""),
-					sanitizeName(inst.getName()), parameterList,
-					getTypeReference(returnType, inst.getReturn_dimensions()));
+					sanitizeName(inst.getName()), parameterList);
+			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
+				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
+			}
 
 			// append the inner actions
 			if (!inst.getAction_semantics_internal().isBlank()) {
@@ -1449,8 +1451,10 @@ public class ExportModelText extends ExportModelComponent {
 			// get the return type
 			final DataType_c returnType = DataType_c.getOneS_DTOnR25(inst);
 
-			append("%sfunction %s(%s) return %s", getTab(), sanitizeName(inst.getName()), parameterList,
-					getTypeReference(returnType, inst.getReturn_dimensions()));
+			append("%sfunction %s(%s)", getTab(), sanitizeName(inst.getName()), parameterList);
+			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
+				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
+			}
 
 			// append the inner actions
 			if (!inst.getAction_semantics_internal().isBlank()) {
@@ -1555,8 +1559,10 @@ public class ExportModelText extends ExportModelComponent {
 			// get the return type
 			final DataType_c returnType = DataType_c.getOneS_DTOnR20(inst);
 
-			append("%sbridge %s(%s) return %s", getTab(), sanitizeName(inst.getName()), parameterList,
-					getTypeReference(returnType, inst.getReturn_dimensions()));
+			append("%sbridge %s(%s)", getTab(), sanitizeName(inst.getName()), parameterList);
+			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
+				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
+			}
 
 			// append the inner actions
 			if (!inst.getAction_semantics_internal().isBlank()) {
@@ -1635,7 +1641,8 @@ public class ExportModelText extends ExportModelComponent {
 
 		// get the return type if applicable
 		final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
-		final String returnTypeRef = returnType != null
+		final String returnTypeRef = (returnType != null && 
+					!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString()))
 				? " return " + getTypeReference(returnType,
 						InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
 				: "";
