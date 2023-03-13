@@ -831,7 +831,9 @@ public class PersistableModelComponent implements Comparable {
 	public void deleteChildren() {
 		for (Iterator iterator = getChildren().iterator(); iterator.hasNext();) {
 			PersistableModelComponent child = (PersistableModelComponent) iterator.next();
-			child.deleteSelfAndChildren();
+			if (child.getStatus() == STATUS_LOADED) {
+				child.deleteSelfAndChildren();
+			}
 		}
 	}
 

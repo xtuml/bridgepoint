@@ -48,7 +48,7 @@ public class SequentialExecutor implements Executor {
 
 				// if this call must be cancelled, throw an exception
 				if (isShutdown && waitingThreads.size() >= activeThreads.size()) {
-					throw new RuntimeException("Execution cancelled due to prevent deadlock scenario");
+					throw new RuntimeException("Execution cancelled due to prevent deadlock scenario (" + Thread.currentThread().getName() + ")");
 				}
 
 				// add this thread to the set of threads waiting on some result

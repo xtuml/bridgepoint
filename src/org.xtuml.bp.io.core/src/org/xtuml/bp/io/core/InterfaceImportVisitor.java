@@ -3,7 +3,6 @@ package org.xtuml.bp.io.core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -117,15 +116,18 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 			c_io.setDirection(direction);
 
 			// set return type
-			c_io.unrelateAcrossR4008From(DataType_c.getOneS_DTOnR4008(c_io));
-			c_io.relateAcrossR4008To((DataType_c) Optional.ofNullable(visit(ctx.type_reference())).orElse(voidType));
+			if (ctx.type_reference() != null) {
+				c_io.relateAcrossR4008To((DataType_c) visit(ctx.type_reference()));
 
-			// set return dimensions
-			String dim_string = getDimString(ctx.type_reference().array_type_reference());
-			c_io.setReturn_dimensions(dim_string);
-			List<Integer> dims = DimensionsUtil.getDimensionsData(dim_string, c_io);
-			for (int i = 0; i < dims.size(); i++) {
-				c_io.Resizereturn_dimensions(i, dims.get(i), dims.size());
+				// set return dimensions
+				String dim_string = getDimString(ctx.type_reference().array_type_reference());
+				c_io.setReturn_dimensions(dim_string);
+				List<Integer> dims = DimensionsUtil.getDimensionsData(dim_string, c_io);
+				for (int i = 0; i < dims.size(); i++) {
+					c_io.Resizereturn_dimensions(i, dims.get(i), dims.size());
+				}
+			} else {
+				c_io.relateAcrossR4008To(voidType);
 			}
 		} else {
 			c_as.setName(name);

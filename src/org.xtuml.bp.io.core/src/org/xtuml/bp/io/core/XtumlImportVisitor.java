@@ -6,7 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,6 +26,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.common.SequentialExecutor;
@@ -55,6 +58,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	public static final String MESSAGE_NUM = "message_num";
 	public static final String OPERATION_NUM = "operation_num";
+	public static final String FUNCTION_NUM = "function_num";
 	public static final String SYSTEM_MODEL = "system_model";
 	public static final String USE_GLOBALS = "use_globals";
 	public static final String MULTIPLICITY = "mult";
@@ -67,16 +71,18 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public static final String REF_MODE = "ref_mode";
 	public static final String USE_PREFIX = "use_prefix";
 	public static final String USE_REF_PREFIX = "use_referred_to_prefix";
+	public static final String NUMBER_RANGE = "start_numbering";
+	public static final String RAW_TYPE_DEF = "raw_definition";
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.executor = PersistenceManager.getDefaultInstance().getSequentialExecutor();
 		this.modelRoot = modelRoot;
 		this.integerType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
-				.get("ba5eda7a-def5-0000-0000-000000000002");
+				.getGlobal("ba5eda7a-def5-0000-0000-000000000002");
 		this.voidType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
-				.get("ba5eda7a-def5-0000-0000-000000000000");
+				.getGlobal("ba5eda7a-def5-0000-0000-000000000000");
 		this.uniqueIdType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
-				.get("ba5eda7a-def5-0000-0000-000000000005");
+				.getGlobal("ba5eda7a-def5-0000-0000-000000000005");
 	}
 
 	@Override
@@ -91,18 +97,20 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	@Override
 	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
-		// TODO handle parent system or parent component
+		final String parentPath = (String) visit(ctx.parent_name);
 		try {
-			currentRoot = executor.callAndWait(() -> Stream
-					.of(Stream.of(Package_c.PackageInstances(modelRoot)),
-							Stream.of(SystemModel_c.SystemModelInstances(modelRoot)),
-							Stream.of(Component_c.ComponentInstances(modelRoot)))
-					.flatMap(s -> s).filter(selected -> selected.getPath().equals(visit(ctx.parent_name))).findAny());
+			currentRoot = executor
+					.callAndWait(() -> Stream
+							.of(Stream.of(Package_c.PackageInstances(modelRoot)),
+									Stream.of(SystemModel_c.SystemModelInstances(
+											Ooaofooa.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE))),
+									Stream.of(Component_c.ComponentInstances(modelRoot)))
+							.flatMap(s -> s).filter(selected -> selected.getPath().equals(parentPath)).findAny());
 			searchRoot = currentRoot;
-			return (NonRootModelElement) visit(ctx.definition());
 		} catch (Exception e) {
-			throw new CoreImport.XtumlLoadException("Failed to find package '" + visit(ctx.parent_name) + "'.", e);
+			throw new CoreImport.XtumlLoadException("Failed to find parent element '" + parentPath + "'.", e);
 		}
+		return (NonRootModelElement) visit(ctx.definition());
 	}
 
 	@Override
@@ -113,20 +121,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		}
 		final String scopedTypeName = typeName;
 		try {
-			return executor.callAndWait(() -> {
-				List<DataType_c> dts = findVisibleElements(searchRoot, Elementtypeconstants_c.DATATYPE).stream()
-						.map(DataType_c::getOneS_DTOnR8001).filter(dt -> dt.getPath().endsWith(scopedTypeName))
-						.collect(Collectors.toList());
-				if (dts.isEmpty()) {
-					return Optional.empty();
-				} else {
-					if (dts.size() > 1) {
-						throw new IllegalArgumentException(
-								"The given path corresponds to more than one unique element");
-					}
-					return Optional.of(dts.get(0));
-				}
-			});
+			return executor.callAndWait(
+					() -> searchByPath(Elementtypeconstants_c.DATATYPE, scopedTypeName, DataType_c::getOneS_DTOnR8001));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException(
 					"Failed to find type '" + visit(ctx.scoped_name()) + "' for named type reference.", e);
@@ -141,25 +137,12 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	@Override
 	public DataType_c visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
-			return executor.callAndWait(() -> {
-				List<ModelClass_c> objs = findVisibleElements(searchRoot, Elementtypeconstants_c.CLASS).stream()
-						.map(ModelClass_c::getOneO_OBJOnR8001)
-						.filter(obj -> (Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(obj))
-								.getPath() + "::" + obj.getKey_lett()).endsWith((String) visit(ctx.scoped_name())))
-						.collect(Collectors.toList());
-				if (objs.isEmpty()) {
-					return Optional.empty();
-				} else {
-					if (objs.size() > 1) {
-						throw new IllegalArgumentException(
-								"The given path corresponds to more than one unique element");
-					}
-					objs.get(0).Newinstancereferencedatatype();
-					return Optional.ofNullable(
-							DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(objs.get(0),
-									selected -> !((InstanceReferenceDataType_c) selected).getIsset())));
-				}
-			});
+			final String refClassPath = (String) visit(ctx.scoped_name());
+			final ModelClass_c refClass = executor.callAndWait(
+					() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath, ModelClass_c::getOneO_OBJOnR8001));
+			refClass.Newinstancereferencedatatype();
+			return DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(refClass,
+					selected -> !((InstanceReferenceDataType_c) selected).getIsset()));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException(
 					"Failed to find class '" + visit(ctx.scoped_name()) + "' for instance type reference.", e);
@@ -184,12 +167,14 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	@Override
 	public Mark visitMark(MarkContext ctx) {
 		final Mark mark = new Mark();
-		ListIterator<Mark_argumentContext> args = ctx.mark_arguments().mark_argument().listIterator();
-		while (args.hasNext()) {
-			final int i = args.nextIndex();
-			final Mark_argumentContext arg = args.next();
-			final String name = arg.arg_name != null ? arg.arg_name.getText() : Integer.toString(i);
-			mark.put(name, visit(arg));
+		if (ctx.mark_arguments() != null) {
+			final ListIterator<Mark_argumentContext> args = ctx.mark_arguments().mark_argument().listIterator();
+			while (args.hasNext()) {
+				final int i = args.nextIndex();
+				final Mark_argumentContext arg = args.next();
+				final String name = arg.arg_name != null ? arg.arg_name.getText() : Integer.toString(i);
+				mark.put(name, visit(arg));
+			}
 		}
 		return mark;
 	}
@@ -202,6 +187,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			return Integer.parseInt(ctx.getText());
 		} else if (ctx.BooleanLiteral() != null) {
 			return Boolean.parseBoolean(ctx.getText());
+		} else if (ctx.RealLiteral() != null) {
+			return Double.parseDouble(ctx.getText());
 		} else {
 			return ctx.getText();
 		}
@@ -249,7 +236,23 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return dim_string;
 	}
 
-	protected List<PackageableElement_c> findVisibleElements(final NonRootModelElement element, final int elementType) {
+	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
+			final Function<PackageableElement_c, T> resultMapper) {
+		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(o -> {
+			return o;
+		}).map(resultMapper).filter(Objects::nonNull).filter(o -> {
+			return o.getPath().endsWith(path);
+		}).collect(Collectors.toList());
+		if (results.isEmpty()) {
+			return Optional.empty();
+		} else if (results.size() == 1) {
+			return Optional.of(results.get(0));
+		} else {
+			throw new IllegalArgumentException("The given path corresponds to more than one unique element");
+		}
+	}
+
+	private List<PackageableElement_c> findVisibleElements(final NonRootModelElement element, final int elementType) {
 		if (element instanceof Package_c) {
 			return findVisibleElements((Package_c) element, elementType);
 		} else if (element instanceof Component_c) {
@@ -270,7 +273,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		}
 	}
 
-	protected List<PackageableElement_c> findVisibleElements(final Package_c pkg, final int elementType) {
+	private List<PackageableElement_c> findVisibleElements(final Package_c pkg, final int elementType) {
 		pkg.Clearscope();
 		pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), elementType);
 		final SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg,
@@ -279,7 +282,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return List.of(PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results)));
 	}
 
-	protected List<PackageableElement_c> findVisibleElements(final Component_c comp, final int elementType) {
+	private List<PackageableElement_c> findVisibleElements(final Component_c comp, final int elementType) {
 		comp.Clearscope();
 		comp.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), "", comp.getId(), elementType);
 		final ComponentResultSet_c results = ComponentResultSet_c.getOnePE_CRSOnR8007(comp,

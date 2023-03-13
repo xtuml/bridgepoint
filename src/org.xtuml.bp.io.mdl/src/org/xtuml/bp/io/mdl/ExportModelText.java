@@ -130,12 +130,12 @@ public class ExportModelText extends ExportModelComponent {
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics)
 			throws FileNotFoundException {
-		super(modelRoot, outfileName, true); // TODO
+		super(modelRoot, outfileName, true);
 	}
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics,
 			NonRootModelElement instance) throws FileNotFoundException {
-		super(modelRoot, outfileName, true, instance); // TODO
+		super(modelRoot, outfileName, true, instance);
 	}
 
 	public ExportModelText(String outfileName, NonRootModelElement element) throws FileNotFoundException {
@@ -334,7 +334,7 @@ public class ExportModelText extends ExportModelComponent {
 				});
 				append("%s@endnoparse\n", getTab());
 				tabDepth--;
-				append("%send function", getTab());
+				append("%send bridge", getTab());
 			}
 			append(";\n\n");
 		} else {
@@ -647,7 +647,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
 			}
 			if (inst.getIsrealized()) {
-				append("%s@realized");
+				append("%s@realized", getTab());
 				if (!inst.getRealized_class_path().isBlank()) {
 					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
 				}
@@ -1567,6 +1567,7 @@ public class ExportModelText extends ExportModelComponent {
 			if (ep_pkgs.length > 0) {
 				append("%s\n", getTab());
 			}
+			// TODO support package references here as well
 			Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName)).forEach(ep_pkg -> {
 				append("%spackage %s;\n", getTab(), sanitizeName(ep_pkg.getName()));
 			});

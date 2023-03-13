@@ -400,6 +400,9 @@ public abstract class CoreImport implements IModelImport {
 				case "ModelClass":
 					visitor = new ModelClassImportVisitor(m_modelRoot);
 					break;
+				case "Package":
+					visitor = new PackageImportVisitor(m_modelRoot);
+					break;
 				default:
 					visitor = new XtumlImportVisitor(m_modelRoot);
 				}

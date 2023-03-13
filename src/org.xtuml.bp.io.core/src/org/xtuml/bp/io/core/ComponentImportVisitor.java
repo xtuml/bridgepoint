@@ -81,8 +81,9 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		}
 		if (marks.containsKey(REALIZED)) {
 			comp.setIsrealized(true);
-			comp.setRealized_class_path(marks.get(REALIZED).getString());
-
+			if (marks.get(REALIZED).containsKey("classpath")) {
+				comp.setRealized_class_path(marks.get(REALIZED).getString("classpath"));
+			}
 		}
 
 		// load all component items
@@ -97,24 +98,12 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final Component_c comp = (Component_c) currentRoot;
 
 		// find the formalized interface
+		final String ifacePath = (String) visit(ctx.iface_name);
 		Interface_c iface = null;
 		if (ctx.iface_name != null) {
 			try {
-				iface = (Interface_c) executor.callAndWait(() -> {
-					List<Interface_c> ifaces = findVisibleElements(searchRoot, Elementtypeconstants_c.INTERFACE)
-							.stream().map(Interface_c::getOneC_IOnR8001)
-							.filter(ifc -> ifc.getPath().endsWith((String) visit(ctx.iface_name)))
-							.collect(Collectors.toList());
-					if (ifaces.isEmpty()) {
-						return Optional.empty();
-					} else {
-						if (ifaces.size() > 1) {
-							throw new IllegalArgumentException(
-									"The given path corresponds to more than one unique element");
-						}
-						return Optional.of(ifaces.get(0));
-					}
-				});
+				iface = executor.callAndWait(
+						() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath, Interface_c::getOneC_IOnR8001));
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException(
 						"Failed to find interface '" + visit(ctx.iface_name) + "' for port definition.", e);

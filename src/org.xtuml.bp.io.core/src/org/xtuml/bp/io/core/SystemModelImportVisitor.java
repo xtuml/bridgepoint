@@ -28,11 +28,8 @@ public class SystemModelImportVisitor extends XtumlImportVisitor {
 					(String) visit(ctx.pkg_name), false, (String) visit(ctx.pkg_name));
 			// look for "use_globals=true" in the "@system_model" mark
 			s_sys.setUseglobals(marks.get(SYSTEM_MODEL).getBoolean(USE_GLOBALS));
-			currentRoot = s_sys;
-			ctx.package_item().forEach(this::visit);
 			return s_sys;
 		} else {
-			// TODO create a package
 			return null;
 		}
 	}

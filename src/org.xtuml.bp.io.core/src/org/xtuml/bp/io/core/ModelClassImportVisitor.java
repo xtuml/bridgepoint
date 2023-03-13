@@ -459,14 +459,18 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set return type
-		tfr.relateAcrossR116To((DataType_c) visit(ctx.type_reference()));
+		if (ctx.type_reference() != null) {
+			tfr.relateAcrossR116To((DataType_c) visit(ctx.type_reference()));
 
-		// set the return array dimensions
-		final String dimString = getDimString(ctx.type_reference().array_type_reference());
-		tfr.setReturn_dimensions(dimString);
-		List<Integer> dims = DimensionsUtil.getDimensionsData(dimString, tfr);
-		for (int i = 0; i < dims.size(); i++) {
-			tfr.Resizereturn_dimensions(i, dims.get(i), dims.size());
+			// set the return array dimensions
+			final String dimString = getDimString(ctx.type_reference().array_type_reference());
+			tfr.setReturn_dimensions(dimString);
+			List<Integer> dims = DimensionsUtil.getDimensionsData(dimString, tfr);
+			for (int i = 0; i < dims.size(); i++) {
+				tfr.Resizereturn_dimensions(i, dims.get(i), dims.size());
+			}
+		} else {
+			tfr.relateAcrossR116To(voidType);
 		}
 
 		// handle parameters
