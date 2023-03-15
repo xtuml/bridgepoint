@@ -2691,7 +2691,7 @@ public class ImportHelper
 						ReferredToIdentifierAttribute_c.getManyO_RTIDAsOnR111(AttributeReferenceInClass_c
 								.getManyO_REFsOnR108(ReferentialAttribute_c.getManyO_RATTRsOnR106(attrs)))));
 				// check if any of these attributes have been visited
-				if (Stream.of(attrs).anyMatch(visitedAttrs::contains)) {
+				if (attrs.length == 0 || Stream.of(attrs).anyMatch(visitedAttrs::contains)) {
 					break;
 				}
 				visitedAttrs.addAll(Set.of(attrs));

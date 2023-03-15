@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
@@ -63,6 +64,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.Preferences;
+import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InteractionParticipant_c;
 import org.xtuml.bp.core.Message_c;
@@ -488,8 +490,22 @@ public class PersistenceManager {
 
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
-		final Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
+		Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
 				.collect(Collectors.toSet());
+
+		// add PMCs in special cases whenever an O_REF is in the RGOs list, the
+		// PMC needs to be reloaded because the O_REFs are what formalize the
+		// association
+		for (PersistableModelComponent pmc : pmcsToLoad) {
+			@SuppressWarnings("unchecked")
+			List<NonRootModelElement> rgos = (List<NonRootModelElement>) persistenceHierarchy
+					.findExternalRGOsToContainingComponent(pmc.getRootModelElement());
+			pmcsToLoad = Stream.concat(pmcsToLoad.stream(),
+					rgos.stream().filter(AttributeReferenceInClass_c.class::isInstance)
+							.map(o -> ((NonRootModelElement) o).getPersistableComponent()).filter(Objects::nonNull))
+					.collect(Collectors.toSet());
+		}
+
 		if (!pmcsToLoad.isEmpty()) {
 
 			System.out.println("Triggered load... " + pmcsToLoad.size());

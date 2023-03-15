@@ -73,6 +73,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public static final String USE_REF_PREFIX = "use_referred_to_prefix";
 	public static final String NUMBER_RANGE = "start_numbering";
 	public static final String RAW_TYPE_DEF = "raw_definition";
+	public static final String CLASSIFIER_NAME = "classifier_name";
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.executor = PersistenceManager.getDefaultInstance().getSequentialExecutor();
@@ -99,13 +100,16 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
 		final String parentPath = (String) visit(ctx.parent_name);
 		try {
-			currentRoot = executor
-					.callAndWait(() -> Stream
-							.of(Stream.of(Package_c.PackageInstances(modelRoot)),
-									Stream.of(SystemModel_c.SystemModelInstances(
-											Ooaofooa.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE))),
-									Stream.of(Component_c.ComponentInstances(modelRoot)))
-							.flatMap(s -> s).filter(selected -> selected.getPath().equals(parentPath)).findAny());
+			// TODO load systems and then navigate to packages and components
+			currentRoot = executor.callAndWait(() -> {
+				final SystemModel_c[] systems = SystemModel_c
+						.SystemModelInstances(Ooaofooa.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE));
+				final Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1405(systems);
+				final Component_c[] comps = Component_c
+						.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkgs));
+				return Stream.of(systems, pkgs, comps).flatMap(s -> Stream.of(s))
+						.filter(selected -> selected.getPath().equals(parentPath)).findAny();
+			});
 			searchRoot = currentRoot;
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException("Failed to find parent element '" + parentPath + "'.", e);
@@ -238,11 +242,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
 			final Function<PackageableElement_c, T> resultMapper) {
-		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(o -> {
-			return o;
-		}).map(resultMapper).filter(Objects::nonNull).filter(o -> {
-			return o.getPath().endsWith(path);
-		}).collect(Collectors.toList());
+		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(resultMapper)
+				.filter(Objects::nonNull).filter(o -> o.getPath().endsWith(path)).collect(Collectors.toList());
 		if (results.isEmpty()) {
 			return Optional.empty();
 		} else if (results.size() == 1) {

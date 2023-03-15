@@ -8,8 +8,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.xtuml.bp.core.Actiondialect_c;
+import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.ClassAsAssociatedOneSide_c;
+import org.xtuml.bp.core.ClassAsAssociatedOtherSide_c;
+import org.xtuml.bp.core.ClassAsLink_c;
+import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
+import org.xtuml.bp.core.ClassAsSubtype_c;
+import org.xtuml.bp.core.ClassAsSupertype_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
+import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.DataType_c;
@@ -21,17 +30,31 @@ import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ImportedClass_c;
+import org.xtuml.bp.core.ImportedProvision_c;
+import org.xtuml.bp.core.ImportedReference_c;
+import org.xtuml.bp.core.ImportedRequirement_c;
+import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
+import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Parsestatus_c;
+import org.xtuml.bp.core.PortReference_c;
+import org.xtuml.bp.core.Port_c;
+import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.Range_c;
+import org.xtuml.bp.core.ReferredToClassInAssoc_c;
+import org.xtuml.bp.core.ReferringClassInAssoc_c;
+import org.xtuml.bp.core.Requirement_c;
+import org.xtuml.bp.core.Satisfaction_c;
+import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.StructuredDataType_c;
+import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
@@ -41,6 +64,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Bridge_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Class_declarationContext;
+import org.xtuml.bp.io.core.XtumlParser.Component_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.Constant_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Constant_group_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Enumeration_type_definitionContext;
@@ -49,12 +73,17 @@ import org.xtuml.bp.io.core.XtumlParser.Exception_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.External_entity_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Function_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Interface_declarationContext;
+import org.xtuml.bp.io.core.XtumlParser.Linked_relationship_definitionContext;
+import org.xtuml.bp.io.core.XtumlParser.NameContext;
 import org.xtuml.bp.io.core.XtumlParser.Named_type_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Package_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
+import org.xtuml.bp.io.core.XtumlParser.Satisfaction_definitionContext;
+import org.xtuml.bp.io.core.XtumlParser.Simple_relationship_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Structure_memberContext;
 import org.xtuml.bp.io.core.XtumlParser.Structure_type_definitionContext;
+import org.xtuml.bp.io.core.XtumlParser.Subsuper_relationship_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Type_declarationContext;
 
 // TODO handle type forward declarations
@@ -116,6 +145,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			pkg.relateAcrossR1405To((SystemModel_c) currentRoot);
 		}
 		currentRoot = pkg;
+		searchRoot = pkg;
 
 		// process all package items
 		ctx.package_item().forEach(this::visit);
@@ -691,6 +721,475 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			pe.relateAcrossR8000To(parentPkg);
 			return modelClass;
 		}
+	}
+
+	@Override
+	public Association_c visitSimple_relationship_definition(Simple_relationship_definitionContext ctx) {
+		final Package_c parentPkg = (Package_c) currentRoot;
+
+		// find or create relationship
+		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
+		final Association_c rel = Association_c.resolveInstance(modelRoot, UUID.randomUUID(), 0, "",
+				IdAssigner.NULL_UUID, parentPkg.getPath() + "::R" + relNum);
+		rel.setNumb(relNum);
+		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8001To(rel);
+		pe.setVisibility(Visibility_c.Public);
+		pe.setType(Elementtypeconstants_c.ASSOCIATION);
+
+		// set description
+		if (ctx.description() != null) {
+			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+					.collect(Collectors.joining(System.lineSeparator())));
+		}
+
+		// create simple association
+		final SimpleAssociation_c simp = new SimpleAssociation_c(modelRoot);
+		simp.relateAcrossR206To(rel);
+
+		// NOTE: all simple associations are created unformalized
+
+		// find the one class
+		final String oneClassName = (String) visit(ctx.half_rels.get(1).first_class);
+		final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+				selected -> ((ImportedClass_c) selected).getName().equals(oneClassName));
+		final ModelClass_c oneClass;
+		if (oneImportedClass != null) {
+			oneClass = ModelClass_c.getOneO_OBJOnR101(oneImportedClass);
+		} else {
+			oneClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ModelClass_c) selected).getName().equals(oneClassName));
+		}
+
+		// find the other class
+		final String otherClassName = (String) visit(ctx.half_rels.get(0).first_class);
+		final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+				selected -> ((ImportedClass_c) selected).getName().equals(otherClassName));
+		final ModelClass_c otherClass;
+		if (otherImportedClass != null) {
+			otherClass = ModelClass_c.getOneO_OBJOnR101(otherImportedClass);
+		} else {
+			otherClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ModelClass_c) selected).getName().equals(otherClassName));
+		}
+
+		// create the one side participant
+		final ClassAsSimpleParticipant_c onePart = new ClassAsSimpleParticipant_c(modelRoot);
+		onePart.setMult("one".equals(ctx.half_rels.get(0).mult.getText()) ? 0 : 1);
+		onePart.setCond("unconditionally".equals(ctx.half_rels.get(0).cond.getText()) ? 0 : 1);
+		onePart.setTxt_phrs(ctx.half_rels.get(0).phrase != null ? (String) visit(ctx.half_rels.get(0).phrase) : "");
+		onePart.relateAcrossR207To(simp);
+		final ReferredToClassInAssoc_c oneRto = new ReferredToClassInAssoc_c(modelRoot);
+		oneRto.relateAcrossR204To(onePart);
+		final ClassInAssociation_c oneOir = new ClassInAssociation_c(modelRoot);
+		oneOir.relateAcrossR203To(oneRto);
+		if (oneImportedClass != null) {
+			oneImportedClass.relateAcrossR202To(oneOir);
+		}
+
+		// create the other side participant
+		final ClassAsSimpleParticipant_c otherPart = new ClassAsSimpleParticipant_c(modelRoot);
+		otherPart.setMult("one".equals(ctx.half_rels.get(1).mult.getText()) ? 0 : 1);
+		otherPart.setCond("unconditionally".equals(ctx.half_rels.get(1).cond.getText()) ? 0 : 1);
+		otherPart.setTxt_phrs(ctx.half_rels.get(1).phrase != null ? (String) visit(ctx.half_rels.get(1).phrase) : "");
+		otherPart.relateAcrossR207To(simp);
+		final ReferredToClassInAssoc_c otherRto = new ReferredToClassInAssoc_c(modelRoot);
+		otherRto.relateAcrossR204To(otherPart);
+		final ClassInAssociation_c otherOir = new ClassInAssociation_c(modelRoot);
+		otherOir.relateAcrossR203To(otherRto);
+		if (otherImportedClass != null) {
+			otherImportedClass.relateAcrossR202To(otherOir);
+		}
+
+		// link the relationship
+		rel.relateAcrossR201To(oneOir);
+		oneClass.relateAcrossR201To(oneOir);
+		rel.relateAcrossR201To(otherOir);
+		otherClass.relateAcrossR201To(otherOir);
+
+		// link to parent package
+		pe.relateAcrossR8000To(parentPkg);
+
+		return rel;
+	}
+
+	@Override
+	public Association_c visitLinked_relationship_definition(Linked_relationship_definitionContext ctx) {
+		final Package_c parentPkg = (Package_c) currentRoot;
+
+		// find or create relationship
+		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
+		final Association_c rel = Association_c.resolveInstance(modelRoot, UUID.randomUUID(), 0, "",
+				IdAssigner.NULL_UUID, parentPkg.getPath() + "::R" + relNum);
+		rel.setNumb(relNum);
+		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8001To(rel);
+		pe.setVisibility(Visibility_c.Public);
+		pe.setType(Elementtypeconstants_c.ASSOCIATION);
+
+		// set description
+		if (ctx.description() != null) {
+			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+					.collect(Collectors.joining(System.lineSeparator())));
+		}
+
+		// create linked association
+		final LinkedAssociation_c assoc = new LinkedAssociation_c(modelRoot);
+		assoc.relateAcrossR206To(rel);
+
+		// find the one class
+		final String oneClassName = (String) visit(ctx.half_rels.get(1).first_class);
+		final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+				selected -> ((ImportedClass_c) selected).getName().equals(oneClassName));
+		final ModelClass_c oneClass;
+		if (oneImportedClass != null) {
+			oneClass = ModelClass_c.getOneO_OBJOnR101(oneImportedClass);
+		} else {
+			oneClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ModelClass_c) selected).getName().equals(oneClassName));
+		}
+
+		// find the other class
+		final String otherClassName = (String) visit(ctx.half_rels.get(0).first_class);
+		final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+				selected -> ((ImportedClass_c) selected).getName().equals(otherClassName));
+		final ModelClass_c otherClass;
+		if (otherImportedClass != null) {
+			otherClass = ModelClass_c.getOneO_OBJOnR101(otherImportedClass);
+		} else {
+			otherClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ModelClass_c) selected).getName().equals(otherClassName));
+		}
+
+		// find the link class
+		final String linkClassName = (String) visit(ctx.link_class);
+		final ImportedClass_c linkImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+				selected -> ((ImportedClass_c) selected).getName().equals(linkClassName));
+		final ModelClass_c linkClass;
+		if (linkImportedClass != null) {
+			linkClass = ModelClass_c.getOneO_OBJOnR101(linkImportedClass);
+		} else {
+			linkClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ModelClass_c) selected).getName().equals(linkClassName));
+		}
+
+		// create the one side participant
+		final ClassAsAssociatedOneSide_c onePart = new ClassAsAssociatedOneSide_c(modelRoot);
+		onePart.setMult("one".equals(ctx.half_rels.get(0).mult.getText()) ? 0 : 1);
+		onePart.setCond("unconditionally".equals(ctx.half_rels.get(0).cond.getText()) ? 0 : 1);
+		onePart.setTxt_phrs(ctx.half_rels.get(0).phrase != null ? (String) visit(ctx.half_rels.get(0).phrase) : "");
+		onePart.relateAcrossR209To(assoc);
+		final ReferredToClassInAssoc_c oneRto = new ReferredToClassInAssoc_c(modelRoot);
+		oneRto.relateAcrossR204To(onePart);
+		final ClassInAssociation_c oneOir = new ClassInAssociation_c(modelRoot);
+		oneOir.relateAcrossR203To(oneRto);
+		if (oneImportedClass != null) {
+			oneImportedClass.relateAcrossR202To(oneOir);
+		}
+
+		// create the other side participant
+		final ClassAsAssociatedOtherSide_c otherPart = new ClassAsAssociatedOtherSide_c(modelRoot);
+		otherPart.setMult("one".equals(ctx.half_rels.get(1).mult.getText()) ? 0 : 1);
+		otherPart.setCond("unconditionally".equals(ctx.half_rels.get(1).cond.getText()) ? 0 : 1);
+		otherPart.setTxt_phrs(ctx.half_rels.get(1).phrase != null ? (String) visit(ctx.half_rels.get(1).phrase) : "");
+		otherPart.relateAcrossR210To(assoc);
+		final ReferredToClassInAssoc_c otherRto = new ReferredToClassInAssoc_c(modelRoot);
+		otherRto.relateAcrossR204To(otherPart);
+		final ClassInAssociation_c otherOir = new ClassInAssociation_c(modelRoot);
+		otherOir.relateAcrossR203To(otherRto);
+		if (otherImportedClass != null) {
+			otherImportedClass.relateAcrossR202To(otherOir);
+		}
+
+		// create the link
+		final ClassAsLink_c link = new ClassAsLink_c(modelRoot);
+		link.setMult((ctx.link_mult == null || "one".equals(ctx.link_mult.getText())) ? 0 : 1);
+		link.relateAcrossR211To(assoc);
+		final ReferringClassInAssoc_c linkRgo = new ReferringClassInAssoc_c(modelRoot);
+		linkRgo.relateAcrossR205To(link);
+		final ClassInAssociation_c linkOir = new ClassInAssociation_c(modelRoot);
+		linkOir.relateAcrossR203To(linkRgo);
+		if (linkImportedClass != null) {
+			linkImportedClass.relateAcrossR202To(linkOir);
+		}
+
+		// link the relationship
+		rel.relateAcrossR201To(oneOir);
+		oneClass.relateAcrossR201To(oneOir);
+		rel.relateAcrossR201To(otherOir);
+		otherClass.relateAcrossR201To(otherOir);
+		rel.relateAcrossR201To(linkOir);
+		linkClass.relateAcrossR201To(linkOir);
+
+		// link to parent package
+		pe.relateAcrossR8000To(parentPkg);
+
+		return rel;
+	}
+
+	@Override
+	public Association_c visitSubsuper_relationship_definition(Subsuper_relationship_definitionContext ctx) {
+		final Package_c parentPkg = (Package_c) currentRoot;
+
+		// find or create relationship
+		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
+		final Association_c rel = Association_c.resolveInstance(modelRoot, UUID.randomUUID(), 0, "",
+				IdAssigner.NULL_UUID, parentPkg.getPath() + "::R" + relNum);
+		rel.setNumb(relNum);
+		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8001To(rel);
+		pe.setVisibility(Visibility_c.Public);
+		pe.setType(Elementtypeconstants_c.ASSOCIATION);
+
+		// set description
+		if (ctx.description() != null) {
+			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+					.collect(Collectors.joining(System.lineSeparator())));
+		}
+
+		// create simple association
+		final SubtypeSupertypeAssociation_c subsup = new SubtypeSupertypeAssociation_c(modelRoot);
+		subsup.relateAcrossR206To(rel);
+
+		// find the supertype class
+		final String superClassName = (String) visit(ctx.super_class);
+		final ImportedClass_c superImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+				selected -> ((ImportedClass_c) selected).getName().equals(superClassName));
+		final ModelClass_c superClass;
+		if (superImportedClass != null) {
+			superClass = ModelClass_c.getOneO_OBJOnR101(superImportedClass);
+		} else {
+			superClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ModelClass_c) selected).getName().equals(superClassName));
+		}
+
+		// create the supertype participant
+		final ClassAsSupertype_c superPart = new ClassAsSupertype_c(modelRoot);
+		superPart.relateAcrossR212To(subsup);
+		final ReferredToClassInAssoc_c superRto = new ReferredToClassInAssoc_c(modelRoot);
+		superRto.relateAcrossR204To(superPart);
+		final ClassInAssociation_c superOir = new ClassInAssociation_c(modelRoot);
+		superOir.relateAcrossR203To(superRto);
+		if (superImportedClass != null) {
+			superImportedClass.relateAcrossR202To(superOir);
+		}
+
+		// link supertype to the relationship
+		rel.relateAcrossR201To(superOir);
+		superClass.relateAcrossR201To(superOir);
+
+		// handle each subtype class
+		for (NameContext subtypeCtx : ctx.sub_classes) {
+			// find the subtype class
+			final String subClassName = (String) visit(subtypeCtx);
+			final ImportedClass_c subImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
+					PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+					selected -> ((ImportedClass_c) selected).getName().equals(subClassName));
+			final ModelClass_c subClass;
+			if (subImportedClass != null) {
+				subClass = ModelClass_c.getOneO_OBJOnR101(subImportedClass);
+			} else {
+				subClass = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+						selected -> ((ModelClass_c) selected).getName().equals(subClassName));
+			}
+
+			// create the subtype participant
+			final ClassAsSubtype_c subPart = new ClassAsSubtype_c(modelRoot);
+			subPart.relateAcrossR213To(subsup);
+			final ReferringClassInAssoc_c subRgo = new ReferringClassInAssoc_c(modelRoot);
+			subRgo.relateAcrossR205To(subPart);
+			final ClassInAssociation_c subOir = new ClassInAssociation_c(modelRoot);
+			subOir.relateAcrossR203To(subRgo);
+			if (subImportedClass != null) {
+				subImportedClass.relateAcrossR202To(subOir);
+			}
+
+			// link subtype to the relationship
+			rel.relateAcrossR201To(subOir);
+			subClass.relateAcrossR201To(subOir);
+		}
+
+		// link to parent package
+		pe.relateAcrossR8000To(parentPkg);
+
+		return rel;
+	}
+
+	@Override
+	public NonRootModelElement visitComponent_declaration(Component_declarationContext ctx) {
+		final Package_c parentPkg = (Package_c) currentRoot;
+		final String compName = (String) visit(ctx.comp_name);
+		if (ctx.ref_name != null || "Unassigned Imported Component".equals(compName)) {
+
+			// create component reference
+			final ComponentReference_c compRef = new ComponentReference_c(modelRoot);
+			final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+			pe.relateAcrossR8001To(compRef);
+			pe.setVisibility(Visibility_c.Public);
+			pe.setType(Elementtypeconstants_c.COMPONENT_REFERENCE);
+
+			// set description
+			if (ctx.description() != null) {
+				compRef.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+						.collect(Collectors.joining(System.lineSeparator())));
+			}
+
+			// process marks
+			@SuppressWarnings("unchecked")
+			final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+					: Collections.emptyMap();
+			if (marks.containsKey(MULTIPLICITY)) {
+				compRef.setMult(marks.get(MULTIPLICITY).getInteger());
+			}
+			if (marks.containsKey(CLASSIFIER_NAME)) {
+				compRef.setClassifiername(marks.get(CLASSIFIER_NAME).getString());
+			}
+
+			if (ctx.ref_name != null) {
+				// get referenced component
+				final String refCompPath = (String) visit(ctx.ref_name);
+				final Component_c refComp;
+				try {
+					refComp = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.COMPONENT, refCompPath,
+							Component_c::getOneC_COnR8001));
+				} catch (Exception e) {
+					throw new CoreImport.XtumlLoadException("Failed to find component '" + refCompPath + "'.", e);
+				}
+
+				// link to ref component
+				compRef.Assigntocomp(refComp.getId());
+
+			}
+
+			// link to parent package
+			pe.relateAcrossR8000To(parentPkg);
+
+			return compRef;
+		} else {
+			final Component_c comp = Component_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
+					IdAssigner.NULL_UUID, "", "", 0, IdAssigner.NULL_UUID, false, "", "",
+					parentPkg.getPath() + "::" + compName);
+			comp.setName(compName);
+			final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+			pe.relateAcrossR8001To(comp);
+			pe.setVisibility(Visibility_c.Public);
+			pe.setType(Elementtypeconstants_c.COMPONENT);
+			pe.relateAcrossR8000To(parentPkg);
+			return comp;
+		}
+	}
+
+	@Override
+	public Satisfaction_c visitSatisfaction_definition(Satisfaction_definitionContext ctx) {
+		final Package_c parentPkg = (Package_c) currentRoot;
+
+		// get required port reference
+		final String reqCompName = (String) visit(ctx.req_comp_ref);
+		final String reqPortName = (String) visit(ctx.req_port_ref);
+		final NonRootModelElement reqRef;
+		try {
+			reqRef = executor.callAndWait(() -> {
+				final Requirement_c req = Requirement_c
+						.getOneC_ROnR4009(
+								InterfaceReference_c
+										.getOneC_IROnR4016(Port_c.getOneC_POOnR4010(
+												Component_c.getManyC_CsOnR8001(
+														PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+														selected -> ((Component_c) selected).getName()
+																.equals(reqCompName)),
+												selected -> ((Port_c) selected).getName().equals(reqPortName))));
+				if (req != null) {
+					return Optional.of(req);
+				} else {
+
+					final PortReference_c cl_por = PortReference_c.getOneCL_POROnR4707(
+							ComponentReference_c.getManyCL_ICsOnR8001(
+									PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+									selected -> Component_c.getOneC_COnR4201((ComponentReference_c) selected).getName()
+											.equals(reqCompName)),
+							selected -> ((PortReference_c) selected).getName().equals(reqPortName));
+					final ImportedReference_c cl_iir = ImportedReference_c.getOneCL_IIROnR4708(cl_por);
+					final ImportedRequirement_c cl_ir = ImportedRequirement_c.getOneCL_IROnR4703(cl_iir);
+					return Optional.ofNullable(cl_ir);
+				}
+
+			});
+		} catch (Exception e) {
+			throw new CoreImport.XtumlLoadException(
+					"Failed to find required port reference '" + reqCompName + "::" + reqPortName + "'.", e);
+		}
+
+		// get provided port reference
+		final String provCompName = (String) visit(ctx.prov_comp_ref);
+		final String provPortName = (String) visit(ctx.prov_port_ref);
+		final NonRootModelElement provRef;
+		try {
+			provRef = executor.callAndWait(() -> {
+				final Provision_c prov = Provision_c
+						.getOneC_POnR4009(
+								InterfaceReference_c
+										.getOneC_IROnR4016(Port_c.getOneC_POOnR4010(
+												Component_c.getManyC_CsOnR8001(
+														PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
+														selected -> ((Component_c) selected).getName()
+																.equals(provCompName)),
+												selected -> ((Port_c) selected).getName().equals(provPortName))));
+				if (prov != null) {
+					return Optional.of(prov);
+				} else {
+					return Optional
+							.ofNullable(
+									ImportedProvision_c
+											.getOneCL_IPOnR4703(ImportedReference_c
+													.getOneCL_IIROnR4708(PortReference_c.getOneCL_POROnR4707(
+															ComponentReference_c.getManyCL_ICsOnR8001(
+																	PackageableElement_c
+																			.getManyPE_PEsOnR8000(parentPkg),
+																	selected -> Component_c
+																			.getOneC_COnR4201(
+																					(ComponentReference_c) selected)
+																			.getName().equals(provCompName)),
+															selected -> ((PortReference_c) selected).getName()
+																	.equals(provPortName)))));
+				}
+
+			});
+		} catch (Exception e) {
+			throw new CoreImport.XtumlLoadException(
+					"Failed to find provided port reference '" + provCompName + "::" + provPortName + "'.", e);
+		}
+
+		// create satisfaction
+		if (provRef instanceof Provision_c) {
+			final Provision_c provision = (Provision_c) provRef;
+			if (reqRef instanceof Requirement_c) {
+				final Requirement_c requirement = (Requirement_c) reqRef;
+				provision.Linkconnector(requirement.getRequirement_id());
+				return Satisfaction_c.getOneC_SFOnR4002(requirement);
+			} else {
+				final ImportedRequirement_c importedRequirement = (ImportedRequirement_c) reqRef;
+				provision.Linkconnector(importedRequirement.getId());
+				return Satisfaction_c.getOneC_SFOnR4706(importedRequirement);
+			}
+		} else {
+			final ImportedProvision_c importedProvision = (ImportedProvision_c) provRef;
+			if (reqRef instanceof Requirement_c) {
+				final Requirement_c requirement = (Requirement_c) reqRef;
+				importedProvision.Linkconnector(requirement.getRequirement_id());
+				return Satisfaction_c.getOneC_SFOnR4002(requirement);
+			} else {
+				final ImportedRequirement_c importedRequirement = (ImportedRequirement_c) reqRef;
+				importedProvision.Linkconnector(importedRequirement.getId());
+				return Satisfaction_c.getOneC_SFOnR4706(importedRequirement);
+			}
+		}
+
 	}
 
 }

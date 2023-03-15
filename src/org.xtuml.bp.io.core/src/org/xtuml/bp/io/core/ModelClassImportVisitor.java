@@ -14,6 +14,7 @@ import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.BaseAttribute_c;
+import org.xtuml.bp.core.ClassAsSimpleParticipant_c;
 import org.xtuml.bp.core.ClassAsSupertype_c;
 import org.xtuml.bp.core.ClassIdentifierAttribute_c;
 import org.xtuml.bp.core.ClassIdentifier_c;
@@ -36,8 +37,10 @@ import org.xtuml.bp.core.ReferredToIdentifierAttribute_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Scope_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.IdAssigner;
+import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Attribute_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Attribute_referenceContext;
@@ -74,6 +77,9 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		pe.setVisibility(Visibility_c.Public);
 		pe.setType(Elementtypeconstants_c.CLASS);
 		currentRoot = modelClass;
+
+		// link to the package
+		pe.relateAcrossR8000To(parentPkg);
 
 		// load description
 		modelClass.setDescrip(ctx.description() != null ? ctx.description().getText().lines()
@@ -140,9 +146,6 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 			}
 			prevTfr = tfr;
 		}
-
-		// link to the package
-		pe.relateAcrossR8000To(parentPkg);
 
 		// process referentials
 		// Note: after all instances are loaded, R113 is processed in the
@@ -273,12 +276,12 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 	public AttributeReferenceInClass_c visitAttribute_reference(Attribute_referenceContext ctx) {
 		final ReferentialAttribute_c rattr = (ReferentialAttribute_c) currentRoot;
 
-		// get the referred to and referring objects
+		// get the referred to object
 		final ReferredToClassInAssoc_c rto = (ReferredToClassInAssoc_c) visit(ctx.relationship_specification());
-		final ReferringClassInAssoc_c rgo = ReferringClassInAssoc_c.getOneR_RGOOnR203(
-				ClassInAssociation_c.getManyR_OIRsOnR201(
-						Association_c.getOneR_RELOnR201(ClassInAssociation_c.getOneR_OIROnR203(rto))),
-				selected -> ((ReferringClassInAssoc_c) selected).getObj_id().equals(rattr.getObj_id()));
+		if (rto == null) {
+			throw new CoreImport.XtumlLoadException(
+					"Failed to find resolve referred to participant for '" + ctx.getText() + "'.");
+		}
 
 		// get the identifier attribute
 		final String attrName = (String) visit(ctx.attr_name);
@@ -290,6 +293,30 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 							selected -> ((Attribute_c) selected).getName().equals(attrName)))));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException("Failed to find attribute '" + ctx.getText() + "'.", e);
+		}
+
+		// relate the identifier to the referred to object
+		final ClassIdentifier_c oid = ClassIdentifier_c.getOneO_IDOnR105(oida);
+		rto.relateAcrossR109To(oid);
+
+		// if this is a simple association with two participants, migrate one to a
+		// formalizer
+		final ClassAsSimpleParticipant_c part = ClassAsSimpleParticipant_c.getOneR_PARTOnR204(
+				ReferredToClassInAssoc_c.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(
+						Association_c.getOneR_RELOnR201(ClassInAssociation_c.getOneR_OIROnR203(rto)))),
+				selected -> !((ClassAsSimpleParticipant_c) selected).getOir_id().equals(rto.getOir_id()));
+		if (part != null) {
+			part.Migratetoformalizer();
+		}
+
+		// get the referring object
+		final ReferringClassInAssoc_c rgo = ReferringClassInAssoc_c.getOneR_RGOOnR203(
+				ClassInAssociation_c.getManyR_OIRsOnR201(
+						Association_c.getOneR_RELOnR201(ClassInAssociation_c.getOneR_OIROnR203(rto))),
+				selected -> ((ReferringClassInAssoc_c) selected).getObj_id().equals(rattr.getObj_id()));
+		if (rgo == null) {
+			throw new CoreImport.XtumlLoadException(
+					"Failed to find resolve referring participant for '" + ctx.getText() + "'.");
 		}
 
 		// create the referred to identifier attribute
@@ -312,11 +339,13 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
 		final Association_c rel;
 		try {
-			rel = executor.callAndWait(() -> {
-				return Optional.ofNullable(Association_c.getOneR_RELOnR201(
-						ModelClass_c.getOneO_OBJOnR102(Attribute_c.getOneO_ATTROnR106(rattr)),
-						selected -> ((Association_c) selected).getNumb() == relNum));
-			});
+			rel = executor.callAndWait(() -> Optional.ofNullable(Association_c.getOneR_RELOnR201(
+					ModelClass_c.getOneO_OBJOnR102(Attribute_c.getOneO_ATTROnR106(rattr)),
+					selected -> ((Association_c) selected).getNumb() == relNum)));
+			// Wait for the relationship to be linked to a package. This assures
+			// that the relationship is fully loaded and all RGOs/RTOs are in place.
+			executor.callAndWait(() -> Optional
+					.ofNullable(Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(rel))));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException("Failed to find association 'R" + relNum + "'.", e);
 		}
@@ -450,7 +479,8 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 										.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(modelClass)))),
 						selected -> ((Association_c) selected).getNumb() == relNum)));
 			} catch (Exception e) {
-				throw new CoreImport.XtumlLoadException("Could not find relationship for deferred operation: " + ctx.RelName(), e);
+				throw new CoreImport.XtumlLoadException(
+						"Could not find relationship for deferred operation: " + ctx.RelName(), e);
 			}
 			final Deferral_c def = new Deferral_c(modelRoot);
 			def.relateAcrossR126To(rel);

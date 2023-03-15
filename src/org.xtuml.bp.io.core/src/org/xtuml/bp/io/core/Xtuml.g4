@@ -34,6 +34,8 @@ package_item                       : package_declaration
                                      | function_definition
                                      | class_declaration
                                      | component_declaration
+                                     | relationship_definition
+                                     | satisfaction_definition
                                    ;
                                    
 component_declaration              : description? marks?
@@ -206,7 +208,46 @@ function_definition                : description? marks?
                                        'end' 'function'
                                      )? ';'
                                    ;
- 
+                                   
+relationship_definition            : simple_relationship_definition
+                                     | linked_relationship_definition
+                                     | subsuper_relationship_definition
+                                   ;
+
+simple_relationship_definition     : description? marks?
+                                     'relationship' rel_name=RelName 'is'
+                                     half_rels+=half_relationship_definition ','
+                                     half_rels+=half_relationship_definition ';'
+                                   ;
+
+linked_relationship_definition     : description? marks?
+                                     'relationship' rel_name=RelName 'is'
+                                     half_rels+=half_relationship_definition ','
+                                     half_rels+=half_relationship_definition
+                                     'using' link_mult=('one' | 'many')?
+                                     link_class=name ';'
+                                   ;
+                                   
+subsuper_relationship_definition   : description? marks?
+                                     'relationship' rel_name=RelName 'is'
+                                     super_class=name 'is_a' '('
+                                       ( sub_classes+=name ( ',' sub_classes+=name )* )?
+                                     ')' ';'
+                                   ;
+
+half_relationship_definition       : first_class=name 
+                                     cond=('conditionally' | 'unconditionally')
+                                     ( phrase=name | 'relates' 'to' )
+                                     mult=('one' | 'many')
+                                     second_class=name
+                                   ;
+                                   
+satisfaction_definition            : 'satisfaction' 'is' (
+                                       ( req_comp_ref=name '::' req_port_ref=name '-(o-' prov_comp_ref=name '::' prov_port_ref=name )
+                                       | ( prov_comp_ref=name '::' prov_port_ref=name '-o)-' req_comp_ref=name '::' req_port_ref=name )
+                                     ) ';'
+                                   ;
+                                   
  
 parameter_list                     : parameter ( ',' parameter )*;
 

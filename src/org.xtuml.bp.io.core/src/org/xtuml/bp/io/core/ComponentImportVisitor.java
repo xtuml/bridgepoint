@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.xtuml.bp.core.Actiondialect_c;
+import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
@@ -89,6 +90,11 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		// load all component items
 		// TODO ensure packages load first?
 		ctx.component_item().forEach(this::visit);
+		
+		// reassign self to all component references to assure the latest port references are added
+		for (ComponentReference_c compRef : ComponentReference_c.getManyCL_ICsOnR4201(comp)) {
+			compRef.Assigntocomp(comp.getId());
+		}
 
 		return comp;
 	}

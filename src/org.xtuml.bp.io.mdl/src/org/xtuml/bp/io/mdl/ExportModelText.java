@@ -1381,7 +1381,7 @@ public class ExportModelText extends ExportModelComponent {
 			final Component_c reqComp = Component_c.getOneC_COnR4010(reqPort);
 			final Port_c provPort = Port_c
 					.getOneC_POOnR4016(InterfaceReference_c.getOneC_IROnR4009(Provision_c.getOneC_POnR4002(inst)));
-			final Component_c provComp = Component_c.getOneC_COnR4010(reqPort);
+			final Component_c provComp = Component_c.getOneC_COnR4010(provPort);
 
 			append("%ssatisfaction is %s::%s -(o- %s::%s;\n", getTab(), sanitizeName(reqComp.getName()),
 					sanitizeName(reqPort.getName()), sanitizeName(provComp.getName()),
