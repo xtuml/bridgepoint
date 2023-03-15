@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
@@ -68,6 +69,7 @@ import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.Severity_c;
+import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
@@ -312,6 +314,10 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				path = "Class State Machine";
 			} else if (this instanceof InstanceStateMachine_c) {
 				path = "Instance State Machine";
+			} else if (this instanceof StateMachine_c) {
+				path = Optional.ofNullable(InstanceStateMachine_c.getOneSM_ISMOnR517((StateMachine_c) this))
+						.map(NonRootModelElement::getPath)
+						.orElseGet(() -> ClassStateMachine_c.getOneSM_ASMOnR517((StateMachine_c) this).getPath());
 			} else if (this instanceof ExecutableProperty_c) {
 				path = Interface_c.getOneC_IOnR4003((ExecutableProperty_c) this).getPath() + "::" + getName();
 			} else if (this instanceof InterfaceReference_c) {

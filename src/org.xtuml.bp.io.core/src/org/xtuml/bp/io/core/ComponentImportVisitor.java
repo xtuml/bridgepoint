@@ -53,7 +53,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final Package_c parent_pkg = (Package_c) currentRoot;
 
 		// find or create component
-		final String comp_name = (String) visit(ctx.comp_name);
+		final String comp_name = visitName(ctx.comp_name);
 		final Component_c comp = Component_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
 				IdAssigner.NULL_UUID, comp_name, "", 0, IdAssigner.NULL_UUID, false, "", "",
 				parent_pkg.getPath() + "::" + comp_name);
@@ -71,8 +71,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		}
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(MULTIPLICITY) && marks.get(MULTIPLICITY).getString().equals("many")) {
 			comp.setMult(1);
@@ -104,7 +103,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final Component_c comp = (Component_c) currentRoot;
 
 		// find the formalized interface
-		final String ifacePath = (String) visit(ctx.iface_name);
+		final String ifacePath = visitScoped_name(ctx.iface_name);
 		Interface_c iface = null;
 		if (ctx.iface_name != null) {
 			try {
@@ -117,7 +116,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		}
 
 		// find or create port
-		final String port_name = (String) visit(ctx.port_name);
+		final String port_name = visitName(ctx.port_name);
 		final Port_c port = Port_c.resolveInstance(modelRoot, UUID.randomUUID(), comp.getId(), port_name, 0, false, "",
 				comp.getPath() + "::" + port_name);
 		port.relateAcrossR4010To(comp);
@@ -125,8 +124,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		currentRoot = port;
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(MULTIPLICITY) && marks.get(MULTIPLICITY).getString().equals("many")) {
 			port.setMult(1);
@@ -197,8 +195,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final NonRootModelElement[] spr_rss = RequiredSignal_c
 				.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
 
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 
 		try {
@@ -211,7 +208,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 				msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
 			}
 			msg.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
-			msg.setAction_semantics_internal((String) visit(ctx.action_body()));
+			msg.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 			return (NonRootModelElement) msg.getBasisObject();
 		} catch (NoSuchElementException e) {
 			CorePlugin.logError("Could not find message in interface with name: " + visit(ctx.msg_name), e);
@@ -225,7 +222,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		// link parameters to each other in order
 		PropertyParameter_c prevPp = null;
 		for (ParameterContext paramCtx : ctx.parameter()) {
-			final PropertyParameter_c c_pp = (PropertyParameter_c) visit(paramCtx);
+			final PropertyParameter_c c_pp = visitParameter(paramCtx);
 			if (prevPp != null) {
 				prevPp.relateAcrossR4021ToPrecedes(c_pp);
 			}
@@ -238,7 +235,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 	public PropertyParameter_c visitParameter(ParameterContext ctx) {
 		// create a new parameter
 		PropertyParameter_c c_pp = new PropertyParameter_c(modelRoot);
-		c_pp.setName((String) visit(ctx.param_name));
+		c_pp.setName(visitName(ctx.param_name));
 		c_pp.relateAcrossR4007To(integerType);
 
 		// set by value/ref

@@ -19,13 +19,12 @@ public class SystemModelImportVisitor extends XtumlImportVisitor {
 	public NonRootModelElement visitPackage_definition(Package_definitionContext ctx) {
 		// If we encounter the "system_model" mark, this is a system model
 		// instance. Otherwise it is a regular package.
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(SYSTEM_MODEL)) {
 			// create a system model
 			final SystemModel_c s_sys = SystemModel_c.resolveInstance(modelRoot, UUID.randomUUID(),
-					(String) visit(ctx.pkg_name), false, (String) visit(ctx.pkg_name));
+					visitName(ctx.pkg_name), false, visitName(ctx.pkg_name));
 			// look for "use_globals=true" in the "@system_model" mark
 			s_sys.setUseglobals(marks.get(SYSTEM_MODEL).getBoolean(USE_GLOBALS));
 			return s_sys;

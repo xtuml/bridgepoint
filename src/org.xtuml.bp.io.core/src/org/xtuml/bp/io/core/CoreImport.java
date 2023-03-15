@@ -403,6 +403,10 @@ public abstract class CoreImport implements IModelImport {
 				case "Package":
 					visitor = new PackageImportVisitor(m_modelRoot);
 					break;
+				case "InstanceStateMachine":
+				case "ClassStateMachine":
+					visitor = new StateMachineImportVisitor(m_modelRoot);
+					break;
 				default:
 					visitor = new XtumlImportVisitor(m_modelRoot);
 				}
@@ -666,11 +670,11 @@ public abstract class CoreImport implements IModelImport {
 	public static class XtumlLoadException extends RuntimeException {
 
 		private static final long serialVersionUID = 1L;
-		
+
 		public XtumlLoadException(String message, Throwable cause) {
 			super(message, cause);
 		}
-		
+
 		public XtumlLoadException(String message) {
 			super(message);
 		}

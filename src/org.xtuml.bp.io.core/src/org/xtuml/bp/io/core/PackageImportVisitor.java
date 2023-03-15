@@ -97,7 +97,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	@Override
 	public NonRootModelElement visitPackage_definition(Package_definitionContext ctx) {
 		// find or create package
-		final String pkgName = (String) visit(ctx.pkg_name);
+		final String pkgName = visitName(ctx.pkg_name);
 		final Package_c pkg = Package_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
 				IdAssigner.NULL_UUID, "", "", 0, currentRoot.getPath() + "::" + pkgName);
 		pkg.setName(pkgName);
@@ -107,9 +107,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		pe.setType(Elementtypeconstants_c.PACKAGE);
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(NUMBER_RANGE)) {
 			pkg.setNum_rng(marks.get(NUMBER_RANGE).getInteger());
 		}
@@ -158,7 +156,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// find or create type
-		final String typeName = (String) visit(ctx.type_name);
+		final String typeName = visitName(ctx.type_name);
 		final DataType_c type = DataType_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "", "",
 				"", parentPkg.getPath() + "::" + typeName);
 		type.setName(typeName);
@@ -173,9 +171,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(RAW_TYPE_DEF)) {
 			// create user type
 			final UserDataType_c udt = new UserDataType_c(modelRoot);
@@ -228,7 +224,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		// create new member
 		final StructureMember_c mbr = new StructureMember_c(modelRoot);
 		mbr.relateAcrossR44To((StructuredDataType_c) currentRoot);
-		mbr.setName((String) visit(ctx.member_name));
+		mbr.setName(visitName(ctx.member_name));
 
 		// set description
 		if (ctx.description() != null) {
@@ -278,7 +274,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		// create new enumerator
 		final Enumerator_c s_enum = new Enumerator_c(modelRoot);
 		s_enum.relateAcrossR27To((EnumerationDataType_c) currentRoot);
-		s_enum.setName((String) visit(ctx.enum_name));
+		s_enum.setName(visitName(ctx.enum_name));
 
 		// set description
 		if (ctx.description() != null) {
@@ -316,7 +312,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// find or create exception
-		final String exceptionName = (String) visit(ctx.exception_name);
+		final String exceptionName = visitName(ctx.exception_name);
 		final Exception_c exception = Exception_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "",
 				parentPkg.getPath() + "::" + exceptionName);
 		exception.setName(exceptionName);
@@ -342,7 +338,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// find or create constant group
-		final String constantGroupName = (String) visit(ctx.group_name);
+		final String constantGroupName = visitName(ctx.group_name);
 		final ConstantSpecification_c constantGroup = ConstantSpecification_c.resolveInstance(modelRoot,
 				UUID.randomUUID(), "", "", parentPkg.getPath() + "::" + constantGroupName);
 		constantGroup.setInformalgroupname(constantGroupName);
@@ -380,7 +376,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final ConstantSpecification_c constantGroup = (ConstantSpecification_c) currentRoot;
 
 		// find or create constant
-		final String constantName = (String) visit(ctx.constant_name);
+		final String constantName = visitName(ctx.constant_name);
 		final SymbolicConstant_c constant = SymbolicConstant_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "",
 				IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, IdAssigner.NULL_UUID,
 				constantGroup.getPath() + "::" + constantName);
@@ -413,7 +409,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	@Override
 	public Interface_c visitInterface_declaration(Interface_declarationContext ctx) {
 		final Package_c parentPkg = (Package_c) currentRoot;
-		final String ifaceName = (String) visit(ctx.iface_name);
+		final String ifaceName = visitName(ctx.iface_name);
 		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "",
 				"", parentPkg.getPath() + "::" + ifaceName);
 		iface.setName(ifaceName);
@@ -430,7 +426,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// find or create external entity
-		final String eeName = (String) visit(ctx.ee_name);
+		final String eeName = visitName(ctx.ee_name);
 		final ExternalEntity_c ee = ExternalEntity_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "", "",
 				IdAssigner.NULL_UUID, "", "", false, parentPkg.getPath() + "::" + eeName);
 		ee.setName(eeName);
@@ -446,9 +442,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(KEY_LETTERS)) {
 			ee.setKey_lett(marks.get(KEY_LETTERS).getString());
 		}
@@ -475,7 +469,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final ExternalEntity_c ee = (ExternalEntity_c) currentRoot;
 
 		// find or create bridge
-		final String bridgeName = (String) visit(ctx.brg_name);
+		final String bridgeName = visitName(ctx.brg_name);
 		final Bridge_c bridge = Bridge_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "", "", 0,
 				IdAssigner.NULL_UUID, "", 0, "", 0, ee.Getpath() + "::" + bridgeName);
 		bridge.setName(bridgeName);
@@ -487,9 +481,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 
 		// set return type
 		if (ctx.type_reference() != null) {
@@ -517,7 +509,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		bridge.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
 		bridge.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
-			bridge.setAction_semantics_internal((String) visit(ctx.action_body()));
+			bridge.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 		}
 
 		// link to EE
@@ -531,7 +523,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// find or create function
-		final String funcName = (String) visit(ctx.func_name);
+		final String funcName = visitName(ctx.func_name);
 		final Function_c func = Function_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "", "",
 				"", IdAssigner.NULL_UUID, 0, "", 0, 0, parentPkg.getPath() + "::" + funcName);
 		func.setName(funcName);
@@ -547,9 +539,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(FUNCTION_NUM)) {
 			func.setNumb(marks.get(FUNCTION_NUM).getInteger());
 		}
@@ -580,7 +570,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		func.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
 		func.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
-			func.setAction_semantics_internal((String) visit(ctx.action_body()));
+			func.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 		}
 
 		// link to the parent package
@@ -622,7 +612,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			// create a new parameter
 			final BridgeParameter_c s_bparm = new BridgeParameter_c(modelRoot);
-			s_bparm.setName((String) visit(ctx.param_name));
+			s_bparm.setName(visitName(ctx.param_name));
 
 			// set by value/ref
 			s_bparm.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);
@@ -647,7 +637,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			// create a new parameter
 			final FunctionParameter_c s_sparm = new FunctionParameter_c(modelRoot);
-			s_sparm.setName((String) visit(ctx.param_name));
+			s_sparm.setName(visitName(ctx.param_name));
 
 			// set by value/ref
 			s_sparm.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);
@@ -673,7 +663,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	@Override
 	public NonRootModelElement visitClass_declaration(Class_declarationContext ctx) {
 		final Package_c parentPkg = (Package_c) currentRoot;
-		final String className = (String) visit(ctx.class_name);
+		final String className = visitName(ctx.class_name);
 		if (ctx.ref_name != null || "Unassigned Imported Class".equals(className)) {
 
 			// create imported class
@@ -685,7 +675,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			if (ctx.ref_name != null) {
 				// get referenced class
-				final String refClassPath = (String) visit(ctx.ref_name);
+				final String refClassPath = visitScoped_name(ctx.ref_name);
 				final ModelClass_c refClass;
 				try {
 					refClass = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath,
@@ -750,7 +740,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		// NOTE: all simple associations are created unformalized
 
 		// find the one class
-		final String oneClassName = (String) visit(ctx.half_rels.get(1).first_class);
+		final String oneClassName = visitName(ctx.half_rels.get(1).first_class);
 		final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 				selected -> ((ImportedClass_c) selected).getName().equals(oneClassName));
@@ -763,7 +753,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// find the other class
-		final String otherClassName = (String) visit(ctx.half_rels.get(0).first_class);
+		final String otherClassName = visitName(ctx.half_rels.get(0).first_class);
 		final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 				selected -> ((ImportedClass_c) selected).getName().equals(otherClassName));
@@ -779,7 +769,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final ClassAsSimpleParticipant_c onePart = new ClassAsSimpleParticipant_c(modelRoot);
 		onePart.setMult("one".equals(ctx.half_rels.get(0).mult.getText()) ? 0 : 1);
 		onePart.setCond("unconditionally".equals(ctx.half_rels.get(0).cond.getText()) ? 0 : 1);
-		onePart.setTxt_phrs(ctx.half_rels.get(0).phrase != null ? (String) visit(ctx.half_rels.get(0).phrase) : "");
+		onePart.setTxt_phrs(ctx.half_rels.get(0).phrase != null ? visitName(ctx.half_rels.get(0).phrase) : "");
 		onePart.relateAcrossR207To(simp);
 		final ReferredToClassInAssoc_c oneRto = new ReferredToClassInAssoc_c(modelRoot);
 		oneRto.relateAcrossR204To(onePart);
@@ -793,7 +783,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final ClassAsSimpleParticipant_c otherPart = new ClassAsSimpleParticipant_c(modelRoot);
 		otherPart.setMult("one".equals(ctx.half_rels.get(1).mult.getText()) ? 0 : 1);
 		otherPart.setCond("unconditionally".equals(ctx.half_rels.get(1).cond.getText()) ? 0 : 1);
-		otherPart.setTxt_phrs(ctx.half_rels.get(1).phrase != null ? (String) visit(ctx.half_rels.get(1).phrase) : "");
+		otherPart.setTxt_phrs(ctx.half_rels.get(1).phrase != null ? visitName(ctx.half_rels.get(1).phrase) : "");
 		otherPart.relateAcrossR207To(simp);
 		final ReferredToClassInAssoc_c otherRto = new ReferredToClassInAssoc_c(modelRoot);
 		otherRto.relateAcrossR204To(otherPart);
@@ -840,7 +830,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		assoc.relateAcrossR206To(rel);
 
 		// find the one class
-		final String oneClassName = (String) visit(ctx.half_rels.get(1).first_class);
+		final String oneClassName = visitName(ctx.half_rels.get(1).first_class);
 		final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 				selected -> ((ImportedClass_c) selected).getName().equals(oneClassName));
@@ -853,7 +843,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// find the other class
-		final String otherClassName = (String) visit(ctx.half_rels.get(0).first_class);
+		final String otherClassName = visitName(ctx.half_rels.get(0).first_class);
 		final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 				selected -> ((ImportedClass_c) selected).getName().equals(otherClassName));
@@ -866,7 +856,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// find the link class
-		final String linkClassName = (String) visit(ctx.link_class);
+		final String linkClassName = visitName(ctx.link_class);
 		final ImportedClass_c linkImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 				selected -> ((ImportedClass_c) selected).getName().equals(linkClassName));
@@ -882,7 +872,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final ClassAsAssociatedOneSide_c onePart = new ClassAsAssociatedOneSide_c(modelRoot);
 		onePart.setMult("one".equals(ctx.half_rels.get(0).mult.getText()) ? 0 : 1);
 		onePart.setCond("unconditionally".equals(ctx.half_rels.get(0).cond.getText()) ? 0 : 1);
-		onePart.setTxt_phrs(ctx.half_rels.get(0).phrase != null ? (String) visit(ctx.half_rels.get(0).phrase) : "");
+		onePart.setTxt_phrs(ctx.half_rels.get(0).phrase != null ? visitName(ctx.half_rels.get(0).phrase) : "");
 		onePart.relateAcrossR209To(assoc);
 		final ReferredToClassInAssoc_c oneRto = new ReferredToClassInAssoc_c(modelRoot);
 		oneRto.relateAcrossR204To(onePart);
@@ -896,7 +886,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final ClassAsAssociatedOtherSide_c otherPart = new ClassAsAssociatedOtherSide_c(modelRoot);
 		otherPart.setMult("one".equals(ctx.half_rels.get(1).mult.getText()) ? 0 : 1);
 		otherPart.setCond("unconditionally".equals(ctx.half_rels.get(1).cond.getText()) ? 0 : 1);
-		otherPart.setTxt_phrs(ctx.half_rels.get(1).phrase != null ? (String) visit(ctx.half_rels.get(1).phrase) : "");
+		otherPart.setTxt_phrs(ctx.half_rels.get(1).phrase != null ? visitName(ctx.half_rels.get(1).phrase) : "");
 		otherPart.relateAcrossR210To(assoc);
 		final ReferredToClassInAssoc_c otherRto = new ReferredToClassInAssoc_c(modelRoot);
 		otherRto.relateAcrossR204To(otherPart);
@@ -957,7 +947,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		subsup.relateAcrossR206To(rel);
 
 		// find the supertype class
-		final String superClassName = (String) visit(ctx.super_class);
+		final String superClassName = visitName(ctx.super_class);
 		final ImportedClass_c superImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 				selected -> ((ImportedClass_c) selected).getName().equals(superClassName));
@@ -987,7 +977,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		// handle each subtype class
 		for (NameContext subtypeCtx : ctx.sub_classes) {
 			// find the subtype class
-			final String subClassName = (String) visit(subtypeCtx);
+			final String subClassName = visitName(subtypeCtx);
 			final ImportedClass_c subImportedClass = ImportedClass_c.getOneO_IOBJOnR8001(
 					PackageableElement_c.getManyPE_PEsOnR8000(parentPkg),
 					selected -> ((ImportedClass_c) selected).getName().equals(subClassName));
@@ -1024,7 +1014,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	@Override
 	public NonRootModelElement visitComponent_declaration(Component_declarationContext ctx) {
 		final Package_c parentPkg = (Package_c) currentRoot;
-		final String compName = (String) visit(ctx.comp_name);
+		final String compName = visitName(ctx.comp_name);
 		if (ctx.ref_name != null || "Unassigned Imported Component".equals(compName)) {
 
 			// create component reference
@@ -1041,9 +1031,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			}
 
 			// process marks
-			@SuppressWarnings("unchecked")
-			final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
-					: Collections.emptyMap();
+			final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 			if (marks.containsKey(MULTIPLICITY)) {
 				compRef.setMult(marks.get(MULTIPLICITY).getInteger());
 			}
@@ -1053,7 +1041,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			if (ctx.ref_name != null) {
 				// get referenced component
-				final String refCompPath = (String) visit(ctx.ref_name);
+				final String refCompPath = visitScoped_name(ctx.ref_name);
 				final Component_c refComp;
 				try {
 					refComp = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.COMPONENT, refCompPath,
@@ -1090,8 +1078,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// get required port reference
-		final String reqCompName = (String) visit(ctx.req_comp_ref);
-		final String reqPortName = (String) visit(ctx.req_port_ref);
+		final String reqCompName = visitName(ctx.req_comp_ref);
+		final String reqPortName = visitName(ctx.req_port_ref);
 		final NonRootModelElement reqRef;
 		try {
 			reqRef = executor.callAndWait(() -> {
@@ -1126,8 +1114,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// get provided port reference
-		final String provCompName = (String) visit(ctx.prov_comp_ref);
-		final String provPortName = (String) visit(ctx.prov_port_ref);
+		final String provCompName = visitName(ctx.prov_comp_ref);
+		final String provPortName = visitName(ctx.prov_port_ref);
 		final NonRootModelElement provRef;
 		try {
 			provRef = executor.callAndWait(() -> {

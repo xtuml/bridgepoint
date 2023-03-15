@@ -37,10 +37,8 @@ import org.xtuml.bp.core.ReferredToIdentifierAttribute_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Scope_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
-import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.IdAssigner;
-import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Attribute_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Attribute_referenceContext;
@@ -68,7 +66,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final Package_c parentPkg = (Package_c) currentRoot;
 
 		// find or create class
-		final String className = (String) visit(ctx.class_name);
+		final String className = visitName(ctx.class_name);
 		final ModelClass_c modelClass = ModelClass_c.resolveInstance(modelRoot, UUID.randomUUID(), className, 0, "", "",
 				IdAssigner.NULL_UUID, parentPkg.getPath() + "::" + className);
 
@@ -87,8 +85,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(KEY_LETTERS)) {
 			modelClass.setKey_lett(marks.get(KEY_LETTERS).getString());
@@ -140,7 +137,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		Operation_c prevTfr = null;
 		for (Operation_definitionContext tfrCtx : ctx.class_item().stream().map(Class_itemContext::operation_definition)
 				.filter(Objects::nonNull).collect(Collectors.toList())) {
-			final Operation_c tfr = (Operation_c) visit(tfrCtx);
+			final Operation_c tfr = visitOperation_definition(tfrCtx);
 			if (prevTfr != null) {
 				prevTfr.relateAcrossR125ToPrecedes(tfr);
 			}
@@ -170,7 +167,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final ModelClass_c modelClass = (ModelClass_c) currentRoot;
 
 		// find or create attribute
-		final String attrName = (String) visit(ctx.attr_name);
+		final String attrName = visitName(ctx.attr_name);
 		final Attribute_c attr = Attribute_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
 				IdAssigner.NULL_UUID, "", "", "", "", 0, IdAssigner.NULL_UUID, "", "",
 				modelClass.getPath() + "::" + attrName);
@@ -218,7 +215,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final ModelClass_c modelClass = (ModelClass_c) currentRoot;
 
 		// find or create attribute
-		final String attrName = (String) visit(ctx.attr_name);
+		final String attrName = visitName(ctx.attr_name);
 		final Attribute_c attr = Attribute_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
 				IdAssigner.NULL_UUID, "", "", "", "", 0, IdAssigner.NULL_UUID, "", "",
 				modelClass.getPath() + "::" + attrName);
@@ -226,8 +223,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		rattr.relateAcrossR106To(attr);
 
 		// set attribute name and prefix mode
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(REF_MODE) && "local".equals(marks.get(REF_MODE).getString())) {
 			rattr.setRef_mode(0);
@@ -277,14 +273,14 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final ReferentialAttribute_c rattr = (ReferentialAttribute_c) currentRoot;
 
 		// get the referred to object
-		final ReferredToClassInAssoc_c rto = (ReferredToClassInAssoc_c) visit(ctx.relationship_specification());
+		final ReferredToClassInAssoc_c rto = visitRelationship_specification(ctx.relationship_specification());
 		if (rto == null) {
 			throw new CoreImport.XtumlLoadException(
 					"Failed to find resolve referred to participant for '" + ctx.getText() + "'.");
 		}
 
 		// get the identifier attribute
-		final String attrName = (String) visit(ctx.attr_name);
+		final String attrName = visitName(ctx.attr_name);
 		final ClassIdentifierAttribute_c oida;
 		try {
 			oida = executor.callAndWait(() -> Optional
@@ -386,7 +382,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final ModelClass_c modelClass = (ModelClass_c) currentRoot;
 
 		// find or create attribute
-		final String attrName = (String) visit(ctx.attr_name);
+		final String attrName = visitName(ctx.attr_name);
 		final Attribute_c attr = Attribute_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
 				IdAssigner.NULL_UUID, "", "", "", "", 0, IdAssigner.NULL_UUID, "", "",
 				modelClass.getPath() + "::" + attrName);
@@ -412,12 +408,11 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		dbattr.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
 		dbattr.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
-		dbattr.setAction_semantics_internal((String) visit(ctx.action_body()));
+		dbattr.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 
 		// link to the class
 		attr.relateAcrossR102To(modelClass);
@@ -447,7 +442,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final ModelClass_c modelClass = (ModelClass_c) currentRoot;
 
 		// find or create operation
-		final String operationName = (String) visit(ctx.operation_name);
+		final String operationName = visitName(ctx.operation_name);
 		final Operation_c tfr = Operation_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
 				operationName, "", IdAssigner.NULL_UUID, 0, "", 0, "", IdAssigner.NULL_UUID, 0, 0,
 				modelClass.getPath() + "::" + operationName);
@@ -458,8 +453,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// process marks
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(OPERATION_NUM)) {
 			tfr.setNumb(marks.get(OPERATION_NUM).getInteger());
@@ -514,7 +508,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		tfr.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
 		tfr.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
-			tfr.setAction_semantics_internal((String) visit(ctx.action_body()));
+			tfr.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 		}
 
 		// link to class
@@ -528,7 +522,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		// link parameters to each other in order
 		OperationParameter_c prevTparm = null;
 		for (ParameterContext paramCtx : ctx.parameter()) {
-			final OperationParameter_c o_tparm = (OperationParameter_c) visit(paramCtx);
+			final OperationParameter_c o_tparm = visitParameter(paramCtx);
 			if (prevTparm != null) {
 				prevTparm.relateAcrossR124ToPrecedes(o_tparm);
 			}
@@ -543,7 +537,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// create a new parameter
 		final OperationParameter_c o_tparm = new OperationParameter_c(modelRoot);
-		o_tparm.setName((String) visit(ctx.param_name));
+		o_tparm.setName(visitName(ctx.param_name));
 
 		// set by value/ref
 		o_tparm.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);

@@ -35,7 +35,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		final Package_c parent_pkg = (Package_c) currentRoot;
 
 		// find or create interface
-		final String iface_name = (String) visit(ctx.iface_name);
+		final String iface_name = visitName(ctx.iface_name);
 		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), parent_pkg.getPackage_id(),
 				iface_name, "", parent_pkg.getPath() + "::" + iface_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
@@ -76,7 +76,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		final Interface_c iface = (Interface_c) currentRoot;
 
 		// parse message info
-		final String name = (String) visit(ctx.msg_name);
+		final String name = visitName(ctx.msg_name);
 		final int direction = "to".equals(ctx.direction.getText()) ? Ifdirectiontype_c.ClientServer
 				: Ifdirectiontype_c.ServerClient;
 
@@ -100,8 +100,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		// process marks
 		// TODO eventually, this should tie in with the marking editor, but for
 		// now it is just used to get the message number
-		@SuppressWarnings("unchecked")
-		final Map<String, Mark> marks = ctx.marks() != null ? (Map<String, Mark>) visit(ctx.marks())
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
 				: Collections.emptyMap();
 		if (marks.containsKey(MESSAGE_NUM)) {
 			c_ep.setNumb(marks.get(MESSAGE_NUM).getInteger());
@@ -153,7 +152,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		// link parameters to each other in order
 		PropertyParameter_c prevPp = null;
 		for (ParameterContext paramCtx : ctx.parameter()) {
-			final PropertyParameter_c c_pp = (PropertyParameter_c) visit(paramCtx);
+			final PropertyParameter_c c_pp = visitParameter(paramCtx);
 			if (prevPp != null) {
 				prevPp.relateAcrossR4021ToPrecedes(c_pp);
 			}
@@ -168,13 +167,13 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 
 		// create a new parameter
 		final PropertyParameter_c c_pp = new PropertyParameter_c(modelRoot);
-		c_pp.setName((String) visit(ctx.param_name));
+		c_pp.setName(visitName(ctx.param_name));
 
 		// set by value/ref
 		c_pp.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);
 
 		// link the data type
-		c_pp.relateAcrossR4007To((DataType_c)visit(ctx.type_reference()));
+		c_pp.relateAcrossR4007To((DataType_c) visit(ctx.type_reference()));
 
 		// set the array dimensions
 		final String dimString = getDimString(ctx.type_reference().array_type_reference());

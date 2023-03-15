@@ -59,6 +59,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public static final String MESSAGE_NUM = "message_num";
 	public static final String OPERATION_NUM = "operation_num";
 	public static final String FUNCTION_NUM = "function_num";
+	public static final String EVENT_NUM = "event_num";
+	public static final String STATE_NUM = "state_num";
 	public static final String SYSTEM_MODEL = "system_model";
 	public static final String USE_GLOBALS = "use_globals";
 	public static final String MULTIPLICITY = "mult";
@@ -74,6 +76,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public static final String NUMBER_RANGE = "start_numbering";
 	public static final String RAW_TYPE_DEF = "raw_definition";
 	public static final String CLASSIFIER_NAME = "classifier_name";
+	public static final String FINAL = "final";
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.executor = PersistenceManager.getDefaultInstance().getSequentialExecutor();
@@ -98,7 +101,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	@Override
 	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
-		final String parentPath = (String) visit(ctx.parent_name);
+		final String parentPath = visitScoped_name(ctx.parent_name);
 		try {
 			// TODO load systems and then navigate to packages and components
 			currentRoot = executor.callAndWait(() -> {
@@ -107,7 +110,9 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				final Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1405(systems);
 				final Component_c[] comps = Component_c
 						.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkgs));
-				return Stream.of(systems, pkgs, comps).flatMap(s -> Stream.of(s))
+				final ModelClass_c[] classes = ModelClass_c
+						.getManyO_OBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkgs));
+				return Stream.of(systems, pkgs, comps, classes).flatMap(s -> Stream.of(s))
 						.filter(selected -> selected.getPath().equals(parentPath)).findAny();
 			});
 			searchRoot = currentRoot;
@@ -119,7 +124,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	@Override
 	public DataType_c visitNamed_type_reference(Named_type_referenceContext ctx) {
-		String typeName = (String) visit(ctx.scoped_name());
+		String typeName = visitScoped_name(ctx.scoped_name());
 		if ("timer".equals(typeName)) {
 			typeName = "inst_ref<Timer>";
 		}
@@ -141,7 +146,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	@Override
 	public DataType_c visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
-			final String refClassPath = (String) visit(ctx.scoped_name());
+			final String refClassPath = visitScoped_name(ctx.scoped_name());
 			final ModelClass_c refClass = executor.callAndWait(
 					() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath, ModelClass_c::getOneO_OBJOnR8001));
 			refClass.Newinstancereferencedatatype();
@@ -156,15 +161,15 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	@Override
 	public DataType_c visitInst_set_type_reference(Inst_set_type_referenceContext ctx) {
 		return DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(
-				ModelClass_c.getOneO_OBJOnR123(
-						InstanceReferenceDataType_c.getOneS_IRDTOnR17((DataType_c) visit(ctx.inst_type_reference()))),
+				ModelClass_c.getOneO_OBJOnR123(InstanceReferenceDataType_c
+						.getOneS_IRDTOnR17(visitInst_type_reference(ctx.inst_type_reference()))),
 				selected -> ((InstanceReferenceDataType_c) selected).getIsset()));
 	}
 
 	@Override
 	public Map<String, Mark> visitMarks(MarksContext ctx) {
 		final Map<String, Mark> marks = new HashMap<>();
-		ctx.mark().forEach(m -> marks.put(m.MarkName().getText().substring(1), (Mark) visit(m)));
+		ctx.mark().forEach(m -> marks.put(m.MarkName().getText().substring(1), visitMark(m)));
 		return Collections.unmodifiableMap(marks);
 	}
 

@@ -13,6 +13,7 @@ definition                         : package_definition
                                      | component_definition
                                      | interface_definition
                                      | class_definition
+                                     | class_item+
                                    ; 
                                    
 package_declaration                : description? marks?
@@ -91,6 +92,10 @@ class_definition                   : description? marks?
 class_item                         : attribute_definition
                                      | identifier_definition
                                      | operation_definition
+                                     | state_definition
+                                     | event_declaration
+                                     | state_machine_definition
+                                     | transition_definition
                                    ;
                                    
 attribute_definition               : base_attribute_definition
@@ -136,6 +141,52 @@ operation_definition               : description? marks?
                                          action_body
                                        'end' 'operation'
                                      )? ';'
+                                   ;
+                                   
+state_definition                   : description? marks?
+                                     class_based='class'?
+                                     'state' state_name=name
+                                     ( '(' parameter_list ')' )?
+                                     (
+                                       'is'
+                                         action_body
+                                       'end' 'state'
+                                     )? ';'
+                                   ;
+
+event_declaration                  : description? marks?
+                                     class_based='class'?
+                                     'event' evt_name=name
+                                     ( '(' parameter_list ')' )?
+                                     ';'
+                                   ;
+                                   
+state_machine_definition           : description? marks?
+                                     class_based='class'?
+                                     'state' 'machine' 'is'
+                                       '|' '|' ( evt_names+=scoped_name '|' )+
+                                       '|' ( Divider '|' )+
+                                       transition_row+
+                                     'end' 'state' 'machine' ';'
+                                   ;
+                                   
+transition_row                     : '|' start_state_name=name '|'
+                                     ( end_states+=transition_destination '|' )+
+                                   ;
+
+transition_destination             : end_state_name=name
+                                     | ig='ignore'
+                                     | ch='cannot_happen'
+                                   ;
+
+transition_definition              : description? marks?
+                                     class_based='class'?
+                                     'transition' start_state_name=name
+                                     '[' evt_name=scoped_name ']' '=>' end_state_name=name
+                                     ( '(' parameter_list ')' )?
+                                     'is'
+                                       action_body
+                                     'end' 'transition' ';'
                                    ;
                                    
 type_forward_declaration           : description? marks?
@@ -307,12 +358,12 @@ IntegerLiteral                     : '0' | '-'? ( '1' .. '9' ) ( '0' .. '9' )*;
 BooleanLiteral                     : 'true' | 'false';
 ID                                 : ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' )*;
 Ext_ID                             : '\'' ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' | ' ' | '\t' )* '\'';
+Divider                            : '---' ( '-' )*;
 
 UnparsedActions                    : '@noparse' .*? '@endnoparse';
                          
 
 // comments and white space
 Comment                            : '//' ~('\n'|'\r')* '\r'? '\n' -> skip;
-SqlComment                         : '--' ~('\n'|'\r')* '\r'? '\n' -> skip;
 BlockComment                       : '/*' .*? '*/' -> skip;
 Whitespace                         : (' ' | '\t' | '\f' | '\n' | '\r' )+ -> skip;
