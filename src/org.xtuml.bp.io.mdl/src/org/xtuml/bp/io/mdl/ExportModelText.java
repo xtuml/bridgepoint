@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
@@ -19,6 +21,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.xtuml.bp.core.ActionHome_c;
+import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -39,10 +43,12 @@ import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
+import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
+import org.xtuml.bp.core.EventIgnored_c;
 import org.xtuml.bp.core.Exception_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.ExternalEntity_c;
@@ -59,7 +65,11 @@ import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.LeafSymbolicConstant_c;
 import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
+import org.xtuml.bp.core.LocalEvent_c;
 import org.xtuml.bp.core.ModelClass_c;
+import org.xtuml.bp.core.MooreActionHome_c;
+import org.xtuml.bp.core.NewStateTransition_c;
+import org.xtuml.bp.core.NonLocalEvent_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -84,12 +94,20 @@ import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.Scope_c;
+import org.xtuml.bp.core.SemEvent_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
+import org.xtuml.bp.core.StateEventMatrixEntry_c;
+import org.xtuml.bp.core.StateMachineEventDataItem_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachineState_c;
+import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.TransitionActionHome_c;
+import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -102,6 +120,7 @@ import org.xtuml.bp.core.sorter.LiteralSymbolicConstant_cSorter;
 import org.xtuml.bp.core.sorter.OperationParameter_cSorter;
 import org.xtuml.bp.core.sorter.Operation_cSorter;
 import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
+import org.xtuml.bp.core.sorter.StateMachineEventDataItem_cSorter;
 import org.xtuml.bp.core.sorter.StructureMember_cSorter;
 import org.xtuml.bp.io.core.ProxyUtil;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
@@ -119,6 +138,7 @@ public class ExportModelText extends ExportModelComponent {
 
 		int getSuc_pars();
 	}
+
 	private int tabDepth = 0;
 	private final Stack<StringBuilder> buffers = new Stack<>();
 
@@ -145,16 +165,11 @@ public class ExportModelText extends ExportModelComponent {
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException {
 		super.run(monitor);
-		// TODO remove this conditional once everything is implemented
-		if (m_inst instanceof Interface_c || m_inst instanceof SystemModel_c || m_inst instanceof Component_c
-				|| m_inst instanceof ModelClass_c || m_inst instanceof Package_c) {
-			// write textual graphics if this is a root that contains a diagram
-			if (m_inst instanceof SystemModel_c || m_inst instanceof Component_c
-					|| m_inst instanceof InstanceStateMachine_c || m_inst instanceof ClassStateMachine_c
-					|| m_inst instanceof Package_c) {
-				CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions()
-						.forEach(extension -> extension.getWriter().write(m_inst));
-			}
+		// write textual graphics if this is a root that contains a diagram
+		if (m_inst instanceof SystemModel_c || m_inst instanceof Component_c || m_inst instanceof InstanceStateMachine_c
+				|| m_inst instanceof ClassStateMachine_c || m_inst instanceof Package_c) {
+			CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions()
+					.forEach(extension -> extension.getWriter().write(m_inst));
 		}
 	}
 
@@ -391,7 +406,7 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			append("%swithin %s is\n\n", getTab(), sanitizePath(metadata.getParent(inst).getPath()));
 			tabDepth++;
 
 			// component metadata
@@ -770,7 +785,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			append("%swithin %s is\n\n", getTab(), sanitizePath(metadata.getParent(inst).getPath()));
 			tabDepth++;
 			inst.getDescrip().strip().lines().forEach(line -> {
 				append("%s//! %s\n", getTab(), line);
@@ -902,7 +917,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			append("%swithin %s is\n\n", getTab(), sanitizePath(metadata.getParent(inst).getPath()));
 			tabDepth++;
 
 			// class metadata
@@ -1038,7 +1053,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%swithin %s is\n\n", getTab(), metadata.getParent(inst).getPath());
+			append("%swithin %s is\n\n", getTab(), sanitizePath(metadata.getParent(inst).getPath()));
 			tabDepth++;
 
 			// package metadata
@@ -1621,15 +1636,9 @@ public class ExportModelText extends ExportModelComponent {
 
 	@Override
 	public String get_file_header(NonRootModelElement element) {
-		// TODO remove this conditional once everything is implemented
-		if (element instanceof Interface_c || element instanceof SystemModel_c || element instanceof Component_c
-				|| element instanceof ModelClass_c || element instanceof Package_c) {
-			return get_file_header("//",
-					element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
-					"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
-		} else {
-			return super.get_file_header(element);
-		}
+		return get_file_header("//",
+				element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
+				"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
 	}
 
 	private void append(String format, Object... args) {
@@ -1722,6 +1731,356 @@ public class ExportModelText extends ExportModelComponent {
 
 	private String sanitizePath(final String path) {
 		return Stream.of(path.split("::")).map(this::sanitizeName).collect(Collectors.joining("::"));
+	}
+
+	@Override
+	protected void export_ClassStateMachine_c(ClassStateMachine_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			export_StateMachine_c(StateMachine_c.getOneSM_SMOnR517(inst), pm, writeAsProxies, isPersistable);
+		} else {
+			write_ClassStateMachine_c_proxy_sql(inst);
+		}
+
+	}
+
+	@Override
+	protected void export_InstanceStateMachine_c(InstanceStateMachine_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			export_StateMachine_c(StateMachine_c.getOneSM_SMOnR517(inst), pm, writeAsProxies, isPersistable);
+		} else {
+			write_InstanceStateMachine_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_StateMachine_c(StateMachine_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%swithin %s is\n\n", getTab(),
+					sanitizePath(metadata.getParent(metadata.getParent(inst)).getPath()));
+			tabDepth++;
+
+			// states
+			final StateMachineState_c[] sm_states = StateMachineState_c.getManySM_STATEsOnR501(inst);
+			for (StateMachineState_c sm_state : Stream.of(sm_states)
+					.sorted(Comparator.comparing(StateMachineState_c::getNumb)).collect(Collectors.toList())) {
+				export_StateMachineState_c(sm_state, pm, writeAsProxies, isPersistable);
+			}
+
+			// events
+			final StateMachineEvent_c[] sm_evts = StateMachineEvent_c.getManySM_EVTsOnR502(inst,
+					selected -> NonLocalEvent_c.getOneSM_NLEVTOnR526(
+							SemEvent_c.getOneSM_SEVTOnR525((StateMachineEvent_c) selected)) == null);
+			for (StateMachineEvent_c sm_evt : Stream.of(sm_evts)
+					.sorted(Comparator.comparing(StateMachineEvent_c::getNumb)).collect(Collectors.toList())) {
+				export_StateMachineEvent_c(sm_evt, pm, writeAsProxies, isPersistable);
+			}
+
+			// transition table
+			final boolean isClassBased = ClassStateMachine_c.getOneSM_ASMOnR517(inst) != null;
+			final Transition_c[] txns = Transition_c.getManySM_TXNsOnR505(inst);
+			if (txns.length > 0) {
+				append("%s%sstate machine is\n\n", getTab(), isClassBased ? "class " : "");
+				tabDepth++;
+
+				// TODO signal events
+				// TODO individual cell descriptions
+				// TODO no event transition
+
+				// get events and start states
+				final List<StateMachineEvent_c> semEvents = Stream
+						.of(StateMachineEvent_c.getManySM_EVTsOnR525(
+								SemEvent_c.getManySM_SEVTsOnR525(StateMachineEvent_c.getManySM_EVTsOnR502(inst))))
+						.sorted(Comparator.comparing(StateMachineEvent_c::Islocal).reversed()
+								.thenComparing(StateMachineEvent_c::Getclassname)
+								.thenComparing(StateMachineEvent_c::getNumb))
+						.collect(Collectors.toList());
+				final List<StateMachineState_c> startStates = Stream.of(sm_states)
+						.sorted(Comparator.comparing(StateMachineState_c::getNumb)).collect(Collectors.toList());
+
+				// create a matrix of strings to hold the transitions
+				final List<List<String>> matrix = new ArrayList<>();
+
+				// create header row (events)
+				matrix.add(Stream
+						.concat(Stream.of(""),
+								semEvents.stream().map(evt -> evt.Islocal() ? sanitizeName(evt.getMning())
+										: sanitizeName(evt.Getclassname()) + "::" + sanitizeName(evt.getMning())))
+						.collect(Collectors.toList()));
+
+				// create a row for creation transitions (if they exist)
+				final CreationTransition_c[] crTxns = CreationTransition_c.getManySM_CRTXNsOnR507(txns);
+				if (crTxns.length > 0) {
+					matrix.add(Stream.concat(Stream.of("non_existent"), semEvents.stream().map(evt -> {
+						final StateMachineState_c destState = StateMachineState_c.getOneSM_STATEOnR506(
+								Transition_c.getOneSM_TXNOnR507(CreationTransition_c.getOneSM_CRTXNOnR509(
+										LocalEvent_c.getOneSM_LEVTOnR526(SemEvent_c.getOneSM_SEVTOnR525(evt)))));
+						return destState != null ? sanitizeName(destState.getName()) : "cannot_happen";
+					})).collect(Collectors.toList()));
+				}
+
+				// create a row for each start state
+				for (StateMachineState_c startState : startStates) {
+					matrix.add(
+							Stream.concat(Stream.of(sanitizeName(startState.getName())), semEvents.stream().map(evt -> {
+								final StateEventMatrixEntry_c seme = StateEventMatrixEntry_c.getOneSM_SEMEOnR503(
+										SemEvent_c.getOneSM_SEVTOnR525(evt),
+										selected -> ((StateEventMatrixEntry_c) selected).getSmstt_id()
+												.equals(startState.getSmstt_id()));
+								final StateMachineState_c destState = StateMachineState_c
+										.getOneSM_STATEOnR506(Transition_c
+												.getOneSM_TXNOnR507(NewStateTransition_c.getOneSM_NSTXNOnR504(seme)));
+								final EventIgnored_c ei = EventIgnored_c.getOneSM_EIGNOnR504(seme);
+								return destState != null ? sanitizeName(destState.getName())
+										: (ei != null ? "ignore" : "cannot_happen");
+							})).collect(Collectors.toList()));
+				}
+
+				// get the maximum cell width
+				final int maxWidth = Integer.max(matrix.stream().flatMap(row -> row.stream()).map(s -> s.length())
+						.max(Integer::compareTo).orElse(0), 3);
+
+				// add a divider row
+				matrix.add(1,
+						Stream.generate(() -> Stream.generate(() -> "-").limit(maxWidth).collect(Collectors.joining()))
+								.limit(semEvents.size() + 1).collect(Collectors.toList()));
+
+				// format the matrix
+				for (List<String> row : matrix) {
+					append("%s| %s |\n", getTab(), row.stream().map(s -> String.format("%-" + maxWidth + "s", s))
+							.collect(Collectors.joining(" | ")));
+				}
+
+				tabDepth--;
+				append("\n%send state machine;\n\n", getTab());
+			}
+
+			// state actions
+			final Action_c[] actions = Action_c.getManySM_ACTsOnR515(inst,
+					selected -> !((Action_c) selected).getAction_semantics().isBlank());
+			for (Action_c act : Stream.of(actions)
+					.filter(act -> MooreActionHome_c.getOneSM_MOAHOnR513(ActionHome_c.getOneSM_AHOnR514(act)) != null)
+					.sorted(Comparator.comparing(act -> StateMachineState_c
+							.getOneSM_STATEOnR511(
+									MooreActionHome_c.getOneSM_MOAHOnR513(ActionHome_c.getOneSM_AHOnR514(act)))
+							.getName()))
+					.collect(Collectors.toList())) {
+				final StateMachineState_c state = StateMachineState_c.getOneSM_STATEOnR511(
+						MooreActionHome_c.getOneSM_MOAHOnR513(ActionHome_c.getOneSM_AHOnR514(act)));
+				append("%s%sstate %s", getTab(), isClassBased ? "class " : "", sanitizeName(state.getName()));
+
+				// build parameter list
+				StateMachineEvent_c evt = StateMachineEvent_c.getOneSM_EVTOnR525(SemEvent_c
+						.getManySM_SEVTsOnR503(StateEventMatrixEntry_c.getManySM_SEMEsOnR504(NewStateTransition_c
+								.getManySM_NSTXNsOnR507(Transition_c.getManySM_TXNsOnR506(state)))));
+				if (evt == null) {
+					evt = StateMachineEvent_c.getOneSM_EVTOnR525(
+							SemEvent_c.getManySM_SEVTsOnR526(LocalEvent_c.getManySM_LEVTsOnR509(CreationTransition_c
+									.getManySM_CRTXNsOnR507(Transition_c.getManySM_TXNsOnR506(state)))));
+				}
+				final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(evt);
+				new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
+				final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
+					buffers.push(new StringBuilder());
+					try {
+						export_StateMachineEventDataItem_c(sm_evtdi, pm, writeAsProxies, isPersistable);
+					} catch (IOException e) {
+						throw new UncheckedIOException(e);
+					}
+					return buffers.pop().toString();
+				}).collect(Collectors.joining(", "));
+				if (!parameterList.isBlank()) {
+					append("(%s)", parameterList);
+				}
+
+				// append inner actions
+				append(" is\n");
+				tabDepth++;
+				append("%s@noparse\n", getTab());
+				act.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				append("%s@endnoparse\n", getTab());
+				tabDepth--;
+				append("%send state;\n\n", getTab());
+
+			}
+
+			// transition actions
+			for (Action_c act : Stream.of(actions).filter(
+					act -> TransitionActionHome_c.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514(act)) != null)
+					.sorted(Comparator.comparing(act -> {
+						final StateMachineState_c startState = StateMachineState_c
+								.getOneSM_STATEOnR503(StateEventMatrixEntry_c.getOneSM_SEMEOnR504(NewStateTransition_c
+										.getOneSM_NSTXNOnR507(Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c
+												.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514((Action_c) act))))));
+						return startState != null ? startState.getName() : "";
+					}).thenComparing(act -> {
+						StateMachineEvent_c evt = StateMachineEvent_c.getOneSM_EVTOnR525(SemEvent_c.getOneSM_SEVTOnR503(
+								StateEventMatrixEntry_c.getOneSM_SEMEOnR504(NewStateTransition_c.getOneSM_NSTXNOnR507(
+										Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c.getOneSM_TAHOnR513(
+												ActionHome_c.getOneSM_AHOnR514((Action_c) act)))))));
+						if (evt == null) {
+							evt = StateMachineEvent_c.getOneSM_EVTOnR525(SemEvent_c.getOneSM_SEVTOnR526(
+									LocalEvent_c.getOneSM_LEVTOnR509(CreationTransition_c.getOneSM_CRTXNOnR507(
+											Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c.getOneSM_TAHOnR513(
+													ActionHome_c.getOneSM_AHOnR514((Action_c) act)))))));
+
+						}
+						return evt.getNumb();
+
+					})).collect(Collectors.toList())) {
+				final StateMachineState_c startState = StateMachineState_c
+						.getOneSM_STATEOnR503(StateEventMatrixEntry_c.getOneSM_SEMEOnR504(NewStateTransition_c
+								.getOneSM_NSTXNOnR507(Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c
+										.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514((Action_c) act))))));
+				final StateMachineState_c destState = StateMachineState_c
+						.getOneSM_STATEOnR506(Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c
+								.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514((Action_c) act))));
+				StateMachineEvent_c evt = StateMachineEvent_c.getOneSM_EVTOnR525(
+						SemEvent_c.getOneSM_SEVTOnR503(StateEventMatrixEntry_c.getOneSM_SEMEOnR504(NewStateTransition_c
+								.getOneSM_NSTXNOnR507(Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c
+										.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514((Action_c) act)))))));
+				if (evt == null) {
+					evt = StateMachineEvent_c.getOneSM_EVTOnR525(
+							SemEvent_c.getOneSM_SEVTOnR526(LocalEvent_c.getOneSM_LEVTOnR509(CreationTransition_c
+									.getOneSM_CRTXNOnR507(Transition_c.getOneSM_TXNOnR530(TransitionActionHome_c
+											.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514((Action_c) act)))))));
+
+				}
+
+				append("%s%stransition %s [%s] -> %s", getTab(), isClassBased ? "class " : "",
+						startState != null ? sanitizeName(startState.getName()) : "non_existent",
+						sanitizeName(evt.getMning()), sanitizeName(destState.getName()));
+
+				// build parameter list
+				final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(evt);
+				new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
+				final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
+					buffers.push(new StringBuilder());
+					try {
+						export_StateMachineEventDataItem_c(sm_evtdi, pm, writeAsProxies, isPersistable);
+					} catch (IOException e) {
+						throw new UncheckedIOException(e);
+					}
+					return buffers.pop().toString();
+				}).collect(Collectors.joining(", "));
+				if (!parameterList.isBlank()) {
+					append("(%s)", parameterList);
+				}
+
+				// append inner actions
+				append(" is\n");
+				tabDepth++;
+				append("%s@noparse\n", getTab());
+				act.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				append("%s@endnoparse\n", getTab());
+				tabDepth--;
+				append("%send transition;\n\n", getTab());
+
+			}
+
+			tabDepth--;
+			append("%send;\n", getTab());
+		} else {
+			write_StateMachine_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_StateMachineState_c(StateMachineState_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final boolean isClassBased = ClassStateMachine_c
+					.getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR501(inst)) != null;
+
+			// state metadata
+			// the description of a state is on the action
+			Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(MooreActionHome_c.getOneSM_MOAHOnR511(inst)))
+					.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
+			if (inst.getFinal() != 0) {
+				append("%s@final;\n", getTab());
+			}
+
+			append("%s%sstate %s;\n\n", getTab(), isClassBased ? "class " : "", sanitizeName(inst.getName()));
+
+		} else {
+			write_StateMachineState_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_StateMachineEvent_c(StateMachineEvent_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final boolean isClassBased = ClassStateMachine_c
+					.getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR502(inst)) != null;
+
+			// event metadata
+			inst.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
+			append("%s@event_number(%d);\n", getTab(), inst.getNumb());
+			if (inst.getIs_lbl_u() != 0 && !inst.getUnq_lbl().isBlank()) {
+				append("%s@key_letters(\"%s\"", getTab(), inst.getUnq_lbl().strip());
+			}
+
+			append("%s%sevent %s", getTab(), isClassBased ? "class " : "", sanitizeName(inst.getMning()));
+
+			// build the parameter list
+			final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(inst);
+			new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
+			final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
+				buffers.push(new StringBuilder());
+				try {
+					export_StateMachineEventDataItem_c(sm_evtdi, pm, writeAsProxies, isPersistable);
+				} catch (IOException e) {
+					throw new UncheckedIOException(e);
+				}
+				return buffers.pop().toString();
+			}).collect(Collectors.joining(", "));
+			if (!parameterList.isBlank()) {
+				append("(%s)", parameterList);
+			}
+
+			append(";\n\n");
+
+		} else {
+			write_StateMachineEvent_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_StateMachineEventDataItem_c(StateMachineEventDataItem_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: in %s", inst.getName(),
+					getTypeReference(DataType_c.getOneS_DTOnR524(inst), inst.getDimensions()));
+		} else {
+			write_StateMachineEventDataItem_c_proxy_sql(inst);
+		}
 	}
 
 }
