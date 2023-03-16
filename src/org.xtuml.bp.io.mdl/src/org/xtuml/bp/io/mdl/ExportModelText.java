@@ -421,7 +421,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
 			}
 			if (inst.getIsrealized()) {
-				append("%s@realized");
+				append("%s@realized", getTab());
 				if (!inst.getRealized_class_path().isBlank()) {
 					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
 				}
