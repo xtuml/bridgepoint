@@ -1,32 +1,13 @@
-= What's New in BridgePoint 7.2
+= What's New in BridgePoint 7.4
 
 == Release Highlights
-* Textual graphics persistence
-* CLI produces non-zero exit code for failed command line pre-builds
-* Support for MASL structure and enumeration type export
-* MASL export "clean" option
-* `pyrsl` version upgrade
-* Miscellaneous revisions to documentation
-* Bug fixes:
-  ** Parse failure on function call within "if" blocks
-  ** Unsaved MASL editor changes lost on structural change
-  ** Marking editor fixes
-  ** Miscellaneous verifier bug fixes
-
-'''
-
-=== Textual Graphics
-
-BridgePoint now supports persistence of graphical instances in a human-readable
-textual format. Textual persistence of graphics can be enabled on a per
-workspace basis.
-
-. Go to Preferences > xtUML > Model Persistence
-. Select "Yes" under "Graphics Textual Serialization" to enable persisting
-graphics as text
-
-BridgePoint continues to support serializing graphical instances as SQL insert
-statements. Select your preference in "Graphical Instance Serialization". If
-graphical instances are persisted as both SQL insert statements and text files,
-the data in the SQL insert statements will take precedence over the text files
-and the text files will be ignored.
+* Verifier bug fixes and improvements
+  ** Support for interface message parameters of instance reference types
+  ** "Select many" bug fix
+  ** Associative link cardinality bug fix
+  ** Session explorer display fix
+  ** Include JDT in the modeler version of the tool
+* Association editor fixes and improvements
+  ** Migrating link class fix
+  ** Support for "symmetric" reflexive associations
+* Support for ARM64 architecture for MacOS and Linux
