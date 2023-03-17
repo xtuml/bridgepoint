@@ -251,8 +251,15 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
 			final Function<PackageableElement_c, T> resultMapper) {
+		return searchByPath(elementType, path, resultMapper, true);
+	}
+
+	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
+			final Function<PackageableElement_c, T> resultMapper, boolean includeDeclarations) {
 		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(resultMapper)
-				.filter(Objects::nonNull).filter(o -> o.getPath().endsWith(path)).collect(Collectors.toList());
+				.filter(Objects::nonNull).filter(o -> o.getPath().endsWith(path))
+				.filter(o -> includeDeclarations || !o.isDeclarationOnly())
+				.collect(Collectors.toList());
 		if (results.isEmpty()) {
 			return Optional.empty();
 		} else if (results.size() == 1) {
@@ -267,6 +274,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			return findVisibleElements((Package_c) element, elementType);
 		} else if (element instanceof Component_c) {
 			return findVisibleElements((Component_c) element, elementType);
+		} else if (element instanceof ModelClass_c) {
+			return findVisibleElements(PackageableElement_c.getOnePE_PEOnR8001((ModelClass_c) element), elementType);
 		} else if (element instanceof PackageableElement_c) {
 			final Package_c pkg = Package_c.getOneEP_PKGOnR8000((PackageableElement_c) element);
 			final Component_c comp = Component_c.getOneC_COnR8003((PackageableElement_c) element);
@@ -301,8 +310,12 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return List.of(PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
 	}
 
-	@SuppressWarnings("unchecked")
 	protected <T extends NonRootModelElement> T findOrCreate(Class<T> type, String path) {
+		return findOrCreate(type, path, false);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <T extends NonRootModelElement> T findOrCreate(Class<T> type, String path, boolean createAsDeclaration) {
 		T instance = null;
 		try {
 			final Method selectAnyWhere = type.getMethod(type.getSimpleName().replace("_c", "") + "Instance",
@@ -313,6 +326,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			if (instance == null) {
 				final Constructor<T> constructor = type.getConstructor(ModelRoot.class);
 				instance = constructor.newInstance(modelRoot);
+				instance.setDeclarationOnly(createAsDeclaration);
 			}
 			return instance;
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException

@@ -69,6 +69,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		// are loaded
 		pe.relateAcrossR8000To(parent_pkg);
 
+		iface.setDeclarationOnly(false);
 		return iface;
 	}
 

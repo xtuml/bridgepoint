@@ -508,7 +508,7 @@ public class PersistenceManager {
 
 		if (!pmcsToLoad.isEmpty()) {
 
-			System.out.println("Triggered load... " + pmcsToLoad.size());
+			System.out.println("Triggered load [reload=" + reload + "]... " + pmcsToLoad.size());
 			
 			// launch each load in a new thread
 			sequentialExecutor = new SequentialExecutor(loadExecutor);

@@ -404,7 +404,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	public Interface_c visitInterface_declaration(Interface_declarationContext ctx) {
 		final Package_c parentPkg = (Package_c) currentRoot;
 		final String ifaceName = visitName(ctx.iface_name);
-		final Interface_c iface = findOrCreate(Interface_c.class, parentPkg.getPath() + "::" + ifaceName);
+		final Interface_c iface = findOrCreate(Interface_c.class, parentPkg.getPath() + "::" + ifaceName, true);
 		iface.setName(ifaceName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(iface);
@@ -668,6 +668,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final String refClassPath = visitScoped_name(ctx.ref_name);
 				final ModelClass_c refClass;
 				try {
+					// TODO this might cause a circular reference
 					refClass = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath,
 							ModelClass_c::getOneO_OBJOnR8001));
 				} catch (Exception e) {

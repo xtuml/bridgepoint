@@ -338,35 +338,43 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 			throw new CoreImport.XtumlLoadException("Failed to find association 'R" + relNum + "'.", e);
 		}
 
-		// try with just the relationship number
-		ReferredToClassInAssoc_c[] rtos = ReferredToClassInAssoc_c
-				.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel));
-		if (rtos.length == 1) {
-			return rtos[0];
-		}
+		try {
+			return executor.callAndWait(() -> {
+				// try with just the relationship number
+				ReferredToClassInAssoc_c[] rtos = ReferredToClassInAssoc_c
+						.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel));
+				if (rtos.length == 1) {
+					return Optional.of(rtos[0]);
+				}
 
-		// try with the class name and relationship number
-		if (ctx.class_or_role != null && ctx.class_name == null) {
-			rtos = ReferredToClassInAssoc_c.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel,
-					selected -> ModelClass_c.getOneO_OBJOnR201((ClassInAssociation_c) selected).getName()
-							.equals(visit(ctx.class_or_role))));
-			if (rtos.length == 1) {
-				return rtos[0];
-			}
-		}
+				// try with the class name and relationship number
+				if (ctx.class_or_role != null && ctx.class_name == null) {
+					rtos = ReferredToClassInAssoc_c.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel,
+							selected -> ModelClass_c.getOneO_OBJOnR201((ClassInAssociation_c) selected).getName()
+									.equals(visit(ctx.class_or_role))));
+					if (rtos.length == 1) {
+						return Optional.of(rtos[0]);
+					}
+				}
 
-		// try with the class name, relationship number, and role phrase
-		if (ctx.class_or_role != null && ctx.class_name != null) {
-			rtos = ReferredToClassInAssoc_c.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel,
-					selected -> ModelClass_c.getOneO_OBJOnR201((ClassInAssociation_c) selected).getName()
-							.equals(visit(ctx.class_name))
-							&& ((ClassInAssociation_c) selected).Get_text_phrase().equals(visit(ctx.class_or_role))));
-			if (rtos.length == 1) {
-				return rtos[0];
-			}
-		}
+				// try with the class name, relationship number, and role phrase
+				if (ctx.class_or_role != null && ctx.class_name != null) {
+					rtos = ReferredToClassInAssoc_c.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel,
+							selected -> ModelClass_c.getOneO_OBJOnR201((ClassInAssociation_c) selected).getName()
+									.equals(visit(ctx.class_name))
+									&& ((ClassInAssociation_c) selected).Get_text_phrase()
+											.equals(visit(ctx.class_or_role))));
+					if (rtos.length == 1) {
+						return Optional.of(rtos[0]);
+					}
+				}
 
-		throw new CoreImport.XtumlLoadException("Failed to find referred to object '" + ctx.getText() + "'.");
+				return Optional.empty();
+			});
+
+		} catch (Exception e) {
+			throw new CoreImport.XtumlLoadException("Failed to find referred to object '" + ctx.getText() + "'.", e);
+		}
 	}
 
 	@Override

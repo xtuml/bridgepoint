@@ -105,7 +105,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		if (ctx.iface_name != null) {
 			try {
 				iface = executor.callAndWait(
-						() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath, Interface_c::getOneC_IOnR8001));
+						() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath, Interface_c::getOneC_IOnR8001, false));
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException(
 						"Failed to find interface '" + visit(ctx.iface_name) + "' for port definition.", e);

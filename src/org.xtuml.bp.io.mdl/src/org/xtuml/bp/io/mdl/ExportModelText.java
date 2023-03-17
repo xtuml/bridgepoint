@@ -244,26 +244,24 @@ public class ExportModelText extends ExportModelComponent {
 			new AttributeReferenceInClass_cSorter().sort(refs);
 			if (refs.length > 0) {
 				append("referential (");
-			}
-			for (AttributeReferenceInClass_c ref : refs) {
-				final ReferredToIdentifierAttribute_c rtida = ReferredToIdentifierAttribute_c.getOneO_RTIDAOnR111(ref);
-				final ClassInAssociation_c oir = ClassInAssociation_c
-						.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR110(rtida));
-				final Association_c rel = Association_c.getOneR_RELOnR201(oir);
-				append("R%d.", rel.getNumb());
-				if (ref.getRobj_id().equals(ref.getObj_id())) {
-					append("%s.", sanitizeName(oir.Get_text_phrase()));
-				}
-				final Attribute_c ref_attr = Attribute_c
-						.getOneO_ATTROnR105(ClassIdentifierAttribute_c.getOneO_OIDAOnR110(rtida));
-				final ModelClass_c obj = ModelClass_c.getOneO_OBJOnR102(ref_attr);
-				append("%s.%s", sanitizeName(obj.getName()), ref_attr.getName());
-				ref = AttributeReferenceInClass_c.getOneO_REFOnR112Precedes(ref);
-				if (ref != null) {
-					append(", ");
-				}
-			}
-			if (refs.length > 0) {
+				append(Stream.of(refs).map(ref -> {
+					buffers.push(new StringBuilder());
+					final ReferredToIdentifierAttribute_c rtida = ReferredToIdentifierAttribute_c
+							.getOneO_RTIDAOnR111(ref);
+					final ClassInAssociation_c oir = ClassInAssociation_c
+							.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR110(rtida));
+					final Association_c rel = Association_c.getOneR_RELOnR201(oir);
+					append("R%d.", rel.getNumb());
+					if (ClassInAssociation_c.getManyR_OIRsOnR201(rel, selected -> ((ClassInAssociation_c) selected)
+							.getObj_id().equals(ref.getRobj_id())).length > 1) {
+						append("%s.", sanitizeName(oir.Get_text_phrase()));
+					}
+					final Attribute_c ref_attr = Attribute_c
+							.getOneO_ATTROnR105(ClassIdentifierAttribute_c.getOneO_OIDAOnR110(rtida));
+					final ModelClass_c obj = ModelClass_c.getOneO_OBJOnR102(ref_attr);
+					append("%s.%s", sanitizeName(obj.getName()), ref_attr.getName());
+					return buffers.pop().toString();
+				}).collect(Collectors.joining(", ")));
 				append(") ");
 			}
 

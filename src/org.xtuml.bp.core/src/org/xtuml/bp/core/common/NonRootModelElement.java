@@ -91,6 +91,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	protected String m_modelPath;
 	protected IFile file;
 	private UUID m_id = Gd_c.Null_unique_id();
+	private boolean declarationOnly = false;
 
 	protected NonRootModelElement(ModelRoot root) {
 		m_parent_root = root;
@@ -1223,6 +1224,14 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		} else {
 			return this;
 		}
+	}
+	
+	public boolean isDeclarationOnly() {
+		return declarationOnly;
+	}
+	
+	public void setDeclarationOnly(boolean value) {
+		declarationOnly = value;
 	}
 
 }
