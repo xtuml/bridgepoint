@@ -35,7 +35,7 @@ shall be updated to be compliant with the specification.
 === 3.3 BridgePoint Marking Persistence
 
 The BridgePoint marking editor shall be updated to be compliant with the
-specification of marking data.  og77tpy70t0 p
+specification of marking data.
 
 === 3.4 Preferences
 
@@ -157,6 +157,22 @@ already exist in the model and would result in duplicates.
 ==== 5.3 Handling cross references
 
 TODO
+
+==== 5.X TODOs
+
+- Components defined within other components
+- Overloaded operations
+- Deferred operations (required/optional)
+- Type forward declarations
+- Support for all types of constant expressions 
+- Multiple unassigned transitions
+- Descriptions on parameters
+- Delegations, component nesting
+- Deployment full support
+- Multiple component references
+- Signal events
+- Transition cell descriptions
+- Scoped naming
 
 == 6 Design Comments
 
