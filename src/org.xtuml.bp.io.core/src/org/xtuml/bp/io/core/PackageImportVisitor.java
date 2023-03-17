@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.xtuml.bp.core.Actiondialect_c;
@@ -59,7 +58,6 @@ import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Bridge_definitionContext;
@@ -98,8 +96,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	public NonRootModelElement visitPackage_definition(Package_definitionContext ctx) {
 		// find or create package
 		final String pkgName = visitName(ctx.pkg_name);
-		final Package_c pkg = Package_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				IdAssigner.NULL_UUID, "", "", 0, currentRoot.getPath() + "::" + pkgName);
+		final Package_c pkg = findOrCreate(Package_c.class, currentRoot.getPath() + "::" + pkgName);
 		pkg.setName(pkgName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(pkg);
@@ -157,8 +154,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create type
 		final String typeName = visitName(ctx.type_name);
-		final DataType_c type = DataType_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "", "",
-				"", parentPkg.getPath() + "::" + typeName);
+		final DataType_c type = findOrCreate(DataType_c.class, parentPkg.getPath() + "::" + typeName);
 		type.setName(typeName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(type);
@@ -313,8 +309,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create exception
 		final String exceptionName = visitName(ctx.exception_name);
-		final Exception_c exception = Exception_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "",
-				parentPkg.getPath() + "::" + exceptionName);
+		final Exception_c exception = findOrCreate(Exception_c.class, parentPkg.getPath() + "::" + exceptionName);
 		exception.setName(exceptionName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(exception);
@@ -339,8 +334,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create constant group
 		final String constantGroupName = visitName(ctx.group_name);
-		final ConstantSpecification_c constantGroup = ConstantSpecification_c.resolveInstance(modelRoot,
-				UUID.randomUUID(), "", "", parentPkg.getPath() + "::" + constantGroupName);
+		final ConstantSpecification_c constantGroup = findOrCreate(ConstantSpecification_c.class,
+				parentPkg.getPath() + "::" + constantGroupName);
 		constantGroup.setInformalgroupname(constantGroupName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(constantGroup);
@@ -377,8 +372,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create constant
 		final String constantName = visitName(ctx.constant_name);
-		final SymbolicConstant_c constant = SymbolicConstant_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "",
-				IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, IdAssigner.NULL_UUID,
+		final SymbolicConstant_c constant = findOrCreate(SymbolicConstant_c.class,
 				constantGroup.getPath() + "::" + constantName);
 		constant.setName(constantName);
 
@@ -410,8 +404,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 	public Interface_c visitInterface_declaration(Interface_declarationContext ctx) {
 		final Package_c parentPkg = (Package_c) currentRoot;
 		final String ifaceName = visitName(ctx.iface_name);
-		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "",
-				"", parentPkg.getPath() + "::" + ifaceName);
+		final Interface_c iface = findOrCreate(Interface_c.class, parentPkg.getPath() + "::" + ifaceName);
 		iface.setName(ifaceName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(iface);
@@ -427,8 +420,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create external entity
 		final String eeName = visitName(ctx.ee_name);
-		final ExternalEntity_c ee = ExternalEntity_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "", "",
-				IdAssigner.NULL_UUID, "", "", false, parentPkg.getPath() + "::" + eeName);
+		final ExternalEntity_c ee = findOrCreate(ExternalEntity_c.class, parentPkg.getPath() + "::" + eeName);
 		ee.setName(eeName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(ee);
@@ -470,8 +462,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create bridge
 		final String bridgeName = visitName(ctx.brg_name);
-		final Bridge_c bridge = Bridge_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "", "", 0,
-				IdAssigner.NULL_UUID, "", 0, "", 0, ee.Getpath() + "::" + bridgeName);
+		final Bridge_c bridge = findOrCreate(Bridge_c.class, ee.getPath() + "::" + bridgeName);
 		bridge.setName(bridgeName);
 
 		// set description
@@ -524,8 +515,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create function
 		final String funcName = visitName(ctx.func_name);
-		final Function_c func = Function_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID, "", "",
-				"", IdAssigner.NULL_UUID, 0, "", 0, 0, parentPkg.getPath() + "::" + funcName);
+		final Function_c func = findOrCreate(Function_c.class, parentPkg.getPath() + "::" + funcName);
 		func.setName(funcName);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(func);
@@ -701,8 +691,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			return importedClass;
 		} else {
-			final ModelClass_c modelClass = ModelClass_c.resolveInstance(modelRoot, UUID.randomUUID(), "", 0, "", "",
-					IdAssigner.NULL_UUID, parentPkg.getPath() + "::" + className);
+			final ModelClass_c modelClass = findOrCreate(ModelClass_c.class, parentPkg.getPath() + "::" + className);
 			modelClass.setName(className);
 			final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 			pe.relateAcrossR8001To(modelClass);
@@ -719,8 +708,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create relationship
 		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
-		final Association_c rel = Association_c.resolveInstance(modelRoot, UUID.randomUUID(), 0, "",
-				IdAssigner.NULL_UUID, parentPkg.getPath() + "::R" + relNum);
+		final Association_c rel = findOrCreate(Association_c.class, parentPkg.getPath() + "::R" + relNum);
 		rel.setNumb(relNum);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(rel);
@@ -811,8 +799,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create relationship
 		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
-		final Association_c rel = Association_c.resolveInstance(modelRoot, UUID.randomUUID(), 0, "",
-				IdAssigner.NULL_UUID, parentPkg.getPath() + "::R" + relNum);
+		final Association_c rel = findOrCreate(Association_c.class, parentPkg.getPath() + "::R" + relNum);
 		rel.setNumb(relNum);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(rel);
@@ -928,8 +915,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create relationship
 		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
-		final Association_c rel = Association_c.resolveInstance(modelRoot, UUID.randomUUID(), 0, "",
-				IdAssigner.NULL_UUID, parentPkg.getPath() + "::R" + relNum);
+		final Association_c rel = findOrCreate(Association_c.class, parentPkg.getPath() + "::R" + relNum);
 		rel.setNumb(relNum);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(rel);
@@ -1060,9 +1046,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			return compRef;
 		} else {
-			final Component_c comp = Component_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-					IdAssigner.NULL_UUID, "", "", 0, IdAssigner.NULL_UUID, false, "", "",
-					parentPkg.getPath() + "::" + compName);
+			final Component_c comp = findOrCreate(Component_c.class, parentPkg.getPath() + "::" + compName);
 			comp.setName(compName);
 			final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 			pe.relateAcrossR8001To(comp);

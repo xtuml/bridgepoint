@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,7 +38,6 @@ import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.DefinitionContext;
@@ -72,12 +70,8 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// find or create state
 		final String stateName = visitName(ctx.state_name);
-		final StateMachineState_c state = Optional
-				.ofNullable(StateMachineState_c.StateMachineStateInstance(modelRoot,
-						selected -> ((StateMachineState_c) selected).getPath()
-								.equals(stateMachine.getPath() + "::" + stateName)))
-				.orElseGet(() -> StateMachineState_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-						IdAssigner.NULL_UUID, "", 0, 0, stateMachine.getPath() + "::" + stateName));
+		final StateMachineState_c state = findOrCreate(StateMachineState_c.class,
+				stateMachine.getPath() + "::" + stateName);
 		state.setName(stateName);
 
 		// handle marks
@@ -129,8 +123,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// find or create event
 		final String eventName = visitName(ctx.evt_name);
-		final StateMachineEvent_c evt = StateMachineEvent_c.resolveInstance(modelRoot, UUID.randomUUID(),
-				IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, 0, "", 0, "", "", "",
+		final StateMachineEvent_c evt = findOrCreate(StateMachineEvent_c.class,
 				stateMachine.getPath() + "::" + eventName);
 		evt.setMning(eventName);
 
@@ -372,7 +365,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 	private StateMachine_c getStateMachine(ModelClass_c modelClass, boolean isClassBased) {
 
 		// find or create state machine
-		final StateMachine_c stateMachine = StateMachine_c.resolveInstance(modelRoot, UUID.randomUUID(), "", 0,
+		final StateMachine_c stateMachine = findOrCreate(StateMachine_c.class,
 				modelClass.getPath() + "::" + (isClassBased ? "Class State Machine" : "Instance State Machine"));
 
 		// link to class if not already

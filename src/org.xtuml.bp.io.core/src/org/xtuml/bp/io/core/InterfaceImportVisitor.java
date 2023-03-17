@@ -3,7 +3,6 @@ package org.xtuml.bp.io.core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.xtuml.bp.core.DataType_c;
@@ -36,8 +35,8 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 
 		// find or create interface
 		final String iface_name = visitName(ctx.iface_name);
-		final Interface_c iface = Interface_c.resolveInstance(modelRoot, UUID.randomUUID(), parent_pkg.getPackage_id(),
-				iface_name, "", parent_pkg.getPath() + "::" + iface_name);
+		final Interface_c iface = findOrCreate(Interface_c.class, parent_pkg.getPath() + "::" + iface_name);
+		iface.setName(iface_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(iface);
 		pe.setVisibility(Visibility_c.Public);
@@ -51,15 +50,17 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		}
 
 		// Process the executable properties
-		final List<ExecutableProperty_c> c_eps = ctx.message_definition().stream()
-				.map(this::visitMessage_definition).collect(Collectors.toList());
+		final List<ExecutableProperty_c> c_eps = ctx.message_definition().stream().map(this::visitMessage_definition)
+				.collect(Collectors.toList());
 
 		// link individual operations and signals together
-		final InterfaceOperation_c[] c_ios = InterfaceOperation_c.getManyC_IOsOnR4004(c_eps.toArray(new ExecutableProperty_c[0]));
+		final InterfaceOperation_c[] c_ios = InterfaceOperation_c
+				.getManyC_IOsOnR4004(c_eps.toArray(new ExecutableProperty_c[0]));
 		for (int i = 0; i + 1 < c_ios.length; i++) {
 			c_ios[i].relateAcrossR4019ToPrecedes(c_ios[i + 1]);
 		}
-		final InterfaceSignal_c[] c_ass = InterfaceSignal_c.getManyC_ASsOnR4004(c_eps.toArray(new ExecutableProperty_c[0]));
+		final InterfaceSignal_c[] c_ass = InterfaceSignal_c
+				.getManyC_ASsOnR4004(c_eps.toArray(new ExecutableProperty_c[0]));
 		for (int i = 0; i + 1 < c_ass.length; i++) {
 			c_ass[i].relateAcrossR4020ToPrecedes(c_ass[i + 1]);
 		}
@@ -81,8 +82,9 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 				: Ifdirectiontype_c.ServerClient;
 
 		// find or create executable property
-		final ExecutableProperty_c c_ep = ExecutableProperty_c.resolveInstance(modelRoot, UUID.randomUUID(),
-				iface.getId(), direction, name, "", 0, iface.getPath() + "::" + name);
+		final ExecutableProperty_c c_ep = findOrCreate(ExecutableProperty_c.class, iface.getPath() + "::" + name);
+		c_ep.setName(name);
+		c_ep.setDirection(direction);
 		if (ctx.type_reference() != null) {
 			c_ep.unrelateAcrossR4004From(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
 			final InterfaceOperation_c c_io = new InterfaceOperation_c(modelRoot);
@@ -100,8 +102,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		// process marks
 		// TODO eventually, this should tie in with the marking editor, but for
 		// now it is just used to get the message number
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MESSAGE_NUM)) {
 			c_ep.setNumb(marks.get(MESSAGE_NUM).getInteger());
 		}
@@ -140,7 +141,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 			visit(ctx.parameter_list());
 			currentRoot = iface;
 		}
-		
+
 		// relate to the interface
 		c_ep.relateAcrossR4003To(iface);
 
@@ -182,7 +183,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		for (int i = 0; i < dims.size(); i++) {
 			c_pp.Resizedimensions(i, dims.get(i), dims.size());
 		}
-		
+
 		// link to message
 		c_pp.relateAcrossR4006To(c_ep);
 

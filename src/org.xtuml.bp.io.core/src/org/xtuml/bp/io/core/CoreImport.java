@@ -679,6 +679,10 @@ public abstract class CoreImport implements IModelImport {
 			super(message);
 		}
 
+		public XtumlLoadException(Throwable cause) {
+			super(cause);
+		}
+
 	}
 
 	public boolean getSuccessful() {

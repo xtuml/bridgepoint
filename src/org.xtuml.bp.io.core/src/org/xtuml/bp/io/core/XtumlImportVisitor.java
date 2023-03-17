@@ -1,5 +1,8 @@
 package org.xtuml.bp.io.core;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -26,6 +29,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceManager;
@@ -208,7 +212,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		final String text = ctx.getText();
 		if (ctx.UnparsedActions() != null) {
 			final String tab = text.lines().filter(l -> l.contains("@endnoparse"))
-					.map(l -> l.substring(0, l.length() - "@endnoparse".length())).findAny().orElseThrow();
+					.map(l -> l.substring(0, l.length() - "@endnoparse".length())).findAny().orElse("");
 			return text.substring("@noparse".length(), text.length() - "@endnoparse".length()).strip().lines()
 					.map(l -> l.replaceFirst(tab, "")).collect(Collectors.joining("\n"));
 		} else {
@@ -295,6 +299,26 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				selected -> "".equals(((ComponentResultSet_c) selected).getName())
 						&& ((ComponentResultSet_c) selected).getType() == elementType);
 		return List.of(PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <T extends NonRootModelElement> T findOrCreate(Class<T> type, String path) {
+		T instance = null;
+		try {
+			final Method selectAnyWhere = type.getMethod(type.getSimpleName().replace("_c", "") + "Instance",
+					ModelRoot.class, ClassQueryInterface_c.class);
+			final ClassQueryInterface_c whereClause = selected -> ((NonRootModelElement) selected).getPath()
+					.equals(path);
+			instance = (T) selectAnyWhere.invoke(null, modelRoot, whereClause);
+			if (instance == null) {
+				final Constructor<T> constructor = type.getConstructor(ModelRoot.class);
+				instance = constructor.newInstance(modelRoot);
+			}
+			return instance;
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | InstantiationException e) {
+			throw new CoreImport.XtumlLoadException(e);
+		}
 	}
 
 	protected static final class Mark extends LinkedHashMap<String, Object> implements Map<String, Object> {

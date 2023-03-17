@@ -163,14 +163,12 @@ public class ExportModelText extends ExportModelComponent {
 		super(outfileName, element);
 	}
 
-	@Override
-	public void run(IProgressMonitor monitor) throws InvocationTargetException {
-		super.run(monitor);
-		// write textual graphics if this is a root that contains a diagram
-		if (m_inst instanceof SystemModel_c || m_inst instanceof Component_c || m_inst instanceof InstanceStateMachine_c
-				|| m_inst instanceof ClassStateMachine_c || m_inst instanceof Package_c) {
-			CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions()
-					.forEach(extension -> extension.getWriter().write(m_inst));
+	private void append(String format, Object... args) {
+		if (!buffers.empty()) {
+			buffers.peek().append(String.format(format, args));
+		} else {
+			m_fh.printf(format, args);
+			m_fh.flush();
 		}
 	}
 
@@ -395,6 +393,20 @@ public class ExportModelText extends ExportModelComponent {
 			append(");\n\n");
 		} else {
 			write_ClassIdentifier_c_proxy_sql(inst);
+		}
+
+	}
+
+	@Override
+	protected void export_ClassStateMachine_c(ClassStateMachine_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			export_StateMachine_c(StateMachine_c.getOneSM_SMOnR517(inst), pm, writeAsProxies, isPersistable);
+		} else {
+			write_ClassStateMachine_c_proxy_sql(inst);
 		}
 
 	}
@@ -776,6 +788,19 @@ public class ExportModelText extends ExportModelComponent {
 			append(";\n");
 		} else {
 			write_ImportedClass_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_InstanceStateMachine_c(InstanceStateMachine_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			export_StateMachine_c(StateMachine_c.getOneSM_SMOnR517(inst), pm, writeAsProxies, isPersistable);
+		} else {
+			write_InstanceStateMachine_c_proxy_sql(inst);
 		}
 	}
 
@@ -1427,34 +1452,38 @@ public class ExportModelText extends ExportModelComponent {
 			append("%s%s", getTab(), relName);
 
 			// get 'one' side information
-			final ClassAsSimpleParticipant_c[] r_parts = ClassAsSimpleParticipant_c.getManyR_PARTsOnR207(inst);
+			final List<ClassAsSimpleParticipant_c> r_parts = Stream
+					.of(ClassAsSimpleParticipant_c.getManyR_PARTsOnR207(inst))
+					.sorted(Comparator.comparing(ClassAsSimpleParticipant_c::Get_name)
+							.thenComparing(ClassAsSimpleParticipant_c::getTxt_phrs))
+					.collect(Collectors.toList());
 			final ClassInAssociation_c oneOir = ClassInAssociation_c
-					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_parts[0]));
+					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_parts.get(0)));
 			final ModelClass_c oneClass = ModelClass_c.getOneO_OBJOnR201(oneOir);
 			final ImportedClass_c oneImportedClass = ImportedClass_c.getOneO_IOBJOnR202(oneOir);
 			final String oneName = oneImportedClass != null ? sanitizeName(oneImportedClass.getName())
 					: sanitizeName(oneClass.getName());
-			final String oneCond = r_parts[0].getCond() == 0 ? "unconditionally" : "conditionally";
-			final String oneMult = r_parts[0].getMult() == 0 ? "one" : "many";
-			final String onePhrase = r_parts[0].getTxt_phrs().isBlank() ? "relates to"
-					: sanitizeName(r_parts[0].getTxt_phrs());
+			final String oneCond = r_parts.get(0).getCond() == 0 ? "unconditionally" : "conditionally";
+			final String oneMult = r_parts.get(0).getMult() == 0 ? "one" : "many";
+			final String onePhrase = r_parts.get(0).getTxt_phrs().isBlank() ? "relates to"
+					: sanitizeName(r_parts.get(0).getTxt_phrs());
 
 			// get 'other' side information
 			String otherName;
 			String otherCond;
 			String otherMult;
 			String otherPhrase;
-			if (r_parts.length > 1) {
+			if (r_parts.size() > 1) {
 				final ClassInAssociation_c otherOir = ClassInAssociation_c
-						.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_parts[1]));
+						.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_parts.get(1)));
 				final ModelClass_c otherClass = ModelClass_c.getOneO_OBJOnR201(otherOir);
 				final ImportedClass_c otherImportedClass = ImportedClass_c.getOneO_IOBJOnR202(otherOir);
 				otherName = otherImportedClass != null ? sanitizeName(otherImportedClass.getName())
 						: sanitizeName(otherClass.getName());
-				otherCond = r_parts[1].getCond() == 0 ? "unconditionally" : "conditionally";
-				otherMult = r_parts[1].getMult() == 0 ? "one" : "many";
-				otherPhrase = r_parts[1].getTxt_phrs().isBlank() ? "relates to"
-						: sanitizeName(r_parts[1].getTxt_phrs());
+				otherCond = r_parts.get(1).getCond() == 0 ? "unconditionally" : "conditionally";
+				otherMult = r_parts.get(1).getMult() == 0 ? "one" : "many";
+				otherPhrase = r_parts.get(1).getTxt_phrs().isBlank() ? "relates to"
+						: sanitizeName(r_parts.get(1).getTxt_phrs());
 			} else {
 				final ClassAsSimpleFormalizer_c r_form = ClassAsSimpleFormalizer_c.getOneR_FORMOnR208(inst);
 				final ClassInAssociation_c otherOir = ClassInAssociation_c
@@ -1472,292 +1501,6 @@ public class ExportModelText extends ExportModelComponent {
 			append("%s%s%s %s %s %s %s;\n\n", getTab(), padding, otherName, oneCond, onePhrase, oneMult, oneName);
 		} else {
 			write_SimpleAssociation_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_StructuredDataType_c(StructuredDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
-
-			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			append("%stype %s is structure\n", getTab(), sanitizeName(dt.getName()));
-			tabDepth++;
-
-			// process members
-			final StructureMember_c[] mbrs = StructureMember_c.getManyS_MBRsOnR44(inst);
-			new StructureMember_cSorter().sort(mbrs);
-			for (StructureMember_c mbr : mbrs) {
-				export_StructureMember_c(mbr, pm, writeAsProxies, isPersistable);
-			}
-
-			tabDepth--;
-			append("%send structure;\n\n", getTab());
-		} else {
-			write_StructuredDataType_c_proxy_sql(inst);
-
-		}
-	}
-
-	@Override
-	protected void export_StructureMember_c(StructureMember_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-
-			// export description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			final DataType_c type = DataType_c.getOneS_DTOnR45(inst);
-			append("%s%s: %s;\n", getTab(), sanitizeName(inst.getName()), getTypeReference(type, inst.getDimensions()));
-
-		} else {
-			write_StructureMember_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_SubtypeSupertypeAssociation_c(SubtypeSupertypeAssociation_c inst, IProgressMonitor pm,
-			boolean writeAsProxies, boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
-
-			// ouptut description
-			r_rel.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			// get superclass information
-			final ClassAsSupertype_c r_sup = ClassAsSupertype_c.getOneR_SUPEROnR212(inst);
-			final ClassInAssociation_c supOir = ClassInAssociation_c
-					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_sup));
-			final ModelClass_c supClass = ModelClass_c.getOneO_OBJOnR201(supOir);
-			final ImportedClass_c supImportedClass = ImportedClass_c.getOneO_IOBJOnR202(supOir);
-			final String supName = supImportedClass != null ? sanitizeName(supImportedClass.getName())
-					: sanitizeName(supClass.getName());
-
-			// get subclass information
-			final ClassAsSubtype_c[] r_subs = ClassAsSubtype_c.getManyR_SUBsOnR213(inst);
-			final String subtypeList = Stream.of(r_subs).map(r_sub -> {
-				final ClassInAssociation_c subOir = ClassInAssociation_c
-						.getOneR_OIROnR203(ReferringClassInAssoc_c.getOneR_RGOOnR205(r_sub));
-				final ModelClass_c subClass = ModelClass_c.getOneO_OBJOnR201(subOir);
-				final ImportedClass_c subImportedClass = ImportedClass_c.getOneO_IOBJOnR202(subOir);
-				return subImportedClass != null ? sanitizeName(subImportedClass.getName())
-						: sanitizeName(subClass.getName());
-			}).sorted().collect(Collectors.joining(", "));
-
-			append("%srelationship R%d is %s is_a (%s);\n\n", getTab(), r_rel.getNumb(), supName, subtypeList);
-		} else {
-			write_SubtypeSupertypeAssociation_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	protected void export_SystemModel_c(SystemModel_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s@system_model(use_globals=%s);\n", getTab(), inst.getUseglobals());
-			append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
-			tabDepth++;
-
-			final Package_c[] ep_pkgs = Package_c.getManyEP_PKGsOnR1401(inst);
-			if (ep_pkgs.length > 0) {
-				append("%s\n", getTab());
-			}
-			// TODO support package references here as well
-			Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName)).forEach(ep_pkg -> {
-				append("%spackage %s;\n", getTab(), sanitizeName(ep_pkg.getName()));
-			});
-			if (ep_pkgs.length > 0) {
-				append("%s\n", getTab());
-			}
-
-			tabDepth--;
-			append("%send package;\n\n", getTab());
-
-		} else {
-			super.export_SystemModel_c(inst, pm, writeAsProxies, isPersistable);
-		}
-
-	}
-
-	@Override
-	protected void export_UserDataType_c(UserDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
-
-			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
-			});
-
-			// if the 'definition' field is populated, use it and ignore everything else
-			if (!inst.getDefinition().isBlank()) {
-				append("%s@raw_definition\n", getTab());
-				append("%stype %s is ", getTab(), sanitizeName(dt.getName()));
-				final String typeDef = inst.getDefinition().strip().lines()
-						.collect(Collectors.joining(String.format("\n%s", getTab())));
-				append("%s;\n\n", typeDef);
-			} else {
-				final DataType_c type = DataType_c.getOneS_DTOnR18(inst);
-				append("%stype %s is %s", getTab(), sanitizeName(dt.getName()), getTypeReference(type));
-				final Range_c range = Range_c.getOneS_RANGEOnR57(inst);
-				if (range != null) {
-					append(" range %s .. %s", range.getMin(), range.getMax());
-				}
-				append(";\n\n");
-			}
-		} else {
-			write_UserDataType_c_proxy_sql(inst);
-		}
-	}
-
-	@Override
-	public String get_file_header(NonRootModelElement element) {
-		return get_file_header("//",
-				element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
-				"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
-	}
-
-	private void append(String format, Object... args) {
-		if (!buffers.empty()) {
-			buffers.peek().append(String.format(format, args));
-		} else {
-			m_fh.printf(format, args);
-			m_fh.flush();
-		}
-	}
-
-	private String getMessageSignature(final ExecutableProperty_c c_ep, final IProgressMonitor pm,
-			final boolean writeAsProxies, final boolean isPersistable) {
-
-		// build the parameter list
-		final PropertyParameter_c[] c_pps = PropertyParameter_c.getManyC_PPsOnR4006(c_ep);
-		new PropertyParameter_cSorter().sort(c_pps);
-		final String parameterList = Stream.of(c_pps).map(c_pp -> {
-			buffers.push(new StringBuilder());
-			try {
-				export_PropertyParameter_c(c_pp, pm, writeAsProxies, isPersistable);
-			} catch (IOException e) {
-				throw new UncheckedIOException(e);
-			}
-			return buffers.pop().toString();
-		}).collect(Collectors.joining(", "));
-
-		// get the return type if applicable
-		final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
-		final String returnTypeRef = (returnType != null
-				&& !"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString()))
-						? " return " + getTypeReference(returnType,
-								InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
-						: "";
-
-		// get the message direction
-		final String direction = c_ep.getDirection() == Ifdirectiontype_c.ClientServer ? "to provider"
-				: "from provider";
-
-		return String.format("message %s(%s)%s %s", c_ep.getName(), parameterList, returnTypeRef, direction);
-	}
-
-	private String getTab() {
-		final IPreferenceStore store = EditorsUI.getPreferenceStore();
-		final boolean spacesForTabs = store
-				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
-		final String tabChar = spacesForTabs ? " " : "\t";
-		final int tabWidth = spacesForTabs
-				? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
-				: 1;
-		String tab = "";
-		for (int i = 0; i < tabDepth * tabWidth; i++) {
-			tab += tabChar;
-		}
-		return tab;
-	}
-
-	private String getTypeReference(final DataType_c type) {
-		return getTypeReference(type, "");
-	}
-
-	private String getTypeReference(final DataType_c type, final String dims) {
-		String type_ref = "";
-		Matcher m = Pattern.compile("\\[([^\\]]*)\\]").matcher(dims);
-		while (m.find()) {
-			type_ref += String.format("sequence%s of ", !m.group(1).isBlank() ? " (" + m.group(1) + ")" : "");
-		}
-		final InstanceReferenceDataType_c irdt = InstanceReferenceDataType_c.getOneS_IRDTOnR17(type);
-		if (irdt != null) {
-			final ModelClass_c obj = ModelClass_c.getOneO_OBJOnR123(irdt);
-			if (irdt.getIsset()) {
-				type_ref += "set of ";
-			}
-			type_ref += "instance of " + sanitizeName(obj.getName()); // TODO get shortest scoped name
-		} else if ("ba5eda7a-def5-0000-0000-00000000000f".equals(type.getDt_id().toString())) {
-			type_ref += "timer";
-		} else {
-			type_ref += sanitizeName(type.getName()); // TODO get shortest scoped name
-		}
-		return type_ref;
-	}
-
-	private String sanitizeName(final String name) {
-		if (name.matches(".*\\s.*")) {
-			return "'" + name.replaceAll("\\s+", " ") + "'";
-		} else {
-			return name;
-		}
-	}
-
-	private String sanitizePath(final String path) {
-		return Stream.of(path.split("::")).map(this::sanitizeName).collect(Collectors.joining("::"));
-	}
-
-	@Override
-	protected void export_ClassStateMachine_c(ClassStateMachine_c inst, IProgressMonitor pm, boolean writeAsProxies,
-			boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			export_StateMachine_c(StateMachine_c.getOneSM_SMOnR517(inst), pm, writeAsProxies, isPersistable);
-		} else {
-			write_ClassStateMachine_c_proxy_sql(inst);
-		}
-
-	}
-
-	@Override
-	protected void export_InstanceStateMachine_c(InstanceStateMachine_c inst, IProgressMonitor pm,
-			boolean writeAsProxies, boolean isPersistable) throws IOException {
-		if (inst == null) {
-			return;
-		}
-		if (!writeAsProxies && !forceWriteAsProxy) {
-			export_StateMachine_c(StateMachine_c.getOneSM_SMOnR517(inst), pm, writeAsProxies, isPersistable);
-		} else {
-			write_InstanceStateMachine_c_proxy_sql(inst);
 		}
 	}
 
@@ -1919,6 +1662,63 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
+	protected void export_StateMachineEvent_c(StateMachineEvent_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			final boolean isClassBased = ClassStateMachine_c
+					.getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR502(inst)) != null;
+
+			// event metadata
+			inst.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
+			append("%s@event_num(%d);\n", getTab(), inst.getNumb());
+			if (inst.getIs_lbl_u() != 0 && !inst.getUnq_lbl().isBlank()) {
+				append("%s@key_letters(\"%s\"", getTab(), inst.getUnq_lbl().strip());
+			}
+
+			append("%s%sevent %s", getTab(), isClassBased ? "class " : "", sanitizeName(inst.getMning()));
+
+			// build the parameter list
+			final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(inst);
+			new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
+			final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
+				buffers.push(new StringBuilder());
+				try {
+					export_StateMachineEventDataItem_c(sm_evtdi, pm, writeAsProxies, isPersistable);
+				} catch (IOException e) {
+					throw new UncheckedIOException(e);
+				}
+				return buffers.pop().toString();
+			}).collect(Collectors.joining(", "));
+			if (!parameterList.isBlank()) {
+				append("(%s)", parameterList);
+			}
+
+			append(";\n\n");
+
+		} else {
+			write_StateMachineEvent_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_StateMachineEventDataItem_c(StateMachineEventDataItem_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: in %s", inst.getName(),
+					getTypeReference(DataType_c.getOneS_DTOnR524(inst), inst.getDimensions()));
+		} else {
+			write_StateMachineEventDataItem_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
 	protected void export_StateMachineState_c(StateMachineState_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
@@ -1974,60 +1774,128 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
-	protected void export_StateMachineEvent_c(StateMachineEvent_c inst, IProgressMonitor pm, boolean writeAsProxies,
+	protected void export_StructuredDataType_c(StructuredDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
+
+			// export description
+			dt.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			append("%stype %s is structure\n", getTab(), sanitizeName(dt.getName()));
+			tabDepth++;
+
+			// process members
+			final StructureMember_c[] mbrs = StructureMember_c.getManyS_MBRsOnR44(inst);
+			new StructureMember_cSorter().sort(mbrs);
+			for (StructureMember_c mbr : mbrs) {
+				export_StructureMember_c(mbr, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send structure;\n\n", getTab());
+		} else {
+			write_StructuredDataType_c_proxy_sql(inst);
+
+		}
+	}
+
+	@Override
+	protected void export_StructureMember_c(StructureMember_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
-			final boolean isClassBased = ClassStateMachine_c
-					.getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR502(inst)) != null;
+			// export description
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
 
-			// event metadata
-			inst.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
-			append("%s@event_num(%d);\n", getTab(), inst.getNumb());
-			if (inst.getIs_lbl_u() != 0 && !inst.getUnq_lbl().isBlank()) {
-				append("%s@key_letters(\"%s\"", getTab(), inst.getUnq_lbl().strip());
-			}
-
-			append("%s%sevent %s", getTab(), isClassBased ? "class " : "", sanitizeName(inst.getMning()));
-
-			// build the parameter list
-			final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(inst);
-			new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
-			final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
-				buffers.push(new StringBuilder());
-				try {
-					export_StateMachineEventDataItem_c(sm_evtdi, pm, writeAsProxies, isPersistable);
-				} catch (IOException e) {
-					throw new UncheckedIOException(e);
-				}
-				return buffers.pop().toString();
-			}).collect(Collectors.joining(", "));
-			if (!parameterList.isBlank()) {
-				append("(%s)", parameterList);
-			}
-
-			append(";\n\n");
+			final DataType_c type = DataType_c.getOneS_DTOnR45(inst);
+			append("%s%s: %s;\n", getTab(), sanitizeName(inst.getName()), getTypeReference(type, inst.getDimensions()));
 
 		} else {
-			write_StateMachineEvent_c_proxy_sql(inst);
+			write_StructureMember_c_proxy_sql(inst);
 		}
 	}
 
 	@Override
-	protected void export_StateMachineEventDataItem_c(StateMachineEventDataItem_c inst, IProgressMonitor pm,
+	protected void export_SubtypeSupertypeAssociation_c(SubtypeSupertypeAssociation_c inst, IProgressMonitor pm,
 			boolean writeAsProxies, boolean isPersistable) throws IOException {
 		if (inst == null) {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: in %s", inst.getName(),
-					getTypeReference(DataType_c.getOneS_DTOnR524(inst), inst.getDimensions()));
+			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
+
+			// ouptut description
+			r_rel.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			// get superclass information
+			final ClassAsSupertype_c r_sup = ClassAsSupertype_c.getOneR_SUPEROnR212(inst);
+			final ClassInAssociation_c supOir = ClassInAssociation_c
+					.getOneR_OIROnR203(ReferredToClassInAssoc_c.getOneR_RTOOnR204(r_sup));
+			final ModelClass_c supClass = ModelClass_c.getOneO_OBJOnR201(supOir);
+			final ImportedClass_c supImportedClass = ImportedClass_c.getOneO_IOBJOnR202(supOir);
+			final String supName = supImportedClass != null ? sanitizeName(supImportedClass.getName())
+					: sanitizeName(supClass.getName());
+
+			// get subclass information
+			final ClassAsSubtype_c[] r_subs = ClassAsSubtype_c.getManyR_SUBsOnR213(inst);
+			final String subtypeList = Stream.of(r_subs).map(r_sub -> {
+				final ClassInAssociation_c subOir = ClassInAssociation_c
+						.getOneR_OIROnR203(ReferringClassInAssoc_c.getOneR_RGOOnR205(r_sub));
+				final ModelClass_c subClass = ModelClass_c.getOneO_OBJOnR201(subOir);
+				final ImportedClass_c subImportedClass = ImportedClass_c.getOneO_IOBJOnR202(subOir);
+				return subImportedClass != null ? sanitizeName(subImportedClass.getName())
+						: sanitizeName(subClass.getName());
+			}).sorted().collect(Collectors.joining(", "));
+
+			append("%srelationship R%d is %s is_a (%s);\n\n", getTab(), r_rel.getNumb(), supName, subtypeList);
 		} else {
-			write_StateMachineEventDataItem_c_proxy_sql(inst);
+			write_SubtypeSupertypeAssociation_c_proxy_sql(inst);
 		}
+	}
+
+	@Override
+	protected void export_SystemModel_c(SystemModel_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s@system_model(use_globals=%s);\n", getTab(), inst.getUseglobals());
+			append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			final Package_c[] ep_pkgs = Package_c.getManyEP_PKGsOnR1401(inst);
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+			// TODO support package references here as well
+			Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName)).forEach(ep_pkg -> {
+				append("%spackage %s;\n", getTab(), sanitizeName(ep_pkg.getName()));
+			});
+			if (ep_pkgs.length > 0) {
+				append("%s\n", getTab());
+			}
+
+			tabDepth--;
+			append("%send package;\n\n", getTab());
+
+		} else {
+			super.export_SystemModel_c(inst, pm, writeAsProxies, isPersistable);
+		}
+
 	}
 
 	@Override
@@ -2087,6 +1955,142 @@ public class ExportModelText extends ExportModelComponent {
 		} else {
 			write_Transition_c_proxy_sql(inst);
 		}
+	}
+
+	@Override
+	protected void export_UserDataType_c(UserDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
+
+			// export description
+			dt.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line);
+			});
+
+			// if the 'definition' field is populated, use it and ignore everything else
+			if (!inst.getDefinition().isBlank()) {
+				append("%s@raw_definition\n", getTab());
+				append("%stype %s is ", getTab(), sanitizeName(dt.getName()));
+				final String typeDef = inst.getDefinition().strip().lines()
+						.collect(Collectors.joining(String.format("\n%s", getTab())));
+				append("%s;\n\n", typeDef);
+			} else {
+				final DataType_c type = DataType_c.getOneS_DTOnR18(inst);
+				append("%stype %s is %s", getTab(), sanitizeName(dt.getName()), getTypeReference(type));
+				final Range_c range = Range_c.getOneS_RANGEOnR57(inst);
+				if (range != null) {
+					append(" range %s .. %s", range.getMin(), range.getMax());
+				}
+				append(";\n\n");
+			}
+		} else {
+			write_UserDataType_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	public String get_file_header(NonRootModelElement element) {
+		return get_file_header("//",
+				element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
+				"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
+	}
+
+	private String getMessageSignature(final ExecutableProperty_c c_ep, final IProgressMonitor pm,
+			final boolean writeAsProxies, final boolean isPersistable) {
+
+		// build the parameter list
+		final PropertyParameter_c[] c_pps = PropertyParameter_c.getManyC_PPsOnR4006(c_ep);
+		new PropertyParameter_cSorter().sort(c_pps);
+		final String parameterList = Stream.of(c_pps).map(c_pp -> {
+			buffers.push(new StringBuilder());
+			try {
+				export_PropertyParameter_c(c_pp, pm, writeAsProxies, isPersistable);
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
+			return buffers.pop().toString();
+		}).collect(Collectors.joining(", "));
+
+		// get the return type if applicable
+		final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
+		final String returnTypeRef = (returnType != null
+				&& !"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString()))
+						? " return " + getTypeReference(returnType,
+								InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
+						: "";
+
+		// get the message direction
+		final String direction = c_ep.getDirection() == Ifdirectiontype_c.ClientServer ? "to provider"
+				: "from provider";
+
+		return String.format("message %s(%s)%s %s", c_ep.getName(), parameterList, returnTypeRef, direction);
+	}
+
+	private String getTab() {
+		final IPreferenceStore store = EditorsUI.getPreferenceStore();
+		final boolean spacesForTabs = store
+				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		final String tabChar = spacesForTabs ? " " : "\t";
+		final int tabWidth = spacesForTabs
+				? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
+				: 1;
+		String tab = "";
+		for (int i = 0; i < tabDepth * tabWidth; i++) {
+			tab += tabChar;
+		}
+		return tab;
+	}
+
+	private String getTypeReference(final DataType_c type) {
+		return getTypeReference(type, "");
+	}
+
+	private String getTypeReference(final DataType_c type, final String dims) {
+		String type_ref = "";
+		Matcher m = Pattern.compile("\\[([^\\]]*)\\]").matcher(dims);
+		while (m.find()) {
+			type_ref += String.format("sequence%s of ", !m.group(1).isBlank() ? " (" + m.group(1) + ")" : "");
+		}
+		final InstanceReferenceDataType_c irdt = InstanceReferenceDataType_c.getOneS_IRDTOnR17(type);
+		if (irdt != null) {
+			final ModelClass_c obj = ModelClass_c.getOneO_OBJOnR123(irdt);
+			if (irdt.getIsset()) {
+				type_ref += "set of ";
+			}
+			type_ref += "instance of " + sanitizeName(obj.getName()); // TODO get shortest scoped name
+		} else if ("ba5eda7a-def5-0000-0000-00000000000f".equals(type.getDt_id().toString())) {
+			type_ref += "timer";
+		} else {
+			type_ref += sanitizeName(type.getName()); // TODO get shortest scoped name
+		}
+		return type_ref;
+	}
+
+	@Override
+	public void run(IProgressMonitor monitor) throws InvocationTargetException {
+		super.run(monitor);
+		// write textual graphics if this is a root that contains a diagram
+		if (m_inst instanceof SystemModel_c || m_inst instanceof Component_c || m_inst instanceof InstanceStateMachine_c
+				|| m_inst instanceof ClassStateMachine_c || m_inst instanceof Package_c) {
+			CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions()
+					.forEach(extension -> extension.getWriter().write(m_inst));
+		}
+	}
+
+	private String sanitizeName(final String name) {
+		if (name.matches(".*\\s.*")) {
+			return "'" + name.replaceAll("\\s+", " ") + "'";
+		} else {
+			return name;
+		}
+	}
+
+	private String sanitizePath(final String path) {
+		return Stream.of(path.split("::")).map(this::sanitizeName).collect(Collectors.joining("::"));
 	}
 
 }

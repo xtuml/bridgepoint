@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.xtuml.bp.core.Actiondialect_c;
@@ -38,7 +37,6 @@ import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Scope_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.Visibility_c;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Attribute_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Attribute_referenceContext;
@@ -67,8 +65,8 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// find or create class
 		final String className = visitName(ctx.class_name);
-		final ModelClass_c modelClass = ModelClass_c.resolveInstance(modelRoot, UUID.randomUUID(), className, 0, "", "",
-				IdAssigner.NULL_UUID, parentPkg.getPath() + "::" + className);
+		final ModelClass_c modelClass = findOrCreate(ModelClass_c.class, parentPkg.getPath() + "::" + className);
+		modelClass.setName(className);
 
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(modelClass);
@@ -85,8 +83,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// process marks
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(KEY_LETTERS)) {
 			modelClass.setKey_lett(marks.get(KEY_LETTERS).getString());
 		}
@@ -168,9 +165,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// find or create attribute
 		final String attrName = visitName(ctx.attr_name);
-		final Attribute_c attr = Attribute_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				IdAssigner.NULL_UUID, "", "", "", "", 0, IdAssigner.NULL_UUID, "", "",
-				modelClass.getPath() + "::" + attrName);
+		final Attribute_c attr = findOrCreate(Attribute_c.class, modelClass.getPath() + "::" + attrName);
 		final BaseAttribute_c battr = new BaseAttribute_c(modelRoot);
 		battr.relateAcrossR106To(attr);
 		final NewBaseAttribute_c nbattr = new NewBaseAttribute_c(modelRoot);
@@ -216,15 +211,12 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// find or create attribute
 		final String attrName = visitName(ctx.attr_name);
-		final Attribute_c attr = Attribute_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				IdAssigner.NULL_UUID, "", "", "", "", 0, IdAssigner.NULL_UUID, "", "",
-				modelClass.getPath() + "::" + attrName);
+		final Attribute_c attr = findOrCreate(Attribute_c.class, modelClass.getPath() + "::" + attrName);
 		final ReferentialAttribute_c rattr = new ReferentialAttribute_c(modelRoot);
 		rattr.relateAcrossR106To(attr);
 
 		// set attribute name and prefix mode
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(REF_MODE) && "local".equals(marks.get(REF_MODE).getString())) {
 			rattr.setRef_mode(0);
 			attr.setRoot_nam(attrName);
@@ -383,9 +375,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// find or create attribute
 		final String attrName = visitName(ctx.attr_name);
-		final Attribute_c attr = Attribute_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				IdAssigner.NULL_UUID, "", "", "", "", 0, IdAssigner.NULL_UUID, "", "",
-				modelClass.getPath() + "::" + attrName);
+		final Attribute_c attr = findOrCreate(Attribute_c.class, modelClass.getPath() + "::" + attrName);
 		final BaseAttribute_c battr = new BaseAttribute_c(modelRoot);
 		battr.relateAcrossR106To(attr);
 		final DerivedBaseAttribute_c dbattr = new DerivedBaseAttribute_c(modelRoot);
@@ -408,8 +398,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		dbattr.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
 		dbattr.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		dbattr.setAction_semantics_internal(visitAction_body(ctx.action_body()));
@@ -443,9 +432,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// find or create operation
 		final String operationName = visitName(ctx.operation_name);
-		final Operation_c tfr = Operation_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				operationName, "", IdAssigner.NULL_UUID, 0, "", 0, "", IdAssigner.NULL_UUID, 0, 0,
-				modelClass.getPath() + "::" + operationName);
+		final Operation_c tfr = findOrCreate(Operation_c.class, modelClass.getPath() + "::" + operationName);
 
 		// set name and description
 		tfr.setName(operationName);
@@ -453,8 +440,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// process marks
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(OPERATION_NUM)) {
 			tfr.setNumb(marks.get(OPERATION_NUM).getInteger());
 		}

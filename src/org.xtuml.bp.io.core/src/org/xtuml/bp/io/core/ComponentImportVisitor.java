@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,7 +30,6 @@ import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.Visibility_c;
-import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
@@ -54,9 +52,8 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 
 		// find or create component
 		final String comp_name = visitName(ctx.comp_name);
-		final Component_c comp = Component_c.resolveInstance(modelRoot, UUID.randomUUID(), IdAssigner.NULL_UUID,
-				IdAssigner.NULL_UUID, comp_name, "", 0, IdAssigner.NULL_UUID, false, "", "",
-				parent_pkg.getPath() + "::" + comp_name);
+		final Component_c comp = findOrCreate(Component_c.class, parent_pkg.getPath() + "::" + comp_name);
+		comp.setName(comp_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8000To(parent_pkg);
 		pe.relateAcrossR8001To(comp);
@@ -71,8 +68,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		}
 
 		// process marks
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MULTIPLICITY) && marks.get(MULTIPLICITY).getString().equals("many")) {
 			comp.setMult(1);
 		}
@@ -89,8 +85,9 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		// load all component items
 		// TODO ensure packages load first?
 		ctx.component_item().forEach(this::visit);
-		
-		// reassign self to all component references to assure the latest port references are added
+
+		// reassign self to all component references to assure the latest port
+		// references are added
 		for (ComponentReference_c compRef : ComponentReference_c.getManyCL_ICsOnR4201(comp)) {
 			compRef.Assigntocomp(comp.getId());
 		}
@@ -117,15 +114,14 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 
 		// find or create port
 		final String port_name = visitName(ctx.port_name);
-		final Port_c port = Port_c.resolveInstance(modelRoot, UUID.randomUUID(), comp.getId(), port_name, 0, false, "",
-				comp.getPath() + "::" + port_name);
+		final Port_c port = findOrCreate(Port_c.class, comp.getPath() + "::" + port_name);
+		port.setName(port_name);
 		port.relateAcrossR4010To(comp);
 		final NonRootModelElement oldRoot = currentRoot;
 		currentRoot = port;
 
 		// process marks
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MULTIPLICITY) && marks.get(MULTIPLICITY).getString().equals("many")) {
 			port.setMult(1);
 		}
@@ -139,8 +135,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		// create the interface reference
 		final String informalName = marks.containsKey(INFORMAL_NAME) ? marks.get(INFORMAL_NAME).getString()
 				: "Unnamed Interface";
-		final InterfaceReference_c ir = InterfaceReference_c.resolveInstance(modelRoot, UUID.randomUUID(),
-				IdAssigner.NULL_UUID, IdAssigner.NULL_UUID, port.getId(),
+		final InterfaceReference_c ir = findOrCreate(InterfaceReference_c.class,
 				port.getPath() + "::" + (iface != null ? iface.getName() : informalName));
 		ir.relateAcrossR4016To(port);
 		if (iface != null) {
@@ -149,10 +144,12 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		Provision_c c_p = null;
 		Requirement_c c_r = null;
 		if (ctx.direction.getText().equals("provided")) {
-			c_p = Provision_c.resolveInstance(modelRoot, UUID.randomUUID(), "", informalName, "", "", ir.getPath());
+			c_p = findOrCreate(Provision_c.class, ir.getPath());
+			c_p.setInformalname(informalName);
 			c_p.relateAcrossR4009To(ir);
 		} else {
-			c_r = Requirement_c.resolveInstance(modelRoot, UUID.randomUUID(), "", "", informalName, "", ir.getPath());
+			c_r = findOrCreate(Requirement_c.class, ir.getPath());
+			c_r.setInformalname(informalName);
 			c_r.relateAcrossR4009To(ir);
 		}
 
@@ -195,13 +192,14 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final NonRootModelElement[] spr_rss = RequiredSignal_c
 				.getManySPR_RSsOnR4502(RequiredExecutableProperty_c.getManySPR_REPsOnR4500(c_r));
 
-		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks())
-				: Collections.emptyMap();
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 
 		try {
+			final String msgName = visitName(ctx.msg_name);
 			final PortMessage msg = ProxyUtil.newProxy(PortMessage.class,
 					Stream.of(spr_pos, spr_pss, spr_ros, spr_rss).flatMap(a -> Stream.of(a))
-							.filter(m -> visit(ctx.msg_name).equals(m.getName())).findAny().orElseThrow());
+							.filter(m -> msgName.equals(m.getName())).findAny().orElseThrow(
+									() -> new CoreImport.XtumlLoadException("Failed to find message: " + msgName)));
 
 			msg.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
 			if (marks.containsKey(MESSAGE_NUM)) {

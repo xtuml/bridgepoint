@@ -136,7 +136,7 @@ operation_definition               : description? marks?
                                      )?
                                      'operation' operation_name=name
                                      '(' parameter_list? ')'
-                                     'return' type_reference (
+                                     ( 'return' type_reference )? (
                                        'is'
                                          action_body
                                        'end' 'operation'
