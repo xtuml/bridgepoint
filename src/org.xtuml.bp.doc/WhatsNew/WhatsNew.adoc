@@ -1,6 +1,8 @@
 = What's New in BridgePoint 7.4
 
 == Release Highlights
+* Upgrade to Eclipse 2022-12
+* Support for ARM64 architecture for MacOS and Linux
 * Verifier bug fixes and improvements
   ** Support for interface message parameters of instance reference types
   ** "Select many" bug fix
@@ -10,4 +12,3 @@
 * Association editor fixes and improvements
   ** Migrating link class fix
   ** Support for "symmetric" reflexive associations
-* Support for ARM64 architecture for MacOS and Linux
