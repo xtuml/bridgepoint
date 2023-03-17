@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -497,7 +496,9 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		bridge.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
+		if (marks.containsKey(DIALECT)) {
+			bridge.setDialect(getDialectCode(marks.get(DIALECT).getString()));
+		}
 		bridge.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
 			bridge.setAction_semantics_internal(visitAction_body(ctx.action_body()));
@@ -557,7 +558,9 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		func.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
+		if (marks.containsKey(DIALECT)) {
+			func.setDialect(getDialectCode(marks.get(DIALECT).getString()));
+		}
 		func.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
 			func.setAction_semantics_internal(visitAction_body(ctx.action_body()));

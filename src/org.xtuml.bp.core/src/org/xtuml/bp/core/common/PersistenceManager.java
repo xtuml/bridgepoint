@@ -488,10 +488,17 @@ public class PersistenceManager {
 		return sequentialExecutor;
 	}
 
+	// TODO
+	private static boolean isLoaded = false;
+
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
 		Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
 				.collect(Collectors.toSet());
+		
+		// TODO for now bail if this isn't the first load upon startup
+		if (isLoaded) return;
+		isLoaded = true;
 
 		// add PMCs in special cases whenever an O_REF is in the RGOs list, the
 		// PMC needs to be reloaded because the O_REFs are what formalize the

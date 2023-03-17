@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
@@ -104,8 +103,8 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		Interface_c iface = null;
 		if (ctx.iface_name != null) {
 			try {
-				iface = executor.callAndWait(
-						() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath, Interface_c::getOneC_IOnR8001, false));
+				iface = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath,
+						Interface_c::getOneC_IOnR8001, false));
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException(
 						"Failed to find interface '" + visit(ctx.iface_name) + "' for port definition.", e);
@@ -201,12 +200,16 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 							.filter(m -> msgName.equals(m.getName())).findAny().orElseThrow(
 									() -> new CoreImport.XtumlLoadException("Failed to find message: " + msgName)));
 
-			msg.setDialect(Actiondialect_c.oal); // TODO set dialect to OAL
+			if (marks.containsKey(DIALECT)) {
+				msg.setDialect(getDialectCode(marks.get(DIALECT).getString()));
+			}
 			if (marks.containsKey(MESSAGE_NUM)) {
 				msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
 			}
-			msg.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
-			msg.setAction_semantics_internal(visitAction_body(ctx.action_body()));
+			if (ctx.action_body() != null) {
+				msg.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
+				msg.setAction_semantics_internal(visitAction_body(ctx.action_body()));
+			}
 			return (NonRootModelElement) msg.getBasisObject();
 		} catch (NoSuchElementException e) {
 			CorePlugin.logError("Could not find message in interface with name: " + visit(ctx.msg_name), e);

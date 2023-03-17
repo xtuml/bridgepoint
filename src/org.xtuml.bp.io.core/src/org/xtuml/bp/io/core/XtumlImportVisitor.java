@@ -15,6 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
 import org.xtuml.bp.core.Component_c;
@@ -81,6 +82,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public static final String RAW_TYPE_DEF = "raw_definition";
 	public static final String CLASSIFIER_NAME = "classifier_name";
 	public static final String FINAL = "final";
+	public static final String DIALECT = "dialect";
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.executor = PersistenceManager.getDefaultInstance().getSequentialExecutor();
@@ -258,8 +260,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 			final Function<PackageableElement_c, T> resultMapper, boolean includeDeclarations) {
 		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(resultMapper)
 				.filter(Objects::nonNull).filter(o -> o.getPath().endsWith(path))
-				.filter(o -> includeDeclarations || !o.isDeclarationOnly())
-				.collect(Collectors.toList());
+				.filter(o -> includeDeclarations || !o.isDeclarationOnly()).collect(Collectors.toList());
 		if (results.isEmpty()) {
 			return Optional.empty();
 		} else if (results.size() == 1) {
@@ -333,6 +334,17 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				| InvocationTargetException | InstantiationException e) {
 			throw new CoreImport.XtumlLoadException(e);
 		}
+	}
+
+	int getDialectCode(String dialect) {
+		return Stream.of(Actiondialect_c.class.getFields()).filter(field -> field.getName().equals(dialect))
+				.map(field -> {
+					try {
+						return (int) field.get(null);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						return Actiondialect_c.OOA_UNINITIALIZED_ENUM;
+					}
+				}).findAny().orElse(Actiondialect_c.OOA_UNINITIALIZED_ENUM);
 	}
 
 	protected static final class Mark extends LinkedHashMap<String, Object> implements Map<String, Object> {

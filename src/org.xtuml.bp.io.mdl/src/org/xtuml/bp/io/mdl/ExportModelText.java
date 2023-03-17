@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -124,6 +126,7 @@ import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 import org.xtuml.bp.core.sorter.StateMachineEventDataItem_cSorter;
 import org.xtuml.bp.core.sorter.StructureMember_cSorter;
 import org.xtuml.bp.io.core.ProxyUtil;
+import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 
 // TODO determine how to sanitize names
@@ -132,12 +135,14 @@ import org.xtuml.bp.ui.canvas.CanvasPlugin;
 
 public class ExportModelText extends ExportModelComponent {
 
-	private interface PortMessage {
+	private interface PortMessage extends ProxyInstance {
 		String getAction_semantics();
 
 		int getNumb();
 
 		int getSuc_pars();
+		
+		int getDialect();
 	}
 
 	private int tabDepth = 0;
@@ -208,6 +213,10 @@ public class ExportModelText extends ExportModelComponent {
 			if (dbattr != null && dbattr.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
 			}
+			final String dialect = dbattr != null ? getDialectIdentifier(dbattr.getDialect()) : null;
+			if (dialect != null) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
+			}
 			final ReferentialAttribute_c rattr = ReferentialAttribute_c.getOneO_RATTROnR106(inst);
 			if (rattr != null) {
 				append("%s@ref_mode(\"%s\");\n", getTab(), rattr.getRef_mode() == 0 ? "local" : "referred_to");
@@ -275,20 +284,22 @@ public class ExportModelText extends ExportModelComponent {
 
 			// handle derived attributes
 			if (dbattr != null) {
-				append(" is\n");
-				tabDepth++;
-				// append the inner actions
-				if (!dbattr.getAction_semantics().isBlank()) {
+
+				// write out MASL actions
+				write_DerivedBaseAttribute_c_actions(dbattr);
+
+				if (!dbattr.getAction_semantics().isBlank() && dbattr.getDialect() != Actiondialect_c.masl) {
+					append(" is\n");
+					tabDepth++;
+					// append the inner actions
 					append("%s@noparse\n", getTab()); // TODO
-				}
-				dbattr.getAction_semantics().strip().lines().forEach(line -> {
-					append("%s%s\n", getTab(), line);
-				});
-				if (!dbattr.getAction_semantics().isBlank()) {
+					dbattr.getAction_semantics().strip().lines().forEach(line -> {
+						append("%s%s\n", getTab(), line);
+					});
 					append("%s@endnoparse\n", getTab());
+					tabDepth--;
+					append("%send", getTab());
 				}
-				tabDepth--;
-				append("%send", getTab());
 			}
 
 			// complete the attribute
@@ -311,6 +322,10 @@ public class ExportModelText extends ExportModelComponent {
 			});
 			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
+			}
+			final String dialect = getDialectIdentifier(inst.getDialect());
+			if (dialect != null) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
 			}
 
 			// TODO parameter descriptions
@@ -335,9 +350,12 @@ public class ExportModelText extends ExportModelComponent {
 			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
 				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
 			}
+			
+			// write out MASL actions
+			write_Bridge_c_actions(inst);
 
 			// append the inner actions
-			if (!inst.getAction_semantics_internal().isBlank()) {
+			if (!inst.getAction_semantics().isBlank() && inst.getDialect() != Actiondialect_c.masl) {
 				append(" is\n");
 				tabDepth++;
 				append("%s@noparse\n", getTab()); // TODO
@@ -712,6 +730,10 @@ public class ExportModelText extends ExportModelComponent {
 			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
 			}
+			final String dialect = getDialectIdentifier(inst.getDialect());
+			if (dialect != null) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
+			}
 			if (inst.getNumb() > 0) {
 				append("%s@function_num(%d);\n", getTab(), inst.getNumb());
 			}
@@ -739,8 +761,11 @@ public class ExportModelText extends ExportModelComponent {
 				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
 			}
 
+			// write out MASL actions
+			write_Function_c_actions(inst);
+
 			// append the inner actions
-			if (!inst.getAction_semantics_internal().isBlank()) {
+			if (!inst.getAction_semantics().isBlank() && inst.getDialect() != Actiondialect_c.masl) {
 				append(" is\n");
 				tabDepth++;
 				append("%s@noparse\n", getTab()); // TODO
@@ -1003,6 +1028,10 @@ public class ExportModelText extends ExportModelComponent {
 			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
 			}
+			final String dialect = getDialectIdentifier(inst.getDialect());
+			if (dialect != null) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
+			}
 			if (inst.getNumb() > 0) {
 				append("%s@operation_num(%d);\n", getTab(), inst.getNumb());
 			}
@@ -1037,8 +1066,11 @@ public class ExportModelText extends ExportModelComponent {
 				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
 			}
 
+			// write out MASL actions
+			write_Operation_c_actions(inst);
+
 			// append the inner actions
-			if (!inst.getAction_semantics_internal().isBlank()) {
+			if (!inst.getAction_semantics().isBlank() && inst.getDialect() != Actiondialect_c.masl) {
 				append(" is\n");
 				tabDepth++;
 				append("%s@noparse\n", getTab()); // TODO
@@ -1295,26 +1327,41 @@ public class ExportModelText extends ExportModelComponent {
 		if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 			append("%s@noparse;\n", getTab());
 		}
+			final String dialect = getDialectIdentifier(inst.getDialect());
+			if (dialect != null) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
+			}
 		if (inst.getNumb() > 0) {
 			append("%s@message_num(%d);\n", getTab(), inst.getNumb());
 		}
 
-		append("%s%s is\n", getTab(), getMessageSignature(c_ep, pm, writeAsProxies, isPersistable));
-		tabDepth++;
+		append("%s%s", getTab(), getMessageSignature(c_ep, pm, writeAsProxies, isPersistable));
+
+		// write out MASL actions
+		if (inst.getBasisObject() instanceof RequiredSignal_c) {
+			write_RequiredSignal_c_actions((RequiredSignal_c) inst.getBasisObject());
+		} else if (inst.getBasisObject() instanceof RequiredOperation_c) {
+			write_RequiredOperation_c_actions((RequiredOperation_c) inst.getBasisObject());
+		} else if (inst.getBasisObject() instanceof ProvidedSignal_c) {
+			write_ProvidedSignal_c_actions((ProvidedSignal_c) inst.getBasisObject());
+		} else if (inst.getBasisObject() instanceof ProvidedOperation_c) {
+			write_ProvidedOperation_c_actions((ProvidedOperation_c) inst.getBasisObject());
+		}
 
 		// append the inner actions
-		if (!inst.getAction_semantics().isBlank()) {
+		if (!inst.getAction_semantics().isBlank() && inst.getDialect() != Actiondialect_c.masl) {
+			append(" is\n");
+			tabDepth++;
 			append("%s@noparse\n", getTab()); // TODO
-		}
-		inst.getAction_semantics().strip().lines().forEach(line -> {
-			append("%s%s\n", getTab(), line);
-		});
-		if (!inst.getAction_semantics().isBlank()) {
+			inst.getAction_semantics().strip().lines().forEach(line -> {
+				append("%s%s\n", getTab(), line);
+			});
 			append("%s@endnoparse\n", getTab());
+			tabDepth--;
+			append("%send message", getTab());
 		}
 
-		tabDepth--;
-		append("%send message;\n\n", getTab());
+		append(";\n\n", getTab());
 	}
 
 	@Override
@@ -1625,6 +1672,7 @@ public class ExportModelText extends ExportModelComponent {
 							MooreActionHome_c.getOneSM_MOAHOnR513(ActionHome_c.getOneSM_AHOnR514(act))))
 					.filter(Objects::nonNull)
 					.sorted(Comparator.comparing(StateMachineState_c::getNumb)).collect(Collectors.toList())) {
+
 				export_StateMachineState_c(state, pm, writeAsProxies, isPersistable);
 			}
 
@@ -1729,6 +1777,12 @@ public class ExportModelText extends ExportModelComponent {
 			final Action_c act = Action_c
 					.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(MooreActionHome_c.getOneSM_MOAHOnR511(inst)));
 			act.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
+
+			// write out MASL actions
+			write_Action_c_actions(act);
+			if (act.getDialect() == Actiondialect_c.masl) {
+				return; // don't output the state definition if the actions were written as MASL
+			}
 
 			append("%s%sstate %s", getTab(), isClassBased ? "class " : "", sanitizeName(inst.getName()));
 
@@ -1995,6 +2049,16 @@ public class ExportModelText extends ExportModelComponent {
 		return get_file_header("//",
 				element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
 				"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
+	}
+	
+	private String getDialectIdentifier(int dialect) {
+		return Stream.of(Actiondialect_c.class.getFields()).filter(field -> {
+			try {
+				return field.get(null).equals(dialect);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				return false;
+			}
+		}).map(Field::getName).findAny().orElse(null);
 	}
 
 	private String getMessageSignature(final ExecutableProperty_c c_ep, final IProgressMonitor pm,
