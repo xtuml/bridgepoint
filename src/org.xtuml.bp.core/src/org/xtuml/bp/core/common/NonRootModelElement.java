@@ -1176,4 +1176,8 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 	}
 
+  public boolean Includeinproperties() {
+    return true;
+  }
+
 }

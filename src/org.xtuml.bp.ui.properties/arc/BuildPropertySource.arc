@@ -537,7 +537,7 @@ super.toString\
          .assign attr_instance_init =  attr_instance_init  + "Package_c[] v_packages = Package_c .getManyEP_PKGsOnR8001(PackageableElement_c .getManyPE_PEsOnR8000((Package_c) m_inst));\n"
          .assign attr_instance_init =  attr_instance_init  + "m_Packages = v_packages;\nnum_children += v_packages.length;\n"        
       .else
-          .invoke rel_nav = generate_backward_rel_chain_nav(parent_node, spec.ParentChildRelChain, "many", "m_inst", "${child_var_name}")
+          .invoke rel_nav = generate_backward_rel_chain_nav_with_query(parent_node.Key_Lett, spec.ParentChildRelChain, "many", "m_inst", "${child_var_name}", false, "Includeinproperties()")
           .assign attr_instance_init = attr_instance_init + rel_nav.body
           .assign attr_instance_init = attr_instance_init + "       m_$r{child.categoryName}$r{spec.NameOnly} = ${child_var_name};\n"
           .assign attr_instance_init = attr_instance_init + "       num_children += m_$r{child.categoryName}$r{spec.NameOnly}.length;\n"

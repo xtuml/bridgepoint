@@ -463,28 +463,38 @@ public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} [] targets,
   }
 
 .if (loc_mult == 0)
-public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target)
+public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target, ${gtcn.body} test)
 {
   if (target != null) {
     ${tocn.body} [] targetArray = new ${tocn.body}[1];
     targetArray[0] = target;
-    return ${nfn.body}${func_suffix}(targetArray);
+    return ${nfn.body}${func_suffix}(targetArray, test);
   } else {
     ${locn.body} [] result = new ${locn.body} [0] ;
   return result ;
 }
 }
 
-public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target, boolean loadComponent)
+public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target, ${gtcn.body} test, boolean loadComponent)
 {
   if (target != null) {
     ${tocn.body} [] targetArray = new ${tocn.body}[1];
     targetArray[0] = target;
-    return ${nfn.body}${func_suffix}(targetArray, loadComponent);
+    return ${nfn.body}${func_suffix}(targetArray, test, loadComponent);
   } else {
     ${locn.body} [] result = new ${locn.body} [0] ;
   return result ;
 }
+}
+
+public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target)
+{
+    return ${nfn.body}${func_suffix}(target, null);
+}
+
+public static ${locn.body} [] ${nfn.body}${func_suffix}(${tocn.body} target, boolean loadComponent)
+{
+    return ${nfn.body}${func_suffix}(target, null, loadComponent);
 }
 
 .end if

@@ -101,6 +101,20 @@ INSERT INTO O_TFR
 	"74ed4bee-3682-417b-9ac1-c113166a7d6c",
 	0,
 	0);
+INSERT INTO O_TFR
+	VALUES ("669e9c64-8a4f-4707-99de-b4c1d1ad4569",
+	"a5e66f08-6e0b-4552-81cb-e0fea282baca",
+	'includeInProperties',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one rel related by self->R_ASSOC[R209]->R_REL[R206];
+return not rel.is_symmetric() or self.Txt_Phrs != "";',
+	1,
+	'',
+	"b203a75f-ad75-4e41-9e57-35321e8aef00",
+	0,
+	1);
 INSERT INTO O_REF
 	VALUES ("a5e66f08-6e0b-4552-81cb-e0fea282baca",
 	"9935b740-f46f-477e-9f9b-70972448e4a7",

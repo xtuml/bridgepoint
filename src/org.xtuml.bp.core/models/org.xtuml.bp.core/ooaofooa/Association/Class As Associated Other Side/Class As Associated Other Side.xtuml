@@ -19,6 +19,12 @@ Bridge:GD',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
+select one r_rel related by self->R_ASSOC[R210]->R_REL[R206];
+if (r_rel.is_symmetric())
+  // a symmetric reflexive omits the phrase in the R_AONE instance (that''s how symmetry is recognized)
+  // return a null string; the connector text will be evaluated from the other side, R_AOTH
+  return "";
+end if;
 if (param.at == End::Start OR param.at == End::End)
   result = self.Txt_Phrs;
 elif (param.at == End::Start_Fixed OR param.at == End::End_Fixed)
@@ -96,6 +102,20 @@ INSERT INTO O_TFR
 	"c4f0504f-99ba-4b14-84d1-a405beeda0c4",
 	0,
 	0);
+INSERT INTO O_TFR
+	VALUES ("195ee642-2fc6-4ce9-9303-ff4fa2ea1009",
+	"ad524a5b-0c4a-40b7-acbc-cdc3ef2a6867",
+	'includeInProperties',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one rel related by self->R_ASSOC[R210]->R_REL[R206];
+return not rel.is_symmetric() or self.Txt_Phrs != "";',
+	1,
+	'',
+	"f4cc1669-fa0a-4410-9408-5980b6b4eec9",
+	0,
+	1);
 INSERT INTO O_REF
 	VALUES ("ad524a5b-0c4a-40b7-acbc-cdc3ef2a6867",
 	"9935b740-f46f-477e-9f9b-70972448e4a7",
