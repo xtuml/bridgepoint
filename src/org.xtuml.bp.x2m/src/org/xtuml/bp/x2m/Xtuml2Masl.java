@@ -115,7 +115,7 @@ public class Xtuml2Masl {
             prebuildCmd.add("-prebuildOnly");
             prebuildCmd.add("-doNotParse");
             prebuildCmd.add("-project");
-            Path projectPath = new File(projectLocation).toPath();
+            Path projectPath = new File(projectLocation).getCanonicalFile().toPath();
             prebuildCmd.add(projectPath.getName(projectPath.getNameCount() - 1).toString());
             System.out.println(prebuildCmd);
             Process prebuildProcess = new ProcessBuilder().command(prebuildCmd).start();
@@ -174,7 +174,7 @@ public class Xtuml2Masl {
         Process maslProcess = new ProcessBuilder().command(maslCmd).start();
 
         // pipe inputs and outputs together
-        Path projectPath = new File(projectLocation).toPath();
+        Path projectPath = new File(projectLocation).getCanonicalFile().toPath();
         String projectName = projectPath.getName(projectPath.getNameCount() - 1).toString();
         FileInputStream inputFile;
         if (prebuild == PrebuildType.PREBUILD || prebuild == PrebuildType.DEFER_PREBUILD) {
