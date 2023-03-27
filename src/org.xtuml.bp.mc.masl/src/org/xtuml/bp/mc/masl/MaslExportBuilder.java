@@ -44,19 +44,24 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     private PrintStream logfile;
     private PrintStream out;
     private PrintStream err;
+    private MaslExporterPreferences prefs;
 
     private Path outputDirectory;
 
     public MaslExportBuilder() {
         logfile = System.out;
         console = new ModelCompilerConsoleManager();
+        prefs = new MaslExporterPreferences(getProject());
     }
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        //preBuild(kind, false, true, monitor);     Pre-build not necessary because x2m loads directories
+    	prefs.loadPreferences();
+    	if (prefs.isRunPrebuild()) {
+    		preBuild(kind, false, true, monitor);
+    	}
         final String projPath = getProject().getLocation().toOSString();
-        outputDirectory = new Path(new MaslExporterPreferences(getProject()).getOutputDestination());
+        outputDirectory = new Path(prefs.getOutputDestination());
         if (!outputDirectory.isAbsolute()) {
             outputDirectory = new Path(projPath + File.separator + outputDirectory.toOSString());
         }
@@ -144,7 +149,6 @@ public class MaslExportBuilder extends AbstractExportBuilder {
     }
 
     private void exportSystem(boolean refreshBuild) {
-        MaslExporterPreferences prefs = new MaslExporterPreferences(getProject());
         if (prefs.isAutoSelectElements()) {
             for (NonRootModelElement element : getDefaultBuildElements(getProject())) {
                 if (element instanceof Deployment_c) {
@@ -230,7 +234,6 @@ public class MaslExportBuilder extends AbstractExportBuilder {
                 path.toFile().mkdir();
             }
             try {
-                MaslExporterPreferences prefs = new MaslExporterPreferences(getProject());
                 boolean skipFormat = refreshBuild || !prefs.isFormatOutput();
                 boolean skipActionLanguage = refreshBuild || !prefs.isEmitActivities();
                 boolean cleanBuild = !refreshBuild && prefs.isCleanBuild();
@@ -258,7 +261,7 @@ public class MaslExportBuilder extends AbstractExportBuilder {
             boolean skipFormat, boolean skipActionLanguage, boolean cleanBuild)
             throws IOException, RuntimeException, CoreException, InterruptedException {
         Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(outDir)
-                .setPrebuild(PrebuildType.NO_PREBUILD).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild);
+                .setPrebuild(prefs.isRunPrebuild() ? PrebuildType.DEFER_PREBUILD : PrebuildType.NO_PREBUILD).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild);
         if (MASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }

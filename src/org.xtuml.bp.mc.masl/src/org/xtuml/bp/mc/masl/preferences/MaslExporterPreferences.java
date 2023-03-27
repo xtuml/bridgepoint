@@ -20,6 +20,7 @@ public class MaslExporterPreferences {
     private static final boolean FORMAT_OUTPUT_DEFAULT = true;
     private static final boolean EMIT_ACTIVITIES_DEFAULT = true;
     private static final boolean CLEAN_BUILD_DEFAULT = true;
+    private static final boolean RUN_PREBUILD_DEFAULT = false;
     private static final String OUTPUT_DESTINATION_DEFAULT = "masl/";
 
     // preference keys
@@ -27,6 +28,7 @@ public class MaslExporterPreferences {
     private static final String FORMAT_OUTPUT_KEY = "format_output";
     private static final String EMIT_ACTIVITIES_KEY = "emit_activities";
     private static final String CLEAN_BUILD_KEY = "clean_build";
+    private static final String RUN_PREBUILD_KEY = "run_prebuild";
     private static final String OUTPUT_DESTINATION_KEY = "output_desitnation";
     private static final String SELECTED_BUILD_ELEMENTS_KEY = "selected_build_elements";
 
@@ -36,6 +38,7 @@ public class MaslExporterPreferences {
     private boolean formatOutput;
     private boolean emitActivities;
     private boolean cleanBuild;
+    private boolean runPrebuild;
     private String outputDestination;
     List<UUID> selectedBuildElements;
 
@@ -76,6 +79,14 @@ public class MaslExporterPreferences {
         this.cleanBuild = cleanBuild;
     }
 
+    public boolean isRunPrebuild() {
+    	return runPrebuild;
+    }
+    
+    public void setRunPrebuild(boolean runPrebuild) {
+    	this.runPrebuild = runPrebuild;
+    }
+
     public String getOutputDestination() {
         return outputDestination;
     }
@@ -97,6 +108,7 @@ public class MaslExporterPreferences {
         formatOutput = FORMAT_OUTPUT_DEFAULT;
         emitActivities = EMIT_ACTIVITIES_DEFAULT;
         cleanBuild = CLEAN_BUILD_DEFAULT;
+        runPrebuild = RUN_PREBUILD_DEFAULT;
         outputDestination = OUTPUT_DESTINATION_DEFAULT;
         selectedBuildElements = new ArrayList<>();
     }
@@ -125,6 +137,12 @@ public class MaslExporterPreferences {
             this.cleanBuild = CLEAN_BUILD_DEFAULT;
         } else {
             this.cleanBuild = Boolean.getBoolean(cleanBuild);
+        }
+        String runPrebuild = internalPrefs.get(RUN_PREBUILD_KEY, "None");
+        if ("None".equals(runPrebuild)) {
+            this.runPrebuild = RUN_PREBUILD_DEFAULT;
+        } else {
+            this.runPrebuild = Boolean.getBoolean(runPrebuild);
         }
         String outputDestination = internalPrefs.get(OUTPUT_DESTINATION_KEY, "None");
         if ("None".equals(outputDestination)) {
@@ -155,6 +173,9 @@ public class MaslExporterPreferences {
             }
             if (cleanBuild != CLEAN_BUILD_DEFAULT) {
                 internalPrefs.putBoolean(CLEAN_BUILD_KEY, cleanBuild);
+            }
+            if (runPrebuild != RUN_PREBUILD_DEFAULT) {
+                internalPrefs.putBoolean(RUN_PREBUILD_KEY, runPrebuild);
             }
             if (!outputDestination.equals(OUTPUT_DESTINATION_DEFAULT)) {
                 internalPrefs.put(OUTPUT_DESTINATION_KEY, outputDestination);

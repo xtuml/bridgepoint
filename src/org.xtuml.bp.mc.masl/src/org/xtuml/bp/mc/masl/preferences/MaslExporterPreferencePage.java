@@ -36,6 +36,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
     Button enableFormatButton;
     Button emitActionLanguageButton;
     Button cleanBuildButton;
+    Button prebuildButton;
     Text outputFolderTextbox;
 
     @Override
@@ -112,6 +113,9 @@ public class MaslExporterPreferencePage extends PropertyPage {
         cleanBuildButton = new Button(outputControlGroup, SWT.CHECK);
         cleanBuildButton.setText("Remove old files before export (clean)");
 
+        prebuildButton = new Button(outputControlGroup, SWT.CHECK);
+        prebuildButton.setText("Run BridgePoint prebuild");
+
         @SuppressWarnings("unused")
         final Label blankLabel = new Label(outputControlGroup, SWT.NONE);
 
@@ -157,6 +161,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         prefs.setFormatOutput(enableFormatButton.getSelection());
         prefs.setEmitActivities(emitActionLanguageButton.getSelection());
         prefs.setCleanBuild(cleanBuildButton.getSelection());
+        prefs.setRunPrebuild(prebuildButton.getSelection());
         prefs.setOutputDestination(outputFolderTextbox.getText());
         prefs.savePreferences();
     }
@@ -192,6 +197,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         enableFormatButton.setSelection(prefs.isFormatOutput());
         emitActionLanguageButton.setSelection(prefs.isEmitActivities());
         cleanBuildButton.setSelection(prefs.isCleanBuild());
+        prebuildButton.setSelection(prefs.isRunPrebuild());
         outputFolderTextbox.setText(prefs.getOutputDestination());
     }
 
