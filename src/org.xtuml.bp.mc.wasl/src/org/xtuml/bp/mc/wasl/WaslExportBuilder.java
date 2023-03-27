@@ -32,6 +32,7 @@ import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
 import org.xtuml.bp.mc.wasl.preferences.WaslExporterPreferences;
 import org.xtuml.bp.x2m.Xtuml2Masl;
+import org.xtuml.bp.x2m.Xtuml2Masl.PrebuildType;
 
 public class WaslExportBuilder extends AbstractExportBuilder {
 
@@ -56,7 +57,7 @@ public class WaslExportBuilder extends AbstractExportBuilder {
 
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
-        //preBuild(kind, false, true, monitor);     Pre-build not necessary because x2m loads directories
+        preBuild(kind, false, true, monitor); // Pre-build not necessary because x2m loads directories
     	WaslExporterPreferences preferences = new WaslExporterPreferences(getProject());
         final String projPath = getProject().getLocation().toOSString();
         outputDirectory = new Path(preferences.getOutputDestination());
@@ -274,7 +275,7 @@ public class WaslExportBuilder extends AbstractExportBuilder {
             boolean skipFormat, boolean skipActionLanguage)
             throws IOException, RuntimeException, CoreException, InterruptedException {
         Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(outDir)
-                .setPrebuild(false).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setArchitecture("WASL");
+                .setPrebuild(PrebuildType.DEFER_PREBUILD).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setArchitecture("WASL");
         if (WASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }

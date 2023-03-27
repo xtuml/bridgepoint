@@ -41,15 +41,21 @@ public class Xtuml2Masl {
     private boolean isDomain;
     private boolean validate;
     private boolean coverage;
-    private boolean prebuild;
+    private PrebuildType prebuild;
     private boolean skipFormat;
     private boolean skipActionLanguage;
     private boolean cleanBuild;
+    
+    public enum PrebuildType {
+    	NO_PREBUILD,
+    	PREBUILD,
+    	DEFER_PREBUILD,
+    }
 
     public Xtuml2Masl() {
         validate = false;
         coverage = false;
-        prebuild = false;
+        prebuild = PrebuildType.PREBUILD;
         outDir = ".";
         architecture = "MASL";
         skipFormat = false;
@@ -101,7 +107,7 @@ public class Xtuml2Masl {
         }
 
         // run pre-builder if executing outside eclipse on a project project
-        if (prebuild) {
+        if (prebuild == PrebuildType.PREBUILD) {
             // build prebuild process
             List<String> prebuildCmd = new ArrayList<>();
             prebuildCmd.add(toolsFolder() + File.separator + CLI_EXE);
@@ -134,7 +140,7 @@ public class Xtuml2Masl {
             x2mCmd.add("-p");
         }
         x2mCmd.add(name);
-        if (prebuild) {
+        if (prebuild == PrebuildType.PREBUILD || prebuild == PrebuildType.DEFER_PREBUILD) {
             x2mCmd.add("-P");
         }
         System.out.println(x2mCmd);
@@ -171,7 +177,7 @@ public class Xtuml2Masl {
         Path projectPath = new File(projectLocation).toPath();
         String projectName = projectPath.getName(projectPath.getNameCount() - 1).toString();
         FileInputStream inputFile;
-        if (prebuild) {
+        if (prebuild == PrebuildType.PREBUILD || prebuild == PrebuildType.DEFER_PREBUILD) {
             inputFile = new FileInputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
         } else {
@@ -282,7 +288,7 @@ public class Xtuml2Masl {
         return this;
     }
 
-    public Xtuml2Masl setPrebuild(boolean prebuild) {
+    public Xtuml2Masl setPrebuild(PrebuildType prebuild) {
         this.prebuild = prebuild;
         return this;
     }
@@ -431,7 +437,7 @@ public class Xtuml2Masl {
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild ? PrebuildType.PREBUILD : PrebuildType.NO_PREBUILD).setSkipFormat(skipFormatter)
                 .setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)

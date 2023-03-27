@@ -29,6 +29,7 @@ import org.xtuml.bp.mc.AbstractExportBuilder;
 import org.xtuml.bp.mc.masl.preferences.MaslExporterPreferences;
 import org.xtuml.bp.mc.utilities.ModelCompilerConsoleManager;
 import org.xtuml.bp.x2m.Xtuml2Masl;
+import org.xtuml.bp.x2m.Xtuml2Masl.PrebuildType;
 
 public class MaslExportBuilder extends AbstractExportBuilder {
 
@@ -257,7 +258,7 @@ public class MaslExportBuilder extends AbstractExportBuilder {
             boolean skipFormat, boolean skipActionLanguage, boolean cleanBuild)
             throws IOException, RuntimeException, CoreException, InterruptedException {
         Xtuml2Masl exporter = new Xtuml2Masl().setProjectLocation(projPath).setName(names[0]).setOutputDirectory(outDir)
-                .setPrebuild(false).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild);
+                .setPrebuild(PrebuildType.NO_PREBUILD).setSkipFormat(skipFormat).setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild);
         if (MASL_PROJECT == type) {
             exporter = exporter.setIsDomain(false);
         }
