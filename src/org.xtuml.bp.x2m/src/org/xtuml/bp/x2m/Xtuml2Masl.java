@@ -26,7 +26,7 @@ public class Xtuml2Masl {
 
     private static final int KILL_TIMEOUT = 2000;
 
-    public static final String CLI_EXE = "CLI.sh";
+    public static final String CLI_EXE = System.getProperty("os.name").toLowerCase().contains("win") ? "CLI.bat" : "CLI.sh";
     public static final String X2M_EXE = "x2m";
     public static final String MASL_EXE = "masl";
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
