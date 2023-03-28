@@ -366,10 +366,24 @@ public class Xtuml2Masl {
         }
     }
 
-    private static void printUsage() {
-        System.err.println(
-                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] [-xc] -i <eclipse project> -d <domain component> [-o <output directory>] [-a <architecture>]\n\txtuml2masl [-v | -V] [-xf] [-xl] [-xc] -i <eclipse project> -p <project package> [-o <output directory>] [-a <architecture>]");
-    }
+	private static void printUsage() {
+		System.err.println("Usage:\n"
+        + "\txtuml2masl [-v | -V] [-c] [-P] [-xf] [-xl] [-a <architecture>] -i <eclipse project location> -d <domain component> [ -o <output directory> ]\n"
+        + "\txtuml2masl [-v | -V] [-c] [-P] [-xf] [-xl] [-a <architecture>] -i <eclipse project location> -p <project/deployment package> [ -o <output directory> ]\n"
+        + "\n"
+        + "\t| Parameter                             | Description                                                                                                  |\n"
+        + "\t|---------------------------------------|--------------------------------------------------------------------------------------------------------------|\n"
+        + "\t| -v -V                                 | Optionally print help message                                                                                |\n"
+        + "\t| -c                                    | Optionally used to enable the production of coverage statistics                                              |\n"
+        + "\t| -P                                    | Optionally used to cause BridgePoint prebuilder to be used to export model data                              |\n"
+        + "\t| -xf                                   | Optionally skip the formatting step                                                                          |\n"
+        + "\t| -xl                                   | Optionally exclude action langauge from export                                                               |\n"
+        + "\t| -a &lt;architecture&gt;               | Specify the output architecture. \"MASL\" and \"WASL\" are valid options. \"MASL\" is the default.           |\n"
+        + "\t| -i &lt;eclipse project location&gt;   | Specify an absolute or relative path to the root directory of the Eclipse project containing the input model |\n"
+        + "\t| -d &lt;domain component&gt;           | Specify xtUML component that will be exported as a MASL domain                                               |\n"
+        + "\t| -p &lt;project/deployment package&gt; | Specify xtUML package that will be exported as a MASL project/deployment                                     |\n"
+        + "\t| -o &lt;output directory&gt;           | Optionally specify the target folder to write to                                                             |");
+	}
 
     private static class BuildElement {
 
