@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.utilities,
  org.xtuml.bp.x2m,
  org.eclipse.ui.console,
- org.apache.commons.io
+ org.apache.commons.io,
+ org.xtuml.bp.mc.masl;bundle-version="7.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.wasl

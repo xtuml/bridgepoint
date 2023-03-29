@@ -27,6 +27,10 @@ public class MaslExportNature extends AbstractNature {
         super(Activator.getDefault(), BUILDER_ID);
         singleton = this;
     }
+    
+    public MaslExportNature(AbstractActivator activator, String builderId) {
+    	super(activator, builderId);
+    }
 
     @Override
     public void configure() throws CoreException {
@@ -45,7 +49,7 @@ public class MaslExportNature extends AbstractNature {
         }
     }
 
-    private void configureBuilders() throws CoreException {
+    protected void configureBuilders() throws CoreException {
         IProjectDescription desc = getProject().getDescription();
         List<ICommand> commands = new ArrayList<>(Arrays.asList(desc.getBuildSpec()));
         ICommand command = desc.newCommand();

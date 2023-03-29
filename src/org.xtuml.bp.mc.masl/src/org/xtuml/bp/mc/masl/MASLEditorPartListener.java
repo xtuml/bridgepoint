@@ -1,5 +1,7 @@
 package org.xtuml.bp.mc.masl;
 
+import java.util.Map;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -48,7 +50,7 @@ public class MASLEditorPartListener implements IPartListener2 {
                 IProject project = (IProject) ((SystemModel_c) nrme).getAdapter(IProject.class);
                 try {
                     project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, MaslExportNature.BUILDER_ID,
-                            new SingleEntryStringMap("refreshBuild", "true"), new NullProgressMonitor());
+                            Map.of("refreshBuild", "true"), new NullProgressMonitor());
                 } catch (CoreException e) {
                     CorePlugin.logError("Failed running MASL refresher: ", e);
                 }

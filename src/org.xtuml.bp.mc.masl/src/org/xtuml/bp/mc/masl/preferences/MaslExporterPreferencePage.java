@@ -31,16 +31,17 @@ public class MaslExporterPreferencePage extends PropertyPage {
 
     private MaslExporterPreferences prefs;
 
-    private CheckboxTreeViewer elementListViewer;
-    private Button automaticallySelectButton;
-    Button enableFormatButton;
-    Button emitActionLanguageButton;
-    Button cleanBuildButton;
-    Text outputFolderTextbox;
-
+    protected CheckboxTreeViewer elementListViewer;
+    protected Button automaticallySelectButton;
+    protected Button enableFormatButton;
+    protected Button emitActionLanguageButton;
+    protected Button cleanBuildButton;
+    protected Button prebuildButton;
+    protected Text outputFolderTextbox;
+    
     @Override
     protected Control createContents(Composite parent) {
-        prefs = new MaslExporterPreferences(getProject());
+    	prefs = getPrefs();
 
         Composite composite = new Composite(parent, SWT.NULL);
         composite.setLayout(new GridLayout());
@@ -103,17 +104,17 @@ public class MaslExporterPreferencePage extends PropertyPage {
         outputControlGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         outputControlGroup.setText("Output settings");
 
-        enableFormatButton = new Button(outputControlGroup, SWT.CHECK);
-        enableFormatButton.setText("Format output MASL");
-
         emitActionLanguageButton = new Button(outputControlGroup, SWT.CHECK);
         emitActionLanguageButton.setText("Emit activity definition files");
 
         cleanBuildButton = new Button(outputControlGroup, SWT.CHECK);
         cleanBuildButton.setText("Remove old files before export (clean)");
 
-        @SuppressWarnings("unused")
-        final Label blankLabel = new Label(outputControlGroup, SWT.NONE);
+        prebuildButton = new Button(outputControlGroup, SWT.CHECK);
+        prebuildButton.setText("Run BridgePoint prebuild");
+
+        enableFormatButton = new Button(outputControlGroup, SWT.CHECK);
+        enableFormatButton.setText("Format output");
 
         Label outputFolderLabel = new Label(outputControlGroup, SWT.NONE);
         outputFolderLabel.setText("Output destination:");
@@ -157,6 +158,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         prefs.setFormatOutput(enableFormatButton.getSelection());
         prefs.setEmitActivities(emitActionLanguageButton.getSelection());
         prefs.setCleanBuild(cleanBuildButton.getSelection());
+        prefs.setRunPrebuild(prebuildButton.getSelection());
         prefs.setOutputDestination(outputFolderTextbox.getText());
         prefs.savePreferences();
     }
@@ -192,6 +194,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         enableFormatButton.setSelection(prefs.isFormatOutput());
         emitActionLanguageButton.setSelection(prefs.isEmitActivities());
         cleanBuildButton.setSelection(prefs.isCleanBuild());
+        prebuildButton.setSelection(prefs.isRunPrebuild());
         outputFolderTextbox.setText(prefs.getOutputDestination());
     }
 
@@ -207,7 +210,7 @@ public class MaslExporterPreferencePage extends PropertyPage {
         }
     }
 
-    private IProject getProject() {
+    protected IProject getProject() {
         if (getElement() instanceof IProject) {
             return (IProject) getElement();
         } else if (getElement() instanceof SystemModel_c) {
@@ -215,6 +218,10 @@ public class MaslExporterPreferencePage extends PropertyPage {
         } else {
             return null;
         }
+    }
+    
+    protected MaslExporterPreferences getPrefs() {
+        return new MaslExporterPreferences(getProject());
     }
 
 }
