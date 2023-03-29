@@ -28,11 +28,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -40,7 +38,6 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -488,18 +485,11 @@ public class PersistenceManager {
 		return sequentialExecutor;
 	}
 
-	// TODO
-	private static boolean isLoaded = false;
-
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
 		Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
 				.collect(Collectors.toSet());
 		
-		// TODO for now bail if this isn't the first load upon startup
-		if (isLoaded) return;
-		isLoaded = true;
-
 		// add PMCs in special cases whenever an O_REF is in the RGOs list, the
 		// PMC needs to be reloaded because the O_REFs are what formalize the
 		// association

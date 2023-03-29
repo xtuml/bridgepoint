@@ -2149,8 +2149,8 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	private String sanitizeName(final String name) {
-		if (name.matches(".*\\s.*")) {
-			return "'" + name.replaceAll("\\s+", " ") + "'";
+		if (!name.matches("^[a-zA-Z][a-zA-Z0-9_]*$")) {
+			return "'" + name + "'";
 		} else {
 			return name;
 		}

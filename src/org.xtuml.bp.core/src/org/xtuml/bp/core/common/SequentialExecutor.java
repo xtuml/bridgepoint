@@ -3,8 +3,10 @@ package org.xtuml.bp.core.common;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.locks.ReentrantLock;
@@ -20,8 +22,8 @@ public class SequentialExecutor implements Executor {
 
 	private final ReentrantLock runLock = new ReentrantLock(true);
 	private final Executor internalExecutor;
-	private final Set<Thread> waitingThreads = new HashSet<>();
-	private final Map<Thread, Integer> waitingThreadCount = new HashMap<>();
+	private final Set<UUID> waitList = new HashSet<>();
+	private final Map<Thread, Integer> hashList = new HashMap<>();
 
 	private boolean isShutdown = false;
 
@@ -48,25 +50,25 @@ public class SequentialExecutor implements Executor {
 	}
 
 	public <T> T callAndWait(Callable<Optional<T>> callable) throws Exception {
+		final UUID callToken = UUID.randomUUID();
 		if (runLock.isHeldByCurrentThread()) {
 			while (true) {
 				// attempt the call
 				final Optional<T> value = callable.call();
 				if (value.isPresent()) {
-					waitingThreads.remove(Thread.currentThread());
+					waitList.remove(callToken);
 					return value.get();
 				}
 
 				// if this call must be cancelled, throw an exception
-				if (isShutdown && waitingThreads.size() == Optional
-						.ofNullable(waitingThreadCount.get(Thread.currentThread())).orElse(-1)) {
-					throw new RuntimeException("Execution cancelled due to prevent deadlock scenario ("
-							+ Thread.currentThread().getName() + ")");
+				final int hash = Objects.hash(waitList.toArray());
+				if (isShutdown && hashList.containsKey(Thread.currentThread()) && hashList.get(Thread.currentThread()).equals(hash)) {
+					throw new RuntimeException("Execution cancelled due to prevent deadlock scenario (" + Thread.currentThread().getName() + ")");
 				}
 
-				// add this thread to the set of threads waiting on some result
-				waitingThreads.add(Thread.currentThread());
-				waitingThreadCount.put(Thread.currentThread(), waitingThreads.size());
+				// add this thread to the wait list
+				waitList.add(callToken);
+				hashList.put(Thread.currentThread(), hash);
 
 				// release and re-acquire the lock to allow someone else a turn
 				runLock.unlock();

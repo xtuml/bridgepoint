@@ -357,7 +357,7 @@ RealLiteral                        : '-'? ( '0' | ( '1' .. '9' ) ( '0' .. '9' )*
 IntegerLiteral                     : '0' | '-'? ( '1' .. '9' ) ( '0' .. '9' )*;
 BooleanLiteral                     : 'true' | 'false';
 ID                                 : ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' )*;
-Ext_ID                             : '\'' ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) ) ( ( 'a' .. 'z' ) | ( 'A' .. 'Z' ) | ( '0' .. '9' ) | '_' | ' ' | '\t' )* '\'';
+Ext_ID                             : '\'' ~( '\'' | '\r' | '\n' )+ '\'';
 Divider                            : '---' ( '-' )*;
 
 UnparsedActions                    : '@noparse' .*? '@endnoparse';
