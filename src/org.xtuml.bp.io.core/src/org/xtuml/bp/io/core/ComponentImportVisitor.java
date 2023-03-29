@@ -103,7 +103,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		Interface_c iface = null;
 		if (ctx.iface_name != null) {
 			try {
-				iface = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath,
+				iface = executor.callAndWaitNullable(() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath,
 						Interface_c::getOneC_IOnR8001, false));
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException(

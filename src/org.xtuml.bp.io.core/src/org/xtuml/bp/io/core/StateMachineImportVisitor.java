@@ -232,7 +232,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 				// get the referred to event
 				final String evtPath = visitScoped_name(ctx.evt_names.get(i));
 				StateMachineEvent_c refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(stateMachine,
-						selected -> ((StateMachineEvent_c) selected).getPath().endsWith(evtPath));
+						selected -> pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
 				if (refEvt == null) {
 					// search for polymorphic events
 					StateMachine_c[] superTypeSms = getSupertypeStateMachines(stateMachine);
@@ -240,7 +240,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 						refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
 								selected -> ((StateMachineEvent_c) selected)
 										.Isassignabletostatemachine(stateMachine.getSm_id(), startState == null)
-										&& ((StateMachineEvent_c) selected).getPath().endsWith(evtPath));
+										&& pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
 						superTypeSms = getSupertypeStateMachines(superTypeSms);
 					}
 				}
@@ -318,16 +318,15 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 		// get the referred to event
 		final String evtPath = visitScoped_name(ctx.evt_name);
 		StateMachineEvent_c refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(stateMachine,
-				selected -> ((StateMachineEvent_c) selected).getPath().endsWith(evtPath));
+				selected -> pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
 		if (refEvt == null) {
 			// search for polymorphic events
 			StateMachine_c[] superTypeSms = getSupertypeStateMachines(stateMachine);
 			while (superTypeSms.length > 0 && refEvt == null) {
-				refEvt = StateMachineEvent_c
-						.getOneSM_EVTOnR502(superTypeSms,
-								selected -> ((StateMachineEvent_c) selected)
-										.Isassignabletostatemachine(stateMachine.getSm_id(), startState == null)
-										&& ((StateMachineEvent_c) selected).getPath().endsWith(evtPath));
+				refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
+						selected -> ((StateMachineEvent_c) selected).Isassignabletostatemachine(stateMachine.getSm_id(),
+								startState == null)
+								&& pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
 				superTypeSms = getSupertypeStateMachines(superTypeSms);
 			}
 		}
@@ -370,6 +369,12 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 		// find or create state machine
 		final StateMachine_c stateMachine = findOrCreate(StateMachine_c.class,
 				modelClass.getPath() + "::" + (isClassBased ? "Class State Machine" : "Instance State Machine"));
+
+		// link subtype if not already created
+		if (MooreStateMachine_c.getOneSM_MOOREOnR510(stateMachine) == null) {
+			final MooreStateMachine_c moore = new MooreStateMachine_c(modelRoot);
+			moore.relateAcrossR510To(stateMachine);
+		}
 
 		// link to class if not already
 		if (isClassBased && ClassStateMachine_c.getOneSM_ASMOnR517(stateMachine) == null) {

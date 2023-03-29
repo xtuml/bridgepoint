@@ -2025,7 +2025,7 @@ public class ExportModelText extends ExportModelComponent {
 
 			// if the 'definition' field is populated, use it and ignore everything else
 			if (!inst.getDefinition().isBlank()) {
-				append("%s@raw_definition\n", getTab());
+				append("%s@raw_definition;\n", getTab());
 				append("%stype %s is ", getTab(), sanitizeName(dt.getName()));
 				final String typeDef = inst.getDefinition().strip().lines()
 						.collect(Collectors.joining(String.format("\n%s", getTab())));
@@ -2079,15 +2079,20 @@ public class ExportModelText extends ExportModelComponent {
 
 		// get the return type if applicable
 		final DataType_c returnType = DataType_c.getOneS_DTOnR4008(InterfaceOperation_c.getOneC_IOOnR4004(c_ep));
-		final String returnTypeRef = (returnType != null
-				&& !"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString()))
-						? " return " + getTypeReference(returnType,
-								InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
-						: "";
+		final String returnTypeRef = returnType != null
+				? " return " + getTypeReference(returnType,
+						InterfaceOperation_c.getOneC_IOOnR4004(c_ep).getReturn_dimensions())
+				: "";
 
 		// get the message direction
-		final String direction = c_ep.getDirection() == Ifdirectiontype_c.ClientServer ? "to provider"
-				: "from provider";
+		final String direction = (c_ep
+				.getDirection() != Ifdirectiontype_c.OOA_UNINITIALIZED_ENUM
+						? c_ep.getDirection()
+						: (InterfaceSignal_c.getOneC_ASOnR4004(c_ep) != null
+								? InterfaceSignal_c.getOneC_ASOnR4004(c_ep).getDirection()
+								: InterfaceOperation_c.getOneC_IOOnR4004(c_ep)
+										.getDirection())) == Ifdirectiontype_c.ClientServer ? "to provider"
+												: "from provider";
 
 		return String.format("message %s(%s)%s %s", c_ep.getName(), parameterList, returnTypeRef, direction);
 	}

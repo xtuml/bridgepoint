@@ -274,10 +274,9 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final String attrName = visitName(ctx.attr_name);
 		final ClassIdentifierAttribute_c oida;
 		try {
-			oida = executor.callAndWait(() -> Optional
-					.ofNullable(ClassIdentifierAttribute_c.getOneO_OIDAOnR105(Attribute_c.getManyO_ATTRsOnR102(
-							ModelClass_c.getOneO_OBJOnR201(ClassInAssociation_c.getOneR_OIROnR203(rto)),
-							selected -> ((Attribute_c) selected).getName().equals(attrName)))));
+			oida = executor.callAndWaitNullable(() -> ClassIdentifierAttribute_c.getOneO_OIDAOnR105(Attribute_c
+					.getManyO_ATTRsOnR102(ModelClass_c.getOneO_OBJOnR201(ClassInAssociation_c.getOneR_OIROnR203(rto)),
+							selected -> ((Attribute_c) selected).getName().equals(attrName))));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException("Failed to find attribute '" + ctx.getText() + "'.", e);
 		}
@@ -326,24 +325,24 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
 		final Association_c rel;
 		try {
-			rel = executor.callAndWait(() -> Optional.ofNullable(Association_c.getOneR_RELOnR201(
+			rel = executor.callAndWaitNullable(() -> Association_c.getOneR_RELOnR201(
 					ModelClass_c.getOneO_OBJOnR102(Attribute_c.getOneO_ATTROnR106(rattr)),
-					selected -> ((Association_c) selected).getNumb() == relNum)));
+					selected -> ((Association_c) selected).getNumb() == relNum));
 			// Wait for the relationship to be linked to a package. This assures
 			// that the relationship is fully loaded and all RGOs/RTOs are in place.
-			executor.callAndWait(() -> Optional
-					.ofNullable(Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(rel))));
+			executor.callAndWaitNullable(
+					() -> Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(rel)));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException("Failed to find association 'R" + relNum + "'.", e);
 		}
 
 		try {
-			return executor.callAndWait(() -> {
+			return executor.callAndWaitNullable(() -> {
 				// try with just the relationship number
 				ReferredToClassInAssoc_c[] rtos = ReferredToClassInAssoc_c
 						.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(rel));
 				if (rtos.length == 1) {
-					return Optional.of(rtos[0]);
+					return rtos[0];
 				}
 
 				// try with the class name and relationship number
@@ -352,7 +351,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 							selected -> ModelClass_c.getOneO_OBJOnR201((ClassInAssociation_c) selected).getName()
 									.equals(visit(ctx.class_or_role))));
 					if (rtos.length == 1) {
-						return Optional.of(rtos[0]);
+						return rtos[0];
 					}
 				}
 
@@ -364,11 +363,11 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 									&& ((ClassInAssociation_c) selected).Get_text_phrase()
 											.equals(visit(ctx.class_or_role))));
 					if (rtos.length == 1) {
-						return Optional.of(rtos[0]);
+						return rtos[0];
 					}
 				}
 
-				return Optional.empty();
+				return null;
 			});
 
 		} catch (Exception e) {
@@ -462,11 +461,11 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 			final int relNum = Integer.parseInt(ctx.RelName().getText().substring(1));
 			final Association_c rel;
 			try {
-				rel = executor.callAndWait(() -> Optional.ofNullable(Association_c.getOneR_RELOnR206(
+				rel = executor.callAndWaitNullable(() -> Association_c.getOneR_RELOnR206(
 						SubtypeSupertypeAssociation_c.getManyR_SUBSUPsOnR212(
 								ClassAsSupertype_c.getManyR_SUPERsOnR204(ReferredToClassInAssoc_c
 										.getManyR_RTOsOnR203(ClassInAssociation_c.getManyR_OIRsOnR201(modelClass)))),
-						selected -> ((Association_c) selected).getNumb() == relNum)));
+						selected -> ((Association_c) selected).getNumb() == relNum));
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException(
 						"Could not find relationship for deferred operation: " + ctx.RelName(), e);

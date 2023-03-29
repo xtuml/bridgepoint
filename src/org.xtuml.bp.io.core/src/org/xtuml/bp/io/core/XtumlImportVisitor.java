@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -109,7 +108,6 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public NonRootModelElement visitDiscontiguous_definition(Discontiguous_definitionContext ctx) {
 		final String parentPath = visitScoped_name(ctx.parent_name);
 		try {
-			// TODO load systems and then navigate to packages and components
 			currentRoot = executor.callAndWait(() -> {
 				final SystemModel_c[] systems = SystemModel_c
 						.SystemModelInstances(Ooaofooa.getInstance(ModelRoot.DEFAULT_WORKING_MODELSPACE));
@@ -136,7 +134,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		}
 		final String scopedTypeName = typeName;
 		try {
-			return executor.callAndWait(
+			return executor.callAndWaitNullable(
 					() -> searchByPath(Elementtypeconstants_c.DATATYPE, scopedTypeName, DataType_c::getOneS_DTOnR8001));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException(
@@ -153,7 +151,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public DataType_c visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
 			final String refClassPath = visitScoped_name(ctx.scoped_name());
-			final ModelClass_c refClass = executor.callAndWait(
+			final ModelClass_c refClass = executor.callAndWaitNullable(
 					() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath, ModelClass_c::getOneO_OBJOnR8001));
 			refClass.Newinstancereferencedatatype();
 			return DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(refClass,
@@ -251,20 +249,20 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return dim_string;
 	}
 
-	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
+	protected <T extends NonRootModelElement> T searchByPath(final int elementType, final String path,
 			final Function<PackageableElement_c, T> resultMapper) {
 		return searchByPath(elementType, path, resultMapper, true);
 	}
 
-	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
+	protected <T extends NonRootModelElement> T searchByPath(final int elementType, final String path,
 			final Function<PackageableElement_c, T> resultMapper, boolean includeDeclarations) {
 		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(resultMapper)
-				.filter(Objects::nonNull).filter(o -> o.getPath().endsWith(path))
+				.filter(Objects::nonNull).filter(o -> pathMatches(o.getPath(), path))
 				.filter(o -> includeDeclarations || !o.isDeclarationOnly()).collect(Collectors.toList());
 		if (results.isEmpty()) {
-			return Optional.empty();
+			return null;
 		} else if (results.size() == 1) {
-			return Optional.of(results.get(0));
+			return results.get(0);
 		} else {
 			throw new IllegalArgumentException("The given path corresponds to more than one unique element");
 		}
@@ -336,7 +334,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		}
 	}
 
-	int getDialectCode(String dialect) {
+	protected int getDialectCode(String dialect) {
 		return Stream.of(Actiondialect_c.class.getFields()).filter(field -> field.getName().equals(dialect))
 				.map(field -> {
 					try {
@@ -345,6 +343,21 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 						return Actiondialect_c.OOA_UNINITIALIZED_ENUM;
 					}
 				}).findAny().orElse(Actiondialect_c.OOA_UNINITIALIZED_ENUM);
+	}
+
+	protected boolean pathMatches(String candidatePath, String cmpPath) {
+		String[] candidatePathSegments = candidatePath.split("::");
+		String[] cmpPathSegments = cmpPath.split("::");
+		if (cmpPathSegments.length > candidatePathSegments.length) {
+			return false; // return false if the compare path is longer than the candidate path
+		}
+		for (int i = 1; i <= cmpPathSegments.length; i++) {
+			if (!cmpPathSegments[cmpPathSegments.length - i]
+					.equals(candidatePathSegments[candidatePathSegments.length - i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	protected static final class Mark extends LinkedHashMap<String, Object> implements Map<String, Object> {

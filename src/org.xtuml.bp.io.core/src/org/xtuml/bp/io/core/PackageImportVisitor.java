@@ -3,7 +3,6 @@ package org.xtuml.bp.io.core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.xtuml.bp.core.Association_c;
@@ -118,8 +117,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		if (currentRoot instanceof Package_c) {
 			pe.relateAcrossR8000To((Package_c) currentRoot);
 			try {
-				final SystemModel_c s_sys = executor.callAndWait(
-						() -> Optional.ofNullable(SystemModel_c.getOneS_SYSOnR1405((Package_c) currentRoot)));
+				final SystemModel_c s_sys = executor
+						.callAndWaitNullable(() -> SystemModel_c.getOneS_SYSOnR1405((Package_c) currentRoot));
 				pkg.relateAcrossR1405To(s_sys);
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException("Could not find system model for package: " + pkgName, e);
@@ -127,9 +126,9 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		} else if (currentRoot instanceof Component_c) {
 			pe.relateAcrossR8003To((Component_c) currentRoot);
 			try {
-				final SystemModel_c s_sys = executor.callAndWait(() -> Optional.ofNullable(SystemModel_c
+				final SystemModel_c s_sys = executor.callAndWaitNullable(() -> SystemModel_c
 						.getOneS_SYSOnR1405(Package_c.PackageInstance(modelRoot, selected -> ((Package_c) selected)
-								.getPackage_id().equals(((Component_c) currentRoot).Getpackageid())))));
+								.getPackage_id().equals(((Component_c) currentRoot).Getpackageid()))));
 				pkg.relateAcrossR1405To(s_sys);
 			} catch (Exception e) {
 				throw new CoreImport.XtumlLoadException("Could not find system model for package: " + pkgName, e);
@@ -672,8 +671,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final ModelClass_c refClass;
 				try {
 					// TODO this might cause a circular reference
-					refClass = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath,
-							ModelClass_c::getOneO_OBJOnR8001));
+					refClass = executor.callAndWaitNullable(() -> searchByPath(Elementtypeconstants_c.CLASS,
+							refClassPath, ModelClass_c::getOneO_OBJOnR8001));
 				} catch (Exception e) {
 					throw new CoreImport.XtumlLoadException("Failed to find class '" + refClassPath + "'.", e);
 				}
@@ -1034,8 +1033,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final String refCompPath = visitScoped_name(ctx.ref_name);
 				final Component_c refComp;
 				try {
-					refComp = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.COMPONENT, refCompPath,
-							Component_c::getOneC_COnR8001));
+					refComp = executor.callAndWaitNullable(() -> searchByPath(Elementtypeconstants_c.COMPONENT,
+							refCompPath, Component_c::getOneC_COnR8001));
 				} catch (Exception e) {
 					throw new CoreImport.XtumlLoadException("Failed to find component '" + refCompPath + "'.", e);
 				}
@@ -1070,7 +1069,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final String reqPortName = visitName(ctx.req_port_ref);
 		final NonRootModelElement reqRef;
 		try {
-			reqRef = executor.callAndWait(() -> {
+			reqRef = executor.callAndWaitNullable(() -> {
 				final Requirement_c req = Requirement_c
 						.getOneC_ROnR4009(
 								InterfaceReference_c
@@ -1081,7 +1080,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 																.equals(reqCompName)),
 												selected -> ((Port_c) selected).getName().equals(reqPortName))));
 				if (req != null) {
-					return Optional.of(req);
+					return req;
 				} else {
 
 					final PortReference_c cl_por = PortReference_c.getOneCL_POROnR4707(
@@ -1092,7 +1091,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 							selected -> ((PortReference_c) selected).getName().equals(reqPortName));
 					final ImportedReference_c cl_iir = ImportedReference_c.getOneCL_IIROnR4708(cl_por);
 					final ImportedRequirement_c cl_ir = ImportedRequirement_c.getOneCL_IROnR4703(cl_iir);
-					return Optional.ofNullable(cl_ir);
+					return cl_ir;
 				}
 
 			});
@@ -1106,7 +1105,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final String provPortName = visitName(ctx.prov_port_ref);
 		final NonRootModelElement provRef;
 		try {
-			provRef = executor.callAndWait(() -> {
+			provRef = executor.callAndWaitNullable(() -> {
 				final Provision_c prov = Provision_c
 						.getOneC_POnR4009(
 								InterfaceReference_c
@@ -1117,13 +1116,13 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 																.equals(provCompName)),
 												selected -> ((Port_c) selected).getName().equals(provPortName))));
 				if (prov != null) {
-					return Optional.of(prov);
+					return prov;
 				} else {
-					return Optional
-							.ofNullable(
-									ImportedProvision_c
-											.getOneCL_IPOnR4703(ImportedReference_c
-													.getOneCL_IIROnR4708(PortReference_c.getOneCL_POROnR4707(
+					return ImportedProvision_c
+							.getOneCL_IPOnR4703(
+									ImportedReference_c
+											.getOneCL_IIROnR4708(
+													PortReference_c.getOneCL_POROnR4707(
 															ComponentReference_c.getManyCL_ICsOnR8001(
 																	PackageableElement_c
 																			.getManyPE_PEsOnR8000(parentPkg),
@@ -1132,7 +1131,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 																					(ComponentReference_c) selected)
 																			.getName().equals(provCompName)),
 															selected -> ((PortReference_c) selected).getName()
-																	.equals(provPortName)))));
+																	.equals(provPortName))));
 				}
 
 			});

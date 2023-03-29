@@ -69,6 +69,7 @@ import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.Severity_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SystemModel_c;
@@ -292,7 +293,11 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			if (!(this instanceof DataType_c)) {
 				// If this is a datatype, the name will be handled by the subtype
 				// via the "parent" handling below.
-				path = getName();
+				if (this instanceof StateMachineEvent_c) {
+					path = ((StateMachineEvent_c)this).getMning();
+				} else {
+					path = getName();
+				}
 				if (path.equals("")) {
 					final NonRootModelElement supertype = SupertypeSubtypeUtil.getSupertype(this);
 					if (supertype != null) {
