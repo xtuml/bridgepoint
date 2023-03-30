@@ -2806,7 +2806,8 @@ if self == originatingPackage
     element.collectVisibleElementsForName(name:param.name, type:param.type,
           descending:true, originatingContainerID: param.originatingContainerID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance);
   end for;
 else // not originating package
   // Visit all child elements
@@ -2819,7 +2820,8 @@ else // not originating package
       element.collectVisibleElementsForName(name:param.name, type:param.type,
          descending:true, originatingContainerID: param.originatingContainerID,
                                          delegatingPkgID:param.delegatingPkgID,
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance);
     end if;
   end for;
   // If this package is a reference, collect in the target package
@@ -2828,7 +2830,8 @@ else // not originating package
     tgt_pkg.collectVisibleElementsForName(name:param.name, type:param.type,
          descending:true, originatingContainerID: param.originatingContainerID,
                                          delegatingPkgID:param.delegatingPkgID,
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance);
   end if;
 end if;
 if param.descending == false
@@ -2841,7 +2844,8 @@ if param.descending == false
                                     type:param.type, descending:false,
                        originatingContainerID: param.originatingContainerID,
                                                delegatingPkgID:self.Package_ID,
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance + 1);
     else
       // TODO this covers the case that system level packages do not have
       // a Packageable Element supertype. We must arrange it so that they do
@@ -2849,7 +2853,8 @@ if param.descending == false
       // types are upgraded so that they can be collected.
       parentPkg.collectVisibleElementsForName(name:param.name, type:param.type,
          descending:false, originatingContainerID: param.originatingContainerID,
-        delegatingPkgID:self.Package_ID, collectGlobally:param.collectGlobally);
+        delegatingPkgID:self.Package_ID, collectGlobally:param.collectGlobally,
+                                         distance: param.distance + 1);
     end if;
   else
     // Are we under a component?
@@ -2858,14 +2863,16 @@ if param.descending == false
       parentComponent.collectVisibleElementsForName(name:param.name,
         type:param.type, originatingContainerID: param.originatingContainerID,
                                          delegatingContainerID:self.Package_ID,
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance + 1);
     else
       select one system related by self->S_SYS[R1401];
       if not_empty system
         system.collectVisibleElementsForName(name:param.name, descending:false,
         type:param.type, originatingContainerID: param.originatingContainerID,
                                          delegatingContainerID:self.Package_ID,
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance + 1);
               end if;
             end if;
   end if;
@@ -2935,6 +2942,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"7717c259-1566-4882-bad8-b345f8d2717f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("51ec85cb-7869-4755-aa41-24f4e74c28bd",
+	"ed0d1960-8756-4dd9-8953-feb71f9a0031",
+	'distance',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"a3debcf8-1687-4972-b48c-e365536fe805",
 	'');
 INSERT INTO O_TFR
 	VALUES ("572fa184-4302-4647-b5ce-11233562a203",

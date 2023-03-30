@@ -252,13 +252,13 @@ if isInGenericPackage
          type:ElementTypeConstants::DATATYPE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
   else
     comp.collectVisibleElementsForName(name:"",
          type:ElementTypeConstants::DATATYPE,
                           originatingContainerID:comp.Id,
                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
   end if;
   select any resultSet related by package->PE_SRS[R8005] where
         selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE; 
@@ -3521,13 +3521,13 @@ if isInGenericPackage
     component.collectVisibleElementsForName(name:param.key_lett,
          type:ElementTypeConstants::EE, originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   else
     package.collectVisibleElementsForName(name:param.key_lett,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:containingElem.Element_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.key_lett and 
@@ -7408,13 +7408,13 @@ if (isInGenericPackage)
          type:ElementTypeConstants::CONSTANT,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
     else
     package.collectVisibleElementsForName(name:"",
          type:ElementTypeConstants::CONSTANT, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true); 
+                                                         collectGlobally:true, distance:0); 
     end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == "" and 
@@ -8020,9 +8020,9 @@ if ( not_empty act )
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -8903,9 +8903,9 @@ if ( not_empty act )
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -8929,9 +8929,9 @@ if ( not_empty act )
 
   // get EE key letter proposals
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::EE ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -8971,9 +8971,9 @@ if ( not_empty act )
   
   // get EDT proposals
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::DATATYPE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::DATATYPE ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9023,9 +9023,9 @@ if ( not_empty act )
   
   // get constant proposals
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CONSTANT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CONSTANT ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9062,9 +9062,9 @@ if ( not_empty act )
   // Using a trick here to search for visible system models by searching for visible packages
   // and then navigating back to the system model instance set
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9085,9 +9085,9 @@ if ( not_empty act )
 
   // propose packages for qualifying types
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9108,9 +9108,9 @@ if ( not_empty act )
 
   // propose components for qualifying types
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::COMPONENT, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::COMPONENT ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9664,9 +9664,9 @@ if ( not_empty act and not_empty block )
     select one c_c related by containing_pe->C_C[R8001];
     select one ep_pkg related by containing_pe->EP_PKG[R8001];
     if not_empty c_c
-      c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
     else
-      ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::FUNCTION, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
     end if;
     select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::FUNCTION ); 
     select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9910,9 +9910,9 @@ if ( not_empty act )
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -9936,9 +9936,9 @@ if ( not_empty act )
 
   // create EE key letter proposals
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::EE ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];

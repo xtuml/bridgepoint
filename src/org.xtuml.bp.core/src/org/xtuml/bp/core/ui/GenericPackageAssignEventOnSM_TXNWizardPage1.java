@@ -146,7 +146,7 @@ public class GenericPackageAssignEventOnSM_TXNWizardPage1 extends PtWizardPage
 			if (v_package != null) {
 				v_package
 						.Collectvisibleelementsforname(false,
-								Gd_c.Null_unique_id(), false, "",
+								Gd_c.Null_unique_id(), false, 0, "",
 								v_package.getPackage_id(),
 								Elementtypeconstants_c.CLASS);
 			} else {

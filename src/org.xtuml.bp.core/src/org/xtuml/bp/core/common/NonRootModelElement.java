@@ -182,7 +182,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 						if (parentPackage != null) {
 							parentPackage.Clearscope();
 							parentPackage.Collectvisibleelementsforname(((SystemModel_c) getRoot()).getUseglobals(),
-									Gd_c.Null_unique_id(), false, element.getName(), parentPackage.getPackage_id(),
+									Gd_c.Null_unique_id(), false, 0, element.getName(), parentPackage.getPackage_id(),
 									element.getElementType());
 							class SearchResultSet_test455_c implements ClassQueryInterface_c {
 								public boolean evaluate(Object candidate) {
@@ -201,7 +201,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 						if (parentComponent != null) {
 							parentComponent.Clearscope();
 								parentComponent.Collectvisibleelementsforname(
-										((SystemModel_c) getRoot()).getUseglobals(), Gd_c.Null_unique_id(),
+										((SystemModel_c) getRoot()).getUseglobals(), Gd_c.Null_unique_id(), 0,
 										element.getName(), parentComponent.getId(), element.getElementType());
 							class ComponentResultSet_test456_c implements ClassQueryInterface_c {
 								public boolean evaluate(Object candidate) {

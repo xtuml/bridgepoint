@@ -671,7 +671,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final ModelClass_c refClass;
 				try {
 					// TODO this might cause a circular reference
-					refClass = executor.callAndWaitNullable(() -> searchByPath(Elementtypeconstants_c.CLASS,
+					refClass = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.CLASS,
 							refClassPath, ModelClass_c::getOneO_OBJOnR8001));
 				} catch (Exception e) {
 					throw new CoreImport.XtumlLoadException("Failed to find class '" + refClassPath + "'.", e);
@@ -1033,7 +1033,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final String refCompPath = visitScoped_name(ctx.ref_name);
 				final Component_c refComp;
 				try {
-					refComp = executor.callAndWaitNullable(() -> searchByPath(Elementtypeconstants_c.COMPONENT,
+					refComp = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.COMPONENT,
 							refCompPath, Component_c::getOneC_COnR8001));
 				} catch (Exception e) {
 					throw new CoreImport.XtumlLoadException("Failed to find component '" + refCompPath + "'.", e);

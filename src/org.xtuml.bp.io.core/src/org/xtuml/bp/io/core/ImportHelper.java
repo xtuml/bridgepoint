@@ -505,7 +505,7 @@ public class ImportHelper
 			PackageableElement_c[] pes = null;
 			if (pkg != null) {
 				pkg.Clearscope();
-				pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(),
+				pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, 0, "", pkg.getPackage_id(),
 						Elementtypeconstants_c.INTERFACE);
 				class PETest implements ClassQueryInterface_c {
 					public boolean evaluate(Object candidate) {

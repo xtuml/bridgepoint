@@ -240,6 +240,7 @@ if param.type == self.type
       select any resultSet related by package->PE_SRS[R8005] where
                     selected.Name == param.name and selected.Type == param.type;
       create object instance visibility of PE_VIS;
+      visibility.Distance = param.distance;
       relate self to package across R8002 using visibility;
       relate visibility to resultSet across R8006;
     else
@@ -248,6 +249,7 @@ if param.type == self.type
         select any resultSet related by originatingComp->PE_CRS[R8007] where
                     selected.Name == param.name and selected.Type == param.type;
         create object instance visibility of PE_CVS;
+        visibility.Distance = param.distance;
         relate self to originatingComp across R8004 using visibility;
         relate visibility to resultSet across R8008;
       end if;
@@ -264,7 +266,8 @@ if self.type == ElementTypeConstants::PACKAGE
                          type:param.type, descending:param.descending,
                          originatingContainerID: param.originatingContainerID,
                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                         collectGlobally:param.collectGlobally);
+                                         collectGlobally:param.collectGlobally,
+                                         distance: param.distance + 1);
   end if;
 end if;',
 	1,
@@ -332,6 +335,15 @@ INSERT INTO O_TPARM
 	0,
 	'',
 	"2073e72c-37a4-46c7-9ffc-80d4395ce4b1",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("0119ed00-2f4d-4b5d-ac34-42e0c7a1b80a",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'distance',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"46c74672-9e77-4e33-8bc1-40ab54362659",
 	'');
 INSERT INTO O_TFR
 	VALUES ("48405ea7-e3a7-457c-abef-a418bed792e4",
@@ -498,14 +510,14 @@ if not_empty component
            type:ElementTypeConstants::DATATYPE,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.expected_name,
            type:ElementTypeConstants::DATATYPE, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;
 select any resultSet related by component->PE_CRS[R8007] where
                                          selected.Name == param.expected_name and 
@@ -525,14 +537,14 @@ if cardinality results == 0
           type:ElementTypeConstants::DATATYPE,
                       originatingContainerID:component.Id,
                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   else
     package.clearScope();
     package.collectVisibleElementsForName(name:param.default_name,
           type:ElementTypeConstants::DATATYPE, descending:false,
                       originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                                selected.Name == param.default_name and 
@@ -593,14 +605,14 @@ if not_empty component
          type:ElementTypeConstants::DATATYPE,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.dtName,
          type:ElementTypeConstants::DATATYPE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
 end if;
 // Find the previously created visibility list
 select any resultSet related by package->PE_SRS[R8005] where
@@ -710,14 +722,14 @@ if not_empty component
            type:ElementTypeConstants::COMPONENT,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.expected_name,
            type:ElementTypeConstants::COMPONENT, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;',
 	1,
 	'',
@@ -748,14 +760,14 @@ if not_empty component
            type:ElementTypeConstants::INTERFACE,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.expected_name,
            type:ElementTypeConstants::INTERFACE, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;',
 	1,
 	'',
@@ -786,14 +798,14 @@ if not_empty component
            type:ElementTypeConstants::PACKAGE,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.expected_name,
            type:ElementTypeConstants::PACKAGE, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;
 select any resultSet related by component->PE_CRS[R8007] where
                                          selected.Name == param.expected_name and 
@@ -840,14 +852,14 @@ if not_empty component
            type:ElementTypeConstants::CLASS,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.expected_name,
            type:ElementTypeConstants::CLASS, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;',
 	1,
 	'',
@@ -878,14 +890,14 @@ if not_empty component
            type:ElementTypeConstants::EE,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 else
   package.clearScope();
   package.collectVisibleElementsForName(name:param.expected_name,
            type:ElementTypeConstants::EE, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;',
 	1,
 	'',
@@ -922,14 +934,14 @@ if not_empty component
            type:param.type,
                        originatingContainerID:component.Id,
                               delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 elif (not_empty package)
   package.clearScope();
   package.collectVisibleElementsForName(name:"",
            type:param.type, descending:false,
                        originatingContainerID:package.Package_ID,
                                       delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
 end if;
 select any resultSet related by component->PE_CRS[R8007] where
                                                     selected.Type == param.type;

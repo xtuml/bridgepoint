@@ -4,12 +4,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -134,7 +136,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		}
 		final String scopedTypeName = typeName;
 		try {
-			return executor.callAndWaitNullable(
+			return executor.callAndWait(
 					() -> searchByPath(Elementtypeconstants_c.DATATYPE, scopedTypeName, DataType_c::getOneS_DTOnR8001));
 		} catch (Exception e) {
 			throw new CoreImport.XtumlLoadException(
@@ -151,7 +153,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public DataType_c visitInst_type_reference(Inst_type_referenceContext ctx) {
 		try {
 			final String refClassPath = visitScoped_name(ctx.scoped_name());
-			final ModelClass_c refClass = executor.callAndWaitNullable(
+			final ModelClass_c refClass = executor.callAndWait(
 					() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath, ModelClass_c::getOneO_OBJOnR8001));
 			refClass.Newinstancereferencedatatype();
 			return DataType_c.getOneS_DTOnR17(InstanceReferenceDataType_c.getOneS_IRDTOnR123(refClass,
@@ -249,23 +251,16 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		return dim_string;
 	}
 
-	protected <T extends NonRootModelElement> T searchByPath(final int elementType, final String path,
+	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
 			final Function<PackageableElement_c, T> resultMapper) {
 		return searchByPath(elementType, path, resultMapper, true);
 	}
 
-	protected <T extends NonRootModelElement> T searchByPath(final int elementType, final String path,
+	protected <T extends NonRootModelElement> Optional<T> searchByPath(final int elementType, final String path,
 			final Function<PackageableElement_c, T> resultMapper, boolean includeDeclarations) {
-		final List<T> results = findVisibleElements(searchRoot, elementType).stream().map(resultMapper)
-				.filter(Objects::nonNull).filter(o -> pathMatches(o.getPath(), path))
-				.filter(o -> includeDeclarations || !o.isDeclarationOnly()).collect(Collectors.toList());
-		if (results.isEmpty()) {
-			return null;
-		} else if (results.size() == 1) {
-			return results.get(0);
-		} else {
-			throw new IllegalArgumentException("The given path corresponds to more than one unique element");
-		}
+		return findVisibleElements(searchRoot, elementType).stream().map(resultMapper).filter(Objects::nonNull)
+				.filter(o -> pathMatches(o.getPath(), path)).filter(o -> includeDeclarations || !o.isDeclarationOnly())
+				.findFirst();
 	}
 
 	private List<PackageableElement_c> findVisibleElements(final NonRootModelElement element, final int elementType) {
@@ -293,20 +288,26 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 
 	private List<PackageableElement_c> findVisibleElements(final Package_c pkg, final int elementType) {
 		pkg.Clearscope();
-		pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(), elementType);
+		pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, 0, "", pkg.getPackage_id(), elementType);
 		final SearchResultSet_c results = SearchResultSet_c.getOnePE_SRSOnR8005(pkg,
 				selected -> "".equals(((SearchResultSet_c) selected).getName())
 						&& ((SearchResultSet_c) selected).getType() == elementType);
-		return List.of(PackageableElement_c.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(results)));
+		return Stream.of(ElementVisibility_c.getManyPE_VISsOnR8006(results))
+				.sorted(Comparator
+						.comparing(pe_vis -> pe_vis.getDistance() == -1 ? Integer.MAX_VALUE : pe_vis.getDistance()))
+				.map(PackageableElement_c::getOnePE_PEOnR8002).distinct().collect(Collectors.toList());
 	}
 
 	private List<PackageableElement_c> findVisibleElements(final Component_c comp, final int elementType) {
 		comp.Clearscope();
-		comp.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), "", comp.getId(), elementType);
+		comp.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), 0, "", comp.getId(), elementType);
 		final ComponentResultSet_c results = ComponentResultSet_c.getOnePE_CRSOnR8007(comp,
 				selected -> "".equals(((ComponentResultSet_c) selected).getName())
 						&& ((ComponentResultSet_c) selected).getType() == elementType);
-		return List.of(PackageableElement_c.getManyPE_PEsOnR8004(ComponentVisibility_c.getManyPE_CVSsOnR8008(results)));
+		return Stream.of(ComponentVisibility_c.getManyPE_CVSsOnR8008(results))
+				.sorted(Comparator
+						.comparing(pe_cvs -> pe_cvs.getDistance() == -1 ? Integer.MAX_VALUE : pe_cvs.getDistance()))
+				.map(PackageableElement_c::getOnePE_PEOnR8004).distinct().collect(Collectors.toList());
 	}
 
 	protected <T extends NonRootModelElement> T findOrCreate(Class<T> type, String path) {
