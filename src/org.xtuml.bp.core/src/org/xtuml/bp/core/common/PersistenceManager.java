@@ -487,20 +487,23 @@ public class PersistenceManager {
 
 	public synchronized void loadComponents(final Collection<PersistableModelComponent> pmcs,
 			final IProgressMonitor monitor, final boolean parseOal, final boolean reload) throws CoreException {
-		Collection<PersistableModelComponent> pmcsToLoad = pmcs.stream().filter(pmc -> reload || !pmc.isLoaded())
-				.collect(Collectors.toSet());
-		
-		// add PMCs in special cases whenever an O_REF is in the RGOs list, the
-		// PMC needs to be reloaded because the O_REFs are what formalize the
-		// association
+		final Set<PersistableModelComponent> pmcsToLoad = new HashSet<>();
+		pmcsToLoad.addAll(pmcs.stream().filter(pmc -> reload || !pmc.isLoaded()).collect(Collectors.toSet()));
+
+		// Whenever an O_REF is in the RGOs list, the PMC needs to be reloaded
+		// because the load of the O_REFs is what formalizes the association
 		for (PersistableModelComponent pmc : pmcsToLoad) {
 			@SuppressWarnings("unchecked")
 			List<NonRootModelElement> rgos = (List<NonRootModelElement>) persistenceHierarchy
 					.findExternalRGOsToContainingComponent(pmc.getRootModelElement());
-			pmcsToLoad = Stream.concat(pmcsToLoad.stream(),
-					rgos.stream().filter(AttributeReferenceInClass_c.class::isInstance)
-							.map(o -> ((NonRootModelElement) o).getPersistableComponent()).filter(Objects::nonNull))
-					.collect(Collectors.toSet());
+			pmcsToLoad.addAll(rgos.stream().filter(AttributeReferenceInClass_c.class::isInstance)
+					.map(o -> ((NonRootModelElement) o).getPersistableComponent()).filter(Objects::nonNull)
+					.collect(Collectors.toSet()));
+		}
+		
+		// try to reload inconsistent components
+		if (reload) {
+			pmcsToLoad.addAll(InconsistentInstances.values());
 		}
 
 		if (!pmcsToLoad.isEmpty()) {
