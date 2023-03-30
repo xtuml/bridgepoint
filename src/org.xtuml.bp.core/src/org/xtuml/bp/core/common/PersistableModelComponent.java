@@ -28,8 +28,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
-import java.util.stream.Stream;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -563,6 +565,19 @@ public class PersistableModelComponent implements Comparable {
 		IFile file = getFile();
 
 		persisting = true;
+		
+		// final all referring components and persist them
+		@SuppressWarnings("unchecked")
+		final List<NonRootModelElement> externalRGOs = PersistenceManager.getHierarchyMetaData()
+				.findExternalRGOsToContainingComponent(getRootModelElement());
+		for (PersistableModelComponent pmc : externalRGOs.stream().map(NonRootModelElement::getPersistableComponent)
+				.distinct()
+				.filter(Objects::nonNull)
+				.filter(Predicate.not(PersistableModelComponent::isPersisting))
+				.collect(Collectors.toList())) {
+			pmc.persist();
+		}
+		
 		// create an export-factory and have it perform the persistence
 		AbstractModelExportFactory factory = AbstractModelExportFactory.getInstance();
 
