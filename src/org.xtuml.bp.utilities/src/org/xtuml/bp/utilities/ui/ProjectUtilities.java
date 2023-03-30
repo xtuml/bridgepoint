@@ -482,49 +482,14 @@ public class ProjectUtilities {
 	}
     
     public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
-		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard();
+		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard(rootProjectFolder);
 		
 		importWizard.init(PlatformUI.getWorkbench(), Selection.getInstance()
 				.getStructuredSelection());
 		final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(), importWizard);
-		rootFolderOptionSet = false;
+		rootFolderOptionSet = true;
 
-		final Runnable setupImport = new Runnable() {
-			public void run() {
-				Shell importWizShell = null;
-				Shell activeShells[] = PlatformUI.getWorkbench().getDisplay().getShells();
-
-				for (int i=0; i<activeShells.length; ++i) {
-					String text = activeShells[i].getText();
-					if ( text.equalsIgnoreCase("Import")) {
-						importWizShell = activeShells[i];
-						break;
-					}
-				}
-
-				if (importWizShell == null) {
-					CorePlugin.logError("Could not find the import wizard dialog.", null);
-					return;
-				}
-				
-				Control[] allChildren = importWizShell.getChildren();
-				
-				if (setRootFolderOptions(allChildren, rootProjectFolder, copyIntoWorkspace)) {
-
-					rootFolderOptionSet = importWizard.performFinish();
-				} else {
-					// Failed to set the options, so just dismiss the dialog
-					importWizard.performCancel();
-					rootFolderOptionSet = false;
-				}
-				dialog.close();
-				importWizShell.dispose();
-				return;
-			}			
-		};
-
-		PlatformUI.getWorkbench().getDisplay().asyncExec(setupImport);
 
 		// Open the dialog so the asyncExec above can setup the import options
 		dialog.open();
