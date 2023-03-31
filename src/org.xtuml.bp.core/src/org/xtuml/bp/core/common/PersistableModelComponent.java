@@ -535,12 +535,12 @@ public class PersistableModelComponent implements Comparable {
 	public boolean isPersisting() {
 		return persisting;
 	}
-
+	
 	public void persist() throws CoreException {
-		persist(new NullProgressMonitor());
+		persist(new NullProgressMonitor(), true);
 	}
 
-	public void persist(IProgressMonitor monitor) throws CoreException {
+	public void persist(IProgressMonitor monitor, boolean persistRGOs) throws CoreException {
 		if (!isLoaded()) {
 			// not loaded, ignore
 			return;
@@ -567,15 +567,17 @@ public class PersistableModelComponent implements Comparable {
 		persisting = true;
 		
 		// final all referring components and persist them
-		@SuppressWarnings("unchecked")
-		final List<NonRootModelElement> externalRGOs = PersistenceManager.getHierarchyMetaData()
-				.findExternalRGOsToContainingComponent(getRootModelElement());
-		for (PersistableModelComponent pmc : externalRGOs.stream().map(NonRootModelElement::getPersistableComponent)
-				.distinct()
-				.filter(Objects::nonNull)
-				.filter(Predicate.not(PersistableModelComponent::isPersisting))
-				.collect(Collectors.toList())) {
-			pmc.persist();
+		if (persistRGOs) {
+			@SuppressWarnings("unchecked")
+			final List<NonRootModelElement> externalRGOs = PersistenceManager.getHierarchyMetaData()
+					.findExternalRGOsToContainingComponent(getRootModelElement());
+			for (PersistableModelComponent pmc : externalRGOs.stream().map(NonRootModelElement::getPersistableComponent)
+					.distinct()
+					.filter(Objects::nonNull)
+					.filter(Predicate.not(PersistableModelComponent::isPersisting))
+					.collect(Collectors.toList())) {
+				pmc.persist(monitor, false);
+			}
 		}
 		
 		// create an export-factory and have it perform the persistence

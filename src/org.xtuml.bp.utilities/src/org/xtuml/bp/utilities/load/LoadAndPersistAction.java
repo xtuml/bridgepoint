@@ -60,7 +60,7 @@ public class LoadAndPersistAction implements IActionDelegate {
 					for (PersistableModelComponent pmc : pmcsToProcess) {
 						if (succeeded && !monitor.isCanceled()) {
 							try {
-								pmc.persist();
+								pmc.persist(new NullProgressMonitor(), false);
 								monitor.worked(1);
 							} catch (CoreException e) {
 								CorePlugin.logError("Failed to perist component", e);
