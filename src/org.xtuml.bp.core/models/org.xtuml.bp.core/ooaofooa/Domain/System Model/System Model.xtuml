@@ -244,12 +244,12 @@ if param.type == ElementTypeConstants::PACKAGE
       if(not_empty pe)
         if(not_empty originatingPackage)
           create object instance visibility of PE_VIS;
-          visibility.Distance = param.distance + 1;
+          visibility.Distance = param.distance;
           relate pe to originatingPackage across R8002 using visibility;
           relate visibility to resultSet across R8006;
         elif not_empty originatingComp
           create object instance visibility of PE_CVS;
-          visibility.Distance = param.distance + 1;
+          visibility.Distance = param.distance;
           relate pe to originatingComp across R8004 using visibility;
           relate visibility to compResSet across R8008;            
         end if;
