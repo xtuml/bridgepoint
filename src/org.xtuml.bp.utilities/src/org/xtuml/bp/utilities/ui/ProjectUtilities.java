@@ -475,7 +475,7 @@ public class ProjectUtilities {
      *
      * @return true if the import was successful, false if not
      */
-    public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
+    public static boolean importExistingProject(final String rootProjectFolder) {
 		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard(rootProjectFolder);
 		
 		importWizard.init(PlatformUI.getWorkbench(), Selection.getInstance()
