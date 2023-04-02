@@ -1,0 +1,75 @@
+= Welcome Project Import Issue Implementation
+
+== 1 Abstract
+
+For the 7.0 version of BridgePoint, a failure was noted in the operation of 
+manual test <<dr-2>>, which led to the creation of bug <<dr-1>>.
+
+== 2 Introduction and Background
+
+See <<dr-3>>
+
+== 3 Requirements
+
+See <<dr-3>>
+
+== 4 Work Required
+
+See <<dr-3>>
+
+Code cleanup involved: 
+
+. Removing the unused parameter, copyIntoWorkspace, from 
+importExistingProjects, which made the secondary call to the different 
+signature version of importExistingProjects unnecessary. The modified instance
+of the method was kept.
+. The ProjectUtilities methods, setRootFolderOptions, 
+setRootFolderOptionsInternal, and createKeyEvent, are no longer called from any
+code, so they were deleted.
+. The "private static boolean" rootFolderOptionSet member was removed. The
+importExistingProjects call now just return "true".
+
+== 5 Implementation Comments
+
+Original design expected a need to set entries on the import project wizard
+dialog page programmatically in the implementation. Comparison of the default
+wizard setup using a passed in path, shows that the Eclipse
+ExternalProjectImportWizard will set the values required. This developer
+imagines this wasn't the case in the prior version of Eclipse that existed when
+the implementation was written.
+
+The failure is a result of the existence of a shell with the text, "Import" is
+only valid in the first usage of the Welcome import mechanism. This was a
+behavior change in Eclipse.
+
+== 6 Unit Test
+
+This will be tested via QA Manual Test <<dr-2>>.
+
+== 7 User Documentation
+
+None
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch: 12073_welcome_import_problems
+
+----
+src/org.xtuml.bp.utilities/src/org/xtuml/bp/utilities/ui/ProjectUtilities.java
+----
+
+== 9 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/12073[12073 - Welcome MicrowaveOven selection shows GPS Watch OAL archive]
+. [[dr-2]] https://support.onefact.net/issues/9042[9042 - Example project creation test]
+. [[dr-3]] link:../12073_welcome_import_problems/12073_welcome_import_problems_ant.adoc[Bug 12073 Analysis Note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

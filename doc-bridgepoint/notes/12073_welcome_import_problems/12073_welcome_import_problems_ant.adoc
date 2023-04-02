@@ -1,4 +1,4 @@
-= Welcome Project Import Issue
+= Welcome Project Import Issue Analysis
 
 == 1 Abstract
 
@@ -76,7 +76,7 @@ the correct dialog entries.
 After reading the following statement in the Eclipse API for the
 ExternalProjectImportWizard, "This class may be instantiated and used without
 further configuration;", this developer decided to try running
-importExistingProject without the Runnable executaion. This resulted in a
+importExistingProject without the Runnable execution. This resulted in a
 working solution with only <<req_no_user>> being changed; the user would be
 required to press the "Finish" button (or "Cancel" becomes an option).
 

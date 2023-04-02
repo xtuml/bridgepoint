@@ -443,22 +443,6 @@ public class ProjectUtilities {
         return result;
     }
 
-    private static boolean rootFolderOptionSet = false;
-
-    /**
-     * Import an existing project into the workspace.
-     * If there are multiple projects in the given folder this will import all
-     * of them.
-     * If the project is in an archive, this will extract it.
-     *
-     * @param rootProjectFolder The folder that contains the existing project.
-     *
-     * @return true if the import was successful, false if not
-     */
-    public static boolean importExistingProject(final String rootProjectFolder) {
-    	return importExistingProject(rootProjectFolder, true);
-    }
-
 	public static boolean importExistingProjectCLI(final String rootProjectFolder, final boolean copyIntoWorkspace) {
 		IOverwriteQuery overwriteQuery = new IOverwriteQuery() {
 			public String queryOverwrite(String file) {
@@ -481,6 +465,16 @@ public class ProjectUtilities {
 		return true;
 	}
     
+    /**
+     * Import an existing project into the workspace.
+     * If there are multiple projects in the given folder this will import all
+     * of them.
+     * If the project is in an archive, this will extract it.
+     *
+     * @param rootProjectFolder The folder that contains the existing project.
+     *
+     * @return true if the import was successful, false if not
+     */
     public static boolean importExistingProject(final String rootProjectFolder, final boolean copyIntoWorkspace) {
 		final ExternalProjectImportWizard importWizard = new ExternalProjectImportWizard(rootProjectFolder);
 		
@@ -488,131 +482,9 @@ public class ProjectUtilities {
 				.getStructuredSelection());
 		final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(), importWizard);
-		rootFolderOptionSet = true;
-
-
-		// Open the dialog so the asyncExec above can setup the import options
 		dialog.open();
 
-		return rootFolderOptionSet;
+		return true;
 	}
 
-    /**
-     * Set the option in the Import dialog
-     * @param allChildren
-     * @param fqFilePath
-     * @return true if all options that need to be set were set, and false otherwise
-     */
-	private static boolean setRootFolderOptions(Control[] allChildren, String fqFilePath, boolean copyIntoWorkspace) {
-		int numOptionsSet  = setRootFolderOptionsInternal(allChildren, fqFilePath, 0, copyIntoWorkspace);
-		return numOptionsSet == 4;
-	}
-	
-	/**
-	 * Recursively examine the given children to find the options required
-	 * for adding an existing project located at the directory or in an archive 
-	 * file.
-	 * @param allChildren
-	 * @return
-	 */
-	private static int setRootFolderOptionsInternal(Control[] allChildren, String fqFilePath, int optionsSet, boolean copyIntoWorkspace) {
-		File testPath = new File(fqFilePath);
-		final boolean isArchive = testPath.isFile();
-		for (int i = 0; optionsSet < 4 && i < allChildren.length; i++) {
-			if (allChildren[i] instanceof Composite) {	
-				optionsSet = setRootFolderOptionsInternal(((Composite)allChildren[i]).getChildren(), fqFilePath, optionsSet, copyIntoWorkspace);
-			} else if (allChildren[i] instanceof Button) {
-			
-				String btnText = ((Button)allChildren[i]).getText();
-				if (btnText.equalsIgnoreCase("Select roo&t directory:")) {
-					// Set the text associated with this button to the 
-					// fully qualified folder name.  We then have to select 
-					// the browse button
-					if(allChildren[i+1] instanceof Combo) {
-						((Combo)allChildren[i+1]).setEnabled(!isArchive);
-						if (!isArchive) {
-							((Button)allChildren[i]).setSelection(!isArchive);
-							UIUtil.dispatchAll();
-							((Combo)allChildren[i+1]).setEnabled(true);
-							((Combo)allChildren[i+1]).forceFocus();
-							UIUtil.dispatchAll();
-							((Combo)allChildren[i+1]).setText(fqFilePath);							
-							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
-							UIUtil.dispatchAll();
-							// set focus elsewhere
-							((Button)allChildren[i]).setFocus();
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-							UIUtil.dispatchAll();
-						}
-					} else {
-						// for pre eclipse 4.4 use Text widget
-						((Text)allChildren[i+1]).setEnabled(!isArchive);
-						if (!isArchive) {
-							((Text)allChildren[i+1]).setText(fqFilePath);					
-							((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-							// set focus elsewhere
-							((Text)allChildren[i+1]).setEnabled(false);							
-						}
-					}
-					((Button)allChildren[i]).setSelection(!isArchive);
-					optionsSet++;
-				} else if (btnText.equalsIgnoreCase("Select &archive file:")) {
-					// Set the text associated with this button to the 
-					// fully qualified archive file path.  We then have to select 
-					// the browse button
-					if(allChildren[i+1] instanceof Combo) {
-						((Combo)allChildren[i+1]).setEnabled(isArchive);
-						if (isArchive) {
-							((Button)allChildren[i]).setSelection(isArchive);
-							UIUtil.dispatchAll();
-							((Combo)allChildren[i+1]).setEnabled(true);
-							((Combo)allChildren[i+1]).forceFocus();
-							UIUtil.dispatchAll();
-							((Combo)allChildren[i+1]).setText(fqFilePath);					
-							((Combo)allChildren[i+1]).notifyListeners(SWT.KeyDown, createKeyEvent(SWT.NONE, SWT.CR, SWT.Selection));
-							UIUtil.dispatchAll();
-							// set focus elsewhere
-							((Button)allChildren[i]).setFocus();
-							((Combo)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-							UIUtil.dispatchAll();
-						}
-					} else {
-						// for pre eclipse 4.4 use Text widget
-						((Text)allChildren[i+1]).setEnabled(isArchive);
-						if (isArchive) {
-							((Text)allChildren[i+1]).setText(fqFilePath);					
-							((Text)allChildren[i+1]).notifyListeners(SWT.FocusOut, new Event());
-							// set focus elsewhere
-							((Text)allChildren[i+1]).setEnabled(false);							
-						}
-					}
-					((Button)allChildren[i]).setSelection(isArchive);
-					optionsSet++;
-				} else if (btnText.equalsIgnoreCase("&Copy projects into workspace")) {
-					((Button)allChildren[i]).setSelection(copyIntoWorkspace);
-					((Button)allChildren[i]).notifyListeners(SWT.Selection,  new Event());
-					optionsSet++;
-				} else if (btnText.equalsIgnoreCase("&Select All")) {
-					((Button)allChildren[i]).setSelection(true);
-					((Button)allChildren[i]).notifyListeners(SWT.Selection,  new Event());
-					optionsSet++;
-				}
-				UIUtil.dispatchAll();
-				
-			} else {
-				Control temp = allChildren[i];
-				temp.getToolTipText();
-			}			
-		}
-		return optionsSet;
-	}
-
-	private static Event createKeyEvent(int modificationKey, char c, int keyCode) {
-		Event keyEvent = new Event();
-		keyEvent.stateMask = modificationKey;
-		keyEvent.character = c;
-		keyEvent.keyCode = keyCode;
-		return keyEvent;
-	}
-	
 }
