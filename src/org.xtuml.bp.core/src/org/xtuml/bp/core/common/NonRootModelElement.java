@@ -325,7 +325,9 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 						.map(NonRootModelElement::getPath)
 						.orElseGet(() -> ClassStateMachine_c.getOneSM_ASMOnR517((StateMachine_c) this).getPath());
 			} else if (this instanceof ExecutableProperty_c) {
-				path = Interface_c.getOneC_IOnR4003((ExecutableProperty_c) this).getPath() + "::" + getName();
+				final ExecutableProperty_c c_ep = (ExecutableProperty_c) this;
+				final Interface_c iface = Interface_c.getOneC_IOnR4003(c_ep);
+				path = iface != null ? iface.getPath() + "::" + getName() : "<unknown>::" + getName();
 			} else if (this instanceof InterfaceReference_c) {
 				final InterfaceReference_c c_ir = (InterfaceReference_c) this;
 				path = Port_c.getOneC_POOnR4016(c_ir).getPath() + "::" + c_ir.Interfacename();

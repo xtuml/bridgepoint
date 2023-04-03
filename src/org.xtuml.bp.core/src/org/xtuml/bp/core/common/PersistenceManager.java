@@ -492,14 +492,16 @@ public class PersistenceManager {
 
 		// Whenever an O_REF is in the RGOs list, the PMC needs to be reloaded
 		// because the load of the O_REFs is what formalizes the association
+		final Set<PersistableModelComponent> extraPmcs = new HashSet<>();
 		for (PersistableModelComponent pmc : pmcsToLoad) {
 			@SuppressWarnings("unchecked")
 			List<NonRootModelElement> rgos = (List<NonRootModelElement>) persistenceHierarchy
 					.findExternalRGOsToContainingComponent(pmc.getRootModelElement());
-			pmcsToLoad.addAll(rgos.stream().filter(AttributeReferenceInClass_c.class::isInstance)
+			extraPmcs.addAll(rgos.stream().filter(AttributeReferenceInClass_c.class::isInstance)
 					.map(o -> ((NonRootModelElement) o).getPersistableComponent()).filter(Objects::nonNull)
 					.collect(Collectors.toSet()));
 		}
+		pmcsToLoad.addAll(extraPmcs);
 		
 		// try to reload inconsistent components
 		if (reload) {
@@ -509,6 +511,11 @@ public class PersistenceManager {
 		if (!pmcsToLoad.isEmpty()) {
 
 			System.out.println("Triggered load [reload=" + reload + "]... " + pmcsToLoad.size());
+			
+			// if this is a reload, clear the database first
+			if (reload) {
+				pmcsToLoad.forEach(PersistableModelComponent::clearDatabase);
+			}
 			
 			// launch each load in a new thread
 			sequentialExecutor = new SequentialExecutor(loadExecutor);

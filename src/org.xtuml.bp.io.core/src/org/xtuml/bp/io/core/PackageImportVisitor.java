@@ -4,7 +4,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -81,6 +84,7 @@ import org.xtuml.bp.io.core.XtumlParser.Structure_memberContext;
 import org.xtuml.bp.io.core.XtumlParser.Structure_type_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Subsuper_relationship_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Type_declarationContext;
+import org.xtuml.bp.io.core.XtumlParser.Type_forward_declarationContext;
 
 // TODO handle type forward declarations
 
@@ -109,7 +113,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			pkg.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			pkg.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -145,6 +149,30 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		return pkg;
 	}
+	
+	@Override
+	public DataType_c visitType_forward_declaration(Type_forward_declarationContext ctx) {
+		final Package_c parentPkg = (Package_c) currentRoot;
+
+		// find or create type
+		final String typeName = visitName(ctx.type_name);
+		final DataType_c type = findOrCreate(DataType_c.class, parentPkg.getPath() + "::" + typeName, true);
+		type.setName(typeName);
+		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+		pe.relateAcrossR8001To(type);
+		pe.setVisibility(Visibility_c.Public);
+		pe.setType(Elementtypeconstants_c.DATATYPE);
+
+		// create a UDT that will get removed later when the type is formally defined
+		final UserDataType_c udt = new UserDataType_c(modelRoot);
+		udt.relateAcrossR17To(type);
+		udt.relateAcrossR18To(this.integerType);
+
+		// link to the parent package
+		pe.relateAcrossR8000To(parentPkg);
+
+		return type;
+	}
 
 	@Override
 	public DataType_c visitType_declaration(Type_declarationContext ctx) {
@@ -152,19 +180,27 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// find or create type
 		final String typeName = visitName(ctx.type_name);
-		final DataType_c type = findOrCreate(DataType_c.class, parentPkg.getPath() + "::" + typeName);
+		final DataType_c type = findOrCreate(DataType_c.class, parentPkg.getPath() + "::" + typeName, true);
 		type.setName(typeName);
-		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
-		pe.relateAcrossR8001To(type);
-		pe.setVisibility(Visibility_c.Public);
-		pe.setType(Elementtypeconstants_c.DATATYPE);
+		PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(type);
+		if (pe != null) {
+			// if the type was predeclared, remove the dummy UDT
+			final UserDataType_c dummyUDT = UserDataType_c.getOneS_UDTOnR17(type);
+			type.unrelateAcrossR17From(dummyUDT);
+			dummyUDT.Dispose();
+		} else {
+			pe = new PackageableElement_c(modelRoot);
+			pe.relateAcrossR8001To(type);
+			pe.setVisibility(Visibility_c.Public);
+			pe.setType(Elementtypeconstants_c.DATATYPE);
+		}
 
 		// set description
 		if (ctx.description() != null) {
-			type.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			type.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
-
+		
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(RAW_TYPE_DEF)) {
 			// create user type
@@ -176,8 +212,9 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			// set definition
 			// TODO figure out spacing
-			udt.setDefinition(ctx.type_definition().getText().strip());
+			udt.setDefinition(getRuleText(ctx.type_definition()));
 		} else {
+
 			// process subtype
 			currentRoot = type;
 			visit(ctx.type_definition());
@@ -187,6 +224,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		// link to the parent package
 		pe.relateAcrossR8000To(parentPkg);
 
+		type.setDeclarationOnly(false);
 		return type;
 	}
 
@@ -222,7 +260,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			mbr.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			mbr.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -272,7 +310,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			s_enum.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			s_enum.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -316,7 +354,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			exception.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			exception.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -342,7 +380,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			constantGroup.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			constantGroup.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -376,7 +414,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			constant.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			constant.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -427,7 +465,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			ee.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			ee.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -465,7 +503,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			bridge.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			bridge.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -524,7 +562,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			func.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			func.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -720,7 +758,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -811,7 +849,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -927,7 +965,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			rel.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -1015,7 +1053,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 			// set description
 			if (ctx.description() != null) {
-				compRef.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+				compRef.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 						.collect(Collectors.joining(System.lineSeparator())));
 			}
 
@@ -1163,6 +1201,16 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				importedProvision.Linkconnector(importedRequirement.getId());
 				return Satisfaction_c.getOneC_SFOnR4706(importedRequirement);
 			}
+		}
+
+	}
+	
+	private String getRuleText(ParseTree tree) {
+		if (tree instanceof TerminalNode) {
+			return tree.getText();
+		} else {
+			return IntStream.iterate(0, i -> i + 1).limit(tree.getChildCount())
+					.mapToObj(i -> getRuleText(tree.getChild(i))).collect(Collectors.joining(" "));
 		}
 
 	}

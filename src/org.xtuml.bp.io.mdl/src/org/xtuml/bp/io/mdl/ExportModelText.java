@@ -125,6 +125,7 @@ import org.xtuml.bp.core.sorter.Operation_cSorter;
 import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 import org.xtuml.bp.core.sorter.StateMachineEventDataItem_cSorter;
 import org.xtuml.bp.core.sorter.StructureMember_cSorter;
+import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ProxyUtil;
 import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
@@ -141,9 +142,11 @@ public class ExportModelText extends ExportModelComponent {
 		int getNumb();
 
 		int getSuc_pars();
-		
+
 		int getDialect();
 	}
+
+	private static final Set<String> RESERVED_WORDS = CoreImport.getXtumlKeywords();
 
 	private int tabDepth = 0;
 	private final Stack<StringBuilder> buffers = new Stack<>();
@@ -205,8 +208,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// attribute metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			final DerivedBaseAttribute_c dbattr = DerivedBaseAttribute_c
 					.getOneO_DBATTROnR107(BaseAttribute_c.getOneO_BATTROnR106(inst));
@@ -317,8 +320,8 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			// bridge metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
@@ -350,7 +353,7 @@ public class ExportModelText extends ExportModelComponent {
 			if (!"ba5eda7a-def5-0000-0000-000000000000".equals(returnType.getDt_id().toString())) {
 				append(" return %s", getTypeReference(returnType, inst.getReturn_dimensions()));
 			}
-			
+
 			// write out MASL actions
 			write_Bridge_c_actions(inst);
 
@@ -378,7 +381,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+			append("%s: %s %s", sanitizeName(inst.getName()), inst.getBy_ref() == 0 ? "in" : "out",
 					getTypeReference(DataType_c.getOneS_DTOnR22(inst), inst.getDimensions()));
 		} else {
 			write_BridgeParameter_c_proxy_sql(inst);
@@ -439,8 +442,8 @@ public class ExportModelText extends ExportModelComponent {
 			tabDepth++;
 
 			// component metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getMult() == 1) {
 				append("%s@mult(\"many\");\n", getTab());
@@ -509,8 +512,8 @@ public class ExportModelText extends ExportModelComponent {
 			// TODO consider multiple references to the same component in a package
 
 			// component reference metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getMult() == 1) {
 				append("%s@mult(\"many\");\n", getTab());
@@ -537,8 +540,8 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			append("%sconstant group %s is\n", getTab(), sanitizeName(inst.getInformalgroupname()));
 			tabDepth++;
@@ -591,8 +594,8 @@ public class ExportModelText extends ExportModelComponent {
 			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
 
 			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			dt.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			append("%stype %s is enum (\n", getTab(), sanitizeName(dt.getName()));
@@ -621,8 +624,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// export description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			final boolean hasNext = Enumerator_c.getOneS_ENUMOnR56Precedes(inst) != null;
@@ -640,8 +643,8 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			append("%sexception %s;\n\n", getTab(), sanitizeName(inst.getName()));
 		} else {
@@ -658,8 +661,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// append the description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			// TODO append parameter descriptions
@@ -684,8 +687,8 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			// EE metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (!inst.getKey_lett().isBlank()) {
 				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
@@ -724,8 +727,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// function metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
@@ -789,7 +792,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+			append("%s: %s %s", sanitizeName(inst.getName()), inst.getBy_ref() == 0 ? "in" : "out",
 					getTypeReference(DataType_c.getOneS_DTOnR26(inst), inst.getDimensions()));
 		} else {
 			write_FunctionParameter_c_proxy_sql(inst);
@@ -836,8 +839,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			append("%swithin %s is\n\n", getTab(), sanitizePath(metadata.getParent(inst).getPath()));
 			tabDepth++;
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			append("%sinterface %s is\n", getTab(), sanitizeName(inst.getName()));
 			tabDepth++;
@@ -885,8 +888,8 @@ public class ExportModelText extends ExportModelComponent {
 			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
 
 			// ouptut description
-			r_rel.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			r_rel.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			final String relName = String.format("relationship R%d is ", r_rel.getNumb());
@@ -928,9 +931,15 @@ public class ExportModelText extends ExportModelComponent {
 			final String linkName = linkImportedClass != null ? sanitizeName(linkImportedClass.getName())
 					: sanitizeName(linkClass.getName());
 			final String linkMult = r_assr.getMult() == 0 ? "one" : "many";
+			
+			final String oneHalfRel = String.format("%s %s %s %s %s", oneName, otherCond, otherPhrase, otherMult, otherName);
+			final String otherHalfRel = String.format("%s %s %s %s %s", otherName, oneCond, onePhrase, oneMult, oneName);
 
-			append("%s %s %s %s %s,\n", oneName, otherCond, otherPhrase, otherMult, otherName);
-			append("%s%s%s %s %s %s %s\n", getTab(), padding, otherName, oneCond, onePhrase, oneMult, oneName);
+			if (oneHalfRel.compareTo(otherHalfRel) < 0) {
+				append("%s,\n%s%s%s\n", oneHalfRel, getTab(), padding, otherHalfRel);
+			} else {
+				append("%s,\n%s%s%s\n", otherHalfRel, getTab(), padding, oneHalfRel);
+			}
 			append("%s%susing %s %s;\n\n", getTab(), padding, linkMult, linkName);
 		} else {
 			write_LinkedAssociation_c_proxy_sql(inst);
@@ -947,8 +956,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			final SymbolicConstant_c cnst_syc = SymbolicConstant_c
 					.getOneCNST_SYCOnR1502(LeafSymbolicConstant_c.getOneCNST_LFSCOnR1503(inst));
-			cnst_syc.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			cnst_syc.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			final DataType_c type = DataType_c.getOneS_DTOnR1500(cnst_syc);
 			append("%s%s: %s = %s;\n", getTab(), sanitizeName(cnst_syc.getName()), getTypeReference(type),
@@ -970,8 +979,8 @@ public class ExportModelText extends ExportModelComponent {
 			tabDepth++;
 
 			// class metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
 			append("%s@class_num(%d);\n", getTab(), inst.getNumb());
@@ -1022,8 +1031,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// operation metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 				append("%s@noparse;\n", getTab());
@@ -1095,7 +1104,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+			append("%s: %s %s", sanitizeName(inst.getName()), inst.getBy_ref() == 0 ? "in" : "out",
 					getTypeReference(DataType_c.getOneS_DTOnR118(inst), inst.getDimensions()));
 		} else {
 			write_OperationParameter_c_proxy_sql(inst);
@@ -1113,8 +1122,8 @@ public class ExportModelText extends ExportModelComponent {
 			tabDepth++;
 
 			// package metadata
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getNum_rng() != 0) {
 				append("%s@start_numbering(%d);\n", getTab(), inst.getNum_rng());
@@ -1122,6 +1131,15 @@ public class ExportModelText extends ExportModelComponent {
 
 			append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
 			tabDepth++;
+
+			// type forward declarations
+			final DataType_c[] rto_dts = DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst),
+					selected -> StructureMember_c.getOneS_MBROnR45((DataType_c) selected) != null
+							|| UserDataType_c.getOneS_UDTOnR18((DataType_c) selected) != null);
+			for (DataType_c rto_dt : Stream.of(rto_dts).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
+				append("%stype %s;\n", getTab(), sanitizeName(rto_dt.getName()));
+			}
 
 			// datatypes
 			final DataType_c[] s_dts = DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
@@ -1260,7 +1278,7 @@ public class ExportModelText extends ExportModelComponent {
 
 			// port metadata
 			description.strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			if (inst.getMult() == 1) {
 				append("%s@mult(\"many\");\n", getTab());
@@ -1327,10 +1345,10 @@ public class ExportModelText extends ExportModelComponent {
 		if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
 			append("%s@noparse;\n", getTab());
 		}
-			final String dialect = getDialectIdentifier(inst.getDialect());
-			if (dialect != null) {
-				append("%s@dialect(\"%s\");\n", getTab(), dialect);
-			}
+		final String dialect = getDialectIdentifier(inst.getDialect());
+		if (dialect != null) {
+			append("%s@dialect(\"%s\");\n", getTab(), dialect);
+		}
 		if (inst.getNumb() > 0) {
 			append("%s@message_num(%d);\n", getTab(), inst.getNumb());
 		}
@@ -1371,7 +1389,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: %s %s", inst.getName(), inst.getBy_ref() == 0 ? "in" : "out",
+			append("%s: %s %s", sanitizeName(inst.getName()), inst.getBy_ref() == 0 ? "in" : "out",
 					getTypeReference(DataType_c.getOneS_DTOnR4007(inst), inst.getDimensions()));
 		} else {
 			write_PropertyParameter_c_proxy_sql(inst);
@@ -1458,8 +1476,8 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
 			// satisfaction description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			final Port_c reqPort = Port_c
@@ -1487,8 +1505,8 @@ public class ExportModelText extends ExportModelComponent {
 			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
 
 			// ouptut description
-			r_rel.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			r_rel.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			final String relName = String.format("relationship R%d is ", r_rel.getNumb());
@@ -1541,9 +1559,15 @@ public class ExportModelText extends ExportModelComponent {
 				otherMult = r_form.getMult() == 0 ? "one" : "many";
 				otherPhrase = r_form.getTxt_phrs().isBlank() ? "relates to" : sanitizeName(r_form.getTxt_phrs());
 			}
+			
+			final String oneHalfRel = String.format("%s %s %s %s %s", oneName, otherCond, otherPhrase, otherMult, otherName);
+			final String otherHalfRel = String.format("%s %s %s %s %s", otherName, oneCond, onePhrase, oneMult, oneName);
 
-			append("%s %s %s %s %s,\n", oneName, otherCond, otherPhrase, otherMult, otherName);
-			append("%s%s%s %s %s %s %s;\n\n", getTab(), padding, otherName, oneCond, onePhrase, oneMult, oneName);
+			if (oneHalfRel.compareTo(otherHalfRel) < 0) {
+				append("%s,\n%s%s%s;\n\n", oneHalfRel, getTab(), padding, otherHalfRel);
+			} else {
+				append("%s,\n%s%s%s;\n\n", otherHalfRel, getTab(), padding, oneHalfRel);
+			}
 		} else {
 			write_SimpleAssociation_c_proxy_sql(inst);
 		}
@@ -1670,8 +1694,8 @@ public class ExportModelText extends ExportModelComponent {
 			for (StateMachineState_c state : Stream.of(actions)
 					.map(act -> StateMachineState_c.getOneSM_STATEOnR511(
 							MooreActionHome_c.getOneSM_MOAHOnR513(ActionHome_c.getOneSM_AHOnR514(act))))
-					.filter(Objects::nonNull)
-					.sorted(Comparator.comparing(StateMachineState_c::getNumb)).collect(Collectors.toList())) {
+					.filter(Objects::nonNull).sorted(Comparator.comparing(StateMachineState_c::getNumb))
+					.collect(Collectors.toList())) {
 
 				export_StateMachineState_c(state, pm, writeAsProxies, isPersistable);
 			}
@@ -1680,8 +1704,7 @@ public class ExportModelText extends ExportModelComponent {
 			for (Transition_c txn : Stream.of(actions)
 					.map(act -> Transition_c.getOneSM_TXNOnR530(
 							TransitionActionHome_c.getOneSM_TAHOnR513(ActionHome_c.getOneSM_AHOnR514(act))))
-					.filter(Objects::nonNull)
-					.sorted(Comparator.comparing(txn -> {
+					.filter(Objects::nonNull).sorted(Comparator.comparing(txn -> {
 						final StateMachineState_c startState = StateMachineState_c
 								.getOneSM_STATEOnR503(StateEventMatrixEntry_c.getOneSM_SEMEOnR504(
 										NewStateTransition_c.getOneSM_NSTXNOnR507((Transition_c) txn)));
@@ -1719,7 +1742,7 @@ public class ExportModelText extends ExportModelComponent {
 					.getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR502(inst)) != null;
 
 			// event metadata
-			inst.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
+			inst.getDescrip().stripTrailing().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
 			append("%s@event_num(%d);\n", getTab(), inst.getNumb());
 			if (inst.getIs_lbl_u() != 0 && !inst.getUnq_lbl().isBlank()) {
 				append("%s@key_letters(\"%s\"", getTab(), inst.getUnq_lbl().strip());
@@ -1757,7 +1780,7 @@ public class ExportModelText extends ExportModelComponent {
 			return;
 		}
 		if (!writeAsProxies && !forceWriteAsProxy) {
-			append("%s: in %s", inst.getName(),
+			append("%s: in %s", sanitizeName(inst.getName()),
 					getTypeReference(DataType_c.getOneS_DTOnR524(inst), inst.getDimensions()));
 		} else {
 			write_StateMachineEventDataItem_c_proxy_sql(inst);
@@ -1776,7 +1799,7 @@ public class ExportModelText extends ExportModelComponent {
 
 			final Action_c act = Action_c
 					.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(MooreActionHome_c.getOneSM_MOAHOnR511(inst)));
-			act.getDescrip().strip().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
+			act.getDescrip().stripTrailing().lines().forEach(line -> append("%s//! %s\n", getTab(), line));
 
 			// write out MASL actions
 			write_Action_c_actions(act);
@@ -1835,8 +1858,8 @@ public class ExportModelText extends ExportModelComponent {
 			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
 
 			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			dt.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			append("%stype %s is structure\n", getTab(), sanitizeName(dt.getName()));
@@ -1866,8 +1889,8 @@ public class ExportModelText extends ExportModelComponent {
 		if (!writeAsProxies && !forceWriteAsProxy) {
 
 			// export description
-			inst.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			final DataType_c type = DataType_c.getOneS_DTOnR45(inst);
@@ -1888,8 +1911,8 @@ public class ExportModelText extends ExportModelComponent {
 			final Association_c r_rel = Association_c.getOneR_RELOnR206(inst);
 
 			// ouptut description
-			r_rel.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			r_rel.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			// get superclass information
@@ -2019,8 +2042,8 @@ public class ExportModelText extends ExportModelComponent {
 			final DataType_c dt = DataType_c.getOneS_DTOnR17(inst);
 
 			// export description
-			dt.getDescrip().strip().lines().forEach(line -> {
-				append("%s//! %s\n", getTab(), line);
+			dt.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 
 			// if the 'definition' field is populated, use it and ignore everything else
@@ -2050,7 +2073,7 @@ public class ExportModelText extends ExportModelComponent {
 				element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
 				"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
 	}
-	
+
 	private String getDialectIdentifier(int dialect) {
 		return Stream.of(Actiondialect_c.class.getFields()).filter(field -> {
 			try {
@@ -2149,7 +2172,7 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	private String sanitizeName(final String name) {
-		if (!name.matches("^[a-zA-Z][a-zA-Z0-9_]*$")) {
+		if (RESERVED_WORDS.contains(name) || !name.matches("^[a-zA-Z][a-zA-Z0-9_]*$")) {
 			return "'" + name + "'";
 		} else {
 			return name;

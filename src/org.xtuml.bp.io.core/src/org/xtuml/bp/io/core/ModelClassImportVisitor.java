@@ -78,8 +78,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// load description
 		modelClass.setDescrip(ctx.description() != null ? ctx.description().getText().lines()
-
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
+				.map(line -> line.replaceFirst("//! ?", "")).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// process marks
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
@@ -173,7 +172,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		// set attribute name and description
 		attr.setRoot_nam(attrName);
 		attr.setDescrip(ctx.description() != null ? ctx.description().getText().lines()
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
+				.map(line -> line.replaceFirst("//! ?", "")).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// set data type
 		final boolean isUnique = ctx.unq != null;
@@ -237,7 +236,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// set attribute description
 		attr.setDescrip(ctx.description() != null ? ctx.description().getText().lines()
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
+				.map(line -> line.replaceFirst("//! ?", "")).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// queue attribute references to process
 		pendingRefs.put(rattr, Collections.unmodifiableList(ctx.attribute_reference()));
@@ -390,7 +389,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		// set attribute name and description
 		attr.setRoot_nam(attrName);
 		attr.setDescrip(ctx.description() != null ? ctx.description().getText().lines()
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
+				.map(line -> line.replaceFirst("//! ?", "")).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// set data type
 		attr.relateAcrossR114To((DataType_c) visit(ctx.type_reference()));
@@ -445,7 +444,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		// set name and description
 		tfr.setName(operationName);
 		tfr.setDescrip(ctx.description() != null ? ctx.description().getText().lines()
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "");
+				.map(line -> line.replaceFirst("//! ?", "")).collect(Collectors.joining(System.lineSeparator())) : "");
 
 		// process marks
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();

@@ -62,7 +62,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 
 		// set component description
 		if (ctx.description() != null) {
-			comp.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			comp.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -155,10 +155,10 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		// set port description
 		if (ctx.description() != null) {
 			if (c_p != null) {
-				c_p.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+				c_p.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 						.collect(Collectors.joining(System.lineSeparator())));
 			} else if (c_r != null) {
-				c_r.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+				c_r.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 						.collect(Collectors.joining(System.lineSeparator())));
 			} else {
 				CorePlugin.getDefault().getLog().warn("Could not set description for port: " + port.getName());

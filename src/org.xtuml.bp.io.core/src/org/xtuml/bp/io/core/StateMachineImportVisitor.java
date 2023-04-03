@@ -98,7 +98,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 		final Action_c act = Action_c
 				.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(MooreActionHome_c.getOneSM_MOAHOnR511(state)));
 		if (ctx.description() != null) {
-			act.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			act.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -130,7 +130,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			evt.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			evt.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -210,7 +210,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// set description
 		if (ctx.description() != null) {
-			stateMachine.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			stateMachine.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
@@ -349,7 +349,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// populate description
 		if (ctx.description() != null) {
-			act.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			act.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 

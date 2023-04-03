@@ -978,6 +978,7 @@ public class PersistableModelComponent implements Comparable {
 		}
 		if (hasExternalRGO) {
 			me.convertToProxy();
+			me.setDeclarationOnly(true);
 		} else {
 			me.delete_unchecked();
 		}

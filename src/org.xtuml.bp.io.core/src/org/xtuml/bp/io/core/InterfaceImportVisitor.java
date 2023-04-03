@@ -45,9 +45,12 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 
 		// set interface description
 		if (ctx.description() != null) {
-			iface.setDescrip(ctx.description().getText().lines().map(line -> line.replace("//!", "").strip())
+			iface.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
+
+		// link to the parent package
+		pe.relateAcrossR8000To(parent_pkg);
 
 		// Process the executable properties
 		final List<ExecutableProperty_c> c_eps = ctx.message_definition().stream().map(this::visitMessage_definition)
@@ -64,10 +67,6 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		for (int i = 0; i + 1 < c_ass.length; i++) {
 			c_ass[i].relateAcrossR4020ToPrecedes(c_ass[i + 1]);
 		}
-
-		// link to the parent package last to prevent getting selected before messages
-		// are loaded
-		pe.relateAcrossR8000To(parent_pkg);
 
 		iface.setDeclarationOnly(false);
 		return iface;
@@ -98,7 +97,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 
 		// get the message description
 		final String messageDescription = ctx.description() != null ? ctx.description().getText().lines()
-				.map(line -> line.replace("//!", "").strip()).collect(Collectors.joining(System.lineSeparator())) : "";
+				.map(line -> line.replaceFirst("//! ?", "")).collect(Collectors.joining(System.lineSeparator())) : "";
 
 		// process marks
 		// TODO eventually, this should tie in with the marking editor, but for

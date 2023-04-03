@@ -21,16 +21,21 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.Vocabulary;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -695,4 +700,11 @@ public abstract class CoreImport implements IModelImport {
 
 	public void upgradeStreamData(Ooaofooa root) {
 	};
+
+	public static Set<String> getXtumlKeywords() {
+		final Vocabulary vocab = new XtumlParser(null).getVocabulary();
+		return IntStream.iterate(0, i -> i + 1).limit(vocab.getMaxTokenType()).mapToObj(vocab::getLiteralName)
+				.filter(Objects::nonNull).map(kw -> kw.substring(1, kw.length() - 1))
+				.filter(kw -> kw.matches("^[a-zA-Z][a-zA-Z0-9_]*$")).collect(Collectors.toSet());
+	}
 }

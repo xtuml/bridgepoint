@@ -1112,19 +1112,21 @@ throws IOException
     	if ( !body.isEmpty() ) {
         // get instance key
         String idString = "'00000000-0000-0000-0000-000000000000' ";
-        Object key = inst.getInstanceKey();
-        if ( key instanceof Object[] ) {
-            idString = "";
-            Object[] uuids = (Object[])inst.getInstanceKey();
-            for ( int i = 0; i < uuids.length && i < 2; i++ ) {
-                if ( uuids[i] instanceof UUID ) idString += "'" + uuids[i].toString() + "' ";
+        if (!(this instanceof ExportModelText)) {
+            Object key = inst.getInstanceKey();
+            if ( key instanceof Object[] ) {
+                idString = "";
+                Object[] uuids = (Object[])inst.getInstanceKey();
+                for ( int i = 0; i < uuids.length && i < 2; i++ ) {
+                    if ( uuids[i] instanceof UUID ) idString += "'" + uuids[i].toString() + "' ";
+                }
             }
-        }
+    	}
         // wrap with body delimiters
         body = "//! ACTIVITY BEGIN. " + idString + "DO NOT EDIT THIS LINE.\n" + body.trim() + "\n//! ACTIVITY END. DO NOT EDIT THIS LINE.\n\n";
     		m_afh.get(dialect).print( body );
         	m_updateActions = true;
-    	}
+            }
     }
 }
   .end for
