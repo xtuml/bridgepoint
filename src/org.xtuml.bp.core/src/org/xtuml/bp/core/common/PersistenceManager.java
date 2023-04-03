@@ -529,7 +529,10 @@ public class PersistenceManager {
 				}
 				loadingPmcs.submit(() -> {
 					try {
+						final String oldName = Thread.currentThread().getName();
+						Thread.currentThread().setName(pmc.getFile().toString());
 						pmc.load(monitor, parseOal, reload);
+						Thread.currentThread().setName(oldName);
 					} catch (CoreException e) {
 						CorePlugin.logError("Problem loading component: " + pmc.getFile(), e);
 					}
