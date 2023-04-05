@@ -107,7 +107,6 @@ import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ComponentResourceListener;
 import org.xtuml.bp.core.common.IAllActivityModifier;
 import org.xtuml.bp.core.common.IPasteListener;
-import org.xtuml.bp.core.common.IntegrityCheckScheduler;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistenceChangeTracker;
@@ -164,8 +163,6 @@ public class CorePlugin extends AbstractUIPlugin {
     private static NonRootModelElement[] loadedGlobals;
     
     private ResourceChangeListener projectListener;
-    
-    private IntegrityCheckScheduler scheduler;
     
 	/**
 	 * The constructor.
@@ -411,10 +408,6 @@ public class CorePlugin extends AbstractUIPlugin {
 		} catch (MissingResourceException e) {
 			return key;
 		}
-	}
-	
-	public IntegrityCheckScheduler getIntegrityScheduler() {
-		return scheduler;
 	}
 	
 	/**
@@ -855,13 +848,6 @@ public class CorePlugin extends AbstractUIPlugin {
         Ooaofooa.addModelChangeListenerToAll(problemListener);
         projectListener = new ProjectListener();
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(projectListener);
-		// start the integrity check scheduler
-		scheduler = new IntegrityCheckScheduler();
-		scheduler.setPriority(Job.DECORATE);
-		scheduler.setSystem(true);
-		scheduler.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		scheduler.schedule(30000);
-		
 		createClasspathVariable("org.xtuml.bp.core", BP_CORE_HOME);
 	}
 	public void stop(BundleContext context) throws Exception {
@@ -873,9 +859,6 @@ public class CorePlugin extends AbstractUIPlugin {
 		}
 		projectPreferenceListeners.clear();
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectListener);
-		// stop the integrity scheduler
-		scheduler.stop();
-		scheduler = null;
 		super.stop(context);
 	}
 	/**

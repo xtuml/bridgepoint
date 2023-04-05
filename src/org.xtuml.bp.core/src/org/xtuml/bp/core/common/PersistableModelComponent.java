@@ -584,6 +584,7 @@ public class PersistableModelComponent implements Comparable {
 		AbstractModelExportFactory factory = AbstractModelExportFactory.getInstance();
 
 		try {
+			System.err.println("Persisting " + getFile() + "...");
 			IRunnableWithProgress runnable = factory.create(componentRootME, file.getLocation().toString(), true);
 			runnable.run(monitor);
 
@@ -687,11 +688,6 @@ public class PersistableModelComponent implements Comparable {
 				CorePlugin.logError(
 						"Error while loading model from " + getFullPath() + " ERROR: " + importer.getErrorMessage(),
 						null);
-			}
-
-			// check integrity after load, but not for the compare root
-			if (!getRootModelElement().getModelRoot().isCompareRoot()) {
-				IntegrityChecker.createIntegrityIssuesForLoad(getRootModelElement());
 			}
 
 			if (!underlyingResource.equals(dummyCompareName)) {

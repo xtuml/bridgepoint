@@ -1301,6 +1301,7 @@ if ( not_empty s_dt )
                 domain_c_c = c_c; // because of the above check, this only gets executed once
               end for;
             end if;
+            select one containing_pkg related by containing_pkg->PE_PE[R8001]->EP_PKG[R8000];
           end while;
           // qualify the type name with the name of the domain
           if ( not_empty domain_c_c )
