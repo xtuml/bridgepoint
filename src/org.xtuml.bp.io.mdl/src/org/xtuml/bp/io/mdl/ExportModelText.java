@@ -46,6 +46,7 @@ import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
+import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
@@ -1134,8 +1135,10 @@ public class ExportModelText extends ExportModelComponent {
 
 			// type forward declarations
 			final DataType_c[] rto_dts = DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst),
-					selected -> StructureMember_c.getOneS_MBROnR45((DataType_c) selected) != null
-							|| UserDataType_c.getOneS_UDTOnR18((DataType_c) selected) != null);
+					selected -> InstanceReferenceDataType_c.getOneS_IRDTOnR17((DataType_c) selected) == null
+							&& CoreDataType_c.getOneS_CDTOnR17((DataType_c) selected) == null
+							&& (StructureMember_c.getOneS_MBROnR45((DataType_c) selected) != null
+									|| UserDataType_c.getOneS_UDTOnR18((DataType_c) selected) != null));
 			for (DataType_c rto_dt : Stream.of(rto_dts).sorted(Comparator.comparing(NonRootModelElement::getName))
 					.collect(Collectors.toList())) {
 				append("%stype %s;\n", getTab(), sanitizeName(rto_dt.getName()));
