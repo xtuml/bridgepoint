@@ -1,0 +1,52 @@
+= Add State Numbers To STT Implementation Note
+
+== 1 Abstract
+
+On a State Transition Diagram, the states are numbered, but in the state
+transistion table, the states column doesn't contain the number. The intent of
+this implementation is to prepend the state number to the state name in the
+states column.
+
+== 2 Introduction and Background
+
+Customers desire a consistent presentation between the State Transistion Diagram
+and the State Transistion Table.
+
+== 3 Requirements
+
+=== 3.1 State number is prepended to the state name in the State Transistion Table.
+=== 3.2 Changing the state name doesn't break the presentation in the State Transistion Table.
+=== 3.3 Changing the state number doesn't break the presentation in the State Transistion Table.
+
+== 4 Work Required
+
+Add a string version of the state number followed by a period and a space to the
+front of the state name where the entry for the State Transistion Table is
+constructed.
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+== 7 User Documentation
+
+Describe the end user documentation that was added for this change.
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  12483_state_numb_in_stt
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12483[12483 - Show State Numbers in State Transition Table]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
