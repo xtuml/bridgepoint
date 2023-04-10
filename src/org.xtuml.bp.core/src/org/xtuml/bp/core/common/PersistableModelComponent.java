@@ -25,6 +25,8 @@ package org.xtuml.bp.core.common;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +46,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.WorkbenchException;
 import org.xtuml.bp.core.ActionHome_c;
@@ -112,6 +115,7 @@ public class PersistableModelComponent implements Comparable {
 	private IFile underlyingResource;
 	private IFile graphicsFile;
 	private ActionFile afm;
+	private byte[] digest = null;
 	private IModelImport importer;
 
 	private boolean activityImportFailures = false;
@@ -665,6 +669,8 @@ public class PersistableModelComponent implements Comparable {
 					deleteSelfAndChildren();
 					UIUtil.refresh(getRootModelElement());
 				}
+				// update the digest
+				digest = calculateDigest();
 			}
 		} catch (FileNotFoundException e) {
 			throw new WorkbenchException("Error while loading model from " + getFullPath(), e);
@@ -1129,6 +1135,43 @@ public class PersistableModelComponent implements Comparable {
 			appendActivityImportFailureMessage(
 					"File: " + path + ": Number of parsed activities does not match number of activities in model.\n");
 		}
+	}
+	
+	public byte[] getLastDigest() {
+		return digest;
+	}
+	
+	public byte[] calculateDigest() {
+		final MessageDigest md5;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			return new byte[0];
+		}
+		if (getFile() != null && getFile().exists()) {
+			try {
+				md5.update(getFile().getContents().readAllBytes());
+			} catch (IOException | CoreException e) {
+				// ignore
+			}
+		}
+		if (getGraphicsFile() != null && getGraphicsFile().exists()) {
+			try {
+				md5.update(getGraphicsFile().getContents().readAllBytes());
+			} catch (IOException | CoreException e) {
+				// ignore
+			}
+		}
+		for (IFile f : getActionFiles().getAllFiles()) {
+			if (f.exists()) {
+				try {
+					md5.update(f.getContents().readAllBytes());
+				} catch (IOException | CoreException e) {
+					// ignore
+				}
+			}
+		}
+		return md5.digest();
 	}
 
 }

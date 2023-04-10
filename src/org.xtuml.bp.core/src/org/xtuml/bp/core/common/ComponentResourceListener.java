@@ -25,6 +25,7 @@ package org.xtuml.bp.core.common;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -554,7 +555,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 			}
 			return;
 		}
-		if (component != null && component.isLoaded()) {
+		if (component != null && component.isLoaded() && !Arrays.equals(component.getLastDigest(), component.calculateDigest())) {
 			NonRootModelElement rootME = component.getRootModelElement();
 			UmlProblem.removeXtUMLProblems(rootME.getFile());
 			// do not load here, we need to do this after all resource events
