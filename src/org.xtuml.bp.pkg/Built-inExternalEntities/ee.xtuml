@@ -637,10 +637,10 @@ INSERT INTO S_BRG
 	VALUES ("b9d077a9-f1b0-4f0d-b2bc-640a04294a1f",
 	"67cc4794-8f9b-4254-9cd8-33e181da8658",
 	'current_seconds',
-	'',
+	'Return the number of seconds since the epoch.',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
-	'Return the number of seconds since the epoch.',
+	'',
 	1,
 	'',
 	0);
