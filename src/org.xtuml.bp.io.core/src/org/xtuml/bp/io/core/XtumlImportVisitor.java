@@ -84,6 +84,10 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	public static final String CLASSIFIER_NAME = "classifier_name";
 	public static final String FINAL = "final";
 	public static final String DIALECT = "dialect";
+	public static final String DEPLOYMENT = "deployment";
+	public static final String IMPLEMENTATION_SYSTEM = "implementation_system";
+	public static final String IMPLEMENTATION_SCOPE = "implementation_scope";
+	public static final String STALE = "stale";
 
 	public XtumlImportVisitor(final Ooaofooa modelRoot) {
 		this.executor = PersistenceManager.getDefaultInstance().getSequentialExecutor();
@@ -119,7 +123,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 				final ModelClass_c[] classes = ModelClass_c
 						.getManyO_OBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkgs));
 				return Stream.of(systems, pkgs, comps, classes).flatMap(s -> Stream.of(s))
-						.filter(selected -> selected.getPath().equals(parentPath)).findAny();
+						.filter(selected -> parentPath.equals(selected.getPath())).findAny();
 			});
 			searchRoot = currentRoot;
 		} catch (Exception e) {
@@ -320,8 +324,8 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 		try {
 			final Method selectAnyWhere = type.getMethod(type.getSimpleName().replace("_c", "") + "Instance",
 					ModelRoot.class, ClassQueryInterface_c.class);
-			final ClassQueryInterface_c whereClause = selected -> ((NonRootModelElement) selected).getPath()
-					.equals(path);
+			final ClassQueryInterface_c whereClause = selected -> path
+					.equals(((NonRootModelElement) selected).getPath());
 			instance = (T) selectAnyWhere.invoke(null, modelRoot, whereClause);
 			if (instance == null) {
 				final Constructor<T> constructor = type.getConstructor(ModelRoot.class);

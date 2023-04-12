@@ -26,6 +26,7 @@ package_definition                 : description? marks?
                                    ;
                                    
 package_item                       : package_declaration
+                                     | package_definition
                                      | type_forward_declaration
                                      | type_declaration
                                      | exception_definition
@@ -35,6 +36,7 @@ package_item                       : package_declaration
                                      | function_definition
                                      | class_declaration
                                      | component_declaration
+                                     | component_definition
                                      | relationship_definition
                                      | satisfaction_definition
                                    ;
@@ -54,7 +56,7 @@ component_item                     : package_declaration
                                    
 port_definition                    : description? marks?
                                      (direction='provided' | direction='required') 'port' port_name=name (
-                                       'implements' iface_name=scoped_name 'is'
+                                       ( 'implements' iface_name=scoped_name )? 'is'
                                          message_definition*
                                        'end' 'port'
                                      )? ';'

@@ -49,6 +49,7 @@ import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CreationTransition_c;
 import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
@@ -59,6 +60,7 @@ import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
+import org.xtuml.bp.core.Implementationscope_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -99,6 +101,7 @@ import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.Scope_c;
 import org.xtuml.bp.core.SemEvent_c;
+import org.xtuml.bp.core.ServiceInSequence_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StateEventMatrixEntry_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
@@ -110,6 +113,9 @@ import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.TerminatorServiceParameter_c;
+import org.xtuml.bp.core.TerminatorService_c;
+import org.xtuml.bp.core.Terminator_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
@@ -126,12 +132,12 @@ import org.xtuml.bp.core.sorter.Operation_cSorter;
 import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 import org.xtuml.bp.core.sorter.StateMachineEventDataItem_cSorter;
 import org.xtuml.bp.core.sorter.StructureMember_cSorter;
+import org.xtuml.bp.core.sorter.TerminatorServiceParameter_cSorter;
 import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ProxyUtil;
 import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 
-// TODO determine how to sanitize names
 // TODO consider implications on the path that is exported with visibility and package references
 // TODO multiple instances of "unassigned etc." graphics
 
@@ -140,11 +146,11 @@ public class ExportModelText extends ExportModelComponent {
 	private interface PortMessage extends ProxyInstance {
 		String getAction_semantics();
 
+		int getDialect();
+
 		int getNumb();
 
 		int getSuc_pars();
-
-		int getDialect();
 	}
 
 	private static final Set<String> RESERVED_WORDS = CoreImport.getXtumlKeywords();
@@ -218,7 +224,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@noparse;\n", getTab());
 			}
 			final String dialect = dbattr != null ? getDialectIdentifier(dbattr.getDialect()) : null;
-			if (dialect != null) {
+			if (dialect != null && !"none".equals(dialect)) {
 				append("%s@dialect(\"%s\");\n", getTab(), dialect);
 			}
 			final ReferentialAttribute_c rattr = ReferentialAttribute_c.getOneO_RATTROnR106(inst);
@@ -328,7 +334,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@noparse;\n", getTab());
 			}
 			final String dialect = getDialectIdentifier(inst.getDialect());
-			if (dialect != null) {
+			if (dialect != null && !"none".equals(dialect)) {
 				append("%s@dialect(\"%s\");\n", getTab(), dialect);
 			}
 
@@ -586,6 +592,52 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	@Override
+	protected void export_Deployment_c(Deployment_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			// deployment metadata
+			inst.getDescrip().stripTrailing().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
+			});
+			append("%s@deployment;\n", getTab());
+			if (!inst.getKey_lett().isBlank()) {
+				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			}
+
+			append("%spackage %s is\n\n", getTab(), sanitizeName(inst.getName()));
+			tabDepth++;
+
+			for (String domainName : Stream.of(Terminator_c.getManyD_TERMsOnR1650(inst))
+					.map(Terminator_c::getDomain_name).distinct().sorted().collect(Collectors.toList())) {
+
+				append("%scomponent %s is\n\n", getTab(), sanitizeName(domainName));
+				tabDepth++;
+
+				final Terminator_c[] d_terms = Terminator_c.getManyD_TERMsOnR1650(inst,
+						selected -> ((Terminator_c) selected).getDomain_name().equals(domainName));
+				for (Terminator_c d_term : Stream.of(d_terms)
+						.sorted(Comparator.comparing(d_term -> d_term.getProvider() ? 0 : 1))
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_Terminator_c(d_term, pm, writeAsProxies, isPersistable);
+				}
+
+				tabDepth--;
+				append("%send component;\n\n", getTab());
+
+			}
+
+			tabDepth--;
+			append("%send package;\n\n", getTab());
+
+		} else {
+			write_Deployment_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
 	protected void export_EnumerationDataType_c(EnumerationDataType_c inst, IProgressMonitor pm, boolean writeAsProxies,
 			boolean isPersistable) throws IOException {
 		if (inst == null) {
@@ -735,7 +787,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@noparse;\n", getTab());
 			}
 			final String dialect = getDialectIdentifier(inst.getDialect());
-			if (dialect != null) {
+			if (dialect != null && !"none".equals(dialect)) {
 				append("%s@dialect(\"%s\");\n", getTab(), dialect);
 			}
 			if (inst.getNumb() > 0) {
@@ -932,9 +984,11 @@ public class ExportModelText extends ExportModelComponent {
 			final String linkName = linkImportedClass != null ? sanitizeName(linkImportedClass.getName())
 					: sanitizeName(linkClass.getName());
 			final String linkMult = r_assr.getMult() == 0 ? "one" : "many";
-			
-			final String oneHalfRel = String.format("%s %s %s %s %s", oneName, otherCond, otherPhrase, otherMult, otherName);
-			final String otherHalfRel = String.format("%s %s %s %s %s", otherName, oneCond, onePhrase, oneMult, oneName);
+
+			final String oneHalfRel = String.format("%s %s %s %s %s", oneName, otherCond, otherPhrase, otherMult,
+					otherName);
+			final String otherHalfRel = String.format("%s %s %s %s %s", otherName, oneCond, onePhrase, oneMult,
+					oneName);
 
 			if (oneHalfRel.compareTo(otherHalfRel) < 0) {
 				append("%s,\n%s%s%s\n", oneHalfRel, getTab(), padding, otherHalfRel);
@@ -1039,7 +1093,7 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@noparse;\n", getTab());
 			}
 			final String dialect = getDialectIdentifier(inst.getDialect());
-			if (dialect != null) {
+			if (dialect != null && !"none".equals(dialect)) {
 				append("%s@dialect(\"%s\");\n", getTab(), dialect);
 			}
 			if (inst.getNumb() > 0) {
@@ -1223,7 +1277,12 @@ public class ExportModelText extends ExportModelComponent {
 
 			// TODO delegations
 
-			// TODO deployments
+			// deployments
+			final var d_depls = Deployment_c.getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+			for (var d_depl : Stream.of(d_depls).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
+				export_Deployment_c(d_depl, pm, writeAsProxies, isPersistable);
+			}
 
 			// EEs
 			final ExternalEntity_c[] s_ees = ExternalEntity_c
@@ -1349,7 +1408,7 @@ public class ExportModelText extends ExportModelComponent {
 			append("%s@noparse;\n", getTab());
 		}
 		final String dialect = getDialectIdentifier(inst.getDialect());
-		if (dialect != null) {
+		if (dialect != null && !"none".equals(dialect)) {
 			append("%s@dialect(\"%s\");\n", getTab(), dialect);
 		}
 		if (inst.getNumb() > 0) {
@@ -1562,9 +1621,11 @@ public class ExportModelText extends ExportModelComponent {
 				otherMult = r_form.getMult() == 0 ? "one" : "many";
 				otherPhrase = r_form.getTxt_phrs().isBlank() ? "relates to" : sanitizeName(r_form.getTxt_phrs());
 			}
-			
-			final String oneHalfRel = String.format("%s %s %s %s %s", oneName, otherCond, otherPhrase, otherMult, otherName);
-			final String otherHalfRel = String.format("%s %s %s %s %s", otherName, oneCond, onePhrase, oneMult, oneName);
+
+			final String oneHalfRel = String.format("%s %s %s %s %s", oneName, otherCond, otherPhrase, otherMult,
+					otherName);
+			final String otherHalfRel = String.format("%s %s %s %s %s", otherName, oneCond, onePhrase, oneMult,
+					oneName);
 
 			if (oneHalfRel.compareTo(otherHalfRel) < 0) {
 				append("%s,\n%s%s%s;\n\n", oneHalfRel, getTab(), padding, otherHalfRel);
@@ -1974,6 +2035,135 @@ public class ExportModelText extends ExportModelComponent {
 			super.export_SystemModel_c(inst, pm, writeAsProxies, isPersistable);
 		}
 
+	}
+
+	@Override
+	protected void export_Terminator_c(Terminator_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// terminator metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
+			});
+			if (!inst.getKey_lett().isBlank()) {
+				append("%s@key_letters(\"%s\");\n", getTab(), inst.getKey_lett().strip());
+			}
+			if (!inst.getImplementation_system().isBlank()) {
+				append("%s@implementation_system(\"%s\");\n", getTab(), inst.getImplementation_system().strip());
+			}
+
+			append("%s%s port %s is\n\n", getTab(), inst.getProvider() ? "provided" : "required",
+					sanitizeName(inst.getProvider() ? inst.getName() : inst.getTerminator_name()));
+			tabDepth++;
+
+			final var d_tsvcs = TerminatorService_c.getManyD_TSVCsOnR1651(inst);
+			for (var d_tsvc : Stream.of(d_tsvcs).sorted(Comparator.comparing(NonRootModelElement::getName))
+					.collect(Collectors.toList())) {
+				export_TerminatorService_c(d_tsvc, pm, writeAsProxies, isPersistable);
+			}
+
+			tabDepth--;
+			append("%send port;\n\n", getTab());
+
+		} else {
+			write_Terminator_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_TerminatorService_c(TerminatorService_c inst, IProgressMonitor pm, boolean writeAsProxies,
+			boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+
+			// terminator service metadata
+			inst.getDescrip().strip().lines().forEach(line -> {
+				append("%s//! %s\n", getTab(), line.stripTrailing());
+			});
+			if (inst.getSuc_pars() == Parsestatus_c.doNotParse) {
+				append("%s@noparse;\n", getTab());
+			}
+			final String dialect = getDialectIdentifier(inst.getDialect());
+			if (dialect != null && !"none".equals(dialect)) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
+			}
+			if (inst.getNumb() > 0) {
+				append("%s@message_num(%d);\n", getTab(), inst.getNumb());
+			}
+			if (inst.getImplementation_scope() == Implementationscope_c.Deployment) {
+				append("%s@implementation_scope(\"deployment\");\n", getTab());
+			}
+			if (inst.getIs_stale()) {
+				append("%s@stale;\n", getTab());
+			}
+
+			if (ServiceInSequence_c.getOneD_SISOnR1660(inst) != null) {
+				append("%s@sequence_num(%d);\n", getTab(),
+						ServiceInSequence_c.getOneD_SISOnR1660(inst).Getsequencenumber());
+			}
+
+			// build the parameter list
+			final var d_tsparms = TerminatorServiceParameter_c.getManyD_TSPARMsOnR1652(inst);
+			new TerminatorServiceParameter_cSorter().sort(d_tsparms);
+			final String parameterList = Stream.of(d_tsparms).map(d_tsparm -> {
+				buffers.push(new StringBuilder());
+				try {
+					export_TerminatorServiceParameter_c(d_tsparm, pm, writeAsProxies, isPersistable);
+				} catch (IOException e) {
+					throw new UncheckedIOException(e);
+				}
+				return buffers.pop().toString();
+			}).collect(Collectors.joining(", "));
+
+			// get the return type if applicable
+			final DataType_c returnType = DataType_c.getOneS_DTOnR1656(inst);
+			final String returnTypeRef = returnType != null
+					? " return " + getTypeReference(returnType, inst.getReturn_dimensions())
+					: "";
+
+			append("%smessage %s(%s)%s to provider", getTab(), inst.getName(), parameterList, returnTypeRef);
+
+			// write out MASL actions
+			write_TerminatorService_c_actions(inst);
+
+			// append the inner actions
+			if (!inst.getAction_semantics().isBlank() && inst.getDialect() != Actiondialect_c.masl) {
+				append(" is\n");
+				tabDepth++;
+				append("%s@noparse\n", getTab()); // TODO
+				inst.getAction_semantics().strip().lines().forEach(line -> {
+					append("%s%s\n", getTab(), line);
+				});
+				append("%s@endnoparse\n", getTab());
+				tabDepth--;
+				append("%send message", getTab());
+			}
+
+			append(";\n\n", getTab());
+
+		} else {
+			write_TerminatorService_c_proxy_sql(inst);
+		}
+	}
+
+	@Override
+	protected void export_TerminatorServiceParameter_c(TerminatorServiceParameter_c inst, IProgressMonitor pm,
+			boolean writeAsProxies, boolean isPersistable) throws IOException {
+		if (inst == null) {
+			return;
+		}
+		if (!writeAsProxies && !forceWriteAsProxy) {
+			append("%s: %s %s", sanitizeName(inst.getName()), inst.getBy_ref() == 0 ? "in" : "out",
+					getTypeReference(DataType_c.getOneS_DTOnR1653(inst), inst.getDimensions()));
+		} else {
+			write_TerminatorServiceParameter_c_proxy_sql(inst);
+		}
 	}
 
 	@Override

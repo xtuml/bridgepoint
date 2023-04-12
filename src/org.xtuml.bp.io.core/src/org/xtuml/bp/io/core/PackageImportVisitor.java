@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -22,6 +23,7 @@ import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.ConstantSpecification_c;
 import org.xtuml.bp.core.DataType_c;
+import org.xtuml.bp.core.Deployment_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
@@ -29,6 +31,7 @@ import org.xtuml.bp.core.Exception_c;
 import org.xtuml.bp.core.ExternalEntity_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
+import org.xtuml.bp.core.Implementationscope_c;
 import org.xtuml.bp.core.ImportedClass_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedReference_c;
@@ -57,6 +60,9 @@ import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.TerminatorServiceParameter_c;
+import org.xtuml.bp.core.TerminatorService_c;
+import org.xtuml.bp.core.Terminator_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -64,6 +70,7 @@ import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.Bridge_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Class_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.Component_declarationContext;
+import org.xtuml.bp.io.core.XtumlParser.Component_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Constant_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Constant_group_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Enumeration_type_definitionContext;
@@ -73,11 +80,13 @@ import org.xtuml.bp.io.core.XtumlParser.External_entity_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Function_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Interface_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.Linked_relationship_definitionContext;
+import org.xtuml.bp.io.core.XtumlParser.Message_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.NameContext;
 import org.xtuml.bp.io.core.XtumlParser.Named_type_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Package_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
+import org.xtuml.bp.io.core.XtumlParser.Port_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Satisfaction_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Simple_relationship_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Structure_memberContext;
@@ -85,8 +94,6 @@ import org.xtuml.bp.io.core.XtumlParser.Structure_type_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Subsuper_relationship_definitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Type_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.Type_forward_declarationContext;
-
-// TODO handle type forward declarations
 
 public class PackageImportVisitor extends XtumlImportVisitor {
 
@@ -96,60 +103,96 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 
 	@Override
 	public NonRootModelElement visitPackage_definition(Package_definitionContext ctx) {
-		// find or create package
-		final String pkgName = visitName(ctx.pkg_name);
-		final Package_c pkg = findOrCreate(Package_c.class, currentRoot.getPath() + "::" + pkgName);
-		pkg.setName(pkgName);
-		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
-		pe.relateAcrossR8001To(pkg);
-		pe.setVisibility(Visibility_c.Public);
-		pe.setType(Elementtypeconstants_c.PACKAGE);
-
-		// process marks
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
-		if (marks.containsKey(NUMBER_RANGE)) {
-			pkg.setNum_rng(marks.get(NUMBER_RANGE).getInteger());
-		}
+		if (!marks.containsKey(DEPLOYMENT)) {
 
-		// set description
-		if (ctx.description() != null) {
-			pkg.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
-					.collect(Collectors.joining(System.lineSeparator())));
-		}
+			// find or create package
+			final String pkgName = visitName(ctx.pkg_name);
+			final Package_c pkg = findOrCreate(Package_c.class, currentRoot.getPath() + "::" + pkgName);
+			pkg.setName(pkgName);
+			final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+			pe.relateAcrossR8001To(pkg);
+			pe.setVisibility(Visibility_c.Public);
+			pe.setType(Elementtypeconstants_c.PACKAGE);
 
-		// link to parent
-		if (currentRoot instanceof Package_c) {
-			pe.relateAcrossR8000To((Package_c) currentRoot);
-			try {
-				final SystemModel_c s_sys = executor
-						.callAndWaitNullable(() -> SystemModel_c.getOneS_SYSOnR1405((Package_c) currentRoot));
-				pkg.relateAcrossR1405To(s_sys);
-			} catch (Exception e) {
-				throw new CoreImport.XtumlLoadException("Could not find system model for package: " + pkgName, e);
+			// process marks
+			if (marks.containsKey(NUMBER_RANGE)) {
+				pkg.setNum_rng(marks.get(NUMBER_RANGE).getInteger());
 			}
-		} else if (currentRoot instanceof Component_c) {
-			pe.relateAcrossR8003To((Component_c) currentRoot);
-			try {
-				final SystemModel_c s_sys = executor.callAndWaitNullable(() -> SystemModel_c
-						.getOneS_SYSOnR1405(Package_c.PackageInstance(modelRoot, selected -> ((Package_c) selected)
-								.getPackage_id().equals(((Component_c) currentRoot).Getpackageid()))));
-				pkg.relateAcrossR1405To(s_sys);
-			} catch (Exception e) {
-				throw new CoreImport.XtumlLoadException("Could not find system model for package: " + pkgName, e);
+
+			// set description
+			if (ctx.description() != null) {
+				pkg.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
+						.collect(Collectors.joining(System.lineSeparator())));
 			}
-		} else if (currentRoot instanceof SystemModel_c) {
-			pkg.relateAcrossR1401To((SystemModel_c) currentRoot);
-			pkg.relateAcrossR1405To((SystemModel_c) currentRoot);
+
+			// link to parent
+			if (currentRoot instanceof Package_c) {
+				pe.relateAcrossR8000To((Package_c) currentRoot);
+				try {
+					final SystemModel_c s_sys = executor
+							.callAndWaitNullable(() -> SystemModel_c.getOneS_SYSOnR1405((Package_c) currentRoot));
+					pkg.relateAcrossR1405To(s_sys);
+				} catch (Exception e) {
+					throw new CoreImport.XtumlLoadException("Could not find system model for package: " + pkgName, e);
+				}
+			} else if (currentRoot instanceof Component_c) {
+				pe.relateAcrossR8003To((Component_c) currentRoot);
+				try {
+					final SystemModel_c s_sys = executor.callAndWaitNullable(() -> SystemModel_c
+							.getOneS_SYSOnR1405(Package_c.PackageInstance(modelRoot, selected -> ((Package_c) selected)
+									.getPackage_id().equals(((Component_c) currentRoot).Getpackageid()))));
+					pkg.relateAcrossR1405To(s_sys);
+				} catch (Exception e) {
+					throw new CoreImport.XtumlLoadException("Could not find system model for package: " + pkgName, e);
+				}
+			} else if (currentRoot instanceof SystemModel_c) {
+				pkg.relateAcrossR1401To((SystemModel_c) currentRoot);
+				pkg.relateAcrossR1405To((SystemModel_c) currentRoot);
+			}
+			currentRoot = pkg;
+			searchRoot = pkg;
+
+			// process all package items
+			ctx.package_item().forEach(this::visit);
+
+			return pkg;
+
+		} else {
+			final Package_c parentPkg = (Package_c) currentRoot;
+
+			// find or create deployment
+			final var deploymentName = visitName(ctx.pkg_name);
+			final var deployment = findOrCreate(Deployment_c.class, parentPkg.getPath() + "::" + deploymentName);
+			deployment.setName(deploymentName);
+			final PackageableElement_c pe = new PackageableElement_c(modelRoot);
+			pe.relateAcrossR8001To(deployment);
+			pe.setVisibility(Visibility_c.Public);
+			pe.setType(Elementtypeconstants_c.DEPL);
+
+			// set description
+			if (ctx.description() != null) {
+				deployment.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
+						.collect(Collectors.joining(System.lineSeparator())));
+			}
+
+			// process marks
+			if (marks.containsKey(KEY_LETTERS)) {
+				deployment.setKey_lett(marks.get(KEY_LETTERS).getString());
+			}
+
+			// process terminators
+			currentRoot = deployment;
+			ctx.package_item().forEach(this::visit);
+			currentRoot = parentPkg;
+
+			// link to parent package
+			pe.relateAcrossR8000To(parentPkg);
+
+			return deployment;
 		}
-		currentRoot = pkg;
-		searchRoot = pkg;
-
-		// process all package items
-		ctx.package_item().forEach(this::visit);
-
-		return pkg;
 	}
-	
+
 	@Override
 	public DataType_c visitType_forward_declaration(Type_forward_declarationContext ctx) {
 		final Package_c parentPkg = (Package_c) currentRoot;
@@ -200,7 +243,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			type.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
-		
+
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(RAW_TYPE_DEF)) {
 			// create user type
@@ -533,9 +576,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		if (marks.containsKey(DIALECT)) {
-			bridge.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-		}
+		bridge.setDialect(
+				marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		bridge.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
 			bridge.setAction_semantics_internal(visitAction_body(ctx.action_body()));
@@ -595,9 +637,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		if (marks.containsKey(DIALECT)) {
-			func.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-		}
+		func.setDialect(
+				marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		func.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
 			func.setAction_semantics_internal(visitAction_body(ctx.action_body()));
@@ -622,7 +663,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				prevBparm = s_bparm;
 			}
 			return prevBparm;
-		} else {
+		} else if (currentRoot instanceof Function_c) {
 			FunctionParameter_c prevSparm = null;
 			for (ParameterContext paramCtx : ctx.parameter()) {
 				final FunctionParameter_c s_sparm = (FunctionParameter_c) visit(paramCtx);
@@ -632,6 +673,19 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				prevSparm = s_sparm;
 			}
 			return prevSparm;
+		} else if (currentRoot instanceof TerminatorService_c) {
+			TerminatorServiceParameter_c prevTsparm = null;
+			for (ParameterContext paramCtx : ctx.parameter()) {
+				final TerminatorServiceParameter_c d_tsparm = (TerminatorServiceParameter_c) visit(paramCtx);
+				if (prevTsparm != null) {
+					prevTsparm.relateAcrossR1654ToPrecedes(d_tsparm);
+				}
+				prevTsparm = d_tsparm;
+			}
+			return prevTsparm;
+		} else {
+			throw new CoreImport.XtumlLoadException(
+					"Unexpected root type for parameter list: " + currentRoot.getClass().getSimpleName());
 		}
 	}
 
@@ -662,7 +716,7 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			s_bparm.relateAcrossR21To(bridge);
 
 			return s_bparm;
-		} else {
+		} else if (currentRoot instanceof Function_c) {
 			final Function_c func = (Function_c) currentRoot;
 
 			// create a new parameter
@@ -687,6 +741,34 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			s_sparm.relateAcrossR24To(func);
 
 			return s_sparm;
+		} else if (currentRoot instanceof TerminatorService_c) {
+			final TerminatorService_c svc = (TerminatorService_c) currentRoot;
+
+			// create a new parameter
+			final TerminatorServiceParameter_c d_tsparm = new TerminatorServiceParameter_c(modelRoot);
+			d_tsparm.setName(visitName(ctx.param_name));
+
+			// set by value/ref
+			d_tsparm.setBy_ref("in".equals(ctx.by_ref.getText()) ? 0 : 1);
+
+			// link the data type
+			d_tsparm.relateAcrossR1653To((DataType_c) visit(ctx.type_reference()));
+
+			// set the array dimensions
+			final String dimString = getDimString(ctx.type_reference().array_type_reference());
+			d_tsparm.setDimensions(dimString);
+			final List<Integer> dims = DimensionsUtil.getDimensionsData(dimString, d_tsparm);
+			for (int i = 0; i < dims.size(); i++) {
+				d_tsparm.Resizedimensions(i, dims.get(i), dims.size());
+			}
+
+			// link to message
+			d_tsparm.relateAcrossR1652To(svc);
+
+			return d_tsparm;
+		} else {
+			throw new CoreImport.XtumlLoadException(
+					"Unexpected root type for parameter list: " + currentRoot.getClass().getSimpleName());
 		}
 	}
 
@@ -709,8 +791,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final ModelClass_c refClass;
 				try {
 					// TODO this might cause a circular reference
-					refClass = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.CLASS,
-							refClassPath, ModelClass_c::getOneO_OBJOnR8001));
+					refClass = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.CLASS, refClassPath,
+							ModelClass_c::getOneO_OBJOnR8001));
 				} catch (Exception e) {
 					throw new CoreImport.XtumlLoadException("Failed to find class '" + refClassPath + "'.", e);
 				}
@@ -1071,8 +1153,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 				final String refCompPath = visitScoped_name(ctx.ref_name);
 				final Component_c refComp;
 				try {
-					refComp = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.COMPONENT,
-							refCompPath, Component_c::getOneC_COnR8001));
+					refComp = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.COMPONENT, refCompPath,
+							Component_c::getOneC_COnR8001));
 				} catch (Exception e) {
 					throw new CoreImport.XtumlLoadException("Failed to find component '" + refCompPath + "'.", e);
 				}
@@ -1204,7 +1286,104 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 	}
-	
+
+	@Override
+	public Terminator_c visitPort_definition(Port_definitionContext ctx) {
+		final var deployment = (Deployment_c) currentRoot;
+
+		// create terminator
+		final var terminator = new Terminator_c(modelRoot);
+		terminator.setProvider(ctx.direction.getText().equals("provided"));
+		terminator.setDomain_name(visitName(((Component_definitionContext) ctx.getParent().getParent()).comp_name));
+		if (!terminator.getProvider()) {
+			terminator.setTerminator_name(visitName(ctx.port_name));
+		}
+
+		// set description
+		if (ctx.description() != null) {
+			terminator.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
+					.collect(Collectors.joining(System.lineSeparator())));
+		}
+
+		// process marks
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
+		if (marks.containsKey(KEY_LETTERS)) {
+			terminator.setKey_lett(marks.get(KEY_LETTERS).getString());
+		}
+		if (marks.containsKey(IMPLEMENTATION_SYSTEM)) {
+			terminator.setImplementation_system(marks.get(IMPLEMENTATION_SYSTEM).getString());
+		}
+
+		// process terminator services
+		// TODO sort by sequence number
+		currentRoot = terminator;
+		ctx.message_definition().forEach(this::visit);
+		currentRoot = deployment;
+
+		// link to deployment
+		terminator.relateAcrossR1650To(deployment);
+
+		return terminator;
+	}
+
+	@Override
+	public TerminatorService_c visitMessage_definition(Message_definitionContext ctx) {
+		final var terminator = (Terminator_c) currentRoot;
+
+		// create terminator service
+		final var serviceName = visitName(ctx.msg_name);
+		final var terminatorService = new TerminatorService_c(modelRoot);
+		terminatorService.setName(serviceName);
+
+		// process marks
+		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
+		if (marks.containsKey(MESSAGE_NUM)) {
+			terminatorService.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		}
+		terminatorService.setImplementation_scope(marks.containsKey(IMPLEMENTATION_SCOPE)
+				&& "deployment".equals(marks.get(IMPLEMENTATION_SCOPE).getString()) ? Implementationscope_c.Deployment
+						: Implementationscope_c.Domain);
+		terminatorService.setIs_stale(marks.containsKey(STALE));
+
+		// set return type
+		if (ctx.type_reference() != null) {
+			terminatorService.relateAcrossR1656To((DataType_c) visit(ctx.type_reference()));
+
+			// set the return array dimensions
+			final String dimString = getDimString(ctx.type_reference().array_type_reference());
+			terminatorService.setReturn_dimensions(dimString);
+			final List<Integer> dims = DimensionsUtil.getDimensionsData(dimString, terminatorService);
+			for (int i = 0; i < dims.size(); i++) {
+				terminatorService.Resizereturn_dimensions(i, dims.get(i), dims.size());
+			}
+		} else {
+			terminatorService.relateAcrossR1656To(voidType);
+		}
+
+		// handle parameters
+		if (ctx.parameter_list() != null) {
+			currentRoot = terminatorService;
+			visit(ctx.parameter_list());
+			currentRoot = terminator;
+		}
+
+		// set action semantics
+		terminatorService.setDialect(
+				marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
+		terminatorService
+				.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
+		if (ctx.action_body() != null) {
+			terminatorService.setAction_semantics_internal(visitAction_body(ctx.action_body()));
+		}
+
+		// link to terminator
+		terminatorService.relateAcrossR1651To(terminator);
+
+		// TODO link in sequence
+
+		return terminatorService;
+	}
+
 	private String getRuleText(ParseTree tree) {
 		if (tree instanceof TerminalNode) {
 			return tree.getText();

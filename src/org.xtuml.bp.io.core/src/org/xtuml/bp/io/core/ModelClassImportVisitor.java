@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -404,9 +405,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 
 		// set action semantics
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
-		if (marks.containsKey(DIALECT)) {
-			dbattr.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-		}
+		dbattr.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		dbattr.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		dbattr.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 
@@ -498,9 +497,7 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		}
 
 		// set action semantics
-		if (marks.containsKey(DIALECT)) {
-			tfr.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-		}
+		tfr.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		tfr.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		if (ctx.action_body() != null) {
 			tfr.setAction_semantics_internal(visitAction_body(ctx.action_body()));

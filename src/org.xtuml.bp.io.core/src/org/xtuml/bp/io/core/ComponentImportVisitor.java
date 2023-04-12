@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.DataType_c;
@@ -99,9 +100,9 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final Component_c comp = (Component_c) currentRoot;
 
 		// find the formalized interface
-		final String ifacePath = visitScoped_name(ctx.iface_name);
 		Interface_c iface = null;
 		if (ctx.iface_name != null) {
+			final String ifacePath = visitScoped_name(ctx.iface_name);
 			try {
 				iface = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.INTERFACE, ifacePath,
 						Interface_c::getOneC_IOnR8001, false));
@@ -200,9 +201,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 							.filter(m -> msgName.equals(m.getName())).findAny().orElseThrow(
 									() -> new CoreImport.XtumlLoadException("Failed to find message: " + msgName)));
 
-			if (marks.containsKey(DIALECT)) {
-				msg.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-			}
+			msg.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 			if (marks.containsKey(MESSAGE_NUM)) {
 				msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
 			}

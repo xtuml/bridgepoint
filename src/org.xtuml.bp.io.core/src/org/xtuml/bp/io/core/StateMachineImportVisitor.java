@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
+import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.CantHappen_c;
 import org.xtuml.bp.core.ClassAsSubtype_c;
 import org.xtuml.bp.core.ClassAsSupertype_c;
@@ -107,9 +108,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// populate action semantics
 		if (ctx.action_body() != null) {
-			if (marks.containsKey(DIALECT)) {
-				act.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-			}
+			act.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 			act.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 			act.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 		}
@@ -355,9 +354,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// populate action semantics
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
-		if (marks.containsKey(DIALECT)) {
-			act.setDialect(getDialectCode(marks.get(DIALECT).getString()));
-		}
+		act.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		act.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		act.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 
