@@ -19,10 +19,13 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
@@ -133,6 +136,8 @@ import org.xtuml.bp.core.sorter.PropertyParameter_cSorter;
 import org.xtuml.bp.core.sorter.StateMachineEventDataItem_cSorter;
 import org.xtuml.bp.core.sorter.StructureMember_cSorter;
 import org.xtuml.bp.core.sorter.TerminatorServiceParameter_cSorter;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.io.core.CoreImport;
 import org.xtuml.bp.io.core.ProxyUtil;
 import org.xtuml.bp.io.core.ProxyUtil.ProxyInstance;
@@ -156,26 +161,31 @@ public class ExportModelText extends ExportModelComponent {
 	private static final Set<String> RESERVED_WORDS = CoreImport.getXtumlKeywords();
 
 	private int tabDepth = 0;
+	private String tabChars = "";
 	private final Stack<StringBuilder> buffers = new Stack<>();
 
 	private final IPersistenceHierarchyMetaData metadata = new PersistenceHierarchyMetaData();
 
 	public ExportModelText(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
 		super(modelRoot, baos, element);
+		setTabChars();
 	}
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics)
 			throws FileNotFoundException {
 		super(modelRoot, outfileName, true);
+		setTabChars();
 	}
 
 	public ExportModelText(Ooaofooa modelRoot, String outfileName, boolean export_graphics,
 			NonRootModelElement instance) throws FileNotFoundException {
 		super(modelRoot, outfileName, true, instance);
+		setTabChars();
 	}
 
 	public ExportModelText(String outfileName, NonRootModelElement element) throws FileNotFoundException {
 		super(outfileName, element);
+		setTabChars();
 	}
 
 	private void append(String format, Object... args) {
@@ -2314,18 +2324,44 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	private String getTab() {
-		final IPreferenceStore store = EditorsUI.getPreferenceStore();
-		final boolean spacesForTabs = store
-				.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
-		final String tabChar = spacesForTabs ? " " : "\t";
-		final int tabWidth = spacesForTabs
-				? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
-				: 1;
 		String tab = "";
-		for (int i = 0; i < tabDepth * tabWidth; i++) {
-			tab += tabChar;
+		for (int i = 0; i < tabDepth; i++) {
+			tab += tabChars;
 		}
 		return tab;
+	}
+
+	private void setTabChars() {
+		String tabChar = "";
+		int tabWidth = 1;
+
+		// get the tab character and depth from preferences
+		final IScopeContext projectScope = new ProjectScope(m_inst.getFile().getProject());
+		final Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		switch (projectNode.get(BridgePointPersistencePreferences.BP_TAB_POLICY_ID, "match")) {
+		case "spaces":
+			tabChar = " ";
+			tabWidth = Integer.parseInt(projectNode.get(BridgePointPersistencePreferences.BP_TAB_DEPTH_ID, "2"));
+			break;
+		case "tabs":
+			tabChar = "\t";
+			break;
+		default:
+			final IPreferenceStore store = EditorsUI.getPreferenceStore();
+			final boolean spacesForTabs = store
+					.getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+			tabChar = spacesForTabs ? " " : "\t";
+			tabWidth = spacesForTabs ? store.getInt(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH)
+					: 1;
+			break;
+		}
+
+		// build up the tab
+		tabChars = "";
+		for (int i = 0; i < tabWidth; i++) {
+			tabChars += tabChar;
+		}
+
 	}
 
 	private String getTypeReference(final DataType_c type) {
