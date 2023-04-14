@@ -3,8 +3,11 @@ package org.xtuml.bp.utilities.load;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -20,7 +23,6 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.util.UIUtil;
-import org.xtuml.bp.ui.canvas.CanvasPlugin;
 
 public class LoadAndPersistAction implements IActionDelegate {
 
@@ -44,6 +46,18 @@ public class LoadAndPersistAction implements IActionDelegate {
 						; // wait for other tasks to finish
 					boolean succeeded = true;
 					long start = System.currentTimeMillis();
+
+					// referesh all files
+					pmcsToProcess.stream()
+							.flatMap(pmc -> Stream.concat(Stream.of(pmc.getFile(), pmc.getGraphicsFile()),
+									Stream.of(pmc.getActionFiles().getAllFiles())))
+							.filter(Objects::nonNull).filter(IResource::exists).forEach(r -> {
+								try {
+									r.refreshLocal(IResource.DEPTH_ZERO, new NullProgressMonitor());
+								} catch (CoreException e) {
+									CorePlugin.logError("Failed to refresh resource", e);
+								}
+							});
 
 					// load collected PMCs
 					try {
