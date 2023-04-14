@@ -8568,9 +8568,6 @@ if (a_cond == "Unconditionally" and b_cond == "Conditionally")  // prefer the un
   participants[0] = a_to_b_part;
 end if;
 default_selection = 0;
-if (r_rel.isFormalized() and not_empty a_form)
-  default_selection = 1;
-end if;
 
 // establish whether formalization is possible
 can_formalize = true;

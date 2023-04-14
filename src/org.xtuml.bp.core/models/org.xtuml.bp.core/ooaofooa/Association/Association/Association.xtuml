@@ -1124,14 +1124,20 @@ if (not_empty simp)
       non_formalizer = b_part;
       identifier = b_identifier;
     else  // reflexive
-      reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
-      if (reflexive_phrase == a_phrase)
-        non_formalizer = b_part;
-        identifier = b_identifier;
+      if (symmetric)  // this odd case has only a single phrase.
+        // just convert the first R_PART to a R_FORM
+        non_formalizer = b_part;     // why specify non-formalizer?...
+        identifier = a_identifier;   // but only a_identifier is valid (reflexive)
       else
-        non_formalizer = a_part;
-        identifier = a_identifier;
-      end if;
+	      reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
+	      if (reflexive_phrase == a_phrase)
+	        non_formalizer = b_part;
+	        identifier = b_identifier;
+	      else
+	        non_formalizer = a_part;
+	        identifier = a_identifier;
+	      end if;
+	    end if;
     end if;
     simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
   elif ("Not formalized" == part_class and self.isFormalized())

@@ -19,6 +19,14 @@ Bridge:GD',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
+select one r_rel related by self->R_SIMP[R208]->R_REL[R206];
+if (r_rel.is_symmetric())
+  if (self.Txt_Phrs == "")
+    // formalized simple symmetric reflexives suppress the phrase in the R_FORM instance.
+    // the single association annotation will be evaluated by R_PART instance.
+    return "";
+  end if;
+end if;
 if (param.at == End::Start OR param.at == End::End)
   result = self.Txt_Phrs;
 elif (param.at == End::Start_Fixed OR param.at == End::End_Fixed)
@@ -28,6 +36,7 @@ return result;',
 	1,
 	'',
 	"f5d59a0b-dd2c-42f6-b339-9a2ab97a7677",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c5e1d893-860d-4af0-892b-8163d964d4cb",
@@ -63,6 +72,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4b307296-cb3d-40ac-9313-3701b5a5cfa3",
@@ -77,6 +87,7 @@ return obj.Name;
 	1,
 	'',
 	"deb7beab-e808-4ed6-91e9-2d12c07524b6",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4578996f-c32c-4d90-89eb-cdaa559cdf63",
@@ -107,6 +118,7 @@ rgo.dispose();
 	1,
 	'',
 	"aa866c90-b3db-41e8-8e28-a4a692b43757",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("aa866c90-b3db-41e8-8e28-a4a692b43757",
@@ -121,6 +133,7 @@ return part.Mult == 0;
 	1,
 	'',
 	"4b307296-cb3d-40ac-9313-3701b5a5cfa3",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4c846330-e6c3-41f0-a257-036961d6c1eb",
@@ -152,6 +165,7 @@ delete object instance self;
 	1,
 	'',
 	"4578996f-c32c-4d90-89eb-cdaa559cdf63",
+	0,
 	0);
 INSERT INTO O_REF
 	VALUES ("04bd0a38-9559-4ea0-9ff0-cf445e373e21",
