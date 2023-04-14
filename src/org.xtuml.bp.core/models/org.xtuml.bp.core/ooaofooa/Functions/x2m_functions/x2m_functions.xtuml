@@ -1233,6 +1233,7 @@ INSERT INTO S_DT_PROXY
 	'instance',
 	'',
 	'',
+	'org.xtuml.bp.core::ooaofooa::Datatypes::instance',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("f9e36741-f954-452e-b152-69f72bde4dae",
@@ -1263,7 +1264,10 @@ if ( not_empty s_dt )
   if ( "void" != s_dt.Name )
     typeref = s_dt.Name;  // typref is the name of the type
     // if the type is already qualified with a domain name, no need to qualify it again
-    if ( not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
+    // LPS - The most recent best practice is never to directly refer to a type
+    // in another domain. Therefore, no type should ever have to be implicitly
+    // qualified by this code.
+    if ( false and not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
       // If type is inside a component, it is local.
       select one parent_ep_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
       select one parent_c_c related by parent_ep_pkg->PE_PE[R8001]->C_C[R8003];
@@ -1460,9 +1464,11 @@ INSERT INTO EP_PKG_PROXY
 	'Functions',
 	'',
 	0,
+	'org.xtuml.bp.core::ooaofooa::Functions',
 	'../Functions.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'org.xtuml.bp.core',
 	1,
+	'org.xtuml.bp.core',
 	'../../../org.xtuml.bp.core.xtuml');
