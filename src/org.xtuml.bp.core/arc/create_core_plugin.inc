@@ -328,24 +328,36 @@ This file is the plugin manifest for the BridgePoint core plugin.
        class="org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
      <page
        name="Action Language"
        class="org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
      <page
        name="Dependencies"
        class="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
      <page
        name="Persistence"
        class="org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
    </extension>
    <extension id="org.xtuml.bp.core.ui.viewcats"
