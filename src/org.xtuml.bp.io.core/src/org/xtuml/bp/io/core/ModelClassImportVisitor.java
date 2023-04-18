@@ -117,8 +117,8 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 		List<Identifier_definitionContext> otherIds = ctx.class_item().stream()
 				.map(Class_itemContext::identifier_definition).filter(id -> id != null && id.pref == null)
 				.collect(Collectors.toList());
-		for (int i = 1; i < 3 && i < otherIds.size(); i++) {
-			final int oidId = i;
+		for (int i = 0; i < 2 && i < otherIds.size(); i++) {
+			final int oidId = i + 1;
 			currentRoot = ClassIdentifier_c.getOneO_IDOnR104(modelClass,
 					selected -> ((ClassIdentifier_c) selected).getOid_id() == oidId);
 			visit(otherIds.get(i));
