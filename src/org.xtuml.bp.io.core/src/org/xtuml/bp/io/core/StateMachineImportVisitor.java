@@ -86,6 +86,7 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 		// create action home if not already created
 		if (MooreActionHome_c.getOneSM_MOAHOnR511(state) == null) {
 			final Action_c act = new Action_c(modelRoot);
+			act.setDialect(Actiondialect_c.none);
 			act.relateAcrossR515To(stateMachine);
 			final ActionHome_c ah = new ActionHome_c(modelRoot);
 			ah.relateAcrossR514To(act);
@@ -102,13 +103,17 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 			act.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
+		
+		// populate dialect
+		if (marks.containsKey(DIALECT)) {
+			act.setDialect(getDialectCode(marks.get(DIALECT).getString()));
+		}
 
 		// link to state machine
 		state.relateAcrossR501To(stateMachine);
 
 		// populate action semantics
 		if (ctx.action_body() != null) {
-			act.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 			act.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 			act.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 		}

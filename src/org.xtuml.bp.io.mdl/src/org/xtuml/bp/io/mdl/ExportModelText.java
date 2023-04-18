@@ -1671,6 +1671,14 @@ public class ExportModelText extends ExportModelComponent {
 					append("%s@final;\n", getTab());
 				}
 
+				final String dialect = getDialectIdentifier(Action_c
+						.getOneSM_ACTOnR514(
+								ActionHome_c.getOneSM_AHOnR513(MooreActionHome_c.getOneSM_MOAHOnR511(sm_state)))
+						.getDialect());
+				if (dialect != null && !"none".equals(dialect)) {
+					append("%s@dialect(\"%s\");\n", getTab(), dialect);
+				}
+
 				append("%s%sstate %s;\n\n", getTab(), isClassBased ? "class " : "", sanitizeName(sm_state.getName()));
 
 			}
