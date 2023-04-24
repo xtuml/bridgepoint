@@ -334,8 +334,10 @@ throws IOException
     m_fh.print( "INSERT INTO ${table.Key_Lett}_PROXY\n\tVALUES (" ); //$$NON-NLS-1$$
     write_${r.body}_attr_sql(inst);
     m_fh.print(",\n\t"); //$$NON-NLS-1$$
-    m_fh.print("'" + inst.getPath() + "'");
-    m_fh.print(",\n\t"); //$$NON-NLS-1$$
+    if (persistAsText(inst)) {
+        m_fh.print("'" + inst.getPath() + "'");
+        m_fh.print(",\n\t"); //$$NON-NLS-1$$
+    }
     m_fh.print("'" + (!inst.getModelRoot().isCompareRoot() ? inst.getContent(m_inst.getPersistableComponent().getFullPath()):inst.getContent()) + "'");
     m_fh.print(");\n"); //$$NON-NLS-1$$
   }
