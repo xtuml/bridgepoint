@@ -24,6 +24,11 @@ then
   export INCLUDE_TESTS=false
 fi
 
+if [ -z $ANT_HOME ]
+then
+  export ANT_HOME=$(find ${bp_install_dir} -type d -name "org.apache.ant_*")
+fi
+
 export XTUML_DEVELOPMENT_REPOSITORY=${BP_GIT_DIR}/bridgepoint
 export XTUML_TEST_MODEL_REPOSITORY=${BP_GIT_DIR}/models/test
 export mcj_path=${XTUML_DEVELOPMENT_REPOSITORY}/src/MC-Java

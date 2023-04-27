@@ -26,7 +26,7 @@ public class Xtuml2Masl {
 
     private static final int KILL_TIMEOUT = 2000;
 
-    public static final String CLI_EXE = "CLI.sh";
+    public static final String CLI_EXE = System.getProperty("os.name").toLowerCase().contains("win") ? "CLI.bat" : "CLI.sh";
     public static final String X2M_EXE = "x2m";
     public static final String MASL_EXE = "masl";
     public static final String CODE_GEN_FOLDER = "gen/code_generation";
@@ -41,15 +41,21 @@ public class Xtuml2Masl {
     private boolean isDomain;
     private boolean validate;
     private boolean coverage;
-    private boolean prebuild;
+    private PrebuildType prebuild;
     private boolean skipFormat;
     private boolean skipActionLanguage;
     private boolean cleanBuild;
+    
+    public enum PrebuildType {
+    	NO_PREBUILD,
+    	PREBUILD,
+    	DEFER_PREBUILD,
+    }
 
     public Xtuml2Masl() {
         validate = false;
         coverage = false;
-        prebuild = false;
+        prebuild = PrebuildType.PREBUILD;
         outDir = ".";
         architecture = "MASL";
         skipFormat = false;
@@ -101,7 +107,7 @@ public class Xtuml2Masl {
         }
 
         // run pre-builder if executing outside eclipse on a project project
-        if (prebuild) {
+        if (prebuild == PrebuildType.PREBUILD) {
             // build prebuild process
             List<String> prebuildCmd = new ArrayList<>();
             prebuildCmd.add(toolsFolder() + File.separator + CLI_EXE);
@@ -109,7 +115,7 @@ public class Xtuml2Masl {
             prebuildCmd.add("-prebuildOnly");
             prebuildCmd.add("-doNotParse");
             prebuildCmd.add("-project");
-            Path projectPath = new File(projectLocation).toPath();
+            Path projectPath = new File(projectLocation).getCanonicalFile().toPath();
             prebuildCmd.add(projectPath.getName(projectPath.getNameCount() - 1).toString());
             System.out.println(prebuildCmd);
             Process prebuildProcess = new ProcessBuilder().command(prebuildCmd).start();
@@ -134,7 +140,7 @@ public class Xtuml2Masl {
             x2mCmd.add("-p");
         }
         x2mCmd.add(name);
-        if (prebuild) {
+        if (prebuild == PrebuildType.PREBUILD || prebuild == PrebuildType.DEFER_PREBUILD) {
             x2mCmd.add("-P");
         }
         System.out.println(x2mCmd);
@@ -168,10 +174,10 @@ public class Xtuml2Masl {
         Process maslProcess = new ProcessBuilder().command(maslCmd).start();
 
         // pipe inputs and outputs together
-        Path projectPath = new File(projectLocation).toPath();
+        Path projectPath = new File(projectLocation).getCanonicalFile().toPath();
         String projectName = projectPath.getName(projectPath.getNameCount() - 1).toString();
         FileInputStream inputFile;
-        if (prebuild) {
+        if (prebuild == PrebuildType.PREBUILD || prebuild == PrebuildType.DEFER_PREBUILD) {
             inputFile = new FileInputStream(
                 projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + projectName + ".sql");
         } else {
@@ -282,7 +288,7 @@ public class Xtuml2Masl {
         return this;
     }
 
-    public Xtuml2Masl setPrebuild(boolean prebuild) {
+    public Xtuml2Masl setPrebuild(PrebuildType prebuild) {
         this.prebuild = prebuild;
         return this;
     }
@@ -360,10 +366,24 @@ public class Xtuml2Masl {
         }
     }
 
-    private static void printUsage() {
-        System.err.println(
-                "Usage:\n\txtuml2masl [-v | -V] [-xf] [-xl] [-xc] -i <eclipse project> -d <domain component> [-o <output directory>] [-a <architecture>]\n\txtuml2masl [-v | -V] [-xf] [-xl] [-xc] -i <eclipse project> -p <project package> [-o <output directory>] [-a <architecture>]");
-    }
+	private static void printUsage() {
+		System.err.println("Usage:\n"
+        + "\txtuml2masl [-v | -V] [-c] [-P] [-xf] [-xl] [-a <architecture>] -i <eclipse project location> -d <domain component> [ -o <output directory> ]\n"
+        + "\txtuml2masl [-v | -V] [-c] [-P] [-xf] [-xl] [-a <architecture>] -i <eclipse project location> -p <project/deployment package> [ -o <output directory> ]\n"
+        + "\n"
+        + "\t| Parameter                             | Description                                                                                                  |\n"
+        + "\t|---------------------------------------|--------------------------------------------------------------------------------------------------------------|\n"
+        + "\t| -v -V                                 | Optionally print help message                                                                                |\n"
+        + "\t| -c                                    | Optionally used to enable the production of coverage statistics                                              |\n"
+        + "\t| -P                                    | Optionally used to cause BridgePoint prebuilder to be used to export model data                              |\n"
+        + "\t| -xf                                   | Optionally skip the formatting step                                                                          |\n"
+        + "\t| -xl                                   | Optionally exclude action langauge from export                                                               |\n"
+        + "\t| -a &lt;architecture&gt;               | Specify the output architecture. \"MASL\" and \"WASL\" are valid options. \"MASL\" is the default.           |\n"
+        + "\t| -i &lt;eclipse project location&gt;   | Specify an absolute or relative path to the root directory of the Eclipse project containing the input model |\n"
+        + "\t| -d &lt;domain component&gt;           | Specify xtUML component that will be exported as a MASL domain                                               |\n"
+        + "\t| -p &lt;project/deployment package&gt; | Specify xtUML package that will be exported as a MASL project/deployment                                     |\n"
+        + "\t| -o &lt;output directory&gt;           | Optionally specify the target folder to write to                                                             |");
+	}
 
     private static class BuildElement {
 
@@ -431,7 +451,7 @@ public class Xtuml2Masl {
             }
         }
 
-        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild).setSkipFormat(skipFormatter)
+        Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild ? PrebuildType.PREBUILD : PrebuildType.NO_PREBUILD).setSkipFormat(skipFormatter)
                 .setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <title>BridgePoint xtUML Release Notes</title>
 <link rel="stylesheet" href="./../asciidoctor-default.css">
 </head>
@@ -14,7 +14,7 @@
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_release_7">Release 7.</h2>
+<h2 id="_release_7_4">Release 7.4</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_license">License</h3>
@@ -42,11 +42,11 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java Virtual Machine</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version 11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version 11 minimum (17+ preferred)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">*Eclipse</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version 2020-06</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version 2022-12</p></td>
 </tr>
 </tbody>
 </table>
@@ -62,10 +62,12 @@
 <p>A summary of the release highlights and new functionality is available on the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a> page.</p>
 </li>
 <li>
-<p><span class="red"><strong>IMPORTANT:</strong></span> BridgePoint 7.0 requires Java 11.  If Java 11 is not the
-system default JRE, then the user must configure BridgePoint to invoke Java 11
-explicitly.  See more information in the <a href="../WhatsNew/WhatsNew.html">What&#8217;s New</a>
-including a FAQ which gives steps to configure BridgePoint for Java.</p>
+<p><span class="red"><strong>IMPORTANT:</strong></span> BridgePoint 7.4+ requires Java 11. Java 17 is required for
+full CDT functionality although all BridgePoint-only features will work with
+Java 11. If Java 11/17 is not the system default JRE, then the user must
+configure BridgePoint to invoke Java 11/17 explicitly. See more information on
+configuring Java in
+<a href="https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc">this guide</a>.</p>
 </li>
 <li>
 <p>BridgePoint is completely open source software. Please see <a href="https://xtuml.org">xtuml.org</a> and <a href="https://onefact.net">onefact.net</a>
@@ -85,7 +87,7 @@ preferences at <code>xtUML &gt; Action Language &gt; Default Action Language Dia
 <div class="sect2">
 <h3 id="_interoperability_with_previous_releases">Interoperability with Previous Releases</h3>
 <div class="paragraph">
-<p>BridgePoint 7.0 is compatible with workspaces and projects created with prior versions back to
+<p>BridgePoint 7.4 is compatible with workspaces and projects created with prior versions back to
 BridgePoint 6.0.  However, after opening the model in this version a modeler will not be able to
 open the model in a prior version.</p>
 </div>
@@ -112,8 +114,52 @@ open the model in a prior version.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12087">12087</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bump version to 7.1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/10340">10340</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linting warnings on mc3020</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11637">11637</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upgrade welcome plugin projects</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11699">11699</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changing from one assoc to another assoc does not work.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/11919">11919</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BP Modeler build is missing org.eclipse.jdt.debug.ui (was Cannot run GPS Watch GUI)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12222">12222</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifier: Support interface message parameters of type inst_ref and inst_ref_set</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12315">12315</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribute a version of BridgePoint which runs natively on ARM64 macOS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12568">12568</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifier Session Explorer does not correctly display the names of Package References.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12597">12597</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Update xtUML Metamodel project</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12615">12615</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifier does not correctly support cardinality {*} on the associative link in a relationship.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12617">12617</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifier removes incorrect InstanceInReference when handling duplicate instances retrieved by 'select many'.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12548">12548</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support symmetric reflexive associations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://support.onefact.net/issues/12626">12626</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bump version to 7.4</p></td>
 </tr>
 </tbody>
 </table>

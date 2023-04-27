@@ -20,6 +20,7 @@ public class MaslExporterPreferences {
     private static final boolean FORMAT_OUTPUT_DEFAULT = true;
     private static final boolean EMIT_ACTIVITIES_DEFAULT = true;
     private static final boolean CLEAN_BUILD_DEFAULT = true;
+    private static final boolean RUN_PREBUILD_DEFAULT = true;
     private static final String OUTPUT_DESTINATION_DEFAULT = "masl/";
 
     // preference keys
@@ -27,6 +28,7 @@ public class MaslExporterPreferences {
     private static final String FORMAT_OUTPUT_KEY = "format_output";
     private static final String EMIT_ACTIVITIES_KEY = "emit_activities";
     private static final String CLEAN_BUILD_KEY = "clean_build";
+    private static final String RUN_PREBUILD_KEY = "run_prebuild";
     private static final String OUTPUT_DESTINATION_KEY = "output_desitnation";
     private static final String SELECTED_BUILD_ELEMENTS_KEY = "selected_build_elements";
 
@@ -36,11 +38,17 @@ public class MaslExporterPreferences {
     private boolean formatOutput;
     private boolean emitActivities;
     private boolean cleanBuild;
+    private boolean runPrebuild;
     private String outputDestination;
     List<UUID> selectedBuildElements;
 
     public MaslExporterPreferences(IProject project) {
         internalPrefs = new ProjectScope(project).getNode(MASL_EXPORTER_PREFERENCES_ID);
+        loadPreferences();
+    }
+    
+    public MaslExporterPreferences(IEclipsePreferences prefs) {
+        internalPrefs = prefs;
         loadPreferences();
     }
 
@@ -76,6 +84,14 @@ public class MaslExporterPreferences {
         this.cleanBuild = cleanBuild;
     }
 
+    public boolean isRunPrebuild() {
+    	return runPrebuild;
+    }
+    
+    public void setRunPrebuild(boolean runPrebuild) {
+    	this.runPrebuild = runPrebuild;
+    }
+
     public String getOutputDestination() {
         return outputDestination;
     }
@@ -92,43 +108,74 @@ public class MaslExporterPreferences {
         this.selectedBuildElements = selectedBuildElements;
     }
 
-    public void restoreDefaults() {
-        autoSelectElements = AUTO_SELECT_ELEMENTS_DEFAULT;
-        formatOutput = FORMAT_OUTPUT_DEFAULT;
-        emitActivities = EMIT_ACTIVITIES_DEFAULT;
-        cleanBuild = CLEAN_BUILD_DEFAULT;
-        outputDestination = OUTPUT_DESTINATION_DEFAULT;
+    public boolean getAutoSelectElementsDefault() {
+		return AUTO_SELECT_ELEMENTS_DEFAULT;
+	}
+
+	public boolean getFormatOutputDefault() {
+		return FORMAT_OUTPUT_DEFAULT;
+	}
+
+	public boolean getEmitActivitiesDefault() {
+		return EMIT_ACTIVITIES_DEFAULT;
+	}
+
+	public boolean getCleanBuildDefault() {
+		return CLEAN_BUILD_DEFAULT;
+	}
+
+	public boolean getRunPrebuildDefault() {
+		return RUN_PREBUILD_DEFAULT;
+	}
+
+	public String getOutputDestinationDefault() {
+		return OUTPUT_DESTINATION_DEFAULT;
+	}
+
+	public void restoreDefaults() {
+        autoSelectElements = getAutoSelectElementsDefault();
+        formatOutput = getFormatOutputDefault();
+        emitActivities = getEmitActivitiesDefault();
+        cleanBuild = getCleanBuildDefault();
+        runPrebuild = getRunPrebuildDefault();
+        outputDestination = getOutputDestinationDefault();
         selectedBuildElements = new ArrayList<>();
     }
 
     public void loadPreferences() {
         String autoSelectElements = internalPrefs.get(AUTO_SELECT_ELEMENTS_KEY, "None");
         if ("None".equals(autoSelectElements)) {
-            this.autoSelectElements = AUTO_SELECT_ELEMENTS_DEFAULT;
+            this.autoSelectElements = getAutoSelectElementsDefault();
         } else {
-            this.autoSelectElements = Boolean.getBoolean(autoSelectElements);
+            this.autoSelectElements = Boolean.parseBoolean(autoSelectElements);
         }
         String formatOutput = internalPrefs.get(FORMAT_OUTPUT_KEY, "None");
         if ("None".equals(formatOutput)) {
-            this.formatOutput = FORMAT_OUTPUT_DEFAULT;
+            this.formatOutput = getFormatOutputDefault();
         } else {
-            this.formatOutput = Boolean.getBoolean(formatOutput);
+            this.formatOutput = Boolean.parseBoolean(formatOutput);
         }
         String emitActivities = internalPrefs.get(EMIT_ACTIVITIES_KEY, "None");
         if ("None".equals(emitActivities)) {
-            this.emitActivities = EMIT_ACTIVITIES_DEFAULT;
+            this.emitActivities = getEmitActivitiesDefault();
         } else {
-            this.emitActivities = Boolean.getBoolean(emitActivities);
+            this.emitActivities = Boolean.parseBoolean(emitActivities);
         }
         String cleanBuild = internalPrefs.get(CLEAN_BUILD_KEY, "None");
         if ("None".equals(cleanBuild)) {
-            this.cleanBuild = CLEAN_BUILD_DEFAULT;
+            this.cleanBuild = getCleanBuildDefault();
         } else {
-            this.cleanBuild = Boolean.getBoolean(cleanBuild);
+            this.cleanBuild = Boolean.parseBoolean(cleanBuild);
+        }
+        String runPrebuild = internalPrefs.get(RUN_PREBUILD_KEY, "None");
+        if ("None".equals(runPrebuild)) {
+            this.runPrebuild = getRunPrebuildDefault();
+        } else {
+            this.runPrebuild = Boolean.parseBoolean(runPrebuild);
         }
         String outputDestination = internalPrefs.get(OUTPUT_DESTINATION_KEY, "None");
         if ("None".equals(outputDestination)) {
-            this.outputDestination = OUTPUT_DESTINATION_DEFAULT;
+            this.outputDestination = getOutputDestinationDefault();
         } else {
             this.outputDestination = outputDestination;
         }
@@ -144,19 +191,22 @@ public class MaslExporterPreferences {
     public void savePreferences() {
         try {
             internalPrefs.clear();
-            if (autoSelectElements != AUTO_SELECT_ELEMENTS_DEFAULT) {
+            if (autoSelectElements != getAutoSelectElementsDefault()) {
                 internalPrefs.putBoolean(AUTO_SELECT_ELEMENTS_KEY, autoSelectElements);
             }
-            if (formatOutput != FORMAT_OUTPUT_DEFAULT) {
+            if (formatOutput != getFormatOutputDefault()) {
                 internalPrefs.putBoolean(FORMAT_OUTPUT_KEY, formatOutput);
             }
-            if (emitActivities != EMIT_ACTIVITIES_DEFAULT) {
+            if (emitActivities != getEmitActivitiesDefault()) {
                 internalPrefs.putBoolean(EMIT_ACTIVITIES_KEY, emitActivities);
             }
-            if (cleanBuild != CLEAN_BUILD_DEFAULT) {
+            if (cleanBuild != getCleanBuildDefault()) {
                 internalPrefs.putBoolean(CLEAN_BUILD_KEY, cleanBuild);
             }
-            if (!outputDestination.equals(OUTPUT_DESTINATION_DEFAULT)) {
+            if (runPrebuild != getRunPrebuildDefault()) {
+                internalPrefs.putBoolean(RUN_PREBUILD_KEY, runPrebuild);
+            }
+            if (!outputDestination.equals(getOutputDestinationDefault())) {
                 internalPrefs.put(OUTPUT_DESTINATION_KEY, outputDestination);
             }
             if (!autoSelectElements && !selectedBuildElements.isEmpty()) {

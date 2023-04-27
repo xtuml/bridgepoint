@@ -60,6 +60,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f1263562-d81d-42cc-b4c9-c8c8081cf3a8",
@@ -215,27 +216,27 @@ if (empty inst_in_where)
   while (not_empty chain_link and not_empty selection_inst_refs)
     // Get the next link in the chain
     select one next_link related by chain_link->ACT_LNK[R604.''precedes''];  
-    // Get the association related to this chain link and all the links related
-    // to that association
+    // Get the association related to this chain link;
+    // then, get all the links related to the association
     select one association related by chain_link->R_REL[R681];
-    select one assoc_class related by association->R_ASSOC[R206]->
-                            R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
-    select one form related by association->R_SIMP[R206]->R_FORM[R208];
-    select one super related by association->R_SUBSUP[R206]->R_SUPER[R212];
-    select any part related by
-                            association->R_SIMP[R206]->R_PART[R207] where
-                                        selected.Rel_ID == GD::NULL_UNIQUE_ID();
+    select one simprel related by association->R_SIMP[R206];
+    select one form related by simprel->R_FORM[R208];
+    select any part from instances of R_PART where false;  //decl
     fromPart = part;
-    select one aone related by association->R_ASSOC[R206]->R_AONE[R209];
-    select one aoth related by association->R_ASSOC[R206]->R_AOTH[R210];
-    // Decide whether we are navigating an associative instance
+    select one assocrel related by association->R_ASSOC[R206];
+    select one assoc_class related 
+     by assocrel->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+    select one aone related by assocrel->R_AONE[R209];
+    select one aoth related by assocrel->R_AOTH[R210];
+    select one super related by association->R_SUBSUP[R206]->R_SUPER[R212];
+    // These are all instances of the same class, so select any is safe here
+    select any source_class related 
+     by selection_inst_refs->I_INS[R3013]->CSME_CIE[R2962]->O_OBJ[R2961];
+    select one target_class related by chain_link->O_OBJ[R678];
+    // Decide whether we are navigating from/to an associative instance
     from_assoc = false;
     to_assoc = false;
-    // These are all instances of the same class, so select any is safe here
-    select any source_class related by selection_inst_refs->I_INS[R3013]->
-                                                  CSME_CIE[R2962]->O_OBJ[R2961];
-    select one target_class related by chain_link->O_OBJ[R678];
-    if not_empty assoc_class
+    if (not_empty assoc_class)
       if (source_class  == assoc_class)
         from_assoc = true;
       end if;
@@ -244,201 +245,200 @@ if (empty inst_in_where)
       end if;
     end if; // not empty association class
     traverseFwd = true;
-    checkFwd = true; // separate flag until we clean up traverse forward/back.
-    traverseBack = true;
-    targetPhrase = GD::strip_tics(value:chain_link.Rel_Phrase);
-    // Unformalized associations have 2 participants and no formalizer
-    // Support this kind of association by allowing for 2 part instances
-    select many parts related by association->R_SIMP[R206]->R_PART[R207];
-    if (association.is_reflexive()) // Reflexive case
-      // selecting many parts above allows operation with unformalized assocs
-      // Here we find which of the informal parts is the ''forward'' direction
-      if empty form and empty aone // unformalized and non link association
-        partCount = 1;
-        for each candidatePart in parts
-          if (partCount == 1)
-            fromPart = candidatePart;
-            if (candidatePart.Txt_Phrs == targetPhrase)
-              // the user wants to go from the other side to the one
-              traverseFwd = false;
-              checkFwd = false;
-            else
-              // the user wants to go from one side to the other side
-              traverseBack = false;
-            end if;
-          else //(candidatePart.Txt_Phrs == sourcePhrase)
-            part = candidatePart;
+    link_phrase = GD::strip_tics(value:chain_link.Rel_Phrase);
+    symmetric = association.is_symmetric();
+
+    if (association.is_reflexive()) 
+      // Reflexive case - either simple or associative
+      // Phrases must indicate ''direction'' (unless symmetric)
+      if (not_empty simprel)
+        if (association.isFormalized())  // formalized, simple reflexive
+          select one form related by simprel->R_FORM[R208];
+          if (form.Txt_Phrs == link_phrase and not symmetric) // if symmetric, direction is irrelevant
+            traverseFwd = false;
           end if;
-          partCount = partCount + 1;
-        end for;
-      end if;
-      if not_empty form // formalized
-        if form.Txt_Phrs == targetPhrase
-          // the user wants to go from other side to the one
-          traverseFwd = false;
-          checkFwd = false;
-        else
-          // the user wants to go from one side to the other
-          traverseBack = false;
-        end if;
-        select any part related by association->R_SIMP[R206]->R_PART[R207];
-      end if; // formalized case
-      if (not_empty aone and aone.Txt_Phrs == targetPhrase) // linked assoc
-        // the user wants to go from other side to one side
-        traverseFwd = false;
-        checkFwd = false;
-      end if;
-      if (not_empty aoth and aoth.Txt_Phrs == targetPhrase) // linked assoc
-        // the user wants to go from one side to the other
-        traverseBack = false;
-      end if;
-    else // not reflexive
-      if empty super
-        if empty form
-          // Find which of the informal parts is the ''forward'' direction
+          select any part related by simprel->R_PART[R207];
+        else  // unformalized, simple reflexive
+          // Note reliance here on order of returned parts; see issue #12614
+          select many parts related by simprel->R_PART[R207];
           partCount = 1;
           for each candidatePart in parts
-            if partCount == 1
+            if (partCount == 1)
+              fromPart = candidatePart;
+              if (candidatePart.Txt_Phrs == link_phrase and not symmetric)
+                traverseFwd = false;
+              end if;
+            else
+              part = candidatePart;
+            end if;
+            partCount = partCount + 1;
+          end for;
+        end if;
+      else
+        // still reflexive, therefore must be associative - formalized or not
+        if (aone.Txt_Phrs == link_phrase and not symmetric)  // phrase must exist, and be used
+          traverseFwd = false;
+        end if;
+      end if;
+    else 
+      // not reflexive - cannot rely on phrases existing, or being used.
+      // examine the source/target classes.
+      if (not_empty simprel)
+        if (empty form) // unformalized
+          // Note reliance here on order of returned parts; see issue #12614
+          select many parts related by simprel->R_PART[R207];
+          partCount = 1;
+          for each candidatePart in parts
+            if (partCount == 1)
               fromPart = candidatePart;
             else
               part = candidatePart;
             end if;
             partCount = partCount + 1;
           end for;
-        else // not_empty form
+        else // formalized simple
           select any part related by association->R_SIMP[R206]->R_PART[R207];
-        end if; // 
-        select one cia related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-        if not_empty aoth
-          select one cia related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
         end if;
-        if cia == source_class
-          checkFwd = false;
+        // test distinct R_PART (''to'') class for ''direction''
+        select one cia related by part->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if (cia == source_class)
+          traverseFwd = false;
+        end if;
+      elif (not_empty assocrel)
+        select one cia related by aoth->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+        if (not from_assoc)
+          if (cia == source_class)  // source is the ''to'' class?
+            traverseFwd = false;
+          end if;
+        else
+          if (cia != target_class) // looking from associative to ''from'' class?
+            traverseFwd = false;
+          end if;
         end if;
       else
+        // sub-super - ''forward'' is always sub-to-super; look for reverse
         select one cia related by super->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
-        if cia == source_class
-          checkFwd = false;
+        if (cia == source_class)
+          traverseFwd = false;
         end if;
       end if;
-    end if; // end reflexive - non-reflexive case
+    end if; // end reflexive/non-reflexive cases - all cases
+
     // Go through all the instances from the previous link in the chain and see
     // if they are related to any of the instances in the current chain link.
     for each inst_in_ref in selection_inst_refs
       select one inst related by inst_in_ref->I_INS[R3013];
       inst_in_ref.dispose();
       // Now build the instance set . . .
-      if (from_assoc)
-        select many links related by inst->I_LIP[R2958]->I_LNK[R2903];
-        for each link in links
-          // if this link is an instance of the association we''re traversing.
-          select one link_assoc related by link->R_REL[R2904];
-          if (link_assoc == association)
-            if (traverseBack)
-              select one inst_src related by link->I_LIP[R2901]->I_INS[R2958];
-              select one src_class related by inst_src->
-                                                  CSME_CIE[R2962]->O_OBJ[R2961];
-              // and if the class of this instance is the desired class . . . 
-              if (src_class == target_class)
-                selection_local_reference.addInstance(inst_id:inst_src.Inst_ID);
+      select many linkps related by inst->I_LIP[R2958]
+       where selected.Rel_ID == association.Rel_ID;
+      select any inst_dest from instances of I_INS where false;   //decl
+      select any dest_class from instances of O_OBJ where false;  //decl
+      select any link from instances of I_LNK where false;        //decl
+      if (from_assoc)  // navigating from the associative
+        // Even when navigating from the associative, direction is still relevant.
+        // When the association was defined, a ''from->to'' direction was established
+        // Navigating to the ''to'' (referred-to) class is deemed to be ''Fwd''.
+        for each linkp in linkps
+          select one link related by linkp->I_LNK[R2903];
+          if (traverseFwd or symmetric)  // symmetric assumes Fwd - to start with
+            select one lip related by link->I_LIP[R2902];
+            select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
+            if (not_empty inst_dest)
+              select one dest_class related by inst_dest->CSME_CIE[R2962]->O_OBJ[R2961];
+              if (dest_class == target_class)
+                selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
               end if;
             end if;
-            // consider both legs of the link
-            if (traverseFwd)
-              select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
-              select one dest_class related by inst_dest->
-                                                  CSME_CIE[R2962]->O_OBJ[R2961];
-              // and if the class of this instance is the desired class . . . 
+          end if;
+          // note that selection from symmetric associative is ''any''/''many''
+          // either/both sides wanted; both needed to allow ''where'' discrimination
+          if (not traverseFwd or symmetric)
+            select one lip related by link->I_LIP[R2901];
+            select one inst_dest related by link->I_LIP[R2901]->I_INS[R2958];
+            if (not_empty inst_dest)
+              select one dest_class related by inst_dest->CSME_CIE[R2962]->O_OBJ[R2961];
               if (dest_class == target_class)
-                selection_local_reference.addInstance(
-                                                     inst_id:inst_dest.Inst_ID);
+                selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
               end if;
             end if;
           end if;
         end for; // each link
-      else  // not coming from an associative
-        // This handles all other cases, simple and link associations, reflexive
-        // and non-reflexive, formalized or not. If unformalized, link instances
-        // can exist in either direction, so we use the target class identity
-        // to determine the correct instances to add to the result.
-        if (traverseFwd)
-          select many links related by inst->I_LIP[R2958]->I_LNK[R2901];
-          for each link in links
-            // if this link is an instance of the association we''re traversing.
-            select one link_assoc related by link->R_REL[R2904];
-            if (link_assoc == association)
-              select one inst_dest related by link->I_LIP[R2902]->I_INS[R2958];
-              if (to_assoc)
-                select one inst_dest related by link->
-                                                     I_LIP[R2903]->I_INS[R2958];
-              end if;
-              select one dest_class related by inst_dest->
-                                                  CSME_CIE[R2962]->O_OBJ[R2961];
-              if (dest_class == target_class)
-                selection_local_reference.addInstance(
-                                                     inst_id:inst_dest.Inst_ID);
-              end if;
+      elif (to_assoc)
+        // If navigating to the associative class, direction is still relevant.
+        // When the association connector was drawn, a ''from->to'' direction was 
+        // established. Navigating from the ''from'' class is deemed to be ''Fwd''.
+        for each linkp in linkps
+          if (traverseFwd or symmetric)  // symmetric assumes Fwd - to start with
+            select one link related by linkp->I_LNK[R2901];
+          else
+            select one link related by linkp->I_LNK[R2902];
+          end if;
+          if (empty link and symmetric)  // maybe not Fwd after all - try backward
+             select one link related by linkp->I_LNK[R2902];
+          end if;
+          select one inst_dest related by link->I_LIP[R2903]->I_INS[R2958];
+          selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
+        end for;
+      else // not to/from the associative class
+        // This handles all other cases, simple/link associations, reflexive/non-reflexive, sub-super, formalized or not.
+        // If symmetric, link instances can exist in either direction; may have to try both.
+        // From asymmetric associative, or subtype selection, must filter by target class.
+        for each linkp in linkps
+          if (traverseFwd or symmetric)  // symmetric assumes Fwd
+            select one inst_dest related by linkp->I_LNK[R2901]->I_LIP[R2902]->I_INS[R2958];
+          else
+            select one inst_dest related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
+          end if;
+          if (empty inst_dest and symmetric)  // maybe not Fwd after all - try backward
+            select one inst_dest related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
+          end if;
+          if ( not_empty inst_dest )
+            select one dest_class related by inst_dest->CSME_CIE[R2962]->O_OBJ[R2961];
+            // for sub-super, vet against the desired class.
+            if (dest_class == target_class)
+              selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
             end if;
-          end for; // each link
-        end if;
-        // consider both directions of the link
-        if (traverseBack)
-          select many links related by inst->I_LIP[R2958]->I_LNK[R2902];
-          for each link in links
-            // if this link is an instance of the association we''re traversing.
-            select one link_assoc related by link->R_REL[R2904];
-            if (link_assoc == association)
-              select one inst_dest related by link->I_LIP[R2901]->I_INS[R2958];
-              if (to_assoc)
-                select one inst_dest related by link->
-                                                     I_LIP[R2903]->I_INS[R2958];
-              end if;
-              select one dest_class related by inst_dest->
-                                                  CSME_CIE[R2962]->O_OBJ[R2961];
-              if (dest_class == target_class)
-                selection_local_reference.addInstance(
-                                                     inst_id:inst_dest.Inst_ID);
-              end if;
-            end if;
-          end for; // each link
-        end if;
-      end if; // coming from an associative
+          end if;
+        end for;
+      end if; // coming from an associative or not
     end for; // each instance in a reference
+
     // Get a new instance set to use for the next link in the chain.
-    select many selection_inst_refs related by selection_local_reference->
-                                                L_LCL[R3001]->RV_RVL[R3306]->
+    select many selection_inst_refs related 
+     by selection_local_reference->L_LCL[R3001]->RV_RVL[R3306]->
                                      RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
     if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       auditSev = PREF::getInteger(name:"bridgepoint_prefs_enable_select_audit"); 
       if auditSev != 0  // 0 == Ignore
-        if cardinality selection_inst_refs == 0;
+        if (cardinality selection_inst_refs == 0)
           cond = 0;
-          if checkFwd
-            if not_empty aoth
+          if (traverseFwd)
+            if (not_empty aoth)
               cond = aoth.Cond;
-            elif not_empty part
+            elif (not_empty part)
               cond = part.Cond;
             // super case: traversing to supertype, is default unconditional
             end if;
           else // traverse backwards
-            if not_empty aone
+            if (not_empty aone)
               cond = aone.Cond;
-            elif not_empty form
+            elif (not_empty form)
               cond = form.Cond;
-            elif not_empty fromPart
+            elif (not_empty fromPart)
               cond = fromPart.Cond;
-            elif not_empty super
+            elif (not_empty super)
               cond = 1; // traversing from supertype, any subtype is conditional
             end if;
           end if;
           if (cond == 0)  // 0 == Unconditional
             severity = "Warning";
             assocPhrase = "";
-            if (targetPhrase != "")
-              assocPhrase = " (" + targetPhrase + ")";
+            if (link_phrase != "")
+              assocPhrase = " (" + link_phrase + ")";
             end if;
             postFixMsg = "";
-            if auditSev == 2 // 2 == FATAL
+            if (auditSev == 2) // 2 == FATAL
               severity = "FATAL";
               select one stack related by stack_frame->I_STACK[R2929];
               stack.suspendReason = "Halted on illegal link instance " +
@@ -487,35 +487,12 @@ if (empty inst_in_where)
         iir.dispose();
       end if;
     end for;
-  else // self.cardinality == "many"
-    // remove all duplicates from the set
-    select many iirs related by selection_local_reference->L_LCL[R3001]->
-                      RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311];
-    for each iir in iirs
-      select one inst related by iir->I_INS[R3013];
-      if not_empty inst
-        // select the full set of which this reference is a member
-        select many potentialDuplicates related by iir->
-                                                    RV_IRV[R3311]->L_IIR[R3311];
-        originalFound = false;
-        for each potentialDuplicate in potentialDuplicates
-          select one potentialDuplicateInst related by
-                                               potentialDuplicate->I_INS[R3013];
-          if potentialDuplicateInst == inst
-            if originalFound
-              potentialDuplicate.dispose(); // remove the reference from set
-            else
-              originalFound = true; // keep first reference to this instance
-            end if;
-          end if; // we found a matching instance reference
-        end for; // each potentialDuplicate
-      end if; // inst is empty (iir was already disposed when visited)
-    end for; // each instanceInReference
   end if;
 end if;',
 	1,
 	'',
 	"a3c99e30-15ff-46a5-bcb2-caed0fac8383",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b67f636c-b987-4789-bcf2-39628d1a45bb",

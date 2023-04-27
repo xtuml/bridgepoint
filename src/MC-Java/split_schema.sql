@@ -1,0 +1,4 @@
+CREATE TABLE PACKAGE_IN_SPLIT (
+    PackageName STRING,
+    PassIndex STRING
+);

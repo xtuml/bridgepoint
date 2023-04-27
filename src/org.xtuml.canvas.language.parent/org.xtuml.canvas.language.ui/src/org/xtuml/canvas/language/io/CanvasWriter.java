@@ -2,6 +2,8 @@ package org.xtuml.canvas.language.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
@@ -24,13 +26,17 @@ import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Connector_c;
 import org.xtuml.bp.ui.canvas.ContainingShape_c;
 import org.xtuml.bp.ui.canvas.Diagram_c;
+import org.xtuml.bp.ui.canvas.Elementstyle_c;
+import org.xtuml.bp.ui.canvas.Fillcolorstyle_c;
 import org.xtuml.bp.ui.canvas.FloatingText_c;
 import org.xtuml.bp.ui.canvas.Graphconnector_c;
 import org.xtuml.bp.ui.canvas.Graphedge_c;
 import org.xtuml.bp.ui.canvas.Graphelement_c;
 import org.xtuml.bp.ui.canvas.GraphicalElement_c;
 import org.xtuml.bp.ui.canvas.Graphnode_c;
+import org.xtuml.bp.ui.canvas.Layer_c;
 import org.xtuml.bp.ui.canvas.LineSegment_c;
+import org.xtuml.bp.ui.canvas.Linecolorstyle_c;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Shape_c;
@@ -48,8 +54,11 @@ import org.xtuml.canvas.language.canvas.EnumEnd;
 import org.xtuml.canvas.language.canvas.FloatingText;
 import org.xtuml.canvas.language.canvas.FloatingTexts;
 import org.xtuml.canvas.language.canvas.GraphicalElement;
+import org.xtuml.canvas.language.canvas.Layer;
+import org.xtuml.canvas.language.canvas.Layers;
 import org.xtuml.canvas.language.canvas.Model;
 import org.xtuml.canvas.language.canvas.ModelProperties;
+import org.xtuml.canvas.language.canvas.ModelPropertiesItem;
 import org.xtuml.canvas.language.canvas.ModelRender;
 import org.xtuml.canvas.language.canvas.Point;
 import org.xtuml.canvas.language.canvas.PointDefinition;
@@ -59,6 +68,8 @@ import org.xtuml.canvas.language.canvas.Shape;
 import org.xtuml.canvas.language.canvas.ShapeAnchorElement;
 import org.xtuml.canvas.language.canvas.Shapes;
 import org.xtuml.canvas.language.canvas.StartAnchor;
+import org.xtuml.canvas.language.canvas.StyleItem;
+import org.xtuml.canvas.language.canvas.Styles;
 import org.xtuml.canvas.language.io.utils.EnumUtils;
 import org.xtuml.canvas.language.ui.CanvasUiModule;
 import org.xtuml.canvas.language.ui.internal.LanguageActivator;
@@ -127,16 +138,40 @@ public class CanvasWriter implements IGraphicalWriter {
 		modelRender.setImportURI(ReferencePathManagement.getPath(diagramRepresents));
 		model.setRender(modelRender);
 		Diagram_c diagram = Diagram_c.getOneDIM_DIAOnR18(xtModel);
-		if (diagram != null && diagram.getViewportx() != 0 && diagram.getViewporty() != 0) {
+		Fillcolorstyle_c backgroundColor = Fillcolorstyle_c.getOneSTY_FCSOnR400(Elementstyle_c.getManySTY_SsOnR402(xtModel));
+		if ((diagram != null && diagram.getViewportx() != 0 && diagram.getViewporty() != 0) ||
+				(backgroundColor != null)) {
 			ModelProperties properties = factory.createModelProperties();
-			properties.setZoom((int) diagram.getZoom());
-			Point viewport = factory.createPoint();
-			viewport.setX((int) diagram.getViewportx());
-			viewport.setY((int) diagram.getViewporty());
-			properties.setPoint(viewport);
+			if (diagram != null && diagram.getViewportx() != 0 && diagram.getViewporty() != 0) {
+				ModelPropertiesItem pointItem = factory.createModelPropertiesItem();
+				Point viewport = factory.createPoint();
+				viewport.setX((int) diagram.getViewportx());
+				viewport.setY((int) diagram.getViewporty());
+				pointItem.setPoint(viewport);
+				properties.getPropertyItems().add(pointItem);
+				ModelPropertiesItem zoomItem = factory.createModelPropertiesItem();
+				zoomItem.setZoom((int) diagram.getZoom());
+				properties.getPropertyItems().add(zoomItem);
+			}
+			if (backgroundColor != null) {
+				ModelPropertiesItem colorItem = factory.createModelPropertiesItem();
+				colorItem.setColor(String.format("#%02x%02x%02x", backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue()));
+				properties.getPropertyItems().add(colorItem);
+			}
 			model.setProperties(properties);
 		}
 		this.diagramRepresents = diagramRepresents;
+		Layer_c[] layers = Layer_c.getManyGD_LAYsOnR34(xtModel);
+		if (layers.length > 0) {
+			Layers ls = factory.createLayers();
+			for (Layer_c layer : layers) {
+				Layer l = factory.createLayer();
+				l.setName(layer.Get_name());
+				l.setInvisible(!layer.getVisible());
+				ls.getLayers().add(l);
+			}
+			model.setLayers(ls);
+		}
 		populateModel();
 		r.getContents().add(model);
 		SaveOptions.Builder options = SaveOptions.newBuilder();
@@ -188,6 +223,10 @@ public class CanvasWriter implements IGraphicalWriter {
 		connector.setPolyline(createPolyline(con));
 		connector.setAnchors(anchors);
 		createText(con, connector);
+		Stream.of(Layer_c.getManyGD_LAYsOnR35(conEle))
+			.sorted(Comparator.comparing(Layer_c::Get_name))
+			.forEach(layer -> connector.getLayers().add(layer.Get_name()));
+		createStyles(conEle, connector::setStyles);
 		return connector;
 	}
 
@@ -212,7 +251,7 @@ public class CanvasWriter implements IGraphicalWriter {
 		});
 		connector.setTexts(floatingTexts);
 	}
-
+	
 	private void createText(Shape_c shp, Shape shape) {
 		FloatingText_c text = FloatingText_c.getOneGD_CTXTOnR27(shp);
 		if (text != null) {
@@ -229,6 +268,25 @@ public class CanvasWriter implements IGraphicalWriter {
 			end.setWhere(EnumUtils.endFor(text.getEnd()));
 			floatingText.setEnd(end);
 			shape.setText(floatingText);
+		}
+	}
+	
+	private void createStyles(GraphicalElement_c ge, Consumer<Styles> setter) {
+		Fillcolorstyle_c fillColor = Fillcolorstyle_c.getOneSTY_FCSOnR400(Elementstyle_c.getManySTY_SsOnR401(ge));
+		Linecolorstyle_c lineColor = Linecolorstyle_c.getOneSTY_LCSOnR400(Elementstyle_c.getManySTY_SsOnR401(ge));
+		if (fillColor != null || lineColor != null) {
+			Styles styles = factory.createStyles();
+			if (fillColor != null) {
+				StyleItem fillItem = factory.createStyleItem();
+				fillItem.setFill_color(String.format("#%02x%02x%02x", fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue()));
+				styles.getStyle_items().add(fillItem);
+			}
+			if (lineColor != null) {
+				StyleItem lineItem = factory.createStyleItem();
+				lineItem.setLine_color(String.format("#%02x%02x%02x", lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue()));
+				styles.getStyle_items().add(lineItem);
+			}
+			setter.accept(styles);
 		}
 	}
 
@@ -280,6 +338,10 @@ public class CanvasWriter implements IGraphicalWriter {
 			shape.setContainer("container");
 		}
 		createText(shp, shape);
+		Stream.of(Layer_c.getManyGD_LAYsOnR35(ele))
+			.sorted(Comparator.comparing(Layer_c::Get_name))
+			.forEach(layer -> shape.getLayers().add(layer.Get_name()));
+		createStyles(ele, shape::setStyles);
 		return shape;
 	}
 

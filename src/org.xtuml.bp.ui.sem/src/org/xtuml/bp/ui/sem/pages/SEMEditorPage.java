@@ -205,7 +205,7 @@ public class SEMEditorPage extends Composite {
 					if(columnIndex == 0) {
 						// pack the column
 						fTableViewer.getTable().getColumn(0).pack();
-						return ((StateMachineState_c) element).getName();
+						return Integer.toString(((StateMachineState_c) element).getNumb()) + ". " + ((StateMachineState_c) element).getName();
 					} else {
 						final StateMachineEvent_c event = getEventAtColumn(columnIndex);
 						final StateMachineState_c state = (StateMachineState_c) element;

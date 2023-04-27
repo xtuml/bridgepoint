@@ -1,0 +1,104 @@
+= Welcome Project Import Issue Analysis
+
+== 1 Abstract
+
+For the 7.0 version of BridgePoint, a failure was noted in the operation of 
+manual test <<dr-2>>, which led to the creation of bug <<dr-1>>.
+
+== 2 Introduction and Background
+
+For v7.0, BridgePoint was upgrade to Eclipse 2020-06, which also required Java
+11 on the host system. This resulted in a change to the behavior of the Welcome
+model import noticed in QA Manual testing.
+
+The affected models noted were the GPS Watch (either) and the Microwave Oven.
+The behavior was that the wizard dialog shown for the subsequent import was the
+same as for the first model. The dialog could be changed, so the correct model
+was imported. The import operations would not be complete after the dialog
+corrections, so the user wasn't presented with the intended user experience.
+
+== 3 Requirements
+
+Prior to v7.0, clicking on a GPS Watch or the Microwave Oven link in the 
+Welcome view resulted in these operations:
+
+. the ExternalProjectImportWizard dialog appearing;
+. the import occurring without user intervention; [[req_no_user]]
+. one or more projects created in the workspace;
+. a help window opening external to the integrated workbench window;
+. the project README file opened internal to the integrated workbench window;
+. the Welcome view is closed.
+
+A subsequent visit to the Welcome view, within the same BridgePoint session,
+would allow the user to import a different GPS Watch or Microwave Oven model,
+and all of the operations done for the first import would occur.
+
+=== 3.1 User can import subsequent models
+
+User can import the GPS Watch model from the Welcome view, and without
+restarting BridgePoint, user can import the Microwave Oven model from the
+Welcome view.
+
+=== 3.2 Import of subsequent models is commutative
+==== 3.2.1 User can import GPS Watch first, then Microwave Oven
+==== 3.2.2 User can import Microwave Oven first, then GPS Watch
+
+In both scenarios the first model is imported with all the required operations
+performed, and the second model is imported with all the required operations
+performed.
+
+== 4 Analysis
+
+Debugging the operation of the Welcome view tracked the issue down to an
+invalid check for the existence of the wizard shell inside the ProjectUtilities
+class during the Runnable execution inside of the importExistingProject method.
+
+The Runnable checked for an active shell with the text, "Import". This check was
+successful on the first import of a model, but on a subsequent import this check
+failed.
+
+The actions taken upon a successful check were to fill out the parameters of the
+wizard dialog relevant to the model and type of project (archived or directory) 
+being imported.
+
+Modifications to use the current algorithm without the shell check tended to
+result in the dialog.close() operation being performed before wizard operations
+were completed. This developer was unable to find a good way to detect
+completion of wizard operations. It was further observed that the dialog would
+be blank in these attempts.
+
+Another modification tried was to use the constructor for
+ExternalProjectImportWizard that takes a String parameter for the path to the
+project being imported, as this path string was already a parameter of
+importExistingProject. This also resulted in the same failure cases, but with
+the correct dialog entries.
+
+After reading the following statement in the Eclipse API for the
+ExternalProjectImportWizard, "This class may be instantiated and used without
+further configuration;", this developer decided to try running
+importExistingProject without the Runnable execution. This resulted in a
+working solution with only <<req_no_user>> being changed; the user would be
+required to press the "Finish" button (or "Cancel" becomes an option).
+
+== 5 Work Required
+
+Proceed with the latter modification.
+
+=== 5.1 Remove Runnable execution from importExistingProject
+=== 5.2 Remove any code rendered unused by the modification
+=== 5.3 Update any user documentation
+
+== 6 Acceptance Test
+
+Ensure all tests related to importing projects pass.
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12073[12073 - Welcome MicrowaveOven selection shows GPS Watch OAL archive]
+. [[dr-2]] https://support.onefact.net/issues/9042[9042 - Example project creation test]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

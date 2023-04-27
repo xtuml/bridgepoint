@@ -1,0 +1,48 @@
+= Transaction ended spurious error
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Projects which specify markings may raise a spurious error on certain modifications.
+This has been seen in projects marked for Ciera on attempts to add functions or paramters.
+
+== 2 Introduction and Background
+
+This is an irritant requiring repeated dismissals of spurious error dialog.
+
+== 3 Requirements
+
+Eliminate spurious error dialog.
+
+== 4 Work Required
+
+In MarkingData.java, in method getNrme(), the value of the _nrme data member is not tested 
+before de-reference. In some cases this value is null, resulting in a NPE. As the invoker is 
+prepared to accept a null return value, this should be returned in such a case
+
+== 5 Implementation Comments
+
+
+== 6 Unit Test
+
+Editing a model which had displayed this annoyance no longer manifested the behavior.
+
+== 7 User Documentation
+
+None
+
+== 8 Code Changes
+
+- fork/repository:  amullarney/bridgepoint
+- branch:  12161_Transaction_Ended_error
+
+org.xtuml.bp.ui.marking/src/org/xtuml/bp/ui/marking/MarkingData.java
+
+
+== 9 Document References
+
+
+This work is licensed under the Creative Commons CC0 License
+
+---

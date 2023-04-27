@@ -229,6 +229,12 @@ BridgePoint Developer Issues <a id="bpdevelopers"></a>
       
       * Debian Wheezy and later:  
         Uses the same packages as specified for Ubuntu installation.
+
+  * Known Issues on Linux Distributions
+      * BridgePoint v7.2 and up; Ubuntu 20.10 and up; Debian 11 and up:
+        The environment variable, GDK_BACKEND, needs to be set to "x11".
+         * From a shell run, 'GDK_BACKEND=x11 BridgePoint/bridgepoint'. This could also be made into an alias.
+         * From an application launcher, Exec=env GDK_BACKEND=x11 /home/$USER/BridgePoint/bridgepoint. If you're using alacarte (aka MainMenu), just add, env GDK_BACKEND=x11 /home/lee/BridgePoint/bridgepoint, to the Command field.
   
 * **Windows Unit Test Configuration**  <a id="windowstesting"></a>  
   This is used when running unit tests under Windows.  These instructions are used to prepare the Windows environment to run graphical compare tests.  If you do not want or need to run graphical compare tests, you do not have to perform these steps.  However, some BridgePoint unit tests will fail in Windows if you do not perform these steps.

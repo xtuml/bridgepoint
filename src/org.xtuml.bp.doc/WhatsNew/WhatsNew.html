@@ -4,112 +4,62 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
-<title>What&#8217;s New in BridgePoint 7.1</title>
+<meta name="generator" content="Asciidoctor 2.0.18">
+<title>What&#8217;s New in BridgePoint 7.4</title>
 <link rel="stylesheet" href="./../asciidoctor-default.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>What&#8217;s New in BridgePoint 7.1</h1>
+<h1>What&#8217;s New in BridgePoint 7.4</h1>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-This is an engineering build of BridgePoint 7.1.  Release highlights for build 7.0 follow.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="_release_highlights">Release Highlights</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Eclipse 2020</p>
+<p>Upgrade to Eclipse 2022-12</p>
 </li>
 <li>
-<p>Java 11</p>
+<p>Support for ARM64 architecture for MacOS and Linux</p>
 </li>
 <li>
-<p>Enhanced Integration with Ciera Java Model Compiler</p>
+<p>Verifier bug fixes and improvements</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Support for interface message parameters of instance reference types</p>
 </li>
 <li>
-<p>Epoch Time</p>
+<p>"Select many" bug fix</p>
 </li>
 <li>
-<p>ASL Action Language Editing</p>
+<p>Associative link cardinality bug fix</p>
+</li>
+<li>
+<p>Session explorer display fix</p>
+</li>
+<li>
+<p>Include JDT in the modeler version of the tool</p>
 </li>
 </ul>
 </div>
-<hr>
-<div class="sect2">
-<h3 id="_eclipse_2020_and_java_11">Eclipse 2020 and Java 11</h3>
-<div class="paragraph">
-<p>The Eclipse version underneath BridgePoint has been upgraded in this release to
-Eclipse 2020-06.  The previous version of Eclipse was 4.7 (<em>Oxygen</em>) which
-was released in 2017.  This brings BridgePoint up to a modern version of
-Eclipse.  Recent updates to Eclipse have focused on performance.  The user will
-find BridgePoint opens more quickly and feels more "snappy".  More information
-about Eclipse 2020-06 may be found <a href="https://www.eclipse.org/eclipseide/2020-06/">at this link</a>.</p>
+</li>
+<li>
+<p>Association editor fixes and improvements</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Migrating link class fix</p>
+</li>
+<li>
+<p>Support for "symmetric" reflexive associations</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>Simultaneously, BridgePoint is upgraded to support and use Java 11.  BridgePoint now
-uses a Java 11 JRE/JDK from the system; it is no longer inside the BridgePoint installation.
-These changes provide user experience and security improvements.  However,
-the user is now responsible to install and maintain Java.  Find specifics to configuring
-the Java Virtual Machine (JVM) in the <a href="https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md">FAQ</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enhanced_integration_with_ciera_java_model_compiler">Enhanced Integration with Ciera Java Model Compiler</h3>
-<div class="paragraph">
-<p>Significant investment into <em>Ciera</em> is included in this release of BridgePoint
-and in the Ciera model compiler proper.  BridgePoint + Ciera represent a
-solid model-based Java development combination.</p>
-</div>
-<div class="paragraph">
-<p>Ciera is hosted on GitHub, <a href="https://github.com/xtuml/ciera">github.com/xtuml/ciera</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_epoch_time">Epoch Time</h3>
-<div class="paragraph">
-<p>The Time (TIM) External Entity (EE) has been enhanced to include support
-for several new bridge operations which can manipulate time.  The base of
-the epoch can now be modified.  Time can be advanced as well as set arbitrarily.
-Binary comparison operations are now permitted on time values.  Read the original
-specification for project <a href="https://onefact.net/wp-content/uploads/2020/05/Panda11939SRS.pdf">Panda</a>.</p>
-</div>
-<div class="paragraph">
-<p>Model Verifier, the interpretive runtime model simulator/debugger is updated
-to support the new epoch time bridge operations.  The <em>Ciera</em> Java model
-compiler is extended to support the enhanced time operations.</p>
-</div>
-<div class="paragraph">
-<p>In the BridgePoint model editor, the updated Time (TIM) EE is included in the
-package context menu which allows users to import the built-in external entities.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_preliminary_asl_support">Preliminary ASL Support</h3>
-<div class="paragraph">
-<p>ASL is now an editable dialect of action language in BridgePoint.  ASL can
-be selected as a dialect for any action semantics buffer in an xtUML model.</p>
-</div>
-<div class="paragraph">
-<p>Model conversion, import/export and additional support for ASL are coming
-soon in an upcoming release.</p>
-</div>
+</li>
+</ul>
 </div>
 </div>
 </div>

@@ -1,30 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="../../../github-pandoc.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-</head>
-<body>
 <h1 id="xtuml2masl">xtuml2masl</h1>
-<p>This command line tool converts an xtUML package into an equivalent MASL domain or MASL<br />
-project/deployment depending on parameter settings.</p>
+<p>This command line tool converts an xtUML package into an equivalent
+MASL domain or MASL project/deployment depending on parameter settings.
+The same tool supports export of WASL.</p>
 <h2 id="syntax">Syntax</h2>
 <h3 id="domain-export">Domain Export</h3>
-<pre><code>xtuml2masl [-v | -V] [-c] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -d &lt;domain component&gt; [ -o &lt;output directory&gt; ]</code></pre>
-<h3 id="package-export">Package Export</h3>
-<pre><code>xtuml2masl [-v | -V] [-c] [-e] [-xf] [-xl] -i &lt;eclipse project&gt; -p &lt;project/deployment package&gt; [ -o &lt;output directory&gt; ]</code></pre>
-<table style="width:88%;">
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 54%" />
-</colgroup>
+<pre><code>xtuml2masl [-v | -V] [-c] [-P] [-xf] [-xl] [-a &lt;architecture&gt;] -i &lt;eclipse project location&gt; -d &lt;domain component&gt; [ -o &lt;output directory&gt; ]</code></pre>
+<h3 id="projectdeployment-export">Project/Deployment Export</h3>
+<pre><code>xtuml2masl [-v | -V] [-c] [-P] [-xf] [-xl] [-a &lt;architecture&gt;] -i &lt;eclipse project location&gt; -p &lt;project/deployment package&gt; [ -o &lt;output directory&gt; ]</code></pre>
+<table>
 <thead>
 <tr class="header">
 <th>Parameter</th>
@@ -41,8 +24,9 @@ project/deployment depending on parameter settings.</p>
 <td>Optionally used to enable the production of coverage statistics</td>
 </tr>
 <tr class="odd">
-<td>-e</td>
-<td>Optionally used to indicate the tool is called from eclipse and pre-builder should not be run</td>
+<td>-P</td>
+<td>Optionally used to cause BridgePoint prebuilder to be used to export
+model data</td>
 </tr>
 <tr class="even">
 <td>-xf</td>
@@ -53,18 +37,25 @@ project/deployment depending on parameter settings.</p>
 <td>Optionally exclude action langauge from export</td>
 </tr>
 <tr class="even">
-<td>-i &lt;eclipse project&gt;</td>
-<td>Specify an absolute or relative path to the root directory of the Eclipse project containing the input model</td>
+<td>-a &lt;architecture&gt;</td>
+<td>Specify the output architecture. "MASL" and "WASL" are valid
+options. "MASL" is the default.</td>
 </tr>
 <tr class="odd">
+<td>-i &lt;eclipse project location&gt;</td>
+<td>Specify an absolute or relative path to the root directory of the
+Eclipse project containing the input model</td>
+</tr>
+<tr class="even">
 <td>-d &lt;domain component&gt;</td>
 <td>Specify xtUML component that will be exported as a MASL domain</td>
 </tr>
-<tr class="even">
-<td>-p &lt;project/deployment package&gt;</td>
-<td>Specify xtUML package that will be exported as a MASL project/deployment</td>
-</tr>
 <tr class="odd">
+<td>-p &lt;project/deployment package&gt;</td>
+<td>Specify xtUML package that will be exported as a MASL
+project/deployment</td>
+</tr>
+<tr class="even">
 <td>-o &lt;output directory&gt;</td>
 <td>Optionally specify the target folder to write to</td>
 </tr>
@@ -72,14 +63,14 @@ project/deployment depending on parameter settings.</p>
 </table>
 <h2 id="notes">Notes</h2>
 <ul>
-<li>The tool is located in the subdirectory <code>&lt;BridgePoint Home&gt;/tools/mc/bin</code></li>
+<li>The tool is located in the subdirectory
+<code>&lt;BridgePoint Home&gt;/tools/mc/bin</code></li>
 <li>Output defaults to the current directory</li>
 <li>Progress and error messages are reported to stderr</li>
-<li>Invoking the tool with missing parameters or syntax errors produces a message indicating proper usage</li>
+<li>Invoking the tool with missing parameters or syntax errors produces
+a message indicating proper usage</li>
 </ul>
 <h2 id="examples">Examples</h2>
 <pre><code>./xtuml2masl -i workspace/Tracking -d Tracking -o TrackingMASL_OOA
 
 ./xtuml2masl -i ~/my_ws/GPSWatchMASL -p GPSWatch -o GPS_PROC</code></pre>
-</body>
-</html>

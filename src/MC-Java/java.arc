@@ -29,6 +29,9 @@
 .assign mc_ss_end = mc_ss_end_check.result
 .invoke mc_root_pkg_name = GET_ENV_VAR("PTC_MCC_ROOT")
 .assign mc_root_pkg = mc_root_pkg_name.result
+.invoke mc_pass_index_check = GET_ENV_VAR("PTC_MCC_PASS_INDEX")
+.assign mc_pass_index = mc_pass_index_check.result
+.select many splits from instances of PACKAGE_IN_SPLIT
 .//
 .include "${mc_archetypes}/do_type.inc"
 .include "${mc_archetypes}/arch_utils.inc"
@@ -36,6 +39,24 @@
 .include "${mc_archetypes}/enums.inc"
 .include "${mc_archetypes}/model_consistency.inc"
 .include "${mc_archetypes}/../org.xtuml.bp.core/arc/generate_RGO_resolution_methods.inc"
+.//
+.//====================================================================
+.//
+.function in_split
+  .param inst_ref pkg
+  .param string pass_index
+  .assign attr_result = false
+  .select any split_pkg from instances of PACKAGE_IN_SPLIT where ((selected.PackageName == pkg.Name) and (selected.PassIndex == pass_index))
+  .if (not_empty split_pkg)
+    .assign attr_result = true
+  .else
+    .select one parent_pkg related by pkg->PE_PE[R8001]->EP_PKG[R8000]
+    .if (not_empty parent_pkg)
+      .invoke parent_in_split = in_split(parent_pkg, pass_index)
+      .assign attr_result = parent_in_split.result
+    .end if
+  .end if
+.end function
 .//
 .//====================================================================
 .//
@@ -538,7 +559,9 @@ p_${an.body}\
 .//
 .//
 .assign translate_enabled = true
-.if (mc_ss_start != "")
+.select any ee_pkg from instances of EP_PKG where (selected.Name == "External Entities")
+.invoke ees_in_split = in_split(ee_pkg, mc_pass_index)
+.if ((mc_ss_start != "") or ((not_empty splits) and (not ees_in_split.result)))
   .assign translate_enabled = false
 .end if
 .//
@@ -632,12 +655,21 @@ ${blck.body}
 .//
 .select many packages from instances of EP_PKG
 .for each pkg in packages
-  .if ((mc_ss_start != "") and (mc_ss_start == "${pkg.Name}"))
-    .assign translate_enabled = true
-  .end if
-  .if ((mc_ss_end != "") and (mc_ss_end == "${pkg.Name}"))
-    .assign translate_enabled = false
-    .break for
+  .invoke pkg_in_split = in_split(pkg, mc_pass_index)
+  .if (not_empty splits)
+    .if (pkg_in_split.result)
+      .assign translate_enabled = true
+    .else
+      .assign translate_enabled = false
+    .end if
+  .else
+    .if ((mc_ss_start != "") and (mc_ss_start == "${pkg.Name}"))
+      .assign translate_enabled = true
+    .end if
+    .if ((mc_ss_end != "") and (mc_ss_end == "${pkg.Name}"))
+      .assign translate_enabled = false
+      .break for
+    .end if
   .end if
   .if ((translate_enabled == true) and ((mc_ss_only == "") or (mc_ss_only == pkg.Name)))
     .if ("${pkg.Descrip:Translate}" == "false")
@@ -2198,6 +2230,11 @@ ${gsm.body}\
 .end for .// each package
 .//
 .//
+.select any functions_pkg from instances of EP_PKG where (selected.Name == "Functions")
+.invoke functions_in_split = in_split(functions_pkg, mc_pass_index)
+.if ((not_empty splits) and (functions_in_split.result))
+  .assign translate_enabled = true
+.end if
 .if (((translate_enabled == true) or (mc_ss_only != "")) and (mc_class_only == ""))
   .if (not already_translated)
     .// Translate OAL before translating the specifically requested package.

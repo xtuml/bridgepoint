@@ -255,7 +255,7 @@ elif(not_empty provision)
   end for;
   select many reqs related by provision->C_SF[R4002]->C_R[R4002];
   for each req in reqs
-    if(param.unformalizeOther) or (req.isFormal())
+    if(param.unformalizeOther) and (req.isFormal())
       req.unformalize(unformalizePro:false);
     end if;
   end for;

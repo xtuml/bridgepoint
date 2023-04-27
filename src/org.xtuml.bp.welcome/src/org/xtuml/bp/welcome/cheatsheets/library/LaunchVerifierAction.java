@@ -9,7 +9,6 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.jface.action.Action;
@@ -259,7 +258,7 @@ public class LaunchVerifierAction extends Action implements ICheatSheetAction {
 	}
 
 	public static Job getJob(String name) {
-		Job[] jobs = Platform.getJobManager().find(null);
+		Job[] jobs = Job.getJobManager().find(null);
 		for (int i = 0; i < jobs.length; i++) {
 			if (jobs[i].getName().equals(name)) {
 				return jobs[i];
