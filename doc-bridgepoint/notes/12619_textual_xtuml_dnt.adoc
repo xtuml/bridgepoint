@@ -44,7 +44,6 @@ or SQL persistence for semantic and graphical instances. BridgePoint shall
 support switching between the two modes in existing projects. The principle of
 only persisting files which contain model changes shall be followed.
 
-
 == 4 Analysis
 
 In the analysis section 4.2 of <<dr-1>>, three high level strategies were
@@ -120,6 +119,9 @@ instance as being a proxy. It then forces the referenced file to be loaded at
 which time the proxy is updated with the actual attribute values of the
 instance.
 
+The BridgePoint FAQ document provides a helpful description of the existing
+persistence architecture. <<dr-3>>
+
 == 5 Design
 
 Because the BridgePoint persistence mechanism is naturally split up into seven
@@ -139,37 +141,97 @@ produce the equivalent textual representation of the instance.
 The project preference will be checked before creating an instance of
 `ExportModelComponent` or `ExportModelText` during a persist operation.
 
-=== 5.2 Component Import
-
-An ANTLR grammar is added to the `org.xtuml.bp.io.core` project to capture the
-textual xtUML spec. A tree visitor class `XtumlImportVisitor` which has methods
-to create/relate model instances based on the parse tree.
-
-When a PMC is loaded, a header at the top of the file is read to determine
-whether to use the SQL loader or the textual loader. Once the correct loader is
-selected, the load process continues as normal.
-
 When a file change is detected and a PMC reloads, first all instances contained
 within that PMC are deleted. This is necessary for text-based loading because
 the new parsed instances will not have the same unique IDs as the instances that
 already exist in the model and would result in duplicates.
 
+=== 5.2 Component Import
+
+An ANTLR grammar is added to the `org.xtuml.bp.io.core` project to capture the
+textual xtUML spec. A tree visitor class `XtumlImportVisitor` which has methods
+to create/relate model instances based on the parse tree. "Visitor" classes for
+each type of persistable model component extend `XtumlImportVisitor` to load
+the instances for a particular type of file.
+
+When a PMC is loaded, a header at the top of the file is read to determine
+whether to use the SQL loader or the textual loader. For text files, the
+correct visitor is selected based on the root element type. Once the correct
+loader is selected, the load process continues as normal.
+
 ==== 5.3 Handling cross references
 
-TODO
+The textual persistence mechanism depends on all cross reference being linked
+by element name or path. Because of this fact, any PMC that contains references
+to another PMC is persisted when the referenced PMC is persisted. This ensures
+that the names always match although it also results in more files being
+persisted more often than in the old persistence mechanism.
+
+When a cross reference is required during import (e.g. a function parameter
+references a user defined type), a mechanism is used to search for the required
+element and wait if it is not found. In this way, files which do not require
+any cross references are loaded first and then files which reference elements
+from other files are guaranteed to load after the file they depend on. It is
+essential that the logic in the loaders is written to avoid cycles. The next
+section discusses this mechanism in greater detail.
+
+Although it is not recommended, the new persistence has been designed to
+allower interoperability between textual and SQL based files in the same
+project. This is done to support the so-called "informal diagrams" (non
+executable diagrams such as activity, sequence, interaction, etc.) which have
+not been given a textual specification. The schema of "proxy" elements has been
+updated to contain an additional field which carries the logical model path of
+the element. This can be used to resolve a proxy with a pre-loaded instance
+from a text file since the unique ID will not match the ID given in the proxy
+itself. A lookup table is maintained to map the ID given in the proxy to the
+real ID of the instance to allow batch related to work as normal.
+
+==== 5.4 Updated load mechanism
+
+The load mechanism has been simplified and changed to better support the
+process of parsing/loading text based files. In the existing architecture, a
+single file is loaded at a time, however during the load itself it is possible
+to request a load of another file (perhaps one that contains references that
+the current file needs). This creates a "recursive load" where multiple files
+are in the middle of loading at once. This was originally designed as such to
+facility "lazy loading" to support platforms with resource constraints and to
+work with traditional centralized revision control systems. Long ago the lazy
+loading mechanism was left behind and BridgePoint was configured to load all
+resources for a project at once, however the vestiges of it remain in the
+recursive load process. This poses a problem for text based loading as often
+times the text loading approach depends on the instance population being in a
+consistent state to properly query and traverse instances based on path rather
+than instance ID.
+
+The load mechanism has been rewritten and simplified. All loads are executed
+through a single point of entry `loadComponents` in `PersistenceManager`. The
+load itself is completely flat. `loadComponents` takes as input a set of PMCs
+to load and loads them all sequentially without the "recursive" behavior of the
+original persistence architecture. Model data upgrade and other helper
+operations are carried out for all PMCs at the very end of the load. To support
+the mechanism above which allows individual loads to block and wait for
+referenced PMCs to load first, each PMC is loaded in its own thread. Even
+though multiple threads are alive, a special class `SequentialExecutor` ensures
+that only one file is loading at any given time. The multiple threads make it
+possible for loads to pause and context switch to another PMC while the first
+PMC waits for an instance to come into existence.
+
+Another simplification is in the graphics load and persist. Instead of graphics
+operating its own listeners, the graphics file is considered an extension of
+the `.xtuml` file and is persisted each time the `.xtuml` file is persisted and
+loaded each time the `.xtuml` file is loaded. This comes with inefficiency, but
+ensures that the two remain in tight synchrony. 
 
 ==== 5.X TODOs
 
-- Components defined within other components
 - Overloaded operations
 - Deferred operations (required/optional)
-- Type forward declarations
 - Support for all types of constant expressions 
 - Multiple unassigned transitions
 - Descriptions on parameters
 - Delegations, component nesting
 - Deployment full support
-- Multiple component references
+- Multiple component references to same component
 - Signal events
 - Transition cell descriptions
 - Scoped naming
@@ -190,19 +252,6 @@ were being loaded, but not marked as loaded which was causing them to get
 reloaded unnecessarily. Marking them loaded at the correct time resolved the
 issue.
 
-- model change listeners
-- path caching and proxies
-- path NPEs + unstable names
-- unstable IDs when mixing with text (informal diagrams)
-- textual graphics required
-- how to integrate with MASL?
-- ID aliases
-
-
-=== 6.3 Tree expansion
-
-TODO
-
 == 7 User Documentation
 
 TODO
@@ -217,6 +266,7 @@ TODO
 
 . [[dr-1]] https://support.onefact.net/issues/12619[#12619 Persist xtUML instances as text]
 . [[dr-2]] https://github.com/xtuml/xtuml-language/blob/main/doc/12510_initial_analysis/12510_initial_analysis.adoc[#12510 textual xtUML analysis]
+. [[dr-3]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bridgepoint-architecture-[BridgePoint Architecture (FAQ)]
 
 ---
 
