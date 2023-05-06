@@ -63,7 +63,7 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 		persistenceModeGroup.setText("Model persistence format");
 
 		textualPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
-		textualPersistence.setText("Textual xtUML");
+		textualPersistence.setText("Textual xtUML (experimental)");
 		textualPersistence.setLayoutData(new GridData());
 		textualPersistence.addSelectionListener(syncListener);
 
