@@ -512,18 +512,21 @@ public class PersistenceManager {
 
 			System.out.println("Triggered load [reload=" + reload + "]... " + pmcsToLoad.size());
 			
+			final Map<PersistableModelComponent, NonRootModelElement> oldElementMap = new HashMap<>();
+			
 			// if this is a reload, clear the database first
 			if (reload) {
-				pmcsToLoad.forEach(PersistableModelComponent::clearDatabase);
+				pmcsToLoad.forEach(pmc -> {
+					oldElementMap.put(pmc, pmc.getRootModelElement());
+					pmc.clearDatabase();
+				});
 			}
 			
 			// launch each load in a new thread
 			sequentialExecutor = new SequentialExecutor(loadExecutor);
 			final CompletionService<PersistableModelComponent> loadingPmcs = new ExecutorCompletionService<>(
 					sequentialExecutor);
-			final Map<PersistableModelComponent, NonRootModelElement> oldElementMap = new HashMap<>();
 			for (PersistableModelComponent pmc : pmcsToLoad) {
-				oldElementMap.put(pmc, pmc.getRootModelElement());
 				if (reload) {
 					Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(oldElementMap.get(pmc));
 				}

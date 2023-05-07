@@ -867,10 +867,13 @@ public class ${class_name} extends CoreImport
     .if((multilevel) and (setComponent))
     public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
         if(m_success){
-            final IFile graphicsFile = rootModelElement.getPersistableComponent().getGraphicsFile();
-            if (graphicsFile != null && graphicsFile.exists()) {
-                CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> pe.getLoader().load(rootModelElement, graphicsFile));
-            }
+        	// during compare we cannot make use of PMCs
+       		if(rootModelElement.getPersistableComponent() != null) {
+       			final IFile graphicsFile = rootModelElement.getPersistableComponent().getGraphicsFile();
+       			if (graphicsFile != null && graphicsFile.exists()) {
+       				CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> pe.getLoader().load(rootModelElement, graphicsFile));
+       			}
+       		}
             ModelRoot.disableChangeNotification();
           try {
               Ooaofooa mr = Ooaofooa.getDefaultInstance();
