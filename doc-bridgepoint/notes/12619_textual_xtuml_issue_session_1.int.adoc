@@ -1,0 +1,93 @@
+= Address Pre-Merge Branch Issues - Session 1
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes changes which address known issues with the current textual xtuml branch.
+
+== 2 Introduction and Background
+
+The changes to support textual xtuml are being worked to merge with the main branch.  Before this can occur all introduces bugs that will affect current users operability must be addressed.
+
+== 3 Requirements
+
+=== 3.1 Address all bugs known at this time
+
+== 4 Work Required
+
+=== 4.1 Address all bugs known at this time
+
+This first note, appended with session 1, has a single requirement to address all known bugs at this time.  That is not to say that this work will address all issues present.  Further notes will be created as the work progresses.
+
+The issues noted and detailed in further sections are:
+
+. Element creation of diagram containers.
+. External disk modification causes loss of opened diagram editors.
+. Creation of elements with floating text results in missing text.
+. Model compare not working with latest changes.
+
+
+==== 4.1.1 Element creation of diagram containers, Creation of elements with floating text results in missing text
+
+This issue was caused by refactoring out the graphical persistence listeners.  Two key listeners had their registration removed as well.  
+
+Both the CanvasModelListener and CanvasTransactionListener are now registered with the default Ooaofooa model root and singleton TransactionManger respectively.
+
+==== 4.1.2 External disk modification causes loss of opened diagram editors
+
+The PersistableModelComponent loading logic was heavily refactored to provided a more effecient and concise approach to loading.
+
+In order for listeners to receive information about reloads we must send both the old model element and the new model element.  This allows the listeners to update the element instance they are working with.
+
+The refactor introduced a clearDatabase call before we temporarily cache the old elements.  This was preventing the old element from being available to listeners.
+
+The code is further refactored to cache the old element just before calling clearDatabase.
+
+==== 4.1.3 Model Compare not working with latest changes
+
+The current refactored code for model import was changed to look for a graphics file and load it during finishComponentLoad.
+
+During a compare we are working with data that is detached from the Persistence layer of Bridgepoint.  The code to get the graphics file was expecting that a PMC will always have a root model element, which was causing an NPE and the compare editor to fail launch.
+
+To address this a check for a null root model element is added.  A comment was also added about why it can be null.
+
+== 5 Implementation Comments
+
+== 6 Unit Test
+
+Unit testing will not be done with these bug fixes to the current working branch.
+
+== 7 User Documentation
+
+== 8 Code Changes
+
+- fork/repository:  FMAY-Software/bridgepoint
+- branch:  
+
+----
+org.xtuml.bp.core [bridgepoint 12619/textual-xtuml]/src/org/xtuml/bp/core/
+    common/PersistenceManager.java
+
+org.xtuml.bp.io.core [bridgepoint 12619/textual-xtuml]/arc/
+    gen_import_java.inc
+
+org.xtuml.bp.ui.canvas [bridgepoint 12619/textual-xtuml]/src/org/xtuml/bp/
+    ui/canvas/CanvasPlugin.java
+
+
+----
+
+== 9 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/12619[12619 - Persist xtUML instances as text]
+. [[dr-2]] https://github.com/leviathan747/bridgepoint/blob/12619/textual-xtuml/doc-bridgepoint/notes/12619_textual_xtuml_dnt.adoc[12619 Design Note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
