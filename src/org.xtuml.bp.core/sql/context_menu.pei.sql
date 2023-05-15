@@ -149,14 +149,6 @@ INSERT INTO CME VALUES ('--',       'Move Down',          'CNST_LSC',   '',     
 INSERT INTO CME VALUES ('--',       'Combine With',       'O_ATTR',   '',                      false, 'Select attribute to combine with this one' );
 INSERT INTO CME VALUES ('Referential',       'Split',              'O_ATTR',   '',           false, 'Select reference to split from this one' );
 INSERT INTO CME VALUES ('Base And Ref',       'Split',              'O_ATTR',   '',            false, '' );
-INSERT INTO CME VALUES ('Binary',     'Formalize',      'R_REL',    '',                      false, 'Select the class whose identifier will be used to formalize the association' );
-INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_REL',    '',                      false, 'Select the identifier to use from each class' );
-INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_ASSR',   '',                      false, 'Select the identifier to use from each class' );
-INSERT INTO CME VALUES ('Inheritance','Formalize',      'R_REL',    '',                      false, 'Select identifier to use in supertype' );
-INSERT INTO CME VALUES ('Inheritance','Formalize',      'R_SUB',    '',                      false, 'Select identifier to use in supertype' );
-INSERT INTO CME VALUES ('--',       'Unformalize',        'R_REL',    '',                      false, '' );
-INSERT INTO CME VALUES ('--',       'Unformalize',        'R_ASSR',   '',                      false, '' );
-INSERT INTO CME VALUES ('--',       'Unformalize',        'R_SUB',    '',                      false, '' );
 INSERT INTO CME VALUES ('Generic Package',       'Assign Event',       'SM_TXN',   '',                      false, 'Select event to assign to transition' );
 INSERT INTO CME VALUES ('Generic Package',       'Assign Signal',      'SM_TXN',   '',                      false, 'Select signal to assign to transition' );
 INSERT INTO CME VALUES ('--',       'Remove Event',       'SM_TXN',   '',                      false, '' );
@@ -390,14 +382,6 @@ INSERT INTO MEF VALUES ('--', 'Import scenarios from component', 'D_DEPL', 'can'
 INSERT INTO MEF VALUES ('--',       'Move Up',       'D_TSVC',    'can', 'move up' );
 INSERT INTO MEF VALUES ('--',       'Move Down',     'D_TSVC',    'can', 'move down' );
 
-INSERT INTO MEF VALUES ('Binary',     'Formalize',          'R_REL', 'type', 'unform simp' );
-INSERT INTO MEF VALUES ('Linked',     'Formalize',          'R_REL', 'type', 'unform assoc' );
-INSERT INTO MEF VALUES ('Linked',     'Formalize',          'R_ASSR','type', 'unform assoc' );
-INSERT INTO MEF VALUES ('Inheritance','Formalize',          'R_REL', 'type', 'unform subsup' );
-INSERT INTO MEF VALUES ('Inheritance','Formalize',          'R_SUB', 'type', 'unform subsup' );
-INSERT INTO MEF VALUES ('--',       'Unformalize',          'R_REL', 'formalized', 'true' );
-INSERT INTO MEF VALUES ('--',       'Unformalize',          'R_ASSR','formalized', 'true' );
-INSERT INTO MEF VALUES ('--',       'Unformalize',          'R_SUB', 'formalized', 'true' );
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Event',  'SM_TXN',    'event', 'exists generic pkg' );
 INSERT INTO MEF VALUES ('Generic Package',       'Assign Signal', 'SM_TXN',    'signal', 'exists generic pkg' );
 INSERT INTO MEF VALUES ('--',       'Remove Event',  'SM_TXN',    'event', 'assigned' );
