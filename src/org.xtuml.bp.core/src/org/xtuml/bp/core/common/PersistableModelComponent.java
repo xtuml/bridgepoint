@@ -588,7 +588,6 @@ public class PersistableModelComponent implements Comparable {
 		AbstractModelExportFactory factory = AbstractModelExportFactory.getInstance();
 
 		try {
-			System.err.println("Persisting " + getFile() + "...");
 			IRunnableWithProgress runnable = factory.create(componentRootME, file.getLocation().toString(), true);
 			runnable.run(monitor);
 

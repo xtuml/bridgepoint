@@ -510,7 +510,7 @@ public class PersistenceManager {
 
 		if (!pmcsToLoad.isEmpty()) {
 
-			System.out.println("Triggered load [reload=" + reload + "]... " + pmcsToLoad.size());
+			//System.out.println("Triggered load [reload=" + reload + "]... " + pmcsToLoad.size());
 			
 			final Map<PersistableModelComponent, NonRootModelElement> oldElementMap = new HashMap<>();
 			
@@ -555,9 +555,9 @@ public class PersistenceManager {
 						try {
 							final PersistableModelComponent pmc = pmcFuture.get();
 							if (pmc.isLoaded()) {
-								System.out.println("LOADED: " + pmc.getFile());
+								//System.out.println("LOADED: " + pmc.getFile());
 							} else {
-								System.err.println("FAILED TO LOAD: " + pmc.getFile());
+								//System.err.println("FAILED TO LOAD: " + pmc.getFile());
 							}
 						} catch (ExecutionException e) {
 							CorePlugin.logError("Problem loading component", e);
