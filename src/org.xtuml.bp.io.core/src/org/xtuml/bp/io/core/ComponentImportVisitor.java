@@ -83,7 +83,6 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		}
 
 		// load all component items
-		// TODO ensure packages load first?
 		ctx.component_item().forEach(this::visit);
 
 		// reassign self to all component references to assure the latest port
