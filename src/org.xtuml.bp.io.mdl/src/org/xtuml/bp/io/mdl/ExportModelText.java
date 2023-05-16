@@ -1695,7 +1695,7 @@ public class ExportModelText extends ExportModelComponent {
 			// transition table
 			final Transition_c[] txns = Transition_c.getManySM_TXNsOnR505(inst);
 			if (txns.length > 0) {
-				append("%s%sstate machine is\n\n", getTab(), isClassBased ? "class " : "");
+				append("%s%sstate model is\n\n", getTab(), isClassBased ? "class " : "");
 				tabDepth++;
 
 				// TODO signal events
@@ -1767,7 +1767,7 @@ public class ExportModelText extends ExportModelComponent {
 				}
 
 				tabDepth--;
-				append("\n%send state machine;\n\n", getTab());
+				append("\n%send state model;\n\n", getTab());
 			}
 
 			// state actions

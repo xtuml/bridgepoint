@@ -165,11 +165,11 @@ event_declaration                  : description? marks?
                                    
 state_machine_definition           : description? marks?
                                      class_based='class'?
-                                     'state' 'machine' 'is'
+                                     'state' 'model' 'is'
                                        '|' '|' ( evt_names+=scoped_name '|' )+
                                        '|' ( Divider '|' )+
                                        transition_row+
-                                     'end' 'state' 'machine' ';'
+                                     'end' 'state' 'model' ';'
                                    ;
                                    
 transition_row                     : '|' start_state_name=name '|'
@@ -253,7 +253,7 @@ bridge_definition                  : description? marks?
                                    ;
 
 function_definition                : description? marks?
-                                     'function' func_name=name
+                                     'public'? 'function' func_name=name
                                      '(' parameter_list? ')'
                                      ( 'return' type_reference )? (
                                        'is'
