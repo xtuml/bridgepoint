@@ -235,6 +235,7 @@ ensures that the two remain in tight synchrony.
 - Signal events
 - Transition cell descriptions
 - Scoped naming
+- Update FAQ
 
 == 6 Design Comments
 
@@ -254,19 +255,18 @@ issue.
 
 == 7 User Documentation
 
-TODO
-
-- Update FAQ
+<<dr-4>> has been added as a follow on issue to track the continued cleanup, test, and documentation work.
 
 == 8 Unit Test
 
-TODO
+<<dr-4>> has been added as a follow on issue to track the continued cleanup, test, and documentation work.
 
 == 9 Document References
 
 . [[dr-1]] https://support.onefact.net/issues/12619[#12619 Persist xtUML instances as text]
 . [[dr-2]] https://github.com/xtuml/xtuml-language/blob/main/doc/12510_initial_analysis/12510_initial_analysis.adoc[#12510 textual xtUML analysis]
 . [[dr-3]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bridgepoint-architecture-[BridgePoint Architecture (FAQ)]
+. [[dr-4]] https://support.onefact.net/issues/12646[#12646 Update testing and documentation related to textual xtUML implementation]
 
 ---
 
