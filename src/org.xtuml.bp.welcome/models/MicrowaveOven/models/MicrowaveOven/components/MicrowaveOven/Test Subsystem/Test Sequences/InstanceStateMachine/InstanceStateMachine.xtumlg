@@ -1,0 +1,119 @@
+render : "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine"
+
+properties :
+  viewport : x : 1228.0 y : 778.0
+  zoom : 0.0
+
+shapes :
+  shape : AwaitingTestSequenceInitiation
+    render : state "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Awaiting Test Sequence Initiation"
+    bounds : x : 1716.0 y : 1008.0 width : 272.0 height : 144.0
+  shape : PerformingTestSequence1
+    render : state "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Performing Test Sequence 1"
+    bounds : x : 1272.0 y : 1224.0 width : 608.0 height : 448.0
+  shape : PerformingTestSequence2
+    render : state "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Performing Test Sequence 2"
+    bounds : x : 1908.0 y : 1224.0 width : 640.0 height : 448.0
+  shape : CookingComplete
+    render : state "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Cooking Complete"
+    bounds : x : 1656.0 y : 1800.0 width : 352.0 height : 160.0
+
+connectors :
+  connector : AwaitingTestSequenceInitiation____MO_TS1__initialize
+    render : transition "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Awaiting Test Sequence Initiation::MO_TS1: initialize"
+    polyline :
+      segment :
+        start : x : 1776.0 y : 1008.0
+        end :   x : 1776.0 y : 936.0
+      segment :
+        start : x : 1776.0 y : 936.0
+        end :   x : 1908.0 y : 936.0
+      segment :
+        start : x : 1908.0 y : 936.0
+        end :   x : 1908.0 y : 1008.0
+    anchors :
+      start :
+        point : x : 1776.0 y : 1008.0
+        shape : AwaitingTestSequenceInitiation
+      end :
+        point : x : 1904.0 y : 1008.0
+        shape : AwaitingTestSequenceInitiation
+    texts :
+      text :
+        bounds : x : 1815.0 y : 915.0 width : 229.0 height : 24.0 where : middle
+  connector : AwaitingTestSequenceInitiation____MO_TS2__perform_test_seq_1
+    render : transition "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Awaiting Test Sequence Initiation::MO_TS2: perform_test_seq_1"
+    polyline :
+      segment :
+        start : x : 1716.0 y : 1104.0
+        end :   x : 1644.0 y : 1104.0
+      segment :
+        start : x : 1644.0 y : 1104.0
+        end :   x : 1644.0 y : 1224.0
+    anchors :
+      start :
+        point : x : 1712.0 y : 1104.0
+        shape : AwaitingTestSequenceInitiation
+      end :
+        point : x : 1648.0 y : 1232.0
+        shape : PerformingTestSequence1
+    texts :
+      text :
+        bounds : x : 1405.0 y : 1170.0 width : 228.0 height : 22.0 where : middle
+  connector : AwaitingTestSequenceInitiation____MO_TS3__perform_test_seq_2
+    render : transition "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Awaiting Test Sequence Initiation::MO_TS3: perform_test_seq_2"
+    polyline :
+      segment :
+        start : x : 1988.0 y : 1104.0
+        end :   x : 2064.0 y : 1104.0
+      segment :
+        start : x : 2064.0 y : 1104.0
+        end :   x : 2064.0 y : 1224.0
+    anchors :
+      start :
+        point : x : 1984.0 y : 1104.0
+        shape : AwaitingTestSequenceInitiation
+      end :
+        point : x : 2064.0 y : 1232.0
+        shape : PerformingTestSequence2
+    texts :
+      text :
+        bounds : x : 1791.0 y : 1180.0 width : 253.0 height : 22.0 where : middle
+  connector : PerformingTestSequence1____MO_TS4__test_seq_complete
+    render : transition "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Performing Test Sequence 1::MO_TS4: test_seq_complete"
+    polyline :
+      segment :
+        start : x : 1584.0 y : 1672.0
+        end :   x : 1584.0 y : 1860.0
+      segment :
+        start : x : 1584.0 y : 1860.0
+        end :   x : 1656.0 y : 1860.0
+    anchors :
+      start :
+        point : x : 1584.0 y : 1680.0
+        shape : PerformingTestSequence1
+      end :
+        point : x : 1664.0 y : 1856.0
+        shape : CookingComplete
+    texts :
+      text :
+        bounds : x : 1391.0 y : 1885.0 width : 209.0 height : 22.0 where : middle
+  connector : PerformingTestSequence2____MO_TS4__test_seq_complete
+    render : transition "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences::Instance State Machine::Performing Test Sequence 2::MO_TS4: test_seq_complete"
+    polyline :
+      segment :
+        start : x : 2088.0 y : 1672.0
+        end :   x : 2088.0 y : 1860.0
+      segment :
+        start : x : 2088.0 y : 1860.0
+        end :   x : 2008.0 y : 1860.0
+    anchors :
+      start :
+        point : x : 2080.0 y : 1680.0
+        shape : PerformingTestSequence2
+      end :
+        point : x : 2016.0 y : 1856.0
+        shape : CookingComplete
+    texts :
+      text :
+        bounds : x : 2099.0 y : 1706.0 width : 227.0 height : 22.0 where : middle

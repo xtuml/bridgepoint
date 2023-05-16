@@ -1,0 +1,85 @@
+render : "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine"
+
+properties :
+  viewport : x : 497.0 y : 850.0
+  zoom : 1.0
+
+shapes :
+  shape : AwaitingBeeperRequest
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine::Awaiting Beeper Request"
+    bounds : x : 672.0 y : 900.0 width : 608.0 height : 160.0
+  shape : Beeping
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine::Beeping"
+    bounds : x : 672.0 y : 1140.0 width : 608.0 height : 352.0
+
+connectors :
+  connector : AwaitingBeeperRequest____MO_B1__start_beeping
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine::Awaiting Beeper Request::MO_B1: start_beeping"
+    polyline :
+      segment :
+        start : x : 804.0 y : 1060.0
+        end :   x : 804.0 y : 1140.0
+    anchors :
+      start :
+        point : x : 800.0 y : 1056.0
+        shape : AwaitingBeeperRequest
+      end :
+        point : x : 800.0 y : 1136.0
+        shape : Beeping
+    texts :
+      text :
+        bounds : x : 635.0 y : 1101.0 width : 174.0 height : 24.0 where : middle
+  connector : Beeping____MO_B3__beeping_stopped
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine::Beeping::MO_B3: beeping_stopped"
+    polyline :
+      segment :
+        start : x : 1008.0 y : 1140.0
+        end :   x : 1008.0 y : 1060.0
+    anchors :
+      start :
+        point : x : 1008.0 y : 1136.0
+        shape : Beeping
+      end :
+        point : x : 1008.0 y : 1056.0
+        shape : AwaitingBeeperRequest
+    texts :
+      text :
+        bounds : x : 818.0 y : 1101.0 width : 191.0 height : 24.0 where : middle
+  connector : Beeping____MO_B2__beep_delay_over
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine::Beeping::MO_B2: beep_delay_over"
+    polyline :
+      segment :
+        start : x : 912.0 y : 1492.0
+        end :   x : 912.0 y : 1524.0
+      segment :
+        start : x : 912.0 y : 1524.0
+        end :   x : 1068.0 y : 1524.0
+      segment :
+        start : x : 1068.0 y : 1524.0
+        end :   x : 1068.0 y : 1492.0
+    anchors :
+      start :
+        point : x : 912.0 y : 1488.0
+        shape : Beeping
+      end :
+        point : x : 1072.0 y : 1488.0
+        shape : Beeping
+    texts :
+      text :
+        bounds : x : 888.0 y : 1545.0 width : 196.0 height : 24.0 where : middle
+  connector : Beeping____MO_B4__stop_beeping
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper::Instance State Machine::Beeping::MO_B4: stop_beeping"
+    polyline :
+      segment :
+        start : x : 1164.0 y : 1140.0
+        end :   x : 1164.0 y : 1060.0
+    anchors :
+      start :
+        point : x : 1168.0 y : 1136.0
+        shape : Beeping
+      end :
+        point : x : 1168.0 y : 1056.0
+        shape : AwaitingBeeperRequest
+    texts :
+      text :
+        bounds : x : 1172.0 y : 1086.0 width : 210.0 height : 24.0 where : middle

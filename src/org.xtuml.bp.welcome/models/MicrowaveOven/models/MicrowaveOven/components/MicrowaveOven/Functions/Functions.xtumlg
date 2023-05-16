@@ -1,0 +1,9 @@
+render : "MicrowaveOven::components::MicrowaveOven::Functions"
+
+properties :
+  viewport : x : 4000.0 y : 3000.0
+  zoom : 1.0
+
+shapes :
+
+connectors :
