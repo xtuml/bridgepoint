@@ -8715,28 +8715,68 @@ Import: org.xtuml.bp.core.common.NonRootModelElement
 	'select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 
 select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+formalize_required = PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
+
+// establish whether formalization is possible
+can_formalize = true;
+select many idents related by sup_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
+if (empty idents)
+  can_formalize = false;
+end if;
+
+ident_default_selection = 0;
+num_options = cardinality idents;
+if (num_options < 1)
+  num_options = 1;
+end if;
+ident_options[num_options-1] = "";  // establish array size
+i = 0;
+for each ident in idents
+  ident_options[i] = ident.get_name();
+  select any formalizing_id related by r_rel->R_OIR[R201]->R_RTO[R203]->O_ID[R109] where (selected.Obj_ID == sup_class.Obj_ID and selected.Oid_ID == ident.Oid_ID);
+  if (not_empty formalizing_id)
+    ident_default_selection = i;
+  end if;
+  i = i + 1;
+end for;
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+formalized = r_rel.isFormalized();
 
-// Formalize associative
-assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
-formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
-LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"2", width:"1", height:"1");
+// If appropriate, present Formalized check box - either ''is formalized,'' or could be formalized
+checkformal = ((formalized or formalize_required) and can_formalize);
+formalize = USER::getCheckbox(default:checkformal, prompt:"Formalized", disabled:formalize_required);
+LAYOUT::setLayout(field_name:"formalize", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"formalize", field2:"rel_num", inverse:false, comparison:"v_can_formalize");
 
-// Identifier
-ident_label = USER::getLabel(label:sup_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"ident_label", row_num:"2", width:"1", height:"1");
-USER::dependsOn(field1:"ident_label", field2:"formalize_assoc", inverse:false, comparison:"");
-select any ident related by sup_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"ident", row_num:"2", width:"1", height:"1");
-USER::dependsOn(field1:"ident", field2:"formalize_assoc", inverse:false, comparison:"");
+// if can formalize or is formalized, display/choose an identifier from the supertype
+formalizer = " identifier: ";
+if (formalized)  // display formalizing identifier
+  id = ident_options[ident_default_selection];
+  formalizer = formalizer + id;
+end if;
+ident_label = USER::getLabel(label:sup_class.Name + formalizer);
+LAYOUT::setLayout(field_name:"ident_label", row_num:"2", width:"2", height:"1");
+USER::dependsOn(field1:"ident_label", field2:"formalize", inverse:false, comparison:"");
 
-// Edit the association
-select one ep_pkg related by sup_class->PE_PE[R8001]->EP_PKG[R8000];
-r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:ident);',
+showchoice = formalize and not formalized;  // do not allow choice if formalized
+id_choice = USER::getDropdown(options:ident_options, prompt:"", default_selection:ident_default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"id_choice", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"id_choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
+
+// selection returns identifier label; association edit wants an oid:
+for each ident in idents
+  if (ident.get_name() == id_choice)
+    break;
+  end if;
+end for;
+
+// Edit the association - supply the values from this dialog
+r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize, ident:ident);
+',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
@@ -8759,28 +8799,68 @@ Import: org.xtuml.bp.core.common.NonRootModelElement
 
 select one r_rel related by r_sub->R_SUBSUP[R213]->R_REL[R206];
 select one sup_class related by r_rel->R_SUBSUP[R206]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+formalize_required = PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
+
+// establish whether formalization is possible
+can_formalize = true;
+select many idents related by sup_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
+if (empty idents)
+  can_formalize = false;
+end if;
+
+ident_default_selection = 0;
+num_options = cardinality idents;
+if (num_options < 1)
+  num_options = 1;
+end if;
+ident_options[num_options-1] = "";  // establish array size
+i = 0;
+for each ident in idents
+  ident_options[i] = ident.get_name();
+  select any formalizing_id related by r_rel->R_OIR[R201]->R_RTO[R203]->O_ID[R109] where (selected.Obj_ID == sup_class.Obj_ID and selected.Oid_ID == ident.Oid_ID);
+  if (not_empty formalizing_id)
+    ident_default_selection = i;
+  end if;
+  i = i + 1;
+end for;
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
+formalized = r_rel.isFormalized();
 
-// Formalize associative
-assoc_formal = r_rel.isFormalized() or PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
-formalize_assoc = USER::getCheckbox(default:assoc_formal, prompt:"Formalized", disabled:PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations"));
-LAYOUT::setLayout(field_name:"formalize_assoc", row_num:"2", width:"1", height:"1");
+// If appropriate, present Formalized check box - either ''is formalized,'' or could be formalized
+checkformal = ((formalized or formalize_required) and can_formalize);
+formalize = USER::getCheckbox(default:checkformal, prompt:"Formalized", disabled:formalize_required);
+LAYOUT::setLayout(field_name:"formalize", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"formalize", field2:"rel_num", inverse:false, comparison:"v_can_formalize");
 
-// Identifier
-ident_label = USER::getLabel(label:sup_class.Name + " identifier");
-LAYOUT::setLayout(field_name:"ident_label", row_num:"2", width:"1", height:"1");
-USER::dependsOn(field1:"ident_label", field2:"formalize_assoc", inverse:false, comparison:"");
-select any ident related by sup_class->O_ID[R104] where USER::selectOne(id:selected.Obj_ID) and O_ID::hasAttributes(obj_id:selected.Obj_ID, oid_id: selected.Oid_ID);
-LAYOUT::setLayout(field_name:"ident", row_num:"2", width:"1", height:"1");
-USER::dependsOn(field1:"ident", field2:"formalize_assoc", inverse:false, comparison:"");
+// if can formalize or is formalized, display/choose an identifier from the supertype
+formalizer = " identifier: ";
+if (formalized)  // display formalizing identifier
+  id = ident_options[ident_default_selection];
+  formalizer = formalizer + id;
+end if;
+ident_label = USER::getLabel(label:sup_class.Name + formalizer);
+LAYOUT::setLayout(field_name:"ident_label", row_num:"2", width:"2", height:"1");
+USER::dependsOn(field1:"ident_label", field2:"formalize", inverse:false, comparison:"");
 
-// Edit the association
-select one ep_pkg related by sup_class->PE_PE[R8001]->EP_PKG[R8000];
-r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize_assoc, ident:ident);',
+showchoice = formalize and not formalized;  // do not allow choice if formalized
+id_choice = USER::getDropdown(options:ident_options, prompt:"", default_selection:ident_default_selection, reload_options:false);
+LAYOUT::setLayout(field_name:"id_choice", row_num:"2", width:"1", height:"1");
+USER::dependsOn(field1:"id_choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
+
+// selection returns identifier label; association edit wants an oid:
+for each ident in idents
+  if (ident.get_name() == id_choice)
+    break;
+  end if;
+end for;
+
+// Edit the association - supply the values from this dialog
+r_rel.editSubsupAssociation(rel_num:rel_num, formalized:formalize, ident:ident);
+',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
