@@ -247,7 +247,7 @@ public class ElementSelectionFlatView extends Composite {
 		for(int i = 0; i < types.length; i++) {
 			hostPackage.Clearscope();
 			hostPackage.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(),
-					false, "", hostPackage.getPackage_id(),
+					false, 0, "", hostPackage.getPackage_id(),
 					types[i]);
 			PackageableElement_c[] elements = getElementsCollected();
 			for(int j = 0; j < elements.length; j++) {

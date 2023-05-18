@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.canvas,
  org.xtuml.bp.ui.text,
  org.xtuml.bp.ui.explorer,
- org.xtuml.bp.als.oal
+ org.xtuml.bp.als.oal,
+ org.eclipse.ui.editors
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Eclipse-BundleShape: dir

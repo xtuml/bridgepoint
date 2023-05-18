@@ -64,8 +64,6 @@ public class GraphicalEditorFactory implements IElementFactory {
     String componentPath = memento.getString(TAG_COMPONENTPATH);
     if ( componentPath == null )
         return new NullEditorInput("Editor refers to old format Model element");
-    PersistenceManager.loadAndFinishComponent(
-            componentPath);
     modelRoot = Ooaofooa.getInstance(rootId, false);
     if (modelRoot != null) {
     	String raw_ooa_id = memento.getString(TAG_OOAID);

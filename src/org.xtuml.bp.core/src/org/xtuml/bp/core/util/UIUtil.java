@@ -258,6 +258,11 @@ public class UIUtil
 					
 					@Override
 					public void run() {
+						try {
+							ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+						} catch (CoreException e) {
+							CorePlugin.logError("Failed to refresh workspace", e);
+						}
 				        if(!viewer.getControl().isDisposed()){
 				            if (element != null) viewer.refresh(element);
 				            else viewer.refresh();

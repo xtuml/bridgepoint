@@ -26,13 +26,12 @@ import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ui.ICoreHelpContextIds;
 import org.xtuml.bp.ui.preference.IPreferenceModel;
 
-public abstract class BridgePointProjectPreferences extends PreferencePage
-		implements IPreferencePage {
+public abstract class BridgePointProjectPreferences extends PreferencePage implements IPreferencePage {
 
 	// This id string must remain the same, otherwise previously set preferences
 	// will not be honored
 	// For any future id strings do NOT include the full plug-in name
-	public final static String BP_PROJECT_PREFERENCES_ID = "com.mentor.nucleus.bp.ui.project.preferences"; //$NON-NLS-1$	
+	public final static String BP_PROJECT_PREFERENCES_ID = "com.mentor.nucleus.bp.ui.project.preferences"; //$NON-NLS-1$
 	protected IPreferenceModel model;
 	private Preferences store = null;
 
@@ -51,8 +50,7 @@ public abstract class BridgePointProjectPreferences extends PreferencePage
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		// add F1 context support to BridgePoint project preference page
-		PlatformUI.getWorkbench().getHelpSystem()
-				.setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
 	}
 
 	public boolean performOk() {

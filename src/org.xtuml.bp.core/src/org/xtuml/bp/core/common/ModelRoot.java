@@ -15,6 +15,7 @@
 package org.xtuml.bp.core.common;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -29,7 +30,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.ListenerList;
-
 import org.xtuml.bp.core.ArrayValue_c;
 import org.xtuml.bp.core.ComponentReferenceValue_c;
 import org.xtuml.bp.core.CorePlugin;
@@ -121,7 +121,7 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
         return m_fullModelLoad;
     }
     
-    protected Map<Class, InstanceList> instanceListMap = new Hashtable<Class, InstanceList>();
+    private Map<Class<?>, InstanceList> instanceListMap = new Hashtable<>();
     
     // List of meta-model classes which particpate exclusively at
     // Verifier runtime. We use this list to allocate an instance
@@ -142,21 +142,31 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     	return false;
     }
 
-    public synchronized InstanceList getInstanceList(Class type)
-    {
-    	InstanceList list = instanceListMap.get(type);
-        if(list == null || list.isEmpty()){
-        	if (isRuntime(type)) {
-        	  // Allocate a Verifier runtime optimized instance extent
-              list = new RuntimeInstanceList(this, type);
-        	}
-        	else {
-        	  // Allocate a standard instance extent
-              list = new StaticInstanceList(this, type);
-        	}
-            instanceListMap.put(list.getType(), list);
-        }
-        return list;
+    public InstanceList getInstanceList(Class<?> type) {
+    	synchronized (instanceListMap) {
+			InstanceList list = instanceListMap.get(type);
+			if(list == null){
+				if (isRuntime(type)) {
+				  // Allocate a Verifier runtime optimized instance extent
+				  list = new RuntimeInstanceList(this, type);
+				} else {
+				  // Allocate a standard instance extent
+				  list = new StaticInstanceList(this, type);
+				}
+				instanceListMap.put(list.getType(), list);
+			}
+			return list;
+    	}
+    }
+    
+    public void clearInstanceLists() {
+    	synchronized (instanceListMap) {
+    		instanceListMap.clear();
+    	}
+    }
+    
+    public Collection<InstanceList> getInstanceLists() {
+    	return instanceListMap.values();
     }
     
     protected static int enabledEventsMask = Modeleventnotification_c.MASK_ALL_EVENTS;
@@ -854,10 +864,6 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
         	instance = Ooaofooa.getInstance((IFile) resource, false);
         }
         return instance;
-    }
-
-    public Map<Class, InstanceList> getILMap() {
-        return instanceListMap;
     }
 
   protected ListenerList getModelChangedListeners() {

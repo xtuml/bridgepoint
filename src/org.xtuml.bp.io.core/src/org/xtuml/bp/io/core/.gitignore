@@ -20,3 +20,11 @@ BodyParser.java
 /SignatureLexer.smap
 /BodyParserTokenTypes.java
 /ActionParserTokenTypes.java
+Xtuml.interp
+Xtuml.tokens
+XtumlBaseVisitor.java
+XtumlLexer.interp
+XtumlLexer.java
+XtumlLexer.tokens
+XtumlParser.java
+XtumlVisitor.java

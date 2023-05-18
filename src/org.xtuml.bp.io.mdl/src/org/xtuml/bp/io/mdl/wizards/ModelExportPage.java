@@ -469,9 +469,6 @@ public class ModelExportPage extends WizardExportResourcesPage {
 			SystemModel_c system = null;
 			if (element instanceof Package_c) {
 				system = SystemModel_c.getOneS_SYSOnR1405((Package_c) element);
-				PersistenceManager.ensureAllChildInstancesLoaded(system
-						.getPersistableComponent(), Ooaofooa
-						.getDefaultInstance(), Package_c.class, true);
 			}
 		}
 	}

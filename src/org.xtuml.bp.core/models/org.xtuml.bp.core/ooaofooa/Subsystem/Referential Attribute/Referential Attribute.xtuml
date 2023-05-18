@@ -190,17 +190,22 @@ INSERT INTO O_TFR
   return attr.Root_Nam;
 else
   select many oref_set related by self->O_REF[R108];
-  for each oref in oref_set
-    select one attr related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
-    if ( not_empty attr )
-      root_name = attr.get_root();
-      if ( root_name != O_RATTR::ROOT_LOOP_STRING() )
-        return root_name;
+  if not_empty oref_set
+    for each oref in oref_set
+      select one attr related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
+      if ( not_empty attr )
+        root_name = attr.get_root();
+        if ( root_name != O_RATTR::ROOT_LOOP_STRING() )
+          return root_name;
+        end if;
+      else
+        return self.BaseAttrName;
       end if;
-    else
-      return self.BaseAttrName;
-    end if;
-  end for;
+    end for;
+  else
+    select one attr related by self->O_ATTR[R106];
+    return attr.Root_Nam;
+  end if;
 end if;
 
 // We didn''t find anything
@@ -222,17 +227,21 @@ if ( attr.Pfx_Mode == 1 )  // use local prefix
   return attr.Prefix;
 elif ( attr.Pfx_Mode == 2 )  // use referred to prefix
   select many oref_set related by self->O_REF[R108];
-  for each oref in oref_set
-    select one root_attr related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
-    if ( not_empty root_attr )
-      prefix = root_attr.get_prefix();
-      if ( prefix != O_RATTR::PREFIX_LOOP_STRING() )
-        return prefix;
+  if not_empty oref_set
+    for each oref in oref_set
+      select one root_attr related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
+      if ( not_empty root_attr )
+        prefix = root_attr.get_prefix();
+        if ( prefix != O_RATTR::PREFIX_LOOP_STRING() )
+          return prefix;
+        end if;
+      else
+        return self.BaseAttrName;
       end if;
-    else
-      return self.BaseAttrName;
-    end if;
-  end for;
+    end for;
+  else
+    return attr.Prefix;
+  end if;
   // We didn''t find anything
   return self.BaseAttrName;
 else  // no prefix

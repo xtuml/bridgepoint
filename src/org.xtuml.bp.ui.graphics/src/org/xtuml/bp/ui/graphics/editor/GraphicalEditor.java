@@ -459,17 +459,6 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 					.findOrCreateComponent(((FileEditorInput) input).getFile()
 							.getFullPath());
 			if (pmc != null) {
-				if (!pmc.isLoaded()) {
-					try {
-						pmc.load(new NullProgressMonitor());
-					} catch (CoreException e) {
-						PartInitException pie = new PartInitException(
-								CorePlugin.createImportErrorStatus(true,
-										"Error loading model element"));
-						pie.fillInStackTrace();
-						throw pie;
-					}
-				}
 				GraphicalEditorInput cei = GraphicalEditorInput
 						.createInstance(pmc.getRootModelElement());
 				init(site, cei);

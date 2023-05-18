@@ -368,9 +368,7 @@ public class BPInstancePopulationView extends ViewPart {
 			} else if (parent instanceof BPModelRootTree) {
 				// Add all the instances from this model root to the tree.
 				ModelRoot thisParent = ((BPModelRootTree) parent).modelRoot;
-				Map<Class, InstanceList> iLMap = thisParent.getILMap();
-				List<InstanceList> lists = new ArrayList<InstanceList>(iLMap
-						.values());
+				List<InstanceList> lists = new ArrayList<InstanceList>(thisParent.getInstanceLists());
 				List<InstanceList> listsBySize = sortInstanceLists(lists);
 				// Only look at the top MAX_NUMBER_OF_LISTS , and don't include empty lists.
 				for (int i = 0; i < listsBySize.size() && i < MAX_NUMBER_OF_LISTS ; i++) {

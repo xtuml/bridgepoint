@@ -99,7 +99,7 @@ super.toString\
     	Component_c component = m_inst.getFirstParentComponent();
         if ((pkg != null)) {
              pkg.Clearscope();
-             pkg.Collectvisibleelementsforname(false, Gd_c.Null_unique_id(), false,
+             pkg.Collectvisibleelementsforname(false, Gd_c.Null_unique_id(), false, 0,
                       "", pkg.getPackage_id(), Elementtypeconstants_c.DATATYPE);           
                       
              class SearchResultSet_test24870_c implements ClassQueryInterface_c {
@@ -117,7 +117,7 @@ super.toString\
         } else {
                 if (component != null) {
                   component.Clearscope();
-                  component.Collectvisibleelementsforname(false, Gd_c.Null_unique_id(), "",
+                  component.Collectvisibleelementsforname(false, Gd_c.Null_unique_id(), 0, "",
                                   component.getId(), Elementtypeconstants_c.DATATYPE);
                                   
                   class ComponentResultSet_test24870_c implements ClassQueryInterface_c {

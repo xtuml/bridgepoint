@@ -139,7 +139,7 @@ public class ${class_name} extends CoreExport {
         }
       }
       m_fh.print(rootTypes + "\n");
-      m_fh.print(get_file_header("StreamData", "7.1", CorePlugin.getPersistenceVersion())); //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      m_fh.print(get_file_header("--", "StreamData", "7.1", CorePlugin.getPersistenceVersion())); //$$NON-NLS-1$$ //$$NON-NLS-2$$
       for(int i = 0; i < m_instances.length; i++) {
           m_inst = m_instances[i];
           PersistableModelComponent component = PersistenceManager.getComponent(m_inst);

@@ -1,0 +1,275 @@
+= Persist xtUML instances as text
+
+== 1 Abstract
+
+This note outlines the design and challenges of persisting xtUML models in a
+textual format.
+
+== 2 Introduction and Background
+
+For some time it has been our goal to migrate BridgePoint away from its
+instance-based SQL persistence format and to a human readable textual languages.
+There are many reasons why this improves the experience for users as well as
+unlocking more opportunities for collaboration. Before going further, the reader
+should read the existing analysis note (<<dr-1>>) and follow the document
+references there as well to get a full picture of the context of this work.
+
+== 3 Requirements
+
+The BridgePoint persistence mechanism shall be updated to support the core
+language, graphical layout, and marking specifications.
+
+=== 3.1 BridgePoint Core Language Persistence
+
+BridgePoint shall support loading and persisting full xtUML meta-models as text
+files compliant with the core language specification.
+
+The "informal diagrams" shall continue to be persisted as SQL insert statements
+and shall be linked at load time to the semantic instances.
+
+=== 3.2 BridgePoint Graphical Layout Persistence
+
+BridgePoint already supports graphical persistence as text. The implementation
+shall be updated to be compliant with the specification.
+
+=== 3.3 BridgePoint Marking Persistence
+
+The BridgePoint marking editor shall be updated to be compliant with the
+specification of marking data.
+
+=== 3.4 Preferences
+
+BridgePoint shall supply project preferences to allow the user to choose textual
+or SQL persistence for semantic and graphical instances. BridgePoint shall
+support switching between the two modes in existing projects. The principle of
+only persisting files which contain model changes shall be followed.
+
+== 4 Analysis
+
+In the analysis section 4.2 of <<dr-1>>, three high level strategies were
+identified. After initial analysis and experimentation, it was determined that
+the best course is to update the existing persistence mechanism.
+
+=== 4.1 BridgePoint Persistence Overview
+
+To better understand the rest of this note, this section gives a brief overview
+of how the persistence architecture works within BridgePoint.
+
+==== 4.1.1 SQL insert statements
+
+BridgePoint meta-model instances are persisted as SQL insert statements. Each
+statement identifies the _table_ as well as an ordered list of attribute values.
+The BridgePoint _schema_ is used by external applications such as model
+compilers to define the tables and columns within each table as well as foreign
+keys for relationships.
+
+Inside BridgePoint, Java classes are generated from the meta-model to dump
+instances to this format on save and to create/relate them on load.
+
+==== 4.1.2 Normal, Stream, and Component Modes
+
+BridgePoint persistence has three different modes. The most basic mode
+loads/persists a single `.xtuml` file. This is the least used mode in
+BridgePoint and is mainly used for importing/exporting single file models.
+
+The stream mode is used for transferring instances without the use of the
+filesystem. It is most notably used for model element copy and paste.
+
+The component mode is used for persisting models in a directory structure
+containing many different `.xtuml` files. This is the primary persistence
+mechanism for active projects within BridgePoint and it will be the primary
+focus of this work.
+
+There is no immediate benefit to migrating the stream persistence to the textual
+format. To keep the scope constrained, the single file import/export will not
+support the textual format as part of this work.
+
+==== 4.1.3 PMCs and proxies
+
+BridgePoint partitions related instances into groups called "persistable model
+components" (PMC). Each PMC has a single root instance and a number of child
+instances. There are seven different classes which form the root of a PMC:
+
+. System Model
+. Package
+. Model Class
+. Component
+. Interface
+. Instance State Machine
+. Class State Machine
+
+When a model is persisted, BridgePoint starts with the top-level PMC (the
+instance of System Model) and persists the component. The System Model instance
+itself is written to the file, followed by its children and so on in a depth
+first tree walk of the model instances. Once all the instances in the current
+PMC have been written to the file, the child PMCs are persisted. These tree
+structures are defined in PEI data in the `org.xtuml.bp.io.core` project.
+
+On load, each file is read from disk and then the foreign keys are used to batch
+relate the instances. Because the model is split into many files, it is possible
+for there to be cross references between model elements in different files. When
+this happens, a proxy instance is created in the file where it is referenced.
+The instance looks almost the same as the normal instance except its table name
+is appended with "_PROXY" and it contains an additional column value which
+specifies the relative path to the file in which it is defined.
+
+When a proxy instance is encountered during the load of a file, BridgePoint
+creates the instance just like normal except it marks the newly created
+instance as being a proxy. It then forces the referenced file to be loaded at
+which time the proxy is updated with the actual attribute values of the
+instance.
+
+The BridgePoint FAQ document provides a helpful description of the existing
+persistence architecture. <<dr-3>>
+
+== 5 Design
+
+Because the BridgePoint persistence mechanism is naturally split up into seven
+different types of `.xtuml` file, there is opportunity to complete the
+implementation of textual persistence in incremental steps. Theoretically a
+single PMC type could be converted to the textual format with no effect on the
+others.
+
+=== 5.1 Component Export
+
+A new Java class `ExportModelText` will be created in the `org.xtuml.bp.io.mdl`
+project. This class will be a subtype of the generated class
+`ExportModelComponent`. As the work is completed, methods will be added in this
+class which override the corresponding methods in `ExportModelComponent` to
+produce the equivalent textual representation of the instance.
+
+The project preference will be checked before creating an instance of
+`ExportModelComponent` or `ExportModelText` during a persist operation.
+
+When a file change is detected and a PMC reloads, first all instances contained
+within that PMC are deleted. This is necessary for text-based loading because
+the new parsed instances will not have the same unique IDs as the instances that
+already exist in the model and would result in duplicates.
+
+=== 5.2 Component Import
+
+An ANTLR grammar is added to the `org.xtuml.bp.io.core` project to capture the
+textual xtUML spec. A tree visitor class `XtumlImportVisitor` which has methods
+to create/relate model instances based on the parse tree. "Visitor" classes for
+each type of persistable model component extend `XtumlImportVisitor` to load
+the instances for a particular type of file.
+
+When a PMC is loaded, a header at the top of the file is read to determine
+whether to use the SQL loader or the textual loader. For text files, the
+correct visitor is selected based on the root element type. Once the correct
+loader is selected, the load process continues as normal.
+
+==== 5.3 Handling cross references
+
+The textual persistence mechanism depends on all cross reference being linked
+by element name or path. Because of this fact, any PMC that contains references
+to another PMC is persisted when the referenced PMC is persisted. This ensures
+that the names always match although it also results in more files being
+persisted more often than in the old persistence mechanism.
+
+When a cross reference is required during import (e.g. a function parameter
+references a user defined type), a mechanism is used to search for the required
+element and wait if it is not found. In this way, files which do not require
+any cross references are loaded first and then files which reference elements
+from other files are guaranteed to load after the file they depend on. It is
+essential that the logic in the loaders is written to avoid cycles. The next
+section discusses this mechanism in greater detail.
+
+Although it is not recommended, the new persistence has been designed to
+allower interoperability between textual and SQL based files in the same
+project. This is done to support the so-called "informal diagrams" (non
+executable diagrams such as activity, sequence, interaction, etc.) which have
+not been given a textual specification. The schema of "proxy" elements has been
+updated to contain an additional field which carries the logical model path of
+the element. This can be used to resolve a proxy with a pre-loaded instance
+from a text file since the unique ID will not match the ID given in the proxy
+itself. A lookup table is maintained to map the ID given in the proxy to the
+real ID of the instance to allow batch related to work as normal.
+
+==== 5.4 Updated load mechanism
+
+The load mechanism has been simplified and changed to better support the
+process of parsing/loading text based files. In the existing architecture, a
+single file is loaded at a time, however during the load itself it is possible
+to request a load of another file (perhaps one that contains references that
+the current file needs). This creates a "recursive load" where multiple files
+are in the middle of loading at once. This was originally designed as such to
+facility "lazy loading" to support platforms with resource constraints and to
+work with traditional centralized revision control systems. Long ago the lazy
+loading mechanism was left behind and BridgePoint was configured to load all
+resources for a project at once, however the vestiges of it remain in the
+recursive load process. This poses a problem for text based loading as often
+times the text loading approach depends on the instance population being in a
+consistent state to properly query and traverse instances based on path rather
+than instance ID.
+
+The load mechanism has been rewritten and simplified. All loads are executed
+through a single point of entry `loadComponents` in `PersistenceManager`. The
+load itself is completely flat. `loadComponents` takes as input a set of PMCs
+to load and loads them all sequentially without the "recursive" behavior of the
+original persistence architecture. Model data upgrade and other helper
+operations are carried out for all PMCs at the very end of the load. To support
+the mechanism above which allows individual loads to block and wait for
+referenced PMCs to load first, each PMC is loaded in its own thread. Even
+though multiple threads are alive, a special class `SequentialExecutor` ensures
+that only one file is loading at any given time. The multiple threads make it
+possible for loads to pause and context switch to another PMC while the first
+PMC waits for an instance to come into existence.
+
+Another simplification is in the graphics load and persist. Instead of graphics
+operating its own listeners, the graphics file is considered an extension of
+the `.xtuml` file and is persisted each time the `.xtuml` file is persisted and
+loaded each time the `.xtuml` file is loaded. This comes with inefficiency, but
+ensures that the two remain in tight synchrony. 
+
+==== 5.X TODOs
+
+- Overloaded operations
+- Deferred operations (required/optional)
+- Support for all types of constant expressions 
+- Multiple unassigned transitions
+- Descriptions on parameters
+- Delegations, component nesting
+- Deployment full support
+- Multiple component references to same component
+- Signal events
+- Transition cell descriptions
+- Scoped naming
+- Update FAQ
+
+== 6 Design Comments
+
+=== 6.1 Integrity checker race condition
+
+During design and implementation, an issue was discovered that was causing an
+error related to the integrity checker. The issue was fixed in the course of
+implementation.
+
+=== 6.2 PMC load bug
+
+During design and implementation it was determined that some persistable model
+components were being reloaded more than was necessary. It turned out that PMCs
+were being loaded, but not marked as loaded which was causing them to get
+reloaded unnecessarily. Marking them loaded at the correct time resolved the
+issue.
+
+== 7 User Documentation
+
+<<dr-4>> has been added as a follow on issue to track the continued cleanup, test, and documentation work.
+
+== 8 Unit Test
+
+<<dr-4>> has been added as a follow on issue to track the continued cleanup, test, and documentation work.
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12619[#12619 Persist xtUML instances as text]
+. [[dr-2]] https://github.com/xtuml/xtuml-language/blob/main/doc/12510_initial_analysis/12510_initial_analysis.adoc[#12510 textual xtUML analysis]
+. [[dr-3]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/FAQ.md#bridgepoint-architecture-[BridgePoint Architecture (FAQ)]
+. [[dr-4]] https://support.onefact.net/issues/12646[#12646 Update testing and documentation related to textual xtUML implementation]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

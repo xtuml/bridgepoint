@@ -13,10 +13,56 @@
 	<artifactId>org.xtuml.bp.io.core</artifactId>
 	<version>7.5.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
-
-
+  <dependencies>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4</artifactId>
+      <version>4.9.1</version>
+    </dependency>
+  </dependencies>
 	<build>
 		<plugins>
+      <plugin>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-maven-plugin</artifactId>
+        <version>4.9.1</version>
+        <configuration>
+          <sourceDirectory>${basedir}/src/org/xtuml/bp/io/core</sourceDirectory>
+          <outputDirectory>${basedir}/src/org/xtuml/bp/io/core</outputDirectory>
+          <listener>false</listener>
+          <visitor>true</visitor>
+          <arguments>
+            <argument>-package</argument>
+            <argument>org.xtuml.bp.io.core</argument>
+          </arguments>
+        </configuration>
+        <executions>
+          <execution>
+            <id>antlr</id>
+            <goals>
+              <goal>antlr4</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>runtime</includeScope>
+              <stripVersion>true</stripVersion>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>

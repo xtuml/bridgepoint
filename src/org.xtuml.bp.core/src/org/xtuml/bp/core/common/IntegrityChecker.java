@@ -19,18 +19,11 @@
 //======================================================================== 
 package org.xtuml.bp.core.common;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.IntegrityIssue_c;
@@ -58,11 +51,6 @@ public class IntegrityChecker {
 	public static IntegrityIssue_c[] runIntegrityCheck(final NonRootModelElement element,
 			final IntegrityManager_c manager) {
 		return runIntegrityCheck(element, manager, false, false);
-	}
-
-	public static IntegrityIssue_c[] runIntegrityCheck(final NonRootModelElement element,
-			final IntegrityManager_c manager, boolean checkDuringLoad) {
-		return runIntegrityCheck(element, manager, checkDuringLoad, false);
 	}
 
 	public static IntegrityIssue_c[] runIntegrityCheck(final NonRootModelElement element,
@@ -209,86 +197,6 @@ public class IntegrityChecker {
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to create problem marker for integrity issue.", e);
 			}
-		}
-	}
-
-	private static void createIntegrityIssues(NonRootModelElement element) {
-		if (integrityCheckIsEnabled(false)) {
-			IntegrityManager_c manager = new IntegrityManager_c(element.getModelRoot());
-			IntegrityChecker.runIntegrityCheck(element, manager);
-			IntegrityIssue_c[] relatedIssues = IntegrityIssue_c.getManyMI_IIsOnR1300(manager);
-			for (IntegrityIssue_c issue : relatedIssues) {
-				issue.Dispose();
-			}
-			SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(manager);
-			if (system != null) {
-				system.unrelateAcrossR1301From(manager);
-			}
-			manager.delete();
-		}
-	}
-
-	public static void createIntegrityIssuesForLoad(NonRootModelElement element) {
-		if (integrityCheckIsEnabled(false)) {
-			CorePlugin.getDefault().getIntegrityScheduler().addElementToQueue(element);
-		}
-	}
-
-	/**
-	 * This job is started at the end of every transaction
-	 * 
-	 * @param persisted
-	 *            This is the set of elements that have been persisted during
-	 *            the transaction.
-	 */
-	public static void startIntegrityChecker(HashSet<PersistableModelComponent> persisted) {
-		SystemModel_c sys = null;
-		for (PersistableModelComponent component : persisted) {
-			// deletions will have a null root element
-			NonRootModelElement nrme = component.getRootModelElement();
-			if (nrme != null) {
-				NonRootModelElement elementToCheck = nrme;
-				sys = (SystemModel_c) elementToCheck.getRoot();
-				if (nrme instanceof SystemModel_c) {
-					sys = (SystemModel_c) elementToCheck;
-				}
-			}
-			if (sys != null) {
-				break;
-			}
-		}
-
-		if (integrityCheckIsEnabled(false)) {
-			// run this in a workspace job so that it does not
-			// interfere with our file writing
-			WorkspaceJob job = new WorkspaceJob("Create integrity issues") {
-
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
-				 */
-				@Override
-				public boolean belongsTo(Object family) {
-					return family.equals(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY);
-				}
-
-				@Override
-				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-					// for all persisted files run an integrity check
-					for (PersistableModelComponent component : persisted) {
-						// deletions will have a null root element
-						if (component.getRootModelElement() != null) {
-							IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
-						}
-					}
-					return Status.OK_STATUS;
-				}
-			};
-			job.setPriority(Job.DECORATE);
-			job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-			job.schedule();
 		}
 	}
 

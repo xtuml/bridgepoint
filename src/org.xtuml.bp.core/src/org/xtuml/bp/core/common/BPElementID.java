@@ -26,60 +26,73 @@ import java.util.UUID;
 
 public class BPElementID implements java.lang.Comparable<Object> {
   private Object [] mkey;
-  public BPElementID(String key) {
-    String[] ids = key.split("%");
-    mkey = new UUID[ids.length];
-    for (int i = 0; i < ids.length; i++) {
-      mkey[i] = IdAssigner.createUUIDFromString(ids[i]);
-    }
-  }
-  public BPElementID(Object[] ids) {
-    mkey = ids;
-  }
-  @Override
-  public int compareTo(Object arg0) {
-    if (arg0 instanceof UUID) {
-      if (mkey.length == 1 && mkey[0] instanceof UUID) 
+	public BPElementID(String key) {
+		String[] ids = key.split("%");
+		mkey = new UUID[ids.length];
+		for (int i = 0; i < ids.length; i++) {
+			mkey[i] = IdAssigner.createUUIDFromString(ids[i]);
+		}
+	}
+	public BPElementID(Object[] ids) {
+		mkey = ids;
+	}
+	
+	public static BPElementID createKey(Object key) {
+		if (key instanceof String) {
+			return new BPElementID((String) key);
+		} else if (key instanceof Object[]) {
+			return new BPElementID((Object[]) key);
+		} else if (key instanceof UUID) {
+			return new BPElementID(new Object[] {key});
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		if (arg0 instanceof UUID) {
+			if (mkey.length == 1 && mkey[0] instanceof UUID)
         return ((UUID)mkey[0]).compareTo((UUID)arg0);
-    }
-    if (arg0 instanceof BPElementID) {
+		}
+		if (arg0 instanceof BPElementID) {
       if (((BPElementID)arg0).mkey.length == mkey.length) {
-        for (int i = 0; i < mkey.length; i++) {
+				for (int i = 0; i < mkey.length; i++) {
           if (mkey[i] instanceof UUID && ((BPElementID)arg0).mkey[i] instanceof UUID)
           if (((UUID)mkey[i]).compareTo((UUID)((BPElementID)arg0).mkey[i]) != 0) {
             return ((UUID)mkey[i]).compareTo((UUID)((BPElementID)arg0).mkey[i]);
-          }
-        }
-        return 0;
-      }
+						}
+				}
+				return 0;
+			}
       return mkey.length - ((BPElementID)arg0).mkey.length;
-    }
-    return -1;
-  }
-  public int hashCode() {
-	  int hash = 1;
+		}
+		return -1;
+	}
+	public int hashCode() {
+		int hash = 1;
 	  if(mkey != null) {
 		  for (int i = 0; i < mkey.length; i ++) {
-			  hash = hash + 17 * mkey[i].hashCode();
-        }
-		  }
-	  return hash;
-	  }
-  
-  public boolean equals(Object arg0) {
-    if (arg0 instanceof BPElementID) {
+				hash = hash + 17 * mkey[i].hashCode();
+			}
+		}
+		return hash;
+	}
+
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof BPElementID) {
       if (((BPElementID)arg0).mkey.length == mkey.length) {
-        for (int i = 0; i < mkey.length; i++) {
+				for (int i = 0; i < mkey.length; i++) {
           if (mkey[i].equals(((BPElementID)arg0).mkey[i]) == false) {
-            return false;
-          }
-        }
-        return true;
-      }
-    }
-    return false;
-  }
-  
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public int size() {
 		return mkey.length;
 	}

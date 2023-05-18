@@ -59,6 +59,7 @@ delete object instance self;',
 	1,
 	'',
 	"9d64d1af-8a0d-44ae-b260-96ab16384ac9",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("273c910a-ef39-464d-9278-1c04f1630f4f",
@@ -147,6 +148,7 @@ end if;
 	1,
 	'',
 	"99fd8274-249d-4d90-bf6a-d799de782dbf",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1407f2e5-20fa-4589-a707-1972ae01be41",
@@ -180,6 +182,7 @@ return not_empty interface;',
 	1,
 	'',
 	"a5d05767-219c-4908-ab3d-cfce7f1a6d66",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("a5d05767-219c-4908-ab3d-cfce7f1a6d66",
@@ -204,6 +207,7 @@ return result;',
 	1,
 	'',
 	"c66dfa95-9866-4d51-b962-bab78348fb89",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c3c19b24-c14e-4d46-9be0-b1611105d190",
@@ -272,6 +276,7 @@ end if;',
 	1,
 	'',
 	"3b9b6f53-9ae3-44f7-b0cd-160a3b794d23",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("629ab15a-4b49-4e8a-9431-1911bf67dbe6",
@@ -310,6 +315,7 @@ return resultID;',
 	1,
 	'',
 	"99a0901f-e8dc-466b-bcd5-76dd53851394",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("e6ddd197-7638-437e-8a10-5105c3025294",
@@ -330,6 +336,7 @@ return rootIR.Id;',
 	1,
 	'',
 	"df629dcd-0bb0-43d4-89ba-1ad4ae21592d",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("67fe24ee-6644-4ae8-b2b3-7ac1a3a9a98d",
@@ -344,6 +351,7 @@ return false;',
 	1,
 	'',
 	"518b1a8d-6f47-4a09-b98b-8a61034a1c1c",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f92e1c83-d793-409b-8b41-5b7dde2a1c54",
@@ -385,7 +393,7 @@ end if;
     package.collectVisibleElementsForName(name:"",
                          type:ElementTypeConstants::INTERFACE, descending:false,
                                       originatingContainerID:package.Package_ID,
-                    delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
+                    delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true, distance:0);
     select many srs related by package->PE_SRS[R8005]
                        where (selected.Type == ElementTypeConstants::INTERFACE);
     select many interfaces related by srs->PE_VIS[R8006]->PE_PE[R8002] 
@@ -404,7 +412,7 @@ end if;
                          type:ElementTypeConstants::INTERFACE,
                                       originatingContainerID:component.Id,
                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
     select many crs related by component->PE_CRS[R8007]
                        where (selected.Type == ElementTypeConstants::INTERFACE);
     select many interfaces related by crs->PE_CVS[R8008]->PE_PE[R8004] 
@@ -420,6 +428,7 @@ return false;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("99a0901f-e8dc-466b-bcd5-76dd53851394",
@@ -448,6 +457,7 @@ end for;',
 	1,
 	'',
 	"273c910a-ef39-464d-9278-1c04f1630f4f",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("190323de-bcac-43e3-9b06-9040493d6c4a",
@@ -482,6 +492,7 @@ end for;',
 	1,
 	'',
 	"c3c19b24-c14e-4d46-9be0-b1611105d190",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("340068cc-6c14-4cd7-846d-e214de7e50da",
@@ -509,6 +520,7 @@ return result;',
 	1,
 	'',
 	"e6ddd197-7638-437e-8a10-5105c3025294",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("3b9b6f53-9ae3-44f7-b0cd-160a3b794d23",
@@ -567,6 +579,7 @@ end if;',
 	1,
 	'',
 	"9a9b5362-b35b-452f-b91f-8deedbfbc4a2",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("9d64d1af-8a0d-44ae-b260-96ab16384ac9",
@@ -623,6 +636,7 @@ end if;',
 	1,
 	'',
 	"2394ec99-4b5d-47a3-af13-27e66d7458a1",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e8418627-ccc1-4fd6-9dbd-d2bbc5b116bc",
@@ -660,6 +674,7 @@ end if;',
 	1,
 	'',
 	"8de78a93-99fa-4cf0-8339-3e026610ea86",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("2394ec99-4b5d-47a3-af13-27e66d7458a1",
@@ -675,6 +690,7 @@ Translate: native',
 	0,
 	'',
 	"67fe24ee-6644-4ae8-b2b3-7ac1a3a9a98d",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -745,6 +761,7 @@ return id;',
 	1,
 	'',
 	"9e196855-947d-4a9d-b681-8cdcbad17cfb",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("77f90933-55bf-4d68-90f1-231f5c04bc20",
@@ -776,6 +793,7 @@ return port.getComponentId();',
 	1,
 	'',
 	"ce6bc0c1-49da-4664-9748-ee5daf846879",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("51680943-5944-4e68-b458-d1f737e6599a",
@@ -828,6 +846,7 @@ return true;',
 	1,
 	'',
 	"e96f9146-b647-4feb-9cf4-3fc460ccbe15",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f3b51004-ac2f-473b-b478-998b25a74808",
@@ -972,6 +991,7 @@ end if;',
 	1,
 	'',
 	"51680943-5944-4e68-b458-d1f737e6599a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("f36a605b-f02a-4858-bc2f-ce809c881208",
@@ -1002,6 +1022,7 @@ end if;',
 	1,
 	'',
 	"f3b51004-ac2f-473b-b478-998b25a74808",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("7cb152f8-e5d1-40d3-b13f-a7d513782ea7",
@@ -1112,6 +1133,7 @@ return false;',
 	1,
 	'',
 	"f36a605b-f02a-4858-bc2f-ce809c881208",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("00f232ba-0776-47b1-897f-92970d19d506",
@@ -1152,6 +1174,7 @@ end if;',
 	1,
 	'',
 	"7cb152f8-e5d1-40d3-b13f-a7d513782ea7",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("1710df3e-cfa7-476a-9d72-54a72d350e62",
@@ -1180,6 +1203,7 @@ end if;',
 	1,
 	'',
 	"59c17429-ac83-456a-8ba9-f7ea51c7fab9",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("2b0c54bd-efe3-4072-b723-83711ea6fd8f",
@@ -1221,6 +1245,7 @@ return true;',
 	1,
 	'',
 	"1710df3e-cfa7-476a-9d72-54a72d350e62",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("358c47b4-0a46-4b22-8b5e-b2fb4f7ed401",
@@ -1251,7 +1276,7 @@ end if;
     package.collectVisibleElementsForName(name:"",
                          type:ElementTypeConstants::INTERFACE, descending:false,
                                       originatingContainerID:package.Package_ID,
-                    delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true);
+                    delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true, distance:0);
     select many srs related by package->PE_SRS[R8005]
                        where (selected.Type == ElementTypeConstants::INTERFACE);
     select many interfaces related by srs->PE_VIS[R8006]->PE_PE[R8002] 
@@ -1270,7 +1295,7 @@ end if;
                          type:ElementTypeConstants::INTERFACE,
                                       originatingContainerID:component.Id,
                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
     select many crs related by component->PE_CRS[R8007]
                        where (selected.Type == ElementTypeConstants::INTERFACE);
     select many interfaces related by crs->PE_CVS[R8008]->PE_PE[R8004] 
@@ -1286,6 +1311,7 @@ return false;',
 	1,
 	'',
 	"9d5527b2-69e7-42a7-8535-93bf530bfe53",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c7281ab0-d7dd-40ff-b679-5a74f4713c42",
@@ -1310,6 +1336,7 @@ end if;
 	1,
 	'',
 	"358c47b4-0a46-4b22-8b5e-b2fb4f7ed401",
+	0,
 	0);
 INSERT INTO O_REF
 	VALUES ("d45618a1-5ecf-4b4d-95a8-ab89b70dec11",

@@ -1,0 +1,12 @@
+render : "MicrowaveOven::components::MicrowaveOven::Test Subsystem"
+
+properties :
+  viewport : x : 1600.0 y : 1190.0
+  zoom : 1.0
+
+shapes :
+  shape : TestSequences
+    render : class "MicrowaveOven::components::MicrowaveOven::Test Subsystem::Test Sequences"
+    bounds : x : 1836.0 y : 1356.0 width : 272.0 height : 128.0
+
+connectors :

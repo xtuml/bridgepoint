@@ -101,7 +101,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
 	  	PackageableElement_c[] pes = null;
         if (pkg != null) {
           pkg.Clearscope();
-          pkg.Collectvisibleelementsforname(${globalEnable}, Gd_c.Null_unique_id(), false,
+          pkg.Collectvisibleelementsforname(${globalEnable}, Gd_c.Null_unique_id(), false, 0,
                       "", pkg.getPackage_id(), Elementtypeconstants_c.${tn});
 		  class PETest implements ClassQueryInterface_c {
 				public boolean evaluate(Object candidate) {
@@ -118,7 +118,7 @@ public static ${cn.body}[] getElements(${contextClName.body} v_${firstContextIte
         else {
           if (comp != null) {
             comp.Clearscope();
-            comp.Collectvisibleelementsforname(${globalEnable}, Gd_c.Null_unique_id(), "",
+            comp.Collectvisibleelementsforname(${globalEnable}, Gd_c.Null_unique_id(), 0, "",
             		             comp.getId(), Elementtypeconstants_c.${tn});
   		    class PETest implements ClassQueryInterface_c {
 				public boolean evaluate(Object candidate) {

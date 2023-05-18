@@ -1,0 +1,12 @@
+render : "MicrowaveOven"
+
+properties :
+  viewport : x : 4000.0 y : 3000.0
+  zoom : 1.0
+
+shapes :
+  shape : components
+    render : package "MicrowaveOven::components"
+    bounds : x : 4140.0 y : 3012.0 width : 120.0 height : 84.0
+
+connectors :

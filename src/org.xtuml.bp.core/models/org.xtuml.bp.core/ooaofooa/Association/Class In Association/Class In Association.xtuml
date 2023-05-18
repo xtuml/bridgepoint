@@ -52,6 +52,7 @@ return "";
 	1,
 	'',
 	"97194fd7-c045-48c1-9a5c-0944910549a9",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("97194fd7-c045-48c1-9a5c-0944910549a9",
@@ -113,6 +114,7 @@ return Multiplicity::Unknown;
 	1,
 	'',
 	"8f319d9f-78e5-43de-9094-1f42c94c5067",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("c785b82e-b0aa-4f8c-8df4-f1b9cf451edd",
@@ -164,6 +166,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("7a7fb5d0-9569-4cae-80ab-b63e2f54eb84",
@@ -221,7 +224,27 @@ return -1;',
 	1,
 	'',
 	"2cf8a98d-ae96-45ca-8439-37be63185bc8",
+	0,
 	0);
+INSERT INTO O_TFR
+	VALUES ("6f01a789-720b-4ffc-b4ea-2a997d6880ec",
+	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
+	'get_name',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one o_obj related by self->O_OBJ[R201];
+name = o_obj.Name;
+phrase = self.get_text_phrase();
+if phrase != ""
+  name = "[" + phrase + "]" + name;
+end if;
+return name;',
+	1,
+	'',
+	"7a7fb5d0-9569-4cae-80ab-b63e2f54eb84",
+	0,
+	1);
 INSERT INTO O_NBATTR
 	VALUES ("cec47d4c-9e06-4c8c-b68e-89c4a69f3c1f",
 	"2a83ce0a-3939-4ef4-9a99-70471ff57de9");

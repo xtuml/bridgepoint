@@ -1,0 +1,233 @@
+render : "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine"
+
+properties :
+  viewport : x : 1374.0 y : 1513.0
+  zoom : 0.0
+
+shapes :
+  shape : AwaitingCookingRequest
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Awaiting Cooking Request"
+    bounds : x : 1932.0 y : 1620.0 width : 272.0 height : 144.0
+  shape : EnsuringSafetoCook
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Ensuring Safe to Cook"
+    bounds : x : 1464.0 y : 1908.0 width : 288.0 height : 176.0
+  shape : Cooking
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Cooking"
+    bounds : x : 1932.0 y : 2172.0 width : 272.0 height : 272.0
+  shape : CookingSuspended
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Cooking Suspended"
+    bounds : x : 1932.0 y : 1908.0 width : 272.0 height : 176.0
+  shape : SignallingCookingPeriodOver
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Signalling Cooking Period Over"
+    bounds : x : 2364.0 y : 1896.0 width : 272.0 height : 272.0
+  shape : AssigningCookingPeriod
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Assigning Cooking Period"
+    bounds : x : 1464.0 y : 1620.0 width : 288.0 height : 176.0
+
+connectors :
+  connector : Cooking____MO_O4__cancel_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Cooking::MO_O4: cancel_cooking"
+    polyline :
+      segment :
+        start : x : 2064.0 y : 2172.0
+        end :   x : 2064.0 y : 2084.0
+    anchors :
+      start :
+        point : x : 2080.0 y : 2176.0
+        shape : Cooking
+      end :
+        point : x : 2080.0 y : 2096.0
+        shape : CookingSuspended
+    texts :
+      text :
+        bounds : x : 2072.0 y : 2095.0 width : 199.0 height : 41.0 where : middle
+  connector : CookingSuspended____MO_O4__cancel_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Cooking Suspended::MO_O4: cancel_cooking"
+    polyline :
+      segment :
+        start : x : 2064.0 y : 1908.0
+        end :   x : 2064.0 y : 1764.0
+    anchors :
+      start :
+        point : x : 2080.0 y : 1920.0
+        shape : CookingSuspended
+      end :
+        point : x : 2080.0 y : 1760.0
+        shape : AwaitingCookingRequest
+    texts :
+      text :
+        bounds : x : 2074.0 y : 1771.0 width : 153.0 height : 24.0 where : middle
+  connector : Cooking____MO_O5__cooking_period_over
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Cooking::MO_O5: cooking_period_over"
+    polyline :
+      segment :
+        start : x : 2204.0 y : 2304.0
+        end :   x : 2496.0 y : 2304.0
+      segment :
+        start : x : 2496.0 y : 2304.0
+        end :   x : 2496.0 y : 2168.0
+    anchors :
+      start :
+        point : x : 2224.0 y : 2304.0
+        shape : Cooking
+      end :
+        point : x : 2576.0 y : 2208.0
+        shape : SignallingCookingPeriodOver
+    texts :
+      text :
+        bounds : x : 2253.0 y : 2199.0 width : 230.0 height : 39.0 where : middle
+  connector : SignallingCookingPeriodOver____MO_O6__beeping_over
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Signalling Cooking Period Over::MO_O6: beeping_over"
+    polyline :
+      segment :
+        start : x : 2412.0 y : 1896.0
+        end :   x : 2412.0 y : 1728.0
+      segment :
+        start : x : 2412.0 y : 1728.0
+        end :   x : 2204.0 y : 1728.0
+    anchors :
+      start :
+        point : x : 2496.0 y : 1936.0
+        shape : SignallingCookingPeriodOver
+      end :
+        point : x : 2208.0 y : 1728.0
+        shape : AwaitingCookingRequest
+    texts :
+      text :
+        bounds : x : 2233.0 y : 1692.0 width : 172.0 height : 43.0 where : middle
+  connector : EnsuringSafetoCook____MO_O4__cancel_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Ensuring Safe to Cook::MO_O4: cancel_cooking"
+    polyline :
+      segment :
+        start : x : 1752.0 y : 1944.0
+        end :   x : 1860.0 y : 1944.0
+      segment :
+        start : x : 1860.0 y : 1944.0
+        end :   x : 1860.0 y : 1728.0
+      segment :
+        start : x : 1860.0 y : 1728.0
+        end :   x : 1932.0 y : 1728.0
+    anchors :
+      start :
+        point : x : 1760.0 y : 1952.0
+        shape : EnsuringSafetoCook
+      end :
+        point : x : 1936.0 y : 1728.0
+        shape : AwaitingCookingRequest
+    texts :
+      text :
+        bounds : x : 1764.0 y : 1689.0 width : 235.0 height : 43.0 where : middle
+  connector : EnsuringSafetoCook____MO_O7__oven_safe
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Ensuring Safe to Cook::MO_O7: oven_safe"
+    polyline :
+      segment :
+        start : x : 1608.0 y : 2084.0
+        end :   x : 1608.0 y : 2304.0
+      segment :
+        start : x : 1608.0 y : 2304.0
+        end :   x : 1932.0 y : 2304.0
+    anchors :
+      start :
+        point : x : 1616.0 y : 2096.0
+        shape : EnsuringSafetoCook
+      end :
+        point : x : 1952.0 y : 2304.0
+        shape : Cooking
+    texts :
+      text :
+        bounds : x : 1768.0 y : 2313.0 width : 144.0 height : 43.0 where : middle
+  connector : CookingSuspended____MO_O3__start_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Cooking Suspended::MO_O3: start_cooking"
+    polyline :
+      segment :
+        start : x : 1932.0 y : 1992.0
+        end :   x : 1752.0 y : 1992.0
+    anchors :
+      start :
+        point : x : 1952.0 y : 2000.0
+        shape : CookingSuspended
+      end :
+        point : x : 1760.0 y : 2000.0
+        shape : EnsuringSafetoCook
+    texts :
+      text :
+        bounds : x : 1753.0 y : 1999.0 width : 182.0 height : 42.0 where : middle
+  connector : SignallingCookingPeriodOver____MO_O4__cancel_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Signalling Cooking Period Over::MO_O4: cancel_cooking"
+    polyline :
+      segment :
+        start : x : 2568.0 y : 1896.0
+        end :   x : 2568.0 y : 1656.0
+      segment :
+        start : x : 2568.0 y : 1656.0
+        end :   x : 2204.0 y : 1656.0
+    anchors :
+      start :
+        point : x : 2656.0 y : 1936.0
+        shape : SignallingCookingPeriodOver
+      end :
+        point : x : 2208.0 y : 1648.0
+        shape : AwaitingCookingRequest
+    texts :
+      text :
+        bounds : x : 2230.0 y : 1620.0 width : 213.0 height : 44.0 where : middle
+  connector : AwaitingCookingRequest____MO_O8__cooking_period
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Awaiting Cooking Request::MO_O8: cooking_period"
+    polyline :
+      segment :
+        start : x : 1932.0 y : 1668.0
+        end :   x : 1752.0 y : 1668.0
+    anchors :
+      start :
+        point : x : 1936.0 y : 1664.0
+        shape : AwaitingCookingRequest
+      end :
+        point : x : 1760.0 y : 1664.0
+        shape : AssigningCookingPeriod
+    texts :
+      text :
+        bounds : x : 1751.0 y : 1589.0 width : 209.0 height : 44.0 where : middle
+  connector : AssigningCookingPeriod____MO_O3__start_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Assigning Cooking Period::MO_O3: start_cooking"
+    polyline :
+      segment :
+        start : x : 1596.0 y : 1796.0
+        end :   x : 1596.0 y : 1908.0
+    anchors :
+      start :
+        point : x : 1600.0 y : 1792.0
+        shape : AssigningCookingPeriod
+      end :
+        point : x : 1600.0 y : 1920.0
+        shape : EnsuringSafetoCook
+    texts :
+      text :
+        bounds : x : 1603.0 y : 1865.0 width : 250.0 height : 43.0 where : middle
+  connector : EnsuringSafetoCook____MO_O3__start_cooking
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven::Instance State Machine::Ensuring Safe to Cook::MO_O3: start_cooking"
+    polyline :
+      segment :
+        start : x : 1548.0 y : 1908.0
+        end :   x : 1548.0 y : 1872.0
+      segment :
+        start : x : 1548.0 y : 1872.0
+        end :   x : 1428.0 y : 1872.0
+      segment :
+        start : x : 1428.0 y : 1872.0
+        end :   x : 1428.0 y : 2112.0
+      segment :
+        start : x : 1428.0 y : 2112.0
+        end :   x : 1548.0 y : 2112.0
+      segment :
+        start : x : 1548.0 y : 2112.0
+        end :   x : 1548.0 y : 2084.0
+    anchors :
+      start :
+        point : x : 1552.0 y : 1920.0
+        shape : EnsuringSafetoCook
+      end :
+        point : x : 1552.0 y : 2096.0
+        shape : EnsuringSafetoCook
+    texts :
+      text :
+        bounds : x : 1398.0 y : 2118.0 width : 235.0 height : 41.0 where : middle

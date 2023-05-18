@@ -26,6 +26,7 @@ ClassAsSimpleFormalizerInspector.java
 ClassAsSimpleParticipantInspector.java
 ClassAsSubtypeInspector.java
 ClassAsSupertypeInspector.java
+ClassIdentifierInspector.java
 ClassIdentifierAttributeInspector.java
 ClassInEngineInspector.java
 ClassInstanceParticipantInspector.java

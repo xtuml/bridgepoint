@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IThread;
@@ -35,7 +33,6 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
-
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -61,16 +58,6 @@ public class BPDebugUtils {
 		PersistableModelComponent component = PersistenceManager
 				.findComponent(file.getFullPath());
 		if (component != null) {
-			if (!component.isLoaded()) {
-				// load the pmc if it is not already
-				try {
-					component.load(new NullProgressMonitor());
-				} catch (CoreException e) {
-					CorePlugin.logError(
-							"Unable to load persistable model component.", e);
-					return null;
-				}
-			}
 			NonRootModelElement rootElement = component.getRootModelElement();
 			if (rootElement instanceof Component_c) {
 				return ((Component_c) rootElement).getId().toString();

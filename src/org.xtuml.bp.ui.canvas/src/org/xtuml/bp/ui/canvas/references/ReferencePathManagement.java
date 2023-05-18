@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Objectreference_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
@@ -102,23 +104,6 @@ public class ReferencePathManagement {
 			return parent;
 		}
 		return null;
-	}
-
-	public static void initializeElement(NonRootModelElement loadedElement) {
-		List<PersistenceExtension> extensions = CanvasPlugin.getDefault().getPersistenceExtensionRegistry()
-				.getExtensions();
-		// only load with first registered extension
-		PersistenceExtension persistenceExtension = extensions.get(0);
-		if (persistenceExtension != null) {
-			// if the element has a diagram, load it
-			if (elementHasDiagramRepresentation(loadedElement)) {
-				String textualSerialization = CorePlugin.getDefault().getPreferenceStore()
-						.getString(BridgePointPreferencesStore.GRAPHICS_TEXTUAL_SERIALIZATION);
-				if(MessageDialogWithToggle.ALWAYS.equals(textualSerialization)) {
-					persistenceExtension.getLoader().load(loadedElement);
-				}
-			}
-		}
 	}
 
 	public static boolean elementHasDiagramRepresentation(NonRootModelElement loadedElement) {

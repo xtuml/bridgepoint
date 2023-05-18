@@ -74,6 +74,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6f1d7bf2-659b-4c1c-b408-83a7a2451bea",
@@ -126,6 +127,7 @@ INSERT INTO S_DT_PROXY
 	'ActionDialect',
 	'Enumerator for available action dialects',
 	'',
+	'org.xtuml.bp.core::ooaofooa::Datatypes::ActionDialect',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("6732f870-53c8-4744-8943-50a4593848e1",
@@ -151,6 +153,7 @@ INSERT INTO S_DT_PROXY
 	'instance',
 	'',
 	'',
+	'org.xtuml.bp.core::ooaofooa::Datatypes::instance',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("115cbb4e-f672-477f-bfe2-ed0d24551b82",
@@ -214,6 +217,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ba5c2e82-95d8-4828-b0f6-15159de12e30",
@@ -330,6 +334,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("cadc9684-39cf-4a8e-9ac7-63a232b2ebaf",
@@ -442,7 +447,7 @@ if ( not_empty ep_pkg )
     end for;
     select many pr_tsvcs related by ep_pkg->PE_PE[R8000.''contains'']->D_DEPL[R8001]->D_TERM[R1650]->D_TSVC[R1651];
     for each pr_tsvc in pr_tsvcs
-      if ( param.id == pr_tsvc.Svc_ID )//or pr_tsvc.getSignature(flavor:1) == signature )
+      if ( param.id == pr_tsvc.Svc_ID or pr_tsvc.getSignature(flavor:1) == signature )
         pr_tsvc.Action_Semantics_internal = body;
         pr_tsvc.Dialect = dialect;
         IMPORT_ERR::incrementImportedActivities( PMC:param.PMC, type:"D_TSVC", dialect:param.dialect );
@@ -455,6 +460,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("afdc89b2-013f-4bda-8d7d-d909180d5219",
@@ -575,6 +581,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("86c2121d-c8e0-461f-a314-48a67ed5f4e1",
@@ -755,6 +762,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6cbc34a6-0d55-4bbb-a547-cb8ff14ad79e",
@@ -871,6 +879,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e8637bba-881f-4a37-800a-3cab66c4c6c8",
@@ -924,6 +933,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("fc346394-7d44-4f1d-a995-90b740ce0a23",
@@ -973,6 +983,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d9701929-2dd4-4ec0-8225-84927d3f5c19",
@@ -1026,6 +1037,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("50579a54-d8c4-4bcf-be4c-803c5bd342f4",
@@ -1087,6 +1099,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("274226a6-904b-4ab1-a3e1-32faa73ef7c8",
@@ -1136,6 +1149,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0a5bc413-102a-4197-8d4e-d8e4d6b56f2b",
@@ -1183,9 +1197,11 @@ INSERT INTO EP_PKG_PROXY
 	'Functions',
 	'',
 	0,
+	'org.xtuml.bp.core::ooaofooa::Functions',
 	'../Functions.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'org.xtuml.bp.core',
 	1,
+	'org.xtuml.bp.core',
 	'../../../org.xtuml.bp.core.xtuml');

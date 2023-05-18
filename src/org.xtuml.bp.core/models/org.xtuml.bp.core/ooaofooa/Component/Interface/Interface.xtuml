@@ -290,10 +290,12 @@ if(param.asynchronous)
  create object instance asignal of C_AS;
  relate signal to asignal across R4004;
  asignal.initialize();
+ signal.Direction = asignal.Direction;
 else
  create object instance ssignal of C_IO;
  relate signal to ssignal across R4004;
  ssignal.initialize();
+ signal.Direction = ssignal.Direction;
 end if;
 return signal.Id;',
 	1,

@@ -1,0 +1,139 @@
+render : "MicrowaveOven::components::MicrowaveOven::Microwave Oven"
+
+properties :
+  viewport : x : 1513.0 y : 1150.0
+  zoom : 1.0
+
+shapes :
+  shape : Oven
+    render : class "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Oven"
+    bounds : x : 1896.0 y : 1356.0 width : 256.0 height : 256.0
+  shape : MagnetronTube
+    render : class "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube"
+    bounds : x : 1596.0 y : 1704.0 width : 272.0 height : 176.0
+  shape : InternalLight
+    render : class "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light"
+    bounds : x : 1908.0 y : 1704.0 width : 256.0 height : 176.0
+  shape : Beeper
+    render : class "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Beeper"
+    bounds : x : 2208.0 y : 1704.0 width : 256.0 height : 176.0
+  shape : Door
+    render : class "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Door"
+    bounds : x : 1620.0 y : 1188.0 width : 256.0 height : 160.0
+  shape : Turntable
+    render : class "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Turntable"
+    bounds : x : 2184.0 y : 1188.0 width : 256.0 height : 160.0
+
+connectors :
+  connector : R1
+    render : association "MicrowaveOven::components::MicrowaveOven::Microwave Oven::R1"
+    polyline :
+      segment :
+        start : x : 1896.0 y : 1548.0
+        end :   x : 1752.0 y : 1548.0
+      segment :
+        start : x : 1752.0 y : 1548.0
+        end :   x : 1752.0 y : 1704.0
+    anchors :
+      start :
+        point : x : 1904.0 y : 1552.0
+        shape : Oven
+      end :
+        point : x : 1760.0 y : 1696.0
+        shape : MagnetronTube
+    texts :
+      text :
+        bounds : x : 1780.0 y : 1553.0 width : 93.0 height : 22.0 where : start
+      text :
+        bounds : x : 1701.0 y : 1590.0 width : 43.0 height : 22.0 where : middle
+      text :
+        bounds : x : 1757.0 y : 1675.0 width : 100.0 height : 22.0 where : end
+  connector : R2
+    render : association "MicrowaveOven::components::MicrowaveOven::Microwave Oven::R2"
+    polyline :
+      segment :
+        start : x : 2016.0 y : 1612.0
+        end :   x : 2016.0 y : 1704.0
+    anchors :
+      start :
+        point : x : 2016.0 y : 1616.0
+        shape : Oven
+      end :
+        point : x : 2016.0 y : 1696.0
+        shape : InternalLight
+    texts :
+      text :
+        bounds : x : 2050.0 y : 1614.0 width : 100.0 height : 23.0 where : start
+      text :
+        bounds : x : 1956.0 y : 1644.0 width : 50.0 height : 24.0 where : middle
+      text :
+        bounds : x : 2044.0 y : 1669.0 width : 138.0 height : 23.0 where : end
+  connector : R3
+    render : association "MicrowaveOven::components::MicrowaveOven::Microwave Oven::R3"
+    polyline :
+      segment :
+        start : x : 2152.0 y : 1536.0
+        end :   x : 2304.0 y : 1536.0
+      segment :
+        start : x : 2304.0 y : 1536.0
+        end :   x : 2304.0 y : 1704.0
+    anchors :
+      start :
+        point : x : 2160.0 y : 1536.0
+        shape : Oven
+      end :
+        point : x : 2272.0 y : 1696.0
+        shape : Beeper
+    texts :
+      text :
+        bounds : x : 2182.0 y : 1502.0 width : 80.0 height : 24.0 where : start
+      text :
+        bounds : x : 2316.0 y : 1586.0 width : 50.0 height : 22.0 where : middle
+      text :
+        bounds : x : 2312.0 y : 1672.0 width : 55.0 height : 24.0 where : end
+  connector : R4
+    render : association "MicrowaveOven::components::MicrowaveOven::Microwave Oven::R4"
+    polyline :
+      segment :
+        start : x : 1752.0 y : 1348.0
+        end :   x : 1752.0 y : 1440.0
+      segment :
+        start : x : 1752.0 y : 1440.0
+        end :   x : 1896.0 y : 1440.0
+    anchors :
+      start :
+        point : x : 1760.0 y : 1360.0
+        shape : Door
+      end :
+        point : x : 1904.0 y : 1440.0
+        shape : Oven
+    texts :
+      text :
+        bounds : x : 1606.0 y : 1358.0 width : 138.0 height : 22.0 where : start
+      text :
+        bounds : x : 1692.0 y : 1417.0 width : 50.0 height : 22.0 where : middle
+      text :
+        bounds : x : 1713.0 y : 1450.0 width : 188.0 height : 22.0 where : end
+  connector : R5
+    render : association "MicrowaveOven::components::MicrowaveOven::Microwave Oven::R5"
+    polyline :
+      segment :
+        start : x : 2152.0 y : 1440.0
+        end :   x : 2304.0 y : 1440.0
+      segment :
+        start : x : 2304.0 y : 1440.0
+        end :   x : 2304.0 y : 1348.0
+    anchors :
+      start :
+        point : x : 2160.0 y : 1440.0
+        shape : Oven
+      end :
+        point : x : 2288.0 y : 1360.0
+        shape : Turntable
+    texts :
+      text :
+        bounds : x : 2168.0 y : 1447.0 width : 100.0 height : 22.0 where : start
+      text :
+        bounds : x : 2320.0 y : 1421.0 width : 50.0 height : 22.0 where : middle
+      text :
+        bounds : x : 2322.0 y : 1361.0 width : 105.0 height : 22.0 where : end

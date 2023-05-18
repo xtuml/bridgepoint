@@ -64,6 +64,24 @@ INSERT INTO O_TFR
 	'',
 	"f5e7e26b-514e-4ef6-af19-0561bf973938",
 	0);
+INSERT INTO O_TFR
+	VALUES ("41ee3613-387a-4f7d-8ac5-f7c1a93bd33c",
+	"fa542d7f-80f5-4004-9a08-027db483f2b8",
+	'getSequenceNumber',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select one previousService related by self->D_SIS[R1661.''succeeds''];
+if empty previousService
+  return 1;
+else
+  return previousService.getSequenceNumber() + 1;
+end if;',
+	1,
+	'',
+	"be4f2943-c17d-40cb-b5e1-3a4033e847fa",
+	0,
+	1);
 INSERT INTO O_REF
 	VALUES ("fa542d7f-80f5-4004-9a08-027db483f2b8",
 	"0d103934-70db-46cf-b8a5-d888f3f5bb7e",

@@ -202,6 +202,9 @@
     .end if
     .invoke paramsText = generate_params( table, callingProject )
     ${paramsText.body}\
+    .if(multilevel)
+        , null\
+    .end if
         );
         .if((not setComponent) and (multilevel))
           .// we want to fire creation events for the stream
@@ -255,6 +258,10 @@
     ${earlyReturnResult.result}
       .end if
     String path = (String)parms.lastElement();
+    .select many col_set related by table->C[R5]
+    .assign num_cols = cardinality col_set
+    .assign num_params = num_cols + 2
+    String modelPath = parms.size() == ${num_params} ? removeTics((String)parms.elementAt(${num_cols})) : null;
     .invoke setSize = backwardCompatibilitySizeAdjustment(table, true)
     .if (setSize.body != "")
 ${setSize.body}
@@ -263,7 +270,7 @@ ${setSize.body}
         ${local_var} ${cn.body}.createProxy(modelRoot,
       .invoke paramsText = generate_params( table, callingProject )
     ${paramsText.body}\
-, removeTics(path), projRelPath);
+, removeTics(path), modelPath, projRelPath);
         if (newInst.isProxy()) {
           loadedInstances.add(newInst);
 		  pm.worked(1);
@@ -586,7 +593,7 @@ ${setSize.body}
   .param boolean setComponent
   .param String callingProject
 /*
-    Since the call to CoreImport.doLoadSql (see the run method
+    Since the call to CoreImport.doLoadFile (see the run method
     above) is done in a different thread, we can't do anything
     that would cause a fireModelChange to occur in that sub-
     thread.  All the UI processing is therefore done by this
@@ -849,7 +856,6 @@ ${setSize.body}
 		helper.upgradeGraphicalAnchors(loadedGraphicsInstances);
 		helper.configureMessages(loadedGraphicsInstances);
 		helper.fixSatisfactionAssociations(loadedInstances);
-		helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
 		.else
 		helper.upgradeDatatypes(loadedInstances);
 		.end if

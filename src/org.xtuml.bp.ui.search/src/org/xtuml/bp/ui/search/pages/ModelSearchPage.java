@@ -574,45 +574,37 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 			List<NonRootModelElement> selection) {
 		if (file.getFileExtension().equals(Ooaofooa.MODELS_EXT)) {
 			IProject project = file.getProject();
-			try {
-				if (project.exists() && project.isOpen()
-						&& XtUMLNature.hasNature(project) ) {
-					// if already added above ignore
-					SystemModel_c system = getSystemFromProject(project);
-					if (selection.contains(system)) {
-						return;
-					}
-					// the call below initializes memory instances of
-					// SystemModel, if necessary
-					PersistenceManager.getDefaultInstance();
-					// check that this file is under a models folder
-					String modelsSegment = file.getFullPath().segment(1);
-					String projectSegment = file.getFullPath().segment(2);
-					if (modelsSegment.equals(Ooaofooa.MODELS_DIRNAME)
-							&& projectSegment.equals(project.getName())) {
-						if (file.getFullPath().segmentCount() == 4) {
-							// project file, return the system
-							system = getSystemFromProject(project);
-							if (!selection.contains(system)) {
-								selection.add(system);
-							}
-						} else {
-							PersistableModelComponent pmc = PersistenceManager
-									.findOrCreateComponent(file.getFullPath());
-							if (!pmc.isLoaded()) {
-								pmc.load(new NullProgressMonitor());
-							}
-							NonRootModelElement imported = pmc
-									.getRootModelElement();
-							if (!selection.contains(imported)) {
-								selection.add(imported);
-							}
+			if (project.exists() && project.isOpen()
+					&& XtUMLNature.hasNature(project) ) {
+				// if already added above ignore
+				SystemModel_c system = getSystemFromProject(project);
+				if (selection.contains(system)) {
+					return;
+				}
+				// the call below initializes memory instances of
+				// SystemModel, if necessary
+				PersistenceManager.getDefaultInstance();
+				// check that this file is under a models folder
+				String modelsSegment = file.getFullPath().segment(1);
+				String projectSegment = file.getFullPath().segment(2);
+				if (modelsSegment.equals(Ooaofooa.MODELS_DIRNAME)
+						&& projectSegment.equals(project.getName())) {
+					if (file.getFullPath().segmentCount() == 4) {
+						// project file, return the system
+						system = getSystemFromProject(project);
+						if (!selection.contains(system)) {
+							selection.add(system);
+						}
+					} else {
+						PersistableModelComponent pmc = PersistenceManager
+								.findOrCreateComponent(file.getFullPath());
+						NonRootModelElement imported = pmc
+								.getRootModelElement();
+						if (!selection.contains(imported)) {
+							selection.add(imported);
 						}
 					}
 				}
-			} catch (CoreException e) {
-				CorePlugin.logError("Unable to check project for xtUML nature",
-						e);
 			}
 		}
 	}

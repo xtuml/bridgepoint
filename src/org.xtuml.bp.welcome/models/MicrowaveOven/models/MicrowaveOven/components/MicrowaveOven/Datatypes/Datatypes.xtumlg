@@ -1,0 +1,12 @@
+render : "MicrowaveOven::components::MicrowaveOven::Datatypes"
+
+properties :
+  viewport : x : 1725.0 y : 1191.0
+  zoom : 0.0
+
+shapes :
+  shape : tube_wattage
+    render : enumeration_data_type "MicrowaveOven::components::MicrowaveOven::Datatypes::tube_wattage"
+    bounds : x : 1740.0 y : 1884.0 width : 200.0 height : 150.0
+
+connectors :

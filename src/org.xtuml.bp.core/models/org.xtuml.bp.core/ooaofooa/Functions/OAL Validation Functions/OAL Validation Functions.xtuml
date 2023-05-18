@@ -339,6 +339,7 @@ return param.a1_ruleid_name;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a821d058-dd22-4c5c-bb44-22a4d99890f5",
@@ -489,6 +490,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("619361cc-408e-405c-ab72-abbee7721be2",
@@ -723,6 +725,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b3204468-5fbe-499e-be6f-316b0d7ebd86",
@@ -949,6 +952,7 @@ return param.a1_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b58c991f-c5b9-401b-8155-b781b240ee10",
@@ -1092,6 +1096,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("510b81db-1b5c-421b-b4f6-45ade5034efe",
@@ -1149,6 +1154,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6be48481-d43d-4a02-ad9f-1459f7cec625",
@@ -1319,6 +1325,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f9c289e3-88b6-46ed-8b05-4715a103166e",
@@ -1517,6 +1524,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("fb4e35e3-26b8-47e4-88ea-2f0fcb3f6d01",
@@ -1579,6 +1587,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8171fbf3-150d-400d-afb7-a00efcf59f5a",
@@ -1713,6 +1722,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b83ee72f-6c56-4909-810e-be4cc8a24d58",
@@ -1782,6 +1792,7 @@ return param.a3_rule_begin_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("51e52630-2cba-4507-a2d5-075a9fc6844e",
@@ -1845,6 +1856,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f8fc0f42-ad92-4f12-9111-b96f7220eaf6",
@@ -1889,6 +1901,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d9268d1c-5e5a-4730-80f7-85407235ec53",
@@ -1942,6 +1955,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("18050fcf-f41f-4e56-babd-61be9de0a6d4",
@@ -2112,6 +2126,7 @@ return var_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("74fc4cf7-0da7-408b-bf2d-d776e97fe82d",
@@ -2184,6 +2199,7 @@ return ::param_validate(a1_rule_token:param.a1_rule_token,
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("79a1c9f8-bc43-4f8c-8e11-a8774316e418",
@@ -2380,6 +2396,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4050fdc6-09fb-4b21-8859-2bc93d95d90e",
@@ -2511,6 +2528,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c8217ce2-546e-4ff9-aebe-53527ba4fe10",
@@ -2600,6 +2618,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9139dd59-1868-491e-b9b5-9edf29b9e57d",
@@ -2634,6 +2653,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1773764f-033f-486d-9413-b42788835e75",
@@ -2687,6 +2707,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8e5b5647-c0bc-439d-b5f1-9ca1e9ce1ab2",
@@ -2729,6 +2750,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("383947b8-fcfc-4a90-8f44-580e5bf26d5a",
@@ -2782,6 +2804,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3e112fa0-1605-4e61-b908-0d1041bb366e",
@@ -2924,6 +2947,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e62edd55-f359-44a0-8132-f58c49f178f2",
@@ -3098,6 +3122,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c7bf832f-099a-429c-a5e3-85192f73158e",
@@ -3169,6 +3194,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c5910b5e-3b1b-42f3-932a-a45c1dc1cfe1",
@@ -3212,13 +3238,13 @@ if isInGenericPackage
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.a3_text and 
@@ -3265,6 +3291,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("16733d17-668b-4f59-82b5-b52552c1e4c2",
@@ -3394,6 +3421,7 @@ return param.a3_rule_begin_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b929dc4f-0bf9-447b-81f2-025a6d98a533",
@@ -3465,6 +3493,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b2d34a6c-9b73-4002-9d77-3ea0adf10f69",
@@ -3599,6 +3628,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1d8e1a73-b24f-4153-829e-f5b074a761a5",
@@ -3751,6 +3781,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6866cf1d-7e8b-4257-8d5d-ea3fd9be3045",
@@ -3921,6 +3952,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6673b0e8-470c-475b-9f3d-9c789fa13e21",
@@ -4091,6 +4123,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ac5665cf-b0db-486b-884d-d604fffe08a3",
@@ -4153,6 +4186,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("35d23f44-8413-435c-be0e-01bd778b8a3c",
@@ -4249,6 +4283,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("fd949e5b-f160-413e-81c7-5fdfc809ebd7",
@@ -4330,6 +4365,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b856f837-287d-45e2-b545-0a510733b6ca",
@@ -4393,6 +4429,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a3ac13d4-b041-4049-9fb2-4a3b88290f4f",
@@ -4419,6 +4456,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8c8fb543-19f4-4d36-ba01-5c559e7f89c1",
@@ -4483,6 +4521,7 @@ return stmt.Statement_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e0973050-b6be-4c3a-a6a9-1b633c960195",
@@ -4627,6 +4666,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ecc1fc8f-a553-470e-a4c6-b4a74e542778",
@@ -4741,6 +4781,7 @@ return param.a3_rule_begin_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("bbb19e43-ae01-4497-a501-7cd6a8a576ba",
@@ -4821,6 +4862,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3db78010-1e5b-4753-8594-582f2734223c",
@@ -4892,6 +4934,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("2e09ffba-91da-42c4-b3fc-30dccda04c11",
@@ -4969,6 +5012,7 @@ return stmt.Statement_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4726189c-0698-4f4f-9868-2f53cb1f6681",
@@ -5000,6 +5044,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8c9f6454-b00f-4047-9717-bc16b99c8041",
@@ -5063,6 +5108,7 @@ return param.a2_rule_begin_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e8503c48-d63a-49a2-915c-44a4e16d939d",
@@ -5253,6 +5299,7 @@ return param.a3_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("02d788c8-b0b3-4136-b026-a9f77e8981a8",
@@ -5513,6 +5560,7 @@ return param.a3_rule_begin_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("84d76c59-4b25-4898-bf40-191d434dbaff",
@@ -5719,6 +5767,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("97bfb0c6-87a5-444d-9265-1d9b7fa95992",
@@ -5855,6 +5904,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c04f6b67-4284-448b-a764-de01f2bc4306",
@@ -5918,6 +5968,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("87abef25-897b-4e5a-932b-f43d273a41b2",
@@ -6006,6 +6057,7 @@ return GD::NULL_UNIQUE_ID();',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1844d9d3-e645-49be-8417-5b800390d8ff",
@@ -6223,6 +6275,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5cc6355b-21bf-4a2e-bdd1-f512d8e590ee",
@@ -6392,6 +6445,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c87d82ba-19bc-48b2-a4e9-3791857675eb",
@@ -6542,6 +6596,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("65486b9d-9359-47b6-a448-860afdb3264a",
@@ -6771,6 +6826,7 @@ return stmt.Statement_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d853d56a-0a15-4ca6-b429-11c9f8fffe4d",
@@ -6833,6 +6889,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("296a1db7-96df-4bf2-b3ac-73068ef12e21",
@@ -6877,13 +6934,13 @@ if isInGenericPackage
          type:ElementTypeConstants::ASSOCIATION,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::ASSOCIATION, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                      selected.Name == param.a3_text and 
@@ -6928,6 +6985,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("30e8ce3f-68dc-4078-9072-93de317c6e10",
@@ -7104,6 +7162,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("08508a6c-bce0-4704-b929-77262d26a95d",
@@ -7277,6 +7336,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a4be1750-7ec9-450d-8a22-2805d57cdbc4",
@@ -7514,6 +7574,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("50f9e60d-3416-4c69-b117-ca855e6cb172",
@@ -7613,6 +7674,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("55d09383-d0bb-474a-8125-7356142b7291",
@@ -7775,6 +7837,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("23c95f31-9d2b-4c0c-b0a2-5b1a02c81306",
@@ -7837,6 +7900,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("cae17e2a-5865-4930-a7c0-ca254702f4e1",
@@ -7971,6 +8035,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("72ffcf47-0a46-4228-ac2e-aecbdd081c7b",
@@ -8215,6 +8280,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("2cdfae68-dd99-4744-af23-4594bceca13a",
@@ -8324,6 +8390,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8af7b4d9-cc3d-4a2d-be21-12ee45cc71cc",
@@ -8369,6 +8436,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("08466f2e-49e3-4c6d-9371-ce0ed4f7f0b4",
@@ -8516,6 +8584,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e13e338f-7766-456b-b873-57ecd984d2bb",
@@ -8605,6 +8674,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d74b6c30-76ca-46b9-9c3c-b46ced27ffa4",
@@ -8648,6 +8718,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("fb1b4537-0c5d-40cd-8b3f-4770c225aab2",
@@ -8791,6 +8862,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("274329c7-33a1-47d9-87c2-a0c006dc65fb",
@@ -8854,6 +8926,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5553c70e-2e5f-42a8-a66a-a31b8642a268",
@@ -9061,6 +9134,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8f0f2c17-a911-43f5-a47b-4084ce6f36ad",
@@ -9169,6 +9243,7 @@ return stmt.Statement_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0a88f7a3-ab0b-4348-8640-e68c29fad811",
@@ -9233,6 +9308,7 @@ return param.a3_rule_begin_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d1ea6a3b-6314-4e96-b6b4-a5feba635b17",
@@ -9304,6 +9380,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("70306b58-48b9-4a43-a297-d7970500d1da",
@@ -9732,6 +9809,7 @@ return param.a2_upper_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("18cfc523-09a5-4af5-a29f-8190f67d655a",
@@ -9822,6 +9900,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6160d61d-7df5-4ec2-839d-0df4adadc006",
@@ -9868,13 +9947,13 @@ if isInGenericPackage
          type:ElementTypeConstants::EE,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                  selected.Name == param.a3_text and 
@@ -9916,6 +9995,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8c084d76-6d02-488d-969a-73c1b6365e4a",
@@ -10087,6 +10167,7 @@ return ::is_valid_bridge( key_lett: ee.Key_Lett, name: param.a3_text, rule_token
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f47e6026-6b8a-4161-9358-b58005ba73bc",
@@ -10188,6 +10269,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("db307f85-c9d0-48f3-893c-0cd660f436b7",
@@ -10347,6 +10429,7 @@ return param.b2_bridge_function2_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("71629f8a-b1b9-4daf-8365-ee7547bba626",
@@ -10428,6 +10511,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ecba1b47-6f3d-43f0-9e88-68868146044e",
@@ -10477,13 +10561,13 @@ if isInGenericPackage
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:comp.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   else
     pkg.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:pkg.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   end if;
   select any resultSet related by comp->PE_CRS[R8007] where
                                       selected.Name == param.a3_text and 
@@ -10513,13 +10597,13 @@ if isInGenericPackage
          type:ElementTypeConstants::EE,
                           originatingContainerID:comp.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
     else
       pkg.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:pkg.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
     end if;
     select any resultSet related by comp->PE_CRS[R8007] where
                                         selected.Name == param.a3_text and 
@@ -10540,7 +10624,7 @@ if isInGenericPackage
             type:ElementTypeConstants::INTERFACE,
                           originatingContainerID:comp.Id,
                                 delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
         select any resultSet related by comp->PE_CRS[R8007] where
                                         selected.Name == param.a3_text and 
                                selected.Type == ElementTypeConstants::INTERFACE; 
@@ -10550,7 +10634,7 @@ if isInGenericPackage
             type:ElementTypeConstants::INTERFACE, descending:false,
                           originatingContainerID:pkg.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
         select any pkgResultSet related by pkg->PE_SRS[R8005] where
                                          selected.Name == param.a3_text and 
                                selected.Type == ElementTypeConstants::INTERFACE; 
@@ -10654,6 +10738,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d533199a-eea2-4d50-8e6d-937d7e0b68ba",
@@ -10743,13 +10828,13 @@ if isInGenericPackage
          type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   else
     package.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::CLASS, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClasses);
+                                                         collectGlobally:allowIPRClasses, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                    selected.Name == identifier and 
@@ -10787,13 +10872,13 @@ if isInGenericPackage
     component.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::EE,originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   else
     package.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:true);
+                                                         collectGlobally:true, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                   selected.Name == identifier and 
@@ -11006,6 +11091,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8727def6-5491-4ff0-8a9e-b671b07cf1a9",
@@ -11106,6 +11192,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("940018b1-dd40-408a-a42e-b81cd9b36698",
@@ -11187,6 +11274,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("90b91ccc-0dfe-4700-a5df-fe69486bc927",
@@ -11321,6 +11409,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("af06e349-840c-469d-b41d-1fde2181d9c5",
@@ -11383,6 +11472,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6abca413-b987-4282-a5ce-0814b3b8758a",
@@ -11424,13 +11514,13 @@ if containerFoundorCreated
            type:ElementTypeConstants::DATATYPE,
                             originatingContainerID:component.Id,
                                      delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                            collectGlobally:true);
+                                                            collectGlobally:true, distance:0);
     else
       package.collectVisibleElementsForName(name:param.a3_text,
            type:ElementTypeConstants::DATATYPE, descending:false,
                              originatingContainerID:package.Package_ID,
                                             delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                            collectGlobally:true);
+                                                            collectGlobally:true, distance:0);
     end if;
     select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.a3_text and 
@@ -11451,13 +11541,13 @@ if containerFoundorCreated
            type:ElementTypeConstants::CONSTANT,
                             originatingContainerID:component.Id,
                                      delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                            collectGlobally:true);
+                                                            collectGlobally:true, distance:0);
     else
       package.collectVisibleElementsForName(name:param.a3_text,
            type:ElementTypeConstants::CONSTANT, descending:false,
                              originatingContainerID:package.Package_ID,
                                             delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                            collectGlobally:true);
+                                                            collectGlobally:true, distance:0);
     end if;
     select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.a3_text and 
@@ -11571,6 +11661,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7af88b9c-b1ff-4a3f-85d2-a0b35ad0d284",
@@ -11663,13 +11754,13 @@ if ( empty csp )
          type:ElementTypeConstants::CONSTANT,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
   else
     package.collectVisibleElementsForName(name:csp_name,
          type:ElementTypeConstants::CONSTANT, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                          collectGlobally:true);
+                                                          collectGlobally:true, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                   selected.Name == csp_name and 
@@ -11723,6 +11814,7 @@ return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("25e80db5-1789-49b4-bc93-6cd7dcb0e5a2",
@@ -11855,6 +11947,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6583fedb-8a00-4244-a763-ea66c2c6dfd6",
@@ -11935,6 +12028,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d27804f2-374d-47e2-bed5-f2be6362ca75",
@@ -12069,6 +12163,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5ae71a5b-7491-423f-bed7-1c4081cb722a",
@@ -12135,6 +12230,7 @@ return stmt.Statement_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("bc2c453d-41a7-4e95-9087-4cddb01edcc8",
@@ -12173,23 +12269,23 @@ if isInGenericPackage
         type:ElementTypeConstants::EE,
                           originatingContainerID:component.Id,
                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:false, distance:0);
     component.collectVisibleElementsForName(name:"",
         type:ElementTypeConstants::CLASS,
                           originatingContainerID:component.Id,
                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:false, distance:0);
   else
     package.collectVisibleElementsForName(name:"",
         type:ElementTypeConstants::EE, descending:false,
                           originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:false, distance:0);
     package.collectVisibleElementsForName(name:"",
         type:ElementTypeConstants::CLASS, descending:false,
                           originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:false, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                 selected.Name == "" and 
@@ -12324,6 +12420,7 @@ return GD::NULL_UNIQUE_ID();',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("272bb16f-ede0-4fe8-8981-a0b5f1db55ce",
@@ -12499,6 +12596,7 @@ return param.a4_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("22c034fe-3480-4473-b843-452b19664fac",
@@ -12780,6 +12878,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d3b40a72-6d0d-4124-a6a1-1c250919f379",
@@ -12950,6 +13049,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("829cfefe-4717-4764-b930-6ddc266b7d08",
@@ -13120,6 +13220,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4de9ce56-cd7e-409e-8764-8dadef46286c",
@@ -13272,6 +13373,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f1dde7e2-506f-4e39-bcc5-c4e8960bdacb",
@@ -13424,6 +13526,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("dba42f4a-6c74-42e4-9f87-47ab21ddc208",
@@ -13502,6 +13605,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("fb9899fd-7bba-4eea-817c-241819e80753",
@@ -13794,6 +13898,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e552a50e-085f-4c82-9c95-eaeff2aeb4a3",
@@ -13901,6 +14006,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("99daedff-4f23-445d-a303-7a340e3e1f79",
@@ -14103,6 +14209,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6f8cb8eb-107a-47ee-81cc-b5ff3812fecb",
@@ -14213,6 +14320,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6dfdb26f-c47b-4f2d-870a-dfcfb4dbd134",
@@ -14361,6 +14469,7 @@ return param.a3_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6f16746c-33fe-4ba5-9d1b-15ff92d3a299",
@@ -14588,6 +14697,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b9c4128b-0ef1-4356-abf9-a35db6e89812",
@@ -14677,6 +14787,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b66fe0e0-77b0-4a48-b605-0f6c2b581904",
@@ -14809,6 +14920,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("21ab9737-2fd7-4e70-bc20-d94ecdfeb8d3",
@@ -15030,6 +15142,7 @@ return link.Link_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("215d59d4-a34a-449a-8f2c-244c62a7be22",
@@ -15218,6 +15331,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("989481c5-4459-4ea5-850a-c2b714d8b929",
@@ -15305,6 +15419,7 @@ return param.a1_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a0af239a-80d0-4aa3-bd64-588150069b2f",
@@ -15439,6 +15554,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b8c1f34a-e785-4306-aecc-c2f0c7de4ae9",
@@ -15583,6 +15699,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d7f4a562-aeb3-4263-a160-6973f62b4d61",
@@ -15763,6 +15880,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4fa37c36-1488-42a5-8cd6-fc31390b9598",
@@ -15881,6 +15999,7 @@ return val.Value_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3b11290f-72e8-4304-9ebd-00ae03bfb9db",
@@ -15940,6 +16059,7 @@ return result;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("48fe8dec-3646-4ed9-94d2-85b194179f0d",
@@ -16010,6 +16130,7 @@ return param.a1_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3e52e8c4-5d28-4640-b99c-a107c22d97a5",
@@ -16065,6 +16186,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("acd0ac06-1fdb-4bb4-b772-18971a97e3ea",
@@ -16235,6 +16357,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9224347c-7b59-4dfa-a9ab-55b93fc193b4",
@@ -16327,6 +16450,7 @@ return GD::NULL_UNIQUE_ID();
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a411a3f6-914c-45ac-9b08-80534dff4a18",
@@ -16465,6 +16589,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("86ea15cf-b935-4ed2-a36a-e0945a5ee1a8",
@@ -16555,6 +16680,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c416e580-433f-4dbd-b36b-0ce958f028b8",
@@ -16601,13 +16727,13 @@ if isInGenericPackage
          type:ElementTypeConstants::FUNCTION,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClassesAndFuncs);
+                                                         collectGlobally:allowIPRClassesAndFuncs, distance:0);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::FUNCTION, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:allowIPRClassesAndFuncs);
+                                                         collectGlobally:allowIPRClassesAndFuncs, distance:0);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                  selected.Name == param.a3_text and 
@@ -16689,6 +16815,7 @@ return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("05e615f1-171a-4542-8f61-702595486fb3",
@@ -16858,6 +16985,7 @@ return param.b1_function_function1_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0d01f9e2-13a2-4be8-a89f-cbeca9995df4",
@@ -16930,6 +17058,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("dec6d763-2923-4952-b109-a5cf37508c5a",
@@ -17089,6 +17218,7 @@ end if;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9c7d23a5-ca0f-48b1-a075-5be51df33395",
@@ -17298,6 +17428,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4b25c7c4-3733-4266-8ccd-661a186ae28d",
@@ -17378,6 +17509,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f2e98a62-f19f-4d97-b7e0-8869a81b9310",
@@ -17511,6 +17643,7 @@ return param.b2_transformer_function2_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("95a59345-47c8-46ff-b6f9-8f6c262beaf8",
@@ -17642,6 +17775,7 @@ return param.a1_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9d839ea1-3774-48c5-be93-a34352baa425",
@@ -17757,6 +17891,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a4867fae-063a-4cbf-bbd8-963744b958fd",
@@ -17822,6 +17957,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f232e782-4579-4d14-8d84-9a0669a6aab1",
@@ -17860,6 +17996,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a5daff36-9e49-4c7d-b0c9-b9875ca7bf44",
@@ -17925,6 +18062,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("788bc731-ff47-434f-a7a5-b45382796ac0",
@@ -17987,6 +18125,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a65d7c5e-fb00-4a92-880a-ec0ed7c707d6",
@@ -18057,6 +18196,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6770ca4f-3c39-4003-bb86-925845803195",
@@ -18154,6 +18294,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("70ab4505-10a1-4bea-81c0-42e200ad4b90",
@@ -18216,6 +18357,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("46a86060-b174-469c-bf04-317fad888802",
@@ -18350,6 +18492,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7c89195b-6396-44e1-a656-1634a3899ac2",
@@ -18520,6 +18663,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("dcdd7cf0-0f9c-4c42-810a-6b72777aa55d",
@@ -18685,6 +18829,7 @@ return param.a3_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("746e3f65-cdd9-42e0-97e7-d6c42246f351",
@@ -18864,6 +19009,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a8ecf9f5-47de-4e32-a6e8-389a57ca33fb",
@@ -18936,6 +19082,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4cf7f9e0-2d70-48e9-a7b1-3a950a581144",
@@ -19070,6 +19217,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("bb490057-5d16-4e7c-b7af-d659a8716a51",
@@ -19240,6 +19388,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("205c8ce5-4d9e-4466-9f95-a662f4947be0",
@@ -19405,6 +19554,7 @@ return param.a3_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9d1a138c-a2a9-4db8-9d64-bcdc2ead3ce8",
@@ -19584,6 +19734,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6a0513e3-3046-4c32-869e-acd3592dcc8a",
@@ -19656,6 +19807,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1ca4dbeb-3ec5-4aeb-8f73-9385311b9db0",
@@ -19790,6 +19942,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d227ebec-5a66-4fa3-bea2-4fa1e4237b37",
@@ -19959,6 +20112,7 @@ return ::binary_operator_create( a1_text: param.a3_text, a2_dt_name: "boolean" )
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("60ff8f9b-a840-4bd0-8dc4-4b193978bcd2",
@@ -20139,6 +20293,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7c53f38a-4ac1-4111-8774-dc3e4a404797",
@@ -20222,6 +20377,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("109ac58f-f5d3-4ef9-a75c-1afe73364ba7",
@@ -20356,6 +20512,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("34627477-f817-400c-904f-cd5bc2879cf6",
@@ -20526,6 +20683,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("483ac604-f0fd-41c1-9b09-0de79876ccc3",
@@ -20678,6 +20836,7 @@ return ::binary_operator_create( a1_text: param.a3_text, a2_dt_name: "" );
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4f603b6e-4543-491f-b2d4-95a77e0a4ac6",
@@ -20860,6 +21019,7 @@ return param.a3_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("363b049a-3924-46a7-85d8-bb433613f8c5",
@@ -21046,6 +21206,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("23eef6c5-cccd-4413-ac9d-78e1fa4b5849",
@@ -21126,6 +21287,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a5653ba6-5af5-4442-b43d-ccdbc11615ca",
@@ -21265,6 +21427,7 @@ return ::unary_operation_validate( a1_rule_token: param.a1_rule_token,
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("17941af5-4609-4e32-baa0-a2402e6e11be",
@@ -21435,6 +21598,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("cf8e308e-be2a-42f2-a1cb-620170368a04",
@@ -21605,6 +21769,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8545b364-2e00-4cce-bfe8-f4e91bfdc74a",
@@ -21756,6 +21921,7 @@ return ::binary_operator_create( a1_text: param.a3_text, a2_dt_name: "" );
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("67430fe7-7a00-4597-bbd1-ad72a4310a76",
@@ -21938,6 +22104,7 @@ return param.a3_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("756ef8ed-70a5-4298-a181-22c7d993b0b5",
@@ -22135,6 +22302,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7f2e7689-8570-4a01-aa69-adf4f81ca22e",
@@ -22224,6 +22392,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6ce5595d-83e3-47cb-8b3f-527e8348f098",
@@ -22358,6 +22527,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ac0d11c1-857e-480e-a2a7-bac2f09b10be",
@@ -22465,6 +22635,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("da9ca845-1008-407e-8f8c-d9a6737e6f0e",
@@ -22536,6 +22707,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("dbe02996-e713-4b7e-9570-d8c9fde0719b",
@@ -22660,6 +22832,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a0f63a27-3575-4fbb-aed2-e1746c748eae",
@@ -22819,6 +22992,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("911bef79-6bce-4359-aad3-e26a606e633d",
@@ -22978,6 +23152,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("24a1a17f-ba2e-482f-b144-430ba6255f59",
@@ -23191,6 +23366,7 @@ return param.a6_current_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f4a47db8-6a41-496b-b29e-fa4536566f96",
@@ -23375,6 +23551,7 @@ return param.a4_rule_id;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9bfbab5b-cd27-45fb-b31b-1830c04ff334",
@@ -23482,6 +23659,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("33ee5bb0-929e-41cd-847e-ec23e06fe421",
@@ -23608,6 +23786,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f04bcf12-08a9-48ac-bab8-1df24907968d",
@@ -23670,6 +23849,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7167cb73-ab24-4395-af01-cd4859ca7f77",
@@ -23795,6 +23975,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("75398254-f3c0-4254-8b41-3cbc53cd27b2",
@@ -23857,6 +24038,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6e79f2d0-79f4-4d11-b275-e94b052d6a74",
@@ -23983,6 +24165,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e17bac0f-5f89-4b61-aa6f-62b8efb8a02f",
@@ -24045,6 +24228,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("daf8b2b2-7695-43fa-9c09-fa3571a5181e",
@@ -24181,6 +24365,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a6ab76d0-cd6a-40d9-9d84-151193d31c19",
@@ -24242,6 +24427,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5fa81a93-b93e-4f75-8ae3-5f8eb70ad0b5",
@@ -24412,6 +24598,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("2e65a1d6-ac78-4078-849c-178e91992ea0",
@@ -24474,6 +24661,7 @@ return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4a9cba18-3c76-4d34-bf6a-51ae4c6c116d",
@@ -24646,6 +24834,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ae2aa95c-f7e0-4f53-9218-b16ab4284703",
@@ -24816,6 +25005,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c864fcd9-a9ec-4d5f-9594-ddcf86284f62",
@@ -24977,6 +25167,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4ed2af4f-796c-42b0-b3e2-767d0795f6ed",
@@ -25111,6 +25302,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e9a182b3-9a28-4a90-bd71-b8268afb18d8",
@@ -25272,6 +25464,7 @@ return val.Value_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("28a4534b-4ba4-4311-9624-ede2b17c70a3",
@@ -25351,6 +25544,7 @@ return val.Value_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("069c1050-54a3-4e7e-8b4c-00d162e1cc5b",
@@ -25430,6 +25624,7 @@ return val.Value_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0a91184f-3b42-4833-b6a3-a8adfde54ab8",
@@ -25509,6 +25704,7 @@ return val.Value_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("05de7c69-5a46-40de-bd78-3496aba44048",
@@ -25688,6 +25884,7 @@ return val.Value_ID;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4d74ca5b-1e1b-46c1-8eef-d12b83a9f0be",
@@ -25733,6 +25930,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ebf21907-1367-4b40-83f8-be09d3386d86",
@@ -25990,6 +26188,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("81980acf-237f-4c8a-9dce-f808decd7be0",
@@ -26060,6 +26259,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6aa2c60b-1b4f-4713-bf83-486d5f5c03fc",
@@ -26096,6 +26296,7 @@ return ::get_value_chain_end(start_value_ID:param.a6_current_rule_id);',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("25207d96-5474-45a1-b99f-3f64383631d2",
@@ -26167,6 +26368,7 @@ return param.a3_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("aa26da60-5f11-42da-a7e9-6130089f151e",
@@ -26625,6 +26827,7 @@ return param.a3_ruleid_name;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("cad0ce62-3db6-4295-b92a-3751888b656f",
@@ -26711,6 +26914,7 @@ return param.a4_loop_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6d03094c-a85f-47b9-b8de-062161910411",
@@ -26791,6 +26995,7 @@ return param.a3_this_rule;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c815746b-d810-45b0-b292-299fe6b237e8",
@@ -26862,6 +27067,7 @@ return result;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3ee462a7-b5ce-4c53-85cb-808a3c1ca0ec",
@@ -26939,6 +27145,7 @@ return param.a4_loop_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f79c2e25-a481-4ae5-a4d3-5f9fec4d7474",
@@ -27019,6 +27226,7 @@ return param.a3_this_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c098f97d-58e7-4419-a3f2-c20610c179a2",
@@ -27067,6 +27275,7 @@ return val.Value_ID;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("693bb6ad-faad-4825-9105-79e3d50192ae",
@@ -27092,6 +27301,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("733f21a0-3d39-474e-b83d-fe1d78d8a476",
@@ -27153,6 +27363,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("53e39479-b584-42b3-9cc7-e6ba53739dc6",
@@ -27178,6 +27389,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("af2cb18c-c131-4f72-ba22-7ab2511d5a17",
@@ -27238,6 +27450,7 @@ return param.a3_outer_loop_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8ee0026b-4bb1-43b4-8183-23f4bdb361e8",
@@ -27299,6 +27512,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("05488998-d0fd-4e94-8c6b-8c7707932fed",
@@ -27360,6 +27574,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6b0e1a48-c3cf-4df6-9f74-792e57658019",
@@ -27432,6 +27647,7 @@ return val.Value_ID;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9a778800-a6d0-421b-9c4f-473f1a73d67b",
@@ -27466,6 +27682,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("beb35564-f036-442d-b2d1-820155e030e9",
@@ -27543,6 +27760,7 @@ return param.c3_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e37e5360-381e-459d-8158-cc40ade9bd03",
@@ -27615,6 +27833,7 @@ return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("55cf855f-9a6f-4f76-bda0-b469c5301be5",
@@ -27687,6 +27906,7 @@ return ::Instance_access_segment_start(
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("35a54351-f1a4-416c-b343-d637d681f92f",
@@ -27723,6 +27943,7 @@ return param.a4_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4d90becb-30d7-4148-a543-8a698f629849",
@@ -27798,6 +28019,7 @@ return ::Element_label_validate(a1_rule_token:param.a1_rule_token,
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("152bba93-d22b-4df7-98ca-efdcec4eb0b8",
@@ -27868,6 +28090,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("71b9fc63-ba95-488f-b854-383f582fd952",
@@ -27939,6 +28162,7 @@ return GD::NULL_UNIQUE_ID();',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c690aaff-e6cb-4b5d-83fd-bca6b5227128",
@@ -28143,6 +28367,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("bffe6b03-0b2e-4c39-81b1-32d167444f57",
@@ -28231,6 +28456,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d5b383ab-2505-4b04-b0f1-eacf7ad045f3",
@@ -28273,6 +28499,7 @@ return param.a5_current_rule;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c5635efb-cb9c-41dd-943d-4cdb65286bf5",
@@ -28705,6 +28932,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9e27ba22-69af-46c2-ba7f-d9315f215948",
@@ -28893,6 +29121,7 @@ return param.a6_message;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1dc92c86-a3ca-4095-8de3-6d66e67d28ed",
@@ -28981,6 +29210,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("41f1b9aa-1e38-4832-ab49-9ed239216094",
@@ -29242,6 +29472,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("360611f4-8430-4999-82d4-cb183d9202a1",
@@ -29339,6 +29570,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("300d3d61-6038-41ed-9ea7-7cae28833901",
@@ -29418,6 +29650,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("caae188c-1d0a-4b9d-ba52-3e27b99b0307",
@@ -29488,6 +29721,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("da66eaf5-db71-4366-bc6a-0f5f36e9da3d",
@@ -29599,6 +29833,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d5e6e3de-7263-4507-a5f6-855dc518f322",
@@ -29713,6 +29948,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ac0ae0ab-1670-4da7-bd5a-6607b5e75e67",
@@ -29812,6 +30048,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("336ec9cc-1d6e-4043-b12b-4dd4a2910ecf",
@@ -29929,6 +30166,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5ca1f08d-49e5-4173-95e6-a2d21f2806dd",
@@ -30046,6 +30284,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7255e52c-b267-4449-8266-628c2677ed5f",
@@ -30152,6 +30391,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8da8cc0d-6ffb-4e6f-bba6-be87cfe2b4b0",
@@ -30374,6 +30614,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("aa32fe66-1ac8-42fc-abe7-89a5c02cfc6c",
@@ -30506,6 +30747,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("aabf47cb-90fb-481c-a72f-5a38817ad0b0",
@@ -30576,6 +30818,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("eb3ff2e9-2d8a-47e2-b756-beeb1bcbf380",
@@ -30646,6 +30889,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f04f1404-cb43-4ff6-bdf4-9ad0482f6b87",
@@ -30722,9 +30966,9 @@ if ( not_empty act )
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -30784,6 +31028,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("fe8ed247-b3b0-4728-b536-1374f5b7897d",
@@ -30903,6 +31148,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d5ac26b2-b2be-4d29-9a22-7a3cef3c70ed",
@@ -31009,6 +31255,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4892556c-a434-4a9f-b246-8f1684abe993",
@@ -31070,6 +31317,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c6b52fe0-2369-489b-99eb-2b13569ba219",
@@ -31267,6 +31515,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("071f1f9d-12c6-4bcb-9e60-a99df2c0a552",
@@ -31340,6 +31589,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d2e483b3-47bb-424a-8197-5777342f1a58",
@@ -31600,6 +31850,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("2fac661a-801e-4f6a-ac4e-a3cacf2d9101",
@@ -31679,6 +31930,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ea6c0972-66f8-46e4-80f8-f1aea4c51207",
@@ -31785,6 +32037,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ecb774fa-d187-48df-ac7e-87c60a3f9c3a",
@@ -31891,6 +32144,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("00f01757-030f-4cfe-b280-563004e0c56b",
@@ -32003,9 +32257,9 @@ if ( not_empty act )
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -32068,6 +32322,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("baae18c0-d964-4622-bdcb-9c00da8099fa",
@@ -32165,6 +32420,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7059871a-65ee-45bb-9d53-2f9fe1bbc813",
@@ -32262,6 +32518,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("bff358e1-b161-4131-a02f-0cdfd1d19a51",
@@ -32363,6 +32620,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1c59a855-21ad-42ea-8a00-c0bedd7fa321",
@@ -32460,6 +32718,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b3344a59-4680-4e0f-b772-74ddc67e9551",
@@ -32561,6 +32820,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("26f49bc5-c2e0-4c1f-bc5d-b7fd01b720b1",
@@ -32658,6 +32918,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("35f46c49-12b5-4337-b56e-f996e0b5edbd",
@@ -32755,6 +33016,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e0404c7c-dd10-418a-a737-3d2227ed13ee",
@@ -32852,6 +33114,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e091c9bb-61bf-46d2-8ecc-23e7bcf26f9f",
@@ -32949,6 +33212,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0b09e3c6-e994-4d43-b86a-8d670f70c93d",
@@ -33037,6 +33301,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f1b9d45f-bc65-4877-8ff4-83b5f0387480",
@@ -33099,6 +33364,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0d0937f4-f705-4da2-8871-653bb0c38828",
@@ -33196,6 +33462,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("eafa1bff-2345-44bf-a732-c3ecf3162685",
@@ -33293,6 +33560,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ab951717-8fe0-4a26-a517-9e955c139853",
@@ -33402,6 +33670,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("464fb459-cdcd-41bd-b729-f37526d06bd2",
@@ -33490,6 +33759,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d977e827-0627-4e51-bddd-95b94b9bff5e",
@@ -33578,6 +33848,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("616f7228-7419-452f-93a6-db84e83242d5",
@@ -33667,6 +33938,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e41d667e-eba6-40c0-b03d-9f330828d802",
@@ -33766,6 +34038,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4bc0268b-f973-4b85-859b-a13747b5d9cb",
@@ -33907,6 +34180,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("423a5642-a2a1-448d-8d3c-76bdbb32074e",
@@ -33969,6 +34243,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("dd995fc8-98ca-4369-8de4-971ae2bd831c",
@@ -34039,6 +34314,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0fec1cd8-07ef-42e6-bdbf-f70bbcc92c61",
@@ -34127,6 +34403,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e020d8b7-db53-4f56-98e7-6241d5901863",
@@ -34224,6 +34501,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("05893cd8-4575-44f4-9d62-8d3bd114b81e",
@@ -34312,6 +34590,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c094557f-7e1a-4b2a-974a-0f6fd28c27c8",
@@ -34409,6 +34688,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("cc50eacf-4178-493a-84a1-44a12f4daa4b",
@@ -34470,6 +34750,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("692c2784-ef5c-4d76-8bcf-b5325e019143",
@@ -34549,6 +34830,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7cb5b047-b2aa-436c-87bd-b5ce7297c54a",
@@ -34628,6 +34910,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8cec7a2a-f4ff-446b-927b-370878bc8114",
@@ -34707,6 +34990,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("22c1d07b-9a04-43f6-91f8-d441324da10f",
@@ -34795,6 +35079,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c61583d7-d5fe-47c4-8d8f-46b6ec4c24af",
@@ -34892,6 +35177,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("12503ef4-92c8-4bd1-98e8-62897b327279",
@@ -34962,6 +35248,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("16097e6a-d104-47ca-b0af-e032b51d5ee6",
@@ -35032,6 +35319,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9127c539-cb9d-4b23-ba0f-2ac97c9563f9",
@@ -35129,6 +35417,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1cf88c1c-90fe-4b81-8163-a5347d480b22",
@@ -35208,6 +35497,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("618d1d72-9434-47f8-a299-805ab09cad46",
@@ -35296,6 +35586,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("d29170ef-782a-4bf7-8ea3-85c007fcb85c",
@@ -35375,6 +35666,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("84515d2b-559d-46ce-abd2-a6fdcbe94f8d",
@@ -35454,6 +35746,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1cbef7bf-5259-4796-b1d7-699e01198475",
@@ -35533,6 +35826,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("317b072f-7271-491e-9792-b22e4f6000d0",
@@ -35650,6 +35944,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f5a33eae-858c-4488-a3ec-43e75af9d2d6",
@@ -35758,6 +36053,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("0792e9e6-0a40-44ce-a80e-c11afa6fe0ad",
@@ -35914,6 +36210,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("eb8e7177-3cee-4780-852a-8eb032fc4a07",
@@ -36010,9 +36307,9 @@ if ( not_empty act and not_empty block )
   select one c_c related by containing_pe->C_C[R8001];
   select one ep_pkg related by containing_pe->EP_PKG[R8001];
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::CLASS, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::CLASS ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -36027,9 +36324,9 @@ if ( not_empty act and not_empty block )
 
   // search for EE key letters
   if not_empty c_c
-    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, originatingContainerID:c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   else
-    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+    ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::EE, descending:false, originatingContainerID:ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true , distance:0);
   end if;
   select any resultSet related by c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::EE ); 
   select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -36053,6 +36350,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4a41af94-bcc3-458c-b820-42500421a0d5",
@@ -36132,6 +36430,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("742e2b8b-ec6b-4e65-89fe-372c143763ee",
@@ -36211,6 +36510,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("da9703e7-7ae9-402e-81fb-8f0d5f123146",
@@ -36303,6 +36603,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6c3f1570-449f-4f38-be63-6fa106851f69",
@@ -36472,6 +36773,7 @@ return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("439b5db7-38f3-4846-a2c9-cf19a4603daf",
@@ -36533,6 +36835,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ebd29c19-3a3e-4b05-9baa-7ab6c03f426f",
@@ -36594,6 +36897,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("57060928-1cdf-425a-b7ca-ab13f0a0624f",
@@ -36691,6 +36995,7 @@ return param.a1_ruleid_name;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("482c0ef3-ce49-4605-b2ae-d0cb6f18760a",
@@ -36725,6 +37030,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("218db31c-0e43-49d2-b203-df2d2c9ef6fa",
@@ -36822,6 +37128,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f67b76d3-1556-413c-bcb9-91a9ddf7777d",
@@ -36901,6 +37208,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("45cc4e6d-12fc-4f90-ba27-1ce7153cb0d2",
@@ -36971,6 +37279,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f0c2ae3b-23c0-4b74-b6c0-068c935eef6d",
@@ -37059,6 +37368,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("26f54f82-acea-4a12-93ee-e9a27a99f1b5",
@@ -37129,6 +37439,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f247f8e9-4859-4f4d-8d5a-cda4e68cb012",
@@ -37235,6 +37546,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("22ff5a51-3710-4e5b-9a46-af39672fcd2b",
@@ -37341,6 +37653,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3286262b-5819-461d-931a-055be905f1bc",
@@ -37447,6 +37760,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b926ca79-13f9-414a-89a8-0a9e68bd0613",
@@ -37553,6 +37867,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("97880288-dac7-4e99-abf7-96f789d315aa",
@@ -37632,6 +37947,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9d90d806-40a0-490c-8183-46d25a449152",
@@ -37729,6 +38045,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("38f20b82-7976-4220-9a79-01d635c07180",
@@ -37826,6 +38143,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f2bd1d35-9c2e-4c8e-82fb-233784cc760a",
@@ -37923,6 +38241,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("9c991ad6-ebf3-4bb1-8c56-3e8a67cd2daa",
@@ -38020,6 +38339,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("3d0e31a5-dd6e-4162-8561-e6c2ac7209a7",
@@ -38117,6 +38437,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e5fb9f34-0854-4120-b221-af89b57b5585",
@@ -38214,6 +38535,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8b74dd73-86cc-4ea1-bab6-2c6c6aa61584",
@@ -38311,6 +38633,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8fe9e5a9-827f-4191-88df-8187112805d0",
@@ -38408,6 +38731,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("77ed7069-9dbb-413e-8893-f1a8efc68330",
@@ -38470,6 +38794,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("a2ac1404-da06-46df-b2d8-5b4be149edf8",
@@ -38531,6 +38856,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6205de7e-a7ea-40cc-a1f5-f256bb3b7586",
@@ -38592,6 +38918,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f995d82a-5d65-4820-a86a-c6036cc823f2",
@@ -38655,6 +38982,7 @@ return param.a1_ruleid_name;
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("94a4c751-2758-47ca-bc41-0eaea231226f",
@@ -38680,6 +39008,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("1217b1d9-8ed9-4df0-a877-3d401c0735aa",
@@ -38723,6 +39052,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("eb9ef3cd-fef6-4d65-9881-c49d364346e5",
@@ -38822,9 +39152,9 @@ if ( not_empty act )
     select one containing_c_c related by containing_pe->C_C[R8001];
     select one containing_ep_pkg related by containing_pe->EP_PKG[R8001];
     if not_empty containing_c_c
-      containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      containing_c_c.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, originatingContainerID:containing_c_c.Id, delegatingContainerID:GD::NULL_UNIQUE_ID(), collectGlobally:true, distance:0 );
     else
-      containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true );
+      containing_ep_pkg.collectVisibleElementsForName( name:"", type:ElementTypeConstants::PACKAGE, descending:false, originatingContainerID:containing_ep_pkg.Package_ID, delegatingPkgID:GD::NULL_UNIQUE_ID(), collectGlobally:true, distance:0 );
     end if;
     select any resultSet related by containing_c_c->PE_CRS[R8007] where ( selected.Name == "" and  selected.Type == ElementTypeConstants::PACKAGE ); 
     select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
@@ -38964,6 +39294,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("69c26b2c-47a2-4ac3-ad8b-c063ce8cb061",
@@ -39026,6 +39357,7 @@ return param.a6_current_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("7d974d44-a75a-4b24-9c95-539a7e14c71b",
@@ -39087,6 +39419,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("8ad4ab4f-ebed-48c9-9741-7626666bfb1e",
@@ -39112,6 +39445,7 @@ INSERT INTO S_SYNC
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("75a2de4a-768f-4b51-a81b-7ee00ee90cb2",

@@ -1,0 +1,47 @@
+render : "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light::Instance State Machine"
+
+properties :
+  viewport : x : 1620.0 y : 1161.0
+  zoom : 0.0
+
+shapes :
+  shape : Off
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light::Instance State Machine::Off"
+    bounds : x : 1908.0 y : 1368.0 width : 224.0 height : 96.0
+  shape : On
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light::Instance State Machine::On"
+    bounds : x : 1908.0 y : 1572.0 width : 240.0 height : 112.0
+
+connectors :
+  connector : Off____MO_IL1__switch_on
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light::Instance State Machine::Off::MO_IL1: switch_on"
+    polyline :
+      segment :
+        start : x : 1956.0 y : 1464.0
+        end :   x : 1956.0 y : 1572.0
+    anchors :
+      start :
+        point : x : 1952.0 y : 1472.0
+        shape : Off
+      end :
+        point : x : 1952.0 y : 1568.0
+        shape : On
+    texts :
+      text :
+        bounds : x : 1814.0 y : 1510.0 width : 145.0 height : 24.0 where : middle
+  connector : On____MO_IL2__switch_off
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Internal Light::Instance State Machine::On::MO_IL2: switch_off"
+    polyline :
+      segment :
+        start : x : 2088.0 y : 1572.0
+        end :   x : 2088.0 y : 1464.0
+    anchors :
+      start :
+        point : x : 2080.0 y : 1568.0
+        shape : On
+      end :
+        point : x : 2080.0 y : 1472.0
+        shape : Off
+    texts :
+      text :
+        bounds : x : 2092.0 y : 1517.0 width : 173.0 height : 24.0 where : middle

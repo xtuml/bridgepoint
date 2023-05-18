@@ -16,13 +16,17 @@ package org.xtuml.bp.io.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -30,12 +34,14 @@ import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
 import org.xtuml.bp.core.AsynchronousMessage_c;
+import org.xtuml.bp.core.AttributeReferenceInClass_c;
 import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.BaseAttribute_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
+import org.xtuml.bp.core.ClassIdentifierAttribute_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
-import org.xtuml.bp.core.CoreDataType_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
@@ -57,12 +63,14 @@ import org.xtuml.bp.core.ImportedProvisionInSatisfaction_c;
 import org.xtuml.bp.core.ImportedProvision_c;
 import org.xtuml.bp.core.ImportedReference_c;
 import org.xtuml.bp.core.ImportedRequirement_c;
+import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
 import org.xtuml.bp.core.Message_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
+import org.xtuml.bp.core.NewBaseAttribute_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
@@ -77,6 +85,8 @@ import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.ReferentialAttribute_c;
+import org.xtuml.bp.core.ReferredToIdentifierAttribute_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
@@ -95,7 +105,6 @@ import org.xtuml.bp.core.TimeSpan_c;
 import org.xtuml.bp.core.TimingMark_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
-import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Visibility_c;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
@@ -104,7 +113,7 @@ import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.sorter.Attribute_cSorter;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
@@ -403,8 +412,6 @@ public class ImportHelper
 			// InformalName field
 			String c_p_name = c_p.getInformalname();
 
-			// ensure that all Interfaces are loaded
-			PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
 			// get reachable interfaces
 			Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements(c_p);
 
@@ -446,8 +453,6 @@ public class ImportHelper
 			// InformalName field
 			String c_r_name = c_r.getInformalname();
 
-			// ensure that all Interfaces are loaded
-			PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
 			// get reachable interfaces
 			Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements(c_r);
 
@@ -494,16 +499,13 @@ public class ImportHelper
 
 		if (temporary_interface) {
 
-			// ensure that all Interfaces are loaded
-			PersistenceManager.ensureAllInstancesLoaded(c_i.getModelRoot(), Interface_c.class);
-
 			// get reachable Interfaces
 			Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(c_i));
 			List<Interface_c> elementList = new ArrayList<Interface_c>();
 			PackageableElement_c[] pes = null;
 			if (pkg != null) {
 				pkg.Clearscope();
-				pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, "", pkg.getPackage_id(),
+				pkg.Collectvisibleelementsforname(true, Gd_c.Null_unique_id(), false, 0, "", pkg.getPackage_id(),
 						Elementtypeconstants_c.INTERFACE);
 				class PETest implements ClassQueryInterface_c {
 					public boolean evaluate(Object candidate) {
@@ -574,8 +576,6 @@ public class ImportHelper
 				}
 			}
 
-			// ensure that all Components are loaded
-			PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
 			// get reachable components
 			Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements(cl_ic);
 
@@ -1437,9 +1437,6 @@ public class ImportHelper
             });
             modelRoot.setRoot(system);
         }
-        PersistenceManager.ensureAllChildInstancesLoaded(modelRoot.getRoot().getPersistableComponent(),
-                modelRoot,
-                Interface_c.class, true);
         
         Interface_c[] intfs = interfaceInstances.toArray(new Interface_c[interfaceInstances.size()]);
         
@@ -2477,9 +2474,14 @@ public class ImportHelper
 		InstanceList peList = root.getInstanceList(PackageableElement_c.class);
 		java.util.ListIterator<NonRootModelElement> it = peList.listIterator();
 		while (it.hasNext()) {
-			gis = new GlobalElementInSystem_c(root);
-			gis.relateAcrossR9100To((PackageableElement_c)it.next());
-			gis.relateAcrossR9100To(system);
+			final PackageableElement_c pe = (PackageableElement_c) it.next();
+			// only link PEs that are global datatypes
+			if (pe.getPackage_id().equals(IdAssigner.NULL_UUID) && pe.getComponent_id().equals(IdAssigner.NULL_UUID)
+					&& root.getInstanceList(DataType_c.class).get(pe.getElement_id()) != null) {
+				gis = new GlobalElementInSystem_c(root);
+				gis.relateAcrossR9100To(pe);
+				gis.relateAcrossR9100To(system);
+			}
 		}
 	  }
 	}
@@ -2560,38 +2562,6 @@ public class ImportHelper
 		}
 	}
 	
-	/** 
-	 * Older models had S_CDT proxies due to the old R18 association, now that
-	 * the proxy should be an S_DT lazy loading is broken.  This method enforces
-	 * the loading so that S_UDTs are properly hooked up.
-	 * 
-	 * @param loadedElements
-	 */
-	public void loadDataTypesFromCoreTypeProxy(List<NonRootModelElement> loadedElements) {
-		// for every S_CDT
-		for(NonRootModelElement element : loadedElements) {
-			if(element instanceof CoreDataType_c) {
-				// that is a proxy
-				if(element.isProxy()) {
-					// load the proxies file
-					element.loadProxy();
-				}
-			}
-		}
-		// in some cases the loading of the S_DTs will have already occurred but
-		// after the UDT is left as orphaned, here we scan for orphaned UDTs and
-		// call batchRelate after all S_DTs are guaranteed to be loaded
-		for(NonRootModelElement element : loadedElements) {
-			if(element instanceof UserDataType_c) {
-				DataType_c dt = DataType_c.getOneS_DTOnR18((UserDataType_c) element);
-				if(dt == null) {
-					element.batchRelate(element.getModelRoot(), true, true);
-				}
-			}
-		}
-		
-	}
-
 	public List<ExternalEntity_c> eesToUpgradeForIsRealized = new ArrayList<ExternalEntity_c>();
 
 	public void addEEToUpgradeForIsRealized(ExternalEntity_c ee) {
@@ -2701,6 +2671,70 @@ public class ImportHelper
 					}
 
 				});
+	}
+
+	public void resolveBaseAttributes(NonRootModelElement rootModelElement) {
+		// For all loaded referential attributes, attempt to navigate back to
+		// the original base attribute. If a cycle is discoved, this is a
+		// baseless referential and should be ignored.
+		Set<ReferentialAttribute_c> rattrs = Stream.of(rootModelElement).filter(ModelClass_c.class::isInstance)
+				.flatMap(obj -> Stream.of(ReferentialAttribute_c
+						.getManyO_RATTRsOnR106(Attribute_c.getManyO_ATTRsOnR102((ModelClass_c) obj))))
+				.collect(Collectors.toSet());
+		for (ReferentialAttribute_c rattr : rattrs) {
+			Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR106(new ReferentialAttribute_c[] { rattr });
+			final Set<Attribute_c> visitedAttrs = new HashSet<>(Set.of(attrs));
+			BaseAttribute_c battr = BaseAttribute_c.getOneO_BATTROnR113(rattr);
+			while (battr == null) {
+				// gather the next set of possible attributes
+				attrs = Attribute_c.getManyO_ATTRsOnR105(ClassIdentifierAttribute_c.getManyO_OIDAsOnR110(
+						ReferredToIdentifierAttribute_c.getManyO_RTIDAsOnR111(AttributeReferenceInClass_c
+								.getManyO_REFsOnR108(ReferentialAttribute_c.getManyO_RATTRsOnR106(attrs)))));
+				// check if any of these attributes have been visited
+				if (attrs.length == 0 || Stream.of(attrs).anyMatch(visitedAttrs::contains)) {
+					break;
+				}
+				visitedAttrs.addAll(Set.of(attrs));
+				// find a base attribute
+				battr = BaseAttribute_c.getOneO_BATTROnR106(attrs);
+			}
+			if (battr != null) {
+				rattr.relateAcrossR113To(battr);
+				final DataType_c sameAsBase = (DataType_c) rattr.getModelRoot().getInstanceList(DataType_c.class)
+						.getGlobal("ba5eda7a-def5-0000-0000-000000000007");
+				final Attribute_c attr = Attribute_c.getOneO_ATTROnR106(rattr);
+				attr.unrelateAcrossR114From(DataType_c.getOneS_DTOnR114(attr));
+				attr.relateAcrossR114To(sameAsBase);
+			}
+		}
+	}
+
+	public void createCurrentStateAttribute(NonRootModelElement rootElement) {
+		final ModelRoot modelRoot = rootElement.getModelRoot();
+		if (rootElement instanceof ModelClass_c) {
+			final ModelClass_c modelClass = (ModelClass_c) rootElement;
+			final InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR518(modelClass);
+			Attribute_c currentState = Attribute_c.getOneO_ATTROnR102(modelClass,
+					selected -> "current_state".equals(((Attribute_c) selected).getName()));
+			if (ism != null && currentState == null) {
+				currentState = new Attribute_c(modelRoot);
+				final BaseAttribute_c battr = new BaseAttribute_c(modelRoot);
+				battr.relateAcrossR106To(currentState);
+				final NewBaseAttribute_c nbattr = new NewBaseAttribute_c(modelRoot);
+				nbattr.relateAcrossR107To(battr);
+				currentState.setRoot_nam("current_state");
+				final DataType_c stateModelType = (DataType_c) modelRoot.getInstanceList(DataType_c.class)
+						.getGlobal("ba5eda7a-def5-0000-0000-000000000006");
+				currentState.relateAcrossR114To(stateModelType);
+				final Attribute_c[] attrs = Attribute_c.getManyO_ATTRsOnR102(modelClass);
+				if (attrs.length > 0) {
+					new Attribute_cSorter().sort(attrs);
+					attrs[attrs.length - 1].relateAcrossR103ToPrecedes(currentState);
+				}
+				currentState.relateAcrossR102To(modelClass);
+
+			}
+		}
 	}
 
 }
