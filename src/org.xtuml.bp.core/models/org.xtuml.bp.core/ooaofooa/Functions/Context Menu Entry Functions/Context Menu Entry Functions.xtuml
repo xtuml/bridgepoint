@@ -8681,7 +8681,13 @@ LAYOUT::setLayout(field_name:"part_class", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"part_class", field2:"formalize", inverse:true, comparison:"v_is_associative");
 USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_can_formalize");  // in case multiplicity changes...
 USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_showchoice");
-
+// careful! - neither selected if the dropdown was not presented.
+if (part_class == b_to_a_part)
+  use_a_class = true;
+end if;
+if (part_class == a_to_b_part)
+  use_b_class = true;
+end if;
 // Display, or present for selection, the identifier fields as appropriate - one/other or both.
 // If formalized, just augment the label field(s) to show selected identifier; do not present menu choice.
 // If formalize has just been de-selected (not yet saved) for a formalized association, hide these fields.
@@ -8689,7 +8695,7 @@ hidelabels = (is_formalized and not formalize);
 
 // Identifier in A class - if formalized, just display the chosen id
 formalizer = " id:  ";
-if (is_formalized  and use_a_class)
+if (is_formalized and use_a_class)
   formalizer = formalizer + a_formalizing_ident;
 end if; 
 a_id_label = USER::getLabel(label:a_class.Name + formalizer);
