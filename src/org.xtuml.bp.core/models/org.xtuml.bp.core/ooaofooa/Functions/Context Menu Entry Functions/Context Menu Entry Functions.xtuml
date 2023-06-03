@@ -8457,10 +8457,25 @@ a_label2 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label2", row_num:"3", width:"1", height:"1");
 USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparison:"");
 
+// initialize possible data values that may appear in dialogs
+// Note: all data appearing in any USER/LAYOUT EE invocation must be initialized - used or not!
+
+b_to_a_choice = "";        // this may be one of the participant classes, or, if reflexive, one of the role phrases.
+a_to_b_choice = "";
+a_formalizing_ident = "";  // this may be a formalizing identifier choice.
+b_formalizing_ident = "";
+use_a_class = false;       // this will indicate whether identifiers can be selected/displayed from this class.
+use_b_class = false;
+fchoice = "";
+formchoices[1] = "";  // declare and size the array in case it is needed
+formchoices[0] = ""; 
+part_class = "";      // this may be the name of a participant class chosen for simple formalization.
+
 // Is associative relationship? - some functional changes here: see issue #11699 comment history on why associative re-assignment is disabled.
 // A simple binary association may migrate to associative (linked) if an available class is selected to fulfill that role.
 // An associative (linked) can migrate to simple binary by unchecking - if not formalized.
 // Change of associative class is disallowed, pending graphics fix. - but do not allow if formalized.
+
 num_candidates = 1;  // decl - but see decrement for array sizing - zero-based vs. count
 valid_candidates = true;  // tentatively
 default_selection = 0;
@@ -8533,15 +8548,15 @@ LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1
 USER::dependsOn(field1:"is_associative", field2:"rel_num", inverse:false, comparison:"v_show_associative");
 
 // only if this an established associative relationship, label and display the associative class; otherwise it may be a dropdown selection
-assoc_label = "";
+label_text = "";
 if (not valid_candidates)
-  assoc_label = "Associative class: " + assoc_class_name;
+  label_text = "Associative class: " + assoc_class_name;
 else
-  assoc_label = "Select associative: ";
+  label_text = "Select associative: ";
 end if;
-assoc_label1 = USER::getLabel(label:assoc_label);
-LAYOUT::setLayout(field_name:"assoc_label1", row_num:"4", width:"2", height:"1");
-USER::dependsOn(field1:"assoc_label1", field2:"is_associative", inverse:false, comparison:"");
+label_text1 = USER::getLabel(label:label_text);
+LAYOUT::setLayout(field_name:"label_text1", row_num:"4", width:"2", height:"1");
+USER::dependsOn(field1:"label_text1", field2:"is_associative", inverse:false, comparison:"");
 
 // if appropriate, offer associative candidates only to simple association; see ''valid_cadidates'' logic above
 // do not offer reassign of associative class to established associative: - see issue #11699
@@ -8555,7 +8570,6 @@ for each associative_class in candidate_classes
   end if;
 end for;
 
-
 select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 
@@ -8563,10 +8577,15 @@ select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 can_formalize = true;
 if (empty a_idents and empty b_idents)
   can_formalize = false;
-end if;
-if (a_mult == "Many" and (b_mult == "Many" or is_symmetric))
+else
   if (not is_associative)
-    can_formalize = false;
+    if (a_mult == "Many" and (b_mult == "Many" or is_symmetric))
+      can_formalize = false;
+    end if;
+  else
+    if (empty a_idents or empty b_idents)
+      can_formalize = false;
+    end if;
   end if;
 end if;
 
@@ -8577,38 +8596,35 @@ LAYOUT::setLayout(field_name:"formalize", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"formalize", field2:"rel_num", inverse:false, comparison:"v_can_formalize");
 
 // Prepare to establish either possible identifiers for choice, or formalizing identifier(s).
-// Note: all data appearing in any USER/LAYOUT EE invocation must be initialized - used or not!
 
-a_num_options = cardinality a_idents;
-if (a_num_options < 1)
-  a_num_options = 1;
+num_options = cardinality a_idents;
+if (num_options < 1)
+  num_options = 1;
 end if;
-a_ident_options[a_num_options-1] = "";
-b_num_options = cardinality b_idents;
-if (b_num_options < 1)
-  b_num_options = 1;
+a_ident_options[num_options-1] = "";
+if (not is_reflexive)
+  num_options = cardinality b_idents;
+  if (num_options < 1)
+    num_options = 1;
+  end if;
 end if;
-b_ident_options[b_num_options-1] = "";
-
-b_to_a_part = "";
-a_to_b_part = "";
-a_formalizing_ident = "";
-b_formalizing_ident = "";
+b_ident_options[num_options-1] = "";
 
 if (can_formalize)
-  // Prepare possible formalizing participant (+ phrase) choices:
-  if (not_empty a_idents and (b_mult == "One" or (is_symmetric and a_mult == "One")))
-    b_to_a_part = a_class.Name;
-    if (is_reflexive and not is_symmetric)
-      b_to_a_part = b_phrase + " " + b_to_a_part;
+  // Prepare possible formalizing participant/phrase choices:
+  if (is_reflexive)
+    if (not is_symmetric)
+      b_to_a_choice = b_phrase;
+      a_to_b_choice = a_phrase;
     end if;
-  end if;
-  if ((not_empty b_idents and a_mult == "One") and not is_symmetric)
-    a_to_b_part = b_class.Name;
-    if (is_reflexive)
-      a_to_b_part = a_phrase + " " + a_to_b_part;
-    end if;
-  end if;  
+  else
+	  if (not_empty a_idents and (b_mult == "One" or (is_symmetric and a_mult == "One")))
+	    b_to_a_choice = a_class.Name;
+	  end if;
+	  if ((not_empty b_idents and a_mult == "One") and not is_symmetric)
+	    a_to_b_choice = b_class.Name;
+	  end if;
+  end if; 
   // Prepare identifier choices:
 	i = 0;
 	for each a_ident in a_idents
@@ -8631,99 +8647,122 @@ if (can_formalize)
 end if;
 
 // Non-associative formalization choices: either or both classes may present identifier choices.
-// if appropriate - can formalize - present choice of participant from which to choose identifier.
+// if appropriate (can formalize) - present choice of participant (or reflexive phrase) for which to choose identifier.
 
-use_a_class = false;
-use_b_class = false;
-form_label = "id of class: ";
-showchoice = formalize and not is_formalized;  // do not allow any class/id choices if formalized
-
-partclass = "";
-participants[1] = "";  // declare and size the array in case it is needed
-participants[0] = "";  
+label_text = "id of class: ";
+if (is_reflexive)
+  label_text = "phrase: ";
+end if;
+showchoice = formalize and not is_formalized;
 
 if (formalize)
-  if (not is_associative)
-	  if (is_formalized)  // add the formalizer to the label
-	    if (a_formalizing_ident != "")
-	      partclass = b_to_a_part;
-	      use_a_class = true;
-	    else
-	      partclass = a_to_b_part;
-	      use_b_class = true;
-	    end if;
-		  form_label = "using " + form_label + partclass;
-    else
-      form_label = "use " + form_label;
-      // Prepare for menu selection
-		  // Attempt to pick the better formalization choice.
-		  participants[1] = a_to_b_part;
-		  participants[0] = b_to_a_part;
-		  if (a_cond == "Unconditionally" and b_cond == "Conditionally")  // prefer the unconditional one
-		    participants[1] = b_to_a_part;
-		    participants[0] = a_to_b_part;
-		  end if;
+  if (is_formalized)
+    // if not associative, one of these must match; if associative, neither
+    if (a_formalizing_ident != "")
+      fchoice = b_to_a_choice;
+      use_a_class = true;
     end if;
+    if (b_formalizing_ident !="")
+      fchoice = a_to_b_choice;
+      use_b_class = true;
+    end if;
+	  label_text = "using " + label_text + fchoice;
   else
+    label_text = "use " + label_text;
+  end if;
+
+  if (is_associative)
     // associative: use identifiers from both participant classes
     use_a_class = true;
     use_b_class = true;
   end if;
+  if (is_symmetric)
+    use_a_class = true;
+    use_b_class = false;
+  else
+    // Prepare for menu selection (not displayed for symmetric case)
+    // Attempt to pick the better formalization choice.
+    formchoices[1] = a_to_b_choice;
+    formchoices[0] = b_to_a_choice;
+    if (a_cond == "Unconditionally" and b_cond == "Conditionally")  // prefer the unconditional one
+      formchoices[1] = b_to_a_choice;
+      formchoices[0] = a_to_b_choice;
+    end if;
+  end if;
 end if;
 
-// Display, or present for selection, the formalizing class for a simple (non-associative) if appropriate.
-part_class_label = USER::getLabel(label:form_label);
-LAYOUT::setLayout(field_name:"part_class_label", row_num:"5", width:"2", height:"1");
-USER::dependsOn(field1:"part_class_label", field2:"formalize", inverse:false, comparison:"");
-USER::dependsOn(field1:"part_class_label", field2:"formalize", inverse:true, comparison:"v_is_associative");
+// Display, or present for selection, the formalizing class/phrase for a simple (non-associative) if appropriate.
+choice_label = USER::getLabel(label:label_text);
+LAYOUT::setLayout(field_name:"choice_label", row_num:"5", width:"2", height:"1");
+USER::dependsOn(field1:"choice_label", field2:"formalize", inverse:false, comparison:"");
+USER::dependsOn(field1:"choice_label", field2:"formalize", inverse:true, comparison:"v_is_associative");
+USER::dependsOn(field1:"choice_label", field2:"formalize", inverse:true, comparison:"v_is_symmetric");
 
-part_class = USER::getDropdown(options:participants, prompt:"", default_selection:0, reload_options:true);
-LAYOUT::setLayout(field_name:"part_class", row_num:"5", width:"2", height:"1");
-USER::dependsOn(field1:"part_class", field2:"formalize", inverse:true, comparison:"v_is_associative");
-USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_can_formalize");  // in case multiplicity changes...
-USER::dependsOn(field1:"part_class", field2:"formalize", inverse:false, comparison:"v_showchoice");
+choice = USER::getDropdown(options:formchoices, prompt:"", default_selection:0, reload_options:true);
+LAYOUT::setLayout(field_name:"choice", row_num:"5", width:"2", height:"1");
+USER::dependsOn(field1:"choice", field2:"formalize", inverse:true, comparison:"v_is_associative");
+USER::dependsOn(field1:"choice", field2:"formalize", inverse:false, comparison:"v_can_formalize");  // in case multiplicity changes...
+USER::dependsOn(field1:"choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
+USER::dependsOn(field1:"choice", field2:"formalize", inverse:true, comparison:"v_is_symmetric");
+
 // careful! - neither selected if the dropdown was not presented.
-if (part_class != "")
-	if (part_class == b_to_a_part)
+// if reflexive, the choice is a phrase, not a class name!
+if (choice != "")
+	if (choice == b_to_a_choice)
 	  use_a_class = true;
+	  part_class = a_class.Name;
 	else
 	  use_b_class = true;
+	  part_class = b_class.Name;
 	end if;
 end if;
 // Display, or present for selection, the identifier fields as appropriate - one/other or both.
 // If formalized, just augment the label field(s) to show selected identifier; do not present menu choice.
-// If formalize has just been de-selected (not yet saved) for a formalized association, hide these fields.
+
+// Note: if formalize has just been de-selected (not yet saved) for a formalized association, temporarily hide these fields.
 hidelabels = (is_formalized and not formalize);
 
 // Identifier in A class - if formalized, just display the chosen id
-formalizer = " id:  ";
-if (is_formalized and use_a_class)
-  formalizer = formalizer + a_formalizing_ident;
-end if; 
-a_id_label = USER::getLabel(label:a_class.Name + formalizer);
+label_text = "";
+if (is_reflexive and not is_symmetric)  // show phrases
+  label_text = "id for:  " + b_to_a_choice;
+else
+  label_text = a_class.Name + "  id:  ";
+end if;
+if (is_formalized)
+  label_text = label_text + "  " + a_formalizing_ident;
+end if;
+a_id_label = USER::getLabel(label:label_text);
 LAYOUT::setLayout(field_name:"a_id_label", row_num:"6", width:"2", height:"1");
 USER::dependsOn(field1:"a_id_label", field2:"formalize", inverse:false, comparison:"v_use_a_class");
 USER::dependsOn(field1:"a_id_label", field2:"formalize", inverse:true, comparison:"v_hidelabels");
 
-a_id_choice = USER::getDropdown(options:a_ident_options, prompt:"", default_selection:0, reload_options:false);
+a_id_choice = USER::getDropdown(options:a_ident_options, prompt:"", default_selection:0, reload_options:true);
 LAYOUT::setLayout(field_name:"a_id_choice", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_id_choice", field2:"formalize", inverse:false, comparison:"v_use_a_class");
-USER::dependsOn(field1:"a_id_choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
+USER::dependsOn(field1:"a_id_choice", field2:"formalize", inverse:true, comparison:"v_is_formalized");
 
 // Identifier in B class - if formalized, just display the chosen id
-formalizer = " id:  ";
-if (is_formalized and use_b_class)
-  formalizer = formalizer + b_formalizing_ident;
-end if; 
-b_id_label = USER::getLabel(label:b_class.Name + formalizer);
+label_text = "";
+if (is_reflexive and not is_symmetric)
+  label_text = "id for:  " + a_to_b_choice;
+else
+  label_text = b_class.Name + "  id:  ";
+end if;
+if (is_formalized)
+  label_text = label_text + "  " + b_formalizing_ident;
+end if;
+b_id_label = USER::getLabel(label:label_text);
 LAYOUT::setLayout(field_name:"b_id_label", row_num:"6", width:"2", height:"1");
 USER::dependsOn(field1:"b_id_label", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 USER::dependsOn(field1:"b_id_label", field2:"formalize", inverse:true, comparison:"v_hidelabels");
+USER::dependsOn(field1:"b_id_label", field2:"formalize", inverse:true, comparison:"v_is_symmetric");
 
-b_id_choice = USER::getDropdown(options:b_ident_options, prompt:"", default_selection:0, reload_options:false);
+b_id_choice = USER::getDropdown(options:b_ident_options, prompt:"", default_selection:0, reload_options:true);
 LAYOUT::setLayout(field_name:"b_id_choice", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:false, comparison:"v_use_b_class");
-USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
+USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:true, comparison:"v_is_formalized");
+USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:true, comparison:"v_is_symmetric");
 
 // avoid passing meaningless data to edit (do this here to bypass wizardry)
 if (not formalize)
