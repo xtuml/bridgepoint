@@ -22,28 +22,8 @@
 .assign attr_skip = false
   .if(class_name == "GenericPackageAssignEventOnSM_TXNWizardPage1" )
      .assign attr_skip = true
-  .elif (class_name  == "BinaryFormalizeOnR_RELWizard" )
-     .assign attr_skip = true
-  .elif (class_name  == "BinaryFormalizeOnR_RELWizardPage1" )
-     .assign attr_skip = true
-  .elif (class_name  == "BinaryFormalizeOnR_RELWizardPage2" )
-     .assign attr_skip = true
   .end if
 .end function 
-//
-.function is_linked_association_wizard_page
-.param string class_name
-.assign attr_islinked = false
-  .if(class_name == "LinkedFormalizeOnR_RELWizardPage1" )
-     .assign attr_islinked = true
-  .elif (class_name  == "LinkedFormalizeOnR_ASSRWizardPage1" )
-     .assign attr_islinked = true
-  .elif (class_name  == "LinkedFormalizeOnR_RELWizard" )
-     .assign attr_islinked = true
-  .elif (class_name  == "LinkedFormalizeOnR_ASSRWizard" )
-     .assign attr_islinked = true
-  .end if
-.end function
 .//
 .function get_page_class_name
   .param inst_ref wfl
@@ -114,7 +94,6 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   IStructuredSelection selection;
   
   // widgets on this page (public for unit tests)
-  .invoke isLinkedPage = is_linked_association_wizard_page(page_class_name)
   .select many fields related by step->W_FLD[R2009]
   .for each field in fields
     .if (field.Type == "Text")
@@ -127,12 +106,6 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   public Combo $cr{field.Instance_Handle}Combo;
   public Label $cr{field.Instance_Handle}Label;
   public ControlDecoration $cr{field.Instance_Handle}Error;
-      .if (isLinkedPage.islinked)
-  public String $cr{field.Instance_Handle}TextPhrase = "";
-  public Text $cr{field.Instance_Handle}Prefix;    
-  public Label $cr{field.Instance_Handle}PrefixLabel;
-  public Label $cr{field.Instance_Handle}Phrase;
-      .end if
     .elif (field.Type == "Toggle")
   public Label $cr{field.Instance_Handle}Label;
   public Button $cr{field.Instance_Handle}Toggle;
@@ -531,18 +504,6 @@ ${result.body}
     ${current_row}.setLayout(rowLayout);
     rows.add(${current_row});
       .end if
-      .if (isLinkedPage.islinked)
-    $cr{field.Instance_Handle}PrefixLabel = new Label (${current_row}, SWT.CENTER);
-    $cr{field.Instance_Handle}PrefixLabel.setText("Prefix");    
-    $cr{field.Instance_Handle}PrefixLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
-    $cr{field.Instance_Handle}Prefix = new Text(${current_row}, SWT.BORDER);
-    $cr{field.Instance_Handle}Prefix.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
-    $cr{field.Instance_Handle}Prefix.addModifyListener(new ModifyListener() {
-      public void modifyText(ModifyEvent arg0) {
-        ((${wizard_class_name}) getWizard()).v_${field.Instance_Handle}Prefix = ${page_class_name}.this.$cr{field.Instance_Handle}Prefix.getText();
-      }
-    });
-      .end if
 .select one cflx related by field->W_CFL[R2014]
 .if (field.Type == "Text")
   .if (not_empty cflx)
@@ -567,11 +528,7 @@ ${result.body}
         .else
     $cr{field.Instance_Handle}Label = new Label (${current_row}, SWT.CENTER);
     $cr{field.Instance_Handle}Label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
-  .if (isLinkedPage.islinked)
-      $cr{field.Instance_Handle}Label.setText("goes with identifier");            
-    .else
-      $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");            
-    .end if
+    $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
         .end if
       .end if
     $cr{field.Instance_Handle}Combo = new Combo(${current_row}, SWT.BORDER | SWT.READ_ONLY);
@@ -601,11 +558,6 @@ ${result.body}
     $cr{field.Instance_Handle}Check = new Button(${current_row}, SWT.CHECK);
     $cr{field.Instance_Handle}Check.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
     .end if
-    .if (isLinkedPage.islinked)
-        $cr{field.Instance_Handle}Phrase = new Label (${current_row}, SWT.CENTER);
-        $cr{field.Instance_Handle}Phrase.setText("");
-        $cr{field.Instance_Handle}Phrase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, ${field_width}, ${field_height}));
-      .end if
       .assign prev_field = field
     .end for
 
@@ -620,11 +572,7 @@ ${result.body}
         .else
           .select one obj related by field->O_OBJ[R2011]
           .if (not_empty obj)
-            .if (isLinkedPage.islinked)
-    $cr{field.Instance_Handle}Phrase.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
-            .else     
     $cr{field.Instance_Handle}Label.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
-            .end if
           .else
     $cr{field.Instance_Handle}Label.setText("${cflx.Label}");
           .end if
