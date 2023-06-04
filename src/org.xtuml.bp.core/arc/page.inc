@@ -420,14 +420,6 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   .end for
   .invoke result = wfl_blck_xlate(outer_block)
 ${result.body}
-    .if ((page_class_name == "LinkedFormalizeOnR_RELWizardPage1") or (page_class_name == "LinkedFormalizeOnR_ASSRWizardPage1"))
-        ClassAsAssociatedOneSide_c v_one_side = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(v_a_rel);
-    ClassAsAssociatedOtherSide_c v_oth_side = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(v_a_rel);
-    if ( !v_one_side.getTxt_phrs().equals(""))
-      One_idTextPhrase = " for the '" + v_one_side.getTxt_phrs() + "' side";
-    if ( !v_oth_side.getTxt_phrs().equals(""))
-      Oth_idTextPhrase = " for the '" + v_oth_side.getTxt_phrs() + "' side";  
-    .end if
   .invoke clear_workspace()
 
   // update dependent fields
