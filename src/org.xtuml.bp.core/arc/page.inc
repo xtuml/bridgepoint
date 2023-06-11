@@ -410,10 +410,8 @@ public class ${page_class_name} extends PtWizardPage implements Listener
           .select any v_par related by v_brv->V_PAR[R810] where (selected.Name == "label")
           .select any v_val related by v_par->V_VAL[R800]
           .assign load_ui = ""
-.//          .assign load_ui = load_ui + "if (initialLoad) {\n"
           .assign load_ui = load_ui + "$cr{field.Instance_Handle}Label.setText(${v_val.buffer});\n"
           .assign load_ui = load_ui + "v_$r{field.Instance_Handle} = $cr{field.Instance_Handle}Label.getText();\n"
-.//          .assign load_ui = load_ui + "}\n"
           .assign field.buffer = "// ${statement.buffer}" + load_ui
         .end if
       .end if
