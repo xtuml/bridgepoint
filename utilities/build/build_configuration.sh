@@ -8,10 +8,10 @@ fi
 
 if [ -z $bp_install_dir ]
 then
-  # for mac use this install dir
-  # export bp_install_dir=~/xtuml/BridgePoint.app/Contents/Eclipse/
+  # for mac us this install dir
+  export bp_install_dir=~/xtuml/BridgePoint.app/Contents/Eclipse/
   # for linux uncomment this line and comment the mac version
-  export bp_install_dir=~/xtuml/BridgePoint
+  #export bp_install_dir=~/xtuml/BridgePoint
 fi
 
 if [ -z $WORKSPACE ]
