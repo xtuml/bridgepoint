@@ -8,7 +8,6 @@ AssignClassOnO_IOBJWizardPage2.java
 AssignEventOnSM_TXNAction.java
 AssignEventOnSM_TXNWizard.java
 AssignEventOnSM_TXNWizardPage1.java
-BinaryFormalizeOnR_RELAction.java
 CantHappenEventOnSM_STATEAction.java
 CantHappenEventOnSM_STATEWizard.java
 CantHappenEventOnSM_STATEWizardPage1.java
@@ -25,18 +24,6 @@ IgnoreEventOnSM_STATEWizardPage1.java
 IgnoreInStateOnSM_EVTAction.java
 IgnoreInStateOnSM_EVTWizard.java
 IgnoreInStateOnSM_EVTWizardPage1.java
-InheritanceFormalizeOnR_RELAction.java
-InheritanceFormalizeOnR_RELWizard.java
-InheritanceFormalizeOnR_RELWizardPage1.java
-InheritanceFormalizeOnR_SUBAction.java
-InheritanceFormalizeOnR_SUBWizard.java
-InheritanceFormalizeOnR_SUBWizardPage1.java
-LinkedFormalizeOnR_ASSRAction.java
-LinkedFormalizeOnR_ASSRWizard.java
-LinkedFormalizeOnR_ASSRWizardPage1.java
-LinkedFormalizeOnR_RELAction.java
-LinkedFormalizeOnR_RELWizard.java
-LinkedFormalizeOnR_RELWizardPage1.java
 MoveDownOnO_ATTRAction.java
 MoveUpOnO_ATTRAction.java
 MoveDownOnCNST_LSCAction.java
@@ -66,9 +53,6 @@ BaseAndRefSplitOnO_ATTRAction.java
 ReferentialSplitOnO_ATTRAction.java
 ReferentialSplitOnO_ATTRWizard.java
 ReferentialSplitOnO_ATTRWizardPage1.java
-UnformalizeOnR_ASSRAction.java
-UnformalizeOnR_RELAction.java
-UnformalizeOnR_SUBAction.java
 NewArgumentOnMSG_MAction.java
 NewAttributeOnSQ_CIPAction.java
 ClassFormalizeOnSQ_CP*
