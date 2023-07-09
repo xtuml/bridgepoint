@@ -1,0 +1,48 @@
+= Analysis of Inconsistent Event Displays
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+Customer finds the display of a polymorphic state model event and a
+non-polymorphic instance event to be too inconsistent to be easily understood.
+A more detailed description is given in the customer supplied document attached
+to issue <<dr-1, 12504>>.
+
+== 2 Introduction and Background
+
+When polymorphic events were added to BridgePoint, a design decision was made to
+make the labeling distinct from the non-polymorphic events. This design
+decision is brought into question by this user request.
+
+== 3 Requirements
+
+== 4 Analysis
+
+This section is only required if there is no preceding analysis note. If present
+it sets out a brief analysis of the problem to be resolved by this design note.
+
+
+== 5 Work Required
+
+== 6 Acceptance Test
+
+In this section, list the tests that need to be performed in order to
+verify that all the requirements are satisfied.
+
+
+
+== 7 Document References
+
+In this section, list all the documents that the reader may need to refer to.
+Give the full path to reference a file.
+
+. [[dr-1]] https://support.onefact.net/issues/12504[12504 - Display of local and polymorphic events on a state chart is inconstent]
+. [[dr-2]] ...
+. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
