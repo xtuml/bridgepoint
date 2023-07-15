@@ -1,0 +1,293 @@
+render : "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine"
+
+properties :
+  viewport : x : 1358.0 y : 1116.0
+  zoom : 0.0
+
+shapes :
+  shape : OutputPowerStableandOFF
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and OFF"
+    bounds : x : 1896.0 y : 1296.0 width : 240.0 height : 176.0
+  shape : ReducingOutputPower
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Reducing Output Power"
+    bounds : x : 1644.0 y : 1488.0 width : 256.0 height : 176.0
+  shape : RaisingOutputPower
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Raising Output Power"
+    bounds : x : 2124.0 y : 1488.0 width : 256.0 height : 176.0
+  shape : OutputPowerStableandON
+    render : state "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and ON"
+    bounds : x : 1884.0 y : 1716.0 width : 256.0 height : 192.0
+
+connectors :
+  connector : OutputPowerStableandOFF____MO_MT2__decrease_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and OFF::MO_MT2: decrease_power"
+    polyline :
+      segment :
+        start : x : 1896.0 y : 1392.0
+        end :   x : 1692.0 y : 1392.0
+      segment :
+        start : x : 1692.0 y : 1392.0
+        end :   x : 1692.0 y : 1488.0
+    anchors :
+      start :
+        point : x : 1888.0 y : 1392.0
+        shape : OutputPowerStableandOFF
+      end :
+        point : x : 1696.0 y : 1488.0
+        shape : ReducingOutputPower
+    texts :
+      text :
+        bounds : x : 1572.0 y : 1364.0 width : 290.0 height : 24.0 where : middle
+  connector : OutputPowerStableandOFF____MO_MT1__increase_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and OFF::MO_MT1: increase_power"
+    polyline :
+      segment :
+        start : x : 2136.0 y : 1392.0
+        end :   x : 2328.0 y : 1392.0
+      segment :
+        start : x : 2328.0 y : 1392.0
+        end :   x : 2328.0 y : 1488.0
+    anchors :
+      start :
+        point : x : 2128.0 y : 1392.0
+        shape : OutputPowerStableandOFF
+      end :
+        point : x : 2320.0 y : 1488.0
+        shape : RaisingOutputPower
+    texts :
+      text :
+        bounds : x : 2155.0 y : 1358.0 width : 262.0 height : 24.0 where : middle
+  connector : ReducingOutputPower____MO_MT1__increase_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Reducing Output Power::MO_MT1: increase_power"
+    polyline :
+      segment :
+        start : x : 1900.0 y : 1536.0
+        end :   x : 2124.0 y : 1536.0
+    anchors :
+      start :
+        point : x : 1904.0 y : 1536.0
+        shape : ReducingOutputPower
+      end :
+        point : x : 2112.0 y : 1536.0
+        shape : RaisingOutputPower
+    texts :
+      text :
+        bounds : x : 1913.0 y : 1494.0 width : 213.0 height : 24.0 where : middle
+  connector : RaisingOutputPower____MO_MT2__decrease_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Raising Output Power::MO_MT2: decrease_power"
+    polyline :
+      segment :
+        start : x : 2124.0 y : 1632.0
+        end :   x : 1900.0 y : 1632.0
+    anchors :
+      start :
+        point : x : 2112.0 y : 1632.0
+        shape : RaisingOutputPower
+      end :
+        point : x : 1904.0 y : 1632.0
+        shape : ReducingOutputPower
+    texts :
+      text :
+        bounds : x : 1913.0 y : 1589.0 width : 213.0 height : 24.0 where : middle
+  connector : ReducingOutputPower____MO_MT3__power_on
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Reducing Output Power::MO_MT3: power_on"
+    polyline :
+      segment :
+        start : x : 1692.0 y : 1664.0
+        end :   x : 1692.0 y : 1812.0
+      segment :
+        start : x : 1692.0 y : 1812.0
+        end :   x : 1884.0 y : 1812.0
+    anchors :
+      start :
+        point : x : 1696.0 y : 1664.0
+        shape : ReducingOutputPower
+      end :
+        point : x : 1872.0 y : 1808.0
+        shape : OutputPowerStableandON
+    texts :
+      text :
+        bounds : x : 1648.0 y : 1826.0 width : 182.0 height : 24.0 where : middle
+  connector : ReducingOutputPower____MO_MT4__power_off
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Reducing Output Power::MO_MT4: power_off"
+    polyline :
+      segment :
+        start : x : 1788.0 y : 1488.0
+        end :   x : 1788.0 y : 1440.0
+      segment :
+        start : x : 1788.0 y : 1440.0
+        end :   x : 1896.0 y : 1440.0
+    anchors :
+      start :
+        point : x : 1792.0 y : 1488.0
+        shape : ReducingOutputPower
+      end :
+        point : x : 1888.0 y : 1440.0
+        shape : OutputPowerStableandOFF
+    texts :
+      text :
+        bounds : x : 1706.0 y : 1410.0 width : 139.0 height : 24.0 where : middle
+  connector : RaisingOutputPower____MO_MT4__power_off
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Raising Output Power::MO_MT4: power_off"
+    polyline :
+      segment :
+        start : x : 2220.0 y : 1488.0
+        end :   x : 2220.0 y : 1440.0
+      segment :
+        start : x : 2220.0 y : 1440.0
+        end :   x : 2136.0 y : 1440.0
+    anchors :
+      start :
+        point : x : 2208.0 y : 1488.0
+        shape : RaisingOutputPower
+      end :
+        point : x : 2128.0 y : 1440.0
+        shape : OutputPowerStableandOFF
+    texts :
+      text :
+        bounds : x : 2152.0 y : 1409.0 width : 151.0 height : 24.0 where : middle
+  connector : OutputPowerStableandON____MO_MT2__decrease_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and ON::MO_MT2: decrease_power"
+    polyline :
+      segment :
+        start : x : 1884.0 y : 1764.0
+        end :   x : 1788.0 y : 1764.0
+      segment :
+        start : x : 1788.0 y : 1764.0
+        end :   x : 1788.0 y : 1664.0
+    anchors :
+      start :
+        point : x : 1872.0 y : 1760.0
+        shape : OutputPowerStableandON
+      end :
+        point : x : 1792.0 y : 1664.0
+        shape : ReducingOutputPower
+    texts :
+      text :
+        bounds : x : 1795.0 y : 1685.0 width : 260.0 height : 24.0 where : middle
+  connector : OutputPowerStableandON____MO_MT1__increase_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and ON::MO_MT1: increase_power"
+    polyline :
+      segment :
+        start : x : 2140.0 y : 1764.0
+        end :   x : 2232.0 y : 1764.0
+      segment :
+        start : x : 2232.0 y : 1764.0
+        end :   x : 2232.0 y : 1664.0
+    anchors :
+      start :
+        point : x : 2128.0 y : 1760.0
+        shape : OutputPowerStableandON
+      end :
+        point : x : 2224.0 y : 1664.0
+        shape : RaisingOutputPower
+    texts :
+      text :
+        bounds : x : 1997.0 y : 1665.0 width : 205.0 height : 24.0 where : middle
+  connector : RaisingOutputPower____MO_MT3__power_on
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Raising Output Power::MO_MT3: power_on"
+    polyline :
+      segment :
+        start : x : 2328.0 y : 1664.0
+        end :   x : 2328.0 y : 1812.0
+      segment :
+        start : x : 2328.0 y : 1812.0
+        end :   x : 2140.0 y : 1812.0
+    anchors :
+      start :
+        point : x : 2320.0 y : 1664.0
+        shape : RaisingOutputPower
+      end :
+        point : x : 2128.0 y : 1808.0
+        shape : OutputPowerStableandON
+    texts :
+      text :
+        bounds : x : 2192.0 y : 1820.0 width : 161.0 height : 24.0 where : middle
+  connector : OutputPowerStableandON____MO_MT4__power_off
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and ON::MO_MT4: power_off"
+    polyline :
+      segment :
+        start : x : 1884.0 y : 1860.0
+        end :   x : 1404.0 y : 1860.0
+      segment :
+        start : x : 1404.0 y : 1860.0
+        end :   x : 1404.0 y : 1344.0
+      segment :
+        start : x : 1404.0 y : 1344.0
+        end :   x : 1896.0 y : 1344.0
+    anchors :
+      start :
+        point : x : 1872.0 y : 1856.0
+        shape : OutputPowerStableandON
+      end :
+        point : x : 1888.0 y : 1344.0
+        shape : OutputPowerStableandOFF
+    texts :
+      text :
+        bounds : x : 1688.0 y : 1313.0 width : 176.0 height : 24.0 where : middle
+  connector : OutputPowerStableandOFF____MO_MT3__power_on
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Output Power Stable and OFF::MO_MT3: power_on"
+    polyline :
+      segment :
+        start : x : 2136.0 y : 1344.0
+        end :   x : 2592.0 y : 1344.0
+      segment :
+        start : x : 2592.0 y : 1344.0
+        end :   x : 2592.0 y : 1860.0
+      segment :
+        start : x : 2592.0 y : 1860.0
+        end :   x : 2140.0 y : 1860.0
+    anchors :
+      start :
+        point : x : 2128.0 y : 1344.0
+        shape : OutputPowerStableandOFF
+      end :
+        point : x : 2128.0 y : 1856.0
+        shape : OutputPowerStableandON
+    texts :
+      text :
+        bounds : x : 2168.0 y : 1862.0 width : 191.0 height : 24.0 where : middle
+  connector : ReducingOutputPower____MO_MT2__decrease_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Reducing Output Power::MO_MT2: decrease_power"
+    polyline :
+      segment :
+        start : x : 1644.0 y : 1524.0
+        end :   x : 1596.0 y : 1524.0
+      segment :
+        start : x : 1596.0 y : 1524.0
+        end :   x : 1596.0 y : 1632.0
+      segment :
+        start : x : 1596.0 y : 1632.0
+        end :   x : 1644.0 y : 1632.0
+    anchors :
+      start :
+        point : x : 1648.0 y : 1520.0
+        shape : ReducingOutputPower
+      end :
+        point : x : 1648.0 y : 1632.0
+        shape : ReducingOutputPower
+    texts :
+      text :
+        bounds : x : 1442.0 y : 1681.0 width : 252.0 height : 24.0 where : middle
+  connector : RaisingOutputPower____MO_MT1__increase_power
+    render : transition "MicrowaveOven::components::MicrowaveOven::Microwave Oven::Magnetron Tube::Instance State Machine::Raising Output Power::MO_MT1: increase_power"
+    polyline :
+      segment :
+        start : x : 2380.0 y : 1524.0
+        end :   x : 2436.0 y : 1524.0
+      segment :
+        start : x : 2436.0 y : 1524.0
+        end :   x : 2436.0 y : 1632.0
+      segment :
+        start : x : 2436.0 y : 1632.0
+        end :   x : 2380.0 y : 1632.0
+    anchors :
+      start :
+        point : x : 2368.0 y : 1520.0
+        shape : RaisingOutputPower
+      end :
+        point : x : 2368.0 y : 1632.0
+        shape : RaisingOutputPower
+    texts :
+      text :
+        bounds : x : 2369.0 y : 1679.0 width : 197.0 height : 24.0 where : middle

@@ -913,8 +913,7 @@ public class TransactionManager {
 					|| (buildJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD)
 							|| buildJob.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
 							|| buildJob.belongsTo("System Data Type Upgrade") //$NON-NLS-1$
-							|| buildJob.belongsTo(FAMILY_TRANSACTION)
-							|| buildJob.belongsTo(IntegrityCheckScheduler.INTEGRITY_ISSUE_JOB_FAMILY)))) {
+							|| buildJob.belongsTo(FAMILY_TRANSACTION)))) {
 				return;
 			}
 

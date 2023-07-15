@@ -42,6 +42,7 @@ delete object instance self;
 	1,
 	'',
 	"802d3dd1-b7d0-455a-8bd0-e2e2c988eb42",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("802d3dd1-b7d0-455a-8bd0-e2e2c988eb42",
@@ -57,6 +58,7 @@ Translate: native',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -76,6 +78,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"ad61a63e-afc7-4e27-8ca6-119c7c6e7350",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("473f938e-4109-4818-b6ae-4e7213f0fc38",
@@ -95,6 +98,7 @@ package.initialize();',
 	1,
 	'',
 	"deaf82a1-9fd7-4833-aeb5-489e1f30c247",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("17fcd3bd-c02c-45df-bef3-b5b5a8487e15",
@@ -129,6 +133,7 @@ end if;',
 	1,
 	'',
 	"473f938e-4109-4818-b6ae-4e7213f0fc38",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0b0e43be-7b0e-4507-a732-76cbd17492f2",
@@ -151,6 +156,7 @@ return cardinality pckgs;',
 	1,
 	'',
 	"17fcd3bd-c02c-45df-bef3-b5b5a8487e15",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("93374f2a-807c-4d2a-8291-5aa7bba5d203",
@@ -175,6 +181,7 @@ return id;',
 	1,
 	'',
 	"982e157c-e0f7-4714-975e-104cf2bc957b",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("9b87df72-0e57-49d3-841c-b0035f18d1d5",
@@ -209,7 +216,8 @@ for each pkg in pkgs
                     descending: true,
                         originatingContainerID: param.originatingContainerID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:false,
+                                                         distance: param.distance + 1);
     end if;
   end if;
 end for;
@@ -224,7 +232,8 @@ if not param.descending and self.useGlobals
                                              descending: param.descending,
                         originatingContainerID:param.originatingContainerID,
                                   delegatingPkgID:param.delegatingContainerID,
-                                                         collectGlobally:false);
+                                                         collectGlobally:false,
+                                                         distance: -1);
   end for;
 end if;
 if param.type == ElementTypeConstants::PACKAGE
@@ -235,10 +244,12 @@ if param.type == ElementTypeConstants::PACKAGE
       if(not_empty pe)
         if(not_empty originatingPackage)
           create object instance visibility of PE_VIS;
+          visibility.Distance = param.distance;
           relate pe to originatingPackage across R8002 using visibility;
           relate visibility to resultSet across R8006;
         elif not_empty originatingComp
           create object instance visibility of PE_CVS;
+          visibility.Distance = param.distance;
           relate pe to originatingComp across R8004 using visibility;
           relate visibility to compResSet across R8008;            
         end if;
@@ -256,7 +267,8 @@ if param.descending == false and param.collectGlobally and
       system.collectVisibleElementsForName(name:param.name, descending: true,
         type:param.type, originatingContainerID: param.originatingContainerID,
                                     delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:false,
+                                                         distance: param.distance + 1);
     end if;
   end for;
 end if;
@@ -264,6 +276,7 @@ end if;
 	1,
 	'',
 	"93374f2a-807c-4d2a-8291-5aa7bba5d203",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c5c79983-fde9-4903-8c14-100da7c996e0",
@@ -326,6 +339,15 @@ INSERT INTO O_TPARM
 	'',
 	"ecaafb4d-1480-455a-9eaf-1b41de913c35",
 	'');
+INSERT INTO O_TPARM
+	VALUES ("3ac04868-f56d-4411-8b01-bf25064bf740",
+	"e2c6428d-7d15-43f9-b824-8f3cb4606493",
+	'distance',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"ad2f6349-b2c6-454d-a605-168b9339a757",
+	'');
 INSERT INTO O_TFR
 	VALUES ("8a249d0d-64d8-4b03-bd4b-92d4e39587b4",
 	"5735d0f8-e286-4832-975e-04887e18a036",
@@ -343,6 +365,7 @@ return result;',
 	1,
 	'',
 	"e2c6428d-7d15-43f9-b824-8f3cb4606493",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("69f5b6f6-b512-4c67-8d8e-5abd2e4e9264",
@@ -382,6 +405,7 @@ return GD::NULL_UNIQUE_ID();
 	1,
 	'',
 	"8a249d0d-64d8-4b03-bd4b-92d4e39587b4",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d9113039-dee2-458e-b36a-9754ac8ce150",
@@ -412,6 +436,7 @@ end for;
 	1,
 	'',
 	"bff3e6c9-8f5d-4d7d-9520-ceb5b111569d",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e1a9bfa1-40ab-491e-adbc-6fb2c4527f61",
@@ -460,6 +485,7 @@ return count;
 	1,
 	'',
 	"f806d992-50d4-4c47-b377-67f0dd6ff70d",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("db03a722-9abe-43e5-ad13-bb2796cf75a9",
@@ -487,6 +513,7 @@ return GD::NULL_INSTANCE();
 	1,
 	'',
 	"840582e7-bd31-466e-aa90-6e9902468c64",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("46695358-f4a2-4393-8067-ebcf833c4459",

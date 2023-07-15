@@ -164,7 +164,6 @@ public class ParserAllActivityModifier implements IAllActivityModifier {
 				mr = m_parent.getModelRoot();
 			else
 				mr = m_root;
-			PersistableModelComponent.ensureDataTypesAvailable(mr);
 			if (disposeBeforeParse) {
 				// Dispose existing data before starting the parse
 				disposeAllBodies(mr);

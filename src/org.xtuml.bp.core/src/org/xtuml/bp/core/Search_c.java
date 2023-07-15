@@ -314,8 +314,6 @@ public class Search_c {
 		declarationElementsInScope.clear();
 		Ooaofooa[] instances = Ooaofooa.getInstances();
 		if (scope == Searchscope_c.Universe) {
-			try {
-				CoreUtil.loadWorkspace(progressMonitor);
 				for (int i = 0; i < instances.length; i++) {
 					List<Class<?>> classes = ActionLanguageDescriptionUtil
 							.getClassesSupportingActionLanguage();
@@ -360,9 +358,6 @@ public class Search_c {
 						}
 					}
 				}
-			} catch (CoreException e1) {
-				CorePlugin.logError("Unable to load workspace for search.", e1);
-			}
 		} else if (scope == Searchscope_c.Selection
 				|| scope == Searchscope_c.EnclosingSystem) {
 			// make instances empty, and process here

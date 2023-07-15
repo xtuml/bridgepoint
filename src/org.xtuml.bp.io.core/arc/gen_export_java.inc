@@ -202,6 +202,11 @@ public class ${class_name} extends CoreExport
     .if (multilevel)
 	Set<Object> writtenProxies = new HashSet<Object>();
     .end if
+  public String get_file_header(NonRootModelElement element) {
+		return get_file_header("--",
+				element.getClass().getSimpleName().substring(0, element.getClass().getSimpleName().length() - 2),
+				"7.1.6", org.xtuml.bp.core.CorePlugin.getPersistenceVersion());
+	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IWorkspaceRunnable#run(org.eclipse.core.runtime.IProgressMonitor)
 	 */
@@ -261,7 +266,7 @@ public class ${class_name} extends CoreExport
         			  .select one table related by pi->EI[R3]->T[R4];
 						.assign className  = "$Cr{table.Name}_c"
         				if(m_inst instanceof ${className}){
-	                	    m_fh.print( get_file_header("$Cr{table.Name}", "${tool}", org.xtuml.bp.core.CorePlugin.getPersistenceVersion()) );  //$$NON-NLS-1$$ //$$NON-NLS-2$$
+	                	    m_fh.print(get_file_header(m_inst));
                	        .if(empty aep)
         				    export_${className}((${className}) m_inst, pm, false, true );
         				.else

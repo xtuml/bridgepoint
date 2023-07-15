@@ -113,8 +113,6 @@
             .invoke cn = get_class_name(class)
             .assign class_name = "${class.Name}"
             .assign selectedElementType = cn.body
-      // ensure that all ${class.Name}s are loaded
-      PersistenceManager.ensureAllInstancesLoaded(v_${firstContextItemName}.getModelRoot(), ${cn.body}.class);
       // now find all the elements that should be shown 
       ${cn.body}[] elements = getElements(v_${firstContextItemName});      
 	  .invoke traversal = get_pe_traversal(elemClass.Key_Lett)

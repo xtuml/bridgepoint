@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -249,7 +250,7 @@ public class Xtuml2Masl {
             }
         }
 
-        System.out.println("Done.");
+        System.out.println("Done. " + LocalDateTime.now().toString());
     }
 
     // chaining setters

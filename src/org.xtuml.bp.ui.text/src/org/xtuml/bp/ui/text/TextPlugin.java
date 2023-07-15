@@ -136,8 +136,9 @@ public class TextPlugin extends OALEditorPlugin
 	                        ModelChangedEvent event = (ModelChangedEvent) iter
 	                            .next();
 	                        NonRootModelElement element = (NonRootModelElement) event.getModelElement();
-	                        if(element == null)
+	                        if(element == null && event.getModelDelta() != null)
 	                        	element = (NonRootModelElement) event.getModelDelta().getModelElement();
+	                        if (element == null) continue;
 	                        Ooaofooa modelRoot = (Ooaofooa) element.getModelRoot();
 	                        String id = modelRoot.getId();
 	                        if (!modelsToParse.containsKey(id)) {

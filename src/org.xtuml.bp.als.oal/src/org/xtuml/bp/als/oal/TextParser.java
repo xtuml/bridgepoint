@@ -157,9 +157,6 @@ public class TextParser extends OalParser {
 	public final UUID action(Object model, boolean clearContext)
 			throws RecognitionException, TokenStreamException,
 			InterruptedException {
-		// The parser validation code assumes that all data types
-		// are loaded.
-		PersistableModelComponent.ensureDataTypesAvailable(getModelRoot());
 		
 		// get the container
 		m_container = getContainer( model );

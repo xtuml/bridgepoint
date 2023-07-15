@@ -29,15 +29,20 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.xtuml.bp.core.Association_c;
+import org.xtuml.bp.core.ClassIdentifier_c;
+import org.xtuml.bp.core.ClassInAssociation_c;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.ComponentResultSet_c;
 import org.xtuml.bp.core.ComponentVisibility_c;
@@ -48,16 +53,24 @@ import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.ElementVisibility_c;
 import org.xtuml.bp.core.Elementtypeconstants_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
+import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.InstanceReferenceDataType_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
 import org.xtuml.bp.core.IntegrityManager_c;
+import org.xtuml.bp.core.InterfaceReference_c;
+import org.xtuml.bp.core.Interface_c;
+import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
+import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.SearchResultSet_c;
 import org.xtuml.bp.core.Severity_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.StateMachine_c;
 import org.xtuml.bp.core.StructuredDataType_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
@@ -76,8 +89,10 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	private ModelRoot m_this_root;
 	private PersistableModelComponent component;
 	protected String m_contentPath;
+	protected String m_modelPath;
 	protected IFile file;
 	private UUID m_id = Gd_c.Null_unique_id();
+	private boolean declarationOnly = false;
 
 	protected NonRootModelElement(ModelRoot root) {
 		m_parent_root = root;
@@ -143,101 +158,97 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		List<NonRootModelElement> rtos = RTOUtil.getRTOs(this);
 		for (NonRootModelElement rto : rtos) {
 			if (rto.isProxy()) {
-				// before going further try to load the proxy
-				rto.loadProxy();
-				if (rto.isProxy()) {
-					// should have been loaded, we have a dangling
-					// reference
-					// first load the entire workspace and then search
-					// globally for the element, if found batchRelate
-					// the rto
-					synchronized (getPersistableComponent()) {
-						final NonRootModelElement element = (NonRootModelElement) Ooaofooa.getDefaultInstance()
-								.getInstanceList(rto.getClass()).getGlobal(rto.getInstanceKey(), false);
-						if (element != null && !element.isProxy()) {
-							// honor IPR settings if this element is not in
-							// the same system
-							if (!getRoot().equals(element.getRoot()) && getRoot() instanceof SystemModel_c) {
-								if (!Pref_c.Getsystemboolean(
-										BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
-										getRoot().getName())) {
-									continue;
+				// should have been loaded, we have a dangling
+				// reference
+				// first load the entire workspace and then search
+				// globally for the element, if found batchRelate
+				// the rto
+				synchronized (getPersistableComponent()) {
+					final NonRootModelElement element = (NonRootModelElement) Ooaofooa.getDefaultInstance()
+							.getInstanceList(rto.getClass()).getGlobal(rto.getInstanceKey(), false);
+					if (element != null && !element.isProxy()) {
+						// honor IPR settings if this element is not in
+						// the same system
+						if (!getRoot().equals(element.getRoot()) && getRoot() instanceof SystemModel_c) {
+							if (!Pref_c.Getsystemboolean(
+									BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID,
+									getRoot().getName())) {
+								continue;
+							}
+						}
+						NonRootModelElement[] results = null;
+						// now we must honor visibility settings
+						Package_c parentPackage = getParentPackage();
+						if (parentPackage != null) {
+							parentPackage.Clearscope();
+							parentPackage.Collectvisibleelementsforname(((SystemModel_c) getRoot()).getUseglobals(),
+									Gd_c.Null_unique_id(), false, 0, element.getName(), parentPackage.getPackage_id(),
+									element.getElementType());
+							class SearchResultSet_test455_c implements ClassQueryInterface_c {
+								public boolean evaluate(Object candidate) {
+									SearchResultSet_c selected = (SearchResultSet_c) candidate;
+									return ((selected.getName().equals(element.getName()))
+											&& (selected.getType() == element.getElementType()));
 								}
 							}
-							NonRootModelElement[] results = null;
-							// now we must honor visibility settings
-							Package_c parentPackage = getParentPackage();
-							if (parentPackage != null) {
-								parentPackage.Clearscope();
-								parentPackage.Collectvisibleelementsforname(((SystemModel_c) getRoot()).getUseglobals(),
-										Gd_c.Null_unique_id(), false, element.getName(), parentPackage.getPackage_id(),
-										element.getElementType());
-								class SearchResultSet_test455_c implements ClassQueryInterface_c {
-									public boolean evaluate(Object candidate) {
-										SearchResultSet_c selected = (SearchResultSet_c) candidate;
-										return ((selected.getName().equals(element.getName()))
-												&& (selected.getType() == element.getElementType()));
-									}
-								}
-								SearchResultSet_c srs = SearchResultSet_c.getOnePE_SRSOnR8005(parentPackage,
-										new SearchResultSet_test455_c());
+							SearchResultSet_c srs = SearchResultSet_c.getOnePE_SRSOnR8005(parentPackage,
+									new SearchResultSet_test455_c());
 
-								results = PackageableElement_c
-										.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(srs));
-							}
-							Component_c parentComponent = getFirstParentComponent();
-							if (parentComponent != null) {
-								parentComponent.Clearscope();
+							results = PackageableElement_c
+									.getManyPE_PEsOnR8002(ElementVisibility_c.getManyPE_VISsOnR8006(srs));
+						}
+						Component_c parentComponent = getFirstParentComponent();
+						if (parentComponent != null) {
+							parentComponent.Clearscope();
 								parentComponent.Collectvisibleelementsforname(
-										((SystemModel_c) getRoot()).getUseglobals(), Gd_c.Null_unique_id(),
+										((SystemModel_c) getRoot()).getUseglobals(), Gd_c.Null_unique_id(), 0,
 										element.getName(), parentComponent.getId(), element.getElementType());
-								class ComponentResultSet_test456_c implements ClassQueryInterface_c {
-									public boolean evaluate(Object candidate) {
-										ComponentResultSet_c selected = (ComponentResultSet_c) candidate;
-										return ((selected.getName().equals(element.getName()))
-												&& (selected.getType() == element.getElementType()));
-									}
+							class ComponentResultSet_test456_c implements ClassQueryInterface_c {
+								public boolean evaluate(Object candidate) {
+									ComponentResultSet_c selected = (ComponentResultSet_c) candidate;
+									return ((selected.getName().equals(element.getName()))
+											&& (selected.getType() == element.getElementType()));
 								}
-								ComponentResultSet_c compResultSet = ComponentResultSet_c
-										.getOnePE_CRSOnR8007(parentComponent, new ComponentResultSet_test456_c());
+							}
+							ComponentResultSet_c compResultSet = ComponentResultSet_c
+									.getOnePE_CRSOnR8007(parentComponent, new ComponentResultSet_test456_c());
 
 								results = PackageableElement_c.getManyPE_PEsOnR8004(
 										ComponentVisibility_c.getManyPE_CVSsOnR8008(compResultSet));
 
-							}
-							// if the element does not exist in the result
-							// set, then it is not visible
-							boolean foundValidElement = false;
-							for (NonRootModelElement result : results) {
-								List<NonRootModelElement> subtypes = SupertypeSubtypeUtil.getSubtypes(result);
-								// should only be one just check the first element
-								if (element.equals(subtypes.get(0))) {
-									foundValidElement = true;
-									break;
-								}
-							}
-							if (!foundValidElement) {
-								continue;
-							}
-							// first unrelate, here we do not know the
-							// association so we unrelate all
-							batchUnrelate();
-							// delete the proxy that was created
-							rto.delete_unchecked();
-							// now re-associate all elements
-							batchRelate(getModelRoot(), false, true, true);
-							// need to clear any synchronization flags
-							UIUtil.refresh(null);
-						} else {
-							// still could not find the element, log the
-							// integrity issue
-							IntegrityManager_c.Createissue(getModelRoot(),
-									"Found a dangling reference.  An element with the following attributes could not be found:\n\n"
-											+ "Referenced Element ID: " + rto.Get_ooa_id() + "\n"
-											+ "Referenced Element file: " + rto.getContent(),
-									this, Get_ooa_id(), getName(), getPath(), Severity_c.Error,
-									((SystemModel_c) getRoot()).getSys_id());
 						}
+						// if the element does not exist in the result
+						// set, then it is not visible
+						boolean foundValidElement = false;
+						for (NonRootModelElement result : results) {
+							List<NonRootModelElement> subtypes = SupertypeSubtypeUtil.getSubtypes(result);
+							// should only be one just check the first element
+							if (element.equals(subtypes.get(0))) {
+								foundValidElement = true;
+								break;
+							}
+						}
+						if (!foundValidElement) {
+							continue;
+						}
+						// first unrelate, here we do not know the
+						// association so we unrelate all
+						batchUnrelate();
+						// delete the proxy that was created
+						rto.delete_unchecked();
+						// now re-associate all elements
+						batchRelate(getModelRoot(), false, true, true);
+						// need to clear any synchronization flags
+						UIUtil.refresh(null);
+					} else {
+						// still could not find the element, log the
+						// integrity issue
+						IntegrityManager_c.Createissue(getModelRoot(),
+								"Found a dangling reference.  An element with the following attributes could not be found:\n\n"
+										+ "Referenced Element ID: " + rto.Get_ooa_id() + "\n"
+										+ "Referenced Element file: " + rto.getContent(),
+								this, Get_ooa_id(), getName(), getPath(), Severity_c.Error,
+								((SystemModel_c) getRoot()).getSys_id());
 					}
 				}
 			}
@@ -272,55 +283,110 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 	}
 
 	public String getPath() {
-		ModelInspector inspector = new ModelInspector();
-		String path = "";
-		if (!(this instanceof DataType_c)) {
-			// If this is a datatype, the name will be handled by the subtype
-			// via the "parent" handling below.
-			path = getName();
-			if (path.equals("")) {
-				// handle elements with a potential of no name
-				String className = getClass().getSimpleName().replaceAll("_c", "");
-				// use class name
-				int index = getInstanceList().indexOf(this) + 1;
-				path = className + index;
-			}
-		}
-		if (this instanceof ClassStateMachine_c) {
-			path = "Class State Machine";
-		} else if (this instanceof InstanceStateMachine_c) {
-			path = "Instance State Machine";
-		}
-		IModelClassInspector elementInspector = inspector.getInspector(getClass());
-		if (elementInspector != null) {
-			NonRootModelElement parent = (NonRootModelElement) elementInspector.getParent(this);
-			while (parent != null) {
-				if (parent instanceof ClassStateMachine_c) {
-					path = "Class State Machine" + "::" + path;
-				} else if (parent instanceof InstanceStateMachine_c) {
-					path = "Instance State Machine" + "::" + path;
-				} else {
-					if (path.isEmpty()) {
-						path = parent.getName();
-					} else {
-						String name = parent.getName();
-						if (name.equals("")) {
-							// handle elements with a potential of no name
-							String className = parent.getClass().getSimpleName().replaceAll("_c", "");
-							// use class name
-							int index = getInstanceList().indexOf(this) + 1;
-							name = className + index;
-						}
-						path = name + "::" + path;
-					}
-				}
-				parent = (NonRootModelElement) inspector.getParent(parent);
-			}
-		}
 		if (getModelRoot().isCompareRoot()) {
 			return "";
+		} else if (isProxy()) {
+			return m_modelPath;
+		} else {
+			ModelInspector inspector = new ModelInspector();
+			String path = "";
+			if (!(this instanceof DataType_c)) {
+				// If this is a datatype, the name will be handled by the subtype
+				// via the "parent" handling below.
+				if (this instanceof StateMachineEvent_c) {
+					path = ((StateMachineEvent_c)this).getMning();
+				} else {
+					path = getName();
+				}
+				if (path.equals("")) {
+					final NonRootModelElement supertype = SupertypeSubtypeUtil.getSupertype(this);
+					if (supertype != null) {
+						path = supertype.getName();
+					}
+				}
+				if (path.equals("")) {
+					// handle elements with a potential of no name
+					String className = getClass().getSimpleName().replaceAll("_c", "");
+					// use class name
+					final InstanceList il = getInstanceList();
+					synchronized (il) {
+						int index = il.getInstanceMap().keySet().stream().sorted().collect(Collectors.toList())
+								.indexOf(BPElementID.createKey(getInstanceKey()));
+						path = className + index;
+					}
+				}
+			}
+			if (this instanceof ClassStateMachine_c) {
+				path = "Class State Machine";
+			} else if (this instanceof InstanceStateMachine_c) {
+				path = "Instance State Machine";
+			} else if (this instanceof StateMachine_c) {
+				path = Optional.ofNullable(InstanceStateMachine_c.getOneSM_ISMOnR517((StateMachine_c) this))
+						.map(NonRootModelElement::getPath)
+						.orElseGet(() -> ClassStateMachine_c.getOneSM_ASMOnR517((StateMachine_c) this).getPath());
+			} else if (this instanceof ExecutableProperty_c) {
+				final ExecutableProperty_c c_ep = (ExecutableProperty_c) this;
+				final Interface_c iface = Interface_c.getOneC_IOnR4003(c_ep);
+				path = iface != null ? iface.getPath() + "::" + getName() : "<unknown>::" + getName();
+			} else if (this instanceof InterfaceReference_c) {
+				final InterfaceReference_c c_ir = (InterfaceReference_c) this;
+				path = Port_c.getOneC_POOnR4016(c_ir).getPath() + "::" + c_ir.Interfacename();
+			} else if (this instanceof ClassIdentifier_c) {
+				final ClassIdentifier_c o_id = (ClassIdentifier_c) this;
+				path = ModelClass_c.getOneO_OBJOnR104(o_id).getPath() + "::" + (o_id.getOid_id() + 1);
+			} else if (this instanceof ReferringClassInAssoc_c) {
+				final ReferringClassInAssoc_c r_rgo = (ReferringClassInAssoc_c) this;
+				final ClassInAssociation_c r_oir = ClassInAssociation_c.getOneR_OIROnR203(r_rgo);
+				final Association_c r_rel = Association_c.getOneR_RELOnR201(r_oir);
+				if (r_rel != null) {
+					path = r_rel.getPath() + "::" + r_oir.Get_name();
+				} 
+			}
+			IModelClassInspector elementInspector = inspector.getInspector(getClass());
+			NonRootModelElement inst = this;
+			NonRootModelElement supertype = SupertypeSubtypeUtil.getSupertype(inst);
+			if (elementInspector == null && supertype != null) {
+				elementInspector = inspector.getInspector(supertype.getClass());
+				inst = supertype;
+			}
+			if (elementInspector != null) {
+				NonRootModelElement parent = (NonRootModelElement) elementInspector.getParent(inst);
+				if (parent == null && !(inst instanceof SystemModel_c)) {
+					path = "<unknown>::" + path;
+				}
+				while (parent != null) {
+					if (parent instanceof ClassStateMachine_c) {
+						path = "Class State Machine" + "::" + path;
+					} else if (parent instanceof InstanceStateMachine_c) {
+						path = "Instance State Machine" + "::" + path;
+					} else {
+						if (path.isEmpty()) {
+							path = parent.getName();
+						} else {
+							String name = parent.getName();
+							if (name.equals("")) {
+								// handle elements with a potential of no name
+								String className = parent.getClass().getSimpleName().replaceAll("_c", "");
+								// use class name
+								final InstanceList il = getInstanceList();
+								synchronized (il) {
+									int index = il.getInstanceMap().keySet().stream().sorted()
+											.collect(Collectors.toList())
+											.indexOf(BPElementID.createKey(getInstanceKey()));
+									name = className + index;
+								}
+							}
+							path = name + "::" + path;
+						}
+					}
+					if (inspector.getParent(parent) == null && !(parent instanceof SystemModel_c)) {
+						path = "<unknown>::" + path;
+					}
+					parent = (NonRootModelElement) inspector.getParent(parent);
+				}
+			}
+			return path;
 		}
-		return path;
 	}
 
 	/**
@@ -845,6 +911,14 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		m_contentPath = path;
 	}
 
+	public void updateModelPath() {
+		try {
+			m_modelPath = getPath();
+		} catch (NullPointerException e) {
+			CorePlugin.getDefault().getLog().warn("NPE while updating path for: " + m_modelPath);
+		}
+	}
+
 	public void convertToProxy() {
 		if (!isProxy()) {
 			PersistableModelComponent pmc = getPersistableComponent();
@@ -864,23 +938,14 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 	}
 
-	public boolean loadProxy() {
-		boolean result = true;
-		if (isProxy() && (!getModelRoot().getId().equals(Ooaofooa.COMPARE_MODEL_ROOT_NAME)
-				&& !getModelRoot().isCompareRoot())) {
-			result = PersistenceManager.loadAndFinishComponent(m_contentPath);
-		}
-		return result;
-	}
-
-	public void convertFromProxy() {
+	public synchronized void convertFromProxy() {
 		if (isProxy()) {
 			m_contentPath = null;
 			UmlProblem.proxyResolved(this);
 		}
 	}
 
-	public boolean isProxy() {
+	public synchronized boolean isProxy() {
 		return m_contentPath != null;
 	}
 
@@ -896,14 +961,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 
 	public boolean isReferenced() {
 		return PersistenceManager.getHierarchyMetaData().hasExternalRGO(this, false);
-	}
-
-	public boolean ensureLoaded(boolean load) {
-		if (load) {
-			return loadProxy();
-		} else {
-			return !isProxy();
-		}
 	}
 
 	/*
@@ -1174,6 +1231,14 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		} else {
 			return this;
 		}
+	}
+	
+	public boolean isDeclarationOnly() {
+		return declarationOnly;
+	}
+	
+	public void setDeclarationOnly(boolean value) {
+		declarationOnly = value;
 	}
 
 }

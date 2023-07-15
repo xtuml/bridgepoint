@@ -309,21 +309,6 @@ public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, ${gtcn.
 public static ${locn.body} ${nfn.body}${loc_phrase}(${tocn.body} target, ${gtcn.body} test, boolean loadComponent)
 {
   if (target != null) {
-  .if (persistent)
-	if(loadComponent){
-	     target.loadProxy();
-      .if(crossComp)
-	    if(target.$cr{loc_txt_phrs}$cr{loc_obj.Name} != null){
-		boolean result = target.$cr{loc_txt_phrs}$cr{loc_obj.Name}.loadProxy();
-		// if we fail to locate the RTO by proxy path
-		// try the workspace by id
-		if(!result) {
-			target.batchRelate(target.getModelRoot(), true, true);
-	    }
-	}
-	.end if
-	}
-	.end if
     if ( test != null ) {
       ${locn.body} candidate_val = target.$cr{loc_txt_phrs}$cr{loc_obj.Name};
       if ( candidate_val != null && test.evaluate(candidate_val) ) {
@@ -358,19 +343,10 @@ public static ${locn.body} [] ${nfn.body}${loc_phrase}(${tocn.body} [] targets,
   
   LinkedHashSet<${locn.body}> elementsSet = new LinkedHashSet<${locn.body}>();
   for (int i = 0; i < targets.length; i++) {
-  .if ((persistent))
-	if(loadComponent && targets[i] != null && targets[i].$cr{loc_txt_phrs}$cr{loc_obj.Name} == null)
-	  targets[i].loadProxy();
-  .end if	
     ${locn.body} associate = targets[i].$cr{loc_txt_phrs}$cr{loc_obj.Name};
     if (targets[i] != null && associate != null
     	&& (test == null || test.evaluate(associate))) {
         	if (elementsSet.add(associate)){ 
-  .if ((persistent) and (crossComp))
-                if(loadComponent){
-                   associate.loadProxy();
-                }
-  .end if
             }
     }
   }

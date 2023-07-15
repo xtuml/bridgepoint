@@ -103,13 +103,9 @@ public class NewSystemWizard extends DelegatingWizard implements INewWizard {
         };
         try {
             ResourcesPlugin.getWorkspace().run(runnable, new NullProgressMonitor());
+            PersistenceManager.getDefaultInstance().loadProject(newModel, false, true);
         } catch (CoreException e) {
             CorePlugin.logError("Failed to create System Model data file", e);
-        }
-        try {
-            newComp.load(new NullProgressMonitor(), false, true);
-        } catch (CoreException e) {
-            CorePlugin.logError("Unable to load newly created system.", e);
         }
 
     }

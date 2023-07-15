@@ -296,9 +296,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			try {
 				// if a masl rename/refactor occurred reload the project.
 				// we do this because we do not know which model roots masl had to update
-				PersistableModelComponent systemModelRoot = persisted.iterator().next();
-				systemModelRoot = systemModelRoot.getRootModelElement().getRoot().getPersistableComponent();
-				systemModelRoot.loadComponentAndChildren(new NullProgressMonitor(), false, true);
+				PersistenceManager.getDefaultInstance().loadProject(persisted.iterator().next().getRootModelElement(), false, true);
 			} finally {
 				// reset the flag to allow actions to be persisted in BP again.
 				// Placement of this reset is not relevant to the reload. It 
@@ -314,7 +312,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
 		}
-		IntegrityChecker.startIntegrityChecker(persisted);
 		RenameParticipantUtil.synchronizeMaslEditors();
 	}
 	

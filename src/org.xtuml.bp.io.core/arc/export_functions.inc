@@ -334,6 +334,10 @@ throws IOException
     m_fh.print( "INSERT INTO ${table.Key_Lett}_PROXY\n\tVALUES (" ); //$$NON-NLS-1$$
     write_${r.body}_attr_sql(inst);
     m_fh.print(",\n\t"); //$$NON-NLS-1$$
+    if (persistAsText(inst)) {
+        m_fh.print("'" + inst.getPath() + "'");
+        m_fh.print(",\n\t"); //$$NON-NLS-1$$
+    }
     m_fh.print("'" + (!inst.getModelRoot().isCompareRoot() ? inst.getContent(m_inst.getPersistableComponent().getFullPath()):inst.getContent()) + "'");
     m_fh.print(");\n"); //$$NON-NLS-1$$
   }
@@ -712,7 +716,7 @@ throws IOException
       .end if
       .if(not multilevel) .// since we have already taken care of header in run method incase of multilevel export.
         .if ( parent_name == domain_class_name )
-    m_fh.print( get_file_header("domain", "${tool}", org.xtuml.bp.core.CorePlugin.getPersistenceVersion()));  //$$NON-NLS-1$$ //$$NON-NLS-2$$ //$$NON-NLS-3$$
+    m_fh.print( get_file_header("--", "domain", "${tool}", org.xtuml.bp.core.CorePlugin.getPersistenceVersion()));  //$$NON-NLS-1$$ //$$NON-NLS-2$$ //$$NON-NLS-3$$
         .end if
       .end if
       .if (( eo.writePosition == "first" ) or (eo.writePosition == "none"))
@@ -1110,19 +1114,21 @@ throws IOException
     	if ( !body.isEmpty() ) {
         // get instance key
         String idString = "'00000000-0000-0000-0000-000000000000' ";
-        Object key = inst.getInstanceKey();
-        if ( key instanceof Object[] ) {
-            idString = "";
-            Object[] uuids = (Object[])inst.getInstanceKey();
-            for ( int i = 0; i < uuids.length && i < 2; i++ ) {
-                if ( uuids[i] instanceof UUID ) idString += "'" + uuids[i].toString() + "' ";
+        if (!(this instanceof ExportModelText)) {
+            Object key = inst.getInstanceKey();
+            if ( key instanceof Object[] ) {
+                idString = "";
+                Object[] uuids = (Object[])inst.getInstanceKey();
+                for ( int i = 0; i < uuids.length && i < 2; i++ ) {
+                    if ( uuids[i] instanceof UUID ) idString += "'" + uuids[i].toString() + "' ";
+                }
             }
-        }
+    	}
         // wrap with body delimiters
         body = "//! ACTIVITY BEGIN. " + idString + "DO NOT EDIT THIS LINE.\n" + body.trim() + "\n//! ACTIVITY END. DO NOT EDIT THIS LINE.\n\n";
     		m_afh.get(dialect).print( body );
         	m_updateActions = true;
-    	}
+            }
     }
 }
   .end for

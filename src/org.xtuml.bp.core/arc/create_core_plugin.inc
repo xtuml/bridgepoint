@@ -292,7 +292,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
      </page>
      <page class="org.xtuml.bp.core.ui.preferences.ExportPreferences"
            id="org.xtuml.bp.core.ui.preferences.ExportPreferences"
-           name="Model Persistence"
+           name="Model Export"
            category="org.xtuml.bp.core.root">
      </page>
      <page class="org.xtuml.bp.core.ui.preferences.MessageDirectionPreferences"
@@ -328,18 +328,36 @@ This file is the plugin manifest for the BridgePoint core plugin.
        class="org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
      <page
        name="Action Language"
        class="org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
      <page
        name="Dependencies"
        class="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
        id="org.xtuml.bp.core.ui.preferences.BridgePointProjectDependenciesPreferencesPage"
        category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
+     </page>
+     <page
+       name="Persistence"
+       class="org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferencesPage"
+       id="org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferencesPage"
+       category="org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferencesPage">
+       <enabledWhen>
+         <adapt type="org.eclipse.core.resources.IProject"></adapt>
+       </enabledWhen>
      </page>
    </extension>
    <extension id="org.xtuml.bp.core.ui.viewcats"
@@ -365,25 +383,6 @@ This file is the plugin manifest for the BridgePoint core plugin.
    </extension>
 	<extension
 		point="org.eclipse.ui.menus">
-			<menuContribution
-				locationURI="popup:org.eclipse.ui.popup.any?after=org.xtuml.bp.ui.context-internal">
-				<menu
-					id="org.xtuml.bp.core.ui.actions.cardinality"
-							label="Cardinality">
-				</menu>
-				<dynamic
-					class="org.xtuml.bp.core.ui.actions.AssociationCardinalityContributionItem"
-							id="org.xtuml.bp.core.ui.actions.cardinality.dynamic">
-				</dynamic>
-				<menu
-					id="org.xtuml.bp.core.ui.actions.range"
-							label="Range">
-				</menu>
-				<dynamic
-					class="org.xtuml.bp.core.ui.actions.RangeContributionItem"
-							id="org.xtuml.bp.core.ui.actions.range.dynamic">
-				</dynamic>
-			</menuContribution>
     <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
       <separator 
         name="org.xtuml.bp.core.properties.separator"

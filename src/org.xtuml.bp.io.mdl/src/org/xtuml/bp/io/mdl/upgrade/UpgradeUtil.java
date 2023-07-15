@@ -130,8 +130,6 @@ public class UpgradeUtil {
 	                                                    }
 	                                                    PersistableModelComponent pmc = PersistenceManager
 	                                                            .getRootComponent(project);
-	                                                    pmc
-	                                                            .loadComponentAndChildren(monitor);
 	                                                    roots.add(pmc);
 	                                                    SystemModel_c system = (SystemModel_c) pmc.getRootModelElement();
 	                                                    Ooaofooa[] subRoots = Ooaofooa.getInstancesUnderSystem(system

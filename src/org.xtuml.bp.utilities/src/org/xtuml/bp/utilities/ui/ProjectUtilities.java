@@ -215,11 +215,8 @@ public class ProjectUtilities {
     					
     					@Override
     					public void run() {
-				            // first delete the model and it's components
-				            PersistableModelComponent rootComponent = PersistenceManager.getRootComponent(projectHandle);
-				
 				            // we need to load each element before deletion for some reason
-				            rootComponent.loadComponentAndChildren(new NullProgressMonitor());
+				            PersistenceManager.getDefaultInstance().loadProject(projectHandle, false, true);
 				
 				            // then delete the project itself
 				            try {

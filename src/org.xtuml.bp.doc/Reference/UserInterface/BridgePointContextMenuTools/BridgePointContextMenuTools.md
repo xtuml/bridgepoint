@@ -41,7 +41,7 @@ These menu entries appear on the context menu of Model Explorer and the canvas.
 | Remove from Spotlight | Removes the selection from the xtUML Debugging runtime spotlight. |
 | Set Breakpoint        | Adds an OAL breakpoint on access of the selection. |
 | Unassign              | Unassigns a component reference. |
-| Unformalize           | Changes a formalized interface reference, association, etc... back to unformalized. |
+| Unformalize           | Changes a formalized interface reference, etc... back to unformalized. |
 __Table 1__   
 
 ## Model Explorer-specific Context Menu Entries
@@ -96,14 +96,13 @@ These menu entries appear on only the context menu of a diagram canvas.
 | Assign Class...         | Open dialog to select a class to assign the selected imported class to. |
 | Assign Event...         | Open dialog to select an event to assign the selected transition to. | 
 | Assign Signal...        | Open dialog to select an interface signal to assign the selected transition to. | 
-| Formalize... (Association) | Open dialog to formalize the selected association by copying referential attributes. |
+| Edit association...     | Open dialog to modify the selected association. |
 | Format &#9658; ...      | Adjust the fill color and line color of the graphical element.  This is only for decoration and has no effect on model semantics. |
 | Layers &#9658; ...      | Add the selected element to a layer. Hide all the elements on a layer.  Rename a layer.  Delete a layer (but not the contained model elements). |
 | Mark Instance Destroyed | Add "X" to end of sequence communication line to mark point where the instance is destroyed. |
 | Mark Instance Not Destroyed | Remove "X" from end of sequence communication line. |
 | Remove Event            | Change the selected transition to have no event assigned. |
 | Remove Signal           | Change the selected transition to have no signal assigned. | 
-| Unformalize (Association) | Unformalize the selected association by removing referential attributes from participating classes. |
 | Routing &#9658; ...     | Change the way connectors are drawn on the canvas: Oblique (angles allowed), Rectilinear (squared corners) |
 | Toggle End Visibility   | Turn Communication Link end arrowhead on/off. |
 | Toggle Start Visibility | Turn Communication Link start arrowhead on/off. |

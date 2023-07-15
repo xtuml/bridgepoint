@@ -135,6 +135,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c15d1389-17ba-4aa3-a4be-e75bd6c2c02a",
@@ -243,6 +244,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b4b05656-c05b-4fdf-a7f5-011bef757178",
@@ -382,6 +384,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("f8678a8f-af0b-4ecf-b437-33503042f7ef",
@@ -414,6 +417,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("59bd049a-705b-48dc-bd3e-bb5c0ce4da8d",
@@ -446,6 +450,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("deb6ad43-9c6a-40b7-b1b1-6b713cdded99",
@@ -574,6 +579,7 @@ return smasl;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("318d6b01-fc47-4258-9832-e45054a9e028",
@@ -655,6 +661,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("6a2d0e57-12e1-48db-8d0c-d58a9cc64c54",
@@ -760,6 +767,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("4bb2bbf5-e7e7-4ffd-a780-c4003f7654d2",
@@ -792,6 +800,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("b4ef0097-ab36-4864-8cdc-b464e264df88",
@@ -824,6 +833,7 @@ end if;',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c995e28e-c7cc-415c-ba3f-c77dff465575",
@@ -954,6 +964,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("ff6dea2c-b092-4a82-b0a3-60c0c35bb655",
@@ -996,6 +1007,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("c136638d-5c50-45be-8b12-82e392233f85",
@@ -1204,6 +1216,7 @@ else
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("5d2c2f4d-a3d4-4063-9735-169c4d3bd538",
@@ -1220,6 +1233,7 @@ INSERT INTO S_DT_PROXY
 	'instance',
 	'',
 	'',
+	'org.xtuml.bp.core::ooaofooa::Datatypes::instance',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("f9e36741-f954-452e-b152-69f72bde4dae",
@@ -1250,7 +1264,10 @@ if ( not_empty s_dt )
   if ( "void" != s_dt.Name )
     typeref = s_dt.Name;  // typref is the name of the type
     // if the type is already qualified with a domain name, no need to qualify it again
-    if ( not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
+    // LPS - The most recent best practice is never to directly refer to a type
+    // in another domain. Therefore, no type should ever have to be implicitly
+    // qualified by this code.
+    if ( false and not Util::stringContains( haystack:s_dt.Name, needle:"::" ) )
       // If type is inside a component, it is local.
       select one parent_ep_pkg related by s_dt->PE_PE[R8001]->EP_PKG[R8000];
       select one parent_c_c related by parent_ep_pkg->PE_PE[R8001]->C_C[R8003];
@@ -1289,9 +1306,6 @@ if ( not_empty s_dt )
               end for;
             end if;
             select one containing_pkg related by containing_pkg->PE_PE[R8001]->EP_PKG[R8000];
-            if ( empty containing_pkg and empty domain_c_c )
-              Util::logError( message:"No domain component found for type: " + s_dt.Name );
-            end if;
           end while;
           // qualify the type name with the name of the domain
           if ( not_empty domain_c_c )
@@ -1318,6 +1332,7 @@ return "typeref," + typeref + ",,,,,,,\ntyperef,,,,,,,,\n";',
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("e82947a6-befc-47d4-b22f-d32f55b88f72",
@@ -1419,6 +1434,7 @@ return smasl;
 	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'',
+	0,
 	0);
 INSERT INTO S_SPARM
 	VALUES ("56a6bbd9-052c-4b46-89d6-0145f48e2320",
@@ -1448,9 +1464,11 @@ INSERT INTO EP_PKG_PROXY
 	'Functions',
 	'',
 	0,
+	'org.xtuml.bp.core::ooaofooa::Functions',
 	'../Functions.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'org.xtuml.bp.core',
 	1,
+	'org.xtuml.bp.core',
 	'../../../org.xtuml.bp.core.xtuml');

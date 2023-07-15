@@ -241,6 +241,26 @@ INSERT INTO O_ATTR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("dada5178-3b40-4179-a8ea-ff519ae89d51",
+	"92a89771-4bda-4b46-8a02-874f1ede5626");
+INSERT INTO O_BATTR
+	VALUES ("dada5178-3b40-4179-a8ea-ff519ae89d51",
+	"92a89771-4bda-4b46-8a02-874f1ede5626");
+INSERT INTO O_ATTR
+	VALUES ("dada5178-3b40-4179-a8ea-ff519ae89d51",
+	"92a89771-4bda-4b46-8a02-874f1ede5626",
+	"71b50307-2c0e-49aa-9467-4de529630738",
+	'Distance',
+	'Distance is defined by the "number of hops" to get to the visible element.
+Elements in the same package have a distance of 0. Hops can be both up and down
+the pacakge structure. Global elements have a distance of -1.',
+	'',
+	'Distance',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
 INSERT INTO O_ID
 	VALUES (0,
 	"92a89771-4bda-4b46-8a02-874f1ede5626");

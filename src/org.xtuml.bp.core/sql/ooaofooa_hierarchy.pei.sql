@@ -43,7 +43,7 @@ INSERT INTO T_TNS VALUES (30, 'Association.gif',                'R_REL',   '', '
 INSERT INTO T_TNS VALUES (31, 'ImportedClass.gif',              'O_IOBJ',  '', '', '',                     'Imported Class', 				-1, '');
 INSERT INTO T_TNS VALUES (32, 'Identifier.gif',                 'O_OIDA',    '', '', '',                     'Identifier', 					-1, '');
 INSERT INTO T_TNS VALUES (33, 'DerivedAttribute.gif',           'O_DBATTR','', '', '',                     'Derived Attribute', 			-1, '');
-INSERT INTO T_TNS VALUES (34, 'Reference.gif',                  'O_REF',   '', '', '',                     'Reference', 					-1, '');
+INSERT INTO T_TNS VALUES (34, 'Reference.gif',                  'O_REF',   '', '', '',                     'Reference', 					112, 'succeeds');
 INSERT INTO T_TNS VALUES (37, 'AssociationParticipantEnd.gif', 'R_PART',  '', '', '',                     'Association Participant End', 	-1, '');
 INSERT INTO T_TNS VALUES (38, 'AssociationFormalizerEnd.gif',  'R_FORM',  '', '', '',                     'Association Formalizer End', 	-1, '');
 INSERT INTO T_TNS VALUES (39, 'AssociativeOneEnd.gif',         'R_AONE',  '', '', '',                     'Associative One End', 			-1, '');

@@ -49,6 +49,7 @@ return result;',
 	1,
 	'',
 	"eb80a3b5-df3a-493e-ab28-504c26c892f1",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("292cae89-a8bd-49a9-b632-d8341af8dd17",
@@ -83,6 +84,7 @@ end if;',
 	1,
 	'',
 	"df1c2a3b-dbef-468b-b5e6-2d10c1396074",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("0d6fcc24-125a-42ee-b558-df40e7d8e7f5",
@@ -143,6 +145,7 @@ delete object instance self;',
 	1,
 	'',
 	"4898adfb-0c2c-44ab-9806-384d9c7e6b5a",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("0b3653d7-c1c8-4e8d-b842-c77cbccd9f88",
@@ -178,6 +181,7 @@ semEvt.createDefaultMatrixEntries();
 	1,
 	'',
 	"671594aa-d328-4b18-810b-6153bfa4dcd8",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("6997a327-062f-42b9-a3ee-da49ef802187",
@@ -222,6 +226,7 @@ return false;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("2b8e5f53-33f3-43a7-ad8c-72a66c6554ac",
@@ -255,6 +260,7 @@ return not_empty item;
 	1,
 	'',
 	"a4b45c77-6717-48dd-9dc0-c13ac1e49d01",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("3aacae36-2038-4a65-815f-f40f55503153",
@@ -366,6 +372,7 @@ return true;
 	1,
 	'',
 	"ab2847ac-b7b6-4eb5-bb56-997523f0992a",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0fa464e0-0d1e-4534-a1ba-77fbfee6518c",
@@ -429,6 +436,7 @@ return false;
 	1,
 	'',
 	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5cbb5ff0-8fe8-4685-b495-354cdcc164cc",
@@ -511,6 +519,7 @@ return false;
 	1,
 	'',
 	"6f2656eb-ab21-4857-9ce2-bfaa87e30ef7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("a644c6c7-bc3d-4968-9197-7e9277f91cb5",
@@ -553,6 +562,7 @@ return state.canIgnoreOrSayEventCantHappen(eventId:self.SMevt_ID,
 	1,
 	'',
 	"f6328893-6203-4cb9-a7da-c37b92d4dd9f",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("95f35a51-e693-42f8-a4d3-e0a929a4592f",
@@ -612,6 +622,7 @@ seme.migrateChToEi();
 	1,
 	'',
 	"b41e6c6f-07c5-425e-a755-9a72798a885a",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c5734ba5-be89-43cc-ad36-ce4734ec2f57",
@@ -701,6 +712,7 @@ end if;
 	1,
 	'',
 	"0d6fcc24-125a-42ee-b558-df40e7d8e7f5",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b48c2187-398b-4b6b-8a52-078eea6f503b",
@@ -741,6 +753,7 @@ seme.migrateEiToCh();
 	1,
 	'',
 	"16eb2204-feee-4583-91eb-45976c0330d3",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("a4c961e4-fc48-4d36-bd73-8df4a2fd6076",
@@ -777,6 +790,7 @@ return result;',
 	1,
 	'',
 	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4898adfb-0c2c-44ab-9806-384d9c7e6b5a",
@@ -793,6 +807,7 @@ return this;',
 	0,
 	'',
 	"a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -812,6 +827,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"292cae89-a8bd-49a9-b632-d8341af8dd17",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
@@ -845,6 +861,7 @@ return result;',
 	1,
 	'',
 	"cb77e0de-4c05-40e3-8bc4-b033255fcd57",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("ad74b4f8-fba0-427d-83b3-9c934ea5f487",
@@ -895,6 +912,7 @@ end if;',
 	1,
 	'',
 	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e212767f-d0b4-4aea-be2f-4bdf7d30bbb4",
@@ -918,6 +936,7 @@ return empty nlevt;',
 	1,
 	'',
 	"6997a327-062f-42b9-a3ee-da49ef802187",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("16eb2204-feee-4583-91eb-45976c0330d3",
@@ -936,6 +955,7 @@ self.createMessageArgumentsForParameter(id:newEvtdi.SMedi_ID);',
 	1,
 	'',
 	"ab28e0f8-85b5-4a79-8e86-e50c8e7edf8b",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ab2847ac-b7b6-4eb5-bb56-997523f0992a",
@@ -1007,6 +1027,7 @@ end if;',
 	1,
 	'',
 	"0b3653d7-c1c8-4e8d-b842-c77cbccd9f88",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("76bd93a6-4fbe-4c1d-8048-0f7916459402",
@@ -1038,6 +1059,7 @@ end if;',
 	1,
 	'',
 	"6670b484-fcaa-48e2-a907-7d8474d12d75",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b758306f-b6cc-45eb-861f-d7344da5dabe",
@@ -1073,6 +1095,7 @@ end if;',
 	1,
 	'',
 	"76bd93a6-4fbe-4c1d-8048-0f7916459402",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("32b2330b-f640-4fc6-9354-0853b64edeeb",
@@ -1109,6 +1132,7 @@ end if;
 	1,
 	'',
 	"d0c198a0-ac92-44cf-b6c7-bfb6dc96b784",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0557b161-216d-4223-90f2-69a87cd0b0b9",
@@ -1147,6 +1171,7 @@ return result;
 	1,
 	'',
 	"137490a0-66bd-4078-b51e-32272119cd54",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c2c86766-95cd-46dc-9d8d-49049892174c",
@@ -1159,6 +1184,7 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"348d4e2e-0a92-4b29-a8eb-2777f74326f3",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18",
@@ -1212,6 +1238,7 @@ end for;',
 	1,
 	'',
 	"c2c86766-95cd-46dc-9d8d-49049892174c",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
@@ -1339,6 +1366,7 @@ return signature;',
 	1,
 	'',
 	"8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("2d089a33-201b-4408-8f24-68b6283227e7",
@@ -1387,6 +1415,7 @@ end if;',
 	1,
 	'',
 	"388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("889d7bbd-434f-49a8-adc8-64c9efc59de3",
@@ -1419,6 +1448,7 @@ end if;',
 	1,
 	'',
 	"78710614-5fc3-4822-9204-bf119dd0b55e",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("664a71b5-b0a8-4df7-bd9b-84110ce3587a",
@@ -1429,6 +1459,37 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("08dbb38e-50fc-4dfe-8a53-99912f985cba",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getClassName',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one o_obj related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+if (empty o_obj)
+    select one o_obj related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519];
+end if;
+return o_obj.Name;',
+	1,
+	'',
+	"889d7bbd-434f-49a8-adc8-64c9efc59de3",
+	0,
+	1);
+INSERT INTO O_TFR
+	VALUES ("acd60e40-f9a6-4f7f-91bc-f34f2655aba4",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'isLocal',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	1,
+	'select one levt related by self->SM_SEVT[R525]->SM_LEVT[R526];
+return not_empty levt;',
+	1,
+	'',
+	"08dbb38e-50fc-4dfe-8a53-99912f985cba",
+	0,
+	2);
 INSERT INTO O_NBATTR
 	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");

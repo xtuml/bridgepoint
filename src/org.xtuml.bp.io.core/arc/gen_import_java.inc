@@ -442,7 +442,7 @@ public class ${class_name} extends CoreImport
     .if (callingProject == "BP")
         .assign helperClass = "ImportBPSqlHelper"
     .end if
-    private ${helperClass} helper = new ${helperClass}(this);
+    protected ${helperClass} helper = new ${helperClass}(this);
 
     .if (callingProject == "NBP")
     /**
@@ -555,9 +555,32 @@ public class ${class_name} extends CoreImport
     .if (callingProject == "NBP")
       helper.eesToUpgradeForIsRealized.clear();
     .end if
-        m_success = doLoadSql(pm);
+        m_success = doLoadFile(pm);
         .if(not setComponent)
         finishLoad(pm);
+        .else
+      if (m_success) {
+        Ooaofooa modelRoot = getModelRoot();
+        ModelRoot graphicsModelRoot = getGraphicsModelRoot();
+
+        // set up globals
+        if (rootModelElement instanceof SystemModel_c) {
+          helper.setUpGlobals((SystemModel_c) rootModelElement);
+        }
+
+        // batch relate instances
+        ModelRoot.disableChangeNotification();
+        try {
+          for (int i = 0; i < loadedInstances.size(); i++) {
+            ((NonRootModelElement) loadedInstances.get(i)).batchRelate(modelRoot, false, true);
+          }
+          for (int i = 0; i < loadedGraphicsInstances.size(); i++) {
+            ((NonRootModelElement) loadedGraphicsInstances.get(i)).batchRelate(graphicsModelRoot, false, true);
+          }
+        } finally {
+          ModelRoot.enableChangeNotification();
+        }
+      }
     .end if
     }
 
@@ -844,32 +867,21 @@ public class ${class_name} extends CoreImport
     .if((multilevel) and (setComponent))
     public void finishComponentLoad(IProgressMonitor pm, boolean searchAllRootsForBatchRelate) {
         if(m_success){
-            Ooaofooa modelRoot = getModelRoot();
-
-            if (modelRoot.getId().equals(Ooaofooa.DEFAULT_WORKING_MODELSPACE) &&
-                            m_component.getRootModelElement() instanceof SystemModel_c) {
-                    SystemModel_c system = (SystemModel_c) m_component.getRootModelElement();
-               // We always set them up, even if we don't use them
-                    helper.setUpGlobals(system);
-            }
-
+        	// during compare we cannot make use of PMCs
+       		if(rootModelElement.getPersistableComponent() != null) {
+       			final IFile graphicsFile = rootModelElement.getPersistableComponent().getGraphicsFile();
+       			if (graphicsFile != null && graphicsFile.exists()) {
+       				CanvasPlugin.getDefault().getPersistenceExtensionRegistry().getExtensions().forEach(pe -> pe.getLoader().load(rootModelElement, graphicsFile));
+       			}
+       		}
             ModelRoot.disableChangeNotification();
           try {
-            for(int i=0; i<loadedInstances.size(); i++){
-                ((NonRootModelElement)loadedInstances.get(i)).batchRelate(modelRoot, false, searchAllRootsForBatchRelate);
-            }
               Ooaofooa mr = Ooaofooa.getDefaultInstance();
               Ooaofgraphics gmr = Ooaofgraphics.getDefaultInstance();
               try {
             mr.disableDeltaCollection();
             gmr.disableDeltaCollection();
             if(m_parseGraphics){
-                ModelRoot graphicsModelRoot = getGraphicsModelRoot();
-
-                for(int i=0; i<loadedGraphicsInstances.size(); i++){
-                    ((NonRootModelElement)loadedGraphicsInstances.get(i)).batchRelate(graphicsModelRoot, false, searchAllRootsForBatchRelate);
-                }
-
                 helper.importPreBP7_1LineSegments();
                 helper.importPreBP7_1Connectors();
                 helper.importPreBP7_1_1ConnectorTexts();
@@ -887,13 +899,14 @@ public class ${class_name} extends CoreImport
             helper.upgradeElementOrder(loadedInstances);
             loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
             helper.fixSatisfactionAssociations(loadedInstances);
-            helper.loadDataTypesFromCoreTypeProxy(loadedInstances);
             loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
             loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
             helper.removeSupertypePackageableElement(loadedInstances);
             helper.addPortReferenceInstances(loadedInstances);
             helper.upgradeEEsForIsRealized();
             helper.upgradeImportedClasses(loadedInstances);
+					  helper.resolveBaseAttributes(getRootModelElement());
+					  helper.createCurrentStateAttribute(getRootModelElement());
           }
           finally {
             mr.enableDeltaCollection();

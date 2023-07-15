@@ -45,9 +45,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public boolean invertGradients;
     public long gradientBaseColor;
     public String exportOAL;
-    public String singleFileExportGraphics;
-	public String persistGraphicalInstances;
-	public String graphicsTextualSerialization;
+    public String exportGraphics;
     public String messageDirection;  
     public String activityPersistenceAsFiles;  
     public int defaultActionLanguageDialect;  
@@ -118,9 +116,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
         emitRTOData = syncTo.emitRTOData;
         exportOAL = syncTo.exportOAL;
-        singleFileExportGraphics = syncTo.singleFileExportGraphics;
-        persistGraphicalInstances = syncTo.persistGraphicalInstances;
-        graphicsTextualSerialization = syncTo.graphicsTextualSerialization;
+        exportGraphics = syncTo.exportGraphics;
         messageDirection = syncTo.messageDirection; 
         activityPersistenceAsFiles = syncTo.activityPersistenceAsFiles;
         defaultActionLanguageDialect = syncTo.defaultActionLanguageDialect; 
@@ -181,9 +177,7 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
 
         prefs.emitRTOData = emitRTOData;
         prefs.exportOAL = exportOAL;
-        prefs.singleFileExportGraphics = singleFileExportGraphics;
-        prefs.persistGraphicalInstances = persistGraphicalInstances;
-        prefs.graphicsTextualSerialization = graphicsTextualSerialization;
+        prefs.exportGraphics = exportGraphics;
         prefs.messageDirection = messageDirection;
         prefs.activityPersistenceAsFiles = activityPersistenceAsFiles;
         prefs.defaultActionLanguageDialect = defaultActionLanguageDialect;

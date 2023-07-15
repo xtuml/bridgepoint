@@ -563,7 +563,7 @@
     XtUMLNature.java, ResourceChangeListener.java, ResourceUpdaterModelChangeListener.java,
       common/*.java,
       ui/PtWizardPage.java,ui/Selection.java,ui/IModelImport.java,ui/AbstractModelImportFactory.java,
-    ui/AbstractModelExportFactory.java, ui/NewDomainWizard.java, ui/BinaryFormalizeOnR_RELWizard.java, ui/BinaryFormalizeOnR_RELWizardPage1.java, ui/BinaryFormalizeOnR_RELWizardPage2.java,
+    ui/AbstractModelExportFactory.java, ui/NewDomainWizard.java,
     ui/NewSystemWizard.java, ui/ToggleNatureAction.java, ui/CopyCutAction.java, ui/PasteAction.java,
     ui/WizardNewDomainCreationPage.java, ui/WizardNewSystemCreationPage.java, ui/CutAction.java, ui/CopyAction.java, 
    ui/CutCopyPasteAction.java, ui/SetBPProjectPreferencesAction.java,
@@ -588,15 +588,14 @@
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
   	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
   	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java, ui/IRenameElementParticipant.java, ui/RenameParticipantUtil.java,
-	ui/actions/AssociationCardinalityAction.java, ui/actions/AssociationCardinalityContributionItem.java,
-  ui/actions/RangeAction.java, ui/actions/RangeContributionItem.java, ui/actions/ImportScenariosFromComponentOnD_DEPLAction.java,
+	  ui/actions/RangeAction.java, ui/actions/RangeContributionItem.java, ui/actions/ImportScenariosFromComponentOnD_DEPLAction.java,
   	paths/*.java" />
 
   <target name="format_java.depends" >
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">
          <srcfiles dir = "src/org/xtuml/bp/core/" includes="*.java" excludes="${cvs_java_files}" />
          <srcfiles dir = "src/org/xtuml/bp/core/ui" includes="*.java"  excludes="
-         PtWizardPage.java,Selection.java,IModelImport.java,AbstractModelImportFactory.java, BinaryFormalizeOnR_RELWizardPage2.java, BinaryFormalizeOnR_RELWizardPage1.java, BinaryFormalizeOnR_RELWizard.java,
+         PtWizardPage.java,Selection.java,IModelImport.java,AbstractModelImportFactory.java,
      AbstractModelExportFactory.java, ConvertModel2UUIDAction.java, NewDomainWizard.java, WizardNewSystemCreationPage.java,
      NewSystemWizard.java, ToggleNatureAction.java, WizardNewDomainCreationPage.java, common/OALPersistenceUtil.java,
      preferences/ExportPreferences.java,

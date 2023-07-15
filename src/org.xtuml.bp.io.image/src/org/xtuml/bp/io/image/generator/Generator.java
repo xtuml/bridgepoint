@@ -64,7 +64,6 @@ public class Generator extends Task {
         project = getProject(sys);
         PersistableModelComponent pmc = sys.getPersistableComponent();
         String rootPath = pmc.getContainingDirectoryPath().toString();
-        sys.getPersistableComponent().loadComponentAndChildren(new NullProgressMonitor());
         Ooaofgraphics[] ooags = Ooaofgraphics.getInstances();
         String warningMessage = "Failed to create image for:\n";
         boolean showWarning = false;

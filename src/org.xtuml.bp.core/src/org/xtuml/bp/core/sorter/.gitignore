@@ -1,5 +1,6 @@
 AlphaSorter.java
 Attribute_cSorter.java
+AttributeReferenceInClass_cSorter.java
 BaseTypeSpecificSorter.java
 BridgeParameter_cSorter.java
 Enumerator_cSorter.java

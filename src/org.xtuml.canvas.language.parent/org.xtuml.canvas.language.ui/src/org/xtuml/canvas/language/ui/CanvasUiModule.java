@@ -3,6 +3,7 @@
  */
 package org.xtuml.canvas.language.ui;
 
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -24,6 +25,10 @@ public class CanvasUiModule extends AbstractCanvasUiModule {
 			Status status = new Status(IStatus.ERROR, (String) modulePlugin.getBundle().getHeaders().get(Constants.BUNDLE_NAME),
 					IStatus.ERROR, message, e);
 			modulePlugin.getLog().log(status);
+	}
+	
+	public static ILog getLog() {
+		return modulePlugin.getLog();
 	}
 	
 	

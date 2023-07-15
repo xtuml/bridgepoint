@@ -8,10 +8,16 @@ package org.xtuml.bp.welcome.gettingstarted;
 //
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -23,7 +29,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.swt.widgets.Display;
@@ -159,7 +164,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                         + "/" + modelName); //$NON-NLS-1$
 
                 if (!modelPath.isEmpty()) {
-                    setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
+                    setupSucceeded = ProjectUtilities.importExistingProjectCLI(modelPath, true);
                 }
                }
 
@@ -227,7 +232,34 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 
             String modelPath = resolvePath(IGettingStartedConstants.modelFolder + "/" + archiveName + "." + singleFile);
             if (!modelPath.isEmpty()) {
-                setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
+            	
+            	 try {
+                     final Path tempDirectory = Files.createTempDirectory(null);
+                     final Path zipFile = Path.of(modelPath);
+                     try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+                         ZipEntry entry;
+                         while ((entry = zipInputStream.getNextEntry()) != null) {
+                             final Path entryPath = tempDirectory.resolve(entry.getName());
+                             if (entry.isDirectory()) {
+                                 Files.createDirectories(entryPath);
+                             } else {
+                                 Files.createDirectories(entryPath.getParent());
+                                 Files.copy(zipInputStream, entryPath, StandardCopyOption.REPLACE_EXISTING);
+                             }
+                             zipInputStream.closeEntry();
+                         }
+                     }
+                     for ( String modelName : modelNames ) {
+                    	 setupSucceeded = ProjectUtilities.importExistingProjectCLI(tempDirectory.resolve(Path.of(archiveName, modelName)).toString(), true);
+                    	 if (!setupSucceeded) {
+                    		 break;
+                    	 }
+                     }
+                 } catch (IOException e) {
+                	 CorePlugin.logError(
+                        "Failed to unzip example project", e);
+                	 setupSucceeded = false;
+                 }
             }
 
         } catch (OperationCanceledException oce) {
@@ -290,7 +322,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
                 modelFolderName);
         IFile fileToBeOpened;
         if ( null != readmePath && !"".equals(readmePath) ) {
-            fileToBeOpened = ResourcesPlugin.getWorkspace().getRoot().getFile( new Path( readmePath ) );
+            fileToBeOpened = ResourcesPlugin.getWorkspace().getRoot().getFile( new org.eclipse.core.runtime.Path( readmePath ) );
         }
         else {
             fileToBeOpened = project.getFile("README");
@@ -319,7 +351,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
         if ( null != exeString ) {
             String[] exes = exeString.split( "," );
             for ( String exe : exes ) {
-                IFile exeFile = ResourcesPlugin.getWorkspace().getRoot().getFile( new Path( exe ) );
+                IFile exeFile = ResourcesPlugin.getWorkspace().getRoot().getFile( new org.eclipse.core.runtime.Path( exe ) );
                 if ( exeFile.exists() ) {
                     ResourceAttributes attributes = exeFile.getResourceAttributes();
                     attributes.setExecutable( true );

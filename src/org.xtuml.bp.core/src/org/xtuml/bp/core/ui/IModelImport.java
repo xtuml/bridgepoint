@@ -49,10 +49,16 @@ public interface IModelImport extends IRunnableWithProgress {
     public NonRootModelElement[] getLoadedInstances();
     public NonRootModelElement[] getLoadedGraphicalInstances();
 
-	public interface IFileHeader{
+	public static enum PersistenceFormat {
+		TEXT, SQL
+	}
+
+	public interface IFileHeader {
 		public String getProductVersion();
 		public String getFileFormatVersion();
 		public String getModelComponentType();
+		public PersistenceFormat getPersistenceFormat();
+		public boolean isValid();
 		public SystemModel_c readSystemModel(InputStream in) throws IOException;
 	}
 }

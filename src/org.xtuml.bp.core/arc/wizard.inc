@@ -116,7 +116,6 @@ public class ${wizard_class_name} extends Wizard
 	protected Stack m_pagesStack = new Stack();
 
 	// wizard pages
-  .invoke isLinkedPage = is_linked_association_wizard_page(wizard_class_name)
   .assign count = 1
   .for each step in steps
     .select any field related by step->W_FLD[R2009]
@@ -166,9 +165,6 @@ public class ${wizard_class_name} extends Wizard
       .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
       .if (not_empty class)
       public $cr{class.Name}_c v_${field.Instance_Handle} = null;
-        .if (isLinkedPage.islinked)
-      public String v_${field.Instance_Handle}Prefix = "";
-        .end if
       .else
       public String v_${field.Instance_Handle} = "";
       .end if
@@ -313,35 +309,7 @@ public class ${wizard_class_name} extends Wizard
         return (IWizardPage)m_pagesStack.pop();
       }
     }
-    
-    
-    .if (isLinkedPage.islinked)
-    	private void setPrefixs(LinkedAssociation_c vARel) {
-    	if (v_${field.Instance_Handle}Prefix.equalsIgnoreCase("") ){
-			return;
-		}
-		ClassAsAssociatedOneSide_c oneSide = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(vARel);
-		ReferredToIdentifierAttribute_c[] oneSideIDs = ReferredToIdentifierAttribute_c.getManyO_RTIDAsOnR110(ReferredToClassInAssoc_c.getOneR_RTOOnR204(oneSide));
-		for (ReferredToIdentifierAttribute_c oneSideID : oneSideIDs) {
-			Attribute_c attr  = Attribute_c.getOneO_ATTROnR106(ReferentialAttribute_c.getOneO_RATTROnR108(AttributeReferenceInClass_c.getOneO_REFOnR111(oneSideID)));
-			if (!v_one_idPrefix.equalsIgnoreCase("")){
-				attr.setPrefix(v_one_idPrefix);
-				attr.setPfx_mode(1);
-			}
-		}
-		
-		ClassAsAssociatedOtherSide_c otherSide = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(vARel);
-		ReferredToIdentifierAttribute_c[] otherSideIDs = ReferredToIdentifierAttribute_c.getManyO_RTIDAsOnR110(ReferredToClassInAssoc_c.getOneR_RTOOnR204(otherSide));
-		for (ReferredToIdentifierAttribute_c otherSideID : otherSideIDs) {
-			Attribute_c attr  = Attribute_c.getOneO_ATTROnR106(ReferentialAttribute_c.getOneO_RATTROnR108(AttributeReferenceInClass_c.getOneO_REFOnR111(otherSideID)));
-			if (!v_oth_idPrefix.equalsIgnoreCase("")){
-				attr.setPrefix(v_oth_idPrefix);
-				attr.setPfx_mode(1);
-			}
-		}
-	}
-	.end if
-    
+
 	public boolean performFinish() 
 	{
 		TransactionUtil.TransactionGroup transactionGroup = null;
@@ -355,9 +323,6 @@ public class ${wizard_class_name} extends Wizard
 			transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots(
 				"${transaction_name.name}"); //$$NON-NLS-1$$
 ${ui_result.body}
-		.if (isLinkedPage.islinked)
-		setPrefixs(v_a_rel);
-		.end if			
     // catch all exceptions and cancel the transaction
 		} catch (Exception e) {
 			if (transactionGroup != null) TransactionUtil.cancelTransactions(transactionGroup, e);

@@ -1,0 +1,27 @@
+render : "MicrowaveOven::components::MicrowaveOven"
+
+properties :
+  viewport : x : 4000.0 y : 3000.0
+  zoom : 1.0
+
+shapes :
+  shape : MicrowaveOven____components____MicrowaveOven container
+    render : component_container "MicrowaveOven::components::MicrowaveOven"
+    bounds : x : 1764.0 y : 1228.0 width : 809.0 height : 596.0
+  shape : MicrowaveOven
+    render : package "MicrowaveOven::components::MicrowaveOven::Microwave Oven"
+    bounds : x : 1872.0 y : 1356.0 width : 176.0 height : 128.0
+  shape : TestSubsystem
+    render : package "MicrowaveOven::components::MicrowaveOven::Test Subsystem"
+    bounds : x : 2220.0 y : 1716.0 width : 176.0 height : 96.0
+  shape : Functions
+    render : package "MicrowaveOven::components::MicrowaveOven::Functions"
+    bounds : x : 1776.0 y : 1500.0 width : 160.0 height : 96.0
+  shape : ExternalEntities
+    render : package "MicrowaveOven::components::MicrowaveOven::External Entities"
+    bounds : x : 1980.0 y : 1500.0 width : 160.0 height : 96.0
+  shape : Datatypes
+    render : package "MicrowaveOven::components::MicrowaveOven::Datatypes"
+    bounds : x : 1872.0 y : 1248.0 width : 160.0 height : 96.0
+
+connectors :

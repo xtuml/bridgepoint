@@ -22,42 +22,50 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.AbstractModelExportFactory;
+import org.xtuml.bp.io.core.CoreExport;
 
 public class ExportModelFactory extends AbstractModelExportFactory {
 
-	public IRunnableWithProgress create(
-		NonRootModelElement me,
-		String fileName,
-		boolean exportGraphics) throws FileNotFoundException {
-		return new ExportModelComponent((Ooaofooa)me.getModelRoot(), fileName, exportGraphics, me);
+	public IRunnableWithProgress create(NonRootModelElement me, String fileName, boolean exportGraphics)
+			throws FileNotFoundException {
+		if (CoreExport.persistAsText(me)) {
+			return new ExportModelText((Ooaofooa) me.getModelRoot(), fileName, exportGraphics, me);
+		} else {
+			return new ExportModelComponent((Ooaofooa) me.getModelRoot(), fileName, exportGraphics, me);
+		}
 	}
-	
-	public IRunnableWithProgress create(
-		Ooaofooa aModelRoot,
-		String fileName,
-		boolean exportGraphics) throws FileNotFoundException {
+
+	public IRunnableWithProgress create(Ooaofooa aModelRoot, String fileName, boolean exportGraphics)
+			throws FileNotFoundException {
 		return new ExportModel(aModelRoot, fileName, exportGraphics);
 	}
-	
 
-	public IRunnableWithProgress create(String file, NonRootModelElement element)
-			throws FileNotFoundException {
-		ExportModelComponent emc = new ExportModelComponent(file, element);
+	public IRunnableWithProgress create(String file, NonRootModelElement element) throws FileNotFoundException {
+		ExportModelComponent emc;
+		if (CoreExport.persistAsText(element)) {
+			emc = new ExportModelText(file, element);
+		} else {
+			emc = new ExportModelComponent(file, element);
+		}
 		emc.outputCachedIDs = true;
 		return emc;
 	}
 
 	public IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, NonRootModelElement element) {
-		ExportModelComponent emc = new ExportModelComponent(modelRoot, baos, element);
+		ExportModelComponent emc;
+		if (CoreExport.persistAsText(element)) {
+			emc = new ExportModelText(modelRoot, baos, element);
+		} else {
+			emc = new ExportModelComponent(modelRoot, baos, element);
+		}
 		emc.outputCachedIDs = true;
 		return emc;
 	}
 
 	@Override
-	public IRunnableWithProgress create(Ooaofooa aModelRoot, SystemModel_c sys,
-			boolean exportGraphics) throws FileNotFoundException {
+	public IRunnableWithProgress create(Ooaofooa aModelRoot, SystemModel_c sys, boolean exportGraphics)
+			throws FileNotFoundException {
 		return null;
 	}
-	
-}
 
+}
