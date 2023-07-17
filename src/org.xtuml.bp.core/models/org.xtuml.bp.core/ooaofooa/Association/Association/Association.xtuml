@@ -970,6 +970,11 @@ if (symmetric)
   b_mult = a_mult;
 end if;
 
+// init these for possible referential prefix/rename
+edt_mode = 0;
+edt_txt = "";
+select any formclass from instances of O_OBJ where false;  // decl
+
 // Get classes involved in binary relationship
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
@@ -978,12 +983,12 @@ select one b_class related by b_oir->O_OBJ[R201];
 select any a_identifier from instances of O_ID where false;
 select any b_identifier from instances of O_ID where false;
 if (formalize)
-	if ("" != a_ident)
-	  select any a_identifier related by a_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:a_ident, i1:1, i2:-1)) - 1);
-	end if;
-	if ("" != b_ident)
-	  select any b_identifier related by b_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:b_ident, i1:1, i2:-1)) - 1);
-	end if;
+  if ("" != a_ident)
+    select any a_identifier related by a_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:a_ident, i1:1, i2:-1)) - 1);
+  end if;
+  if ("" != b_ident)
+    select any b_identifier related by b_class->O_ID[R104] where (selected.Oid_ID == GD::string_to_int(value:Util::substr(s:b_ident, i1:1, i2:-1)) - 1);
+  end if;
 end if;
 
 // Determine if parameter data warrants migration - only if not formalized!
@@ -1104,10 +1109,35 @@ if (not_empty simp)
       end if;
     end if;
     simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
+    // after formalization, handle referential prefixing, renaming as required
+    if (identifier == b_identifier) and (param.b_edt_mode != 0)
+      formclass = a_class;
+      edt_mode = param.b_edt_mode;
+      edt_txt = param.b_edt_txt;
+    end if;
+    if (identifier == a_identifier) and (param.a_edt_mode != 0)
+      formclass = b_class;
+      edt_mode = param.a_edt_mode;
+      edt_txt = param.a_edt_txt;
+    end if;
+    if (edt_mode != 0)
+      select many orefs related by formclass->O_ATTR[R102]->O_RATTR[R106]->O_REF[R108]
+       where (selected.Rel_ID == simp.Rel_ID);
+      for each oref in orefs
+        select one rattr related by oref->O_RATTR[R108];
+        select one attr related by rattr->O_ATTR[R106];
+        if (edt_mode == 1)
+          attr.Pfx_Mode = 1;
+          attr.Prefix = edt_txt;
+        else
+          attr.Root_Nam = edt_txt;
+          rattr.Ref_Mode = 0;
+        end if;
+      end for;
+    end if;
   elif (not formalize and self.isFormalized())
     self.unformalize();
   end if;
-
 
 // Handle starting from linked association
 elif (not_empty linked)
@@ -1176,23 +1206,23 @@ elif (not_empty linked)
   // note: this is currently disabled in association editor - see issue #11699
   // furthermore, it should not be allowed for a formalized association
   if (not self.isFormalized())
-	  select one current_assr related by linked->R_ASSR[R211];
-	  if (current_assr.Obj_ID != assoc_class.Obj_ID)
-	    current_id = current_assr.Obj_ID;
-	    new_id = assoc_class.Obj_ID;
-	    select one current_pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
-	    select one current_assr_pkg related by current_assr->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]->PE_PE[R8001]->EP_PKG[R8000];
-	    select one assoc_class_pkg related by assoc_class->PE_PE[R8001]->EP_PKG[R8000];
-	    if (current_pkg.Package_ID != current_assr_pkg.Package_ID)
-	      select any imported_current_assr related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == current_assr.Obj_ID);
-	      current_id = imported_current_assr.IObj_ID;
-	    end if;
-	    if (current_pkg.Package_ID != assoc_class_pkg.Package_ID)
-	      select any imported_assoc_class related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
-	      new_id = imported_assoc_class.IObj_ID;
-	    end if;
-	    success = current_assr.moveAssociation(current_id:current_id, new_id:new_id, end:End::Start);
-	  end if;
+    select one current_assr related by linked->R_ASSR[R211];
+    if (current_assr.Obj_ID != assoc_class.Obj_ID)
+      current_id = current_assr.Obj_ID;
+      new_id = assoc_class.Obj_ID;
+      select one current_pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
+      select one current_assr_pkg related by current_assr->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201]->PE_PE[R8001]->EP_PKG[R8000];
+      select one assoc_class_pkg related by assoc_class->PE_PE[R8001]->EP_PKG[R8000];
+      if (current_pkg.Package_ID != current_assr_pkg.Package_ID)
+        select any imported_current_assr related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == current_assr.Obj_ID);
+        current_id = imported_current_assr.IObj_ID;
+      end if;
+      if (current_pkg.Package_ID != assoc_class_pkg.Package_ID)
+        select any imported_assoc_class related by current_pkg->PE_PE[R8000]->O_IOBJ[R8001] where (selected.Obj_ID == assoc_class.Obj_ID);
+        new_id = imported_assoc_class.IObj_ID;
+      end if;
+      success = current_assr.moveAssociation(current_id:current_id, new_id:new_id, end:End::Start);
+    end if;
   end if;
 
   // formalize the association
@@ -1209,6 +1239,30 @@ elif (not_empty linked)
       oth_id = a_identifier.Oid_ID;
     end if;
     linked.formalize(one_id:one_id, oth_id:oth_id);
+    // after formalization, handle referential prefixing, renaming as required
+    formclass = assoc_class;
+    select many orefs related by formclass->O_ATTR[R102]->O_RATTR[R106]->O_REF[R108]
+     where (selected.Rel_ID == self.Rel_ID);
+    for each oref in orefs
+      phrs = oref.get_referential_phrase();
+      select one participant related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105]->O_OBJ[R102];
+      if ((participant == a_class) and (phrs == a_phrase))  // phrase check for reflexive case.
+        edt_mode = param.a_edt_mode;
+        edt_txt = param.a_edt_txt;
+      else
+        edt_mode = param.b_edt_mode;
+        edt_txt = param.b_edt_txt;
+      end if;
+      select one rattr related by oref->O_RATTR[R108];
+      select one attr related by rattr->O_ATTR[R106];
+      if (edt_mode == 1)
+        attr.Pfx_Mode = 1;
+        attr.Prefix = edt_txt;
+      else
+        attr.Root_Nam = edt_txt;
+        rattr.Ref_Mode = 0;
+      end if;
+    end for;
   elif (not formalize and self.isFormalized())
     self.unformalize();
   end if;
@@ -1307,7 +1361,7 @@ INSERT INTO O_TPARM
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
-	"59d417ca-c09f-417e-a591-aa6b29cbf984",
+	"c15c8cf0-ccd2-40a6-96c5-8d98f48839a0",
 	'if formaliz(ing/ed), this is identifier (if any) for the ''b'' side class.  ');
 INSERT INTO O_TPARM
 	VALUES ("da2651ff-6d0c-4362-a4d4-5a9e41a333c2",
@@ -1316,7 +1370,7 @@ INSERT INTO O_TPARM
 	"84509681-1256-4002-b6a9-c0d824170d0f",
 	0,
 	'',
-	"4f0244c6-6545-4f5e-a196-37345690ff3a",
+	"4ad1a2b4-cc73-4490-be91-641a2d5af289",
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("84509681-1256-4002-b6a9-c0d824170d0f",
@@ -1377,6 +1431,46 @@ INSERT INTO O_TPARM
 	'',
 	"4a2a9e4f-80aa-45d5-b7c3-e72d5de559fd",
 	'association is reflexive symmetric.');
+INSERT INTO O_TPARM
+	VALUES ("34248b71-6155-4265-aa1e-4a8caa76b1fd",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_edt_txt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"59d417ca-c09f-417e-a591-aa6b29cbf984",
+	'If non-null, used as directed by a_edt_mode.');
+INSERT INTO O_TPARM
+	VALUES ("16d230c8-4047-4cab-a903-f4c308d798b8",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_edt_txt',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"4f0244c6-6545-4f5e-a196-37345690ff3a",
+	'If non-null, used as directed by b_edt_mode.');
+INSERT INTO O_TPARM
+	VALUES ("c15c8cf0-ccd2-40a6-96c5-8d98f48839a0",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'a_edt_mode',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"34248b71-6155-4265-aa1e-4a8caa76b1fd",
+	'If non-zero, edit a_class referential(s) for this association:
+1 = use a_edt_txt as prefix for each attribute;
+2 = rename single referential with a_edt_txt;');
+INSERT INTO O_TPARM
+	VALUES ("4ad1a2b4-cc73-4490-be91-641a2d5af289",
+	"25e72586-4980-4217-b43b-c45aacc395cd",
+	'b_edt_mode',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"16d230c8-4047-4cab-a903-f4c308d798b8",
+	'If non-zero, edit b_class referential(s) for this association:
+1 = use a_edt_txt as prefix for each attribute;
+2 = rename single referential with a_edt_txt;');
 INSERT INTO O_TFR
 	VALUES ("7e702f2d-f714-4c51-b383-2be831f205f1",
 	"fccf477f-dde6-4d1a-9020-5effbe338738",
