@@ -8509,10 +8509,12 @@ end if;
 
 // Note: the following OAL must be kept simple to satisfy wizardry.
 // In particular, it seems that ''select... where(selected.xxx == ..) is unacceptable; 
-// hence the explicit for loops with embedded if stmts.
+// also, ''break'' appears to be ignored.
+// Hence the explicit for loops with embedded if stmts.
 
 if (a_formalizing_ident != "")  // if formalized, just display the chosen id with any prefix/rename
   label_text1 = label_text1 + "  " + a_formalizing_ident;
+  label_text2a = "";  // break is ignored..
   refclass = b_class;
   if (is_associative)
     refclass = associative_class;
@@ -8529,18 +8531,21 @@ if (a_formalizing_ident != "")  // if formalized, just display the chosen id wit
   	      if ((refattr == oidattr) and ( phrs == a_phrase));  // phrase check for reflexive
             select one attr related by rattr->O_ATTR[R106];
             if (attr.Pfx_Mode == 1)
-              label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+              if (label_text2a == "")  // only add 1 instance of prefix
+                label_text2a = "   prefixed: " + attr.Prefix;
+              end if;
             else
               if (attr.Name != oidattr.Name)
-                label_text2 = label_text2 + "   renamed: " + attr.Name;
+                label_text2a = "   renamed: " + attr.Name;
               end if;
             end if;
-            break;
           end if;
         end for;
       end if;
     end for;
   end for;
+  label_text2 = label_text2 + label_text2a;
+  label_text2a = "";
 end if;
 a_id_label = USER::getLabel(label:label_text1);
 LAYOUT::setLayout(field_name:"a_id_label", row_num:"6", width:"1", height:"1");
@@ -8595,6 +8600,7 @@ else
 end if;
 if (b_formalizing_ident != "")  // if formalized, just display the chosen id with any prefix/rename
   label_text1 = label_text1 + "  " + b_formalizing_ident;
+  label_text2a = "";
   refclass = a_class;
   if (is_associative)
     refclass = associative_class;
@@ -8611,18 +8617,21 @@ if (b_formalizing_ident != "")  // if formalized, just display the chosen id wit
           if ((refattr == oidattr) and ( phrs == b_phrase));  // phrase check for reflexive
             select one attr related by rattr->O_ATTR[R106];
             if (attr.Pfx_Mode == 1)
-              label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+              if (label_text2a == "")  // only add 1 instance of prefix
+                label_text2a = "   prefixed: " + attr.Prefix;
+              end if;
             else
               if (attr.Name != oidattr.Name)
-                label_text2 = label_text2 + "   renamed: " + attr.Name;
+                label_text2a = "   renamed: " + attr.Name;
               end if;
             end if;
-            break;
           end if;
         end for;
       end if;
     end for;
   end for;
+  label_text2 = label_text2 + label_text2a;
+  label_text2a = "";
 end if;
 b_id_label = USER::getLabel(label:label_text1);
 LAYOUT::setLayout(field_name:"b_id_label", row_num:"7", width:"1", height:"1");
