@@ -223,12 +223,19 @@ public class ModelClassImportVisitor extends XtumlImportVisitor {
 			rattr.setRef_mode(1);
 			if (marks.containsKey(USE_PREFIX)) {
 				attr.setPfx_mode(1);
-				attr.setPrefix(marks.get(USE_PREFIX).getString("prefix"));
-				attr.setRoot_nam(marks.get(USE_PREFIX).getString("root_name"));
+				final String prefix = marks.get(USE_PREFIX).getString("prefix");
+				if (attrName.startsWith(attr.getPrefix())) {
+					attr.setPrefix(prefix);
+					attr.setRoot_nam(attrName.substring(prefix.length()));
+				} else {
+          // if the prefix is inconsistent, simply switch to local attribute mode and raise a warning
+          CorePlugin.getDefault().getLog().warn("Prefix is inconsistent with attribute name. Prefix: '" + prefix + "', Attribute name: '" + attrName + "'.");
+          attr.setPfx_mode(0);
+          attr.setRoot_nam(attrName);
+				}
 			} else if (marks.containsKey(USE_REF_PREFIX)) {
 				attr.setPfx_mode(2);
-				attr.setRoot_nam(marks.get(USE_REF_PREFIX).getString("root_name"));
-				attr.setPrefix(attrName.replace(attr.getRoot_nam(), ""));
+				attr.setRoot_nam(attrName);
 			} else {
 				attr.setPfx_mode(0);
 				attr.setRoot_nam(attrName);
