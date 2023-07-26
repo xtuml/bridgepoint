@@ -21,9 +21,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.core.editors,
- org.xtuml.bp.core.editors.association,
- org.xtuml.bp.core.editors.association.dialogs,
- org.xtuml.bp.core.editors.association.editing,
  org.xtuml.bp.core.editors.editing,
  org.xtuml.bp.core.editors.providers
 Bundle-ClassPath: editors.jar
