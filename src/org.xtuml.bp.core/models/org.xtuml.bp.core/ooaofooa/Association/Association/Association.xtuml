@@ -1245,8 +1245,8 @@ elif (not_empty linked)
      where (selected.Rel_ID == self.Rel_ID);
     for each oref in orefs
       phrs = oref.get_referential_phrase();
-      select one participant related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105]->O_OBJ[R102];
-      if ((participant == a_class) and (phrs == a_phrase))  // phrase check for reflexive case.
+      select one oid related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ID[R105];
+      if (oid == a_identifier and (phrs == b_phrase))  // phrase check for reflexive case.
         edt_mode = param.a_edt_mode;
         edt_txt = param.a_edt_txt;
       else
