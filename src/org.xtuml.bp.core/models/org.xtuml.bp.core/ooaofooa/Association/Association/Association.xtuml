@@ -1086,17 +1086,11 @@ if (not_empty simp)
   if ( formalize and not self.isFormalized())
     select any non_formalizer from instances of R_PART where false;
     select any identifier from instances of O_ID where false;
-    if (a_class.Name == part_class)
-      non_formalizer = a_part;
-      identifier = a_identifier;
-    elif (b_class.Name == part_class)
-      non_formalizer = b_part;
-      identifier = b_identifier;
-    else  // reflexive
+    if (self.is_reflexive())
       if (symmetric)  // this odd case has only a single phrase.
-        // just convert the first R_PART to a R_FORM
-        non_formalizer = b_part;     // why specify non-formalizer?...
-        identifier = a_identifier;   // but only a_identifier is valid (reflexive)
+        // just convert the first R_PART to a R_FORM (it has the blank role phrase)
+        non_formalizer = b_part;
+        identifier = a_identifier;  // only a_identifier is valid (reflexive)
       else
         reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
         if (reflexive_phrase == a_phrase)
@@ -1106,6 +1100,14 @@ if (not_empty simp)
           non_formalizer = a_part;
           identifier = a_identifier;
         end if;
+      end if;
+    else
+      if (a_class.Name == part_class)
+        non_formalizer = a_part;
+        identifier = a_identifier;
+      elif (b_class.Name == part_class)
+        non_formalizer = b_part;
+        identifier = b_identifier;
       end if;
     end if;
     simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);

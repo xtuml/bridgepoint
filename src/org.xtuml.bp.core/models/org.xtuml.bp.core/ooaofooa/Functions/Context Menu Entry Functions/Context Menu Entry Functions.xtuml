@@ -8229,7 +8229,7 @@ use_b_class = false;
 fchoice = "";
 formchoices[1] = "";  // declare and size the array - even if not presented for selection
 formchoices[0] = ""; 
-showchoice = false;
+showchoice = false;   // presume not display choice of formalizing class
 part_class = "";      // this may be the name of a participant class chosen for simple formalization.
 select any aoid from instances of O_ID where false;  // decl
 select any boid from instances of O_ID where false;  // decl
@@ -8334,22 +8334,22 @@ select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 // establish whether formalization is possible
 can_formalize = true;
 if (not is_formalized)
-  if (is_symmetric)
-    if (a_mult == "Many" and not is_associative)
-      can_formalize = false;
-    end if;
+  if (empty a_idents and empty b_idents)
+    can_formalize = false;
   else
-    if (empty a_idents and empty b_idents)
-      can_formalize = false;
+    if (not is_associative)
+      if (a_mult == "Many")
+        if (is_symmetric)
+          can_formalize = false;
+        else
+          if (b_mult == "Many")
+            can_formalize = false;
+          end if;
+        end if;
+      end if;
     else
-      if (not is_associative)
-        if (a_mult == "Many" and b_mult == "Many")
-          can_formalize = false;
-        end if;
-      else
-        if (empty a_idents or empty b_idents)
-          can_formalize = false;
-        end if;
+      if (empty a_idents or empty b_idents)
+        can_formalize = false;
       end if;
     end if;
   end if;
@@ -8422,81 +8422,13 @@ if (can_formalize)
 	end if;
 end if;
 
-// Note: the following OAL must be kept simple to satisfy wizardry.
-// In particular, it seems that ''select... where(selected.xxx == ..) is unacceptable; 
-// also, ''break'' appears to be ignored in ''loadUI'', but not ''performFinish''
-// Hence the explicit for loops with embedded if stmts.
-
-alabel_text2a = "";
-if (a_formalizing_ident != "")  // if formalized, prepare to display the chosen id with any prefix/rename
-  refclass = b_class;
-  if (is_associative)
-    refclass = associative_class;
-  end if;
-  select many oidattrs related by aoid->O_ATTR[R105];
-  select many rattrs related by refclass->O_ATTR[R102]->O_RATTR[R106];
-  for each rattr in rattrs
-    select many orefs related by rattr->O_REF[R108];
-    for each oref in orefs
-      if (oref.Rel_ID == r_rel.Rel_ID)
-        phrs = oref.get_referential_phrase();
-        select one refattr related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
-        for each oidattr in oidattrs
-          if ((refattr == oidattr) and ( phrs == b_phrase));  // phrase check for reflexive
-            select one attr related by rattr->O_ATTR[R106];
-            if (attr.Pfx_Mode == 1)
-              alabel_text2a = "   prefixed: " + attr.Prefix;
-            else
-              if (attr.Name != oidattr.Name)
-                alabel_text2a = "   renamed: " + attr.Name;
-              end if;
-            end if;
-            break;
-          end if;
-        end for;
-      end if;
-    end for;
-  end for;
-end if;
-
-blabel_text2a = "";
-if (b_formalizing_ident != "")  // if formalized, prepare to display the chosen id with any prefix/rename
-  refclass = a_class;
-  if (is_associative)
-    refclass = associative_class;
-  end if;
-  select many oidattrs related by boid->O_ATTR[R105];
-  select many rattrs related by refclass->O_ATTR[R102]->O_RATTR[R106];
-  for each rattr in rattrs
-    select many orefs related by rattr->O_REF[R108];
-    for each oref in orefs
-      if (oref.Rel_ID == r_rel.Rel_ID)
-        phrs = oref.get_referential_phrase();
-        select one refattr related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
-        for each oidattr in oidattrs
-          if ((refattr == oidattr) and ( phrs == a_phrase));  // phrase check for reflexive
-            select one attr related by rattr->O_ATTR[R106];
-            if (attr.Pfx_Mode == 1)
-              blabel_text2a = "   prefixed: " + attr.Prefix;
-            else
-              if (attr.Name != oidattr.Name)
-                blabel_text2a = "   renamed: " + attr.Name;
-              end if;
-            end if;
-            break;
-          end if;
-        end for;
-      end if;
-    end for;
-  end for;
-end if;
-
 // Non-associative formalization choices: either or both classes may present identifier choices.
 // if appropriate (can formalize) - present choice of participant (or reflexive phrase) for which to choose identifier.
 
+label_text = "";
 if (formalize)
   label_text = "id of class: ";
-  if (is_reflexive)
+  if (is_reflexive and not is_symmetric)
     label_text = "phrase: ";
   end if;
   if (is_formalized)
@@ -8516,8 +8448,10 @@ if (formalize)
       use_a_class = true;
       use_b_class = true;
     else
-      showchoice = true;  // display possible class/phrase choice for formalization of non-associative
-      label_text = "use " + label_text;
+      if (not is_symmetric)
+        showchoice = true;  // display possible class/phrase choice for formalization of non-associative
+        label_text = "use " + label_text;
+      end if;
     end if;
   end if;
 
@@ -8533,15 +8467,14 @@ end if;
 
 // Display, or present for selection, the formalizing class/phrase for a simple (non-associative), if appropriate.
 // Label text is either a prompt or a rendering of the chosen class/phrase.
+showlabel = formalize and not is_associative and not is_reflexive;
 choice_label = USER::getLabel(label:label_text);
 LAYOUT::setLayout(field_name:"choice_label", row_num:"5", width:"2", height:"1");
-USER::dependsOn(field1:"choice_label", field2:"formalize", inverse:false, comparison:"");
-USER::dependsOn(field1:"choice_label", field2:"formalize", inverse:true, comparison:"v_is_associative");
+USER::dependsOn(field1:"choice_label", field2:"formalize", inverse:false, comparison:"v_showlabel");
 
 // Display possible class/phrase choice(s) for non-associative, which can be formalized, but is not, when ''formalize'' is selected
 choice = USER::getDropdown(options:formchoices, prompt:"", default_selection:0, reload_options:true);
 LAYOUT::setLayout(field_name:"choice", row_num:"5", width:"2", height:"1");
-USER::dependsOn(field1:"choice", field2:"formalize", inverse:true, comparison:"v_is_associative");
 USER::dependsOn(field1:"choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
 
 // careful! - neither selected if the dropdown was not presented.
@@ -8553,6 +8486,11 @@ if (showchoice)
   else
     use_b_class = true;
     part_class = b_class.Name;
+  end if;
+else
+  if (is_symmetric and formalize)
+    use_a_class = true;
+    part_class = a_class.Name;
   end if;
 end if;
 // Display, or present for selection, the identifier fields as appropriate - one/other or both.
@@ -8568,15 +8506,38 @@ else
     label_text2 = " for  " + Util::getTic() + b_to_a_choice + Util::getTic();
   end if;
 end if;
-
 if (a_formalizing_ident != "")  // if formalized, just display the chosen id with any prefix/rename
   label_text1 = label_text1 + "  " + a_formalizing_ident;
-  label_text2 = label_text2 + alabel_text2a;
+  refclass = b_class;
+  if (is_associative)
+    refclass = associative_class;
+  end if;
+  select many orefs related by aoid->O_OIDA[R105]->O_RTIDA[R110]->O_REF[R111]
+   where (selected.Rel_ID == r_rel.Rel_ID);
+  for each oref in orefs
+    phrs = oref.get_referential_phrase();
+    if (phrs == b_phrase)
+      select one rattr related by oref->O_RATTR[R108];
+      select one attr related by rattr->O_ATTR[R106];
+	    if (attr.Pfx_Mode == 1)
+	      label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+	    else
+	      if (rattr.Ref_Mode == 0)
+	        label_text2 = label_text2 + "   renamed: " + attr.Name;
+	      end if;
+	    end if;
+	    break;
+	  end if;
+  end for;
+else
+  // formalized, but no a_class formalizing identifier; suppress display
+  if (is_formalized)
+    use_a_class = false;
+  end if;
 end if;
 a_id_label = USER::getLabel(label:label_text1);
 LAYOUT::setLayout(field_name:"a_id_label", row_num:"6", width:"1", height:"1");
 USER::dependsOn(field1:"a_id_label", field2:"formalize", inverse:false, comparison:"v_use_a_class");
-USER::dependsOn(field1:"a_id_label", field2:"formalize", inverse:false, comparison:"");
 
 a_id_choice = USER::getDropdown(options:a_ident_options, prompt:"", default_selection:0, reload_options:true);
 LAYOUT::setLayout(field_name:"a_id_choice", row_num:"6", width:"1", height:"1");
@@ -8586,14 +8547,13 @@ USER::dependsOn(field1:"a_id_choice", field2:"formalize", inverse:true, comparis
 a_id_label2 = USER::getLabel(label:label_text2);
 LAYOUT::setLayout(field_name:"a_id_label2", row_num:"6", width:"2", height:"1");
 USER::dependsOn(field1:"a_id_label2", field2:"formalize", inverse:false, comparison:"v_use_a_class");
-USER::dependsOn(field1:"a_id_label2", field2:"formalize", inverse:false, comparison:"");
 
 // Options for prefixing/renaming referentials in a_class
 a_pfxorname[1] = "";
 a_pfxorname[0] = "Prefixed";
 select many oids related by a_class->O_ID[R104.''is identified by''];
 for each oid in oids
-  idname = oid.get_name();
+  idname = oid.get_name();;
   if (idname == a_id_choice)
     select many attrs related by oid->O_ATTR[R105];
     if (cardinality attrs == 1)  // only allow rename if identifier is single-valued
@@ -8626,12 +8586,27 @@ else
 end if;
 if (b_formalizing_ident != "")  // if formalized, just display the chosen id with any prefix/rename
   label_text1 = label_text1 + "  " + b_formalizing_ident;
-  label_text2 = label_text2 + blabel_text2a;
+  select many orefs related by boid->O_OIDA[R105]->O_RTIDA[R110]->O_REF[R111]
+   where (selected.Rel_ID == r_rel.Rel_ID);
+  for each oref in orefs
+    phrs = oref.get_referential_phrase();
+    if (phrs == a_phrase)
+      select one rattr related by oref->O_RATTR[R108];
+      select one attr related by rattr->O_ATTR[R106];
+      if (attr.Pfx_Mode == 1)
+        label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+      else
+        if (rattr.Ref_Mode == 0)
+          label_text2 = label_text2 + "   renamed: " + attr.Name;
+        end if;
+      end if;
+      break;
+    end if;
+  end for;
 end if;
 b_id_label = USER::getLabel(label:label_text1);
 LAYOUT::setLayout(field_name:"b_id_label", row_num:"7", width:"1", height:"1");
 USER::dependsOn(field1:"b_id_label", field2:"formalize", inverse:false, comparison:"v_use_b_class");
-USER::dependsOn(field1:"b_id_label", field2:"formalize", inverse:false, comparison:"");
 
 b_id_choice = USER::getDropdown(options:b_ident_options, prompt:"", default_selection:0, reload_options:true);
 LAYOUT::setLayout(field_name:"b_id_choice", row_num:"7", width:"1", height:"1");
@@ -8641,7 +8616,6 @@ USER::dependsOn(field1:"b_id_choice", field2:"formalize", inverse:true, comparis
 b_id_label2 = USER::getLabel(label:label_text2);
 LAYOUT::setLayout(field_name:"b_id_label2", row_num:"7", width:"2", height:"1");
 USER::dependsOn(field1:"b_id_label2", field2:"formalize", inverse:false, comparison:"v_use_b_class");
-USER::dependsOn(field1:"b_id_label2", field2:"formalize", inverse:false, comparison:"");
 
 // Options for prefixing/renaming referentials in b_class
 b_pfxorname[1] = "";
