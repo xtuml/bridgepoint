@@ -8413,13 +8413,13 @@ if (can_formalize)
         select one boid related by b_part->R_RTO[R204]->O_ID[R109];
         b_formalizing_ident = boid.get_name();
       end if;	      
-	 	else
-   	  select one aoid related by a_aone->R_RTO[R204]->O_ID[R109];
+   	else
+      select one aoid related by a_aone->R_RTO[R204]->O_ID[R109];
       a_formalizing_ident = aoid.get_name();
       select one boid related by b_aoth->R_RTO[R204]->O_ID[R109];
       b_formalizing_ident = boid.get_name();
-	  end if;
-	end if;
+    end if;
+  end if;
 end if;
 
 // Non-associative formalization choices: either or both classes may present identifier choices.
@@ -8519,15 +8519,15 @@ if (a_formalizing_ident != "")  // if formalized, just display the chosen id wit
     if (phrs == b_phrase)
       select one rattr related by oref->O_RATTR[R108];
       select one attr related by rattr->O_ATTR[R106];
-	    if (attr.Pfx_Mode == 1)
-	      label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
-	    else
-	      if (rattr.Ref_Mode == 0)
-	        label_text2 = label_text2 + "   renamed: " + attr.Name;
-	      end if;
-	    end if;
-	    break;
-	  end if;
+      if (attr.Pfx_Mode == 1)
+        label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+      else
+        if (rattr.Ref_Mode == 0)
+          label_text2 = label_text2 + "   renamed: " + attr.Name;
+        end if;
+      end if;
+      break;
+    end if;
   end for;
 else
   // formalized, but no a_class formalizing identifier; suppress display
