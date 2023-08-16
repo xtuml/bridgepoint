@@ -100,6 +100,14 @@ ${step.buffer}
     .if (not_empty eli_blk)
       .assign passive = true
     .end if
+    .select any brk_stmt related by statement->ACT_BRK[R603]
+    .if (not_empty brk_stmt)
+      .assign passive = true
+    .end if
+    .select any con_stmt related by statement->ACT_CON[R603]
+    .if (not_empty con_stmt)
+      .assign passive = true
+    .end if
     .if (passive == true)
         .select any field from instances of W_FLD where ("${selected.Statement_Id}" == "${statement.Statement_Id}")
         .select any context_item from instances of W_CTI where ("${selected.Statement_Id}" == "${statement.Statement_Id}")
