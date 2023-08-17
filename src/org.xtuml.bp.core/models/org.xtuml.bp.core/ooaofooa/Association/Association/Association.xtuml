@@ -1087,10 +1087,13 @@ if (not_empty simp)
     select any non_formalizer from instances of R_PART where false;
     select any identifier from instances of O_ID where false;
     if (self.is_reflexive())
-      if (symmetric)  // this odd case has only a single phrase.
-        // just convert the first R_PART to a R_FORM (it has the blank role phrase)
+      if (symmetric)  
+        // Special case: a formalized simple (non-associative) symmetric can only be 1:1.
+        // There is only one role phrase here, stored in the 2nd R_PART - the ''b_part''
+        // Symmetry is denoted by an empty role phrase in R_FORM (unlike non-symmetric reflexive)
+        // So the 1st R_PART must be converted to a R_FORM (it has the blank role phrase)
         non_formalizer = b_part;
-        identifier = a_identifier;  // only a_identifier is valid (reflexive)
+        identifier = b_identifier;
       else
         reflexive_phrase = Util::substr(s:part_class, i1:0, i2:GD::strlen(s:part_class) - GD::strlen(s:a_class.Name) - 1);
         if (reflexive_phrase == a_phrase)

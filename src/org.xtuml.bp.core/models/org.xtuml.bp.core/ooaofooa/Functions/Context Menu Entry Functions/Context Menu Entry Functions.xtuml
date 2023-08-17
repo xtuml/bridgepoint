@@ -8391,8 +8391,8 @@ end for;
 
 if (can_formalize)
   // Prepare possible formalizing participant/phrase choices:
-  if (is_reflexive)
-    if (not is_symmetric)  // no choices displayed if symmetric - irrelevant
+  if (is_reflexive)  // use role phrases rather than class names...
+    if (not is_symmetric)  // but, no choices displayed if symmetric - irrelevant
       b_to_a_choice = a_phrase;
       a_to_b_choice = b_phrase;
     end if;
@@ -8489,12 +8489,13 @@ if (showchoice)
   end if;
 else
   if (is_symmetric and formalize)
-    use_a_class = true;
-    part_class = a_class.Name;
+    use_b_class = true;
+    part_class = b_class.Name;  // ensure that ''a_class'' becomes the R_FORM - with no role phrase
   end if;
 end if;
+
 // Display, or present for selection, the identifier fields as appropriate - one/other or both.
-// If formalized, just augment the label field(s) to show selected identifier; do not present menu choice.
+// If formalized, do not present menu choice - augment the label field(s) to show selected identifier; 
 
 // Identifier in A class
 label_text1 = "id:";
@@ -8530,9 +8531,10 @@ if (a_formalizing_ident != "")  // if formalized, just display the chosen id wit
     end if;
   end for;
 else
-  // formalized, but no a_class formalizing identifier; suppress display
+  // formalized, but no ''a_class'' formalizing identifier was found because it is the R_FORM side.
+  // leave the label display to the b_class, which has the role phrase (see editAssociation formalization)
   if (is_formalized)
-    use_a_class = false;
+    use_b_class = true;
   end if;
 end if;
 a_id_label = USER::getLabel(label:label_text1);
