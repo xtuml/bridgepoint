@@ -17,20 +17,32 @@ decision is brought into question by this user request.
 
 == 3 Requirements
 
+A decision was made to make the supertype event labels consistent with the 
+local events.
+
+====
+<Class Key Letters>:<Event Name><Event Number>( <parameters> )
+====
+
+The class key letters used are for the class in which the event is declared.
+
 == 4 Analysis
 
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
+The event display rendering is done in the class, _State Machine Event_, by the
+method, _getName_. Changes to this method are reflected in models immediately.
 
+Further work needs to be done to see if the iUML-based models are supported
+correctly where they allow overriding a polymorphic event.
 
 == 5 Work Required
 
+. Modify the _getName_ method to meet the requirements.
+. Update any tests that are dependent upon the current polymorphic event naming
+convention.
+
 == 6 Acceptance Test
 
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied.
-
-
+Manual review of polymorphic events in models to ensure they meet requirements.
 
 == 7 Document References
 
@@ -38,8 +50,6 @@ In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.
 
 . [[dr-1]] https://support.onefact.net/issues/12504[12504 - Display of local and polymorphic events on a state chart is inconstent]
-. [[dr-2]] ...
-. [[dr-3]] link:../8073_masl_parser/8277_serial_masl_spec.md[Serial MASL (SMASL) Specification]
 
 ---
 
