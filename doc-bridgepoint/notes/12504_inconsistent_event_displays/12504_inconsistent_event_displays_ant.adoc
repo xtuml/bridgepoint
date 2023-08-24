@@ -21,7 +21,7 @@ A decision was made to make the supertype event labels consistent with the
 local events.
 
 ====
-<Class Key Letters>:<Event Name><Event Number>( <parameters> )
+<SuperClass Key Letters>:<Event Name><Event Number>( <parameters> )
 ====
 
 The class key letters used are for the class in which the event is declared.
@@ -31,18 +31,30 @@ The class key letters used are for the class in which the event is declared.
 The event display rendering is done in the class, _State Machine Event_, by the
 method, _getName_. Changes to this method are reflected in models immediately.
 
-Further work needs to be done to see if the iUML-based models are supported
-correctly where they allow overriding a polymorphic event.
+Further work needs to be done to see if the ASL and MASL models are supported
+correctly where they allow concrete polymorphic events; the MASL documentation
+for polymorphic events uses the superclass name as follows: "Polymorphic events
+are not defined on the subtype, but referenced in the subtype's state
+transition table by prefixing them with the supertype object name." This should
+make them compatible with this change.
 
 == 5 Work Required
 
 . Modify the _getName_ method to meet the requirements.
+. Modify any other methods that work with polymorphic events.
+  e.g., SEM Event.migrateToLocalPoly
 . Update any tests that are dependent upon the current polymorphic event naming
-convention.
+  convention.
+. Ensure model compilation doesn't make any assumptions upon polymorphic event
+  naming.
+. Ensure MASL models work with the change.
 
 == 6 Acceptance Test
 
-Manual review of polymorphic events in models to ensure they meet requirements.
+. Manual review of polymorphic events in models to ensure they meet
+  requirements.
+. All tests pass.
+
 
 == 7 Document References
 
