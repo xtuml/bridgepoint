@@ -8082,7 +8082,26 @@ INSERT INTO S_SYNC
 	'ContextMenuFunction: TRUE
 Import: org.xtuml.bp.core.common.NonRootModelElement
 ',
-	'// Select current state of specified relationship
+	'/*
+This function is interpreted by wizardry to construct and manage an edit dialog which is presented 
+at first creation of a binary association, simple or associative, and on subsequent edit requests.
+
+The dialog presents controls which collect edit data specifying the association properties.
+On ''Finish'', Association::editAssociation() operation populates them association data structure.
+
+Values associated with the particpating classes are designated by ''a_'' and ''b_'' prefixes where 
+the association line graphic has been drawn from class ''a'' to class ''b'' - even if reflexive.
+The ''a'' class is presented as the upper line showing name, conditionality, role phrase and multiplicity.
+Unless the association is marked as symmetric, the ''b'' class is presented on the line below.
+
+The dialog supports formalization where possible and provides for attribute prefixing or rename.
+
+Note: (to the uninitiated) this code is parsed and reorganized as wizard pages; it is not executed linearly.
+Dialog field presentation cannot be controlled by if..else logic; all USER/LAYOUT::XXX() must be properly populated unconditionally.
+Dialog field visibility is dependent on USER::dependsOn() field2 status, overriden by any comparison logic. See #11554 notes.
+*/
+
+// Select current state of specified relationship
 select any r_rel from instances of R_REL where USER::selectOne(id:selected.Rel_ID);
 
 select any a_oir from instances of R_OIR where false;
@@ -8107,28 +8126,24 @@ select one b_aoth related by b_oir->R_RTO[R203]->R_AOTH[R204];
 select one a_class related by a_oir->O_OBJ[R201];
 select one b_class related by b_oir->O_OBJ[R201];
 
-// Note: (to the uninitiated) this code is parsed and reorganized as wizard pages; it is not executed linearly.
-// Dialog field presentation cannot be controlled by if..else logic; all USER/LAYOUT::XXX() must be properly populated unconditionally.
-// Dialog field visibility is dependent on USER::dependsOn() field2 status, overriden by any comparison logic. See #11554 notes.
-
-phrases_required = PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases");
 is_reflexive = r_rel.is_reflexive();
-get_phrase = phrases_required OR is_reflexive;
-formalize_required = PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
 is_formalized = r_rel.isFormalized();
+phrases_required = PREF::getBoolean(name:"bridgepoint_prefs_require_role_phrases");
+formalize_required = PREF::getBoolean(name:"bridgepoint_prefs_require_formalized_associations");
+get_phrase = phrases_required OR is_reflexive;
 
 // Association number
 default_rel_num = GD::int_to_string(value:r_rel.Numb);
 rel_num = USER::getText(default:default_rel_num, prompt:"Association Number", require_value:true, validate_name:false);
 LAYOUT::setLayout(field_name:"rel_num", row_num:"1", width:"1", height:"1");
 
-// reflexive associations may be symmetric: only one set of multiplicity, conditionality and rolephrase apply.
+// reflexive associations may be symmetric: only one set of multiplicity, conditionality and role phrase apply.
 symmetric = r_rel.is_symmetric(); // get existing value for use as default
 is_symmetric = USER::getCheckbox(default:symmetric, prompt:"Symmetric", disabled:false);
 LAYOUT::setLayout(field_name:"is_symmetric", row_num:"1", width:"1", height:"1");
 USER::dependsOn(field1:"is_symmetric", field2:"rel_num", inverse:false, comparison:"v_is_reflexive");
 
-// A class label
+// A class label 
 a_label1 = USER::getLabel(label:a_class.Name);
 LAYOUT::setLayout(field_name:"a_label1", row_num:"2", width:"1", height:"1");
 
@@ -8220,25 +8235,27 @@ USER::dependsOn(field1:"a_label2", field2:"is_symmetric", inverse:true, comparis
 // initialize possible data values that may appear in dialogs
 // Note: all data appearing in any USER/LAYOUT EE invocation must be initialized - used or not!
 
-b_to_a_choice = "";        // this may be one of the participant classes, or, if reflexive, one of the role phrases.
-a_to_b_choice = "";
 a_formalizing_ident = "";  // this may be a formalizing identifier choice.
-b_formalizing_ident = "";
+b_formalizing_ident = "";  // and/or this
+b_to_a_choice = "";        // this may be one of the participant classes, or, if reflexive, one of the role phrases.
+a_to_b_choice = "";        // as may this
 use_a_class = false;       // this will indicate whether identifiers from this class can be selected/displayed.
-use_b_class = false;
-fchoice = "";
-formchoices[1] = "";  // declare and size the array - even if not presented for selection
+use_b_class = false;       // ditto
+formchoices[1] = "";       // declare and size the array - even if not presented for selection.
 formchoices[0] = ""; 
-showchoice = false;   // presume not display choice of formalizing class
-part_class = "";      // this may be the name of a participant class chosen for simple formalization.
+formalizer_choice = "";    // a possible choice selected from above array.
+showchoice = false;        // presume not display choice of formalizing class
+part_class = "";           // this may be the name of a participant class chosen for simple formalization.
 select any aoid from instances of O_ID where false;  // decl
 select any boid from instances of O_ID where false;  // decl
 
-// Is associative relationship? - some functional changes here: see issue #11699 comment history on why associative re-assignment is disabled.
-// A simple binary association may migrate to associative (linked) if an available class is selected to fulfill that role.
-// An associative (linked) can migrate to simple binary by unchecking - if not formalized.
-// Change of associative class is disallowed, pending graphics fix. - but do not allow if formalized.
-
+/*
+Is this an associative relationship? - some functional changes here: 
+ - see issue #11699 comment history on why associative re-assignment is disabled for now (graphics updat fails).
+A simple binary association may migrate to associative (linked) if an available class is selected to fulfill that role.
+An associative (linked) can migrate to simple binary by unchecking - if not formalized.
+Change of associative class is disallowed, pending graphics fix. - but, for safety, do not allow change if formalized.
+*/
 num_candidates = 1;  // decl - but see decrement for array sizing - zero-based vs. count
 valid_candidates = true;  // tentatively
 default_selection = 0;
@@ -8304,7 +8321,6 @@ end if;
 
 // display associative check box if either: is associative, to allow uncheck; not associative and there exist candidate associative classes
 show_associative = (has_associative or (valid_candidates and not is_formalized));
-
 // but, disable this checkbox if formalized; for safety, must un-formalize first.
 is_associative = USER::getCheckbox(default:has_associative, prompt:"Associative", disabled:is_formalized);
 LAYOUT::setLayout(field_name:"is_associative", row_num:"4", width:"1", height:"1");
@@ -8331,7 +8347,13 @@ USER::dependsOn(field1:"assoc_candidate", field2:"is_associative", inverse:false
 select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 
-// establish whether formalization is possible
+/*
+Establish whether formalization is possible:
+At a minimum, one participating class must have an identifier defined.
+If both ''ends'' of the association are ''Many'' (M:M} an associative class must be present.
+(So, only a 1:1 simple (non-associative) symmetric association can be formalized).
+An associative class requires identifiers in both particpant classes for formalization.
+*/
 can_formalize = true;
 if (not is_formalized)
   if (empty a_idents and empty b_idents)
@@ -8361,9 +8383,10 @@ formalize = USER::getCheckbox(default:checkformal, prompt:"Formalize ", disabled
 LAYOUT::setLayout(field_name:"formalize", row_num:"5", width:"1", height:"1");
 USER::dependsOn(field1:"formalize", field2:"rel_num", inverse:false, comparison:"v_can_formalize");
 
-// Prepare to establish either possible identifiers for choice, or formalizing identifier(s).
-// These option arrays must be initialized, even if not presented
-
+/*
+Prepare to establish possible identifiers for formalization choice.
+These option arrays are referenced by USER EE and must be initialized, even if not presented
+*/
 num_options = cardinality a_idents;
 if (num_options < 1)
   num_options = 1;
@@ -8377,7 +8400,10 @@ if (not is_reflexive)
 end if;
 b_ident_options[num_options-1] = "";
 
-// Prepare id choices for selection - arrays must be initialized even if not presented
+/*
+Either or both participants may have multiple identifiers from which to choose:
+Prepare id choices for selection; arrays must be initialized even if not presented
+*/
 i = 0;
 for each a_ident in a_idents
   a_ident_options[i] = a_ident.get_name();
@@ -8389,42 +8415,54 @@ for each b_ident in b_idents
   i = i + 1;
 end for;
 
-if (can_formalize)
-  // Prepare possible formalizing participant/phrase choices:
-  if (is_reflexive)  // use role phrases rather than class names...
-    if (not is_symmetric)  // but, no choices displayed if symmetric - irrelevant
-      b_to_a_choice = a_phrase;
-      a_to_b_choice = b_phrase;
-    end if;
-  else
-    if (not_empty a_idents and (b_mult == "One" or (is_symmetric and a_mult == "One")))
-      b_to_a_choice = a_class.Name;
-    end if;
-    if ((not_empty b_idents and a_mult == "One") and not is_symmetric)
-      a_to_b_choice = b_class.Name;
-    end if;
-  end if;
-  if (is_formalized)  // establish the formalizing id(s) for display
-    if (not is_associative)
-      if (not_empty a_part)
-        select one aoid related by a_part->R_RTO[R204]->O_ID[R109];
-        a_formalizing_ident = aoid.get_name();
-      else
-        select one boid related by b_part->R_RTO[R204]->O_ID[R109];
-        b_formalizing_ident = boid.get_name();
-      end if;	      
-   	else
-      select one aoid related by a_aone->R_RTO[R204]->O_ID[R109];
+/*
+If the association is already formalized, no choices are presented.
+Instead, the details of formalization - class/phrase, identifier - are displayed.
+*/
+if (is_formalized)  // establish the formalizing id(s) for display
+  if (not is_associative)  
+    // simple binary: one of the following must match:
+    if (not_empty a_part)
+      select one aoid related by a_part->R_RTO[R204]->O_ID[R109];
       a_formalizing_ident = aoid.get_name();
-      select one boid related by b_aoth->R_RTO[R204]->O_ID[R109];
+    else
+      select one boid related by b_part->R_RTO[R204]->O_ID[R109];
       b_formalizing_ident = boid.get_name();
+    end if;       
+  else
+    // two ids - which may be the same for reflexive associative
+    select one aoid related by a_aone->R_RTO[R204]->O_ID[R109];
+    a_formalizing_ident = aoid.get_name();
+    select one boid related by b_aoth->R_RTO[R204]->O_ID[R109];
+    b_formalizing_ident = boid.get_name();
+  end if;
+else
+  // If appropriate, prepare possible formalizing participant class/phrase choices.
+  // If associative, no choice presented: both particpants are invovled.
+  // If not associative at least one side must be multiplicity ''One''.
+  if (can_formalize)
+    if (is_reflexive)  // use both (mandatory) role phrases rather than class names...
+      if (not is_symmetric)  // ...unless symmetric: no choices displayed - irrelevant
+        b_to_a_choice = a_phrase;
+        a_to_b_choice = b_phrase;
+      end if;
+    else
+      if (not_empty a_idents and b_mult == "One")
+        b_to_a_choice = a_class.Name;
+      end if;
+      if (not_empty b_idents and a_mult == "One")
+        a_to_b_choice = b_class.Name;
+      end if;
     end if;
   end if;
 end if;
 
-// Non-associative formalization choices: either or both classes may present identifier choices.
-// if appropriate (can formalize) - present choice of participant (or reflexive phrase) for which to choose identifier.
-
+/*
+Prepare a label which may either be a prompt for choice, or may display existing formalization data.
+For non-associative formalization choices either or both classes may present identifier choices.
+if appropriate, present choice of participant (or reflexive phrase) for which to choose identifier.
+Determine whether formalization choice/data of either or both participants will be presnted.
+*/
 label_text = "";
 if (formalize)
   label_text = "id of class: ";
@@ -8434,21 +8472,21 @@ if (formalize)
   if (is_formalized)
     // if not associative, one of these must match; if associative, neither
     if (a_formalizing_ident != "")
-      fchoice = b_to_a_choice;
+      formalizer_choice = b_to_a_choice;
       use_a_class = true;
     end if;
-    if (b_formalizing_ident !="")
-      fchoice = a_to_b_choice;
+    if (b_formalizing_ident != "")
+      formalizer_choice = a_to_b_choice;
       use_b_class = true;
     end if;
-    label_text = "using " + label_text + fchoice;
+    label_text = "using " + label_text + formalizer_choice;
   else
     if (is_associative)
       // associative: formalization must use identifiers from both participant classes - do not present label or choice.
       use_a_class = true;
       use_b_class = true;
     else
-      if (not is_symmetric)
+      if (not is_symmetric) // no class/phrase displayed for symmetric; only choice of identifier is relevant
         showchoice = true;  // display possible class/phrase choice for formalization of non-associative
         label_text = "use " + label_text;
       end if;
@@ -8465,8 +8503,11 @@ if (formalize)
   end if;
 end if;
 
-// Display, or present for selection, the formalizing class/phrase for a simple (non-associative), if appropriate.
-// Label text is either a prompt or a rendering of the chosen class/phrase.
+/*
+If appropriate (non-associative), display, or present for selection, the formalizing class/phrase.
+Label text is either a prompt or a rendering of the chosen class/phrase.
+(Suppress label for reflexive: no class choice; phrase incorporated in label below.)
+*/
 showlabel = formalize and not is_associative and not is_reflexive;
 choice_label = USER::getLabel(label:label_text);
 LAYOUT::setLayout(field_name:"choice_label", row_num:"5", width:"2", height:"1");
@@ -8494,9 +8535,12 @@ else
   end if;
 end if;
 
-// Display, or present for selection, the identifier fields as appropriate - one/other or both.
-// If formalized, do not present menu choice - augment the label field(s) to show selected identifier; 
-
+/*
+Display, or present for selection, the identifier fields as appropriate
+One/other or both particpants, determined earlier as ''use_a_class'', ''use_b_class''.
+If formalized, do not present id menu; augment the label field(s) to show selected identifier;
+Retrieve any prefixing or rename data for display in formalized case.
+*/
 // Identifier in A class
 label_text1 = "id:";
 label_text2 = "";
@@ -8509,10 +8553,6 @@ else
 end if;
 if (a_formalizing_ident != "")  // if formalized, just display the chosen id with any prefix/rename
   label_text1 = label_text1 + "  " + a_formalizing_ident;
-  refclass = b_class;
-  if (is_associative)
-    refclass = associative_class;
-  end if;
   select many orefs related by aoid->O_OIDA[R105]->O_RTIDA[R110]->O_REF[R111]
    where (selected.Rel_ID == r_rel.Rel_ID);
   for each oref in orefs
@@ -8530,12 +8570,6 @@ if (a_formalizing_ident != "")  // if formalized, just display the chosen id wit
       break;
     end if;
   end for;
-else
-  // formalized, but no ''a_class'' formalizing identifier was found because it is the R_FORM side.
-  // leave the label display to the b_class, which has the role phrase (see editAssociation formalization)
-  if (is_formalized)
-    use_b_class = true;
-  end if;
 end if;
 a_id_label = USER::getLabel(label:label_text1);
 LAYOUT::setLayout(field_name:"a_id_label", row_num:"6", width:"1", height:"1");
@@ -8550,7 +8584,7 @@ a_id_label2 = USER::getLabel(label:label_text2);
 LAYOUT::setLayout(field_name:"a_id_label2", row_num:"6", width:"2", height:"1");
 USER::dependsOn(field1:"a_id_label2", field2:"formalize", inverse:false, comparison:"v_use_a_class");
 
-// Options for prefixing/renaming referentials in a_class
+// Prepare options for prefixing/renaming referentials in a_class
 a_pfxorname[1] = "";
 a_pfxorname[0] = "Prefixed";
 select many oids related by a_class->O_ID[R104.''is identified by''];
@@ -8645,7 +8679,7 @@ LAYOUT::setLayout(field_name:"b_edt_txt", row_num:"7", width:"1", height:"1");
 USER::dependsOn(field1:"b_edt_txt", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 USER::dependsOn(field1:"b_edt_txt", field2:"formalize", inverse:true, comparison:"v_is_formalized");
 
-
+// Prepare prefix/rename parameter data.
 a_edt_mode = 0;  // decl, default
 if ("" != a_edt_txt)
   if (a_pfxname == "Prefixed")
