@@ -8087,7 +8087,7 @@ This function is interpreted by wizardry to construct and manage an edit dialog 
 at first creation of a binary association, simple or associative, and on subsequent edit requests.
 
 The dialog presents controls which collect edit data specifying the association properties.
-On ''Finish'', Association::editAssociation() operation populates them association data structure.
+On ''Finish'', Association::editAssociation() operation populates the association data structure.
 
 Values associated with the particpating classes are designated by ''a_'' and ''b_'' prefixes where 
 the association line graphic has been drawn from class ''a'' to class ''b'' - even if reflexive.
@@ -8251,7 +8251,7 @@ select any boid from instances of O_ID where false;  // decl
 
 /*
 Is this an associative relationship? - some functional changes here: 
- - see issue #11699 comment history on why associative re-assignment is disabled for now (graphics updat fails).
+ - see issue #11699 comment history on why associative re-assignment is disabled for now (graphics update fails).
 A simple binary association may migrate to associative (linked) if an available class is selected to fulfill that role.
 An associative (linked) can migrate to simple binary by unchecking - if not formalized.
 Change of associative class is disallowed, pending graphics fix. - but, for safety, do not allow change if formalized.
@@ -8351,7 +8351,7 @@ select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 Establish whether formalization is possible:
 At a minimum, one participating class must have an identifier defined.
 If both ''ends'' of the association are ''Many'' (M:M} an associative class must be present.
-(So, only a 1:1 simple (non-associative) symmetric association can be formalized).
+(b_mult should not be referenced for check in symmetric case - has not been presented on dialog).
 An associative class requires identifiers in both particpant classes for formalization.
 */
 can_formalize = true;
@@ -8436,23 +8436,23 @@ if (is_formalized)  // establish the formalizing id(s) for display
     select one boid related by b_aoth->R_RTO[R204]->O_ID[R109];
     b_formalizing_ident = boid.get_name();
   end if;
-else
-  // If appropriate, prepare possible formalizing participant class/phrase choices.
-  // If associative, no choice presented: both particpants are invovled.
-  // If not associative at least one side must be multiplicity ''One''.
-  if (can_formalize)
-    if (is_reflexive)  // use both (mandatory) role phrases rather than class names...
-      if (not is_symmetric)  // ...unless symmetric: no choices displayed - irrelevant
-        b_to_a_choice = a_phrase;
-        a_to_b_choice = b_phrase;
-      end if;
-    else
-      if (not_empty a_idents and b_mult == "One")
-        b_to_a_choice = a_class.Name;
-      end if;
-      if (not_empty b_idents and a_mult == "One")
-        a_to_b_choice = b_class.Name;
-      end if;
+end if;
+
+// If appropriate, prepare possible formalizing participant class/phrase choices.
+// If associative, no choice presented: both particpants are invovled.
+// If not associative at least one side must be multiplicity ''One''.
+if (can_formalize)
+  if (is_reflexive)  // use both (mandatory) role phrases rather than class names...
+    if (not is_symmetric)  // ...unless symmetric: no choices displayed - irrelevant
+      b_to_a_choice = a_phrase;
+      a_to_b_choice = b_phrase;
+    end if;
+  else
+    if (not_empty a_idents and b_mult == "One")
+      b_to_a_choice = a_class.Name;
+    end if;
+    if (not_empty b_idents and a_mult == "One")
+      a_to_b_choice = b_class.Name;
     end if;
   end if;
 end if;
@@ -8461,7 +8461,7 @@ end if;
 Prepare a label which may either be a prompt for choice, or may display existing formalization data.
 For non-associative formalization choices either or both classes may present identifier choices.
 if appropriate, present choice of participant (or reflexive phrase) for which to choose identifier.
-Determine whether formalization choice/data of either or both participants will be presnted.
+Determine whether formalization choice/data of either or both participants will be presented.
 */
 label_text = "";
 if (formalize)
@@ -8529,9 +8529,11 @@ if (showchoice)
     part_class = b_class.Name;
   end if;
 else
-  if (is_symmetric and formalize)
+  if (is_symmetric and formalize) 
+    // if formalized, b_formalizing_ident will be non-null for display.
+    // if not, as a and b classses are the same, use b_class for id choice.  
     use_b_class = true;
-    part_class = b_class.Name;  // ensure that ''a_class'' becomes the R_FORM - with no role phrase
+    part_class = b_class.Name;
   end if;
 end if;
 
@@ -8653,7 +8655,7 @@ b_id_label2 = USER::getLabel(label:label_text2);
 LAYOUT::setLayout(field_name:"b_id_label2", row_num:"7", width:"2", height:"1");
 USER::dependsOn(field1:"b_id_label2", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
-// Options for prefixing/renaming referentials in b_class
+// Prepare options for prefixing/renaming referentials in b_class
 b_pfxorname[1] = "";
 b_pfxorname[0] = "Prefixed";
 select many oids related by b_class->O_ID[R104.''is identified by''];
