@@ -8439,20 +8439,22 @@ if (is_formalized)  // establish the formalizing id(s) for display
 end if;
 
 // If appropriate, prepare possible formalizing participant class/phrase choices.
-// If associative, no choice presented: both particpants are invovled.
+// If associative, no choice presented: both particpants are involved.
 // If not associative at least one side must be multiplicity ''One''.
 if (can_formalize)
   if (is_reflexive)  // use both (mandatory) role phrases rather than class names...
     if (not is_symmetric)  // ...unless symmetric: no choices displayed - irrelevant
-      b_to_a_choice = a_phrase;
-      a_to_b_choice = b_phrase;
+      b_to_a_choice = b_phrase;
+      a_to_b_choice = a_phrase;
     end if;
   else
-    if (not_empty a_idents and b_mult == "One")
-      b_to_a_choice = a_class.Name;
-    end if;
-    if (not_empty b_idents and a_mult == "One")
-      a_to_b_choice = b_class.Name;
+    if (not is_associative)
+      if (not_empty a_idents and b_mult == "One")
+        b_to_a_choice = a_class.Name;
+      end if;
+      if (not_empty b_idents and a_mult == "One")
+        a_to_b_choice = b_class.Name;
+      end if;
     end if;
   end if;
 end if;
@@ -8519,7 +8521,9 @@ LAYOUT::setLayout(field_name:"choice", row_num:"5", width:"2", height:"1");
 USER::dependsOn(field1:"choice", field2:"formalize", inverse:false, comparison:"v_showchoice");
 
 // careful! - neither selected if the dropdown was not presented.
-// if non-symmetric reflexive, the choice is a phrase, not a class name!
+// if non-symmetric reflexive, the choice is a phrase, not a class name!..
+// ...prepend the choice of phrase to the class (this is way it was done earlier)
+phrs = "";
 if (showchoice)
   if (choice == b_to_a_choice)
     use_a_class = true;
@@ -8527,6 +8531,9 @@ if (showchoice)
   else
     use_b_class = true;
     part_class = b_class.Name;
+  end if;
+  if (is_reflexive)
+    part_class = choice + " " + part_class; // edit uses this convention to pass the phrase.
   end if;
 else
   if (is_symmetric and formalize) 

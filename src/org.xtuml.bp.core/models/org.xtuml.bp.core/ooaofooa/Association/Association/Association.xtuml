@@ -1087,6 +1087,15 @@ if (not_empty simp)
     select any non_formalizer from instances of R_PART where false;
     select any identifier from instances of O_ID where false;
     if (self.is_reflexive())
+      formclass = a_class;  // the only class involved!
+      // Note: for reflexive, the dialog will have presented only one prefix/rename choice
+      if (param.a_edt_mode != 0)
+        edt_mode = param.a_edt_mode;
+        edt_txt = param.a_edt_txt;
+      else
+        edt_mode = param.b_edt_mode;
+        edt_txt = param.b_edt_txt;
+      end if;        
       if (symmetric)  
         // Special case: a formalized simple (non-associative) symmetric can only be 1:1.
         // There is only one role phrase here, stored in the 2nd R_PART - the ''b_part''
@@ -1108,23 +1117,19 @@ if (not_empty simp)
       if (a_class.Name == part_class)
         non_formalizer = a_part;
         identifier = a_identifier;
+        formclass = b_class;
+        edt_mode = param.a_edt_mode;
+        edt_txt = param.a_edt_txt;
       elif (b_class.Name == part_class)
         non_formalizer = b_part;
         identifier = b_identifier;
+        formclass = a_class;
+        edt_mode = param.b_edt_mode;
+        edt_txt = param.b_edt_txt;
       end if;
     end if;
     simp.formalize(part_oir_id:non_formalizer.OIR_ID, id_id:identifier.Oid_ID);
     // after formalization, handle referential prefixing, renaming as required
-    if (identifier == b_identifier) and (param.b_edt_mode != 0)
-      formclass = a_class;
-      edt_mode = param.b_edt_mode;
-      edt_txt = param.b_edt_txt;
-    end if;
-    if (identifier == a_identifier) and (param.a_edt_mode != 0)
-      formclass = b_class;
-      edt_mode = param.a_edt_mode;
-      edt_txt = param.a_edt_txt;
-    end if;
     if (edt_mode != 0)
       select many orefs related by formclass->O_ATTR[R102]->O_RATTR[R106]->O_REF[R108]
        where (selected.Rel_ID == simp.Rel_ID);
