@@ -8344,6 +8344,12 @@ assoc_candidate = USER::getDropdown(options:candidate_class_options, prompt:"", 
 LAYOUT::setLayout(field_name:"assoc_candidate", row_num:"4", width:"2", height:"1");
 USER::dependsOn(field1:"assoc_candidate", field2:"is_associative", inverse:false, comparison:"v_show_candidates");
 
+for each associative_class in candidate_classes
+  if (associative_class.Name == assoc_candidate)
+    break;
+  end if;
+end for;
+
 select many a_idents related by a_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 select many b_idents related by b_class->O_ID[R104]->O_OIDA[R105]->O_ID[R105];
 
@@ -8709,9 +8715,6 @@ end if;
 // avoid passing meaningless data to edit (do this here to bypass wizardry)
 if (not formalize)
   part_class = "";
-end if;
-if (not is_associative)
-  select any associative_class from instances of O_OBJ where false;
 end if;
 
 

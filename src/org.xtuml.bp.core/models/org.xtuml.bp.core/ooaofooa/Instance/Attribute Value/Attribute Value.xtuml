@@ -253,6 +253,7 @@ else
     end if;
     select one rel related by linkp->R_REL[R2959];
     is_reflexive = rel.is_reflexive();
+    is_symmetric = rel.is_symmetric();
     select one rsimp related by rel->R_SIMP[R206];
     select one rassoc related by rel->R_ASSOC[R206];
     select one rsubsup related by rel->R_SUBSUP[R206];
@@ -269,6 +270,9 @@ else
         end if;
       end for;
       select one refto_inst related by linkp->I_LNK[R2901]->I_LIP[R2902]->I_INS[R2958];
+      if (empty refto_inst and is_symmetric)
+        select one refto_inst related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
+      end if;
     else
       // associative
       select any aone from instances of R_AONE where false;  // decl
