@@ -1,0 +1,85 @@
+= Implementation of Inconsistent Event Displays Fix
+
+== 1 Abstract
+
+Customer finds the display of a polymorphic state model event and a
+non-polymorphic instance event to be too inconsistent to be easily understood.
+A more detailed description is given in the customer supplied document attached
+to issue <<dr-1, 12504>>.
+
+== 2 Introduction and Background
+
+See <<dr-2>>.
+
+== 3 Requirements
+
+See <<dr-2>>.
+
+== 4 Work Required
+
+. Modify the _State Machine Event::getName_ method to meet the requirements.
+
+== 5 Implementation Comments
+
+=== 5.1 Modify the _State Machine Event::getName_ method
+
+This single modification appears to be all that is needed, and is a reversion to
+the previous way of handling polymorphic events. It should be noted that some of
+the polymorphic handling is done in the _State Machine Event::Drv_lbl_
+derivation OAL. The derivation didn't require any changes.
+
+=== 5.2 Modify any other methods that work with polymorphic events
+
+After more in-depth review, no needed changes were seen.
+
+=== 5.3 Update any tests that are dependent upon the current naming convention
+
+Review of the unit tests found no dependencies. Tests were not running on the
+local machine, so any failures missed will be updated as future bug reports.
+
+There is one QA Manual test concerning polymorphic events, Bug #2806. It has
+been in a _Feedback_ state for eight years. Any changes associated with this
+change can be addressed in the fix for the test.
+
+=== 5.4 Ensure model compilation doesn't make any assumptions about naming
+
+Model compilation with the MC-3020 was tested on an updated model with no 
+issues. The handling of event generation in OAL and MASL appears to use the
+supertype event label, which is preserved by this change, so no issues are
+expected to be present in the other model compilers.
+
+=== 5.5 Ensure MASL models work with the change
+
+Review of the MASL/ASL documentation show that the generation of polymorphic 
+events uses the supertype event label, so no MASL models should be affected by
+this change.
+
+== 6 Unit Test
+
+See comments in 5.3.
+
+== 7 User Documentation
+
+None
+
+== 8 Code Changes
+
+- fork/repository:  lwriemen/bridgepoint
+- branch:  12504_inconsistent_event_displays
+
+----
+ Put the file list here
+----
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12504[12504 - Display of local and polymorphic events on a state chart is inconstent]
+. [[dr-2]]
+  link:../12504_inconsistent_event_displays/12504_inconsistent_event_displays_ant.adoc[12504 Implementation Note]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
+
