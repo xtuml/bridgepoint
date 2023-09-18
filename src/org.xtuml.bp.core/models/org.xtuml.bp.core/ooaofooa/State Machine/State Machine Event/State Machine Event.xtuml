@@ -65,11 +65,7 @@ if(not_empty nlevt)
     // make sure meaning is up to date
     select one evt related by poly->SM_EVT[R525];
     self.Mning = evt.Mning;
-    if ( poly.SM_ID == self.SM_ID ) // if this is a local poly
-      return self.Drv_Lbl + ": " + self.Mning;
-    else
-      return self.Mning + "::" + poly.localClassName;
-    end if;
+    return self.Drv_Lbl + ": " + self.Mning;
   else
     return self.Mning + "::" + ::getOrphanedElementName();
   end if;
