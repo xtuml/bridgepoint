@@ -8575,8 +8575,8 @@ if (a_formalizing_ident != "")  // if formalized, just display the chosen id wit
     if (phrs == b_phrase)
       select one rattr related by oref->O_RATTR[R108];
       select one attr related by rattr->O_ATTR[R106];
-      if (attr.Pfx_Mode == 1)
-        label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+      if (attr.Pfx_Mode != 0)
+        label_text2 = label_text2 + "   prefixed: " + rattr.get_prefix_string();
       else
         if (rattr.Ref_Mode == 0)
           label_text2 = label_text2 + "   renamed: " + attr.Name;
@@ -8600,15 +8600,20 @@ LAYOUT::setLayout(field_name:"a_id_label2", row_num:"6", width:"2", height:"1");
 USER::dependsOn(field1:"a_id_label2", field2:"formalize", inverse:false, comparison:"v_use_a_class");
 
 // Prepare options for prefixing/renaming referentials in a_class
+a_pfxorname[2] = "";
+a_pfxorname[0] = "Prefix";
 a_pfxorname[1] = "";
-a_pfxorname[0] = "Prefixed";
 select many oids related by a_class->O_ID[R104.''is identified by''];
 for each oid in oids
   idname = oid.get_name();;
   if (idname == a_id_choice)
     select many attrs related by oid->O_ATTR[R105];
     if (cardinality attrs == 1)  // only allow rename if identifier is single-valued
-      a_pfxorname[1] = "Renamed";
+      a_pfxorname[2] = "Rename";
+    end if;
+    select any attr related by oid->O_ATTR[R105];
+    if (attr.Pfx_Mode != 0)
+      a_pfxorname[1] = "ReferredToPrfx";
     end if;
     break;
   end if;
@@ -8644,8 +8649,8 @@ if (b_formalizing_ident != "")  // if formalized, just display the chosen id wit
     if (phrs == a_phrase)
       select one rattr related by oref->O_RATTR[R108];
       select one attr related by rattr->O_ATTR[R106];
-      if (attr.Pfx_Mode == 1)
-        label_text2 = label_text2 + "   prefixed: " + attr.Prefix;
+      if (attr.Pfx_Mode != 0)
+        label_text2 = label_text2 + "   prefixed: " + rattr.get_prefix_string();
       else
         if (rattr.Ref_Mode == 0)
           label_text2 = label_text2 + "   renamed: " + attr.Name;
@@ -8669,15 +8674,21 @@ LAYOUT::setLayout(field_name:"b_id_label2", row_num:"7", width:"2", height:"1");
 USER::dependsOn(field1:"b_id_label2", field2:"formalize", inverse:false, comparison:"v_use_b_class");
 
 // Prepare options for prefixing/renaming referentials in b_class
+// Note that these b_options may differ from a_options
+b_pfxorname[2] = "";
+b_pfxorname[0] = "Prefix";
 b_pfxorname[1] = "";
-b_pfxorname[0] = "Prefixed";
 select many oids related by b_class->O_ID[R104.''is identified by''];
 for each oid in oids
   idname = oid.get_name();
   if (idname == b_id_choice)
     select many attrs related by oid->O_ATTR[R105];
     if (cardinality attrs == 1)  // only allow rename if identifier is single-valued
-      b_pfxorname[1] = "Renamed";
+      b_pfxorname[2] = "Rename";
+    end if;
+    select any attr related by oid->O_ATTR[R105];
+    if (attr.Pfx_Mode != 0)
+      b_pfxorname[1] = "ReferredToPrfx";
     end if;
     break;
   end if;
@@ -8696,27 +8707,31 @@ USER::dependsOn(field1:"b_edt_txt", field2:"formalize", inverse:true, comparison
 
 // Prepare prefix/rename parameter data.
 a_edt_mode = 0;  // decl, default
-if ("" != a_edt_txt)
-  if (a_pfxname == "Prefixed")
-    a_edt_mode = 1;
-  else
-    a_edt_mode = 2;
+i = 0;
+while (i < 3)
+  choice = a_pfxorname[i];  // MC_java needs this...
+  i = i + 1;                // increment for edt_mode
+  if (a_pfxname == choice)
+    a_edt_mode = i;
+    break;
   end if;
-end if;
+end while;
+
 b_edt_mode = 0;  // decl, default
-if ("" != b_edt_txt)
-  if (b_pfxname == "Prefixed")
-    b_edt_mode = 1;
-  else
-    b_edt_mode = 2;
+i = 0;
+while (i < 3)
+  choice = b_pfxorname[i];
+  i = i + 1;
+  if (b_pfxname == choice)
+    b_edt_mode = i;
+    break;
   end if;
-end if;
+end while;
 
 // avoid passing meaningless data to edit (do this here to bypass wizardry)
 if (not formalize)
   part_class = "";
 end if;
-
 
 // Edit the association - implement the dialog choices in the association structure
 
