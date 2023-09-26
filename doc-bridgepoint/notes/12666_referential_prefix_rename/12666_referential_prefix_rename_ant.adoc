@@ -1,0 +1,106 @@
+= Referential attribute prefix or rename
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+Enhance the binary association editor to support optional 
+prefixing or renaming of referential attributes when formalizing an 
+association. See <<dr-1>>.
+
+
+== 2 Introduction and Background
+
+While working on editor support for symmetric reflexive associations [see <<dr-3>>] 
+it became apparent that adding immediate support for prefixing referential attributes 
+- which is necessary in some cases - would be a convenience which would obviate the 
+need for a separate formalization dialog [see <<dr-2>>] or use of the Properties view. 
+Allowing rename as an option, where appropriate, is an added convenience.
+
+
+== 3 Requirements
+
+=== 3.1 Association Editor dialog
+
+Add controls to facilitate prefixing or renaming referential attributes.
+
+
+==== 3.1.1
+
+
+==== 3.1.2
+
+
+=== 3.2 Association data structure update
+
+Apply data gathered by the edit dialog to the association data structure 
+after formalization.
+
+==== 3.2.1
+
+
+==== 3.2.2
+
+
+== 4 Analysis
+
+=== 4.1 Observations
+
+BridgePoint supports two prefix modes: use a supplied prefix (local), or 
+adopt an already used prefix in the case that the 'target' of a new 
+referential attribute is already prefixed (referred-to). BridgePoint also 
+allows that a class identifier may include more than one attribute. Using 
+the Properties view, a modeler can achieve any desired combination of prefixing 
+or renaming of the individual referentials which may be associated with a 
+multi-attribute identifier.
+
+Attempting to support the full range of prefix and naming options would 
+complicate not only the editor dialog but poses problems in application 
+of multiple data values to the association structure. Accordingly, it is 
+decided to limit support to what can be conveniently achieved.
+
+Note that no change is made to the Properties view and so the modeler retains 
+the full capability to prefix and rename as desired.
+
+=== 4.2 Scope of work
+
+==== 4.2.1
+
+The rename option is offered only when the selected identifier for 
+formalization is single-attribute valued.
+
+==== 4.2.2
+
+If a the simple prefix option is chosen and a prefix is supplied that 
+prefix will be applied to each of the referential attributes matching a
+multi-valued identifier. This matches the capability of the earlier 
+formalization dialog.
+
+==== 4.2.3
+
+The option to specify a referred-to prefix will only be offered when the 
+selected identifier for formalization contains at least one attribute which 
+is itself prefixed. This prefix mode was not offered in the earlier 
+formalization dialog. If the selected identifier is multi-valued
+the same prefix mode is applied to all referential attributes in the set, 
+but the prefixes are copied on an attribute-by-attribute basis.
+
+== 5 Work Required
+
+
+== 6 Acceptance Test
+
+As this is a new feature enhancement, specific tests must be developed.
+
+
+== 7 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12666
+. [[dr-2]] https://support.onefact.net/issues/12599
+. [[dr-3]] https://support.onefact.net/issues/12548
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

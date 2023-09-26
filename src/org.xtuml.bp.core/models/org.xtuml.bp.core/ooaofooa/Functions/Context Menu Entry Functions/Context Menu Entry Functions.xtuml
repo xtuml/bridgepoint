@@ -8611,8 +8611,9 @@ for each oid in oids
     if (cardinality attrs == 1)  // only allow rename if identifier is single-valued
       a_pfxorname[2] = "Rename";
     end if;
-    select any attr related by oid->O_ATTR[R105];
-    if (attr.Pfx_Mode != 0)
+    select any attr related by oid->O_ATTR[R105]
+     where (selected.Pfx_Mode != 0);
+    if (not_empty attr)
       a_pfxorname[1] = "ReferredToPrfx";
     end if;
     break;
@@ -8620,10 +8621,10 @@ for each oid in oids
 end for; 
 
 // If formalizing, offer to prefix/rename referential(s)
-a_pfxname = USER::getDropdown(options:a_pfxorname, prompt:"", default_selection:0, reload_options:true);
-LAYOUT::setLayout(field_name:"a_pfxname", row_num:"6", width:"1", height:"1");
-USER::dependsOn(field1:"a_pfxname", field2:"formalize", inverse:false, comparison:"v_use_a_class");
-USER::dependsOn(field1:"a_pfxname", field2:"formalize", inverse:true, comparison:"v_is_formalized");
+a_edt_choice = USER::getDropdown(options:a_pfxorname, prompt:"", default_selection:0, reload_options:true);
+LAYOUT::setLayout(field_name:"a_edt_choice", row_num:"6", width:"1", height:"1");
+USER::dependsOn(field1:"a_edt_choice", field2:"formalize", inverse:false, comparison:"v_use_a_class");
+USER::dependsOn(field1:"a_edt_choice", field2:"formalize", inverse:true, comparison:"v_is_formalized");
 
 a_edt_txt = USER::getText(default:"", prompt:"", require_value:false, validate_name:false);
 LAYOUT::setLayout(field_name:"a_edt_txt", row_num:"6", width:"1", height:"1");
@@ -8686,8 +8687,9 @@ for each oid in oids
     if (cardinality attrs == 1)  // only allow rename if identifier is single-valued
       b_pfxorname[2] = "Rename";
     end if;
-    select any attr related by oid->O_ATTR[R105];
-    if (attr.Pfx_Mode != 0)
+    select any attr related by oid->O_ATTR[R105]
+     where (selected.Pfx_Mode != 0);
+    if (not_empty attr)
       b_pfxorname[1] = "ReferredToPrfx";
     end if;
     break;
@@ -8695,10 +8697,10 @@ for each oid in oids
 end for; 
 
 // If formalizing, offer to prefix/rename referential(s)
-b_pfxname = USER::getDropdown(options:b_pfxorname, prompt:"", default_selection:0, reload_options:true);
-LAYOUT::setLayout(field_name:"b_pfxname", row_num:"7", width:"1", height:"1");
-USER::dependsOn(field1:"b_pfxname", field2:"formalize", inverse:false, comparison:"v_use_b_class");
-USER::dependsOn(field1:"b_pfxname", field2:"formalize", inverse:true, comparison:"v_is_formalized");
+b_edt_choice = USER::getDropdown(options:b_pfxorname, prompt:"", default_selection:0, reload_options:true);
+LAYOUT::setLayout(field_name:"b_edt_choice", row_num:"7", width:"1", height:"1");
+USER::dependsOn(field1:"b_edt_choice", field2:"formalize", inverse:false, comparison:"v_use_b_class");
+USER::dependsOn(field1:"b_edt_choice", field2:"formalize", inverse:true, comparison:"v_is_formalized");
 
 b_edt_txt = USER::getText(default:"", prompt:"", require_value:false, validate_name:false);
 LAYOUT::setLayout(field_name:"b_edt_txt", row_num:"7", width:"1", height:"1");
@@ -8709,9 +8711,9 @@ USER::dependsOn(field1:"b_edt_txt", field2:"formalize", inverse:true, comparison
 a_edt_mode = 0;  // decl, default
 i = 0;
 while (i < 3)
-  choice = a_pfxorname[i];  // MC_java needs this...
+  tval = a_pfxorname[i];  // MC_java needs this...
   i = i + 1;                // increment for edt_mode
-  if (a_pfxname == choice)
+  if (a_edt_choice == tval)
     a_edt_mode = i;
     break;
   end if;
@@ -8720,9 +8722,9 @@ end while;
 b_edt_mode = 0;  // decl, default
 i = 0;
 while (i < 3)
-  choice = b_pfxorname[i];
+  tval = b_pfxorname[i];
   i = i + 1;
-  if (b_pfxname == choice)
+  if (b_edt_choice == tval)
     b_edt_mode = i;
     break;
   end if;
