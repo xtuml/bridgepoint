@@ -24,11 +24,11 @@ Allowing rename as an option, where appropriate, is an added convenience.
 
 Add controls to facilitate prefixing or renaming referential attributes.
 
-
 ==== 3.1.1
 
-
-==== 3.1.2
+When an association is eligible for formalization the editor shall display 
+a menu which offers an appropriate choice of prefix mode or rename and a 
+text input field to capture the value of the prefix or new name.
 
 
 === 3.2 Association data structure update
@@ -38,26 +38,27 @@ after formalization.
 
 ==== 3.2.1
 
-
-==== 3.2.2
+The parameter list to Association::editAssociation shall be expanded to 
+supply values gathered from the edit dialog. The function shall be enhanced 
+to apply edit values, post-formalization.
 
 
 == 4 Analysis
 
 === 4.1 Observations
 
-BridgePoint supports two prefix modes: use a supplied prefix (local), or 
-adopt an already used prefix in the case that the 'target' of a new 
-referential attribute is already prefixed (referred-to). BridgePoint also 
-allows that a class identifier may include more than one attribute. Using 
+BridgePoint supports two prefix modes: use a supplied prefix (local prefix), 
+or adopt an already used prefix in the case that the 'target' of a new 
+referential attribute is already prefixed (referred-to prefix). BridgePoint 
+also allows that a class identifier may include more than one attribute. Using 
 the Properties view, a modeler can achieve any desired combination of prefixing 
-or renaming of the individual referentials which may be associated with a 
-multi-attribute identifier.
+or renaming of the individual referential attributes which may be associated 
+with a multi-attribute identifier.
 
 Attempting to support the full range of prefix and naming options would 
-complicate not only the editor dialog but poses problems in application 
-of multiple data values to the association structure. Accordingly, it is 
-decided to limit support to what can be conveniently achieved.
+complicate not only the editor dialog geometry but poses problems in supply and 
+application of multiple data values to the association structure. Accordingly, 
+it is decided to limit support to what can be conveniently achieved.
 
 Note that no change is made to the Properties view and so the modeler retains 
 the full capability to prefix and rename as desired.
@@ -90,7 +91,7 @@ but the prefixes are copied on an attribute-by-attribute basis.
 
 == 6 Acceptance Test
 
-As this is a new feature enhancement, specific tests must be developed.
+A package is added to models/test/assoc_edit with example cases.
 
 
 == 7 Document References
