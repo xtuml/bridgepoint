@@ -130,6 +130,7 @@ public class ProjectUtilities {
         try {
             projectHandle.close(new NullProgressMonitor());
             projectHandle.open(new NullProgressMonitor());
+            PersistenceManager.getDefaultInstance().loadProject(projectHandle, false, false);
         } catch (CoreException e1) {
             CorePlugin.logError("Unable to open test project.", e1);
         }
