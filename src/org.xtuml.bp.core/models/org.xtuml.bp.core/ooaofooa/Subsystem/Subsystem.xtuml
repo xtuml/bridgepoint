@@ -4696,6 +4696,46 @@ INSERT INTO PE_PE
 	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("9fba9ffb-cdf7-4bd4-be3a-1189fcdba635",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Operation>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("9fba9ffb-cdf7-4bd4-be3a-1189fcdba635",
+	0,
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'Operation',
+	112,
+	'O_TFR',
+	'A Operation is a method associated with a class.  Operations can be synchronously called from Action Specifications.  Two types of operations exist.  Class-based operations affect the class as a whole.  Instance-based operations affect only an instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Operation/Operation.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9fba9ffb-cdf7-4bd4-be3a-1189fcdba635",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("72fd6fcd-6500-4d86-b641-41b6182b0dba",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Operation>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("72fd6fcd-6500-4d86-b641-41b6182b0dba",
+	1,
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7");
+INSERT INTO PE_PE
+	VALUES ("72fd6fcd-6500-4d86-b641-41b6182b0dba",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("25f2ec9c-2124-4bca-8331-31e7ec8a06d2");
 INSERT INTO R_REL
@@ -4736,14 +4776,6 @@ INSERT INTO R_OIR
 	"25f2ec9c-2124-4bca-8331-31e7ec8a06d2",
 	"624be621-20ba-47cd-9f7b-8468b91fe332",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("32854b2d-b225-40d9-abb2-4519ff4e4af7",
-	'Operation',
-	112,
-	'O_TFR',
-	'A Operation is a method associated with a class.  Operations can be synchronously called from Action Specifications.  Two types of operations exist.  Class-based operations affect the class as a whole.  Instance-based operations affect only an instance.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Operation/Operation.xtuml');
 INSERT INTO R_FORM
 	VALUES ("3ae90ee7-3be1-4d6a-a17e-87d2059e6c01",
 	"25f2ec9c-2124-4bca-8331-31e7ec8a06d2",

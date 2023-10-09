@@ -49,40 +49,61 @@ INSERT INTO O_TFR
 	'// (V_TRV) Value:Operation Value.getValue()
 
 // Execute the function
-select one body related by self->O_TFR[R829]->ACT_OPB[R696]->ACT_ACT[R698];
-select any statement related by body->ACT_BLK[R666]->ACT_SMT[R602];
-if (not_empty statement)
-  // Setup the parameter values within the newly created stack frame
-  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id);  
 
-else
-  select one op related by self->O_TFR[R829];
-  select one clazz related by op->O_OBJ[R115];
-  pathMsg = "<No Path Available - Empty instance>";
-  if (not_empty body)
-    pathMsg = body.getPath();
-  end if;
-  USER::logError(msg:"Error executing Operation: " +
-						clazz.Name + "::" + op.Name +
-						  ". No operation OAL found, returning default value.",path:pathMsg);
-  select one dt related by op->S_DT[R116];
-  select any stack_frame from instances of I_STF where
-                                selected.Stack_Frame_ID == param.stack_frame_id; 
-  if empty stack_frame
-	USER::logError(msg:"Internal error in Operation Invocation.execute: " +
-                                                  "Could not get stack frame.",path:pathMsg);
+
+select one tfr related by self->O_TFR[R829];
+// Is this, perhaps, deferred?
+select one deferral related by tfr->O_DEF[R126];
+if ( not_empty deferral )
+  // Explore the deferral - find the appropriate subtype operation for execution.
+  select one ihandle related by self->V_VAR[R830]->V_INT[R814];
+  superinstance = deferral.get_superclass_instance( stack_frame_id:param.stack_frame_id, instance_handle:ihandle );
+  subinstance = deferral.get_subtype_instance( superclass_instance:superinstance );
+  if ( not_empty subinstance )
+    select many args related by self->V_PAR[R811];
+    discard = deferral.setupParameterValues (stack_frame_id:param.stack_frame_id,
+                                      superclass_instance:superinstance,
+                                      subclass_instance:subinstance,
+                                      operation_params:args );
   else
-    select one stack related by stack_frame->I_STACK[R2943]; 
-    select any result related by stack_frame->I_VSF[R2951] where
-                                             selected.Value_ID == self.Value_ID;
-    // Return the default result
-    select one rtVal related by result->RV_RVL[R3305];
-    if ( empty rtVal )
-      create object instance rtVal of RV_RVL;
-      relate rtVal to result across R3305;
-      rtVal.createSimpleValue();
-    end if;
-    rtVal.setValue(value:dt.getDefaultValue());
+	  USER::logError(msg:"Cannot find subtype for deferred operation ", path:"Operation Value: " + tfr.Name );
+  end if;
+else
+	select one body related by self->O_TFR[R829]->ACT_OPB[R696]->ACT_ACT[R698];
+	select any statement related by body->ACT_BLK[R666]->ACT_SMT[R602];
+	if (not_empty statement)
+	  // Setup the parameter values within the newly created stack frame
+	  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id);  
+	else
+		// Problem: return a default value
+	  select one op related by self->O_TFR[R829];
+	  select one clazz related by op->O_OBJ[R115];
+	  pathMsg = "<No Path Available - Empty instance>";
+	  if (not_empty body)
+	    pathMsg = body.getPath();
+	  end if;
+	  USER::logError(msg:"Error executing Operation: " +
+							clazz.Name + "::" + op.Name +
+							  ". No operation OAL found, returning default value.",path:pathMsg);
+	  select one dt related by op->S_DT[R116];
+	  select any stack_frame from instances of I_STF where
+	                                selected.Stack_Frame_ID == param.stack_frame_id; 
+	  if empty stack_frame
+		USER::logError(msg:"Internal error in Operation Invocation.execute: " +
+	                                                  "Could not get stack frame.",path:pathMsg);
+	  else
+	    select one stack related by stack_frame->I_STACK[R2943]; 
+	    select any result related by stack_frame->I_VSF[R2951] where
+	                                             selected.Value_ID == self.Value_ID;
+	    // Return the default result
+	    select one rtVal related by result->RV_RVL[R3305];
+	    if ( empty rtVal )
+	      create object instance rtVal of RV_RVL;
+	      relate rtVal to result across R3305;
+	      rtVal.createSimpleValue();
+	    end if;
+	    rtVal.setValue(value:dt.getDefaultValue());
+	  end if;
   end if;
 end if;',
 	1,
