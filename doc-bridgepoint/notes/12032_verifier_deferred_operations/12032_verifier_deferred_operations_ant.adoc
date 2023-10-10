@@ -1,0 +1,66 @@
+= 12032 Verifier deferred operation support
+
+xtUML Project Analysis Note
+
+== 1 Abstract
+
+Verifier should support deferred operations. 
+See <<dr-1>> for explanation; see issue <<dr-2>>.
+This note include implementation comments.
+
+== 2 Introduction and Background
+
+Deferred operations are invoked on a supertype class but may be implemented in a subtype class.
+Deferred operations are restricted to instance-based operations.  A required deferral means that 
+each subtype must provide an implementation of the deferred operation. An optional deferral allows 
+a supertype implementation to default when a subtype has no implementation.
+
+== 3 Requirements
+
+Deferred operations in Verifier should mirror the behavior of the other tool chain components.
+
+== 4 Work Required
+
+There are two cases where instance-based operations are invoked. In both cases the designation of 
+the super-subtype association as supporting deferred operations must be checked for. 
+If found, the supertype instance involved must be identified, and the association navigated to 
+identify the associated subtype instance. The deferred operation can then be located by name match 
+and invoked with the supplied parameter values.
+
+6. Implementation
+
+Both Invocation::Operation Invocation.execute() and Value::Operation Value.getValue() were modified 
+to check for deferral.+
+
+Operations on the Subsystem::Deferral class were provided to:+
+*  Identify the supertype instance.
+*  Identify the subtype instance
+*  Setup parameter values on new stack frame for execution
+
+== 5 Implementation Comments
+
+
+== 6 Unit Test
+
+A simple test correctly demonstrated subtype operation invocation for 
+both optional and required, with and without parameters and return values.+
+See models/VandMC_testing/VerifyDeferredOps.
+
+
+== 7 User Documentation
+
+None: this work merely corrected deficient behavior.
+
+== 8 Code Changes
+
+
+== 9 Document References
+
+
+. [[dr-1]] https://support.onefact.net/issues/10129
+. [[dr-2]] https://support.onefact.net/issues/12032
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
