@@ -27,24 +27,25 @@ If found, the supertype instance involved must be identified, and the associatio
 identify the associated subtype instance. The deferred operation can then be located by name match 
 and invoked with the supplied parameter values.
 
-6. Implementation
+== 6. Implementation
 
 Both Invocation::Operation Invocation.execute() and Value::Operation Value.getValue() were modified 
-to check for deferral.+
+to check for deferral.
 
-Operations on the Subsystem::Deferral class were provided to:+
-*  Identify the supertype instance.
-*  Identify the subtype instance
-*  Setup parameter values on new stack frame for execution
+Operations on the Subsystem::Deferral class were provided to:
+ Identify the supertype instance.
+ Identify the subtype instance
+ Setup parameter values on new stack frame for execution
 
 == 5 Implementation Comments
 
+setupParameterValues() is almost 'cookie-cutter' code that appears in several places.
 
 == 6 Unit Test
 
 A simple test correctly demonstrated subtype operation invocation for 
-both optional and required, with and without parameters and return values.+
-See models/VandMC_testing/VerifyDeferredOps.
+both optional and required, with and without parameters and return values.
+ See models/VandMC_testing/VerifyDeferredOps.
 
 
 == 7 User Documentation
