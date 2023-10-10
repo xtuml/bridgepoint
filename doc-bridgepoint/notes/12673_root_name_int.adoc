@@ -1,0 +1,110 @@
+= propagated referential gets wrong root_name
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This note describes work done to fix a bug related to referential attribute
+root names. The issue affects the successful loading of models persisted in
+textual xtUML, but the root cause pre-existed.
+
+== 2 Introduction and Background
+
+In BridgePoint, the name of a referential attribute can be formed by
+concatenating a string prefix and the root name of the referred to attribute
+(e.g. "parent_" + "name" -> "parent_name"). For the purposes of this note, the
+"root name" is the name of the attribute "at the end of the chain" of reference
+-- that is, the name of nearest non-referential attribute (base attribute).
+
+There is also a related attribute on `O_ATTR` instances called `Root_Nam`. This
+is used to store the name for non-referential attributes or referential
+attributes configured to use a local naming scheme.
+
+When textual xtUML was introduced, the prefix and root name attributes were
+persisted into the text file. On reload, the prefix and root name were
+concatenated to construct the full name of the attribute. There existed a bug
+where the `Root_Nam` attribute of referential attributes was being populated by
+the name of the _closest_ idntifying attribute and not the base attribute at
+the end of the chain. This had no effect for SQL persistence which is ID based,
+but for textual xtUML it led to an compounding prefix effect which in turn led
+to load failures.
+
+In the textual xtUML format, many constructs required to support the
+BridgePoint metamodel are encoded as annotation-like tags before model
+elements. These tags may contain information relating to the BridgePoint
+editing experience, but are not required to generate complete executable
+models. For this note, they will be referred to as "non-semantic data".
+
+Example Model Class file:
+
+  // BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+  within Test::Foo is
+
+    @key_letters("C");
+    @class_num(3);
+    class C is
+
+      id: integer;
+
+      @ref_mode("referred_to");
+      @use_prefix(prefix="B_");
+      B_id: referential (R2.B.id) integer;
+
+      @ref_mode("referred_to");
+      @use_referred_to_prefix;
+      A_id: referential (R2.B.A_id) integer;
+
+      preferred identifier is (id);
+
+    end class;
+
+  end;
+
+== 3 Requirements
+
+=== 3.1 Textual load shall not depend on non-semantic data
+
+A model with no additional non-semantic data items should be able to load
+without errors. Default values may need to be supplied in the case of missing
+data, but no critical load errors should occur.
+
+=== 3.2 `Root_Nam` shall be populated by the base attribute name
+
+== 4 Work Required
+
+=== 4.1 Update textual load/persist
+
+The textual persist was updated to remove root name from the prefix tags. Since
+this data is derived anyway, there is no reason to persist it in the file.
+
+The load process was updated to use just the name of the attribute instead of
+depending on the prefix markings.
+
+=== 4.2 Fix `Root_Nam` bug
+
+The bug was resolved to populate the `Root_Nam` attribute correctly. This is
+not strictly necessary to fix the load errors, but it is the correct behavior.
+
+== 5 Implementation Comments
+
+None
+
+== 6 Acceptance Test
+
+The reproduction case provided in the issue report was tested and confirmed to
+be resolved.
+
+== 7 User Documentation
+
+None
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12673[12673 - propagated referential gets wrong root_name]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
