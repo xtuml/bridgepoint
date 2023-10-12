@@ -789,7 +789,11 @@ relate ref_attr to base_attr across R113;
 ref_attr.setDatatype();
 
 select one base_o_attr related by base_attr->O_ATTR[R106];
-attr.Root_Nam = base_o_attr.Name;
+if not_empty base_o_attr
+    attr.Root_Nam = base_o_attr.Name;
+else
+    attr.Root_Nam = id_attr.Name;
+end if;
 
 if ( param.id != -1 )
   select any assr_id related by self->O_ID[R104] where selected.Oid_ID == param.id;
