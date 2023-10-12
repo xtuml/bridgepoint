@@ -242,10 +242,9 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s@ref_mode(\"%s\");\n", getTab(), rattr.getRef_mode() == 0 ? "local" : "referred_to");
 				if (rattr.getRef_mode() != 0) {
 					if (inst.getPfx_mode() == 1) {
-						append("%s@use_prefix(prefix=\"%s\", root_name=\"%s\");\n", getTab(), inst.getPrefix(),
-								inst.getRoot_nam());
+						append("%s@use_prefix(prefix=\"%s\");\n", getTab(), inst.getPrefix());
 					} else if (inst.getPfx_mode() == 2) {
-						append("%s@use_referred_to_prefix(root_name=\"%s\");\n", getTab(), inst.getRoot_nam());
+						append("%s@use_referred_to_prefix;\n", getTab());
 					}
 				}
 			}
