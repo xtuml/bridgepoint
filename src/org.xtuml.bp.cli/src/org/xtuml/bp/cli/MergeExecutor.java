@@ -264,7 +264,7 @@ public class MergeExecutor implements Executor {
 								.SystemModelInstances(Ooaofooa.getDefaultInstance());
 						for (SystemModel_c system : systems) {
 							if (system.getPersistableComponent() != null) {
-								PersistenceManager.getDefaultInstance().loadComponents(PersistenceManager.getDeepChildrenOf(system.getPersistableComponent()), new NullProgressMonitor(), false, false);
+								PersistenceManager.getDefaultInstance().loadProjects(List.of(system.getPersistableComponent().getFile().getProject()), new NullProgressMonitor());
 								// check after each system load to prevent any
 								// unnecessary loading
 								realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
@@ -292,7 +292,7 @@ public class MergeExecutor implements Executor {
 						}
 					}
 					if(realElement != null) {
-						PersistenceManager.getDefaultInstance().loadProject(realElement, false, false);
+						PersistenceManager.getDefaultInstance().loadProjects(List.of(realElement.getFile().getProject()), new NullProgressMonitor());
 						Package_c firstParentPackage = realElement.getFirstParentPackage();
 						Component_c firstParentComponent = realElement.getFirstParentComponent();
 						NonRootModelElement elementToCheck = null;
