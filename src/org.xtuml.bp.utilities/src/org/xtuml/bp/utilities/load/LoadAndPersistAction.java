@@ -61,8 +61,7 @@ public class LoadAndPersistAction implements IActionDelegate {
 
 					// load collected PMCs
 					try {
-						PersistenceManager.getDefaultInstance().loadComponents(pmcsToProcess, new NullProgressMonitor(),
-								false, true);
+						PersistenceManager.getDefaultInstance().loadProjects(pmcsToProcess.stream().map(pmc -> pmc.getFile().getProject()).collect(Collectors.toList()), new NullProgressMonitor());
 						monitor.worked(pmcsToProcess.size());
 					} catch (CoreException e) {
 						CorePlugin.logError("Failed to load collected components", e);

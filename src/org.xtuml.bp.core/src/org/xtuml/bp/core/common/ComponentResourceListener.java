@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -126,7 +127,9 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 	private void loadCollectedComponents() {
 		Display.getDefault().asyncExec(() -> {
 			try {
-				PersistenceManager.getDefaultInstance().loadComponents(componentsToLoad, new NullProgressMonitor(), false, true);
+				PersistenceManager.getDefaultInstance().loadProjects(
+						componentsToLoad.stream().map(pmc -> pmc.getFile().getProject()).collect(Collectors.toList()),
+						new NullProgressMonitor());
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to load replaced component.", e);
 			}

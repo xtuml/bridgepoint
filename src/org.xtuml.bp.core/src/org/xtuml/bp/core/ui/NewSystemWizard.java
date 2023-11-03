@@ -1,5 +1,7 @@
 package org.xtuml.bp.core.ui;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
@@ -103,7 +105,7 @@ public class NewSystemWizard extends DelegatingWizard implements INewWizard {
         };
         try {
             ResourcesPlugin.getWorkspace().run(runnable, new NullProgressMonitor());
-            PersistenceManager.getDefaultInstance().loadProject(newModel, false, true);
+            PersistenceManager.getDefaultInstance().loadProjects(List.of(newProject), new NullProgressMonitor());
         } catch (CoreException e) {
             CorePlugin.logError("Failed to create System Model data file", e);
         }

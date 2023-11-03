@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -31,14 +32,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -130,7 +124,7 @@ public class ProjectUtilities {
         try {
             projectHandle.close(new NullProgressMonitor());
             projectHandle.open(new NullProgressMonitor());
-            PersistenceManager.getDefaultInstance().loadProject(projectHandle, false, false);
+            PersistenceManager.getDefaultInstance().loadProjects(List.of(projectHandle), new NullProgressMonitor());
         } catch (CoreException e1) {
             CorePlugin.logError("Unable to open test project.", e1);
         }
@@ -217,7 +211,11 @@ public class ProjectUtilities {
     					@Override
     					public void run() {
 				            // we need to load each element before deletion for some reason
-				            PersistenceManager.getDefaultInstance().loadProject(projectHandle, false, true);
+    						try {
+    							PersistenceManager.getDefaultInstance().loadProjects(List.of(projectHandle), new NullProgressMonitor());
+    						} catch (CoreException e) {
+    							CorePlugin.logError("Failed to load project.", e);
+    						}
 				
 				            // then delete the project itself
 				            try {
