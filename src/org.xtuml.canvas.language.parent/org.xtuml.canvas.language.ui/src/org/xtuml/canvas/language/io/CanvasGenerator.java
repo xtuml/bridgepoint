@@ -1,12 +1,10 @@
 package org.xtuml.canvas.language.io;
 
 import java.io.IOException;
-import org.eclipse.core.internal.resources.ResourceException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
@@ -97,6 +95,9 @@ public class CanvasGenerator implements IGraphicalLoader {
 				ModelRoot.enableChangeNotification();
 			}
 		}
+		// we are attempting to reload everything from scratch always
+		// find any reference path objects associated with this parent
+		ReferencePathManagement.removeAssociated(parentElement);
 		LanguageActivator.getInstance().getInjector("org.xtuml.canvas.language.Canvas").injectMembers(this);
 		URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		try {
