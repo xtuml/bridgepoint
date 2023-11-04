@@ -1,12 +1,10 @@
 package org.xtuml.bp.ui.canvas.references;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.ProjectScope;
-import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ClassStateMachine_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.InstanceStateMachine_c;
@@ -16,13 +14,10 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.inspector.ObjectElement;
-import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
-import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Objectreference_c;
 import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Referencepath_c;
-import org.xtuml.bp.ui.canvas.persistence.PersistenceExtension;
 
 public class ReferencePathManagement {
 
@@ -121,5 +116,20 @@ public class ReferencePathManagement {
 
 	public static void removePath(String path) {
 		managed.remove(path);
+	}
+
+	public static void removeAssociated(NonRootModelElement parentElement) {
+		String path = getPath(parentElement);
+		List<String> toRemove = new ArrayList<>();
+		// remove all managed paths that begin with the parent segment
+		managed.forEach((key, value) -> {
+			if(key.startsWith(path)) {
+				toRemove.add(key);
+			}
+		});
+		toRemove.forEach(key -> {
+			Referencepath_c remove = managed.remove(key);
+			remove.Dispose();
+		});
 	}
 }
