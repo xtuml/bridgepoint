@@ -19,12 +19,12 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 	public final static String BP_TAB_POLICY_ID = "tab-policy";
 	public final static String BP_TAB_DEPTH_ID = "tab-depth";
 
-	private Button textualPersistence;
 	private Button sqlPersistence;
+	private Button textualPersistence;
 	private Group tabPolicyGroup;
 	private Button tabPolicyMatch;
-	private Button tabPolicySpaces;
 	private Button tabPolicyTabs;
+	private Button tabPolicySpaces;
 	private Composite tabDepthGroup;
 	private Text tabDepth;
 
@@ -62,14 +62,14 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 		persistenceModeGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		persistenceModeGroup.setText("Model persistence format");
 
+		sqlPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
+		sqlPersistence.setText("SQL instances");
+		sqlPersistence.setLayoutData(new GridData());
+
 		textualPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
 		textualPersistence.setText("Textual xtUML (experimental)");
 		textualPersistence.setLayoutData(new GridData());
 		textualPersistence.addSelectionListener(syncListener);
-
-		sqlPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
-		sqlPersistence.setText("SQL instances");
-		sqlPersistence.setLayoutData(new GridData());
 
 		// create the group box for persistence
 		tabPolicyGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
