@@ -2,6 +2,13 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         id="org.xtuml.bp.utilities.persistence_format_listener"
+         name="Persistence Change Auto-Persister"
+         point="org.xtuml.bp.core.persistence_format_listener">
+     <listener class="org.xtuml.bp.utilities.listeners.AutoLoadAndPersistListener"/>
+   </extension>
+
+   <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             id="org.xtuml.bp.utilities.MCMCFunctionGenerator"

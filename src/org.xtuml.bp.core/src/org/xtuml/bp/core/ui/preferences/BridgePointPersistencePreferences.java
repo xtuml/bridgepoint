@@ -131,7 +131,16 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 			tabDepthGroup.setVisible(tabPolicySpaces.getSelection());
 		}
 	}
-
+	
+	public boolean preferencesOutOfSync() {
+		final boolean modeOutOfSync = !getStore().get(BP_PERSISTENCE_MODE_ID, "null")
+				.equals(textualPersistence.getSelection() ? "text" : "sql");
+		final boolean tabPolicyOutOfSync = !getStore().get(BP_TAB_POLICY_ID, "null")
+				.equals(tabPolicyMatch.getSelection() ? "match" : (tabPolicyTabs.getSelection() ? "tabs" : "spaces"));
+		final boolean tabDepthOutOfSync = !getStore().get(BP_TAB_DEPTH_ID, "null").equals(tabDepth.getText());
+		return modeOutOfSync || tabPolicyOutOfSync || tabDepthOutOfSync;
+	}
+	
 	@Override
 	protected void syncPreferencesWithUI() {
 		getStore().put(BP_PERSISTENCE_MODE_ID, textualPersistence.getSelection() ? "text" : "sql");
