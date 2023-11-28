@@ -1692,11 +1692,10 @@ public class ExportModelText extends ExportModelComponent {
 			}
 
 			// transition table
+      append("%s%sstate model is\n\n", getTab(), isClassBased ? "class " : "");
+      tabDepth++;
 			final Transition_c[] txns = Transition_c.getManySM_TXNsOnR505(inst);
 			if (txns.length > 0) {
-				append("%s%sstate model is\n\n", getTab(), isClassBased ? "class " : "");
-				tabDepth++;
-
 				// TODO signal events
 				// TODO individual cell descriptions
 				// TODO no event transition
@@ -1764,10 +1763,10 @@ public class ExportModelText extends ExportModelComponent {
 					append("%s| %s |\n", getTab(), row.stream().map(s -> String.format("%-" + maxWidth + "s", s))
 							.collect(Collectors.joining(" | ")));
 				}
-
-				tabDepth--;
-				append("\n%send state model;\n\n", getTab());
 			}
+
+      tabDepth--;
+      append("\n%send state model;\n\n", getTab());
 
 			// state actions
 			final Action_c[] actions = Action_c.getManySM_ACTsOnR515(inst,
