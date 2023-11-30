@@ -18,10 +18,12 @@ Require-Bundle: org.eclipse.ui,
  org.xtuml.bp.ui.explorer
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
-Import-Package: org.xtuml.bp.ui.text.activity,
+Import-Package: org.eclipse.ui.editors.text,
+ org.xtuml.bp.ui.text.activity,
  org.xtuml.bp.ui.text.asl,
  org.xtuml.bp.ui.text.description,
- org.xtuml.bp.ui.text.masl
+ org.xtuml.bp.ui.text.masl,
+ org.xtuml.bp.ui.text.xtuml
 Export-Package: org.xtuml.bp.ui.graphics.actions,
  org.xtuml.bp.ui.graphics.commands,
  org.xtuml.bp.ui.graphics.editor,

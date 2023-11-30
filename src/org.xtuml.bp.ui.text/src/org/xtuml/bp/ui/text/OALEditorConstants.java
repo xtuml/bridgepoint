@@ -39,18 +39,21 @@ public class OALEditorConstants {
     public static final RGB DEFAULT_FOREGROUND_MULTI_LINE_COMMENT = new RGB(63, 127, 95);
     public static final RGB DEFAULT_FOREGROUND_KEYWORD = new RGB(127, 0, 85);
     public static final RGB DEFAULT_FOREGROUND_STRING = new RGB(42, 0, 255);
+    public static final RGB DEFAULT_FOREGROUND_MARK = new RGB(100, 100, 100);
     public static final RGB DEFAULT_FOREGROUND_OTHER = new RGB(0,0,0);
     
     public static final int  DEFAULT_STYLE_SINGLE_LINE_COMMENT = SWT.NULL;
     public static final int  DEFAULT_STYLE_MULTI_LINE_COMMENT = SWT.BOLD;
     public static final int  DEFAULT_STYLE_KEYWORD = SWT.BOLD;
     public static final int  DEFAULT_STYLE_STRING = SWT.NULL;
+    public static final int  DEFAULT_STYLE_MARK = SWT.NULL;
     public static final int  DEFAULT_STYLE_OTHER = SWT.NULL;
     
     public static final String  DEFAULT_LABEL_SINGLE_LINE_COMMENT = "Single-line comments";
     public static final String  DEFAULT_LABEL_MULTI_LINE_COMMENT = "Multi-line comments";
     public static final String  DEFAULT_LABEL_KEYWORD = "Keywords";
     public static final String  DEFAULT_LABEL_STRING = "Strings";
+    public static final String  DEFAULT_LABEL_MARK = "Marks";
     public static final String  DEFAULT_LABEL_OTHER = "Others";
 
 }

@@ -18,6 +18,8 @@ package org.xtuml.bp.ui.graphics.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -25,7 +27,6 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
@@ -44,33 +45,67 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.InfoForm;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.ui.canvas.CanvasPlugin;
 import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
 import org.xtuml.bp.ui.explorer.ILinkWithEditorListener;
 import org.xtuml.bp.ui.graphics.Activator;
 import org.xtuml.bp.ui.graphics.parts.ShapeEditPart;
+import org.xtuml.bp.ui.text.xtuml.XtumlTextEditor;
 
 public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener, IPropertyChangeListener {
 
 	private GraphicalEditor fGraphicalEditor;
+	private XtumlTextEditor fXtumlTextEditor;
 	private List<IEditorTabFactory> preferenceControlledTabFactories = new ArrayList<IEditorTabFactory>();
+	private int textPageIndex = -1;
 
 	@Override
 	protected void createPages() {
 		fGraphicalEditor = createGraphicalEditor(getContainer());
-		if(fGraphicalEditor != null)
+		if(fGraphicalEditor != null) {
 			createPagesFromExtensionPoint(getContainer(), fGraphicalEditor.getModel());
+		}
+		refreshTextPage();
 	}
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 		CorePlugin.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+	}
+	
+	public IFile getModelFile() {
+		return fGraphicalEditor != null ? fGraphicalEditor.getModel().getPersistableComponent().getFile() : null;
+	}
+	
+	public void refreshTextPage() {
+		if (getModelFile() != null) {
+			// remove the text page if it exists
+			if (textPageIndex != -1) {
+				removePage(textPageIndex);
+				fXtumlTextEditor = null;
+			}
+			// add a page for textual xtUML for textual projects
+			final Preferences projectPrefs = new ProjectScope(getModelFile().getProject())
+					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			if (projectPrefs.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "null").equals("text")) {
+				try {
+					fXtumlTextEditor = new XtumlTextEditor();
+					textPageIndex = addPage(fXtumlTextEditor, new FileEditorInput(getModelFile()));
+					setPageText(textPageIndex, "Textual xtUML");
+				} catch (PartInitException e) {
+					Activator.logError("Unable to create text editor.", e);
+				}
+			}
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -155,23 +190,17 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		if(fGraphicalEditor == null)
-			return;
-		fGraphicalEditor.doSave(monitor);
+		getActiveEditor().doSave(monitor);
 	}
 
 	@Override
 	public void doSaveAs() {
-		if(fGraphicalEditor == null)
-			return;
-		fGraphicalEditor.doSaveAs();
+		getActiveEditor().doSaveAs();
 	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		if(fGraphicalEditor == null)
-			return false;
-		return fGraphicalEditor.isSaveAsAllowed();
+		return getActiveEditor().isSaveAsAllowed();
 	}
 
 	public IEditorPart getActivePart() {
@@ -180,9 +209,7 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 
 	@Override
 	public String getTitleToolTip() {
-		if(fGraphicalEditor == null)
-			return "";
-		return fGraphicalEditor.getTitleToolTip();
+		return getActiveEditor().getTitleToolTip();
 	}
 	
 	@Override

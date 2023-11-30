@@ -3357,6 +3357,12 @@
          </adapter>
       </factory>
    </extension>
+   <extension
+         id="org.xtuml.bp.ui.graphics.persistence_format_listener"
+         name="Persistence Change Editor Updater"
+         point="org.xtuml.bp.core.persistence_format_listener">
+     <listener class="org.xtuml.bp.ui.graphics.listeners.PersistenceFormatListener"/>
+   </extension>
    
 
 </plugin>

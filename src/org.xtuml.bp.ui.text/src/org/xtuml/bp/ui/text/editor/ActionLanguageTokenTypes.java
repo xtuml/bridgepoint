@@ -6,4 +6,5 @@ public interface ActionLanguageTokenTypes {
 	public static final int TOKEN_TYPE_multi_line_comment = 1;
 	public static final int TOKEN_TYPE_string = 2;
 	public static final int TOKEN_TYPE_keyword = 3;
+	public static final int TOKEN_TYPE_mark = 4;
 }
