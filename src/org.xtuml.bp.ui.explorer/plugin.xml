@@ -92,6 +92,18 @@ plugin.
          </or>
       </enablement>
    </decorator>
+   <decorator
+         class="org.xtuml.bp.ui.explorer.decorators.InconsistentProjectDecorator"
+         id="org.xtuml.bp.ui.explorer.inconsistentProjectDecorator"
+         label="BridgePoint Inconsistent Project Decorator"
+         lightweight="true"
+         state="true">
+      <enablement>
+		<objectClass
+			  name="org.xtuml.bp.core.SystemModel_c">
+		</objectClass>
+      </enablement>
+   </decorator>
    </extension>
 
 </plugin>
