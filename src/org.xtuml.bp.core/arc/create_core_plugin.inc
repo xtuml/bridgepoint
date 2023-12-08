@@ -73,25 +73,35 @@ This file is the plugin manifest for the BridgePoint core plugin.
       .if(menu_entry.UsesSelectionDialog)
         .assign action_class_name = "org.xtuml.bp.core.ui.actions.${acn.body}"
       .end if
+	  .assign is_creation_item = false
       .assign menubar_path = "org.xtuml.bp.ui.context-internal"
       .if ("$lr{menu_entry.Specialism}" == "new")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.newmenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "classes")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.classroot/org.xtuml.bp.ui.newclassmenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "components")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.componentroot/org.xtuml.bp.ui.newcomponentmenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "exceptions")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.exceptionroot/org.xtuml.bp.ui.newexceptionmenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "external")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.externalroot/org.xtuml.bp.ui.newexternalmenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "interaction")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.interactionroot/org.xtuml.bp.ui.newinteractionmenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "activity")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.activityroot/org.xtuml.bp.ui.newactivitymenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "types")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.typeroot/org.xtuml.bp.ui.newtypemenu"
+        .assign is_creation_item = true
       .elif  ("$lr{menu_entry.Specialism}" == "usecase")
         .assign menubar_path = "org.xtuml.bp.ui.newroot/org.xtuml.bp.ui.usecaseroot/org.xtuml.bp.ui.newusecasemenu"
+        .assign is_creation_item = true
       .end if
       .assign has_wizard = ""
       .select any wfl from instances of W_WOF where ((selected.Specialism == menu_entry.Specialism) and (selected.Label == menu_entry.Label) and (selected.Key_Lett == menu_entry.Key_Lett))
@@ -173,6 +183,10 @@ This file is the plugin manifest for the BridgePoint core plugin.
 	  .if ( ("${propertyKey}" != "nokey") and (filter_set_count > 0) )
 	    .assign use_and = true
 	  .end if
+	  .// TODO
+	  .if (is_creation_item)
+	    .assign use_and = true
+	  .end if
 	  .if ( ("${propertyKey}" != "nokey") or (filter_set_count > 0) )
 		 <visibility>
         .if (use_and)
@@ -185,6 +199,13 @@ This file is the plugin manifest for the BridgePoint core plugin.
              <not>
                <systemProperty name="bridgepoint.${propertyKey}" value="disabled"/>
              </not>
+        .end if
+		.// TODO
+		.if (is_creation_item)
+			.select any unsupported_elem from instances of UnsupportedElement where (selected.KeyLetters == menu_entry.Resultant_Class)
+            .if (not_empty unsupported_elem)
+			<objectState name="project_preference" value="persistence-mode=sql" />
+			.end if
         .end if
         .if (use_and)
            </and>

@@ -12,9 +12,13 @@ public class PersistenceFormatListener implements IPersistenceChangeListener {
 	@Override
 	public void onPersistenceFormatChange(IProject project) {
 		Stream.of(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences())
-				.map(ref -> ref.getEditor(false)).filter(ModelEditor.class::isInstance)
-				.map(ModelEditor.class::cast)
-				.forEach(ModelEditor::refreshTextPage);
+				.map(ref -> ref.getEditor(false)).filter(ModelEditor.class::isInstance).map(ModelEditor.class::cast)
+				.forEach(editor -> {
+					editor.refreshTextPage();
+					if (editor.getGraphicalEditor() != null) {
+						editor.getGraphicalEditor().refreshPalette();
+					}
+				});
 	}
 
 }

@@ -89,8 +89,9 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 	public void refreshTextPage() {
 		if (getModelFile() != null) {
 			// remove the text page if it exists
-			if (textPageIndex != -1) {
+			if (textPageIndex != -1 && getPageCount() > textPageIndex) {
 				removePage(textPageIndex);
+				textPageIndex = -1;
 				fXtumlTextEditor = null;
 			}
 			// add a page for textual xtUML for textual projects

@@ -22,14 +22,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
@@ -164,6 +163,7 @@ import org.xtuml.bp.ui.canvas.Ooaofgraphics;
 import org.xtuml.bp.ui.canvas.Ooatype_c;
 import org.xtuml.bp.ui.canvas.Shape_c;
 import org.xtuml.bp.ui.canvas.util.GraphicsUtil;
+import org.xtuml.bp.ui.canvas.util.ModelToolFilter;
 import org.xtuml.bp.ui.graphics.Activator;
 import org.xtuml.bp.ui.graphics.actions.CanvasCopyAction;
 import org.xtuml.bp.ui.graphics.actions.CanvasCutAction;
@@ -189,8 +189,8 @@ import org.xtuml.bp.ui.graphics.selection.GraphicalSelectionManager;
 import org.xtuml.bp.ui.graphics.tools.GraphicalPanningSelectionTool;
 import org.xtuml.bp.ui.properties.BridgepointPropertySheetPage;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
-import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.asl.ASLActivityEditorInput;
+import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLEditorInput;
 import org.xtuml.bp.ui.text.masl.MASLPartListener;
 
@@ -301,7 +301,8 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 		canvas.Initializetools();
 
 		// for each tool employed by the canvas
-		ModelTool_c[] tools = ModelTool_c.getManyCT_MTLsOnR100(canvas);
+		ModelTool_c[] tools = Stream.of(ModelTool_c.getManyCT_MTLsOnR100(canvas))
+				.filter(new ModelToolFilter(canvas)).toArray(ModelTool_c[]::new);
 		ModelTool_c tool = null;
 		ArrayList<PaletteDrawer> createdDrawers = new ArrayList<PaletteDrawer>();
 		for (int i1 = 0; i1 < tools.length; i1++) {
