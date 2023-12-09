@@ -39,6 +39,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -46,9 +47,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.WorkbenchException;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Body_c;
@@ -79,6 +80,8 @@ import org.xtuml.bp.core.ui.AbstractModelExportFactory;
 import org.xtuml.bp.core.ui.AbstractModelImportFactory;
 import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.IModelImport.PersistenceFormat;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.util.CoreUtil;
 import org.xtuml.bp.core.util.UIUtil;
 
@@ -590,6 +593,14 @@ public class PersistableModelComponent implements Comparable {
 		try {
 			IRunnableWithProgress runnable = factory.create(componentRootME, file.getLocation().toString(), true);
 			runnable.run(monitor);
+			
+			// delete the graphics file if this is not a text based model
+			final Preferences projectPrefs = new ProjectScope(file.getProject())
+					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			if (graphicsFile != null && graphicsFile.exists() && !projectPrefs.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "null").equals("text")) {
+				graphicsFile.delete(true, monitor);
+				
+			}
 
 			// get Eclipse to notice that the model's file has changed on disk
 			containingFolder.refreshLocal(IFile.DEPTH_ONE, monitor);
