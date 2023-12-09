@@ -12,6 +12,8 @@ import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IOverviewRuler;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.FocusEvent;
@@ -22,7 +24,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.OverlayIcon;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.DefaultRangeIndicator;
 import org.eclipse.ui.texteditor.IDocumentProvider;
@@ -203,7 +204,7 @@ public class DescriptionEditor extends AbstractModelElementTextEditor
 	  ImageDescriptor descriptionIconDescrip = CorePlugin.getImageDescriptor("Description_decorator.gif");
 
 	  // decorate the icon of the model element with description decoration
-	  OverlayIcon resultIcon = new OverlayIcon(descriptor, descriptionIconDescrip, new Point(16, 16));
+	  DecorationOverlayIcon resultIcon = new DecorationOverlayIcon(descriptor, descriptionIconDescrip, IDecoration.TOP_LEFT);
 
 	  return resultIcon.createImage();
   }

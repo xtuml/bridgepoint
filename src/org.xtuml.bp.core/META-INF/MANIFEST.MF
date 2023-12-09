@@ -37,7 +37,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.osgi,
  org.eclipse.xtext.ui
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Import-Package: org.eclipse.jdt.internal.core
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.core

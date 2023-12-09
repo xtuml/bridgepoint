@@ -11,5 +11,5 @@ Require-Bundle: org.xtuml.canvas.language,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.xtuml.canvas.language.tests;x-internal=true

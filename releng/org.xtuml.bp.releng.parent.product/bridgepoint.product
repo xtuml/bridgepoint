@@ -10,7 +10,7 @@
    <launcherArgs>
       <vmArgs>-Dorg.eclipse.epp.logging.aeri.ui.skipReports=true 
       -Dbridgepoint.GenerateFunctionsFromList=disabled
-      -Dosgi.requiredJavaVersion=11
+      -Dosgi.requiredJavaVersion=17
       -Xmx1024m
       -Xms512m
       </vmArgs>

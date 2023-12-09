@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.console,
  org.apache.commons.io,
  org.xtuml.bp.mc.masl;bundle-version="7.5.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Export-Package: org.xtuml.bp.mc.wasl
 Bundle-ClassPath: wasl.jar

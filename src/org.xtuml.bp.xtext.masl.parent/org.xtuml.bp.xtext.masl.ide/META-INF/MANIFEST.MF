@@ -9,7 +9,7 @@ Require-Bundle: org.xtuml.bp.xtext.masl,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.xtuml.bp.xtext.masl.ide.contentassist.antlr,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.internal,
  org.xtuml.bp.xtext.masl.ide.contentassist.antlr.lexer,

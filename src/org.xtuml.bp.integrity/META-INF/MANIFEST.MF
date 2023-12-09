@@ -20,6 +20,6 @@ Require-Bundle: org.xtuml.bp.ui.explorer,
  org.eclipse.ui.console,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.integrity

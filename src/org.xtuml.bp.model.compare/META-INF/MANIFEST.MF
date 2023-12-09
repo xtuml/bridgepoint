@@ -30,6 +30,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.graphics,
  org.eclipse.gef
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.model.compare

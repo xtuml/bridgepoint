@@ -66,6 +66,11 @@
                            <rootFolder>BridgePoint</rootFolder>
                        </product>
                    </products>
+                   <formats>
+                     <linux>zip</linux>
+                     <macosx>zip</macosx>
+                     <win32>zip</win32>
+                   </formats>
                </configuration>
             </execution>
          </executions>

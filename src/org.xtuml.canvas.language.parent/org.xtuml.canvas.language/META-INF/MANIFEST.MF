@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.xtext,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.core.resources;bundle-version="3.13.700",
  org.xtuml.bp.core;bundle-version="7.1.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.xtuml.canvas.language.canvas.util,
  org.xtuml.canvas.language.parser.antlr.internal,
  org.xtuml.canvas.language.scoping,
