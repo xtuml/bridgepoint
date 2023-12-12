@@ -2133,6 +2133,9 @@ package ${package.name} ;
 ${gfh.body}\
 import org.eclipse.ui.IActionFilter;
 import ${package.name}.${class_name};
+import org.eclipse.core.resources.ProjectScope;
+import org.osgi.service.prefs.Preferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 
 public class ${gafcn.body} implements IActionFilter
 {
@@ -2151,7 +2154,14 @@ public class ${gafcn.body} implements IActionFilter
     public boolean testAttribute(Object target, String name, String value)
     {
         ${class_name} x = (${class_name}) target;
-        return x.Actionfilter( name, value); 
+		if (name.equals("project_preference")) {
+			final Preferences projectPrefs = new ProjectScope(x.getPersistableComponent().getFile().getProject())
+					..getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			return value.split("=")[1].equals(projectPrefs.get(value.split("=")[0], null));
+		} else {
+        	return x.Actionfilter( name, value); 
+		}
+ 
     }
 
 }

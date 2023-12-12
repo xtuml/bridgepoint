@@ -163,6 +163,12 @@ public class SyntaxHighlightingPreferencesStore implements IPreferenceModelStore
             null,
             OALEditorConstants.DEFAULT_STYLE_KEYWORD);
         prefs.setTextAttribute(
+            ActionLanguageTokenTypes.TOKEN_TYPE_mark,
+            OALEditorConstants.DEFAULT_LABEL_MARK,
+            OALEditorConstants.DEFAULT_FOREGROUND_MARK,
+            null,
+            OALEditorConstants.DEFAULT_STYLE_MARK);
+        prefs.setTextAttribute(
             ActionLanguageTokenTypes.TOKEN_TYPE_other,
             OALEditorConstants.DEFAULT_LABEL_OTHER,
             OALEditorConstants.DEFAULT_FOREGROUND_OTHER,

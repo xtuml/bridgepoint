@@ -65,6 +65,11 @@ public class OALKeywordRule extends WordRule
      */
     public static OALKeywordRule createRule(SyntaxHighlightingPreferences manager, IToken defaultToken)
     {
+    	return createRule(manager, defaultToken, keywords);
+    }
+
+    public static OALKeywordRule createRule(SyntaxHighlightingPreferences manager, IToken defaultToken, String[] keywords)
+    {
         // create a new object of this class that sports our keyword-detector
         OALKeywordRule rule = new OALKeywordRule(new OALWordDetector(), defaultToken);
 

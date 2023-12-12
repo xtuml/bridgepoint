@@ -18,9 +18,9 @@
   </target>
   <target name="therest"
           description="Finish generating code for this project unless only one class was specified"
-          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties, format_java">
+          depends="cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties, format_java, textual_xtuml_unsupported_elements">
   </target>
-  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties">
+  <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, generate_referential_attribute_util, action_language_description_util, generate_rto_util, properties, textual_xtuml_unsupported_elements">
   </target>
 
   <property name="plugins-home" value="${ant.home}/../.."/>
@@ -251,6 +251,7 @@
         <srcfiles dir = "sql" includes = "${cme_actions.input}"/>
         <srcfiles dir = "sql" includes = "ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
         <srcfiles dir = "sql" includes = "ooaofooa_for_cme.sql" />
+        <srcfiles dir = "sql" includes = "unsupported_textual_xtuml_elements_schema.sql,unsupported_textual_xtuml_elements.pei.sql" />
         <srcfiles dir = "arc" includes = "cme_names.inc"/>
         <srcfiles dir = "arc" includes = "create_context_menus.arc"/>
         <srcfiles dir = "arc" includes = "create_core_plugin.inc"/>
@@ -289,6 +290,8 @@
       -arch arc/wfl_pop.arc
       -import sql/ooaofooa_hierarchy_schema.sql
       -import sql/ooaofooa_hierarchy.pei.sql
+      -import sql/unsupported_textual_xtuml_elements_schema.sql
+      -import sql/unsupported_textual_xtuml_elements.pei.sql
       -arch arc/create_context_menus.arc
       -arch arc/wizard.arc
       -arch arc/quick_fix.arc" />
@@ -300,6 +303,39 @@
   <delete file="____actn.arc" />
   <delete file="____file.txt" />
   <delete file="blck_id" />
+  </target>
+	
+  <!-- ********************************************************************* -->
+  <!-- ************************* TEXTUAL XTUML SECTION ************************* -->
+  <property name="textual_xtuml_unsupported_elements.output" value="src/org/xtuml/bp/core/common/TextualXtumlUnsupportedElements.java" />
+
+  <target name="textual_xtuml_unsupported_elements.depends" >
+    <uptodate property="textual_xtuml_unsupported_elements.buildNotNeeded" targetfile="${textual_xtuml_unsupported_elements.output}">
+        <srcfiles dir = "sql" includes = "unsupported_textual_xtuml_elements_schema.sql,unsupported_textual_xtuml_elements.pei.sql" />
+        <srcfiles dir = "arc" includes = "gen_textual_xtuml_unsupported_elements.arc"/>
+    </uptodate>
+  </target>
+
+  <target name="textual_xtuml_unsupported_elements"
+          depends="textual_xtuml_unsupported_elements.depends"
+          description="Generate Textual xtUML unsupported elements"
+          unless="textual_xtuml_unsupported_elements.buildNotNeeded" >
+    <echo >Generating Textual xtUML Unsupported Elements ...</echo>
+    <echotimestamp />
+  	<exec vmlauncher="false" failonerror="true" executable="${xtumlmc_build}" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <env key="VERIFY_SELECTS" value="false" />
+    <env key="CHECK_FUNCTIONS_ONLY" value="true" />
+    <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
+    <env key="XTUMLMC_HOME" value="${util_bin_dir}/../../" />
+    <arg line="xtumlmc_gen_erate -qim -nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -d 0 -import sql/ooaofooa-4.sql
+      -import sql/unsupported_textual_xtuml_elements_schema.sql
+      -import sql/unsupported_textual_xtuml_elements.pei.sql
+      -arch arc/gen_textual_xtuml_unsupported_elements.arc" />
+  </exec>
+  <echotimestamp />
   </target>
 
   <!-- ********************************************************************* -->
@@ -635,7 +671,7 @@
   <target name="clean_all"
         description="Clean entire project"
         depends="clean_classes,clean_java,clean_cme_menus,clean_cme,
-        clean_cme_schema,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector,clean_core_properties" >
+        clean_cme_schema,clean_textual_xtuml_unsupported_elements,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector,clean_core_properties" >
 
     <echo>Done cleaning for ${ant.project.name}</echo>
 
@@ -675,6 +711,11 @@
       <fileset dir="sql" includes="Context_menu.bpi.sql" />
     </delete>
 
+  </target>
+
+  <target name="clean_textual_xtuml_unsupported_elements" description="Remove the Textual xtUML sources" >
+    <echo>Removing generated textual xtUML files ...</echo>
+    <delete file="${textual_xtuml_unsupported_elements.output}" />
   </target>
 
   <target name="clean_schema" description="Remove the Ooa of ooa database schema file" >

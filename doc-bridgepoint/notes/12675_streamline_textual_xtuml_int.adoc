@@ -1,0 +1,162 @@
+= Streamline user experience for textual xtUML
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+Support for the textual xtUML format was introduced to BridgePoint in Spring of
+2023. Some changes are needed to provide a streamedlined experience for users
+of the feature.
+
+== 2 Introduction and Background
+
+Textual xtUML is a persistence format for xtUML models based on the MASL
+modeling language. The first specification of such a language was produced in
+December of 2021 (see this document <<dr-2>>). In the Spring of 2023, limited
+support was added to BridgePoint to load and persist models of this format,
+however there remained sharp edges and many pitfalls in the experience. This
+issue aims to address the pitfalls and close the gaps so a team could
+reasonably use textual xtUML for production models.
+
+== 3 Requirements
+
+The requirements listed here are copied from the Purdue 2 SRS (<<dr-3>>)
+
+3.1 A mechanism shall be created to prevent mixing of elements not supported by
+  the textual format with supported elements in the same persistable component.
+
+3.2 If an error occurs during model load, the user shall be alerted of the
+  problem and given additional options/instructions to resolve the issue.
+
+3.3 A load and persist operation shall be automatically executed when a project
+  is toggled between persistence modes. The user shall be presented with an
+  alert and given the option to cancel.
+
+3.4 An option to choose persistence mode shall be added to the project creation
+  dialog. The default shall be SQL instances.
+
+3.5 A mechanism shall be added to easily switch between textual and graphical
+  views in diagram editors.
+
+== 4 Analysis
+
+=== 4.1 Restricting access to unsupported elements
+
+In order to prevent users from creating instances of unsupported elements in a
+textual model, three designs were condisered.
+
+. Show a dialog if a user tries to create an unsupported element and ask if
+  they want to switch to SQL
+. Silently convert a file to SQL format when an unsupported element is created.
+  Allow mixing SQL and textual.
+. Disable creation of unsupported elements in textual xtUML projects (hide menu
+  and palette items)
+
+Option three was selected.
+
+== 5 Work Required
+
+=== 5.1 Restricting access to unsupported elements
+
+A list of unsupported metamodel classes was developed by reviewing the textual
+xtUML load/persist code. The list was used to generate exceptions into the
+plugin definitions to hide element creation menu items for projects with text
+mode enabled. Additionally, a filter class was added to the graphical editor to
+filter the available tools in the palette view. The filter automatically
+updates when the project persistence format changes even if the graphical
+editor remains open.
+
+=== 5.2 Alerts for model load failures
+
+A new dialog was added which appears when an `.xtuml` file fails to load. This
+change is not specific to textual xtUML projects and will be shown even if an
+`.xtuml` file with SQL insert statements gets corrupted. The dialog advises the
+user to check the syntax of `.xtuml` files and restart BridgePoint. While a
+restart of BridgePoint is not usually necessary, it is the safest and most
+reliable way to deal with such issues and so it remains the official
+recommendation.
+
+In addition to the error dialog, an error overlay icon has been added to
+decorate the project when the project contains files that did not load
+properly. This gives the user a persistent indication of the error state of the
+model even after the dialog is dismissed. It also provides confirmation that
+the problem has been resolved as the icon only disappears if all files
+associated with the project have been successfully loaded.
+
+=== 5.3 Load and persist on model format change
+
+In order to detect a model format change and automatically load and persist, a
+new extension point was added. Any extensions registered on the extension point
+are notified if the persistence format preferences are modified for any
+project. The BridgePoint utilties plugin (which contains the load and persist
+action) implements this extension point and automatically launches the load and
+persist action when a persistence format change is detected. A dialog is
+employed to give the user an opportunity to deny the operation, however it is
+recommended to load and persist after switching persistence formats.
+
+Note that the change in format will only be detected if the user changes the
+preference via the BridgePoint tool. If the preference is changed by modifying
+the preference files in a separate tool, no automatic action will be taken by
+BridgePoint.
+
+=== 5.4 Textual xtUML for new projects
+
+A new page was added to the new system wizard containing all the same options
+as the persistence section of the project preferences. The default remains SQL
+instances, however textual xtUML may be selected in the wizard to create new
+projects in text mode.
+
+=== 5.5 xtUML Text Editor
+
+A new "xtUML Text Editor" has been added to expose the text of the files to the
+user. This new editor is a simple extension of Eclipse's built in file-based
+text editor with the BridgePoint icon and name based on the root element of the
+file.
+
+This editor also employs simple regex based syntax highlighting based on the
+syntax hightlighting of the OAL editor and a different set of keywords. There
+are no error marking or content assist capabilities in this new editor.
+
+All xtUML elements may be opened with this type of editor. When an
+element is selected and opened, the file in which the element is persisted is
+selected and opened. This editor is not specific to textual persistence models
+and will contain the SQL insert statements for SQL-based models.
+
+A tab has been added to all diagram editors in textual persistence mode only.
+This allows a user to easily switch back and forth between graphical and
+textual views by selecting the correct tab.
+
+== 6 Implementation Comments
+
+During the implementation of the features described in this note, a new bug was
+discovered which prevented models containing state machines with no states from
+being loaded properly (<<dr-4>>).
+
+This issue was a result of the fact that the textual xtUML parse grammar did
+not allow empty state machines to be parsed. The issue was resolved in the
+course of this work.
+
+== 7 Acceptance Test
+
+All the features described in this note were tested manually and demonstrated
+in this YouTube video: <<dr-5>>
+
+== 8 User Documentation
+
+No documentation changes have been made, however instructions related to
+choosing persistence format as well as a list of unsupported elements will be
+added during the BridgePoint Pro v7.6 release cycle.
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12675[12675 Streamline user experience for textual xtUML]
+. [[dr-2]] https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/12330_textual_xtuml/12330_textual_xtuml.adoc[12330 Textual xtUML Specification (draft, 2021)]
+. [[dr-3]] https://docs.google.com/document/d/1_LN5EJuZRAxGl1-iqy41xXItA1-rd-JvaKeFtLj-x6E/edit[12719 Purdue 2 SRS (internal document)]
+. [[dr-4]] https://support.onefact.net/issues/12725[12725 Creating a new state machine in textual mode fails]
+. [[dr-5]] https://www.youtube.com/watch?v=MxJMVdFjtzE[12675 demo video (YouTube)]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---

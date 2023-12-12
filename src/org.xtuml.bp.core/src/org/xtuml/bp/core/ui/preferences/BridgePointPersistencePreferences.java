@@ -19,12 +19,12 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 	public final static String BP_TAB_POLICY_ID = "tab-policy";
 	public final static String BP_TAB_DEPTH_ID = "tab-depth";
 
-	private Button textualPersistence;
 	private Button sqlPersistence;
+	private Button textualPersistence;
 	private Group tabPolicyGroup;
 	private Button tabPolicyMatch;
-	private Button tabPolicySpaces;
 	private Button tabPolicyTabs;
+	private Button tabPolicySpaces;
 	private Composite tabDepthGroup;
 	private Text tabDepth;
 
@@ -62,14 +62,14 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 		persistenceModeGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		persistenceModeGroup.setText("Model persistence format");
 
-		textualPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
-		textualPersistence.setText("Textual xtUML (experimental)");
-		textualPersistence.setLayoutData(new GridData());
-		textualPersistence.addSelectionListener(syncListener);
-
 		sqlPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
 		sqlPersistence.setText("SQL instances");
 		sqlPersistence.setLayoutData(new GridData());
+
+		textualPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
+		textualPersistence.setText("Textual xtUML");
+		textualPersistence.setLayoutData(new GridData());
+		textualPersistence.addSelectionListener(syncListener);
 
 		// create the group box for persistence
 		tabPolicyGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
@@ -131,7 +131,16 @@ public class BridgePointPersistencePreferences extends BridgePointProjectPrefere
 			tabDepthGroup.setVisible(tabPolicySpaces.getSelection());
 		}
 	}
-
+	
+	public boolean preferencesOutOfSync() {
+		final boolean modeOutOfSync = !getStore().get(BP_PERSISTENCE_MODE_ID, "null")
+				.equals(textualPersistence.getSelection() ? "text" : "sql");
+		final boolean tabPolicyOutOfSync = !getStore().get(BP_TAB_POLICY_ID, "null")
+				.equals(tabPolicyMatch.getSelection() ? "match" : (tabPolicyTabs.getSelection() ? "tabs" : "spaces"));
+		final boolean tabDepthOutOfSync = !getStore().get(BP_TAB_DEPTH_ID, "null").equals(tabDepth.getText());
+		return modeOutOfSync || tabPolicyOutOfSync || tabDepthOutOfSync;
+	}
+	
 	@Override
 	protected void syncPreferencesWithUI() {
 		getStore().put(BP_PERSISTENCE_MODE_ID, textualPersistence.getSelection() ? "text" : "sql");

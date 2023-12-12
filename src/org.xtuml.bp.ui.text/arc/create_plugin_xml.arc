@@ -34,6 +34,7 @@
 .assign oal_obj_set = result.oal_obj_set
 .assign canvas_dsc_obj_set = result.canvas_dsc_obj_set
 .assign canvas_oal_obj_set = result.canvas_oal_obj_set
+.select many all_obj_set from instances of O_OBJ
 .//
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
@@ -106,6 +107,17 @@ This file is the plugin manifest for the BridgePoint core plugin.
             id="org.xtuml.bp.ui.text.asl.ASLActivityEditor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="xtUML Text Editor"
+            icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
+            extensions="xtuml"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="org.xtuml.bp.ui.text.xtuml.XtumlTextEditor"
+            id="org.xtuml.bp.ui.text.xtuml.XtumlTextEditor">
+      </editor>
+   </extension>
    
 
    <extension
@@ -118,6 +130,33 @@ This file is the plugin manifest for the BridgePoint core plugin.
        </page>
    </extension>
 
+   <extension
+         id="org.xtuml.bp.ui.text.XtumlTextEditorAction"
+         name="xtUML Text Editor"
+         point="org.eclipse.ui.popupMenus">
+.assign index = 0
+.for each obj in all_obj_set
+  .select any clr_obj from instances of NAV_OBJ where (selected.src_key_lett == obj.key_lett)
+  .if (not_empty clr_obj)
+    .select any obj from instances of O_OBJ where (selected.key_lett == clr_obj.tgt_key_lett)
+  .end if
+  .assign index = index + 1
+      <objectContribution
+            objectClass="org.xtuml.bp.core.$cr{obj.name}_c"
+            adaptable="true"
+            id="org.xtuml.bp.ui.text.contribution${index}">
+         <action
+               label="xtUML Text Editor"
+               icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
+               class="org.xtuml.bp.ui.text.xtuml.ShowXtumlElementAction"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
+               enablesFor="1"
+               id="org.xtuml.bp.ui.text.xtuml.ShowXtumlElementAction${index}">
+         </action>
+      </objectContribution>
+.end for
+   </extension>
+ 
    <extension
          id="org.xtuml.bp.ui.text.DescriptionEditorAction"
          name="Description Editor"

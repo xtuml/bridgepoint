@@ -1,6 +1,7 @@
 /**
  * This is a multi line comment.
  */
+@max_extent(10);
 select many disks from instances of D_D;
 // This comment spans only this line
 for each disk in disks

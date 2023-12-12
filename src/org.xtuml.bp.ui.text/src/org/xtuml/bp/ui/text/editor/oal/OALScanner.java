@@ -18,7 +18,7 @@ public class OALScanner extends RuleBasedScanner {
 		
 		setDefaultReturnToken(otherToken);
 
-		IRule[] rules = new IRule[5];
+		IRule[] rules = new IRule[6];
 
 		//@note Defining rule for white space.
 		rules[0] = new WhitespaceRule(new WhitespaceDetector());
@@ -31,9 +31,12 @@ public class OALScanner extends RuleBasedScanner {
 
         //@note Defining rule for single line strings.
         rules[3] = new SingleLineRule("\"", "\"", manager.getDefaultToken(ActionLanguageTokenTypes.TOKEN_TYPE_string));
+
+        //@note Defining rule for marks.
+        rules[4] = new SingleLineRule("@", ";", manager.getDefaultToken(ActionLanguageTokenTypes.TOKEN_TYPE_mark));
 		
 		//@note Defining rule for string literals, Archetype will generate code in createRule method.
-		rules[4] = OALKeywordRule.createRule(manager, otherToken);
+		rules[5] = OALKeywordRule.createRule(manager, otherToken);
 
 		setRules(rules);
 	}

@@ -58,6 +58,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.Preferences;
@@ -79,6 +82,8 @@ public class PersistenceManager {
 
 	private static PersistenceManager defaultInstance;
 	private static IPersistenceHierarchyMetaData persistenceHierarchy;
+	
+	private static boolean showErrorDialog = true;
 
 	// list of component instances
 	private static TreeMap<String, PersistableModelComponent> Instances = new TreeMap<String, PersistableModelComponent>();
@@ -494,6 +499,7 @@ public class PersistenceManager {
 						.collect(Collectors.toSet()));
 
 		// try to reload inconsistent components
+		boolean reloadingInconsistentInstances = InconsistentInstances.values().size() > 0;
 		if (pmcsToLoad.stream().anyMatch(PersistableModelComponent::isLoaded)) {
 			pmcsToLoad.addAll(InconsistentInstances.values());
 		}
@@ -533,6 +539,8 @@ public class PersistenceManager {
 
 			// initiate the shutdown of the sequential executor
 			sequentialExecutor.shutdown();
+			
+			boolean errorsOccurred = false;
 
 			// wait for all PMCs to load
 			int loadedPmcs = 0;
@@ -547,9 +555,11 @@ public class PersistenceManager {
 								// System.out.println("LOADED: " + pmc.getFile());
 							} else {
 								// System.err.println("FAILED TO LOAD: " + pmc.getFile());
+								errorsOccurred = true;
 							}
 						} catch (ExecutionException e) {
 							CorePlugin.logError("Problem loading component", e);
+							errorsOccurred = true;
 						} finally {
 							loadedPmcs++;
 						}
@@ -571,12 +581,26 @@ public class PersistenceManager {
 					}
 				} catch (CoreException e) {
 					CorePlugin.logError("Problem finishing component load", e);
+					errorsOccurred = true;
 				}
 			}
 
 			sequentialExecutor = null;
 
-			System.out.println("Done loading.");
+			if (!reloadingInconsistentInstances && errorsOccurred && showErrorDialog) {
+				PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+					final MessageDialogWithToggle dialog = new MessageDialogWithToggle(null,
+							"Errors Occurred During xtUML Load", null,
+							"Errors occurred while loading xtUML model files. Check for correct syntax in '.xtuml' files and then restart BridgePoint."
+									+ " For full details, check the error log.",
+							MessageDialog.ERROR, new String[] { IDialogConstants.OK_LABEL }, 0, "Do not show this message again",
+							false);
+					dialog.open();
+					showErrorDialog = !dialog.getToggleState();
+				});
+			}
+
+			// System.out.println("Done loading.");
 
 		}
 	}
@@ -798,6 +822,12 @@ public class PersistenceManager {
 	static public PersistableModelComponent findInconsistentComponent(String path) {
 		synchronized (InconsistentInstances) {
 			return (PersistableModelComponent) InconsistentInstances.get(path);
+		}
+	}
+	
+	static public boolean projectHasInconsistentInstances(IProject project) {
+		synchronized (InconsistentInstances) {
+			return InconsistentInstances.values().stream().anyMatch(pmc -> pmc.getFile().getProject().equals(project));
 		}
 	}
 

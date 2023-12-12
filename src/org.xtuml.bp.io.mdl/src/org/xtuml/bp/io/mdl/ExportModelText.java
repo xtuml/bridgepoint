@@ -21,8 +21,14 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.SwtCallable;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.osgi.service.prefs.Preferences;
@@ -122,8 +128,12 @@ import org.xtuml.bp.core.Terminator_c;
 import org.xtuml.bp.core.TransitionActionHome_c;
 import org.xtuml.bp.core.Transition_c;
 import org.xtuml.bp.core.UserDataType_c;
+import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.IPersistenceHierarchyMetaData;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.common.PersistableModelComponent;
+import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.common.TextualXtumlUnsupportedElements;
 import org.xtuml.bp.core.sorter.AttributeReferenceInClass_cSorter;
 import org.xtuml.bp.core.sorter.Attribute_cSorter;
 import org.xtuml.bp.core.sorter.BridgeParameter_cSorter;
@@ -147,6 +157,9 @@ import org.xtuml.bp.ui.canvas.CanvasPlugin;
 // TODO multiple instances of "unassigned etc." graphics
 
 public class ExportModelText extends ExportModelComponent {
+	
+	private static boolean showWarning = true;
+	private static boolean cancelOnUnsupportedElement = false;
 
 	private interface PortMessage extends ProxyInstance {
 		String getAction_semantics();
@@ -1692,11 +1705,10 @@ public class ExportModelText extends ExportModelComponent {
 			}
 
 			// transition table
+      append("%s%sstate model is\n\n", getTab(), isClassBased ? "class " : "");
+      tabDepth++;
 			final Transition_c[] txns = Transition_c.getManySM_TXNsOnR505(inst);
 			if (txns.length > 0) {
-				append("%s%sstate model is\n\n", getTab(), isClassBased ? "class " : "");
-				tabDepth++;
-
 				// TODO signal events
 				// TODO individual cell descriptions
 				// TODO no event transition
@@ -1764,10 +1776,10 @@ public class ExportModelText extends ExportModelComponent {
 					append("%s| %s |\n", getTab(), row.stream().map(s -> String.format("%-" + maxWidth + "s", s))
 							.collect(Collectors.joining(" | ")));
 				}
-
-				tabDepth--;
-				append("\n%send state model;\n\n", getTab());
 			}
+
+      tabDepth--;
+      append("\n%send state model;\n\n", getTab());
 
 			// state actions
 			final Action_c[] actions = Action_c.getManySM_ACTsOnR515(inst,
@@ -2395,10 +2407,60 @@ public class ExportModelText extends ExportModelComponent {
 		}
 		return type_ref;
 	}
+	
+	private Stream<String> checkForUnsupportedElements(NonRootModelElement me) {
+		return checkForUnsupportedElements(me, me.getPersistableComponent());
+	}
+
+	@SuppressWarnings("unchecked")
+	private Stream<String> checkForUnsupportedElements(NonRootModelElement me, PersistableModelComponent pmc) {
+		if (me == null || !me.getPersistableComponent().equals(pmc)) {
+			return Stream.of();
+		} else {
+			final IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();
+			return Stream.concat(
+					Stream.of(TextualXtumlUnsupportedElements.UNSUPPORTED_ELEMENTS)
+							.filter(cls -> cls.equals(me.getClass()))
+							.map(cls -> TextualXtumlUnsupportedElements.UNSUPPORTED_ELEMENT_NAMES[List
+									.of(TextualXtumlUnsupportedElements.UNSUPPORTED_ELEMENTS).indexOf(cls)]),
+					metaData.getChildren(me, true).stream()
+							.flatMap(child -> checkForUnsupportedElements((NonRootModelElement) child, pmc)));
+		}
+	}
 
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException {
+		// Check if this PMC has unsupported elements
+		final List<String> unsupportedElements = checkForUnsupportedElements(m_inst).distinct()
+				.collect(Collectors.toList());
+		if (!unsupportedElements.isEmpty()) {
+			if (showWarning) {
+				PlatformUI.getWorkbench().getDisplay().syncCall(new SwtCallable<Void, InvocationTargetException>() {
+					@Override
+					public Void call() throws InvocationTargetException {
+						final MessageDialogWithToggle dialog = new MessageDialogWithToggle(null, "Unsupported Elements In Model", null,
+								"The xtUML project associated with the file '"
+										+ m_inst.getPersistableComponent().getFile()
+										+ "' contains the following elements that are not supported by the textual xtUML format:\n\n"
+										+ unsupportedElements.stream().collect(Collectors.joining("\n"))
+										+ "\n\nPersisting this file may result in an inconsistent model or lost data. Would you like to continue?",
+								MessageDialog.WARNING,
+								new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 1,
+								"Remember my decision", false);
+						cancelOnUnsupportedElement = (dialog.open() != IDialogConstants.YES_ID);
+						showWarning = !dialog.getToggleState();
+						return null;
+					}
+				});
+			}
+			if (cancelOnUnsupportedElement) {
+				throw new InvocationTargetException(new OperationCanceledException("Persist canceled by user."));
+			}
+		}
+
+		// run the main persist code
 		super.run(monitor);
+
 		// write textual graphics if this is a root that contains a diagram
 		if (m_inst instanceof SystemModel_c || m_inst instanceof Component_c || m_inst instanceof InstanceStateMachine_c
 				|| m_inst instanceof ClassStateMachine_c || m_inst instanceof Package_c) {
