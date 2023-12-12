@@ -23,7 +23,7 @@ public class ShowXtumlElementAction implements IActionDelegate {
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input,
 						"org.xtuml.bp.ui.text.xtuml.XtumlTextEditor");
 			} catch (CoreException e) {
-				TextPlugin.logError("Could not activate Xtuml Text Editor", e);
+				TextPlugin.logError("Could not activate xtUML Text Editor", e);
 			}
 		}
 	}

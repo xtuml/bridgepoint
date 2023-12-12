@@ -69,7 +69,7 @@ public class NewSystemPersistenceChooserPage extends WizardPage {
 		sqlPersistence.setLayoutData(new GridData());
 
 		textualPersistence = new Button(persistenceModeGroup, SWT.RADIO | SWT.LEFT);
-		textualPersistence.setText("Textual xtUML (experimental)");
+		textualPersistence.setText("Textual xtUML");
 		textualPersistence.setLayoutData(new GridData());
 		textualPersistence.addSelectionListener(syncListener);
 

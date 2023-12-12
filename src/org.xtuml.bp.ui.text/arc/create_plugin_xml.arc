@@ -110,7 +110,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="Xtuml Text Editor"
+            name="xtUML Text Editor"
             icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
             extensions="xtuml"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
@@ -132,7 +132,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 
    <extension
          id="org.xtuml.bp.ui.text.XtumlTextEditorAction"
-         name="Xtuml Text Editor"
+         name="xtUML Text Editor"
          point="org.eclipse.ui.popupMenus">
 .assign index = 0
 .for each obj in all_obj_set
@@ -146,7 +146,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
             adaptable="true"
             id="org.xtuml.bp.ui.text.contribution${index}">
          <action
-               label="Xtuml Text Editor"
+               label="xtUML Text Editor"
                icon="platform:/plugin/org.xtuml.bp.core/icons/green-bp.gif"
                class="org.xtuml.bp.ui.text.xtuml.ShowXtumlElementAction"
                menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu"
