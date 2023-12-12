@@ -1,0 +1,98 @@
+= Refresh after file change does not correctly clear and load instances
+
+== 1 Abstract
+
+In some cases model data does not get loaded correctly after a refresh if the
+change comes from an external tool.
+
+== 2 Introduction and Background
+
+It is a common use case to refresh a model after making some changes via an
+external tool. This can happen with a version control system like git when
+checking out a new branch or restoring the local file system. In these cases,
+it is essential that BridgePoint be able to update the model appropriately.
+
+A bug has been found and described in issue #12676 (<<dr-1>>) related to this
+use case.
+
+== 3 Requirements
+
+3.1 After a manual refresh, an xtUML model shall perfectly reflect the
+instances persisted in the source files
+
+3.1.1 No stale instances shall remain that do not correspond to persisted
+artifacts
+
+3.1.2 No instances shall be missing that correspond to persisted artifacts
+
+3.1.3 No errors shall be produced if the persisted model is consistent and
+error-free
+
+== 4 Analysis
+
+The problem came when multiple files were being changed at once (as in a git
+restore operation). In a typical full-project load, the textual xtUML loader is
+free to load files in any order to assure that elements that must be referred
+to by another file can be loaded first. A partial reload of multiple (but not
+all) files in the project was handled by a series of file change events which
+was executed as mutiple independent load operations each of a single file. This
+process led to elements being missing or incorrect at the moment when they were
+needed.
+
+To resolve this issue, all files that have triggered a file change event must
+be loaded in a single batch. Since there is no connection between the events,
+the only way to accomplish this is to load all files associated with the
+project each time. This of course is unacceptable as it would lead to
+horrendously inefficient loading as well as loading files multiple times.
+
+To resolve this, a mechanism must be introduced to determine whether or not a
+file has changed since the last time it was loaded. Using this mechanism, the
+loader can collect all the files in the project and filter them by whether or
+not the file contents are different than they were during the last load. If
+differences exist, the instances associated with the file are deleted and the
+file is re-parsed and loaded along with all the other changed files. This
+effectively consolidates all file change events in a single incident into one
+batch load operation.
+
+== 5 Work Required
+
+=== 5.1 File hashing mechanism
+
+A hashing mechanism was added to the loader which computes the hash of the
+contents of the file and caches the digest after each load. This value can then
+be compared with the hash of the current contents later to determine if file
+changes exist.
+
+=== 5.2 Persistence manager updates
+
+The load process in the persistence manager was updated to match the
+description in the analysis section. The basic unit that can be loaded is a
+project. When a project is loaded, for the first time, all files are loaded.
+For subsequent loads, the files associated with the project are filtered to
+determine the set of files that contain unloaded changes. Any in-memory
+instances associated with this set of files are removed and the set of files is
+reloaded as a batch.
+
+=== 5.3 Grahpics load changes
+
+This change also required a change to the graphical loader which clears out a
+cache of reference paths used to associate graphical elements with model
+instances.
+
+== 6 Acceptance Test
+
+The test described in the issue (<<dr-1>>) was used to validate the behavior.
+
+== 7 User Documentation
+
+None
+
+== 8 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/12676[12676 Refresh after file change does not correctly clear and load instances]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
