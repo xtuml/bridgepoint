@@ -1,7 +1,0 @@
--- BP 7.1.6 content: DataTypePackage syschar: 3 persistence-version: 7.1.6
-
-INSERT INTO S_DPK
-	VALUES ("cc41e389-17dc-48d2-9d17-ea012cf88d89",
-	'Datatypes',
-	"00000000-0000-0000-0000-000000000000",
-	"00000000-0000-0000-0000-000000000000");
