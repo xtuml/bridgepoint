@@ -554,7 +554,7 @@ public class PersistenceManager {
 							if (pmc.isLoaded()) {
 								// System.out.println("LOADED: " + pmc.getFile());
 							} else {
-								// System.err.println("FAILED TO LOAD: " + pmc.getFile());
+								CorePlugin.logError("Failed to load: " + pmc.getFile(), new RuntimeException());
 								errorsOccurred = true;
 							}
 						} catch (ExecutionException e) {
@@ -588,16 +588,18 @@ public class PersistenceManager {
 			sequentialExecutor = null;
 
 			if (!reloadingInconsistentInstances && errorsOccurred && showErrorDialog) {
-				PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-					final MessageDialogWithToggle dialog = new MessageDialogWithToggle(null,
-							"Errors Occurred During xtUML Load", null,
-							"Errors occurred while loading xtUML model files. Check for correct syntax in '.xtuml' files and then restart BridgePoint."
-									+ " For full details, check the error log.",
-							MessageDialog.ERROR, new String[] { IDialogConstants.OK_LABEL }, 0, "Do not show this message again",
-							false);
-					dialog.open();
-					showErrorDialog = !dialog.getToggleState();
-				});
+				if (PlatformUI.isWorkbenchRunning()) {
+					PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+						final MessageDialogWithToggle dialog = new MessageDialogWithToggle(null,
+								"Errors Occurred During xtUML Load", null,
+								"Errors occurred while loading xtUML model files. Check for correct syntax in '.xtuml' files and then restart BridgePoint."
+										+ " For full details, check the error log.",
+								MessageDialog.ERROR, new String[] { IDialogConstants.OK_LABEL }, 0,
+								"Do not show this message again", false);
+						dialog.open();
+						showErrorDialog = !dialog.getToggleState();
+					});
+				}
 			}
 
 			// System.out.println("Done loading.");

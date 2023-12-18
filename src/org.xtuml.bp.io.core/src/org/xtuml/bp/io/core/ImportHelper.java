@@ -2705,7 +2705,9 @@ public class ImportHelper
 				final Attribute_c attr = Attribute_c.getOneO_ATTROnR106(rattr);
 				attr.unrelateAcrossR114From(DataType_c.getOneS_DTOnR114(attr));
 				attr.relateAcrossR114To(sameAsBase);
-				attr.setRoot_nam(Attribute_c.getOneO_ATTROnR106(battr).getName());
+				if (rattr.getRef_mode() != 0) {
+					attr.setRoot_nam(Attribute_c.getOneO_ATTROnR106(battr).getName());
+				}
 			}
 		}
 	}
