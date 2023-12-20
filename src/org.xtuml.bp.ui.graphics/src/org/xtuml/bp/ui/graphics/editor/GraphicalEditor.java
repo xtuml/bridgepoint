@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -1575,7 +1576,10 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	public static List<GraphicalEditPart> getAllSymbols(GraphicalViewer root,
 			boolean modelHasContainer) {
 		List<GraphicalEditPart> symbols = new ArrayList<GraphicalEditPart>();
-		symbols.addAll(root.getContents().getChildren());
+		List children = root.getContents().getChildren();
+		for (Object c : children) {
+			symbols.add((GraphicalEditPart) c);
+		}
 		if (modelHasContainer) {
 			symbols.addAll(((GraphicalEditPart) root.getContents()
 					.getChildren().get(0)).getChildren());
