@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="BridgePoint Dev" uid="org.xtuml.bp-dev.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="7.5.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="BridgePoint Dev" uid="org.xtuml.bp-dev.product" id="org.xtuml.bp.pkg.BridgePoint" application="org.eclipse.ui.ide.workbench" version="7.6.0.qualifier" useFeatures="true" includeLaunchers="true">
 
 
    <configIni use="default">
