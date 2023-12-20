@@ -36,6 +36,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("4f244ba6-3e86-42cd-a510-a7b579ef7232",
@@ -46,17 +47,38 @@ INSERT INTO O_TFR
 	1,
 	'//Invocation:Operation Invocation.execute()
 
-// Execute the operation
-select one body related by self->O_TFR[R673]->ACT_OPB[R696]->ACT_ACT[R698];
-select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
-if (not_empty statement)
-  // Setup the parameter values within the newly created stack frame
-  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id);
+//Setup the parameter values within a newly created stack frame and let it run
+
+select one tfr related by self->O_TFR[R673.''is an invocation of''];
+// Is this, perhaps, deferred?
+select one deferral related by tfr->O_DEF[R126];
+if ( empty deferral )
+	// Just execute the operation.
+  select one body related by self->O_TFR[R673]->ACT_OPB[R696]->ACT_ACT[R698];
+  select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
+  if (not_empty statement)
+    discard = self.setupParameterValues(stack_frame_id:param.stack_frame_id);
+  end if;
+else
+  // Explore the deferral - find the appropriate subtype operation for execution.
+  select one ihandle related by self->V_VAR[R667.''has target'']->V_INT[R814];
+  superinstance = deferral.get_superclass_instance( stack_frame_id:param.stack_frame_id, instance_handle:ihandle );
+  subinstance = deferral.get_subtype_instance( superclass_instance:superinstance );
+  if ( not_empty subinstance )
+    select many args related by self->V_PAR[R627];
+    discard = deferral.setupParameterValues (stack_frame_id:param.stack_frame_id, 
+                                      superclass_instance:superinstance,
+                                      subclass_instance:subinstance,
+                                      operation_params:args );
+  else
+	USER::logError(msg:"Cannot find subtype for deferred operation ", path:"Operation Invocation: " + tfr.Name );
+  end if;
 end if;
 ',
 	1,
 	'',
 	"c6ed4a89-4878-4413-8fc0-c36e1ed5be4d",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("e4e9558b-9678-4f40-8ece-042894f69b2e",
@@ -219,6 +241,7 @@ return true;',
 	1,
 	'',
 	"4f244ba6-3e86-42cd-a510-a7b579ef7232",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f01cd951-9e7d-48e0-b8ae-c3df39fafc27",
