@@ -5429,19 +5429,26 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("5c8a0ce9-20e6-44d1-b5e0-d78cd7aa9953",
 	2901,
-	'This association relates the link_participation belonging to the ''from'' instance 
-to the link which implements the association, when the association is related in 
-the ''forward'' direction.
-
-The notion of ''forward'' is ''borrowed'' from the GP->TO naming of referring and
-referred-to parts of a formalized simple relationship.
-It is applied here, even for unformalized associations, by arbitrarily selecting 
-the first of the two R_PARTS found by ''select_many/for_each'' of thos parts.
-
-This fragile mechanism seems to hold up consistently - which is important - in 
-the implementation of Verifier.
+	'This association binds a link participation to a link as part of the mechanism implementing an association, 
+where the link participation is associated (R2958) with one of the participating instances in the association.
+There are 5 use cases:
+1. For a subtype-supertype case the participating instance is always an instance of a subtype.
+2. For a binary case other than non-associative, reflexive, non-symmetric, the participating instance is 
+always of the class from which the association line was drawn when the association was created.
+3. For the non-formalized, reflexive, non-associative case, the participating instance depends on the lexical 
+ordering of the instance handles and the choice of phrase used in the ''relate'' statement. If the phrase displayed 
+at the end of the drawn reflexive is used (the phrase from the upper line in the dialog), then the instance is 
+the one referred to by the first handle in the statement; use of the other phrase reverses that instance order.
+4. For the formalized reflexive non-associative case (1:1, only), if the relate statement phrase matches the 
+phrase chosen for formalization, the participating instance is chosen by the first handle as above. Note that 
+a choice of the upper phrase for formalization will swap phrase ends on the reflexive association.
+5. For a symmetric non-associative, the participating instance is chosen by the first handle in the statement.
 
 See issue 12523 implementation note for further discussion.
+
+Note that the role phrases that decorate both R2901 and R2902 are ill-chosen as they pertain only to a subset 
+of associations - formalized simple (non-associative) binary associations. Even in that case, R2901 links the 
+formalizing side - which has the referential attribute - not the particpant side.
 ',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_FORM
@@ -5516,20 +5523,11 @@ INSERT INTO R_SIMP
 INSERT INTO R_REL
 	VALUES ("1ba43162-9a5b-473e-96d3-a07a96c51995",
 	2902,
-	'This association relates the link_participation belonging to the ''to'' instance 
-to the link which implements the association, when the association is related in 
-the ''forward'' direction.
-
-The notion of ''forward'' is ''borrowed'' from the GP->TO naming of referring and
-referred-to parts of a formalized simple relationship.
-It is applied here, even for unformalized associations, by arbitrarily selecting 
-the first of the two R_PARTS found by ''select_many/for_each'' of thos parts.
-
-This fragile mechanism seems to hold up consistently - which is important - in 
-the implementation of Verifier.
-
-See issue 12523 implementation note for further discussion.
-',
+	'This association complements R2901 in the establishment of associations between participating instances.
+Taken together, R2901 and R2902 join the link participations associated with participating instances to 
+provide a navigable linkage.
+Refer to R2901 for a more thorough description.
+Note that the role phrases are ill-chosen.',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO R_FORM
 	VALUES ("43737e5e-c699-430b-8a78-bad7ff445cb0",
@@ -6012,7 +6010,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Association',
-	'R_REL');
+	'R_REL',
+	1);
 INSERT INTO PE_PE
 	VALUES ("e6e265fa-96a3-4c6f-a8a4-1fcee008db44",
 	1,
@@ -6025,7 +6024,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'State Machine State',
-	'SM_STATE');
+	'SM_STATE',
+	1);
 INSERT INTO PE_PE
 	VALUES ("022655ca-31f2-43bf-a4f8-465253eeaf28",
 	1,
@@ -6038,7 +6038,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'State Machine Event',
-	'SM_EVT');
+	'SM_EVT',
+	1);
 INSERT INTO PE_PE
 	VALUES ("14f5b919-bebd-460e-9028-181accb95bcc",
 	1,
@@ -6051,7 +6052,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Attribute',
-	'O_ATTR');
+	'O_ATTR',
+	1);
 INSERT INTO PE_PE
 	VALUES ("a47bc396-7f81-48f9-bee8-eca43afe0a00",
 	1,
@@ -6064,7 +6066,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'State Machine Event Data Item',
-	'SM_EVTDI');
+	'SM_EVTDI',
+	1);
 INSERT INTO PE_PE
 	VALUES ("a9098adb-f6dd-411f-8d17-bc5d0f7feb0a",
 	1,
@@ -6077,7 +6080,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Transition',
-	'SM_TXN');
+	'SM_TXN',
+	1);
 INSERT INTO PE_PE
 	VALUES ("f1eb4334-6136-41cf-ab6c-7d4aba61a4ec",
 	1,
@@ -6090,7 +6094,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Component',
-	'C_C');
+	'C_C',
+	1);
 INSERT INTO PE_PE
 	VALUES ("5ab9c8f9-d75c-439a-b591-712dc16d8510",
 	1,
@@ -6103,7 +6108,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Property Parameter',
-	'C_PP');
+	'C_PP',
+	1);
 INSERT INTO PE_PE
 	VALUES ("cd2db2d7-6486-4779-9094-3e2939b8eb9c",
 	1,
@@ -6116,7 +6122,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Component Reference',
-	'CL_IC');
+	'CL_IC',
+	1);
 INSERT INTO PE_PE
 	VALUES ("dea98ae9-826f-4779-9259-8a7ac0d2861d",
 	1,
@@ -6129,7 +6136,8 @@ INSERT INTO O_IOBJ
 	0,
 	"00000000-0000-0000-0000-000000000000",
 	'Package',
-	'EP_PKG');
+	'EP_PKG',
+	1);
 INSERT INTO PE_PE
 	VALUES ("3c0a0cf4-28b9-4357-a304-aa60658aacae",
 	1,

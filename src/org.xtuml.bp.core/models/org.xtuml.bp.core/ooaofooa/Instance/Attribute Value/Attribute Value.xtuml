@@ -23,6 +23,7 @@ end if;',
 	1,
 	'',
 	"dad9f2ed-20f7-4675-aa63-703fb55d88bc",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("0dc9470a-533e-4d9e-a300-d96c33cc1de6",
@@ -49,6 +50,7 @@ end if;',
 	1,
 	'',
 	"5e951303-aab6-4795-8cda-ed671ac330b5",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("cd9ea182-ee1f-4400-903b-9d03782d7e89",
@@ -75,6 +77,7 @@ end if;',
 	1,
 	'',
 	"e56eb16e-2bf0-4fa3-adf2-57bed2256a70",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d0a73b3c-8df5-4f88-8e2c-a67c2ed93094",
@@ -101,6 +104,7 @@ end if;',
 	1,
 	'',
 	"65e673ed-dbde-4f79-9259-6b6f5caf5b7a",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("1af19291-8430-45f9-b85b-cd0f9c9ff789",
@@ -147,6 +151,7 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("6dc052d1-6d4a-4eed-a30d-b9da516dde7e",
@@ -164,6 +169,7 @@ end if;',
 	1,
 	'',
 	"df338680-ec87-47bc-9619-0a812f88df53",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("b972c245-6307-4c1b-9fb8-c2623ea5c117",
@@ -201,6 +207,7 @@ end if;',
 	1,
 	'',
 	"8286e32f-84b7-4c4e-8eda-a261a8264b9e",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -226,83 +233,77 @@ if (empty ref_attr)
     return GD::NULL_UNIQUE_ID();
   end if;
 else
-  // This is a referential attribute, we will need to find the value of the 
-  // attribute value that it refers to.
+  // A referential attribute: find the value of the identifier attribute it refers to.
   select one inst related by self->I_INS[R2909];
-  // There may be many Attribute Reference in Class (O_REF) associated with
-  // this referential attribute. We are going to look for the one associated
-  // with the Instance just found above.
+  // There may be more than one Attribute Reference in Class (O_REF) associated with this
+  // referential attribute; it may participate in formalizing more than one association
   select many oref_set related by ref_attr->O_REF[R108];
   for each oref in oref_set
-    select one rta related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
-    if (not_empty rta)
-      // See if this instance participates via a unformalized participant.
-      select any simp_link related by inst->I_LIP[R2958]->I_LNK[R2901] where
-                                                 selected.Rel_ID == oref.Rel_ID;
-      if (empty simp_link)
-        // If it was not an unformalized participant, see if it is formalized.
-        select any simp_link related by inst->I_LIP[R2958]->I_LNK[R2902] where
-                                                 selected.Rel_ID == oref.Rel_ID;
+    select one referred_to_attribute related by oref->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
+    if (empty referred_to_attribute)
+      continue;
+    end if;
+    select one referred_to_class related by referred_to_attribute->O_OBJ[R102];
+    select any refto_inst from instances of I_INS where false;  // decl
+    oref_phrase = oref.get_referential_phrase();
+    select any linkp related by inst->I_LIP[R2958] 
+     where (selected.Rel_ID == oref.Rel_ID);
+    if (empty linkp)  //  association not instantiated.
+      continue;
+    end if;
+    select one rel related by linkp->R_REL[R2959];
+    is_reflexive = rel.is_reflexive();
+    is_symmetric = rel.is_symmetric();
+    select one rsimp related by rel->R_SIMP[R206];
+    select one rassoc related by rel->R_ASSOC[R206];
+    select one rsubsup related by rel->R_SUBSUP[R206];
+
+    if (not_empty rsimp or not_empty rsubsup)
+      // simple linkage also implements sub-super
+      // binary may have links in both directions - look for forward (R2901)
+      select many linkps related by inst->I_LIP[R2958] 
+       where (selected.Rel_ID == oref.Rel_ID);
+      for each linkp in linkps
+        select one link related by linkp->I_LNK[R2901];
+        if (not_empty link)
+          break;
+        end if;
+      end for;
+      select one refto_inst related by linkp->I_LNK[R2901]->I_LIP[R2902]->I_INS[R2958];
+      if (empty refto_inst and is_symmetric)
+        select one refto_inst related by linkp->I_LNK[R2902]->I_LIP[R2901]->I_INS[R2958];
       end if;
-      select any assoc_link related by inst->I_LIP[R2958]->I_LNK[R2903] where
-                                                 selected.Rel_ID == oref.Rel_ID;
-      // Determing which is the correct link to use
-      if (not_empty simp_link)
-        select one refto_inst related by simp_link->I_LIP[R2902]->I_INS[R2958];
-        select any attr_val related by refto_inst->I_AVL[R2909] where
-                                                selected.Attr_ID == rta.Attr_ID;
-        if (empty attr_val)
-          select one refto_inst related by simp_link->
-                                                     I_LIP[R2901]->I_INS[R2958];
-          select any attr_val related by refto_inst->I_AVL[R2909] where
-                                                selected.Attr_ID == rta.Attr_ID;
-        end if;  
-        if (not_empty attr_val)
-          if (self.Attr_ID == attr_val.Attr_ID)
-            // If we just found ourself, skip over the recursive call to avoid
-            // an infinite loop.
-            continue;
-          else
-            return attr_val.getRuntimeValue();  //recursive call
-          end if;
+    else
+      // associative
+      select any aone from instances of R_AONE where false;  // decl
+      select any aoth from instances of R_AOTH where false;
+      select any refto_inst from instances of I_INS where false;
+      select one link related by linkp->I_LNK[R2903];
+      if (is_reflexive)
+        // use phrase matching to determine ''side''.
+        select one aone related by rassoc->R_AONE[R209]
+         where (selected.Txt_Phrs == oref_phrase);
+        select one aoth related by rassoc->R_AOTH[R210]
+         where (selected.Txt_Phrs == oref_phrase);
+        if (not_empty aone)
+          select one refto_inst related by link->I_LIP[R2901]->I_INS[R2958];
+        else
+          select one refto_inst related by link->I_LIP[R2902]->I_INS[R2958];
         end if;
-        break;      
-      elif (not_empty assoc_link)
-        select one refto_inst related by assoc_link->I_LIP[R2902]->I_INS[R2958];
-        select any attr_val related by refto_inst->I_AVL[R2909] where
-                                                selected.Attr_ID == rta.Attr_ID;
-        select one assoc_rel related by assoc_link->R_REL[R2904]->R_ASSOC[R206];
-        select one aone related by assoc_rel->R_AONE[R209];
-        select one aoth related by assoc_rel->R_AOTH[R210];
-        if aone.Obj_ID == aoth.Obj_ID
-          // The linked association is reflexive, cannot use attribute identity
-          // to disambiguate references. Use attribute ordering instead.
-          select any first_ref_attr related by rta->O_OIDA[R105]->
-                                      O_RTIDA[R110]->O_REF[R111]->O_RATTR[R108];
-          if ref_attr == first_ref_attr
-            select one refto_inst related by assoc_link->I_LIP[R2901]->
-                                                                   I_INS[R2958];
-            select any attr_val related by refto_inst->I_AVL[R2909] where
-                                                selected.Attr_ID == rta.Attr_ID;
-          end if;
-        elif empty attr_val
-          select one refto_inst related by assoc_link->I_LIP[R2901]->
-                                                                   I_INS[R2958];
-          select any attr_val related by refto_inst->I_AVL[R2909] where
-                                                selected.Attr_ID == rta.Attr_ID;
-        end if;                
-        if (not_empty attr_val)
-          if (self.Attr_ID == attr_val.Attr_ID)
-            // If we just found ourself, skip over the recursive call to avoid
-            // an infinite loop.
-            continue;
-          else
-            return attr_val.getRuntimeValue();  //recursive call
-          end if;
+      else
+        // different class each ''side''; look for the referred-to class.
+        select one refto_inst related by link->I_LIP[R2901]->I_INS[R2958];
+        select one pclass related by refto_inst->CSME_CIE[R2962]->O_OBJ[R2961];
+        if (pclass.Obj_ID != referred_to_class.Obj_ID)
+          select one refto_inst related by link->I_LIP[R2902]->I_INS[R2958];
         end if;
-        break;          
-      end if;   
-    end if;  
+      end if;
+    end if;
+    select any attr_val related by refto_inst->I_AVL[R2909]
+     where (selected.Attr_ID == referred_to_attribute.Attr_ID);
+    if (not_empty attr_val)
+      return attr_val.getRuntimeValue();  //recursive call
+    end if;
   end for;
   // Attribute is a referential but doesn''t fomalize any association
   return GD::NULL_UNIQUE_ID();  
@@ -310,6 +311,7 @@ end if;',
 	1,
 	'',
 	"839ac3c4-c819-412f-ab18-fd1f6f440de2",
+	0,
 	0);
 INSERT INTO O_DBATTR
 	VALUES ("ba87a80b-f054-4bc3-a063-3e3681e8a7bc",
