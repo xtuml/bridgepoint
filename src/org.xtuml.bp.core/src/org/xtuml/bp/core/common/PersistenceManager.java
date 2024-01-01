@@ -587,7 +587,7 @@ public class PersistenceManager {
 
 			sequentialExecutor = null;
 
-			if (!reloadingInconsistentInstances && errorsOccurred && showErrorDialog) {
+			if (!reloadingInconsistentInstances && errorsOccurred && showErrorDialog && !Ooaofooa.inUnitTest()) {
 				if (PlatformUI.isWorkbenchRunning()) {
 					PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
 						final MessageDialogWithToggle dialog = new MessageDialogWithToggle(null,
