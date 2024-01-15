@@ -146,7 +146,7 @@ class ValidatorTest {
 			begin
 				return "";
 			end;
-		''').elements.last.assertError(returnStatement, WRONG_TYPE)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(returnStatement, WRONG_TYPE)
 	}
 
 	@Test
@@ -161,7 +161,7 @@ class ValidatorTest {
 				return 1;
 				delay 1;
 			end;
-		''').elements.last.assertError(delayStatement, UNREACHABLE_CODE)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(delayStatement, UNREACHABLE_CODE)
 	}
 
 	@Test 
@@ -197,7 +197,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertNoError(DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertNoError(DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -211,7 +211,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -225,7 +225,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -239,7 +239,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -253,7 +253,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -267,7 +267,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(domainServiceDefinition, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -281,7 +281,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertError(parameter, DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertError(parameter, DECLARATION_MISSMATCH)
 	}
 
 	@Test 
@@ -296,7 +296,7 @@ class ValidatorTest {
 			is
 			begin
 			end;
-		''').elements.last.assertNoError(DECLARATION_MISSMATCH)
+		''').elements.stream().reduce([a, b | b]).orElseThrow().assertNoError(DECLARATION_MISSMATCH)
 	}
 
 	@Test

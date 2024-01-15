@@ -14,6 +14,8 @@
 		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
         <bp_test_path>../../../bptest</bp_test_path>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<repositories>
