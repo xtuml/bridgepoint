@@ -601,6 +601,12 @@ public class PersistableModelComponent implements Comparable {
 				graphicsFile.delete(true, monitor);
 				
 			}
+			
+			// update the digest to prevent an unnecessary reload
+			// if this is a new PMC, let it get calculated on first load
+			if (digest != null) {
+				digest = calculateDigest();
+			}
 
 			// get Eclipse to notice that the model's file has changed on disk
 			containingFolder.refreshLocal(IFile.DEPTH_ONE, monitor);
