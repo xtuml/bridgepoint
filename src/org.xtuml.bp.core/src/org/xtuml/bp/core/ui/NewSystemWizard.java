@@ -47,13 +47,13 @@ public class NewSystemWizard extends DelegatingWizard implements INewWizard {
         this.addPage(creationPage);
         setNeedsProgressMonitor(true);
         m_creationPage = creationPage;
+        m_persistencePage = new NewSystemPersistenceChooserPage("newxtUMLPersistenceChooser", "xtUML Persistence Format", "Select the persistence format for this xtUML project");
+        addPage(m_persistencePage);
         String[] mcis = getChoices();
         if (mcis.length > 0) {
             addPage(new ModelCompilerChooserPage("newxtUMLModelCompilerChooser", "xtUML Model Compilers",
                     "Select model compilers to use with this xtUML project", "Available xtUML model compilers:"));
         }
-        m_persistencePage = new NewSystemPersistenceChooserPage("newxtUMLPersistenceChooser", "xtUML Persistence Format", "Select the persistence format for this xtUML project");
-        addPage(m_persistencePage);
     }
 
     @Override
