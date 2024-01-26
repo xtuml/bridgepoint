@@ -2414,7 +2414,7 @@ public class ExportModelText extends ExportModelComponent {
 
 	@SuppressWarnings("unchecked")
 	private Stream<String> checkForUnsupportedElements(NonRootModelElement me, PersistableModelComponent pmc) {
-		if (me == null || !me.getPersistableComponent().equals(pmc)) {
+		if (me == null || !pmc.equals(me.getPersistableComponent())) {
 			return Stream.of();
 		} else {
 			final IPersistenceHierarchyMetaData metaData = PersistenceManager.getHierarchyMetaData();

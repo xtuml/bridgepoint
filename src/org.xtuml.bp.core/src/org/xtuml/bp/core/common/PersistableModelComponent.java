@@ -603,8 +603,8 @@ public class PersistableModelComponent implements Comparable {
 			}
 			
 			// update the digest to prevent an unnecessary reload
-			// if this is a new PMC, let it get calculated on first load
-			if (digest != null) {
+			// if this is a new PMC, let it get calculated on first load for new projects
+			if (!(digest == null && componentRootME instanceof SystemModel_c)) {
 				digest = calculateDigest();
 			}
 
