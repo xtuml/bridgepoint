@@ -2,7 +2,6 @@ package org.xtuml.bp.core.ui;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
-import org.osgi.service.prefs.Preferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -15,6 +14,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
 import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 
@@ -134,6 +136,11 @@ public class NewSystemPersistenceChooserPage extends WizardPage {
 			if (tabPolicySpaces.getSelection()) {
 				projectNode.put(BridgePointPersistencePreferences.BP_TAB_DEPTH_ID, tabDepth.getText());
 			}
+		}
+		try {
+			projectNode.flush();
+		} catch (BackingStoreException bse) {
+			CorePlugin.logError("Error updating project preferences", bse);
 		}
 	}
 
