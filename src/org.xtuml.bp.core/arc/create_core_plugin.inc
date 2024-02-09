@@ -404,6 +404,17 @@ This file is the plugin manifest for the BridgePoint core plugin.
    </extension>
 	<extension
 		point="org.eclipse.ui.menus">
+			<menuContribution
+							locationURI="popup:org.eclipse.ui.popup.any?after=org.xtuml.bp.ui.context-internal">
+				<menu
+					id="org.xtuml.bp.core.ui.actions.range"
+							label="Range">
+				</menu>
+				<dynamic
+					class="org.xtuml.bp.core.ui.actions.RangeContributionItem"
+							id="org.xtuml.bp.core.ui.actions.range.dynamic">
+				</dynamic>
+			</menuContribution>
     <menuContribution locationURI="popup:org.xtuml.bp.ui.explorer.ExplorerView?after=org.xtuml.bp.utilities">
       <separator 
         name="org.xtuml.bp.core.properties.separator"
