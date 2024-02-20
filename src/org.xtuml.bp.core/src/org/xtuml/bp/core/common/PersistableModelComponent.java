@@ -573,7 +573,7 @@ public class PersistableModelComponent implements Comparable {
 
 		persisting = true;
 		
-		// final all referring components and persist them
+		// final all referring textual components and persist them
 		if (persistRGOs) {
 			@SuppressWarnings("unchecked")
 			final List<NonRootModelElement> externalRGOs = PersistenceManager.getHierarchyMetaData()
@@ -583,7 +583,11 @@ public class PersistableModelComponent implements Comparable {
 					.filter(Objects::nonNull)
 					.filter(Predicate.not(PersistableModelComponent::isPersisting))
 					.collect(Collectors.toList())) {
-				pmc.persist(monitor, false);
+				final Preferences projectPrefs = new ProjectScope(pmc.getFile().getProject())
+						.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+				if (projectPrefs.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "null").equals("text")) {
+					pmc.persist(monitor, false);
+				}
 			}
 		}
 		
