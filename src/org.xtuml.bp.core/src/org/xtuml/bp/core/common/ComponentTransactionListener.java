@@ -419,6 +419,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 									oldName + "/" + newName + "."
 											+ Ooaofooa.MODELS_EXT));
 
+			IFile oldGraphicsFile = wsRoot.getFile(oldFile.getFullPath().removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
+			IFile newGraphicsFileOldFolder = wsRoot.getFile(newFileOldFolder.getFullPath().removeFileExtension().addFileExtension(Ooaofooa.GRAPHICS_EXT));
+
             String[] actionDialects = ActionFile.getAvailableDialects();
             IFile[] oldActionFiles = new IFile[actionDialects.length];
             IFile[] newActionFilesOldFolder = new IFile[actionDialects.length];
@@ -437,6 +440,9 @@ public class ComponentTransactionListener implements ITransactionListener {
 			try {
 				// Rename both the file and the folder and the corresponding action files
 				oldFile.move(newFileOldFolder.getFullPath(), true, true, null);
+				if (oldGraphicsFile.exists()) {
+					oldGraphicsFile.move(newGraphicsFileOldFolder.getFullPath(), true, true, null);
+				}
                 for ( int i = 0; i < oldActionFiles.length; i++ ) {
                     if ( oldActionFiles[i].exists() ) {
 				        oldActionFiles[i].move(newActionFilesOldFolder[i].getFullPath(), true, true, null);
