@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core Editors
 Bundle-SymbolicName: org.xtuml.bp.core.editors;singleton:=true
-Bundle-Version: 7.6.0.qualifier
+Bundle-Version: 7.7.0.qualifier
 Bundle-Activator: org.xtuml.bp.core.editors.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface.text,
