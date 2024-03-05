@@ -201,7 +201,11 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		return getActiveEditor().isSaveAsAllowed();
+		if (getActiveEditor() != null) {
+			return getActiveEditor().isSaveAsAllowed();
+		} else {
+			return false;
+		}
 	}
 
 	public IEditorPart getActivePart() {

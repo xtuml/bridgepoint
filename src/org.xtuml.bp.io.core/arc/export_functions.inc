@@ -1114,7 +1114,7 @@ throws IOException
     	if ( !body.isEmpty() ) {
         // get instance key
         String idString = "'00000000-0000-0000-0000-000000000000' ";
-        if (!(this instanceof ExportModelText)) {
+        if (!ExportModelText.class.isInstance(this)) {
             Object key = inst.getInstanceKey();
             if ( key instanceof Object[] ) {
                 idString = "";

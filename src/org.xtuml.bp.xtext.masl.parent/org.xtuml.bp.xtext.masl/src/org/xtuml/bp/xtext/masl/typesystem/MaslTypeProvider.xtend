@@ -552,12 +552,12 @@ class MaslTypeProvider {
 				if(replacement instanceof DictionaryType) {
 					val returnValue = returnType
 						.resolve(new TypeParameterType(typeParams.head.name, true), replacement.keyType)
-						.resolve(new TypeParameterType(typeParams.last.name, true), replacement.valueType)
+						.resolve(new TypeParameterType(typeParams.stream().reduce([a, b | b]).orElseThrow().name, true), replacement.valueType)
 					return returnValue			
 				} else if(replacement instanceof ArrayType) {
 					val returnValue = returnType
 						.resolve(new TypeParameterType(typeParams.head.name, true), replacement.componentType)
-						.resolve(new TypeParameterType(typeParams.last.name, true), replacement.indexType.elementType)
+						.resolve(new TypeParameterType(typeParams.stream().reduce([a, b | b]).orElseThrow().name, true), replacement.indexType.elementType)
 					return returnValue
 				} else {
 					throw new UnsupportedOperationException("Two type parameters are only supported for dictionary types")

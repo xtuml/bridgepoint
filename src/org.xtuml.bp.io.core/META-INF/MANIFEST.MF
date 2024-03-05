@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint IO Core Plug-in
 Bundle-SymbolicName: org.xtuml.bp.io.core; singleton:=true
-Bundle-Version: 7.5.0.qualifier
+Bundle-Version: 7.6.0.qualifier
 Bundle-ClassPath: core.jar,
  target/dependency/antlr4.jar,
  target/dependency/antlr4-runtime.jar,
@@ -31,6 +31,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.ui.graphics,
  org.xtuml.bp.als.oal
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.io.core

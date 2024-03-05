@@ -573,7 +573,7 @@ public class PersistableModelComponent implements Comparable {
 
 		persisting = true;
 		
-		// final all referring components and persist them
+		// final all referring textual components and persist them
 		if (persistRGOs) {
 			@SuppressWarnings("unchecked")
 			final List<NonRootModelElement> externalRGOs = PersistenceManager.getHierarchyMetaData()
@@ -583,7 +583,11 @@ public class PersistableModelComponent implements Comparable {
 					.filter(Objects::nonNull)
 					.filter(Predicate.not(PersistableModelComponent::isPersisting))
 					.collect(Collectors.toList())) {
-				pmc.persist(monitor, false);
+				final Preferences projectPrefs = new ProjectScope(pmc.getFile().getProject())
+						.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+				if (projectPrefs.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "null").equals("text")) {
+					pmc.persist(monitor, false);
+				}
 			}
 		}
 		
@@ -600,6 +604,12 @@ public class PersistableModelComponent implements Comparable {
 			if (graphicsFile != null && graphicsFile.exists() && !projectPrefs.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "null").equals("text")) {
 				graphicsFile.delete(true, monitor);
 				
+			}
+			
+			// update the digest to prevent an unnecessary reload
+			// if this is a new PMC, let it get calculated on first load for new projects
+			if (!(digest == null && componentRootME instanceof SystemModel_c)) {
+				digest = calculateDigest();
 			}
 
 			// get Eclipse to notice that the model's file has changed on disk

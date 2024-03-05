@@ -114,7 +114,7 @@ class ExampleModelsIntegrationTest {
 	protected def void load(File file, ResourceSet resourceSet) {
 		if (file.isDirectory) {
 			file.listFiles [
-				isDirectory || fileExtensionProvider.fileExtensions.contains(name.split('\\.').last)
+				isDirectory || fileExtensionProvider.fileExtensions.contains(name.split('\\.').stream().reduce([a, b | b]).orElseThrow())
 			].forEach[
 				load(resourceSet)
 			]

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Model Plug-in
 Bundle-SymbolicName: org.xtuml.bp.io.mdl; singleton:=true
-Bundle-Version: 7.5.0.qualifier
+Bundle-Version: 7.6.0.qualifier
 Bundle-ClassPath: mdl.jar
 Bundle-Activator: org.xtuml.bp.io.mdl.MdlPlugin
 Bundle-Vendor: xtUML.org
@@ -22,6 +22,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.xtuml.bp.als.oal,
  org.eclipse.ui.editors
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Eclipse-BundleShape: dir
 Automatic-Module-Name: org.xtuml.bp.io.mdl

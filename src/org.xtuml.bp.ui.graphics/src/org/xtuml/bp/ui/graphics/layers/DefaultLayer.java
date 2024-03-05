@@ -114,8 +114,8 @@ public class DefaultLayer extends FreeformLayer {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<?> getChildrenIncludingText() {
-		ArrayList<Object> allChildren = new ArrayList<Object>(this
+	private List<IFigure> getChildrenIncludingText() {
+		ArrayList<IFigure> allChildren = new ArrayList<>(this
 				.getChildren());
 		List<?> editPartChildren = diagramPart.getChildren();
 		for(Object child : editPartChildren) {
@@ -196,9 +196,8 @@ public class DefaultLayer extends FreeformLayer {
 	 */
 	private Rectangle getExtremeCoordinates() {
 		Rectangle extremes = new Rectangle();
-		List<?> childrenIncludingText = getChildrenIncludingTextAndConnectors();
-		for(Object child : childrenIncludingText) {
-			IFigure figure = (IFigure) child;
+		List<IFigure> childrenIncludingText = getChildrenIncludingTextAndConnectors();
+		for(IFigure figure : childrenIncludingText) {
 			if(extremes.x > figure.getBounds().x) {
 				extremes.x = figure.getBounds().x;
 			}
@@ -216,8 +215,8 @@ public class DefaultLayer extends FreeformLayer {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<?> getChildrenIncludingTextAndConnectors() {
-		List<?> childrenIncludingText = getChildrenIncludingText();
+	private List<IFigure> getChildrenIncludingTextAndConnectors() {
+		List<IFigure> childrenIncludingText = getChildrenIncludingText();
 		childrenIncludingText.addAll(0, diagramPart.getLayer(
 				LayerConstants.CONNECTION_LAYER).getChildren());
 		return childrenIncludingText;

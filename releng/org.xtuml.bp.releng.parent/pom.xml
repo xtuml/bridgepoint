@@ -5,27 +5,29 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xtuml.bp</groupId>
 	<artifactId>org.xtuml.bp.releng.parent</artifactId>
-	<version>7.5.0-SNAPSHOT</version>
+	<version>7.6.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>2.7.4</tycho-version>
+		<tycho-version>4.0.4</tycho-version>
 		<ant-home-path>${env.ANT_HOME}</ant-home-path>
 		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
         <bp_test_path>../../../bptest</bp_test_path>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<repositories>
 		<repository>
 			<id>2022-06</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/releases/2022-12/</url>
+			<url>https://download.eclipse.org/releases/2023-12/</url>
 		</repository>
 		<repository>
-			<id>4.26-update</id>
+			<id>4.30-update</id>
 			<layout>p2</layout>
-      <url>https://download.eclipse.org/eclipse/updates/4.26/</url>
+      <url>https://download.eclipse.org/eclipse/updates/4.30/</url>
 		</repository>
 		<repository>
 			<id>antlr</id>
@@ -34,9 +36,9 @@
 			<url>https://s3.amazonaws.com/1f-outgoing/antlr_upsite/</url>
 		</repository>
 		<repository>
-			<id>cdt-11.0.0</id>
+			<id>cdt-11.4.0</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/tools/cdt/releases/11.0/</url>
+			<url>https://download.eclipse.org/tools/cdt/releases/11.4/</url>
 		</repository>
 	</repositories>
 	

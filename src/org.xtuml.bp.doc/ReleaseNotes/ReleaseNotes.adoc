@@ -1,6 +1,6 @@
 = BridgePoint xtUML Release Notes
 
-== Release 7.4
+== Release 7.6
 
 === License
 BridgePoint is licensed under the link:http://www.apache.org/licenses/LICENSE-2.0[Apache 2.0 license]. 
@@ -12,8 +12,8 @@ BridgePoint is licensed under the link:http://www.apache.org/licenses/LICENSE-2.
 |=========================================================
 | Category              | Requirement
 | Operating System      | Linux, MacOS, Windows 
-| Java Virtual Machine  | Version 11 minimum (17+ preferred)
-| *Eclipse              | Version 2022-12 
+| Java Virtual Machine  | Version 17 minimum
+| *Eclipse              | Version 2023-12 
 |=========================================================
 
 *(supplied with installation)
@@ -21,10 +21,9 @@ BridgePoint is licensed under the link:http://www.apache.org/licenses/LICENSE-2.
 === General Notes
 * A summary of the release highlights and new functionality is available on the link:../WhatsNew/WhatsNew.html[What's New] page.  
   
-* [red]#*IMPORTANT:*# BridgePoint 7.4+ requires Java 11. Java 17 is required for
-full CDT functionality although all BridgePoint-only features will work with
-Java 11. If Java 11/17 is not the system default JRE, then the user must
-configure BridgePoint to invoke Java 11/17 explicitly. See more information on
+* [red]#*IMPORTANT:*# BridgePoint 7.6+ requires Java 17. 
+If Java 17 is not the system default JRE, then the user must configure
+BridgePoint to invoke Java 11/17 explicitly. See more information on
 configuring Java in
 link:https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-configure-bp-jre.adoc[this guide].
 
@@ -38,7 +37,7 @@ create desktop shortcuts to start BridgePoint should set the shortcut to start `
 preferences at `xtUML > Action Language > Default Action Language Dialect`. The default is set to OAL.       
   
 === Interoperability with Previous Releases
-BridgePoint 7.4 is compatible with workspaces and projects created with prior versions back to 
+BridgePoint 7.6 is compatible with workspaces and projects created with prior versions back to 
 BridgePoint 6.0.  However, after opening the model in this version a modeler will not be able to 
 open the model in a prior version.   
 
@@ -51,18 +50,39 @@ link:https://support.onefact.net/projects/bridgepoint/roadmap?utf8=%E2%9C%93&com
 [width="80%",cols="3,10",options="header"]
 |=========================================================
 | Issue |  Subject 
-| link:https://support.onefact.net/issues/10340[10340] | linting warnings on mc3020
-| link:https://support.onefact.net/issues/11637[11637] | Upgrade welcome plugin projects
-| link:https://support.onefact.net/issues/11699[11699] | Changing from one assoc to another assoc does not work.
-| link:https://support.onefact.net/issues/11919[11919] | BP Modeler build is missing org.eclipse.jdt.debug.ui (was Cannot run GPS Watch GUI)
-| link:https://support.onefact.net/issues/12222[12222] | Verifier: Support interface message parameters of type inst_ref and inst_ref_set
-| link:https://support.onefact.net/issues/12315[12315] | Distribute a version of BridgePoint which runs natively on ARM64 macOS
-| link:https://support.onefact.net/issues/12568[12568] | Verifier Session Explorer does not correctly display the names of Package References.
-| link:https://support.onefact.net/issues/12597[12597] | Update xtUML Metamodel project
-| link:https://support.onefact.net/issues/12615[12615] | Verifier does not correctly support cardinality {*} on the associative link in a relationship.
-| link:https://support.onefact.net/issues/12617[12617] | Verifier removes incorrect InstanceInReference when handling duplicate instances retrieved by 'select many'.
-| link:https://support.onefact.net/issues/12548[12548] | Support symmetric reflexive associations
-| link:https://support.onefact.net/issues/12626[12626] | Bump version to 7.4
+| link:https://support.onefact.net/issues/11694[11694] | Masl relationship phrase rename failure with java exception
+| link:https://support.onefact.net/issues/12504[12504] | Display of local and polymorphic events on a state chart is inconsistent
+| link:https://support.onefact.net/issues/12535[12535] | Timestamp in data output to console on using "Build Project" (the hammer)
+| link:https://support.onefact.net/issues/12599[12599] | Eliminate the "formalize" and "cardinality" CMEs and wizards for associations
+| link:https://support.onefact.net/issues/12600[12600] | Fix links to developer builds on nightly build webpage
+| link:https://support.onefact.net/issues/12625[12625] | Problems loading example projects
+| link:https://support.onefact.net/issues/12642[12642] | Binary symmetric (reflexive) associations are not properly formalized.
+| link:https://support.onefact.net/issues/12647[12647] | Binary association editor should not allow on-the-fly re-formalization.
+| link:https://support.onefact.net/issues/12662[12662] | MASL C++ parser does not allow negative literals as pragma values.
+| link:https://support.onefact.net/issues/12663[12663] | Callers of ProjectUtilities.importExistingProject must pass only a single argument
+| link:https://support.onefact.net/issues/12666[12666] | Add prefix support for referential attributes to association editor
+| link:https://support.onefact.net/issues/12668[12668] | WASL Exporter fails on Domain Function rename or add
+| link:https://support.onefact.net/issues/12671[12671] | MASL round trip failing on the build server
+| link:https://support.onefact.net/issues/12673[12673] | propagated referential gets wrong root_name
+| link:https://support.onefact.net/issues/12675[12675] | Streamline user experience for textual xtUML
+| link:https://support.onefact.net/issues/12676[12676] | Refresh after file change does not correctly clear and load instances
+| link:https://support.onefact.net/issues/12680[12680] | MASL GPS watch project failed to load from the welcome menu
+| link:https://support.onefact.net/issues/12710[12710] | In workflow-generated code 'break' and 'continue' statements are not rendered.
+| link:https://support.onefact.net/issues/12712[12712] | MASL Exporter not producing constrained type definitions in MASL .mod file
+| link:https://support.onefact.net/issues/12713[12713] | MASL Exporter Pragma Change has some anomalies
+| link:https://support.onefact.net/issues/12715[12715] | docgen failing on large models
+| link:https://support.onefact.net/issues/12725[12725] | Creating a new state machine in textual mode fails
+| link:https://support.onefact.net/issues/12770[12770] | Release BP Pro v7.6
+| link:https://support.onefact.net/issues/12774[12774] | Undo/redo fails on 7.6 release
+| link:https://support.onefact.net/issues/12775[12775] | Model Explorer Tree Collapses Back To Package
+| link:https://support.onefact.net/issues/12777[12777] | Model edit bugs
+| link:https://support.onefact.net/issues/12778[12778] | New project wizard interleaves persistence option page between model compiler pages
+| link:https://support.onefact.net/issues/12779[12779] | Can't double click package after rename
+| link:https://support.onefact.net/issues/12780[12780] | Graphics files not deleted after rename
+| link:https://support.onefact.net/issues/12785[12785] | Textual edit preferences do not get persisted on project creation
+| link:https://support.onefact.net/issues/12786[12786] | Renaming top-level package in textual project fails
+| link:https://support.onefact.net/issues/12788[12788] | Range CME not present on integer UDT
+| link:https://support.onefact.net/issues/12789[12789] | Class Instance Handle Types not available to select for Interface Operations
 |=========================================================
     
     

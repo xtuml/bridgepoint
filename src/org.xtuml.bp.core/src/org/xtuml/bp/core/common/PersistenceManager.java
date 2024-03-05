@@ -83,7 +83,7 @@ public class PersistenceManager {
 	private static PersistenceManager defaultInstance;
 	private static IPersistenceHierarchyMetaData persistenceHierarchy;
 	
-	private static boolean showErrorDialog = true;
+	private boolean showErrorDialog = true;
 
 	// list of component instances
 	private static TreeMap<String, PersistableModelComponent> Instances = new TreeMap<String, PersistableModelComponent>();
@@ -587,7 +587,7 @@ public class PersistenceManager {
 
 			sequentialExecutor = null;
 
-			if (!reloadingInconsistentInstances && errorsOccurred && showErrorDialog) {
+			if (!reloadingInconsistentInstances && errorsOccurred && showErrorDialog && !Ooaofooa.inUnitTest()) {
 				if (PlatformUI.isWorkbenchRunning()) {
 					PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
 						final MessageDialogWithToggle dialog = new MessageDialogWithToggle(null,
@@ -1165,6 +1165,10 @@ public class PersistenceManager {
 				}
 			}
 		});
+	}
+	
+	public void setShowErrorDialogEnabled(boolean enable) {
+		showErrorDialog = enable;
 	}
 
 }

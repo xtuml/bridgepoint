@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model Compiler Interface
 Bundle-SymbolicName: org.xtuml.bp.mc;singleton:=true
-Bundle-Version: 7.5.0.qualifier
+Bundle-Version: 7.6.0.qualifier
 Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.ui.console
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.resources
 Export-Package: org.xtuml.bp.mc,

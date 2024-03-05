@@ -13,6 +13,7 @@ Require-Bundle: org.xtuml.canvas.language.ui,
  org.eclipse.xtext.xbase.junit,
  org.eclipse.core.runtime,
  org.eclipse.xtext.ui.testing,
- org.eclipse.ui.workbench;resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipse.xtext.xbase.ui.testing
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.xtuml.canvas.language.ui.tests;x-internal=true
