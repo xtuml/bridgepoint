@@ -1,14 +1,13 @@
-= What's New in BridgePoint 7.4
+= What's New in BridgePoint 7.6
 
 == Release Highlights
-* Upgrade to Eclipse 2022-12
-* Support for ARM64 architecture for MacOS and Linux
-* Verifier bug fixes and improvements
-  ** Support for interface message parameters of instance reference types
-  ** "Select many" bug fix
-  ** Associative link cardinality bug fix
-  ** Session explorer display fix
-  ** Include JDT in the modeler version of the tool
-* Association editor fixes and improvements
-  ** Migrating link class fix
-  ** Support for "symmetric" reflexive associations
+* Official support for textual xtUML
+  ** Testing and hardening
+  ** Add ability to create xtUML project in textual mode
+  ** Add a textual xtUML tab in diagram editors
+  ** Automatically load and persist on persistence mode change
+* Association editor features and bug fixes
+  ** Formalize wizard and cardinality menu deprecated
+  ** Support for symmetric associations
+* Various bug fixes and usability improvments
+* Upgrade to Eclipse 2023-12 and Java 17
