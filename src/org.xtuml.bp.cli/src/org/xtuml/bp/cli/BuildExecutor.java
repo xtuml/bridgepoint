@@ -1,5 +1,6 @@
 package org.xtuml.bp.cli;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -65,6 +66,14 @@ public class BuildExecutor implements Executor {
         // Set the console environment for model compilers so build output is echoed to stdout
         ModelCompilerConsoleManager.setCLIBuild(true);
         try {
+        	System.out.println("LEVI: " + ResourcesPlugin.getWorkspace().getRoot().getLocation());
+        	File f = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+        	for(String f1 : f.list()) {
+        		System.out.println("LEVI: " + f1);
+        	}
+        	for (IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+        		System.out.println("LEVI: " + p.getName());
+        	}
             IProject[] projects = null;
             if (projectName.equals("")) {
                 projects = ResourcesPlugin.getWorkspace().getRoot()
