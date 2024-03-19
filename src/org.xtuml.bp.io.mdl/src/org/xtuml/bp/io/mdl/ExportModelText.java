@@ -483,7 +483,7 @@ public class ExportModelText extends ExportModelComponent {
 			if (inst.getIsrealized()) {
 				append("%s@realized", getTab());
 				if (!inst.getRealized_class_path().isBlank()) {
-					append("(classpath=\"%s\")", getTab(), inst.getRealized_class_path().strip());
+					append("(classpath=\"%s\")", inst.getRealized_class_path().strip());
 				}
 				append(";\n");
 			}
