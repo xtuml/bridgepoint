@@ -3,12 +3,29 @@ package org.xtuml.bp.core;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 import java.util.UUID;
+import java.util.stream.Stream;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.xtuml.bp.core.common.ILogger;
+import org.xtuml.bp.core.common.IdAssigner;
+import org.xtuml.bp.core.util.OoaofooaUtil;
 
 import lib.BPBoolean;
 import lib.BPFloat;
@@ -16,17 +33,6 @@ import lib.BPInteger;
 import lib.BPLong;
 import lib.BPString;
 import lib.BPUniqueId;
-
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.variables.VariablesPlugin;
-
-import org.xtuml.bp.core.common.ILogger;
-import org.xtuml.bp.core.common.IdAssigner;
-import org.xtuml.bp.core.util.BPClassLoader;
-import org.xtuml.bp.core.util.OoaofooaUtil;
 
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -64,8 +70,8 @@ public class Vm_c {
     // private static Stack<targetInfo> s = new Stack<targetInfo>();
     private static HashMap<Thread, Stack<targetInfo>> stackMap = new HashMap<Thread, Stack<targetInfo>>();
 
-    private static Map<SystemModel_c, BPClassLoader> vmclMap = Collections
-            .synchronizedMap(new HashMap<SystemModel_c, BPClassLoader>());
+    private static Map<SystemModel_c, ClassLoader> vmclMap = Collections
+            .synchronizedMap(new HashMap<SystemModel_c, ClassLoader>());
 
     private static Object result = null;
 
@@ -144,99 +150,39 @@ public class Vm_c {
 
     } // End loadClass
 
-    private static BPClassLoader createClassLoader(IPath path) {
-            String[] appendedClasspath = new String[1];
-        appendedClasspath[0] = path.toString();
-        return new BPClassLoader(appendedClasspath, Vm_c.class.getClassLoader());
-    } // End createClassLoader
-
-    /**
-     * Get the absolute path location to the user's project. Set the private
-     * member, path above to the lib folder below it.
-     */
-    public static void Setuserclasspath(UUID System_ID) {
-        Ooaofooa.log.println(ILogger.BRIDGE, "setUserClassPath",
-                " Bridge entered: VirtualMachine::Setuserclasspath");
-
-        // Get all System Model instances in the workspace
-        SystemModel_c[] sys = SystemModel_c.SystemModelInstances(Ooaofooa
-                .getDefaultInstance());
-        // for each system model . . . .
-        for (int i = 0; i < sys.length; i++) {
-            if (sys[i].getSys_id().equals(System_ID)) {
-                // if the system model's id matches the one passed in . . .
-                // . . . adapt the System Model instance to an Eclipse
-                // resource
-                IResource pr = (IResource) sys[i].getAdapter(IResource.class);
-                // set the private path member from the resource, append the
-                // lib folder
-                IPath path = pr.getLocation();
-                if (path != null) {
-                    path = path.append("bin"); //$NON-NLS-1$    
-                    Adduserclasspath(sys[i], path);
-                    break;
-                } else {
-                    CorePlugin.logError("Unable to find path", null);
-                }
-            }
-        }
-    } // End setUserClassPath
-
-    public static void Adduserclasspath(UUID systemId, String path) {
-		SystemModel_c system = (SystemModel_c) Ooaofooa.getDefaultInstance()
-				.getInstanceList(SystemModel_c.class).get(systemId);
-    	Adduserclasspath(system, path);
-    }
-    
-    public static void Adduserclasspath(SystemModel_c system, String path) {
-        path = expandEclipseVariables(path);
-        if (!path.equals("")) {
-            IPath newPath = Path.fromOSString(path);
-            if (newPath.toFile().exists()) {
-                Adduserclasspath(system, newPath);
-            } else {
-                CorePlugin.err
-                        .println("Error: Specified path to realized code is incorrect: "
-                                + path);
-            }
-        }
-    }
-
-    private static String expandEclipseVariables(String path) {
-        while (path.contains("${")) {
-            int start = path.indexOf("${");
-            int end = path.indexOf("}", start);
-            if (end == -1) {
-                CorePlugin.err
-                        .println("Error: Substitution variable not terminated in "
-                                + path + ". Need closing brace (}).");
-                path = "";
-            } else {
-                String variable = path.substring(start, end + 1);
-                String result = "";
-                try {
-                    result = VariablesPlugin.getDefault()
-                            .getStringVariableManager()
-                            .performStringSubstitution(variable);
-                } catch (CoreException ce) {
-                    CorePlugin.err
-                            .println("Error obtaining the value of eclipse variable, '"
-                                    + variable + "'. " + ce.toString());
-                }
-                path = path.subSequence(0, start) + result
-                        + path.substring(end + 1);
-            }
-        }
-        return path;
-    }
-
-    public static void Adduserclasspath(SystemModel_c system, IPath path) {
-        if (vmclMap.containsKey(system) && vmclMap.get(system) != null) {
-            vmclMap.get(system).addClassPathEntry(path.toOSString());
-        } else {
-            vmclMap.put(system, createClassLoader(path));
-        }
-    }
+	private static ClassLoader getClassLoaderForSystem(SystemModel_c system, ClassLoader parent) {
+		final IProject project = system.getFile().getProject();
+		try {
+			if (project.hasNature(JavaCore.NATURE_ID)) {
+				final IJavaProject javaProject = JavaCore.create(project);
+				// TODO ignore unresolved entries?
+				final URL[] urls = Stream.concat(Stream.of(javaProject.getResolvedClasspath(true))
+						.filter(entry -> entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
+						.map(IClasspathEntry::getPath), Stream.of(javaProject.getOutputLocation())).map(p -> {
+							IPath p2 = ResourcesPlugin.getWorkspace().getRoot().getFile(p).getLocation();
+							if (p2 == null) {
+								p2 = p; // non-workspace resource
+							}
+							if (!"jar".equals(p2.getFileExtension())) {
+								p2 = p2.addTrailingSeparator(); // add a trailing slash to indicate this is a directory
+																// containing .class files
+							}
+							try {
+								return URI.create(String.format("file://%s", p2.toOSString())).toURL();
+							} catch (MalformedURLException e) {
+								CorePlugin.getDefault().getLog().warn("Failed to create classpath URL", e);
+								return null;
+							}
+						}).filter(Objects::nonNull).toArray(URL[]::new);
+				return new URLClassLoader(urls, parent);
+			} else {
+				return new URLClassLoader(new URL[0], parent);
+			}
+		} catch (CoreException e) {
+			CorePlugin.logError("Error occurred while creating class loader", e);
+			return new URLClassLoader(new URL[0], parent);
+		}
+	}
 
     private static String[] coreTypesThatMapToObject = { "inst_ref<Object>",
             "inst_ref_set<Object>", "inst<Event>", "inst<Mapping>",
@@ -523,34 +469,33 @@ public class Vm_c {
         return result;
     }
 
-    public static BPClassLoader getVmCl(UUID systemID) {
+    public static ClassLoader getVmCl(UUID systemID) {
         SystemModel_c system = (SystemModel_c) Ooaofooa.getDefaultInstance()
                 .getInstanceList(SystemModel_c.class).getGlobal(systemID);
-        if (vmclMap.containsKey(system)) {
-            return vmclMap.get(system);
-        } else {
-            Setuserclasspath(systemID);
-            return vmclMap.get(system);
+        if (!vmclMap.containsKey(system)) {
+        	final ClassLoader cl = getClassLoaderForSystem(system, Vm_c.class.getClassLoader());
+        	vmclMap.put(system, cl);
         }
+        return vmclMap.get(system);
     }
 
-    public static BPClassLoader getVmCl(Component_c component) {
+    public static ClassLoader getVmCl(Component_c component) {
         PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(component);
         return getVmCl(pe);
     }
 
-    public static BPClassLoader getVmCl(Interface_c iface) {
+    public static ClassLoader getVmCl(Interface_c iface) {
         PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(iface);
         return getVmCl(pe);
     }
 
-    public static BPClassLoader getVmCl(DataType_c dt) {
+    public static ClassLoader getVmCl(DataType_c dt) {
         PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001(dt);
         return getVmCl(pe);
     }
 
-    public static BPClassLoader getVmCl(PackageableElement_c pe) {
-        BPClassLoader cl;
+    public static ClassLoader getVmCl(PackageableElement_c pe) {
+        ClassLoader cl;
         
         if (pe != null) {
             SystemModel_c sys = OoaofooaUtil.getSystemForElement(pe);

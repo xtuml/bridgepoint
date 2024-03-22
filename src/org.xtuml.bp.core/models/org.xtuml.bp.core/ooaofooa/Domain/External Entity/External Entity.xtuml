@@ -20,6 +20,7 @@ Bridge:GD',
 	1,
 	'',
 	"aa5f57f9-4d45-42dd-8108-588f212c1226",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("051a8ae5-d474-4e10-925f-daa19ec88254",
@@ -35,6 +36,7 @@ Bridge:GD',
 	1,
 	'',
 	"64b117b8-bb50-4b4a-8653-a6f9645f158c",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
@@ -133,6 +135,7 @@ return result;',
 	1,
 	'',
 	"47b4912e-6356-420d-882b-4bc83d06ac61",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f358dea6-8a65-4aa3-a329-d50098bdb805",
@@ -193,6 +196,7 @@ end if;',
 	1,
 	'',
 	"11fbbd9d-cfa9-48da-b85c-2f81a943df32",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("85f75223-c956-4ebd-82dd-62edc46cfeea",
@@ -216,6 +220,7 @@ Bridge:GD',
 	1,
 	'',
 	"051a8ae5-d474-4e10-925f-daa19ec88254",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("d0e37499-e63f-43b8-a2a2-5d5fc6bf12fc",
@@ -266,6 +271,7 @@ self.Key_Lett = OS::remove_spaces(s:name);',
 	1,
 	'',
 	"3bb8b8cb-581e-4676-99d9-29a0408f7f18",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("7ab78ccd-467f-4207-8ce6-479cc648f5d8",
@@ -321,6 +327,7 @@ delete object instance self;',
 	1,
 	'',
 	"ac08f70f-08b8-4f6a-b394-0dd6be1c6193",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("c6099bc7-cf40-4dc0-9253-e53ad114ffc3",
@@ -336,6 +343,7 @@ brg.initialize();',
 	1,
 	'',
 	"929d523b-5c18-41c9-9be4-ed1574afab27",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("64b117b8-bb50-4b4a-8653-a6f9645f158c",
@@ -350,6 +358,7 @@ Bridge:GD',
 	1,
 	'',
 	"456c447e-08b7-4c37-92cf-949e7b12173f",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("47b4912e-6356-420d-882b-4bc83d06ac61",
@@ -373,6 +382,7 @@ return result;',
 	1,
 	'',
 	"7ab78ccd-467f-4207-8ce6-479cc648f5d8",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ac08f70f-08b8-4f6a-b394-0dd6be1c6193",
@@ -389,6 +399,7 @@ return this;',
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -419,6 +430,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"c6099bc7-cf40-4dc0-9253-e53ad114ffc3",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("45c44bb8-b208-4224-9c8c-8a7beba6d6d6",
@@ -442,6 +454,7 @@ return GD::NULL_UNIQUE_ID();
 	1,
 	'',
 	"cd8830d0-53a6-4fcc-81a0-e5bbdcef7e33",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("5b99f4e3-05b2-4f5c-9671-aeff98f8aba3",
@@ -465,6 +478,7 @@ end if;',
 	1,
 	'',
 	"45c44bb8-b208-4224-9c8c-8a7beba6d6d6",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f6a596c6-c76f-4808-9cb9-e3f29c6e6e67",
@@ -503,6 +517,7 @@ end for;
 	1,
 	'',
 	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("d5225d5c-eae8-4b61-a84e-ef9fdab20ad8",
@@ -515,6 +530,7 @@ INSERT INTO O_TFR
 	1,
 	'',
 	"b04655fc-86af-476d-ae98-a620d244abd9",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("8594e84c-e38e-4fe3-92a3-5086d9f00e2f",
@@ -531,6 +547,7 @@ self.Name = param.new_name;
 	1,
 	'',
 	"d5225d5c-eae8-4b61-a84e-ef9fdab20ad8",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("445b753e-062c-4426-b043-8d8cec84adc1",
@@ -661,7 +678,9 @@ INSERT INTO O_ATTR
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	"91ff0c2d-e5b3-4da0-a245-56cbfed9e24c",
 	'Realized_Class_Path',
-	'Full Name: Realized External Entity Path',
+	'This mechanism is deprecated. Verifier will use the classpath specified as part of the Java project.
+
+User_Visible:false',
 	'',
 	'Realized_Class_Path',
 	0,

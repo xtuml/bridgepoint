@@ -68,7 +68,6 @@ import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelRoot;
-import org.xtuml.bp.core.util.BPClassLoader;
 import org.xtuml.bp.debug.ui.model.BPThread;
 
 import lib.BPBoolean;
@@ -1128,7 +1127,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 					+ dt.getName());
 			SystemModel_c sys = SystemModel_c.getOneS_SYSOnR1405(pkg);
 			if (sys != null) {
-				BPClassLoader cl = Vm_c.getVmCl(sys.getSys_id());
+				ClassLoader cl = Vm_c.getVmCl(sys.getSys_id());
 				if (cl != null) {
 					try {
 						result = cl.loadClass(className);
@@ -1219,7 +1218,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 				.getOnePE_PEOnR8001(dt));
 		String typeName = pathToClassName(pkg.Getpath("") + "::"
 				+ dt.getName());
-		BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
+		ClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
 			Class<?> clazz = null;
 			try {
 				clazz = bpcl.loadClass(typeName);
@@ -1564,7 +1563,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
             if (pkg != null) {
                 String typeName = pathToClassName(pkg.Getpath("") + "::" + coreDt.getName());
                 Class<?> realizedDT = null;
-                BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
+                ClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
                 try {
                     realizedDT = bpcl.loadClass(typeName);
                 } catch (ClassNotFoundException cnf) {

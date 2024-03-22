@@ -3767,8 +3767,9 @@ INSERT INTO O_ATTR
 	"2786d973-1537-44a1-81d6-3ddbd2377865",
 	"759ed624-58ea-4eac-a5fb-e1144a55f799",
 	'Realized_Class_Path',
-	'Full Name: Realized Component Path
-Description: Specifies where Verifier will look for a realized executable resource.',
+	'This mechanism is deprecated. Verifier will use the classpath specified as part of the Java project.
+
+User_Visible:false',
 	'',
 	'Realized_Class_Path',
 	0,

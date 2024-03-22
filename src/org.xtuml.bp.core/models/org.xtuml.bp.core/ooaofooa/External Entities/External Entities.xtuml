@@ -3740,26 +3740,6 @@ INSERT INTO S_BPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_BRG
-	VALUES ("10f871d1-7bfd-4d67-a020-56ae1f5bc7ed",
-	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
-	'setUserClassPath',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'',
-	0,
-	'',
-	0);
-INSERT INTO S_BPARM
-	VALUES ("271c8756-460a-463f-b4d4-ed51bd8b043c",
-	"10f871d1-7bfd-4d67-a020-56ae1f5bc7ed",
-	'System_ID',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_BRG
 	VALUES ("7eb4a3dc-8734-4d1f-b313-f5efbf869357",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
 	'getResult',
@@ -3770,35 +3750,6 @@ INSERT INTO S_BRG
 	0,
 	'',
 	0);
-INSERT INTO S_BRG
-	VALUES ("59d05ddd-caeb-4856-8ea1-dfc69adc1727",
-	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
-	'addUserClassPath',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'',
-	0,
-	'',
-	0);
-INSERT INTO S_BPARM
-	VALUES ("e0507dda-d697-48ac-a171-c963f0ce31f3",
-	"59d05ddd-caeb-4856-8ea1-dfc69adc1727",
-	'System_ID',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_BPARM
-	VALUES ("980119b3-5a39-4ee9-9014-2755233b879b",
-	"59d05ddd-caeb-4856-8ea1-dfc69adc1727",
-	'path',
-	"ba5eda7a-def5-0000-0000-000000000004",
-	0,
-	'',
-	"e0507dda-d697-48ac-a171-c963f0ce31f3",
-	'');
 INSERT INTO PE_PE
 	VALUES ("78c0d209-aae1-4a81-a2d1-e5876d473deb",
 	1,
