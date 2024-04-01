@@ -1,0 +1,53 @@
+= Verifier class loader enhancements
+
+xtUML Project Implementation Note
+
+== 1 Abstract
+
+This work resolves some of the problems/pain related to working with realized
+implementations interfacing with verifier.
+
+== 2 Introduction and Background
+
+Verifier has the ability to interface with hand-written Java code. It achieves
+this by dynamically loading the `.class` files for the realized implementations
+at runtime. Naming and path conventions are in place to determine the fully
+qualified class names. If external libraries are used, the classpath must be
+specified in a modeled attribute attached to the realized model element
+(Component or External Entity). This mechanism is not ideal becuase it requires
+the user to hard-code paths related to realized Java code in the model data
+itself. It is also quite finicky and difficult to use. The work simplifies the
+BridgePoint implementation by delegating the responsibility of managing Java
+dependencies to the Java build path maintiatined in the JDT project properties.
+
+== 3 Requirements
+
+=== 3.1 Verifier shall search for realized Java class definitions using the build path configured in the Java project
+
+=== 3.2 The attributes for encoding classpath elements in the model data shall be deprecated
+
+== 4 Work Required
+
+. Remove `BPClassLoader` -- it is not needed.
+. Update `Vm_c` to create instances of `URLClassLoader` based on the elements of the Java `.classpath` file.
+. Remove `VM::addUserClassPath` and `VM::setUserClassPath` and all references to these bridges.
+
+== 6 Acceptance Test
+
+The changes were tested in a project which contained a combination of code
+contained in the project itself and third party libraries.
+
+== 7 User Documentation
+
+The "Model Verifier Java Interface" page of the documentation has been updated
+to reflect the changes.
+
+== 9 Document References
+
+. [[dr-1]] https://support.onefact.net/issues/10243[Verifier class loader enhancements]
+
+---
+
+This work is licensed under the Creative Commons CC0 License
+
+---
