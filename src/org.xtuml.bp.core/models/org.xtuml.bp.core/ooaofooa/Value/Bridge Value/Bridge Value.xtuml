@@ -30,6 +30,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("cdfab58d-383c-4bb4-9487-4fef53a559c7",
@@ -123,12 +124,6 @@ else
   end if;
   
   VM::resetValues();
-  // Look for a user class that matches the EE name
-  if(ee.Realized_Class_Path != "")
-    VM::addUserClassPath(System_ID:sys.Sys_ID, path:ee.Realized_Class_Path);
-  else
-    VM::setUserClassPath(System_ID:sys.Sys_ID);
-  end if;
   loadedClass = VM::loadClass(system_id:sys.Sys_ID, name:ee.Key_Lett);
   if ( loadedClass )
     // Find the first parameter in the ordered relationship.  Use the ordered
@@ -210,6 +205,7 @@ end if;
 	1,
 	'',
 	"d2b47707-97d9-4858-96b6-43d55c1e4154",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c6ea4153-7c15-4edf-9557-90082ee7c706",
@@ -337,6 +333,7 @@ return true;',
 	1,
 	'',
 	"cdfab58d-383c-4bb4-9487-4fef53a559c7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5b681b44-a4c0-46cd-8542-dd95703eb1dc",
