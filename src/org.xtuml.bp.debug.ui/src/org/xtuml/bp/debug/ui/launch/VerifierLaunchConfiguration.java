@@ -288,8 +288,7 @@ public class VerifierLaunchConfiguration {
 					String[] modelStrings = modelListString
 							.split(VerifierLaunchConfiguration.SEPARATOR);
 					for (int i = 0; i < modelStrings.length; i++) {
-						if (modelStrings[i].startsWith(element.Get_ooa_id()
-								.toString())) {
+						if (BPDebugUtils.elementMatchesIdOrPath(element, modelStrings[i])) {
 							switch (attribute) {
 							case ElementID:
 								result = getInternalElement(modelStrings[i],
@@ -438,7 +437,7 @@ public class VerifierLaunchConfiguration {
 	private static void addToLaunchVector(NonRootModelElement elements[],
 			Vector<String> vector) {
 		for (int i = 0; i < elements.length; i++) {
-			vector.add(getComponentSelectionString(elements[i].Get_ooa_id()));
+			vector.add(getComponentSelectionString(BPDebugUtils.getElementIdentifier(elements[i])));
 		}
 	}
 
@@ -577,7 +576,7 @@ public class VerifierLaunchConfiguration {
 				}
 			}
 
-			ArrayList<NonRootModelElement> verifiableElements = BPDebugUtils
+			List<NonRootModelElement> verifiableElements = BPDebugUtils
 					.getVerifiableElements(allIds.toArray(new String[allIds
 							.size()]));
 			if (verifiableElements.size() == elements.length) {
@@ -605,31 +604,24 @@ public class VerifierLaunchConfiguration {
 		return false;
 	}
 
-	public static StringBuffer getVerifiableElementId(
-			NonRootModelElement element) {
+	public static StringBuffer getVerifiableElementId(NonRootModelElement element) {
 		StringBuffer buffer = new StringBuffer();
 		if (element instanceof Package_c) {
-			NonRootModelElement[] children = BPDebugUtils
-					.getPackageChildren((Package_c) element);
+			NonRootModelElement[] children = BPDebugUtils.getPackageChildren((Package_c) element);
 			for (int i = 0; i < children.length; i++) {
-				buffer
-						.append(getComponentSelectionString(children[i]
-								.Get_ooa_id()));
+				buffer.append(getComponentSelectionString(BPDebugUtils.getElementIdentifier(children[i])));
 				buffer.append(VerifierLaunchConfiguration.SEPARATOR);
 			}
 		} else if (element instanceof Component_c) {
-			NonRootModelElement[] children = BPDebugUtils
-					.getComponentChildren((Component_c) element);
+			NonRootModelElement[] children = BPDebugUtils.getComponentChildren((Component_c) element);
 			if (children.length > 0) {
-				buffer.append(element.Get_ooa_id().toString()
-						+ VerifierLaunchConfiguration.SEPARATOR);
+				buffer.append(BPDebugUtils.getElementIdentifier(element) + VerifierLaunchConfiguration.SEPARATOR);
 				for (int i = 0; i < children.length; i++) {
-					buffer.append(getComponentSelectionString(children[i]
-							.Get_ooa_id()));
+					buffer.append(getComponentSelectionString(BPDebugUtils.getElementIdentifier(children[i])));
 					buffer.append(VerifierLaunchConfiguration.SEPARATOR);
 				}
 			} else {
-				buffer.append(getComponentSelectionString(element.Get_ooa_id()));
+				buffer.append(getComponentSelectionString(BPDebugUtils.getElementIdentifier(element)));
 				buffer.append(VerifierLaunchConfiguration.SEPARATOR);
 			}
 		}

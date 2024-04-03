@@ -180,14 +180,12 @@ public class VerifiableElementComposite extends Composite implements Listener,
             return;
         for (int i = 0; i < children.length; i++) {
             if (isVerifiableElement(children[i])) {
-                String entry = VerifierLaunchConfiguration
-                        .getComponentSelectionString(
-                                ((NonRootModelElement) children[i])
-                                        .Get_ooa_id().toString(),
-                                VerifierLaunchConfiguration.ConfigurationAttribute.DefaultMultiplicity,
-                                VerifierLaunchConfiguration.ConfigurationAttribute.DefaultInitializer,
-                                VerifierLaunchConfiguration.DISABLED_STATE);
-                vector.add(entry);
+				String entry = VerifierLaunchConfiguration.getComponentSelectionString(
+						BPDebugUtils.getElementIdentifier((NonRootModelElement) children[i]),
+						VerifierLaunchConfiguration.ConfigurationAttribute.DefaultMultiplicity,
+						VerifierLaunchConfiguration.ConfigurationAttribute.DefaultInitializer,
+						VerifierLaunchConfiguration.DISABLED_STATE);
+				vector.add(entry);
             }
             initializeChildren(vector, VerifierLaunchContentProvider.instance()
                     .getChildren(children[i]));
@@ -437,7 +435,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
         String match = "";
         while (iterator.hasNext()) {
             String current = (String) iterator.next();
-            if (current.startsWith(element.Get_ooa_id().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(element, current)) {
                 match = current;
                 break;
             }
@@ -463,7 +461,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
         String match = "";
         while (iterator.hasNext()) {
             String current = (String) iterator.next();
-            if (current.startsWith(element.Get_ooa_id().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(element, current)) {
                 match = current;
                 break;
             }
@@ -507,8 +505,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
                 Iterator iterator = vector.iterator();
                 while (iterator.hasNext()) {
                     String current = (String) iterator.next();
-                    if (current.startsWith(((NonRootModelElement) element)
-                            .Get_ooa_id().toString())) {
+                    if (BPDebugUtils.elementMatchesIdOrPath((NonRootModelElement) element, current)) {
                         // Get the current value associated with this launch
                         // config
                         multiplicity = VerifierLaunchConfiguration
@@ -543,8 +540,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
             Iterator iterator = vector.iterator();
             while (iterator.hasNext()) {
                 String current = (String) iterator.next();
-                if (current.startsWith(((NonRootModelElement) element)
-                        .Get_ooa_id().toString())) {
+                if (BPDebugUtils.elementMatchesIdOrPath((NonRootModelElement)element, current)) {
                     match = current;
                     break;
                 }
@@ -560,11 +556,10 @@ public class VerifiableElementComposite extends Composite implements Listener,
                                 match,
                                 VerifierLaunchConfiguration.ConfigurationAttribute.State);
             }
-            String newEntry = VerifierLaunchConfiguration
-                    .getComponentSelectionString(((NonRootModelElement) element)
-                            .Get_ooa_id().toString(), newValue.toString(), initializer,
-                            enablement);
-            vector.add(newEntry);
+			String newEntry = VerifierLaunchConfiguration.getComponentSelectionString(
+					BPDebugUtils.getElementIdentifier((NonRootModelElement) element), newValue.toString(), initializer,
+					enablement);
+			vector.add(newEntry);
             tableTreeViewer.refresh(element);
             if (!newEntry.equals(match)) {
                 updateControls();
@@ -936,7 +931,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
             String object, Map<NonRootModelElement, String> map) {
         if (element instanceof Package_c) {
             Package_c pkg = (Package_c) element;
-            if (object.startsWith(pkg.getPackage_id().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(pkg, object)) {
                 if (VerifierLaunchConfiguration.elementIsEnabled(object)) {
                     String initializer = VerifierLaunchConfiguration
                             .getInternalElement(object, VerifierLaunchConfiguration.ConfigurationAttribute.State);
@@ -964,7 +959,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
             }
         } else if (element instanceof Component_c) {
             Component_c comp = (Component_c) element;
-            if (object.startsWith(comp.getId().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(comp, object)) {
                 if (VerifierLaunchConfiguration.elementIsEnabled(object)) {
                     String initializer = VerifierLaunchConfiguration
                             .getInternalElement(object, VerifierLaunchConfiguration.ConfigurationAttribute.State);
@@ -992,7 +987,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
             }
         } else if (element instanceof ComponentReference_c) {
             ComponentReference_c compRef = (ComponentReference_c) element;
-            if (object.startsWith(compRef.getId().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(compRef, object)) {
                 if (VerifierLaunchConfiguration.elementIsEnabled(object)) {
                     String initializer = VerifierLaunchConfiguration
                             .getInternalElement(object, VerifierLaunchConfiguration.ConfigurationAttribute.State);
@@ -1030,7 +1025,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
         boolean found = false;
         if (element instanceof Package_c) {
             Package_c pkg = (Package_c) element;
-            if (id.startsWith(pkg.getPackage_id().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(pkg, id)) {
                 VerifierLaunchConfiguration.updateEntryInVector(id, vector);
                 found = true;
                 // refresh columns for element
@@ -1072,7 +1067,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
             }
         } else if (element instanceof Component_c) {
             Component_c comp = (Component_c) element;
-            if (id.startsWith(((Component_c) element).getId().toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(element, id)) {
                 VerifierLaunchConfiguration.updateEntryInVector(id, vector);
                 found = true;
                 // refresh columns for element
@@ -1113,8 +1108,7 @@ public class VerifiableElementComposite extends Composite implements Listener,
                 }
             }
         } else if (element instanceof ComponentReference_c) {
-            if (id.startsWith(((ComponentReference_c) element).getId()
-                    .toString())) {
+            if (BPDebugUtils.elementMatchesIdOrPath(element, id)) {
                 VerifierLaunchConfiguration.updateEntryInVector(id, vector);
                 found = true;
                 // refresh columns for element
