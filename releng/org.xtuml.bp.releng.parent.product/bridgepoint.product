@@ -88,7 +88,8 @@
    </configurations>
 
    <repositories>
-      <repository location="https://download.eclipse.org/releases/2020-06/" enabled="true" />
+      <repository name="Eclipse" location="https://download.eclipse.org/releases/2023-12/" enabled="true" />
+      <repository name="Eclipse Updates" location="https://download.eclipse.org/eclipse/updates/4.30/" enabled="true" />
    </repositories>
 
    <preferencesInfo>
