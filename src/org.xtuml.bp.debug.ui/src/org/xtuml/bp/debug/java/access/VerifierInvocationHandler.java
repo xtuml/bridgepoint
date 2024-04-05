@@ -5,11 +5,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.xtuml.bp.core.ActualParameter_c;
 import org.xtuml.bp.core.ArrayValue_c;
@@ -536,11 +538,9 @@ public class VerifierInvocationHandler implements InvocationHandler {
 			DataType_c type = DataType_c.getOneS_DTOnR45(strMember);
 			Method meth = null;
 			try {
-				meth = value.getClass().getDeclaredMethod("get" + memberName,
-						new Class<?>[0]);
-			} catch (SecurityException e) {
-				String ex = e.getLocalizedMessage();
-				LOG.LogInfo("Security exception while accessing realized structured data type: " + ex);
+				meth = Stream.of(value.getClass().getDeclaredMethods())
+						.filter(m -> m.getName().toLowerCase().equals("get" + memberName.toLowerCase())).findAny()
+						.orElseThrow(() -> new NoSuchMethodException("Could not find getter for: " + memberName));
 			} catch (NoSuchMethodException e) {
 				// Normal operation, do nothing ...
 			}
@@ -1320,11 +1320,9 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 
 		Method meth = null;
 		try {
-			meth = clazz.getDeclaredMethod("set" + field.getName(), 
-					getClassForCoreTypeOf(memberDt, false));
-		} catch (SecurityException e) {
-			String ex = e.getLocalizedMessage();
-			LOG.LogInfo("Security exception while calling setter for realized data type: " + ex);
+			meth = Stream.of(clazz.getDeclaredMethods())
+					.filter(m -> m.getName().toLowerCase().equals("set" + field.getName())).findAny()
+					.orElseThrow(() -> new NoSuchMethodException("Could not find getter for: " + field.getName()));
 		} catch (NoSuchMethodException e) {
 			// Expected code path, do nothing
 		}
