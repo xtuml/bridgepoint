@@ -39,6 +39,11 @@
 			<layout>p2</layout>
 			<url>https://download.eclipse.org/tools/cdt/releases/11.4/</url>
 		</repository>
+		<repository>
+			<id>CTE</id>
+			<layout>p2</layout>
+			<url>https://1f-outgoing.s3.amazonaws.com/CTEUpdateSite_10_0_1/</url>
+		</repository>
 	</repositories>
 	
 	<modules>
