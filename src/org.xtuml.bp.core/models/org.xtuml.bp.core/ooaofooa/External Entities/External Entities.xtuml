@@ -3688,7 +3688,7 @@ INSERT INTO S_BPARM
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
-	"f1057c07-30db-4878-8911-16a056664bb8",
+	"977c9794-7e94-4a54-98f9-18f28a63ddd0",
 	'');
 INSERT INTO S_BPARM
 	VALUES ("f1057c07-30db-4878-8911-16a056664bb8",
@@ -3698,6 +3698,15 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("977c9794-7e94-4a54-98f9-18f28a63ddd0",
+	"956df659-ebec-4959-b1e5-a526c1d6c08f",
+	'isArray',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"f1057c07-30db-4878-8911-16a056664bb8",
 	'');
 INSERT INTO S_BRG
 	VALUES ("89d9472d-d11d-4ee5-b56c-89290916732c",
@@ -3750,6 +3759,62 @@ INSERT INTO S_BRG
 	0,
 	'',
 	0);
+INSERT INTO S_BRG
+	VALUES ("b5d4eed6-0e07-43db-9034-1b3f03c611f8",
+	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
+	'createListFromArrayValue',
+	'',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("694eaf2d-929a-4b1b-848a-211e177a13c8",
+	"b5d4eed6-0e07-43db-9034-1b3f03c611f8",
+	'array_value',
+	"5a4e5ca1-96c3-4212-a6ea-cf87ab34d1e3",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("5a4e5ca1-96c3-4212-a6ea-cf87ab34d1e3",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Array Value>',
+	'',
+	'',
+	'../Runtime Value/Runtime Value.xtuml');
+INSERT INTO S_BRG
+	VALUES ("2fad8fe7-b57b-47b1-93cb-a7b055a8281a",
+	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
+	'setArrayValueFromList',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("3fe0ef36-c78b-44d9-8ed6-fe4c3037bb00",
+	"2fad8fe7-b57b-47b1-93cb-a7b055a8281a",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"07970d3d-4321-4dbc-9736-8bf5ef77f1b7",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("07970d3d-4321-4dbc-9736-8bf5ef77f1b7",
+	"2fad8fe7-b57b-47b1-93cb-a7b055a8281a",
+	'array_value',
+	"5a4e5ca1-96c3-4212-a6ea-cf87ab34d1e3",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("78c0d209-aae1-4a81-a2d1-e5876d473deb",
 	1,

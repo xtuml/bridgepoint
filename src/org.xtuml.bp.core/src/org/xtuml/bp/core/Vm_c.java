@@ -10,10 +10,12 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
@@ -194,18 +196,18 @@ public class Vm_c {
 		tgtInfo.argVals.add(value);
 	}
 
-	public static Object Addargumentvalue(boolean byRef, String type, Object value) {
+	public static Object Addargumentvalue(boolean byRef, boolean isArray, String type, Object value) {
 		Ooaofooa.log.println(ILogger.BRIDGE, "addArgumentValue", " Bridge entered: VirtualMachine::Addargumentvalue");
 		targetInfo tgtInfo = getStack().peek();
 		Object result = null;
-		if (value instanceof ArrayList<?>) {
-			tgtInfo.argTypes.add(ArrayList.class);
-			tgtInfo.argVals.add(value);
+		if (isArray || value instanceof List<?>) {
+			tgtInfo.argTypes.add(List.class);
+			tgtInfo.argVals.add(value != null ? value : new ArrayList<>());
 			result = value;
 		} else if (type.equals("boolean")) { //$NON-NLS-1$
 			if (byRef == false) {
 				tgtInfo.argTypes.add(boolean.class);
-				tgtInfo.argVals.add((Object) new Boolean((String) value));
+				tgtInfo.argVals.add((Object) Boolean.parseBoolean((String) value));
 			} else {
 				tgtInfo.argTypes.add(BPBoolean.class);
 				if (value instanceof BPBoolean) {
@@ -218,7 +220,7 @@ public class Vm_c {
 		} else if (type.equals("integer")) { //$NON-NLS-1$
 			if (byRef == false) {
 				tgtInfo.argTypes.add(int.class);
-				tgtInfo.argVals.add((Object) new Integer(Gd_c.String_to_int((String) value)));
+				tgtInfo.argVals.add((Object) Integer.parseInt((String) value));
 			} else {
 				tgtInfo.argTypes.add(BPInteger.class);
 				if (value instanceof BPInteger) {
@@ -231,7 +233,7 @@ public class Vm_c {
 		} else if (type.equals("timestamp")) { //$NON-NLS-1$
 			if (byRef == false) {
 				tgtInfo.argTypes.add(long.class);
-				tgtInfo.argVals.add((Object) new Long(Gd_c.String_to_long((String) value)));
+				tgtInfo.argVals.add((Object) Long.parseLong((String) value));
 			} else {
 				tgtInfo.argTypes.add(BPLong.class);
 				if (value instanceof BPLong) {
@@ -244,7 +246,7 @@ public class Vm_c {
 		} else if (type.equals("real")) { //$NON-NLS-1$
 			if (byRef == false) {
 				tgtInfo.argTypes.add(float.class);
-				tgtInfo.argVals.add((Object) new Float((String) value));
+				tgtInfo.argVals.add((Object) Float.parseFloat((String) value));
 			} else {
 				tgtInfo.argTypes.add(BPFloat.class);
 				if (value instanceof BPFloat) {
@@ -499,6 +501,37 @@ public class Vm_c {
 				// seconds for it to respond.
 				System.runFinalization();
 				System.gc();
+			}
+		}
+	}
+	
+	public static Object Createlistfromarrayvalue(ArrayValue_c arrayValue) {
+		return Stream.of(ValueInArray_c.getManyRV_VIAsOnR3302(arrayValue))
+				.sorted((a, b) -> Integer.compare(a.getIndex(), b.getIndex())).map(RuntimeValue_c::getOneRV_RVLOnR3302)
+				.map(RuntimeValue_c::Getvalue).collect(Collectors.toList());
+	}
+
+	public static void Setarrayvaluefromlist(ArrayValue_c arrayValue, Object value) {
+		if (value instanceof List<?>) {
+			final List<?> listValue = (List<?>) value;
+			for (int i = 0; i < listValue.size(); i++) {
+				final Object element = listValue.get(i);
+				// create a value in the array
+				final ValueInArray_c via = new ValueInArray_c(arrayValue.getModelRoot());
+				via.setIndex(i);
+				// create a runtime value
+				final RuntimeValue_c rtv = new RuntimeValue_c(arrayValue.getModelRoot());
+				via.relateAcrossR3302To(arrayValue);
+				via.relateAcrossR3302To(rtv);
+				// set value
+				if (element instanceof List<?>) { // nested list
+					final ArrayValue_c elementArrayValue = new ArrayValue_c(arrayValue.getModelRoot());
+					rtv.relateAcrossR3300To(elementArrayValue);
+					Setarrayvaluefromlist(elementArrayValue, element);
+				} else {
+					rtv.Createsimplevalue();
+					rtv.Setvalue(element);
+				}
 			}
 		}
 	}

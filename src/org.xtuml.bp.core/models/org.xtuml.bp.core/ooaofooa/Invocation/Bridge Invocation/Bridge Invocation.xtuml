@@ -134,6 +134,7 @@ else
         if (parm.Name == arg.Name)
           select one cval related by arg->V_VAL[R800];
           select one ctype related by parm->S_DT[R22];
+          select many cdims related by parm->S_DIM[R49];
           select any result related by stack_frame->I_VSF[R2951] where
                                                selected.Value_ID == cval.Value_ID;
           select one rtVal related by result->RV_RVL[R3305];
@@ -146,7 +147,7 @@ else
             cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
 
-          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef);
+          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef, isArray: not empty cdims);
         end if;
       end for;
       select one parm related by parm->S_BPARM[R55.''precedes''];
