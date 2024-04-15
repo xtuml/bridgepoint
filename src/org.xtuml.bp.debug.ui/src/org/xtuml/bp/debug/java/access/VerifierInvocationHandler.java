@@ -5,9 +5,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -22,11 +22,13 @@ import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CoreDataType_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.ExecutableProperty_c;
 import org.xtuml.bp.core.Gd_c;
+import org.xtuml.bp.core.GlobalElementInSystem_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceReference_c;
 import org.xtuml.bp.core.Interface_c;
@@ -545,7 +547,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				// Normal operation, do nothing ...
 			}
 			if (meth != null) {
-				Class<?> memberClass = getClassForCoreTypeOf(type, false);
+				Class<?> memberClass = getClassForCoreTypeOf(type, Dimensions_c.getManyS_DIMsOnR53(strMember), false);
 				if (memberClass != null && 
 						   memberClass.isAssignableFrom(meth.getReturnType())) {
 					try {
@@ -561,7 +563,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						LOG.LogInfo("Invocation target exception while accessing realized structured data type: " + ex);
 					}
 				} else {
-					LOG.LogInfo("Incompatible return value.");
+					LOG.LogInfo("Incompatible return value for getter: " + value.getClass().getSimpleName() + "." + meth.getName());
 				}
 			} else {
 				// Fall back to direct field access
@@ -818,7 +820,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		if (rootValue != null) {
 			result = rootValue;
 		}
-		if (value instanceof ArrayList<?>) {
+		if (value instanceof List<?>) {
 			ArrayValue_c arrayVal = null;
 			if (rootValue == null) {
 				result = new RuntimeValue_c(root);
@@ -829,7 +831,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				arrayVal = ArrayValue_c.getOneRV_AVLOnR3300(rootValue);
 			}
 			int index = 0;
-			for (Object content : ((ArrayList<?>) value).toArray()) {
+			for (Object content : (List<?>) value) {
 				ValueInArray_c[] vias = ValueInArray_c
 						.getManyRV_VIAsOnR3302(arrayVal);
 				ValueInArray_c via = null;
@@ -1445,12 +1447,12 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 	private static Object marshallArrayValueOut(Object toMarshall,
 			DataType_c dt, RuntimeValue_c parVal, int arrayDepth, ComponentInstance_c ci) {
 		ArrayValue_c av = ArrayValue_c.getOneRV_AVLOnR3300(parVal);
-		ArrayList<Object> result = null;
+		List<Object> result = null;
 		if (toMarshall == null) {
 			result = new ArrayList<Object>();
 		} else {
-			if (toMarshall instanceof ArrayList<?>) {
-			  result = (ArrayList<Object>) toMarshall;
+			if (toMarshall instanceof List<?>) {
+			  result = (List<Object>) toMarshall;
 			}
 			else {
 				LOG.LogInfo("Expected instance of an arraylist type for loading into a modeled array.");
@@ -1514,7 +1516,8 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		return dt;
 	}
 	
-    static Class<?> getClassForCoreTypeOf(DataType_c dt, boolean byRef) {
+    static Class<?> getClassForCoreTypeOf(DataType_c dt, Dimensions_c[] dims, boolean byRef) {
+    	Class<?> result = null;
         DataType_c coreDt = getCoreTypeForDt(dt);
         CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(coreDt);
         StructuredDataType_c sdt = StructuredDataType_c
@@ -1522,38 +1525,39 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
         EnumerationDataType_c edt = EnumerationDataType_c
                 .getOneS_EDTOnR17(coreDt);
         UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
-        if (cdt != null) {
-            DataType_c superType = DataType_c.getOneS_DTOnR17(cdt);
+        GlobalElementInSystem_c geis = GlobalElementInSystem_c.getOneG_EISOnR9100(PackageableElement_c.getOnePE_PEOnR8001(dt));
+        if (geis != null || cdt != null) {
+            DataType_c superType = geis != null ? dt : DataType_c.getOneS_DTOnR17(cdt);
             if (superType.getName().equals("integer")) {
-                return byRef ? BPInteger.class : int.class;
+                result = byRef ? BPInteger.class : int.class;
             } else if (superType.getName().equals("timestamp")) {
-                return byRef ? BPLong.class : long.class;
+                result = byRef ? BPLong.class : long.class;
             } else if (superType.getName().equals("real")) {
-                return byRef ? BPFloat.class : float.class;
+                result = byRef ? BPFloat.class : float.class;
             } else if (superType.getName().equals("string")) {
-                return byRef ? BPString.class : java.lang.String.class;
+                result = byRef ? BPString.class : java.lang.String.class;
             } else if (superType.getName().equals("boolean")) {
-                return byRef ? BPBoolean.class : boolean.class;
+                result = byRef ? BPBoolean.class : boolean.class;
             } else if (superType.getName().equals("unique_id")) {
-                return byRef ? BPUniqueId.class : java.util.UUID.class;
+                result = byRef ? BPUniqueId.class : java.util.UUID.class;
             } else if (superType.getName().equals("component_ref")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("state<State_Model>")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("inst_ref<Object>")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("inst_ref_set<Object>")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("inst<Event>")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("inst<Event>")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("date")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("inst_ref<Timer>")) {
-                return java.lang.Object.class;
+                result = java.lang.Object.class;
             } else if (superType.getName().equals("void")) {
-                return void.class;
+                result = void.class;
             }
         } else if (sdt != null || edt != null) {
             Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
@@ -1568,17 +1572,20 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
                     // Do nothing, this will be reported elsewhere
                 }
                 if (realizedDT != null) {
-                    return realizedDT;
+                    result = realizedDT;
                 }
             }
         } else if (udt != null) {
             DataType_c definition = DataType_c.getOneS_DTOnR18(udt);    
             if (definition != null) {
-                return getClassForCoreTypeOf(definition, byRef);
+                result = getClassForCoreTypeOf(definition, dims, byRef);
             }
             
         }
-        return null;
+        if (dims != null && dims.length > 0) {
+        	result = List.class;
+        }
+        return result;
     }
 
 	public static void handleReturnValue(Stack_c stack) {
