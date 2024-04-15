@@ -373,7 +373,7 @@ public class VerifierInvocationAuditor {
                 if (className != null) {
                     class4DT = cl.loadClass(className);
                 } else {
-                    class4DT = VerifierInvocationHandler.getClassForCoreTypeOf(dt, byRef);
+                    class4DT = VerifierInvocationHandler.getClassForCoreTypeOf(dt, Dimensions_c.getManyS_DIMsOnR4017(cursor), byRef);
                 }
             } catch (ClassNotFoundException cnf) {
                 // Some data types will not have a realized class so do nothing
@@ -430,7 +430,7 @@ public class VerifierInvocationAuditor {
                         expectedReturnType = cl.loadClass(className);
                     } else {
                         expectedReturnType = VerifierInvocationHandler.getClassForCoreTypeOf(
-                                modeledReturnType, false);
+                                modeledReturnType,Dimensions_c.getManyS_DIMsOnR4018(InterfaceOperation_c.getOneC_IOOnR4004(prop)) , false);
                     }
                 } catch (ClassNotFoundException cnf) {
                     // Some data types will not have a realized class so do
@@ -500,7 +500,7 @@ public class VerifierInvocationAuditor {
                         try {
                             DataType_c memberDt = DataType_c
                                     .getOneS_DTOnR45(member);
-                            Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(memberDt,
+                            Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(memberDt, Dimensions_c.getManyS_DIMsOnR53(member),
                                     false);
                             setAccessor = realizedSDT.getDeclaredMethod("set"
                                     + member.getName(),
@@ -585,14 +585,14 @@ public class VerifierInvocationAuditor {
             result += "Data type check on " + dataType.getName() + " complete."
                     + CR + CR;
         } else if (udt != null) {
-            result += auditUserDefinedType(dataType);
+            result += auditUserDefinedType(dataType, new Dimensions_c[0]);
         } else if (edt != null) {
             result += auditEnumeratedDataType(dataType);
         }
         return result;
     }
 
-    private static String auditUserDefinedType(DataType_c dataType) {
+    private static String auditUserDefinedType(DataType_c dataType, Dimensions_c[] dims) {
         String result = "Checking data type " + dataType.getName() + CR;
         Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
                 .getOnePE_PEOnR8001(dataType));
@@ -624,7 +624,7 @@ public class VerifierInvocationAuditor {
                     // Expected outcome, do nothing
                 }
                 try {
-                    Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(dataType, false);
+                    Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(dataType, dims, false);
                     setAccessor = realizedUDT.getDeclaredMethod("setValue",
                             new Class<?>[] { coreType });
                 } catch (SecurityException e) {
