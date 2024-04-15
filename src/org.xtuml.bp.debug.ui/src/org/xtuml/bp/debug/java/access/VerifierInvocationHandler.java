@@ -887,7 +887,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						ComponentInstance_c sender = ComponentInstance_c
 								.getOneI_EXEOnR2930(Stack_c
 										.getOneI_STACKOnR2943(blockedFrame));
-						Vm_c.Addargumentvalue(false, "component_ref", sender);
+						Vm_c.Addargumentvalue(false, false, "component_ref", sender);
 						RequiredOperation_c reqOp = null;
 						ProvidedOperation_c provOp = null;
 						String messageName = null;
