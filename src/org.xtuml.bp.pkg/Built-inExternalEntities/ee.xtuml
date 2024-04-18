@@ -21,6 +21,26 @@ INSERT INTO S_BRG
 	'control stop;',
 	1,
 	'');
+INSERT INTO S_BRG
+	VALUES ("15ed0507-eb06-42a4-b86e-bf80a5e2383b",
+	"8c41cf19-f8e3-4b08-85e2-b02486c4b305",
+	'openURL',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("3e37620c-287e-4960-b853-8b2ec5d0870f",
+	"15ed0507-eb06-42a4-b86e-bf80a5e2383b",
+	'url',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("8c41cf19-f8e3-4b08-85e2-b02486c4b305",
 	1,
