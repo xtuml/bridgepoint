@@ -22,12 +22,18 @@
 
 package lib;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.xtuml.bp.core.ComponentInstance_c;
+import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Runstatetype_c;
 import org.xtuml.bp.core.Stack_c;
-import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.util.OoaofooaUtil;
@@ -66,6 +72,16 @@ public class ARCH {
 				  }
 				}
 			}
+		}
+	}
+
+	public static void openURL(String url) {
+		try {
+			final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport()
+					.createBrowser("org.xtuml.bp.core.webbrowser");
+			browser.openURL(URI.create(url).toURL());
+		} catch (PartInitException | MalformedURLException e) {
+			CorePlugin.logError("Failed to open URL", e);
 		}
 	}
 }
