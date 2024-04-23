@@ -58,6 +58,7 @@ end for;
 	1,
 	'',
 	"aeb8f953-4fc7-405c-a6b9-2d8872044f85",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("73c72121-a35f-428d-8f9f-9b8d28febba7",
@@ -76,18 +77,18 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Structured Value.dispose()
-select many values related by self->RV_VIS[R3301]->RV_RVL[R3301];
-for each value in values
-  select one vis related by value->RV_VIS[R3301];
+select many viss related by self->RV_VIS[R3301];
+for each vis in viss
+  select one value related by vis->RV_RVL[R3301];
   unrelate self from value across R3301 using vis;
   delete object instance vis;
   value.dispose();
 end for;
-delete object instance self;
-',
+delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_REF
 	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",

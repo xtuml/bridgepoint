@@ -71,6 +71,7 @@ import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.IdAssigner;
+import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.debug.ui.model.BPThread;
 
@@ -163,47 +164,47 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				if (bodyID != Gd_c.Null_unique_id()) {
 					Body_c body = (Body_c) component.getModelRoot().getInstanceList(Body_c.class).getGlobal(bodyID);
 					if (body != null) {
-						// Now marshal the argument values
-						PropertyParameter_c param = PropertyParameter_c.getOneC_PPOnR4006(exProp);
-						PropertyParameter_c tempParam = null;
-						while (param != null) {
-							tempParam = param;
-							param = PropertyParameter_c.getOneC_PPOnR4021Succeeds(param);
-						}
-						param = tempParam;
-						StackFrame_c localStackFrame = StackFrame_c
-								.getOneI_STFOnR2929(Stack_c.getOneI_STACKOnR2930(component));
-						boolean stackFrameCreated = false;
-						if (localStackFrame == null) {
-							localStackFrame = new StackFrame_c(component.getModelRoot());
-							Stack_c.getOneI_STACKOnR2930(component).Push(localStackFrame.getStack_frame_id());
-							stackFrameCreated = true;
-						}
-						java.util.UUID sf = body.Createstackframe(true, localStackFrame.getStack_frame_id(),
-								targetStack.getStack_id());
-						StackFrame_c newStackFrame = (StackFrame_c) component.getModelRoot()
-								.getInstanceList(StackFrame_c.class).getGlobal(sf);
-						Map<RuntimeValue_c, ParameterValue> argMap = new HashMap<RuntimeValue_c, ParameterValue>();
-						for (int i = 0; param != null; i++) {
-							RuntimeValue_c rtVal = marshallValueIn(param, arg2[i + 1], exProp.getId(), bodyID, sf,
-									localStackFrame.getStack_frame_id(),
-									ComponentInstance_c.getOneI_EXEOnR2930(targetStack));
-							if (param.getBy_ref() == 1) {
-								Dimensions_c[] dims = Dimensions_c.getManyS_DIMsOnR4017(param);
-								argMap.put(rtVal, new ParameterValue(arg2[i + 1], dims.length));
+						synchronized (component) {
+							// Now marshal the argument values
+							PropertyParameter_c param = PropertyParameter_c.getOneC_PPOnR4006(exProp);
+							PropertyParameter_c tempParam = null;
+							while (param != null) {
+								tempParam = param;
+								param = PropertyParameter_c.getOneC_PPOnR4021Succeeds(param);
 							}
-							param = PropertyParameter_c.getOneC_PPOnR4021Precedes(param);
-						}
-						if (targetEngine != null) {
-							if (newStackFrame != null) {
-								if (shouldBlock) {
-									localStackFrame.relateAcrossR2965ToBlockedBy(newStackFrame);
-									body.Startstackframeformessage(sf);
-									Stack_c localStack = Stack_c.getOneI_STACKOnR2943(localStackFrame);
-									while (StackFrame_c.getOneI_STFOnR2965BlockedBy(localStackFrame) != null
-											&& localStack != null
-											&& localStack.getRunstate() != Runstatetype_c.Terminated) {
-										synchronized (component) {
+							param = tempParam;
+							StackFrame_c localStackFrame = StackFrame_c
+									.getOneI_STFOnR2929(Stack_c.getOneI_STACKOnR2930(component));
+							boolean stackFrameCreated = false;
+							if (localStackFrame == null) {
+								localStackFrame = new StackFrame_c(component.getModelRoot());
+								Stack_c.getOneI_STACKOnR2930(component).Push(localStackFrame.getStack_frame_id());
+								stackFrameCreated = true;
+							}
+							java.util.UUID sf = body.Createstackframe(true, localStackFrame.getStack_frame_id(),
+									targetStack.getStack_id());
+							StackFrame_c newStackFrame = (StackFrame_c) component.getModelRoot()
+									.getInstanceList(StackFrame_c.class).getGlobal(sf);
+							Map<RuntimeValue_c, ParameterValue> argMap = new HashMap<RuntimeValue_c, ParameterValue>();
+							for (int i = 0; param != null; i++) {
+								RuntimeValue_c rtVal = marshallValueIn(param, arg2[i + 1], exProp.getId(), bodyID, sf,
+										localStackFrame.getStack_frame_id(),
+										ComponentInstance_c.getOneI_EXEOnR2930(targetStack));
+								if (param.getBy_ref() == 1) {
+									Dimensions_c[] dims = Dimensions_c.getManyS_DIMsOnR4017(param);
+									argMap.put(rtVal, new ParameterValue(arg2[i + 1], dims.length));
+								}
+								param = PropertyParameter_c.getOneC_PPOnR4021Precedes(param);
+							}
+							if (targetEngine != null) {
+								if (newStackFrame != null) {
+									if (shouldBlock) {
+										localStackFrame.relateAcrossR2965ToBlockedBy(newStackFrame);
+										body.Startstackframeformessage(sf);
+										Stack_c localStack = Stack_c.getOneI_STACKOnR2943(localStackFrame);
+										while (StackFrame_c.getOneI_STFOnR2965BlockedBy(localStackFrame) != null
+												&& localStack != null
+												&& localStack.getRunstate() != Runstatetype_c.Terminated) {
 											if (!BPThread.qdFramesReady(localStack)
 													&& !BPThread.qdResultsReady(localStack)) {
 												component.wait();
@@ -214,13 +215,8 @@ public class VerifierInvocationHandler implements InvocationHandler {
 												for (StackFrame_c resultSF : resultSFs) {
 													if (resultSF == newStackFrame
 															&& resultSF.getReadyforinterrupt() == true) {
-														// Transfer returned
-														// data
-														// back
-														// into java
-														// Handle by
-														// Reference
-														// values
+														// Transfer returned data back into java
+														// Handle by Reference values
 														Set<RuntimeValue_c> rtVals = argMap.keySet();
 														for (RuntimeValue_c rtVal : rtVals) {
 															DataType_c dt = DataType_c.getOneS_DTOnR3307(rtVal);
@@ -229,10 +225,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 																	targetEngine);
 															disposeTransientValueVariables(rtVal);
 														}
-														// Now need to
-														// handle
-														// return
-														// value . . .
+														// Now need to handle return value...
 														ValueInStackFrame_c returnedValue = ValueInStackFrame_c
 																.getOneI_VSFOnR2951(newStackFrame);
 														ValueInStackFrame_c localVsf = null;
@@ -259,21 +252,19 @@ public class VerifierInvocationHandler implements InvocationHandler {
 													}
 												}
 											} else {
-												// Handle reentrant calls
-												// from
-												// Verifier
+												// Handle reentrant calls from Verifier
 												executeRealizedCode(localStack);
 											}
 										}
+									} else {
+										body.Startstackframeformessage(sf);
 									}
-								} else {
-									body.Startstackframeformessage(sf);
 								}
 							}
-						}
-						// }
-						if (stackFrameCreated) {
-							Stack_c.getOneI_STACKOnR2930(component).Pop(true);
+							// }
+							if (stackFrameCreated) {
+								Stack_c.getOneI_STACKOnR2930(component).Pop(true);
+							}
 						}
 					}
 				} else {
@@ -540,15 +531,18 @@ public class VerifierInvocationHandler implements InvocationHandler {
 					}
 				}
 				RuntimeValue_c member = null;
-				if (vis == null) {
-					vis = new ValueInStructure_c(root);
-					vis.setName(strMember.getName());
-					vis.relateAcrossR3301To(strVal);
-				} else {
+				if (vis != null) {
+					// get the existing member and delete the VIS instance
 					member = RuntimeValue_c.getOneRV_RVLOnR3301(vis);
+					vis.unrelateAcrossR3301From(member);
+					vis.unrelateAcrossR3301From(strVal);
+					vis.delete();
 				}
 				Dimensions_c[] dims = Dimensions_c.getManyS_DIMsOnR53(strMember);
 				member = marshallContentIn(root, member, javaMember, type, dims.length, ci);
+				vis = new ValueInStructure_c(root);
+				vis.setName(strMember.getName());
+				vis.relateAcrossR3301To(strVal);
 				vis.relateAcrossR3301To(member);
 			}
 		}
@@ -562,8 +556,10 @@ public class VerifierInvocationHandler implements InvocationHandler {
 			result = rootValue;
 		}
 		UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
+		GlobalElementInSystem_c geis = GlobalElementInSystem_c
+				.getOneG_EISOnR9100(PackageableElement_c.getOnePE_PEOnR8001(dt));
 		boolean realizedTypeFound = false;
-		if (udt != null) {
+		if (geis == null && udt != null) {
 			DataType_c rootType = getCoreTypeForDt(dt);
 			Class<?> realizedType = getClassForType(dt);
 			if (realizedType != null) {
@@ -630,6 +626,18 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						result.relateAcrossR3307To(dt);
 					}
 					result.Setvalue(Gd_c.Int_to_string(((BPInteger) value).getValue()));
+				} else if (value instanceof Long) {
+					if (rootValue == null) {
+						result = new RuntimeValue_c(root);
+						result.relateAcrossR3307To(dt);
+					}
+					result.Setvalue(((Long) value).toString());
+				} else if (value instanceof BPLong) {
+					if (rootValue == null) {
+						result = new RuntimeValue_c(root);
+						result.relateAcrossR3307To(dt);
+					}
+					result.Setvalue(((BPLong) value).toString());
 				}
 			} else if (rootType != null && rootType.getName().equals("string")) {
 
