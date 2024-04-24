@@ -392,12 +392,11 @@ public class Vm_c {
 						}
 						result = met.invoke(target, oArgVals);
 						return true; // Invoke successful
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					} catch (InvocationTargetException e) {
-						e.printStackTrace();
+					} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+						CorePlugin.logError("Failed to execute realized code", e);
+						final Stack_c stack = Stack_c.getOneI_STACKOnR2929((StackFrame_c) Ooaofooa.getDefaultInstance()
+								.getInstanceList(StackFrame_c.class).getGlobal(p_stack_frame_id));
+						stack.setRunstate(Runstatetype_c.Terminated);
 					}
 				} else {
 					InvocationTargetException e = new InvocationTargetException(new Throwable(),

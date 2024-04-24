@@ -58,7 +58,7 @@ public class LOG {
 	// ============================================================================
 	public static void LogFailure(String ee_message) {
 
-		CorePlugin.out.println("LogFailure:  " + ee_message);
+		CorePlugin.err.println("LogFailure:  " + ee_message);
 
 	}
 
