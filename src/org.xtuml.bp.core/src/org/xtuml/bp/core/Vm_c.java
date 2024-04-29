@@ -1,5 +1,6 @@
 package org.xtuml.bp.core;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -152,7 +153,7 @@ public class Vm_c {
 																// containing .class files
 							}
 							try {
-								return URI.create(String.format("file://%s", p2.toOSString())).toURL();
+								return new File(p2.toOSString()).toURI().toURL();
 							} catch (MalformedURLException e) {
 								CorePlugin.getDefault().getLog().warn("Failed to create classpath URL", e);
 								return null;
