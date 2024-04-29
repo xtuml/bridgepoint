@@ -106,25 +106,9 @@ public class Vm_c {
 
 	public static boolean Loadclass(final String name, UUID systemID) {
 		Ooaofooa.log.println(ILogger.BRIDGE, "loadClass", " Bridge entered: VirtualMachine::Loadclass");
-
-		targetInfo tgtInfo = getStack().peek();
-		tgtInfo.target = null;
 		SystemModel_c system = (SystemModel_c) Ooaofooa.getDefaultInstance().getInstanceList(SystemModel_c.class)
 				.getGlobal(systemID);
-		if (vmclMap.containsKey(system) && vmclMap.get(system) != null) {
-			try {
-				tgtInfo.target = vmclMap.get(system).loadClass("lib." + name); //$NON-NLS-1$
-			} catch (ClassNotFoundException e) {
-				// Do nothing. This is not an error, the class
-				// may not exist or may be located elsewhere.
-			}
-			if (tgtInfo.target != null) {
-				return true;
-			}
-		}
-		getStack().pop();
-		return false;
-
+		return LoadQualifiedclass(system, "lib." + name);
 	} // End loadClass
 
 	public static boolean LoadQualifiedclass(SystemModel_c system, final String name) {
@@ -133,16 +117,17 @@ public class Vm_c {
 		targetInfo tgtInfo = getStack().peek();
 		tgtInfo.target = null;
 
-		if (vmclMap.containsKey(system) && vmclMap.get(system) != null) {
-			try {
-				tgtInfo.target = vmclMap.get(system).loadClass(name); // $NON-NLS-1$
-			} catch (ClassNotFoundException e) {
-				// Do nothing. This is not an error, the class
-				// may not exist or may be located elsewhere.
-			}
-			if (tgtInfo.target != null) {
-				return true;
-			}
+		if (!vmclMap.containsKey(system) || vmclMap.get(system) == null) {
+			getVmCl(system.getSys_id());
+		}
+		try {
+			tgtInfo.target = vmclMap.get(system).loadClass(name); // $NON-NLS-1$
+		} catch (ClassNotFoundException e) {
+			// Do nothing. This is not an error, the class
+			// may not exist or may be located elsewhere.
+		}
+		if (tgtInfo.target != null) {
+			return true;
 		}
 		getStack().pop();
 		return false;
