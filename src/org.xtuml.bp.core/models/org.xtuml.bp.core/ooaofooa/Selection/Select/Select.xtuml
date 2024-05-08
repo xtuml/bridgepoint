@@ -104,7 +104,7 @@ if (empty start_var)
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Select statement: Cannot locate starting variable",path:pathMsg);
+  USER::logError(msg:"Error in Select statement: Cannot locate starting variable",path:pathMsg);
   return;
 end if;
 // Get the starting point instance handle or set
@@ -119,7 +119,7 @@ if (empty stack_frame)
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Select.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  USER::logError(msg:"Error in Select.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
   select any stack from instances of I_STACK;
   select one stack_frame related by stack->I_STF[R2929];
 end if;
@@ -182,7 +182,7 @@ if (empty inst_in_where)
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Select.execute.  Did not find a starting point instance handle or set.",path:pathMsg);
+  USER::logError(msg:"Error in Select.execute.  Did not find a starting point instance handle or set.",path:pathMsg);
     return;
   end if;
   if (empty start_local_reference)
@@ -190,7 +190,7 @@ if (empty inst_in_where)
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Select.execute.  Did not find a starting point reference handle.",path:pathMsg);
+  USER::logError(msg:"Error in Select.execute.  Did not find a starting point reference handle.",path:pathMsg);
     return;
   end if;
   // At this point we are done with getting the starting point
@@ -332,6 +332,8 @@ if (empty inst_in_where)
       // Now build the instance set . . .
       select many linkps related by inst->I_LIP[R2958]
        where selected.Rel_ID == association.Rel_ID;
+      // Note that set may contain I_LIP instances for both directions.
+      // The R2901, R2902 linkages must be validated as appropriate.
       select any inst_dest from instances of I_INS where false;   //decl
       select any dest_class from instances of O_OBJ where false;  //decl
       select any link from instances of I_LNK where false;        //decl
@@ -374,11 +376,14 @@ if (empty inst_in_where)
           else
             select one link related by linkp->I_LNK[R2902];
           end if;
-          if (empty link and symmetric)  // maybe not Fwd after all - try backward
+          if (empty link and symmetric)  // maybe not Fwd after all - must be backward
              select one link related by linkp->I_LNK[R2902];
           end if;
-          select one inst_dest related by link->I_LIP[R2903]->I_INS[R2958];
-          selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
+          // If the I_LIP instance is for the ''wrong'' direction, link will be empty.
+          if (not_empty link)
+            select one inst_dest related by link->I_LIP[R2903]->I_INS[R2958];
+            selection_local_reference.addInstance(inst_id:inst_dest.Inst_ID);
+          end if;
         end for;
       else // not to/from the associative class
         // This handles all other cases, simple/link associations, reflexive/non-reflexive, sub-super, formalized or not.
