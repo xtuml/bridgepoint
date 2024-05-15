@@ -1205,139 +1205,154 @@ public class ExportModelText extends ExportModelComponent {
 			if (inst.getNum_rng() != 0) {
 				append("%s@start_numbering(%d);\n", getTab(), inst.getNum_rng());
 			}
+			
+			// if this is a package reference, just refer to the target package
+			final Package_c targetPackage = Package_c.getOneEP_PKGOnR1402RefersTo(PackageReference_c.getOneEP_PKGREFOnR1402RefersTo(inst));
+			if (targetPackage != null) {
 
-			append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
-			tabDepth++;
+				append("%spackage %s is %s;\n\n", getTab(), sanitizeName(inst.getName()), sanitizePath(targetPackage.getPath()));
 
-			// type forward declarations
-			final DataType_c[] rto_dts = DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst),
-					selected -> InstanceReferenceDataType_c.getOneS_IRDTOnR17((DataType_c) selected) == null
-							&& CoreDataType_c.getOneS_CDTOnR17((DataType_c) selected) == null
-							&& (StructureMember_c.getOneS_MBROnR45((DataType_c) selected) != null
-									|| UserDataType_c.getOneS_UDTOnR18((DataType_c) selected) != null));
-			for (DataType_c rto_dt : Stream.of(rto_dts).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				append("%stype %s;\n", getTab(), sanitizeName(rto_dt.getName()));
-			}
+			} else {
 
-			// datatypes
-			final DataType_c[] s_dts = DataType_c.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (DataType_c s_dt : Stream.of(s_dts).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_DataType_c(s_dt, pm, writeAsProxies, isPersistable);
-			}
+				append("%spackage %s is\n", getTab(), sanitizeName(inst.getName()));
+				tabDepth++;
 
-			// exceptions
-			final Exception_c[] s_exps = Exception_c
-					.getManyS_EXPsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Exception_c s_exp : Stream.of(s_exps).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_Exception_c(s_exp, pm, writeAsProxies, isPersistable);
-			}
-
-			// constant specifications
-			final ConstantSpecification_c[] cnst_csps = ConstantSpecification_c
-					.getManyCNST_CSPsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (ConstantSpecification_c cnst_csp : Stream.of(cnst_csps)
-					.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
-				export_ConstantSpecification_c(cnst_csp, pm, writeAsProxies, isPersistable);
-			}
-
-			// classes
-			final ModelClass_c[] o_objs = ModelClass_c
-					.getManyO_OBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (ModelClass_c o_obj : Stream.of(o_objs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				append("%sclass %s;\n", getTab(), sanitizeName(o_obj.getName()));
-			}
-
-			// imported classes
-			final ImportedClass_c[] o_iobjs = ImportedClass_c
-					.getManyO_IOBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (ImportedClass_c o_iobj : Stream.of(o_iobjs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_ImportedClass_c(o_iobj, pm, writeAsProxies, isPersistable);
-			}
-
-			// relationships
-			final Association_c[] r_rels = Association_c
-					.getManyR_RELsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Association_c r_rel : Stream.of(r_rels).sorted(Comparator.comparing(Association_c::getNumb))
-					.collect(Collectors.toList())) {
-				export_Association_c(r_rel, pm, writeAsProxies, isPersistable);
-			}
-
-			// interfaces
-			final Interface_c[] c_is = Interface_c.getManyC_IsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Interface_c c_i : Stream.of(c_is).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				append("%sinterface %s;\n", getTab(), sanitizeName(c_i.getName()));
-			}
-
-			// components
-			final Component_c[] c_cs = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Component_c c_c : Stream.of(c_cs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				append("%scomponent %s;\n", getTab(), sanitizeName(c_c.getName()));
-			}
-
-			// component references
-			final ComponentReference_c[] cl_ics = ComponentReference_c
-					.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (ComponentReference_c cl_ic : Stream.of(cl_ics)
-					.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
-				export_ComponentReference_c(cl_ic, pm, writeAsProxies, isPersistable);
-			}
-
-			// satisfactions
-			final Satisfaction_c[] c_sfs = Satisfaction_c
-					.getManyC_SFsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Satisfaction_c c_sf : Stream.of(c_sfs).sorted(Comparator.comparing(Satisfaction_c::getLabel))
-					.collect(Collectors.toList())) {
-				export_Satisfaction_c(c_sf, pm, writeAsProxies, isPersistable);
-			}
-
-			// TODO delegations
-
-			// deployments
-			final var d_depls = Deployment_c.getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (var d_depl : Stream.of(d_depls).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_Deployment_c(d_depl, pm, writeAsProxies, isPersistable);
-			}
-
-			// EEs
-			final ExternalEntity_c[] s_ees = ExternalEntity_c
-					.getManyS_EEsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (ExternalEntity_c s_ee : Stream.of(s_ees).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_ExternalEntity_c(s_ee, pm, writeAsProxies, isPersistable);
-			}
-
-			// functions
-			final Function_c[] s_syncs = Function_c
-					.getManyS_SYNCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Function_c s_sync : Stream.of(s_syncs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				export_Function_c(s_sync, pm, writeAsProxies, isPersistable);
-			}
-
-			// packages
-			final Package_c[] ep_pkgs = Package_c
-					.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
-			for (Package_c ep_pkg : Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName))
-					.collect(Collectors.toList())) {
-				append("%spackage %s", getTab(), sanitizeName(ep_pkg.getName()));
-				final Package_c referredToPackage = Package_c
-						.getOneEP_PKGOnR1402RefersTo(PackageReference_c.getOneEP_PKGREFOnR1402RefersTo(ep_pkg));
-				if (referredToPackage != null) {
-					append(" is %s", sanitizePath(referredToPackage.getPath()));
+				// type forward declarations
+				final DataType_c[] rto_dts = DataType_c.getManyS_DTsOnR8001(
+						PackageableElement_c.getManyPE_PEsOnR8000(inst),
+						selected -> InstanceReferenceDataType_c.getOneS_IRDTOnR17((DataType_c) selected) == null
+								&& CoreDataType_c.getOneS_CDTOnR17((DataType_c) selected) == null
+								&& (StructureMember_c.getOneS_MBROnR45((DataType_c) selected) != null
+										|| UserDataType_c.getOneS_UDTOnR18((DataType_c) selected) != null));
+				for (DataType_c rto_dt : Stream.of(rto_dts).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					append("%stype %s;\n", getTab(), sanitizeName(rto_dt.getName()));
 				}
-				append(";\n");
+
+				// datatypes
+				final DataType_c[] s_dts = DataType_c
+						.getManyS_DTsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (DataType_c s_dt : Stream.of(s_dts).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					export_DataType_c(s_dt, pm, writeAsProxies, isPersistable);
+				}
+
+				// exceptions
+				final Exception_c[] s_exps = Exception_c
+						.getManyS_EXPsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Exception_c s_exp : Stream.of(s_exps).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					export_Exception_c(s_exp, pm, writeAsProxies, isPersistable);
+				}
+
+				// constant specifications
+				final ConstantSpecification_c[] cnst_csps = ConstantSpecification_c
+						.getManyCNST_CSPsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (ConstantSpecification_c cnst_csp : Stream.of(cnst_csps)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_ConstantSpecification_c(cnst_csp, pm, writeAsProxies, isPersistable);
+				}
+
+				// classes
+				final ModelClass_c[] o_objs = ModelClass_c
+						.getManyO_OBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (ModelClass_c o_obj : Stream.of(o_objs).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					append("%sclass %s;\n", getTab(), sanitizeName(o_obj.getName()));
+				}
+
+				// imported classes
+				final ImportedClass_c[] o_iobjs = ImportedClass_c
+						.getManyO_IOBJsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (ImportedClass_c o_iobj : Stream.of(o_iobjs)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_ImportedClass_c(o_iobj, pm, writeAsProxies, isPersistable);
+				}
+
+				// relationships
+				final Association_c[] r_rels = Association_c
+						.getManyR_RELsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Association_c r_rel : Stream.of(r_rels).sorted(Comparator.comparing(Association_c::getNumb))
+						.collect(Collectors.toList())) {
+					export_Association_c(r_rel, pm, writeAsProxies, isPersistable);
+				}
+
+				// interfaces
+				final Interface_c[] c_is = Interface_c
+						.getManyC_IsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Interface_c c_i : Stream.of(c_is).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					append("%sinterface %s;\n", getTab(), sanitizeName(c_i.getName()));
+				}
+
+				// components
+				final Component_c[] c_cs = Component_c
+						.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Component_c c_c : Stream.of(c_cs).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					append("%scomponent %s;\n", getTab(), sanitizeName(c_c.getName()));
+				}
+
+				// component references
+				final ComponentReference_c[] cl_ics = ComponentReference_c
+						.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (ComponentReference_c cl_ic : Stream.of(cl_ics)
+						.sorted(Comparator.comparing(NonRootModelElement::getName)).collect(Collectors.toList())) {
+					export_ComponentReference_c(cl_ic, pm, writeAsProxies, isPersistable);
+				}
+
+				// satisfactions
+				final Satisfaction_c[] c_sfs = Satisfaction_c
+						.getManyC_SFsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Satisfaction_c c_sf : Stream.of(c_sfs).sorted(Comparator.comparing(Satisfaction_c::getLabel))
+						.collect(Collectors.toList())) {
+					export_Satisfaction_c(c_sf, pm, writeAsProxies, isPersistable);
+				}
+
+				// TODO delegations
+
+				// deployments
+				final var d_depls = Deployment_c.getManyD_DEPLsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (var d_depl : Stream.of(d_depls).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					export_Deployment_c(d_depl, pm, writeAsProxies, isPersistable);
+				}
+
+				// EEs
+				final ExternalEntity_c[] s_ees = ExternalEntity_c
+						.getManyS_EEsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (ExternalEntity_c s_ee : Stream.of(s_ees).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					export_ExternalEntity_c(s_ee, pm, writeAsProxies, isPersistable);
+				}
+
+				// functions
+				final Function_c[] s_syncs = Function_c
+						.getManyS_SYNCsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Function_c s_sync : Stream.of(s_syncs).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					export_Function_c(s_sync, pm, writeAsProxies, isPersistable);
+				}
+
+				// packages
+				final Package_c[] ep_pkgs = Package_c
+						.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(inst));
+				for (Package_c ep_pkg : Stream.of(ep_pkgs).sorted(Comparator.comparing(NonRootModelElement::getName))
+						.collect(Collectors.toList())) {
+					append("%spackage %s", getTab(), sanitizeName(ep_pkg.getName()));
+					final Package_c referredToPackage = Package_c
+							.getOneEP_PKGOnR1402RefersTo(PackageReference_c.getOneEP_PKGREFOnR1402RefersTo(ep_pkg));
+					if (referredToPackage != null) {
+						append(" is %s", sanitizePath(referredToPackage.getPath()));
+					}
+					append(";\n");
+				}
+
+				tabDepth--;
+				append("%send package;\n\n", getTab());
+
 			}
 
-			tabDepth--;
-			append("%send package;\n\n", getTab());
 			tabDepth--;
 			append("%send;\n", getTab());
 
