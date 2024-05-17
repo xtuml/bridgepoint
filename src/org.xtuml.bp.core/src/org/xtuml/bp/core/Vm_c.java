@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -13,12 +12,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Stack;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.util.OoaofooaUtil;
@@ -140,10 +141,27 @@ public class Vm_c {
 		try {
 			if (project.hasNature(JavaCore.NATURE_ID)) {
 				final IJavaProject javaProject = JavaCore.create(project);
-				// TODO ignore unresolved entries?
-				final URL[] urls = Stream.concat(Stream.of(javaProject.getResolvedClasspath(true))
-						.filter(entry -> entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY)
-						.map(IClasspathEntry::getPath), Stream.of(javaProject.getOutputLocation())).map(p -> {
+				final URL[] urls = Stream.concat(Stream.of(javaProject.getOutputLocation()),
+						Stream.of(javaProject.getResolvedClasspath(true)).flatMap(cpe -> {
+							switch (cpe.getEntryKind()) {
+							case IClasspathEntry.CPE_LIBRARY:
+								return Stream.of(cpe.getPath());
+							case IClasspathEntry.CPE_PROJECT:
+								final Optional<IProject> refProj = Stream
+										.of(ResourcesPlugin.getWorkspace().getRoot().getProjects())
+										.filter(p2 -> p2.getFullPath().equals(cpe.getPath())).findAny();
+								if (refProj.isPresent()) {
+									try {
+										return Stream.of(JavaCore.create(refProj.orElseThrow()).getOutputLocation());
+									} catch (JavaModelException e) {
+										CorePlugin.getDefault().getLog()
+												.warn("Failed to find referenced project: " + cpe.getPath(), e);
+									}
+								}
+							default:
+								return Stream.empty();
+							}
+						})).flatMap(p -> {
 							IPath p2 = ResourcesPlugin.getWorkspace().getRoot().getFile(p).getLocation();
 							if (p2 == null) {
 								p2 = p; // non-workspace resource
@@ -153,12 +171,12 @@ public class Vm_c {
 																// containing .class files
 							}
 							try {
-								return new File(p2.toOSString()).toURI().toURL();
+								return Stream.of(new File(p2.toOSString()).toURI().toURL());
 							} catch (MalformedURLException e) {
 								CorePlugin.getDefault().getLog().warn("Failed to create classpath URL", e);
-								return null;
+								return Stream.empty();
 							}
-						}).filter(Objects::nonNull).toArray(URL[]::new);
+						}).toArray(URL[]::new);
 				return new URLClassLoader(urls, parent);
 			} else {
 				return new URLClassLoader(new URL[0], parent);
