@@ -135,6 +135,10 @@ public class Vm_c {
 		return false;
 
 	} // End loadClass
+	
+	public static Class<?> getTarget() {
+		return getStack().peek().target;
+	}
 
 	private static ClassLoader getClassLoaderForSystem(SystemModel_c system, ClassLoader parent) {
 		final IProject project = system.getFile().getProject();

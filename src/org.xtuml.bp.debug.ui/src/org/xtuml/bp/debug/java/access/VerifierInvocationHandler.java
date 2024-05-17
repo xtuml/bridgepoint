@@ -22,7 +22,6 @@ import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
 import org.xtuml.bp.core.CoreDataType_c;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.DataType_c;
 import org.xtuml.bp.core.Dimensions_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
@@ -71,7 +70,6 @@ import org.xtuml.bp.core.Value_c;
 import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.IdAssigner;
-import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.debug.ui.model.BPThread;
 
@@ -220,7 +218,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 														Set<RuntimeValue_c> rtVals = argMap.keySet();
 														for (RuntimeValue_c rtVal : rtVals) {
 															DataType_c dt = DataType_c.getOneS_DTOnR3307(rtVal);
-															marshallContentOut(rtVal, dt, argMap.get(rtVal).getValue(),
+															marshallContentOut(rtVal, dt, argMap.get(rtVal).getValue(),argMap.get(rtVal).getValue().getClass() ,
 																	argMap.get(rtVal).getArrayDepth(), true,
 																	targetEngine);
 															disposeTransientValueVariables(rtVal);
@@ -246,7 +244,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 															}
 															Dimensions_c[] dims = Dimensions_c.getManyS_DIMsOnR4018(
 																	InterfaceOperation_c.getOneC_IOOnR4004(exProp));
-															javaResult = marshallContentOut(resultRtv, dt, null,
+															javaResult = marshallContentOut(resultRtv, dt, null, null,
 																	dims.length, false, targetEngine);
 														}
 													}
@@ -433,9 +431,9 @@ public class VerifierInvocationHandler implements InvocationHandler {
 			String enumName = rootType.getName();
 			className = pathToClassName(className + "::" + enumName);
 			Class<?> enumClass = value.getClass();
-			if (enumClass.getName().equals(className) && enumClass.isEnum()) {
+			if (enumClass.isEnum()) {
 				Enum<?> enumType = (Enum<?>) value;
-				String enumVal = enumName + "::" + enumType.toString();
+				String enumVal = enumName + "::" + enumType.name();
 				if (result == null) {
 					result = new RuntimeValue_c(pkg.getModelRoot());
 					result.relateAcrossR3307To(dt);
@@ -479,23 +477,17 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				// Normal operation, do nothing ...
 			}
 			if (meth != null) {
-				Class<?> memberClass = getClassForCoreTypeOf(type, Dimensions_c.getManyS_DIMsOnR53(strMember), false);
-				if (memberClass != null && memberClass.isAssignableFrom(meth.getReturnType())) {
-					try {
-						javaMember = meth.invoke(value, new Object[0]);
-					} catch (IllegalArgumentException e) {
-						String ex = e.getLocalizedMessage();
-						LOG.LogInfo("Illegal argument exception while accessing realized structured data type: " + ex);
-					} catch (IllegalAccessException e) {
-						String ex = e.getLocalizedMessage();
-						LOG.LogInfo("Illegal access exception while accessing realized structured data type: " + ex);
-					} catch (InvocationTargetException e) {
-						String ex = e.getLocalizedMessage();
-						LOG.LogInfo("Invocation target exception while accessing realized structured data type: " + ex);
-					}
-				} else {
-					LOG.LogInfo("Incompatible return value for getter: " + value.getClass().getSimpleName() + "."
-							+ meth.getName());
+				try {
+					javaMember = meth.invoke(value, new Object[0]);
+				} catch (IllegalArgumentException e) {
+					String ex = e.getLocalizedMessage();
+					LOG.LogInfo("Illegal argument exception while accessing realized structured data type: " + ex);
+				} catch (IllegalAccessException e) {
+					String ex = e.getLocalizedMessage();
+					LOG.LogInfo("Illegal access exception while accessing realized structured data type: " + ex);
+				} catch (InvocationTargetException e) {
+					String ex = e.getLocalizedMessage();
+					LOG.LogInfo("Invocation target exception while accessing realized structured data type: " + ex);
 				}
 			} else {
 				// Fall back to direct field access
@@ -894,9 +886,13 @@ public class VerifierInvocationHandler implements InvocationHandler {
 									break;
 								}
 							}
+							final String mname = messageName;
+							Class<?>[] paramTypes = Stream.of(Vm_c.getTarget().getMethods())
+									.filter(m -> m.getName().equals(mname)).map(Method::getParameterTypes).findAny()
+									.orElseThrow();
 							Map<RuntimeValue_c, ParameterValue> argMap = new HashMap<RuntimeValue_c, ParameterValue>();
-							while (cursor != null) {
-								marshallValueOut(localStackFrame, cursor, null, argMap, ci);
+							for (int i = 1; i < paramTypes.length && cursor != null; i++) {
+								marshallValueOut(localStackFrame, cursor, null, paramTypes[i], argMap, ci);
 								cursor = PropertyParameter_c.getOneC_PPOnR4021Precedes(cursor);
 							}
 							Vm_c.Execute(messageName, fee.getRealizedby(), localStackFrame.getStack_frame_id());
@@ -986,9 +982,11 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		}
 	}
 
-	private static Object getInstanceForType(DataType_c dt) {
+	private static Object getInstanceForType(DataType_c dt, Class<?> realizedType) {
 		Object result = null;
-		Class<?> realizedType = getClassForType(dt);
+		if (realizedType == null) {
+			realizedType = getClassForType(dt);
+		}
 		if (realizedType != null) {
 			try {
 				Constructor<?> ctor = realizedType.getConstructor(new Class<?>[0]);
@@ -1045,7 +1043,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 	}
 
 	private static void marshallValueOut(StackFrame_c localStackFrame, PropertyParameter_c prop_param,
-			Object toMarshall, Map<RuntimeValue_c, ParameterValue> argMap, ComponentInstance_c ci) {
+			Object toMarshall, Class<?> valueType, Map<RuntimeValue_c, ParameterValue> argMap, ComponentInstance_c ci) {
 		DataType_c dt = DataType_c.getOneS_DTOnR4007(prop_param);
 		LocalValue_c[] lvls = LocalValue_c.getManyL_LVLsOnR3001(
 				Local_c.getManyL_LCLsOnR3000(BlockInStackFrame_c.getManyI_BSFsOnR2923(localStackFrame)));
@@ -1065,7 +1063,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		if (parVal != null) {
 			Dimensions_c[] dims = Dimensions_c.getManyS_DIMsOnR4017(prop_param);
 			boolean handleByRef = prop_param.getBy_ref() == 1;
-			Object value = marshallContentOut(parVal, dt, toMarshall, dims.length, handleByRef, ci);
+			Object value = marshallContentOut(parVal, dt, toMarshall, valueType, dims.length, handleByRef, ci);
 			Vm_c.Addargumentvalue(value);
 			if (handleByRef) {
 				argMap.put(parVal, new ParameterValue(value, dims.length));
@@ -1073,49 +1071,50 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		}
 	}
 
-	private static Object marshallContentOut(RuntimeValue_c parVal, DataType_c dt, Object toMarshall, int arrayDepth,
+	private static Object marshallContentOut(RuntimeValue_c parVal, DataType_c dt, Object toMarshall, Class<?> valueType, int arrayDepth,
 			boolean handleByRef, ComponentInstance_c ci) {
 		Object result = null;
 		if (arrayDepth > 0) {
-			result = marshallArrayValueOut(toMarshall, dt, parVal, arrayDepth, ci);
+			result = marshallArrayValueOut(toMarshall, valueType, dt, parVal, arrayDepth, ci);
 		} else {
 			DataType_c rootType = getCoreTypeForDt(dt);
 			CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(rootType);
 			StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(rootType);
 			EnumerationDataType_c edt = EnumerationDataType_c.getOneS_EDTOnR17(rootType);
 			if (cdt != null) {
-				result = marshallCoreValueOut(dt, toMarshall, parVal, handleByRef, ci);
+				result = marshallCoreValueOut(dt, toMarshall, valueType, parVal, handleByRef, ci);
 			} else if (sdt != null) {
-				result = marshallStructuredValueOut(dt, toMarshall, parVal, ci);
+				result = marshallStructuredValueOut(dt, toMarshall, valueType, parVal, ci);
 			} else if (edt != null) {
-				result = marshallEnumeratedValueOut(dt, toMarshall, parVal);
+				result = marshallEnumeratedValueOut(dt, toMarshall, valueType, parVal);
 			}
 
 		}
 		return result;
 	}
 
-	private static Object marshallStructuredValueOut(DataType_c dt, Object toMarshall, RuntimeValue_c parVal,
+	private static Object marshallStructuredValueOut(DataType_c dt, Object toMarshall, Class<?> clazz, RuntimeValue_c parVal,
 			ComponentInstance_c ci) {
 		StructuredValue_c strV = StructuredValue_c.getOneRV_SVLOnR3300(parVal);
 		Object result = null;
 		DataType_c coreType = getCoreTypeForDt(dt);
 		Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(dt));
-		String typeName = pathToClassName(pkg.Getpath("") + "::" + dt.getName());
-		ClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
-		Class<?> clazz = null;
-		try {
-			clazz = bpcl.loadClass(typeName);
-		} catch (ClassNotFoundException e) {
-			// Expected code path, do nothing
-		}
 		if (clazz == null) {
-			typeName = pathToClassName(pkg.Getpath("") + "::" + coreType.getName());
+			String typeName = pathToClassName(pkg.Getpath("") + "::" + dt.getName());
+			ClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
 			try {
 				clazz = bpcl.loadClass(typeName);
 			} catch (ClassNotFoundException e) {
-				String ex = e.getLocalizedMessage();
-				LOG.LogInfo("Class not found exception while loading structured data type: " + ex);
+				// Expected code path, do nothing
+			}
+			if (clazz == null) {
+				typeName = pathToClassName(pkg.Getpath("") + "::" + coreType.getName());
+				try {
+					clazz = bpcl.loadClass(typeName);
+				} catch (ClassNotFoundException e) {
+					String ex = e.getLocalizedMessage();
+					LOG.LogInfo("Class not found exception while loading structured data type: " + ex);
+				}
 			}
 		}
 		if (clazz != null) {
@@ -1186,7 +1185,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 												+ ex);
 							}
 						}
-						setField(clazz, result, member, field, rVal, memberDt, value, ci);
+						setField(clazz, result, member, field, rVal, memberDt, value, field.getType(), ci);
 						// continue to next member
 						break;
 					}
@@ -1197,9 +1196,9 @@ public class VerifierInvocationHandler implements InvocationHandler {
 	}
 
 	private static void setField(Class<?> clazz, Object result, StructureMember_c member, Field field,
-			RuntimeValue_c rVal, DataType_c memberDt, Object value, ComponentInstance_c ci) {
+			RuntimeValue_c rVal, DataType_c memberDt, Object value, Class<?> valueType, ComponentInstance_c ci) {
 		Dimensions_c[] dims = Dimensions_c.getManyS_DIMsOnR53(member);
-		value = marshallContentOut(rVal, memberDt, value, dims.length, false, ci);
+		value = marshallContentOut(rVal, memberDt, value, valueType, dims.length, false, ci);
 
 		Method meth = null;
 		try {
@@ -1238,7 +1237,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		}
 	}
 
-	private static Object marshallCoreValueOut(DataType_c dt, Object toMarshall, RuntimeValue_c parVal, boolean isByRef,
+	private static Object marshallCoreValueOut(DataType_c dt, Object toMarshall, Class<?> valueType, RuntimeValue_c parVal, boolean isByRef,
 			ComponentInstance_c ci) {
 		UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
 		DataType_c coreType = getCoreTypeForDt(dt);
@@ -1246,7 +1245,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		if (udt != null) {
 			Object inst = toMarshall;
 			if (inst == null) {
-				inst = getInstanceForType(dt);
+				inst = getInstanceForType(dt, valueType);
 			}
 			if (inst != null) {
 				Method[] methods = inst.getClass().getDeclaredMethods();
@@ -1324,8 +1323,13 @@ public class VerifierInvocationHandler implements InvocationHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Object marshallArrayValueOut(Object toMarshall, DataType_c dt, RuntimeValue_c parVal, int arrayDepth,
+	private static Object marshallArrayValueOut(Object toMarshall, Class<?> arrayType, DataType_c dt, RuntimeValue_c parVal, int arrayDepth,
 			ComponentInstance_c ci) {
+		Class<?> valueType = null;
+		if (arrayType != null) {
+			// get the type parameter for the List type
+			valueType = arrayType.getTypeParameters()[0].getGenericDeclaration();
+		}
 		ArrayValue_c av = ArrayValue_c.getOneRV_AVLOnR3300(parVal);
 		List<Object> result = null;
 		if (toMarshall == null) {
@@ -1344,7 +1348,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 			if (toMarshall != null && (result.size() > vir.getIndex())) {
 				value = result.get(vir.getIndex());
 			}
-			value = marshallContentOut(content, dt, value, arrayDepth - 1, false, ci);
+			value = marshallContentOut(content, dt, value, valueType, arrayDepth - 1, false, ci);
 			while (result.size() <= vir.getIndex()) {
 				result.add(null);
 			}
@@ -1354,8 +1358,10 @@ public class VerifierInvocationHandler implements InvocationHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Object marshallEnumeratedValueOut(DataType_c dt, Object toMarshall, RuntimeValue_c parVal) {
-		Class<?> realizedEDT = getClassForType(dt);
+	private static Object marshallEnumeratedValueOut(DataType_c dt, Object toMarshall, Class<?> realizedEDT, RuntimeValue_c parVal) {
+		if (realizedEDT == null) {
+			realizedEDT = getClassForType(dt);
+		}
 		if (realizedEDT != null && realizedEDT.isEnum()) {
 			Object parValue = parVal.Getvalue();
 			if (parValue instanceof String) {
