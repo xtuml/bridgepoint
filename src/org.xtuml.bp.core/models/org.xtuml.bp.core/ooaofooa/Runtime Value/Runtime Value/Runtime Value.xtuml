@@ -49,8 +49,12 @@ INSERT INTO O_TFR
 	'// Runtime Value.copyValue()
 select any source from instances of RV_RVL where
                                          selected.RuntimeValue_ID == param.from;
-select one dt related by source->S_DT[R3307];
-relate self to dt across R3307;
+select one src_dt related by source->S_DT[R3307];
+select one dt related by self->S_DT[R3307];
+if empty dt
+	relate self to src_dt across R3307;
+	select one dt related by self->S_DT[R3307];
+end if;
 select one srcSmpleVal related by source->RV_SMV[R3300];
 select one srcStrctVal related by source->RV_SVL[R3300];
 select one srcArrayVal related by source->RV_AVL[R3300];
@@ -81,7 +85,16 @@ if not_empty srcSmpleVal
     end if;
     select one scv related by srcSmpleVal->RV_SCV[R3308];
     if not_empty scv
-      smpleVal.setValue(value:srcSmpleVal.getValue());
+      new_value = srcSmpleVal.getValue();
+      // convert the value to the destination type if necessary
+      if dt.Name == "timestamp" and src_dt != dt
+        new_value = GD::long_to_instance(value: GD::instance_to_long(value: new_value));
+      elif dt.getCoreDataTypeName() == "integer" and src_dt != dt
+        new_value = GD::int_to_instance(value: GD::instance_to_int(value: new_value));
+      elif dt.getCoreDataTypeName() == "real" and src_dt != dt
+        new_value = GD::real_to_instance(value: GD::instance_to_real(value: new_value));
+      end if;
+      smpleVal.setValue(value: new_value);
     else
       select one srcCrv related by srcSmpleVal->RV_CRV[R3308];
       if not_empty srcCrv
