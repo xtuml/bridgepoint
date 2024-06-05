@@ -228,13 +228,13 @@ public class Vm_c {
 		} else if (type.equals("integer")) { //$NON-NLS-1$
 			if (byRef == false) {
 				tgtInfo.argTypes.add(int.class);
-				tgtInfo.argVals.add((Object) Integer.parseInt((String) value));
+				tgtInfo.argVals.add((Object) Double.valueOf((String) value).intValue());
 			} else {
 				tgtInfo.argTypes.add(BPInteger.class);
 				if (value instanceof BPInteger) {
 					result = (BPInteger) value;
 				} else {
-					result = new BPInteger(Integer.parseInt((String) value));
+					result = new BPInteger(Double.valueOf((String) value).intValue());
 				}
 				tgtInfo.argVals.add(result);
 			}
