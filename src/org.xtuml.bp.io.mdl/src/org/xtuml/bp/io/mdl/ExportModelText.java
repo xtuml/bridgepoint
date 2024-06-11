@@ -1037,8 +1037,11 @@ public class ExportModelText extends ExportModelComponent {
 				append("%s//! %s\n", getTab(), line.stripTrailing());
 			});
 			final DataType_c type = DataType_c.getOneS_DTOnR1500(cnst_syc);
-			append("%s%s: %s = %s;\n", getTab(), sanitizeName(cnst_syc.getName()), getTypeReference(type),
-					inst.getValue().strip());
+			String value = inst.getValue().strip();
+			if ("string".equals(type.Getcoredatatypename())) {
+				value = "\"" + value + "\"";
+			}
+			append("%s%s: %s = %s;\n", getTab(), sanitizeName(cnst_syc.getName()), getTypeReference(type), value);
 
 		} else {
 			write_LiteralSymbolicConstant_c_proxy_sql(inst);
