@@ -69,7 +69,6 @@ import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.util.BPClassLoader;
 import org.xtuml.bp.core.util.OoaofooaUtil;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.java.access.VerifierInvocationHandler;
@@ -148,26 +147,6 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					 * we are not running in deterministic mode.
 					 */
 					TIM.init(useSimTime, isDeterministic());
-					for (BPThread thread: threads.toArray(new BPThread[0])) {
-						ComponentInstance_c target = thread.getEngine();
-						Component_c comp = Component_c.getOneC_COnR2955(target);
-						if (comp == null) {
-							comp = Component_c.getOneC_COnR4201(
-							   ComponentReference_c.getOneCL_ICOnR2963(target));
-						}
-						if (comp != null) {
-					        SystemModel_c system = (SystemModel_c)Ooaofooa.
-					           getDefaultInstance().getInstanceList(SystemModel_c.class).
-					                                              getGlobal(comp.Getsystemid());
-							String[] paths = comp.getRealized_class_path().split(";");
-							for(String path: paths) {
-							  if (!path.equals("")) {
-								Vm_c.Adduserclasspath(system, path);
-							  }
-							}
-						}
-					}
-					
 					User_c.Loginfo("Simulation started.");
 					// If an initializer was selected, now is the time to execute it
 					Vector<NonRootModelElement> initializers = VerifierLaunchConfiguration.getInitializers(config);
@@ -413,14 +392,8 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			ComponentInstance_c exEng) {
 		SystemModel_c sys = OoaofooaUtil.getSystemForElement(PackageableElement_c.getOnePE_PEOnR8001(comp));
 		if (sys != null) {
-			BPClassLoader cl = Vm_c.getVmCl(sys.Get_ooa_id());
+			ClassLoader cl = Vm_c.getVmCl(sys.Get_ooa_id());
 			if (cl != null) {
-				String[] paths = comp.getRealized_class_path().split(";");
-				for(String path: paths) {
-				  if (!path.equals("")) {
-					Vm_c.Adduserclasspath(sys, path);
-				  }
-				}
 				try {
 					String className = getClassNameForComponent(comp);
 					Class<?> realizedTarget = cl.loadClass(className);
@@ -1568,7 +1541,6 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (targets.contains(this)){
 			if (targets.size() <= 1){
 				Vm_c.resetAllClassLoader();
-				BPClassLoader.resetTheDefinitionsCache();
 			}
 			else{
 				Vm_c.printWarningMessageForUnloadedClassesIfNeeded(system);
