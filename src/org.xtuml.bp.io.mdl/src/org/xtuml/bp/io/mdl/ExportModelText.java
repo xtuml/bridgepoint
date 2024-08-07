@@ -202,10 +202,14 @@ public class ExportModelText extends ExportModelComponent {
 	}
 
 	private void append(String format, Object... args) {
+    String s = String.format(format, args);
+    if (s.isBlank() && s.endsWith("\n")) {
+      s = "\n";
+    }
 		if (!buffers.empty()) {
-			buffers.peek().append(String.format(format, args));
+			buffers.peek().append(s);
 		} else {
-			m_fh.printf(format, args);
+			m_fh.print(s);
 			m_fh.flush();
 		}
 	}
