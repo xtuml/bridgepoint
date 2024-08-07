@@ -137,6 +137,7 @@ else
         parm = firstParm;
       end if;
     end while;
+    firstParm = parm;
 
     convertedParms = false;
     while (not_empty parm)
@@ -152,7 +153,12 @@ else
           if (parm.By_Ref == 1)
             isByRef = true;
             convertedParms = true;
-            newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
+            newValue = GD::NULL_INSTANCE();
+            if not empty cdims
+              newValue = rtVal.getValue();
+            else
+              newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
+            end if;
             rtVal.setValue(value:newValue);
             cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
@@ -168,11 +174,14 @@ else
 
     if (convertedParms)    
       // Now convert any by ref parameters back to the original data type
-      for each parm in parms
+      parm = firstParm;
+      i = 0;
+      while (not_empty parm)
         for each arg in args
           if (parm.By_Ref == 1 and parm.Name == arg.Name)
             select one cval related by arg->V_VAL[R800];
             select one ctype related by parm->S_DT[R22];
+            select many cdims related by parm->S_DIM[R49];
             select any result related by stack_frame->I_VSF[R2951] where
                                              selected.Value_ID == cval.Value_ID;
             select one rtVal related by result->RV_RVL[R3305];
@@ -182,13 +191,20 @@ else
               select any dt_pe from instances of PE_PE where (selected.Element_ID == id);
               select one ctype related by dt_pe->S_DT[R8001];
             end if;
-            newValue = GD::convertFromBPDataType(type: ctype.Name, value:
+            newValue = GD::NULL_INSTANCE();
+            if not empty cdims
+              newValue = VM::getArgumentValue(index: i);
+            else
+              newValue = GD::convertFromBPDataType(type: ctype.Name, value:
                                                               rtVal.getValue());
+            end if;
             cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
                                value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
         end for;
-      end for;
+        i = i + 1;
+        select one parm related by parm->S_BPARM[R55.''precedes''];
+      end while;
     end if;
     if (success)    
       // Return the result

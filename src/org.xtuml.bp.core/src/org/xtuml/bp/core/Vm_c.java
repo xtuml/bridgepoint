@@ -78,6 +78,7 @@ public class Vm_c {
 			.synchronizedMap(new HashMap<SystemModel_c, ClassLoader>());
 
 	private static Object result = null;
+	private static List<Object> latestArgValues = new ArrayList<>();
 
 	public static void resetClassLoader(SystemModel_c key) {
 		vmclMap.remove(key);
@@ -193,6 +194,10 @@ public class Vm_c {
 
 	private static String[] coreTypesThatMapToObject = { "inst_ref<Object>", "inst_ref_set<Object>", "inst<Event>",
 			"inst<Mapping>", "inst_ref<Mapping>", "date", "inst_ref<Timer>" };
+	
+	public static Object Getargumentvalue(int index) {
+		return latestArgValues.size() > index ? latestArgValues.get(index) : null;
+	}
 
 	public static void Addargumentvalue(Object value) {
 		targetInfo tgtInfo = getStack().peek();
@@ -399,6 +404,10 @@ public class Vm_c {
 							oArgVals[i + firstArg] = tgtInfo.argVals.get(i);
 						}
 						result = met.invoke(target, oArgVals);
+						latestArgValues.clear();
+						for (Object argVal : oArgVals) {
+							latestArgValues.add(argVal);
+						}
 						return true; // Invoke successful
 					} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 						CorePlugin.logError("Failed to execute realized code", e);
@@ -519,7 +528,13 @@ public class Vm_c {
 	}
 
 	public static void Setarrayvaluefromlist(ArrayValue_c arrayValue, Object value) {
-		if (value instanceof List<?>) {
+		try {
+			// clear existing array values
+			for (ValueInArray_c existingValueInArray : ValueInArray_c.getManyRV_VIAsOnR3302(arrayValue)) {
+				final RuntimeValue_c rtv = RuntimeValue_c.getOneRV_RVLOnR3302(existingValueInArray);
+				existingValueInArray.unrelateAcrossR3302From(arrayValue);
+				existingValueInArray.unrelateAcrossR3302From(rtv);
+			}
 			final List<?> listValue = (List<?>) value;
 			for (int i = 0; i < listValue.size(); i++) {
 				final Object element = listValue.get(i);
@@ -540,6 +555,8 @@ public class Vm_c {
 					rtv.Setvalue(element);
 				}
 			}
+		} catch (ClassCastException e) {
+			CorePlugin.logError("Error occurred while setting array value", e);
 		}
 	}
 

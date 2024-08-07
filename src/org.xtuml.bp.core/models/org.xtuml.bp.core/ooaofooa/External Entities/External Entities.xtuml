@@ -3766,6 +3766,26 @@ INSERT INTO S_BPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_BRG
+	VALUES ("e55c399a-7e24-42f3-adaf-54e21e5323e5",
+	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
+	'getArgumentValue',
+	'',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("b38ed521-0a3b-42ab-bdde-83a6692d9ea1",
+	"e55c399a-7e24-42f3-adaf-54e21e5323e5",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("78c0d209-aae1-4a81-a2d1-e5876d473deb",
 	1,
