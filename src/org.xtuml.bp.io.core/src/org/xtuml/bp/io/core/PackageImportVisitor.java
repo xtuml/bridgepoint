@@ -43,6 +43,7 @@ import org.xtuml.bp.core.LinkedAssociation_c;
 import org.xtuml.bp.core.LiteralSymbolicConstant_c;
 import org.xtuml.bp.core.ModelClass_c;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.PackageReference_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Parsestatus_c;
@@ -152,9 +153,28 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 			}
 			currentRoot = pkg;
 			searchRoot = pkg;
+			
+			// if this is a package reference, link it up
+			if (ctx.ref_name != null) {
 
-			// process all package items
-			ctx.package_item().forEach(this::visit);
+				final String targetPkgPath = visitScoped_name(ctx.ref_name);
+				final Package_c targetPkg;
+				try {
+					targetPkg = executor.callAndWait(() -> searchByPath(Elementtypeconstants_c.PACKAGE, targetPkgPath,
+							Package_c::getOneEP_PKGOnR8001));
+				} catch (Exception e) {
+					throw new CoreImport.XtumlLoadException("Failed to find referred to package '" + targetPkgPath + "'.", e);
+				}
+				final PackageReference_c pkgRef = new PackageReference_c(modelRoot);
+				pkgRef.relateAcrossR1402ToIsReferencedBy(pkg);
+				pkgRef.relateAcrossR1402ToRefersTo(targetPkg);
+
+			} else {
+
+				// process all package items
+				ctx.package_item().forEach(this::visit);
+
+			}
 
 			return pkg;
 

@@ -945,7 +945,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 		}
 	}
 
-	public synchronized boolean isProxy() {
+	public boolean isProxy() {
 		return m_contentPath != null;
 	}
 

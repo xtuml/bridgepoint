@@ -31,6 +31,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("d124d99d-eaca-4c48-92c7-64fee4aad3e3",
@@ -113,12 +114,6 @@ else
   end if;
   
   VM::resetValues();
-  // Look for a user class that matches the EE name
-  if(ee.Realized_Class_Path != "")
-    VM::addUserClassPath(System_ID:sys.Sys_ID, path:ee.Realized_Class_Path);
-  else
-    VM::setUserClassPath(System_ID:sys.Sys_ID);
-  end if;
   loadedClass = VM::loadClass(system_id:sys.Sys_ID, name:ee.Key_Lett);
   if ( loadedClass )
     // Find the first parameter in the ordered relationship.  Use the ordered
@@ -139,6 +134,7 @@ else
         if (parm.Name == arg.Name)
           select one cval related by arg->V_VAL[R800];
           select one ctype related by parm->S_DT[R22];
+          select many cdims related by parm->S_DIM[R49];
           select any result related by stack_frame->I_VSF[R2951] where
                                                selected.Value_ID == cval.Value_ID;
           select one rtVal related by result->RV_RVL[R3305];
@@ -151,7 +147,7 @@ else
             cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
 
-          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef);
+          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef, isArray: not empty cdims);
         end if;
       end for;
       select one parm related by parm->S_BPARM[R55.''precedes''];
@@ -193,6 +189,7 @@ end if;
 	1,
 	'',
 	"730927e7-9e9c-450f-84f7-821fb603831c",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("163b0786-09af-48f0-85e7-9019e74e4400",
@@ -318,6 +315,7 @@ return true;',
 	1,
 	'',
 	"d124d99d-eaca-4c48-92c7-64fee4aad3e3",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("ddd8bde2-7d87-41bb-9048-713ada684c79",

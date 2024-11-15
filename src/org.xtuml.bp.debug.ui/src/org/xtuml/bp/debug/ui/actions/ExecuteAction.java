@@ -33,7 +33,7 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-
+import org.xtuml.bp.core.BlockInStackFrame_c;
 import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.ComponentInstance_c;
@@ -43,8 +43,13 @@ import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.Gd_c;
 import org.xtuml.bp.core.Ifdirectiontype_c;
+import org.xtuml.bp.core.InstanceBoundOperation_c;
+import org.xtuml.bp.core.InstanceHandle_c;
+import org.xtuml.bp.core.Instance_c;
 import org.xtuml.bp.core.InterfaceOperation_c;
 import org.xtuml.bp.core.InterfaceSignal_c;
+import org.xtuml.bp.core.LocalReference_c;
+import org.xtuml.bp.core.Local_c;
 import org.xtuml.bp.core.Modeleventnotification_c;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.OperationBody_c;
@@ -66,9 +71,11 @@ import org.xtuml.bp.core.RuntimeChannel_c;
 import org.xtuml.bp.core.Satisfaction_c;
 import org.xtuml.bp.core.SemEvent_c;
 import org.xtuml.bp.core.SignalEvent_c;
+import org.xtuml.bp.core.StackFrame_c;
 import org.xtuml.bp.core.Stack_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
 import org.xtuml.bp.core.Statement_c;
+import org.xtuml.bp.core.Variable_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ModelChangedEvent;
 import org.xtuml.bp.core.common.ModelRoot;
@@ -225,7 +232,7 @@ public class ExecuteAction implements IViewActionDelegate {
 					String calledElement = "interface message";
 					if (elementToExecute instanceof Function_c) {
 						calledElement = "function";
-					} else if (elementToExecute instanceof Operation_c) {
+					} else if (elementToExecute instanceof Operation_c || elementToExecute instanceof InstanceBoundOperation_c) {
 						calledElement = "operation";
 					}
 
@@ -270,6 +277,31 @@ public class ExecuteAction implements IViewActionDelegate {
 								UUID sfid = bdy.Createstackframe(true,
 										Gd_c.Null_unique_id(),
 										stack.getStack_id());
+								// set up self reference for instance based operations
+								if (elementToExecute instanceof InstanceBoundOperation_c) {
+									final StackFrame_c stackFrame = (StackFrame_c) modelRoot
+											.getInstanceList(StackFrame_c.class).getGlobal(sfid);
+									final Instance_c targetInst = Instance_c
+											.getOneI_INSOnR2979((InstanceBoundOperation_c) elementToExecute);
+									final Block_c outerBlock = Block_c.getOneACT_BLKOnR666(bdy);
+									final Variable_c[] selfVars = Variable_c.getManyV_VARsOnR823(outerBlock,
+											selected -> "self".equals(((Variable_c) selected).getName().toLowerCase()));
+									for (final Variable_c selfVar : selfVars) {
+										UUID locID = outerBlock.Newlocalreference(sfid);
+										LocalReference_c localRef = LocalReference_c.getOneL_LCROnR3001(
+												Local_c.getManyL_LCLsOnR3000(
+														BlockInStackFrame_c.getManyI_BSFsOnR2923(outerBlock)),
+												selected -> ((LocalReference_c) selected).getLocal_id()
+														.equals(locID));
+										if ((targetInst != null)) {
+											localRef.Addinstance(targetInst.getInst_id());
+										}
+										final InstanceHandle_c selfInstHandle = InstanceHandle_c
+												.getOneV_INTOnR814(selfVar);
+										selfInstHandle.relateAcrossR3004To(localRef);
+									}
+									stackFrame.relateAcrossR2954To(targetInst);
+								}
 								bdy.Startstackframeformessage(sfid);
 								launchSuccessful = true;
 							} else {
@@ -637,6 +669,9 @@ public class ExecuteAction implements IViewActionDelegate {
 					.getOneACT_FNBOnR695(fn));
 		} else if(selectedElement instanceof Operation_c) {
 			Operation_c op = (Operation_c) selectedElement;
+			bdy = Body_c.getOneACT_ACTOnR698(OperationBody_c.getOneACT_OPBOnR696(op));
+		} else if(selectedElement instanceof InstanceBoundOperation_c) {
+			Operation_c op = Operation_c.getOneO_TFROnR2979((InstanceBoundOperation_c) selectedElement);
 			bdy = Body_c.getOneACT_ACTOnR698(OperationBody_c.getOneACT_OPBOnR696(op));
 		} else if(selectedElement instanceof ProvidedOperation_c) {
 			ProvidedOperation_c proOp = (ProvidedOperation_c) selectedElement;

@@ -90,60 +90,62 @@ public class UIUtil
      * @param element null to refresh whole tree
      */
 	public static void refresh(final Object element) {
-		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+		if (PlatformUI.isWorkbenchRunning()) {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
-			@Override
-			public void run() {
-				StructuredViewer viewer = getViewer();
-				Object elementToRefresh = element;
+				@Override
+				public void run() {
+					StructuredViewer viewer = getViewer();
+					Object elementToRefresh = element;
 
-				if (element instanceof IProject) {
-					elementToRefresh = SystemModel_c.SystemModelInstance(
-							Ooaofooa.getDefaultInstance(),
-							new ClassQueryInterface_c() {
-								public boolean evaluate(Object c) {
-									return ((SystemModel_c) c).getName()
-											.equals(
-													((IProject) element)
-															.getName());
-								}
+					if (element instanceof IProject) {
+						elementToRefresh = SystemModel_c.SystemModelInstance(
+								Ooaofooa.getDefaultInstance(),
+								new ClassQueryInterface_c() {
+									public boolean evaluate(Object c) {
+										return ((SystemModel_c) c).getName()
+												.equals(
+														((IProject) element)
+																.getName());
+									}
 
-							}, false);
-				}
-				refreshViewer(viewer, elementToRefresh);
-				IEditorReference[] editorReferences = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage()
-						.getEditorReferences();
-				for (IEditorReference reference : editorReferences) {
-					IEditorPart editor = reference.getEditor(false);
-					if (editor != null) {
-						Method method = null;
-						try {
-							method = editor.getClass().getMethod(
-									"refresh", new Class[0]); //$NON-NLS-1$
-						} catch (SecurityException e) {
-							CorePlugin.logError("Unable to locate method for refreshing graphical editors.", e);
-						} catch (NoSuchMethodException e) {
-							// most editors will not have this method, for those we do not
-							// want to refresh anyway
-						}
-						if (method != null) {
+								}, false);
+					}
+					refreshViewer(viewer, elementToRefresh);
+					IEditorReference[] editorReferences = PlatformUI.getWorkbench()
+							.getActiveWorkbenchWindow().getActivePage()
+							.getEditorReferences();
+					for (IEditorReference reference : editorReferences) {
+						IEditorPart editor = reference.getEditor(false);
+						if (editor != null) {
+							Method method = null;
 							try {
-								method.invoke(editor, new Object[0]);
-							} catch (IllegalArgumentException e) {
-								CorePlugin.logError("Unable to invoke refresh method for graphical editor.", e);
-							} catch (IllegalAccessException e) {
-								CorePlugin.logError("Unable to invoke refresh method for graphical editor.", e);
-							} catch (InvocationTargetException e) {
-								CorePlugin.logError("Unable to invoke refresh method for graphical editor.", e);
+								method = editor.getClass().getMethod(
+										"refresh", new Class[0]); //$NON-NLS-1$
+							} catch (SecurityException e) {
+								CorePlugin.logError("Unable to locate method for refreshing graphical editors.", e);
+							} catch (NoSuchMethodException e) {
+								// most editors will not have this method, for those we do not
+								// want to refresh anyway
+							}
+							if (method != null) {
+								try {
+									method.invoke(editor, new Object[0]);
+								} catch (IllegalArgumentException e) {
+									CorePlugin.logError("Unable to invoke refresh method for graphical editor.", e);
+								} catch (IllegalAccessException e) {
+									CorePlugin.logError("Unable to invoke refresh method for graphical editor.", e);
+								} catch (InvocationTargetException e) {
+									CorePlugin.logError("Unable to invoke refresh method for graphical editor.", e);
+								}
 							}
 						}
 					}
+					// tell the masl editors to refresh based on this change to the xtuml model
+					RenameParticipantUtil.synchronizeMaslEditors();
 				}
-				// tell the masl editors to refresh based on this change to the xtuml model
-				RenameParticipantUtil.synchronizeMaslEditors();
-			}
-		});
+			});
+		}
 	}
 	
 	public static StructuredViewer getViewer() {

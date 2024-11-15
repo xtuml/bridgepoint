@@ -21,8 +21,9 @@ package_declaration                : description? marks?
                                    
 package_definition                 : description? marks?
                                      'package' pkg_name=name 'is'
-                                       pkg_items=package_item*
-                                     'end' 'package' ';'
+                                       ( pkg_items=package_item* 'end' 'package'
+                                       | ref_name=scoped_name
+                                       ) ';'
                                    ;
                                    
 package_item                       : package_declaration

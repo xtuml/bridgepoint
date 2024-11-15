@@ -30,6 +30,7 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("cdfab58d-383c-4bb4-9487-4fef53a559c7",
@@ -123,12 +124,6 @@ else
   end if;
   
   VM::resetValues();
-  // Look for a user class that matches the EE name
-  if(ee.Realized_Class_Path != "")
-    VM::addUserClassPath(System_ID:sys.Sys_ID, path:ee.Realized_Class_Path);
-  else
-    VM::setUserClassPath(System_ID:sys.Sys_ID);
-  end if;
   loadedClass = VM::loadClass(system_id:sys.Sys_ID, name:ee.Key_Lett);
   if ( loadedClass )
     // Find the first parameter in the ordered relationship.  Use the ordered
@@ -142,6 +137,7 @@ else
         parm = firstParm;
       end if;
     end while;
+    firstParm = parm;
 
     convertedParms = false;
     while (not_empty parm)
@@ -149,6 +145,7 @@ else
         if (parm.Name == arg.Name)
           select one cval related by arg->V_VAL[R800];
           select one ctype related by parm->S_DT[R22];
+          select many cdims related by parm->S_DIM[R49];
           select any result related by stack_frame->I_VSF[R2951] where
                                                selected.Value_ID == cval.Value_ID;
           select one rtVal related by result->RV_RVL[R3305];
@@ -156,12 +153,17 @@ else
           if (parm.By_Ref == 1)
             isByRef = true;
             convertedParms = true;
-            newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
+            newValue = GD::NULL_INSTANCE();
+            if not empty cdims
+              newValue = rtVal.getValue();
+            else
+              newValue = GD::convertToBPDataType(type: ctype.Name, value: rtVal.getValue());
+            end if;
             rtVal.setValue(value:newValue);
             cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID, value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
 
-          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef);
+          VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef, isArray: not empty cdims);
         end if;
       end for;
       select one parm related by parm->S_BPARM[R55.''precedes''];
@@ -172,11 +174,14 @@ else
 
     if (convertedParms)    
       // Now convert any by ref parameters back to the original data type
-      for each parm in parms
+      parm = firstParm;
+      i = 0;
+      while (not_empty parm)
         for each arg in args
           if (parm.By_Ref == 1 and parm.Name == arg.Name)
             select one cval related by arg->V_VAL[R800];
             select one ctype related by parm->S_DT[R22];
+            select many cdims related by parm->S_DIM[R49];
             select any result related by stack_frame->I_VSF[R2951] where
                                              selected.Value_ID == cval.Value_ID;
             select one rtVal related by result->RV_RVL[R3305];
@@ -186,20 +191,35 @@ else
               select any dt_pe from instances of PE_PE where (selected.Element_ID == id);
               select one ctype related by dt_pe->S_DT[R8001];
             end if;
-            newValue = GD::convertFromBPDataType(type: ctype.Name, value:
+            newValue = GD::NULL_INSTANCE();
+            if not empty cdims
+              newValue = VM::getArgumentValue(index: i);
+            else
+              newValue = GD::convertFromBPDataType(type: ctype.Name, value:
                                                               rtVal.getValue());
+            end if;
             cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
                                value: newValue, member_id:GD::NULL_UNIQUE_ID());
           end if;
         end for;
-      end for;
+        i = i + 1;
+        select one parm related by parm->S_BPARM[R55.''precedes''];
+      end while;
     end if;
     if (success)    
       // Return the result
+      select many dims related by brg->S_DIM[R50];
       create object instance callRtVal of RV_RVL;
-      callRtVal.createSimpleValue();
       relate callRtVal to callResult across R3305;
-      callRtVal.setValue(value:VM::getResult());
+      if empty dims
+        callRtVal.createSimpleValue();
+        callRtVal.setValue(value:VM::getResult());
+      else
+      	// load an array value
+      	create object instance newArrayValue of RV_AVL;
+      	relate newArrayValue to callRtVal across R3300;
+      	VM::setArrayValueFromList(array_value:newArrayValue, value:VM::getResult());
+      end if;
     end if;
   end if;
   for each arg in args
@@ -210,6 +230,7 @@ end if;
 	1,
 	'',
 	"d2b47707-97d9-4858-96b6-43d55c1e4154",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("c6ea4153-7c15-4edf-9557-90082ee7c706",
@@ -337,6 +358,7 @@ return true;',
 	1,
 	'',
 	"cdfab58d-383c-4bb4-9487-4fef53a559c7",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5b681b44-a4c0-46cd-8542-dd95703eb1dc",

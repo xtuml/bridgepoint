@@ -23,8 +23,13 @@ package org.xtuml.bp.debug.ui.launch;
 //======================================================================== 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IThread;
@@ -33,6 +38,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.ComponentInstance_c;
 import org.xtuml.bp.core.ComponentReference_c;
 import org.xtuml.bp.core.Component_c;
@@ -41,10 +47,11 @@ import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.SystemModel_c;
-import org.xtuml.bp.core.common.InstanceList;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.preferences.BridgePointPersistencePreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.debug.ui.IBPDebugUIPluginConstants;
 import org.xtuml.bp.debug.ui.actions.ExecuteAction;
@@ -72,47 +79,28 @@ public class BPDebugUtils {
 
 	/**
 	 * 
-	 * @param stringID The UUID of the model element to find.
+	 * @param idOrPath The UUID or model path of the model element to find.
 	 * @return NonRootModelElement associated with the given ID
 	 */
-	public static NonRootModelElement getVerifiableElement(String stringID) {
-		NonRootModelElement result = null;
-		InstanceList instances = Ooaofooa.getDefaultInstance().getInstanceList(
-				Component_c.class);
-		NonRootModelElement nrme = (NonRootModelElement) instances.getGlobal(stringID
-				.substring(0, 36));
-		if (nrme != null) {
-			result = nrme;
+	public static NonRootModelElement getVerifiableElement(String idOrPath) {
+		// look for a component first
+		Optional<NonRootModelElement> result = Stream.of(Ooaofooa.getInstances())
+				.flatMap(root -> root.getInstanceList(Component_c.class).stream())
+				.filter(nrme -> elementMatchesIdOrPath(nrme, idOrPath)).findAny();
+
+		// if found none, search for component references
+		if (result.isEmpty()) {
+			result = Stream.of(Ooaofooa.getInstances())
+					.flatMap(root -> root.getInstanceList(ComponentReference_c.class).stream())
+					.filter(nrme -> elementMatchesIdOrPath(nrme, idOrPath)).findAny();
 		}
 
-		if (result == null) {
-			instances = Ooaofooa.getDefaultInstance().getInstanceList(
-					ComponentReference_c.class);
-			nrme = (NonRootModelElement) instances
-					.getGlobal(stringID.substring(0, 36));
-			if (nrme != null) {
-				result = nrme;
-			}
-		}
-		
-		return result;
+		return result.orElse(null);
 	}
 	
-	public static ArrayList<NonRootModelElement> getVerifiableElements(
-			final String[] ids) {
-		// search all systems for domains or formal components
-		// which have a matching id
-		SystemModel_c[] systems = SystemModel_c.SystemModelInstances(Ooaofooa
-				.getDefaultInstance());
-		ArrayList<NonRootModelElement> verifiableList = new ArrayList<NonRootModelElement>();
-		for (int i = 0; i < ids.length; i++) {
-			NonRootModelElement nrme = getVerifiableElement(ids[i]);
-			if (nrme != null) {
-				verifiableList.add(nrme);
-			}
-
-		}
-		return verifiableList;
+	public static List<NonRootModelElement> getVerifiableElements(final String[] idsOrPaths) {
+		return Stream.of(idsOrPaths).map(BPDebugUtils::getVerifiableElement).filter(Objects::nonNull)
+				.collect(Collectors.toList());
 	}
 
 	public static NonRootModelElement[] getPackageChildren(
@@ -335,5 +323,19 @@ public class BPDebugUtils {
     	action.run(null);
     	UIUtil.dispatchAll();
     }
+    
+	public static boolean elementMatchesIdOrPath(NonRootModelElement nrme, String idOrPath) {
+		return idOrPath.startsWith(nrme.Get_ooa_id().toString()) || idOrPath.startsWith(nrme.getPath());
+	}
+	
+	public static String getElementIdentifier(NonRootModelElement nrme) {
+		final Preferences projectPrefs = new ProjectScope(nrme.getPersistableComponent().getFile().getProject())
+				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		if (projectPrefs.get(BridgePointPersistencePreferences.BP_PERSISTENCE_MODE_ID, "null").equals("text")) {
+			return nrme.getPath();
+		} else {
+			return nrme.Get_ooa_id().toString();
+		}
+	}
 
 }

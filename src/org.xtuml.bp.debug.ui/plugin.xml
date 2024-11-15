@@ -430,6 +430,22 @@ the License.
          </visibility>
       </viewerContribution>
       <viewerContribution
+            id="org.xtuml.bp.debug.ui.ExecuteInstanceOperationAction"
+            targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="org.xtuml.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="org.xtuml.bp.debug.ui.ExecuteInstanceOperationAction"
+               label="Execute"
+               menubarPath="org.xtuml.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="org.xtuml.bp.core.InstanceBoundOperation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
             id="org.xtuml.bp.debug.ui.ExecuteRequiredOperationAction"
             targetID="org.xtuml.bp.ui.session.views.SessionExplorerView">
          <action

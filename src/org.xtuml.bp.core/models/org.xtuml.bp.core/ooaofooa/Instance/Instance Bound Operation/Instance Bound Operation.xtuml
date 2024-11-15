@@ -1,0 +1,142 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5a7dbe5a-30e4-4462-8734-003755a768b8",
+	'Instance Bound Operation',
+	2922,
+	'I_IBO',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	0,
+	"fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"63f7e691-2107-42d2-9ca1-83170edf6ca2",
+	"d523b5db-ce3d-4de0-9057-91d2f73abd8f",
+	"31efe5b0-8ddb-4218-b33d-b11e033b38da",
+	"b7cad0f3-a921-4016-99dd-c7f97d95da60",
+	"a2829461-2c4f-465f-9b56-f4738f424ebb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Operation',
+	'Tfr_ID',
+	'R2977.''binds''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"63f7e691-2107-42d2-9ca1-83170edf6ca2",
+	"d523b5db-ce3d-4de0-9057-91d2f73abd8f",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	0,
+	"63f7e691-2107-42d2-9ca1-83170edf6ca2",
+	"31efe5b0-8ddb-4218-b33d-b11e033b38da",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b7cad0f3-a921-4016-99dd-c7f97d95da60",
+	"5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	1,
+	'Tfr_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'../../Subsystem/Operation/Operation.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b7cad0f3-a921-4016-99dd-c7f97d95da60",
+	"5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"00000000-0000-0000-0000-000000000000",
+	'Tfr_ID',
+	'',
+	'',
+	'Tfr_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"63f7e691-2107-42d2-9ca1-83170edf6ca2",
+	"d523b5db-ce3d-4de0-9057-91d2f73abd8f",
+	"06ddc65c-4a87-4a7b-837f-44f8b3291fe2",
+	"7c3f91fc-ddb9-4a1d-ace2-20069c5ac9eb",
+	"c937770e-7013-4aa6-92e3-f0f8f177bf01",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Instance',
+	'Inst_ID',
+	'R2977.''is bound to''');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"63f7e691-2107-42d2-9ca1-83170edf6ca2",
+	"06ddc65c-4a87-4a7b-837f-44f8b3291fe2",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7c3f91fc-ddb9-4a1d-ace2-20069c5ac9eb",
+	"5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	1,
+	'Inst_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	'../Instance/Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7c3f91fc-ddb9-4a1d-ace2-20069c5ac9eb",
+	"5a7dbe5a-30e4-4462-8734-003755a768b8",
+	"b7cad0f3-a921-4016-99dd-c7f97d95da60",
+	'Inst_ID',
+	'',
+	'',
+	'Inst_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"5a7dbe5a-30e4-4462-8734-003755a768b8");
+INSERT INTO O_OIDA
+	VALUES ("b7cad0f3-a921-4016-99dd-c7f97d95da60",
+	"5a7dbe5a-30e4-4462-8734-003755a768b8",
+	0,
+	'Tfr_ID');
+INSERT INTO O_OIDA
+	VALUES ("7c3f91fc-ddb9-4a1d-ace2-20069c5ac9eb",
+	"5a7dbe5a-30e4-4462-8734-003755a768b8",
+	0,
+	'Inst_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"5a7dbe5a-30e4-4462-8734-003755a768b8");
+INSERT INTO O_ID
+	VALUES (2,
+	"5a7dbe5a-30e4-4462-8734-003755a768b8");
+INSERT INTO PE_PE
+	VALUES ("5a7dbe5a-30e4-4462-8734-003755a768b8",
+	1,
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'Instance',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	900,
+	'../Instance.xtuml');

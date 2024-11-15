@@ -34,11 +34,13 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
   private static final String MODEL_ELEMENT_ID = "ModelElementID"; //$NON-NLS-1$
   private static final String MODEL_ELEMENT_LAST_NAME = "ModelElementLastName"; //$NON-NLS-1$
   private static final String MODEL_COMPONENT_PATH = "ModelComponentPath"; //$NON-NLS-1$
+  private static final String MODEL_PATH = "ModelPath"; //$NON-NLS-1$
   
   private String modelRootID;
   // We persist last Name so that we can obtain place holder file even if model is not loaded.
   private String lastName;
   private String componentPath;
+  private String modelPath;
   
   private static final long serialVersionUID = 200503311547L;
 
@@ -53,7 +55,7 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
   transient NonRootModelElement modelElement;
   transient Ooaofooa modelRoot;
   
-  protected ModelElementID(String aModelRootID, String aType, String aPath)
+  protected ModelElementID(String aModelRootID, String aType, String aPath, String modelPath)
   {
   	modelRoot = Ooaofooa.getInstance(aModelRootID, false);
   	if(modelRoot == null){
@@ -63,6 +65,7 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
   	modelRootID = modelRoot.getId();
   	type = aType;
     componentPath = aPath;
+    this.modelPath = modelPath;
   }
 
   protected ModelElementID(IMemento memento) throws CoreException
@@ -264,6 +267,7 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
   	memento.putString(MODEL_ELEMENT_LAST_NAME, getLastValidName());
     memento.putString(MODEL_COMPONENT_PATH, getComponentPath());
 	memento.putInteger(MODEL_ELEMENT_ID_COUNT, getIdCount());
+	memento.putString(MODEL_PATH, getModelPath());
 	for(int i=0; i<getIdCount(); i++){
 		memento.putString(MODEL_ELEMENT_ID + i, getId(i)); 
 	}
@@ -302,6 +306,11 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
     componentPath = memento.getString(MODEL_COMPONENT_PATH);
     if(componentPath == null){
         throw new WorkbenchException(errorMessage + MODEL_COMPONENT_PATH);
+    }
+    
+    modelPath = memento.getString(MODEL_PATH);
+    if(componentPath == null){
+        throw new WorkbenchException(errorMessage + MODEL_PATH);
     }
 
   	Integer idCountObj = memento.getInteger(MODEL_ELEMENT_ID_COUNT);
@@ -411,5 +420,9 @@ public class ModelElementID implements Serializable, Comparable<ModelElementID>
   	
   	return meId;
   	
+  }
+  
+  public String getModelPath() {
+	  return modelPath;
   }
 }

@@ -81,6 +81,7 @@ InformalAsynchronousMessageInspector.java
 InformalSynchronousMessageInspector.java
 InitialNodeInspector.java
 InstanceAttributeValueInspector.java
+InstanceBoundOperationInspector.java
 InstanceInspector.java
 InstanceStateMachineInspector.java
 InterfaceInspector.java

@@ -37,7 +37,6 @@ import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.Vm_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
-import org.xtuml.bp.core.util.BPClassLoader;
 import org.xtuml.bp.debug.ui.model.BPDebugTarget;
 
 public class VerifierInvocationAuditor {
@@ -45,7 +44,6 @@ public class VerifierInvocationAuditor {
     final static String CR = System.getProperty("line.separator");
 
     public static String performRealizedCodeAudit(Package_c pkg) {
-    	BPClassLoader.resetTheDefinitionsCache(); // Make BP reload Java classes
         String result = "Beginning binding check on package " + pkg.getName()
                 + CR + CR;
         try {
@@ -58,7 +56,6 @@ public class VerifierInvocationAuditor {
     }
 
     public static String performRealizedCodeAudit(Component_c comp) {
-    	BPClassLoader.resetTheDefinitionsCache(); // Make BP reload Java classes
         String result = "Beginning binding check on component "
                 + comp.getName() + CR + CR;
         try {
@@ -116,13 +113,6 @@ public class VerifierInvocationAuditor {
             getDefaultInstance().getInstanceList(SystemModel_c.class).
                                                getGlobal(component.Getsystemid());
             Vm_c.resetClassLoader(system);
-            Vm_c.Setuserclasspath(system.getSys_id());
-            String[] paths = component.getRealized_class_path().split(";");
-            for(String path: paths) {
-              if (!path.equals("")) {
-                Vm_c.Adduserclasspath(system, path);
-              }
-            }
         }
     }
 
@@ -212,7 +202,7 @@ public class VerifierInvocationAuditor {
         String result = "Checking component " + comp.getName() + CR;
         Class<?> realizedTarget = null;
         String className = "";
-        BPClassLoader cl = null;
+        ClassLoader cl = null;
         try {
             cl = Vm_c.getVmCl(comp);
             className = BPDebugTarget.getClassNameForComponent(comp);
@@ -266,7 +256,7 @@ public class VerifierInvocationAuditor {
         String ifacePath = BPDebugTarget.getClassPathForInterface(iface);
         String className = ifacePath + "." + ifaceName + "ToProvider";
         Class<?> realizedInterface = null;
-        BPClassLoader cl = null;
+        ClassLoader cl = null;
         try {
             cl = Vm_c.getVmCl(iface);
             realizedInterface = cl.loadClass(className);
@@ -347,7 +337,7 @@ public class VerifierInvocationAuditor {
     }
 
     private static String peformAudit(Class<?> realizedInterface,
-            ExecutableProperty_c prop, BPClassLoader cl) {
+            ExecutableProperty_c prop, ClassLoader cl) {
         String result = "";
         String methName = prop.getName();
         PropertyParameter_c[] pps = PropertyParameter_c
@@ -383,7 +373,7 @@ public class VerifierInvocationAuditor {
                 if (className != null) {
                     class4DT = cl.loadClass(className);
                 } else {
-                    class4DT = VerifierInvocationHandler.getClassForCoreTypeOf(dt, byRef);
+                    class4DT = VerifierInvocationHandler.getClassForCoreTypeOf(dt, Dimensions_c.getManyS_DIMsOnR4017(cursor), byRef);
                 }
             } catch (ClassNotFoundException cnf) {
                 // Some data types will not have a realized class so do nothing
@@ -440,7 +430,7 @@ public class VerifierInvocationAuditor {
                         expectedReturnType = cl.loadClass(className);
                     } else {
                         expectedReturnType = VerifierInvocationHandler.getClassForCoreTypeOf(
-                                modeledReturnType, false);
+                                modeledReturnType,Dimensions_c.getManyS_DIMsOnR4018(InterfaceOperation_c.getOneC_IOOnR4004(prop)) , false);
                     }
                 } catch (ClassNotFoundException cnf) {
                     // Some data types will not have a realized class so do
@@ -482,7 +472,7 @@ public class VerifierInvocationAuditor {
                         .Getpath("")
                         + "::" + dataType.getName());
                 Class<?> realizedSDT = null;
-                BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
+                ClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
                 try {
                     realizedSDT = bpcl.loadClass(typeName);
                 } catch (ClassNotFoundException cnf) {
@@ -510,7 +500,7 @@ public class VerifierInvocationAuditor {
                         try {
                             DataType_c memberDt = DataType_c
                                     .getOneS_DTOnR45(member);
-                            Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(memberDt,
+                            Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(memberDt, Dimensions_c.getManyS_DIMsOnR53(member),
                                     false);
                             setAccessor = realizedSDT.getDeclaredMethod("set"
                                     + member.getName(),
@@ -595,14 +585,14 @@ public class VerifierInvocationAuditor {
             result += "Data type check on " + dataType.getName() + " complete."
                     + CR + CR;
         } else if (udt != null) {
-            result += auditUserDefinedType(dataType);
+            result += auditUserDefinedType(dataType, new Dimensions_c[0]);
         } else if (edt != null) {
             result += auditEnumeratedDataType(dataType);
         }
         return result;
     }
 
-    private static String auditUserDefinedType(DataType_c dataType) {
+    private static String auditUserDefinedType(DataType_c dataType, Dimensions_c[] dims) {
         String result = "Checking data type " + dataType.getName() + CR;
         Package_c pkg = Package_c.getOneEP_PKGOnR8000(PackageableElement_c
                 .getOnePE_PEOnR8001(dataType));
@@ -611,7 +601,7 @@ public class VerifierInvocationAuditor {
                     .Getpath("")
                     + "::" + dataType.getName());
             Class<?> realizedUDT = null;
-            BPClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
+            ClassLoader bpcl = Vm_c.getVmCl(pkg.Getsystemid());
             try {
                 realizedUDT = bpcl.loadClass(typeName);
             } catch (ClassNotFoundException cnf) {
@@ -634,7 +624,7 @@ public class VerifierInvocationAuditor {
                     // Expected outcome, do nothing
                 }
                 try {
-                    Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(dataType, false);
+                    Class<?> coreType = VerifierInvocationHandler.getClassForCoreTypeOf(dataType, dims, false);
                     setAccessor = realizedUDT.getDeclaredMethod("setValue",
                             new Class<?>[] { coreType });
                 } catch (SecurityException e) {
@@ -718,7 +708,7 @@ public class VerifierInvocationAuditor {
                     + "::" + dataType.getName());
             SystemModel_c sys = SystemModel_c.getOneS_SYSOnR1405(pkg);
             if (sys != null) {
-                BPClassLoader cl = Vm_c.getVmCl(sys.getSys_id());
+                ClassLoader cl = Vm_c.getVmCl(sys.getSys_id());
                 if (cl != null) {
                     try {
                         Class<?> realizedEDT = cl.loadClass(className);

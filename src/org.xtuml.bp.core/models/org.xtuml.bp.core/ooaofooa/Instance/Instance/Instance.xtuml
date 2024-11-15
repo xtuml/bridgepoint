@@ -347,6 +347,14 @@ for each attrib in attribs
   attrib.dispose(); 
 end for;
 
+// Unreleate the instance from bound operations
+select many ibos related by self->I_IBO[R2979];
+for each ibo in ibos
+  select one tfr related by ibo->O_TFR[R2979];
+  unrelate self from tfr across R2979 using ibo;
+  delete object instance ibo;
+end for;
+
 // Unrelate the instance from a state machine state
 select one state related by self->SM_STATE[R2915];
 if (not_empty state)
@@ -531,6 +539,11 @@ end for;
 if (not hasUniqueID)
   self.Default_Name = ee.getNextInstance_ID();
 end if;
+select many tfrs related by newClass->O_OBJ[R2961]->O_TFR[R115] where selected.Instance_Based == Scope::Instance;
+for each tfr in tfrs
+  create object instance ibo of I_IBO;
+  relate self to tfr across R2979 using ibo;
+end for;
 if (param.initializeState == true)
   //  Set the initial instance state machine state if an instance state machine
   //  exists for this class

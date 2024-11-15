@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
     <booleanAttribute key="append.args" value="true"/>
-    <booleanAttribute key="askclear" value="true"/>
+    <booleanAttribute key="askclear" value="false"/>
     <booleanAttribute key="automaticAdd" value="true"/>
     <booleanAttribute key="automaticValidate" value="false"/>
     <stringAttribute key="bootstrap" value=""/>
     <stringAttribute key="checked" value="[NONE]"/>
     <booleanAttribute key="clearConfig" value="false"/>
-    <booleanAttribute key="clearws" value="false"/>
-    <booleanAttribute key="clearwslog" value="false"/>
+    <booleanAttribute key="clearws" value="true"/>
+    <booleanAttribute key="clearwslog" value="true"/>
     <stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/BP Application (OSX)"/>
     <booleanAttribute key="default" value="true"/>
     <booleanAttribute key="includeOptional" value="true"/>
-    <stringAttribute key="location" value="${eclipse_home}/bp_tests/test_workspace"/>
+    <stringAttribute key="location" value="${env_var:HOME}/workspace-testbp"/>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODEDETAILS_IN_EXCEPTION_MESSAGES" value="true"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
     <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -pluginCustomization ${workspace_loc}/org.xtuml.bp.pkg/plugin_customization.ini -nosplash"/>
@@ -22,7 +25,7 @@
     <stringAttribute key="product" value="org.xtuml.bp.pkg.BridgePoint"/>
     <booleanAttribute key="show_selected_only" value="false"/>
     <stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>
-    <booleanAttribute key="tracing" value="true"/>
+    <booleanAttribute key="tracing" value="false"/>
     <mapAttribute key="tracingOptions">
         <mapEntry key="org.antlr.eclipse.core/builder/debug" value="true"/>
         <mapEntry key="org.antlr.eclipse.core/debug" value="false"/>

@@ -19,12 +19,18 @@ select one simpleVal related by self->RV_SMV[R3300];
 if not_empty simpleVal
   return simpleVal.getValue();
 else
-  USER::logError(msg:"Simple access attempted on a compound value.",path:"");
-  return GD::NULL_INSTANCE();
+  select one arrayVal related by self->RV_AVL[R3300];
+  if not empty arrayVal
+  	return VM::createListFromArrayValue(array_value: arrayVal);
+  else
+  	USER::logError(msg:"Simple access attempted on a compound value.",path:"");
+  	return GD::NULL_INSTANCE();
+  end if;
 end if;',
 	1,
 	'',
 	"de1c0609-0f62-47d7-8b38-376822efd883",
+	0,
 	0);
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
@@ -43,8 +49,12 @@ INSERT INTO O_TFR
 	'// Runtime Value.copyValue()
 select any source from instances of RV_RVL where
                                          selected.RuntimeValue_ID == param.from;
-select one dt related by source->S_DT[R3307];
-relate self to dt across R3307;
+select one src_dt related by source->S_DT[R3307];
+select one dt related by self->S_DT[R3307];
+if empty dt
+	relate self to src_dt across R3307;
+	select one dt related by self->S_DT[R3307];
+end if;
 select one srcSmpleVal related by source->RV_SMV[R3300];
 select one srcStrctVal related by source->RV_SVL[R3300];
 select one srcArrayVal related by source->RV_AVL[R3300];
@@ -75,7 +85,16 @@ if not_empty srcSmpleVal
     end if;
     select one scv related by srcSmpleVal->RV_SCV[R3308];
     if not_empty scv
-      smpleVal.setValue(value:srcSmpleVal.getValue());
+      new_value = srcSmpleVal.getValue();
+      // convert the value to the destination type if necessary
+      if dt.Name == "timestamp" and src_dt != dt
+        new_value = GD::long_to_instance(value: GD::instance_to_long(value: new_value));
+      elif dt.getCoreDataTypeName() == "integer" and src_dt != dt
+        new_value = GD::int_to_instance(value: GD::instance_to_int(value: new_value));
+      elif dt.getCoreDataTypeName() == "real" and src_dt != dt
+        new_value = GD::real_to_instance(value: GD::instance_to_real(value: new_value));
+      end if;
+      smpleVal.setValue(value: new_value);
     else
       select one srcCrv related by srcSmpleVal->RV_CRV[R3308];
       if not_empty srcCrv
@@ -111,6 +130,7 @@ end if;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("fb408879-32bc-4702-b116-b8305f2444f2",
@@ -188,6 +208,7 @@ delete object instance self;
 	1,
 	'',
 	"96cf5c0f-f6eb-4cba-b66a-44bf052e62ed",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("ea8ae14e-bbb3-4165-a752-ff3e66df6b9c",
@@ -200,8 +221,10 @@ INSERT INTO O_TFR
 select one simplVal related by self->RV_SMV[R3300];
 select one strctVal related by self->RV_SVL[R3300];
 select one arrayVal related by self->RV_AVL[R3300];
-if not_empty strctVal or not_empty arrayVal
+if not_empty strctVal
   USER::logError(msg:"Simple modification attempted on a compound value.",path:"");
+elif not_empty arrayVal
+  VM::setArrayValueFromList(array_value:arrayVal, value:param.value);
 else
   if empty simplVal
     // Never been assigned before
@@ -214,6 +237,7 @@ end if;
 	1,
 	'',
 	"30f4db2b-48c3-4792-9ed1-9c6aac84faf9",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("89fa1d28-524a-4991-befd-44a6d433afcc",
@@ -253,6 +277,7 @@ end if;',
 	1,
 	'',
 	"23244ba6-708f-4a49-85da-55cf80661768",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("0915bb3c-6c49-4cf3-80ee-f9e62e368210",
@@ -332,6 +357,7 @@ end if;',
 	1,
 	'',
 	"30eb9784-56b7-475c-9f8e-03c0f0890557",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("f2294f98-b20e-4460-a01f-3d5c97062cf1",
@@ -402,6 +428,7 @@ end if;',
 	1,
 	'',
 	"0915bb3c-6c49-4cf3-80ee-f9e62e368210",
+	0,
 	0);
 INSERT INTO O_TPARM
 	VALUES ("5233e0cb-6523-4cb5-b96f-fc9e44aab661",
@@ -427,6 +454,7 @@ simplVal.initialize();
 	1,
 	'',
 	"ea8ae14e-bbb3-4165-a752-ff3e66df6b9c",
+	0,
 	0);
 INSERT INTO O_TFR
 	VALUES ("76b54826-7b3f-48bb-a579-64d78f789906",
@@ -444,6 +472,7 @@ relate simplVal to refVal across R3308;
 	1,
 	'',
 	"eabcc99a-24e8-4052-81f4-cc9602eb1f78",
+	0,
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",

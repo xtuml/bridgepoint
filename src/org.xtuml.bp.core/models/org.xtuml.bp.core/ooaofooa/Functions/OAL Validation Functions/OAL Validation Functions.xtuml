@@ -17298,6 +17298,17 @@ INSERT INTO S_SYNC
   end if;
   select one irv related by var->V_INT[R814];
   select one obj related by irv->O_OBJ[R818];
+  
+  select one s_dt related by var->S_DT[R848];
+  select one act_blk related by trv->V_VAL[R801]->ACT_BLK[R826];
+  create object instance v_val of V_VAL;
+  // TODO set LineNumber, StartPosition, EndPosition
+  relate v_val to act_blk across R826;
+  relate s_dt to v_val across R820;
+  create object instance v_irf of V_IRF;
+  relate var to v_irf across R808;
+  relate v_irf to v_val across R801;
+    
   if (empty obj)
     ERR::reportParseError( msg:  "Variable ->" + var.Name + 
 	        "<- does not exist in scope as an object instance variable",

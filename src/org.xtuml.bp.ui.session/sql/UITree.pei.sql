@@ -55,6 +55,7 @@ INSERT INTO T_TNS VALUES (23,  'field_default_obj.gif', 'I_EXE',   '', 'Label', 
 INSERT INTO T_TNS VALUES (24, '',                       'I_LIP',  '', 'Label', '', 'Associations', false);
 INSERT INTO T_TNS VALUES (26,  '', 'S_SPARM', '', 'Name', '', 'Function Parameters', true);
 INSERT INTO T_TNS VALUES (27,  '', 'EP_PKG', '', 'Label', '', 'Packages', false);
+INSERT INTO T_TNS VALUES (28, 'InstanceBasedOperation.gif', 'I_IBO', '', 'Name', '->O_TFR[R2979]', 'Instance Bound Operations', false);
 
 INSERT INTO T_TPS VALUES (4,  21, '->O_OBJ[R2961]->O_TFR[R115]', '', 'getInstance_based() == 0');
 INSERT INTO T_TPS VALUES (5,  9,  '->SM_STATE[R2915]');
@@ -89,6 +90,7 @@ INSERT INTO T_TPS VALUES (5,   24, '->I_LIP[R2958]->I_LNK[R2901]->I_LIP[R2902]')
 INSERT INTO T_TPS VALUES (5,   24, '->I_LIP[R2958]->I_LNK[R2902]->I_LIP[R2901]');
 INSERT INTO T_TPS VALUES (5,   24, '->I_LIP[R2958]->I_LNK[R2903]->I_LIP[R2901]');
 INSERT INTO T_TPS VALUES (5,   24, '->I_LIP[R2958]->I_LNK[R2903]->I_LIP[R2902]');
+INSERT INTO T_TPS VALUES (5,   28, '->I_IBO[R2979]');
 INSERT INTO T_TPS VALUES (24,  5, '->I_LNK[R2901]->I_LIP[R2903]->I_INS[R2958]');
 INSERT INTO T_TPS VALUES (24,  5, '->I_LNK[R2902]->I_LIP[R2903]->I_INS[R2958]');
 INSERT INTO T_TPS VALUES (24,  5, '->I_INS[R2958]'); 

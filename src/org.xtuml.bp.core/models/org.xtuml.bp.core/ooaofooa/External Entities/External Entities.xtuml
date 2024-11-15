@@ -1235,46 +1235,31 @@ INSERT INTO S_BRG
 	'if (p_Value == null) {
   return "";
 }
-try
-{
-  if (p_Value instanceof lib.BPInteger) 
-  {
+try {
+  if (p_Value instanceof lib.BPInteger)  {
     Integer intValue = new Integer(((lib.BPInteger) p_Value).getValue());
     return intValue.toString();
-  }
-  if (p_Value instanceof lib.BPUniqueId) {
+  } else if (p_Value instanceof lib.BPUniqueId) {
     return ((lib.BPUniqueId) p_Value).getValue().toString();
-  }
-  if (p_Value instanceof lib.BPFloat)
-  {
+  } else if (p_Value instanceof lib.BPFloat) {
     Float floatValue = new Float(((lib.BPFloat) p_Value).getValue());
     return floatValue.toString();
-  }
-  if (p_Value instanceof lib.BPBoolean)
-  {
+  } else if (p_Value instanceof lib.BPBoolean) {
     Boolean boolValue = new Boolean(((lib.BPBoolean) p_Value).getValue());
     return boolValue.toString();
-  }
-  if (p_Value instanceof lib.BPString)
-  {
+  } else if (p_Value instanceof lib.BPString) {
     String stringValue = new String(((lib.BPString) p_Value).getValue());
     return stringValue;
+  } else {
+    return p_Value.toString();
   }
-  
-  return p_Value.toString();
-}
-
-catch (ClassCastException e)
-{
+} catch (ClassCastException e) {
   CorePlugin.logError("GD::instance_to_string exception: Exception", e);
   return p_Value.toString();
-}
-catch (Exception e)
-{
+} catch (Exception e) {
   CorePlugin.logError("GD::instance_to_string exception: Exception", e);
   return p_Value.toString();
-}
-',
+}',
 	0,
 	'',
 	0);
@@ -1355,23 +1340,17 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000001",
-	'try
-{
-  if (p_Value instanceof lib.BPString)
-  {
+	'try {
+  if (p_Value instanceof lib.BPString) {
     return String_to_boolean(((lib.BPString)p_Value).getValue());				
-  }
-  if (p_Value instanceof lib.BPBoolean)
-  {
+  } else if (p_Value instanceof lib.BPBoolean) {
     return ((lib.BPBoolean) p_Value).getValue();
+  } else {
+    // object has to be converted to string because it was originally stored as string 
+    return String_to_boolean(p_Value.toString());   
   }
-  
-  //object has to be converted to string because it was originally stored as string 
-  return String_to_boolean(p_Value.toString());   
-}
-catch(Exception e)
-{
-  //An exception was caught here, just return false;
+} catch (Exception e) {
+  // An exception was caught here, just return false;
   CorePlugin.logError("GD::instance_to_boolean exception: Exception", e);
   return false;
 }',
@@ -1394,33 +1373,26 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000003",
-	'try
-{
-  if (p_Value instanceof lib.BPString)
-  {
+	'try {
+  if (p_Value instanceof lib.BPString) {
     return String_to_real(((lib.BPString) p_Value).getValue());
-  }
-  if (p_Value instanceof lib.BPFloat)
-  {
+  } else if (p_Value instanceof lib.BPFloat) {
     return ((lib.BPFloat)p_Value).getValue(); 
+  } else if (p_Value instanceof Number) {
+    return ((Number) p_Value).floatValue();
+  } else {
+    // object has to be converted to string because it was originally stored as string 
+    return String_to_real(p_Value.toString());  
   }
-  
-  //object has to be converted to string because it was originally stored as string 
-  return String_to_real(p_Value.toString());  
-}
-catch(NumberFormatException e)
-{  
-  //A number format exception was caught here, just return -1.1;
+} catch (NumberFormatException e) {  
+  // A number format exception was caught here, just return -1.1;
   CorePlugin.logError("GD::instance_to_real exception: NumberFormatException", e);
   return -1;
-}
-catch(Exception e)
-{
+} catch (Exception e) {
   //An exception was caught here, just return -1.1;
   CorePlugin.logError("GD::instance_to_real exception: Exception", e);
   return -1;
-}
-',
+}',
 	0,
 	'',
 	0);
@@ -1440,38 +1412,32 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000002",
-	'try
-{
-  if (p_Value instanceof lib.BPString)
-  {
+	'try {
+  if (p_Value instanceof lib.BPString) {
     return String_to_int(((lib.BPString) p_Value).getValue());
-  }
-  if (p_Value instanceof lib.BPInteger)
-  {
+  } else if (p_Value instanceof lib.BPInteger) {
     return ((lib.BPInteger)p_Value).getValue();
-  }
-  if (p_Value instanceof String) {
+  } else if (p_Value instanceof String) {
     if (((String)p_Value).equals("not participating")) {
       return 0;
-    }
+    } else {
+   	  return String_to_int(p_Value.toString());  
+   	}
+  } else if (p_Value instanceof Number) {
+    return ((Number) p_Value).intValue();
+  } else {
+    // object has to be converted to string because it was originally stored as string 
+    return String_to_int(p_Value.toString());  
   }
-  //object has to be converted to string because it was originally stored as string 
-  return String_to_int(p_Value.toString());  
-}
-catch(NumberFormatException e)
-{  
-  //A number format exception was caught here, just return -1;
+} catch (NumberFormatException e) {  
+  // A number format exception was caught here, just return -1;
   CorePlugin.logError("GD::instance_to_int exception: NumberFormatException", e);
   return -1;
-}
-catch(Exception e)
-{
-  //An exception was caught here, just return -1;
+} catch (Exception e) {
+  // An exception was caught here, just return -1;
   CorePlugin.logError("GD::instance_to_int exception: Exception", e);
   return -1;
-}
-  
-',
+}',
 	0,
 	'',
 	0);
@@ -1491,33 +1457,24 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000005",
-	'try
-{
+	'try {
   if (p_Value == null) {
     return Null_unique_id();
-  }
-  if (p_Value instanceof lib.BPString)
-  {
+  } else if (p_Value instanceof lib.BPString) {
     return String_to_unique_id(((lib.BPString) p_Value).getValue());
+  } else {
+    // object has to be converted to string because it was originally stored as string 
+    return String_to_unique_id(p_Value.toString());
   }
-  
-  //object has to be converted to string because it was originally stored as string 
-  return String_to_unique_id(p_Value.toString());
-}
-catch(NumberFormatException e)
-{
-  //A number format exception was caught here, just return 0;
+} catch (NumberFormatException e) {
+  // A number format exception was caught here, just return 0;
   CorePlugin.logError("GD::instance_to_unique_id exception: NumberFormatException", e);
   return Null_unique_id();
-}
-catch(Exception e)
-{
-  //An exception was caught here, just return 0;
+} catch (Exception e) {
+  // An exception was caught here, just return 0;
   CorePlugin.logError("GD::instance_to_unique_id exception: Exception", e);
   return Null_unique_id();
-}
-
-',
+}',
 	0,
 	'',
 	0);
@@ -1955,38 +1912,32 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"f0e53f72-2765-4257-ae4c-e44680e63219",
-	'try
-{
-  if (p_Value instanceof lib.BPString)
-  {
+	'try {
+  if (p_Value instanceof lib.BPString) {
     return String_to_long(((lib.BPString) p_Value).getValue());
-  }
-  if (p_Value instanceof lib.BPLong)
-  {
+  } else if (p_Value instanceof lib.BPLong) {
     return ((lib.BPLong)p_Value).getValue();
-  }
-  if (p_Value instanceof String) {
+  } if (p_Value instanceof String) {
     if (((String)p_Value).equals("not participating")) {
       return 0L;
+    } else {
+      return String_to_long(p_Value.toString());  
     }
+  } else if (p_Value instanceof Number) {
+    return ((Number) p_Value).longValue();
+  } else {
+    // object has to be converted to string because it was originally stored as string 
+    return String_to_long(p_Value.toString());  
   }
-  //object has to be converted to string because it was originally stored as string 
-  return String_to_long(p_Value.toString());  
-}
-catch(NumberFormatException e)
-{  
-  //A number format exception was caught here, just return -1;
+} catch(NumberFormatException e) {  
+  // A number format exception was caught here, just return -1;
   CorePlugin.logError("GD::instance_to_long exception: NumberFormatException", e);
   return -1L;
-}
-catch(Exception e)
-{
-  //An exception was caught here, just return -1;
+} catch (Exception e) {
+  // An exception was caught here, just return -1;
   CorePlugin.logError("GD::instance_to_long exception: Exception", e);
   return -1L;
-}
-  
-',
+}',
 	0,
 	'',
 	0);
@@ -3688,7 +3639,7 @@ INSERT INTO S_BPARM
 	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
-	"f1057c07-30db-4878-8911-16a056664bb8",
+	"977c9794-7e94-4a54-98f9-18f28a63ddd0",
 	'');
 INSERT INTO S_BPARM
 	VALUES ("f1057c07-30db-4878-8911-16a056664bb8",
@@ -3698,6 +3649,15 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("977c9794-7e94-4a54-98f9-18f28a63ddd0",
+	"956df659-ebec-4959-b1e5-a526c1d6c08f",
+	'isArray',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"f1057c07-30db-4878-8911-16a056664bb8",
 	'');
 INSERT INTO S_BRG
 	VALUES ("89d9472d-d11d-4ee5-b56c-89290916732c",
@@ -3740,26 +3700,6 @@ INSERT INTO S_BPARM
 	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO S_BRG
-	VALUES ("10f871d1-7bfd-4d67-a020-56ae1f5bc7ed",
-	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
-	'setUserClassPath',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'',
-	0,
-	'',
-	0);
-INSERT INTO S_BPARM
-	VALUES ("271c8756-460a-463f-b4d4-ed51bd8b043c",
-	"10f871d1-7bfd-4d67-a020-56ae1f5bc7ed",
-	'System_ID',
-	"ba5eda7a-def5-0000-0000-000000000005",
-	0,
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'');
-INSERT INTO S_BRG
 	VALUES ("7eb4a3dc-8734-4d1f-b313-f5efbf869357",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
 	'getResult',
@@ -3771,33 +3711,80 @@ INSERT INTO S_BRG
 	'',
 	0);
 INSERT INTO S_BRG
-	VALUES ("59d05ddd-caeb-4856-8ea1-dfc69adc1727",
+	VALUES ("b5d4eed6-0e07-43db-9034-1b3f03c611f8",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
-	'addUserClassPath',
+	'createListFromArrayValue',
 	'',
 	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'',
-	0,
+	1,
 	'',
 	0);
 INSERT INTO S_BPARM
-	VALUES ("e0507dda-d697-48ac-a171-c963f0ce31f3",
-	"59d05ddd-caeb-4856-8ea1-dfc69adc1727",
-	'System_ID',
-	"ba5eda7a-def5-0000-0000-000000000005",
+	VALUES ("694eaf2d-929a-4b1b-848a-211e177a13c8",
+	"b5d4eed6-0e07-43db-9034-1b3f03c611f8",
+	'array_value',
+	"5a4e5ca1-96c3-4212-a6ea-cf87ab34d1e3",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("5a4e5ca1-96c3-4212-a6ea-cf87ab34d1e3",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Array Value>',
+	'',
+	'',
+	'../Runtime Value/Runtime Value.xtuml');
+INSERT INTO S_BRG
+	VALUES ("2fad8fe7-b57b-47b1-93cb-a7b055a8281a",
+	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
+	'setArrayValueFromList',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'',
+	0);
 INSERT INTO S_BPARM
-	VALUES ("980119b3-5a39-4ee9-9014-2755233b879b",
-	"59d05ddd-caeb-4856-8ea1-dfc69adc1727",
-	'path',
-	"ba5eda7a-def5-0000-0000-000000000004",
+	VALUES ("3fe0ef36-c78b-44d9-8ed6-fe4c3037bb00",
+	"2fad8fe7-b57b-47b1-93cb-a7b055a8281a",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	0,
 	'',
-	"e0507dda-d697-48ac-a171-c963f0ce31f3",
+	"07970d3d-4321-4dbc-9736-8bf5ef77f1b7",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("07970d3d-4321-4dbc-9736-8bf5ef77f1b7",
+	"2fad8fe7-b57b-47b1-93cb-a7b055a8281a",
+	'array_value',
+	"5a4e5ca1-96c3-4212-a6ea-cf87ab34d1e3",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e55c399a-7e24-42f3-adaf-54e21e5323e5",
+	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
+	'getArgumentValue',
+	'',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'',
+	3,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("b38ed521-0a3b-42ab-bdde-83a6692d9ea1",
+	"e55c399a-7e24-42f3-adaf-54e21e5323e5",
+	'index',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
 	'');
 INSERT INTO PE_PE
 	VALUES ("78c0d209-aae1-4a81-a2d1-e5876d473deb",
