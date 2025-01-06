@@ -49,13 +49,13 @@ public class TextResizeTracker extends ResizeTracker {
 	}
 
 	@Override
-	protected List<?> createOperationSet() {
+	protected List createOperationSet() {
 		List<?> list = getCurrentViewer().getSelectedEditParts();
 		// add any text edit parts if existing
 		// they are always selected along with
 		// the parent, but as a secondary selection
 		// according to GEF
-		List<Object> additionalSelection = new ArrayList<Object>();
+		List additionalSelection = new ArrayList<Object>();
 		additionalSelection.addAll(list);
 		for (Object selected : list) {
 			EditPart part = (EditPart) selected;

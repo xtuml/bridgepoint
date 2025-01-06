@@ -58,7 +58,7 @@ public class TextDragEditPartsTracker extends DragEditPartsTracker {
 	}
 
 	@Override
-	protected List<Object> createOperationSet() {
+	protected List createOperationSet() {
 		if (getCurrentViewer() != null) {
 			List<?> list = ToolUtilities
 					.getSelectionWithoutDependants(getCurrentViewer());
@@ -66,7 +66,7 @@ public class TextDragEditPartsTracker extends DragEditPartsTracker {
 			// they are always selected along with
 			// the parent, but as a secondary selection
 			// according to GEF
-			List<Object> additionalSelection = new ArrayList<Object>();
+			List additionalSelection = new ArrayList<Object>();
 			additionalSelection.addAll(list);
 			for (Object selected : list) {
 				EditPart part = (EditPart) selected;

@@ -22,7 +22,7 @@ public class ConnectorEndpointEditPolicy extends ConnectionEndpointEditPolicy {
 	}
 
 	@Override
-	protected List<?> createSelectionHandles() {
+	protected List createSelectionHandles() {
 		fPreviousLineWidth = ((PolylineConnection) getHostFigure())
 				.getLineWidth();
 		if (fPreviousLineWidth == 0) {
