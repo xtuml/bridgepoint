@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>4.0.4</tycho-version>
+		<tycho-version>4.0.9</tycho-version>
 		<ant-home-path>${env.ANT_HOME}</ant-home-path>
 		<eclipse-home-path>${env.bp_install_dir}</eclipse-home-path>
 		<mcj_path>../../src/MC-Java</mcj_path>
@@ -20,25 +20,24 @@
 
 	<repositories>
 		<repository>
-			<id>2022-06</id>
+			<id>2024-12</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/releases/2023-12/</url>
+			<url>https://download.eclipse.org/releases/2024-12/</url>
 		</repository>
 		<repository>
-			<id>4.30-update</id>
+			<id>4.34-update</id>
 			<layout>p2</layout>
-      <url>https://download.eclipse.org/eclipse/updates/4.30/</url>
+      <url>https://download.eclipse.org/eclipse/updates/4.34/</url>
 		</repository>
 		<repository>
 			<id>antlr</id>
 			<layout>p2</layout>
-			<!--<url>file:////build/buildmt/repository</url>-->
 			<url>https://s3.amazonaws.com/1f-outgoing/antlr_upsite/</url>
 		</repository>
 		<repository>
-			<id>cdt-11.4.0</id>
+			<id>cdt-11.6</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/tools/cdt/releases/11.4/</url>
+			<url>https://download.eclipse.org/tools/cdt/releases/11.6/</url>
 		</repository>
 	</repositories>
 	

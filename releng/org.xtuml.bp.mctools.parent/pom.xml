@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <tycho-version>4.0.4</tycho-version>
+    <tycho-version>4.0.9</tycho-version>
   </properties>
 
   <modules>

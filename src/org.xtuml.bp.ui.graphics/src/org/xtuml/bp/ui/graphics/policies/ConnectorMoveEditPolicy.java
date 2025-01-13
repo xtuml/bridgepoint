@@ -277,7 +277,7 @@ public class ConnectorMoveEditPolicy extends NonResizableEditPolicy {
 	}
 
 	@Override
-	protected List<?> createSelectionHandles() {
+	protected List createSelectionHandles() {
 		return Collections.EMPTY_LIST;
 	}
 

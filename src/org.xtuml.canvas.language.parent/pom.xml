@@ -16,7 +16,7 @@
 		<mwe2Version>2.16.0</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- Tycho settings -->
-		<tycho-version>4.0.4</tycho-version>
+		<tycho-version>4.0.9</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>

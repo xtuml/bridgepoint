@@ -65,7 +65,7 @@ public class ConnectorBendPointEditPolicy extends BendpointEditPolicy {
 	}
 
 	@Override
-	protected List<?> createSelectionHandles() {
+	protected List createSelectionHandles() {
 		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		ConnectionEditPart connEP = (ConnectionEditPart) getHost();
 		PointList points = getConnection().getPoints();

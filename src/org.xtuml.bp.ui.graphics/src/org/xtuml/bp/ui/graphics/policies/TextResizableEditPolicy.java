@@ -176,7 +176,7 @@ public class TextResizableEditPolicy extends ResizableEditPolicy {
 	}
 
 	@Override
-	protected List<Handle> createSelectionHandles() {
+	protected List createSelectionHandles() {
 		List<Handle> list = new ArrayList<Handle>();
 		MoveHandle moveHandle = new MoveHandle((GraphicalEditPart) getHost());
 		moveHandle.setDragTracker(new TextDragEditPartsTracker(getHost()));
