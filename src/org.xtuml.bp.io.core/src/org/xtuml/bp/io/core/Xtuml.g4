@@ -220,6 +220,7 @@ enumeration_type_definition        : 'enum' '('
 
 enumerator                         : description? marks?
                                      enum_name=name
+                                     ( '=' enum_value=const_expression )?
                                    ;
                                    
 named_type_definition              : type_reference ( 'range' min=const_expression '..' max=const_expression )?;
