@@ -1486,6 +1486,24 @@ return not_empty levt;',
 	"08dbb38e-50fc-4dfe-8a53-99912f985cba",
 	0,
 	2);
+INSERT INTO O_TFR
+	VALUES ("74576aa2-d33c-401c-8e7c-bb99811ba473",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getSourceClassName',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	1,
+	'select one supertype_event related by self->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525];
+if not empty supertype_event
+  return supertype_event.getSourceClassName();
+else
+  return self.getClassName();
+end if;',
+	1,
+	'',
+	"acd60e40-f9a6-4f7f-91bc-f34f2655aba4",
+	0,
+	3);
 INSERT INTO O_NBATTR
 	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");

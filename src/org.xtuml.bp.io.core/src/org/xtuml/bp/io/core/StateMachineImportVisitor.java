@@ -42,6 +42,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.DimensionsUtil;
 import org.xtuml.bp.io.core.XtumlParser.DefinitionContext;
 import org.xtuml.bp.io.core.XtumlParser.Event_declarationContext;
+import org.xtuml.bp.io.core.XtumlParser.Event_nameContext;
 import org.xtuml.bp.io.core.XtumlParser.ParameterContext;
 import org.xtuml.bp.io.core.XtumlParser.Parameter_listContext;
 import org.xtuml.bp.io.core.XtumlParser.State_definitionContext;
@@ -218,96 +219,89 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 					.collect(Collectors.joining(System.lineSeparator())));
 		}
 
-    if (ctx.transition_row().size() > 0) {
+		if (ctx.transition_row().size() > 0) {
 
-      // verify consistent width
-      if (ctx.evt_names.size() != (ctx.Divider().size() - 1)
-          || ctx.transition_row().stream().anyMatch(row -> ctx.evt_names.size() != row.end_states.size())) {
-        throw new CoreImport.XtumlLoadException(
-            "State/event matrix rows do not a have consistent number of columns");
-      }
+			currentRoot = stateMachine;
 
-      // process each transition row
-      for (Transition_rowContext row : ctx.transition_row()) {
-        // get the start state
-        final String startStateName = visitName(row.start_state_name);
-        final StateMachineState_c startState = StateMachineState_c.getOneSM_STATEOnR501(stateMachine,
-            selected -> ((StateMachineState_c) selected).getName().equals(startStateName));
-        for (int i = 0; i < ctx.evt_names.size(); i++) {
+			// verify consistent width
+			if (ctx.evt_names.size() != (ctx.Divider().size() - 1)
+					|| ctx.transition_row().stream().anyMatch(row -> ctx.evt_names.size() != row.end_states.size())) {
+				throw new CoreImport.XtumlLoadException(
+						"State/event matrix rows do not a have consistent number of columns");
+			}
 
-          // get the referred to event
-          final String evtPath = visitScoped_name(ctx.evt_names.get(i));
-          StateMachineEvent_c refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(stateMachine,
-              selected -> pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
-          if (refEvt == null) {
-            // search for polymorphic events
-            StateMachine_c[] superTypeSms = getSupertypeStateMachines(stateMachine);
-            while (superTypeSms.length > 0 && refEvt == null) {
-              refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
-                  selected -> ((StateMachineEvent_c) selected)
-                      .Isassignabletostatemachine(stateMachine.getSm_id(), startState == null)
-                      && pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
-              superTypeSms = getSupertypeStateMachines(superTypeSms);
-            }
-          }
+			// process each transition row
+			for (Transition_rowContext row : ctx.transition_row()) {
+				// get the start state
+				final String startStateName = visitName(row.start_state_name);
+				final StateMachineState_c startState = StateMachineState_c.getOneSM_STATEOnR501(stateMachine,
+						selected -> ((StateMachineState_c) selected).getName().equals(startStateName));
+				for (int i = 0; i < ctx.evt_names.size(); i++) {
 
-          // get the associated event (create non-local event if necessary)
-          final StateMachineEvent_c evt = (StateMachineEvent_c) modelRoot
-              .getInstanceList(StateMachineEvent_c.class)
-              .get(refEvt.Getassociatedeventforstatemachine(stateMachine.getSm_id()));
+					// get the referred to event
+					final String evtPath = visitEvent_name(ctx.evt_names.get(i));
+					final StateMachineEvent_c refEvt = getReferredToEvent(stateMachine, startState, evtPath);
 
-          // get the end state
-          final String endStateName = Optional.ofNullable(row.end_states.get(i).end_state_name)
-              .map(this::visitName).orElse(null);
-          final StateMachineState_c endState = StateMachineState_c.getOneSM_STATEOnR501(stateMachine,
-              selected -> ((StateMachineState_c) selected).getName().equals(endStateName));
+					// get the associated event (create non-local event if necessary)
+					final StateMachineEvent_c evt = (StateMachineEvent_c) modelRoot
+							.getInstanceList(StateMachineEvent_c.class)
+							.get(refEvt.Getassociatedeventforstatemachine(stateMachine.getSm_id()));
 
-          // if the end state exists, create a transition
-          if (endState != null) {
-            final Transition_c txn = new Transition_c(modelRoot);
-            txn.relateAcrossR506To(endState);
+					// get the end state
+					final String endStateName = Optional.ofNullable(row.end_states.get(i).end_state_name)
+							.map(this::visitName).orElse(null);
+					final StateMachineState_c endState = StateMachineState_c.getOneSM_STATEOnR501(stateMachine,
+							selected -> ((StateMachineState_c) selected).getName().equals(endStateName));
 
-            // if there is no start state, it is a creation transition
-            if (startState == null) {
-              final CreationTransition_c crTxn = new CreationTransition_c(modelRoot);
-              crTxn.relateAcrossR507To(txn);
-              crTxn.relateAcrossR509To(LocalEvent_c.getOneSM_LEVTOnR526(SemEvent_c.getOneSM_SEVTOnR525(evt)));
-            } else {
-              final NewStateTransition_c nsTxn = new NewStateTransition_c(modelRoot);
-              nsTxn.relateAcrossR507To(txn);
-              final StateEventMatrixEntry_c seme = new StateEventMatrixEntry_c(modelRoot);
-              seme.relateAcrossR504To(nsTxn);
-              seme.relateAcrossR503To(startState);
-              seme.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
-            }
+					// if the end state exists, create a transition
+					if (endState != null) {
+						final Transition_c txn = new Transition_c(modelRoot);
+						txn.relateAcrossR506To(endState);
 
-            // create transition action
-            final Action_c act = new Action_c(modelRoot);
-            final ActionHome_c ah = new ActionHome_c(modelRoot);
-            ah.relateAcrossR514To(act);
-            final TransitionActionHome_c tah = new TransitionActionHome_c(modelRoot);
-            tah.relateAcrossR513To(ah);
-            tah.relateAcrossR530To(txn);
-            act.relateAcrossR515To(stateMachine);
+						// if there is no start state, it is a creation transition
+						if (startState == null) {
+							final CreationTransition_c crTxn = new CreationTransition_c(modelRoot);
+							crTxn.relateAcrossR507To(txn);
+							crTxn.relateAcrossR509To(
+									LocalEvent_c.getOneSM_LEVTOnR526(SemEvent_c.getOneSM_SEVTOnR525(evt)));
+						} else {
+							final NewStateTransition_c nsTxn = new NewStateTransition_c(modelRoot);
+							nsTxn.relateAcrossR507To(txn);
+							final StateEventMatrixEntry_c seme = new StateEventMatrixEntry_c(modelRoot);
+							seme.relateAcrossR504To(nsTxn);
+							seme.relateAcrossR503To(startState);
+							seme.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
+						}
 
-            // link transtion to state machine
-            txn.relateAcrossR505To(stateMachine);
+						// create transition action
+						final Action_c act = new Action_c(modelRoot);
+						final ActionHome_c ah = new ActionHome_c(modelRoot);
+						ah.relateAcrossR514To(act);
+						final TransitionActionHome_c tah = new TransitionActionHome_c(modelRoot);
+						tah.relateAcrossR513To(ah);
+						tah.relateAcrossR530To(txn);
+						act.relateAcrossR515To(stateMachine);
 
-          } else {
-            final StateEventMatrixEntry_c seme = new StateEventMatrixEntry_c(modelRoot);
-            seme.relateAcrossR503To(startState);
-            seme.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
-            if (row.end_states.get(i).ch != null) {
-              seme.relateAcrossR504To(new CantHappen_c(modelRoot));
-            } else if (row.end_states.get(i).ig != null) {
-              seme.relateAcrossR504To(new EventIgnored_c(modelRoot));
-            }
-          }
+						// link transtion to state machine
+						txn.relateAcrossR505To(stateMachine);
 
-        }
-      }
+					} else {
+						final StateEventMatrixEntry_c seme = new StateEventMatrixEntry_c(modelRoot);
+						seme.relateAcrossR503To(startState);
+						seme.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
+						if (row.end_states.get(i).ch != null) {
+							seme.relateAcrossR504To(new CantHappen_c(modelRoot));
+						} else if (row.end_states.get(i).ig != null) {
+							seme.relateAcrossR504To(new EventIgnored_c(modelRoot));
+						}
+					}
 
-    }
+				}
+			}
+
+			currentRoot = modelClass;
+
+		}
 
 		return (ctx.class_based != null) ? ClassStateMachine_c.getOneSM_ASMOnR517(stateMachine)
 				: InstanceStateMachine_c.getOneSM_ISMOnR517(stateMachine);
@@ -318,26 +312,16 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 		final ModelClass_c modelClass = (ModelClass_c) currentRoot;
 		final StateMachine_c stateMachine = getStateMachine(modelClass, ctx.class_based != null);
 
+		currentRoot = stateMachine;
+
 		// get the start state
 		final String startStateName = visitName(ctx.start_state_name);
 		final StateMachineState_c startState = StateMachineState_c.getOneSM_STATEOnR501(stateMachine,
 				selected -> ((StateMachineState_c) selected).getName().equals(startStateName));
 
 		// get the referred to event
-		final String evtPath = visitScoped_name(ctx.evt_name);
-		StateMachineEvent_c refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(stateMachine,
-				selected -> pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
-		if (refEvt == null) {
-			// search for polymorphic events
-			StateMachine_c[] superTypeSms = getSupertypeStateMachines(stateMachine);
-			while (superTypeSms.length > 0 && refEvt == null) {
-				refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
-						selected -> ((StateMachineEvent_c) selected).Isassignabletostatemachine(stateMachine.getSm_id(),
-								startState == null)
-								&& pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
-				superTypeSms = getSupertypeStateMachines(superTypeSms);
-			}
-		}
+		final String evtPath = visitEvent_name(ctx.evt_name);
+		final StateMachineEvent_c refEvt = getReferredToEvent(stateMachine, startState, evtPath);
 
 		// get the associated event (create non-local event if necessary)
 		final StateMachineEvent_c evt = (StateMachineEvent_c) modelRoot.getInstanceList(StateMachineEvent_c.class)
@@ -355,6 +339,8 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 		final Action_c act = Action_c
 				.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(TransitionActionHome_c.getOneSM_TAHOnR530(txn)));
 
+		currentRoot = modelClass;
+
 		// populate description
 		if (ctx.description() != null) {
 			act.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
@@ -363,11 +349,25 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 
 		// populate action semantics
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
-		act.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
+		act.setDialect(
+				marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		act.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
 		act.setAction_semantics_internal(visitAction_body(ctx.action_body()));
 
 		return txn;
+	}
+
+	@Override
+	public String visitEvent_name(Event_nameContext ctx) {
+		final String scopedName = visitScoped_name(ctx.scoped_name());
+		if (scopedName.contains("::")) {
+			final InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517((StateMachine_c) currentRoot);
+			final String[] segments = scopedName.split("::");
+			return segments[0] + "::" + (ism != null ? "Instance State Machine" : "Class State Machine") + "::"
+					+ segments[1];
+		} else {
+			return scopedName;
+		}
 	}
 
 	private StateMachine_c getStateMachine(ModelClass_c modelClass, boolean isClassBased) {
@@ -408,6 +408,45 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 										ReferringClassInAssoc_c.getManyR_RGOsOnR203(ClassInAssociation_c
 												.getManyR_OIRsOnR201(ModelClass_c.getManyO_OBJsOnR518(
 														InstanceStateMachine_c.getManySM_ISMsOnR517(sms))))))))))));
+	}
+
+	private StateMachineEvent_c getReferredToEvent(final StateMachine_c stateMachine,
+			final StateMachineState_c startState, final String evtPath) {
+		StateMachineEvent_c refEvt = StateMachineEvent_c.getOneSM_EVTOnR502(stateMachine,
+				selected -> pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
+		if (refEvt == null) {
+			// search for polymorphic events
+			try {
+				refEvt = executor.callAndWaitNullable(() -> {
+					StateMachineEvent_c rEvt = null;
+					StateMachine_c[] superTypeSms = getSupertypeStateMachines(stateMachine);
+					while (superTypeSms.length > 0 && rEvt == null) {
+						rEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
+								selected -> pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
+						// if an unassignable event is found, make sure the polys are synced
+						if (rEvt != null
+								&& !rEvt.Isassignabletostatemachine(stateMachine.getSm_id(), startState == null)) {
+							final ModelClass_c evtClass = ModelClass_c.getOneO_OBJOnR518(
+									InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR502(rEvt)));
+							if (evtClass != null) {
+								evtClass.Syncpolymorphicevents();
+								rEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
+										selected -> ((StateMachineEvent_c) selected)
+												.Isassignabletostatemachine(stateMachine.getSm_id(), startState == null)
+												&& pathMatches(((StateMachineEvent_c) selected).getPath(), evtPath));
+							}
+
+						}
+						superTypeSms = getSupertypeStateMachines(superTypeSms);
+					}
+					return rEvt;
+				});
+			} catch (Exception e) {
+				throw new CoreImport.XtumlLoadException("Failed to find polymorphic event for path: '" + evtPath + "'.",
+						e);
+			}
+		}
+		return refEvt;
 	}
 
 }

@@ -1740,7 +1740,7 @@ public class ExportModelText extends ExportModelComponent {
 						.of(StateMachineEvent_c.getManySM_EVTsOnR525(
 								SemEvent_c.getManySM_SEVTsOnR525(StateMachineEvent_c.getManySM_EVTsOnR502(inst))))
 						.sorted(Comparator.comparing(StateMachineEvent_c::Islocal).reversed()
-								.thenComparing(StateMachineEvent_c::Getclassname)
+								.thenComparing(StateMachineEvent_c::Getsourceclassname)
 								.thenComparing(StateMachineEvent_c::getNumb))
 						.collect(Collectors.toList());
 				final List<StateMachineState_c> startStates = Stream.of(sm_states)
@@ -1750,10 +1750,14 @@ public class ExportModelText extends ExportModelComponent {
 				final List<List<String>> matrix = new ArrayList<>();
 
 				// create header row (events)
+				final ModelClass_c cls = isClassBased
+						? ModelClass_c.getOneO_OBJOnR519(ClassStateMachine_c.getOneSM_ASMOnR517(inst))
+						: ModelClass_c.getOneO_OBJOnR518(InstanceStateMachine_c.getOneSM_ISMOnR517(inst));
 				matrix.add(Stream
-						.concat(Stream.of(""),
-								semEvents.stream().map(evt -> evt.Islocal() ? sanitizeName(evt.getMning())
-										: sanitizeName(evt.Getclassname()) + "::" + sanitizeName(evt.getMning())))
+						.concat(Stream.of(""), semEvents.stream()
+								.map(evt -> evt.Islocal() || evt.Getsourceclassname().equals(cls.getName())
+										? sanitizeName(evt.getMning())
+										: sanitizeName(evt.Getsourceclassname()) + "::" + sanitizeName(evt.getMning())))
 						.collect(Collectors.toList()));
 
 				// create a row for creation transitions (if they exist)

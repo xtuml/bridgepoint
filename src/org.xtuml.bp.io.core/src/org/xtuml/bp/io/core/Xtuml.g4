@@ -167,7 +167,7 @@ event_declaration                  : description? marks?
 state_machine_definition           : description? marks?
                                      class_based='class'?
                                      'state' 'model' 'is' (
-                                       '|' '|' ( evt_names+=scoped_name '|' )+
+                                       '|' '|' ( evt_names+=event_name '|' )+
                                        '|' ( Divider '|' )+
                                        transition_row+
                                      )? 'end' 'state' 'model' ';'
@@ -185,12 +185,14 @@ transition_destination             : end_state_name=name
 transition_definition              : description? marks?
                                      class_based='class'?
                                      'transition' start_state_name=name
-                                     '[' evt_name=scoped_name ']' '=>' end_state_name=name
+                                     '[' evt_name=event_name ']' '=>' end_state_name=name
                                      ( '(' parameter_list ')' )?
                                      'is'
                                        action_body
                                      'end' 'transition' ';'
                                    ;
+                                   
+event_name                         : scoped_name;
                                    
 type_forward_declaration           : description? marks?
                                      'type' type_name=name ';'
