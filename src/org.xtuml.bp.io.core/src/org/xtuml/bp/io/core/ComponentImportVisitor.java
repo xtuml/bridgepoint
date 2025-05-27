@@ -194,7 +194,7 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 
 		try {
-			final String msgName = visitName(ctx.msg_name);
+			final String msgName = visitScoped_name(ctx.msg_name);
 			final PortMessage msg = ProxyUtil.newProxy(PortMessage.class,
 					Stream.of(spr_pos, spr_pss, spr_ros, spr_rss).flatMap(a -> Stream.of(a))
 							.filter(m -> msgName.equals(m.getName())).findAny().orElseThrow(

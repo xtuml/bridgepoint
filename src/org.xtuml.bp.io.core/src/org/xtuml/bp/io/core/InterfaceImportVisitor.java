@@ -77,7 +77,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		final Interface_c iface = (Interface_c) currentRoot;
 
 		// parse message info
-		final String name = visitName(ctx.msg_name);
+		final String name = visitScoped_name(ctx.msg_name);
 		final int direction = "to".equals(ctx.direction.getText()) ? Ifdirectiontype_c.ClientServer
 				: Ifdirectiontype_c.ServerClient;
 

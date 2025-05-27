@@ -73,7 +73,7 @@ interface_definition               : description? marks?
                                    ;
 
 message_definition                 : description? marks?
-                                     'message' msg_name=name
+                                     'message' msg_name=scoped_name
                                      '(' parameter_list? ')'
                                      ( 'return' type_reference )?
                                      ( direction='to' | direction='from' ) 'provider' (
