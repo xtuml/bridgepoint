@@ -35,7 +35,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 
 		// find or create interface
 		final String iface_name = visitName(ctx.iface_name);
-		final Interface_c iface = findOrCreate(Interface_c.class, parent_pkg.getPath() + "::" + iface_name);
+		final Interface_c iface = findOrCreate(Interface_c.class, parent_pkg.getPath() + "::" + iface_name, true);
 		iface.setName(iface_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(iface);
