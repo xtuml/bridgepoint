@@ -3,7 +3,6 @@ package org.xtuml.bp.io.core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -203,6 +202,8 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 				marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
 		if (marks.containsKey(MESSAGE_NUM)) {
 			msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		} else {
+			msg.setNumb(0);
 		}
 		if (ctx.action_body() != null) {
 			msg.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);

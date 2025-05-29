@@ -1389,6 +1389,8 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MESSAGE_NUM)) {
 			terminatorService.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		} else {
+			terminatorService.setNumb(0);
 		}
 		terminatorService.setImplementation_scope(marks.containsKey(IMPLEMENTATION_SCOPE)
 				&& "deployment".equals(marks.get(IMPLEMENTATION_SCOPE).getString()) ? Implementationscope_c.Deployment

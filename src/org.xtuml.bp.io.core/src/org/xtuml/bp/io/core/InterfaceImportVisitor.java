@@ -105,6 +105,8 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MESSAGE_NUM)) {
 			c_ep.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		} else {
+			c_ep.setNumb(0);
 		}
 
 		// set subtype specific info
