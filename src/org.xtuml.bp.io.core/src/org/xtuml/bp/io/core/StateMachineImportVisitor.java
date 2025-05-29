@@ -267,10 +267,22 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 						} else {
 							final NewStateTransition_c nsTxn = new NewStateTransition_c(modelRoot);
 							nsTxn.relateAcrossR507To(txn);
-							final StateEventMatrixEntry_c seme = new StateEventMatrixEntry_c(modelRoot);
+							final StateEventMatrixEntry_c seme = Optional
+									.ofNullable(
+											StateEventMatrixEntry_c
+													.getOneSM_SEMEOnR503(startState,
+															selected -> ((StateEventMatrixEntry_c) selected)
+																	.getSmevt_id().equals(evt.getSmevt_id())))
+									.orElseGet(() -> {
+										final StateEventMatrixEntry_c seme2 = new StateEventMatrixEntry_c(modelRoot);
+										seme2.relateAcrossR503To(startState);
+										seme2.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
+										return seme2;
+									});
+							seme.unrelateAcrossR504From(CantHappen_c.getOneSM_CHOnR504(seme));
+							seme.unrelateAcrossR504From(EventIgnored_c.getOneSM_EIGNOnR504(seme));
+							seme.unrelateAcrossR504From(NewStateTransition_c.getOneSM_NSTXNOnR504(seme));
 							seme.relateAcrossR504To(nsTxn);
-							seme.relateAcrossR503To(startState);
-							seme.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
 						}
 
 						// create transition action
@@ -286,9 +298,18 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 						txn.relateAcrossR505To(stateMachine);
 
 					} else {
-						final StateEventMatrixEntry_c seme = new StateEventMatrixEntry_c(modelRoot);
-						seme.relateAcrossR503To(startState);
-						seme.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
+						final StateEventMatrixEntry_c seme = Optional.ofNullable(StateEventMatrixEntry_c
+								.getOneSM_SEMEOnR503(startState, selected -> ((StateEventMatrixEntry_c) selected)
+										.getSmevt_id().equals(evt.getSmevt_id())))
+								.orElseGet(() -> {
+									final StateEventMatrixEntry_c seme2 = new StateEventMatrixEntry_c(modelRoot);
+									seme2.relateAcrossR503To(startState);
+									seme2.relateAcrossR503To(SemEvent_c.getOneSM_SEVTOnR525(evt));
+									return seme2;
+								});
+						seme.unrelateAcrossR504From(CantHappen_c.getOneSM_CHOnR504(seme));
+						seme.unrelateAcrossR504From(EventIgnored_c.getOneSM_EIGNOnR504(seme));
+						seme.unrelateAcrossR504From(NewStateTransition_c.getOneSM_NSTXNOnR504(seme));
 						if (row.end_states.get(i).ch != null) {
 							seme.relateAcrossR504To(new CantHappen_c(modelRoot));
 						} else if (row.end_states.get(i).ig != null) {
