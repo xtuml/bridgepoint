@@ -92,6 +92,7 @@ import org.xtuml.bp.core.PackageReference_c;
 import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Parsestatus_c;
+import org.xtuml.bp.core.PolymorphicEvent_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
@@ -1869,7 +1870,11 @@ public class ExportModelText extends ExportModelComponent {
 			append("%s%sevent %s", getTab(), isClassBased ? "class " : "", sanitizeName(inst.getMning()));
 
 			// build the parameter list
-			final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(inst);
+			final NonLocalEvent_c nlevt = NonLocalEvent_c.getOneSM_NLEVTOnR526(SemEvent_c.getOneSM_SEVTOnR525(inst));
+			final StateMachineEventDataItem_c[] sm_evtdis = nlevt != null
+					? StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(
+							StateMachineEvent_c.getOneSM_EVTOnR525(PolymorphicEvent_c.getOneSM_PEVTOnR527(nlevt)))
+					: StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(inst);
 			new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
 			final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
 				buffers.push(new StringBuilder());
@@ -1936,7 +1941,11 @@ public class ExportModelText extends ExportModelComponent {
 						.getOneSM_EVTOnR525(SemEvent_c.getManySM_SEVTsOnR526(LocalEvent_c.getManySM_LEVTsOnR509(
 								CreationTransition_c.getManySM_CRTXNsOnR507(Transition_c.getManySM_TXNsOnR506(inst)))));
 			}
-			final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(evt);
+			final NonLocalEvent_c nlevt = NonLocalEvent_c.getOneSM_NLEVTOnR526(SemEvent_c.getOneSM_SEVTOnR525(evt));
+			final StateMachineEventDataItem_c[] sm_evtdis = nlevt != null
+					? StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(
+							StateMachineEvent_c.getOneSM_EVTOnR525(PolymorphicEvent_c.getOneSM_PEVTOnR527(nlevt)))
+					: StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(evt);
 			new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
 			final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
 				buffers.push(new StringBuilder());
@@ -2246,7 +2255,11 @@ public class ExportModelText extends ExportModelComponent {
 					sanitizeName(evt.getMning()), sanitizeName(destState.getName()));
 
 			// build parameter list
-			final StateMachineEventDataItem_c[] sm_evtdis = StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(evt);
+			final NonLocalEvent_c nlevt = NonLocalEvent_c.getOneSM_NLEVTOnR526(SemEvent_c.getOneSM_SEVTOnR525(evt));
+			final StateMachineEventDataItem_c[] sm_evtdis = nlevt != null
+					? StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(
+							StateMachineEvent_c.getOneSM_EVTOnR525(PolymorphicEvent_c.getOneSM_PEVTOnR527(nlevt)))
+					: StateMachineEventDataItem_c.getManySM_EVTDIsOnR532(evt);
 			new StateMachineEventDataItem_cSorter().sort(sm_evtdis);
 			final String parameterList = Stream.of(sm_evtdis).map(sm_evtdi -> {
 				buffers.push(new StringBuilder());
