@@ -3,6 +3,8 @@ package org.xtuml.bp.io.core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -55,6 +57,7 @@ import org.xtuml.bp.core.ReferredToClassInAssoc_c;
 import org.xtuml.bp.core.ReferringClassInAssoc_c;
 import org.xtuml.bp.core.Requirement_c;
 import org.xtuml.bp.core.Satisfaction_c;
+import org.xtuml.bp.core.ServiceInSequence_c;
 import org.xtuml.bp.core.SimpleAssociation_c;
 import org.xtuml.bp.core.StructureMember_c;
 import org.xtuml.bp.core.StructuredDataType_c;
@@ -62,6 +65,7 @@ import org.xtuml.bp.core.SubtypeSupertypeAssociation_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.TerminatorServiceParameter_c;
+import org.xtuml.bp.core.TerminatorServiceSequence_c;
 import org.xtuml.bp.core.TerminatorService_c;
 import org.xtuml.bp.core.Terminator_c;
 import org.xtuml.bp.core.UserDataType_c;
@@ -97,6 +101,8 @@ import org.xtuml.bp.io.core.XtumlParser.Type_declarationContext;
 import org.xtuml.bp.io.core.XtumlParser.Type_forward_declarationContext;
 
 public class PackageImportVisitor extends XtumlImportVisitor {
+
+	private SortedSet<SequenceService> sequenceServices;
 
 	public PackageImportVisitor(Ooaofooa modelRoot) {
 		super(modelRoot);
@@ -1335,9 +1341,27 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		}
 
 		// process terminator services
-		// TODO sort by sequence number
 		currentRoot = terminator;
+
+		sequenceServices = new TreeSet<>();
 		ctx.message_definition().forEach(this::visit);
+
+		// sort by sequence number
+		if (!sequenceServices.isEmpty()) {
+			final var terminatorSequence = new TerminatorServiceSequence_c(modelRoot);
+			terminatorSequence.relateAcrossR1658To(terminator);
+			ServiceInSequence_c prevSis = null;
+			for (final var sequenceService : sequenceServices) {
+				final var sis = new ServiceInSequence_c(modelRoot);
+				sis.relateAcrossR1659To(terminatorSequence);
+				sis.relateAcrossR1660To(sequenceService.getService());
+				if (prevSis != null) {
+					sis.relateAcrossR1661ToSucceeds(prevSis);
+				}
+				prevSis = sis;
+			}
+		}
+
 		currentRoot = deployment;
 
 		// link to deployment
@@ -1351,19 +1375,32 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		final var terminator = (Terminator_c) currentRoot;
 
 		// create terminator service
-		final var serviceName = visitName(ctx.msg_name);
+		final var serviceName = visitScoped_name(ctx.msg_name);
 		final var terminatorService = new TerminatorService_c(modelRoot);
 		terminatorService.setName(serviceName);
+
+		// set description
+		if (ctx.description() != null) {
+			terminatorService.setDescrip(ctx.description().getText().lines().map(line -> line.replaceFirst("//! ?", ""))
+					.collect(Collectors.joining(System.lineSeparator())));
+		}
 
 		// process marks
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MESSAGE_NUM)) {
 			terminatorService.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		} else {
+			terminatorService.setNumb(0);
 		}
 		terminatorService.setImplementation_scope(marks.containsKey(IMPLEMENTATION_SCOPE)
 				&& "deployment".equals(marks.get(IMPLEMENTATION_SCOPE).getString()) ? Implementationscope_c.Deployment
 						: Implementationscope_c.Domain);
 		terminatorService.setIs_stale(marks.containsKey(STALE));
+
+		// add the service to the sequence set to be sorted later
+		if (marks.containsKey(SEQUENCE_NUM)) {
+			sequenceServices.add(new SequenceService(marks.get(SEQUENCE_NUM).getInteger(), terminatorService));
+		}
 
 		// set return type
 		if (ctx.type_reference() != null) {
@@ -1410,6 +1447,35 @@ public class PackageImportVisitor extends XtumlImportVisitor {
 		} else {
 			return IntStream.iterate(0, i -> i + 1).limit(tree.getChildCount())
 					.mapToObj(i -> getRuleText(tree.getChild(i))).collect(Collectors.joining(" "));
+		}
+
+	}
+
+	private static class SequenceService implements Comparable<SequenceService> {
+
+		private int sequenceNum;
+		private TerminatorService_c service;
+
+		SequenceService(final int sequenceNum, final TerminatorService_c service) {
+			this.sequenceNum = sequenceNum;
+			this.service = service;
+		}
+
+		@Override
+		public int compareTo(SequenceService o) {
+			if (o != null) {
+				return sequenceNum - o.sequenceNum;
+			} else {
+				return 0;
+			}
+		}
+
+		TerminatorService_c getService() {
+			return service;
+		}
+
+		public boolean equals(Object o) {
+			return o instanceof SequenceService && sequenceNum == ((SequenceService) o).sequenceNum;
 		}
 
 	}

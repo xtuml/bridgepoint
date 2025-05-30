@@ -3,7 +3,6 @@ package org.xtuml.bp.io.core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -193,26 +192,24 @@ public class ComponentImportVisitor extends XtumlImportVisitor {
 
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 
-		try {
-			final String msgName = visitName(ctx.msg_name);
-			final PortMessage msg = ProxyUtil.newProxy(PortMessage.class,
-					Stream.of(spr_pos, spr_pss, spr_ros, spr_rss).flatMap(a -> Stream.of(a))
-							.filter(m -> msgName.equals(m.getName())).findAny().orElseThrow(
-									() -> new CoreImport.XtumlLoadException("Failed to find message: " + msgName)));
+		final String msgName = visitScoped_name(ctx.msg_name);
+		final PortMessage msg = ProxyUtil.newProxy(PortMessage.class,
+				Stream.of(spr_pos, spr_pss, spr_ros, spr_rss).flatMap(a -> Stream.of(a))
+						.filter(m -> msgName.equals(m.getName())).findAny()
+						.orElseThrow(() -> new CoreImport.XtumlLoadException("Failed to find message: " + msgName)));
 
-			msg.setDialect(marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
-			if (marks.containsKey(MESSAGE_NUM)) {
-				msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
-			}
-			if (ctx.action_body() != null) {
-				msg.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
-				msg.setAction_semantics_internal(visitAction_body(ctx.action_body()));
-			}
-			return (NonRootModelElement) msg.getBasisObject();
-		} catch (NoSuchElementException e) {
-			CorePlugin.logError("Could not find message in interface with name: " + visit(ctx.msg_name), e);
-			return null;
+		msg.setDialect(
+				marks.containsKey(DIALECT) ? getDialectCode(marks.get(DIALECT).getString()) : Actiondialect_c.none);
+		if (marks.containsKey(MESSAGE_NUM)) {
+			msg.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		} else {
+			msg.setNumb(0);
 		}
+		if (ctx.action_body() != null) {
+			msg.setSuc_pars(marks.containsKey(NOPARSE) ? Parsestatus_c.doNotParse : Parsestatus_c.parseInitial);
+			msg.setAction_semantics_internal(visitAction_body(ctx.action_body()));
+		}
+		return (NonRootModelElement) msg.getBasisObject();
 
 	}
 

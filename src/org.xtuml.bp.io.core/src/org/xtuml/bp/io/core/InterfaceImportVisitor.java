@@ -35,7 +35,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 
 		// find or create interface
 		final String iface_name = visitName(ctx.iface_name);
-		final Interface_c iface = findOrCreate(Interface_c.class, parent_pkg.getPath() + "::" + iface_name);
+		final Interface_c iface = findOrCreate(Interface_c.class, parent_pkg.getPath() + "::" + iface_name, true);
 		iface.setName(iface_name);
 		final PackageableElement_c pe = new PackageableElement_c(modelRoot);
 		pe.relateAcrossR8001To(iface);
@@ -77,7 +77,7 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		final Interface_c iface = (Interface_c) currentRoot;
 
 		// parse message info
-		final String name = visitName(ctx.msg_name);
+		final String name = visitScoped_name(ctx.msg_name);
 		final int direction = "to".equals(ctx.direction.getText()) ? Ifdirectiontype_c.ClientServer
 				: Ifdirectiontype_c.ServerClient;
 
@@ -105,6 +105,8 @@ public class InterfaceImportVisitor extends XtumlImportVisitor {
 		final Map<String, Mark> marks = ctx.marks() != null ? visitMarks(ctx.marks()) : Collections.emptyMap();
 		if (marks.containsKey(MESSAGE_NUM)) {
 			c_ep.setNumb(marks.get(MESSAGE_NUM).getInteger());
+		} else {
+			c_ep.setNumb(0);
 		}
 
 		// set subtype specific info

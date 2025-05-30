@@ -63,6 +63,7 @@ public class XtumlImportVisitor extends XtumlBaseVisitor<Object> {
 	protected NonRootModelElement searchRoot = null;
 
 	public static final String MESSAGE_NUM = "message_num";
+	public static final String SEQUENCE_NUM = "sequence_num";
 	public static final String OPERATION_NUM = "operation_num";
 	public static final String FUNCTION_NUM = "function_num";
 	public static final String EVENT_NUM = "event_num";
