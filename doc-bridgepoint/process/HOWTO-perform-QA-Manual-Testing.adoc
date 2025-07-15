@@ -1,0 +1,129 @@
+= HOWTO Perform BridgePoint QA Manual Testing
+:sectnums:
+:imagesdir: images
+
+== Abstract
+
+QA Manual Testing is done as part of preparation for a BridgePoint release.
+This note describes how to participate in a BridgePoint QA Manual Test cycle.
+This includes finding the list of tests designated for the QA manual testing 
+cycle, selecting a test to work on, and documenting the result of the test.
+
+:bp-install: https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-install-bridgepoint.adoc[HOWTO install and run BridgePoint]
+:redmine: https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/process/HOWTO-create-bridgepoint-issues.md[HOWTO create BridgePoint issues]
+
+== Getting Ready to Run Manual Tests
+
+. Install the xtUML Modeler Version of BridgePoint by following the
+  {bp-install} for installing BridgePoint. The HOWTO document
+  contains links to the nightly builds and setup instructions for Windows,
+  Linux, and Mac.
+. Setup an account on the OneFact issue tracker as detailed in the
+  {redmine} for creating BridgePoint issues.
+. Clone the https://github.com/xtuml/models[models repository]. This isn't
+  necessary for every QA Manual Test, but most of the manual tests use models
+  in the repository.
+
+
+== Finding the QA Manual Tests
+
+Login to the OneFact issue tracker and select Projects, and you'll either be
+presented with the <<Home Page>> or the <<Projects Page>>.
+
+.Home Page
+[#image-home]
+image::IssueTrackerHome.png[Home]
+
+.Projects Page
+[#image-project]
+image::projects_page.png[Projects]
+
+From the <<Home Page>>, select the "Take me right to the BridgePoint issues"
+link to go to the <<BridgePoint Project Page>>, or select the Projects link in
+the top bar to go to the <<Projects Page>>.
+
+From the <<Projects Page>> select the BridgePoint link to go to the
+<<BridgePoint Project Page>>.
+
+.BridgePoint Project Page
+[#image-bp-project]
+image::BridgePoint_project.png[BridgePoint Project]
+
+The Overview tab should be selected, so select the Issues tab. Notice the list
+of issues with a check box, issue number, project name, issue status, and
+subject. During the manual test cycle, the QA Manual Tests page will have a 
+similar list, as each manual test is written as an issue.
+
+On the right side of the screen, there should be a "Custom Queries" title with
+a number of links below it. The QA Manual Tests is one of the custom query 
+links. Find it and select it to go to the QA Manual Tests page.
+
+.BridgePoint Issues Tab
+[#image-bp-issues]
+image::BridgePointIssues.png[BridgePoint Issues]
+
+The screenshot of the <<QA Manual Tests Page>> shows what the page looks like
+after a release of BridgePoint has been made. The issue list will be populated,
+like in the <<BridgePoint Issues Tab>>, before a manual test cycle is started. 
+All the QA Manual Test "issues" will have a status of _Acknowledged_.
+
+.QA Manual Tests Page
+[#image-qa-man-blank]
+image::QAManualTests.png[QA Manual Tests]
+
+== Performing the QA Manual Tests
+
+This section is a restatement of the 
+https://support.onefact.net/documents/1[Manual QA Test Procedure] found in the
+OneFact issue tracker.
+
+. Go to the https://support.onefact.net/projects/qa-manual-tests/issues[QA Manual Tests issues view]
+. Pick an issue with a status of _Acknowledged_, change the "Assignee" to
+yourself, and change the status to _In Progress_
+. Run the test procedure
+.. If the test passed
+... Change the issue status to _Resolved_
+... Change the "Assignee" field to blank
+... Add a comment, "Passed for v<version under test>, <OS>" e.g., Passed for v5.0.0,
+    Linux Ubuntu 14
+.. If the test failed
+... Raise a new issue under the BridgePoint project that describes the problem as thoroughly as possible
+... In the QA Manual Test issue, add the newly created issue as a _Related issue_
+... Add a comment, "Failed for v<version under test>, <OS>" e.g., Failed for
+    v5.0.0, Windows 7
+... Change the issue status to _Feedback_
+... Change the "Assignee" field to blank
+
+.QA Manual Test Example Page
+[#image-qa-example]
+image::test_screen.png[QA Manual Test Example Page]
+
+=== Tips and Tricks
+
+* Add the *models* repository to the BridgePoint git perspective.
+** When the test instructions say to use a model, as in step 1 of the Test
+   Instructions in the <<QA Manual Test Example Page>> screenshot, import a 
+   project from the *models* repository with a matching name. e.g., "ex2"
+*** In finding the project, there is a minor annoyance with the <<presented
+    import screen>> in that all the projects are selected. Select
+    *Deselect all* before typing in the search field, or all the
+    (hidden by the search selection) projects remain selected; selecting
+    *Finish* with all the projects selected will cause
+    *_all the projects to get imported_*.
+** After importing the project, switch back to the _xtUML Modeling_ perspective,
+   to see the project.
+
+.presented import screen
+[#image-import-screen]
+image::import_screen.png[Eclipse Git project import]
+
+* When deleting a project from BridgePoint, a dialog will be presented with a
+  checkbox labeled, "Delete project contents on disk (cannot be undone)". This
+  should remain unselected for projects imported from the *models* repository,
+  but even if accidentally selected, it can be recovered by removing changes to
+  the repository. e.g., 'git reset HEAD --hard'
+* The <<QA Manual Test Example Page>> screenshot, shows a typical test
+  procedure. The expected result of a test step is in the box below it.
+* Sometimes Verifier will fail to launch the first time. Just launch Verifier
+  again. If it fails a second time, contact OneFact support.
+
