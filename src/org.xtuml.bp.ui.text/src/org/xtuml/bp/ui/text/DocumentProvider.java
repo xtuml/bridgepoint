@@ -42,6 +42,7 @@ import org.xtuml.bp.ui.text.activity.ActivityAnnotationModel;
 import org.xtuml.bp.ui.text.activity.ActivityEditorInput;
 import org.xtuml.bp.ui.text.activity.AllActivityModifier;
 import org.xtuml.bp.ui.text.annotation.ActivityProblemAnnotation;
+import org.xtuml.bp.ui.text.asl.ASLActivityEditorInput;
 import org.xtuml.bp.ui.text.description.DescriptionAnnotationModel;
 import org.xtuml.bp.ui.text.description.DescriptionEditorInput;
 import org.xtuml.bp.ui.text.editor.ActionLanguageDocumentProvider;
@@ -125,6 +126,14 @@ public class DocumentProvider extends ActionLanguageDocumentProvider
             }
         }
       }
+    }
+    else if (element instanceof ASLActivityEditorInput)
+    {
+      ((ASLActivityEditorInput) element).doSaveDocument(
+        monitor,
+        element,
+        document,
+        overwrite);
     }
     else if (element instanceof DescriptionEditorInput)
     {
