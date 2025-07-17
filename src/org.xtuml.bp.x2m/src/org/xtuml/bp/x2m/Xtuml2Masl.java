@@ -37,6 +37,7 @@ public class Xtuml2Masl {
 
     private String projectLocation;
     private String outDir;
+    private String codeGenDir;
     private String architecture;
     private String name;
     private boolean isDomain;
@@ -58,6 +59,7 @@ public class Xtuml2Masl {
         coverage = false;
         prebuild = PrebuildType.PREBUILD;
         outDir = ".";
+        codeGenDir = CODE_GEN_FOLDER;
         architecture = "MASL";
         skipFormat = false;
         skipActionLanguage = false;
@@ -101,8 +103,12 @@ public class Xtuml2Masl {
                 });
             }
         }
-        // create the gen/code_generation directory if it does not exist
-        File genDirFile = new File(projectLocation + File.separator + CODE_GEN_FOLDER);
+        // create the code generation directory if it does not exist
+        Path codeGenPath = Path.of(codeGenDir);
+        if (!codeGenPath.isAbsolute()) {
+        	codeGenPath = Path.of(projectLocation).resolve(codeGenPath);
+        }
+        File genDirFile = codeGenPath.toFile();
         if (!genDirFile.exists()) {
             genDirFile.mkdirs();
         }
@@ -186,13 +192,11 @@ public class Xtuml2Masl {
             inputFile = new FileInputStream(toolsFolder() + File.separator + GLOBALS_XTUML);
         }
         connectStreams(true, inputFile, x2mProcess.getOutputStream());
-        FileOutputStream x2mOutputFile = new FileOutputStream(
-                projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + X2M_OUTPUT);
+        FileOutputStream x2mOutputFile = new FileOutputStream(codeGenPath.resolve(X2M_OUTPUT).toFile());
         connectStreams(true, x2mProcess.getInputStream(), x2mOutputFile, maslProcess.getOutputStream());
         connectStreams(false, x2mProcess.getErrorStream(), System.out);
         x2mProcess.getErrorStream().close();
-        FileOutputStream maslOutputFile = new FileOutputStream(
-                projectLocation + File.separator + CODE_GEN_FOLDER + File.separator + MASL_OUTPUT);
+        FileOutputStream maslOutputFile = new FileOutputStream(codeGenPath.resolve(MASL_OUTPUT).toFile());
         connectStreams(false, maslProcess.getInputStream(), maslOutputFile, System.out);
         connectStreams(false, maslProcess.getErrorStream(), System.out);
         maslProcess.getErrorStream().close();
@@ -261,6 +265,11 @@ public class Xtuml2Masl {
 
     public Xtuml2Masl setOutputDirectory(String outDir) {
         this.outDir = outDir;
+        return this;
+    }
+
+    public Xtuml2Masl setCodeGenDirectory(String codeGenDir) {
+        this.codeGenDir = codeGenDir;
         return this;
     }
 
@@ -379,11 +388,12 @@ public class Xtuml2Masl {
         + "\t| -P                                    | Optionally used to cause BridgePoint prebuilder to be used to export model data                              |\n"
         + "\t| -xf                                   | Optionally skip the formatting step                                                                          |\n"
         + "\t| -xl                                   | Optionally exclude action langauge from export                                                               |\n"
-        + "\t| -a &lt;architecture&gt;               | Specify the output architecture. \"MASL\" and \"WASL\" are valid options. \"MASL\" is the default.           |\n"
-        + "\t| -i &lt;eclipse project location&gt;   | Specify an absolute or relative path to the root directory of the Eclipse project containing the input model |\n"
-        + "\t| -d &lt;domain component&gt;           | Specify xtUML component that will be exported as a MASL domain                                               |\n"
-        + "\t| -p &lt;project/deployment package&gt; | Specify xtUML package that will be exported as a MASL project/deployment                                     |\n"
-        + "\t| -o &lt;output directory&gt;           | Optionally specify the target folder to write to                                                             |");
+        + "\t| -a <architecture>                     | Specify the output architecture. \"MASL\" and \"WASL\" are valid options. \"MASL\" is the default.           |\n"
+        + "\t| -i <eclipse project location>         | Specify an absolute or relative path to the root directory of the Eclipse project containing the input model |\n"
+        + "\t| -d <domain component>                 | Specify xtUML component that will be exported as a MASL domain                                               |\n"
+        + "\t| -p <project/deployment package>       | Specify xtUML package that will be exported as a MASL project/deployment                                     |\n"
+        + "\t| -o <output directory>                 | Optionally specify the target folder to write to                                                             |\n"
+        + "\t| -O <code gen directory>               | Optionally specify the output folder for build logs                                                          |");
 	}
 
     private static class BuildElement {
@@ -406,6 +416,7 @@ public class Xtuml2Masl {
         boolean skipActionLanguage = false;
         boolean cleanBuild = true;
         String outDir = "";
+        String codeGenDir = CODE_GEN_FOLDER;
         String architecture = "MASL"; // default to MASL
         List<String> inputs = new ArrayList<>();
         List<BuildElement> buildElements = new ArrayList<>();
@@ -426,7 +437,7 @@ public class Xtuml2Masl {
             } else if ("-xf".equals(arg) && !skipFormatter) { // if we encounter flag indicating skip MASL formatting
                 skipFormatter = true;
                 directive = "";
-            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg) || "-a".equals(arg)) { // set the
+            } else if ("-p".equals(arg) || "-d".equals(arg) || "-i".equals(arg) || "-o".equals(arg) || "-O".equals(arg) || "-a".equals(arg)) { // set the
                                                                                                        // directive
                 directive = arg;
             } else if ("-xl".equals(arg) && !skipActionLanguage) { // if we encounter flag indicating skip output of
@@ -444,6 +455,8 @@ public class Xtuml2Masl {
                 buildElements.add(new BuildElement(true, arg));
             } else if ("-o".equals(directive) && "".equals(outDir)) { // only can set the output directory once
                 outDir = arg;
+            } else if ("-O".equals(directive)) {
+            	codeGenDir = arg;
             } else if ("-a".equals(directive)) {
                 architecture = arg;
             } else {
@@ -453,7 +466,7 @@ public class Xtuml2Masl {
         }
 
         Xtuml2Masl exporter = new Xtuml2Masl().setValidate(validate).setCoverage(coverage).setPrebuild(prebuild ? PrebuildType.PREBUILD : PrebuildType.NO_PREBUILD).setSkipFormat(skipFormatter)
-                .setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir);
+                .setSkipActionLanguage(skipActionLanguage).setCleanBuild(cleanBuild).setArchitecture(architecture).setOutputDirectory("".equals(outDir) ? "." : outDir).setCodeGenDirectory(codeGenDir);
         for (int i = 0; i < inputs.size(); i++) {
             exporter = exporter.setProjectLocation(inputs.get(i)).setName(buildElements.get(i).name)
                     .setIsDomain(buildElements.get(i).isDomain);
