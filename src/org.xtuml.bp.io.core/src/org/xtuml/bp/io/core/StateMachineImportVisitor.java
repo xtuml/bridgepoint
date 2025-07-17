@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.ActionHome_c;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Actiondialect_c;
@@ -447,8 +448,16 @@ public class StateMachineImportVisitor extends XtumlImportVisitor {
 						// if an unassignable event is found, make sure the polys are synced
 						if (rEvt != null
 								&& !rEvt.Isassignabletostatemachine(stateMachine.getSm_id(), startState == null)) {
-							final ModelClass_c evtClass = ModelClass_c.getOneO_OBJOnR518(
-									InstanceStateMachine_c.getOneSM_ISMOnR517(StateMachine_c.getOneSM_SMOnR502(rEvt)));
+							final StateMachine_c sm = StateMachine_c.getOneSM_SMOnR502(rEvt);
+							// if there are any SEM entries in the supertype, assure concrete polys are
+							// turned on for the workspace
+							if (StateEventMatrixEntry_c
+									.getOneSM_SEMEOnR503(StateMachineState_c.getManySM_STATEsOnR501(sm)) != null) {
+								IPreferenceStore prefStore = org.xtuml.bp.core.CorePlugin.getDefault().getPreferenceStore();
+								prefStore.setValue("bridgepoint_prefs_allow_concrete_polys", true);
+							}
+							final ModelClass_c evtClass = ModelClass_c
+									.getOneO_OBJOnR518(InstanceStateMachine_c.getOneSM_ISMOnR517(sm));
 							if (evtClass != null) {
 								evtClass.Syncpolymorphicevents();
 								rEvt = StateMachineEvent_c.getOneSM_EVTOnR502(superTypeSms,
