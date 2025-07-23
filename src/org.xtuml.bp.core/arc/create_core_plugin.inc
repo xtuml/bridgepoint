@@ -481,6 +481,9 @@ This file is the plugin manifest for the BridgePoint core plugin.
   <extension-point id="renameParticipants" name="xtUML Rename Refactoring Participants"  schema="schema/renameParticipants.exsd" />
   <extension-point id="ElementNameChangeListeners" name="Element Name Change Listeners" schema="schema/ElementNameChangeListeners.exsd"/>
   <extension-point id="persistence_format_listener" name="Persistence Format Listener" schema="schema/persistence_format_listener.exsd"/>
+  <extension point="org.eclipse.team.core.ignore">
+    <ignore pattern="*/code_generation/*" enabled="true"/>
+  </extension>
 </plugin>
 .end function
 .//
