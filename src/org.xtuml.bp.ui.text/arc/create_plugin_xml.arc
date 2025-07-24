@@ -604,6 +604,9 @@ This file is the plugin manifest for the BridgePoint core plugin.
       <ignore
             enabled="true"
             pattern="*.oal"/>
+      <ignore
+            enabled="true"
+            pattern="*.oal_err"/>
    </extension>
    <extension
         point="org.eclipse.ui.popupMenus">
