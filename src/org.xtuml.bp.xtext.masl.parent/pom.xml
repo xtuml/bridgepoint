@@ -15,7 +15,7 @@
 
 	<properties>
 		<tycho-version>4.0.9</tycho-version>
-		<xtextVersion>2.33.0</xtextVersion>
+		<xtextVersion>2.39.0</xtextVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<modules>
