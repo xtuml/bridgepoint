@@ -77,7 +77,7 @@ This section is a restatement of the
 https://support.onefact.net/documents/1[Manual QA Test Procedure] found in the
 OneFact issue tracker.
 
-. Go to the https://support.onefact.net/projects/qa-manual-tests/issues[QA Manual Tests issues view]
+. Go to the https://support.onefact.net/projects/bridgepoint/issues?query_id=67[QA Manual Tests issues view]
 . Pick an issue with a status of _Acknowledged_, change the "Assignee" to
 yourself, and change the status to _In Progress_
 . Run the test procedure
