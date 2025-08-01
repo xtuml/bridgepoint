@@ -80,12 +80,14 @@ OneFact issue tracker.
 . Go to the https://support.onefact.net/projects/bridgepoint/issues?query_id=67[QA Manual Tests issues view]
 . Pick an issue with a status of _Acknowledged_, change the "Assignee" to
 yourself, and change the status to _In Progress_
+. Create a new workspace named as the issue number
 . Run the test procedure
 .. If the test passed
 ... Change the issue status to _Resolved_
 ... Change the "Assignee" field to blank
 ... Add a comment, "Passed for v<version under test>, <OS>" e.g., Passed for v5.0.0,
     Linux Ubuntu 14
+... Delete the workspace
 .. If the test failed
 ... Raise a new issue under the BridgePoint project that describes the problem as thoroughly as possible
 ... In the QA Manual Test issue, add the newly created issue as a _Related issue_
@@ -93,6 +95,10 @@ yourself, and change the status to _In Progress_
     v5.0.0, Windows 7
 ... Change the issue status to _Feedback_
 ... Change the "Assignee" field to blank
+... Keep the workspace in case the OneFact team needs further data from it
+.._NOTE_ A chain like, Subsystem::TestClass::ArrayTest, is meant to be followed
+by expanding or double-clicking the leftmost element to see the next element to
+the right.
 
 .QA Manual Test Example Page
 [#image-qa-example]
