@@ -104,6 +104,33 @@ the right.
 [#image-qa-example]
 image::test_screen.png[QA Manual Test Example Page]
 
+=== Model Element Move Testing
+
+The Model Element Move testing involves the use of two documents.
+
+. The https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/8458_model_element_move_tests/8458_Model_Element_Move_Tests.dnt.md[8458_Model_Element_Move_Tests Design Note] contains the test cases, model links, and instructions for performing the tests.
+This document shouldn't require further comment here. Any clarifications
+required should be made in the document itself.
+. The https://docs.google.com/spreadsheets/d/1eJmEWtx3EDawwCslxL2MfvaqoJm8JawFnoCTLPuX9SM/edit#gid=0[8321_testing_of_Model_Element_Move spreadsheet] tracks the past and current progress and results of the model element move
+testing. As it tracks past test results, it requires further instruction steps
+for ease of use.
+.. Upon opening, the spreadsheet should show first the _Test Summary_ column
+   followed by five columns containing the information for the last test cycle.
+   Columns from all prior to last results are hidden.
+.. Copy the last five columns and paste them into the following, blank, five
+   columns.
+.. Hide the five columns just copied.
+.. Modify the _Branch master  Build id:_ to be the current build id under test.
+.. Change all the _Pass/Fail_ results to _Not Yet Run_.
+.. Delete all _Notes_, except for the note in row 7.0.2. This note indicates
+   that selecting the elements in _Model Explorer_ will fail. This isn't
+   considered a failure for testing.
+.. The items under _Total Tests_ don't need to be modified.
+.. The document is now ready to record the current test results. It should be
+   noted that this document doesn't have to reflect real time. i.e., you can run
+   tests until a failure or stoppage, and then update the _Pass/Fail_ column. It
+   justs needs to be an accurate record of the test results.
+
 === Tips and Tricks
 
 * Add the *models* repository to the BridgePoint git perspective.
