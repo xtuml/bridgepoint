@@ -2250,6 +2250,11 @@ public class ExportModelText extends ExportModelComponent {
 			final boolean isClassBased = ClassStateMachine_c
 					.getOneSM_ASMOnR517(StateMachine_c.getOneSM_SMOnR505(inst)) != null;
 
+			Action_c tact = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(TransitionActionHome_c.getOneSM_TAHOnR530(inst)));
+			final String dialect = getDialectIdentifier(tact.getDialect());
+			if (dialect != null && !"none".equals(dialect)) {
+				append("%s@dialect(\"%s\");\n", getTab(), dialect);
+			}
 			append("%s%stransition %s [%s] => %s", getTab(), isClassBased ? "class " : "",
 					startState != null ? sanitizeName(startState.getName()) : "non_existent",
 					sanitizeName(evt.getMning()), sanitizeName(destState.getName()));
