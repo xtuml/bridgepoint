@@ -368,7 +368,7 @@ public class Xtuml2Masl {
         if (null != System.getProperty("eclipse.home.location")) {
             toolsFolder = System.getProperty("eclipse.home.location").replaceFirst("file:", "") + "/tools/mc/bin";
         }
-        if (new File(toolsFolder).exists()) {
+        if (!toolsFolder.isBlank() && new File(toolsFolder).exists()) {
             return toolsFolder;
         }
         else {
