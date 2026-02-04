@@ -1,13 +1,16 @@
-= What's New in BridgePoint 7.6
+= What's New in BridgePoint 7.8
 
 == Release Highlights
-* Official support for textual xtUML
-  ** Testing and hardening
-  ** Add ability to create xtUML project in textual mode
-  ** Add a textual xtUML tab in diagram editors
-  ** Automatically load and persist on persistence mode change
-* Association editor features and bug fixes
-  ** Formalize wizard and cardinality menu deprecated
-  ** Support for symmetric associations
-* Various bug fixes and usability improvments
-* Upgrade to Eclipse 2023-12 and Java 17
+* Verifier updates
+  ** Change Verifier to read the project `.classpath` file for realized Java code
+  ** Support SDTs in realized Verifier code
+  ** Add CME to execute instance-based operations in a Verifier session
+  ** Add `STRING` EE implementation to Verifier
+  ** Support reference array parameters in realized EEs for Verifier
+  ** Various bug fixes
+* Textual xtUML support
+  ** Support package references
+  ** Various bug fixes
+* Model load process
+  ** Enhancements to stability and efficiency of model load
+* Bug fixes
